@@ -40,6 +40,8 @@
 
 #include "PetriEngine/Reducer.h"
 #include "PetriParse/QueryXMLParser.h"
+ #include "PetriEngine/CodeGenerator.h"
+
 
 
 using namespace std;
@@ -369,7 +371,13 @@ int main(int argc, char* argv[]){
 		}
 	}
 
-	
+	    /* ------------------------ CODE GENERATOR, SHOULD BE MOVED TO PROPER IF-CLAUSE -------------------- */
+	    
+	    std::string statelabel = "hello world!"; // dummy value, need to incorporate the XML query to C parser
+	    CodeGenerator codeGen(net, m0, inhibarcs, statelabel);
+	    codeGen.generateSource();
+
+
     //--------------------- Apply Net Reduction ---------------//
 
     Reducer reducer = Reducer(net); // reduced is needed also in trace generation (hence the extended scope)
