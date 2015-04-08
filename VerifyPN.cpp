@@ -40,7 +40,7 @@
 
 #include "PetriEngine/Reducer.h"
 #include "PetriParse/QueryXMLParser.h"
- #include "PetriEngine/CodeGenerator.h"
+#include "PetriEngine/CodeGenerator.h"
 
 
 
@@ -72,7 +72,7 @@ int main(int argc, char* argv[]){
 	// Commandline arguments
 	bool outputtrace = false;
 	int kbound = 0;
-	SearchStrategies searchstrategy = BestFS;
+	SearchStrategies searchstrategy = OverApprox;
 	int memorylimit = 0;
 	char* modelfile = NULL;
 	char* queryfile = NULL;
@@ -278,6 +278,7 @@ int main(int argc, char* argv[]){
 	bool isInvariant = false;
 	QueryXMLParser XMLparser(transitionEnabledness); // parser for XML queries
 	//Read query file, begin scope to release memory
+        std::string statelabel = "";
 	{
 		string querystring; // excluding EF and AG
 		if (!statespaceexploration) {
@@ -352,6 +353,7 @@ int main(int argc, char* argv[]){
 			fprintf(stderr, "Error: Failed to parse query \"%s\"\n", querystring.c_str()); //querystr.substr(2).c_str());
 			return ErrorCode;
 		}
+                else statelabel = querystring;
 	}
 
 	//----------------------- Context Analysis -----------------------//
@@ -370,12 +372,6 @@ int main(int argc, char* argv[]){
 			return ErrorCode;
 		}
 	}
-
-	    /* ------------------------ CODE GENERATOR, SHOULD BE MOVED TO PROPER IF-CLAUSE -------------------- */
-	    
-	    std::string statelabel = "hello world!"; // dummy value, need to incorporate the XML query to C parser
-	    CodeGenerator codeGen(net, m0, inhibarcs, statelabel);
-	    codeGen.generateSource();
 
 
     //--------------------- Apply Net Reduction ---------------//
@@ -406,18 +402,8 @@ int main(int argc, char* argv[]){
 
 	//Create reachability search strategy
 	ReachabilitySearchStrategy* strategy = NULL;
-	if(searchstrategy == BestFS)
-		strategy = new UltimateSearch(true, kbound, memorylimit);
-	else if(searchstrategy == BFS)
-		strategy = new BreadthFirstReachabilitySearch(kbound, memorylimit);
-	else if(searchstrategy == DFS)
-		strategy = new DepthFirstReachabilitySearch(kbound, memorylimit);
-	else if(searchstrategy == RDFS)
-		strategy = new RandomDFS(kbound, memorylimit);
-	else if(searchstrategy == OverApprox)
-		strategy = NULL;
-	else{
-		fprintf(stderr, "Error: Search strategy selection out of range.\n");
+	if(searchstrategy != OverApprox){
+		fprintf(stderr, "Error: Only LinearOverApprox available.\n");
 		return ErrorCode;
 	}
 
@@ -434,7 +420,12 @@ int main(int argc, char* argv[]){
 	//Reachability search
 	ReachabilityResult result = strategy->reachable(*net, m0, v0, query);
 
-	
+/* ------------------------ CODE GENERATOR, SHOULD BE MOVED TO PROPER IF-CLAUSE -------------------- */
+	if (result.Unknown || result.Satisfied ){
+             // dummy value, need to incorporate the XML query to C parser
+            CodeGenerator codeGen(net, m0, inhibarcs, statelabel);
+            codeGen.generateSource();	
+        }
 	//----------------------- Output Result -----------------------//
 	
 	const std::vector<std::string>& tnames = net->transitionNames();
