@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="0">
+      <df name="PetriEngine">
+        <df name="DTAPN">
+          <in>DTAPNPrinter.cpp</in>
+          <in>DTAPNTranslator.cpp</in>
+        </df>
+        <df name="PQL">
+          <in>Expressions.cpp</in>
+          <in>PQL.cpp</in>
+          <in>PQLAssignmentParser.parser.cpp</in>
+          <in>PQLAssignmentTokens.lexer.cpp</in>
+          <in>PQLQueryParser.parser.cpp</in>
+          <in>PQLQueryTokens.lexer.cpp</in>
+          <in>SUMoQueryParser.parser.cpp</in>
+          <in>SUMoQueryTokens.lexer.cpp</in>
+        </df>
+        <df name="Reachability">
+          <in>BestFSCooling.cpp</in>
+          <in>BestFirstReachabilitySearch.cpp</in>
+          <in>BreadthFirstReachabilitySearch.cpp</in>
+          <in>CoverabilityTreeNode.cpp</in>
+          <in>DepthFirstReachabilitySearch.cpp</in>
+          <in>HashUnderApproximation.cpp</in>
+          <in>HeuristicDFS.cpp</in>
+          <in>LinearOverApprox.cpp</in>
+          <in>MagicSearch.cpp</in>
+          <in>RandomDFS.cpp</in>
+          <in>RandomQueryGenerator.cpp</in>
+          <in>ReachabilitySearchStrategy.cpp</in>
+          <in>StateSearch.cpp</in>
+          <in>UltimateSearch.cpp</in>
+        </df>
+        <df name="Structures">
+          <in>DistanceMatrix.cpp</in>
+          <in>SmartState.cpp</in>
+          <in>StateConstraints.cpp</in>
+        </df>
+        <in>CodeGenerator.cpp</in>
+        <in>PetriNet.cpp</in>
+        <in>PetriNetBuilder.cpp</in>
+        <in>Reducer.cpp</in>
+        <in>StandardOutputProgressReporter.cpp</in>
+        <in>ValidationBuilder.cpp</in>
+      </df>
+      <df name="PetriParse">
+        <df name="xmlsp">
+          <in>xmlsp.cpp</in>
+          <in>xmlsp_dom_vector.cpp</in>
+        </df>
+        <in>PNMLParser.cpp</in>
+        <in>QueryXMLParser.cpp</in>
+      </df>
+      <in>VerifyPN.cpp</in>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>makefile.linux64</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>makefile.linux64</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-m64 -O3 -O3"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f makefile.linux64</buildCommand>
+          <cleanCommand>${MAKE} -f makefile.linux64 clean</cleanCommand>
+          <executablePath></executablePath>
+          <ccTool>
+            <incDir>
+              <pElem>.</pElem>
+            </incDir>
+          </ccTool>
+        </makeTool>
+      </makefileType>
+      <item path="PetriEngine/CodeGenerator.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/DTAPN/DTAPNPrinter.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/DTAPN/DTAPNTranslator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/PQL/Expressions.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/PQL/PQL.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/PQL/PQLAssignmentParser.parser.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/PQL/PQLAssignmentTokens.lexer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/PQL/PQLQueryParser.parser.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/PQL/PQLQueryTokens.lexer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/PQL/SUMoQueryParser.parser.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/PQL/SUMoQueryTokens.lexer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/PetriNet.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/PetriNetBuilder.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reachability/BestFSCooling.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reachability/BestFirstReachabilitySearch.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reachability/BreadthFirstReachabilitySearch.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reachability/CoverabilityTreeNode.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reachability/DepthFirstReachabilitySearch.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reachability/HashUnderApproximation.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reachability/HeuristicDFS.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reachability/LinearOverApprox.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reachability/MagicSearch.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reachability/RandomDFS.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reachability/RandomQueryGenerator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reachability/ReachabilitySearchStrategy.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reachability/StateSearch.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reachability/UltimateSearch.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Reducer.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/StandardOutputProgressReporter.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Structures/DistanceMatrix.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Structures/SmartState.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/Structures/StateConstraints.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriEngine/ValidationBuilder.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriParse/PNMLParser.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriParse/QueryXMLParser.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriParse/xmlsp/xmlsp.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="PetriParse/xmlsp/xmlsp_dom_vector.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="VerifyPN.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

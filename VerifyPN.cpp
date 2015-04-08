@@ -63,7 +63,8 @@ enum SearchStrategies{
 	BFS,			//LinearOverAprox + BreadthFirstReachabilitySearch
 	DFS,			//LinearOverAprox + DepthFirstReachabilitySearch
 	RDFS,			//LinearOverAprox + RandomDFS
-	OverApprox		//LinearOverApprx
+	OverApprox,		//LinearOverApprx
+        LTSmin                  //LinearOverApprx + LTSmin
 };
 
 #define VERSION		"1.1.1"
@@ -72,7 +73,7 @@ int main(int argc, char* argv[]){
 	// Commandline arguments
 	bool outputtrace = false;
 	int kbound = 0;
-	SearchStrategies searchstrategy = BestFS;
+	SearchStrategies searchstrategy = LTSmin;
 	int memorylimit = 0;
 	char* modelfile = NULL;
 	char* queryfile = NULL;
@@ -371,12 +372,6 @@ int main(int argc, char* argv[]){
 		}
 	}
 
-	    /* ------------------------ CODE GENERATOR, SHOULD BE MOVED TO PROPER IF-CLAUSE -------------------- */
-	    
-	    std::string statelabel = "hello world!"; // dummy value, need to incorporate the XML query to C parser
-	    CodeGenerator codeGen(net, m0, inhibarcs, statelabel);
-	    codeGen.generateSource();
-
 
     //--------------------- Apply Net Reduction ---------------//
 
@@ -403,9 +398,11 @@ int main(int argc, char* argv[]){
 	}
         
 	//----------------------- Reachability -----------------------//
+    
 
 	//Create reachability search strategy
 	ReachabilitySearchStrategy* strategy = NULL;
+        bool useLTSmin = false;
 	if(searchstrategy == BestFS)
 		strategy = new UltimateSearch(true, kbound, memorylimit);
 	else if(searchstrategy == BFS)
@@ -416,7 +413,10 @@ int main(int argc, char* argv[]){
 		strategy = new RandomDFS(kbound, memorylimit);
 	else if(searchstrategy == OverApprox)
 		strategy = NULL;
-	else{
+        else if(searchstrategy == LTSmin) {
+                strategy = NULL;
+                bool useLTSmin = true;
+	}else{
 		fprintf(stderr, "Error: Search strategy selection out of range.\n");
 		return ErrorCode;
 	}
@@ -426,15 +426,25 @@ int main(int argc, char* argv[]){
 		strategy = new LinearOverApprox(strategy);
 
 	// If no strategy is provided
-	if(!strategy){
-		fprintf(stderr, "Error: No search strategy provided!\n");
-		return ErrorCode;
-	}
+	if(!strategy && useLTSmin){
+            fprintf(stderr, "Using LTSmin\n");
+            std::string statelabel = "hello world!"; // dummy value, need to incorporate the XML query to C parser
+	    CodeGenerator codeGen(net, m0, inhibarcs, statelabel);
+	    codeGen.generateSource();
+            
+	} else if(!strategy && !useLTSmin){
+            fprintf(stderr, "No strategy what so ever!\n");
+            return ErrorCode;
+            
+        }
+        fprintf(stderr, "Using VerifyPN ENgine\n");
+        ReachabilityResult result = strategy->reachable(*net, m0, v0, query);
+        
 
 	//Reachability search
-	ReachabilityResult result = strategy->reachable(*net, m0, v0, query);
-
 	
+	    
+	    
 	//----------------------- Output Result -----------------------//
 	
 	const std::vector<std::string>& tnames = net->transitionNames();
