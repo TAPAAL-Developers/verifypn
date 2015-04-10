@@ -24,6 +24,7 @@
 #include <sstream> 
 #include <algorithm> 
 
+
 using namespace XMLSP;
 using namespace std;
 
@@ -127,37 +128,43 @@ bool QueryXMLParser::parseTags(DOMElement* element){
 }
 
 bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &negateResult, bool &isPlaceBound, string &placeNameForBound){
-	/*
-	 Describe here how to parse
-	 * INV phi =  AG phi =  not EF not phi
-	 * IMPOS phi = AG not phi = not EF phi
-	 * POS phi = EF phi
-	 * NEG INV phi = not AG phi = EF not phi
-	 * NEG IMPOS phi = not AG not phi = EF phi
-	 * NEG POS phi = not EF phi
-	 */
-	DOMElements elements = element->getChilds();
-	if (elements.size() != 1) {
-		return false;
-	}
-	DOMElements::iterator booleanFormula = elements.begin();
-	string elementName = (*booleanFormula)->getElementName(); 
-	if (elementName=="invariant") {
-		queryText="EF not(";
-		negateResult=true;
-	} else if (elementName=="impossibility") {
-		queryText="EF ( ";
-		negateResult=true;
-	} else if (elementName=="possibility") {
-		queryText="EF ( ";
-		negateResult=false;
-	} else if (elementName == "all-paths") { // new A operator for 2015 competition
-        DOMElements children = (*elements.begin())->getChilds();
-		if (children.size() !=1) {
-			return false;
-		}
-		booleanFormula = children.begin(); 
-		string subElementName = (*booleanFormula)->getElementName();
+    /*
+     Describe here how to parse
+     * INV phi =  AG phi =  not EF not phi
+     * IMPOS phi = AG not phi = not EF phi
+     * POS phi = EF phi
+     * NEG INV phi = not AG phi = EF not phi
+     * NEG IMPOS phi = not AG not phi = EF phi
+     * NEG POS phi = not EF phi
+     */
+
+    DOMElements elements = element->getChilds();
+    if (elements.size() != 1) {
+        return false;
+    }
+
+    //DOMElements::iterator booleanFormula = elements.begin();
+    DOMElement* booleanFormula = elements[0];
+    string elementName = booleanFormula->getElementName();
+
+    if (elementName=="invariant") {
+        queryText="EF not(";
+        negateResult=true;
+    } else if (elementName=="impossibility") {
+        queryText="EF ( ";
+        negateResult=true;
+    } else if (elementName=="possibility") {
+        queryText="EF ( ";
+        negateResult=false;
+    } else if (elementName == "all-paths") { // new A operator for 2015 competition
+
+        //DOMElements children = (*elements.begin())->getChilds();
+        DOMElements children = elements[0]->getChilds();
+        if (children.size() !=1) {
+            return false;
+        }
+        booleanFormula = children[0];
+        string subElementName = booleanFormula->getElementName();
         if (subElementName=="globally") {
             queryText="EF not ( ";
             negateResult=true;
@@ -165,12 +172,13 @@ bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &
             return false;
         }
     } else if (elementName == "exists-path") { // new E operator for 2015 competition
-        DOMElements children = (*elements.begin())->getChilds();
-		if (children.size() !=1) {
-			return false;
-		}
-		booleanFormula = children.begin(); 
-		string subElementName = (*booleanFormula)->getElementName();
+        //DOMElements children = (*elements.begin())->getChilds();
+        DOMElements children = elements[0]->getChilds();
+        if (children.size() !=1) {
+            return false;
+        }
+        booleanFormula = children[0];
+        string subElementName = booleanFormula->getElementName();
         if (subElementName=="finally") {
             queryText="EF ( ";
             negateResult=false;
@@ -178,27 +186,28 @@ bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &
             return false;
         }
     } else if (elementName=="negation") {
-		DOMElements children = (*elements.begin())->getChilds();
-		if (children.size() !=1) {
-			return false;
-		}
-		booleanFormula = children.begin(); 
-		string negElementName = (*booleanFormula)->getElementName();
-		if (negElementName=="invariant") {
-			queryText="EF not( ";
-			negateResult=false;
-		} else if (negElementName=="impossibility") {
-			queryText="EF ( ";
-			negateResult=false;
-		} else if (negElementName=="possibility") {
-			queryText="EF ( ";
-			negateResult=true;
-		} else {
-			return false;
-		}
+        //DOMElements children = (*elements.begin())->getChilds();
+        DOMElements children = elements[0]->getChilds();
+        if (children.size() !=1) {
+            return false;
+        }
+        booleanFormula = children[0];
+        string negElementName = booleanFormula->getElementName();
+        if (negElementName=="invariant") {
+            queryText="EF not( ";
+            negateResult=false;
+        } else if (negElementName=="impossibility") {
+            queryText="EF ( ";
+            negateResult=false;
+        } else if (negElementName=="possibility") {
+            queryText="EF ( ";
+            negateResult=true;
+        } else {
+            return false;
+        }
     } else if (elementName == "place-bound") {
         queryText = "EF ";
-        DOMElements children = (*booleanFormula)->getChilds();
+        DOMElements children = booleanFormula->getChilds();
         if (children.size() != 1) {
             return false; // we support only place-bound for one place
         }
@@ -206,25 +215,26 @@ bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &
             return false;
         }
         placeNameForBound = parsePlace(children[0]);
-		if (placeNameForBound=="") {
-			return false; // invalid place name
-		}
+        if (placeNameForBound=="") {
+            return false; // invalid place name
+        }
         queryText += "\""+placeNameForBound+"\""+" < 0";
         negateResult = false;
         isPlaceBound = true;
         return true;
     } else {
-            return false;
-	}
-	DOMElements nextElements = (*booleanFormula)->getChilds();
-	if (nextElements.size() !=1 || !parseBooleanFormula(nextElements[0] , queryText)) {
-		return false;
-	}
-	queryText+=" )";
-    isPlaceBound=false;
-	placeNameForBound = "";
-	return true;
+        return false;
+    }
+    DOMElements nextElements = booleanFormula->getChilds();
+    if (nextElements.size() !=1 || !parseBooleanFormula(nextElements[0] , queryText)) {
+        return false;
+    }
+    queryText+=" )";
+        isPlaceBound=false;
+    placeNameForBound = "";
+    return true;
 }
+
 
 bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText){
 		string elementName = element->getElementName();
