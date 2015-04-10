@@ -73,7 +73,7 @@ int main(int argc, char* argv[]){
 	// Commandline arguments
 	bool outputtrace = false;
 	int kbound = 0;
-	SearchStrategies searchstrategy = LTSmin;
+	SearchStrategies searchstrategy = BFS;
 	int memorylimit = 0;
 	char* modelfile = NULL;
 	char* queryfile = NULL;
@@ -115,6 +115,8 @@ int main(int argc, char* argv[]){
 			else if(strcmp(s, "RDFS") == 0)
 				searchstrategy = RDFS;
 			else if(strcmp(s, "OverApprox") == 0)
+				searchstrategy = OverApprox;
+			else if(strcmp(s, "LTSmin") == 0)
 				searchstrategy = OverApprox;
 			else{
 				fprintf(stderr, "Argument Error: Unrecognized search strategy \"%s\"\n", s);
@@ -167,6 +169,7 @@ int main(int argc, char* argv[]){
 					"                                     - DFS          Depth first search\n"
 					"                                     - RDFS         Random depth first search\n"
 					"                                     - OverApprox   Linear Over Approx\n"
+					"                                     - LTSmin       Using LTSmin backend\n"
 					"  -m, --memory-limit <megabyte>      Memory limit for the state space search in MB,\n"
 					"                                     0 for unlimited (default)\n"
 					"  -e, --state-space-exploration      State-space exploration only (query-file is irrelevant)\n"
@@ -415,7 +418,7 @@ int main(int argc, char* argv[]){
 		strategy = NULL;
         else if(searchstrategy == LTSmin) {
                 strategy = NULL;
-                bool useLTSmin = true;
+                useLTSmin = true;
 	}else{
 		fprintf(stderr, "Error: Search strategy selection out of range.\n");
 		return ErrorCode;
@@ -426,9 +429,9 @@ int main(int argc, char* argv[]){
 		strategy = new LinearOverApprox(strategy);
 
 	// If no strategy is provided
-	if(!strategy && useLTSmin){
-            fprintf(stderr, "Using LTSmin\n");
-            std::string statelabel = "hello world!"; // dummy value, need to incorporate the XML query to C parser
+	if(useLTSmin){
+        fprintf(stderr, "Using LTSmin\n");
+        std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
 	    CodeGenerator codeGen(net, m0, inhibarcs, statelabel);
 	    codeGen.generateSource();
             
