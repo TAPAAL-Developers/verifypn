@@ -3,17 +3,17 @@
  *                          Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                          Lars Kærlund Østergaard <larsko@gmail.com>,
  *					        Jiri Srba <srba.jiri@gmail.com>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,7 +40,8 @@
 
 #include "PetriEngine/Reducer.h"
 #include "PetriParse/QueryXMLParser.h"
- #include "PetriEngine/CodeGenerator.h"
+#include "PetriParse/QueryStringParser.h"
+#include "PetriEngine/CodeGenerator.h"
 
 
 
@@ -79,12 +80,12 @@ int main(int argc, char* argv[]){
 	char* queryfile = NULL;
 	bool disableoverapprox = false;
   	int enablereduction = 0; // 0 ... disabled (default),  1 ... aggresive, 2 ... k-boundedness preserving
-	int xmlquery = -1; // if value is nonnegative then input query file is in xml format and we verify query 
+	int xmlquery = -1; // if value is nonnegative then input query file is in xml format and we verify query
 						 // number xmlquery
 	bool statespaceexploration = false;
 	bool printstatistics = true;
 
-        
+
 	//----------------------- Parse Arguments -----------------------//
 
 	// Parse command line arguments
@@ -92,7 +93,7 @@ int main(int argc, char* argv[]){
 		if(strcmp(argv[i], "-k") == 0 || strcmp(argv[i], "--k-bound") == 0){
                         if (i==argc-1) {
                                 fprintf(stderr, "Missing number after \"%s\"\n", argv[i]);
-				return ErrorCode;                           
+				return ErrorCode;
                         }
                         if(sscanf(argv[++i], "%d", &kbound) != 1 || kbound < 0){
 				fprintf(stderr, "Argument Error: Invalid number of tokens \"%s\"\n", argv[i]);
@@ -103,7 +104,7 @@ int main(int argc, char* argv[]){
 		}else if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--search-strategy") == 0){
 			if (i==argc-1) {
                                 fprintf(stderr, "Missing search strategy after \"%s\"\n\n", argv[i]);
-				return ErrorCode;                           
+				return ErrorCode;
                         }
                         char* s = argv[++i];
 			if(strcmp(s, "BestFS") == 0)
@@ -145,7 +146,7 @@ int main(int argc, char* argv[]){
 			if (sscanf(argv[++i], "%d", &xmlquery) != 1 || xmlquery <= 0) {
 				fprintf(stderr, "Argument Error: Query index to verify \"%s\"\n", argv[i]);
 				return ErrorCode;
-			} 
+			}
 		}else if (strcmp(argv[i], "-r") == 0 || strcmp(argv[i], "--reduction") == 0) {
 				if (i == argc - 1) {
 					fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
@@ -157,7 +158,7 @@ int main(int argc, char* argv[]){
 				}
 		} else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0){
 			printf(	"Usage: verifypn [options] model-file query-file\n"
-					"A tool for answering reachability of place cardinality queries (including deadlock)\n" 
+					"A tool for answering reachability of place cardinality queries (including deadlock)\n"
                                         "for weighted P/T Petri nets extended with inhibitor arcs.\n"
 					"\n"
 					"Options:\n"
@@ -210,15 +211,15 @@ int main(int argc, char* argv[]){
 			return ErrorCode;
 		}
 	}
-	if (statespaceexploration) { 
+	if (statespaceexploration) {
 		// for state-space exploration some options are mandatory
-		disableoverapprox = true; 
+		disableoverapprox = true;
 		enablereduction = 0;
 		kbound = 0;
 		outputtrace = false;
 		searchstrategy = BFS;
 	}
-	
+
 
 	//----------------------- Validate Arguments -----------------------//
 
@@ -240,7 +241,7 @@ int main(int argc, char* argv[]){
 	PetriNet* net = NULL;
 	MarkVal* m0 = NULL;
 	VarVal* v0 = NULL;
-                  
+
     // List of inhibitor arcs and transition enabledness
     PNMLParser::InhibitorArcList inhibarcs;
     PNMLParser::TransitionEnablednessMap transitionEnabledness;
@@ -262,10 +263,10 @@ int main(int argc, char* argv[]){
 		PNMLParser parser;
 		parser.parse(buffer.str(), &builder);
 		parser.makePetriNet();
-                
+
         inhibarcs = parser.getInhibitorArcs(); // Remember inhibitor arcs
 		transitionEnabledness = parser.getTransitionEnabledness(); // Remember conditions for transitions
-				
+
 		//Build the petri net
 		net = builder.makePetriNet();
 		m0 = builder.makeInitialMarking();
@@ -274,12 +275,13 @@ int main(int argc, char* argv[]){
 		// Close the file
 		mfile.close();
 	}
-	
+
 	//----------------------- Parse Query -----------------------//
 
 	//Condition to check
 	Condition* query = NULL;
 	bool isInvariant = false;
+        string statelabel;
 	QueryXMLParser XMLparser(transitionEnabledness); // parser for XML queries
 	//Read query file, begin scope to release memory
 	{
@@ -297,7 +299,7 @@ int main(int argc, char* argv[]){
 			stringstream buffer;
 			buffer << qfile.rdbuf();
 			string querystr = buffer.str(); // including EF and AG
-			//Parse XML the queries and querystr let be the index of xmlquery 		
+			//Parse XML the queries and querystr let be the index of xmlquery
 			if (xmlquery > 0) {
 				if (!XMLparser.parse(querystr)) {
 					fprintf(stderr, "Error: Failed parsing XML query file\n");
@@ -312,7 +314,7 @@ int main(int argc, char* argv[]){
 				}
 				XMLparser.printQueries(xmlquery);
 				fprintf(stdout, "\n");
-				
+
 				if (XMLparser.queries[xmlquery - 1].parsingResult == QueryXMLParser::QueryItem::UNSUPPORTED_QUERY) {
 					fprintf(stdout, "The selected query in the XML query file is not supported\n");
 					fprintf(stdout, "FORMULA %s CANNOT_COMPUTE\n", XMLparser.queries[xmlquery-1].id.c_str());
@@ -322,7 +324,13 @@ int main(int argc, char* argv[]){
 				querystr = XMLparser.queries[xmlquery - 1].queryText;
 				querystring = querystr.substr(2);
 				isInvariant = XMLparser.queries[xmlquery - 1].negateResult;
-                
+
+                                QueryStringParser StringParser(&XMLparser, net);
+                                StringParser.generateStateLabel(xmlquery - 1);
+                                statelabel = StringParser.getStateLabel(xmlquery - 1);
+
+                                cout<<"#####Statelabel: "<<statelabel<<endl;
+
                 if (xmlquery>0) {
                     fprintf(stdout, "FORMULA %s ", XMLparser.queries[xmlquery-1].id.c_str());
                     fflush(stdout);
@@ -349,7 +357,7 @@ int main(int argc, char* argv[]){
 			querystring = "false";
 			isInvariant = false;
 		}
-	
+
 		//Parse query
 		query = ParseQuery(querystring);
 		if(!query){
@@ -395,13 +403,13 @@ int main(int argc, char* argv[]){
 		// CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
 		reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
 
-		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib); 
+		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
 		reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
 		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
 	}
-        
+
 	//----------------------- Reachability -----------------------//
-    
+
 
 	//Create reachability search strategy
 	ReachabilitySearchStrategy* strategy = NULL;
@@ -431,25 +439,25 @@ int main(int argc, char* argv[]){
 	// If no strategy is provided
 	if(useLTSmin){
         fprintf(stderr, "Using LTSmin\n");
-        std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
+        //std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
 	    CodeGenerator codeGen(net, m0, inhibarcs, statelabel);
 	    codeGen.generateSource();
-            
+
 	} else if(!strategy && !useLTSmin){
             fprintf(stderr, "No strategy what so ever!\n");
             return ErrorCode;
-            
+
         }
         fprintf(stderr, "Using VerifyPN ENgine\n");
         ReachabilityResult result = strategy->reachable(*net, m0, v0, query);
-        
+
 
 	//Reachability search
-	
-	    
-	    
+
+
+
 	//----------------------- Output Result -----------------------//
-	
+
 	const std::vector<std::string>& tnames = net->transitionNames();
 	const std::vector<std::string>& pnames = net->placeNames();
 
@@ -458,13 +466,13 @@ int main(int argc, char* argv[]){
 	if (statespaceexploration) {
 		retval = UnknownCode;
 		unsigned int placeBound = 0;
-		for(size_t p = 0; p < result.maxPlaceBound().size(); p++) { 
+		for(size_t p = 0; p < result.maxPlaceBound().size(); p++) {
 			placeBound = std::max<unsigned int>(placeBound,result.maxPlaceBound()[p]);
 		}
 		fprintf(stdout,"STATE_SPACE %lli -1 %d %d TECHNIQUES EXPLICIT\n", result.exploredStates(), result.maxTokens(), placeBound);
 		return retval;
 	}
-	
+
 	//Find result code
 	if(result.result() == ReachabilityResult::Unknown)
 		retval = UnknownCode;
@@ -484,7 +492,7 @@ int main(int argc, char* argv[]){
 	} else if(retval == FailedCode) {
 		if (xmlquery>0 && XMLparser.queries[xmlquery-1].isPlaceBound) {
 			// find index of the place for reporting place bound
-			for(size_t p = 0; p < result.maxPlaceBound().size(); p++) { 
+			for(size_t p = 0; p < result.maxPlaceBound().size(); p++) {
 				if (pnames[p]==XMLparser.queries[xmlquery-1].placeNameForBound) {
 					fprintf(stdout, "%d TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n", result.maxPlaceBound()[p]);
 					fprintf(stdout, "\nMaximum number of tokens in place %s: %d\n\n",XMLparser.queries[xmlquery-1].placeNameForBound.c_str(),result.maxPlaceBound()[p]);
@@ -499,9 +507,9 @@ int main(int argc, char* argv[]){
             fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
 		}
 	}
-	
+
 	//----------------------- Output Trace -----------------------//
-	
+
 	//Print result to stderr
 	if(outputtrace && result.result() == ReachabilityResult::Satisfied){
 		const std::vector<unsigned int>& trace = (enablereduction==0 ? result.trace() : reducer.NonreducedTrace(net,result.trace()));
@@ -536,31 +544,31 @@ int main(int argc, char* argv[]){
                 fprintf(stdout, "Applications of rule A: %d\n", reducer.RuleA());
                 fprintf(stdout, "Applications of rule B: %d\n", reducer.RuleB());
                 fprintf(stdout, "Applications of rule C: %d\n", reducer.RuleC());
-                fprintf(stdout, "Applications of rule D: %d\n", reducer.RuleD()); 
+                fprintf(stdout, "Applications of rule D: %d\n", reducer.RuleD());
         }
 	fprintf(stdout,"\nTRANSITION STATISTICS\n");
-	for(size_t t = 0; t < result.enabledTransitionsCount().size(); t++) { 
+	for(size_t t = 0; t < result.enabledTransitionsCount().size(); t++) {
 		// report how many times transitions were enabled (? means that the transition was removed in net reduction)
 		if (net->isTransitionSkipped(t)) {
 			fprintf(stdout,"<%s:?> ", tnames[t].c_str());
 		} else {
-			fprintf(stdout,"<%s:%lli> ", tnames[t].c_str(), result.enabledTransitionsCount()[t]);	
+			fprintf(stdout,"<%s:%lli> ", tnames[t].c_str(), result.enabledTransitionsCount()[t]);
 		}
 	}
 	fprintf(stdout,"\n\nPLACE-BOUND STATISTICS\n");
-	for(size_t p = 0; p < result.maxPlaceBound().size(); p++) { 
+	for(size_t p = 0; p < result.maxPlaceBound().size(); p++) {
 		// report maximum bounds for each place (? means that the place was removed in net reduction)
 		if (net->isPlaceSkipped(p)) {
 			fprintf(stdout,"<%s;?> ", pnames[p].c_str());
 		} else {
-			fprintf(stdout,"<%s;%i> ", pnames[p].c_str(), result.maxPlaceBound()[p]);	
+			fprintf(stdout,"<%s;%i> ", pnames[p].c_str(), result.maxPlaceBound()[p]);
 		}
 	}
 	fprintf(stdout,"\n\n");
 	}
-	
+
 	//------------------------ Return the Output Value -------------------//
-	
+
 	return retval;
 }
 
