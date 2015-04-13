@@ -85,6 +85,8 @@ int main(int argc, char* argv[]){
 	bool statespaceexploration = false;
 	bool printstatistics = true;
 	int enableLTSmin = 0;
+	std::string LTSminRunning = "start - \n"; 
+	std::vector<std::string> stateLabels;
 
 
 
@@ -120,7 +122,7 @@ int main(int argc, char* argv[]){
 			else if(strcmp(s, "OverApprox") == 0)
 				searchstrategy = OverApprox;
 			else if(strcmp(s, "LTSmin") == 0)
-				searchstrategy = OverApprox;
+				searchstrategy = LTSmin;
 			else{
 				fprintf(stderr, "Argument Error: Unrecognized search strategy \"%s\"\n", s);
 				return ErrorCode;
@@ -344,7 +346,7 @@ int main(int argc, char* argv[]){
                                 //statelabel = StringParser.getStateLabel(xmlquery - 1);
                                 StringParser.generateStateLabels();
 
-                                std::vector<std::string> stateLabels = StringParser.getStateLabels();
+                                stateLabels = StringParser.getStateLabels();
 
                                 for(int k = 0 ; k < stateLabels.size(); k++){
                                     cout<<"#####Statelabel: "<<stateLabels[k]<< "\n"<<endl;
@@ -457,13 +459,9 @@ int main(int argc, char* argv[]){
 		strategy = new LinearOverApprox(strategy);
 
 	// If no strategy is provided
-	if(useLTSmin){
-        fprintf(stderr, "Using LTSmin\n");
-        std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
-	    CodeGenerator codeGen(net, m0, inhibarcs, statelabel);
-	    codeGen.generateSource();
+	
 
-	} else if(!strategy && !useLTSmin){
+	if(!strategy && !useLTSmin){
             fprintf(stderr, "No strategy what so ever!\n");
             return ErrorCode;
 
@@ -485,7 +483,7 @@ int main(int argc, char* argv[]){
 			int negateResult[numberOfQueries];
 			string* stringQueries = new string[numberOfQueries];
 			codeGen.createQueries(stringQueries, negateResult, XMLparser.queries);
-			codeGen.generateSourceMultipleQueries(stringQueries, negateResult, numberOfQueries);
+			codeGen.generateSourceMultipleQueries(&stateLabels, negateResult, numberOfQueries);
 			codeGen.printQueries(stringQueries, numberOfQueries);
 		}
 	}
@@ -497,7 +495,77 @@ int main(int argc, char* argv[]){
 
 	//Reachability search
 
+    //--------------------------------------------INFO FRA LTSMIN---------------------------------------------------//
 
+     if(enableLTSmin > 0) {
+
+
+     	  printf("\n\n\n\n\n");
+          string cmd1 = "sh runLTS.sh";
+               
+              string data;
+              FILE * stream;
+              const int max_buffer = 256;
+              char buffer[max_buffer];
+              cmd1.append(" 2>&1");
+
+              stream = popen(cmd1.c_str(), "r");
+              if (stream) {
+              while (!feof(stream))
+              if (fgets(buffer, max_buffer, stream) != NULL) data.append(buffer);
+              pclose(stream);
+              }
+
+
+              LTSminRunning += data;
+       
+              for (int i = 0; i < 9; ++i) {
+
+           		stringstream ss;
+				ss << i;
+				string number = ss.str();
+                string search = string("Query ") + number + " is satisfied";
+
+
+             	string queryResult = string("LTSmin result  >>  Query ") + number + " is satisfied";
+
+			  size_t found = LTSminRunning.find(search);
+			  if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
+
+          	  }
+
+
+              for (int i = 0; i < 9; ++i) {
+
+           		stringstream ss;
+				ss << i;
+				string number = ss.str();
+                string search = string("Query ") + number + " is NOT satisfied";
+
+
+             	string queryResult = string("LTSmin result  >>  Query ") + number + " is not satisfied";
+
+			  size_t found = LTSminRunning.find(search);
+			  if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
+
+          	  }
+
+
+          	  if(enableLTSmin == 1) {
+
+          	  	string search = string("Invariant");
+             	string queryResult = string("LTSmin result  >>  Query is satisfied");
+
+			  size_t found = LTSminRunning.find(search);
+			  if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
+			  else printf("LTSmin result  >>  Query is not satisfied");
+			}
+
+			printf("\n\n\n\n\n");
+ 
+
+        }
+     
 
 	//----------------------- Output Result -----------------------//
 
@@ -552,6 +620,9 @@ int main(int argc, char* argv[]){
 	}
 
 	//----------------------- Output Trace -----------------------//
+
+
+	//--------------------------------------------------------------//
 
 	//Print result to stderr
 	if(outputtrace && result.result() == ReachabilityResult::Satisfied){
