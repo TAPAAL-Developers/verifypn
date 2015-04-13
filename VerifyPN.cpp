@@ -40,7 +40,9 @@
 
 #include "PetriEngine/Reducer.h"
 #include "PetriParse/QueryXMLParser.h"
- #include "PetriEngine/CodeGenerator.h"
+#include "PetriEngine/CodeGenerator.h"
+
+#define NUM_QUERIES = 10;
 
 
 
@@ -279,6 +281,7 @@ int main(int argc, char* argv[]){
 
 	//Condition to check
 	Condition* query = NULL;
+        std::vector<Condition*> querylist;
 	bool isInvariant = false;
 	QueryXMLParser XMLparser(transitionEnabledness); // parser for XML queries
 	//Read query file, begin scope to release memory
@@ -352,6 +355,16 @@ int main(int argc, char* argv[]){
 	
 		//Parse query
 		query = ParseQuery(querystring);
+                int i;
+                for(i = 0; i < 10; i++){
+                    string querystr = XMLparser.queries[i].queryText;
+                    querystring = querystr.substr(2);
+                    isInvariant = querystr.substr(0, 2) == "AG";
+                    if (isInvariant){
+                        querystring = "not ( " + querystring + " )";
+                    }
+                    querylist[i] = ParseQuery(querystring);
+                }
 		if(!query){
 			fprintf(stderr, "Error: Failed to parse query \"%s\"\n", querystring.c_str()); //querystr.substr(2).c_str());
 			return ErrorCode;
@@ -441,9 +454,12 @@ int main(int argc, char* argv[]){
             
         }
         fprintf(stderr, "Using VerifyPN ENgine\n");
-        ReachabilityResult result = strategy->reachable(*net, m0, v0, query);
+        ReachabilityResult result;
+        int i;
+        for (i = 0; i < 10; i++){
+            result = strategy->reachable(*net, m0, v0, querylist[i]);
+        }
         
-
 	//Reachability search
 	
 	    
