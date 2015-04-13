@@ -63,10 +63,17 @@ using namespace std;
     void QueryStringParser::generateStateLabel(int i){
         string query = _Parser->queries[i].queryText;
 
+        // Replace temporal operators EF,AG
+        query.replace(0, 2, "");
+
         // Replace all TAPAAL query operators with C operators
         replaceOperator(query, "not", "!");
         replaceOperator(query, "and", "&&");
         replaceOperator(query, "or", "||");
+
+        // Replace true/false with 1,0
+        replaceOperator(query, "true", "1");
+        replaceOperator(query, "false", "0");
 
         // Rename places eg. "place0" -> src[0]
         replacePlaces(query);
@@ -74,6 +81,17 @@ using namespace std;
         _stateLabel[i] = query;
     }
 
+    void QueryStringParser::generateStateLabels(){
+        int i;
+        for(i = 0; i < _Parser->queries.size(); i++){
+            QueryStringParser::generateStateLabel(i);
+        }
+    }
+
     string QueryStringParser::getStateLabel(int i){
         return _stateLabel[i];
+    }
+
+    std::vector<std::string> QueryStringParser::getStateLabels(){
+        return _stateLabel;
     }
