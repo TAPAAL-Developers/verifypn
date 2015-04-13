@@ -83,6 +83,8 @@ int main(int argc, char* argv[]){
 						 // number xmlquery
 	bool statespaceexploration = false;
 	bool printstatistics = true;
+	int enableLTSmin = 0;
+
 
         
 	//----------------------- Parse Arguments -----------------------//
@@ -155,6 +157,15 @@ int main(int argc, char* argv[]){
 					fprintf(stderr, "Argument Error: Invalid reduction argument \"%s\"\n", argv[i]);
 					return ErrorCode;
 				}
+		}else if (strcmp(argv[i], "-l") == 0 || strcmp(argv[i], "--ltsmin") == 0) {
+				if (i == argc - 1) {
+					fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
+					return ErrorCode;
+				}
+				if (sscanf(argv[++i], "%d", &enableLTSmin) != 1 || enableLTSmin < 0 || enableLTSmin > 2) {
+					fprintf(stderr, "Argument Error: Invalid ltsmin argument \"%s\"\n", argv[i]);
+					return ErrorCode;
+				}		
 		} else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0){
 			printf(	"Usage: verifypn [options] model-file query-file\n"
 					"A tool for answering reachability of place cardinality queries (including deadlock)\n" 
@@ -175,13 +186,15 @@ int main(int argc, char* argv[]){
 					"  -e, --state-space-exploration      State-space exploration only (query-file is irrelevant)\n"
 					"  -x, --xml-query <query index>      Parse XML query file and verify query of a given index\n"
 					"  -d, --disable-over-approximation   Disable linear over approximation\n"
-                    "  -r, --reduction                    Enable structural net reduction:\n"
-                    "                                     - 0  disabled (default)\n"
-                    "                                     - 1  aggressive reduction\n"
-                    "                                     - 2  reduction preserving k-boundedness\n"
-					"  -n, --no-statistics                Do not display any statistics (default is to display it)\n"
-					"  -h, --help                         Display this help message\n"
-					"  -v, --version                      Display version information\n"
+					"  -r, --reduction                    Enable structural net reduction:\n"
+					"                                     - 0  disabled (default)\n"
+					"                                     - 1  aggressive reduction\n"
+					"                                     - 2  reduction preserving k-boundedness\n"
+					"\n"
+					"  -l, --ltsmin                       Enable LTSmin:\n"
+					"                                     - 0  disabled (default)\n"
+					"                                     - 1  verify a single query\n"
+					"                                     - 2  verify all queries\n"
 					"\n"
 					"Return Values:\n"
 					"  0   Successful, query satisfiable\n"
@@ -440,6 +453,29 @@ int main(int argc, char* argv[]){
             return ErrorCode;
             
         }
+
+
+	// alternative LTSmin flag
+	if (enableLTSmin > 0) {
+		cout<<endl<<"LTSmin is enabled"<<endl;
+		std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
+		CodeGenerator codeGen(net, m0, inhibarcs, statelabel);
+
+		if(enableLTSmin == 1){ // verify only one query
+			codeGen.generateSource();
+		} 
+
+		else if(enableLTSmin == 2){ // verify all queries at once
+			int numberOfQueries = XMLparser.queries.size(); // dummy value
+			int negateResult[numberOfQueries];
+			string* stringQueries = new string[numberOfQueries];		
+			codeGen.createQueries(stringQueries, negateResult, XMLparser.queries);
+			codeGen.generateSourceMultipleQueries(stringQueries, negateResult, numberOfQueries);	
+			codeGen.printQueries(stringQueries, numberOfQueries);
+		}
+	}
+
+
         fprintf(stderr, "Using VerifyPN ENgine\n");
         ReachabilityResult result = strategy->reachable(*net, m0, v0, query);
         
