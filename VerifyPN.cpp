@@ -87,6 +87,7 @@ int main(int argc, char* argv[]){
 	int enableLTSmin = 0;
 	std::string LTSminRunning = "start - \n";
 	std::vector<std::string> stateLabels;
+        Condition* querylist[10];
 
 
 
@@ -296,6 +297,7 @@ int main(int argc, char* argv[]){
 	//Condition to check
 	Condition* query = NULL;
 	bool isInvariant = false;
+        bool isInvariantlist[10];
         string statelabel;
 	QueryXMLParser XMLparser(transitionEnabledness); // parser for XML queries
 	//Read query file, begin scope to release memory
@@ -348,6 +350,7 @@ int main(int argc, char* argv[]){
                 if (xmlquery>0) {
                     fprintf(stdout, "FORMULA %s ", XMLparser.queries[xmlquery-1].id.c_str());
                     fflush(stdout);
+                    
                 }
 
 			} else { // standard textual query
@@ -374,6 +377,13 @@ int main(int argc, char* argv[]){
 
 		//Parse query
 		query = ParseQuery(querystring);
+                int i;
+                for(i = 0; i < XMLparser.queries.size(); i++){
+                    string querystr = XMLparser.queries[i].queryText;
+                    querystring = querystr.substr(2);
+                    isInvariantlist[i] = XMLparser.queries[i].negateResult;
+                    querylist[i] = ParseQuery(querystring);
+                }
 		if(!query){
 			fprintf(stderr, "Error: Failed to parse query \"%s\"\n", querystring.c_str()); //querystr.substr(2).c_str());
 			return ErrorCode;
@@ -395,6 +405,16 @@ int main(int argc, char* argv[]){
 			}
 			return ErrorCode;
 		}
+                int i;
+                for (i = 0; i < XMLparser.queries.size(); i++) {
+                    querylist[i]->analyze(context);
+                    if(context.errors().size() > 0){
+			for(size_t i = 0; i < context.errors().size(); i++){
+				fprintf(stderr, "Query Context Analysis Error: %s\n", context.errors()[i].toString().c_str());
+			}
+			return ErrorCode;
+                    }
+                }
 	}
 
 
@@ -458,7 +478,24 @@ int main(int argc, char* argv[]){
             return ErrorCode;
 
         }
-
+        
+        fprintf(stderr, "Using VerifyPN ENgine\n");
+        ReachabilityResult result;
+        int i;
+        int solved[10] = {1,1,1,1,1,1,1,1,1,1};
+        for (i = 0; i < XMLparser.queries.size(); i++){
+            result = strategy->reachable(*net, m0, v0, querylist[i]);
+            
+            //HER ER FEJL!!!
+            if(result.result() == ReachabilityResult::Unknown)
+		solved[i] = 0;
+            else if(result.result() == ReachabilityResult::NotSatisfied){
+                if (isInvariantlist[i]) cout<<"Query "<< i <<" proved not satisfiable by lpsolve\n" <<endl;
+                else solved[i] = 0;
+            }
+            else solved[i] = 0;
+        }
+        
 
 	// alternative LTSmin flag
 	if (enableLTSmin > 0) {
@@ -475,17 +512,17 @@ int main(int argc, char* argv[]){
 			int negateResult[numberOfQueries];
 			string* stringQueries = new string[numberOfQueries];
 			codeGen.createQueries(stringQueries, negateResult, XMLparser.queries);
-			codeGen.generateSourceMultipleQueries(&stateLabels, negateResult, numberOfQueries);
+			codeGen.generateSourceMultipleQueries(&stateLabels, solved, negateResult, numberOfQueries);
 			codeGen.printQueries(stringQueries, numberOfQueries);
 		}
 	}
 
 
-        fprintf(stderr, "Using VerifyPN ENgine\n");
-        ReachabilityResult result = strategy->reachable(*net, m0, v0, query);
+
 
 
 	//Reachability search
+        
 
     //--------------------------------------------INFO FRA LTSMIN---------------------------------------------------//
 
