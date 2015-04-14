@@ -87,9 +87,7 @@ int main(int argc, char* argv[]){
 	int enableLTSmin = 0;
 	std::string LTSminRunning = "start - \n";
 	std::vector<std::string> stateLabels;
-        Condition* querylist[10];
-
-
+    Condition* querylist[10];
 
 	//----------------------- Parse Arguments -----------------------//
 
@@ -233,7 +231,7 @@ int main(int argc, char* argv[]){
 		enablereduction = 0;
 		kbound = 0;
 		outputtrace = false;
-		searchstrategy = BFS;
+		searchstrategy = LTSmin;
 	}
 
 
@@ -297,8 +295,10 @@ int main(int argc, char* argv[]){
 	//Condition to check
 	Condition* query = NULL;
 	bool isInvariant = false;
-        bool isInvariantlist[10];
-        string statelabel;
+
+    bool isInvariantlist[10];
+
+
 	QueryXMLParser XMLparser(transitionEnabledness); // parser for XML queries
 	//Read query file, begin scope to release memory
 	{
@@ -346,6 +346,7 @@ int main(int argc, char* argv[]){
                                 QueryStringParser StringParser(&XMLparser, net, inhibarcs);
                                 StringParser.generateStateLabels();
                                 stateLabels = StringParser.getStateLabels();
+
 
                 if (xmlquery>0) {
                     fprintf(stdout, "FORMULA %s ", XMLparser.queries[xmlquery-1].id.c_str());
@@ -422,18 +423,39 @@ int main(int argc, char* argv[]){
 
     Reducer reducer = Reducer(net); // reduced is needed also in trace generation (hence the extended scope)
 	if (enablereduction == 1 or enablereduction == 2) {
+            int i;
 		// Compute how many times each place appears in the query
 		MarkVal* placeInQuery = new MarkVal[net->numberOfPlaces()];
 		for (size_t i = 0; i < net->numberOfPlaces(); i++) {
 			placeInQuery[i] = 0;
 		}
 		QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
-		query->analyze(placecontext);
+                
+                /**Single Query*/
+                //query->analyze(placecontext);
+                
+                /**Multiple Queries */
+                /*for (i = 0; i < XMLparser.queries.size(); i++){
+                    querylist[i]->analyze(placecontext);
+                }*/
+                
+                /**Concartinated Query*/
+                string reductionquerystr;
+                for (i = 0; i < XMLparser.queries.size(); i++){
+                    if(i>0)
+                        reductionquerystr += " and ";
+                    reductionquerystr += querylist[i]->toString();
+                }
+                Condition* reductionquery = ParseQuery(reductionquerystr);
+                reductionquery->analyze(placecontext);
 
 		// Compute the places and transitions that connect to inhibitor arcs
 		MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
 		MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
-
+                cout<<"\nQuery: "<<reductionquerystr<<endl;
+                for (size_t i = 0; i < net->numberOfPlaces(); i++) {
+			cout<<"\nPlace "<< i <<"'s marking for reduction: "<<placeInQuery[i]<<endl;
+		}
 		// CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
 		reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
 
@@ -486,8 +508,7 @@ int main(int argc, char* argv[]){
         memset(solved, 1, sizeof(int)*numberOfQueries);
         for (i = 0; i < XMLparser.queries.size(); i++){
             result = strategy->reachable(*net, m0, v0, querylist[i]);
-            
-            //HER ER FEJL!!!
+
             if(result.result() == ReachabilityResult::Unknown)
 		solved[i] = 0;
             else if(result.result() == ReachabilityResult::NotSatisfied){
@@ -501,18 +522,20 @@ int main(int argc, char* argv[]){
 	// alternative LTSmin flag
 	if (enableLTSmin > 0) {
 		cout<<endl<<"LTSmin is enabled"<<endl;
-		std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
-		CodeGenerator codeGen(net, m0, inhibarcs, statelabel);
+		//std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
+		CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1]);
+		int numberOfQueries = XMLparser.queries.size();
+		string* stringQueries = new string[numberOfQueries];
+		int negateResult[numberOfQueries];
 
 		if(enableLTSmin == 1){ // verify only one query
-			codeGen.generateSource();
+			codeGen.generateSource(negateResult, (xmlquery - 1));
 		}
 
 		else if(enableLTSmin == 2){ // verify all queries at once
-			
 			int negateResult[numberOfQueries];
 			string* stringQueries = new string[numberOfQueries];
-			codeGen.createQueries(stringQueries, negateResult, XMLparser.queries);
+			codeGen.createQueries(stringQueries, negateResult, XMLparser.queries, stateLabels);		
 			codeGen.generateSourceMultipleQueries(&stateLabels, solved, negateResult, numberOfQueries);
 			//codeGen.printQueries(stringQueries, numberOfQueries);
 		}
@@ -623,18 +646,13 @@ int main(int argc, char* argv[]){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /*
+     	int numberOfQueries = XMLparser.queries.size();
+
+     	  printf("\n\n\n\n\n");
+            string cmd1 = "sh runLTS.sh";
+
+
               string data;
               FILE * stream;
               const int max_buffer = 256;
@@ -651,7 +669,7 @@ int main(int argc, char* argv[]){
 
               LTSminRunning += data;
 
-              for (int i = 0; i < 9; ++i) {
+              for (int i = 0; i < numberOfQueries; ++i) {
 
            		stringstream ss;
 				ss << i;
@@ -667,7 +685,7 @@ int main(int argc, char* argv[]){
           	  }
 
 
-              for (int i = 0; i < 9; ++i) {
+              for (int i = 0; i < numberOfQueries; ++i) {
 
            		stringstream ss;
 				ss << i;
@@ -681,17 +699,6 @@ int main(int argc, char* argv[]){
 			  if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
 
           	  }
-
-
-          	  if(enableLTSmin == 1) {
-
-          	  	string search = string("Invariant");
-             	string queryResult = string("LTSmin result  >>  Query is satisfied");
-
-			  size_t found = LTSminRunning.find(search);
-			  if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
-			  else printf("LTSmin result  >>  Query is not satisfied");
-			}
 
 			printf("\n\n\n\n\n");
 */
