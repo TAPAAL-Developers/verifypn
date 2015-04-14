@@ -3,25 +3,25 @@ echo "--------------------------------------------------------------------------
 echo "-----------------------------------------------Testing Reduction effect-----------------------------------------------------"
 echo "----------------------------------------------------------------------------------------------------------------------------"
 #Small
-echo "TokenRing" | ts
-time ./verifypn-linux64 -x 1 -s LTSmin ../models/TokenRing/PT/TokenRing-5-unfolded.pnml ../models/HouseConstruction-PT-002/ReachabilityDeadlock.xml
-sh runLTS.sh
-echo "SimpleLoadBal" | ts
-time ./verifypn-linux64 -x 1 -s LTSmin ../models/SimpleLoadBal/PT/simple_lbs-2.pnml ../models/HouseConstruction-PT-002/ReachabilityDeadlock.xml
-sh runLTS.sh
+#echo "TokenRing" | ts
+#time ./verifypn-linux64 -x 1 -s LTSmin ../models/TokenRing/PT/TokenRing-5-unfolded.pnml ../models/HouseConstruction-PT-002/ReachabilityDeadlock.xml
+
+#echo "SimpleLoadBal" | ts
+#time ./verifypn-linux64 -x 1 -s LTSmin ../models/SimpleLoadBal/PT/simple_lbs-2.pnml ../models/HouseConstruction-PT-002/ReachabilityDeadlock.xml
+
 echo "Philosophers" | ts
-time ./verifypn-linux64 -x 1 -s LTSmin ../models/Philosophers-PT-000005/model.pnml ../models/Philosophers-PT-000005/ReachabilityDeadlock.xml
-sh runLTS.sh
+./verifypn-linux64 -x 1 -l 2 -s OverApprox -r 2 ../models/Philosophers-PT-000005/model.pnml ../models/Philosophers-PT-000005/ReachabilityCardinality.xml > Philosophers.txt
+
 echo "ERK" | ts
-time ./verifypn-linux64 -x 1 -s LTSmin ../models/ERK-PT-000001/model.pnml ../models/ERK-PT-000001/ReachabilityDeadlock.xml
-sh runLTS.sh
+./verifypn-linux64 -x 1 -l 2 -s OverApprox -r 2 ../models/ERK-PT-000001/model.pnml ../models/ERK-PT-000001/ReachabilityCardinality.xml > ERK.txt
+
 echo "HouseConstruction Small" | ts
-time ./verifypn-linux64 -x 1 -s LTSmin ../models/HouseConstruction-PT-002/model.pnml ../models/HouseConstruction-PT-002/ReachabilityDeadlock.xml
-sh runLTS.sh
+./verifypn-linux64 -x 1 -l 2 -s OverApprox -r 2 ../models/HouseConstruction-PT-002/model.pnml ../models/HouseConstruction-PT-002/ReachabilityCardinality.xml > HouseConstructionSmall.txt
 
 echo "HouseConstruction Big" | ts
-time ./verifypn-linux64 -x 1 -s LTSmin ../models/HouseConstruction-PT-002/model.pnml ../models/HouseConstruction-PT-002/ReachabilityDeadlock.xml
-sh runLTS.sh
+./verifypn-linux64 -x 1 -l 2 -s OverApprox -r 2 ../models/HouseConstruction/PT/HouseConstruction-500.pnml ../models/HouseConstruction-PT-002/ReachabilityCardinality.xml > HouseConstructionBig.txt
+
+
 
 #echo "IBMB2S565S3960" | ts
 #time ./verifypn-linux64 -x 1 -s LTSmin ../models/IBMB2S565S3960-PT-none/model.pnml ../models/IBMB2S565S3960-PT-none/ReachabilityDeadlock.xml

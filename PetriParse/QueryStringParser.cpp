@@ -95,12 +95,18 @@ using namespace std;
             for(p = 0; p < nPlaces; p++){
                 // Condition for regular arcs
                 if(_PetriNet->inArc(p,t) > 0) {
-                    s << "(src[" << p << "] >= " << _PetriNet->inArc(p,t) << ") && ";
+                    if(t > 0)
+                        conditions += " && ";
+
+                    s << "(src[" << p << "] >= " << _PetriNet->inArc(p,t) << ")";
                     conditions += s.str();
                 }
                 // Condition for inhibitor arcs
                 else if(inhibArc(p,t) > 0){
-                    s << "(src[" << p << "] < " << _PetriNet->inArc(p,t) << ") && ";
+                    if(t > 0)
+                        conditions += " && ";
+
+                    s << "(src[" << p << "] < " << _PetriNet->inArc(p,t) << ")";
                     conditions += s.str();
                 }
 
@@ -125,6 +131,9 @@ using namespace std;
         if(deadlockPos != std::string::npos){
             findDeadlockConditions(query, deadlockPos);
         } else{
+            // Rename places eg. "place0" -> src[0]
+            replacePlaces(query);
+
             // Replace all TAPAAL query operators with C operators
             replaceOperator(query, "not", "!");
             replaceOperator(query, "and", "&&");
@@ -133,9 +142,6 @@ using namespace std;
             // Replace true/false with 1,0
             replaceOperator(query, "true", "1");
             replaceOperator(query, "false", "0");
-
-            // Rename places eg. "place0" -> src[0]
-            replacePlaces(query);
         }
 
         _stateLabel[i] = query;
