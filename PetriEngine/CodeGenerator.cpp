@@ -244,6 +244,18 @@ namespace PetriEngine{
                 fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stdout, \"#Query %d is satisfied.\\n\");}}\n", solvedArray, q, queries[q].c_str(), solvedArray, q, q);
         }
 
+        // return true if all queries are verified
+        /*
+        fprintf(successor_generator, "if(");
+        for(q = 0; q<numberOfQueries; q++){
+            if(q == numberOfQueries-1)
+                fprintf(successor_generator, "%s[%d]){ fprintf(stdout, \"\\n# ALL QUERIES HAS BEEN VERIFIED.\\n\"; return label == LABEL_GOAL && 1;}\n", solvedArray, q);
+            else
+                fprintf(successor_generator, "%s[%d]&&", solvedArray, q);
+        }
+        */
+
+
         fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
         fclose(successor_generator);
         int result = rename("temp.txt", sourcename);
@@ -251,7 +263,7 @@ namespace PetriEngine{
 
     // Generates dummy values until queries can be propery parsed. 
     // Final version should include parameter of the XMLparser queries vector to get the proper queryText.
-    void CodeGenerator::createQueries(string *stringQueries, int *negateResult, QueryXMLParser::Queries queries){
+    void CodeGenerator::createQueries(string *stringQueries, int *negateResult, QueryXMLParser::Queries queries, vector<string> stateLabels){
             int q;
             for(q = 0; q < queries.size(); q++){
                 if(queries[q].negateResult){
@@ -260,7 +272,7 @@ namespace PetriEngine{
                 else{
                     negateResult[q] = 0;
                 }
-                stringQueries[q] = queries[q].queryText;
+                stringQueries[q] = stateLabels[q];
             }
             /*
             stringQueries[0] = "src[2]>0";

@@ -294,8 +294,8 @@ int main(int argc, char* argv[]){
 	//Condition to check
 	Condition* query = NULL;
 	bool isInvariant = false;
-        string statelabel;
 	QueryXMLParser XMLparser(transitionEnabledness); // parser for XML queries
+	std::vector<std::string> stateLabels;
 	//Read query file, begin scope to release memory
 	{
 		string querystring; // excluding EF and AG
@@ -344,11 +344,11 @@ int main(int argc, char* argv[]){
                                 //statelabel = StringParser.getStateLabel(xmlquery - 1);
                                 StringParser.generateStateLabels();
 
-                                std::vector<std::string> stateLabels = StringParser.getStateLabels();
+                                stateLabels = StringParser.getStateLabels();
 
-                                for(int k = 0 ; k < stateLabels.size(); k++){
-                                    cout<<"#####Statelabel: "<<stateLabels[k]<< "\n"<<endl;
-                                }
+                                // for(int k = 0 ; k < stateLabels.size(); k++){
+                                //     cout<<"#####Statelabel: "<<stateLabels[k]<< "\n"<<endl;
+                                // }
 
 
                 if (xmlquery>0) {
@@ -484,7 +484,7 @@ int main(int argc, char* argv[]){
 			int numberOfQueries = XMLparser.queries.size(); // dummy value
 			int negateResult[numberOfQueries];
 			string* stringQueries = new string[numberOfQueries];
-			codeGen.createQueries(stringQueries, negateResult, XMLparser.queries);
+			codeGen.createQueries(stringQueries, negateResult, XMLparser.queries, stateLabels);
 			codeGen.generateSourceMultipleQueries(stringQueries, negateResult, numberOfQueries);
 			codeGen.printQueries(stringQueries, numberOfQueries);
 		}

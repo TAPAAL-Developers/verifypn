@@ -5,8 +5,6 @@
 #include <PetriParse/PNMLParser.h>
 #include <PetriParse/QueryXMLParser.h>
 
-using namespace std;
-
 namespace PetriEngine {
     class CodeGenerator {
         public:
@@ -14,7 +12,7 @@ namespace PetriEngine {
         void generateSource();
         int inhibArc(unsigned int p, unsigned int t);
         void generateSourceMultipleQueries(string *queries, int *searchAllPaths, int numberOfQueries);
-        void createQueries(string *stringQueries, int *negateResult, QueryXMLParser::Queries queries);
+        void createQueries(string *stringQueries, int *negateResult, QueryXMLParser::Queries queries, std::vector<std::string> stateLabels);
         void printQueries(string *queries, int numberOfQueries);
         
         private:
