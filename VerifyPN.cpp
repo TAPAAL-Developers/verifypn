@@ -482,20 +482,20 @@ int main(int argc, char* argv[]){
         fprintf(stderr, "Using VerifyPN ENgine\n");
         ReachabilityResult result;
         int i;
-        int solved[10] = {0,0,0,0,0,0,0,0,0,0};
+        int solved[10] = {1,1,1,1,1,1,1,1,1,1};
         for (i = 0; i < XMLparser.queries.size(); i++){
             result = strategy->reachable(*net, m0, v0, querylist[i]);
             
+            //HER ER FEJL!!!
             if(result.result() == ReachabilityResult::Unknown)
 		solved[i] = 0;
-            else if(result.result() == ReachabilityResult::Satisfied)
-		solved[i] = isInvariantlist[i] ? 0 : 1;
-            else if(result.result() == ReachabilityResult::NotSatisfied)
-		solved[i] = isInvariantlist[i] ? 1 : 0;
+            else if(result.result() == ReachabilityResult::NotSatisfied){
+                if (isInvariantlist[i]) cout<<"Query "<< i <<" proved not satisfiable by lpsolve\n" <<endl;
+                else solved[i] = 0;
+            }
+            else solved[i] = 0;
         }
-        for (i = 0; i < XMLparser.queries.size(); i++) {
-            solved[i] == 1 ? cout<<"Query was satisfied by lpsolve\n"<<endl : cout<<"Query was satisfied by lpsolve\n"<<endl;
-        }
+        
 
 	// alternative LTSmin flag
 	if (enableLTSmin > 0) {
@@ -512,7 +512,7 @@ int main(int argc, char* argv[]){
 			int negateResult[numberOfQueries];
 			string* stringQueries = new string[numberOfQueries];
 			codeGen.createQueries(stringQueries, negateResult, XMLparser.queries);
-			codeGen.generateSourceMultipleQueries(&stateLabels, negateResult, numberOfQueries);
+			codeGen.generateSourceMultipleQueries(&stateLabels, solved, negateResult, numberOfQueries);
 			codeGen.printQueries(stringQueries, numberOfQueries);
 		}
 	}
