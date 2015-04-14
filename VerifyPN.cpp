@@ -233,7 +233,7 @@ int main(int argc, char* argv[]){
 		enablereduction = 0;
 		kbound = 0;
 		outputtrace = false;
-		searchstrategy = BFS;
+		searchstrategy = LTSmin;
 	}
 
 
@@ -422,18 +422,39 @@ int main(int argc, char* argv[]){
 
     Reducer reducer = Reducer(net); // reduced is needed also in trace generation (hence the extended scope)
 	if (enablereduction == 1 or enablereduction == 2) {
+            int i;
 		// Compute how many times each place appears in the query
 		MarkVal* placeInQuery = new MarkVal[net->numberOfPlaces()];
 		for (size_t i = 0; i < net->numberOfPlaces(); i++) {
 			placeInQuery[i] = 0;
 		}
 		QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
-		query->analyze(placecontext);
+                
+                /**Single Query*/
+                //query->analyze(placecontext);
+                
+                /**Multiple Queries */
+                /*for (i = 0; i < XMLparser.queries.size(); i++){
+                    querylist[i]->analyze(placecontext);
+                }*/
+                
+                /**Concartinated Query*/
+                string reductionquerystr;
+                for (i = 0; i < XMLparser.queries.size(); i++){
+                    if(i>0)
+                        reductionquerystr += " and ";
+                    reductionquerystr += querylist[i]->toString();
+                }
+                Condition* reductionquery = ParseQuery(reductionquerystr);
+                reductionquery->analyze(placecontext);
 
 		// Compute the places and transitions that connect to inhibitor arcs
 		MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
 		MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
-
+                cout<<"\nQuery: "<<reductionquerystr<<endl;
+                for (size_t i = 0; i < net->numberOfPlaces(); i++) {
+			cout<<"\nPlace "<< i <<"'s marking for reduction: "<<placeInQuery[i]<<endl;
+		}
 		// CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
 		reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
 
@@ -485,8 +506,7 @@ int main(int argc, char* argv[]){
         int solved[10] = {1,1,1,1,1,1,1,1,1,1};
         for (i = 0; i < XMLparser.queries.size(); i++){
             result = strategy->reachable(*net, m0, v0, querylist[i]);
-            
-            //HER ER FEJL!!!
+
             if(result.result() == ReachabilityResult::Unknown)
 		solved[i] = 0;
             else if(result.result() == ReachabilityResult::NotSatisfied){
