@@ -88,11 +88,19 @@ using namespace std;
             for(p = 0; p < nPlaces; p++){
                 // Condition for regular arcs
                 if(_PetriNet->inArc(p,t) > 0) {
+
+                    if(t > 0)
+                        conditions += " && ";
+
                     s << "(src[" << p << "] >= " << _PetriNet->inArc(p,t) << ")";
                     conditions += s.str();
                 }
                 // Condition for inhibitor arcs
                 else if(inhibArc(p,t) > 0){
+
+                    if(t > 0)
+                        conditions += " && ";
+
                     s << "(src[" << p << "] < " << _PetriNet->inArc(p,t) << ")";
                     conditions += s.str();
                 }
