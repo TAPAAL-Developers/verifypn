@@ -461,17 +461,17 @@ int main(int argc, char* argv[]){
 	// alternative LTSmin flag
 	if (enableLTSmin > 0) {
 		cout<<endl<<"LTSmin is enabled"<<endl;
-		std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
-		CodeGenerator codeGen(net, m0, inhibarcs, statelabel);
+		//std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
+		CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1]);
+		int numberOfQueries = XMLparser.queries.size();
+		string* stringQueries = new string[numberOfQueries];
+		int negateResult[numberOfQueries];
 
 		if(enableLTSmin == 1){ // verify only one query
-			codeGen.generateSource();
+			codeGen.generateSource(negateResult, (xmlquery - 1));
 		}
 
 		else if(enableLTSmin == 2){ // verify all queries at once
-			int numberOfQueries = XMLparser.queries.size();
-			int negateResult[numberOfQueries];
-			string* stringQueries = new string[numberOfQueries];
 			codeGen.createQueries(stringQueries, negateResult, XMLparser.queries, stateLabels);
 			codeGen.generateSourceMultipleQueries(&stateLabels, negateResult, numberOfQueries);
 			codeGen.printQueries(stringQueries, numberOfQueries);
@@ -489,6 +489,7 @@ int main(int argc, char* argv[]){
 
      if(enableLTSmin > 0) {
 
+     	int numberOfQueries = XMLparser.queries.size();
 
      	  printf("\n\n\n\n\n");
           string cmd1 = "sh runLTS.sh";
@@ -509,7 +510,7 @@ int main(int argc, char* argv[]){
 
               LTSminRunning += data;
 
-              for (int i = 0; i < 9; ++i) {
+              for (int i = 0; i < numberOfQueries; ++i) {
 
            		stringstream ss;
 				ss << i;
@@ -525,7 +526,7 @@ int main(int argc, char* argv[]){
           	  }
 
 
-              for (int i = 0; i < 9; ++i) {
+              for (int i = 0; i < numberOfQueries; ++i) {
 
            		stringstream ss;
 				ss << i;
@@ -539,17 +540,6 @@ int main(int argc, char* argv[]){
 			  if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
 
           	  }
-
-
-          	  if(enableLTSmin == 1) {
-
-          	  	string search = string("Invariant");
-             	string queryResult = string("LTSmin result  >>  Query is satisfied");
-
-			  size_t found = LTSminRunning.find(search);
-			  if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
-			  else printf("LTSmin result  >>  Query is not satisfied");
-			}
 
 			printf("\n\n\n\n\n");
 

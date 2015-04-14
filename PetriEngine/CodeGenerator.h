@@ -9,7 +9,7 @@ namespace PetriEngine {
     class CodeGenerator {
         public:
         CodeGenerator(PetriNet* petriNet, MarkVal* m0, PNMLParser::InhibitorArcList placeInInhib, string statelabel); 
-        void generateSource();
+        void generateSource(int *searchAllPaths, int query_id);
         int inhibArc(unsigned int p, unsigned int t);
         void createQueries(string *stringQueries, int *negateResult, QueryXMLParser::Queries queries, std::vector<std::string> stateLabels);
         void generateSourceMultipleQueries(std::vector<std::string> *statelabels, int *searchAllPaths, int numberOfQueries);

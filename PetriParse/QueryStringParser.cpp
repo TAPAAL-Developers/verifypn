@@ -1,5 +1,12 @@
 #include "QueryStringParser.h"
 
+#include <stdio.h>
+
+#include <string>
+#include <string.h>
+
+
+
 #include <iostream>
 #include <sstream>
 
@@ -88,20 +95,21 @@ using namespace std;
             for(p = 0; p < nPlaces; p++){
                 // Condition for regular arcs
                 if(_PetriNet->inArc(p,t) > 0) {
-                    s << "(src[" << p << "] >= " << _PetriNet->inArc(p,t) << ")";
+                    s << "(src[" << p << "] >= " << _PetriNet->inArc(p,t) << ") && ";
                     conditions += s.str();
                 }
                 // Condition for inhibitor arcs
                 else if(inhibArc(p,t) > 0){
-                    s << "(src[" << p << "] < " << _PetriNet->inArc(p,t) << ")";
+                    s << "(src[" << p << "] < " << _PetriNet->inArc(p,t) << ") && ";
                     conditions += s.str();
                 }
+
 
                 s.str("");
             }
         }
 
-        conditions += ")";
+        conditions += " 1)";
         query.replace(deadlockPos, 8, conditions);
     }
 
