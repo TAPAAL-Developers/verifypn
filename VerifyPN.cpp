@@ -297,6 +297,7 @@ int main(int argc, char* argv[]){
 	//Condition to check
 	Condition* query = NULL;
 	bool isInvariant = false;
+        bool isInvariantlist[10];
         string statelabel;
 	QueryXMLParser XMLparser(transitionEnabledness); // parser for XML queries
 	//Read query file, begin scope to release memory
@@ -348,7 +349,6 @@ int main(int argc, char* argv[]){
 
                 if (xmlquery>0) {
                     fprintf(stdout, "FORMULA %s ", XMLparser.queries[xmlquery-1].id.c_str());
-                    fprintf(stdout, "\nHi, post-FORMULAE\n");
                     fflush(stdout);
                     
                 }
@@ -378,16 +378,12 @@ int main(int argc, char* argv[]){
 		//Parse query
 		query = ParseQuery(querystring);
                 int i;
-                fprintf(stdout, "\nHi, pre-loop\n");
                 for(i = 0; i < XMLparser.queries.size(); i++){
-                    cout<<XMLparser.queries[i].queryText<<endl;
-                    fprintf(stdout, "\n %lu", XMLparser.queries.size());
                     string querystr = XMLparser.queries[i].queryText;
                     querystring = querystr.substr(2);
-                    //isInvariant = XMLparser.queries[xmlquery - 1].negateResult;
+                    isInvariantlist[i] = XMLparser.queries[i].negateResult;
                     querylist[i] = ParseQuery(querystring);
                 }
-                fprintf(stdout, "\nI will not be written\n");
 		if(!query){
 			fprintf(stderr, "Error: Failed to parse query \"%s\"\n", querystring.c_str()); //querystr.substr(2).c_str());
 			return ErrorCode;
@@ -493,9 +489,12 @@ int main(int argc, char* argv[]){
             if(result.result() == ReachabilityResult::Unknown)
 		solved[i] = 0;
             else if(result.result() == ReachabilityResult::Satisfied)
-		solved[i] = isInvariant ? 0 : 1;
+		solved[i] = isInvariantlist[i] ? 0 : 1;
             else if(result.result() == ReachabilityResult::NotSatisfied)
-		solved[i] = isInvariant ? 1 : 0;
+		solved[i] = isInvariantlist[i] ? 1 : 0;
+        }
+        for (i = 0; i < XMLparser.queries.size(); i++) {
+            solved[i] == 1 ? cout<<"Query was satisfied by lpsolve\n"<<endl : cout<<"Query was satisfied by lpsolve\n"<<endl;
         }
 
 	// alternative LTSmin flag
