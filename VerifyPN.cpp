@@ -297,10 +297,9 @@ int main(int argc, char* argv[]){
 	bool isInvariant = false;
 
     bool isInvariantlist[10];
-    string statelabel;
+
 
 	QueryXMLParser XMLparser(transitionEnabledness); // parser for XML queries
-	std::vector<std::string> stateLabels;
 	//Read query file, begin scope to release memory
 	{
 		string querystring; // excluding EF and AG
