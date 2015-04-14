@@ -15,7 +15,7 @@ namespace PetriEngine {
         int inhibArc(unsigned int p, unsigned int t);
         void generateSourceMultipleQueries(std::vector<std::string> *statelabels, int *solved, int *searchAllPaths, int numberOfQueries);
         void createQueries(string *stringQueries, int *negateResult, QueryXMLParser::Queries queries);
-        void printQueries(string *queries, int numberOfQueries);
+        void printQueries(std::vector<std::string> queries, int numberOfQueries);
         
         private:
         int _nplaces;
