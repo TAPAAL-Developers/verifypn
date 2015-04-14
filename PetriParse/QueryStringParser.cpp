@@ -117,6 +117,9 @@ using namespace std;
         if(deadlockPos != std::string::npos){
             findDeadlockConditions(query, deadlockPos);
         } else{
+            // Rename places eg. "place0" -> src[0]
+            replacePlaces(query);
+
             // Replace all TAPAAL query operators with C operators
             replaceOperator(query, "not", "!");
             replaceOperator(query, "and", "&&");
@@ -125,9 +128,6 @@ using namespace std;
             // Replace true/false with 1,0
             replaceOperator(query, "true", "1");
             replaceOperator(query, "false", "0");
-
-            // Rename places eg. "place0" -> src[0]
-            replacePlaces(query);
         }
 
         _stateLabel[i] = query;
