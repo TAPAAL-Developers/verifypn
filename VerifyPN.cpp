@@ -393,6 +393,7 @@ int main(int argc, char* argv[]){
 
 	//----------------------- Context Analysis -----------------------//
             int numberOfQueries = XMLparser.queries.size();
+            int negateResult[numberOfQueries];
 	//Create scope for AnalysisContext
 	{
 		//Context analysis
@@ -503,7 +504,9 @@ int main(int argc, char* argv[]){
         ReachabilityResult result;
         int i;
         int *solved = new int[numberOfQueries];
-        memset(solved, 1, sizeof(int)*numberOfQueries);
+        for(i = 0; i<numberOfQueries;i++){
+        	solved[i] = 1;
+        }
         for (i = 0; i < XMLparser.queries.size(); i++){
             result = strategy->reachable(*net, m0, v0, querylist[i]);
 
@@ -524,14 +527,12 @@ int main(int argc, char* argv[]){
 		CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1]);
 		int numberOfQueries = XMLparser.queries.size();
 		string* stringQueries = new string[numberOfQueries];
-		int negateResult[numberOfQueries];
 
 		if(enableLTSmin == 1){ // verify only one query
 			codeGen.generateSource(negateResult, (xmlquery - 1));
 		}
 
 		else if(enableLTSmin == 2){ // verify all queries at once
-			int negateResult[numberOfQueries];
 			string* stringQueries = new string[numberOfQueries];
 			codeGen.createQueries(stringQueries, negateResult, XMLparser.queries, stateLabels);		
 			codeGen.generateSourceMultipleQueries(&stateLabels, solved, negateResult, numberOfQueries);
@@ -549,14 +550,20 @@ int main(int argc, char* argv[]){
     //--------------------------------------------INFO FRA LTSMIN---------------------------------------------------//
 
      if(enableLTSmin > 0) {
-              string cmd1 = "sh runLTS.sh";
-              //string cmd1 = "sh runLTS.osx64.sh";
+              //string cmd1 = "sh runLTS.sh";
+              string cmd1 = "sh runLTS.osx64.sh";
 	  cmd1.append(" 2>&1");
-	  int ltsminVerified[numberOfQueries]; // keep track of what ltsmin has verified
-	  memset(ltsminVerified, 0, sizeof(int));
-              
-              int q, m, s;
+	  int q, m, s;
               string data;
+
+	  int ltsminVerified[numberOfQueries]; // keep track of what ltsmin has verified
+	  int solved[numberOfQueries]; // This should be replaced by the solved array already made, when it is complete.
+	  for(q = 0; q<numberOfQueries; q++){
+	  	ltsminVerified[q] = 0;
+	  	solved[q] = 0;
+	  }
+
+              
               
               FILE * stream;
               const int max_buffer = 256;
@@ -569,11 +576,13 @@ int main(int argc, char* argv[]){
               // verifypn messages
 	  string pins2ltsMessage;
 	  string stdmsg = "VerifyPN: ";
+	  string startMessage = "LTSmin has started\n";
 	  string exitMessage = "LTSmin finished\n";
 
 	  int numberOfExitMessages = sizeof( searchExit ) / sizeof( searchExit[0] );
 	
 	bool exitLTSmin = 0;
+	printf("%s\n", startMessage.c_str());
 	stream = popen(cmd1.c_str(), "r");
                 while (!exitLTSmin){
                     if (fgets(buffer, max_buffer, stream) != NULL){
@@ -589,8 +598,8 @@ int main(int argc, char* argv[]){
                                 string searchSat = string("#Query ") + number + " is satisfied.";
                                 string searchNotSat = string("#Query ") + number + " is NOT satisfied.";
 
-                                string queryResultSat = string(stdmsg+"LTSmin result  >>  Query ") + number + " is satisfied";
-                                string queryResultNotSat = string(stdmsg+"LTSmin result  >>  Query ") + number + " is not satisfied";
+                                string queryResultSat = string("LTSmin result  >>  Query ") + number + " is satisfied";
+                                string queryResultNotSat = string("LTSmin result  >>  Query ") + number + " is not satisfied";
                                 
                                 if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified[q]) {
                                     printf("%s\n", queryResultSat.c_str());
@@ -605,24 +614,30 @@ int main(int argc, char* argv[]){
                         // exit messages
                         for(m = 0; m<numberOfExitMessages; m++){
                         	if((found = data.find(searchExit[m])) != std::string::npos){
-                        		printf("%s\n", exitMessage.c_str());
+                        		//printf("%s\n", exitMessage.c_str());
                         		exitLTSmin = 1;
                         		break;
                         	}
                         }
-
-                        /* Prints what ltsmin outputs
-                        pins2ltsMessage = string(stdmsg+data);
-		if((found = data.find(searchPins2lts)) != std::string::npos){
-                        	printf("%s\n", pins2ltsMessage.c_str());
-                        }*/
                     }
                         
                 }
                 pclose(stream);
 
                 // evaluate results
+                for(q = 0; q<numberOfQueries;q++){
 
+                	//EF not satisfied
+                	if(!solved[q] && !negateResult[q] && !ltsminVerified[q]){
+                		fprintf(stdout, "LTSmin result  >>  Query %d is not satisfied\n", q);
+                	}
+
+                	//AG satisfied
+                	else if(!solved[q] && negateResult[q] && !ltsminVerified[q]){
+                		fprintf(stdout, "LTSmin result  >>  Query %d is satisfied\n", q);
+                	}
+                }
+                printf("%s\n", exitMessage.c_str());
 /*
      	int numberOfQueries = XMLparser.queries.size();
 
