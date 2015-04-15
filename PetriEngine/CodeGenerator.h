@@ -14,9 +14,7 @@ namespace PetriEngine {
 
         void createQueries(string *stringQueries, int *negateResult, QueryXMLParser::Queries queries, std::vector<std::string> stateLabels);
         void generateSourceMultipleQueries(std::vector<std::string> *statelabels, int *solved, int *searchAllPaths, int numberOfQueries);
-
-
-        void printQueries(string *queries, int numberOfQueries);
+        void printQueries(std::vector<std::string> queries, int numberOfQueries);
         
         private:
         int _nplaces;

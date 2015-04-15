@@ -392,7 +392,7 @@ int main(int argc, char* argv[]){
 	}
 
 	//----------------------- Context Analysis -----------------------//
-
+            int numberOfQueries = XMLparser.queries.size();
 	//Create scope for AnalysisContext
 	{
 		//Context analysis
@@ -502,7 +502,8 @@ int main(int argc, char* argv[]){
         fprintf(stderr, "Using VerifyPN ENgine\n");
         ReachabilityResult result;
         int i;
-        int solved[10] = {1,1,1,1,1,1,1,1,1,1};
+        int *solved = new int[numberOfQueries];
+        memset(solved, 1, sizeof(int)*numberOfQueries);
         for (i = 0; i < XMLparser.queries.size(); i++){
             result = strategy->reachable(*net, m0, v0, querylist[i]);
 
@@ -515,7 +516,7 @@ int main(int argc, char* argv[]){
             else solved[i] = 0;
         }
         
-
+ 
 	// alternative LTSmin flag
 	if (enableLTSmin > 0) {
 		cout<<endl<<"LTSmin is enabled"<<endl;
@@ -530,10 +531,11 @@ int main(int argc, char* argv[]){
 		}
 
 		else if(enableLTSmin == 2){ // verify all queries at once
-
+			int negateResult[numberOfQueries];
+			string* stringQueries = new string[numberOfQueries];
 			codeGen.createQueries(stringQueries, negateResult, XMLparser.queries, stateLabels);		
 			codeGen.generateSourceMultipleQueries(&stateLabels, solved, negateResult, numberOfQueries);
-			codeGen.printQueries(stringQueries, numberOfQueries);
+			//codeGen.printQueries(stringQueries, numberOfQueries);
 		}
 	}
 
@@ -547,11 +549,107 @@ int main(int argc, char* argv[]){
     //--------------------------------------------INFO FRA LTSMIN---------------------------------------------------//
 
      if(enableLTSmin > 0) {
+              string cmd1 = "sh runLTS.sh";
+              //string cmd1 = "sh runLTS.osx64.sh";
+              string data;
+              FILE * stream;
+              const int max_buffer = 256;
+              char buffer[max_buffer];
+              cmd1.append(" 2>&1");
+              int q;
+              string stdmsg = "VerifyPN: ";
+              stream = popen(cmd1.c_str(), "r");
+    
+                while (true){
+                    if (fgets(buffer, max_buffer, stream) != NULL){
+                        size_t found;
+                        data = "";
+                        data.append(buffer);
+                        //fprintf(stdout, "LTSmin says: %s\n", data.c_str());
+                        for(q = 0; q<numberOfQueries; q++){
+                                
+                                stringstream ss;
+                                ss << q;
+                                string number = ss.str();
 
+                                string searchSat = string("#Query ") + number + " is satisfied.";
+                                string searchNotSat = string("#Query ") + number + " is NOT satisfied.";
+
+                                string queryResultSat = string(stdmsg+"LTSmin result  >>  Query ") + number + " is satisfied";
+                                string queryResultNotSat = string(stdmsg+"LTSmin result  >>  Query ") + number + " is not satisfied";
+                                
+                                if ((found = data.find(searchSat))!=std::string::npos) 
+                                    printf("%s\n", queryResultSat.c_str());
+                                else if((found = data.find(searchNotSat)) != std::string::npos)
+                                    printf("%s\n", queryResultNotSat.c_str());
+
+
+                        }
+                        string searchPins2lts = string("pins2lts-seq");
+                        string pins2ltsMessage = string(stdmsg+data);
+                        if((found = data.find(searchPins2lts)) != std::string::npos)
+                        printf("%s\n", pins2ltsMessage.c_str());
+                    }
+                        
+                }
+                pclose(stream);
+    /*
+
+              LTSminRunning += data;
+
+              for (int i = 0; i < 9; ++i) {
+
+                stringstream ss;
+                ss << i;
+                string number = ss.str();
+                string search = string("Query ") + number + " is satisfied";
+
+
+                string queryResult = string("LTSmin result  >>  Query ") + number + " is satisfied";
+
+              size_t found = LTSminRunning.find(search);
+              if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
+
+              }
+
+
+              for (int i = 0; i < 9; ++i) {
+
+                stringstream ss;
+                ss << i;
+                string number = ss.str();
+                string search = string("Query ") + number + " is NOT satisfied";
+
+
+                string queryResult = string("LTSmin result  >>  Query ") + number + " is not satisfied";
+
+              size_t found = LTSminRunning.find(search);
+              if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
+
+              }
+
+
+              if(enableLTSmin == 1) {
+
+                string search = string("Invariant");
+                string queryResult = string("LTSmin result  >>  Query is satisfied");
+
+              size_t found = LTSminRunning.find(search);
+              if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
+              else printf("LTSmin result  >>  Query is not satisfied");
+            }
+
+            printf("\n\n\n\n\n");
+*/
+
+
+
+/*
      	int numberOfQueries = XMLparser.queries.size();
 
      	  printf("\n\n\n\n\n");
-          string cmd1 = "sh runLTS.sh";
+            string cmd1 = "sh runLTS.sh";
+
 
               string data;
               FILE * stream;
@@ -601,7 +699,7 @@ int main(int argc, char* argv[]){
           	  }
 
 			printf("\n\n\n\n\n");
-
+*/
 
         }
 
