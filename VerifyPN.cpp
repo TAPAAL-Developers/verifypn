@@ -432,30 +432,28 @@ int main(int argc, char* argv[]){
 		QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
                 
                 /**Single Query*/
-                //query->analyze(placecontext);
+                if(enableLTSmin != 2){ // verify only one query
+                    query->analyze(placecontext);
+		}
                 
-                /**Multiple Queries */
-                /*for (i = 0; i < XMLparser.queries.size(); i++){
-                    querylist[i]->analyze(placecontext);
-                }*/
                 
                 /**Concartinated Query*/
-                string reductionquerystr;
-                for (i = 0; i < XMLparser.queries.size(); i++){
-                    if(i>0)
-                        reductionquerystr += " and ";
-                    reductionquerystr += querylist[i]->toString();
+                if(enableLTSmin == 2){
+                    query->analyze(placecontext);
+                    string reductionquerystr;
+                    for (i = 0; i < XMLparser.queries.size(); i++){
+                        if(i>0)
+                            reductionquerystr += " and ";
+                        reductionquerystr += querylist[i]->toString();
+                    }
+                    Condition* reductionquery = ParseQuery(reductionquerystr);
+                    reductionquery->analyze(placecontext);
                 }
-                Condition* reductionquery = ParseQuery(reductionquerystr);
-                reductionquery->analyze(placecontext);
 
 		// Compute the places and transitions that connect to inhibitor arcs
 		MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
 		MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
-                cout<<"\nQuery: "<<reductionquerystr<<endl;
-                for (size_t i = 0; i < net->numberOfPlaces(); i++) {
-			cout<<"\nPlace "<< i <<"'s marking for reduction: "<<placeInQuery[i]<<endl;
-		}
+                
 		// CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
 		reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
 
