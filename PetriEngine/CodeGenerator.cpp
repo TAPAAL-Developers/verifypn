@@ -270,7 +270,7 @@ namespace PetriEngine{
 
         for(q = 0; q<numberOfQueries; q++){
             if(searchAllPaths[q] && solved[q] != 1)
-                fprintf(successor_generator, "if(%s[%d] == 0){if(!(%s)){%s[%d] = 1;fprintf(stderr, \"#Query %d is NOT satisfied.\\n\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
+                fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stderr, \"#Query %d is NOT satisfied.\\n\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
             else if (solved[q] != 1)       
                 fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stderr, \"#Query %d is satisfied.\\n\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
         }
