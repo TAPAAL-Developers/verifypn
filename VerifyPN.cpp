@@ -476,18 +476,18 @@ int main(int argc, char* argv[]){
 		reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
 		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
                 
-        /*----------------------- For reduction testing-----------------------------
-        fprintf(stdout, "Removed transitions: %d\n", reducer.RemovedTransitions());
+        //----------------------- For reduction testing-----------------------------
+        /*fprintf(stdout, "Removed transitions: %d\n", reducer.RemovedTransitions());
         fprintf(stdout, "Removed places: %d\n", reducer.RemovedPlaces());
         fprintf(stdout, "Applications of rule A: %d\n", reducer.RuleA());
         fprintf(stdout, "Applications of rule B: %d\n", reducer.RuleB());
         fprintf(stdout, "Applications of rule C: %d\n", reducer.RuleC());
-        fprintf(stdout, "Applications of rule D: %d\n", reducer.RuleD());
-        //----------------------------------Mvh. Søren--------------------------*/
+        fprintf(stdout, "Applications of rule D: %d\n", reducer.RuleD());*/
+        //----------------------------------Mvh. Søren--------------------------
 	}
         clock_t reduction_end = clock();
         cout<<"Reduction time elapsed: "<<double(diffclock(reduction_end,reduction_begin))<<" ms\n"<<endl;
-    
+       
         
         
 	//----------------------- Reachability -----------------------//
