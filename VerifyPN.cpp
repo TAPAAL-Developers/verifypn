@@ -347,7 +347,6 @@ int main(int argc, char* argv[]){
                                 StringParser.generateStateLabels();
                                 stateLabels = StringParser.getStateLabels();
 
-
                 if (xmlquery>0) {
                     fprintf(stdout, "FORMULA %s ", XMLparser.queries[xmlquery-1].id.c_str());
                     fflush(stdout);
@@ -523,13 +522,14 @@ int main(int argc, char* argv[]){
 	if (enableLTSmin > 0) {
 		cout<<endl<<"LTSmin is enabled"<<endl;
 		//std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
-		CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1]);
+		CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isPlaceBound);
 		int numberOfQueries = XMLparser.queries.size();
 		string* stringQueries = new string[numberOfQueries];
 		int negateResult[numberOfQueries];
 
 		if(enableLTSmin == 1){ // verify only one query
 			codeGen.generateSource(negateResult, (xmlquery - 1));
+			cout<<endl<<"code generator is done"<<endl;
 		}
 
 		else if(enableLTSmin == 2){ // verify all queries at once

@@ -69,6 +69,10 @@ using namespace std;
         }
     }
 
+    void QueryStringParser::replaceQueryForPlaceBound(std::string& query) {
+       query = "";
+    }
+
     int QueryStringParser::inhibArc(unsigned int p, unsigned int t){
         for (PNMLParser::InhibitorArcIter it = _inhibArcs.begin(); it != _inhibArcs.end(); it++) {
             if (_PetriNet->placeNames()[p] == it->source && _PetriNet->transitionNames()[t] == it->target) {
@@ -128,9 +132,14 @@ using namespace std;
         // Check if query is of type ReachabilityDeadlock
         size_t deadlockPos = query.find("deadlock", 0);
 
+       
         if(deadlockPos != std::string::npos){
             findDeadlockConditions(query, deadlockPos);
-        } else{
+        } 
+        else if(_Parser->queries[i].isPlaceBound){
+            replaceQueryForPlaceBound(query);
+        } 
+        else {
             // Rename places eg. "place0" -> src[0]
             replacePlaces(query);
 

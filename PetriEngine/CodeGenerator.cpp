@@ -7,17 +7,24 @@
 #include <iostream>
 #include <fstream>
 #include <cstdio>
+#include <stdio.h>
+#include <string.h>
+
+
+
+
 
 using namespace std;
 namespace PetriEngine{
 
-    CodeGenerator::CodeGenerator(PetriNet* net, MarkVal* m0, PNMLParser::InhibitorArcList inhibarcs, string statelabel) {
+    CodeGenerator::CodeGenerator(PetriNet* net, MarkVal* m0, PNMLParser::InhibitorArcList inhibarcs, string statelabel, bool isPlaceBound) {
         _net = net;
         _statelabel = statelabel;
         _nplaces = net->numberOfPlaces();
         _ntransitions = net->numberOfTransitions();
         _m0 = m0;
         _inhibarcs = inhibarcs;
+        _isPlaceBound = isPlaceBound;
     }
 
     int CodeGenerator::inhibArc(unsigned int p, unsigned int t){
@@ -48,12 +55,19 @@ namespace PetriEngine{
 
         //Preliminaries
         const char* solvedArray = "solved";
+        const char* ComputeBoundsArray = "MaxNumberOfTokensInPlace";
         fputs("#include <ltsmin/pins.h>\nstatic const int LABEL_GOAL = 0;\n", successor_generator);
         fprintf(successor_generator, "int group_count() {return %d;}\nint state_length() {return %d;}\nint label_count() {return %d;}\n", group_count, state_count, label_count);
 
 
         fprintf(successor_generator, "static int %s[%d] = {0};\n", solvedArray, 1);
+        fprintf(successor_generator, "int %s[%d] = {\n", ComputeBoundsArray, _nplaces);
+
+        for (p = 0; p < _nplaces; p++){
+        fprintf(successor_generator, "%d, \n", _m0[p]);
+        }
         
+        fputs("};", successor_generator);
 
         //Write do_callback
         fputs("void do_callback(int *cpy, int *placemarkings, TransitionCB callback, void *arg){\n", successor_generator);
@@ -106,8 +120,10 @@ namespace PetriEngine{
                 if(_net->outArc(t,p) > 0){
                     fprintf(successor_generator, "placemarkings[%d] = src[%d] + %d;\n", p, p, _net->outArc(t,p));
                     fprintf(successor_generator, "cpy[%d] = 0;\n", p);
+                    fprintf(successor_generator, "if(placemarkings[%d] >= %s[%d]) { %s[%d] = placemarkings[%d]; }\n", p, ComputeBoundsArray, p, ComputeBoundsArray, p, p);
                 }
             }
+
 
             fputs("do_callback(cpy, placemarkings, callback, arg);\n", successor_generator);
             fputs("for(i=0; i < sizeof(cpy) / sizeof(int); i++ ){ cpy[i] = 1; }\n", successor_generator);
@@ -132,11 +148,13 @@ namespace PetriEngine{
         //Write State_label
         fputs("int state_label(void* model, int label, int* src) {\n", successor_generator);
 
+            if (!_isPlaceBound){
+
             if(searchAllPaths[query_id])
                 fprintf(successor_generator, "if(%s[%d] == 0){if(!(%s)){%s[%d] = 1;fprintf(stdout, \"#Query %d is NOT satisfied.\\n\");}}\n", solvedArray, query_id, sl(), solvedArray, query_id, query_id);
-            else        
+            else
                 fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stdout, \"#Query %d is satisfied.\\n\");}}\n", solvedArray, query_id, sl(), solvedArray, query_id, query_id);
-        
+            }
 
         fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
 
