@@ -37,12 +37,14 @@
 #include <PetriEngine/Reachability/RandomDFS.h>
 #include <PetriEngine/Reachability/DepthFirstReachabilitySearch.h>
 #include <PetriEngine/Reachability/BreadthFirstReachabilitySearch.h>
+#include <math.h>
 
 #include "PetriEngine/Reducer.h"
 #include "PetriParse/QueryXMLParser.h"
 #include "PetriParse/QueryStringParser.h"
 #include "PetriEngine/CodeGenerator.h"
 
+#include "time.h"
 
 
 using namespace std;
@@ -69,6 +71,12 @@ enum SearchStrategies{
 };
 
 #define VERSION		"1.1.1"
+
+double diffclock(clock_t clock1, clock_t clock2){
+    double diffticks = clock1 + clock2;
+    double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
+    return diffms;
+}
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -250,7 +258,8 @@ int main(int argc, char* argv[]){
 	}
 
 	//----------------------- Open Model -----------------------//
-
+    cout<<"Parsing Model and Query"<<endl;
+    clock_t parse_begin = clock();
 	//Load the model, begin scope to release memory from the stack
 	PetriNet* net = NULL;
 	MarkVal* m0 = NULL;
@@ -390,8 +399,12 @@ int main(int argc, char* argv[]){
 			return ErrorCode;
 		}
 	}
+        clock_t parse_end = clock();
+        cout<<"\nParsing time elapsed: "<<double(diffclock(parse_end,parse_begin))<<" ms\n"<<endl;
+
 
 	//----------------------- Context Analysis -----------------------//
+        clock_t contextAnalysis_begin = clock();
             int numberOfQueries = XMLparser.queries.size();
             int negateResult[numberOfQueries];
 	//Create scope for AnalysisContext
@@ -418,10 +431,11 @@ int main(int argc, char* argv[]){
                     }
                 }
 	}
-
+        clock_t contextAnalysis_end = clock();
+        cout<<"Context Analysis time elapsed: "<<double(diffclock(contextAnalysis_end,contextAnalysis_begin))<<" ms\n"<<endl;
 
     //--------------------- Apply Net Reduction ---------------//
-
+        clock_t reduction_begin = clock();
     Reducer reducer = Reducer(net); // reduced is needed also in trace generation (hence the extended scope)
 	if (enablereduction == 1 or enablereduction == 2) {
             int i;
@@ -462,7 +476,8 @@ int main(int argc, char* argv[]){
 		reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
 		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
 	}
-
+        clock_t reduction_end = clock();
+        cout<<"Reduction time elapsed: "<<double(diffclock(reduction_end,reduction_begin))<<" ms\n"<<endl;
 	//----------------------- Reachability -----------------------//
 
 
@@ -499,7 +514,7 @@ int main(int argc, char* argv[]){
             return ErrorCode;
 
         }
-        
+        clock_t lpsolve_begin = clock();
         fprintf(stderr, "Using VerifyPN ENgine\n");
         ReachabilityResult result;
         int i;
@@ -518,10 +533,13 @@ int main(int argc, char* argv[]){
             }
             else solved[i] = 0;
         }
-        
+        clock_t lpsolve_end = clock();
+        cout<<"lpsolve time elapsed: "<<double(diffclock(lpsolve_end,lpsolve_begin))<<" ms\n"<<endl;
  
 	// alternative LTSmin flag
+        
 	if (enableLTSmin > 0) {
+            clock_t codeGen_begin = clock();
 		cout<<endl<<"LTSmin is enabled"<<endl;
 		//std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
 		CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1]);
@@ -538,6 +556,8 @@ int main(int argc, char* argv[]){
 			codeGen.generateSourceMultipleQueries(&stateLabels, solved, negateResult, numberOfQueries);
 			//codeGen.printQueries(stringQueries, numberOfQueries);
 		}
+            clock_t codeGen_end = clock();
+            cout<<"LTSmin Code Generation time elapsed: "<<double(diffclock(codeGen_end,codeGen_begin))<<" ms\n"<<endl;
 	}
 
 
@@ -550,8 +570,10 @@ int main(int argc, char* argv[]){
     //--------------------------------------------INFO FRA LTSMIN---------------------------------------------------//
 
      if(enableLTSmin > 0) {
-              //string cmd1 = "sh runLTS.sh";
-              string cmd1 = "sh runLTS.osx64.sh";
+	  clock_t LTSmin_begin = clock();
+              string cmd1 = "sh runLTS.sh";
+              //string cmd1 = "sh runLTS.osx64.sh";
+
 	  cmd1.append(" 2>&1");
 	  int q, m, s;
               string data;
@@ -694,7 +716,8 @@ int main(int argc, char* argv[]){
 
 			printf("\n\n\n\n\n");
 */
-
+            clock_t LTSmin_end = clock();
+            cout<<"------------LTSmin Verification time elapsed: "<<double(diffclock(LTSmin_end,LTSmin_begin))<<" ms-----------\n"<<endl;
         }
 
 
