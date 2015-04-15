@@ -37,12 +37,14 @@
 #include <PetriEngine/Reachability/RandomDFS.h>
 #include <PetriEngine/Reachability/DepthFirstReachabilitySearch.h>
 #include <PetriEngine/Reachability/BreadthFirstReachabilitySearch.h>
+#include <math.h>
 
 #include "PetriEngine/Reducer.h"
 #include "PetriParse/QueryXMLParser.h"
 #include "PetriParse/QueryStringParser.h"
 #include "PetriEngine/CodeGenerator.h"
 
+#include "time.h"
 
 
 using namespace std;
@@ -69,6 +71,12 @@ enum SearchStrategies{
 };
 
 #define VERSION		"1.1.1"
+
+double diffclock(clock_t clock1, clock_t clock2){
+    double diffticks = clock1 + clock2;
+    double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
+    return diffms;
+}
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -250,7 +258,8 @@ int main(int argc, char* argv[]){
 	}
 
 	//----------------------- Open Model -----------------------//
-
+    cout<<"Parsing Model and Query"<<endl;
+    clock_t parse_begin = clock();
 	//Load the model, begin scope to release memory from the stack
 	PetriNet* net = NULL;
 	MarkVal* m0 = NULL;
@@ -390,8 +399,12 @@ int main(int argc, char* argv[]){
 			return ErrorCode;
 		}
 	}
+        clock_t parse_end = clock();
+        cout<<"\nParsing time elapsed: "<<double(diffclock(parse_end,parse_begin))<<" ms\n"<<endl;
+
 
 	//----------------------- Context Analysis -----------------------//
+        clock_t contextAnalysis_begin = clock();
             int numberOfQueries = XMLparser.queries.size();
 	//Create scope for AnalysisContext
 	{
@@ -417,10 +430,11 @@ int main(int argc, char* argv[]){
                     }
                 }
 	}
-
+        clock_t contextAnalysis_end = clock();
+        cout<<"Context Analysis time elapsed: "<<double(diffclock(contextAnalysis_end,contextAnalysis_begin))<<" ms\n"<<endl;
 
     //--------------------- Apply Net Reduction ---------------//
-
+        clock_t reduction_begin = clock();
     Reducer reducer = Reducer(net); // reduced is needed also in trace generation (hence the extended scope)
 	if (enablereduction == 1 or enablereduction == 2) {
             int i;
@@ -461,7 +475,8 @@ int main(int argc, char* argv[]){
 		reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
 		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
 	}
-
+        clock_t reduction_end = clock();
+        cout<<"Reduction time elapsed: "<<double(diffclock(reduction_end,reduction_begin))<<" ms\n"<<endl;
 	//----------------------- Reachability -----------------------//
 
 
@@ -498,7 +513,7 @@ int main(int argc, char* argv[]){
             return ErrorCode;
 
         }
-        
+        clock_t lpsolve_begin = clock();
         fprintf(stderr, "Using VerifyPN ENgine\n");
         ReachabilityResult result;
         int i;
@@ -515,10 +530,13 @@ int main(int argc, char* argv[]){
             }
             else solved[i] = 0;
         }
-        
+        clock_t lpsolve_end = clock();
+        cout<<"lpsolve time elapsed: "<<double(diffclock(lpsolve_end,lpsolve_begin))<<" ms\n"<<endl;
  
 	// alternative LTSmin flag
+        
 	if (enableLTSmin > 0) {
+            clock_t codeGen_begin = clock();
 		cout<<endl<<"LTSmin is enabled"<<endl;
 		//std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
 		CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1]);
@@ -537,6 +555,8 @@ int main(int argc, char* argv[]){
 			codeGen.generateSourceMultipleQueries(&stateLabels, solved, negateResult, numberOfQueries);
 			//codeGen.printQueries(stringQueries, numberOfQueries);
 		}
+            clock_t codeGen_end = clock();
+            cout<<"LTSmin Code Generation time elapsed: "<<double(diffclock(codeGen_end,codeGen_begin))<<" ms\n"<<endl;
 	}
 
 
@@ -549,23 +569,38 @@ int main(int argc, char* argv[]){
     //--------------------------------------------INFO FRA LTSMIN---------------------------------------------------//
 
      if(enableLTSmin > 0) {
+         clock_t LTSmin_begin = clock();
               string cmd1 = "sh runLTS.sh";
               //string cmd1 = "sh runLTS.osx64.sh";
+	  cmd1.append(" 2>&1");
+	  int ltsminVerified[numberOfQueries]; // keep track of what ltsmin has verified
+	  memset(ltsminVerified, 0, sizeof(int));
+              
+              int q, m, s;
               string data;
+              
               FILE * stream;
               const int max_buffer = 256;
               char buffer[max_buffer];
-              cmd1.append(" 2>&1");
-              int q;
-              string stdmsg = "VerifyPN: ";
-              stream = popen(cmd1.c_str(), "r");
-    
-                while (true){
+              
+              // ltsmin messages to search for
+              string searchExit[3] = {"exiting now", "Est. total memory use:", "state space"};
+              string searchPins2lts = "pins2lts-seq";
+
+              // verifypn messages
+	  string pins2ltsMessage;
+	  string stdmsg = "VerifyPN: ";
+	  string exitMessage = "LTSmin finished\n";
+
+	  int numberOfExitMessages = sizeof( searchExit ) / sizeof( searchExit[0] );
+	
+	bool exitLTSmin = 0;
+	stream = popen(cmd1.c_str(), "r");
+                while (!exitLTSmin){
                     if (fgets(buffer, max_buffer, stream) != NULL){
                         size_t found;
                         data = "";
                         data.append(buffer);
-                        //fprintf(stdout, "LTSmin says: %s\n", data.c_str());
                         for(q = 0; q<numberOfQueries; q++){
                                 
                                 stringstream ss;
@@ -578,71 +613,36 @@ int main(int argc, char* argv[]){
                                 string queryResultSat = string(stdmsg+"LTSmin result  >>  Query ") + number + " is satisfied";
                                 string queryResultNotSat = string(stdmsg+"LTSmin result  >>  Query ") + number + " is not satisfied";
                                 
-                                if ((found = data.find(searchSat))!=std::string::npos) 
+                                if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified[q]) {
                                     printf("%s\n", queryResultSat.c_str());
-                                else if((found = data.find(searchNotSat)) != std::string::npos)
+                                    ltsminVerified[q] = 1;
+                                }
+                                else if((found = data.find(searchNotSat)) != std::string::npos && !ltsminVerified[q]){
                                     printf("%s\n", queryResultNotSat.c_str());
-
-
+                                    ltsminVerified[q] = 1;
+                                }
                         }
-                        string searchPins2lts = string("pins2lts-seq");
-                        string pins2ltsMessage = string(stdmsg+data);
-                        if((found = data.find(searchPins2lts)) != std::string::npos)
-                        printf("%s\n", pins2ltsMessage.c_str());
+
+                        // exit messages
+                        for(m = 0; m<numberOfExitMessages; m++){
+                        	if((found = data.find(searchExit[m])) != std::string::npos){
+                        		printf("%s\n", exitMessage.c_str());
+                        		exitLTSmin = 1;
+                        		break;
+                        	}
+                        }
+
+                        /* Prints what ltsmin outputs
+                        pins2ltsMessage = string(stdmsg+data);
+		if((found = data.find(searchPins2lts)) != std::string::npos){
+                        	printf("%s\n", pins2ltsMessage.c_str());
+                        }*/
                     }
                         
                 }
                 pclose(stream);
-    /*
 
-              LTSminRunning += data;
-
-              for (int i = 0; i < 9; ++i) {
-
-                stringstream ss;
-                ss << i;
-                string number = ss.str();
-                string search = string("Query ") + number + " is satisfied";
-
-
-                string queryResult = string("LTSmin result  >>  Query ") + number + " is satisfied";
-
-              size_t found = LTSminRunning.find(search);
-              if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
-
-              }
-
-
-              for (int i = 0; i < 9; ++i) {
-
-                stringstream ss;
-                ss << i;
-                string number = ss.str();
-                string search = string("Query ") + number + " is NOT satisfied";
-
-
-                string queryResult = string("LTSmin result  >>  Query ") + number + " is not satisfied";
-
-              size_t found = LTSminRunning.find(search);
-              if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
-
-              }
-
-
-              if(enableLTSmin == 1) {
-
-                string search = string("Invariant");
-                string queryResult = string("LTSmin result  >>  Query is satisfied");
-
-              size_t found = LTSminRunning.find(search);
-              if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
-              else printf("LTSmin result  >>  Query is not satisfied");
-            }
-
-            printf("\n\n\n\n\n");
-*/
-
-
+                // evaluate results
 
 /*
      	int numberOfQueries = XMLparser.queries.size();
@@ -700,7 +700,8 @@ int main(int argc, char* argv[]){
 
 			printf("\n\n\n\n\n");
 */
-
+            clock_t LTSmin_end = clock();
+            cout<<"------------LTSmin Verification time elapsed: "<<double(diffclock(LTSmin_end,LTSmin_begin))<<" ms-----------\n"<<endl;
         }
 
 
