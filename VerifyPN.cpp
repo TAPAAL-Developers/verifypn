@@ -539,7 +539,7 @@ int main(int argc, char* argv[]){
             if(result.result() == ReachabilityResult::Unknown)
 		solved[i] = 0;
             else if(result.result() == ReachabilityResult::NotSatisfied){
-                if (isInvariantlist[i]) cout<<"Query "<< i <<" proved not satisfiable by lpsolve\n" <<endl;
+                if (isInvariantlist[i]) fprintf(stdout, "FORMULA %s FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ", XMLparser.queries[i].id.c_str());
                 else solved[i] = 0;
             }
             else solved[i] = 0;
@@ -590,6 +590,9 @@ int main(int argc, char* argv[]){
 	  int q, m, s;
               string data;
 
+      if (enableLTSmin == 1) {
+      	numberOfQueries = 1;
+      } 
 	  int ltsminVerified[numberOfQueries]; // keep track of what ltsmin has verified
 	  int solved[numberOfQueries]; // This should be replaced by the solved array already made, when it is complete.
 	  for(q = 0; q<numberOfQueries; q++){
@@ -632,8 +635,8 @@ int main(int argc, char* argv[]){
                                 string searchSat = string("#Query ") + number + " is satisfied.";
                                 string searchNotSat = string("#Query ") + number + " is NOT satisfied.";
 
-                                string queryResultSat = string("LTSmin result  >>  Query ") + number + " is satisfied";
-                                string queryResultNotSat = string("LTSmin result  >>  Query ") + number + " is not satisfied";
+                                string queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+                                string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
                                 
                                 if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified[q]) {
                                     printf("%s\n", queryResultSat.c_str());
@@ -663,12 +666,12 @@ int main(int argc, char* argv[]){
 
                 	//EF not satisfied
                 	if(!solved[q] && !negateResult[q] && !ltsminVerified[q]){
-                		fprintf(stdout, "LTSmin result  >>  Query %d is not satisfied\n", q);
+                		fprintf(stdout, "FORMULA %s FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ", XMLparser.queries[q].id.c_str());
                 	}
 
                 	//AG satisfied
                 	else if(!solved[q] && negateResult[q] && !ltsminVerified[q]){
-                		fprintf(stdout, "LTSmin result  >>  Query %d is satisfied\n", q);
+                		fprintf(stdout, "FORMULA %s TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ", XMLparser.queries[q].id.c_str());
                 	}
                 }
                 printf("%s\n", exitMessage.c_str());

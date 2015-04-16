@@ -59,9 +59,9 @@ namespace PetriEngine{
         fputs("#include <ltsmin/pins.h>\nstatic const int LABEL_GOAL = 0;\n", successor_generator);
         fprintf(successor_generator, "int group_count() {return %d;}\nint state_length() {return %d;}\nint label_count() {return %d;}\n", group_count, state_count, label_count);
 
-        
-        if (_isPlaceBound){        
         fprintf(successor_generator, "static int %s[%d] = {0};\n", solvedArray, 1);
+
+        if (_isPlaceBound){        
         fprintf(successor_generator, "int %s[%d] = {\n", ComputeBoundsArray, _nplaces);
 
         for (p = 0; p < _nplaces; p++){
@@ -181,7 +181,7 @@ namespace PetriEngine{
         const char* ComputeBoundsArray = "MaxNumberOfTokensInPlace";
         
         if (_isPlaceBound){
-           fprintf(successor_generator, "int %s[%d] = {\n", ComputeBoundsArray, _nplaces);
+        fprintf(successor_generator, "int %s[%d] = {\n", ComputeBoundsArray, _nplaces);
         for (p = 0; p < _nplaces; p++){
         fprintf(successor_generator, "%d, \n", _m0[p]);
         }
