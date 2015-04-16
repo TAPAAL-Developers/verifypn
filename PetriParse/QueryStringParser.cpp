@@ -70,7 +70,7 @@ using namespace std;
     }
 
     void QueryStringParser::replaceQueryForPlaceBound(std::string& query) {
-       query = "";
+       query = "0";
     }
 
     int QueryStringParser::inhibArc(unsigned int p, unsigned int t){

@@ -59,15 +59,17 @@ namespace PetriEngine{
         fputs("#include <ltsmin/pins.h>\nstatic const int LABEL_GOAL = 0;\n", successor_generator);
         fprintf(successor_generator, "int group_count() {return %d;}\nint state_length() {return %d;}\nint label_count() {return %d;}\n", group_count, state_count, label_count);
 
-
+        
+        if (_isPlaceBound){        
         fprintf(successor_generator, "static int %s[%d] = {0};\n", solvedArray, 1);
         fprintf(successor_generator, "int %s[%d] = {\n", ComputeBoundsArray, _nplaces);
 
         for (p = 0; p < _nplaces; p++){
-        fprintf(successor_generator, "%d, \n", _m0[p]);
+        fprintf(successor_generator, "%d, \n", _m0[p]); }
+
+        fputs("};", successor_generator);
         }
         
-        fputs("};", successor_generator);
 
         //Write do_callback
         fputs("void do_callback(int *cpy, int *placemarkings, TransitionCB callback, void *arg){\n", successor_generator);
@@ -120,7 +122,7 @@ namespace PetriEngine{
                 if(_net->outArc(t,p) > 0){
                     fprintf(successor_generator, "placemarkings[%d] = src[%d] + %d;\n", p, p, _net->outArc(t,p));
                     fprintf(successor_generator, "cpy[%d] = 0;\n", p);
-                    fprintf(successor_generator, "if(placemarkings[%d] >= %s[%d]) { %s[%d] = placemarkings[%d]; }\n", p, ComputeBoundsArray, p, ComputeBoundsArray, p, p);
+                    if(_isPlaceBound) {fprintf(successor_generator, "if(placemarkings[%d] >= %s[%d]) { %s[%d] = placemarkings[%d]; }\n", p, ComputeBoundsArray, p, ComputeBoundsArray, p, p);}
                 }
             }
 
@@ -176,6 +178,18 @@ namespace PetriEngine{
         successor_generator = fopen("temp.txt", "w+");
 
         const char* solvedArray = "solved";
+        const char* ComputeBoundsArray = "MaxNumberOfTokensInPlace";
+        
+        if (_isPlaceBound){
+           fprintf(successor_generator, "int %s[%d] = {\n", ComputeBoundsArray, _nplaces);
+        for (p = 0; p < _nplaces; p++){
+        fprintf(successor_generator, "%d, \n", _m0[p]);
+        }
+     
+        fputs("};", successor_generator);
+        }
+
+
 
         //Preliminaries
         fputs("#include <ltsmin/pins.h>\nstatic const int LABEL_GOAL = 0;\n", successor_generator);
@@ -188,6 +202,8 @@ namespace PetriEngine{
             else
                 fprintf(successor_generator, "0,"); // all but the last query
         }
+
+
 
         fprintf(successor_generator, "int group_count() {return %d;}\nint state_length() {return %d;}\nint label_count() {return %d;}\n", group_count, state_count, label_count);
 
@@ -242,6 +258,7 @@ namespace PetriEngine{
                 if(_net->outArc(t,p) > 0){
                     fprintf(successor_generator, "placemarkings[%d] = src[%d] + %d;\n", p, p, _net->outArc(t,p));
                     fprintf(successor_generator, "cpy[%d] = 0;\n", p);
+                    if(_isPlaceBound) {fprintf(successor_generator, "if(placemarkings[%d] >= %s[%d]) { %s[%d] = placemarkings[%d]; }\n", p, ComputeBoundsArray, p, ComputeBoundsArray, p, p);}
                 }
             }
 
