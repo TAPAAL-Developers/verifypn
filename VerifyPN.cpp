@@ -659,11 +659,11 @@ int main(int argc, char* argv[]){
 	string exitMessage = "LTSmin finished";
 
 	if(ltsminMc){ // multicore
-		string cmd = "sh runLTS.sh";
+		cmd = "sh runLTS.sh";
 	          //cmd = "sh runLTS.osx64.sh";
 	}
 	else{ // single core
-		string cmd = "sh runLTS.sh";
+		cmd = "sh runLTS.sh";
 	        //  cmd = "sh runLTS.osx64.sh";
 	}
 
@@ -784,7 +784,6 @@ int main(int argc, char* argv[]){
 	                        	}
 	                        }
 	                    }
-	                        
 	                }
 	                pclose(stream);
 
