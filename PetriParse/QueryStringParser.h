@@ -18,6 +18,7 @@ class QueryStringParser {
 
         void replaceOperator(std::string& query, const std::string& from, const std::string& to);
         void replacePlaces(std::string& query);
+        void replaceQueryForPlaceBound(std::string& query);
         string  getPlaceIndexByName(const std::string placeName);
         void findDeadlockConditions(std::string& query, size_t deadlockPos);
         int inhibArc(unsigned int p, unsigned int t);
