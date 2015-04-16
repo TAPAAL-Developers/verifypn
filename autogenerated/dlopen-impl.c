@@ -68,6 +68,10 @@ void pins_model_init(model_t m) {
     // set function pointer for the label evaluation function
     GBsetStateLabelLong(m, (get_label_method_t) state_label);
 
+
+    int exit_func(void* model);
+    GBsetExit(m, exit_func);
+
     // create combined matrix
     matrix_t *cm = malloc(sizeof(matrix_t));
     dm_create(cm, group_count(), state_length());
@@ -77,10 +81,10 @@ void pins_model_init(model_t m) {
     dm_create(rm, group_count(), state_length());
     for (int i = 0; i < group_count(); i++) {
         for (int j = 0; j < state_length(); j++) {
-            
+
                 dm_set(cm, i, j);
                 dm_set(rm, i, j);
-            
+
         }
     }
     GBsetDMInfoRead(m, rm);
@@ -90,10 +94,10 @@ void pins_model_init(model_t m) {
     dm_create(wm, group_count(), state_length());
     for (int i = 0; i < group_count(); i++) {
         for (int j = 0; j < state_length(); j++) {
-            
+
                 dm_set(cm, i, j);
                 dm_set(wm, i, j);
-            
+
         }
     }
     GBsetDMInfoMustWrite(m, wm);
