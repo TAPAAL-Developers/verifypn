@@ -39,6 +39,7 @@ public:
             string queryText; // only EF queries will be here
             bool negateResult; // true if the final result should be negated
             bool isPlaceBound; // true if the query is a place-bound one (returns integer)
+            bool isReachBound;
             string placeNameForBound;
             enum { 
                 PARSING_OK,

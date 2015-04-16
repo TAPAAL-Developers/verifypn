@@ -96,6 +96,7 @@ int main(int argc, char* argv[]){
 	std::string LTSminRunning = "start - \n";
 	std::vector<std::string> stateLabels;
     Condition* querylist[10];
+    bool isReachBound = false;
 
 	//----------------------- Parse Arguments -----------------------//
 
@@ -433,8 +434,15 @@ int main(int argc, char* argv[]){
         clock_t contextAnalysis_end = clock();
         cout<<"Context Analysis time elapsed: "<<double(diffclock(contextAnalysis_end,contextAnalysis_begin))<<" ms\n"<<endl;
 
+
+
+
+
     //--------------------- Apply Net Reduction ---------------//
-        clock_t reduction_begin = clock();
+
+
+
+    clock_t reduction_begin = clock();
     Reducer reducer = Reducer(net); // reduced is needed also in trace generation (hence the extended scope)
 	if (enablereduction == 1 or enablereduction == 2) {
             int i;
@@ -550,10 +558,11 @@ int main(int argc, char* argv[]){
 	// alternative LTSmin flag
         
 	if (enableLTSmin > 0) {
+
             clock_t codeGen_begin = clock();
 		cout<<endl<<"LTSmin is enabled"<<endl;
 		//std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
-		CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isPlaceBound);
+		CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound);
 		int numberOfQueries = XMLparser.queries.size();
 		string* stringQueries = new string[numberOfQueries];
 
@@ -590,9 +599,7 @@ int main(int argc, char* argv[]){
 	  int q, m, s;
               string data;
 
-      if (enableLTSmin == 1) {
-      	numberOfQueries = 1;
-      } 
+   
 	  int ltsminVerified[numberOfQueries]; // keep track of what ltsmin has verified
 	  int solved[numberOfQueries]; // This should be replaced by the solved array already made, when it is complete.
 	  for(q = 0; q<numberOfQueries; q++){
@@ -607,7 +614,7 @@ int main(int argc, char* argv[]){
               char buffer[max_buffer];
               
               // ltsmin messages to search for
-              string searchExit[3] = {"exiting now", "Est. total memory use:", "state space"};
+              string searchExit[1] = {"exiting now"};
               string searchPins2lts = "pins2lts-seq";
 
               // verifypn messages
@@ -627,16 +634,49 @@ int main(int argc, char* argv[]){
                         data = "";
                         data.append(buffer);
                         for(q = 0; q<numberOfQueries; q++){
-                                
+
+
                                 stringstream ss;
                                 ss << q;
                                 string number = ss.str();
 
+                                if(XMLparser.queries[q].isPlaceBound){
+                            
+                            	
+
+                                	string searchPlaceBound = string("Query ") + number + " max tokens are";
+                                	string maxtokens;
+
+                                	size_t startPos = 0;
+
+							        if((startPos = data.find("\'", startPos)) != std::string::npos) {
+
+							                size_t end_quote = data.find("\'", startPos + 1);
+							                size_t nameLen = (end_quote - startPos) + 1;
+							                maxtokens = data.substr(startPos + 1, nameLen - 2);   
+
+							                startPos += maxtokens.size();
+
+
+							            }
+							  
+
+							        string queryResultPlaceBound = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " = " + maxtokens.c_str() + " TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+
+                                	
+                                	if((found = data.find(searchPlaceBound)) != std::string::npos){
+                                    printf("%s\n", queryResultPlaceBound.c_str());
+                                    ltsminVerified[q] = 1;
+                                	}
+                                }
+
                                 string searchSat = string("#Query ") + number + " is satisfied.";
                                 string searchNotSat = string("#Query ") + number + " is NOT satisfied.";
+                        
 
                                 string queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
                                 string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+                                
                                 
                                 if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified[q]) {
                                     printf("%s\n", queryResultSat.c_str());
@@ -646,6 +686,8 @@ int main(int argc, char* argv[]){
                                     printf("%s\n", queryResultNotSat.c_str());
                                     ltsminVerified[q] = 1;
                                 }
+                            
+                                
                         }
 
                         // exit messages

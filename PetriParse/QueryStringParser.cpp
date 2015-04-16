@@ -70,8 +70,39 @@ using namespace std;
     }
 
     void QueryStringParser::replaceQueryForPlaceBound(std::string& query) {
-       query = "0";
+        size_t startPos = 0;
+
+        while((startPos = query.find("\"", startPos)) != std::string::npos) {
+            size_t end_quote = query.find("\"", startPos + 1);
+            size_t nameLen = (end_quote - startPos) + 1;
+
+            // Exclude both quotes from place name before searching
+            string oldPlaceName = query.substr(startPos + 1, nameLen - 2);
+            string newPlaceIndex = getPlaceIndexByName(oldPlaceName);
+            string newPlaceName = "MaxNumberOfTokensInPlace[" + newPlaceIndex + "]";
+
+            query.replace(startPos, nameLen, newPlaceName);
+            startPos += newPlaceName.size();
+        }
     }
+
+    void QueryStringParser::replaceQueryForComputePlaceBound(std::string& query) {
+        size_t startPos = 0;
+
+        while((startPos = query.find("\"", startPos)) != std::string::npos) {
+            size_t end_quote = query.find("\"", startPos + 1);
+            size_t nameLen = (end_quote - startPos) + 1;
+
+            // Exclude both quotes from place name before searching
+            string oldPlaceName = query.substr(startPos + 1, nameLen - 2);
+            string newPlaceIndex = getPlaceIndexByName(oldPlaceName);
+            string newPlaceName = "MaxNumberOfTokensInPlace[" + newPlaceIndex + "]";
+
+            query.replace(startPos, nameLen, newPlaceName);
+            startPos += newPlaceName.size();
+        }
+    }
+    
 
     int QueryStringParser::inhibArc(unsigned int p, unsigned int t){
         for (PNMLParser::InhibitorArcIter it = _inhibArcs.begin(); it != _inhibArcs.end(); it++) {
@@ -137,12 +168,21 @@ using namespace std;
             findDeadlockConditions(query, deadlockPos);
         } 
         else if(_Parser->queries[i].isPlaceBound){
-            replaceQueryForPlaceBound(query);
-        } 
+            replaceQueryForComputePlaceBound(query);
+                 // Replace all TAPAAL query operators with C operators
+            replaceOperator(query, "not", "!");
+            replaceOperator(query, "and", "&&");
+            replaceOperator(query, "or", "||");
+
+            // Replace true/false with 1,0
+            replaceOperator(query, "true", "1");
+            replaceOperator(query, "false", "0");
+        }
+         
+       
         else {
             // Rename places eg. "place0" -> src[0]
-            replacePlaces(query);
-
+            replacePlaces(query);  
             // Replace all TAPAAL query operators with C operators
             replaceOperator(query, "not", "!");
             replaceOperator(query, "and", "&&");

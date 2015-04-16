@@ -8,7 +8,7 @@
 namespace PetriEngine {
     class CodeGenerator {
         public:
-        CodeGenerator(PetriNet* petriNet, MarkVal* m0, PNMLParser::InhibitorArcList placeInInhib, string statelabel, bool isPlaceBound); 
+        CodeGenerator(PetriNet* petriNet, MarkVal* m0, PNMLParser::InhibitorArcList placeInInhib, string statelabel, bool isReachBound, bool isPlaceBound); 
         void generateSource(int *searchAllPaths, int query_id);
         int inhibArc(unsigned int p, unsigned int t);
 
@@ -24,6 +24,7 @@ namespace PetriEngine {
         MarkVal* _m0;
         string _statelabel;
         PNMLParser::InhibitorArcList _inhibarcs;
+        bool _isReachBound;
         bool _isPlaceBound;
 
         char const*sl();
