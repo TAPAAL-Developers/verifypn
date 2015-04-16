@@ -95,7 +95,7 @@ int main(int argc, char* argv[]){
 	int enableLTSmin = 0;
 	std::string LTSminRunning = "start - \n";
 	std::vector<std::string> stateLabels;
-    Condition* querylist[10];
+    	bool ltsminMc = false;
 
 	//----------------------- Parse Arguments -----------------------//
 
@@ -288,7 +288,7 @@ int main(int argc, char* argv[]){
 		parser.parse(buffer.str(), &builder);
 		parser.makePetriNet();
 
-        inhibarcs = parser.getInhibitorArcs(); // Remember inhibitor arcs
+        		inhibarcs = parser.getInhibitorArcs(); // Remember inhibitor arcs
 		transitionEnabledness = parser.getTransitionEnabledness(); // Remember conditions for transitions
 
 		//Build the petri net
@@ -305,9 +305,6 @@ int main(int argc, char* argv[]){
 	//Condition to check
 	Condition* query = NULL;
 	bool isInvariant = false;
-
-    bool isInvariantlist[10];
-
 
 	QueryXMLParser XMLparser(transitionEnabledness); // parser for XML queries
 	//Read query file, begin scope to release memory
@@ -387,26 +384,34 @@ int main(int argc, char* argv[]){
 
 		//Parse query
 		query = ParseQuery(querystring);
-                int i;
-                for(i = 0; i < XMLparser.queries.size(); i++){
-                    string querystr = XMLparser.queries[i].queryText;
-                    querystring = querystr.substr(2);
-                    isInvariantlist[i] = XMLparser.queries[i].negateResult;
-                    querylist[i] = ParseQuery(querystring);
-                }
+
 		if(!query){
 			fprintf(stderr, "Error: Failed to parse query \"%s\"\n", querystring.c_str()); //querystr.substr(2).c_str());
 			return ErrorCode;
-		}
+		}		
 	}
+
+	// used by ltsmin for multi query 
+	int numberOfQueries = XMLparser.queries.size();
+	bool isInvariantlist[numberOfQueries];
+	Condition* querylist[numberOfQueries];
+        	int negateResult[numberOfQueries];
+	int i;
+	string querystring;
+	for(i = 0; i < XMLparser.queries.size(); i++){
+		string querystr = XMLparser.queries[i].queryText;
+		querystring = querystr.substr(2);
+		isInvariantlist[i] = XMLparser.queries[i].negateResult;
+		querylist[i] = ParseQuery(querystring);
+	}	
+
         clock_t parse_end = clock();
         cout<<"\nParsing time elapsed: "<<double(diffclock(parse_end,parse_begin))<<" ms\n"<<endl;
 
 
 	//----------------------- Context Analysis -----------------------//
-        clock_t contextAnalysis_begin = clock();
-            int numberOfQueries = XMLparser.queries.size();
-            int negateResult[numberOfQueries];
+        	clock_t contextAnalysis_begin = clock();
+            
 	//Create scope for AnalysisContext
 	{
 		//Context analysis
@@ -436,8 +441,6 @@ int main(int argc, char* argv[]){
 
         
         //----------------------- Reachability -----------------------//
-        //
-
 
 	//Create reachability search strategy
 	ReachabilitySearchStrategy* strategy = NULL;
@@ -468,28 +471,29 @@ int main(int argc, char* argv[]){
 
 
 	if(!strategy && !useLTSmin){
-            fprintf(stderr, "No strategy what so ever!\n");
-            return ErrorCode;
 
-        }
+	            fprintf(stderr, "No strategy what so ever!\n");
+	            return ErrorCode;
+	}
+
         clock_t lpsolve_begin = clock();
         fprintf(stderr, "Using VerifyPN ENgine\n");
         ReachabilityResult result;
-        int i;
-        int *solved = new int[numberOfQueries];
+        
+        int *notSatisfiable = new int[numberOfQueries];
         for(i = 0; i<numberOfQueries;i++){
-        	solved[i] = 1;
+        	notSatisfiable[i] = 1;
         }
         for (i = 0; i < XMLparser.queries.size(); i++){
             result = strategy->reachable(*net, m0, v0, querylist[i]);
 
             if(result.result() == ReachabilityResult::Unknown)
-		solved[i] = 0;
+		notSatisfiable[i] = 0;
             else if(result.result() == ReachabilityResult::NotSatisfied){
-                if (isInvariantlist[i]) fprintf(stdout, "FORMULA %s FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ", XMLparser.queries[i].id.c_str());
-                else solved[i] = 0;
+                if (isInvariantlist[i]) fprintf(stdout, "FORMULA %s FALSE TECHNIQUES EXPLICIT\n ", XMLparser.queries[i].id.c_str());
+                else notSatisfiable[i] = 0;
             }
-            else solved[i] = 0;
+            else notSatisfiable[i] = 0;
         }
         clock_t lpsolve_end = clock();
         cout<<"lpsolve time elapsed: "<<double(diffclock(lpsolve_end,lpsolve_begin))<<" ms\n"<<endl;
@@ -531,7 +535,7 @@ int main(int argc, char* argv[]){
                     //Test Beta
                     string reductionquerystr;
                     for (i = 0; i < XMLparser.queries.size(); i++){
-                        if (solved[i] != 0){
+                        if (notSatisfiable[i] != 0){
                             if(i>0)
                                 reductionquerystr += " and ";
                             reductionquerystr += querylist[i]->toString();
@@ -598,13 +602,7 @@ int main(int argc, char* argv[]){
         clock_t reduction_end = clock();
         cout<<"Reduction time elapsed: "<<double(diffclock(reduction_end,reduction_begin))<<" ms\n"<<endl;
 
-       
-        
-        
-	
  
-	// alternative LTSmin flag
-        
 	if (enableLTSmin > 0) {
             clock_t codeGen_begin = clock();
 		cout<<endl<<"LTSmin is enabled"<<endl;
@@ -614,14 +612,13 @@ int main(int argc, char* argv[]){
 		string* stringQueries = new string[numberOfQueries];
 
 		if(enableLTSmin == 1){ // verify only one query
-			codeGen.generateSource(negateResult, (xmlquery - 1));
-			cout<<endl<<"code generator is done"<<endl;
+			codeGen.generateSource(isInvariantlist, (xmlquery - 1));
 		}
 
 		else if(enableLTSmin == 2){ // verify all queries at once
 			string* stringQueries = new string[numberOfQueries];
 			codeGen.createQueries(stringQueries, negateResult, XMLparser.queries, stateLabels);		
-			codeGen.generateSourceMultipleQueries(&stateLabels, solved, negateResult, numberOfQueries);
+			codeGen.generateSourceMultipleQueries(&stateLabels, notSatisfiable, negateResult, numberOfQueries);
 			//codeGen.printQueries(stringQueries, numberOfQueries);
 		}
             clock_t codeGen_end = clock();
@@ -635,58 +632,57 @@ int main(int argc, char* argv[]){
 	//Reachability search
         
 
-    //--------------------------------------------INFO FRA LTSMIN---------------------------------------------------//
+    //--------------------------------------------RUNNING LTSMIN---------------------------------------------------//
 
      if(enableLTSmin > 0) {
-	  clock_t LTSmin_begin = clock();
-              string cmd1 = "sh runLTS.sh";
-              //string cmd1 = "sh runLTS.osx64.sh";
+     	clock_t LTSmin_begin = clock();
 
-	  cmd1.append(" 2>&1");
-	  int q, m, s;
-              string data;
+	FILE * stream;
+	const int max_buffer = 256;
+	char buffer[max_buffer];
+	string cmd;
 
-      if (enableLTSmin == 1) {
-      	numberOfQueries = 1;
-      } 
-	  int ltsminVerified[numberOfQueries]; // keep track of what ltsmin has verified
-	  int solved[numberOfQueries]; // This should be replaced by the solved array already made, when it is complete.
-	  for(q = 0; q<numberOfQueries; q++){
-	  	ltsminVerified[q] = 0;
-	  	solved[q] = 0;
-	  }
+	// ltsmin messages to search for
+	string searchExit[3] = {"exiting now", "Est. total memory use:", "state space"};
+	string searchPins2lts = "pins2lts-seq";
 
-              
-              
-              FILE * stream;
-              const int max_buffer = 256;
-              char buffer[max_buffer];
-              
-              // ltsmin messages to search for
-              string searchExit[3] = {"exiting now", "Est. total memory use:", "state space"};
-              string searchPins2lts = "pins2lts-seq";
+	// verifypn messages
+	string pins2ltsMessage;
+	string stdmsg = "VerifyPN: ";
+	string startMessage = "LTSmin has started";
+	string exitMessage = "LTSmin finished";
 
-              // verifypn messages
-	  string pins2ltsMessage;
-	  string stdmsg = "VerifyPN: ";
-	  string startMessage = "LTSmin has started\n";
-	  string exitMessage = "LTSmin finished\n";
+	if(ltsminMc){ // multicore
+		//string cmd = "sh runLTS.sh";
+	          cmd = "sh runLTS.osx64.sh";
+	}
+	else{ // single core
+		//string cmd = "sh runLTS.sh";
+	          cmd = "sh runLTS.osx64.sh";
+	}
 
-	  int numberOfExitMessages = sizeof( searchExit ) / sizeof( searchExit[0] );
-	
-	bool exitLTSmin = 0;
-	printf("%s\n", startMessage.c_str());
-	stream = popen(cmd1.c_str(), "r");
-                while (!exitLTSmin){
-                    if (fgets(buffer, max_buffer, stream) != NULL){
-                        size_t found;
-                        data = "";
-                        data.append(buffer);
-                        for(q = 0; q<numberOfQueries; q++){
-                                
-                                stringstream ss;
-                                ss << q;
-                                string number = ss.str();
+	  cmd.append(" 2>&1");
+
+
+	  if(enableLTSmin == 1){
+  		int q, m, s;
+	              string data;	              
+		  int numberOfExitMessages = sizeof( searchExit ) / sizeof( searchExit[0] );
+		int solved = 0;
+		int ltsminVerified = 0;
+		int queryIndex = xmlquery-1;
+		bool exitLTSmin = 0;
+		printf("%s\n", startMessage.c_str());
+		stringstream ss;
+		ss << queryIndex;
+		string number = ss.str();
+		stream = popen(cmd.c_str(), "r");
+
+	                while (!exitLTSmin){
+	                    if (fgets(buffer, max_buffer, stream) != NULL){
+	                        size_t found;
+	                        data = "";
+	                        data.append(buffer);
 
                                 string searchSat = string("#Query ") + number + " is satisfied.";
                                 string searchNotSat = string("#Query ") + number + " is NOT satisfied.";
@@ -694,103 +690,123 @@ int main(int argc, char* argv[]){
                                 string queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
                                 string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
                                 
-                                if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified[q]) {
+                                if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified) {
                                     printf("%s\n", queryResultSat.c_str());
-                                    ltsminVerified[q] = 1;
+                                    solved = 1;
+                                    ltsminVerified = 1;
+                		exitLTSmin = 1;
                                 }
-                                else if((found = data.find(searchNotSat)) != std::string::npos && !ltsminVerified[q]){
+                                else if((found = data.find(searchNotSat)) != std::string::npos && !ltsminVerified){
                                     printf("%s\n", queryResultNotSat.c_str());
-                                    ltsminVerified[q] = 1;
+                                    ltsminVerified = 1;
+                		exitLTSmin = 1;
                                 }
-                        }
 
-                        // exit messages
-                        for(m = 0; m<numberOfExitMessages; m++){
-                        	if((found = data.find(searchExit[m])) != std::string::npos){
-                        		//printf("%s\n", exitMessage.c_str());
-                        		exitLTSmin = 1;
-                        		break;
-                        	}
-                        }
-                    }
-                        
-                }
-                pclose(stream);
+	                        // exit messages
+	                        for(m = 0; m<numberOfExitMessages; m++){
+	                        	if((found = data.find(searchExit[m])) != std::string::npos){
+	                        		exitLTSmin = 1;
+	                        		break;
+	                        	}
+	                        }
+	                }
+	            }
+	                pclose(stream);
+		//EF not satisfied
+		if(!solved && !negateResult[queryIndex] && !ltsminVerified){
+			fprintf(stdout, "LTSmin result  >>  Query %d is not satisfied\n", queryIndex);
+		}
 
-                // evaluate results
-                for(q = 0; q<numberOfQueries;q++){
+		//AG satisfied
+		else if(!solved && negateResult[queryIndex] && !ltsminVerified){
+			fprintf(stdout, "LTSmin result  >>  Query %d is satisfied\n", queryIndex);
+		}
 
-                	//EF not satisfied
-                	if(!solved[q] && !negateResult[q] && !ltsminVerified[q]){
-                		fprintf(stdout, "FORMULA %s FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ", XMLparser.queries[q].id.c_str());
-                	}
+		printf("%s\n", exitMessage.c_str());
 
-                	//AG satisfied
-                	else if(!solved[q] && negateResult[q] && !ltsminVerified[q]){
-                		fprintf(stdout, "FORMULA %s TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ", XMLparser.queries[q].id.c_str());
-                	}
-                }
-                printf("%s\n", exitMessage.c_str());
-/*
-     	int numberOfQueries = XMLparser.queries.size();
+	  }
 
-     	  printf("\n\n\n\n\n");
-            string cmd1 = "sh runLTS.sh";
+	  else if(enableLTSmin == 2){  
+		  int q, m, s;
+	              string data;
 
+		  int ltsminVerified[numberOfQueries]; // keep track of what ltsmin has verified
+		  int solved[numberOfQueries];
+		  for(q = 0; q<numberOfQueries; q++){
+		  	ltsminVerified[q] = 0;
+		  	solved[q] = 0;
+		  }
+	              
+		  int numberOfExitMessages = sizeof( searchExit ) / sizeof( searchExit[0] );
+		
+		bool exitLTSmin = 0;
+		printf("%s\n", startMessage.c_str());
+		stream = popen(cmd.c_str(), "r");
+	                while (!exitLTSmin){
+	                    if (fgets(buffer, max_buffer, stream) != NULL){
+	                        size_t found;
+	                        data = "";
+	                        data.append(buffer);
+	                        for(q = 0; q<numberOfQueries; q++){
+	                                stringstream ss;
+	                                ss << q;
+	                                string number = ss.str();
 
-              string data;
-              FILE * stream;
-              const int max_buffer = 256;
-              char buffer[max_buffer];
-              cmd1.append(" 2>&1");
+	                                string searchSat = string("#Query ") + number + " is satisfied.";
+	                                string searchNotSat = string("#Query ") + number + " is NOT satisfied.";
 
-              stream = popen(cmd1.c_str(), "r");
-              if (stream) {
-              while (!feof(stream))
-              if (fgets(buffer, max_buffer, stream) != NULL) data.append(buffer);
-              pclose(stream);
-              }
+	                                string queryResultSat = string("LTSmin result  >>  Query ") + number + " is satisfied";
+	                                string queryResultNotSat = string("LTSmin result  >>  Query ") + number + " is not satisfied";
+	                                
+	                                if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified[q]) {
+	                                    printf("%s\n", queryResultSat.c_str());
+	                                    solved[q] = 1;
+	                                    ltsminVerified[q] = 1;
+	                                }
+	                                else if((found = data.find(searchNotSat)) != std::string::npos && !ltsminVerified[q]){
+	                                    printf("%s\n", queryResultNotSat.c_str());
+	                                    ltsminVerified[q] = 1;
+	                                }
+	                        }
 
+	                        // exit messages
+	                        for(m = 0; m<numberOfExitMessages; m++){
+	                        	if((found = data.find(searchExit[m])) != std::string::npos){
+	                        		//printf("%s\n", exitMessage.c_str());
+	                        		exitLTSmin = 1;
+	                        		break;
+	                        	}
+	                        }
+	                    }
+	                        
+	                }
+	                pclose(stream);
 
-              LTSminRunning += data;
+	                // evaluate results
+	                for(q = 0; q<numberOfQueries;q++){
 
-              for (int i = 0; i < numberOfQueries; ++i) {
+	                	//EF not satisfied
+	                	if(!solved[q] && !negateResult[q] && !ltsminVerified[q]){
+	                		fprintf(stdout, "LTSmin result  >>  Query %d is not satisfied\n", q);
+	                	}
 
-           		stringstream ss;
-				ss << i;
-				string number = ss.str();
-                string search = string("Query ") + number + " is satisfied";
+	                	//AG satisfied
+	                	else if(!solved[q] && negateResult[q] && !ltsminVerified[q]){
+	                		fprintf(stdout, "LTSmin result  >>  Query %d is satisfied\n", q);
+	                	}
+	                }
+	                printf("%s\n", exitMessage.c_str());
 
+	  }
 
-             	string queryResult = string("LTSmin result  >>  Query ") + number + " is satisfied";
-
-			  size_t found = LTSminRunning.find(search);
-			  if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
-
-          	  }
-
-
-              for (int i = 0; i < numberOfQueries; ++i) {
-
-           		stringstream ss;
-				ss << i;
-				string number = ss.str();
-                string search = string("Query ") + number + " is NOT satisfied";
-
-
-             	string queryResult = string("LTSmin result  >>  Query ") + number + " is not satisfied";
-
-			  size_t found = LTSminRunning.find(search);
-			  if (found!=std::string::npos) printf("%s\n", queryResult.c_str());
-
-          	  }
-
-			printf("\n\n\n\n\n");
-*/
             clock_t LTSmin_end = clock();
             cout<<"------------LTSmin Verification time elapsed: "<<double(diffclock(LTSmin_end,LTSmin_begin))<<" ms-----------\n"<<endl;
+            return 0;
         }
 
+
+
+	fprintf(stderr, "Using VerifyPN Engine\n");
 
 	//----------------------- Output Result -----------------------//
 
