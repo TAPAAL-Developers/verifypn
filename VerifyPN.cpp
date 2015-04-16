@@ -498,10 +498,6 @@ int main(int argc, char* argv[]){
         //--------------------- Apply Net Reduction ---------------//
         clock_t reduction_begin = clock();
         bool reduceByMultiQuery = true;
-        fprintf(stdout, "-------Net Before Reduction------------\n");
-        fprintf(stdout, "Number of places: %d\n", net->numberOfPlaces());
-        fprintf(stdout, "Number of transitions: %d\n", net->numberOfTransitions());
-        fprintf(stdout, "---------------------------------------\n");
         Reducer reducer = Reducer(net); // reduced is needed also in trace generation (hence the extended scope)
 	if (enablereduction == 1 or enablereduction == 2) {
             int i;
@@ -523,8 +519,6 @@ int main(int argc, char* argv[]){
                 
                 fprintf(stdout, "NO QUERY - Removed transitions: %d\n", tempreducer.RemovedTransitions());
                 fprintf(stdout, "NO QUERY - Removed places: %d\n", tempreducer.RemovedPlaces());
-                fprintf(stdout, "Number of places: %d\n", tempnet->numberOfPlaces());
-                fprintf(stdout, "Number of transitions: %d\n", tempnet->numberOfTransitions());
                 
                 double removedTransitions_d = tempreducer.RemovedTransitions();
                 double removedPlaces_d = tempreducer.RemovedPlaces();
@@ -594,12 +588,12 @@ int main(int argc, char* argv[]){
                
             }
         //----------------------- For reduction testing-----------------------------
-        fprintf(stdout, "Removed transitions: %d\n", reducer.RemovedTransitions());
+        /*fprintf(stdout, "Removed transitions: %d\n", reducer.RemovedTransitions());
         fprintf(stdout, "Removed places: %d\n", reducer.RemovedPlaces());
         fprintf(stdout, "Applications of rule A: %d\n", reducer.RuleA());
         fprintf(stdout, "Applications of rule B: %d\n", reducer.RuleB());
         fprintf(stdout, "Applications of rule C: %d\n", reducer.RuleC());
-        fprintf(stdout, "Applications of rule D: %d\n", reducer.RuleD());
+        fprintf(stdout, "Applications of rule D: %d\n", reducer.RuleD());*/
         //----------------------------------Mvh. Søren--------------------------
 	}
         clock_t reduction_end = clock();
