@@ -247,13 +247,13 @@ int main(int argc, char* argv[]){
 
 	//Check for model file
 	if(!modelfile){
-		fprintf(stderr, "Argument Error: No model-file provided\n");
+		fprintf(stderr, "CANNOT COMPUTE\n");
 		return ErrorCode;
 	}
 
 	//Check for query file
 	if(!modelfile && !statespaceexploration){
-		fprintf(stderr, "Argument Error: No query-file provided\n");
+		fprintf(stderr, "DO_NOT_COMPETE\n");
 		return ErrorCode;
 	}
 
@@ -365,6 +365,7 @@ int main(int argc, char* argv[]){
 				//Validate query type
 				if (querystr.substr(0, 2) != "EF" && querystr.substr(0, 2) != "AG") {
 					fprintf(stderr, "Error: Query type \"%s\" not supported, only (EF and AG is supported)\n", querystr.substr(0, 2).c_str());
+                                        fprintf(stderr, "DO_NOT_COMPETE\n" );
 					return ErrorCode;
 				}
 				//Check if is invariant
@@ -387,6 +388,7 @@ int main(int argc, char* argv[]){
 
 		if(!query){
 			fprintf(stderr, "Error: Failed to parse query \"%s\"\n", querystring.c_str()); //querystr.substr(2).c_str());
+                        fprintf(stderr, "CANNOT COMPUTE\n"); //querystr.substr(2).c_str());
 			return ErrorCode;
 		}		
 	}
@@ -422,6 +424,7 @@ int main(int argc, char* argv[]){
 		if(context.errors().size() > 0){
 			for(size_t i = 0; i < context.errors().size(); i++){
 				fprintf(stderr, "Query Context Analysis Error: %s\n", context.errors()[i].toString().c_str());
+                                fprintf(stderr, "CANNOT_COMPUTE\n");
 			}
 			return ErrorCode;
 		}
@@ -431,6 +434,7 @@ int main(int argc, char* argv[]){
                     if(context.errors().size() > 0){
 			for(size_t i = 0; i < context.errors().size(); i++){
 				fprintf(stderr, "Query Context Analysis Error: %s\n", context.errors()[i].toString().c_str());
+                                fprintf(stderr, "CANNOT_COMPUTE\n");
 			}
 			return ErrorCode;
                     }
@@ -460,6 +464,7 @@ int main(int argc, char* argv[]){
                 useLTSmin = true;
 	}else{
 		fprintf(stderr, "Error: Search strategy selection out of range.\n");
+                fprintf(stderr, "CANNOT_COMPUTE\n");
 		return ErrorCode;
 	}
 
@@ -473,6 +478,7 @@ int main(int argc, char* argv[]){
 	if(!strategy && !useLTSmin){
 
 	            fprintf(stderr, "No strategy what so ever!\n");
+                    fprintf(stderr, "CANNOT_COMPUTE\n");
 	            return ErrorCode;
 	}
 
@@ -491,7 +497,7 @@ int main(int argc, char* argv[]){
                 if(result.result() == ReachabilityResult::Unknown)
                     notSatisfiable[i] = 0;
                 else if(result.result() == ReachabilityResult::NotSatisfied){
-                    if (isInvariantlist[i]) fprintf(stdout, "FORMULA %s FALSE TECHNIQUES EXPLICIT\n ", XMLparser.queries[i].id.c_str());
+                    if (isInvariantlist[i]) fprintf(stdout, "FORMULA %s FALSE TECHNIQUES EXPLICIT - DEBUG::Resolved by lpsolve \n ", XMLparser.queries[i].id.c_str());
                     else notSatisfiable[i] = 0;
                 }
                 else notSatisfiable[i] = 0;
@@ -808,10 +814,6 @@ int main(int argc, char* argv[]){
             cout<<"------------LTSmin Verification time elapsed: "<<double(diffclock(LTSmin_end,LTSmin_begin))<<" ms-----------\n"<<endl;
             return 0;
         }
-
-
-
-	fprintf(stderr, "Using VerifyPN Engine\n");
 
 	//----------------------- Output Result -----------------------//
 
