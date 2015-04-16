@@ -479,22 +479,28 @@ int main(int argc, char* argv[]){
         clock_t lpsolve_begin = clock();
         fprintf(stderr, "Using VerifyPN ENgine\n");
         ReachabilityResult result;
-        
         int *notSatisfiable = new int[numberOfQueries];
-        for(i = 0; i<numberOfQueries;i++){
+        
+        if (useLTSmin && enableLTSmin == 2){
+            for(i = 0; i<numberOfQueries;i++){
         	notSatisfiable[i] = 1;
-        }
-        for (i = 0; i < XMLparser.queries.size(); i++){
-            result = strategy->reachable(*net, m0, v0, querylist[i]);
+            }
+            for (i = 0; i < XMLparser.queries.size(); i++){
+                result = strategy->reachable(*net, m0, v0, querylist[i]);
 
-            if(result.result() == ReachabilityResult::Unknown)
-		notSatisfiable[i] = 0;
-            else if(result.result() == ReachabilityResult::NotSatisfied){
-                if (isInvariantlist[i]) fprintf(stdout, "FORMULA %s FALSE TECHNIQUES EXPLICIT\n ", XMLparser.queries[i].id.c_str());
+                if(result.result() == ReachabilityResult::Unknown)
+                    notSatisfiable[i] = 0;
+                else if(result.result() == ReachabilityResult::NotSatisfied){
+                    if (isInvariantlist[i]) fprintf(stdout, "FORMULA %s FALSE TECHNIQUES EXPLICIT\n ", XMLparser.queries[i].id.c_str());
+                    else notSatisfiable[i] = 0;
+                }
                 else notSatisfiable[i] = 0;
             }
-            else notSatisfiable[i] = 0;
         }
+        else {
+            result = strategy->reachable(*net, m0, v0, query);
+        }
+        
         clock_t lpsolve_end = clock();
         cout<<"lpsolve time elapsed: "<<double(diffclock(lpsolve_end,lpsolve_begin))<<" ms\n"<<endl;
         
@@ -653,12 +659,12 @@ int main(int argc, char* argv[]){
 	string exitMessage = "LTSmin finished";
 
 	if(ltsminMc){ // multicore
-		//string cmd = "sh runLTS.sh";
-	          cmd = "sh runLTS.osx64.sh";
+		string cmd = "sh runLTS.sh";
+	          //cmd = "sh runLTS.osx64.sh";
 	}
 	else{ // single core
-		//string cmd = "sh runLTS.sh";
-	          cmd = "sh runLTS.osx64.sh";
+		string cmd = "sh runLTS.sh";
+	        //  cmd = "sh runLTS.osx64.sh";
 	}
 
 	  cmd.append(" 2>&1");
