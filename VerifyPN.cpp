@@ -395,7 +395,6 @@ int main(int argc, char* argv[]){
 	int numberOfQueries = XMLparser.queries.size();
 	bool isInvariantlist[numberOfQueries];
 	Condition* querylist[numberOfQueries];
-        	int negateResult[numberOfQueries];
 	int i;
 	string querystring;
 	for(i = 0; i < XMLparser.queries.size(); i++){
@@ -484,17 +483,35 @@ int main(int argc, char* argv[]){
         for(i = 0; i<numberOfQueries;i++){
         	notSatisfiable[i] = 1;
         }
-        for (i = 0; i < XMLparser.queries.size(); i++){
-            result = strategy->reachable(*net, m0, v0, querylist[i]);
 
-            if(result.result() == ReachabilityResult::Unknown)
-		notSatisfiable[i] = 0;
-            else if(result.result() == ReachabilityResult::NotSatisfied){
-                if (isInvariantlist[i]) fprintf(stdout, "FORMULA %s FALSE TECHNIQUES EXPLICIT\n ", XMLparser.queries[i].id.c_str());
-                else notSatisfiable[i] = 0;
-            }
-            else notSatisfiable[i] = 0;
+        if(enableLTSmin == 1 && strategy){
+	result = strategy->reachable(*net, m0, v0, querylist[xmlquery-1]);
+	if(result.result() == ReachabilityResult::Unknown)
+		notSatisfiable[xmlquery-1] = 0;
+	else if(result.result() == ReachabilityResult::NotSatisfied){
+		if (isInvariantlist[xmlquery-1]) {
+			fprintf(stdout, "FORMULA %s FALSE TECHNIQUES EXPLICIT\n ", XMLparser.queries[xmlquery-1].id.c_str());
+			return 0;
+		}
+		else notSatisfiable[xmlquery-1] = 0;
+	}
+	else notSatisfiable[xmlquery-1] = 0;
         }
+
+        if(enableLTSmin == 2 && strategy){
+        	for (i = 0; i < numberOfQueries; i++){
+	            result = strategy->reachable(*net, m0, v0, querylist[i]);
+
+	            if(result.result() == ReachabilityResult::Unknown)
+			notSatisfiable[i] = 0;
+	            else if(result.result() == ReachabilityResult::NotSatisfied){
+	                if (isInvariantlist[i]) fprintf(stdout, "FORMULA %s FALSE TECHNIQUES EXPLICIT\n ", XMLparser.queries[i].id.c_str());
+	                else notSatisfiable[i] = 0;
+	            }
+	            else notSatisfiable[i] = 0;
+        	}
+        }
+        
         clock_t lpsolve_end = clock();
         cout<<"lpsolve time elapsed: "<<double(diffclock(lpsolve_end,lpsolve_begin))<<" ms\n"<<endl;
         
@@ -604,10 +621,10 @@ int main(int argc, char* argv[]){
 
  
 	if (enableLTSmin > 0) {
-            clock_t codeGen_begin = clock();
+            	clock_t codeGen_begin = clock();
 		cout<<endl<<"LTSmin is enabled"<<endl;
 		//std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
-		CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isPlaceBound);
+		CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery-1].isPlaceBound);
 		int numberOfQueries = XMLparser.queries.size();
 		string* stringQueries = new string[numberOfQueries];
 
@@ -616,9 +633,7 @@ int main(int argc, char* argv[]){
 		}
 
 		else if(enableLTSmin == 2){ // verify all queries at once
-			string* stringQueries = new string[numberOfQueries];
-			codeGen.createQueries(stringQueries, negateResult, XMLparser.queries, stateLabels);		
-			codeGen.generateSourceMultipleQueries(&stateLabels, notSatisfiable, negateResult, numberOfQueries);
+			codeGen.generateSourceMultipleQueries(&stateLabels, notSatisfiable, isInvariantlist, numberOfQueries);
 			//codeGen.printQueries(stringQueries, numberOfQueries);
 		}
             clock_t codeGen_end = clock();
@@ -653,30 +668,32 @@ int main(int argc, char* argv[]){
 	string exitMessage = "LTSmin finished";
 
 	if(ltsminMc){ // multicore
-		//string cmd = "sh runLTS.sh";
-	          cmd = "sh runLTS.osx64.sh";
+		cmd = "sh runLTS.sh";
+		//cmd = "sh runLTS.osx64.sh";
 	}
 	else{ // single core
-		//string cmd = "sh runLTS.sh";
-	          cmd = "sh runLTS.osx64.sh";
+		cmd = "sh runLTS.sh";
+		//cmd = "sh runLTS.osx64.sh";
 	}
 
 	  cmd.append(" 2>&1");
 
-
+	  // verify only one query
 	  if(enableLTSmin == 1){
   		int q, m, s;
 	              string data;	              
 		  int numberOfExitMessages = sizeof( searchExit ) / sizeof( searchExit[0] );
 		int solved = 0;
 		int ltsminVerified = 0;
-		int queryIndex = xmlquery-1;
 		bool exitLTSmin = 0;
 		printf("%s\n", startMessage.c_str());
 		stringstream ss;
-		ss << queryIndex;
+		ss << xmlquery-1;
 		string number = ss.str();
 		stream = popen(cmd.c_str(), "r");
+
+		string queryResultSat = string("FORMULA ") + XMLparser.queries[xmlquery-1].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+                        string queryResultNotSat = string("FORMULA ") + XMLparser.queries[xmlquery-1].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
 
 	                while (!exitLTSmin){
 	                    if (fgets(buffer, max_buffer, stream) != NULL){
@@ -687,8 +704,7 @@ int main(int argc, char* argv[]){
                                 string searchSat = string("#Query ") + number + " is satisfied.";
                                 string searchNotSat = string("#Query ") + number + " is NOT satisfied.";
 
-                                string queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
-                                string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+                                
                                 
                                 if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified) {
                                     printf("%s\n", queryResultSat.c_str());
@@ -713,19 +729,20 @@ int main(int argc, char* argv[]){
 	            }
 	                pclose(stream);
 		//EF not satisfied
-		if(!solved && !negateResult[queryIndex] && !ltsminVerified){
-			fprintf(stdout, "LTSmin result  >>  Query %d is not satisfied\n", queryIndex);
+		if(!solved && !isInvariantlist[xmlquery-1] && !ltsminVerified){
+			fprintf(stdout, "%s\n", queryResultNotSat.c_str());
 		}
 
 		//AG satisfied
-		else if(!solved && negateResult[queryIndex] && !ltsminVerified){
-			fprintf(stdout, "LTSmin result  >>  Query %d is satisfied\n", queryIndex);
+		else if(!solved && isInvariantlist[xmlquery-1] && !ltsminVerified){
+			fprintf(stdout, "%s\n", queryResultSat.c_str());
 		}
 
 		printf("%s\n", exitMessage.c_str());
 
 	  }
 
+	  // verify all queries at once
 	  else if(enableLTSmin == 2){  
 		  int q, m, s;
 	              string data;
@@ -733,8 +750,12 @@ int main(int argc, char* argv[]){
 		  int ltsminVerified[numberOfQueries]; // keep track of what ltsmin has verified
 		  int solved[numberOfQueries];
 		  for(q = 0; q<numberOfQueries; q++){
+		  	if(notSatisfiable[q])
+		  		solved[q] = 1;
+		  	else 
+		  		solved[q] = 0;
+
 		  	ltsminVerified[q] = 0;
-		  	solved[q] = 0;
 		  }
 	              
 		  int numberOfExitMessages = sizeof( searchExit ) / sizeof( searchExit[0] );
@@ -752,12 +773,15 @@ int main(int argc, char* argv[]){
 	                                ss << q;
 	                                string number = ss.str();
 
+
+			        string queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+			        string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+
+
 	                                string searchSat = string("#Query ") + number + " is satisfied.";
 	                                string searchNotSat = string("#Query ") + number + " is NOT satisfied.";
 
-	                                string queryResultSat = string("LTSmin result  >>  Query ") + number + " is satisfied";
-	                                string queryResultNotSat = string("LTSmin result  >>  Query ") + number + " is not satisfied";
-	                                
+	            
 	                                if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified[q]) {
 	                                    printf("%s\n", queryResultSat.c_str());
 	                                    solved[q] = 1;
@@ -784,15 +808,16 @@ int main(int argc, char* argv[]){
 
 	                // evaluate results
 	                for(q = 0; q<numberOfQueries;q++){
-
 	                	//EF not satisfied
-	                	if(!solved[q] && !negateResult[q] && !ltsminVerified[q]){
-	                		fprintf(stdout, "LTSmin result  >>  Query %d is not satisfied\n", q);
+	                	if(!solved[q] && !isInvariantlist[q] && !ltsminVerified[q]){
+			        	string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+	                		fprintf(stdout, "%s\n", queryResultNotSat.c_str());
 	                	}
 
 	                	//AG satisfied
-	                	else if(!solved[q] && negateResult[q] && !ltsminVerified[q]){
-	                		fprintf(stdout, "LTSmin result  >>  Query %d is satisfied\n", q);
+	                	else if(!solved[q] && isInvariantlist[q] && !ltsminVerified[q]){
+	                		string queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+	                		fprintf(stdout, "%s\n", queryResultSat.c_str());
 	                	}
 	                }
 	                printf("%s\n", exitMessage.c_str());
@@ -842,12 +867,12 @@ int main(int argc, char* argv[]){
 		}
         fprintf(stdout, "\nQuery is satisfied.\n\n");
 	} else if(retval == FailedCode) {
-		if (xmlquery>0 && XMLparser.queries[xmlquery-1].isPlaceBound) {
+		if (xmlquery>0 && XMLparser.queries[xmlquery].isPlaceBound) {
 			// find index of the place for reporting place bound
 			for(size_t p = 0; p < result.maxPlaceBound().size(); p++) {
-				if (pnames[p]==XMLparser.queries[xmlquery-1].placeNameForBound) {
+				if (pnames[p]==XMLparser.queries[xmlquery].placeNameForBound) {
 					fprintf(stdout, "%d TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n", result.maxPlaceBound()[p]);
-					fprintf(stdout, "\nMaximum number of tokens in place %s: %d\n\n",XMLparser.queries[xmlquery-1].placeNameForBound.c_str(),result.maxPlaceBound()[p]);
+					fprintf(stdout, "\nMaximum number of tokens in place %s: %d\n\n",XMLparser.queries[xmlquery].placeNameForBound.c_str(),result.maxPlaceBound()[p]);
                     retval = UnknownCode;
                     			break;
 				}
