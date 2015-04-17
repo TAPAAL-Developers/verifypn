@@ -476,7 +476,7 @@ int main(int argc, char* argv[]){
 	// If no strategy is provided
 
 
-	if(!strategy && !useLTSmin){
+	if(!strategy && !useLTSmin && !(enableLTSmin > 0)){
 
 	            fprintf(stderr, "No strategy what so ever!\n");
                     fprintf(stderr, "CANNOT_COMPUTE\n");
@@ -484,23 +484,25 @@ int main(int argc, char* argv[]){
 	}
 
         clock_t lpsolve_begin = clock();
-        fprintf(stderr, "Using VerifyPN ENgine\n");
+        fprintf(stderr, "Using VerifyPN Engine\n");
         ReachabilityResult result;
         int *notSatisfiable = new int[numberOfQueries];
         
-        if (enableLTSmin == 2){
+        if (enableLTSmin > 0){
             for(i = 0; i<numberOfQueries;i++){
         		notSatisfiable[i] = 1;
             }
         }
 
-        if(enableLTSmin == 1 && strategy){
+        if(enableLTSmin == 1 && strategy && !disableoverapprox){
 	result = strategy->reachable(*net, m0, v0, querylist[xmlquery-1]);
+
 	if(result.result() == ReachabilityResult::Unknown)
 		notSatisfiable[xmlquery-1] = 0;
+
 	else if(result.result() == ReachabilityResult::NotSatisfied){
 		if (isInvariantlist[xmlquery-1]) {
-			fprintf(stdout, "FORMULA %s FALSE TECHNIQUES EXPLICIT\n ", XMLparser.queries[xmlquery-1].id.c_str());
+			fprintf(stdout, "FORMULA %s TRUE TECHNIQUES EXPLICIT - DEBUG::Resolved by lpsolve\n ", XMLparser.queries[xmlquery-1].id.c_str());
 			return 0;
 		}
 		else notSatisfiable[xmlquery-1] = 0;
@@ -508,14 +510,14 @@ int main(int argc, char* argv[]){
 	else notSatisfiable[xmlquery-1] = 0;
         }
 
-        if(enableLTSmin == 2 && strategy){
+        if(enableLTSmin == 2 && strategy && !disableoverapprox){
             for (i = 0; i < numberOfQueries; i++){
                 result = strategy->reachable(*net, m0, v0, querylist[i]);
 
                 if(result.result() == ReachabilityResult::Unknown)
                     notSatisfiable[i] = 0;
                 else if(result.result() == ReachabilityResult::NotSatisfied){
-                    if (isInvariantlist[i]) fprintf(stdout, "FORMULA %s FALSE TECHNIQUES EXPLICIT - DEBUG::Resolved by lpsolve \n ", XMLparser.queries[i].id.c_str());
+                    if (isInvariantlist[i]) fprintf(stdout, "FORMULA %s TRUE TECHNIQUES EXPLICIT - DEBUG::Resolved by lpsolve \n ", XMLparser.queries[i].id.c_str());
                     else notSatisfiable[i] = 0;
                 }
                 else notSatisfiable[i] = 0;
@@ -846,12 +848,12 @@ int main(int argc, char* argv[]){
 	string exitMessage = "LTSmin finished";
 
 	if(ltsminMc){ // multicore
-		cmd = "sh runLTS.sh";
-		//cmd = "sh runLTS.osx64.sh";
+		//cmd = "sh runLTS.sh";
+		cmd = "sh runLTS.osx64.sh";
 	}
 	else{ // single core
-		cmd = "sh runLTS.sh";
-		//cmd = "sh runLTS.osx64.sh";
+		//cmd = "sh runLTS.sh";
+		cmd = "sh runLTS.osx64.sh";
 	}
 
 	  cmd.append(" 2>&1");
@@ -870,7 +872,7 @@ int main(int argc, char* argv[]){
 		string number = ss.str();
 		stream = popen(cmd.c_str(), "r");
 
-						string queryResultSat = string("FORMULA ") + XMLparser.queries[xmlquery-1].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+		string queryResultSat = string("FORMULA ") + XMLparser.queries[xmlquery-1].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
                         string queryResultNotSat = string("FORMULA ") + XMLparser.queries[xmlquery-1].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
 
 	                while (!exitLTSmin){
@@ -888,19 +890,16 @@ int main(int argc, char* argv[]){
 
                                 	size_t startPos = 0;
 
-							        if((startPos = data.find("\'", startPos)) != std::string::npos) {
+		        if((startPos = data.find("\'", startPos)) != std::string::npos) {
 
-							                size_t end_quote = data.find("\'", startPos + 1);
-							                size_t nameLen = (end_quote - startPos) + 1;
-							                maxtokens = data.substr(startPos + 1, nameLen - 2);   
+		                size_t end_quote = data.find("\'", startPos + 1);
+		                size_t nameLen = (end_quote - startPos) + 1;
+		                maxtokens = data.substr(startPos + 1, nameLen - 2);   
 
-							                startPos += maxtokens.size();
+		                startPos += maxtokens.size();
+		            }
 
-
-							            }
-							  
-
-							        string queryResultPlaceBound = string("FORMULA ") + XMLparser.queries[xmlquery-1].id.c_str() + " = " + maxtokens.c_str() + " TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+		        string queryResultPlaceBound = string("FORMULA ") + XMLparser.queries[xmlquery-1].id.c_str() + " = " + maxtokens.c_str() + " TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
 
                                 	
                                 	if((found = data.find(searchPlaceBound)) != std::string::npos){
@@ -915,10 +914,6 @@ int main(int argc, char* argv[]){
 
                                 string queryResultSat = string("FORMULA ") + XMLparser.queries[xmlquery-1].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
                                 string queryResultNotSat = string("FORMULA ") + XMLparser.queries[xmlquery-1].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
-                                
-                                
-
-                                
                                 
                                 if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified) {
                                     printf("%s\n", queryResultSat.c_str());
@@ -951,14 +946,14 @@ int main(int argc, char* argv[]){
                 pclose(stream);
 
 		          
-				if(!solved && !isInvariantlist[xmlquery-1] && !ltsminVerified){
-					fprintf(stdout, "%s\n", queryResultNotSat.c_str());
-				}
+	if(!solved && !isInvariantlist[xmlquery-1] && !ltsminVerified){
+		fprintf(stdout, "%s\n", queryResultNotSat.c_str());
+	}
 
-				//AG satisfied
-				else if(!solved && isInvariantlist[xmlquery-1] && !ltsminVerified){
-					fprintf(stdout, "%s\n", queryResultSat.c_str());
-				}
+	//AG satisfied
+	else if(!solved && isInvariantlist[xmlquery-1] && !ltsminVerified){
+		fprintf(stdout, "%s\n", queryResultSat.c_str());
+	}
 
 		printf("%s\n", exitMessage.c_str());
      }
@@ -972,7 +967,7 @@ int main(int argc, char* argv[]){
 		  int ltsminVerified[numberOfQueries]; // keep track of what ltsmin has verified
 		  int solved[numberOfQueries];
 		  for(q = 0; q<numberOfQueries; q++){
-		  	if(notSatisfiable[q])
+		  	if(notSatisfiable[q] && !disableoverapprox)
 		  		solved[q] = 1;
 		  	else 
 		  		solved[q] = 0;
@@ -1004,19 +999,19 @@ int main(int argc, char* argv[]){
 
                                 	size_t startPos = 0;
 
-							        if((startPos = data.find("\'", startPos)) != std::string::npos) {
+			if((startPos = data.find("\'", startPos)) != std::string::npos) {
 
-							                size_t end_quote = data.find("\'", startPos + 1);
-							                size_t nameLen = (end_quote - startPos) + 1;
-							                maxtokens = data.substr(startPos + 1, nameLen - 2);   
+			        size_t end_quote = data.find("\'", startPos + 1);
+			        size_t nameLen = (end_quote - startPos) + 1;
+			        maxtokens = data.substr(startPos + 1, nameLen - 2);   
 
-							                startPos += maxtokens.size();
+			        startPos += maxtokens.size();
 
 
-							            }
-							  
+			    }
 
-							        string queryResultPlaceBound = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " = " + maxtokens.c_str() + " TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+
+			string queryResultPlaceBound = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " = " + maxtokens.c_str() + " TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
 
                                 	
                                 	if((found = data.find(searchPlaceBound)) != std::string::npos){

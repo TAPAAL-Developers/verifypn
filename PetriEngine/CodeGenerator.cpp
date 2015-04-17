@@ -154,11 +154,11 @@ namespace PetriEngine{
 
         if (!_isReachBound){
             if(searchAllPaths[query_id])
-                fprintf(successor_generator, "if(%s[%d] == 0){if(!(%s)){%s[%d] = 1;fprintf(stdout, \"#Query %d is NOT satisfied.\");}}\n", solvedArray, query_id, sl(), solvedArray, query_id, query_id);
+                fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is NOT satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
             else
-                fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stdout, \"#Query %d is satisfied.\");}}\n", solvedArray, query_id, sl(), solvedArray, query_id, query_id);
+                fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
         }
-        else { fprintf(successor_generator, "if(%s[%d] == 0){if(0){%s[%d] = 1;}}", solvedArray, query_id, solvedArray, query_id);}
+//        else { fprintf(successor_generator, "if(%s[%d] == 0){if(0){%s[%d] = 1;}}", solvedArray, query_id, solvedArray, query_id);}
 
         fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
 
@@ -166,9 +166,9 @@ namespace PetriEngine{
         if (_isReachBound){
         fprintf(successor_generator, "void exit_func(void* model){  \n");
              if(searchAllPaths[query_id])
-                fprintf(successor_generator, "if(%s[%d] == 0){if(!(%s)){%s[%d] = 1;fprintf(stdout, \"#Query %d is NOT satisfied.\\n\");}}\n", solvedArray, query_id, sl(), solvedArray, query_id, query_id);
+                fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is NOT satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
             else
-                fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stdout, \"#Query %d is satisfied.\\n\");}}\n", solvedArray, query_id, sl(), solvedArray, query_id, query_id);
+                fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
      
 
         fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");
