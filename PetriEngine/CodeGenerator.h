@@ -8,12 +8,14 @@
 namespace PetriEngine {
     class CodeGenerator {
         public:
-        CodeGenerator(PetriNet* petriNet, MarkVal* m0, PNMLParser::InhibitorArcList placeInInhib, string statelabel, bool isPlaceBound); 
-        void generateSource(int *searchAllPaths, int query_id);
+
+        CodeGenerator(PetriNet* petriNet, MarkVal* m0, PNMLParser::InhibitorArcList placeInInhib, string statelabel, bool isReachBound, bool isPlaceBound); 
+        void generateSource(bool *searchAllPaths, int query_id);
+
         int inhibArc(unsigned int p, unsigned int t);
 
         void createQueries(string *stringQueries, int *negateResult, QueryXMLParser::Queries queries, std::vector<std::string> stateLabels);
-        void generateSourceMultipleQueries(std::vector<std::string> *statelabels, int *solved, int *searchAllPaths, int numberOfQueries);
+        void generateSourceMultipleQueries(std::vector<std::string> *statelabels, int *solved, bool *searchAllPaths, int numberOfQueries);
         void printQueries(std::vector<std::string> queries, int numberOfQueries);
         
         private:
@@ -24,6 +26,7 @@ namespace PetriEngine {
         MarkVal* _m0;
         string _statelabel;
         PNMLParser::InhibitorArcList _inhibarcs;
+        bool _isReachBound;
         bool _isPlaceBound;
 
         char const*sl();
