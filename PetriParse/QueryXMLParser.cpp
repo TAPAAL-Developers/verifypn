@@ -21,8 +21,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include <sstream> 
-#include <algorithm> 
+#include <sstream>
+#include <algorithm>
 
 
 using namespace XMLSP;
@@ -44,7 +44,7 @@ bool QueryXMLParser::parse(const std::string& xml){
 	} else {
 		parsingOK=false;
 	}
-		
+
 	//Release DOM tree
 	delete root;
 	return parsingOK;
@@ -74,10 +74,11 @@ bool QueryXMLParser::parseProperty(DOMElement* element){
 	string id;
 	string queryText;
 	bool negateResult=false;
-    bool isPlaceBound=false;
+        bool isPlaceBound=false;
+        bool isReachBound=false;
 	string placeNameForBound;
 	bool tagsOK=true;
-	
+
 	DOMElements elements = element->getChilds();
 	DOMElements::iterator it;
 	DOMElements::iterator formulaPtr;
@@ -90,18 +91,19 @@ bool QueryXMLParser::parseProperty(DOMElement* element){
 			tagsOK=parseTags(*it);
 		}
 	}
-	
+
 	if (id=="") {
 		fprintf(stderr,"ERROR a query with empty id\n");
 		return false;
 	}
-	
+
 	QueryItem queryItem;
 	queryItem.id=id;
-	if (tagsOK && parseFormula(*formulaPtr, queryText, negateResult, isPlaceBound, placeNameForBound)) {
+	if (tagsOK && parseFormula(*formulaPtr, queryText, negateResult, isPlaceBound, placeNameForBound, isReachBound)) {
 		queryItem.queryText=queryText;
 		queryItem.negateResult=negateResult;
-        queryItem.isPlaceBound=isPlaceBound;
+                queryItem.isPlaceBound=isPlaceBound;
+                queryItem.isReachBound=isReachBound;
 		queryItem.placeNameForBound=placeNameForBound;
 		queryItem.parsingResult=QueryItem::PARSING_OK;
 	} else {
@@ -110,7 +112,7 @@ bool QueryXMLParser::parseProperty(DOMElement* element){
         queryItem.isPlaceBound=false;
 		queryItem.placeNameForBound="";
 		queryItem.parsingResult=QueryItem::UNSUPPORTED_QUERY;
-	}	
+	}
 	queries.push_back(queryItem);
 	return true;
 }
@@ -127,7 +129,7 @@ bool QueryXMLParser::parseTags(DOMElement* element){
 	return true;
 }
 
-bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &negateResult, bool &isPlaceBound, string &placeNameForBound){
+bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &negateResult, bool &isPlaceBound, string &placeNameForBound, bool &isReachBound){
     /*
      Describe here how to parse
      * INV phi =  AG phi =  not EF not phi
@@ -185,14 +187,32 @@ bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &
         } else {
             return false;
         }
-    } else if (elementName=="negation") {
-        //DOMElements children = (*elements.begin())->getChilds();
+    } else if (elementName=="negation"
+            || elementName =="conjunction"
+            || elementName=="disjunction"
+            || elementName=="integer-le") {
+
+        // Check for ReachabilityBounds 'place-bound' tag
+        if(isReachabilityBounds(elements[0])){
+            queryText += "EF ";
+            if(parseReachabilityBounds(elements[0], queryText)){
+                isReachBound = true;
+                return true;
+            }
+            else
+                return false;
+        }
+
         DOMElements children = elements[0]->getChilds();
+
         if (children.size() !=1) {
             return false;
         }
+
         booleanFormula = children[0];
         string negElementName = booleanFormula->getElementName();
+
+
         if (negElementName=="invariant") {
             queryText="EF not( ";
             negateResult=false;
@@ -235,6 +255,81 @@ bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &
     return true;
 }
 
+// Check whether some subsequent path contains a 'place-bound' tag.
+bool QueryXMLParser::isReachabilityBounds(DOMElement* element){
+    cout<<"\n\nInside isReachabilityBounds(): elementName: "<<element->getElementName()<<endl;
+    if(element == NULL)
+        return false;
+    else if(element->getElementName() == "place-bound")
+        return true;
+    else
+        return isReachabilityBounds(element->getChilds()[0])
+            || isReachabilityBounds(element->getChilds()[1]);
+}
+
+bool QueryXMLParser::parseReachabilityBounds(XMLSP::DOMElement* element, string &queryText){
+    string elementName = element->getElementName();
+    if (elementName == "negation") {
+        DOMElements children = element->getChilds();
+        queryText+="not(";
+        if (children.size()==1 && parseReachabilityBounds(children[0], queryText)) {
+                queryText+=")";
+        } else {
+                return false;
+        }
+        return true;
+    } else if (elementName == "conjunction") {
+        DOMElements children = element->getChilds();
+        DOMElements::iterator it;
+
+        if (!(parseBooleanFormula((children[0]), queryText))) {
+                return false;
+        }
+
+        for(it = (children.begin())+1; it != children.end(); it++) {
+                queryText+=" and ";
+                if (!(parseReachabilityBounds(*it, queryText))) {
+                        return false;
+                }
+        }
+        return true;
+    } else if (elementName == "disjunction") {
+        DOMElements children = element->getChilds();
+        if (children.size()<2) {
+                return false;
+        }
+        if (!(parseReachabilityBounds(*children.begin(), queryText))) {
+                return false;
+        }
+        DOMElements::iterator it;
+        for(it = children.begin()+1; it != children.end(); it++) {
+                queryText+=" or ";
+                if (!(parseReachabilityBounds(*it, queryText))) {
+                        return false;
+                }
+        }
+        return true;
+    } else if(elementName == "integer-le"){
+        DOMElements children = element->getChilds();
+        if (children.size()!=2) { // exactly two integer subformulae are required
+                return false;
+        }
+        string subformula1;
+        string subformula2;
+        if (!(parseIntegerExpression(children[0], subformula1))) {
+                return false;
+        }
+        if (!(parseIntegerExpression(children[1], subformula2))) {
+                return false;
+        }
+        string mathoperator;
+        if( elementName == "integer-le") mathoperator=" <= ";
+
+        queryText+="("+subformula1+mathoperator+subformula2+")";
+        return true;
+    } else
+        return false;
+}
 
 bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText){
 		string elementName = element->getElementName();
@@ -284,7 +379,7 @@ bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText)
 			for(it = children.begin()+1; it != children.end(); it++) {
 				queryText+=" or ";
 				if (!(parseBooleanFormula(*it, queryText))) {
-					return false;	
+					return false;
 				}
 			}
 			return true;
@@ -333,11 +428,11 @@ bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText)
 			}
 			queryText+= "(("+subformula1+" and "+subformula2+") or (not("+subformula1+") and not("+subformula2+")))";
 			return true;
-		} else if (	elementName == "integer-eq" || 
-					elementName == "integer-ne" || 
-					elementName == "integer-lt" || 
-					elementName == "integer-le" || 
-					elementName == "integer-gt" || 
+		} else if (	elementName == "integer-eq" ||
+					elementName == "integer-ne" ||
+					elementName == "integer-lt" ||
+					elementName == "integer-le" ||
+					elementName == "integer-gt" ||
 					elementName == "integer-ge") {
 			DOMElements children = element->getChilds();
 			if (children.size()!=2) { // exactly two integer subformulae are required
@@ -358,7 +453,7 @@ bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText)
 			else if ( elementName == "integer-le") mathoperator=" <= ";
 			else if ( elementName == "integer-gt") mathoperator=" > ";
 			else if ( elementName == "integer-ge") mathoperator=" >= ";
-			
+
 			queryText+="("+subformula1+mathoperator+subformula2+")";
 			return true;
 		} else if (elementName == "is-fireable") {
@@ -383,7 +478,7 @@ bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText)
 					    transitionName.c_str());
 					return false;
 			    }
-				queryText += _transitionEnabledness[transitionName]; 
+				queryText += _transitionEnabledness[transitionName];
 			}
 			if (children.size() > 1) {
 				queryText += ")";
@@ -397,7 +492,7 @@ bool QueryXMLParser::parseIntegerExpression(DOMElement* element, string &queryTe
 	string elementName = element->getElementName();
 	if (elementName == "integer-constant") {
 		int i;
-		if(sscanf((element->getCData()).c_str(), "%d", &i)  == EOF ) { 
+		if(sscanf((element->getCData()).c_str(), "%d", &i)  == EOF ) {
 			return false; // expected integer at this place
 		}
 		 stringstream ss;//create a stringstream
@@ -464,6 +559,20 @@ bool QueryXMLParser::parseIntegerExpression(DOMElement* element, string &queryTe
 		}
 		queryText+=")";
 		return true;
+        } else if (elementName == "place-bound") {
+            DOMElements children = element->getChilds();
+            if (children.size() != 1) {
+                return false;
+            }
+            if (children[0]->getElementName() != "place") {
+                return false;
+            }
+            string placeNameForBound = parsePlace(children[0]);
+            if (placeNameForBound=="") {
+                return false; // invalid place name
+            }
+            queryText += "(\""+placeNameForBound+"\""+" < 0)";
+            return true;
 	}
 	return false;
 }
@@ -476,7 +585,7 @@ string QueryXMLParser::parsePlace(XMLSP::DOMElement* element) {
 	placeName.erase(std::remove_if(placeName.begin(), placeName.end(), ::isspace), placeName.end());
 	return placeName;
 }
- 
+
 
 void QueryXMLParser::printQueries(int i) {
 //	QueryXMLParser::QueriesIterator it;
@@ -496,5 +605,5 @@ void QueryXMLParser::printQueries(int i) {
 void QueryXMLParser::printQueries() {
 	for (int i = 1; i <= queries.size(); i++) {
 		printQueries(i);
-	}	
+	}
 }

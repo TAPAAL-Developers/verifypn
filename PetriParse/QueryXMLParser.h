@@ -25,22 +25,23 @@
 #include <string>
 #include <string.h>
 #include <vector>
-#include <sstream> 
+#include <sstream>
 
 using namespace std;
 
 class QueryXMLParser {
-public:    
+public:
 	QueryXMLParser(const PNMLParser::TransitionEnablednessMap &transitionEnabledness);
  //      ~QueryXMLParser();
-    
+
         struct QueryItem {
             string id; // query name
             string queryText; // only EF queries will be here
             bool negateResult; // true if the final result should be negated
             bool isPlaceBound; // true if the query is a place-bound one (returns integer)
+            bool isReachBound; // true if the query is a place-bound one (returns boolean)
             string placeNameForBound;
-            enum { 
+            enum {
                 PARSING_OK,
                 UNSUPPORTED_QUERY,
             } parsingResult;
@@ -53,14 +54,16 @@ public:
 	bool parse(const string& xml);
         void printQueries();
         void printQueries(int i);
-        
+
 private:
         bool parsePropertySet(XMLSP::DOMElement* element);
         bool parseProperty(XMLSP::DOMElement* element);
         bool parseTags(XMLSP::DOMElement* element);
-        bool parseFormula(XMLSP::DOMElement* element, string &queryText, bool &negateResult, bool &isPlaceBound, string &placeNameForBound);
+        bool parseFormula(XMLSP::DOMElement* element, string &queryText, bool &negateResult, bool &isPlaceBound, string &placeNameForBound, bool &isReachBound);
         bool parseBooleanFormula(XMLSP::DOMElement* element, string &queryText);
         bool parseIntegerExpression(XMLSP::DOMElement* element, string &queryText);
+        bool isReachabilityBounds(XMLSP::DOMElement* element);
+        bool parseReachabilityBounds(XMLSP::DOMElement* element, string &queryText);
         string parsePlace(XMLSP::DOMElement* element);
         PNMLParser::TransitionEnablednessMap _transitionEnabledness;
 };

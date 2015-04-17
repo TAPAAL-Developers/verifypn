@@ -126,19 +126,21 @@ using namespace std;
     void QueryStringParser::generateStateLabel(int i){
         string query = _Parser->queries[i].queryText;
 
+        cout <<"\n\n&&& Query: "<<query<<endl;
+
         // Remove temporal operators EF
         query.replace(0, 2, "");
 
         // Check if query is of type ReachabilityDeadlock
         size_t deadlockPos = query.find("deadlock", 0);
 
-       
+
         if(deadlockPos != std::string::npos){
             findDeadlockConditions(query, deadlockPos);
-        } 
+        }
         else if(_Parser->queries[i].isPlaceBound){
             replaceQueryForPlaceBound(query);
-        } 
+        }
         else {
             // Rename places eg. "place0" -> src[0]
             replacePlaces(query);
