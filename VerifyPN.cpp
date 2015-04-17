@@ -173,7 +173,7 @@ int main(int argc, char* argv[]){
 					fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
 					return ErrorCode;
 				}
-				if (sscanf(argv[++i], "%d", &enableLTSmin) != 1 || enableLTSmin < 0 || enableLTSmin > 2) {
+				if (sscanf(argv[++i], "%d", &enableLTSmin) != 1 || enableLTSmin < 0 || enableLTSmin > 3) {
 					fprintf(stderr, "Argument Error: Invalid ltsmin argument \"%s\"\n", argv[i]);
 					return ErrorCode;
 				}
@@ -206,6 +206,7 @@ int main(int argc, char* argv[]){
 					"                                     - 0  disabled (default)\n"
 					"                                     - 1  verify a single query\n"
 					"                                     - 2  verify all queries\n"
+					"                                     - 3  search state space\n"
 					"\n"
 					"Return Values:\n"
 					"  0   Successful, query satisfiable\n"
@@ -472,6 +473,7 @@ int main(int argc, char* argv[]){
 		strategy = new LinearOverApprox(strategy);
         }
 
+
 	// If no strategy is provided
 
 
@@ -532,7 +534,166 @@ int main(int argc, char* argv[]){
                 }
             }
         }
-        else {
+        else if (statespaceexploration && enableLTSmin == 3) {
+
+			string dummy = "dummy";
+			bool dummy1 = false;
+			bool dummy2 = false;
+			CodeGenerator codeGen(net, m0, inhibarcs, dummy, dummy1, dummy2);
+			codeGen.generateSourceForSSE();
+
+		clock_t LTSmin_begin = clock();
+
+		FILE * stream;
+		const int max_buffer = 256;
+		char buffer[max_buffer];
+		string cmd;
+
+		// ltsmin messages to search for
+		string searchExit[1] = {"exiting now"};
+		string searchPins2lts = "pins2lts-seq";
+
+		// verifypn messages
+		string pins2ltsMessage;
+		string stdmsg = "State space: ";
+		string startMessage = "LTSmin has started";
+		string exitMessage = "LTSmin finished";
+
+		if(ltsminMc){ // multicore
+			cmd = "sh runLTS.sh";
+			//cmd = "sh runLTS.osx64.sh";
+		}
+		else{ // single core
+			cmd = "sh runLTS.sh";
+			//cmd = "sh runLTS.osx64.sh";
+		}
+
+		  cmd.append(" 2>&1");
+
+
+	  		int q, m, s;
+		    string data;	              
+			int numberOfExitMessages = sizeof( searchExit ) / sizeof( searchExit[0] );
+			bool exitLTSmin = 0;
+			printf("%s\n", startMessage.c_str());
+			stream = popen(cmd.c_str(), "r");
+
+
+		                while (!exitLTSmin){
+		                    if (fgets(buffer, max_buffer, stream) != NULL){
+		                        size_t found;
+		                        data = "";
+		                        data.append(buffer);
+
+
+
+	                                string searchS = string("state space");
+	                                string searchT = string("state space");
+	                                string searchTMT = string("tokens in marking");
+	                                string searchMT = string("tokens in one Place");
+
+	                            
+	                                
+	                                if ((found = data.find(searchS))!=std::string::npos) {
+
+                                	size_t startPos = 0;
+                                	string ssresult;
+
+							        if((startPos = data.find("s,", startPos)) != std::string::npos) {
+
+							                size_t end_quote = data.find("states", startPos + 1);
+							                size_t nameLen = (end_quote - startPos) + 1;
+							                ssresult = data.substr(startPos + 2, nameLen - 3);   
+							                startPos += ssresult.size();
+
+							            }
+
+							            string queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+	                                    printf("%s\n", queryResult1.c_str());
+	                 
+	                                }
+
+	                                if ((found = data.find(searchT))!=std::string::npos) {
+
+                                	size_t startPos = 0;
+                                	string ssresult;
+
+							        if((startPos = data.find("states", startPos)) != std::string::npos) {
+
+							                size_t end_quote = data.find("transitions", startPos + 1);
+							                size_t nameLen = (end_quote - startPos) + 1;
+							                ssresult = data.substr(startPos + 2, nameLen - 3);   
+							                startPos += ssresult.size();
+
+							            }
+
+							            string queryResult2 = string("STATE SPACE TRANSITIONS") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+	                                    printf("%s\n", queryResult2.c_str());
+	                 
+	                                }
+
+	                                if ((found = data.find(searchTMT))!=std::string::npos) {
+
+                                	size_t startPos = 0;
+                                	string ssresult;
+
+							        if((startPos = data.find("\'", startPos)) != std::string::npos) {
+
+							                size_t end_quote = data.find("\'", startPos + 1);
+							                size_t nameLen = (end_quote - startPos) + 1;
+							                ssresult = data.substr(startPos + 1, nameLen - 2);   
+							                startPos += ssresult.size();
+
+							            }
+
+							            string queryResult3 = string("STATE SPACE MAX_TOKENS_IN_MARKING ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+	                                    printf("%s\n", queryResult3.c_str());
+	                 
+	                                }
+									
+									if ((found = data.find(searchMT))!=std::string::npos) {
+
+                                	size_t startPos = 0;
+                                	string ssresult;
+
+							        if((startPos = data.find("\'", startPos)) != std::string::npos) {
+
+							                size_t end_quote = data.find("\'", startPos + 1);
+							                size_t nameLen = (end_quote - startPos) + 1;
+							                ssresult = data.substr(startPos + 1, nameLen - 2);   
+							                startPos += ssresult.size();
+
+							            }
+
+							            string queryResult4 = string("STATE SPACE MAX_TOKENS_IN_PLACE ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+	                                    printf("%s\n", queryResult4.c_str());
+	                 
+	                                }
+
+
+	                            
+	                                
+	                        
+
+	                        // exit messages
+	                        for(m = 0; m<numberOfExitMessages; m++){
+	                        	if((found = data.find(searchExit[m])) != std::string::npos){
+	                        		//printf("%s\n", exitMessage.c_str());
+	                        		exitLTSmin = 1;
+	                        		break;
+	                        	}
+	                        }
+	                    }
+	                }
+	                        
+	                pclose(stream);
+
+
+
+
+
+
+		} else {
             result = strategy->reachable(*net, m0, v0, query);
         }
         
@@ -644,7 +805,8 @@ int main(int argc, char* argv[]){
         cout<<"Reduction time elapsed: "<<double(diffclock(reduction_end,reduction_begin))<<" ms\n"<<endl;
 
  
-	if (enableLTSmin > 0) {
+	if (enableLTSmin > 0 && enableLTSmin < 3) {
+
 
             clock_t codeGen_begin = clock();
                 
@@ -932,7 +1094,7 @@ int main(int argc, char* argv[]){
 
 	ReturnValues retval = ErrorCode;
 
-	if (statespaceexploration) {
+/*	if (statespaceexploration) {
 		retval = UnknownCode;
 		unsigned int placeBound = 0;
 		for(size_t p = 0; p < result.maxPlaceBound().size(); p++) {
@@ -941,7 +1103,7 @@ int main(int argc, char* argv[]){
 		fprintf(stdout,"STATE_SPACE %lli -1 %d %d TECHNIQUES EXPLICIT\n", result.exploredStates(), result.maxTokens(), placeBound);
 		return retval;
 	}
-
+*/
 	//Find result code
 	if(result.result() == ReachabilityResult::Unknown)
 		retval = UnknownCode;

@@ -11,6 +11,7 @@ namespace PetriEngine {
 
         CodeGenerator(PetriNet* petriNet, MarkVal* m0, PNMLParser::InhibitorArcList placeInInhib, string statelabel, bool isReachBound, bool isPlaceBound); 
         void generateSource(bool *searchAllPaths, int query_id);
+        void generateSourceForSSE();
 
         int inhibArc(unsigned int p, unsigned int t);
 
