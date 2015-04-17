@@ -468,8 +468,9 @@ int main(int argc, char* argv[]){
 	}
 
 	// Wrap in linear over-approximation, if not disabled
-	if(!disableoverapprox)
+	if(!disableoverapprox){
 		strategy = new LinearOverApprox(strategy);
+        }
 
 	// If no strategy is provided
 
@@ -493,32 +494,42 @@ int main(int argc, char* argv[]){
         }
 
         if(enableLTSmin == 1 && strategy && !disableoverapprox){
-	result = strategy->reachable(*net, m0, v0, querylist[xmlquery-1]);
+            result = strategy->reachable(*net, m0, v0, querylist[xmlquery-1]);
 
-	if(result.result() == ReachabilityResult::Unknown)
-		notSatisfiable[xmlquery-1] = 0;
+            if(result.result() == ReachabilityResult::Unknown){
+                    notSatisfiable[xmlquery-1] = 0;
+            }
 
-	else if(result.result() == ReachabilityResult::NotSatisfied){
-		if (isInvariantlist[xmlquery-1]) {
-			fprintf(stdout, "FORMULA %s TRUE TECHNIQUES EXPLICIT - DEBUG::Resolved by lpsolve\n ", XMLparser.queries[xmlquery-1].id.c_str());
-			return 0;
-		}
-		else notSatisfiable[xmlquery-1] = 0;
-	}
-	else notSatisfiable[xmlquery-1] = 0;
+            else if(result.result() == ReachabilityResult::NotSatisfied){
+                    if (isInvariantlist[xmlquery-1]) {
+                            fprintf(stdout, "FORMULA %s TRUE TECHNIQUES EXPLICIT - DEBUG::Resolved by lpsolve\n ", XMLparser.queries[xmlquery-1].id.c_str());
+                            return 0;
+                    }
+                    else {
+                        notSatisfiable[xmlquery-1] = 0;
+                    }
+            }
+            else {
+                notSatisfiable[xmlquery-1] = 0;
+            }
         }
 
         if(enableLTSmin == 2 && strategy && !disableoverapprox){
             for (i = 0; i < numberOfQueries; i++){
                 result = strategy->reachable(*net, m0, v0, querylist[i]);
 
-                if(result.result() == ReachabilityResult::Unknown)
+                if(result.result() == ReachabilityResult::Unknown){
                     notSatisfiable[i] = 0;
+                }
                 else if(result.result() == ReachabilityResult::NotSatisfied){
                     if (isInvariantlist[i]) fprintf(stdout, "FORMULA %s TRUE TECHNIQUES EXPLICIT - DEBUG::Resolved by lpsolve \n ", XMLparser.queries[i].id.c_str());
-                    else notSatisfiable[i] = 0;
+                    else {
+                        notSatisfiable[i] = 0;
+                    }
                 }
-                else notSatisfiable[i] = 0;
+                else {
+                    notSatisfiable[i] = 0;
+                }
             }
         }
         else {
@@ -635,24 +646,25 @@ int main(int argc, char* argv[]){
  
 	if (enableLTSmin > 0) {
 
-        clock_t codeGen_begin = clock();
+            clock_t codeGen_begin = clock();
+                
+            cout<<endl<<"LTSmin is enabled"<<endl;
+            //std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
+            cout<<"Number of places: "<<net->numberOfPlaces()<<endl;
+            cout<<"Number of transisions: "<<net->numberOfTransitions()<<endl;
+            CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound);
 
-		cout<<endl<<"LTSmin is enabled"<<endl;
-		//std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
+            int numberOfQueries = XMLparser.queries.size();
+            string* stringQueries = new string[numberOfQueries];
 
-		CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound);
+            if(enableLTSmin == 1){ // verify only one query
+                    codeGen.generateSource(isInvariantlist, (xmlquery - 1));
+            }
 
-		int numberOfQueries = XMLparser.queries.size();
-		string* stringQueries = new string[numberOfQueries];
-
-		if(enableLTSmin == 1){ // verify only one query
-			codeGen.generateSource(isInvariantlist, (xmlquery - 1));
-		}
-
-		else if(enableLTSmin == 2){ // verify all queries at once
-			codeGen.generateSourceMultipleQueries(&stateLabels, notSatisfiable, isInvariantlist, numberOfQueries);
-			//codeGen.printQueries(stringQueries, numberOfQueries);
-		}
+            else if(enableLTSmin == 2){ // verify all queries at once
+                    codeGen.generateSourceMultipleQueries(&stateLabels, notSatisfiable, isInvariantlist, numberOfQueries);
+                    //codeGen.printQueries(stringQueries, numberOfQueries);
+            }
             clock_t codeGen_end = clock();
             cout<<"LTSmin Code Generation time elapsed: "<<double(diffclock(codeGen_end,codeGen_begin))<<" ms\n"<<endl;
 	}
@@ -686,12 +698,12 @@ int main(int argc, char* argv[]){
 	string exitMessage = "LTSmin finished";
 
 	if(ltsminMc){ // multicore
-		//cmd = "sh runLTS.sh";
-		cmd = "sh runLTS.osx64.sh";
+		cmd = "sh runLTS.sh";
+		//cmd = "sh runLTS.osx64.sh";
 	}
 	else{ // single core
-		//cmd = "sh runLTS.sh";
-		cmd = "sh runLTS.osx64.sh";
+		cmd = "sh runLTS.sh";
+		//cmd = "sh runLTS.osx64.sh";
 	}
 
 	  cmd.append(" 2>&1");
@@ -910,7 +922,7 @@ int main(int argc, char* argv[]){
 
             clock_t LTSmin_end = clock();
             cout<<"------------LTSmin Verification time elapsed: "<<double(diffclock(LTSmin_end,LTSmin_begin))<<" ms-----------\n"<<endl;
-            return 0;
+            return 0; 
         }
 
 	//----------------------- Output Result -----------------------//
@@ -1028,7 +1040,7 @@ int main(int argc, char* argv[]){
 	}
 
 	//------------------------ Return the Output Value -------------------//
-
+        
 	return retval;
 }
 
