@@ -1,4 +1,4 @@
-#include "CodeGenerator.h"
+    #include "CodeGenerator.h"
 #include "PetriNet.h"
 #include <PetriParse/PNMLParser.h>
 #include <PetriParse/QueryXMLParser.h>
@@ -17,13 +17,14 @@
 using namespace std;
 namespace PetriEngine{
 
-    CodeGenerator::CodeGenerator(PetriNet* net, MarkVal* m0, PNMLParser::InhibitorArcList inhibarcs, string statelabel, bool isPlaceBound) {
+    CodeGenerator::CodeGenerator(PetriNet* net, MarkVal* m0, PNMLParser::InhibitorArcList inhibarcs, string statelabel, bool isReachBound, bool isPlaceBound) {
         _net = net;
         _statelabel = statelabel;
         _nplaces = net->numberOfPlaces();
         _ntransitions = net->numberOfTransitions();
         _m0 = m0;
         _inhibarcs = inhibarcs;
+        _isReachBound = isReachBound;
         _isPlaceBound = isPlaceBound;
     }
 
@@ -62,7 +63,7 @@ namespace PetriEngine{
 
         fprintf(successor_generator, "static int %s[%d] = {0};\n", solvedArray, 1);
 
-        if (_isPlaceBound){
+        if (_isReachBound || _isPlaceBound){
         fprintf(successor_generator, "int %s[%d] = {\n", ComputeBoundsArray, _nplaces);
 
         for (p = 0; p < _nplaces; p++){
@@ -122,7 +123,7 @@ namespace PetriEngine{
                 if(_net->outArc(t,p) > 0){
                     fprintf(successor_generator, "placemarkings[%d] = src[%d] + %d;\n", p, p, _net->outArc(t,p));
                     fprintf(successor_generator, "cpy[%d] = 0;\n", p);
-                    if(_isPlaceBound) {fprintf(successor_generator, "if(placemarkings[%d] >= %s[%d]) { %s[%d] = placemarkings[%d]; }\n", p, ComputeBoundsArray, p, ComputeBoundsArray, p, p);}
+                    if(_isReachBound || _isPlaceBound) {fprintf(successor_generator, "if(placemarkings[%d] >= %s[%d]) { %s[%d] = placemarkings[%d]; }\n", p, ComputeBoundsArray, p, ComputeBoundsArray, p, p);}
                 }
             }
 
@@ -150,18 +151,54 @@ namespace PetriEngine{
         //Write State_label
         fputs("int state_label(void* model, int label, int* src) {\n", successor_generator);
 
-            if (!_isPlaceBound){
 
+        if (!_isReachBound){
             if(searchAllPaths[query_id])
-                fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stderr, \"#Query %d is NOT satisfied.\\n\");}}\n", solvedArray, query_id, sl(), solvedArray, query_id, query_id);
-            else        
-                fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stderr, \"#Query %d is satisfied.\\n\");}}\n", solvedArray, query_id, sl(), solvedArray, query_id, query_id);        
+                fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is NOT satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
+            else
+                fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
+        }
+//        else { fprintf(successor_generator, "if(%s[%d] == 0){if(0){%s[%d] = 1;}}", solvedArray, query_id, solvedArray, query_id);}
+
+        fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
+
+
+        if (_isReachBound){
+        fprintf(successor_generator, "void exit_func(void* model){  \n");
+             if(searchAllPaths[query_id])
+                fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is NOT satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
+            else
+                fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
+     
+
+        fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");
+        }
+
+        else if (_isPlaceBound){ 
+        fprintf(successor_generator, "void exit_func(void* model){  \n");
+
+        size_t startPos = 0;
+        string query = sl();
+ 
+            while((startPos = query.find("[", startPos)) != std::string::npos) {
+                size_t end_quote = query.find("]", startPos + 1);
+                size_t nameLen = (end_quote - startPos) + 1;
+                string oldPlaceName = query.substr(startPos + 1, nameLen - 2);   
+                startPos++;
+            
+
+            fprintf(successor_generator, " fprintf(stderr, \"Query %d max tokens are \'", query_id);
+            fputs("%d\'.\\n\",", successor_generator);
+            fprintf(successor_generator, "MaxNumberOfTokensInPlace[%s]);\n", oldPlaceName.c_str());
 
             }
 
+        fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");
+        fputs("}", successor_generator); 
+        }
 
-        fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
-        fprintf(successor_generator, "void exit_func(void* model){ fprintf(stderr, \"\\nExit Function!\\n\");}\n");
+        else {fprintf(successor_generator, "void exit_func(void* model){ fprintf(stderr, \"exiting now\");} \n");}
+
 
         fclose(successor_generator);
         int result = rename("temp.txt", sourcename);
@@ -183,7 +220,12 @@ namespace PetriEngine{
         const char* solvedArray = "solved";
         const char* ComputeBoundsArray = "MaxNumberOfTokensInPlace";
 
-        if (_isPlaceBound){
+
+
+        //Preliminaries
+        fputs("#include <ltsmin/pins.h>\nstatic const int LABEL_GOAL = 0;\n", successor_generator);
+
+        if (_isReachBound || _isPlaceBound){
         fprintf(successor_generator, "int %s[%d] = {\n", ComputeBoundsArray, _nplaces);
         for (p = 0; p < _nplaces; p++){
         fprintf(successor_generator, "%d, \n", _m0[p]);
@@ -191,10 +233,6 @@ namespace PetriEngine{
 
         fputs("};", successor_generator);
         }
-
-        //Preliminaries
-        fputs("#include <ltsmin/pins.h>\nstatic const int LABEL_GOAL = 0;\n", successor_generator);
-
         // declare and assign solved queries
         fprintf(successor_generator, "static int %s[%d] = {", solvedArray, numberOfQueries);
         for(q = 0; q<numberOfQueries; q++){
@@ -259,7 +297,7 @@ namespace PetriEngine{
                 if(_net->outArc(t,p) > 0){
                     fprintf(successor_generator, "placemarkings[%d] = src[%d] + %d;\n", p, p, _net->outArc(t,p));
                     fprintf(successor_generator, "cpy[%d] = 0;\n", p);
-                    if(_isPlaceBound) {fprintf(successor_generator, "if(placemarkings[%d] >= %s[%d]) { %s[%d] = placemarkings[%d]; }\n", p, ComputeBoundsArray, p, ComputeBoundsArray, p, p);}
+                    if(_isReachBound || _isPlaceBound) {fprintf(successor_generator, "if(placemarkings[%d] >= %s[%d]) { %s[%d] = placemarkings[%d]; }\n", p, ComputeBoundsArray, p, ComputeBoundsArray, p, p);}
                 }
             }
 
@@ -286,14 +324,26 @@ namespace PetriEngine{
         //Write State_label
         fputs("int state_label(void* model, int label, int* src) {\n", successor_generator);
 
-        for(q = 0; q<numberOfQueries; q++){
-            if(searchAllPaths[q] && solved[q] != 1)
-                //fprintf(successor_generator, "if(%s[%d] == 0){if(!(%s)){%s[%d] = 1;fprintf(stderr, \"#Query %d is NOT satisfied.\\n\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
-            //else if (solved[q] != 1)
-                fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stderr, \"#Query %d is NOT satisfied.\\n\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
-        else if (solved[q] != 1)
-                fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stderr, \"#Query %d is satisfied.\\n\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
+        if (!_isReachBound){
+            for(q = 0; q<numberOfQueries; q++){
+                if(searchAllPaths[q] && solved[q] != 1)
+                    //fprintf(successor_generator, "if(%s[%d] == 0){if(!(%s)){%s[%d] = 1;fprintf(stderr, \"#Query %d is NOT satisfied.\\n\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
+                //else if (solved[q] != 1)
+                    fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stderr, \"#Query %d is NOT satisfied.\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
+            else if (solved[q] != 1)
+                    fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stderr, \"#Query %d is satisfied.\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
+            }
         }
+        else {
+            for(q = 0; q<numberOfQueries; q++){
+               
+                    fprintf(successor_generator, "if(%s[%d] == 0){if(0){%s[%d] = 1;}}\n", solvedArray, q, solvedArray, q);
+                    
+
+            }
+
+        }
+
 
         // return true if all queries are verified
         /*
@@ -308,10 +358,54 @@ namespace PetriEngine{
 
 
         fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
-        fprintf(successor_generator, "void exit_func(void* model){ fprintf(stderr, \"\\nExit Function!\\n\");}\n");
+
+
+        if (_isReachBound){
+        fprintf(successor_generator, "void exit_func(void* model){  \n");
+
+        for(q = 0; q<numberOfQueries; q++){
+
+                fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stdout, \"#Query %d is satisfied.\\n\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
+            }
+
+        fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");
+            fputs("}",successor_generator);
+            
+        }
+        else if (_isPlaceBound){
+
+            //NEW STUFF
+        fprintf(successor_generator, "void exit_func(void* model){ \n");
+
+        for(q = 0; q<numberOfQueries; q++){
+        size_t startPos = 0;
+
+            while((startPos = statelabels->at(q).find("[", startPos)) != std::string::npos) {
+
+                size_t end_quote = statelabels->at(q).find("]", startPos + 1);
+                size_t nameLen = (end_quote - startPos) + 1;
+                string oldPlaceName = statelabels->at(q).substr(startPos + 1, nameLen - 2);   
+                startPos++;
+
+            fprintf(successor_generator, " fprintf(stderr, \"Query %d max tokens are \'", q);
+            fputs("%d\'.\\n\",", successor_generator);  
+            fprintf(successor_generator, "MaxNumberOfTokensInPlace[%s]);\n", oldPlaceName.c_str());
+            }
+        }   
+
+
+        fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");       
+        fputs("}", successor_generator); 
+
+        }
+
+
+        else {fprintf(successor_generator, "void exit_func(void* model){ fprintf(stderr, \"exiting now\");} \n");}
+
         fclose(successor_generator);
         int result = rename("temp.txt", sourcename);
-    }
+    
+    }   
 
     // Generates dummy values until queries can be propery parsed.
     // Final version should include parameter of the XMLparser queries vector to get the proper queryText.
