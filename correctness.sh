@@ -4,7 +4,10 @@
 
 
 echo "CircularTrains-PT-024" | ts
-time ./verifypn-linux64 -x 1 -l 1 -s OverApprox ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml
+time ./verifypn-linux64 -l 3 -e ../models/CircularTrains-PT-024/model.pnml
+
+echo "HouseConstruction-PT-002" | ts
+time ./verifypn-linux64 -l 3 -e ../models/HouseConstruction-PT-002/model.pnml
 
 
 #echo "CircularTrains-PT-048" | ts

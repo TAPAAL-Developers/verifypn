@@ -587,8 +587,8 @@ int main(int argc, char* argv[]){
 
 
 
-	                                string searchS = string("state space");
-	                                string searchT = string("state space");
+	                                string searchS = string("Explored");
+	                                string searchT = string("Explored");
 	                                string searchTMT = string("tokens in marking");
 	                                string searchMT = string("tokens in one Place");
 
@@ -599,7 +599,7 @@ int main(int argc, char* argv[]){
                                 	size_t startPos = 0;
                                 	string ssresult;
 
-							        if((startPos = data.find("s,", startPos)) != std::string::npos) {
+							        if((startPos = found) != std::string::npos) {
 
 							                size_t end_quote = data.find("states", startPos + 1);
 							                size_t nameLen = (end_quote - startPos) + 1;
@@ -622,7 +622,7 @@ int main(int argc, char* argv[]){
 
 							                size_t end_quote = data.find("transitions", startPos + 1);
 							                size_t nameLen = (end_quote - startPos) + 1;
-							                ssresult = data.substr(startPos + 2, nameLen - 3);   
+							                ssresult = data.substr(startPos + 6, nameLen - 8);   
 							                startPos += ssresult.size();
 
 							            }
