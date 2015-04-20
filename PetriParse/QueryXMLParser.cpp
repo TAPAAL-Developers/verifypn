@@ -106,6 +106,7 @@ bool QueryXMLParser::parseProperty(DOMElement* element){
                 queryItem.isReachBound=isReachBound;
 		queryItem.placeNameForBound=placeNameForBound;
 		queryItem.parsingResult=QueryItem::PARSING_OK;
+
 	} else {
 		queryItem.queryText="";
 		queryItem.negateResult=false;
@@ -113,6 +114,7 @@ bool QueryXMLParser::parseProperty(DOMElement* element){
 		queryItem.placeNameForBound="";
 		queryItem.parsingResult=QueryItem::UNSUPPORTED_QUERY;
 	}
+
 	queries.push_back(queryItem);
 	return true;
 }
@@ -187,6 +189,22 @@ bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &
         } else {
             return false;
         }
+    } else if (elementName == "place-bound") {
+        DOMElements children = booleanFormula->getChilds();
+        if (children.size() != 1) {
+            return false; // we support only place-bound for one place
+        }
+        if (children[0]->getElementName() != "place") {
+            return false;
+        }
+        placeNameForBound = parsePlace(children[0]);
+        if (placeNameForBound=="") {
+            return false; // invalid place name
+        }
+        queryText += "\""+placeNameForBound+"\""+" < 0";
+        negateResult = false;
+        isPlaceBound = true;
+        return true;
     } else if (elementName=="negation"
             || elementName =="conjunction"
             || elementName=="disjunction"
@@ -194,8 +212,9 @@ bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &
 
         // Check for ReachabilityBounds 'place-bound' tag
         if(isReachabilityBounds(elements[0])){
-            queryText += "EF ";
+            queryText += "EF ( "; // Is removed later
             if(parseReachabilityBounds(elements[0], queryText)){
+                queryText += " )"; // Is removed later
                 isReachBound = true;
                 return true;
             }
@@ -225,55 +244,49 @@ bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &
         } else {
             return false;
         }
-    } else if (elementName == "place-bound") {
-        queryText = "EF ";
-        DOMElements children = booleanFormula->getChilds();
-        if (children.size() != 1) {
-            return false; // we support only place-bound for one place
-        }
-        if (children[0]->getElementName() != "place") {
-            return false;
-        }
-        placeNameForBound = parsePlace(children[0]);
-        if (placeNameForBound=="") {
-            return false; // invalid place name
-        }
-        queryText += "\""+placeNameForBound+"\""+" < 0";
-        negateResult = false;
-        isPlaceBound = true;
-        return true;
     } else {
         return false;
     }
+
     DOMElements nextElements = booleanFormula->getChilds();
     if (nextElements.size() !=1 || !parseBooleanFormula(nextElements[0] , queryText)) {
         return false;
     }
     queryText+=" )";
-        isPlaceBound=false;
+    isPlaceBound=false;
     placeNameForBound = "";
+
     return true;
 }
 
 // Check whether some subsequent path contains a 'place-bound' tag.
 bool QueryXMLParser::isReachabilityBounds(DOMElement* element){
-    cout<<"\n\nInside isReachabilityBounds(): elementName: "<<element->getElementName()<<endl;
-    if(element == NULL)
+    DOMElements children = element->getChilds();
+    size_t nChildren = children.size();
+
+    if(element == NULL || nChildren == 0) //Place-bound elements always have atleast one child
         return false;
     else if(element->getElementName() == "place-bound")
         return true;
-    else
-        return isReachabilityBounds(element->getChilds()[0])
-            || isReachabilityBounds(element->getChilds()[1]);
+    else{
+        bool results[nChildren];
+
+        for(int i = 0; i < nChildren; i++){
+            if(isReachabilityBounds(children[i]))
+                return true;
+        }
+
+        return false;
+    }
 }
 
 bool QueryXMLParser::parseReachabilityBounds(XMLSP::DOMElement* element, string &queryText){
     string elementName = element->getElementName();
     if (elementName == "negation") {
         DOMElements children = element->getChilds();
-        queryText+="not(";
+        queryText += "not(";
         if (children.size()==1 && parseReachabilityBounds(children[0], queryText)) {
-                queryText+=")";
+                queryText += ")";
         } else {
                 return false;
         }
@@ -282,32 +295,37 @@ bool QueryXMLParser::parseReachabilityBounds(XMLSP::DOMElement* element, string 
         DOMElements children = element->getChilds();
         DOMElements::iterator it;
 
-        if (!(parseBooleanFormula((children[0]), queryText))) {
+        queryText += "(";
+        if (!(parseReachabilityBounds(children[0], queryText))) {
                 return false;
         }
 
         for(it = (children.begin())+1; it != children.end(); it++) {
-                queryText+=" and ";
+                queryText += " and ";
                 if (!(parseReachabilityBounds(*it, queryText))) {
                         return false;
                 }
         }
+        queryText += ")";
         return true;
     } else if (elementName == "disjunction") {
         DOMElements children = element->getChilds();
         if (children.size()<2) {
                 return false;
         }
+
+        queryText += "(";
         if (!(parseReachabilityBounds(*children.begin(), queryText))) {
                 return false;
         }
         DOMElements::iterator it;
         for(it = children.begin()+1; it != children.end(); it++) {
-                queryText+=" or ";
+                queryText += " or ";
                 if (!(parseReachabilityBounds(*it, queryText))) {
                         return false;
                 }
         }
+        queryText += ")";
         return true;
     } else if(elementName == "integer-le"){
         DOMElements children = element->getChilds();
@@ -316,6 +334,7 @@ bool QueryXMLParser::parseReachabilityBounds(XMLSP::DOMElement* element, string 
         }
         string subformula1;
         string subformula2;
+
         if (!(parseIntegerExpression(children[0], subformula1))) {
                 return false;
         }
@@ -325,7 +344,7 @@ bool QueryXMLParser::parseReachabilityBounds(XMLSP::DOMElement* element, string 
         string mathoperator;
         if( elementName == "integer-le") mathoperator=" <= ";
 
-        queryText+="("+subformula1+mathoperator+subformula2+")";
+        queryText += "("+subformula1+mathoperator+subformula2+")";
         return true;
     } else
         return false;
@@ -505,7 +524,7 @@ bool QueryXMLParser::parseIntegerExpression(DOMElement* element, string &queryTe
 			return false;
 		}
 		if (children.size()>1) {
-			queryText+="(";
+			queryText += "(";
 		}
 		for (int i = 0; i < children.size(); i++) {
 			if (children[i]->getElementName() != "place") {
@@ -524,7 +543,7 @@ bool QueryXMLParser::parseIntegerExpression(DOMElement* element, string &queryTe
 			queryText+=")";
 		}
 		return true;
-	} else if (	elementName == "integer-sum" ||
+	} else if (elementName == "integer-sum" ||
 				elementName == "integer-product" ) {
 		DOMElements children = element->getChilds();
 		if (children.size() < 2) { // at least two integer subexpression are required
@@ -533,7 +552,7 @@ bool QueryXMLParser::parseIntegerExpression(DOMElement* element, string &queryTe
 		string mathoperator;
 		if (	 elementName == "integer-sum") mathoperator = " + ";
 		else if (elementName == "integer-product") mathoperator = " * ";
-		queryText+="(";
+		queryText += "(";
 		for (int i = 0; i < children.size(); i++) {
 			if (i > 0) {
 				queryText+= mathoperator;
@@ -542,37 +561,49 @@ bool QueryXMLParser::parseIntegerExpression(DOMElement* element, string &queryTe
 				return false;
 			}
 		}
-		queryText+=")";
+		queryText += ")";
 		return true;
 	} else if (elementName == "integer-difference" ) {
 		DOMElements children = element->getChilds();
 		if (children.size() != 2) { // at least two integer subexpression are required
 			return false;
 		}
-		queryText+="(";
+		queryText += "(";
 		if (!parseIntegerExpression(children[0], queryText)) {
 			return false;
 		}
-		queryText+=" - ";
+		queryText += " - ";
 		if (!parseIntegerExpression(children[1], queryText)) {
 			return false;
 		}
-		queryText+=")";
+		queryText += ")";
 		return true;
         } else if (elementName == "place-bound") {
             DOMElements children = element->getChilds();
-            if (children.size() != 1) {
-                return false;
-            }
+            size_t nChildren = children.size();
+
             if (children[0]->getElementName() != "place") {
                 return false;
             }
-            string placeNameForBound = parsePlace(children[0]);
-            if (placeNameForBound=="") {
-                return false; // invalid place name
+
+            if (nChildren < 1){
+                return false;
+            } else if(nChildren > 1){
+                for(int i = 0; i < nChildren; i++){
+                    if(i > 0)
+                        queryText += " + ";
+
+                    queryText += "\""+parsePlace(children[i])+"\"";
+                }
+                return true;
+            } else if(nChildren == 1){
+                queryText += "\""+parsePlace(children[0])+"\"";
+                queryText += "+ \""+parsePlace(children[0])+"\"";
+
+                return true;
             }
-            queryText += "(\""+placeNameForBound+"\""+" < 0)";
-            return true;
+
+            return false;
 	}
 	return false;
 }
@@ -585,7 +616,6 @@ string QueryXMLParser::parsePlace(XMLSP::DOMElement* element) {
 	placeName.erase(std::remove_if(placeName.begin(), placeName.end(), ::isspace), placeName.end());
 	return placeName;
 }
-
 
 void QueryXMLParser::printQueries(int i) {
 //	QueryXMLParser::QueriesIterator it;
