@@ -403,10 +403,17 @@ int main(int argc, char* argv[]){
 	int i;
 	string querystring;
 	for(i = 0; i < XMLparser.queries.size(); i++){
+            cout<<"----------------Query "<<i<<"-----------------------\n"<<endl;
+            
+            cout<<XMLparser.queries[i].queryText<<"\n"<<endl;
 		string querystr = XMLparser.queries[i].queryText;
+            cout<<querystr.substr(2)<<"\n"<<endl;
 		querystring = querystr.substr(2);
+            cout<<"Negate?: "<<XMLparser.queries[i].negateResult<<"\n"<<endl;
 		isInvariantlist[i] = XMLparser.queries[i].negateResult;
+            cout<<querystring<<"\n"<<endl;
 		querylist[i] = ParseQuery(querystring);
+            cout<<querylist[i]->toString()<<"\n"<<endl;
 	}	
 
         clock_t parse_end = clock();

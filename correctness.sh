@@ -3,23 +3,23 @@
 #time ./verifypn-linux64 -x 1 -l 1 -s OverApprox ../models/CircularTrains-PT-012/model.pnml ../models/CircularTrains-PT-012/ReachabilityCardinality.xml
 
 
-#echo "CircularTrains-PT-024" | ts
-#time ./verifypn-linux64 -l 3 -e ../models/CircularTrains-PT-024/model.pnml
+echo "CircularTrains-PT-024" | ts
+time ./verifypn-linux64 -x 1 -l 2 -d ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml > logFiles/CircularTrains24Correctness.txt
 
-echo "EnergyBus" | ts
-time ./verifypn-linux64 -x 2 -l 2 ../models/EnergyBus-PT-none/model.pnml ../models/EnergyBus-PT-none/ReachabilityCardinality.xml > logFiles/EnergyBus_s.txt
+#echo "EnergyBus" | ts
+#time ./verifypn-linux64 -x 2 -l 2 ../models/EnergyBus-PT-none/model.pnml ../models/EnergyBus-PT-none/ReachabilityCardinality.xml > logFiles/EnergyBus_s.txt
 
-echo "Angiogenesis" | ts
-time ./verifypn-linux64 -x 2 -l 2 ../models/Angiogenesis-PT-01/model.pnml ../models/Angiogenesis-PT-01/ReachabilityCardinality.xml > logFiles/Angiogenesis_s.txt
+#echo "Angiogenesis" | ts
+#time ./verifypn-linux64 -x 2 -l 2 ../models/Angiogenesis-PT-01/model.pnml ../models/Angiogenesis-PT-01/ReachabilityCardinality.xml > logFiles/Angiogenesis_s.txt
 
-echo "CSRepetitions" | ts
-time ./verifypn-linux64 -x 2 -l 2 ../models/CSRepetitions-PT-02/model.pnml ../models/CSRepetitions-PT-02/ReachabilityCardinality.xml > logFiles/CSRepetitions_s.txt
+#echo "CSRepetitions" | ts
+#time ./verifypn-linux64 -x 2 -l 2 ../models/CSRepetitions-PT-02/model.pnml ../models/CSRepetitions-PT-02/ReachabilityCardinality.xml > logFiles/CSRepetitions_s.txt
 
-echo "Eratosthenes" | ts
-time ./verifypn-linux64 -x 2 -l 2 ../models/Eratosthenes-PT-010/model.pnml ../models/Eratosthenes-PT-010/ReachabilityCardinality.xml > logFiles/Eratosthenes_s.txt
+#echo "Eratosthenes" | ts
+#time ./verifypn-linux64 -x 2 -l 2 ../models/Eratosthenes-PT-010/model.pnml ../models/Eratosthenes-PT-010/ReachabilityCardinality.xml > logFiles/Eratosthenes_s.txt
 
-echo "DatabaseWithMutex" | ts
-time ./verifypn-linux64 -x 2 -l 2 ../models/DatabaseWithMutex-PT-02/model.pnml ../models/DatabaseWithMutex-PT-02/ReachabilityCardinality.xml > logFiles/DatabaseWithMutex_s.txt
+#echo "DatabaseWithMutex" | ts
+#time ./verifypn-linux64 -x 2 -l 2 ../models/DatabaseWithMutex-PT-02/model.pnml ../models/DatabaseWithMutex-PT-02/ReachabilityCardinality.xml > logFiles/DatabaseWithMutex_s.txt
 
 
 
