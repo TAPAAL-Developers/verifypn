@@ -38,6 +38,7 @@
 #include <PetriEngine/Reachability/RandomDFS.h>
 #include <PetriEngine/Reachability/DepthFirstReachabilitySearch.h>
 #include <PetriEngine/Reachability/BreadthFirstReachabilitySearch.h>
+#include <PetriEngine/Reachability/LTSmin.h>
 #include <math.h>
 
 #include "PetriEngine/Reducer.h"
@@ -67,8 +68,7 @@ enum SearchStrategies{
 	BFS,			//LinearOverAprox + BreadthFirstReachabilitySearch
 	DFS,			//LinearOverAprox + DepthFirstReachabilitySearch
 	RDFS,			//LinearOverAprox + RandomDFS
-	OverApprox,		//LinearOverApprx
-        LTSmin                  //LinearOverApprx + LTSmin
+	OverApprox		//LinearOverApprx
 };
 
 #define VERSION		"1.1.1"
@@ -130,8 +130,6 @@ int main(int argc, char* argv[]){
 				searchstrategy = RDFS;
 			else if(strcmp(s, "OverApprox") == 0)
 				searchstrategy = OverApprox;
-			else if(strcmp(s, "LTSmin") == 0)
-				searchstrategy = LTSmin;
 			else{
 				fprintf(stderr, "Argument Error: Unrecognized search strategy \"%s\"\n", s);
 				return ErrorCode;
@@ -242,7 +240,6 @@ int main(int argc, char* argv[]){
 		enablereduction = 0;
 		kbound = 0;
 		outputtrace = false;
-		searchstrategy = LTSmin;
 	}
 
 
@@ -449,7 +446,6 @@ int main(int argc, char* argv[]){
 
 	//Create reachability search strategy
 	ReachabilitySearchStrategy* strategy = NULL;
-        bool useLTSmin = false;
 	if(searchstrategy == BestFS)
 		strategy = new UltimateSearch(true, kbound, memorylimit);
 	else if(searchstrategy == BFS)
@@ -460,10 +456,7 @@ int main(int argc, char* argv[]){
 		strategy = new RandomDFS(kbound, memorylimit);
 	else if(searchstrategy == OverApprox)
 		strategy = NULL;
-        else if(searchstrategy == LTSmin) {
-                strategy = NULL;
-                useLTSmin = true;
-	}else{
+	else{
 		fprintf(stderr, "Error: Search strategy selection out of range.\n");
                 fprintf(stderr, "CANNOT_COMPUTE\n");
 		return ErrorCode;
@@ -472,17 +465,13 @@ int main(int argc, char* argv[]){
 	// Wrap in linear over-approximation, if not disabled
 	if(!disableoverapprox){
 		strategy = new LinearOverApprox(strategy);
-        }
-
+	}
 
 	// If no strategy is provided
-
-
-	if(!strategy && !useLTSmin && !(enableLTSmin > 0)){
-
-	            fprintf(stderr, "No strategy what so ever!\n");
-                    fprintf(stderr, "CANNOT_COMPUTE\n");
-	            return ErrorCode;
+	if(!strategy && !(enableLTSmin > 0)){
+		fprintf(stderr, "No strategy what so ever!\n");
+		fprintf(stderr, "CANNOT_COMPUTE\n");
+		return ErrorCode;
 	}
 
         clock_t lpsolve_begin = clock();
@@ -848,6 +837,7 @@ int main(int argc, char* argv[]){
         }
 
 
+
      clock_t LTSmin_begin = clock();
 
 	FILE * stream;
@@ -870,110 +860,48 @@ int main(int argc, char* argv[]){
 		//cmd = "sh runLTS.osx64.sh";
 	}
 	else{ // single core
-		cmd = "sh runLTS.sh";
-		//cmd = "sh runLTS.osx64.sh";
+		//cmd = "sh runLTS.sh";
+		cmd = "sh runLTS.osx64.sh";
 	}
 
-	  cmd.append(" 2>&1");
+	   cmd.append(" 2>&1");
+
+                LTSmin ltsmin = LTSmin();
+	  ReturnValues solution = UnknownCode;
+	  ReachabilityResult result;
 
 	  // verify only one query
 	  if(enableLTSmin == 1){
-  		int q, m, s;
-	              string data;	              
-		  int numberOfExitMessages = sizeof( searchExit ) / sizeof( searchExit[0] );
-		int solved = 0;
-		int ltsminVerified = 0;
-		bool exitLTSmin = 0;
-		printf("%s\n", startMessage.c_str());
-		stringstream ss;
-		ss << xmlquery-1;
-		string number = ss.str();
-		stream = popen(cmd.c_str(), "r");
 
-		string queryResultSat = string("FORMULA ") + XMLparser.queries[xmlquery-1].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
-                        string queryResultNotSat = string("FORMULA ") + XMLparser.queries[xmlquery-1].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+                    result = ltsmin.reachable(cmd, xmlquery-1, XMLparser.queries[xmlquery-1].id, XMLparser.queries[xmlquery-1].isPlaceBound);
 
-	                while (!exitLTSmin){
-	                    if (fgets(buffer, max_buffer, stream) != NULL){
-	                        size_t found;
-	                        data = "";
-	                        data.append(buffer);
+                    if(result.result() == ReachabilityResult::Satisfied)
+                        solution = isInvariant ? FailedCode : SuccessCode;
+                    else if(result.result() == ReachabilityResult::NotSatisfied)
+                        solution = isInvariant ? SuccessCode : FailedCode;
+                    else 
+                        solution = UnknownCode;
 
-                              	if(XMLparser.queries[xmlquery-1].isPlaceBound){
-                            
-                            	
 
-                                	string searchPlaceBound = string("Query ") + number + " max tokens are";
-                                	string maxtokens;
+	  printf("%s\n", exitMessage.c_str());
 
-                                	size_t startPos = 0;
 
-		        if((startPos = data.find("\'", startPos)) != std::string::npos) {
+                fprintf(stdout, "%s ", XMLparser.queries[xmlquery-1].id.c_str()); 
+                // print result
+                if(solution == FailedCode)
+                    fprintf(stdout, "FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n");
 
-		                size_t end_quote = data.find("\'", startPos + 1);
-		                size_t nameLen = (end_quote - startPos) + 1;
-		                maxtokens = data.substr(startPos + 1, nameLen - 2);   
+                else if(solution == SuccessCode)
+                    fprintf(stdout, "TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n");
 
-		                startPos += maxtokens.size();
-		            }
+                else if(solution == UnknownCode)
+                    fprintf(stdout, "Unable to decide if query is satisfied\n");
 
-		        string queryResultPlaceBound = string("FORMULA ") + XMLparser.queries[xmlquery-1].id.c_str() + " = " + maxtokens.c_str() + " TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+                else
+                    fprintf(stdout, "Error occured.\n");
 
-                                	
-                                	if((found = data.find(searchPlaceBound)) != std::string::npos){
-                                    printf("%s\n", queryResultPlaceBound.c_str());
-                                    ltsminVerified = 1;
-                                	}
-                                }
+                return solution;
 
-                                string searchSat = string("#Query ") + number + " is satisfied.";
-                                string searchNotSat = string("#Query ") + number + " is NOT satisfied.";
-                        
-
-                                string queryResultSat = string("FORMULA ") + XMLparser.queries[xmlquery-1].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
-                                string queryResultNotSat = string("FORMULA ") + XMLparser.queries[xmlquery-1].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
-                                
-                                if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified) {
-                                    printf("%s\n", queryResultSat.c_str());
-                                    solved = 1;
-                                    ltsminVerified = 1;
-                		exitLTSmin = 1;
-                                }
-
-                                else if((found = data.find(searchNotSat)) != std::string::npos && !ltsminVerified){
-                                    printf("%s\n", queryResultNotSat.c_str());
-                                    ltsminVerified = 1;
-                		exitLTSmin = 1;
-                                }
-
-                            
-                                
-                        
-
-                        // exit messages
-                        for(m = 0; m<numberOfExitMessages; m++){
-                        	if((found = data.find(searchExit[m])) != std::string::npos){
-                        		//printf("%s\n", exitMessage.c_str());
-                        		exitLTSmin = 1;
-                        		break;
-                        	}
-                        }
-                    }
-                }
-                        
-                pclose(stream);
-
-		          
-	if(!solved && !isInvariantlist[xmlquery-1] && !ltsminVerified){
-		fprintf(stdout, "%s\n", queryResultNotSat.c_str());
-	}
-
-	//AG satisfied
-	else if(!solved && isInvariantlist[xmlquery-1] && !ltsminVerified){
-		fprintf(stdout, "%s\n", queryResultSat.c_str());
-	}
-
-		printf("%s\n", exitMessage.c_str());
      }
  
 
