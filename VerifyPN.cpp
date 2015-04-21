@@ -403,7 +403,8 @@ int main(int argc, char* argv[]){
 	int i;
 	string querystring;
 	for(i = 0; i < XMLparser.queries.size(); i++){
-            cout<<"----------------Query "<<i<<"-----------------------\n"<<endl;
+            /*----------For debugging query errors------------------*/
+            /*cout<<"----------------Query "<<i<<"-----------------------\n"<<endl;
             
             cout<<XMLparser.queries[i].queryText<<"\n"<<endl;
 		string querystr = XMLparser.queries[i].queryText;
@@ -413,7 +414,7 @@ int main(int argc, char* argv[]){
 		isInvariantlist[i] = XMLparser.queries[i].negateResult;
             cout<<querystring<<"\n"<<endl;
 		querylist[i] = ParseQuery(querystring);
-            cout<<querylist[i]->toString()<<"\n"<<endl;
+            cout<<querylist[i]->toString()<<"\n"<<endl;*/
 	}	
 
         clock_t parse_end = clock();
@@ -849,6 +850,11 @@ int main(int argc, char* argv[]){
     //--------------------------------------------RUNNING LTSMIN---------------------------------------------------//
 
      if(enableLTSmin > 0) {
+         const std::vector<std::string> placeNames = net->placeNames();
+         for (int i = 0; i < net->numberOfPlaces(); i++) {
+             cout<<"Place index: "<<i<<" - Place name: "<<placeNames[i]<<endl;
+        }
+
 
      clock_t LTSmin_begin = clock();
 
