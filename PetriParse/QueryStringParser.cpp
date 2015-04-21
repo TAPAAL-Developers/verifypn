@@ -154,6 +154,7 @@ using namespace std;
             convertToComputeBoundsQuery(query);
         } else if(queryItem.isReachBound){ // ReachabilityBounds query
             convertToBoundsQuery(query);
+            convertToComputeBoundsQuery(query);
         } else { //
             // Rename place names eg. "place0" -> src[0]
             replacePlaces(query);

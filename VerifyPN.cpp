@@ -815,7 +815,7 @@ int main(int argc, char* argv[]){
             //std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
             cout<<"Number of places: "<<net->numberOfPlaces()<<endl;
             cout<<"Number of transisions: "<<net->numberOfTransitions()<<endl;
-            CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound);
+            CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound);
 
             int numberOfQueries = XMLparser.queries.size();
             string* stringQueries = new string[numberOfQueries];
