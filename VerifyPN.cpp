@@ -896,8 +896,8 @@ int main(int argc, char* argv[]){
 		//cmd = "sh runLTS.osx64.sh";
 	}
 	else{ // single core
-		cmd = "sh runLTS.sh";
-		//cmd = "sh runLTS.osx64.sh";
+		//cmd = "sh runLTS.sh";
+		cmd = "sh runLTS.osx64.sh";
 	}
 
 	   cmd.append(" 2>&1");
@@ -918,9 +918,7 @@ int main(int argc, char* argv[]){
                     else 
                         solution = UnknownCode;
 
-
 	  printf("%s\n", exitMessage.c_str());
-
      }
  
 
@@ -1038,15 +1036,20 @@ int main(int argc, char* argv[]){
             clock_t LTSmin_end = clock();
             cout<<"------------LTSmin Verification time elapsed: "<<double(diffclock(LTSmin_end,LTSmin_begin))<<" ms-----------\n"<<endl;
 
-
+            // ----------------- Output LTSmin Result ----------------- //
             if(enableLTSmin == 1){
                 fprintf(stdout, "%s ", XMLparser.queries[xmlquery-1].id.c_str()); 
                 // print result
-                if(solution == FailedCode)
-                    fprintf(stdout, "FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n");
+                if(solution == FailedCode){
+                    fprintf(stdout, "FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
+                    fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
 
-                else if(solution == SuccessCode)
-                    fprintf(stdout, "TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n");
+                }
+
+                else if(solution == SuccessCode){
+                    fprintf(stdout, "TRUE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
+                    fprintf(stdout, "\nQuery is satisfied.\n\n");
+                }
 
                 else if(solution == UnknownCode)
                     fprintf(stdout, "Unable to decide if query is satisfied\n");
