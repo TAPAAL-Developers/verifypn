@@ -140,7 +140,7 @@ using namespace std;
         QueryXMLParser::QueryItem queryItem = _Parser->queries[i];
         string query = queryItem.queryText;
 
-        cout <<"\n\n&&& Query: "<<query<<endl;
+        //cout <<"\n\n&&& Query: "<<query<<endl;
 
         // Remove temporal operators EF
         query.replace(0, 2, "");

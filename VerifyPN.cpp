@@ -122,8 +122,9 @@ int main(int argc, char* argv[]){
 	int enableLTSmin = 0;
 	std::string LTSminRunning = "start - \n";
 	std::vector<std::string> stateLabels;
-    bool isReachBound = false;
-    bool ltsminMc = false;
+            bool isReachBound = false;
+            bool ltsminMc = false;
+            bool debugging = false;
 
 	//----------------------- Parse Arguments -----------------------//
 
@@ -202,6 +203,8 @@ int main(int argc, char* argv[]){
 					fprintf(stderr, "Argument Error: Invalid ltsmin argument \"%s\"\n", argv[i]);
 					return ErrorCode;
 				}
+                            } else if (strcmp(argv[i], "-b") == 0 || strcmp(argv[i], "--debugging") == 0) {
+                                printstatistics = true;                
 		} else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0){
 			printf(	"Usage: verifypn [options] model-file query-file\n"
 					"A tool for answering reachability of place cardinality queries (including deadlock)\n"
@@ -284,12 +287,13 @@ int main(int argc, char* argv[]){
 	}
 
 	//----------------------- Open Model -----------------------//
-    cout<<"Parsing Model and Query"<<endl;
+    if(debugging) cout<<"Parsing Model and Query"<<endl;
     clock_t parse_begin = clock();
 	//Load the model, begin scope to release memory from the stack
 	PetriNet* net = NULL;
 	MarkVal* m0 = NULL;
 	VarVal* v0 = NULL;
+    ReturnValues solution = UnknownCode;
 
     // List of inhibitor arcs and transition enabledness
     PNMLParser::InhibitorArcList inhibarcs;
@@ -433,9 +437,10 @@ int main(int argc, char* argv[]){
 		isInvariantlist[i] = XMLparser.queries[i].negateResult;
 		querylist[i] = ParseQuery(querystring);
 	}	
+            isInvariant = isInvariantlist[xmlquery-1];
 
         clock_t parse_end = clock();
-        cout<<"\nParsing time elapsed: "<<double(diffclock(parse_end,parse_begin))<<" ms\n"<<endl;
+        if(debugging) cout<<"\nParsing time elapsed: "<<double(diffclock(parse_end,parse_begin))<<" ms\n"<<endl;
 
 
 	//----------------------- Context Analysis -----------------------//
@@ -468,7 +473,7 @@ int main(int argc, char* argv[]){
                 }
 	}
         clock_t contextAnalysis_end = clock();
-        cout<<"Context Analysis time elapsed: "<<double(diffclock(contextAnalysis_end,contextAnalysis_begin))<<" ms\n"<<endl;
+        if(debugging) cout<<"Context Analysis time elapsed: "<<double(diffclock(contextAnalysis_end,contextAnalysis_begin))<<" ms\n"<<endl;
 
 //--------------------------------------------Reachability------------------------------------------------------------------
 
@@ -503,7 +508,6 @@ int main(int argc, char* argv[]){
 	}
 
         clock_t lpsolve_begin = clock();
-        fprintf(stderr, "Using VerifyPN Engine\n");
         ReachabilityResult result;
         int *notSatisfiable = new int[numberOfQueries];
         
@@ -522,21 +526,19 @@ int main(int argc, char* argv[]){
             result = strategy->reachable(*net, m0, v0, querylist[xmlquery-1]);
 
             if(result.result() == ReachabilityResult::Unknown){
-                    notSatisfiable[xmlquery-1] = 0;
+                    fprintf(stdout, "lpsolve: Unable to decide if query is satisfied.\n");
+                    solution = UnknownCode;
+            }
+
+            else if(result.result() == ReachabilityResult::Satisfied){
+                    fprintf(stdout, "lpsolve: Query is satisfied.\n");
+                    solution = isInvariant ? FailedCode : SuccessCode;
             }
 
             else if(result.result() == ReachabilityResult::NotSatisfied){
-                    if (isInvariantlist[xmlquery-1]) {
-                            fprintf(stdout, "FORMULA %s TRUE TECHNIQUES EXPLICIT - DEBUG::Resolved by lpsolve\n ", XMLparser.queries[xmlquery-1].id.c_str());
-                            return 0;
-                    }
-                    else {
-                        notSatisfiable[xmlquery-1] = 0;
-                    }
-            }
-            else {
-                notSatisfiable[xmlquery-1] = 0;
-            }
+                    fprintf(stdout, "lpsolve: Query is not satisfied.\n");
+                    solution = isInvariant ? SuccessCode : FailedCode;
+            }            
         }
 
         if(enableLTSmin == 2 && strategy && !disableoverapprox){
@@ -721,7 +723,7 @@ int main(int argc, char* argv[]){
         }
         
         clock_t lpsolve_end = clock();
-        cout<<"lpsolve time elapsed: "<<double(diffclock(lpsolve_end,lpsolve_begin))<<" ms\n"<<endl;
+        if(debugging) cout<<"lpsolve time elapsed: "<<double(diffclock(lpsolve_end,lpsolve_begin))<<" ms\n"<<endl;
         
         //--------------------- Apply Net Reduction ---------------//
         clock_t reduction_begin = clock();
@@ -784,17 +786,17 @@ int main(int argc, char* argv[]){
                     }
                     else {
                         reduceByMultiQuery = false;
-                        cout<<"actualPalceReductionFactor failed\n"<<endl;
+                        if(debugging) cout<<"actualPalceReductionFactor failed\n"<<endl;
                     }
                 }
                 else {
                     reduceByMultiQuery = false;
-                    cout<<"reduceabilityfactor failed\n"<<endl;
+                    if(debugging) cout<<"reduceabilityfactor failed\n"<<endl;
                 }
             }
             else {
                 reduceByMultiQuery = false;
-                cout<<"LTSmin (-l 2) not enabled\n"<<endl;
+                if(debugging) cout<<"LTSmin (-l 2) not enabled\n"<<endl;
             }
             if(reduceByMultiQuery == false) {
                 for (size_t i = 0; i < net->numberOfPlaces(); i++) {
@@ -825,7 +827,7 @@ int main(int argc, char* argv[]){
         //----------------------------------Mvh. Søren--------------------------
 	}
         clock_t reduction_end = clock();
-        cout<<"Reduction time elapsed: "<<double(diffclock(reduction_end,reduction_begin))<<" ms\n"<<endl;
+        if(debugging) cout<<"Reduction time elapsed: "<<double(diffclock(reduction_end,reduction_begin))<<" ms\n"<<endl;
 
  
 	if (enableLTSmin > 0 && enableLTSmin < 3) {
@@ -833,10 +835,10 @@ int main(int argc, char* argv[]){
 
             clock_t codeGen_begin = clock();
                 
-            cout<<endl<<"LTSmin is enabled"<<endl;
+            if(debugging) cout<<endl<<"LTSmin is enabled"<<endl;
             //std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
-            cout<<"Number of places: "<<net->numberOfPlaces()<<endl;
-            cout<<"Number of transisions: "<<net->numberOfTransitions()<<endl;
+            if(debugging) cout<<"Number of places: "<<net->numberOfPlaces()<<endl;
+            if(debugging) cout<<"Number of transisions: "<<net->numberOfTransitions()<<endl;
             CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound);
 
             int numberOfQueries = XMLparser.queries.size();
@@ -848,13 +850,13 @@ int main(int argc, char* argv[]){
 
             else if(enableLTSmin == 2){ // verify all queries at once
                 for (i = 0; i < XMLparser.queries.size(); i++){
-                    cout<<"notSatisfiable "<<i<<": "<<notSatisfiable[i]<<"\n"<<endl;
+                    if(debugging) cout<<"notSatisfiable "<<i<<": "<<notSatisfiable[i]<<"\n"<<endl;
                 }
                     codeGen.generateSourceMultipleQueries(&stateLabels, notSatisfiable, isInvariantlist, numberOfQueries);
                     //codeGen.printQueries(stringQueries, numberOfQueries);
             }
             clock_t codeGen_end = clock();
-            cout<<"LTSmin Code Generation time elapsed: "<<double(diffclock(codeGen_end,codeGen_begin))<<" ms\n"<<endl;
+            if(debugging) cout<<"LTSmin Code Generation time elapsed: "<<double(diffclock(codeGen_end,codeGen_begin))<<" ms\n"<<endl;
 	}
 
 
@@ -869,7 +871,7 @@ int main(int argc, char* argv[]){
      if(enableLTSmin > 0) {
          const std::vector<std::string> placeNames = net->placeNames();
          for (int i = 0; i < net->numberOfPlaces(); i++) {
-             cout<<"Place index: "<<i<<" - Place name: "<<placeNames[i]<<endl;
+             if(debugging) cout<<"Place index: "<<i<<" - Place name: "<<placeNames[i]<<endl;
         }
 
 
@@ -903,11 +905,10 @@ int main(int argc, char* argv[]){
 	   cmd.append(" 2>&1");
 
                 LTSmin ltsmin = LTSmin();
-	  ReturnValues solution = UnknownCode;
 	  ReachabilityResult result;
 
 	  // verify only one query
-	  if(enableLTSmin == 1){
+	  if(enableLTSmin == 1 && solution == UnknownCode){
 
                     result = ltsmin.reachable(cmd, xmlquery-1, XMLparser.queries[xmlquery-1].id, XMLparser.queries[xmlquery-1].isPlaceBound);
 
@@ -1034,7 +1035,7 @@ int main(int argc, char* argv[]){
 	  }
 
             clock_t LTSmin_end = clock();
-            cout<<"------------LTSmin Verification time elapsed: "<<double(diffclock(LTSmin_end,LTSmin_begin))<<" ms-----------\n"<<endl;
+            if(debugging) cout<<"------------LTSmin Verification time elapsed: "<<double(diffclock(LTSmin_end,LTSmin_begin))<<" ms-----------\n"<<endl;
 
             // ----------------- Output LTSmin Result ----------------- //
             if(enableLTSmin == 1){
@@ -1043,7 +1044,6 @@ int main(int argc, char* argv[]){
                 if(solution == FailedCode){
                     fprintf(stdout, "FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
                     fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
-
                 }
 
                 else if(solution == SuccessCode){
@@ -1052,10 +1052,10 @@ int main(int argc, char* argv[]){
                 }
 
                 else if(solution == UnknownCode)
-                    fprintf(stdout, "Unable to decide if query is satisfied\n");
+                    fprintf(stdout, "\nUnable to decide if query is satisfied\n\n");
 
                 else
-                    fprintf(stdout, "Error occured.\n");
+                    fprintf(stdout, "\nError occured.\n");
 
                 return solution;
             }
