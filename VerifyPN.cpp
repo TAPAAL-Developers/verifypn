@@ -1,5 +1,5 @@
 /* PeTe - Petri Engine exTremE
- * Copyright (C) 2011-2014  Jonas Finnemann Jensen <jopsen@gmail.com>,
+ * Copyright (C) 2011-2015  Jonas Finnemann Jensen <jopsen@gmail.com>,
  *                          Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                          Lars Kærlund Østergaard <larsko@gmail.com>,
  *                          Jiri Srba <srba.jiri@gmail.com>
@@ -21,6 +21,7 @@
 #include <PetriParse/PNMLParser.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <PetriEngine/PetriNetBuilder.h>
 #include <PetriEngine/PQL/PQL.h>
 #include <string>
@@ -73,11 +74,36 @@ enum SearchStrategies{
 
 #define VERSION		"1.1.1"
 
+ int parseLine(char* line){
+        int i = strlen(line);
+        while (*line < '0' || *line > '9') line++;
+        line[i-3] = '\0';
+        i = atoi(line);
+        return i;
+    }
+/*
+int getValue(){ //Note: this value is in KB!
+        FILE* file = fopen("/proc/self/status", "r");
+        int result = -1;
+        char line[128];
+    
+
+        while (fgets(line, 128, file) != NULL){
+            if (strncmp(line, "VmRSS:", 6) == 0){
+                result = parseLine(line);
+                break;
+            }
+        }
+        fclose(file);
+        return result;
+    }
+*/
 double diffclock(clock_t clock1, clock_t clock2){
     double diffticks = clock1 + clock2;
     double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
     return diffms;
 }
+
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -299,7 +325,9 @@ int main(int argc, char* argv[]){
 		// Close the file
 		mfile.close();
 	}
-
+    // fprintf(stderr, "Size of model: %dKB\n", getValue());
+    // cout<<"Size of model: "<<getValue()<<"KB\n"<<endl; 
+    
 	//----------------------- Parse Query -----------------------//
 
 	//Condition to check
@@ -479,9 +507,14 @@ int main(int argc, char* argv[]){
         ReachabilityResult result;
         int *notSatisfiable = new int[numberOfQueries];
         
-        if (enableLTSmin > 0){
+        if (enableLTSmin > 0 && !disableoverapprox){
             for(i = 0; i<numberOfQueries;i++){
         		notSatisfiable[i] = 1;
+            }
+        }
+        else if (disableoverapprox){
+            for(i = 0; i<numberOfQueries;i++){
+        		notSatisfiable[i] = 0;
             }
         }
 
@@ -804,7 +837,7 @@ int main(int argc, char* argv[]){
             //std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
             cout<<"Number of places: "<<net->numberOfPlaces()<<endl;
             cout<<"Number of transisions: "<<net->numberOfTransitions()<<endl;
-            CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound);
+            CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound);
 
             int numberOfQueries = XMLparser.queries.size();
             string* stringQueries = new string[numberOfQueries];
@@ -814,6 +847,9 @@ int main(int argc, char* argv[]){
             }
 
             else if(enableLTSmin == 2){ // verify all queries at once
+                for (i = 0; i < XMLparser.queries.size(); i++){
+                    cout<<"notSatisfiable "<<i<<": "<<notSatisfiable[i]<<"\n"<<endl;
+                }
                     codeGen.generateSourceMultipleQueries(&stateLabels, notSatisfiable, isInvariantlist, numberOfQueries);
                     //codeGen.printQueries(stringQueries, numberOfQueries);
             }
