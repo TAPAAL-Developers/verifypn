@@ -16,15 +16,15 @@ class QueryStringParser {
         string getStateLabel(int i);
         std::vector<std::string> getStateLabels();
 
+    private:
         void replaceOperator(std::string& query, const std::string& from, const std::string& to);
         void replacePlaces(std::string& query);
-        void replaceQueryForComputePlaceBound(std::string& query);
-        void replaceQueryForPlaceBound(std::string& query);
+        void convertToComputeBoundsQuery(std::string& query);
+        void convertToBoundsQuery(std::string& query);
         string  getPlaceIndexByName(const std::string placeName);
         void findDeadlockConditions(std::string& query, size_t deadlockPos);
         int inhibArc(unsigned int p, unsigned int t);
 
-    private:
         QueryXMLParser *_Parser;
         PetriEngine::PetriNet *_PetriNet;
         std::vector<std::string> _stateLabel;

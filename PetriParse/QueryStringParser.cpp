@@ -1,12 +1,8 @@
 #include "QueryStringParser.h"
 
 #include <stdio.h>
-
 #include <string>
 #include <string.h>
-
-
-
 #include <iostream>
 #include <sstream>
 
@@ -69,7 +65,7 @@ using namespace std;
         }
     }
 
-    void QueryStringParser::replaceQueryForPlaceBound(std::string& query) {
+    void QueryStringParser::convertToComputeBoundsQuery(std::string& query) {
         size_t startPos = 0;
 
         while((startPos = query.find("\"", startPos)) != std::string::npos) {
@@ -86,23 +82,9 @@ using namespace std;
         }
     }
 
-    void QueryStringParser::replaceQueryForComputePlaceBound(std::string& query) {
-        size_t startPos = 0;
-
-        while((startPos = query.find("\"", startPos)) != std::string::npos) {
-            size_t end_quote = query.find("\"", startPos + 1);
-            size_t nameLen = (end_quote - startPos) + 1;
-
-            // Exclude both quotes from place name before searching
-            string oldPlaceName = query.substr(startPos + 1, nameLen - 2);
-            string newPlaceIndex = getPlaceIndexByName(oldPlaceName);
-            string newPlaceName = "MaxNumberOfTokensInPlace[" + newPlaceIndex + "]";
-
-            query.replace(startPos, nameLen, newPlaceName);
-            startPos += newPlaceName.size();
-        }
+    void QueryStringParser::convertToBoundsQuery(std::string& query){
+        // Code here
     }
-
 
     int QueryStringParser::inhibArc(unsigned int p, unsigned int t){
         for (PNMLParser::InhibitorArcIter it = _inhibArcs.begin(); it != _inhibArcs.end(); it++) {
@@ -155,7 +137,8 @@ using namespace std;
     }
 
     void QueryStringParser::generateStateLabel(int i){
-        string query = _Parser->queries[i].queryText;
+        QueryXMLParser::QueryItem queryItem = _Parser->queries[i];
+        string query = queryItem.queryText;
 
         cout <<"\n\n&&& Query: "<<query<<endl;
 
@@ -165,33 +148,25 @@ using namespace std;
         // Check if query is of type ReachabilityDeadlock
         size_t deadlockPos = query.find("deadlock", 0);
 
-
         if(deadlockPos != std::string::npos){
             findDeadlockConditions(query, deadlockPos);
-        }
-        else if(_Parser->queries[i].isPlaceBound){
-            replaceQueryForComputePlaceBound(query);
-                 // Replace all TAPAAL query operators with C operators
-            replaceOperator(query, "not", "!");
-            replaceOperator(query, "and", "&&");
-            replaceOperator(query, "or", "||");
-
-            // Replace true/false with 1,0
-            replaceOperator(query, "true", "1");
-            replaceOperator(query, "false", "0");
-        }
-        else {
-            // Rename places eg. "place0" -> src[0]
+        } else if(queryItem.isPlaceBound){ // ReacabilityComputeBounds query
+            convertToComputeBoundsQuery(query);
+        } else if(queryItem.isReachBound){ // ReachabilityBounds query
+            convertToBoundsQuery(query);
+        } else { //
+            // Rename place names eg. "place0" -> src[0]
             replacePlaces(query);
-            // Replace all TAPAAL query operators with C operators
-            replaceOperator(query, "not", "!");
-            replaceOperator(query, "and", "&&");
-            replaceOperator(query, "or", "||");
-
-            // Replace true/false with 1,0
-            replaceOperator(query, "true", "1");
-            replaceOperator(query, "false", "0");
         }
+
+        // Replace all TAPAAL query operators with C operators
+        replaceOperator(query, "not", "!");
+        replaceOperator(query, "and", "&&");
+        replaceOperator(query, "or", "||");
+
+        // Replace true/false with 1,0
+        replaceOperator(query, "true", "1");
+        replaceOperator(query, "false", "0");
 
         _stateLabel[i] = query;
     }
