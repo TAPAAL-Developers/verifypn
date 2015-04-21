@@ -153,9 +153,6 @@ namespace PetriEngine{
 
 
         if (!_isReachBound){
-            if(searchAllPaths[query_id])
-                fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is NOT satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
-            else
                 fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
         }
 //        else { fprintf(successor_generator, "if(%s[%d] == 0){if(0){%s[%d] = 1;}}", solvedArray, query_id, solvedArray, query_id);}
@@ -164,14 +161,9 @@ namespace PetriEngine{
 
 
         if (_isReachBound){
-        fprintf(successor_generator, "void exit_func(void* model){  \n");
-             if(searchAllPaths[query_id])
-                fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is NOT satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
-            else
-                fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
-     
-
-        fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");
+            fprintf(successor_generator, "void exit_func(void* model){  \n");
+            fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
+            fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");
         }
 
         else if (_isPlaceBound){ 
@@ -186,7 +178,6 @@ namespace PetriEngine{
                 string oldPlaceName = query.substr(startPos + 1, nameLen - 2);   
                 startPos++;
             
-
             fprintf(successor_generator, " fprintf(stderr, \"Query %d max tokens are \'", query_id);
             fputs("%d\'.\\n\",", successor_generator);
             fprintf(successor_generator, "MaxNumberOfTokensInPlace[%s]);\n", oldPlaceName.c_str());

@@ -1,0 +1,56 @@
+Parsing Model and Query
+CircularTrains-PT-024-ReachabilityCardinality-12: 	EF ( ((not((1 <= "Section_18")) or ((2 <= "Section_24") and ("F8" <= "Section_15"))) and (3 <= "Section_13")) )
+
+
+
+&&& Query: EF ( ((not(("Section_22" <= "F23")) and ("Section_20" <= "Section_8")) and ((2 <= "F17") or (("F17" <= "Section_6") and ("Section_11" <= "Section_21")))) )
+
+
+&&& Query: EF ( (2 <= "Section_20") )
+
+
+&&& Query: EF ( (3 <= "Section_7") )
+
+
+&&& Query: EF not ( not(((("F7" <= "Section_5") or ("F6" <= "Section_4")) and (("F1" <= "F1") and (2 <= "F13")))) )
+
+
+&&& Query: EF not ( ((not((3 <= "F12")) or not((1 <= "Section_8"))) or (((2 <= "Section_12") and (2 <= "F7")) or not(("Section_2" <= "Section_5")))) )
+
+
+&&& Query: EF not ( (not(((3 <= "F18") or (3 <= "Section_24"))) or (((3 <= "F13") or ("F6" <= "Section_13")) and ((3 <= "Section_4") or ("F3" <= "F22")))) )
+
+
+&&& Query: EF ( (3 <= "Section_18") )
+
+
+&&& Query: EF not ( not((not(("Section_13" <= "Section_2")) and ((2 <= "Section_7") and ("F18" <= "F5")))) )
+
+
+&&& Query: EF ( (2 <= "Section_13") )
+
+
+&&& Query: EF not ( not((not((1 <= "Section_19")) and (3 <= "Section_18"))) )
+
+
+&&& Query: EF ( (2 <= "F1") )
+
+
+&&& Query: EF ( ((2 <= "Section_8") and (((1 <= "Section_9") and (1 <= "F9")) and (("F15" <= "Section_8") or (3 <= "F19")))) )
+
+
+&&& Query: EF ( ((not((1 <= "Section_18")) or ((2 <= "Section_24") and ("F8" <= "Section_15"))) and (3 <= "Section_13")) )
+
+
+&&& Query: EF ( not(not(((3 <= "Section_2") and (3 <= "F3")))) )
+
+
+&&& Query: EF ( ((2 <= "F9") and (not(("F13" <= "F24")) or not(("F10" <= "Section_18")))) )
+
+
+&&& Query: EF not ( (not((3 <= "F9")) or not(("F10" <= "F17"))) )
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-12 
+Parsing time elapsed: 3.3 ms
+
+Context Analysis time elapsed: 6.016 ms
+

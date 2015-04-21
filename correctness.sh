@@ -2,14 +2,23 @@
 #echo "CircularTrains-PT-012" | ts
 #time ./verifypn-linux64 -x 1 -l 1 -s OverApprox ../models/CircularTrains-PT-012/model.pnml ../models/CircularTrains-PT-012/ReachabilityCardinality.xml
 
-echo "CircularTrains-PT-024" | ts
-for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
-do
-time ./verifypn-linux64 -x $i -l 1 -d ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml > logFiles/CircularTrains24Correctness_$i.txt
-done
+#echo "CircularTrains-PT-024" | ts
+#for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+#do
+#time ./verifypn-linux64 -x $i -l 1 -d ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml #> logFiles/CircularTrains24Correctness_$i_d.txt
+#done
 
 echo "CircularTrains-PT-024" | ts
-time ./verifypn-linux64 -x 1 -l 2 -d ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml > logFiles/CircularTrains24Correctness_Multi.txt
+time ./verifypn-linux64 -x 1 -l 2 -d ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml > logFiles/CircularTrains24Correctness_Multi_d.txt
+
+#echo "CircularTrains-PT-024" | ts
+#for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+#do
+#time ./verifypn-linux64 -x $i -l 1 ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml > logFiles/CircularTrains24Correctness_$i.txt
+#done
+
+#echo "CircularTrains-PT-024" | ts
+#time ./verifypn-linux64 -x 1 -l 2 ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml > logFiles/CircularTrains24Correctness_Multi.txt
 
 #echo "EnergyBus" | ts
 #time ./verifypn-linux64 -x 2 -l 2 ../models/EnergyBus-PT-none/model.pnml ../models/EnergyBus-PT-none/ReachabilityCardinality.xml > logFiles/EnergyBus_s.txt
