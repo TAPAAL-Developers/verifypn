@@ -1,0 +1,182 @@
+Parsing Model and Query
+CircularTrains-PT-024-ReachabilityCardinality-0: 	EF ( ((not(("Section_22" <= "F23")) and ("Section_20" <= "Section_8")) and ((2 <= "F17") or (("F17" <= "Section_6") and ("Section_11" <= "Section_21")))) )
+
+
+
+&&& Query: EF ( ((not(("Section_22" <= "F23")) and ("Section_20" <= "Section_8")) and ((2 <= "F17") or (("F17" <= "Section_6") and ("Section_11" <= "Section_21")))) )
+
+
+&&& Query: EF ( (2 <= "Section_20") )
+
+
+&&& Query: EF ( (3 <= "Section_7") )
+
+
+&&& Query: EF not ( not(((("F7" <= "Section_5") or ("F6" <= "Section_4")) and (("F1" <= "F1") and (2 <= "F13")))) )
+
+
+&&& Query: EF not ( ((not((3 <= "F12")) or not((1 <= "Section_8"))) or (((2 <= "Section_12") and (2 <= "F7")) or not(("Section_2" <= "Section_5")))) )
+
+
+&&& Query: EF not ( (not(((3 <= "F18") or (3 <= "Section_24"))) or (((3 <= "F13") or ("F6" <= "Section_13")) and ((3 <= "Section_4") or ("F3" <= "F22")))) )
+
+
+&&& Query: EF ( (3 <= "Section_18") )
+
+
+&&& Query: EF not ( not((not(("Section_13" <= "Section_2")) and ((2 <= "Section_7") and ("F18" <= "F5")))) )
+
+
+&&& Query: EF ( (2 <= "Section_13") )
+
+
+&&& Query: EF not ( not((not((1 <= "Section_19")) and (3 <= "Section_18"))) )
+
+
+&&& Query: EF ( (2 <= "F1") )
+
+
+&&& Query: EF ( ((2 <= "Section_8") and (((1 <= "Section_9") and (1 <= "F9")) and (("F15" <= "Section_8") or (3 <= "F19")))) )
+
+
+&&& Query: EF ( ((not((1 <= "Section_18")) or ((2 <= "Section_24") and ("F8" <= "Section_15"))) and (3 <= "Section_13")) )
+
+
+&&& Query: EF ( not(not(((3 <= "Section_2") and (3 <= "F3")))) )
+
+
+&&& Query: EF ( ((2 <= "F9") and (not(("F13" <= "F24")) or not(("F10" <= "Section_18")))) )
+
+
+&&& Query: EF not ( (not((3 <= "F9")) or not(("F10" <= "F17"))) )
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-0 
+Parsing time elapsed: 3.255 ms
+
+Context Analysis time elapsed: 5.7 ms
+
+lpsolve time elapsed: 290.564 ms
+
+Reduction time elapsed: 577.776 ms
+
+
+LTSmin is enabled
+Number of places: 48
+Number of transisions: 24
+notSatisfiable 0: 0
+
+notSatisfiable 1: 0
+
+notSatisfiable 2: 0
+
+notSatisfiable 3: 0
+
+notSatisfiable 4: 0
+
+notSatisfiable 5: 0
+
+notSatisfiable 6: 0
+
+notSatisfiable 7: 0
+
+notSatisfiable 8: 0
+
+notSatisfiable 9: 0
+
+notSatisfiable 10: 0
+
+notSatisfiable 11: 0
+
+notSatisfiable 12: 0
+
+notSatisfiable 13: 0
+
+notSatisfiable 14: 0
+
+notSatisfiable 15: 0
+
+LTSmin Code Generation time elapsed: 580.386 ms
+
+Place index: 0 - Place name: Section_4
+Place index: 1 - Place name: F7
+Place index: 2 - Place name: Section_2
+Place index: 3 - Place name: Section_9
+Place index: 4 - Place name: F23
+Place index: 5 - Place name: Section_16
+Place index: 6 - Place name: F14
+Place index: 7 - Place name: F21
+Place index: 8 - Place name: Section_23
+Place index: 9 - Place name: Section_11
+Place index: 10 - Place name: F2
+Place index: 11 - Place name: Section_6
+Place index: 12 - Place name: Section_14
+Place index: 13 - Place name: F19
+Place index: 14 - Place name: F16
+Place index: 15 - Place name: F18
+Place index: 16 - Place name: F9
+Place index: 17 - Place name: F3
+Place index: 18 - Place name: Section_12
+Place index: 19 - Place name: Section_15
+Place index: 20 - Place name: Section_21
+Place index: 21 - Place name: Section_18
+Place index: 22 - Place name: Section_24
+Place index: 23 - Place name: F12
+Place index: 24 - Place name: F6
+Place index: 25 - Place name: Section_17
+Place index: 26 - Place name: F1
+Place index: 27 - Place name: F15
+Place index: 28 - Place name: Section_3
+Place index: 29 - Place name: Section_10
+Place index: 30 - Place name: F8
+Place index: 31 - Place name: F24
+Place index: 32 - Place name: F10
+Place index: 33 - Place name: Section_5
+Place index: 34 - Place name: F13
+Place index: 35 - Place name: Section_19
+Place index: 36 - Place name: Section_8
+Place index: 37 - Place name: F22
+Place index: 38 - Place name: Section_7
+Place index: 39 - Place name: F5
+Place index: 40 - Place name: Section_20
+Place index: 41 - Place name: F11
+Place index: 42 - Place name: Section_13
+Place index: 43 - Place name: Section_22
+Place index: 44 - Place name: F4
+Place index: 45 - Place name: Section_1
+Place index: 46 - Place name: F20
+Place index: 47 - Place name: F17
+LTSmin has started
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-0 FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-1 FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-2 FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-3 TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-4 TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-5 TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-6 FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-7 TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-8 FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-9 TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-10 FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-11 FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-12 FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-13 FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-14 FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+FORMULA CircularTrains-PT-024-ReachabilityCardinality-15 TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION
+ 
+LTSmin finished
+------------LTSmin Verification time elapsed: 585.774 ms-----------
+
