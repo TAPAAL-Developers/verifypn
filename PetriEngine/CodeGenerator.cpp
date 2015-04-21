@@ -487,6 +487,7 @@ namespace PetriEngine{
                 if(_net->outArc(t,p) > 0){
                     fprintf(successor_generator, "placemarkings[%d] = src[%d] + %d;\n", p, p, _net->outArc(t,p));
                     fprintf(successor_generator, "cpy[%d] = 0;\n", p);
+                    fprintf(successor_generator, "if(placemarkings[%d] >= %s[%d]) { %s[%d] = placemarkings[%d]; }\n", p, ComputeBoundsArray, p, ComputeBoundsArray, p, p);
                 }
             }
 
