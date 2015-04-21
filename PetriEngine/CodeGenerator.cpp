@@ -162,8 +162,9 @@ namespace PetriEngine{
 
         if (_isReachBound){
             fprintf(successor_generator, "void exit_func(void* model){  \n");
-            fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
-            fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");
+            fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is satisfied.\"); \n", sl(), query_id);
+            fprintf(successor_generator, "fprintf( stderr, \"exiting now\");}");
+            fprintf(successor_generator, "}");
         }
 
         else if (_isPlaceBound){ 
