@@ -516,9 +516,14 @@ int main(int argc, char* argv[]){
         ReachabilityResult result;
         int *notSatisfiable = new int[numberOfQueries];
         
-        if (enableLTSmin > 0){
+        if (enableLTSmin > 0 && !disableoverapprox){
             for(i = 0; i<numberOfQueries;i++){
         		notSatisfiable[i] = 1;
+            }
+        }
+        else if (disableoverapprox){
+            for(i = 0; i<numberOfQueries;i++){
+        		notSatisfiable[i] = 0;
             }
         }
 
@@ -851,6 +856,9 @@ int main(int argc, char* argv[]){
             }
 
             else if(enableLTSmin == 2){ // verify all queries at once
+                for (i = 0; i < XMLparser.queries.size(); i++){
+                    cout<<"notSatisfiable "<<i<<": "<<notSatisfiable[i]<<"\n"<<endl;
+                }
                     codeGen.generateSourceMultipleQueries(&stateLabels, notSatisfiable, isInvariantlist, numberOfQueries);
                     //codeGen.printQueries(stringQueries, numberOfQueries);
             }
