@@ -921,23 +921,6 @@ int main(int argc, char* argv[]){
 
 	  printf("%s\n", exitMessage.c_str());
 
-
-                fprintf(stdout, "%s ", XMLparser.queries[xmlquery-1].id.c_str()); 
-                // print result
-                if(solution == FailedCode)
-                    fprintf(stdout, "FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n");
-
-                else if(solution == SuccessCode)
-                    fprintf(stdout, "TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n");
-
-                else if(solution == UnknownCode)
-                    fprintf(stdout, "Unable to decide if query is satisfied\n");
-
-                else
-                    fprintf(stdout, "Error occured.\n");
-
-                return solution;
-
      }
  
 
@@ -1054,6 +1037,26 @@ int main(int argc, char* argv[]){
 
             clock_t LTSmin_end = clock();
             cout<<"------------LTSmin Verification time elapsed: "<<double(diffclock(LTSmin_end,LTSmin_begin))<<" ms-----------\n"<<endl;
+
+
+            if(enableLTSmin == 1){
+                fprintf(stdout, "%s ", XMLparser.queries[xmlquery-1].id.c_str()); 
+                // print result
+                if(solution == FailedCode)
+                    fprintf(stdout, "FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n");
+
+                else if(solution == SuccessCode)
+                    fprintf(stdout, "TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n");
+
+                else if(solution == UnknownCode)
+                    fprintf(stdout, "Unable to decide if query is satisfied\n");
+
+                else
+                    fprintf(stdout, "Error occured.\n");
+
+                return solution;
+            }
+
             return 0; 
         }
 
