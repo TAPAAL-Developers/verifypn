@@ -327,7 +327,7 @@ int main(int argc, char* argv[]){
 	}
     // fprintf(stderr, "Size of model: %dKB\n", getValue());
     // cout<<"Size of model: "<<getValue()<<"KB\n"<<endl; 
-    
+
 	//----------------------- Parse Query -----------------------//
 
 	//Condition to check
@@ -896,8 +896,8 @@ int main(int argc, char* argv[]){
 		//cmd = "sh runLTS.osx64.sh";
 	}
 	else{ // single core
-		//cmd = "sh runLTS.sh";
-		cmd = "sh runLTS.osx64.sh";
+		cmd = "sh runLTS.sh";
+		//cmd = "sh runLTS.osx64.sh";
 	}
 
 	   cmd.append(" 2>&1");
