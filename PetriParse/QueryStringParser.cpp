@@ -143,6 +143,7 @@ using namespace std;
         //cout <<"\n\n&&& Query: "<<query<<endl;
 
         // Remove temporal operators EF
+        if (!_Parser->queries[i].isPlaceBound)
         query.replace(0, 2, "");
 
         // Check if query is of type ReachabilityDeadlock

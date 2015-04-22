@@ -132,7 +132,7 @@ int main(int argc, char* argv[]){
             bool isReachBound = false;
             bool ltsminMc = false;
             bool debugging = false;
-            bool verifyAllQueries = false;
+            bool verifyAllQueries = true;
 
 
 	//----------------------- Parse Arguments -----------------------//
@@ -184,7 +184,7 @@ int main(int argc, char* argv[]){
                                 return ErrorCode;
                             }
                             searchstrategy = OverApprox;
-                            verifyAllQueries = true;
+
                             if(xmlquery == -1){
                                 xmlquery = 1;
                             }
@@ -214,6 +214,7 @@ int main(int argc, char* argv[]){
 				fprintf(stderr, "Argument Error: Query index to verify \"%s\"\n", argv[i]);
 				return ErrorCode;
 			}
+                                        verifyAllQueries = false;
 		}else if (strcmp(argv[i], "-r") == 0 || strcmp(argv[i], "--reduction") == 0) {
 				if (i == argc - 1) {
 					fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
@@ -412,7 +413,8 @@ int main(int argc, char* argv[]){
 				}
 				// fprintf(stdout, "Index of the selected query: %d\n\n", xmlquery);
 				querystr = XMLparser.queries[xmlquery - 1].queryText;
-				querystring = querystr.substr(2);
+				if (!XMLparser.queries[xmlquery - 1].isPlaceBound) querystring = querystr.substr(2);
+				else querystring = querystr;
 				isInvariant = XMLparser.queries[xmlquery - 1].negateResult;
 
                                                     // Convert TAPAAL queries to LTSmin statelabels
@@ -468,7 +470,8 @@ int main(int argc, char* argv[]){
 	string querystring;
 	for(i = 0; i < XMLparser.queries.size(); i++){
 		string querystr = XMLparser.queries[i].queryText;
-		querystring = querystr.substr(2);
+		if (!XMLparser.queries[xmlquery - 1].isPlaceBound) querystring = querystr.substr(2);
+		else querystring = querystr; 
 		isInvariantlist[i] = XMLparser.queries[i].negateResult;
 		querylist[i] = ParseQuery(querystring);
 	}	
@@ -1027,7 +1030,7 @@ int main(int argc, char* argv[]){
 
             // ----------------- Output LTSmin Result ----------------- //
             if(ltsminMode && !verifyAllQueries){
-                //fprintf(stdout, "%s ", XMLparser.queries[xmlquery-1].id.c_str()); 
+                fprintf(stdout, "%s ", XMLparser.queries[xmlquery-1].id.c_str()); 
                 // print result
                 if(solution == FailedCode){
                     fprintf(stdout, "FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
