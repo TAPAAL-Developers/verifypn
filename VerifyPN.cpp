@@ -413,7 +413,8 @@ int main(int argc, char* argv[]){
 				}
 				// fprintf(stdout, "Index of the selected query: %d\n\n", xmlquery);
 				querystr = XMLparser.queries[xmlquery - 1].queryText;
-				querystring = querystr.substr(2);
+				if (!XMLparser.queries[xmlquery - 1].isPlaceBound) querystring = querystr.substr(2);
+				else querystring = querystr;
 				isInvariant = XMLparser.queries[xmlquery - 1].negateResult;
 
                                                     // Convert TAPAAL queries to LTSmin statelabels
@@ -432,7 +433,7 @@ int main(int argc, char* argv[]){
 				//Validate query type
 				if (querystr.substr(0, 2) != "EF" && querystr.substr(0, 2) != "AG") {
 					fprintf(stderr, "Error: Query type \"%s\" not supported, only (EF and AG is supported)\n", querystr.substr(0, 2).c_str());
-                                        fprintf(stderr, "DO_NOT_COMPETE\n" );
+                                                                    fprintf(stderr, "DO_NOT_COMPETE\n" );
 					return ErrorCode;
 				}
 				//Check if is invariant
@@ -456,7 +457,7 @@ int main(int argc, char* argv[]){
 
 		if(!query){
 			fprintf(stderr, "Error: Failed to parse query \"%s\"\n", querystring.c_str()); //querystr.substr(2).c_str());
-                        fprintf(stderr, "CANNOT COMPUTE\n"); //querystr.substr(2).c_str());
+                                        fprintf(stderr, "CANNOT COMPUTE\n"); //querystr.substr(2).c_str());
 			return ErrorCode;
 		}		
 	}
@@ -469,7 +470,8 @@ int main(int argc, char* argv[]){
 	string querystring;
 	for(i = 0; i < XMLparser.queries.size(); i++){
 		string querystr = XMLparser.queries[i].queryText;
-		querystring = querystr.substr(2);
+		if (!XMLparser.queries[xmlquery - 1].isPlaceBound) querystring = querystr.substr(2);
+		else querystring = querystr; 
 		isInvariantlist[i] = XMLparser.queries[i].negateResult;
 		querylist[i] = ParseQuery(querystring);
 	}	
@@ -602,7 +604,8 @@ int main(int argc, char* argv[]){
             string dummy = "dummy";
             bool dummy1 = false;
             bool dummy2 = false;
-            CodeGenerator codeGen(net, m0, inhibarcs, dummy, dummy1, dummy2);
+            bool dummy3 = false;
+            CodeGenerator codeGen(net, m0, inhibarcs, dummy, dummy1, dummy2, dummy3);
             codeGen.generateSourceForSSE();
 
             clock_t LTSmin_begin = clock();
@@ -838,7 +841,7 @@ int main(int argc, char* argv[]){
                 if(debugging) cout<<"Number of places: "<<net->numberOfPlaces()<<endl;
                 if(debugging) cout<<"Number of transisions: "<<net->numberOfTransitions()<<endl;
 
-                CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound);
+                CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound, XMLparser.queries[xmlquery - 1].quickSolve);
 
                 int numberOfQueries = XMLparser.queries.size();
                 string* stringQueries = new string[numberOfQueries];

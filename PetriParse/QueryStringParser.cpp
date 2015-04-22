@@ -82,8 +82,54 @@ using namespace std;
         }
     }
 
-    void QueryStringParser::convertToBoundsQuery(std::string& query){
-        // Code here
+     bool QueryStringParser::convertToBoundsQuery(std::string& query){
+        size_t startPos = 0;
+
+        while((startPos = query.find("<=", startPos)) != std::string::npos) {
+
+            size_t second_parameter = startPos + 3;
+            size_t first_parameter = startPos - 2;
+
+            if (query.substr(first_parameter, 1) == "]" && query.substr(second_parameter, 1) == "M") return false;
+            startPos += second_parameter;
+        }
+
+        startPos = 0;
+
+        while((startPos = query.find(">=", startPos)) != std::string::npos) {
+            size_t second_parameter = startPos + 4;
+            size_t first_parameter = startPos - 2;
+
+            if (query.substr(first_parameter, 1) == "]" && query.substr(second_parameter, 1) == "M") return false;
+            startPos += second_parameter;
+        }
+
+        return true;
+        
+
+    }
+
+    void QueryStringParser::completeShortCut(std::string& query, int i){
+        size_t startPos = 0;
+        bool isModified = false;
+        while((startPos = query.find("<=", startPos)) != std::string::npos) {
+            isModified = true;
+            string newSign = ">";
+            query.replace(startPos, 2, newSign);
+            startPos += 2;
+        }
+
+        stringstream ss;
+        ss << i;
+        string is = ss.str();
+
+        if (isModified){
+        string temp = query;
+        query = string("{if(") + temp.c_str() + ") {solved[" + is.c_str() + "] = 1; fprintf(stderr, \"#Query " + is.c_str() + " is NOT satisfied.\");}}\n";}
+        else { string temp = query;
+        query = string("{if(") + temp.c_str() + ") {solved[" + is.c_str() + "] = 1; fprintf(stderr, \"#Query " + is.c_str() + " is satisfied.\");}} \n";}
+
+
     }
 
     int QueryStringParser::inhibArc(unsigned int p, unsigned int t){
@@ -97,6 +143,7 @@ using namespace std;
 
     void QueryStringParser::findDeadlockConditions(std::string& query, size_t deadlockPos){
         int t, p;
+        bool beginningConjunction = true;
         size_t startPos = deadlockPos;
         unsigned int nPlaces = _PetriNet->numberOfPlaces();
         unsigned int nTransitions = _PetriNet->numberOfTransitions();
@@ -116,7 +163,13 @@ using namespace std;
                         conditions += " && ";
 
                     s << "(src[" << p << "] >= " << _PetriNet->inArc(p,t) << ")";
+                    
                     conditions += s.str();
+
+                    if(beginningConjunction){
+                        conditions += " && ";
+                        beginningConjunction = false;
+                    }
                 }
                 // Condition for inhibitor arcs
                 else if(inhibArc(p,t) > 0){
@@ -124,7 +177,13 @@ using namespace std;
                         conditions += " && ";
 
                     s << "(src[" << p << "] < " << _PetriNet->inArc(p,t) << ")";
+
                     conditions += s.str();
+
+                    if(beginningConjunction){
+                        conditions += " && ";
+                        beginningConjunction = false;
+                    }
                 }
 
 
@@ -132,7 +191,7 @@ using namespace std;
             }
         }
 
-        conditions += " 1)";
+        conditions += " )";
         query.replace(deadlockPos, 8, conditions);
     }
 
@@ -143,6 +202,7 @@ using namespace std;
         //cout <<"\n\n&&& Query: "<<query<<endl;
 
         // Remove temporal operators EF
+        if (!_Parser->queries[i].isPlaceBound)
         query.replace(0, 2, "");
 
         // Check if query is of type ReachabilityDeadlock
@@ -153,8 +213,11 @@ using namespace std;
         } else if(queryItem.isPlaceBound){ // ReacabilityComputeBounds query
             convertToComputeBoundsQuery(query);
         } else if(queryItem.isReachBound){ // ReachabilityBounds query
-            convertToBoundsQuery(query);
             convertToComputeBoundsQuery(query);
+            if(convertToBoundsQuery(query)){
+            _Parser->queries[i].quickSolve = true;
+            completeShortCut(query, i);
+            }
         } else { //
             // Rename place names eg. "place0" -> src[0]
             replacePlaces(query);
@@ -168,6 +231,8 @@ using namespace std;
         // Replace true/false with 1,0
         replaceOperator(query, "true", "1");
         replaceOperator(query, "false", "0");
+
+        cout<<"VALUE OF QUICKSOLVE: "<< _Parser->queries[i].quickSolve <<" ms\n"<<endl;
 
         _stateLabel[i] = query;
     }
