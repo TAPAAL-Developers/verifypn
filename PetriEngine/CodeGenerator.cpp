@@ -243,14 +243,7 @@ namespace PetriEngine{
         //Preliminaries
         fputs("#include <ltsmin/pins.h>\nstatic const int LABEL_GOAL = 0;\n", successor_generator);
 
-        if (_isReachBound || _isPlaceBound){
-        fprintf(successor_generator, "int %s[%d] = {\n", ComputeBoundsArray, _nplaces);
-        for (p = 0; p < _nplaces; p++){
-        fprintf(successor_generator, "%d, \n", _m0[p]);
-        }
 
-        fputs("};", successor_generator);
-        }
         // declare and assign solved queries
         fprintf(successor_generator, "static int %s[%d] = {", solvedArray, numberOfQueries);
         for(q = 0; q<numberOfQueries; q++){
@@ -258,6 +251,16 @@ namespace PetriEngine{
                 fprintf(successor_generator, "0};\n");
             else
                 fprintf(successor_generator, "0,"); // all but the last query
+        }
+
+        if (_isReachBound || _isPlaceBound){
+        fprintf(successor_generator, "static int %s[%d] = {", ComputeBoundsArray, _nplaces);
+            for(q = 0; q<_nplaces; q++){
+                if(q == _nplaces-1) // dont print a comma after the last query
+                    fprintf(successor_generator, "%d};\n", _m0[q]);
+                else
+                    fprintf(successor_generator, "%d,", _m0[q]); // all but the last query
+            }
         }
 
 

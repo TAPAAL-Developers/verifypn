@@ -60,7 +60,8 @@ enum ReturnValues{
 	SuccessCode	= 0,
 	FailedCode	= 1,
 	UnknownCode	= 2,
-	ErrorCode	= 3
+	ErrorCode	= 3,
+        MultiFailCode   = 4
 };
 
 /** Enumeration of search-strategies in VerifyPN */
@@ -87,7 +88,7 @@ enum LTSminMode{
         i = atoi(line);
         return i;
     }
-/*
+
 int getValue(){ //Note: this value is in KB!
         FILE* file = fopen("/proc/self/status", "r");
         int result = -1;
@@ -103,7 +104,7 @@ int getValue(){ //Note: this value is in KB!
         fclose(file);
         return result;
     }
-*/
+
 double diffclock(clock_t clock1, clock_t clock2){
     double diffticks = clock1 + clock2;
     double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
@@ -363,8 +364,8 @@ int main(int argc, char* argv[]){
 		// Close the file
 		mfile.close();
 	}
-    // fprintf(stderr, "Size of model: %dKB\n", getValue());
-    // cout<<"Size of model: "<<getValue()<<"KB\n"<<endl; 
+     fprintf(stderr, "Size of model: %dKB\n", getValue());
+     cout<<"Size of model: "<<getValue()<<"KB\n"<<endl; 
 
 	//----------------------- Parse Query -----------------------//
 
@@ -732,7 +733,8 @@ int main(int argc, char* argv[]){
         
         //--------------------- Apply Net Reduction ---------------//
         clock_t reduction_begin = clock();
-        bool reduceByMultiQuery = true;
+        bool reduceByMultiQuery;
+        verifyAllQueries ? reduceByMultiQuery = true : reduceByMultiQuery = false;
         Reducer reducer = Reducer(net); // reduced is needed also in trace generation (hence the extended scope)
 	if (enablereduction == 1 or enablereduction == 2) {
             int i;
@@ -744,6 +746,7 @@ int main(int argc, char* argv[]){
             
             if (ltsminMode && verifyAllQueries){
                 //Test Alpha
+                if(debugging) fprintf(stdout,"Doing Alpha Test\n");
                 PetriNet *tempnet = builder.makePetriNet();
                 Reducer tempreducer = Reducer(tempnet);
                 QueryPlaceAnalysisContext tempplacecontext(*tempnet, placeInQuery);
@@ -752,8 +755,8 @@ int main(int argc, char* argv[]){
                 tempreducer.CreateInhibitorPlacesAndTransitions(tempnet, inhibarcs, placeInInhib, transitionInInhib);
                 tempreducer.Reduce(tempnet, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction);
                 
-                fprintf(stdout, "NO QUERY - Removed transitions: %d\n", tempreducer.RemovedTransitions());
-                fprintf(stdout, "NO QUERY - Removed places: %d\n", tempreducer.RemovedPlaces());
+                if(debugging) fprintf(stdout, "NO QUERY - Removed transitions: %d\n", tempreducer.RemovedTransitions());
+                if(debugging) fprintf(stdout, "NO QUERY - Removed places: %d\n", tempreducer.RemovedPlaces());
                 
                 double removedTransitions_d = tempreducer.RemovedTransitions();
                 double removedPlaces_d = tempreducer.RemovedPlaces();
@@ -763,35 +766,45 @@ int main(int argc, char* argv[]){
                 double reduceabilityfactor = (removedTransitions_d + removedPlaces_d) / (numberPlaces_d + numberTransitions_d);
                 fprintf(stdout, "Reduceabilityfactor: %f\n", reduceabilityfactor);
 
-                if (reduceabilityfactor < 0.2){
+                if (reduceabilityfactor < 1.0){
                     //Test Beta
+                    if(debugging) fprintf(stderr,"Doing Beta Test\n");
                     string reductionquerystr;
+                    bool firstAccurance = true;
                     for (i = 0; i < XMLparser.queries.size(); i++){
-                        if (notSatisfiable[i] != 0){
-                            if(i>0)
+                        if(debugging) fprintf(stderr,"notSatisfiable: %d\n", notSatisfiable[i]);
+                        if (notSatisfiable[i] == 0){
+                            if(!firstAccurance)
                                 reductionquerystr += " and ";
                             reductionquerystr += querylist[i]->toString();
+                            firstAccurance = false;
                         }
                     }
-                    Condition* reductionquery = ParseQuery(reductionquerystr);
-                    reductionquery->analyze(tempplacecontext);
-                    
-                    int placesInQuery = 0;
-                    for (int i = 0; i < net->numberOfPlaces(); i++) {
-                        if (placeInQuery[i] != 0)
-                            placesInQuery++;
-                    }
-                    double placesInQuery_d = placesInQuery;
-                    double actualPalceReductionFactor = placesInQuery_d / numberPlaces_d;
-                    fprintf(stdout, "Actual Palce Reduction Factor: %f\n", actualPalceReductionFactor);
-                    
-                    if(actualPalceReductionFactor > 0.5){
-                        reducer.CreateInhibitorPlacesAndTransitions(tempnet, inhibarcs, placeInInhib, transitionInInhib);
-                        reducer.Reduce(tempnet, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction);
-                    }
-                    else {
+                    if(firstAccurance) {
                         reduceByMultiQuery = false;
-                        if(debugging) cout<<"actualPalceReductionFactor failed\n"<<endl;
+                        if(debugging) cout<<"No queries contained in notSatisfiable\n"<<endl;
+                    } 
+                    else {
+                        Condition* reductionquery = ParseQuery(reductionquerystr);
+                        reductionquery->analyze(tempplacecontext);
+
+                        int placesInQuery = 0;
+                        for (int i = 0; i < net->numberOfPlaces(); i++) {
+                            if (placeInQuery[i] != 0)
+                                placesInQuery++;
+                        }
+                        double placesInQuery_d = placesInQuery;
+                        double actualPalceReductionFactor = placesInQuery_d / numberPlaces_d;
+                        fprintf(stdout, "Actual Palce Reduction Factor: %f\n", actualPalceReductionFactor);
+
+                        if(actualPalceReductionFactor > 0.0){
+                            reducer.CreateInhibitorPlacesAndTransitions(tempnet, inhibarcs, placeInInhib, transitionInInhib);
+                            reducer.Reduce(tempnet, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction);
+                        }
+                        else {
+                            reduceByMultiQuery = false;
+                            if(debugging) cout<<"actualPalceReductionFactor failed\n"<<endl;
+                        }
                     }
                 }
                 else {
@@ -803,13 +816,11 @@ int main(int argc, char* argv[]){
                 reduceByMultiQuery = false;
                 if(debugging) cout<<"LTSmin (-l 2) not enabled\n"<<endl;
             }
-            if(reduceByMultiQuery == false) {
-                for (size_t i = 0; i < net->numberOfPlaces(); i++) {
-			placeInQuery[i] = 0;
-                }
-                query->analyze(placecontext);
+            if(!reduceByMultiQuery && verifyAllQueries) {
+                return MultiFailCode;
+            }
             
-	// Compute the places and transitions that connect to inhibitor arcs
+	/*// Compute the places and transitions that connect to inhibitor arcs
 	MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
 	MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
             
@@ -819,7 +830,7 @@ int main(int argc, char* argv[]){
 	//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
 	reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
 	//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
-                enableLTSmin = 1;
+                enableLTSmin = 1;*/
                
             }
         //----------------------- For reduction testing-----------------------------
@@ -830,7 +841,7 @@ int main(int argc, char* argv[]){
         fprintf(stdout, "Applications of rule C: %d\n", reducer.RuleC());
         fprintf(stdout, "Applications of rule D: %d\n", reducer.RuleD());*/
         //----------------------------------Mvh. Søren--------------------------
-	}
+	
         clock_t reduction_end = clock();
         if(debugging) cout<<"Reduction time elapsed: "<<double(diffclock(reduction_end,reduction_begin))<<" ms\n"<<endl;
 
@@ -889,12 +900,12 @@ int main(int argc, char* argv[]){
 	string exitMessage = "LTSmin finished";
 
             if(ltsminMode == MC){ // multicore
-                //cmd = "sh runLTSminMC.linux64.sh";
-                cmd = "sh runLTSmin.sh -mc";
+                cmd = "sh runLTSminMC.linux64.sh";
+                //cmd = "sh runLTSmin.sh -mc";
             }
             else if(ltsminMode == SEQ){ // single core
-                //cmd = "sh runLTSminSEQ.linux64.sh";
-                cmd = "sh runLTSmin.sh";
+                cmd = "sh runLTSminSEQ.linux64.sh";
+                //cmd = "sh runLTSmin.sh";
             }
 
 	   cmd.append(" 2>&1");

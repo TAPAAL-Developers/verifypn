@@ -232,7 +232,7 @@ using namespace std;
         replaceOperator(query, "true", "1");
         replaceOperator(query, "false", "0");
 
-        cout<<"VALUE OF QUICKSOLVE: "<< _Parser->queries[i].quickSolve <<" ms\n"<<endl;
+        //cout<<"VALUE OF QUICKSOLVE: "<< _Parser->queries[i].quickSolve <<" ms\n"<<endl;
 
         _stateLabel[i] = query;
     }
