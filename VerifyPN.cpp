@@ -72,6 +72,12 @@ enum SearchStrategies{
 	OverApprox		//LinearOverApprx
 };
 
+enum LTSminMode{
+            DISABLED = 0,
+            SEQ = 1,
+            MC = 2
+};
+
 #define VERSION		"1.1.1"
 
  int parseLine(char* line){
@@ -81,7 +87,7 @@ enum SearchStrategies{
         i = atoi(line);
         return i;
     }
-/*
+
 int getValue(){ //Note: this value is in KB!
         FILE* file = fopen("/proc/self/status", "r");
         int result = -1;
@@ -97,7 +103,7 @@ int getValue(){ //Note: this value is in KB!
         fclose(file);
         return result;
     }
-*/
+
 double diffclock(clock_t clock1, clock_t clock2){
     double diffticks = clock1 + clock2;
     double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
@@ -110,6 +116,7 @@ int main(int argc, char* argv[]){
 	bool outputtrace = false;
 	int kbound = 0;
 	SearchStrategies searchstrategy = BFS;
+             LTSminMode ltsminMode = DISABLED;
 	int memorylimit = 0;
 	char* modelfile = NULL;
 	char* queryfile = NULL;
@@ -125,6 +132,7 @@ int main(int argc, char* argv[]){
             bool isReachBound = false;
             bool ltsminMc = false;
             bool debugging = false;
+
 
 	//----------------------- Parse Arguments -----------------------//
 
@@ -161,6 +169,21 @@ int main(int argc, char* argv[]){
 				fprintf(stderr, "Argument Error: Unrecognized search strategy \"%s\"\n", s);
 				return ErrorCode;
 			}
+                        }else if(strcmp(argv[i], "-o") == 0 || strcmp(argv[i], "--on-the-fly") == 0){
+                            if (i==argc-1) {
+                                ltsminMode = SEQ;
+                            }
+                            char* s = argv[++i];
+                            if((strcmp(s, "seq") == 0)||(strcmp(s, "SEQ") == 0))
+                                ltsminMode = SEQ;
+                            else if((strcmp(s, "mc") == 0)||(strcmp(s, "MC") == 0))
+                                ltsminMode = MC;
+                            else{
+                                fprintf(stderr, "Argument Error: Unrecognized LTSmin mode \"%s\"\n", s);
+                                return ErrorCode;
+                            }
+                            searchstrategy = OverApprox;
+
 		} else if (strcmp(argv[i], "-m") == 0 || strcmp(argv[i], "--memory-limit") == 0) {
 			if (i == argc - 1) {
 				fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
@@ -204,7 +227,7 @@ int main(int argc, char* argv[]){
 					return ErrorCode;
 				}
                             } else if (strcmp(argv[i], "-b") == 0 || strcmp(argv[i], "--debugging") == 0) {
-                                printstatistics = true;                
+                                debugging = true;                
 		} else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0){
 			printf(	"Usage: verifypn [options] model-file query-file\n"
 					"A tool for answering reachability of place cardinality queries (including deadlock)\n"
@@ -213,6 +236,7 @@ int main(int argc, char* argv[]){
 					"Options:\n"
 					"  -k, --k-bound <number of tokens>   Token bound, 0 to ignore (default)\n"
 					"  -t, --trace                        Provide XML-trace to stderr\n"
+                                                                   "  -b, --debugging                        Print all debugging messages\n"
 					"  -s, --search-strategy <strategy>   Search strategy:\n"
 					"                                     - BestFS       Heuristic search (default)\n"
 					"                                     - BFS          Breadth first search\n"
@@ -286,6 +310,9 @@ int main(int argc, char* argv[]){
 		return ErrorCode;
 	}
 
+             if(disableoverapprox)
+                searchstrategy = BFS;
+
 	//----------------------- Open Model -----------------------//
     if(debugging) cout<<"Parsing Model and Query"<<endl;
     clock_t parse_begin = clock();
@@ -293,12 +320,12 @@ int main(int argc, char* argv[]){
 	PetriNet* net = NULL;
 	MarkVal* m0 = NULL;
 	VarVal* v0 = NULL;
-    ReturnValues solution = UnknownCode;
+             ReturnValues solution = UnknownCode;
 
-    // List of inhibitor arcs and transition enabledness
-    PNMLParser::InhibitorArcList inhibarcs;
-    PNMLParser::TransitionEnablednessMap transitionEnabledness;
-    PetriNetBuilder builder(false);
+             // List of inhibitor arcs and transition enabledness
+             PNMLParser::InhibitorArcList inhibarcs;
+             PNMLParser::TransitionEnablednessMap transitionEnabledness;
+             PetriNetBuilder builder(false);
 	{
 		//Load the model
 		ifstream mfile(modelfile, ifstream::in);
@@ -329,8 +356,8 @@ int main(int argc, char* argv[]){
 		// Close the file
 		mfile.close();
 	}
-    // fprintf(stderr, "Size of model: %dKB\n", getValue());
-    // cout<<"Size of model: "<<getValue()<<"KB\n"<<endl; 
+     fprintf(stderr, "Size of model: %dKB\n", getValue());
+     cout<<"Size of model: "<<getValue()<<"KB\n"<<endl; 
 
 	//----------------------- Parse Query -----------------------//
 
@@ -355,6 +382,7 @@ int main(int argc, char* argv[]){
 			stringstream buffer;
 			buffer << qfile.rdbuf();
 			string querystr = buffer.str(); // including EF and AG
+
 			//Parse XML the queries and querystr let be the index of xmlquery
 			if (xmlquery > 0) {
 				if (!XMLparser.parse(querystr)) {
@@ -381,18 +409,28 @@ int main(int argc, char* argv[]){
 				querystring = querystr.substr(2);
 				isInvariant = XMLparser.queries[xmlquery - 1].negateResult;
 
-                                // Convert TAPAAL queries to LTSmin statelabels
-                                QueryStringParser StringParser(&XMLparser, net, inhibarcs);
-                                StringParser.generateStateLabels();
-                                stateLabels = StringParser.getStateLabels();
+                                                    // Convert TAPAAL queries to LTSmin statelabels
+                                                    QueryStringParser StringParser(&XMLparser, net, inhibarcs);
+                                                    StringParser.generateStateLabels();
+                                                    stateLabels = StringParser.getStateLabels();
 
-                if (xmlquery>0) {
-                    fprintf(stdout, "FORMULA %s ", XMLparser.queries[xmlquery-1].id.c_str());
-                    fflush(stdout);
-                    
-                }
+                                                    if (xmlquery>0) {
+                                                        fprintf(stdout, "FORMULA %s ", XMLparser.queries[xmlquery-1].id.c_str());
+                                                        fflush(stdout);
+                                                
+                                            }
 
-			} else { // standard textual query
+			} 
+
+                                        else if(ltsminMode && xmlquery < 0){ // LTSmin on all queries 
+                                            if (!XMLparser.parse(querystr)) {
+                                                fprintf(stderr, "Error: Failed parsing XML query file\n");
+                                                fprintf(stdout, "DO_NOT_COMPETE\n");
+                                                return ErrorCode;
+                                            }                                            
+                                        }
+
+                                        else { // standard textual query
 				fprintf(stdout, "Query:  %s \n", querystr.c_str());
 				//Validate query type
 				if (querystr.substr(0, 2) != "EF" && querystr.substr(0, 2) != "AG") {
@@ -406,10 +444,11 @@ int main(int argc, char* argv[]){
 				//Warp in not if isInvariant
 				querystring = querystr.substr(2);
 				if (isInvariant)
-					querystring = "not ( lol" + querystring + " )";
+					querystring = "not ( " + querystring + " )";
 			}
-			//Close query file
-			qfile.close();
+
+		//Close query file
+		qfile.close();
 		} else { // state-space exploration
 			querystring = "false";
 			isInvariant = false;
@@ -437,7 +476,7 @@ int main(int argc, char* argv[]){
 		isInvariantlist[i] = XMLparser.queries[i].negateResult;
 		querylist[i] = ParseQuery(querystring);
 	}	
-            isInvariant = isInvariantlist[xmlquery-1];
+            //isInvariant = isInvariantlist[xmlquery-1];
 
         clock_t parse_end = clock();
         if(debugging) cout<<"\nParsing time elapsed: "<<double(diffclock(parse_end,parse_begin))<<" ms\n"<<endl;
@@ -450,7 +489,18 @@ int main(int argc, char* argv[]){
 	{
 		//Context analysis
 		AnalysisContext context(*net);
-		query->analyze(context);
+                            if (xmlquery > 0)
+                            {
+                               query->analyze(context);
+                            }
+
+                        else if(ltsminMode && xmlquery < 0){
+                            int i;
+                            for (i = 0; i < XMLparser.queries.size(); i++) {
+                                    querylist[i]->analyze(context);
+                                }
+                        }
+		
 
 		//Print errors if any
 		if(context.errors().size() > 0){
@@ -460,18 +510,7 @@ int main(int argc, char* argv[]){
 			}
 			return ErrorCode;
 		}
-                int i;
-                for (i = 0; i < XMLparser.queries.size(); i++) {
-                    querylist[i]->analyze(context);
-                    if(context.errors().size() > 0){
-			for(size_t i = 0; i < context.errors().size(); i++){
-				fprintf(stderr, "Query Context Analysis Error: %s\n", context.errors()[i].toString().c_str());
-                                fprintf(stderr, "CANNOT_COMPUTE\n");
-			}
-			return ErrorCode;
-                    }
-                }
-	}
+            }
         clock_t contextAnalysis_end = clock();
         if(debugging) cout<<"Context Analysis time elapsed: "<<double(diffclock(contextAnalysis_end,contextAnalysis_begin))<<" ms\n"<<endl;
 
@@ -491,7 +530,7 @@ int main(int argc, char* argv[]){
 		strategy = NULL;
 	else{
 		fprintf(stderr, "Error: Search strategy selection out of range.\n");
-                fprintf(stderr, "CANNOT_COMPUTE\n");
+                            fprintf(stderr, "CANNOT_COMPUTE\n");
 		return ErrorCode;
 	}
 
@@ -501,7 +540,7 @@ int main(int argc, char* argv[]){
 	}
 
 	// If no strategy is provided
-	if(!strategy && !(enableLTSmin > 0)){
+	if(!strategy && !(ltsminMode > 0)){
 		fprintf(stderr, "No strategy what so ever!\n");
 		fprintf(stderr, "CANNOT_COMPUTE\n");
 		return ErrorCode;
@@ -511,37 +550,39 @@ int main(int argc, char* argv[]){
         ReachabilityResult result;
         int *notSatisfiable = new int[numberOfQueries];
         
-        if (enableLTSmin > 0 && !disableoverapprox){
+        if (ltsminMode && !disableoverapprox){
             for(i = 0; i<numberOfQueries;i++){
         		notSatisfiable[i] = 1;
             }
         }
-        else if (disableoverapprox){
+        else if (ltsminMode && disableoverapprox){
             for(i = 0; i<numberOfQueries;i++){
         		notSatisfiable[i] = 0;
             }
         }
 
-        if(enableLTSmin == 1 && strategy && !disableoverapprox){
+        // Single query
+        if(ltsminMode && xmlquery > 0 && strategy && !disableoverapprox){
             result = strategy->reachable(*net, m0, v0, querylist[xmlquery-1]);
 
             if(result.result() == ReachabilityResult::Unknown){
-                    fprintf(stdout, "lpsolve: Unable to decide if query is satisfied.\n");
+                    if(debugging) fprintf(stdout, "lpsolve: Unable to decide if query is satisfied.\n");
                     solution = UnknownCode;
             }
 
             else if(result.result() == ReachabilityResult::Satisfied){
-                    fprintf(stdout, "lpsolve: Query is satisfied.\n");
+                    if(debugging) fprintf(stdout, "lpsolve: Query is satisfied.\n");
                     solution = isInvariant ? FailedCode : SuccessCode;
             }
 
             else if(result.result() == ReachabilityResult::NotSatisfied){
-                    fprintf(stdout, "lpsolve: Query is not satisfied.\n");
+                    if(debugging) fprintf(stdout, "lpsolve: Query is not satisfied.\n");
                     solution = isInvariant ? SuccessCode : FailedCode;
             }            
         }
 
-        if(enableLTSmin == 2 && strategy && !disableoverapprox){
+        // Multi query
+        else if(ltsminMode && xmlquery < 0 && strategy && !disableoverapprox){
             for (i = 0; i < numberOfQueries; i++){
                 result = strategy->reachable(*net, m0, v0, querylist[i]);
 
@@ -559,166 +600,130 @@ int main(int argc, char* argv[]){
                 }
             }
         }
-        else if (statespaceexploration && enableLTSmin == 3) {
+        else if (statespaceexploration && ltsminMode) {
 
-			string dummy = "dummy";
-			bool dummy1 = false;
-			bool dummy2 = false;
-			CodeGenerator codeGen(net, m0, inhibarcs, dummy, dummy1, dummy2);
-			codeGen.generateSourceForSSE();
+            string dummy = "dummy";
+            bool dummy1 = false;
+            bool dummy2 = false;
+            CodeGenerator codeGen(net, m0, inhibarcs, dummy, dummy1, dummy2);
+            codeGen.generateSourceForSSE();
 
-		clock_t LTSmin_begin = clock();
+            clock_t LTSmin_begin = clock();
 
-		FILE * stream;
-		const int max_buffer = 256;
-		char buffer[max_buffer];
-		string cmd;
+            FILE * stream;
+            const int max_buffer = 256;
+            char buffer[max_buffer];
+            string cmd;
 
-		// ltsmin messages to search for
-		string searchExit[1] = {"exiting now"};
-		string searchPins2lts = "pins2lts-seq";
+            // ltsmin messages to search for
+            string searchExit = "exiting now";
+            string searchPins2lts = "pins2lts-seq";
 
-		// verifypn messages
-		string pins2ltsMessage;
-		string stdmsg = "State space: ";
-		string startMessage = "LTSmin has started";
-		string exitMessage = "LTSmin finished";
+            // verifypn messages
+            string pins2ltsMessage;
+            string stdmsg = "State space: ";
+            string startMessage = "LTSmin has started";
+            string exitMessage = "LTSmin finished";
 
-		if(ltsminMc){ // multicore
-			cmd = "sh runLTS.sh";
-			//cmd = "sh runLTS.osx64.sh";
-		}
-		else{ // single core
-			cmd = "sh runLTS.sh";
-			//cmd = "sh runLTS.osx64.sh";
-		}
+            if(ltsminMode == MC){ // multicore
+                //cmd = "sh runLTSminMC.linux64.sh";
+                cmd = "sh runLTSminMC.osx64.sh";
+            }
+            else if(ltsminMode == SEQ){ // single core
+                //cmd = "sh runLTSminSEQ.linux64.sh";
+                cmd = "sh runLTSminSEQ.osx64.sh";
+            }
 
-		  cmd.append(" 2>&1");
+            cmd.append(" 2>&1");
 
+            int q, m, s;
+            string data;	              
+            bool exitLTSmin = 0;
+            if(debugging) printf("%s\n", startMessage.c_str());
+            stream = popen(cmd.c_str(), "r");
 
-	  		int q, m, s;
-		    string data;	              
-			int numberOfExitMessages = sizeof( searchExit ) / sizeof( searchExit[0] );
-			bool exitLTSmin = 0;
-			printf("%s\n", startMessage.c_str());
-			stream = popen(cmd.c_str(), "r");
+            while (!exitLTSmin){
+                if (fgets(buffer, max_buffer, stream) != NULL){
+                    size_t found;
+                    data = "";
+                    data.append(buffer);
+                    string searchS = string("Explored");
+                    string searchT = string("Explored");
+                    string searchTMT = string("tokens in marking");
+                    string searchMT = string("tokens in one Place");
 
+                    if ((found = data.find(searchS))!=std::string::npos) {
+                        size_t startPos = 0;
+                        string ssresult;
 
-		                while (!exitLTSmin){
-		                    if (fgets(buffer, max_buffer, stream) != NULL){
-		                        size_t found;
-		                        data = "";
-		                        data.append(buffer);
+                        if((startPos = found) != std::string::npos) {
+                            size_t end_quote = data.find("states", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+                            ssresult = data.substr(startPos + 2, nameLen - 3);   
+                            startPos += ssresult.size();
+                        }
 
+                        string queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        printf("%s\n", queryResult1.c_str());
 
+                    }
 
-	                                string searchS = string("Explored");
-	                                string searchT = string("Explored");
-	                                string searchTMT = string("tokens in marking");
-	                                string searchMT = string("tokens in one Place");
+                    if ((found = data.find(searchT))!=std::string::npos) {
+                        size_t startPos = 0;
+                        string ssresult;
 
-	                            
-	                                
-	                                if ((found = data.find(searchS))!=std::string::npos) {
+                        if((startPos = data.find("states", startPos)) != std::string::npos) {
+                            size_t end_quote = data.find("transitions", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+                            ssresult = data.substr(startPos + 6, nameLen - 8);   
+                            startPos += ssresult.size();
+                        }
 
-                                	size_t startPos = 0;
-                                	string ssresult;
+                        string queryResult2 = string("STATE SPACE TRANSITIONS") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        printf("%s\n", queryResult2.c_str());
+                    }
 
-							        if((startPos = found) != std::string::npos) {
+                    if ((found = data.find(searchTMT))!=std::string::npos) {
+                        size_t startPos = 0;
+                        string ssresult;
 
-							                size_t end_quote = data.find("states", startPos + 1);
-							                size_t nameLen = (end_quote - startPos) + 1;
-							                ssresult = data.substr(startPos + 2, nameLen - 3);   
-							                startPos += ssresult.size();
+                        if((startPos = data.find("\'", startPos)) != std::string::npos) {
+                            size_t end_quote = data.find("\'", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+                            ssresult = data.substr(startPos + 1, nameLen - 2);   
+                            startPos += ssresult.size();
+                        }
 
-							            }
+                        string queryResult3 = string("STATE SPACE MAX_TOKENS_IN_MARKING ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        printf("%s\n", queryResult3.c_str());
+                    }
 
-							            string queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
-	                                    printf("%s\n", queryResult1.c_str());
-	                 
-	                                }
+                    if ((found = data.find(searchMT))!=std::string::npos) {
+                        size_t startPos = 0;
+                        string ssresult;
 
-	                                if ((found = data.find(searchT))!=std::string::npos) {
+                        if((startPos = data.find("\'", startPos)) != std::string::npos) {
+                            size_t end_quote = data.find("\'", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+                            ssresult = data.substr(startPos + 1, nameLen - 2);   
+                            startPos += ssresult.size();
+                        }
 
-                                	size_t startPos = 0;
-                                	string ssresult;
+                        string queryResult4 = string("STATE SPACE MAX_TOKENS_IN_PLACE ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        printf("%s\n", queryResult4.c_str());
+                    }
 
-							        if((startPos = data.find("states", startPos)) != std::string::npos) {
+                    // exit messages
+                    if((found = data.find(searchExit)) != std::string::npos){
+                        exitLTSmin = 1;
+                        break;
+                    }
+                }
+            }
 
-							                size_t end_quote = data.find("transitions", startPos + 1);
-							                size_t nameLen = (end_quote - startPos) + 1;
-							                ssresult = data.substr(startPos + 6, nameLen - 8);   
-							                startPos += ssresult.size();
+            pclose(stream);
 
-							            }
-
-							            string queryResult2 = string("STATE SPACE TRANSITIONS") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
-	                                    printf("%s\n", queryResult2.c_str());
-	                 
-	                                }
-
-	                                if ((found = data.find(searchTMT))!=std::string::npos) {
-
-                                	size_t startPos = 0;
-                                	string ssresult;
-
-							        if((startPos = data.find("\'", startPos)) != std::string::npos) {
-
-							                size_t end_quote = data.find("\'", startPos + 1);
-							                size_t nameLen = (end_quote - startPos) + 1;
-							                ssresult = data.substr(startPos + 1, nameLen - 2);   
-							                startPos += ssresult.size();
-
-							            }
-
-							            string queryResult3 = string("STATE SPACE MAX_TOKENS_IN_MARKING ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
-	                                    printf("%s\n", queryResult3.c_str());
-	                 
-	                                }
-									
-									if ((found = data.find(searchMT))!=std::string::npos) {
-
-                                	size_t startPos = 0;
-                                	string ssresult;
-
-							        if((startPos = data.find("\'", startPos)) != std::string::npos) {
-
-							                size_t end_quote = data.find("\'", startPos + 1);
-							                size_t nameLen = (end_quote - startPos) + 1;
-							                ssresult = data.substr(startPos + 1, nameLen - 2);   
-							                startPos += ssresult.size();
-
-							            }
-
-							            string queryResult4 = string("STATE SPACE MAX_TOKENS_IN_PLACE ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
-	                                    printf("%s\n", queryResult4.c_str());
-	                 
-	                                }
-
-
-	                            
-	                                
-	                        
-
-	                        // exit messages
-	                        for(m = 0; m<numberOfExitMessages; m++){
-	                        	if((found = data.find(searchExit[m])) != std::string::npos){
-	                        		//printf("%s\n", exitMessage.c_str());
-	                        		exitLTSmin = 1;
-	                        		break;
-	                        	}
-	                        }
-	                    }
-	                }
-	                        
-	                pclose(stream);
-
-
-
-
-
-
-		} else {
+        } else {
             result = strategy->reachable(*net, m0, v0, query);
         }
         
@@ -737,7 +742,7 @@ int main(int argc, char* argv[]){
             }
             QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
             
-            if (enableLTSmin == 2){
+            if (ltsminMode > 0 && xmlquery < 0){
                 //Test Alpha
                 PetriNet *tempnet = builder.makePetriNet();
                 Reducer tempreducer = Reducer(tempnet);
@@ -756,7 +761,7 @@ int main(int argc, char* argv[]){
                 double numberTransitions_d = tempnet->numberOfTransitions();
 
                 double reduceabilityfactor = (removedTransitions_d + removedPlaces_d) / (numberPlaces_d + numberTransitions_d);
-                fprintf(stdout, "Reduceabilityfactor: %f\n", reduceabilityfactor);
+                if(debugging) fprintf(stdout, "Reduceabilityfactor: %f\n", reduceabilityfactor);
 
                 if (reduceabilityfactor < 0.2){
                     //Test Beta
@@ -804,16 +809,16 @@ int main(int argc, char* argv[]){
                 }
                 query->analyze(placecontext);
             
-		// Compute the places and transitions that connect to inhibitor arcs
-		MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
-		MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
-                
-		// CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
-		reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
+	// Compute the places and transitions that connect to inhibitor arcs
+	MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
+	MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
+            
+	// CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
+	reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
 
-		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
-		reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
-		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
+	//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
+	reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
+	//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
                 enableLTSmin = 1;
                
             }
@@ -829,46 +834,38 @@ int main(int argc, char* argv[]){
         clock_t reduction_end = clock();
         if(debugging) cout<<"Reduction time elapsed: "<<double(diffclock(reduction_end,reduction_begin))<<" ms\n"<<endl;
 
- 
-	if (enableLTSmin > 0 && enableLTSmin < 3) {
+            //if (ltsminMode && statespaceexploration) {  /* whats the point of statespaceexploration here? */
+            if (ltsminMode) {
+                clock_t codeGen_begin = clock();
 
+                if(debugging) cout<<"Number of places: "<<net->numberOfPlaces()<<endl;
+                if(debugging) cout<<"Number of transisions: "<<net->numberOfTransitions()<<endl;
 
-            clock_t codeGen_begin = clock();
-                
-            if(debugging) cout<<endl<<"LTSmin is enabled"<<endl;
-            //std::string statelabel = "src[0] > 0"; // dummy value, need to incorporate the XML query to C parser
-            if(debugging) cout<<"Number of places: "<<net->numberOfPlaces()<<endl;
-            if(debugging) cout<<"Number of transisions: "<<net->numberOfTransitions()<<endl;
-            CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound);
+                CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound);
 
-            int numberOfQueries = XMLparser.queries.size();
-            string* stringQueries = new string[numberOfQueries];
+                int numberOfQueries = XMLparser.queries.size();
+                string* stringQueries = new string[numberOfQueries];
 
-            if(enableLTSmin == 1){ // verify only one query
+                if(ltsminMode && xmlquery > 0){ // Generate code for single query
                     codeGen.generateSource(isInvariantlist, (xmlquery - 1));
-            }
-
-            else if(enableLTSmin == 2){ // verify all queries at once
-                for (i = 0; i < XMLparser.queries.size(); i++){
-                    if(debugging) cout<<"notSatisfiable "<<i<<": "<<notSatisfiable[i]<<"\n"<<endl;
                 }
+
+                else if(ltsminMode && xmlquery < 0){ // Generate code for all queries
+                    for (i = 0; i < XMLparser.queries.size(); i++){
+                        if(debugging) cout<<"notSatisfiable "<<i<<": "<<notSatisfiable[i]<<"\n"<<endl;
+                    }
+
                     codeGen.generateSourceMultipleQueries(&stateLabels, notSatisfiable, isInvariantlist, numberOfQueries);
-                    //codeGen.printQueries(stringQueries, numberOfQueries);
+                }
+
+                clock_t codeGen_end = clock();
+                if(debugging) cout<<"LTSmin Code Generation time elapsed: "<<double(diffclock(codeGen_end,codeGen_begin))<<" ms\n"<<endl;
             }
-            clock_t codeGen_end = clock();
-            if(debugging) cout<<"LTSmin Code Generation time elapsed: "<<double(diffclock(codeGen_end,codeGen_begin))<<" ms\n"<<endl;
-	}
 
-
-
-
-
-	//Reachability search
-        
 
     //--------------------------------------------RUNNING LTSMIN---------------------------------------------------//
 
-     if(enableLTSmin > 0) {
+     if(ltsminMode) {
          const std::vector<std::string> placeNames = net->placeNames();
          for (int i = 0; i < net->numberOfPlaces(); i++) {
              if(debugging) cout<<"Place index: "<<i<<" - Place name: "<<placeNames[i]<<endl;
@@ -884,23 +881,21 @@ int main(int argc, char* argv[]){
 	string cmd;
 
 	// ltsmin messages to search for
-	string searchExit[1] = {"exiting now"};
+	string searchExit = "exiting now";
 	string searchPins2lts = "pins2lts-seq";
 
 	// verifypn messages
-	string pins2ltsMessage;
-	string stdmsg = "VerifyPN: ";
 	string startMessage = "LTSmin has started";
 	string exitMessage = "LTSmin finished";
 
-	if(ltsminMc){ // multicore
-		cmd = "sh runLTS.sh";
-		//cmd = "sh runLTS.osx64.sh";
-	}
-	else{ // single core
-		//cmd = "sh runLTS.sh";
-		cmd = "sh runLTS.osx64.sh";
-	}
+            if(ltsminMode == MC){ // multicore
+                cmd = "sh runLTSminMC.linux64.sh";
+                //cmd = "sh runLTSminMC.osx64.sh";
+            }
+            else if(ltsminMode == SEQ){ // single core
+                cmd = "sh runLTSminSEQ.linux64.sh";
+                //cmd = "sh runLTSminSEQ.osx64.sh";
+            }
 
 	   cmd.append(" 2>&1");
 
@@ -908,7 +903,7 @@ int main(int argc, char* argv[]){
 	  ReachabilityResult result;
 
 	  // verify only one query
-	  if(enableLTSmin == 1 && solution == UnknownCode){
+	  if(ltsminMode && xmlquery > 0 && solution == UnknownCode){
 
                     result = ltsmin.reachable(cmd, xmlquery-1, XMLparser.queries[xmlquery-1].id, XMLparser.queries[xmlquery-1].isPlaceBound);
 
@@ -919,12 +914,12 @@ int main(int argc, char* argv[]){
                     else 
                         solution = UnknownCode;
 
-	  printf("%s\n", exitMessage.c_str());
+	  if(debugging) printf("%s\n", exitMessage.c_str());
      }
  
 
 	  // verify all queries at once
-	  else if(enableLTSmin == 2){  
+	  else if(ltsminMode && xmlquery < 0){  
 		  int q, m, s;
 	              string data;
 
@@ -939,10 +934,9 @@ int main(int argc, char* argv[]){
 		  	ltsminVerified[q] = 0;
 		  }
 	              
-		  int numberOfExitMessages = sizeof( searchExit ) / sizeof( searchExit[0] );
 		
 		bool exitLTSmin = 0;
-		printf("%s\n", startMessage.c_str());
+		if(debugging) printf("%s\n", startMessage.c_str());
 		stream = popen(cmd.c_str(), "r");
 	                while (!exitLTSmin){
 	                    if (fgets(buffer, max_buffer, stream) != NULL){
@@ -979,8 +973,8 @@ int main(int argc, char* argv[]){
 
                                 	
                                 	if((found = data.find(searchPlaceBound)) != std::string::npos){
-                                    printf("%s\n", queryResultPlaceBound.c_str());
-                                    ltsminVerified[q] = 1;
+                                        printf("%s\n", queryResultPlaceBound.c_str());
+                                        ltsminVerified[q] = 1;
                                 	}
                                 }
 
@@ -1005,19 +999,17 @@ int main(int argc, char* argv[]){
 	                        }
 
 	                        // exit messages
-	                        for(m = 0; m<numberOfExitMessages; m++){
-	                        	if((found = data.find(searchExit[m])) != std::string::npos){
+	                        	if((found = data.find(searchExit)) != std::string::npos){
 	                        		//printf("%s\n", exitMessage.c_str());
 	                        		exitLTSmin = 1;
 	                        		break;
 	                        	}
-	                        }
 	                    }
 	                }
 	                pclose(stream);
 
 	                // evaluate results
-	                for(q = 0; q<numberOfQueries;q++){
+	                for(int q = 0; q<numberOfQueries;q++){
 	                	//EF not satisfied
 	                	if(!solved[q] && !isInvariantlist[q] && !ltsminVerified[q]){
 			        	string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
@@ -1030,7 +1022,7 @@ int main(int argc, char* argv[]){
 	                		fprintf(stdout, "%s\n", queryResultSat.c_str());
 	                	}
 	                }
-	                printf("%s\n", exitMessage.c_str());
+	                if(debugging) printf("%s\n", exitMessage.c_str());
 
 	  }
 
@@ -1038,8 +1030,8 @@ int main(int argc, char* argv[]){
             if(debugging) cout<<"------------LTSmin Verification time elapsed: "<<double(diffclock(LTSmin_end,LTSmin_begin))<<" ms-----------\n"<<endl;
 
             // ----------------- Output LTSmin Result ----------------- //
-            if(enableLTSmin == 1){
-                fprintf(stdout, "%s ", XMLparser.queries[xmlquery-1].id.c_str()); 
+            if(ltsminMode && xmlquery > 0){
+                //fprintf(stdout, "%s ", XMLparser.queries[xmlquery-1].id.c_str()); 
                 // print result
                 if(solution == FailedCode){
                     fprintf(stdout, "FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");

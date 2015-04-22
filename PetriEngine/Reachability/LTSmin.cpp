@@ -21,7 +21,6 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
 
     int q, m, s;
     string data;                
-    int numberOfExitMessages = sizeof( searchExit ) / sizeof( searchExit[0] );
     int solved = 0;
     int ltsminVerified = 0;
     bool exitLTSmin = 0;
@@ -30,7 +29,6 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
     string number = ss.str();
     string searchSat;
 
-    printf("LTSmin has started.\n");
     stream = popen(cmd.c_str(), "r");
     while (!exitLTSmin){
         if (fgets(buffer, max_buffer, stream) != NULL){
