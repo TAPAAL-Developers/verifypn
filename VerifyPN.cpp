@@ -604,7 +604,8 @@ int main(int argc, char* argv[]){
             string dummy = "dummy";
             bool dummy1 = false;
             bool dummy2 = false;
-            CodeGenerator codeGen(net, m0, inhibarcs, dummy, dummy1, dummy2);
+            bool dummy3 = false;
+            CodeGenerator codeGen(net, m0, inhibarcs, dummy, dummy1, dummy2, dummy3);
             codeGen.generateSourceForSSE();
 
             clock_t LTSmin_begin = clock();
@@ -840,7 +841,7 @@ int main(int argc, char* argv[]){
                 if(debugging) cout<<"Number of places: "<<net->numberOfPlaces()<<endl;
                 if(debugging) cout<<"Number of transisions: "<<net->numberOfTransitions()<<endl;
 
-                CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound);
+                CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound, XMLparser.queries[xmlquery - 1].quickSolve);
 
                 int numberOfQueries = XMLparser.queries.size();
                 string* stringQueries = new string[numberOfQueries];

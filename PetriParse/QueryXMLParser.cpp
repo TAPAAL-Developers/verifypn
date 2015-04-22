@@ -76,6 +76,7 @@ bool QueryXMLParser::parseProperty(DOMElement* element){
 	bool negateResult=false;
         bool isPlaceBound=false;
         bool isReachBound=false;
+        bool quickSolve=false;
 	string placeNameForBound;
 	bool tagsOK=true;
 
@@ -99,11 +100,12 @@ bool QueryXMLParser::parseProperty(DOMElement* element){
 
 	QueryItem queryItem;
 	queryItem.id=id;
-	if (tagsOK && parseFormula(*formulaPtr, queryText, negateResult, isPlaceBound, placeNameForBound, isReachBound)) {
+	if (tagsOK && parseFormula(*formulaPtr, queryText, negateResult, isPlaceBound, placeNameForBound, isReachBound, quickSolve)) {
 		queryItem.queryText=queryText;
 		queryItem.negateResult=negateResult;
                 queryItem.isPlaceBound=isPlaceBound;
                 queryItem.isReachBound=isReachBound;
+                queryItem.quickSolve=quickSolve;
 		queryItem.placeNameForBound=placeNameForBound;
 		queryItem.parsingResult=QueryItem::PARSING_OK;
 
@@ -131,7 +133,7 @@ bool QueryXMLParser::parseTags(DOMElement* element){
 	return true;
 }
 
-bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &negateResult, bool &isPlaceBound, string &placeNameForBound, bool &isReachBound){
+bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &negateResult, bool &isPlaceBound, string &placeNameForBound, bool &isReachBound, bool &quickSolve){
     /*
      Describe here how to parse
      * INV phi =  AG phi =  not EF not phi
@@ -204,6 +206,7 @@ bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &
         queryText += "\""+placeNameForBound+"\""+" < 0";
         negateResult = false;
         isPlaceBound = true;
+        quickSolve = false;
         return true;
     } else if (elementName=="negation"
             || elementName =="conjunction"
