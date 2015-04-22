@@ -87,7 +87,7 @@ enum LTSminMode{
         i = atoi(line);
         return i;
     }
-/*
+
 int getValue(){ //Note: this value is in KB!
         FILE* file = fopen("/proc/self/status", "r");
         int result = -1;
@@ -103,7 +103,7 @@ int getValue(){ //Note: this value is in KB!
         fclose(file);
         return result;
     }
-*/
+
 double diffclock(clock_t clock1, clock_t clock2){
     double diffticks = clock1 + clock2;
     double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
@@ -363,8 +363,8 @@ int main(int argc, char* argv[]){
 		// Close the file
 		mfile.close();
 	}
-    // fprintf(stderr, "Size of model: %dKB\n", getValue());
-    // cout<<"Size of model: "<<getValue()<<"KB\n"<<endl; 
+     fprintf(stderr, "Size of model: %dKB\n", getValue());
+     cout<<"Size of model: "<<getValue()<<"KB\n"<<endl; 
 
 	//----------------------- Parse Query -----------------------//
 
@@ -760,7 +760,7 @@ int main(int argc, char* argv[]){
                 double numberTransitions_d = tempnet->numberOfTransitions();
 
                 double reduceabilityfactor = (removedTransitions_d + removedPlaces_d) / (numberPlaces_d + numberTransitions_d);
-                fprintf(stdout, "Reduceabilityfactor: %f\n", reduceabilityfactor);
+                if(debugging) fprintf(stdout, "Reduceabilityfactor: %f\n", reduceabilityfactor);
 
                 if (reduceabilityfactor < 0.2){
                     //Test Beta
