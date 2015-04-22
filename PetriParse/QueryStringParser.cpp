@@ -143,6 +143,7 @@ using namespace std;
 
     void QueryStringParser::findDeadlockConditions(std::string& query, size_t deadlockPos){
         int t, p;
+        bool beginningConjunction = true;
         size_t startPos = deadlockPos;
         unsigned int nPlaces = _PetriNet->numberOfPlaces();
         unsigned int nTransitions = _PetriNet->numberOfTransitions();
@@ -162,7 +163,13 @@ using namespace std;
                         conditions += " && ";
 
                     s << "(src[" << p << "] >= " << _PetriNet->inArc(p,t) << ")";
+                    
                     conditions += s.str();
+
+                    if(beginningConjunction){
+                        conditions += " && ";
+                        beginningConjunction = false;
+                    }
                 }
                 // Condition for inhibitor arcs
                 else if(inhibArc(p,t) > 0){
@@ -170,7 +177,13 @@ using namespace std;
                         conditions += " && ";
 
                     s << "(src[" << p << "] < " << _PetriNet->inArc(p,t) << ")";
+
                     conditions += s.str();
+
+                    if(beginningConjunction){
+                        conditions += " && ";
+                        beginningConjunction = false;
+                    }
                 }
 
 
@@ -178,7 +191,7 @@ using namespace std;
             }
         }
 
-        conditions += " 1)";
+        conditions += " )";
         query.replace(deadlockPos, 8, conditions);
     }
 
