@@ -766,7 +766,7 @@ int main(int argc, char* argv[]){
                 double reduceabilityfactor = (removedTransitions_d + removedPlaces_d) / (numberPlaces_d + numberTransitions_d);
                 fprintf(stdout, "Reduceabilityfactor: %f\n", reduceabilityfactor);
 
-                if (reduceabilityfactor < 1.0){
+                if (reduceabilityfactor < 0.4){
                     //Test Beta
                     if(debugging) fprintf(stderr,"Doing Beta Test\n");
                     string reductionquerystr;
@@ -794,10 +794,12 @@ int main(int argc, char* argv[]){
                                 placesInQuery++;
                         }
                         double placesInQuery_d = placesInQuery;
+                        if(debugging)fprintf(stdout, "Number of places in query: %f\n", placesInQuery_d);
+                        if(debugging)fprintf(stdout, "Number of places in model: %f\n", numberPlaces_d);
                         double actualPalceReductionFactor = placesInQuery_d / numberPlaces_d;
                         fprintf(stdout, "Actual Palce Reduction Factor: %f\n", actualPalceReductionFactor);
 
-                        if(actualPalceReductionFactor > 0.0){
+                        if(actualPalceReductionFactor < 0.99){
                             reducer.CreateInhibitorPlacesAndTransitions(tempnet, inhibarcs, placeInInhib, transitionInInhib);
                             reducer.Reduce(tempnet, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction);
                         }
@@ -832,12 +834,14 @@ int main(int argc, char* argv[]){
                
         }
         //----------------------- For reduction testing-----------------------------
-        /*fprintf(stdout, "Removed transitions: %d\n", reducer.RemovedTransitions());
-        fprintf(stdout, "Removed places: %d\n", reducer.RemovedPlaces());
-        fprintf(stdout, "Applications of rule A: %d\n", reducer.RuleA());
-        fprintf(stdout, "Applications of rule B: %d\n", reducer.RuleB());
-        fprintf(stdout, "Applications of rule C: %d\n", reducer.RuleC());
-        fprintf(stdout, "Applications of rule D: %d\n", reducer.RuleD());*/
+        if(debugging){
+            fprintf(stdout, "Removed transitions: %d\n", reducer.RemovedTransitions());
+            fprintf(stdout, "Removed places: %d\n", reducer.RemovedPlaces());
+            fprintf(stdout, "Applications of rule A: %d\n", reducer.RuleA());
+            fprintf(stdout, "Applications of rule B: %d\n", reducer.RuleB());
+            fprintf(stdout, "Applications of rule C: %d\n", reducer.RuleC());
+            fprintf(stdout, "Applications of rule D: %d\n", reducer.RuleD());
+        }
         //----------------------------------Mvh. Søren--------------------------
 	
         clock_t reduction_end = clock();
