@@ -17,7 +17,7 @@
 using namespace std;
 namespace PetriEngine{
 
-    CodeGenerator::CodeGenerator(PetriNet* net, MarkVal* m0, PNMLParser::InhibitorArcList inhibarcs, string statelabel, bool isReachBound, bool isPlaceBound) {
+    CodeGenerator::CodeGenerator(PetriNet* net, MarkVal* m0, PNMLParser::InhibitorArcList inhibarcs, string statelabel, bool isReachBound, bool isPlaceBound, bool quickSolve) {
         _net = net;
         _statelabel = statelabel;
         _nplaces = net->numberOfPlaces();
@@ -26,6 +26,7 @@ namespace PetriEngine{
         _inhibarcs = inhibarcs;
         _isReachBound = isReachBound;
         _isPlaceBound = isPlaceBound;
+        _quickSolve = quickSolve;
     }
 
     int CodeGenerator::inhibArc(unsigned int p, unsigned int t){
@@ -154,17 +155,33 @@ namespace PetriEngine{
 
         if (!_isReachBound){
                 fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
+                fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
         }
 //        else { fprintf(successor_generator, "if(%s[%d] == 0){if(0){%s[%d] = 1;}}", solvedArray, query_id, solvedArray, query_id);}
+        else if (_isReachBound && !_quickSolve){
+             fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
 
-        fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
+        }
+        else if(_quickSolve){
+            fprintf(successor_generator, "if(solved[0] == 0) %s return label == LABEL_GOAL && 1;\n", sl());
+            fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
+        }
 
 
-        if (_isReachBound){
+
+
+        if (_isReachBound && !_quickSolve){
             fprintf(successor_generator, "void exit_func(void* model){  \n");
-            fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is satisfied.\"); \n", sl(), query_id);
-            fprintf(successor_generator, "fprintf( stderr, \"exiting now\");}");
+
+            fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is satisfied.\");} \n", sl(), query_id);
+            fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");
+
             fprintf(successor_generator, "}");
+
+        } else if (_quickSolve) {
+            fprintf(successor_generator, "void exit_func(void* model){  \n");
+            fprintf(successor_generator, "if(solved[0] == 0){fprintf(stderr, \"#Query %d is satisfied.\");} \n", query_id);
+            fprintf(successor_generator, "fprintf( stderr, \"exiting now\");}");
         }
 
         else if (_isPlaceBound){ 

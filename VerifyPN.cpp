@@ -414,7 +414,8 @@ int main(int argc, char* argv[]){
 				}
 				// fprintf(stdout, "Index of the selected query: %d\n\n", xmlquery);
 				querystr = XMLparser.queries[xmlquery - 1].queryText;
-				querystring = querystr.substr(2);
+				if (!XMLparser.queries[xmlquery - 1].isPlaceBound) querystring = querystr.substr(2);
+				else querystring = querystr;
 				isInvariant = XMLparser.queries[xmlquery - 1].negateResult;
 
                                                     // Convert TAPAAL queries to LTSmin statelabels
@@ -433,7 +434,7 @@ int main(int argc, char* argv[]){
 				//Validate query type
 				if (querystr.substr(0, 2) != "EF" && querystr.substr(0, 2) != "AG") {
 					fprintf(stderr, "Error: Query type \"%s\" not supported, only (EF and AG is supported)\n", querystr.substr(0, 2).c_str());
-                                        fprintf(stderr, "DO_NOT_COMPETE\n" );
+                                                                    fprintf(stderr, "DO_NOT_COMPETE\n" );
 					return ErrorCode;
 				}
 				//Check if is invariant
@@ -457,7 +458,7 @@ int main(int argc, char* argv[]){
 
 		if(!query){
 			fprintf(stderr, "Error: Failed to parse query \"%s\"\n", querystring.c_str()); //querystr.substr(2).c_str());
-                        fprintf(stderr, "CANNOT COMPUTE\n"); //querystr.substr(2).c_str());
+                                        fprintf(stderr, "CANNOT COMPUTE\n"); //querystr.substr(2).c_str());
 			return ErrorCode;
 		}		
 	}
@@ -470,7 +471,8 @@ int main(int argc, char* argv[]){
 	string querystring;
 	for(i = 0; i < XMLparser.queries.size(); i++){
 		string querystr = XMLparser.queries[i].queryText;
-		querystring = querystr.substr(2);
+		if (!XMLparser.queries[xmlquery - 1].isPlaceBound) querystring = querystr.substr(2);
+		else querystring = querystr; 
 		isInvariantlist[i] = XMLparser.queries[i].negateResult;
 		querylist[i] = ParseQuery(querystring);
 	}	
@@ -603,7 +605,8 @@ int main(int argc, char* argv[]){
             string dummy = "dummy";
             bool dummy1 = false;
             bool dummy2 = false;
-            CodeGenerator codeGen(net, m0, inhibarcs, dummy, dummy1, dummy2);
+            bool dummy3 = false;
+            CodeGenerator codeGen(net, m0, inhibarcs, dummy, dummy1, dummy2, dummy3);
             codeGen.generateSourceForSSE();
 
             clock_t LTSmin_begin = clock();
@@ -624,12 +627,12 @@ int main(int argc, char* argv[]){
             string exitMessage = "LTSmin finished";
 
             if(ltsminMode == MC){ // multicore
-                cmd = "sh runLTSminMC.linux64.sh";
-                //cmd = "sh runLTSminMC.osx64.sh";
+                //cmd = "sh runLTSminMC.linux64.sh";
+                cmd = "sh runLTSmin.sh -mc";
             }
             else if(ltsminMode == SEQ){ // single core
-                cmd = "sh runLTSminSEQ.linux64.sh";
-                //cmd = "sh runLTSminSEQ.osx64.sh";
+                //cmd = "sh runLTSminSEQ.linux64.sh";
+                cmd = "sh runLTSmin.sh";
             }
 
             cmd.append(" 2>&1");
@@ -743,6 +746,7 @@ int main(int argc, char* argv[]){
             
             if (ltsminMode && verifyAllQueries){
                 //Test Alpha
+                if(debugging) fprintf(stdout,"Doing Alpha Test\n");
                 PetriNet *tempnet = builder.makePetriNet();
                 Reducer tempreducer = Reducer(tempnet);
                 QueryPlaceAnalysisContext tempplacecontext(*tempnet, placeInQuery);
@@ -760,39 +764,47 @@ int main(int argc, char* argv[]){
                 double numberTransitions_d = tempnet->numberOfTransitions();
 
                 double reduceabilityfactor = (removedTransitions_d + removedPlaces_d) / (numberPlaces_d + numberTransitions_d);
-                if(debugging) fprintf(stdout, "Reduceabilityfactor: %f\n", reduceabilityfactor);
+                fprintf(stdout, "Reduceabilityfactor: %f\n", reduceabilityfactor);
 
                 if (reduceabilityfactor < 1.0){
                     //Test Beta
+                    if(debugging) fprintf(stderr,"Doing Beta Test\n");
                     string reductionquerystr;
                     bool firstAccurance = true;
                     for (i = 0; i < XMLparser.queries.size(); i++){
-                        if (notSatisfiable[i] != 0){
+                        if(debugging) fprintf(stderr,"notSatisfiable: %d\n", notSatisfiable[i]);
+                        if (notSatisfiable[i] == 0){
                             if(!firstAccurance)
                                 reductionquerystr += " and ";
                             reductionquerystr += querylist[i]->toString();
                             firstAccurance = false;
                         }
                     }
-                    Condition* reductionquery = ParseQuery(reductionquerystr);
-                    reductionquery->analyze(tempplacecontext);
-                    
-                    int placesInQuery = 0;
-                    for (int i = 0; i < net->numberOfPlaces(); i++) {
-                        if (placeInQuery[i] != 0)
-                            placesInQuery++;
-                    }
-                    double placesInQuery_d = placesInQuery;
-                    double actualPalceReductionFactor = placesInQuery_d / numberPlaces_d;
-                    fprintf(stdout, "Actual Palce Reduction Factor: %f\n", actualPalceReductionFactor);
-                    
-                    if(actualPalceReductionFactor > 0.0){
-                        reducer.CreateInhibitorPlacesAndTransitions(tempnet, inhibarcs, placeInInhib, transitionInInhib);
-                        reducer.Reduce(tempnet, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction);
-                    }
-                    else {
+                    if(firstAccurance) {
                         reduceByMultiQuery = false;
-                        if(debugging) cout<<"actualPalceReductionFactor failed\n"<<endl;
+                        if(debugging) cout<<"No queries contained in notSatisfiable\n"<<endl;
+                    } 
+                    else {
+                        Condition* reductionquery = ParseQuery(reductionquerystr);
+                        reductionquery->analyze(tempplacecontext);
+
+                        int placesInQuery = 0;
+                        for (int i = 0; i < net->numberOfPlaces(); i++) {
+                            if (placeInQuery[i] != 0)
+                                placesInQuery++;
+                        }
+                        double placesInQuery_d = placesInQuery;
+                        double actualPalceReductionFactor = placesInQuery_d / numberPlaces_d;
+                        fprintf(stdout, "Actual Palce Reduction Factor: %f\n", actualPalceReductionFactor);
+
+                        if(actualPalceReductionFactor > 0.0){
+                            reducer.CreateInhibitorPlacesAndTransitions(tempnet, inhibarcs, placeInInhib, transitionInInhib);
+                            reducer.Reduce(tempnet, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction);
+                        }
+                        else {
+                            reduceByMultiQuery = false;
+                            if(debugging) cout<<"actualPalceReductionFactor failed\n"<<endl;
+                        }
                     }
                 }
                 else {
@@ -840,7 +852,7 @@ int main(int argc, char* argv[]){
                 if(debugging) cout<<"Number of places: "<<net->numberOfPlaces()<<endl;
                 if(debugging) cout<<"Number of transisions: "<<net->numberOfTransitions()<<endl;
 
-                CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound);
+                CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound, XMLparser.queries[xmlquery - 1].quickSolve);
 
                 int numberOfQueries = XMLparser.queries.size();
                 string* stringQueries = new string[numberOfQueries];
@@ -889,11 +901,11 @@ int main(int argc, char* argv[]){
 
             if(ltsminMode == MC){ // multicore
                 cmd = "sh runLTSminMC.linux64.sh";
-                //cmd = "sh runLTSminMC.osx64.sh";
+                //cmd = "sh runLTSmin.sh -mc";
             }
             else if(ltsminMode == SEQ){ // single core
                 cmd = "sh runLTSminSEQ.linux64.sh";
-                //cmd = "sh runLTSminSEQ.osx64.sh";
+                //cmd = "sh runLTSmin.sh";
             }
 
 	   cmd.append(" 2>&1");

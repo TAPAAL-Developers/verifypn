@@ -28,6 +28,7 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
     ss << queryIndex;
     string number = ss.str();
     string searchSat;
+    string searchNotSat;
 
     stream = popen(cmd.c_str(), "r");
     while (!exitLTSmin){
@@ -57,11 +58,17 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
             }
 
             searchSat = string("#Query ") + number + " is satisfied.";
+            searchNotSat = string("#Query ") + number + " is NOT satisfied.";
 
             // check if satisfied
             if ((found = data.find(searchSat))!=std::string::npos) {
                 pclose(stream);
                 return ReachabilityResult(ReachabilityResult::Satisfied);
+            }
+
+            else if ((found = data.find(searchNotSat))!=std::string::npos) {
+                pclose(stream);
+                return ReachabilityResult(ReachabilityResult::NotSatisfied);
             }
 
             // exit messages
