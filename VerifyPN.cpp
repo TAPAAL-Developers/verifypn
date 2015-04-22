@@ -87,7 +87,7 @@ enum LTSminMode{
         i = atoi(line);
         return i;
     }
-/*
+
 int getValue(){ //Note: this value is in KB!
         FILE* file = fopen("/proc/self/status", "r");
         int result = -1;
@@ -103,7 +103,7 @@ int getValue(){ //Note: this value is in KB!
         fclose(file);
         return result;
     }
-*/
+
 double diffclock(clock_t clock1, clock_t clock2){
     double diffticks = clock1 + clock2;
     double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
@@ -132,6 +132,7 @@ int main(int argc, char* argv[]){
             bool isReachBound = false;
             bool ltsminMc = false;
             bool debugging = false;
+            bool verifyAllQueries = true;
 
 
 	//----------------------- Parse Arguments -----------------------//
@@ -184,6 +185,11 @@ int main(int argc, char* argv[]){
                             }
                             searchstrategy = OverApprox;
 
+                            if(xmlquery == -1){
+                                xmlquery = 1;
+                            }
+                            
+
 		} else if (strcmp(argv[i], "-m") == 0 || strcmp(argv[i], "--memory-limit") == 0) {
 			if (i == argc - 1) {
 				fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
@@ -208,6 +214,7 @@ int main(int argc, char* argv[]){
 				fprintf(stderr, "Argument Error: Query index to verify \"%s\"\n", argv[i]);
 				return ErrorCode;
 			}
+                                        verifyAllQueries = false;
 		}else if (strcmp(argv[i], "-r") == 0 || strcmp(argv[i], "--reduction") == 0) {
 				if (i == argc - 1) {
 					fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
@@ -356,8 +363,8 @@ int main(int argc, char* argv[]){
 		// Close the file
 		mfile.close();
 	}
-    // fprintf(stderr, "Size of model: %dKB\n", getValue());
-    // cout<<"Size of model: "<<getValue()<<"KB\n"<<endl; 
+     fprintf(stderr, "Size of model: %dKB\n", getValue());
+     cout<<"Size of model: "<<getValue()<<"KB\n"<<endl; 
 
 	//----------------------- Parse Query -----------------------//
 
@@ -382,7 +389,7 @@ int main(int argc, char* argv[]){
 			stringstream buffer;
 			buffer << qfile.rdbuf();
 			string querystr = buffer.str(); // including EF and AG
-
+                                        
 			//Parse XML the queries and querystr let be the index of xmlquery
 			if (xmlquery > 0) {
 				if (!XMLparser.parse(querystr)) {
@@ -415,20 +422,10 @@ int main(int argc, char* argv[]){
                                                     stateLabels = StringParser.getStateLabels();
 
                                                     if (xmlquery>0) {
-                                                        fprintf(stdout, "FORMULA %s ", XMLparser.queries[xmlquery-1].id.c_str());
-                                                        fflush(stdout);
-                                                
+                                                        //fprintf(stdout, "FORMULA %s ", XMLparser.queries[xmlquery-1].id.c_str());
+                                                        fflush(stdout);   
                                             }
-
 			} 
-
-                                        else if(ltsminMode && xmlquery < 0){ // LTSmin on all queries 
-                                            if (!XMLparser.parse(querystr)) {
-                                                fprintf(stderr, "Error: Failed parsing XML query file\n");
-                                                fprintf(stdout, "DO_NOT_COMPETE\n");
-                                                return ErrorCode;
-                                            }                                            
-                                        }
 
                                         else { // standard textual query
 				fprintf(stdout, "Query:  %s \n", querystr.c_str());
@@ -494,7 +491,7 @@ int main(int argc, char* argv[]){
                                query->analyze(context);
                             }
 
-                        else if(ltsminMode && xmlquery < 0){
+                        else if(ltsminMode && verifyAllQueries){
                             int i;
                             for (i = 0; i < XMLparser.queries.size(); i++) {
                                     querylist[i]->analyze(context);
@@ -562,7 +559,7 @@ int main(int argc, char* argv[]){
         }
 
         // Single query
-        if(ltsminMode && xmlquery > 0 && strategy && !disableoverapprox){
+        if(ltsminMode && !verifyAllQueries && strategy && !disableoverapprox){
             result = strategy->reachable(*net, m0, v0, querylist[xmlquery-1]);
 
             if(result.result() == ReachabilityResult::Unknown){
@@ -582,7 +579,7 @@ int main(int argc, char* argv[]){
         }
 
         // Multi query
-        else if(ltsminMode && xmlquery < 0 && strategy && !disableoverapprox){
+        else if(ltsminMode && verifyAllQueries && strategy && !disableoverapprox){
             for (i = 0; i < numberOfQueries; i++){
                 result = strategy->reachable(*net, m0, v0, querylist[i]);
 
@@ -626,12 +623,12 @@ int main(int argc, char* argv[]){
             string exitMessage = "LTSmin finished";
 
             if(ltsminMode == MC){ // multicore
-                //cmd = "sh runLTSminMC.linux64.sh";
-                cmd = "sh runLTSminMC.osx64.sh";
+                cmd = "sh runLTSminMC.linux64.sh";
+                //cmd = "sh runLTSminMC.osx64.sh";
             }
             else if(ltsminMode == SEQ){ // single core
-                //cmd = "sh runLTSminSEQ.linux64.sh";
-                cmd = "sh runLTSminSEQ.osx64.sh";
+                cmd = "sh runLTSminSEQ.linux64.sh";
+                //cmd = "sh runLTSminSEQ.osx64.sh";
             }
 
             cmd.append(" 2>&1");
@@ -742,7 +739,7 @@ int main(int argc, char* argv[]){
             }
             QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
             
-            if (ltsminMode > 0 && xmlquery < 0){
+            if (ltsminMode && verifyAllQueries){
                 //Test Alpha
                 PetriNet *tempnet = builder.makePetriNet();
                 Reducer tempreducer = Reducer(tempnet);
@@ -761,7 +758,7 @@ int main(int argc, char* argv[]){
                 double numberTransitions_d = tempnet->numberOfTransitions();
 
                 double reduceabilityfactor = (removedTransitions_d + removedPlaces_d) / (numberPlaces_d + numberTransitions_d);
-                fprintf(stdout, "Reduceabilityfactor: %f\n", reduceabilityfactor);
+                if(debugging) fprintf(stdout, "Reduceabilityfactor: %f\n", reduceabilityfactor);
 
                 if (reduceabilityfactor < 0.2){
                     //Test Beta
@@ -846,11 +843,11 @@ int main(int argc, char* argv[]){
                 int numberOfQueries = XMLparser.queries.size();
                 string* stringQueries = new string[numberOfQueries];
 
-                if(ltsminMode && xmlquery > 0){ // Generate code for single query
+                if(ltsminMode && !verifyAllQueries){ // Generate code for single query
                     codeGen.generateSource(isInvariantlist, (xmlquery - 1));
                 }
 
-                else if(ltsminMode && xmlquery < 0){ // Generate code for all queries
+                else if(ltsminMode && verifyAllQueries){ // Generate code for all queries
                     for (i = 0; i < XMLparser.queries.size(); i++){
                         if(debugging) cout<<"notSatisfiable "<<i<<": "<<notSatisfiable[i]<<"\n"<<endl;
                     }
@@ -889,12 +886,12 @@ int main(int argc, char* argv[]){
 	string exitMessage = "LTSmin finished";
 
             if(ltsminMode == MC){ // multicore
-                //cmd = "sh runLTSminMC.linux64.sh";
-                cmd = "sh runLTSminMC.osx64.sh";
+                cmd = "sh runLTSminMC.linux64.sh";
+                //cmd = "sh runLTSminMC.osx64.sh";
             }
             else if(ltsminMode == SEQ){ // single core
-                //cmd = "sh runLTSminSEQ.linux64.sh";
-                cmd = "sh runLTSminSEQ.osx64.sh";
+                cmd = "sh runLTSminSEQ.linux64.sh";
+                //cmd = "sh runLTSminSEQ.osx64.sh";
             }
 
 	   cmd.append(" 2>&1");
@@ -903,7 +900,7 @@ int main(int argc, char* argv[]){
 	  ReachabilityResult result;
 
 	  // verify only one query
-	  if(ltsminMode && xmlquery > 0 && solution == UnknownCode){
+	  if(ltsminMode && !verifyAllQueries && solution == UnknownCode){
 
                     result = ltsmin.reachable(cmd, xmlquery-1, XMLparser.queries[xmlquery-1].id, XMLparser.queries[xmlquery-1].isPlaceBound);
 
@@ -919,7 +916,7 @@ int main(int argc, char* argv[]){
  
 
 	  // verify all queries at once
-	  else if(ltsminMode && xmlquery < 0){  
+	  else if(ltsminMode && verifyAllQueries){  
 		  int q, m, s;
 	              string data;
 
@@ -1030,8 +1027,8 @@ int main(int argc, char* argv[]){
             if(debugging) cout<<"------------LTSmin Verification time elapsed: "<<double(diffclock(LTSmin_end,LTSmin_begin))<<" ms-----------\n"<<endl;
 
             // ----------------- Output LTSmin Result ----------------- //
-            if(ltsminMode && xmlquery > 0){
-                //fprintf(stdout, "%s ", XMLparser.queries[xmlquery-1].id.c_str()); 
+            if(ltsminMode && !verifyAllQueries){
+                fprintf(stdout, "%s ", XMLparser.queries[xmlquery-1].id.c_str()); 
                 // print result
                 if(solution == FailedCode){
                     fprintf(stdout, "FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
