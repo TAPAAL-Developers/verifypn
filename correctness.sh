@@ -9,7 +9,7 @@
 #done
 
 echo "CircularTrains-PT-024" | ts0
-time ./verifypn-linux64 -o mc -r 2 -b -d -s OverApprox ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml #> logFiles/CircularTrains24Correctness_Multi_d.
+time ./verifypn-linux64 -o mc -x 5 -r 2 -b -d -s OverApprox ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml #> logFiles/CircularTrains24Correctness_Multi_d.
 
 #echo "CircularTrains-PT-024" | ts
 #for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16

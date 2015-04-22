@@ -744,7 +744,7 @@ int main(int argc, char* argv[]){
             }
             QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
             
-            if (ltsminMode && verifyAllQueries){
+            if (ltsminMode && reduceByMultiQuery){
                 //Test Alpha
                 if(debugging) fprintf(stdout,"Doing Alpha Test\n");
                 PetriNet *tempnet = builder.makePetriNet();
@@ -812,27 +812,25 @@ int main(int argc, char* argv[]){
                     if(debugging) cout<<"reduceabilityfactor failed\n"<<endl;
                 }
             }
-            else {
-                reduceByMultiQuery = false;
-                if(debugging) cout<<"LTSmin (-l 2) not enabled\n"<<endl;
+            else if (xmlquery > 0) {
+                if(debugging) cout<<"Reducing by single query\n"<<endl;
+                query->analyze(placecontext);
+                MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
+                MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
+            
+                // CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
+                reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
+
+                //reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
+                reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
+                //reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
             }
             if(!reduceByMultiQuery && verifyAllQueries) {
                 return MultiFailCode;
             }
             
-	/*// Compute the places and transitions that connect to inhibitor arcs
-	MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
-	MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
-            
-	// CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
-	reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
-
-	//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
-	reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
-	//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
-                enableLTSmin = 1;*/
                
-            }
+        }
         //----------------------- For reduction testing-----------------------------
         /*fprintf(stdout, "Removed transitions: %d\n", reducer.RemovedTransitions());
         fprintf(stdout, "Removed places: %d\n", reducer.RemovedPlaces());
