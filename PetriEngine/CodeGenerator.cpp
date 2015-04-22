@@ -171,7 +171,8 @@ namespace PetriEngine{
 
         }
         else if(_quickSolve){
-            fprintf(successor_generator, "if(solved[%d] == 0) %s return label == LABEL_GOAL && 1;\n", query_id, sl());
+            fprintf(successor_generator, "if(solved[%d] == 0) %s \n", query_id, sl());
+            fprintf(successor_generator, "if (solved[%d] == 1) {return label == LABEL_GOAL && 1;}\n\n", query_id);
             fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
         }
 
