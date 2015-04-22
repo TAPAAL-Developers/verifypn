@@ -432,7 +432,7 @@ int main(int argc, char* argv[]){
 				//Validate query type
 				if (querystr.substr(0, 2) != "EF" && querystr.substr(0, 2) != "AG") {
 					fprintf(stderr, "Error: Query type \"%s\" not supported, only (EF and AG is supported)\n", querystr.substr(0, 2).c_str());
-                                        fprintf(stderr, "DO_NOT_COMPETE\n" );
+                                                                    fprintf(stderr, "DO_NOT_COMPETE\n" );
 					return ErrorCode;
 				}
 				//Check if is invariant
@@ -456,7 +456,7 @@ int main(int argc, char* argv[]){
 
 		if(!query){
 			fprintf(stderr, "Error: Failed to parse query \"%s\"\n", querystring.c_str()); //querystr.substr(2).c_str());
-                        fprintf(stderr, "CANNOT COMPUTE\n"); //querystr.substr(2).c_str());
+                                        fprintf(stderr, "CANNOT COMPUTE\n"); //querystr.substr(2).c_str());
 			return ErrorCode;
 		}		
 	}
