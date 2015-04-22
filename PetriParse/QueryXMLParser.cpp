@@ -602,7 +602,7 @@ bool QueryXMLParser::parseIntegerExpression(DOMElement* element, string &queryTe
                 return true;
             } else if(nChildren == 1){
                 queryText += "\""+parsePlace(children[0])+"\"";
-                queryText += "+ \""+parsePlace(children[0])+"\"";
+               
 
                 return true;
             }
