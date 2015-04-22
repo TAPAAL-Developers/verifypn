@@ -623,12 +623,12 @@ int main(int argc, char* argv[]){
             string exitMessage = "LTSmin finished";
 
             if(ltsminMode == MC){ // multicore
-                cmd = "sh runLTSminMC.linux64.sh";
-                //cmd = "sh runLTSminMC.osx64.sh";
+                //cmd = "sh runLTSminMC.linux64.sh";
+                cmd = "sh runLTSmin.sh -mc";
             }
             else if(ltsminMode == SEQ){ // single core
-                cmd = "sh runLTSminSEQ.linux64.sh";
-                //cmd = "sh runLTSminSEQ.osx64.sh";
+                //cmd = "sh runLTSminSEQ.linux64.sh";
+                cmd = "sh runLTSmin.sh";
             }
 
             cmd.append(" 2>&1");
@@ -886,12 +886,12 @@ int main(int argc, char* argv[]){
 	string exitMessage = "LTSmin finished";
 
             if(ltsminMode == MC){ // multicore
-                cmd = "sh runLTSminMC.linux64.sh";
-                //cmd = "sh runLTSminMC.osx64.sh";
+                //cmd = "sh runLTSminMC.linux64.sh";
+                cmd = "sh runLTSmin.sh -mc";
             }
             else if(ltsminMode == SEQ){ // single core
-                cmd = "sh runLTSminSEQ.linux64.sh";
-                //cmd = "sh runLTSminSEQ.osx64.sh";
+                //cmd = "sh runLTSminSEQ.linux64.sh";
+                cmd = "sh runLTSmin.sh";
             }
 
 	   cmd.append(" 2>&1");

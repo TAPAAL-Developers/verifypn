@@ -8,8 +8,8 @@
 #time ./verifypn-linux64 -x $i -l 1 -d ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml #> logFiles/CircularTrains24Correctness_$i_d.txt
 #done
 
-echo "CircularTrains-PT-024" | ts
-time ./verifypn-linux64 -x 1 -l 2 -d ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml > logFiles/CircularTrains24Correctness_Multi_d.txt
+echo "CircularTrains-PT-024" | ts0
+time ./verifypn-linux64 -x 1 -o mc -d -b ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml #> logFiles/CircularTrains24Correctness_Multi_d.
 
 #echo "CircularTrains-PT-024" | ts
 #for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
