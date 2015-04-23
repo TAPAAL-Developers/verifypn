@@ -3,6 +3,10 @@
  *                          Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                          Lars Kærlund Østergaard <larsko@gmail.com>,
  *                          Jiri Srba <srba.jiri@gmail.com>
+ *                          Jakob Dyhr <>
+ *                          Mads Johannsen <>
+ *                          Isabella Kaufmann <ikaufm12@student.aau.dk>
+ *                          Søren Moss Nielsen <smni12@student.aau.dk>
  *      
  *
  * This program is free software: you can redistribute it and/or modify
@@ -806,7 +810,7 @@ int main(int argc, char* argv[]){
                 //Reduce(net) - Multi Query
                 reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
                 reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction);
-            } else {
+            } else { //Reducing based on a single query
                 query->analyze(placecontext);
 
                 // Compute the places and transitions that connect to inhibitor arcs
