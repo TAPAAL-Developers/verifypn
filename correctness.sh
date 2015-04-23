@@ -17,23 +17,23 @@
 #time ./verifypn-linux64 -x $i -l 1 ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml > logFiles/CircularTrains24Correctness_$i.txt
 #done
 
-#echo "CircularTrains-PT-024" | ts
-#time ./verifypn-linux64 -x 1 -l 2 ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml > logFiles/CircularTrains24Correctness_Multi.txt
+echo "CircularTrains-PT-024" | ts
+time ./verifypn-linux64 -o mc -r 2 -b ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml #> logFiles/CircularTrains24Correctness_Multi.txt
 
-echo "EnergyBus" | ts
-time ./verifypn-linux64 -o mc -r 2 -b ../models/EnergyBus-PT-none/model.pnml ../models/EnergyBus-PT-none/ReachabilityCardinality.xml > logFiles/EnergyBus_s.txt
+#echo "EnergyBus" | ts
+#time ./verifypn-linux64 -o mc -r 2 -b ../models/EnergyBus-PT-none/model.pnml ../models/EnergyBus-PT-none/ReachabilityCardinality.xml > logFiles/EnergyBus_s.txt
 
-echo "Angiogenesis" | ts
-time ./verifypn-linux64 -o mc -r 2 -b ../models/Angiogenesis-PT-01/model.pnml ../models/Angiogenesis-PT-01/ReachabilityCardinality.xml > logFiles/Angiogenesis_R.txt
+#echo "Angiogenesis" | ts
+#time ./verifypn-linux64 -o mc -r 2 -b ../models/Angiogenesis-PT-01/model.pnml ../models/Angiogenesis-PT-01/ReachabilityCardinality.xml > logFiles/Angiogenesis_R.txt
 
-echo "CSRepetitions" | ts
-time ./verifypn-linux64 -o mc -r 2 -b ../models/CSRepetitions-PT-02/model.pnml ../models/CSRepetitions-PT-02/ReachabilityCardinality.xml > logFiles/CSRepetitions_R.txt
+#echo "CSRepetitions" | ts
+#time ./verifypn-linux64 -o mc -r 2 -b ../models/CSRepetitions-PT-02/model.pnml ../models/CSRepetitions-PT-02/ReachabilityCardinality.xml > logFiles/CSRepetitions_R.txt
 
-echo "Eratosthenes" | ts
-time ./verifypn-linux64 -o mc -r 2 -b ../models/Eratosthenes-PT-010/model.pnml ../models/Eratosthenes-PT-010/ReachabilityCardinality.xml > logFiles/Eratosthenes_R.txt
+#echo "Eratosthenes" | ts
+#time ./verifypn-linux64 -o mc -r 2 -b ../models/Eratosthenes-PT-010/model.pnml ../models/Eratosthenes-PT-010/ReachabilityCardinality.xml > logFiles/Eratosthenes_R.txt
 
-echo "DatabaseWithMutex" | ts
-time ./verifypn-linux64 -o mc -r 2 -b ../models/DatabaseWithMutex-PT-02/model.pnml ../models/DatabaseWithMutex-PT-02/ReachabilityCardinality.xml > logFiles/DatabaseWithMutex_R.txt
+#echo "DatabaseWithMutex" | ts
+#time ./verifypn-linux64 -o mc -r 2 -b ../models/DatabaseWithMutex-PT-02/model.pnml ../models/DatabaseWithMutex-PT-02/ReachabilityCardinality.xml > logFiles/DatabaseWithMutex_R.txt
 
 
 
