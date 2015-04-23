@@ -88,7 +88,7 @@ enum LTSminMode{
         i = atoi(line);
         return i;
     }
-
+/*
 int getValue(){ //Note: this value is in KB!
         FILE* file = fopen("/proc/self/status", "r");
         int result = -1;
@@ -104,7 +104,7 @@ int getValue(){ //Note: this value is in KB!
         fclose(file);
         return result;
     }
-
+*/
 double diffclock(clock_t clock1, clock_t clock2){
     double diffticks = clock1 + clock2;
     double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
@@ -364,8 +364,8 @@ int main(int argc, char* argv[]){
 		// Close the file
 		mfile.close();
 	}
-     fprintf(stderr, "Size of model: %dKB\n", getValue());
-     cout<<"Size of model: "<<getValue()<<"KB\n"<<endl; 
+     //if(debugging) fprintf(stderr, "Size of model: %dKB\n", getValue());
+     //if(debugging) cout<<"Size of model: "<<getValue()<<"KB\n"<<endl; 
 
 	//----------------------- Parse Query -----------------------//
 
@@ -454,6 +454,7 @@ int main(int argc, char* argv[]){
 		}
 
 		//Parse query
+                        if(debugging) cout<<"querystring: "<<querystring<<endl;
 		query = ParseQuery(querystring);
 
 		if(!query){
@@ -627,11 +628,9 @@ int main(int argc, char* argv[]){
             string exitMessage = "LTSmin finished";
 
             if(ltsminMode == MC){ // multicore
-                //cmd = "sh runLTSminMC.linux64.sh";
                 cmd = "sh runLTSmin.sh -mc";
             }
             else if(ltsminMode == SEQ){ // single core
-                //cmd = "sh runLTSminSEQ.linux64.sh";
                 cmd = "sh runLTSmin.sh";
             }
 
@@ -902,12 +901,10 @@ int main(int argc, char* argv[]){
 	string exitMessage = "LTSmin finished";
 
             if(ltsminMode == MC){ // multicore
-                cmd = "sh runLTSminMC.linux64.sh";
-                //cmd = "sh runLTSmin.sh -mc";
+                cmd = "sh runLTSmin.sh -mc";
             }
             else if(ltsminMode == SEQ){ // single core
-                cmd = "sh runLTSminSEQ.linux64.sh";
-                //cmd = "sh runLTSmin.sh";
+                cmd = "sh runLTSmin.sh";
             }
 
 	   cmd.append(" 2>&1");
@@ -917,9 +914,9 @@ int main(int argc, char* argv[]){
 
 	  // verify only one query
 	  if(ltsminMode && !verifyAllQueries && solution == UnknownCode){
-
+                if(debugging) cout<<"Starting LTSmin single query"<<endl;
                     result = ltsmin.reachable(cmd, xmlquery-1, XMLparser.queries[xmlquery-1].id, XMLparser.queries[xmlquery-1].isPlaceBound);
-
+                if(debugging) cout<<"LTSmin has finished"<<endl;    
                     if(result.result() == ReachabilityResult::Satisfied)
                         solution = isInvariant ? FailedCode : SuccessCode;
                     else if(result.result() == ReachabilityResult::NotSatisfied)
@@ -982,7 +979,7 @@ int main(int argc, char* argv[]){
 			    }
 
 
-			string queryResultPlaceBound = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " = " + maxtokens.c_str() + " TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+			string queryResultPlaceBound = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " " + maxtokens.c_str() + " TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
 
                                 	
                                 	if((found = data.find(searchPlaceBound)) != std::string::npos){
@@ -1044,29 +1041,31 @@ int main(int argc, char* argv[]){
 
             // ----------------- Output LTSmin Result ----------------- //
             if(ltsminMode && !verifyAllQueries){
-                fprintf(stdout, "%s ", XMLparser.queries[xmlquery-1].id.c_str()); 
-                // print result
-                if(solution == FailedCode){
-                    fprintf(stdout, "FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
-                    fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
+                if (xmlquery>0 && XMLparser.queries[xmlquery-1].isPlaceBound) {
+                    // maybe move ltsmin output here.
+                }
+                else{
+                    fprintf(stdout, "FORMULA %s ", XMLparser.queries[xmlquery-1].id.c_str());                
+
+                    if(solution == FailedCode){
+                        fprintf(stdout, "FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
+                        fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
+                    }
+
+                    else if(solution == SuccessCode){
+                        fprintf(stdout, "TRUE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
+                        fprintf(stdout, "\nQuery is satisfied.\n\n");
+                    }
+
+                    else
+                        fprintf(stdout, "\nUnable to decide if query is satisfied\n\n");
                 }
 
-                else if(solution == SuccessCode){
-                    fprintf(stdout, "TRUE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
-                    fprintf(stdout, "\nQuery is satisfied.\n\n");
-                }
+            return solution;
 
-                else if(solution == UnknownCode)
-                    fprintf(stdout, "\nUnable to decide if query is satisfied\n\n");
-
-                else
-                    fprintf(stdout, "\nError occured.\n");
-
-                return solution;
-            }
-
-            return 0; 
         }
+        return 0; 
+    }
 
 	//----------------------- Output Result -----------------------//
 
