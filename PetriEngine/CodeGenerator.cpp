@@ -479,6 +479,7 @@ namespace PetriEngine{
         successor_generator = fopen("temp.txt", "w+");
 
         const char* ComputeBoundsArray = "MaxNumberOfTokensInPlace";
+        const char* MaksPrMarking = "MaxNumberOfTokensInMarking";
 
         //Preliminaries
 
@@ -491,6 +492,8 @@ namespace PetriEngine{
         }
 
         fputs("};", successor_generator);
+
+        fprintf(successor_generator, "int %s = 0; \n", MaksPrMarking);
         
 
         //Write do_callback
@@ -571,17 +574,20 @@ namespace PetriEngine{
 
         //Write State_label
         fputs("int state_label(void* model, int label, int* src) {\n", successor_generator);
+        fputs("int m; m = 0;", successor_generator);
+        fprintf(successor_generator, "for(int i = 0; i < %d; i++) { m += src[i];} \n", _nplaces);
+        fprintf(successor_generator, "if (m > %s) {%s = m;}\n", MaksPrMarking, MaksPrMarking);
         fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
 
 
 
         fprintf(successor_generator, "void exit_func(void* model){  \n");
 
-        fputs("int T = 0; int M = 0;\n", successor_generator);
+        fputs("int M = 0;\n", successor_generator);
         for (int i = 0; i < _nplaces; i++){
-            fprintf(successor_generator, "T += MaxNumberOfTokensInPlace[%d];\n if(M < MaxNumberOfTokensInPlace[%d]) { M = MaxNumberOfTokensInPlace[%d]; }", i, i, i);
+            fprintf(successor_generator, "if(M < MaxNumberOfTokensInPlace[%d]) { M = MaxNumberOfTokensInPlace[%d]; \n}", i, i);
         }
-        fputs("fprintf(stderr, \"Maximum number of tokens in marking \'%d\' \\n\", T);\n", successor_generator);
+        fputs("fprintf(stderr, \"Maximum number of tokens in marking \'%d\' \\n\", MaxNumberOfTokensInMarking);", successor_generator);
         fputs("fprintf(stderr, \"Maximum number of tokens in one Place \'%d\' \", M);\n", successor_generator);
 
         fprintf(successor_generator, "fprintf( stderr, \"exiting now\");}");
