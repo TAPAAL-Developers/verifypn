@@ -3,6 +3,10 @@
  *                          Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                          Lars Kærlund Østergaard <larsko@gmail.com>,
  *                          Jiri Srba <srba.jiri@gmail.com>
+ *                          Jakob Dyhr <>
+ *                          Mads Johannsen <>
+ *                          Isabella Kaufmann <ikaufm12@student.aau.dk>
+ *                          Søren Moss Nielsen <smni12@student.aau.dk>
  *      
  *
  * This program is free software: you can redistribute it and/or modify
@@ -48,6 +52,9 @@
 #include "PetriEngine/CodeGenerator.h"
 
 #include "time.h"
+
+#define ALFA_KOEFFICIENT 0.0
+#define BETA_KOEFFICIENT 1.0
 
 
 using namespace std;
@@ -730,11 +737,10 @@ int main(int argc, char* argv[]){
         if(debugging) cout<<"lpsolve time elapsed: "<<double(diffclock(lpsolve_end,lpsolve_begin))<<" ms\n"<<endl;
         
         //--------------------- Apply Net Reduction ---------------//
+        
         clock_t reduction_begin = clock();
-        bool reduceByMultiQuery;
-        verifyAllQueries ? reduceByMultiQuery = true : reduceByMultiQuery = false;
-        Reducer reducer = Reducer(net); // reduced is needed also in trace generation (hence the extended scope)
-	if (enablereduction == 1 or enablereduction == 2) {
+        Reducer reducer = Reducer(net);
+        if (enablereduction == 1 or enablereduction == 2) {
             int i;
             MarkVal* placeInQuery = new MarkVal[net->numberOfPlaces()];
             for (size_t i = 0; i < net->numberOfPlaces(); i++) {
@@ -742,7 +748,7 @@ int main(int argc, char* argv[]){
             }
             QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
             
-            if (ltsminMode && reduceByMultiQuery){
+            if(verifyAllQueries){
                 //Test Alpha
                 if(debugging) fprintf(stdout,"Doing Alpha Test\n");
                 PetriNet *tempnet = builder.makePetriNet();
@@ -763,74 +769,61 @@ int main(int argc, char* argv[]){
 
                 double reduceabilityfactor = (removedTransitions_d + removedPlaces_d) / (numberPlaces_d + numberTransitions_d);
                 fprintf(stdout, "Reduceabilityfactor: %f\n", reduceabilityfactor);
-
-                if (reduceabilityfactor < 0.4){
-                    //Test Beta
-                    if(debugging) fprintf(stderr,"Doing Beta Test\n");
-                    string reductionquerystr;
-                    bool firstAccurance = true;
-                    for (i = 0; i < XMLparser.queries.size(); i++){
-                        if(debugging) fprintf(stderr,"notSatisfiable: %d\n", notSatisfiable[i]);
-                        if (notSatisfiable[i] == 0){
-                            if(!firstAccurance)
-                                reductionquerystr += " and ";
-                            reductionquerystr += querylist[i]->toString();
-                            firstAccurance = false;
-                        }
-                    }
-                    if(firstAccurance) {
-                        reduceByMultiQuery = false;
-                        if(debugging) cout<<"No queries contained in notSatisfiable\n"<<endl;
-                    } 
-                    else {
-                        Condition* reductionquery = ParseQuery(reductionquerystr);
-                        reductionquery->analyze(tempplacecontext);
-
-                        int placesInQuery = 0;
-                        for (int i = 0; i < net->numberOfPlaces(); i++) {
-                            if (placeInQuery[i] != 0)
-                                placesInQuery++;
-                        }
-                        double placesInQuery_d = placesInQuery;
-                        if(debugging)fprintf(stdout, "Number of places in query: %f\n", placesInQuery_d);
-                        if(debugging)fprintf(stdout, "Number of places in model: %f\n", numberPlaces_d);
-                        double actualPalceReductionFactor = placesInQuery_d / numberPlaces_d;
-                        fprintf(stdout, "Actual Palce Reduction Factor: %f\n", actualPalceReductionFactor);
-
-                        if(actualPalceReductionFactor < 0.99){
-                            reducer.CreateInhibitorPlacesAndTransitions(tempnet, inhibarcs, placeInInhib, transitionInInhib);
-                            reducer.Reduce(tempnet, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction);
-                        }
-                        else {
-                            reduceByMultiQuery = false;
-                            if(debugging) cout<<"actualPalceReductionFactor failed\n"<<endl;
-                        }
+                
+                string reductionquerystr;
+                bool firstAccurance = true;
+                for (i = 0; i < XMLparser.queries.size(); i++){
+                    if(debugging) fprintf(stderr,"notSatisfiable: %d\n", notSatisfiable[i]);
+                    if (notSatisfiable[i] == 0){
+                        if(!firstAccurance)
+                            reductionquerystr += " and ";
+                        reductionquerystr += querylist[i]->toString();
+                        firstAccurance = false;
                     }
                 }
-                else {
-                    reduceByMultiQuery = false;
-                    if(debugging) cout<<"reduceabilityfactor failed\n"<<endl;
+                Condition* reductionquery;
+                if(!firstAccurance) {
+                    reductionquery = ParseQuery(reductionquerystr);
+                    reductionquery->analyze(tempplacecontext);
                 }
-            }
-            else if (xmlquery > 0) {
-                if(debugging) cout<<"Reducing by single query\n"<<endl;
+                
+                if(reduceabilityfactor > ALFA_KOEFFICIENT){
+                    
+                    int placesInQuery = 0;
+                    for (int i = 0; i < net->numberOfPlaces(); i++) {
+                        if (placeInQuery[i] != 0)
+                            placesInQuery++;
+                    }
+                    double placesInQuery_d = placesInQuery;
+                    
+                    if(debugging)fprintf(stdout, "Number of places in query: %f\n", placesInQuery_d);
+                    if(debugging)fprintf(stdout, "Number of places in model: %f\n", numberPlaces_d);
+                    
+                    double actualPlaceReductionFactor = placesInQuery_d / numberPlaces_d;
+                    fprintf(stdout, "Actual Place Reduction Factor: %f\n", actualPlaceReductionFactor);
+                    if(actualPlaceReductionFactor > BETA_KOEFFICIENT){
+                        return MultiFailCode;
+                    }
+                }
+                //Reduce(net) - Multi Query
+                reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
+                reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction);
+            } else { //Reducing based on a single query
                 query->analyze(placecontext);
+
+                // Compute the places and transitions that connect to inhibitor arcs
                 MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
                 MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
-            
+
                 // CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
                 reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
 
-                //reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
+                //reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib); 
                 reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
                 //reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
             }
-            if(!reduceByMultiQuery && verifyAllQueries) {
-                return MultiFailCode;
-            }
-            
-               
         }
+        
         //----------------------- For reduction testing-----------------------------
         if(debugging){
             fprintf(stdout, "Removed transitions: %d\n", reducer.RemovedTransitions());
@@ -844,7 +837,7 @@ int main(int argc, char* argv[]){
 	
         clock_t reduction_end = clock();
         if(debugging) cout<<"Reduction time elapsed: "<<double(diffclock(reduction_end,reduction_begin))<<" ms\n"<<endl;
-
+        
             //if (ltsminMode && statespaceexploration) {  /* whats the point of statespaceexploration here? */
             if (ltsminMode && !statespaceexploration) {
                 clock_t codeGen_begin = clock();
