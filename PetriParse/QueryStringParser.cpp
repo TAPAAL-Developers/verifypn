@@ -151,7 +151,7 @@ using namespace std;
         std::ostringstream s;
 
         // Negate results
-        conditions += "(";
+        //conditions += "(";
 
         // Checking fireability for each transition
         for(t = 0; t < nTransitions; t++){
@@ -159,10 +159,11 @@ using namespace std;
             for(p = 0; p < nPlaces; p++){
                 // Condition for regular arcs
                 if(_PetriNet->inArc(p,t) > 0) {
+                        
                     if(t > 0)
                         conditions += " && ";
                     
-                    s << "!(src[" << p << "] >= " << _PetriNet->inArc(p,t) << ")";
+                    s << "(src[" << p << "] < " << _PetriNet->inArc(p,t) << ")";
                     
                     conditions += s.str();
 
@@ -176,7 +177,7 @@ using namespace std;
                     if(t > 0)
                         conditions += " && ";
                     
-                    s << "!(src[" << p << "] < " << _PetriNet->inArc(p,t) << ")";
+                    s << "(src[" << p << "] >= " << _PetriNet->inArc(p,t) << ")";
                     
                     conditions += s.str();
 
@@ -191,7 +192,7 @@ using namespace std;
             }
         }
 
-        conditions += " )";
+        //conditions += " )";
         query.replace(deadlockPos, 8, conditions);
     }
 

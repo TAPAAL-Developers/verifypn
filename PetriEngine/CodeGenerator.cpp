@@ -381,20 +381,21 @@ namespace PetriEngine{
             for(q = 0; q<numberOfQueries; q++){
                     fprintf(successor_generator, "if(%s[%d] == 0){if(0){%s[%d] = 1;}}\n", solvedArray, q, solvedArray, q);
             }
-
         }
 
 
         // return true if all queries are verified
-        /*
+
         fprintf(successor_generator, "if(");
         for(q = 0; q<numberOfQueries; q++){
             if(q == numberOfQueries-1)
-                fprintf(successor_generator, "%s[%d]){ fprintf(stdout, \"\\n# ALL QUERIES HAS BEEN VERIFIED.\\n\"; return label == LABEL_GOAL && 1;}\n", solvedArray, q);
+                fprintf(successor_generator, "%s[%d]", solvedArray, q);
+                
             else
                 fprintf(successor_generator, "%s[%d]&&", solvedArray, q);
         }
-        */
+        fprintf(successor_generator, "){fprintf(stderr, \"\\n# ALL QUERIES HAS BEEN VERIFIED.\\n\"); return label == LABEL_GOAL && 1;");
+        fprintf(successor_generator, "}\n");
 
 
         fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");

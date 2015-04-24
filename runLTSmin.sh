@@ -13,14 +13,14 @@
 
 # Expect -mc to run ltsmin multicore (default sequential)
 LTSMINTYPE=$1
-PREFIX=/home/USERNAME/verifypnLTSmin
+PREFIX=./
 
 if [[ $OSTYPE == linux* ]]
 then
     LTSMINPATH="$PREFIX/lib/LTSmin/bin/"
 elif [[ $OSTYPE == darwin* ]]
 then
-    LTSMINPATH="$PREFIXlib/ltsmin.osx64/"
+    LTSMINPATH="$PREFIX/lib/ltsmin.osx64/"
     CFLAGS="-undefined dynamic_lookup"
 fi
 
