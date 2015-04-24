@@ -62,23 +62,29 @@ namespace PetriEngine{
         fputs("#include <ltsmin/pins.h>\nstatic const int LABEL_GOAL = 0;\n", successor_generator);
         fprintf(successor_generator, "int group_count() {return %d;}\nint state_length() {return %d;}\nint label_count() {return %d;}\n", group_count, state_count, label_count);
 
-       
-        fprintf(successor_generator, "static int %s[%d] = {", solvedArray, query_id);
-        for(q = 0; q<query_id; q++){
-            if(q == query_id-1) // dont print a comma after the last query
-                fprintf(successor_generator, "0};\n");
-            else
-                fprintf(successor_generator, "0,"); // all but the last query
+       if (_quickSolve){
+            fprintf(successor_generator, "static int %s[%d] = {", solvedArray, query_id);
+            for(q = 0; q<query_id; q++){
+                if(q == query_id-1) // dont print a comma after the last query
+                    fprintf(successor_generator, "0\n");
+                else
+                    fprintf(successor_generator, "0,"); // all but the last query
+            }
+            fprintf(successor_generator, "};\n");
         }
 
 
         if (_isReachBound || _isPlaceBound){
-        fprintf(successor_generator, "int %s[%d] = {\n", ComputeBoundsArray, _nplaces);
+        fprintf(successor_generator, "int %s[%d] = {", ComputeBoundsArray, _nplaces);
 
-        for (p = 0; p < _nplaces; p++){
-        fprintf(successor_generator, "%d, \n", _m0[p]); }
+            for (p = 0; p < _nplaces; p++){
+                if(p == _nplaces-1)
+                    fprintf(successor_generator, "%d", _m0[p]); 
+                else
+                    fprintf(successor_generator, "%d,", _m0[p]); 
+            }
 
-        fputs("};", successor_generator);
+            fputs("};\n", successor_generator);
         }
 
         //Write do_callback
@@ -157,19 +163,23 @@ namespace PetriEngine{
 
         fputs("return initial;\n}\n", successor_generator);
 
-        //Write State_label
-        fputs("int state_label(void* model, int label, int* src) {\n", successor_generator);
 
+
+        /* ------------------------------ State Label  ------------------------------ */
+        fputs("int state_label(void* model, int label, int* src) {\n", successor_generator);
 
         if (!_isReachBound){
                 fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is satisfied.\"); return label == LABEL_GOAL && 1;}\n", sl(), query_id);
                 fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
         }
-//        else { fprintf(successor_generator, "if(%s[%d] == 0){if(0){%s[%d] = 1;}}", solvedArray, query_id, solvedArray, query_id);}
+
+        // ReachabilityBounds without short circuit
         else if (_isReachBound && !_quickSolve){
              fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
 
         }
+
+        // ReachabilityBounds with short circuit
         else if(_quickSolve){
             fprintf(successor_generator, "if(solved[%d] == 0) %s \n", query_id, sl());
             fprintf(successor_generator, "if (solved[%d] == 1) {return label == LABEL_GOAL && 1;}\n\n", query_id);
@@ -177,45 +187,56 @@ namespace PetriEngine{
         }
 
 
+        /* ------------------------------ Exit Function ------------------------------ */
 
-
+        // ReachabilityBounds without short circuit
         if (_isReachBound && !_quickSolve){
             fprintf(successor_generator, "void exit_func(void* model){  \n");
 
             fprintf(successor_generator, "if(%s){fprintf(stderr, \"#Query %d is satisfied.\");} \n", sl(), query_id);
             fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");
+            fprintf(successor_generator, "}"); // end exit_func
 
-            fprintf(successor_generator, "}");
+        } 
 
-        } else if (_quickSolve) {
+        // ReachabilityBounds with short circuit
+        else if (_quickSolve) {
             fprintf(successor_generator, "void exit_func(void* model){  \n");
             fprintf(successor_generator, "if(solved[%d] == 0){fprintf(stderr, \"#Query %d is satisfied.\");} \n", query_id, query_id);
-            fprintf(successor_generator, "fprintf( stderr, \"exiting now\");}");
+            fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");
+            fputs("}", successor_generator);  // end exit_func
         }
 
+        // PlaceBounds
         else if (_isPlaceBound){ 
-        fprintf(successor_generator, "void exit_func(void* model){  \n");
+            int p = 0;
+            fprintf(successor_generator, "void exit_func(void* model){  \n");
+            size_t startPos = 0;
+            string query = sl();
+            fprintf(successor_generator, " fprintf(stderr, \"Query %d max tokens are \'", query_id);
+            fputs("%d\'.\\n\",", successor_generator);
 
-        size_t startPos = 0;
-        string query = sl();
- 
             while((startPos = query.find("[", startPos)) != std::string::npos) {
                 size_t end_quote = query.find("]", startPos + 1);
                 size_t nameLen = (end_quote - startPos) + 1;
                 string oldPlaceName = query.substr(startPos + 1, nameLen - 2);   
                 startPos++;
-            
-            fprintf(successor_generator, " fprintf(stderr, \"Query %d max tokens are \'", query_id);
-            fputs("%d\'.\\n\",", successor_generator);
-            fprintf(successor_generator, "MaxNumberOfTokensInPlace[%s]);\n", oldPlaceName.c_str());
+                
+                if(p != 0)
+                    fprintf(successor_generator, "+");
 
+                fprintf(successor_generator, "MaxNumberOfTokensInPlace[%s]", oldPlaceName.c_str());
+                p++;
             }
-
-        fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");
-        fputs("}", successor_generator); 
+            fprintf(successor_generator, ");\n");
+            fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");
+            fputs("}", successor_generator);  // end exit_func
         }
 
-        else {fprintf(successor_generator, "void exit_func(void* model){ fprintf(stderr, \"exiting now\");} \n");}
+        // Other Boolean Formula
+        else {
+            fprintf(successor_generator, "void exit_func(void* model){ fprintf(stderr, \"exiting now\");} \n");
+        }
 
 
         fclose(successor_generator);
@@ -347,25 +368,18 @@ namespace PetriEngine{
 
         if (!_isReachBound ){
             for(q = 0; q<numberOfQueries; q++){
-                if(searchAllPaths[q] && solved[q] != 1)
-                    //fprintf(successor_generator, "if(%s[%d] == 0){if(!(%s)){%s[%d] = 1;fprintf(stderr, \"#Query %d is NOT satisfied.\\n\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
-                //else if (solved[q] != 1)
-                    fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stderr, \"#Query %d is NOT satisfied.\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
-            else if (solved[q] != 1)
+                if (solved[q] != 1)
                     fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stderr, \"#Query %d is satisfied.\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
             }
         } else if (_quickSolve){
             for(q = 0; q<numberOfQueries; q++){
-       
+                    
                     fprintf(successor_generator, "if(%s[%d] == 0) %s \n", solvedArray, q, statelabels->at(q).c_str());
             }
         }
         else {
             for(q = 0; q<numberOfQueries; q++){
-               
                     fprintf(successor_generator, "if(%s[%d] == 0){if(0){%s[%d] = 1;}}\n", solvedArray, q, solvedArray, q);
-                    
-
             }
 
         }
@@ -409,29 +423,36 @@ namespace PetriEngine{
         }
             
         else if (_isPlaceBound){
+            int p;
+            fprintf(successor_generator, "void exit_func(void* model){ \n");
 
-            //NEW STUFF
-        fprintf(successor_generator, "void exit_func(void* model){ \n");
+            for(q = 0; q<numberOfQueries; q++){
+                size_t startPos = 0;
+                p = 0;
+// -- new
+                fprintf(successor_generator, " fprintf(stderr, \"Query %d max tokens are \'", q);
+                fputs("%d\'.\\n\",", successor_generator);
 
-        for(q = 0; q<numberOfQueries; q++){
-        size_t startPos = 0;
+                while((startPos = statelabels->at(q).find("[", startPos)) != std::string::npos) {
+                    size_t end_quote = statelabels->at(q).find("]", startPos + 1);
+                    size_t nameLen = (end_quote - startPos) + 1;
+                    string oldPlaceName = statelabels->at(q).substr(startPos + 1, nameLen - 2);   
+                    startPos++;
+                    
+                    if(p != 0)
+                        fprintf(successor_generator, "+");
 
-            while((startPos = statelabels->at(q).find("[", startPos)) != std::string::npos) {
+                    fprintf(successor_generator, "MaxNumberOfTokensInPlace[%s]", oldPlaceName.c_str());
+                    p++;
+                }
+                fprintf(successor_generator, ");\n");
+// --->
 
-                size_t end_quote = statelabels->at(q).find("]", startPos + 1);
-                size_t nameLen = (end_quote - startPos) + 1;
-                string oldPlaceName = statelabels->at(q).substr(startPos + 1, nameLen - 2);   
-                startPos++;
-
-            fprintf(successor_generator, " fprintf(stderr, \"Query %d max tokens are \'", q);
-            fputs("%d\'.\\n\",", successor_generator);  
-            fprintf(successor_generator, "MaxNumberOfTokensInPlace[%s]);\n", oldPlaceName.c_str());
-            }
-        }   
+            }   
 
 
-        fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");       
-        fputs("}", successor_generator); 
+            fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");       
+            fputs("}", successor_generator); 
 
         }
 
@@ -458,6 +479,7 @@ namespace PetriEngine{
         successor_generator = fopen("temp.txt", "w+");
 
         const char* ComputeBoundsArray = "MaxNumberOfTokensInPlace";
+        const char* MaksPrMarking = "MaxNumberOfTokensInMarking";
 
         //Preliminaries
 
@@ -470,6 +492,8 @@ namespace PetriEngine{
         }
 
         fputs("};", successor_generator);
+
+        fprintf(successor_generator, "int %s = 0; \n", MaksPrMarking);
         
 
         //Write do_callback
@@ -550,17 +574,20 @@ namespace PetriEngine{
 
         //Write State_label
         fputs("int state_label(void* model, int label, int* src) {\n", successor_generator);
+        fputs("int m; m = 0;", successor_generator);
+        fprintf(successor_generator, "for(int i = 0; i < %d; i++) { m += src[i];} \n", _nplaces);
+        fprintf(successor_generator, "if (m > %s) {%s = m;}\n", MaksPrMarking, MaksPrMarking);
         fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
 
 
 
         fprintf(successor_generator, "void exit_func(void* model){  \n");
 
-        fputs("int T = 0; int M = 0;\n", successor_generator);
+        fputs("int M = 0;\n", successor_generator);
         for (int i = 0; i < _nplaces; i++){
-            fprintf(successor_generator, "T += MaxNumberOfTokensInPlace[%d];\n if(M < MaxNumberOfTokensInPlace[%d]) { M = MaxNumberOfTokensInPlace[%d]; }", i, i, i);
+            fprintf(successor_generator, "if(M < MaxNumberOfTokensInPlace[%d]) { M = MaxNumberOfTokensInPlace[%d]; \n}", i, i);
         }
-        fputs("fprintf(stderr, \"Maximum number of tokens in marking \'%d\' \\n\", T);\n", successor_generator);
+        fputs("fprintf(stderr, \"Maximum number of tokens in marking \'%d\' \\n\", MaxNumberOfTokensInMarking);", successor_generator);
         fputs("fprintf(stderr, \"Maximum number of tokens in one Place \'%d\' \", M);\n", successor_generator);
 
         fprintf(successor_generator, "fprintf( stderr, \"exiting now\");}");

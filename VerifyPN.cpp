@@ -95,7 +95,7 @@ enum LTSminMode{
         i = atoi(line);
         return i;
     }
-
+/*
 int getValue(){ //Note: this value is in KB!
         FILE* file = fopen("/proc/self/status", "r");
         int result = -1;
@@ -111,7 +111,7 @@ int getValue(){ //Note: this value is in KB!
         fclose(file);
         return result;
     }
-
+*/
 double diffclock(clock_t clock1, clock_t clock2){
     double diffticks = clock1 + clock2;
     double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
@@ -371,8 +371,8 @@ int main(int argc, char* argv[]){
 		// Close the file
 		mfile.close();
 	}
-     fprintf(stderr, "Size of model: %dKB\n", getValue());
-     cout<<"Size of model: "<<getValue()<<"KB\n"<<endl; 
+     //if(debugging) fprintf(stderr, "Size of model: %dKB\n", getValue());
+     //if(debugging) cout<<"Size of model: "<<getValue()<<"KB\n"<<endl; 
 
 	//----------------------- Parse Query -----------------------//
 
@@ -461,6 +461,7 @@ int main(int argc, char* argv[]){
 		}
 
 		//Parse query
+                        if(debugging) cout<<"querystring: "<<querystring<<endl;
 		query = ParseQuery(querystring);
 
 		if(!query){
@@ -608,7 +609,6 @@ int main(int argc, char* argv[]){
             }
         }
         else if (statespaceexploration && ltsminMode) {
-
             string dummy = "dummy";
             bool dummy1 = false;
             bool dummy2 = false;
@@ -634,11 +634,9 @@ int main(int argc, char* argv[]){
             string exitMessage = "LTSmin finished";
 
             if(ltsminMode == MC){ // multicore
-                //cmd = "sh runLTSminMC.linux64.sh";
                 cmd = "sh runLTSmin.sh -mc";
             }
             else if(ltsminMode == SEQ){ // single core
-                //cmd = "sh runLTSminSEQ.linux64.sh";
                 cmd = "sh runLTSmin.sh";
             }
 
@@ -661,15 +659,14 @@ int main(int argc, char* argv[]){
                     string searchMT = string("tokens in one Place");
 
                     if ((found = data.find(searchS))!=std::string::npos) {
-                        size_t startPos = 0;
+                        size_t startPos = found;
                         string ssresult;
 
-                        if((startPos = found) != std::string::npos) {
                             size_t end_quote = data.find("states", startPos + 1);
                             size_t nameLen = (end_quote - startPos) + 1;
                             ssresult = data.substr(startPos + 2, nameLen - 3);   
                             startPos += ssresult.size();
-                        }
+                        
 
                         string queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
                         printf("%s\n", queryResult1.c_str());
@@ -841,7 +838,7 @@ int main(int argc, char* argv[]){
         if(debugging) cout<<"Reduction time elapsed: "<<double(diffclock(reduction_end,reduction_begin))<<" ms\n"<<endl;
         
             //if (ltsminMode && statespaceexploration) {  /* whats the point of statespaceexploration here? */
-            if (ltsminMode) {
+            if (ltsminMode && !statespaceexploration) {
                 clock_t codeGen_begin = clock();
 
                 if(debugging) cout<<"Number of places: "<<net->numberOfPlaces()<<endl;
@@ -871,7 +868,7 @@ int main(int argc, char* argv[]){
 
     //--------------------------------------------RUNNING LTSMIN---------------------------------------------------//
 
-     if(ltsminMode) {
+     if(ltsminMode && !statespaceexploration) {
          const std::vector<std::string> placeNames = net->placeNames();
          for (int i = 0; i < net->numberOfPlaces(); i++) {
              if(debugging) cout<<"Place index: "<<i<<" - Place name: "<<placeNames[i]<<endl;
@@ -895,12 +892,10 @@ int main(int argc, char* argv[]){
 	string exitMessage = "LTSmin finished";
 
             if(ltsminMode == MC){ // multicore
-                cmd = "sh runLTSminMC.linux64.sh";
-                //cmd = "sh runLTSmin.sh -mc";
+                cmd = "sh runLTSmin.sh -mc";
             }
             else if(ltsminMode == SEQ){ // single core
-                cmd = "sh runLTSminSEQ.linux64.sh";
-                //cmd = "sh runLTSmin.sh";
+                cmd = "sh runLTSmin.sh";
             }
 
 	   cmd.append(" 2>&1");
@@ -909,10 +904,11 @@ int main(int argc, char* argv[]){
 	  ReachabilityResult result;
 
 	  // verify only one query
-	  if(ltsminMode && !verifyAllQueries && solution == UnknownCode){
+	  if(ltsminMode && !verifyAllQueries && solution == UnknownCode && !statespaceexploration){
+                if(debugging) cout<<"Starting LTSmin single query"<<endl;
 
-                    result = ltsmin.reachable(cmd, xmlquery-1, XMLparser.queries[xmlquery-1].id, XMLparser.queries[xmlquery-1].isPlaceBound);
-
+                result = ltsmin.reachable(cmd, xmlquery-1, XMLparser.queries[xmlquery-1].id, XMLparser.queries[xmlquery-1].isPlaceBound);
+                if(debugging) cout<<"LTSmin has finished"<<endl;    
                     if(result.result() == ReachabilityResult::Satisfied)
                         solution = isInvariant ? FailedCode : SuccessCode;
                     else if(result.result() == ReachabilityResult::NotSatisfied)
@@ -925,7 +921,7 @@ int main(int argc, char* argv[]){
  
 
 	  // verify all queries at once
-	  else if(ltsminMode && verifyAllQueries){  
+	  else if(ltsminMode && verifyAllQueries && !statespaceexploration){  
 		  int q, m, s;
 	              string data;
 
@@ -975,7 +971,7 @@ int main(int argc, char* argv[]){
 			    }
 
 
-			string queryResultPlaceBound = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " = " + maxtokens.c_str() + " TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+			string queryResultPlaceBound = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " " + maxtokens.c_str() + " TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
 
                                 	
                                 	if((found = data.find(searchPlaceBound)) != std::string::npos){
@@ -1037,29 +1033,31 @@ int main(int argc, char* argv[]){
 
             // ----------------- Output LTSmin Result ----------------- //
             if(ltsminMode && !verifyAllQueries){
-                fprintf(stdout, "%s ", XMLparser.queries[xmlquery-1].id.c_str()); 
-                // print result
-                if(solution == FailedCode){
-                    fprintf(stdout, "FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
-                    fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
+                if (xmlquery>0 && XMLparser.queries[xmlquery-1].isPlaceBound) {
+                    // maybe move ltsmin output here.
+                }
+                else{
+                    fprintf(stdout, "FORMULA %s ", XMLparser.queries[xmlquery-1].id.c_str());                
+
+                    if(solution == FailedCode){
+                        fprintf(stdout, "FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
+                        fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
+                    }
+
+                    else if(solution == SuccessCode){
+                        fprintf(stdout, "TRUE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
+                        fprintf(stdout, "\nQuery is satisfied.\n\n");
+                    }
+
+                    else
+                        fprintf(stdout, "\nUnable to decide if query is satisfied\n\n");
                 }
 
-                else if(solution == SuccessCode){
-                    fprintf(stdout, "TRUE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
-                    fprintf(stdout, "\nQuery is satisfied.\n\n");
-                }
+            return solution;
 
-                else if(solution == UnknownCode)
-                    fprintf(stdout, "\nUnable to decide if query is satisfied\n\n");
-
-                else
-                    fprintf(stdout, "\nError occured.\n");
-
-                return solution;
-            }
-
-            return 0; 
         }
+        return 0; 
+    }
 
 	//----------------------- Output Result -----------------------//
 
