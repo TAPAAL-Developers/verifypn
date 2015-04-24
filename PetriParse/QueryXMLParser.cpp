@@ -191,6 +191,7 @@ bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &
         } else {
             return false;
         }
+/*
     } else if (elementName == "place-bound") {
         DOMElements children = booleanFormula->getChilds();
         if (children.size() != 1) {
@@ -208,6 +209,40 @@ bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &
         isPlaceBound = true;
         quickSolve = false;
         return true;
+*/
+    } else if (elementName == "place-bound") {
+            DOMElements children = booleanFormula->getChilds();
+
+            negateResult = false;
+            isPlaceBound = true;
+            quickSolve = false;
+
+            size_t nChildren = children.size();
+
+            if (children[0]->getElementName() != "place") {
+                cout<<"getElementName = "<<children[0]->getElementName()<<" != place"<<endl;
+                return false;
+            }
+            queryText += "( ";
+            if (nChildren < 1){
+                return false;
+            } else if(nChildren > 1){
+                for(int i = 0; i < nChildren; i++){
+                    if(i > 0)
+                        queryText += " + ";
+
+                    queryText += "\""+parsePlace(children[i])+"\"";
+                }
+                queryText += " < 0)";
+                return true;
+            } else if(nChildren == 1){
+                queryText += "\""+parsePlace(children[0])+"\"";
+                queryText += " < 0)";
+                return true;
+            }
+
+            return false;
+
     } else if (elementName=="negation"
             || elementName =="conjunction"
             || elementName=="disjunction"
@@ -644,3 +679,5 @@ void QueryXMLParser::printQueries() {
 		printQueries(i);
 	}
 }
+
+

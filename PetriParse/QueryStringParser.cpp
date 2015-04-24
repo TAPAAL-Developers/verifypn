@@ -151,7 +151,7 @@ using namespace std;
         std::ostringstream s;
 
         // Negate results
-        conditions += "!(";
+        conditions += "(";
 
         // Checking fireability for each transition
         for(t = 0; t < nTransitions; t++){
@@ -161,8 +161,8 @@ using namespace std;
                 if(_PetriNet->inArc(p,t) > 0) {
                     if(t > 0)
                         conditions += " && ";
-
-                    s << "(src[" << p << "] >= " << _PetriNet->inArc(p,t) << ")";
+                    
+                    s << "!(src[" << p << "] >= " << _PetriNet->inArc(p,t) << ")";
                     
                     conditions += s.str();
 
@@ -175,9 +175,9 @@ using namespace std;
                 else if(inhibArc(p,t) > 0){
                     if(t > 0)
                         conditions += " && ";
-
-                    s << "(src[" << p << "] < " << _PetriNet->inArc(p,t) << ")";
-
+                    
+                    s << "!(src[" << p << "] < " << _PetriNet->inArc(p,t) << ")";
+                    
                     conditions += s.str();
 
                     if(beginningConjunction){

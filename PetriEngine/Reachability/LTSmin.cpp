@@ -49,7 +49,7 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
                     startPos += maxtokens.size();
                 }
 
-                string queryResultPlaceBound = string("FORMULA ") + queryId.c_str() + " = " + maxtokens.c_str() + " TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+                string queryResultPlaceBound = string("FORMULA ") + queryId.c_str() + " " + maxtokens.c_str() + " TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
 
                 if((found = data.find(searchPlaceBound)) != std::string::npos){
                     printf("%s\n", queryResultPlaceBound.c_str());
