@@ -990,12 +990,18 @@ int main(int argc, char* argv[]){
 
 
 	                                if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified[q]) {
-	                                    printf("%s\n", queryResultSat.c_str());
+                                                if(isInvariantlist[q])
+	                                       printf("%s\n", queryResultNotSat.c_str());
+                                                else if(!isInvariantlist[q])
+                                                    printf("%s\n", queryResultSat.c_str());
 	                                    solved[q] = 1;
 	                                    ltsminVerified[q] = 1;
 	                                }
 	                                else if((found = data.find(searchNotSat)) != std::string::npos && !ltsminVerified[q]){
-	                                    printf("%s\n", queryResultNotSat.c_str());
+                                                if(isInvariantlist[q])
+                                                    printf("%s\n", queryResultSat.c_str());
+                                                else if(!isInvariantlist[q])
+                                                    printf("%s\n", queryResultNotSat.c_str());
 	                                    ltsminVerified[q] = 1;
 	                                }
 	                        }
@@ -1008,6 +1014,8 @@ int main(int argc, char* argv[]){
 	                        	}
 	                    }
 	                }
+
+                            cout<<"\nLTSMIN FINISHED\n"<<endl;
 	                pclose(stream);
 
 	                // evaluate results
