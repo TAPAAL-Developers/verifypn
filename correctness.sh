@@ -17,8 +17,11 @@
 #time ./verifypn-linux64 -x $i -l 1 ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml > logFiles/CircularTrains24Correctness_$i.txt
 #done
 
-echo "CircularTrains-PT-024" | ts
-time ./verifypn-linux64 -o mc -r 2 -b ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml #> logFiles/CircularTrains24Correctness_Multi.txt
+#echo "CircularTrains-PT-024" | ts
+#time ./verifypn-linux64 -o mc -r 2 -b ../models/CircularTrains-PT-024/model.pnml ../models/CircularTrains-PT-024/ReachabilityCardinality.xml #> logFiles/CircularTrains24Correctness_Multi.txt
+
+echo "NeoElection-PT-2" | ts
+time ./verifypn-linux64 -o mc -r 2 -b ../models/NeoElection-PT-2/model.pnml ../models/NeoElection-PT-2/ReachabilityCardinality.xml 
 
 #echo "EnergyBus" | ts
 #time ./verifypn-linux64 -o mc -r 2 -b ../models/EnergyBus-PT-none/model.pnml ../models/EnergyBus-PT-none/ReachabilityCardinality.xml > logFiles/EnergyBus_s.txt
