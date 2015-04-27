@@ -13,7 +13,7 @@
 
 # Expect -mc to run ltsmin multicore (default sequential)
 LTSMINTYPE=$1
-PREFIX=./
+PREFIX=.
 
 if [[ $OSTYPE == linux* ]]
 then
