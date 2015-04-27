@@ -8,8 +8,8 @@
 # This is the 'on the fly multicore' tool.
 
 #export PATH="$PATH:/home/mcc/BenchKit/bin/"
-export PATH="$PATH:/home/mads/cpp/verifypnLTSmin/"
-VERIFYPN=/home/mads/cpp/verifypnLTSmin/verifypn-linux64
+#export PATH="$PATH:/home/mads/cpp/verifypnLTSmin/"
+VERIFYPN=/home/mads/verifypnLTSmin/verifypn-linux64
 TIMEOUT=300
 
 if [ ! -f iscolored ]; then
@@ -54,7 +54,7 @@ case "$BK_EXAMINATION" in
         echo "*****************************************"
         echo "*  TAPAAL performing StateSpace search  *"
         echo "*****************************************"
-        #verify "-o mc"
+        #verify "-o mc -r 1 -e"
         echo "NOT IMPLEMENTED!"
         ;;
 
@@ -63,7 +63,7 @@ case "$BK_EXAMINATION" in
         echo "*************************************************"
         echo "*  TAPAAL performing ReachabilityComputeBounds  *"
         echo "*************************************************"
-        verify "-o mc" "ReachabilityComputeBounds.xml"
+        verify "-o mc -r 1" "ReachabilityComputeBounds.xml"
         ;;
 
     ReachabilityDeadlock)
@@ -72,7 +72,7 @@ case "$BK_EXAMINATION" in
         echo "*  TAPAAL checking for ReachabilityDeadlock  *"
         echo "**********************************************"
         TIMEOUT=0
-        verify "-o mc" "ReachabilityDeadlock.xml"
+        verify "-o mc -r 1" "ReachabilityDeadlock.xml"
         ;;
 
     ReachabilityCardinality)
@@ -80,7 +80,7 @@ case "$BK_EXAMINATION" in
         echo "**********************************************"
         echo "*  TAPAAL verifying ReachabilityCardinality  *"
         echo "**********************************************"
-        verify "-o mc" "ReachabilityCardinality.xml"
+        verify "-o mc -r 1" "ReachabilityCardinality.xml"
         ;;
 
     ReachabilityFireability)
@@ -88,7 +88,7 @@ case "$BK_EXAMINATION" in
         echo "**********************************************"
         echo "*  TAPAAL verifying ReachabilityFireability  *"
         echo "**********************************************"
-        verify "-o mc" "ReachabilityFireability.xml"
+        verify "-o mc -r 1" "ReachabilityFireability.xml"
         ;;
 
     ReachabilityFireabilitySimple)
@@ -96,7 +96,7 @@ case "$BK_EXAMINATION" in
         echo "****************************************************"
         echo "*  TAPAAL verifying ReachabilityFireabilitySimple  *"
         echo "****************************************************"
-        verify "-o mc" "ReachabilityFireabilitySimple.xml"
+        verify "-o mc -r 1" "ReachabilityFireabilitySimple.xml"
         ;;
 
     *)
