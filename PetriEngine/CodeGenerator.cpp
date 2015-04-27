@@ -127,7 +127,7 @@ namespace PetriEngine{
             // Subtract tokens from ingoing places
             for (p = 0; p < _nplaces; p++){
                 if (_net->inArc(p,t) > 0) {
-                    fprintf(successor_generator, "placemarkings[%d] = src[%d] - %d;\n", p, p, _net->inArc(p,t));
+                    fprintf(successor_generator, "placemarkings[%d] = placemarkings[%d] - %d;\n", p, p, _net->inArc(p,t));
                     fprintf(successor_generator, "cpy[%d] = 0;\n", p);
                 }
             }
@@ -135,7 +135,7 @@ namespace PetriEngine{
             // Add tokens to outgoing places
             for(p = 0; p< _nplaces; p++){
                 if(_net->outArc(t,p) > 0){
-                    fprintf(successor_generator, "placemarkings[%d] = src[%d] + %d;\n", p, p, _net->outArc(t,p));
+                    fprintf(successor_generator, "placemarkings[%d] = placemarkings[%d] + %d;\n", p, p, _net->outArc(t,p));
                     fprintf(successor_generator, "cpy[%d] = 0;\n", p);
                     if(_isReachBound || _isPlaceBound) {fprintf(successor_generator, "if(placemarkings[%d] >= %s[%d]) { %s[%d] = placemarkings[%d]; }\n", p, ComputeBoundsArray, p, ComputeBoundsArray, p, p);}
                 }
@@ -327,7 +327,7 @@ namespace PetriEngine{
             // Subtract tokens from ingoing places
             for (p = 0; p < _nplaces; p++){
                 if (_net->inArc(p,t) > 0) {
-                    fprintf(successor_generator, "placemarkings[%d] = src[%d] - %d;\n", p, p, _net->inArc(p,t));
+                    fprintf(successor_generator, "placemarkings[%d] = placemarkings[%d] - %d;\n", p, p, _net->inArc(p,t));
                     fprintf(successor_generator, "cpy[%d] = 0;\n", p);
                 }
             }
@@ -335,7 +335,7 @@ namespace PetriEngine{
             // Add tokens to outgoing places
             for(p = 0; p< _nplaces; p++){
                 if(_net->outArc(t,p) > 0){
-                    fprintf(successor_generator, "placemarkings[%d] = src[%d] + %d;\n", p, p, _net->outArc(t,p));
+                    fprintf(successor_generator, "placemarkings[%d] = placemarkings[%d] + %d;\n", p, p, _net->outArc(t,p));
                     fprintf(successor_generator, "cpy[%d] = 0;\n", p);
                     if(_isReachBound || _isPlaceBound) {fprintf(successor_generator, "if(placemarkings[%d] >= %s[%d]) { %s[%d] = placemarkings[%d]; }\n", p, ComputeBoundsArray, p, ComputeBoundsArray, p, p);}
                 }
@@ -535,7 +535,7 @@ namespace PetriEngine{
             // Subtract tokens from ingoing places
             for (p = 0; p < _nplaces; p++){
                 if (_net->inArc(p,t) > 0) {
-                    fprintf(successor_generator, "placemarkings[%d] = src[%d] - %d;\n", p, p, _net->inArc(p,t));
+                    fprintf(successor_generator, "placemarkings[%d] = placemarkings[%d] - %d;\n", p, p, _net->inArc(p,t));
                     fprintf(successor_generator, "cpy[%d] = 0;\n", p);
                 }
             }
@@ -543,7 +543,7 @@ namespace PetriEngine{
             // Add tokens to outgoing places
             for(p = 0; p< _nplaces; p++){
                 if(_net->outArc(t,p) > 0){
-                    fprintf(successor_generator, "placemarkings[%d] = src[%d] + %d;\n", p, p, _net->outArc(t,p));
+                    fprintf(successor_generator, "placemarkings[%d] = placemarkings[%d] + %d;\n", p, p, _net->outArc(t,p));
                     fprintf(successor_generator, "cpy[%d] = 0;\n", p);
                     fprintf(successor_generator, "if(placemarkings[%d] >= %s[%d]) { %s[%d] = placemarkings[%d]; }\n", p, ComputeBoundsArray, p, ComputeBoundsArray, p, p);
                 }
