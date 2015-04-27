@@ -892,7 +892,7 @@ int main(int argc, char* argv[]){
 	string exitMessage = "LTSmin finished";
 
             if(ltsminMode == MC){ // multicore
-                cmd += "-mc";
+                cmd += " -mc";
             }
             //else if(ltsminMode == SEQ){ // single core
             //    cmd = "/home/mads/cpp/verifypnLTSmin/runLTSmin.sh";
