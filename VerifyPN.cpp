@@ -119,7 +119,7 @@ double diffclock(clock_t clock1, clock_t clock2){
 }
 
 // Path to LTSmin run script
-string cmd = "sh runLTSmin.sh";
+string cmd = "./runLTSmin.sh";
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -665,7 +665,7 @@ int main(int argc, char* argv[]){
 
                             size_t end_quote = data.find("states", startPos + 1);
                             size_t nameLen = (end_quote - startPos) + 1;
-                            ssresult = data.substr(startPos + 2, nameLen - 3);
+                            ssresult = data.substr(startPos + 8, nameLen - 3);
                             startPos += ssresult.size();
 
 
