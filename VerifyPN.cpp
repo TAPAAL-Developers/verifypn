@@ -119,7 +119,7 @@ double diffclock(clock_t clock1, clock_t clock2){
 }
 
 // Path to LTSmin run script
-string cmd = "./runLTSmin.sh";
+string cmd = "/home/mossns/Documents/Launchpad/verifypnLTSmin/runLTSmin.sh";
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
