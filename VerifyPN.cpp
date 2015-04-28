@@ -1015,7 +1015,6 @@ int main(int argc, char* argv[]){
 	                    }
 	                }
 
-                            cout<<"\nLTSMIN FINISHED\n"<<endl;
 	                pclose(stream);
 
 	                // evaluate results

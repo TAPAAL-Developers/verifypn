@@ -10,7 +10,7 @@
 #export PATH="$PATH:/home/mcc/BenchKit/bin/"
 #export PATH="$PATH:/home/mads/cpp/verifypnLTSmin/"
 VERIFYPN=/home/mads/verifypnLTSmin/verifypn-linux64
-TIMEOUT=300
+TIMEOUT=25
 
 if [ ! -f iscolored ]; then
     echo "File 'iscolored' not found!"

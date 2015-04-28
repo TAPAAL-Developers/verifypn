@@ -35,7 +35,7 @@ function verify {
 	local NUMBER=`cat $2 | grep "<property>" | wc -l`
 
         seq 1 $NUMBER | 
-	parallel --will-cite -j4 -- "timeout $TIMEOUT $VERIFYPN $1 "-x" {} "model.pnml" $2 ; RETVAL=\$? ;\
+	parallel -j8 -- "timeout $TIMEOUT $VERIFYPN $1 "-x" {} "model.pnml" $2 ; RETVAL=\$? ;\
 		if [ \$RETVAL = 124 ] || [ \$RETVAL =  125 ] || [ \$RETVAL =  126 ] || [ \$RETVAL =  127 ] || [ \$RETVAL =  137 ] ; then echo -ne \"CANNOT_COMPUTE\n\"; fi"
 } 
 
