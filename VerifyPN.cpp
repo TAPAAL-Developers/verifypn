@@ -53,7 +53,7 @@
 
 #include "time.h"
 
-#define ALFA_KOEFFICIENT 0.4
+#define ALFA_KOEFFICIENT 0.3
 #define BETA_KOEFFICIENT 0.8
 
 
@@ -761,6 +761,8 @@ int main(int argc, char* argv[]){
 
                 if(debugging) fprintf(stdout, "NO QUERY - Removed transitions: %d\n", tempreducer.RemovedTransitions());
                 if(debugging) fprintf(stdout, "NO QUERY - Removed places: %d\n", tempreducer.RemovedPlaces());
+                if(debugging) fprintf(stdout, "NO QUERY - Total Transitions: %d\n", tempnet->numberOfTransitions());
+                if(debugging) fprintf(stdout, "NO QUERY - Total Places: %d\n", tempnet->numberOfPlaces());
 
                 double removedTransitions_d = tempreducer.RemovedTransitions();
                 double removedPlaces_d = tempreducer.RemovedPlaces();
@@ -768,12 +770,11 @@ int main(int argc, char* argv[]){
                 double numberTransitions_d = tempnet->numberOfTransitions();
 
                 double reduceabilityfactor = (removedTransitions_d + removedPlaces_d) / (numberPlaces_d + numberTransitions_d);
-                fprintf(stdout, "Reduceabilityfactor: %f\n", reduceabilityfactor);
+                fprintf(stdout, "Reduceabilityfactor: (%f+%f)/(%f+%f)=%f\n",removedTransitions_d, removedPlaces_d, numberPlaces_d, numberTransitions_d, reduceabilityfactor);
 
                 string reductionquerystr;
                 bool firstAccurance = true;
                 for (i = 0; i < XMLparser.queries.size(); i++){
-                    if(debugging) fprintf(stderr,"notSatisfiable: %d\n", notSatisfiable[i]);
                     if (notSatisfiable[i] == 0){
                         if(!firstAccurance)
                             reductionquerystr += " and ";
@@ -802,6 +803,7 @@ int main(int argc, char* argv[]){
                     double actualPlaceReductionFactor = placesInQuery_d / numberPlaces_d;
                     fprintf(stdout, "Actual Place Reduction Factor: %f\n", actualPlaceReductionFactor);
                     if(actualPlaceReductionFactor > BETA_KOEFFICIENT){
+                        if(debugging)fprintf(stdout, "Multiple queires will not be executed - returning\n");
                         return MultiFailCode;
                     }
                 }
@@ -855,10 +857,6 @@ int main(int argc, char* argv[]){
                 }
 
                 else if(ltsminMode && verifyAllQueries){ // Generate code for all queries
-                    for (i = 0; i < XMLparser.queries.size(); i++){
-                        if(debugging) cout<<"notSatisfiable "<<i<<": "<<notSatisfiable[i]<<"\n"<<endl;
-                    }
-
                     codeGen.generateSourceMultipleQueries(&stateLabels, notSatisfiable, isInvariantlist, numberOfQueries);
                 }
 
