@@ -119,7 +119,7 @@ double diffclock(clock_t clock1, clock_t clock2){
 }
 
 // Path to LTSmin run script
-string cmd = "/home/mossns/Documents/Launchpad/verifypnLTSmin/runLTSmin.sh";
+string cmd = "/home/isabella/Documents/verifypnLTSmin/runLTSmin.sh";
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -985,9 +985,10 @@ int main(int argc, char* argv[]){
 
 	                                string searchSat = string("#Query ") + number + " is satisfied.";
 	                                string searchNotSat = string("#Query ") + number + " is NOT satisfied.";
-
+	                             
 
 	                                if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified[q]) {
+
                                                 if(isInvariantlist[q])
 	                                       printf("%s\n", queryResultNotSat.c_str());
                                                 else if(!isInvariantlist[q])
@@ -1000,6 +1001,7 @@ int main(int argc, char* argv[]){
                                                     printf("%s\n", queryResultSat.c_str());
                                                 else if(!isInvariantlist[q])
                                                     printf("%s\n", queryResultNotSat.c_str());
+                                        solved[q] = 1;
 	                                    ltsminVerified[q] = 1;
 	                                }
 	                        }

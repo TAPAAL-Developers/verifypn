@@ -30,7 +30,7 @@ void pins_model_init(model_t m) {
 
     // set state name & type
     for (int i=0; i < state_length(); ++i) {
-        char name[3]; sprintf(name, "%d", i);
+        char name[5]; sprintf(name, "%d", i);
         lts_type_set_state_name(ltstype,i,name);
         lts_type_set_state_typeno(ltstype,i,int_type);
     }
