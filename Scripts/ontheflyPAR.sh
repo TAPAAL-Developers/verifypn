@@ -46,8 +46,9 @@ function verify {
         fi
         if [ $RETVAL = 4 ] ; then
             echo "Letting you know reductions for multiple queries was irresponsible"
-            for i in ; do
-                timeout $TIMEOUT $VERIFYPN $1 "model.pnml" $2 " -x $i";
+            local NUMBER=`cat $2 | grep "<property>" | wc -l`
+        	for (( QUERY=1; QUERY<=$NUMBER; QUERY++ ))
+                timeout $TIMEOUT $VERIFYPN $1 "model.pnml" $2 " -x $QUERY";
             done
         fi
     fi
