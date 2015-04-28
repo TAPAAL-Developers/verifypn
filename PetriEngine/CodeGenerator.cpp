@@ -367,7 +367,7 @@ namespace PetriEngine{
         if (!_isReachBound ){
             for(q = 0; q<numberOfQueries; q++){
                 if (solved[q] != 1)
-                    fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stderr, \"#Query %d is satisfied.\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
+                    fprintf(successor_generator, "if(%s[%d] == 0){if(%s){%s[%d] = 1;fprintf(stderr, \"#Query %d is satisfied.\\n\");}}\n", solvedArray, q, statelabels->at(q).c_str(), solvedArray, q, q);
             }
         } else if (_quickSolve){
             for(q = 0; q<numberOfQueries; q++){
@@ -415,7 +415,7 @@ namespace PetriEngine{
              fprintf(successor_generator, "void exit_func(void* model){  \n");
 
             for(q = 0; q<numberOfQueries; q++){
-                               fprintf(successor_generator, "if(solved[%d] == 0){fprintf(stderr, \"#Query %d is satisfied.\");} \n", q, q);
+                               fprintf(successor_generator, "if(solved[%d] == 0){fprintf(stderr, \"#Query %d is satisfied.\\n\");} \n", q, q);
                             }
             fprintf(successor_generator, "fprintf( stderr, \"exiting now\");}");
 
