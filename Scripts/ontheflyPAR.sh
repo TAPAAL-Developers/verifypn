@@ -44,17 +44,11 @@ function verify {
         if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
                 echo -ne "CANNOT_COMPUTE\n"
         fi
-        if [ $RETVAL = 4 ]
-            echo "Running one query at the time"
-               if [ ! -f $2 ]; then
-    		echo "File '$2' not found!" 
-		exit 1 
-               fi
-               local NUMBER=`cat $2 | grep "<property>" | wc -l`
-
-               seq 1 $NUMBER | 
-               parallel --will-cite -j4 -- "timeout $TIMEOUT $VERIFYPN $1 "-x" {} "model.pnml" $2 ; RETVAL=\$? ;\
-                    if [ \$RETVAL = 124 ] || [ \$RETVAL =  125 ] || [ \$RETVAL =  126 ] || [ \$RETVAL =  127 ] || [ \$RETVAL =  137 ] ; then echo -ne \"CANNOT_COMPUTE\n\"; fi"
+        if [ $RETVAL = 4 ] ; then
+            echo "Letting you know reductions for multiple queries was irresponsible"
+            for i in ; do
+                timeout $TIMEOUT $VERIFYPN $1 "model.pnml" $2 " -x $i";
+            done
         fi
     fi
 } 
