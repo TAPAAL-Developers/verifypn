@@ -53,8 +53,8 @@
 
 #include "time.h"
 
-#define ALFA_KOEFFICIENT 0.0
-#define BETA_KOEFFICIENT 1.0
+#define ALFA_KOEFFICIENT 0.4
+#define BETA_KOEFFICIENT 0.8
 
 
 using namespace std;
