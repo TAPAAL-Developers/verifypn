@@ -9,8 +9,9 @@
 
 #export PATH="$PATH:/home/mcc/BenchKit/bin/"
 #export PATH="$PATH:/home/mads/cpp/verifypnLTSmin/"
-VERIFYPN=/home/mads/verifypnLTSmin/verifypn-linux64
-TIMEOUT=25
+export PATH="$PATH:/home/sabella/Documents/verifypnLTSmin"
+VERIFYPN=/home/isabella/Documents/verifypnLTSmin/verifypn-linux64
+TIMEOUT=2000
 
 if [ ! -f iscolored ]; then
     echo "File 'iscolored' not found!"
@@ -41,14 +42,15 @@ function verify {
         echo "timeout $TIMEOUT $VERIFYPN $1 model.pnml $2"
         timeout $TIMEOUT $VERIFYPN $1 "model.pnml" $2
         RETVAL=$?
+        echo $RETVAL
         if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
                 echo -ne "CANNOT_COMPUTE\n"
         fi
         if [ $RETVAL = 4 ] ; then
             echo "Letting you know reductions for multiple queries was irresponsible"
             local NUMBER=`cat $2 | grep "<property>" | wc -l`
-        	for (( QUERY=1; QUERY<=$NUMBER; QUERY++ ))
-                timeout $TIMEOUT $VERIFYPN $1 "model.pnml" $2 " -x $QUERY";
+        	for (( QUERY=1; QUERY<=$NUMBER; QUERY++ )) do
+                timeout $TIMEOUT $VERIFYPN $1 model.pnml $2  -x  $QUERY;
             done
         fi
     fi
@@ -87,7 +89,7 @@ case "$BK_EXAMINATION" in
         echo "**********************************************"
         echo "*  TAPAAL verifying ReachabilityCardinality  *"
         echo "**********************************************"
-        verify "-o mc -r 1" "ReachabilityCardinality.xml"
+        verify "-o mc" "ReachabilityCardinality.xml"
         ;;
 
     ReachabilityFireability)

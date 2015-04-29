@@ -13,7 +13,7 @@
 
 # Expect -mc to run ltsmin multicore (default sequential)
 LTSMINTYPE=$1
-PREFIX=/home/mads/verifypnLTSmin
+PREFIX=/home/isabella/Documents/verifypnLTSmin
 
 if [[ $OSTYPE == linux* ]]
 then

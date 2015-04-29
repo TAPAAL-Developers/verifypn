@@ -119,7 +119,7 @@ double diffclock(clock_t clock1, clock_t clock2){
 }
 
 // Path to LTSmin run script
-string cmd = "/home/mads/verifypnLTSmin/runLTSmin.sh";
+string cmd = "/home/isabella/Documents/verifypnLTSmin/runLTSmin.sh";
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -749,28 +749,8 @@ int main(int argc, char* argv[]){
             QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
 
             if(verifyAllQueries){
-                //Test Alpha
-                if(debugging) fprintf(stdout,"Doing Alpha Test\n");
-                PetriNet *tempnet = builder.makePetriNet();
-                Reducer tempreducer = Reducer(tempnet);
-                QueryPlaceAnalysisContext tempplacecontext(*tempnet, placeInQuery);
-                MarkVal* placeInInhib = new MarkVal[tempnet->numberOfPlaces()];
-                MarkVal* transitionInInhib = new MarkVal[tempnet->numberOfTransitions()];
-                tempreducer.CreateInhibitorPlacesAndTransitions(tempnet, inhibarcs, placeInInhib, transitionInInhib);
-                tempreducer.Reduce(tempnet, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction);
-
-                if(debugging) fprintf(stdout, "NO QUERY - Removed transitions: %d\n", tempreducer.RemovedTransitions());
-                if(debugging) fprintf(stdout, "NO QUERY - Removed places: %d\n", tempreducer.RemovedPlaces());
-                if(debugging) fprintf(stdout, "NO QUERY - Total Transitions: %d\n", tempnet->numberOfTransitions());
-                if(debugging) fprintf(stdout, "NO QUERY - Total Places: %d\n", tempnet->numberOfPlaces());
-
-                double removedTransitions_d = tempreducer.RemovedTransitions();
-                double removedPlaces_d = tempreducer.RemovedPlaces();
-                double numberPlaces_d = tempnet->numberOfPlaces();
-                double numberTransitions_d = tempnet->numberOfTransitions();
-
-                double reduceabilityfactor = (removedTransitions_d + removedPlaces_d) / (numberPlaces_d + numberTransitions_d);
-                fprintf(stdout, "Reduceabilityfactor: (%f+%f)/(%f+%f)=%f\n",removedTransitions_d, removedPlaces_d, numberPlaces_d, numberTransitions_d, reduceabilityfactor);
+                MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
+                MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
 
                 string reductionquerystr;
                 bool firstAccurance = true;
@@ -785,31 +765,22 @@ int main(int argc, char* argv[]){
                 Condition* reductionquery;
                 if(!firstAccurance) {
                     reductionquery = ParseQuery(reductionquerystr);
-                    reductionquery->analyze(tempplacecontext);
+                    reductionquery->analyze(placecontext);
                 }
-
-                if(reduceabilityfactor > ALFA_KOEFFICIENT){
-
-                    int placesInQuery = 0;
-                    for (int i = 0; i < net->numberOfPlaces(); i++) {
-                        if (placeInQuery[i] != 0)
-                            placesInQuery++;
-                    }
-                    double placesInQuery_d = placesInQuery;
-
-                    if(debugging)fprintf(stdout, "Number of places in query: %f\n", placesInQuery_d);
-                    if(debugging)fprintf(stdout, "Number of places in model: %f\n", numberPlaces_d);
-
-                    double actualPlaceReductionFactor = placesInQuery_d / numberPlaces_d;
-                    fprintf(stdout, "Actual Place Reduction Factor: %f\n", actualPlaceReductionFactor);
-                    if(actualPlaceReductionFactor > BETA_KOEFFICIENT){
-                        if(debugging)fprintf(stdout, "Multiple queires will not be executed - returning\n");
-                        return MultiFailCode;
-                    }
+                else{
+                	return ErrorCode;
                 }
                 //Reduce(net) - Multi Query
                 reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
                 reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction);
+
+                double removedTransitions_d = reducer.RemovedTransitions();
+                double removedPlaces_d = reducer.RemovedPlaces();
+                double numberPlaces_d = net->numberOfPlaces();
+                double numberTransitions_d = net->numberOfTransitions();
+
+                double reduceabilityfactor = (removedTransitions_d + removedPlaces_d) / (numberPlaces_d + numberTransitions_d);
+                if (debugging) fprintf(stdout, "Reduceabilityfactor: (%f+%f)/(%f+%f)=%f\n",removedTransitions_d, removedPlaces_d, numberPlaces_d, numberTransitions_d, reduceabilityfactor);
             } else { //Reducing based on a single query
                 query->analyze(placecontext);
 
