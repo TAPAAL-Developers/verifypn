@@ -9,9 +9,11 @@
 
 #export PATH="$PATH:/home/mcc/BenchKit/bin/"
 #export PATH="$PATH:/home/mads/cpp/verifypnLTSmin/"
+
 export PATH="$PATH:/home/sabella/Documents/verifypnLTSmin"
 VERIFYPN=/home/isabella/Documents/verifypnLTSmin/verifypn-linux64
-TIMEOUT=8000
+TIMEOUT=80
+
 
 if [ ! -f iscolored ]; then
     echo "File 'iscolored' not found!"
@@ -45,6 +47,14 @@ function verify {
         echo $RETVAL
         if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
                 echo -ne "CANNOT_COMPUTE\n"
+        fi
+
+	if [ $RETVAL = 4 ] ; then
+            echo "Letting you know reductions for multiple queries was irresponsible"
+            local NUMBER=`cat $2 | grep "<property>" | wc -l`
+            for (( QUERY=1; QUERY<=$NUMBER; QUERY++ )) do
+                timeout $TIMEOUT $VERIFYPN $1 model.pnml $2  -x  $QUERY;
+            done
         fi
     fi
 } 
