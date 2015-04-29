@@ -964,6 +964,7 @@ int main(int argc, char* argv[]){
                 if(debugging) cout<<"Number of transisions: "<<net->numberOfTransitions()<<endl;
                 
                 if(debugging) cout<<"Creating Code Generator object"<<endl;
+                cout<<"query: "<<XMLparser.queries[xmlquery - 1].queryText<<endl;
                 CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound, XMLparser.queries[xmlquery - 1].quickSolve);
 
                 int numberOfQueries = XMLparser.queries.size();
@@ -1185,22 +1186,6 @@ int main(int argc, char* argv[]){
                                         }
                                     }
 
-                                    /*
-                                    cout<<"Cores: "<<cores<<endl;
-                                    fprintf(stdout, "Max Tokens Records: \n");
-                                    for(int q = 0; q<numberOfQueries; q++){
-                                        fprintf(stdout, "%d ", maxTokensRecords[q]);
-                                    }
-                                    cout<<endl;
-                                    fprintf(stdout, "Max Tokens: \n");
-                                    for(int q = 0; q<numberOfQueries; q++){
-                                        fprintf(stdout, "%d ", maxTokens[q]);
-                                    }
-                                    cout<<endl<<endl;
-                                    */
-
-
-
                                     // exit if all answers are received
                                     if(cores > 0){
                                         for(int q = 0; q < numberOfQueries; q++){
@@ -1219,14 +1204,7 @@ int main(int argc, char* argv[]){
                         		exitLTSmin = 1;
                         		break;
                         	}
-
-
-
-
 	                    }
-
-     
-
 	                }
 
 	                pclose(stream);

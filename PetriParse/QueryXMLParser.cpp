@@ -621,7 +621,12 @@ bool QueryXMLParser::parseIntegerExpression(DOMElement* element, string &queryTe
 		queryText += ")";
 		return true;
         } else if (elementName == "place-bound") {
+
             DOMElements children = element->getChilds();
+            if(children.size() != 1){
+                cout<<"placebound with more children detected!"<<endl;
+                return false;
+            }
             size_t nChildren = children.size();
 
             if (children[0]->getElementName() != "place") {
