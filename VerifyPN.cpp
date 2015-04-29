@@ -143,6 +143,7 @@ int main(int argc, char* argv[]){
             bool ltsminMc = false;
             bool debugging = false;
             bool verifyAllQueries = true;
+            bool queryisdeadlock = false;
 
 
 	//----------------------- Parse Arguments -----------------------//
@@ -486,6 +487,11 @@ int main(int argc, char* argv[]){
 		isInvariantlist[i] = XMLparser.queries[i].negateResult;
 		querylist[i] = ParseQuery(querystring);
 	}
+        
+        std::size_t found = querystring.find("deadlock");
+        if(found!=std::string::npos){
+            queryisdeadlock = true;
+        }
             //isInvariant = isInvariantlist[xmlquery-1];
 
         clock_t parse_end = clock();
@@ -644,9 +650,10 @@ int main(int argc, char* argv[]){
             string stdmsg = "State space: ";
             string startMessage = "LTSmin has started";
             string exitMessage = "LTSmin finished";
+            cmd += " false";
 
             if(ltsminMode == MC){ // multicore
-            cmd += " -mc";
+            cmd += " -mc";            
             cmd += " 2>&1";
 
             int q, m, s;
@@ -894,6 +901,7 @@ int main(int argc, char* argv[]){
             }
 
             pclose(stream);
+
             return 0; // We're done. No need to continue from here.
         }
 
@@ -916,7 +924,7 @@ int main(int argc, char* argv[]){
             }
             QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
 
-            if(verifyAllQueries){
+            if(verifyAllQueries && !queryisdeadlock){
                 MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
                 MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
 
@@ -985,18 +993,26 @@ int main(int argc, char* argv[]){
 
                 if(debugging) cout<<"Number of places: "<<net->numberOfPlaces()<<endl;
                 if(debugging) cout<<"Number of transisions: "<<net->numberOfTransitions()<<endl;
-
+                
+                if(debugging) cout<<"Creating Code Generator object"<<endl;
                 CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound, XMLparser.queries[xmlquery - 1].quickSolve);
 
                 int numberOfQueries = XMLparser.queries.size();
                 string* stringQueries = new string[numberOfQueries];
 
                 if(ltsminMode && !verifyAllQueries){ // Generate code for single query
+                    if(debugging) cout<<"Generating code for single query"<<endl;
                     codeGen.generateSource(isInvariantlist, (xmlquery - 1));
                 }
 
                 else if(ltsminMode && verifyAllQueries){ // Generate code for all queries
+                    if(debugging) cout<<"Generating code for all queries"<<endl;
                     codeGen.generateSourceMultipleQueries(&stateLabels, notSatisfiable, isInvariantlist, numberOfQueries);
+                }
+                
+                else if(queryisdeadlock){
+                    if(debugging) cout<<"Generating code for deadlock query"<<endl;
+                    codeGen.generateSource(isInvariantlist, -1);
                 }
 
                 clock_t codeGen_end = clock();
@@ -1030,6 +1046,9 @@ int main(int argc, char* argv[]){
 
             if(ltsminMode == MC){ // multicore
                 cmd += " -mc";
+            }
+            if(queryisdeadlock){
+                cmd += " true";
             }
             //else if(ltsminMode == SEQ){ // single core
             //    cmd = "/home/mads/cpp/verifypnLTSmin/runLTSmin.sh";

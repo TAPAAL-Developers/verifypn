@@ -9,7 +9,10 @@
 
 #export PATH="$PATH:/home/mcc/BenchKit/bin/"
 #export PATH="$PATH:/home/mads/cpp/verifypnLTSmin/"
+
+#VERIFYPN=/home/isabella/Documents/verifypnLTSmin/verifypn-linux64
 VERIFYPN=/Users/dyhr/Bazaar/verifypnLTSmin/verifypn-osx64
+
 TIMEOUT=20
 
 if [ ! -f iscolored ]; then
@@ -55,6 +58,7 @@ case "$BK_EXAMINATION" in
         echo "*****************************************"
         echo "*  TAPAAL performing StateSpace search  *"
         echo "*****************************************"
+
         gtimeout $TIMEOUT $VERIFYPN -o mc -d -e model.pnml 
         ;;
 

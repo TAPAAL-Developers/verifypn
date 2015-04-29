@@ -7,10 +7,13 @@
 # BK_EXAMINATION: it is a string that identifies your "examination"
 
 #export PATH="$PATH:/home/mcc/BenchKit/bin/"
-#export PATH="$PATH:/home/mads/MCC15/bin/"
 #VERIFYPN=$HOME/BenchKit/bin/verifypn
+
+#VERIFYPN=/home/isabella/Documents/verifypn/verifypn-linux64
 VERIFYPN=/Users/dyhr/Bazaar/competition2015multiplePlaceBounds/verifypn-osx64
 TIMEOUT=20
+
+
 
 if [ ! -f iscolored ]; then
     	echo "File 'iscolored' not found!"

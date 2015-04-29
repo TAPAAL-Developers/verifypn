@@ -30,10 +30,6 @@ case "$BK_TOOL" in
 		echo "---> " $BK_TOOL " --- TAPAAL On the Fly Truly Parallel"
 		$PREFIX/ontheflyPAR.sh
 		;;
-	ontheflyPARSingle)
-		echo "---> " $BK_TOOL " --- TAPAAL On the Fly Truly Parallel"
-		$PREFIX/ontheflyPARSingle.sh
-		;;
 	*)
 		echo "---> Wrong TAPAAL tool variant name"	
 		exit 0
