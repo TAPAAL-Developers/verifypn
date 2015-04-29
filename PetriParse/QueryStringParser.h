@@ -20,6 +20,7 @@ class QueryStringParser {
         void replaceOperator(std::string& query, const std::string& from, const std::string& to);
         void replacePlaces(std::string& query);
         void convertToComputeBoundsQuery(std::string& query);
+        void convertToComputeBoundsForManyQuery(std::string& query, std::string& number);
         bool convertToBoundsQuery(std::string& query);
         void completeShortCut(std::string& query, int i);
         string  getPlaceIndexByName(const std::string placeName);

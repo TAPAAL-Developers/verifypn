@@ -82,6 +82,48 @@ void QueryStringParser::convertToComputeBoundsQuery(std::string& query) {
     }
 }
 
+void QueryStringParser::convertToComputeBoundsForManyQuery(std::string& query, std::string& number) {
+    size_t startPos = 0;
+    string newQuery = "if (MAX[";
+
+
+    newQuery += number;
+    newQuery += "] < ( 0";
+    string temp = "(0";
+
+    //printf("query is %s", query.c_str());
+
+    while((startPos = query.find("\"", startPos)) != std::string::npos) {
+        size_t end_quote = query.find("\"", startPos + 1);
+        size_t nameLen = (end_quote - startPos) + 1;
+
+        // Exclude both quotes from place name before searching
+        string oldPlaceName = query.substr(startPos + 1, nameLen - 2);
+        //printf("QUERY SUBSTRNG %s\n", oldPlaceName.c_str());
+        string newPlaceIndex = getPlaceIndexByName(oldPlaceName);
+        string newPlaceName = "src[" + newPlaceIndex + "]";
+
+
+
+        newQuery += " + ";
+        newQuery += newPlaceName;
+
+        temp += " + ";
+        temp += newPlaceName;
+
+        startPos = end_quote + 1;
+
+    }
+
+    newQuery += ")) { MAX[";
+    newQuery += number;
+    newQuery += "] = "; 
+    newQuery += temp;
+    newQuery += ");}\n";
+
+    query = newQuery;
+}
+
  bool QueryStringParser::convertToBoundsQuery(std::string& query){
     size_t startPos = 0;
 
@@ -214,7 +256,9 @@ void QueryStringParser::findDeadlockConditions(std::string& query, size_t deadlo
 void QueryStringParser::generateStateLabel(int i){
     QueryXMLParser::QueryItem queryItem = _Parser->queries[i];
     string query = queryItem.queryText;
-
+    stringstream ss;
+    ss << i;
+    string number = ss.str();
     //cout <<"\n\n&&& Query: "<<query<<endl;
 
     // Remove temporal operators EF
@@ -227,7 +271,7 @@ void QueryStringParser::generateStateLabel(int i){
     if(deadlockPos != std::string::npos){
         findDeadlockConditions(query, deadlockPos);
     } else if(queryItem.isPlaceBound){ // ReacabilityComputeBounds query
-        convertToComputeBoundsQuery(query);
+        convertToComputeBoundsForManyQuery(query, number);
     } else if(queryItem.isReachBound){ // ReachabilityBounds query
         convertToComputeBoundsQuery(query);
         if(convertToBoundsQuery(query)){

@@ -29,6 +29,10 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
     string number = ss.str();
     string searchSat;
     string searchNotSat;
+    string tokens ="0";
+    int cores = -1;
+    int maxTokens = 0;
+    int maxTokensRecords = 0;
 
     stream = popen(cmd.c_str(), "r");
     while (!exitLTSmin){
@@ -39,48 +43,76 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
 
             if(isPlaceBound){
                 string searchPlaceBound = string("Query ") + number + " max tokens are";
-                string maxtokens;
                 size_t startPos = 0;
 
+                // Find the amout of cores being used by LTSmin
+                if ((found = data.find("Running"))!=std::string::npos) {     
+                    size_t startPos = 0;
+                    string ssresult;
+
+                        if((startPos = data.find("using")) !=std::string::npos){
+                            size_t end_quote = data.find("cores", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+
+                            ssresult = data.substr(startPos + 6, nameLen - 8);
+                            cores = atoi( ssresult.c_str() );
+                            if(cores < 0){
+                                fprintf(stderr, "\nCores registered incorrectly\n\n");
+                                return ReachabilityResult(ReachabilityResult::Unknown);
+
+                            }
+                        }
+                    if(cores < 0)
+                        cores = 1;
+                }  
+                    
                 if((startPos = data.find("\'", startPos)) != std::string::npos) {
                     size_t end_quote = data.find("\'", startPos + 1);
                     size_t nameLen = (end_quote - startPos) + 1;
-                    maxtokens = data.substr(startPos + 1, nameLen - 2);   
-                    startPos += maxtokens.size();
+                    tokens = data.substr(startPos + 1, nameLen - 2);   
+                    startPos += tokens.size();
                 }
-
-                string queryResultPlaceBound = string("FORMULA ") + queryId.c_str() + " " + maxtokens.c_str() + " TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
 
                 if((found = data.find(searchPlaceBound)) != std::string::npos){
-                    printf("%s\n", queryResultPlaceBound.c_str());
+                    if(atoi( tokens.c_str() ) > maxTokens ){
+                        maxTokens = atoi( tokens.c_str());
+                    }                    
                     ltsminVerified = 1;
+                    maxTokensRecords++;
                 }
             }
+            else{
+                searchSat = string("#Query ") + number + " is satisfied.";
+                searchNotSat = string("#Query ") + number + " is NOT satisfied.";
 
-            searchSat = string("#Query ") + number + " is satisfied.";
-            searchNotSat = string("#Query ") + number + " is NOT satisfied.";
+                // check if satisfied
+                if ((found = data.find(searchSat))!=std::string::npos) {
+                    pclose(stream);
+                    return ReachabilityResult(ReachabilityResult::Satisfied);
+                }
 
-            // check if satisfied
-            if ((found = data.find(searchSat))!=std::string::npos) {
-                pclose(stream);
-                return ReachabilityResult(ReachabilityResult::Satisfied);
+                else if ((found = data.find(searchNotSat))!=std::string::npos) {
+                    pclose(stream);
+                    return ReachabilityResult(ReachabilityResult::NotSatisfied);
+                }
             }
-
-            else if ((found = data.find(searchNotSat))!=std::string::npos) {
-                pclose(stream);
-                return ReachabilityResult(ReachabilityResult::NotSatisfied);
-            }
-
             // exit messages
         
             if((found = data.find(searchExit)) != std::string::npos){
                 exitLTSmin = 1;
                 break;
             }
-        
+            if(cores > 0 && maxTokensRecords >= cores){
+                exitLTSmin = 1;
+                break;
+            }            
         }
     }
+
     pclose(stream);
+
+    if(isPlaceBound)
+        fprintf(stdout, "FORMULA %s %d TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n", queryId.c_str(), maxTokens);
 
     return ReachabilityResult(ReachabilityResult::NotSatisfied);
 

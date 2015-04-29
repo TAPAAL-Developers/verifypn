@@ -31,7 +31,7 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
       #                   ReachabilityFireabilitySimple; do
 
 
-      for EXAMINATION in StateSpace; do
+      for EXAMINATION in ReachabilityComputeBounds; do
 
          export BK_EXAMINATION=$EXAMINATION ;
          time ./$TOOL

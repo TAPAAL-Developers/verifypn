@@ -653,7 +653,7 @@ int main(int argc, char* argv[]){
             cmd += " false";
 
             if(ltsminMode == MC){ // multicore
-            cmd += " -mc";            
+            cmd += " false -mc";            
             cmd += " 2>&1";
 
             int q, m, s;
@@ -669,7 +669,7 @@ int main(int argc, char* argv[]){
                     data.append(buffer);
                     
                     // Find the amout of cores being used by LTSmin
-                    if ((found = data.find("Running"))!=std::string::npos) {     
+                    if ((found = data.find("cores"))!=std::string::npos) {     
                         size_t startPos = 0;
                         string ssresult;
 
@@ -755,38 +755,6 @@ int main(int argc, char* argv[]){
                         tokInOnePlaceRecords++;                        
                     }
 
-                    /*
-                    if ((found = data.find(searchTMT))!=std::string::npos) {
-                        size_t startPos = 0;
-                        string ssresult;
-
-                        if((startPos = data.find("\'", startPos)) != std::string::npos) {
-                            size_t end_quote = data.find("\'", startPos + 1);
-                            size_t nameLen = (end_quote - startPos) + 1;
-                            ssresult = data.substr(startPos + 1, nameLen - 2);
-                            startPos += ssresult.size();
-                        }
-
-                        string queryResult3 = string("STATE SPACE MAX_TOKENS_IN_MARKING ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
-                        printf("%s\n", queryResult3.c_str());
-                    }
-                    */
-                    /*
-                    if ((found = data.find(searchMT))!=std::string::npos) {
-                        size_t startPos = 0;
-                        string ssresult;
-
-                        if((startPos = data.find("\'", startPos)) != std::string::npos) {
-                            size_t end_quote = data.find("\'", startPos + 1);
-                            size_t nameLen = (end_quote - startPos) + 1;
-                            ssresult = data.substr(startPos + 1, nameLen - 2);
-                            startPos += ssresult.size();
-                        }
-
-                        string queryResult4 = string("STATE SPACE MAX_TOKENS_IN_PLACE ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
-                        printf("%s\n", queryResult4.c_str());
-                    }
-                    */
                     // exit messages
                     if((found = data.find(searchExit)) != std::string::npos){
                         exitLTSmin = 1;
@@ -1045,7 +1013,7 @@ int main(int argc, char* argv[]){
 	string exitMessage = "LTSmin finished";
 
             if(ltsminMode == MC){ // multicore
-                cmd += " -mc";
+                cmd += " false -mc";
             }
             if(queryisdeadlock){
                 cmd += " true";
@@ -1094,6 +1062,17 @@ int main(int argc, char* argv[]){
 
 
 		bool exitLTSmin = 0;
+
+                        int cores = -1;
+                        int maxTokens[numberOfQueries];
+                        int maxTokensRecords[numberOfQueries];
+
+                        for(int q = 0; q < numberOfQueries; q++){
+                                maxTokens[q] = 0;
+                                maxTokensRecords[q] = 0;
+                        }
+
+                    
 		if(debugging) printf("%s\n", startMessage.c_str());
 		stream = popen(cmd.c_str(), "r");
 	                while (!exitLTSmin){
@@ -1101,42 +1080,54 @@ int main(int argc, char* argv[]){
 	                        size_t found;
 	                        data = "";
 	                        data.append(buffer);
+
+                                    // Find the amout of cores being used by LTSmin
+                                    if ((found = data.find("Running"))!=std::string::npos) {     
+                                        size_t startPos = 0;
+                                        string ssresult;
+
+                                            if((startPos = data.find("using")) !=std::string::npos){
+                                                size_t end_quote = data.find("cores", startPos + 1);
+                                                size_t nameLen = (end_quote - startPos) + 1;
+
+                                                ssresult = data.substr(startPos + 6, nameLen - 8);
+                                                cores = atoi( ssresult.c_str() );
+                                                if(cores < 0){
+                                                    fprintf(stderr, "\nCores registered incorrectly\n\n");
+                                                    return 0;
+                                                }
+                                            }
+                                        if(cores < 0)
+                                        cores = 1;
+                                    }               
+
 	                        for(q = 0; q<numberOfQueries; q++){
 	                                stringstream ss;
 	                                ss << q;
 	                                string number = ss.str();
 
-	                            if(XMLparser.queries[q].isPlaceBound){
+                                        if(XMLparser.queries[q].isPlaceBound){
+                                            
+                                            string searchPlaceBound = string("Query ") + number.c_str() + " max tokens are";
+                                            string tokens;
+                                            size_t startPos = 0;
 
+                                            if((startPos = data.find(searchPlaceBound)) != std::string::npos) {
+                                                if((startPos = data.find("\'", startPos)) != std::string::npos) {
+                                                    size_t end_quote = data.find("\'", startPos + 1);
+                                                    size_t nameLen = (end_quote - startPos) + 1;
+                                                    tokens = data.substr(startPos + 1, nameLen - 2);
 
+                                                    if(atoi( tokens.c_str() ) > maxTokens[q] ){
+                                                        maxTokens[q] = atoi(tokens.c_str());
+                                                    }
+                                                    maxTokensRecords[q]++;
+                                                }
+                                            }
 
-                                	string searchPlaceBound = string("Query ") + number + " max tokens are";
-                                	string maxtokens;
+                                        }
 
-                                	size_t startPos = 0;
-
-			if((startPos = data.find("\'", startPos)) != std::string::npos) {
-
-			        size_t end_quote = data.find("\'", startPos + 1);
-			        size_t nameLen = (end_quote - startPos) + 1;
-			        maxtokens = data.substr(startPos + 1, nameLen - 2);
-
-			        startPos += maxtokens.size();
-
-
-			    }
-
-
-			string queryResultPlaceBound = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " " + maxtokens.c_str() + " TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
-
-
-                                	if((found = data.find(searchPlaceBound)) != std::string::npos){
-                                        printf("%s\n", queryResultPlaceBound.c_str());
-                                        ltsminVerified[q] = 1;
-                                	}
-                                }
-
-
+                                        else{
 			        string queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
 			        string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
 
@@ -1159,18 +1150,54 @@ int main(int argc, char* argv[]){
                                                     printf("%s\n", queryResultSat.c_str());
                                                 else if(!isInvariantlist[q])
                                                     printf("%s\n", queryResultNotSat.c_str());
-                                        solved[q] = 1;
+                                                solved[q] = 1;
 	                                    ltsminVerified[q] = 1;
 	                                }
-	                        }
+                                        }
+                                    }
+
+                                    /*
+                                    cout<<"Cores: "<<cores<<endl;
+                                    fprintf(stdout, "Max Tokens Records: \n");
+                                    for(int q = 0; q<numberOfQueries; q++){
+                                        fprintf(stdout, "%d ", maxTokensRecords[q]);
+                                    }
+                                    cout<<endl;
+                                    fprintf(stdout, "Max Tokens: \n");
+                                    for(int q = 0; q<numberOfQueries; q++){
+                                        fprintf(stdout, "%d ", maxTokens[q]);
+                                    }
+                                    cout<<endl<<endl;
+                                    */
+
+
+
+                                    // exit if all answers are received
+                                    if(cores > 0){
+                                        for(int q = 0; q < numberOfQueries; q++){
+                                            if(maxTokensRecords[q] >= cores && notSatisfiable[q] == 0)
+                                                exitLTSmin = 1;
+                                            else if(notSatisfiable[q] == 0){
+                                                exitLTSmin = 0;
+                                                continue;
+                                            }
+                                        }
+                                    }
 
 	                        // exit messages
-	                        	if((found = data.find(searchExit)) != std::string::npos){
-	                        		//printf("%s\n", exitMessage.c_str());
-	                        		exitLTSmin = 1;
-	                        		break;
-	                        	}
+                        	if((found = data.find(searchExit)) != std::string::npos){
+                        		//printf("%s\n", exitMessage.c_str());
+                        		exitLTSmin = 1;
+                        		break;
+                        	}
+
+
+
+
 	                    }
+
+     
+
 	                }
 
 	                pclose(stream);
@@ -1178,16 +1205,19 @@ int main(int argc, char* argv[]){
 	                // evaluate results
 	                for(int q = 0; q<numberOfQueries;q++){
 	                	//EF not satisfied
-	                	if(!solved[q] && !isInvariantlist[q] && !ltsminVerified[q]){
+	                	if(!solved[q] && !isInvariantlist[q] && !ltsminVerified[q] && !XMLparser.queries[q].isPlaceBound){
 			        	string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                		fprintf(stdout, "%s\n", queryResultNotSat.c_str());
 	                	}
 
 	                	//AG satisfied
-	                	else if(!solved[q] && isInvariantlist[q] && !ltsminVerified[q]){
+	                	else if(!solved[q] && isInvariantlist[q] && !ltsminVerified[q] && !XMLparser.queries[q].isPlaceBound){
 	                		string queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                		fprintf(stdout, "%s\n", queryResultSat.c_str());
 	                	}
+                                    else if(XMLparser.queries[q].isPlaceBound){
+                                        fprintf(stdout, "FORMULA %s %d TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n", XMLparser.queries[q].id.c_str(), maxTokens[q]);
+                                    }
 	                }
 	                if(debugging) printf("%s\n", exitMessage.c_str());
 
