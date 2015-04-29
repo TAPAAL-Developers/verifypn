@@ -6,14 +6,23 @@ INPUTSPATH=/home/mads/INPUTS
 
 TOOL=BenchKit_head.sh
 	
-CACHE_SIZE=$(cat /sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size)
+ CACHE_SIZE=$(cat /sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size)
 
-if [[ $CACHE_SIZE  !=  64 ]]
-then
-    echo "!!!INCORRECT ARCHITECTURE - NOT 64-bit CACHE!!!"
-    exit
-fi
-
+     if [[ $CACHE_SIZE  !=  64 ]]
+     then
+         echo "!!!******************************************************************!!!"
+         echo "  =============INCORRECT ARCHITECTURE - NOT 64-bit CACHE=============="
+         echo "!!!******************************************************************!!!"
+         echo "!!!******************************************************************!!!"
+         echo "!!!************ Please contact developers to setup ******************!!!"
+         echo "!!!************ and compile the correct version.   ******************!!!"
+         echo "!!!************ Please also provide the actual     ******************!!!"
+         echo "!!!************ cache size.                        ******************!!!"
+         echo "!!!************ ACTUAL CACHE SIZE:  $CACHE_SIZE    ******************!!!"
+         echo "!!!******************************************************************!!!"
+         echo "!!!******************************************************************!!!"
+         exit
+     fi
 
 for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
     echo;
