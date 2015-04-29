@@ -119,7 +119,7 @@ double diffclock(clock_t clock1, clock_t clock2){
 }
 
 // Path to LTSmin run script
-string cmd = "/home/mads/verifypnLTSmin/runLTSmin.sh";
+string cmd = "/home/mossns/Documents/Launchpad/verifypnLTSmin/runLTSmin.sh";
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -143,6 +143,7 @@ int main(int argc, char* argv[]){
             bool ltsminMc = false;
             bool debugging = false;
             bool verifyAllQueries = true;
+            bool queryisdeadlock = false;
 
 
 	//----------------------- Parse Arguments -----------------------//
@@ -486,6 +487,11 @@ int main(int argc, char* argv[]){
 		isInvariantlist[i] = XMLparser.queries[i].negateResult;
 		querylist[i] = ParseQuery(querystring);
 	}
+        
+        std::size_t found = querystring.find("deadlock");
+        if(found!=std::string::npos){
+            queryisdeadlock = true;
+        }
             //isInvariant = isInvariantlist[xmlquery-1];
 
         clock_t parse_end = clock();
@@ -635,11 +641,10 @@ int main(int argc, char* argv[]){
             string exitMessage = "LTSmin finished";
 
             if(ltsminMode == MC){ // multicore
+
                 cmd += " -mc";
-            }
-            //else if(ltsminMode == SEQ){ // single core
-            //    cmd = "sh runLTSmin.sh";
-            //}
+            
+
 
             cmd += " 2>&1";
 
@@ -728,6 +733,97 @@ int main(int argc, char* argv[]){
             }
 
             pclose(stream);
+        }
+        else if(ltsminMode == SEQ){
+            cmd += " 2>&1";
+
+            int q, m, s;
+            string data;
+            bool exitLTSmin = 0;
+            if(debugging) printf("%s\n", startMessage.c_str());
+            stream = popen(cmd.c_str(), "r");
+
+            while (!exitLTSmin){
+                if (fgets(buffer, max_buffer, stream) != NULL){
+                    size_t found;
+                    data = "";
+                    data.append(buffer);
+
+                    string searchS = string("levels,");
+                    string searchT = string("levels,");
+                    string searchTMT = string("tokens in marking");
+                    string searchMT = string("tokens in one Place");
+
+                    if ((found = data.find(searchS))!=std::string::npos) {
+                        size_t startPos = found;
+                        string ssresult;
+
+                            size_t end_quote = data.find("states", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+                            ssresult = data.substr(startPos + 7, nameLen - 8);
+                            startPos += ssresult.size();
+
+
+                        string queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        printf("%s\n", queryResult1.c_str());
+
+                    }
+
+                    if ((found = data.find(searchT))!=std::string::npos) {
+                        size_t startPos = 0;
+                        string ssresult;
+
+                        if((startPos = data.find("states", startPos)) != std::string::npos) {
+                            size_t end_quote = data.find("transitions", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+                            ssresult = data.substr(startPos + 6, nameLen - 8);
+                            startPos += ssresult.size();
+                        }
+
+                        string queryResult2 = string("STATE SPACE TRANSITIONS") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        printf("%s\n", queryResult2.c_str());
+                    }
+
+                    if ((found = data.find(searchTMT))!=std::string::npos) {
+                        size_t startPos = 0;
+                        string ssresult;
+
+                        if((startPos = data.find("\'", startPos)) != std::string::npos) {
+                            size_t end_quote = data.find("\'", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+                            ssresult = data.substr(startPos + 1, nameLen - 2);
+                            startPos += ssresult.size();
+                        }
+
+                        string queryResult3 = string("STATE SPACE MAX_TOKENS_IN_MARKING ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        printf("%s\n", queryResult3.c_str());
+                    }
+
+                    if ((found = data.find(searchMT))!=std::string::npos) {
+                        size_t startPos = 0;
+                        string ssresult;
+
+                        if((startPos = data.find("\'", startPos)) != std::string::npos) {
+                            size_t end_quote = data.find("\'", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+                            ssresult = data.substr(startPos + 1, nameLen - 2);
+                            startPos += ssresult.size();
+                        }
+
+                        string queryResult4 = string("STATE SPACE MAX_TOKENS_IN_PLACE ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        printf("%s\n", queryResult4.c_str());
+                    }
+
+                    // exit messages
+                    if((found = data.find(searchExit)) != std::string::npos){
+                        exitLTSmin = 1;
+                        break;
+                    }
+                }
+            }
+
+            pclose(stream);
+        }
 
         } else {
             result = strategy->reachable(*net, m0, v0, query);
@@ -748,29 +844,9 @@ int main(int argc, char* argv[]){
             }
             QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
 
-            if(verifyAllQueries){
-                //Test Alpha
-                if(debugging) fprintf(stdout,"Doing Alpha Test\n");
-                PetriNet *tempnet = builder.makePetriNet();
-                Reducer tempreducer = Reducer(tempnet);
-                QueryPlaceAnalysisContext tempplacecontext(*tempnet, placeInQuery);
-                MarkVal* placeInInhib = new MarkVal[tempnet->numberOfPlaces()];
-                MarkVal* transitionInInhib = new MarkVal[tempnet->numberOfTransitions()];
-                tempreducer.CreateInhibitorPlacesAndTransitions(tempnet, inhibarcs, placeInInhib, transitionInInhib);
-                tempreducer.Reduce(tempnet, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction);
-
-                if(debugging) fprintf(stdout, "NO QUERY - Removed transitions: %d\n", tempreducer.RemovedTransitions());
-                if(debugging) fprintf(stdout, "NO QUERY - Removed places: %d\n", tempreducer.RemovedPlaces());
-                if(debugging) fprintf(stdout, "NO QUERY - Total Transitions: %d\n", tempnet->numberOfTransitions());
-                if(debugging) fprintf(stdout, "NO QUERY - Total Places: %d\n", tempnet->numberOfPlaces());
-
-                double removedTransitions_d = tempreducer.RemovedTransitions();
-                double removedPlaces_d = tempreducer.RemovedPlaces();
-                double numberPlaces_d = tempnet->numberOfPlaces();
-                double numberTransitions_d = tempnet->numberOfTransitions();
-
-                double reduceabilityfactor = (removedTransitions_d + removedPlaces_d) / (numberPlaces_d + numberTransitions_d);
-                fprintf(stdout, "Reduceabilityfactor: (%f+%f)/(%f+%f)=%f\n",removedTransitions_d, removedPlaces_d, numberPlaces_d, numberTransitions_d, reduceabilityfactor);
+            if(verifyAllQueries && !queryisdeadlock){
+                MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
+                MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
 
                 string reductionquerystr;
                 bool firstAccurance = true;
@@ -785,31 +861,22 @@ int main(int argc, char* argv[]){
                 Condition* reductionquery;
                 if(!firstAccurance) {
                     reductionquery = ParseQuery(reductionquerystr);
-                    reductionquery->analyze(tempplacecontext);
+                    reductionquery->analyze(placecontext);
                 }
-
-                if(reduceabilityfactor > ALFA_KOEFFICIENT){
-
-                    int placesInQuery = 0;
-                    for (int i = 0; i < net->numberOfPlaces(); i++) {
-                        if (placeInQuery[i] != 0)
-                            placesInQuery++;
-                    }
-                    double placesInQuery_d = placesInQuery;
-
-                    if(debugging)fprintf(stdout, "Number of places in query: %f\n", placesInQuery_d);
-                    if(debugging)fprintf(stdout, "Number of places in model: %f\n", numberPlaces_d);
-
-                    double actualPlaceReductionFactor = placesInQuery_d / numberPlaces_d;
-                    fprintf(stdout, "Actual Place Reduction Factor: %f\n", actualPlaceReductionFactor);
-                    if(actualPlaceReductionFactor > BETA_KOEFFICIENT){
-                        if(debugging)fprintf(stdout, "Multiple queires will not be executed - returning\n");
-                        return MultiFailCode;
-                    }
+                else{
+                	return ErrorCode;
                 }
                 //Reduce(net) - Multi Query
                 reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
                 reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction);
+
+                double removedTransitions_d = reducer.RemovedTransitions();
+                double removedPlaces_d = reducer.RemovedPlaces();
+                double numberPlaces_d = net->numberOfPlaces();
+                double numberTransitions_d = net->numberOfTransitions();
+
+                double reduceabilityfactor = (removedTransitions_d + removedPlaces_d) / (numberPlaces_d + numberTransitions_d);
+                if (debugging) fprintf(stdout, "Reduceabilityfactor: (%f+%f)/(%f+%f)=%f\n",removedTransitions_d, removedPlaces_d, numberPlaces_d, numberTransitions_d, reduceabilityfactor);
             } else { //Reducing based on a single query
                 query->analyze(placecontext);
 
@@ -846,18 +913,26 @@ int main(int argc, char* argv[]){
 
                 if(debugging) cout<<"Number of places: "<<net->numberOfPlaces()<<endl;
                 if(debugging) cout<<"Number of transisions: "<<net->numberOfTransitions()<<endl;
-
+                
+                if(debugging) cout<<"Creating Code Generator object"<<endl;
                 CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound, XMLparser.queries[xmlquery - 1].quickSolve);
 
                 int numberOfQueries = XMLparser.queries.size();
                 string* stringQueries = new string[numberOfQueries];
 
                 if(ltsminMode && !verifyAllQueries){ // Generate code for single query
+                    if(debugging) cout<<"Generating code for single query"<<endl;
                     codeGen.generateSource(isInvariantlist, (xmlquery - 1));
                 }
 
                 else if(ltsminMode && verifyAllQueries){ // Generate code for all queries
+                    if(debugging) cout<<"Generating code for all queries"<<endl;
                     codeGen.generateSourceMultipleQueries(&stateLabels, notSatisfiable, isInvariantlist, numberOfQueries);
+                }
+                
+                else if(queryisdeadlock){
+                    if(debugging) cout<<"Generating code for deadlock query"<<endl;
+                    codeGen.generateSource(isInvariantlist, -1);
                 }
 
                 clock_t codeGen_end = clock();
@@ -891,6 +966,9 @@ int main(int argc, char* argv[]){
 
             if(ltsminMode == MC){ // multicore
                 cmd += " -mc";
+            }
+            if(queryisdeadlock){
+                cmd += " true";
             }
             //else if(ltsminMode == SEQ){ // single core
             //    cmd = "/home/mads/cpp/verifypnLTSmin/runLTSmin.sh";
@@ -1084,6 +1162,7 @@ int main(int argc, char* argv[]){
 	}
 */
 	//Find result code
+	if(!statespaceexploration){
 	if(result.result() == ReachabilityResult::Unknown)
 		retval = UnknownCode;
 	else if(result.result() == ReachabilityResult::Satisfied)
@@ -1116,8 +1195,7 @@ int main(int argc, char* argv[]){
 			}
             fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
 		}
-	}
-
+	}}
 	//----------------------- Output Trace -----------------------//
 
 

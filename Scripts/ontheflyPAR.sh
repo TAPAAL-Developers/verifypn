@@ -35,12 +35,13 @@ function verify {
     echo
     echo "verifypn-linux64" $1 model.pnml $2  
 
-    if [ $TIMEOUT = 0 ]; then
+    if [ $TIMEOUT= 0 ]; then
         $VERIFYPN $1 model.pnml $2
     else
         echo "timeout $TIMEOUT $VERIFYPN $1 model.pnml $2"
         timeout $TIMEOUT $VERIFYPN $1 "model.pnml" $2
         RETVAL=$?
+        echo $RETVAL
         if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
                 echo -ne "CANNOT_COMPUTE\n"
         fi
@@ -88,7 +89,7 @@ case "$BK_EXAMINATION" in
         echo "**********************************************"
         echo "*  TAPAAL verifying ReachabilityCardinality  *"
         echo "**********************************************"
-        verify "-o mc -r 1" "ReachabilityCardinality.xml"
+        verify "-o mc" "ReachabilityCardinality.xml"
         ;;
 
     ReachabilityFireability)
