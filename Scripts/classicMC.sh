@@ -8,9 +8,10 @@
 
 #export PATH="$PATH:/home/mads/MCC15/bin/"
 #VERIFYPN=$HOME/BenchKit/bin/verifypn
-VERIFYPN=/Users/dyhr/Bazaar/competition2015multiplePlaceBounds/verifypn-osx64
+VERIFYPN=/home/mads/competition2015multiplePlaceBounds/verifypn-linux64
+#VERIFYPN=/Users/dyhr/Bazaar/competition2015multiplePlaceBounds/verifypn-osx64
 
-TIMEOUT=20
+TIMEOUT=200
 
 if [ ! -f iscolored ]; then
     	echo "File 'iscolored' not found!"
@@ -35,7 +36,7 @@ function verify {
 	local NUMBER=`cat $2 | grep "<property>" | wc -l`
 
         seq 1 $NUMBER | 
-	parallel -j8 -- "gtimeout $TIMEOUT $VERIFYPN $1 "-x" {} "model.pnml" $2 ; RETVAL=\$? ;\
+	parallel -j8 -- "timeout $TIMEOUT $VERIFYPN $1 "-x" {} "model.pnml" $2 ; RETVAL=\$? ;\
 		if [ \$RETVAL = 124 ] || [ \$RETVAL =  125 ] || [ \$RETVAL =  126 ] || [ \$RETVAL =  127 ] || [ \$RETVAL =  137 ] ; then echo -ne \"CANNOT_COMPUTE\n\"; fi"
 } 
 
@@ -47,7 +48,7 @@ case "$BK_EXAMINATION" in
 		echo "*****************************************"
 		echo "*  TAPAAL performing StateSpace search  *"
 		echo "*****************************************"
-		gtimeout $TIMEOUT $VERIFYPN -n -d -e model.pnml 
+		timeout $TIMEOUT $VERIFYPN -n -d -e model.pnml 
 		;;
 
 	ReachabilityComputeBounds)	

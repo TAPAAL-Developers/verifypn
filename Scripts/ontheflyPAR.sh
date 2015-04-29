@@ -13,7 +13,7 @@
 VERIFYPN=/home/mads/verifypnLTSmin/verifypn-linux64
 #VERIFYPN=/Users/dyhr/Bazaar/verifypnLTSmin/verifypn-osx64
 
-TIMEOUT=20
+TIMEOUT=200
 
 if [ ! -f iscolored ]; then
     echo "File 'iscolored' not found!"
@@ -38,11 +38,11 @@ function verify {
     echo
     echo "verifypn-linux64" $1 model.pnml $2  
 
-    if [ $TIMEOUT= 0 ]; then
+    if [ $TIMEOUT = 0 ]; then
         $VERIFYPN $1 model.pnml $2
     else
-        echo "gtimeout $TIMEOUT $VERIFYPN $1 model.pnml $2"
-        gtimeout $TIMEOUT $VERIFYPN $1 "model.pnml" $2
+        echo "timeout $TIMEOUT $VERIFYPN $1 model.pnml $2"
+        timeout $TIMEOUT $VERIFYPN $1 "model.pnml" $2
         RETVAL=$?
         echo $RETVAL
         if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
@@ -59,7 +59,7 @@ case "$BK_EXAMINATION" in
         echo "*  TAPAAL performing StateSpace search  *"
         echo "*****************************************"
 
-        gtimeout $TIMEOUT $VERIFYPN -o mc -d -e model.pnml 
+        timeout $TIMEOUT $VERIFYPN -o mc -d -e model.pnml 
         ;;
 
     ReachabilityComputeBounds)	

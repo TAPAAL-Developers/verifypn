@@ -52,7 +52,7 @@ case "$BK_EXAMINATION" in
 		echo "*  TAPAAL performing StateSpace search  *"
 		echo "*****************************************"
 
-                       gtimeout $TIMEOUT $VERIFYSS -o seq -e -n model.pnml
+                       timeout $TIMEOUT $VERIFYSS -o seq -e -n model.pnml
 
 		;;
 
