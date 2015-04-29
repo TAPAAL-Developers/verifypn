@@ -10,7 +10,7 @@
 #VERIFYPN=$HOME/BenchKit/bin/verifypn
 VERIFYPN=/home/mads/verifypn/verifypn-linux64
 
-TIMEOUT=10
+TIMEOUT=30
 
 if [ ! -f iscolored ]; then
     	echo "File 'iscolored' not found!"

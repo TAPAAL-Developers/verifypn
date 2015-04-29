@@ -10,7 +10,7 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
     cd $D ;
 
     #for TOOLNAME in classicSEQ classicMC ontheflySEQ ontheflyMC ontheflyPAR; do
-    for TOOLNAME in classicSEQ ontheflyPARSingle; do
+    for TOOLNAME in classicMC ontheflyPAR; do
       export BK_TOOL=$TOOLNAME ;
       
       #for EXAMINATION in StateSpace ReachabilityComputeBounds ReachabilityDeadlock \
