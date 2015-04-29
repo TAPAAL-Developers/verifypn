@@ -36,7 +36,7 @@ function verify {
     echo
     echo "verifypn-linux64" $1 model.pnml $2  
 
-    if [ $TIMEOUT = 0 ]; then
+    if [ $TIMEOUT= 0 ]; then
         $VERIFYPN $1 model.pnml $2
     else
         echo "timeout $TIMEOUT $VERIFYPN $1 model.pnml $2"
@@ -50,7 +50,9 @@ function verify {
             echo "Letting you know reductions for multiple queries was irresponsible"
             local NUMBER=`cat $2 | grep "<property>" | wc -l`
         	for (( QUERY=1; QUERY<=$NUMBER; QUERY++ )) do
-                timeout $TIMEOUT $VERIFYPN $1 model.pnml $2  -x  $QUERY;
+
+                timeout $TIMEOUT $VERIFYPN $1 "model.pnml" $2 " -x " $QUERY;
+
             done
         fi
     fi
