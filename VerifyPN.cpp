@@ -1059,7 +1059,7 @@ int main(int argc, char* argv[]){
 	  ReachabilityResult result;
 
 	  // verify only one query
-	  if(ltsminMode && !verifyAllQueries && solution == UnknownCode && !statespaceexploration){
+	  if(ltsminMode && !verifyAllQueries && (solution == UnknownCode) && !statespaceexploration){
                 if(debugging) cout<<"Starting LTSmin single query"<<endl;
 
                 result = ltsmin.reachable(cmd, xmlquery-1, XMLparser.queries[xmlquery-1].id, XMLparser.queries[xmlquery-1].isPlaceBound);
