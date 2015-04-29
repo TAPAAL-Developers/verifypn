@@ -9,9 +9,8 @@
 
 #export PATH="$PATH:/home/mcc/BenchKit/bin/"
 #export PATH="$PATH:/home/mads/cpp/verifypnLTSmin/"
-export PATH="$PATH:/home/sabella/Documents/verifypnLTSmin"
-VERIFYPN=/home/isabella/Documents/verifypnLTSmin/verifypn-linux64
-TIMEOUT=2000
+VERIFYPN=/Users/dyhr/Bazaar/verifypnLTSmin/verifypn-osx64
+TIMEOUT=20
 
 if [ ! -f iscolored ]; then
     echo "File 'iscolored' not found!"
@@ -39,8 +38,8 @@ function verify {
     if [ $TIMEOUT= 0 ]; then
         $VERIFYPN $1 model.pnml $2
     else
-        echo "timeout $TIMEOUT $VERIFYPN $1 model.pnml $2"
-        timeout $TIMEOUT $VERIFYPN $1 "model.pnml" $2
+        echo "gtimeout $TIMEOUT $VERIFYPN $1 model.pnml $2"
+        gtimeout $TIMEOUT $VERIFYPN $1 "model.pnml" $2
         RETVAL=$?
         echo $RETVAL
         if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
@@ -56,8 +55,7 @@ case "$BK_EXAMINATION" in
         echo "*****************************************"
         echo "*  TAPAAL performing StateSpace search  *"
         echo "*****************************************"
-        #verify "-o mc -r 1 -e"
-        echo "NOT IMPLEMENTED!"
+        gtimeout $TIMEOUT $VERIFYPN -o mc -d -e model.pnml 
         ;;
 
     ReachabilityComputeBounds)	

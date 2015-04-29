@@ -7,8 +7,8 @@
 # BK_EXAMINATION: it is a string that identifies your "examination"
 
 #export PATH="$PATH:/home/mads/cpp/verifypnLTSmin/"
-VERIFYPN=/home/mads/verifypnLTSmin/verifypn-linux64
-TIMEOUT=300
+VERIFYPN=/Users/dyhr/Bazaar/verifypnLTSmin/verifypn-osx64
+TIMEOUT=20
 
 if [ ! -f iscolored ]; then
     	echo "File 'iscolored' not found!"
@@ -45,8 +45,7 @@ case "$BK_EXAMINATION" in
 		echo "*****************************************"
 		echo "*  TAPAAL performing StateSpace search  *"
 		echo "*****************************************"
-                #verify "-o seq -r 1 -e"
-                echo "NOT IMPLEMENTED!"
+                        gtimeout $TIMEOUT $VERIFYPN -o mc -d -e model.pnml 
 		;;
 
 	ReachabilityComputeBounds)	
