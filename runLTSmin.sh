@@ -14,7 +14,7 @@
 # Expect -mc to run ltsmin multicore (default sequential)
 ISDEADLOCK=$1
 LTSMINTYPE=$2
-PREFIX=/home/mads/verifypnLTSmin
+PREFIX=/home/isabella/Documents/verifypnLTSmin
 
 if [[ $OSTYPE == linux* ]]
 then

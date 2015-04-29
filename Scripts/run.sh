@@ -20,14 +20,14 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
     cd $D ;
 
     #for TOOLNAME in classicSEQ classicMC ontheflySEQ ontheflyMC ontheflyPAR; do
-    for TOOLNAME in ontheflyPAR; do
+    for TOOLNAME in ontheflyPAR ontheflyMC ontheflySEQ; do
       export BK_TOOL=$TOOLNAME ;
       
       #for EXAMINATION in StateSpace ReachabilityComputeBounds ReachabilityDeadlock \
       #                   ReachabilityCardinality ReachabilityFireability \
       #                   ReachabilityFireabilitySimple; do
 
-      for EXAMINATION in StateSpace; do
+      for EXAMINATION in ReachabilityFireabilitySimple; do
          export BK_EXAMINATION=$EXAMINATION ;
          time ./$TOOL
       done 

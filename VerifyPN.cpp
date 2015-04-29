@@ -119,7 +119,7 @@ double diffclock(clock_t clock1, clock_t clock2){
 }
 
 // Path to LTSmin run script
-string cmd = "/home/mossns/Documents/Launchpad/verifypnLTSmin/runLTSmin.sh";
+string cmd = "/home/isabella/Documents/verifypnLTSmin/runLTSmin.sh";
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -639,13 +639,10 @@ int main(int argc, char* argv[]){
             string stdmsg = "State space: ";
             string startMessage = "LTSmin has started";
             string exitMessage = "LTSmin finished";
+            cmd += " false";
 
             if(ltsminMode == MC){ // multicore
-
-                cmd += " -mc";
-            
-
-
+            cmd += " -mc";            
             cmd += " 2>&1";
 
             int q, m, s;
@@ -731,10 +728,8 @@ int main(int argc, char* argv[]){
                     }
                 }
             }
-
             pclose(stream);
-        }
-        else if(ltsminMode == SEQ){
+        } else if(ltsminMode == SEQ){
             cmd += " 2>&1";
 
             int q, m, s;
@@ -823,9 +818,8 @@ int main(int argc, char* argv[]){
             }
 
             pclose(stream);
-        }
-
-        } else {
+        }}
+        else {
             result = strategy->reachable(*net, m0, v0, query);
         }
 
