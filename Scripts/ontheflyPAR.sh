@@ -11,7 +11,7 @@
 #export PATH="$PATH:/home/mads/cpp/verifypnLTSmin/"
 export PATH="$PATH:/home/sabella/Documents/verifypnLTSmin"
 VERIFYPN=/home/isabella/Documents/verifypnLTSmin/verifypn-linux64
-TIMEOUT=2000
+TIMEOUT=8000
 
 if [ ! -f iscolored ]; then
     echo "File 'iscolored' not found!"
@@ -57,7 +57,7 @@ case "$BK_EXAMINATION" in
         echo "*  TAPAAL performing StateSpace search  *"
         echo "*****************************************"
         #verify "-o mc -r 1 -e"
-        echo "NOT IMPLEMENTED!"
+        timeout $TIMEOUT $VERIFYPN -o mc -e -n model.pnml
         ;;
 
     ReachabilityComputeBounds)	

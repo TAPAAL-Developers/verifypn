@@ -7,9 +7,10 @@
 # BK_EXAMINATION: it is a string that identifies your "examination"
 
 #export PATH="$PATH:/home/mcc/BenchKit/bin/"
-#export PATH="$PATH:/home/mads/MCC15/bin/"
+export PATH="$PATH:/home/isabella/Documents/verifypn/"
 #VERIFYPN=$HOME/BenchKit/bin/verifypn
-VERIFYPN=/home/mads/verifypn/verifypn-linux64
+VERIFYPN=/home/isabella/Documents/verifypn/verifypn-linux64
+
 TIMEOUT=10
 
 if [ ! -f iscolored ]; then
