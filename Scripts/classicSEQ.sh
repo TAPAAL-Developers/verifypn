@@ -7,10 +7,13 @@
 # BK_EXAMINATION: it is a string that identifies your "examination"
 
 #export PATH="$PATH:/home/mcc/BenchKit/bin/"
-#export PATH="$PATH:/home/mads/MCC15/bin/"
 #VERIFYPN=$HOME/BenchKit/bin/verifypn
-VERIFYPN=/home/mads/verifypn/verifypn-linux64
-TIMEOUT=10
+
+#VERIFYPN=/home/isabella/Documents/verifypn/verifypn-linux64
+VERIFYPN=/Users/dyhr/Bazaar/competition2015multiplePlaceBounds/verifypn-osx64
+TIMEOUT=20
+
+
 
 if [ ! -f iscolored ]; then
     	echo "File 'iscolored' not found!"
@@ -40,7 +43,7 @@ function verify {
 		if [ $TIMEOUT = 0 ]; then
 			$VERIFYPN $1 "-x" $QUERY "model.pnml" $2
 		else
-			timeout $TIMEOUT $VERIFYPN $1 "-x" $QUERY "model.pnml" $2
+			gtimeout $TIMEOUT $VERIFYPN $1 "-x" $QUERY "model.pnml" $2
 			RETVAL=$?
 			if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
 				echo -ne "CANNOT_COMPUTE\n"
@@ -57,7 +60,7 @@ case "$BK_EXAMINATION" in
 		echo "*****************************************"
 		echo "*  TAPAAL performing StateSpace search  *"
 		echo "*****************************************"
-		timeout $TIMEOUT $VERIFYPN -n -d -e model.pnml 
+		gtimeout $TIMEOUT $VERIFYPN -n -d -e model.pnml 
 		;;
 
 	ReachabilityComputeBounds)	

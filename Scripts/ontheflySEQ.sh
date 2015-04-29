@@ -8,10 +8,14 @@
 # This is the 'on the fly sequential' tool.
 
 #export PATH="$PATH:/home/mcc/BenchKit/bin/"
+
 #export PATH="$PATH:/home/mads/cpp/verifypnLTSmin/"
-VERIFYPN=/home/mads/verifypnLTSmin/verifypn-linux64
+
 #VERIFYPN=/Users/srba/dev/sumoXMLparsing/verifypn-osx64
-TIMEOUT=10
+VERIFYPN=/home/mads/verifypnLTSmin/verifypn-linux64
+#VERIFYPN=/Users/dyhr/Bazaar/verifypnLTSmin/verifypn-osx64
+
+TIMEOUT=20
 
 if [ ! -f iscolored ]; then
     echo "File 'iscolored' not found!"
@@ -39,7 +43,7 @@ function verify {
     if [ $TIMEOUT = 0 ]; then
         $VERIFYPN $1 model.pnml $2
     else
-        timeout $TIMEOUT $VERIFYPN $1 "model.pnml" $2
+        gtimeout $TIMEOUT $VERIFYPN $1 "model.pnml" $2
         RETVAL=$?
         if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
                 echo -ne "CANNOT_COMPUTE\n"
@@ -54,8 +58,8 @@ case "$BK_EXAMINATION" in
         echo "*****************************************"
         echo "*  TAPAAL performing StateSpace search  *"
         echo "*****************************************"
-        #verify "-o seq -r 1 -e" model.pnml 
-        echo "NOT IMPLEMENTED!"
+
+        gtimeout $TIMEOUT $VERIFYPN -o mc -d -e model.pnml 
         ;;
 
     ReachabilityComputeBounds)	
@@ -63,7 +67,7 @@ case "$BK_EXAMINATION" in
         echo "*************************************************"
         echo "*  TAPAAL performing ReachabilityComputeBounds  *"
         echo "*************************************************"
-        verify "-o seq -r 1" "ReachabilityComputeBounds.xml"
+        verify "-o seq" "ReachabilityComputeBounds.xml"
         ;;
 
     ReachabilityDeadlock)
@@ -72,7 +76,7 @@ case "$BK_EXAMINATION" in
         echo "*  TAPAAL checking for ReachabilityDeadlock  *"
         echo "**********************************************"
         TIMEOUT=0
-        verify "-o seq -r 1" "ReachabilityDeadlock.xml"
+        verify "-o seq" "ReachabilityDeadlock.xml"
         ;;
 
     ReachabilityCardinality)
@@ -80,7 +84,7 @@ case "$BK_EXAMINATION" in
         echo "**********************************************"
         echo "*  TAPAAL verifying ReachabilityCardinality  *"
         echo "**********************************************"
-        verify "-o seq -r 1" "ReachabilityCardinality.xml"
+        verify "-o seq" "ReachabilityCardinality.xml"
         ;;
 
     ReachabilityFireability)
@@ -88,7 +92,7 @@ case "$BK_EXAMINATION" in
         echo "**********************************************"
         echo "*  TAPAAL verifying ReachabilityFireability  *"
         echo "**********************************************"
-        verify "-o seq -r 1" "ReachabilityFireability.xml"
+        verify "-o seq" "ReachabilityFireability.xml"
         ;;
 
     ReachabilityFireabilitySimple)
@@ -96,7 +100,7 @@ case "$BK_EXAMINATION" in
         echo "****************************************************"
         echo "*  TAPAAL verifying ReachabilityFireabilitySimple  *"
         echo "****************************************************"
-        verify "-o seq -r 1" "ReachabilityFireabilitySimple.xml"
+        verify "-o seq" "ReachabilityFireabilitySimple.xml"
         ;;
 
     *)

@@ -481,7 +481,7 @@ namespace PetriEngine{
 
         //Preliminaries
 
-        fputs("#include <ltsmin/pins.h>\nstatic const int LABEL_GOAL = 0;\n", successor_generator);
+        fputs("#include <ltsmin/pins.h>\nvoid __attribute__ ((destructor)) cleanup(void);\nstatic const int LABEL_GOAL = 0;\n", successor_generator);
         fprintf(successor_generator, "int group_count() {return %d;}\nint state_length() {return %d;}\nint label_count() {return %d;}\n", group_count, state_count, label_count);
 
         fprintf(successor_generator, "int %s[%d] = {\n", ComputeBoundsArray, _nplaces);
@@ -577,10 +577,22 @@ namespace PetriEngine{
         fprintf(successor_generator, "if (m > %s) {%s = m;}\n", MaksPrMarking, MaksPrMarking);
         fprintf(successor_generator, "return label == LABEL_GOAL && 0;\n}\n");
 
+        fprintf(successor_generator, "void cleanup(){\n");
+
+        fputs("int M = 0;\n", successor_generator);
+        for (int i = 0; i < _nplaces; i++){
+            fprintf(successor_generator, "if(M < MaxNumberOfTokensInPlace[%d]) { M = MaxNumberOfTokensInPlace[%d]; \n}", i, i);
+        }
+        
+        fputs("fprintf(stderr, \"#placetokens \'%d\' \\n\", M);\n", successor_generator);
+
+        fprintf(successor_generator, "fprintf(stderr, \"#marking");
+        fputs("\'%d\' \\n\", MaxNumberOfTokensInMarking);\n", successor_generator);
+        fprintf(successor_generator, "}\n");
 
 
         fprintf(successor_generator, "void exit_func(void* model){  \n");
-
+/*
         fputs("int M = 0;\n", successor_generator);
         for (int i = 0; i < _nplaces; i++){
             fprintf(successor_generator, "if(M < MaxNumberOfTokensInPlace[%d]) { M = MaxNumberOfTokensInPlace[%d]; \n}", i, i);
@@ -588,9 +600,9 @@ namespace PetriEngine{
         fputs("fprintf(stderr, \"Maximum number of tokens in marking \'%d\' \\n\", MaxNumberOfTokensInMarking);", successor_generator);
         fputs("fprintf(stderr, \"Maximum number of tokens in one Place \'%d\' \", M);\n", successor_generator);
 
-        fprintf(successor_generator, "fprintf( stderr, \"exiting now\");}");
-
-
+        fprintf(successor_generator, "fprintf( stderr, \"exiting now\");");
+*/
+        fputs("}", successor_generator);
         fclose(successor_generator);
         int result = rename(sourcename_temp, sourcename);
     }

@@ -606,10 +606,8 @@ int main(int argc, char* argv[]){
                     notSatisfiable[i] = 0;
                 }
                 else if(result.result() == ReachabilityResult::NotSatisfied){
-                    if (isInvariantlist[i]) fprintf(stdout, "FORMULA %s TRUE TECHNIQUES EXPLICIT - DEBUG::Resolved by lpsolve \n ", XMLparser.queries[i].id.c_str());
-                    else {
-                        notSatisfiable[i] = 0;
-                    }
+                    if (isInvariantlist[i]) fprintf(stdout, "\nFORMULA %s TRUE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n ", XMLparser.queries[i].id.c_str());
+                    else if(!isInvariantlist[i]) fprintf(stdout, "\nFORMULA %s FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION \n ", XMLparser.queries[i].id.c_str());
                 }
                 else {
                     notSatisfiable[i] = 0;
@@ -633,19 +631,29 @@ int main(int argc, char* argv[]){
             // ltsmin messages to search for
             string searchExit = "exiting now";
             string searchPins2lts = "pins2lts-seq";
+            string searchS = string("Explored");
+            string searchT = string("Explored");
+            //string searchTMT = string("tokens in marking");
+            //string searchMT = string("tokens in one Place");            
+            string searchMarking = "#marking";
+            string searchPlaceTokens = "#placetokens";
+
+            string maxTokInMark = "0";
+            string tokInOnePlace = "0";
+
+            int maxTokInMarkRecords = 0;
+            int tokInOnePlaceRecords = 0;
+            int cores = -1;
 
             // verifypn messages
             string pins2ltsMessage;
             string stdmsg = "State space: ";
             string startMessage = "LTSmin has started";
             string exitMessage = "LTSmin finished";
+            cmd += " false";
 
             if(ltsminMode == MC){ // multicore
-
-                cmd += " -mc";
-            
-
-
+            cmd += " -mc";            
             cmd += " 2>&1";
 
             int q, m, s;
@@ -659,10 +667,25 @@ int main(int argc, char* argv[]){
                     size_t found;
                     data = "";
                     data.append(buffer);
-                    string searchS = string("Explored");
-                    string searchT = string("Explored");
-                    string searchTMT = string("tokens in marking");
-                    string searchMT = string("tokens in one Place");
+                    
+                    // Find the amout of cores being used by LTSmin
+                    if ((found = data.find("Running"))!=std::string::npos) {     
+                        size_t startPos = 0;
+                        string ssresult;
+
+                            if((startPos = data.find("using")) !=std::string::npos){
+                                size_t end_quote = data.find("cores", startPos + 1);
+                                size_t nameLen = (end_quote - startPos) + 1;
+
+                                ssresult = data.substr(startPos + 6, nameLen - 8);
+                                cores = atoi( ssresult.c_str() );
+                                if(cores < 0){
+                                    fprintf(stderr, "\nCores registered incorrectly\n\n");
+                                    return 0;
+                                }
+
+                            }
+                    }               
 
                     if ((found = data.find(searchS))!=std::string::npos) {
                         size_t startPos = found;
@@ -674,7 +697,7 @@ int main(int argc, char* argv[]){
                             startPos += ssresult.size();
 
 
-                        string queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        string queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES LTSMIN EXPLICIT";
                         printf("%s\n", queryResult1.c_str());
 
                     }
@@ -690,10 +713,49 @@ int main(int argc, char* argv[]){
                             startPos += ssresult.size();
                         }
 
-                        string queryResult2 = string("STATE SPACE TRANSITIONS") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        string queryResult2 = string("STATE SPACE TRANSITIONS") + ssresult + " TECHNIQUES LTSMIN EXPLICIT";
                         printf("%s\n", queryResult2.c_str());
                     }
 
+                    // Max tokens in marking
+                    if((found = data.find(searchMarking))!=std::string::npos){
+                        size_t startPos = 0;
+                        string ssresult;
+
+                        if((startPos = data.find("\'", startPos)) != std::string::npos) {
+                            size_t end_quote = data.find("\'", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+                            ssresult = data.substr(startPos + 1, nameLen - 2);
+                            startPos += ssresult.size();
+                        }
+
+                        if(atoi( ssresult.c_str() ) > atoi( maxTokInMark.c_str() ) ){
+                            maxTokInMark = ssresult;
+                        }
+                        
+                        maxTokInMarkRecords++;                        
+                    }
+
+                    // Tokens in one place
+                    if((found = data.find(searchPlaceTokens))!=std::string::npos){
+                        size_t startPos = 0;
+                        string ssresult;
+
+                        if((startPos = data.find("\'", startPos)) != std::string::npos) {
+                            size_t end_quote = data.find("\'", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+                            ssresult = data.substr(startPos + 1, nameLen - 2);
+                            startPos += ssresult.size();
+                        }
+
+                        if(atoi( ssresult.c_str() ) > atoi( tokInOnePlace.c_str() ) ){
+                            tokInOnePlace = ssresult;
+                        }
+                        
+                        tokInOnePlaceRecords++;                        
+                    }
+
+                    /*
                     if ((found = data.find(searchTMT))!=std::string::npos) {
                         size_t startPos = 0;
                         string ssresult;
@@ -708,7 +770,8 @@ int main(int argc, char* argv[]){
                         string queryResult3 = string("STATE SPACE MAX_TOKENS_IN_MARKING ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
                         printf("%s\n", queryResult3.c_str());
                     }
-
+                    */
+                    /*
                     if ((found = data.find(searchMT))!=std::string::npos) {
                         size_t startPos = 0;
                         string ssresult;
@@ -723,23 +786,40 @@ int main(int argc, char* argv[]){
                         string queryResult4 = string("STATE SPACE MAX_TOKENS_IN_PLACE ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
                         printf("%s\n", queryResult4.c_str());
                     }
-
+                    */
                     // exit messages
                     if((found = data.find(searchExit)) != std::string::npos){
+                        exitLTSmin = 1;
+                        break;
+                    }
+                    if(cores > 0 && maxTokInMarkRecords >= cores && tokInOnePlaceRecords >= cores){
                         exitLTSmin = 1;
                         break;
                     }
                 }
             }
 
+            fprintf(stdout, "STATE SPACE MAX_TOKENS_IN_MARKING %s TECHNIQUES EXPLICIT\n", maxTokInMark.c_str());
+            fprintf(stdout, "STATE SPACE MAX_TOKENS_IN_PLACE %s TECHNIQUES EXPLICIT\n", tokInOnePlace.c_str());
+
             pclose(stream);
+            return 0; // We're done. No need to continue from here.
         }
+
         else if(ltsminMode == SEQ){
             cmd += " 2>&1";
 
             int q, m, s;
             string data;
             bool exitLTSmin = 0;
+            int results = 0;
+            string searchMarking = "#marking";
+            string searchPlaceTokens = "#placetokens";
+            string searchS = string("levels,");
+            string searchT = string("levels,");
+            string searchTMT = string("tokens in marking");
+            string searchMT = string("tokens in one Place");            
+
             if(debugging) printf("%s\n", startMessage.c_str());
             stream = popen(cmd.c_str(), "r");
 
@@ -749,23 +829,18 @@ int main(int argc, char* argv[]){
                     data = "";
                     data.append(buffer);
 
-                    string searchS = string("levels,");
-                    string searchT = string("levels,");
-                    string searchTMT = string("tokens in marking");
-                    string searchMT = string("tokens in one Place");
-
                     if ((found = data.find(searchS))!=std::string::npos) {
                         size_t startPos = found;
                         string ssresult;
 
-                            size_t end_quote = data.find("states", startPos + 1);
-                            size_t nameLen = (end_quote - startPos) + 1;
-                            ssresult = data.substr(startPos + 7, nameLen - 8);
-                            startPos += ssresult.size();
+                        size_t end_quote = data.find("states", startPos + 1);
+                        size_t nameLen = (end_quote - startPos) + 1;
+                        ssresult = data.substr(startPos + 7, nameLen - 8);
+                        startPos += ssresult.size();
 
-
-                        string queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        string queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES LTSMIN EXPLICIT";
                         printf("%s\n", queryResult1.c_str());
+                        results++;
 
                     }
 
@@ -780,11 +855,13 @@ int main(int argc, char* argv[]){
                             startPos += ssresult.size();
                         }
 
-                        string queryResult2 = string("STATE SPACE TRANSITIONS") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        string queryResult2 = string("STATE SPACE TRANSITIONS") + ssresult + " TECHNIQUES LTSMIN EXPLICIT";
                         printf("%s\n", queryResult2.c_str());
+                        results++;
                     }
 
-                    if ((found = data.find(searchTMT))!=std::string::npos) {
+                    // Max tokens in marking
+                    if((found = data.find(searchMarking))!=std::string::npos){
                         size_t startPos = 0;
                         string ssresult;
 
@@ -792,14 +869,13 @@ int main(int argc, char* argv[]){
                             size_t end_quote = data.find("\'", startPos + 1);
                             size_t nameLen = (end_quote - startPos) + 1;
                             ssresult = data.substr(startPos + 1, nameLen - 2);
-                            startPos += ssresult.size();
+                            fprintf(stdout, "STATE SPACE MAX_TOKENS_IN_MARKING %s TECHNIQUES EXPLICIT\n", ssresult.c_str());
+                            results++;
                         }
-
-                        string queryResult3 = string("STATE SPACE MAX_TOKENS_IN_MARKING ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
-                        printf("%s\n", queryResult3.c_str());
                     }
 
-                    if ((found = data.find(searchMT))!=std::string::npos) {
+                    // Tokens in one place
+                    if((found = data.find(searchPlaceTokens))!=std::string::npos){
                         size_t startPos = 0;
                         string ssresult;
 
@@ -807,11 +883,9 @@ int main(int argc, char* argv[]){
                             size_t end_quote = data.find("\'", startPos + 1);
                             size_t nameLen = (end_quote - startPos) + 1;
                             ssresult = data.substr(startPos + 1, nameLen - 2);
-                            startPos += ssresult.size();
-                        }
-
-                        string queryResult4 = string("STATE SPACE MAX_TOKENS_IN_PLACE ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
-                        printf("%s\n", queryResult4.c_str());
+                            fprintf(stdout, "STATE SPACE MAX_TOKENS_IN_PLACE %s TECHNIQUES EXPLICIT\n", ssresult.c_str());
+                            results++;
+                        }                      
                     }
 
                     // exit messages
@@ -819,10 +893,16 @@ int main(int argc, char* argv[]){
                         exitLTSmin = 1;
                         break;
                     }
+                    if(results >= 4){
+                        exitLTSmin =1;
+                        break;
+                    }
                 }
             }
 
             pclose(stream);
+
+            return 0; // We're done. No need to continue from here.
         }
 
         } else {
