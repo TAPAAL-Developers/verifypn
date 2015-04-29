@@ -285,8 +285,13 @@ void QueryStringParser::generateStateLabel(int i){
 
     // Replace all TAPAAL query operators with C operators
     replaceOperator(query, "not", "!");
+    if(_Parser->queries[i].quickSolve == true){
+    replaceOperator(query, "and", "||");
+    replaceOperator(query, "or", "&&");
+    } else {
     replaceOperator(query, "and", "&&");
     replaceOperator(query, "or", "||");
+    }
 
     // Replace true/false with 1,0
     replaceOperator(query, "true", "1");
