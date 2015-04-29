@@ -119,6 +119,7 @@ double diffclock(clock_t clock1, clock_t clock2){
 }
 
 // Path to LTSmin run script
+//string cmd = "/home/mads/verifypnLTSmin/runLTSmin.sh";
 string cmd = "/Users/dyhr/Bazaar/verifypnLTSmin/runLTSmin.sh";
 
 int main(int argc, char* argv[]){
@@ -973,7 +974,7 @@ int main(int argc, char* argv[]){
                     codeGen.generateSource(isInvariantlist, (xmlquery - 1));
                 }
 
-                else if(ltsminMode && verifyAllQueries){ // Generate code for all queries
+                else if(ltsminMode && verifyAllQueries && !queryisdeadlock){ // Generate code for all queries
                     if(debugging) cout<<"Generating code for all queries"<<endl;
                     codeGen.generateSourceMultipleQueries(&stateLabels, notSatisfiable, isInvariantlist, numberOfQueries);
                 }
@@ -1012,23 +1013,22 @@ int main(int argc, char* argv[]){
 	string startMessage = "LTSmin has started";
 	string exitMessage = "LTSmin finished";
 
-            if(ltsminMode == MC){ // multicore
-                cmd += " false -mc";
-            }
             if(queryisdeadlock){
                 cmd += " true";
+            } else{
+	        cmd += " false";
             }
-            //else if(ltsminMode == SEQ){ // single core
-            //    cmd = "/home/mads/cpp/verifypnLTSmin/runLTSmin.sh";
-            //}
+            if(ltsminMode == MC){ // multicore
+                cmd += " -mc";
+            }
 
-	   cmd += " 2>&1";
+            cmd += " 2>&1";
 
-                LTSmin ltsmin = LTSmin();
+          LTSmin ltsmin = LTSmin();
 	  ReachabilityResult result;
 
 	  // verify only one query
-	  if(ltsminMode && !verifyAllQueries && solution == UnknownCode && !statespaceexploration){
+	  if(ltsminMode && !verifyAllQueries && (solution == UnknownCode) && !statespaceexploration){
                 if(debugging) cout<<"Starting LTSmin single query"<<endl;
 
                 result = ltsmin.reachable(cmd, xmlquery-1, XMLparser.queries[xmlquery-1].id, XMLparser.queries[xmlquery-1].isPlaceBound);
@@ -1041,9 +1041,38 @@ int main(int argc, char* argv[]){
                         solution = UnknownCode;
 
 	  if(debugging) printf("%s\n", exitMessage.c_str());
-     }
+     } else if(ltsminMode && queryisdeadlock){
+         bool deadlockFound = false;
 
+	string searchDeadlock = "Deadlock found";
+	string exitMessage = "exiting now";
+	string data = "";
 
+	stream = popen(cmd.c_str(), "r");
+	while (!deadlockFound){
+	    if (fgets(buffer, max_buffer, stream) != NULL){
+		size_t found;
+		data.append(buffer);
+
+		size_t startPos = 0;
+
+	        if((startPos = data.find(searchDeadlock)) != std::string::npos) {
+		    string queryResultSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() + 
+                    " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+                    printf("%s\n", queryResultSat.c_str());
+		    deadlockFound = true;
+		    break;
+     		}
+
+	        if((startPos = data.find(exitMessage)) != std::string::npos) {
+		    string queryResultNotSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() + 
+                    " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+        	    printf("%s\n", queryResultNotSat.c_str());
+                    break;
+     		}
+            }
+	}
+    }
 	  // verify all queries at once
 	  else if(ltsminMode && verifyAllQueries && !statespaceexploration){
 		  int q, m, s;

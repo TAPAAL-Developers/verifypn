@@ -9,11 +9,11 @@
 
 #export PATH="$PATH:/home/mads/cpp/verifypnLTSmin/"
 
-#VERIFYPN=/home/isabella/Documents/ontheflyMC/verifypn-linux64
-#VERIFYSS=/home/isabella/Documents/verifypnLTSmin/verifypn-linux64
+VERIFYPN=/home/mads/ontheflyMC/verifypn-linux64
+VERIFYSS=/home/mads/verifypnLTSmin/verifypn-linux64
 
-VERIFYPN=/Users/dyhr/Bazaar/ontheflyMC/verifypn-osx64
-VERIFYSS=/Users/dyhr/Bazaar/verifypnLTSmin/verifypn-osx64
+#VERIFYPN=/Users/dyhr/Bazaar/ontheflyMC/verifypn-osx64
+#VERIFYSS=/Users/dyhr/Bazaar/verifypnLTSmin/verifypn-osx64
 TIMEOUT=20
 
 if [ ! -f iscolored ]; then
@@ -52,7 +52,7 @@ case "$BK_EXAMINATION" in
 		echo "*  TAPAAL performing StateSpace search  *"
 		echo "*****************************************"
 
-                       gtimeout $TIMEOUT $VERIFYSS -o seq -e -n model.pnml
+                       timeout $TIMEOUT $VERIFYSS -o seq -e -n model.pnml
 
 		;;
 

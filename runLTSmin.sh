@@ -13,7 +13,7 @@
 
 # Expect -mc to run ltsmin multicore (default sequential)
 
-#PREFIX=/home/isabella/Documents/verifypnLTSmin
+#PREFIX=/home/mads/verifypnLTSmin
 PREFIX=/Users/dyhr/Bazaar/verifypnLTSmin
 
 LTSMINTYPE=$1

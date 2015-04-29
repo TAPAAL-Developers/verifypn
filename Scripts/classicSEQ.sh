@@ -9,8 +9,8 @@
 #export PATH="$PATH:/home/mcc/BenchKit/bin/"
 #VERIFYPN=$HOME/BenchKit/bin/verifypn
 
-#VERIFYPN=/home/isabella/Documents/verifypn/verifypn-linux64
-VERIFYPN=/Users/dyhr/Bazaar/competition2015multiplePlaceBounds/verifypn-osx64
+VERIFYPN=/home/mads/competition2015multiplePlaceBounds/verifypn-linux64
+#VERIFYPN=/Users/dyhr/Bazaar/competition2015multiplePlaceBounds/verifypn-osx64
 TIMEOUT=20
 
 
@@ -43,7 +43,7 @@ function verify {
 		if [ $TIMEOUT = 0 ]; then
 			$VERIFYPN $1 "-x" $QUERY "model.pnml" $2
 		else
-			gtimeout $TIMEOUT $VERIFYPN $1 "-x" $QUERY "model.pnml" $2
+			timeout $TIMEOUT $VERIFYPN $1 "-x" $QUERY "model.pnml" $2
 			RETVAL=$?
 			if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
 				echo -ne "CANNOT_COMPUTE\n"
@@ -60,7 +60,7 @@ case "$BK_EXAMINATION" in
 		echo "*****************************************"
 		echo "*  TAPAAL performing StateSpace search  *"
 		echo "*****************************************"
-		gtimeout $TIMEOUT $VERIFYPN -n -d -e model.pnml 
+		timeout $TIMEOUT $VERIFYPN -n -d -e model.pnml 
 		;;
 
 	ReachabilityComputeBounds)	
