@@ -635,12 +635,7 @@ int main(int argc, char* argv[]){
             string exitMessage = "LTSmin finished";
 
             if(ltsminMode == MC){ // multicore
-                cmd += " -mc";
-            }
-            //else if(ltsminMode == SEQ){ // single core
-            //    cmd = "sh runLTSmin.sh";
-            //}
-
+            cmd += " -mc";
             cmd += " 2>&1";
 
             int q, m, s;
@@ -728,6 +723,97 @@ int main(int argc, char* argv[]){
             }
 
             pclose(stream);
+        }
+        else if(ltsminMode == SEQ){
+            cmd += " 2>&1";
+
+            int q, m, s;
+            string data;
+            bool exitLTSmin = 0;
+            if(debugging) printf("%s\n", startMessage.c_str());
+            stream = popen(cmd.c_str(), "r");
+
+            while (!exitLTSmin){
+                if (fgets(buffer, max_buffer, stream) != NULL){
+                    size_t found;
+                    data = "";
+                    data.append(buffer);
+
+                    string searchS = string("levels,");
+                    string searchT = string("levels,");
+                    string searchTMT = string("tokens in marking");
+                    string searchMT = string("tokens in one Place");
+
+                    if ((found = data.find(searchS))!=std::string::npos) {
+                        size_t startPos = found;
+                        string ssresult;
+
+                            size_t end_quote = data.find("states", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+                            ssresult = data.substr(startPos + 7, nameLen - 8);
+                            startPos += ssresult.size();
+
+
+                        string queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        printf("%s\n", queryResult1.c_str());
+
+                    }
+
+                    if ((found = data.find(searchT))!=std::string::npos) {
+                        size_t startPos = 0;
+                        string ssresult;
+
+                        if((startPos = data.find("states", startPos)) != std::string::npos) {
+                            size_t end_quote = data.find("transitions", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+                            ssresult = data.substr(startPos + 6, nameLen - 8);
+                            startPos += ssresult.size();
+                        }
+
+                        string queryResult2 = string("STATE SPACE TRANSITIONS") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        printf("%s\n", queryResult2.c_str());
+                    }
+
+                    if ((found = data.find(searchTMT))!=std::string::npos) {
+                        size_t startPos = 0;
+                        string ssresult;
+
+                        if((startPos = data.find("\'", startPos)) != std::string::npos) {
+                            size_t end_quote = data.find("\'", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+                            ssresult = data.substr(startPos + 1, nameLen - 2);
+                            startPos += ssresult.size();
+                        }
+
+                        string queryResult3 = string("STATE SPACE MAX_TOKENS_IN_MARKING ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        printf("%s\n", queryResult3.c_str());
+                    }
+
+                    if ((found = data.find(searchMT))!=std::string::npos) {
+                        size_t startPos = 0;
+                        string ssresult;
+
+                        if((startPos = data.find("\'", startPos)) != std::string::npos) {
+                            size_t end_quote = data.find("\'", startPos + 1);
+                            size_t nameLen = (end_quote - startPos) + 1;
+                            ssresult = data.substr(startPos + 1, nameLen - 2);
+                            startPos += ssresult.size();
+                        }
+
+                        string queryResult4 = string("STATE SPACE MAX_TOKENS_IN_PLACE ") + ssresult + " TECHNIQUES LTSMIN EXPLICIT\n ";
+                        printf("%s\n", queryResult4.c_str());
+                    }
+
+                    // exit messages
+                    if((found = data.find(searchExit)) != std::string::npos){
+                        exitLTSmin = 1;
+                        break;
+                    }
+                }
+            }
+
+            pclose(stream);
+        }
 
         } else {
             result = strategy->reachable(*net, m0, v0, query);
@@ -1055,6 +1141,7 @@ int main(int argc, char* argv[]){
 	}
 */
 	//Find result code
+	if(!statespaceexploration){
 	if(result.result() == ReachabilityResult::Unknown)
 		retval = UnknownCode;
 	else if(result.result() == ReachabilityResult::Satisfied)
@@ -1087,8 +1174,7 @@ int main(int argc, char* argv[]){
 			}
             fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
 		}
-	}
-
+	}}
 	//----------------------- Output Trace -----------------------//
 
 
