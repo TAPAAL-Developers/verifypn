@@ -14,7 +14,7 @@
 # Expect -mc to run ltsmin multicore (default sequential)
 
 #PREFIX=/home/mads/verifypnLTSmin
-PREFIX=/home/isabella/Documents/verifypnLTSmin
+PREFIX=/home/mcc/BenchKit/bin/onthefly/verifypnLTSmin
 
 LTSMINTYPE=$1
 ISDEADLOCK=$1
