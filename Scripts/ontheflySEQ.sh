@@ -12,8 +12,8 @@
 #export PATH="$PATH:/home/mads/cpp/verifypnLTSmin/"
 
 #VERIFYPN=/Users/srba/dev/sumoXMLparsing/verifypn-osx64
-VERIFYPN=/home/mads/verifypnLTSmin/verifypn-linux64
-#VERIFYPN=/Users/dyhr/Bazaar/verifypnLTSmin/verifypn-osx64
+#VERIFYPN=/home/mads/verifypnLTSmin/verifypn-linux64
+VERIFYPN=/Users/dyhr/Bazaar/verifypnLTSmin/verifypn-osx64
 
 TIMEOUT=20
 
