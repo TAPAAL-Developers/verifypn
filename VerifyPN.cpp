@@ -1027,7 +1027,7 @@ int main(int argc, char* argv[]){
 
           LTSmin ltsmin = LTSmin();
 	  ReachabilityResult result;
-
+	  if(debugging) cout<<"Starting LTSmin with the cmd: "<<cmd<<endl;
 	  // verify only one query
 	  if(ltsminMode && !verifyAllQueries && (solution == UnknownCode) && !statespaceexploration){
                 if(debugging) cout<<"Starting LTSmin single query"<<endl;
@@ -1046,6 +1046,7 @@ int main(int argc, char* argv[]){
          bool deadlockFound = false;
 
 	string searchDeadlock = "Deadlock found";
+	string searchDeadlock1 = "deadlock () found";
 	string exitMessage = "exiting now";
 	string data = "";
 
@@ -1064,6 +1065,15 @@ int main(int argc, char* argv[]){
 		    deadlockFound = true;
 		    break;
      		}
+
+     		if((startPos = data.find(searchDeadlock1)) != std::string::npos) {
+		    string queryResultSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() + 
+                    " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+                    printf("%s\n", queryResultSat.c_str());
+		    deadlockFound = true;
+		    break;
+     		}
+
 
 	        if((startPos = data.find(exitMessage)) != std::string::npos) {
 		    string queryResultNotSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() + 
