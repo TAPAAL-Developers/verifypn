@@ -206,9 +206,9 @@ int main(int argc, char* argv[]){
 
                             if(xmlquery == -1){
                                 xmlquery = 1;
-                            }
+                            }}
 
-        else if(strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--tool-flag") == 0){
+        else if(strcmp(argv[i], "-f") == 0){
                             if (i==argc-1) {
                                 tool = TPAR;
                             }
@@ -225,7 +225,7 @@ int main(int argc, char* argv[]){
                             }
                              	
 
-		}} else if (strcmp(argv[i], "-m") == 0 || strcmp(argv[i], "--memory-limit") == 0) {
+		} else if (strcmp(argv[i], "-m") == 0 || strcmp(argv[i], "--memory-limit") == 0) {
 			if (i == argc - 1) {
 				fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
 				return ErrorCode;
@@ -847,10 +847,10 @@ int main(int argc, char* argv[]){
                         string queryResult1;
 
                         if(tool == TSEQ){
-                        string queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT";
+                        queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT";
                     	}
                     	else if(tool == TMC){
-                        string queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES COLLATERAL_PROCESSING EXPLICIT";
+                        queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES COLLATERAL_PROCESSING EXPLICIT";
                     	}
                         printf("%s\n", queryResult1.c_str());
                         results++;
@@ -870,10 +870,10 @@ int main(int argc, char* argv[]){
                         string queryResult2;
 
        					if(tool == TSEQ){
-                        string queryResult2 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT";
+                        queryResult2 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT";
                     	}
                     	else if(tool == TMC){
-                        string queryResult2 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES COLLATERAL_PROCESSING EXPLICIT";
+                        queryResult2 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES COLLATERAL_PROCESSING EXPLICIT";
                     	}
                         printf("%s\n", queryResult2.c_str());
                         results++;
@@ -1244,16 +1244,18 @@ int main(int argc, char* argv[]){
 	                                string queryResultSat;
 	                                string queryResultNotSat;
 
+
 	                                		if(tool == TSEQ){
 
-                                            string queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
-                                            string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
+                                            queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
+                                            queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                                		}
 	                                		else if(tool == TPAR){
 
-                                            string queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
-                                            string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
+                                            queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
+                                            queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                                		}
+
 
                                         if(XMLparser.queries[q].isPlaceBound){
                                             
@@ -1367,11 +1369,11 @@ int main(int argc, char* argv[]){
 	                	//EF not satisfied
 	                	if(!solved[q] && !isInvariantlist[q] && !ltsminVerified[q] && !XMLparser.queries[q].isPlaceBound){
 	                	if(tool == TSEQ){
-	                		 	string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
+	                		 	queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                		fprintf(stdout, "%s\n", queryResultNotSat.c_str());
 	                	}
 	                	else if(tool == TPAR){
-	                		 	string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
+	                		 	queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                		fprintf(stdout, "%s\n", queryResultNotSat.c_str());
 	                	}
 
@@ -1382,11 +1384,11 @@ int main(int argc, char* argv[]){
 	                	else if(!solved[q] && isInvariantlist[q] && !ltsminVerified[q] && !XMLparser.queries[q].isPlaceBound){
 
 	                		if(tool == TSEQ){
-	                			string queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
+	                			queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                		fprintf(stdout, "%s\n", queryResultSat.c_str());
 	                		}
 	                		else if(tool == TPAR){
-	                			string queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
+	                			queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                		fprintf(stdout, "%s\n", queryResultSat.c_str());
 	                		}
 	                		

@@ -6,15 +6,14 @@
 
 # BK_EXAMINATION: it is a string that identifies your "examination"
 
+#export PATH="$PATH:/home/isabella/Documents/ontheflyMC"
+VERIFYPN=/home/mcc/BenchKit/bin/onthefly/ontheflyMC/verifypn-linux64
+VERIFYSS=/home/mcc/BenchKit/bin/onthefly/verifypnLTSmin/verifypn-linux64
 
-#export PATH="$PATH:/home/mads/cpp/verifypnLTSmin/"
+#VERIFYSS=/home/isabella/Documents/verifypnLTSmin/verifypn-linux64
+#VERIFYPN=/home/isabella/Documents/ontheflyMC/verifypn-linux64
 
-VERIFYPN=/home/mads/ontheflyMC/verifypn-linux64
-VERIFYSS=/home/mads/verifypnLTSmin/verifypn-linux64
-
-#VERIFYPN=/Users/dyhr/Bazaar/ontheflyMC/verifypn-osx64
-#VERIFYSS=/Users/dyhr/Bazaar/verifypnLTSmin/verifypn-osx64
-TIMEOUT=20
+TIMEOUT=1000
 
 if [ ! -f iscolored ]; then
     	echo "File 'iscolored' not found!"
@@ -43,6 +42,18 @@ function verify {
 		if [ \$RETVAL = 124 ] || [ \$RETVAL =  125 ] || [ \$RETVAL =  126 ] || [ \$RETVAL =  127 ] || [ \$RETVAL =  137 ] ; then echo -ne \"CANNOT_COMPUTE\n\"; fi"
 } 
 
+function verifySS {
+	if [ ! -f $2 ]; then
+    		echo "File '$2' not found!" 
+		exit 1 
+	fi
+	local NUMBER=`cat $2 | grep "<property>" | wc -l`
+
+        seq 1 $NUMBER | 
+	parallel --will-cite -j4 -- "timeout $TIMEOUT $VERIFYSS $1 "-x" {} "model.pnml" $2 ; RETVAL=\$? ;\
+		if [ \$RETVAL = 124 ] || [ \$RETVAL =  125 ] || [ \$RETVAL =  126 ] || [ \$RETVAL =  127 ] || [ \$RETVAL =  137 ] ; then echo -ne \"CANNOT_COMPUTE\n\"; fi"
+} 
+
 
 case "$BK_EXAMINATION" in
 
@@ -51,9 +62,7 @@ case "$BK_EXAMINATION" in
 		echo "*****************************************"
 		echo "*  TAPAAL performing StateSpace search  *"
 		echo "*****************************************"
-
-                       timeout $TIMEOUT $VERIFYSS -o seq -e -n model.pnml
-
+             $VERIFYSS -o seq -e -n -f mc model.pnml
 		;;
 
 	ReachabilityComputeBounds)	
@@ -61,7 +70,15 @@ case "$BK_EXAMINATION" in
 		echo "***********************************************"
 		echo "*  TAPAAL verifying ReachabilityComputeBounds *"
 		echo "***********************************************"
-                verify "-o seq -r 1" "ReachabilityComputeBounds.xml"
+                verifySS "-o seq -r 1 -f mc" "ReachabilityComputeBounds.xml"
+		;;
+
+	ReachabilityBounds)	
+		echo		
+		echo "***********************************************"
+		echo "*  TAPAAL verifying ReachabilityBounds *"
+		echo "****************************** *****************"
+                verifySS "-o seq -r 1 -f mc" "ReachabilityBounds.xml"
 		;;
 
 	ReachabilityDeadlock)
@@ -69,8 +86,7 @@ case "$BK_EXAMINATION" in
 		echo "**********************************************"
 		echo "*  TAPAAL checking for ReachabilityDeadlock  *"
 		echo "**********************************************"
-		TIMEOUT=10
-                verify "-o seq -r 1" "ReachabilityDeadlock.xml"
+		 $VERIFYSS -o seq -r 1 -f mc model.pnml ReachabilityDeadlock.xml
 		;;
 
 	ReachabilityCardinality)
@@ -78,7 +94,7 @@ case "$BK_EXAMINATION" in
 		echo "**********************************************"
 		echo "*  TAPAAL verifying ReachabilityCardinality  *"
 		echo "**********************************************"
-		verify "-o seq " "ReachabilityCardinality.xml"
+		verify "-o seq -f mc" "ReachabilityCardinality.xml"
 		;;
 
 	ReachabilityFireability)
@@ -86,7 +102,7 @@ case "$BK_EXAMINATION" in
 		echo "**********************************************"
 		echo "*  TAPAAL verifying ReachabilityFireability  *"
 		echo "**********************************************"
-		verify "-o seq" "ReachabilityFireability.xml"
+		verify "-o seq -f mc" "ReachabilityFireability.xml"
 		;;
 
 	ReachabilityFireabilitySimple)
@@ -94,7 +110,7 @@ case "$BK_EXAMINATION" in
                 echo "****************************************************************"
                 echo "*  TAPAAL ONTHEFLYPAR verifying ReachabilityFireabilitySimple  *"
                 echo "****************************************************************"
-                verify "-o seq" "ReachabilityFireabilitySimple.xml"
+                verify "-o seq -f mc" "ReachabilityFireabilitySimple.xml"
                 ;;
 
 	*)

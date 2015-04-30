@@ -42,30 +42,33 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
             data = "";
             data.append(buffer);
 
+            // Find the amout of cores being used by LTSmin
+            if ((found = data.find("Running"))!=std::string::npos) {
+                size_t startPos = 0;
+                string ssresult;
+
+                    if((startPos = data.find("using")) !=std::string::npos){
+                        size_t end_quote = data.find("cores", startPos + 1);
+                        size_t nameLen = (end_quote - startPos) + 1;
+
+                        ssresult = data.substr(startPos + 6, nameLen - 8);
+                        cores = atoi( ssresult.c_str() );
+                        if(cores < 0){
+                            fprintf(stderr, "\nCores registered incorrectly\n\n");
+                            return ReachabilityResult(ReachabilityResult::Unknown);
+
+                        }
+                    }
+                if(cores < 0)
+                    cores = 1;
+            }  
+
+
             if(isPlaceBound){
                 string searchPlaceBound = string("Query ") + number + " max tokens are";
                 size_t startPos = 0;
 
-                // Find the amout of cores being used by LTSmin
-                if ((found = data.find("Running"))!=std::string::npos) {     
-                    size_t startPos = 0;
-                    string ssresult;
 
-                        if((startPos = data.find("using")) !=std::string::npos){
-                            size_t end_quote = data.find("cores", startPos + 1);
-                            size_t nameLen = (end_quote - startPos) + 1;
-
-                            ssresult = data.substr(startPos + 6, nameLen - 8);
-                            cores = atoi( ssresult.c_str() );
-                            if(cores < 0){
-                                fprintf(stderr, "\nCores registered incorrectly\n\n");
-                                return ReachabilityResult(ReachabilityResult::Unknown);
-
-                            }
-                        }
-                    if(cores < 0)
-                        cores = 1;
-                }  
                     
                 if((startPos = data.find("\'", startPos)) != std::string::npos) {
                     size_t end_quote = data.find("\'", startPos + 1);
@@ -96,14 +99,13 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
                     ltsminVerified = 1;
                     solved = 1;
                     return ReachabilityResult(ReachabilityResult::Satisfied);
-                    
                 }
 
                 else if((found = data.find(searchUnknown)) != std::string::npos){
                     satRecords++;
                 } 
 
-                if(cores > 0 && !exitLTSmin){
+                if(cores > 0){
                     if(satRecords >= cores){
                         exitLTSmin = 1;
                     }

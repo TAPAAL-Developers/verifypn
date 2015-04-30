@@ -336,19 +336,16 @@ void QueryStringParser::parseReachBound(int i, std::string &query){
 
             startPos = end_quote+1;
         }
+
         pbLen = (end_quote - pbStartPos +1);
         
+        ss<<"placebound"<<i<<"["<<pb<<"]";
         query.replace(pbStartPos, pbLen, ss.str());
+
         ss.str("");
 
         pbStartPos = pbStartPos+pbLen;
     }
-
-    // cout<<"After: "<<query<<endl;
-    // for(pb = 0; pb < nPb; pb++){
-    //     cout<<"sl: "<<_Parser->queries[i].placebounds[pb]<<"  ";
-    // }
-    // cout<<endl<<endl;
 }
 
 void QueryStringParser::generateStateLabels(){

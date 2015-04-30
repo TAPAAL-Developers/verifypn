@@ -9,8 +9,8 @@
 #export PATH="$PATH:/home/mcc/BenchKit/bin/"
 #VERIFYPN=$HOME/BenchKit/bin/verifypn
 
-VERIFYPN=/home/mads/competition2015multiplePlaceBounds/verifypn-linux64
-#VERIFYPN=/Users/dyhr/Bazaar/competition2015multiplePlaceBounds/verifypn-osx64
+#VERIFYPN=/home/mads/competition2015multiplePlaceBounds/verifypn-linux64
+VERIFYPN=/Users/dyhr/Bazaar/competition2015multiplePlaceBounds/verifypn-osx64
 TIMEOUT=20
 
 

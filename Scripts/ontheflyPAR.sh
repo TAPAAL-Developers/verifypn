@@ -9,11 +9,9 @@
 
 #export PATH="$PATH:/home/mcc/BenchKit/bin/"
 #export PATH="$PATH:/home/mads/cpp/verifypnLTSmin/"
-
-VERIFYPN=/home/mads/verifypnLTSmin/verifypn-linux64
-#VERIFYPN=/Users/dyhr/Bazaar/verifypnLTSmin/verifypn-osx64
-
-TIMEOUT=200
+#export PATH="$PATH:/home/sabella/Documents/verifypnLTSmin"
+#VERIFYPN=/home/isabella/Documents/verifypnLTSmin/verifypn-linux64
+VERIFYPN=/home/mcc/BenchKit/bin/onthefly/verifypnLTSmin/verifypn-linux64
 
 if [ ! -f iscolored ]; then
     echo "File 'iscolored' not found!"
@@ -38,11 +36,7 @@ function verify {
     echo
     echo "verifypn-linux64" $1 model.pnml $2  
 
-    if [ $TIMEOUT = 0 ]; then
-        $VERIFYPN $1 model.pnml $2
-    else
-        echo "timeout $TIMEOUT $VERIFYPN $1 model.pnml $2"
-        timeout $TIMEOUT $VERIFYPN $1 "model.pnml" $2
+        $VERIFYPN $1 "model.pnml" $2
         RETVAL=$?
         echo $RETVAL
         if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
@@ -58,8 +52,8 @@ case "$BK_EXAMINATION" in
         echo "*****************************************"
         echo "*  TAPAAL performing StateSpace search  *"
         echo "*****************************************"
-
-        timeout $TIMEOUT $VERIFYPN -o mc -d -e model.pnml 
+        #verify "-o mc -r 1 -e"
+        $VERIFYPN -o mc -e -n -f par model.pnml
         ;;
 
     ReachabilityComputeBounds)	
@@ -67,7 +61,15 @@ case "$BK_EXAMINATION" in
         echo "*************************************************"
         echo "*  TAPAAL performing ReachabilityComputeBounds  *"
         echo "*************************************************"
-        verify "-o mc -r 1" "ReachabilityComputeBounds.xml"
+        verify "-o mc -r 1 -f par" "ReachabilityComputeBounds.xml"
+        ;;
+
+    ReachabilityBounds)  
+         echo        
+        echo "*************************************************"
+        echo "*  TAPAAL performing ReachabilityBounds  *"
+        echo "*************************************************"
+        verify "-o seq -r 1 -f par" "ReachabilityBounds.xml"
         ;;
 
     ReachabilityDeadlock)
@@ -75,8 +77,7 @@ case "$BK_EXAMINATION" in
         echo "**********************************************"
         echo "*  TAPAAL checking for ReachabilityDeadlock  *"
         echo "**********************************************"
-        TIMEOUT=0
-        verify "-o mc -r 1" "ReachabilityDeadlock.xml"
+        verify "-o mc -r 1 -f par" "ReachabilityDeadlock.xml"
         ;;
 
     ReachabilityCardinality)
@@ -84,7 +85,7 @@ case "$BK_EXAMINATION" in
         echo "**********************************************"
         echo "*  TAPAAL verifying ReachabilityCardinality  *"
         echo "**********************************************"
-        verify "-o mc" "ReachabilityCardinality.xml"
+        verify "-o mc -f par" "ReachabilityCardinality.xml"
         ;;
 
     ReachabilityFireability)
@@ -92,7 +93,7 @@ case "$BK_EXAMINATION" in
         echo "**********************************************"
         echo "*  TAPAAL verifying ReachabilityFireability  *"
         echo "**********************************************"
-        verify "-o mc -r 1" "ReachabilityFireability.xml"
+        verify "-o mc -r 1 -f par" "ReachabilityFireability.xml"
         ;;
 
     ReachabilityFireabilitySimple)
@@ -100,7 +101,7 @@ case "$BK_EXAMINATION" in
         echo "****************************************************"
         echo "*  TAPAAL verifying ReachabilityFireabilitySimple  *"
         echo "****************************************************"
-        verify "-o mc -r 1" "ReachabilityFireabilitySimple.xml"
+        verify "-o mc -r 1 -f par" "ReachabilityFireabilitySimple.xml"
         ;;
 
     *)
