@@ -319,7 +319,7 @@ void QueryStringParser::parseReachBound(int i, std::string &query){
     for(pb = 0; pb < nPb; pb++){
         nP = _Parser->queries[i].numberOfPlaces[pb]; // number of places in current place bound
         
-        pbStartPos = query.find("\"", pbStartPos); // start of placebound
+        pbStartPos = query.find("\"", 0); // start of placebound
         startPos = pbStartPos-1;
 
         for(p = 0; p < nP; p++){
@@ -338,11 +338,10 @@ void QueryStringParser::parseReachBound(int i, std::string &query){
         }
         pbLen = (end_quote - pbStartPos +1);
         
-        ss<<"placebound"<<i<<"["<<pb<<"]";
         query.replace(pbStartPos, pbLen, ss.str());
         ss.str("");
 
-        pbStartPos = end_quote+1;
+        pbStartPos = pbStartPos+pbLen;
     }
 
     // cout<<"After: "<<query<<endl;
