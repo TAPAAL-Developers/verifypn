@@ -9,7 +9,7 @@ namespace PetriEngine {
     class CodeGenerator {
         public:
 
-        CodeGenerator(PetriNet* petriNet, MarkVal* m0, PNMLParser::InhibitorArcList placeInInhib, string statelabel, bool isReachBound, bool isPlaceBound, bool quickSolve); 
+        CodeGenerator(PetriNet* petriNet, MarkVal* m0, PNMLParser::InhibitorArcList placeInInhib, string statelabel, bool isReachBound, bool isPlaceBound, bool quickSolve, QueryXMLParser *Parser); 
         void generateSource(bool *searchAllPaths, int query_id);
         void generateSourceForSSE();
 
@@ -30,6 +30,7 @@ namespace PetriEngine {
         bool _isReachBound;
         bool _isPlaceBound;
         bool _quickSolve;
+        QueryXMLParser *_parser;
 
         char const*sl();
     };

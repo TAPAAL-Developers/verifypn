@@ -12,7 +12,7 @@ public:
 
     }
 
-    ReachabilityResult reachable(std::string cmd, int xmlquery, std::string queryId, bool isPlaceBound);
+    ReachabilityResult reachable(std::string cmd, int xmlquery, std::string queryId, bool isPlaceBound, bool isReachBound);
 
 private:
     std::string cmd;

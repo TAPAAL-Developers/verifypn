@@ -26,10 +26,12 @@ class QueryStringParser {
         string  getPlaceIndexByName(const std::string placeName);
         void findDeadlockConditions(std::string& query, size_t deadlockPos);
         int inhibArc(unsigned int p, unsigned int t);
+        void parseReachBound(int i, std::string &query);
 
         QueryXMLParser *_Parser;
         PetriEngine::PetriNet *_PetriNet;
         std::vector<std::string> _stateLabel;
         PNMLParser::InhibitorArcList _inhibArcs;
+        
 };
 #endif	/* QUERYSTRINGPARSER_H */

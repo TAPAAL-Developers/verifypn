@@ -12,7 +12,7 @@ using namespace std;
 
 namespace PetriEngine{ namespace Reachability {
 
-ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId, bool isPlaceBound){
+ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId, bool isPlaceBound, bool isReachBound){
     FILE * stream;
     int max_buffer = 256;
     char buffer[max_buffer];
@@ -33,6 +33,7 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
     int cores = -1;
     int maxTokens = 0;
     int maxTokensRecords = 0;
+    int satRecords = 0;
 
     stream = popen(cmd.c_str(), "r");
     while (!exitLTSmin){
@@ -80,7 +81,38 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
                     ltsminVerified = 1;
                     maxTokensRecords++;
                 }
+
+                if(cores > 0 && maxTokensRecords >= cores){
+                    exitLTSmin = 1;
+                    break;
+                }     
             }
+            else if(isReachBound){
+                string searchUnknown = string("#Query ") + number + " unable to decide.";
+                string searchSat = string("#Query ") + number + " is satisfied.";
+
+                if ((found = data.find(searchSat))!=std::string::npos) {
+                    satRecords++;
+                    ltsminVerified = 1;
+                    solved = 1;
+                    return ReachabilityResult(ReachabilityResult::Satisfied);
+                    
+                }
+
+                else if((found = data.find(searchUnknown)) != std::string::npos){
+                    satRecords++;
+                } 
+
+                if(cores > 0 && !exitLTSmin){
+                    if(satRecords >= cores){
+                        exitLTSmin = 1;
+                    }
+                    else{
+                        exitLTSmin = 0;
+                        continue;
+                    }
+                }
+            }                                               
             else{
                 searchSat = string("#Query ") + number + " is satisfied.";
                 searchNotSat = string("#Query ") + number + " is NOT satisfied.";
@@ -101,11 +133,7 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
             if((found = data.find(searchExit)) != std::string::npos){
                 exitLTSmin = 1;
                 break;
-            }
-            if(cores > 0 && maxTokensRecords >= cores){
-                exitLTSmin = 1;
-                break;
-            }            
+            }       
         }
     }
 
@@ -114,6 +142,9 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
     if(isPlaceBound)
         fprintf(stdout, "FORMULA %s %d TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n", queryId.c_str(), maxTokens);
 
+    if(isReachBound){
+            return ReachabilityResult(ReachabilityResult::NotSatisfied);
+    }
     return ReachabilityResult(ReachabilityResult::NotSatisfied);
 
 }

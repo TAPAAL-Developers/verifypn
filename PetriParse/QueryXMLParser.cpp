@@ -79,6 +79,8 @@ bool QueryXMLParser::parseProperty(DOMElement* element){
         bool quickSolve=false;
 	string placeNameForBound;
 	bool tagsOK=true;
+            vector<int> numberOfPlaces;
+
 
 	DOMElements elements = element->getChilds();
 	DOMElements::iterator it;
@@ -100,19 +102,29 @@ bool QueryXMLParser::parseProperty(DOMElement* element){
 
 	QueryItem queryItem;
 	queryItem.id=id;
-	if (tagsOK && parseFormula(*formulaPtr, queryText, negateResult, isPlaceBound, placeNameForBound, isReachBound, quickSolve)) {
+	if (tagsOK && parseFormula(*formulaPtr, queryText, negateResult, isPlaceBound, placeNameForBound, isReachBound, quickSolve, numberOfPlaces)) {
 		queryItem.queryText=queryText;
 		queryItem.negateResult=negateResult;
-                queryItem.isPlaceBound=isPlaceBound;
-                queryItem.isReachBound=isReachBound;
-                queryItem.quickSolve=quickSolve;
+                        queryItem.isPlaceBound=isPlaceBound;
+                        queryItem.isReachBound=isReachBound;
+                        queryItem.quickSolve=quickSolve;
+                        queryItem.numberOfPlaces=numberOfPlaces;
 		queryItem.placeNameForBound=placeNameForBound;
+                        
 		queryItem.parsingResult=QueryItem::PARSING_OK;
+
+                        std::vector<std::string> _placebounds;
+                        for(int pb = 0; pb < numberOfPlaces.size(); pb++){
+                           _placebounds.push_back("");
+                        }
+
+                        queryItem.placebounds = _placebounds;
+
 
 	} else {
 		queryItem.queryText="";
 		queryItem.negateResult=false;
-        queryItem.isPlaceBound=false;
+                        queryItem.isPlaceBound=false;
 		queryItem.placeNameForBound="";
 		queryItem.parsingResult=QueryItem::UNSUPPORTED_QUERY;
 	}
@@ -133,7 +145,7 @@ bool QueryXMLParser::parseTags(DOMElement* element){
 	return true;
 }
 
-bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &negateResult, bool &isPlaceBound, string &placeNameForBound, bool &isReachBound, bool &quickSolve){
+bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &negateResult, bool &isPlaceBound, string &placeNameForBound, bool &isReachBound, bool &quickSolve, vector<int> &numberOfPlaces){
     /*
      Describe here how to parse
      * INV phi =  AG phi =  not EF not phi
@@ -251,7 +263,7 @@ bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &
         // Check for ReachabilityBounds 'place-bound' tag
         if(isReachabilityBounds(elements[0])){
             queryText += "EF ( "; // Is removed later
-            if(parseReachabilityBounds(elements[0], queryText)){
+            if(parseReachabilityBounds(elements[0], queryText, numberOfPlaces)){
                 queryText += " )"; // Is removed later
                 isReachBound = true;
                 return true;
@@ -287,7 +299,7 @@ bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &
     }
 
     DOMElements nextElements = booleanFormula->getChilds();
-    if (nextElements.size() !=1 || !parseBooleanFormula(nextElements[0] , queryText)) {
+    if (nextElements.size() !=1 || !parseBooleanFormula(nextElements[0] , queryText, numberOfPlaces)) {
         return false;
     }
     queryText+=" )";
@@ -318,12 +330,12 @@ bool QueryXMLParser::isReachabilityBounds(DOMElement* element){
     }
 }
 
-bool QueryXMLParser::parseReachabilityBounds(XMLSP::DOMElement* element, string &queryText){
+bool QueryXMLParser::parseReachabilityBounds(XMLSP::DOMElement* element, string &queryText, vector<int> &numberOfPlaces){
     string elementName = element->getElementName();
     if (elementName == "negation") {
         DOMElements children = element->getChilds();
         queryText += "not(";
-        if (children.size()==1 && parseReachabilityBounds(children[0], queryText)) {
+        if (children.size()==1 && parseReachabilityBounds(children[0], queryText, numberOfPlaces)) {
                 queryText += ")";
         } else {
                 return false;
@@ -334,13 +346,13 @@ bool QueryXMLParser::parseReachabilityBounds(XMLSP::DOMElement* element, string 
         DOMElements::iterator it;
 
         queryText += "(";
-        if (!(parseReachabilityBounds(children[0], queryText))) {
+        if (!(parseReachabilityBounds(children[0], queryText, numberOfPlaces))) {
                 return false;
         }
 
         for(it = (children.begin())+1; it != children.end(); it++) {
                 queryText += " and ";
-                if (!(parseReachabilityBounds(*it, queryText))) {
+                if (!(parseReachabilityBounds(*it, queryText, numberOfPlaces))) {
                         return false;
                 }
         }
@@ -353,13 +365,13 @@ bool QueryXMLParser::parseReachabilityBounds(XMLSP::DOMElement* element, string 
         }
 
         queryText += "(";
-        if (!(parseReachabilityBounds(*children.begin(), queryText))) {
+        if (!(parseReachabilityBounds(*children.begin(), queryText, numberOfPlaces))) {
                 return false;
         }
         DOMElements::iterator it;
         for(it = children.begin()+1; it != children.end(); it++) {
                 queryText += " or ";
-                if (!(parseReachabilityBounds(*it, queryText))) {
+                if (!(parseReachabilityBounds(*it, queryText, numberOfPlaces))) {
                         return false;
                 }
         }
@@ -373,10 +385,10 @@ bool QueryXMLParser::parseReachabilityBounds(XMLSP::DOMElement* element, string 
         string subformula1;
         string subformula2;
 
-        if (!(parseIntegerExpression(children[0], subformula1))) {
+        if (!(parseIntegerExpression(children[0], subformula1, numberOfPlaces))) {
                 return false;
         }
-        if (!(parseIntegerExpression(children[1], subformula2))) {
+        if (!(parseIntegerExpression(children[1], subformula2, numberOfPlaces))) {
                 return false;
         }
         string mathoperator;
@@ -388,7 +400,7 @@ bool QueryXMLParser::parseReachabilityBounds(XMLSP::DOMElement* element, string 
         return false;
 }
 
-bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText){
+bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText, std::vector<int> &numberOfPlaces){
 		string elementName = element->getElementName();
 		if (elementName == "deadlock") {
 			queryText+="deadlock";
@@ -402,7 +414,7 @@ bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText)
 		} else if (elementName == "negation") {
 			DOMElements children = element->getChilds();
 			queryText+="not(";
-			if (children.size()==1 && parseBooleanFormula(children[0], queryText)) {
+			if (children.size()==1 && parseBooleanFormula(children[0], queryText, numberOfPlaces)) {
 				queryText+=")";
 			} else {
 				return false;
@@ -414,13 +426,13 @@ bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText)
 				return false;
 			}
                                         queryText += "(";
-			if (!(parseBooleanFormula((children[0]), queryText))) {
+			if (!(parseBooleanFormula((children[0]), queryText, numberOfPlaces))) {
 				return false;
 			}
 			DOMElements::iterator it;
 			for(it = (children.begin())+1; it != children.end(); it++) {
 				queryText+=" and ";
-				if (!(parseBooleanFormula(*it, queryText))) {
+				if (!(parseBooleanFormula(*it, queryText, numberOfPlaces))) {
 					return false;
 				}
 			}
@@ -432,13 +444,13 @@ bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText)
 				return false;
 			}
                                         queryText += "(";
-			if (!(parseBooleanFormula(*children.begin(), queryText))) {
+			if (!(parseBooleanFormula(*children.begin(), queryText, numberOfPlaces))) {
 				return false;
 			}
 			DOMElements::iterator it;
 			for(it = children.begin()+1; it != children.end(); it++) {
 				queryText+=" or ";
-				if (!(parseBooleanFormula(*it, queryText))) {
+				if (!(parseBooleanFormula(*it, queryText, numberOfPlaces))) {
 					return false;
 				}
 			}
@@ -451,10 +463,10 @@ bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText)
 			}
 			string subformula1;
 			string subformula2;
-			if (!(parseBooleanFormula(*(children.begin()), subformula1))) {
+			if (!(parseBooleanFormula(*(children.begin()), subformula1, numberOfPlaces))) {
 				return false;
 			}
-			if (!(parseBooleanFormula(*(children.begin()+1), subformula2))) {
+			if (!(parseBooleanFormula(*(children.begin()+1), subformula2, numberOfPlaces))) {
 				return false;
 			}
 			queryText+= "(("+subformula1+" and not("+subformula2+")) or (not("+subformula1+") and "+subformula2+"))";
@@ -466,10 +478,10 @@ bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText)
 			}
 			string subformula1;
 			string subformula2;
-			if (!(parseBooleanFormula(*(children.begin()), subformula1))) {
+			if (!(parseBooleanFormula(*(children.begin()), subformula1, numberOfPlaces))) {
 				return false;
 			}
-			if (!(parseBooleanFormula(*(children.begin()+1), subformula2))) {
+			if (!(parseBooleanFormula(*(children.begin()+1), subformula2, numberOfPlaces))) {
 				return false;
 			}
 			queryText+= "not("+subformula1+") or ( "+subformula2+" )";
@@ -481,10 +493,10 @@ bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText)
 			}
 			string subformula1;
 			string subformula2;
-			if (!(parseBooleanFormula(*(children.begin()), subformula1))) {
+			if (!(parseBooleanFormula(*(children.begin()), subformula1, numberOfPlaces))) {
 				return false;
 			}
-			if (!(parseBooleanFormula(*(children.begin()+1), subformula2))) {
+			if (!(parseBooleanFormula(*(children.begin()+1), subformula2, numberOfPlaces))) {
 				return false;
 			}
 			queryText+= "(("+subformula1+" and "+subformula2+") or (not("+subformula1+") and not("+subformula2+")))";
@@ -501,10 +513,10 @@ bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText)
 			}
 			string subformula1;
 			string subformula2;
-			if (!(parseIntegerExpression(children[0], subformula1))) {
+			if (!(parseIntegerExpression(children[0], subformula1, numberOfPlaces))) {
 				return false;
 			}
-			if (!(parseIntegerExpression(children[1], subformula2))) {
+			if (!(parseIntegerExpression(children[1], subformula2, numberOfPlaces))) {
 				return false;
 			}
 			string mathoperator;
@@ -549,7 +561,7 @@ bool QueryXMLParser::parseBooleanFormula(DOMElement* element, string &queryText)
 	return false;
 }
 
-bool QueryXMLParser::parseIntegerExpression(DOMElement* element, string &queryText){
+bool QueryXMLParser::parseIntegerExpression(DOMElement* element, string &queryText, vector<int> &numberOfPlaces){
 	string elementName = element->getElementName();
 	if (elementName == "integer-constant") {
 		int i;
@@ -599,7 +611,7 @@ bool QueryXMLParser::parseIntegerExpression(DOMElement* element, string &queryTe
 			if (i > 0) {
 				queryText+= mathoperator;
 			}
-			if (!parseIntegerExpression(children[i], queryText)) {
+			if (!parseIntegerExpression(children[i], queryText, numberOfPlaces)) {
 				return false;
 			}
 		}
@@ -611,11 +623,11 @@ bool QueryXMLParser::parseIntegerExpression(DOMElement* element, string &queryTe
 			return false;
 		}
 		queryText += "(";
-		if (!parseIntegerExpression(children[0], queryText)) {
+		if (!parseIntegerExpression(children[0], queryText, numberOfPlaces)) {
 			return false;
 		}
 		queryText += " - ";
-		if (!parseIntegerExpression(children[1], queryText)) {
+		if (!parseIntegerExpression(children[1], queryText, numberOfPlaces)) {
 			return false;
 		}
 		queryText += ")";
@@ -623,18 +635,16 @@ bool QueryXMLParser::parseIntegerExpression(DOMElement* element, string &queryTe
         } else if (elementName == "place-bound") {
 
             DOMElements children = element->getChilds();
-            if(children.size() != 1){
-                cout<<"placebound with more children detected!"<<endl;
-                return false;
-            }
             size_t nChildren = children.size();
 
             if (children[0]->getElementName() != "place") {
                 return false;
             }
 
+
             if (nChildren < 1){
                 return false;
+
             } else if(nChildren > 1){
                 for(int i = 0; i < nChildren; i++){
                     if(i > 0)
@@ -642,11 +652,12 @@ bool QueryXMLParser::parseIntegerExpression(DOMElement* element, string &queryTe
 
                     queryText += "\""+parsePlace(children[i])+"\"";
                 }
+                numberOfPlaces.push_back(nChildren);
                 return true;
+
             } else if(nChildren == 1){
                 queryText += "\""+parsePlace(children[0])+"\"";
-               
-
+                numberOfPlaces.push_back(nChildren);
                 return true;
             }
 

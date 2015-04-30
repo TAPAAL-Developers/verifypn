@@ -120,7 +120,7 @@ double diffclock(clock_t clock1, clock_t clock2){
 
 // Path to LTSmin run script
 //string cmd = "/home/mads/verifypnLTSmin/runLTSmin.sh";
-string cmd = "/home/isabella/Documents/verifypnLTSmin/runLTSmin.sh";
+string cmd = "/Users/dyhr/Bazaar/verifypnLTSmin/runLTSmin.sh";
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -620,7 +620,7 @@ int main(int argc, char* argv[]){
             bool dummy1 = false;
             bool dummy2 = false;
             bool dummy3 = false;
-            CodeGenerator codeGen(net, m0, inhibarcs, dummy, dummy1, dummy2, dummy3);
+            CodeGenerator codeGen(net, m0, inhibarcs, dummy, dummy1, dummy2, dummy3, &XMLparser);
             codeGen.generateSourceForSSE();
 
             clock_t LTSmin_begin = clock();
@@ -651,12 +651,20 @@ int main(int argc, char* argv[]){
             string stdmsg = "State space: ";
             string startMessage = "LTSmin has started";
             string exitMessage = "LTSmin finished";
+          
+            if(queryisdeadlock){
+                cmd += " true";
+            } else{
             cmd += " false";
-
+            }
             if(ltsminMode == MC){ // multicore
-            cmd += " false -mc";            
+                cmd += " -mc";
+            }
+
             cmd += " 2>&1";
 
+
+            if(ltsminMode == MC){ // multicore
             int q, m, s;
             string data;
             bool exitLTSmin = 0;
@@ -776,7 +784,6 @@ int main(int argc, char* argv[]){
         }
 
         else if(ltsminMode == SEQ){
-            cmd += " 2>&1";
 
             int q, m, s;
             string data;
@@ -965,7 +972,7 @@ int main(int argc, char* argv[]){
                 
                 if(debugging) cout<<"Creating Code Generator object"<<endl;
                 cout<<"query: "<<XMLparser.queries[xmlquery - 1].queryText<<endl;
-                CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound, XMLparser.queries[xmlquery - 1].quickSolve);
+                CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound, XMLparser.queries[xmlquery - 1].quickSolve, &XMLparser);
 
                 int numberOfQueries = XMLparser.queries.size();
                 string* stringQueries = new string[numberOfQueries];
@@ -1032,7 +1039,7 @@ int main(int argc, char* argv[]){
 	  if(ltsminMode && !verifyAllQueries && (solution == UnknownCode) && !statespaceexploration){
                 if(debugging) cout<<"Starting LTSmin single query"<<endl;
 
-                result = ltsmin.reachable(cmd, xmlquery-1, XMLparser.queries[xmlquery-1].id, XMLparser.queries[xmlquery-1].isPlaceBound);
+                result = ltsmin.reachable(cmd, xmlquery-1, XMLparser.queries[xmlquery-1].id, XMLparser.queries[xmlquery-1].isPlaceBound, XMLparser.queries[xmlquery-1].isReachBound);
                 if(debugging) cout<<"LTSmin has finished"<<endl;
                     if(result.result() == ReachabilityResult::Satisfied)
                         solution = isInvariant ? FailedCode : SuccessCode;
@@ -1096,10 +1103,12 @@ int main(int argc, char* argv[]){
                         int cores = -1;
                         int maxTokens[numberOfQueries];
                         int maxTokensRecords[numberOfQueries];
+                        int satRecords[numberOfQueries];
 
                         for(int q = 0; q < numberOfQueries; q++){
                                 maxTokens[q] = 0;
                                 maxTokensRecords[q] = 0;
+                                satRecords[q] = 0;
                         }
 
                     
@@ -1132,9 +1141,12 @@ int main(int argc, char* argv[]){
                                     }               
 
 	                        for(q = 0; q<numberOfQueries; q++){
+
 	                                stringstream ss;
 	                                ss << q;
 	                                string number = ss.str();
+                                            string queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
+                                            string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
 
                                         if(XMLparser.queries[q].isPlaceBound){
                                             
@@ -1154,17 +1166,58 @@ int main(int argc, char* argv[]){
                                                     maxTokensRecords[q]++;
                                                 }
                                             }
+                                            // exit if all answers are received
+                                            if(cores > 0){
+                                                for(int q = 0; q < numberOfQueries; q++){
+                                                    if(maxTokensRecords[q] >= cores && notSatisfiable[q] == 0)
+                                                        exitLTSmin = 1;
+                                                    else if(notSatisfiable[q] == 0){
+                                                        exitLTSmin = 0;
+                                                        continue;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else if(XMLparser.queries[q].isReachBound){
+                                            string searchUnknown = string("#Query ") + number + " unable to decide.";
+                                            string searchSat = string("#Query ") + number + " is satisfied.";
 
+                                            if ((found = data.find(searchSat))!=std::string::npos) {
+                                                satRecords[q]++;
+
+                                                if(!ltsminVerified[q] && !solved[q]){
+                                                    if(isInvariantlist[q]){
+                                                        printf("%s\n", queryResultNotSat.c_str());
+                                                    }
+                                                    else if(!isInvariantlist[q])
+                                                        printf("%s\n", queryResultSat.c_str());
+                                                
+                                                    solved[q] = 1;
+                                                    ltsminVerified[q] = 1;
+                                                }
+                                            }
+
+                                            else if((found = data.find(searchUnknown)) != std::string::npos){
+                                                satRecords[q]++;
+                                            } 
+
+                                            if(cores > 0){
+                                                for(int q = 0; q < numberOfQueries; q++){
+                                                    if(satRecords[q] >= cores && notSatisfiable[q] == 0){
+                                                        exitLTSmin = 1;
+                                                    }
+                                                    else if(notSatisfiable[q] == 0){
+                                                        exitLTSmin = 0;
+                                                        continue;
+                                                    }
+                                                }
+                                            }                                               
                                         }
 
                                         else{
-			        string queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
-			        string queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES LTSMIN EXPLICIT STRUCTURAL_REDUCTION\n ";
-
 
 	                                string searchSat = string("#Query ") + number + " is satisfied.";
 	                                string searchNotSat = string("#Query ") + number + " is NOT satisfied.";
-	                             
 
 	                                if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified[q]) {
 
@@ -1186,17 +1239,7 @@ int main(int argc, char* argv[]){
                                         }
                                     }
 
-                                    // exit if all answers are received
-                                    if(cores > 0){
-                                        for(int q = 0; q < numberOfQueries; q++){
-                                            if(maxTokensRecords[q] >= cores && notSatisfiable[q] == 0)
-                                                exitLTSmin = 1;
-                                            else if(notSatisfiable[q] == 0){
-                                                exitLTSmin = 0;
-                                                continue;
-                                            }
-                                        }
-                                    }
+
 
 	                        // exit messages
                         	if((found = data.find(searchExit)) != std::string::npos){

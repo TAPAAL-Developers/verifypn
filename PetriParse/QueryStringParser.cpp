@@ -17,7 +17,7 @@ QueryStringParser::QueryStringParser(QueryXMLParser *Parser, PetriEngine::PetriN
     for(std::vector<QueryXMLParser::QueryItem>::iterator it = _Parser->queries.begin();
             it != _Parser->queries.end(); ++it){
         _stateLabel.push_back("");
-    }
+    }       
 }
 
 void QueryStringParser::replaceOperator(std::string& query, const std::string& from, const std::string& to) {
@@ -273,11 +273,14 @@ void QueryStringParser::generateStateLabel(int i){
     } else if(queryItem.isPlaceBound){ // ReacabilityComputeBounds query
         convertToComputeBoundsForManyQuery(query, number);
     } else if(queryItem.isReachBound){ // ReachabilityBounds query
+        parseReachBound(i, query);
+        /*
         convertToComputeBoundsQuery(query);
         if(convertToBoundsQuery(query)){
-        _Parser->queries[i].quickSolve = true;
-        completeShortCut(query, i);
+            _Parser->queries[i].quickSolve = true;
+            completeShortCut(query, i);
         }
+        */
     } else { //
         // Rename place names eg. "place0" -> src[0]
         replacePlaces(query);
@@ -300,6 +303,53 @@ void QueryStringParser::generateStateLabel(int i){
     //cout<<"VALUE OF QUICKSOLVE: "<< _Parser->queries[i].quickSolve <<" ms\n"<<endl;
 
     _stateLabel[i] = query;
+}
+
+void QueryStringParser::parseReachBound(int i, std::string &query){
+    int nPb = _Parser->queries[i].numberOfPlaces.size();
+    int p;
+    int nP;
+    int pb;
+    size_t pbStartPos = 0;
+    size_t end_quote = 0;
+    size_t startPos = 0;
+    size_t nameLen = 0;
+    size_t pbLen = 0;
+    stringstream ss;
+    for(pb = 0; pb < nPb; pb++){
+        nP = _Parser->queries[i].numberOfPlaces[pb]; // number of places in current place bound
+        
+        pbStartPos = query.find("\"", pbStartPos); // start of placebound
+        startPos = pbStartPos-1;
+
+        for(p = 0; p < nP; p++){
+            startPos = query.find("\"", startPos);
+            end_quote = query.find("\"", startPos + 1);
+            nameLen = (end_quote - startPos) + 1;
+            string oldPlaceName = query.substr(startPos + 1, nameLen - 2);
+            string newPlaceIndex = getPlaceIndexByName(oldPlaceName);
+
+            if(p > 0)
+                _Parser->queries[i].placebounds[pb] += (" + src["+newPlaceIndex+"]");
+            else
+                _Parser->queries[i].placebounds[pb] += ("src["+newPlaceIndex+"]");
+
+            startPos = end_quote+1;
+        }
+        pbLen = (end_quote - pbStartPos +1);
+        
+        ss<<"placebound"<<i<<"["<<pb<<"]";
+        query.replace(pbStartPos, pbLen, ss.str());
+        ss.str("");
+
+        pbStartPos = end_quote+1;
+    }
+
+    // cout<<"After: "<<query<<endl;
+    // for(pb = 0; pb < nPb; pb++){
+    //     cout<<"sl: "<<_Parser->queries[i].placebounds[pb]<<"  ";
+    // }
+    // cout<<endl<<endl;
 }
 
 void QueryStringParser::generateStateLabels(){

@@ -42,6 +42,9 @@ public:
             bool isReachBound; // true if the query is a place-bound one (returns boolean)
             bool quickSolve;
             string placeNameForBound;
+            std::vector<int> numberOfPlaces;
+            std::vector<std::string> placebounds;
+
             enum {
                 PARSING_OK,
                 UNSUPPORTED_QUERY,
@@ -60,11 +63,11 @@ private:
         bool parsePropertySet(XMLSP::DOMElement* element);
         bool parseProperty(XMLSP::DOMElement* element);
         bool parseTags(XMLSP::DOMElement* element);
-        bool parseFormula(XMLSP::DOMElement* element, string &queryText, bool &negateResult, bool &isPlaceBound, string &placeNameForBound, bool &isReachBound, bool &quickSolve);
-        bool parseBooleanFormula(XMLSP::DOMElement* element, string &queryText);
-        bool parseIntegerExpression(XMLSP::DOMElement* element, string &queryText);
+        bool parseFormula(XMLSP::DOMElement* element, string &queryText, bool &negateResult, bool &isPlaceBound, string &placeNameForBound, bool &isReachBound, bool &quickSolve, std::vector<int> &numberOfPlaces);
+        bool parseBooleanFormula(XMLSP::DOMElement* element, string &queryText, std::vector<int> &numberOfPlaces);
+        bool parseIntegerExpression(XMLSP::DOMElement* element, string &queryText, std::vector<int> &numberOfPlaces);
         bool isReachabilityBounds(XMLSP::DOMElement* element);
-        bool parseReachabilityBounds(XMLSP::DOMElement* element, string &queryText);
+        bool parseReachabilityBounds(XMLSP::DOMElement* element, string &queryText, std::vector<int> &numberOfPlaces);
         string parsePlace(XMLSP::DOMElement* element);
         PNMLParser::TransitionEnablednessMap _transitionEnabledness;
 };
