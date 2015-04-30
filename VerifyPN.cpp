@@ -127,6 +127,8 @@ double diffclock(clock_t clock1, clock_t clock2){
 // Path to LTSmin run script
 //string cmd = "/home/mads/verifypnLTSmin/runLTSmin.sh";
 string cmd = "/home/mcc/BenchKit/bin/onthefly/verifypnLTSmin/runLTSmin.sh";
+//string cmd = "/home/isabella/Documents/verifypnLTSmin/runLTSmin.sh";
+
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -1245,7 +1247,7 @@ int main(int argc, char* argv[]){
 	                                string queryResultNotSat;
 
 
-	                                		if(tool == TSEQ){
+	                                		if(tool == TSEQ || tool == TMC ){
 
                                             queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
                                             queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
@@ -1368,7 +1370,7 @@ int main(int argc, char* argv[]){
 	                    string queryResultNotSat;
 	                	//EF not satisfied
 	                	if(!solved[q] && !isInvariantlist[q] && !ltsminVerified[q] && !XMLparser.queries[q].isPlaceBound){
-	                	if(tool == TSEQ){
+	                	if(tool == TSEQ || tool == TMC ){
 	                		 	queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                		fprintf(stdout, "%s\n", queryResultNotSat.c_str());
 	                	}
@@ -1383,18 +1385,18 @@ int main(int argc, char* argv[]){
 	                	//AG satisfied
 	                	else if(!solved[q] && isInvariantlist[q] && !ltsminVerified[q] && !XMLparser.queries[q].isPlaceBound){
 
-	                		if(tool == TSEQ){
+	                		if(tool == TSEQ || tool == TMC ){
 	                			queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                		fprintf(stdout, "%s\n", queryResultSat.c_str());
 	                		}
 	                		else if(tool == TPAR){
-	                			queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
+	                			queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                		fprintf(stdout, "%s\n", queryResultSat.c_str());
 	                		}
 	                		
 	                	}
                                     else if(XMLparser.queries[q].isPlaceBound){
-                                    	if(tool == TSEQ){
+                                    	if(tool == TSEQ || tool == TMC ){
                                     		fprintf(stdout, "FORMULA %s %d TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", XMLparser.queries[q].id.c_str(), maxTokens[q]);
                                     	}
                                     	else if(tool == TPAR){
