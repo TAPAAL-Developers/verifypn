@@ -88,8 +88,7 @@ enum LTSminMode{
 
 enum Tool{
             TPAR = 0,
-            TSEQ = 1,
-            TMC = 2
+            TSEQ = 1
 };
 
 #define VERSION		"1.1.1"
@@ -126,7 +125,7 @@ double diffclock(clock_t clock1, clock_t clock2){
 
 // Path to LTSmin run script
 //string cmd = "/home/mads/verifypnLTSmin/runLTSmin.sh";
-string cmd = "/home/mcc/BenchKit/bin/onthefly/verifypnLTSmin/runLTSmin.sh";
+string cmd = "/home/isabella/Documents/verifypnLTSmin/runLTSmin.sh";
 //string cmd = "/home/isabella/Documents/verifypnLTSmin/runLTSmin.sh";
 
 
@@ -136,7 +135,7 @@ int main(int argc, char* argv[]){
 	int kbound = 0;
 	SearchStrategies searchstrategy = BFS;
              LTSminMode ltsminMode = DISABLED;
-             Tool tool = TPAR;
+             Tool tool = TSEQ;
 	int memorylimit = 0;
 	char* modelfile = NULL;
 	char* queryfile = NULL;
@@ -144,6 +143,7 @@ int main(int argc, char* argv[]){
   	int enablereduction = 0; // 0 ... disabled (default),  1 ... aggresive, 2 ... k-boundedness preserving
 	int xmlquery = -1; // if value is nonnegative then input query file is in xml format and we verify query
 						 // number xmlquery
+	int numberOfCores = -1;
 	bool statespaceexploration = false;
 	bool printstatistics = true;
 	int enableLTSmin = 0;
@@ -196,10 +196,14 @@ int main(int argc, char* argv[]){
                                 ltsminMode = SEQ;
                             }
                             char* s = argv[++i];
-                            if((strcmp(s, "seq") == 0)||(strcmp(s, "SEQ") == 0))
+                            if((strcmp(s, "seq") == 0)||(strcmp(s, "SEQ") == 0)){
                                 ltsminMode = SEQ;
-                            else if((strcmp(s, "mc") == 0)||(strcmp(s, "MC") == 0))
+                            	tool = TSEQ;
+                            }
+                            else if((strcmp(s, "mc") == 0)||(strcmp(s, "MC") == 0)){
                                 ltsminMode = MC;
+                            	tool = TPAR;
+                            }
                             else{
                                 fprintf(stderr, "Argument Error: Unrecognized LTSmin mode \"%s\"\n", s);
                                 return ErrorCode;
@@ -210,24 +214,7 @@ int main(int argc, char* argv[]){
                                 xmlquery = 1;
                             }}
 
-        else if(strcmp(argv[i], "-f") == 0){
-                            if (i==argc-1) {
-                                tool = TPAR;
-                            }
-                            char* s = argv[++i];
-                            if((strcmp(s, "seq") == 0)||(strcmp(s, "TSEQ") == 0))
-                                tool = TSEQ;
-                            else if((strcmp(s, "mc") == 0)||(strcmp(s, "TMC") == 0))
-                                tool = TMC;
-                            else if((strcmp(s, "par") == 0)||(strcmp(s, "TPAR") == 0))
-                                tool = TPAR;
-                            else{
-                                fprintf(stderr, "Argument Error: Unrecognized tool mode \"%s\"\n", s);
-                                return ErrorCode;
-                            }
-                             	
-
-		} else if (strcmp(argv[i], "-m") == 0 || strcmp(argv[i], "--memory-limit") == 0) {
+		 else if (strcmp(argv[i], "-m") == 0 || strcmp(argv[i], "--memory-limit") == 0) {
 			if (i == argc - 1) {
 				fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
 				return ErrorCode;
@@ -252,6 +239,15 @@ int main(int argc, char* argv[]){
 				return ErrorCode;
 			}
                                         verifyAllQueries = false;
+		}else if (strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--cores") == 0) {
+			if (i == argc - 1) {
+				fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
+				return ErrorCode;
+			}
+			if (sscanf(argv[++i], "%d", &numberOfCores) != 1 || xmlquery <= 0) {
+				fprintf(stderr, "Argument Error: number of cores to use during verification \"%s\"\n", argv[i]);
+				return ErrorCode;
+			}
 		}else if (strcmp(argv[i], "-r") == 0 || strcmp(argv[i], "--reduction") == 0) {
 				if (i == argc - 1) {
 					fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
@@ -261,16 +257,7 @@ int main(int argc, char* argv[]){
 					fprintf(stderr, "Argument Error: Invalid reduction argument \"%s\"\n", argv[i]);
 					return ErrorCode;
 				}
-		}else if (strcmp(argv[i], "-l") == 0 || strcmp(argv[i], "--ltsmin") == 0) {
-				if (i == argc - 1) {
-					fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
-					return ErrorCode;
-				}
-				if (sscanf(argv[++i], "%d", &enableLTSmin) != 1 || enableLTSmin < 0 || enableLTSmin > 3) {
-					fprintf(stderr, "Argument Error: Invalid ltsmin argument \"%s\"\n", argv[i]);
-					return ErrorCode;
-				}
-                            } else if (strcmp(argv[i], "-b") == 0 || strcmp(argv[i], "--debugging") == 0) {
+		}else if (strcmp(argv[i], "-b") == 0 || strcmp(argv[i], "--debugging") == 0) {
                                 debugging = true;
 		} else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0){
 			printf(	"Usage: verifypn [options] model-file query-file\n"
@@ -280,7 +267,7 @@ int main(int argc, char* argv[]){
 					"Options:\n"
 					"  -k, --k-bound <number of tokens>   Token bound, 0 to ignore (default)\n"
 					"  -t, --trace                        Provide XML-trace to stderr\n"
-                                                                   "  -b, --debugging                        Print all debugging messages\n"
+                    "  -b, --debugging                        Print all debugging messages\n"
 					"  -s, --search-strategy <strategy>   Search strategy:\n"
 					"                                     - BestFS       Heuristic search (default)\n"
 					"                                     - BFS          Breadth first search\n"
@@ -298,11 +285,10 @@ int main(int argc, char* argv[]){
 					"                                     - 1  aggressive reduction\n"
 					"                                     - 2  reduction preserving k-boundedness\n"
 					"\n"
-					"  -l, --ltsmin                       Enable LTSmin:\n"
+					"  -o, --on-the-fly                   Enable LTSmin:\n"
 					"                                     - 0  disabled (default)\n"
-					"                                     - 1  verify a single query\n"
-					"                                     - 2  verify all queries\n"
-					"                                     - 3  search state space\n"
+					"                                     - 1  verify sequentially\n"
+					"                                     - 2  verify parallely\n"
 					"\n"
 					"Return Values:\n"
 					"  0   Successful, query satisfiable\n"
@@ -337,7 +323,9 @@ int main(int argc, char* argv[]){
 		enablereduction = 0;
 		kbound = 0;
 		outputtrace = false;
+		cmd += " bfs";
 	}
+	else cmd += " dfs";
 
 
 	//----------------------- Validate Arguments -----------------------//
@@ -557,7 +545,13 @@ int main(int argc, char* argv[]){
         if(debugging) cout<<"Context Analysis time elapsed: "<<double(diffclock(contextAnalysis_end,contextAnalysis_begin))<<" ms\n"<<endl;
 
 //--------------------------------------------Reachability------------------------------------------------------------------
+stringstream nc;
+nc << numberOfCores;
+string NumberOfCores = " ";
+NumberOfCores += nc.str();
 
+cmd += NumberOfCores;
+if (debugging) printf("executing with the command %s\n", cmd.c_str());
 	//Create reachability search strategy
 	ReachabilitySearchStrategy* strategy = NULL;
 	if(searchstrategy == BestFS)
@@ -632,10 +626,7 @@ int main(int argc, char* argv[]){
                     notSatisfiable[i] = 0;
                 }
                 else if(result.result() == ReachabilityResult::NotSatisfied){
-       				if(tool == TMC){
-                    	if (isInvariantlist[i]) fprintf(stdout, "\nFORMULA %s TRUE TECHNIQUES COLLATERAL_PROCESSING COEXPLICIT STRUCTURAL_REDUCTION\n ", XMLparser.queries[i].id.c_str());
-                    	else if(!isInvariantlist[i]) fprintf(stdout, "\nFORMULA %s FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION \n ", XMLparser.queries[i].id.c_str());
-                	}else if(tool == TSEQ){
+       				if(tool == TSEQ){
                 		if (isInvariantlist[i]) fprintf(stdout, "\nFORMULA %s TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ", XMLparser.queries[i].id.c_str());
                     	else if(!isInvariantlist[i]) fprintf(stdout, "\nFORMULA %s FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION \n ", XMLparser.queries[i].id.c_str());	
                 	}else if(tool == TPAR){
@@ -696,6 +687,8 @@ int main(int argc, char* argv[]){
 
             cmd += " 2>&1";
 
+if (debugging) printf("executing with the command %s\n", cmd.c_str());
+
 
             if(ltsminMode == MC){ // multicore
             int q, m, s;
@@ -735,11 +728,11 @@ int main(int argc, char* argv[]){
 
                             size_t end_quote = data.find("states", startPos + 1);
                             size_t nameLen = (end_quote - startPos) + 1;
-                            ssresult = data.substr(startPos + 8, nameLen - 3);
+                            ssresult = data.substr(startPos + 8, nameLen - 9);
                             startPos += ssresult.size();
 
 
-                        string queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES PARALLEL_PROCESSING EXPLICIT";
+                        string queryResult1 = string("STATE_SPACE STATES") + ssresult + " TECHNIQUES PARALLEL_PROCESSING EXPLICIT";
                         printf("%s\n", queryResult1.c_str());
 
                     }
@@ -755,7 +748,7 @@ int main(int argc, char* argv[]){
                             startPos += ssresult.size();
                         }
 
-                        string queryResult2 = string("STATE SPACE TRANSITIONS") + ssresult + " TECHNIQUES PARALLEL_PROCESSING EXPLICIT";
+                        string queryResult2 = string("STATE_SPACE TRANSITIONS") + ssresult + " TECHNIQUES PARALLEL_PROCESSING EXPLICIT";
                         printf("%s\n", queryResult2.c_str());
                     }
 
@@ -809,8 +802,8 @@ int main(int argc, char* argv[]){
                 }
             }
 
-            fprintf(stdout, "STATE SPACE MAX_TOKENS_IN_MARKING %s TECHNIQUES PARALLEL_PROCESSING EXPLICIT\n", maxTokInMark.c_str());
-            fprintf(stdout, "STATE SPACE MAX_TOKENS_IN_PLACE %s TECHNIQUES PARALLEL_PROCESSING EXPLICIT\n", tokInOnePlace.c_str());
+            fprintf(stdout, "STATE_SPACE MAX_TOKENS_PER_MARKING %s TECHNIQUES PARALLEL_PROCESSING EXPLICIT\n", maxTokInMark.c_str());
+            fprintf(stdout, "STATE_SPACE MAX_TOKENS_IN_PLACE %s TECHNIQUES PARALLEL_PROCESSING EXPLICIT\n", tokInOnePlace.c_str());
 
             pclose(stream);
             return 0; // We're done. No need to continue from here.
@@ -849,10 +842,7 @@ int main(int argc, char* argv[]){
                         string queryResult1;
 
                         if(tool == TSEQ){
-                        queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT";
-                    	}
-                    	else if(tool == TMC){
-                        queryResult1 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES COLLATERAL_PROCESSING EXPLICIT";
+                        queryResult1 = string("STATE_SPACE STATES") + ssresult + " TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT";
                     	}
                         printf("%s\n", queryResult1.c_str());
                         results++;
@@ -872,10 +862,7 @@ int main(int argc, char* argv[]){
                         string queryResult2;
 
        					if(tool == TSEQ){
-                        queryResult2 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT";
-                    	}
-                    	else if(tool == TMC){
-                        queryResult2 = string("STATE SPACE STATES") + ssresult + " TECHNIQUES COLLATERAL_PROCESSING EXPLICIT";
+                        queryResult2 = string("STATE_SPACE TRANSITIONS") + ssresult + " TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT";
                     	}
                         printf("%s\n", queryResult2.c_str());
                         results++;
@@ -892,10 +879,7 @@ int main(int argc, char* argv[]){
                             ssresult = data.substr(startPos + 1, nameLen - 2);
 
 	                        if(tool == TSEQ){
-                            fprintf(stdout, "STATE SPACE MAX_TOKENS_IN_MARKING %s TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT\n", ssresult.c_str());
-	                    	}
-	                    	else if(tool == TMC){
-                            fprintf(stdout, "STATE SPACE MAX_TOKENS_IN_MARKING %s TECHNIQUES COLLATERAL_PROCESSING EXPLICIT\n", ssresult.c_str());
+                            fprintf(stdout, "STATE_SPACE MAX_TOKENS_PER_MARKING %s TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT\n", ssresult.c_str());
 	                    	}
                             results++;
                         }
@@ -911,10 +895,7 @@ int main(int argc, char* argv[]){
                             size_t nameLen = (end_quote - startPos) + 1;
                             ssresult = data.substr(startPos + 1, nameLen - 2);
                             if(tool == TSEQ){
-                            fprintf(stdout, "STATE SPACE MAX_TOKENS_IN_PLACE %s TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT\n", ssresult.c_str());
-	                    	}
-	                    	else if(tool == TMC){
-                            fprintf(stdout, "STATE SPACE MAX_TOKENS_IN_PLACE %s TECHNIQUES COLLATERAL_PROCESSING EXPLICIT\n", ssresult.c_str());
+                            fprintf(stdout, "STATE_SPACE MAX_TOKENS_IN_PLACE %s TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT\n", ssresult.c_str());
 	                    	}
                             results++;
                         }                      
@@ -1130,35 +1111,19 @@ int main(int argc, char* argv[]){
      		}
 
      		if((startPos = data.find(searchDeadlock1)) != std::string::npos) {
-     		if(tool == TMC){
-     			string queryResultSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() + 
-                    " TRUE TECHNIQUES COLLATERAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
-                    printf("%s\n", queryResultSat.c_str());
-		    deadlockFound = true;
-		      break;
-     		}
-     		else if(tool == TSEQ){
-     			string queryResultSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() + 
-                    " TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
-                    printf("%s\n", queryResultSat.c_str());
-		    deadlockFound = true;
-		      break;
-     		}
-		  
+	     		if(tool == TSEQ){
+	     			string queryResultSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() + 
+	                    " TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
+	                    printf("%s\n", queryResultSat.c_str());
+			    deadlockFound = true;
+			      break;
+	     		}
      		}
 
 
 	        if((startPos = data.find(exitMessage)) != std::string::npos) {
 
-	        if(tool == TMC){
-
-		    string queryResultNotSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() + 
-                    " FALSE TECHNIQUES COLLATERAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
-        	    printf("%s\n", queryResultNotSat.c_str());
-                    break;
-
-	        }
-	        else if(tool == TSEQ){
+	        if(tool == TSEQ){
 
 		    string queryResultNotSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() + 
                     " FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
@@ -1247,7 +1212,7 @@ int main(int argc, char* argv[]){
 	                                string queryResultNotSat;
 
 
-	                                		if(tool == TSEQ || tool == TMC ){
+	                                		if(tool == TSEQ){
 
                                             queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
                                             queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
@@ -1370,7 +1335,7 @@ int main(int argc, char* argv[]){
 	                    string queryResultNotSat;
 	                	//EF not satisfied
 	                	if(!solved[q] && !isInvariantlist[q] && !ltsminVerified[q] && !XMLparser.queries[q].isPlaceBound){
-	                	if(tool == TSEQ || tool == TMC ){
+	                	if(tool == TSEQ){
 	                		 	queryResultNotSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                		fprintf(stdout, "%s\n", queryResultNotSat.c_str());
 	                	}
@@ -1385,7 +1350,7 @@ int main(int argc, char* argv[]){
 	                	//AG satisfied
 	                	else if(!solved[q] && isInvariantlist[q] && !ltsminVerified[q] && !XMLparser.queries[q].isPlaceBound){
 
-	                		if(tool == TSEQ || tool == TMC ){
+	                		if(tool == TSEQ){
 	                			queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                		fprintf(stdout, "%s\n", queryResultSat.c_str());
 	                		}
@@ -1396,7 +1361,7 @@ int main(int argc, char* argv[]){
 	                		
 	                	}
                                     else if(XMLparser.queries[q].isPlaceBound){
-                                    	if(tool == TSEQ || tool == TMC ){
+                                    	if(tool == TSEQ){
                                     		fprintf(stdout, "FORMULA %s %d TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", XMLparser.queries[q].id.c_str(), maxTokens[q]);
                                     	}
                                     	else if(tool == TPAR){
@@ -1422,11 +1387,7 @@ int main(int argc, char* argv[]){
 
                     if(solution == FailedCode){
 
-                    	if(tool == TMC){
-                    		  fprintf(stdout, "FALSE TECHNIQUES COLLATERAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n");
-                        fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
-                    	}
-                    	else if(tool == TSEQ){
+                		if(tool == TSEQ){
                     		  fprintf(stdout, "FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n");
                         fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
                     	}
@@ -1440,10 +1401,7 @@ int main(int argc, char* argv[]){
 
                     else if(solution == SuccessCode){
 
-                    	if(tool == TMC){
-                        fprintf(stdout, "TRUE TECHNIQUES COLLATERAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n");
-                        fprintf(stdout, "\nQuery is satisfied.\n\n");}
-                    	else if(tool == TSEQ){
+                    	if(tool == TSEQ){
 
                         fprintf(stdout, "TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n");
                         fprintf(stdout, "\nQuery is satisfied.\n\n");
@@ -1498,11 +1456,7 @@ int main(int argc, char* argv[]){
 	else if(retval == SuccessCode) {
 		if (xmlquery>0) {
 
-			if(tool == TMC){
-
-			fprintf(stdout, "TRUE TECHNIQUES COLLATERAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n");
-			}
-			else if(tool == TSEQ){
+			if(tool == TSEQ){
 
 			fprintf(stdout, "TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n");
 			}
@@ -1518,11 +1472,7 @@ int main(int argc, char* argv[]){
 			// find index of the place for reporting place bound
 			for(size_t p = 0; p < result.maxPlaceBound().size(); p++) {
 				if (pnames[p]==XMLparser.queries[xmlquery].placeNameForBound) {
-					if(tool == TMC){
-
-					fprintf(stdout, "%d TECHNIQUES COLLATERAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", result.maxPlaceBound()[p]);
-					}
-					else if(tool == TSEQ){
+					if(tool == TSEQ){
 
 					fprintf(stdout, "%d TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", result.maxPlaceBound()[p]);
 					}
@@ -1537,11 +1487,7 @@ int main(int argc, char* argv[]){
 			}
 		} else {
 			if (xmlquery>0) {
-				if(tool == TMC){
-
-				fprintf(stdout, "FALSE TECHNIQUES COLLATERAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n");
-				}
-				else if(tool == TSEQ){
+				if(tool == TSEQ){
 
 				fprintf(stdout, "FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n");
 				}
