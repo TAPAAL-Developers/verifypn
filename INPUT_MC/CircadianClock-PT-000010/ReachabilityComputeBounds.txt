@@ -1,0 +1,80 @@
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("a")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("a")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("da_a")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("ma_cap")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("mr")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("dr")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("c")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("a_cap")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("c_cap")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("ma_cap")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("c_cap")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("da_a")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("c_cap")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("ma")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("ma_cap")
+  end.
+Property CircadianClock-PT-000010-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("dr_a")
+  end.

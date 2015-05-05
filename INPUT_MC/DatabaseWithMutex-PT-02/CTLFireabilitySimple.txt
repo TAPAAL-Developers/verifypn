@@ -1,0 +1,80 @@
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A G ("Release_1_2", "Release_2_2", "Release_1_1", "Release_2_1")?
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F ("end_update_2_1", "end_update_1_1", "end_update_1_2", "end_update_2_2")?
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E G ("SendMsg_1_1", "SendMsg_2_1", "SendMsg_2_2", "SendMsg_1_2")?
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A G ("end_update_2_1", "end_update_1_1", "end_update_1_2", "end_update_2_2")?
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A G ("Acquire_2_1", "Acquire_1_1", "Acquire_2_2", "Acquire_1_2")?
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A ((("Release_1_2", "Release_2_2", "Release_1_1", "Release_2_1")?) U (("end_update_2_1", "end_update_1_1", "end_update_1_2", "end_update_2_2")?))
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E G ("end_update_2_1", "end_update_1_1", "end_update_1_2", "end_update_2_2")?
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E ((("Update_1_2", "Update_2_2", "Update_1_1", "Update_2_1")?) U (("Update_1_2", "Update_2_2", "Update_1_1", "Update_2_1")?))
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A ((("Release_1_2", "Release_2_2", "Release_1_1", "Release_2_1")?) U (("Change_1_1", "Change_1_2", "Change_2_2", "Change_2_1")?))
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E X ("SendMsg_1_1", "SendMsg_2_1", "SendMsg_2_2", "SendMsg_1_2")?
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E G ("end_update_2_1", "end_update_1_1", "end_update_1_2", "end_update_2_2")?
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A ((("Release_1_2", "Release_2_2", "Release_1_1", "Release_2_1")?) U (("Start_1_1", "Start_2_1", "Start_2_2", "Start_1_2")?))
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E X ("SendMsg_1_1", "SendMsg_2_1", "SendMsg_2_2", "SendMsg_1_2")?
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E G ("Acquire_2_1", "Acquire_1_1", "Acquire_2_2", "Acquire_1_2")?
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A ((("SendReply_2_2", "SendReply_1_2", "SendReply_2_1", "SendReply_1_1")?) U (("SendMsg_1_1", "SendMsg_2_1", "SendMsg_2_2", "SendMsg_1_2")?))
+  end.
+Property DatabaseWithMutex-COL-02-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A G ("SendReply_2_2", "SendReply_1_2", "SendReply_2_1", "SendReply_1_1")?
+  end.

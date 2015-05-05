@@ -1,0 +1,80 @@
+Property ProductionCell-PT-none-LTLFireability-0
+  "Automatically generated"
+  is:
+    A F "t42"?
+  end.
+Property ProductionCell-PT-none-LTLFireability-1
+  "Automatically generated"
+  is:
+    A X "t23"?
+  end.
+Property ProductionCell-PT-none-LTLFireability-2
+  "Automatically generated"
+  is:
+    A X "t105"?
+  end.
+Property ProductionCell-PT-none-LTLFireability-3
+  "Automatically generated"
+  is:
+    A ((F "t45"?) U ("t14"?))
+  end.
+Property ProductionCell-PT-none-LTLFireability-4
+  "Automatically generated"
+  is:
+    A ((F "t32"?) U (X X X "t29"?))
+  end.
+Property ProductionCell-PT-none-LTLFireability-5
+  "Automatically generated"
+  is:
+    A ((F F X "t72"?) U (X F X "t95"?))
+  end.
+Property ProductionCell-PT-none-LTLFireability-6
+  "Automatically generated"
+  is:
+    A X G G F G "t93"?
+  end.
+Property ProductionCell-PT-none-LTLFireability-7
+  "Automatically generated"
+  is:
+    A "t119"?
+  end.
+Property ProductionCell-PT-none-LTLFireability-8
+  "Automatically generated"
+  is:
+    A "t118"?
+  end.
+Property ProductionCell-PT-none-LTLFireability-9
+  "Automatically generated"
+  is:
+    A F X X (("t16"?) U ("t19"?))
+  end.
+Property ProductionCell-PT-none-LTLFireability-10
+  "Automatically generated"
+  is:
+    A "t36"?
+  end.
+Property ProductionCell-PT-none-LTLFireability-11
+  "Automatically generated"
+  is:
+    A ((((F "t19"?) U ("t123"?))) U (F F F "t19"?))
+  end.
+Property ProductionCell-PT-none-LTLFireability-12
+  "Automatically generated"
+  is:
+    A F X "t128"?
+  end.
+Property ProductionCell-PT-none-LTLFireability-13
+  "Automatically generated"
+  is:
+    A X "t47"?
+  end.
+Property ProductionCell-PT-none-LTLFireability-14
+  "Automatically generated"
+  is:
+    A X (((("t8"?) U ("t62"?))) U (X F "t26"?))
+  end.
+Property ProductionCell-PT-none-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X ((G "t32"?) U ("t45"?))
+  end.

@@ -1,0 +1,80 @@
+Property FMS-PT-010-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G G X G F "tP1s"?
+  end.
+Property FMS-PT-010-LTLFireability-1
+  "Automatically generated"
+  is:
+    A "tP12"?
+  end.
+Property FMS-PT-010-LTLFireability-2
+  "Automatically generated"
+  is:
+    A "tP2s"?
+  end.
+Property FMS-PT-010-LTLFireability-3
+  "Automatically generated"
+  is:
+    A "tP3M2"?
+  end.
+Property FMS-PT-010-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X F (("tP3M2"?) U (F "tM2"?))
+  end.
+Property FMS-PT-010-LTLFireability-5
+  "Automatically generated"
+  is:
+    A G G G "tP12s"?
+  end.
+Property FMS-PT-010-LTLFireability-6
+  "Automatically generated"
+  is:
+    A ((F (("tP3s"?) U ("tP1j"?))) U ("tP2e"?))
+  end.
+Property FMS-PT-010-LTLFireability-7
+  "Automatically generated"
+  is:
+    A F G ((F "tP12M3"?) U (X "tM1"?))
+  end.
+Property FMS-PT-010-LTLFireability-8
+  "Automatically generated"
+  is:
+    A G F ((G "tP2"?) U (F "tP1s"?))
+  end.
+Property FMS-PT-010-LTLFireability-9
+  "Automatically generated"
+  is:
+    A F X ((X "tP12M3"?) U (X "tP2e"?))
+  end.
+Property FMS-PT-010-LTLFireability-10
+  "Automatically generated"
+  is:
+    A (((("tP1e"?) U ("tP1M1"?))) U (G G G "tP12"?))
+  end.
+Property FMS-PT-010-LTLFireability-11
+  "Automatically generated"
+  is:
+    A ((G (("tM3"?) U ("tP12M3"?))) U (G F F "tP12M3"?))
+  end.
+Property FMS-PT-010-LTLFireability-12
+  "Automatically generated"
+  is:
+    A G G G G "tP2e"?
+  end.
+Property FMS-PT-010-LTLFireability-13
+  "Automatically generated"
+  is:
+    A "tM1"?
+  end.
+Property FMS-PT-010-LTLFireability-14
+  "Automatically generated"
+  is:
+    A F G G (("tP3s"?) U ("tP12s"?))
+  end.
+Property FMS-PT-010-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X "tP1M1"?
+  end.

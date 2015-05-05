@@ -1,0 +1,80 @@
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t21485"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t21702"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t28931"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t3874"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t24371"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t13482"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t2278"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t17729"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t265"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t3190"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t25755"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t12279"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t28931"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t30635"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t21544"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t14512"?
+  end.

@@ -1,0 +1,80 @@
+Property Planning-PT-none-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G "t110"?
+  end.
+Property Planning-PT-none-LTLFireability-1
+  "Automatically generated"
+  is:
+    A G "t127"?
+  end.
+Property Planning-PT-none-LTLFireability-2
+  "Automatically generated"
+  is:
+    A "t50"?
+  end.
+Property Planning-PT-none-LTLFireability-3
+  "Automatically generated"
+  is:
+    A F X X X "t44"?
+  end.
+Property Planning-PT-none-LTLFireability-4
+  "Automatically generated"
+  is:
+    A F F X "t24"?
+  end.
+Property Planning-PT-none-LTLFireability-5
+  "Automatically generated"
+  is:
+    A ((X (("t7"?) U ("t110"?))) U (G X "t73"?))
+  end.
+Property Planning-PT-none-LTLFireability-6
+  "Automatically generated"
+  is:
+    A (("t95"?) U (((G "t13"?) U (G "t31"?))))
+  end.
+Property Planning-PT-none-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X X G "t85"?
+  end.
+Property Planning-PT-none-LTLFireability-8
+  "Automatically generated"
+  is:
+    A ((F G G "t92"?) U ("t59"?))
+  end.
+Property Planning-PT-none-LTLFireability-9
+  "Automatically generated"
+  is:
+    A ((X (("t82"?) U ("t11"?))) U (X (("t117"?) U ("t108"?))))
+  end.
+Property Planning-PT-none-LTLFireability-10
+  "Automatically generated"
+  is:
+    A F ((F F "t50"?) U ((("t126"?) U ("t57"?))))
+  end.
+Property Planning-PT-none-LTLFireability-11
+  "Automatically generated"
+  is:
+    A ((X G "t25"?) U ("t79"?))
+  end.
+Property Planning-PT-none-LTLFireability-12
+  "Automatically generated"
+  is:
+    A G X ((G "t120"?) U (F "t115"?))
+  end.
+Property Planning-PT-none-LTLFireability-13
+  "Automatically generated"
+  is:
+    A "t16"?
+  end.
+Property Planning-PT-none-LTLFireability-14
+  "Automatically generated"
+  is:
+    A ((G G X "t11"?) U (F X F "t64"?))
+  end.
+Property Planning-PT-none-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X "t116"?
+  end.

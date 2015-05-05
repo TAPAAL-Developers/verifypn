@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t_0_3"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t_0_3"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A G "t_2_3"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t_1_2"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A G "t_1_0"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A G "t_1_0"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t_0_0"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t_1_3"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t_1_1"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t_1_3"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A G "t_1_1"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A G "t_1_2"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t_0_2"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t_0_2"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t_0_2"?
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A G "t_1_2"?
+  end.

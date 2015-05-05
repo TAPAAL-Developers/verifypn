@@ -1,0 +1,80 @@
+Property EnergyBus-PT-none-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    A G ((((! (("t1185"?) & ("t3635"?))) | ((((("t2576"?) | ("t1188"?))) | ("t124"?))))) | (! (((("t573"?) | ("t1219"?))) | (! "t3174"?))))
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    A G (("t4365"?) | (! "t1251"?))
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    A G ((((((! "t3671"?) | ((("t2261"?) | ("t3705"?))))) & (! (("t1253"?) & ("t1649"?))))) | (((! "t2934"?) | (! "t496"?))))
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F (((((((("t179"?) & ("t2909"?))) | ((("t576"?) & ("t4139"?))))) & ("t1786"?))) & (((! ! "t930"?) | (! (("t2532"?) & ("t4304"?))))))
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    A G ! ! ! "t2631"?
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G (((((((("t1874"?) | ("t4015"?))) & ("t972"?))) | ("t3472"?))) | (! (((("t1620"?) | ("t2195"?))) & ("t3834"?))))
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G ! "t2990"?
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G ! ((! ! "t2057"?) & (((! "t1381"?) & (! "t1195"?))))
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    A G ((! ! ! "t2961"?) | ((("t3720"?) & ((((("t302"?) & ("t2179"?))) & ((("t2981"?) | ("t54"?))))))))
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G ! ! ! (("t984"?) & ("t4323"?))
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F (((((((("t1087"?) | ("t1493"?))) | ("t2899"?))) | ((((("t2724"?) | ("t4359"?))) & (! "t3704"?))))) & ("t4316"?))
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F "t2949"?
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ! ! ((! "t4152"?) | ((("t1592"?) & ("t1873"?))))
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F (("t3230"?) & ((((("t835"?) | ("t3948"?))) & (((! "t4339"?) & ((("t142"?) & ("t3493"?))))))))
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F "t1412"?
+  end.
+Property EnergyBus-PT-none-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    A G ! ! ! (("t2922"?) & ("t3825"?))
+  end.

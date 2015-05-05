@@ -1,0 +1,80 @@
+Property Ring-PT-none-CTLCardinality-0
+  "Automatically generated"
+  is:
+    E F A F ((((2) <= (#tokens("P74")))) & (((#tokens("P79")) <= (#tokens("P114")))))
+  end.
+Property Ring-PT-none-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ((((E G ! ((#tokens("P57")) <= (#tokens("P16")))) & (E F ! ((2) <= (#tokens("P17")))))) & (((E ((((#tokens("P1")) <= (#tokens("P72")))) U (((3) <= (#tokens("P8")))))) | (((2) <= (#tokens("P52")))))))
+  end.
+Property Ring-PT-none-CTLCardinality-2
+  "Automatically generated"
+  is:
+    A G ((A G ((#tokens("P71")) <= (#tokens("P29")))) | (((! ((#tokens("P71")) <= (#tokens("P47")))) | (((((1) <= (#tokens("P13")))) & (((#tokens("P15")) <= (#tokens("P54")))))))))
+  end.
+Property Ring-PT-none-CTLCardinality-3
+  "Automatically generated"
+  is:
+    ((((E F ((3) <= (#tokens("P7")))) | (((((#tokens("P134")) <= (#tokens("P25")))) & (! ((((3) <= (#tokens("P74")))) & (((2) <= (#tokens("P117")))))))))) & (((E G ((((1) <= (#tokens("P136")))) | (((#tokens("P121")) <= (#tokens("P100")))))) & (((! ((((#tokens("P82")) <= (#tokens("P9")))) | (((#tokens("P38")) <= (#tokens("P138")))))) | (((((((#tokens("P54")) <= (#tokens("P27")))) | (((#tokens("P122")) <= (#tokens("P82")))))) & (((((#tokens("P113")) <= (#tokens("P31")))) | (((#tokens("P28")) <= (#tokens("P98")))))))))))))
+  end.
+Property Ring-PT-none-CTLCardinality-4
+  "Automatically generated"
+  is:
+    E ((E G ((#tokens("P9")) <= (#tokens("P100")))) U (! ((((#tokens("P26")) <= (#tokens("P129")))) | (((#tokens("P91")) <= (#tokens("P111")))))))
+  end.
+Property Ring-PT-none-CTLCardinality-5
+  "Automatically generated"
+  is:
+    E F E ((((#tokens("P41")) <= (#tokens("P53")))) U (((2) <= (#tokens("P138")))))
+  end.
+Property Ring-PT-none-CTLCardinality-6
+  "Automatically generated"
+  is:
+    E X ((! ((((1) <= (#tokens("P128")))) | (((#tokens("P37")) <= (#tokens("P109")))))) & (E F ((2) <= (#tokens("P121")))))
+  end.
+Property Ring-PT-none-CTLCardinality-7
+  "Automatically generated"
+  is:
+    E X A F ! ((#tokens("P27")) <= (#tokens("P132")))
+  end.
+Property Ring-PT-none-CTLCardinality-8
+  "Automatically generated"
+  is:
+    E ((((#tokens("P79")) <= (#tokens("P73")))) U (((3) <= (#tokens("P63")))))
+  end.
+Property Ring-PT-none-CTLCardinality-9
+  "Automatically generated"
+  is:
+    ((E ((! ((1) <= (#tokens("P81")))) U (((((#tokens("P50")) <= (#tokens("P125")))) & (((#tokens("P11")) <= (#tokens("P138")))))))) & (E F ((((#tokens("P55")) <= (#tokens("P23")))) & (((((2) <= (#tokens("P116")))) & (((#tokens("P40")) <= (#tokens("P101")))))))))
+  end.
+Property Ring-PT-none-CTLCardinality-10
+  "Automatically generated"
+  is:
+    A G E F ((2) <= (#tokens("P138")))
+  end.
+Property Ring-PT-none-CTLCardinality-11
+  "Automatically generated"
+  is:
+    ! A G ! ((((3) <= (#tokens("P29")))) & (((#tokens("P33")) <= (#tokens("P61")))))
+  end.
+Property Ring-PT-none-CTLCardinality-12
+  "Automatically generated"
+  is:
+    E F ((1) <= (#tokens("P84")))
+  end.
+Property Ring-PT-none-CTLCardinality-13
+  "Automatically generated"
+  is:
+    E F E ((((#tokens("P54")) <= (#tokens("P111")))) U (((#tokens("P63")) <= (#tokens("P3")))))
+  end.
+Property Ring-PT-none-CTLCardinality-14
+  "Automatically generated"
+  is:
+    E X ((E F ((#tokens("P73")) <= (#tokens("P81")))) & (E F ((#tokens("P51")) <= (#tokens("P16")))))
+  end.
+Property Ring-PT-none-CTLCardinality-15
+  "Automatically generated"
+  is:
+    E ((A G ((#tokens("P71")) <= (#tokens("P108")))) U (A X ((#tokens("P37")) <= (#tokens("P128")))))
+  end.

@@ -1,0 +1,80 @@
+Property Ring-PT-none-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "T29"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "T2"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "T76"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "T30"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "T41"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "T30"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "T83"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "T41"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "T20"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "T48"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "T21"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "T2"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "T23"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "T30"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "T25"?
+  end.
+Property Ring-PT-none-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "T39"?
+  end.

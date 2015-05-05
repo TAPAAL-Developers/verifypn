@@ -1,0 +1,80 @@
+Property ARMCacheCoherence-PT-none-CTLFireability-0
+  "Automatically generated"
+  is:
+    E F ((A (("t20194"?) U ("t4494"?))) | ((((((("t17514"?) & ("t5052"?))) | ("t25326"?))) & ("t16098"?))))
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-1
+  "Automatically generated"
+  is:
+    ((A G A F ! "t22956"?) & (E G ((A G "t9881"?) | (((! "t31804"?) & (! "t29833"?))))))
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-2
+  "Automatically generated"
+  is:
+    ((! ((E F "t13598"?) & (E F ! "t7076"?))) | (E F A G (("t25680"?) & ("t6013"?))))
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-3
+  "Automatically generated"
+  is:
+    E F E G E X "t21205"?
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-4
+  "Automatically generated"
+  is:
+    A (("t3395"?) U (! E F "t16836"?))
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-5
+  "Automatically generated"
+  is:
+    E F ((A (("t14119"?) U ("t8547"?))) & (((E F "t20296"?) | ("t19790"?))))
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-6
+  "Automatically generated"
+  is:
+    A (("t7886"?) U (! E F "t6886"?))
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-7
+  "Automatically generated"
+  is:
+    E F ! ! A X "t21818"?
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-8
+  "Automatically generated"
+  is:
+    ((E F E G (("t11207"?) & ("t33637"?))) | (E G ((A X "t28080"?) & ("t26375"?))))
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-9
+  "Automatically generated"
+  is:
+    ! E F (("t29454"?) & (A F "t27114"?))
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-10
+  "Automatically generated"
+  is:
+    E ((! ((! "t8299"?) & ("t20628"?))) U (E X (("t18652"?) & ("t9924"?))))
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-11
+  "Automatically generated"
+  is:
+    A G E F (("t16178"?) | ((("t22012"?) & ("t24843"?))))
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-12
+  "Automatically generated"
+  is:
+    ((E F A X (("t17619"?) & ("t2917"?))) & (E (("t32676"?) U (((! "t14481"?) | ("t18847"?))))))
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-13
+  "Automatically generated"
+  is:
+    ((! ((A X "t3276"?) & (! E X "t29878"?))) & (A G ! (((("t25112"?) | ("t25716"?))) & ("t29733"?))))
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-14
+  "Automatically generated"
+  is:
+    E F E ((! "t32294"?) U ((("t22727"?) & ("t245"?))))
+  end.
+Property ARMCacheCoherence-PT-none-CTLFireability-15
+  "Automatically generated"
+  is:
+    A G ! E G "t32318"?
+  end.

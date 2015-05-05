@@ -1,0 +1,80 @@
+Property Angiogenesis-PT-05-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A F ((#tokens("KdStarPgStar")) <= (#tokens("KdStarGStarP3kStar")))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A X ((#tokens("KdStarGStarPgStarP3P2")) <= (#tokens("Akt")))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A ((((((#tokens("KdStarPgStar")) <= (#tokens("DAGE")))) U (((1) <= (#tokens("KdStarPg")))))) U (((((1) <= (#tokens("Akt")))) U (((3) <= (#tokens("GP3")))))))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A X F X ((#tokens("KdStarGStarPgStarP3")) <= (#tokens("KdStarGStarPgStarP3P2")))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A F F X G ((#tokens("KdStarGStar")) <= (#tokens("KdStarGStarPgP3")))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A F ((((#tokens("KdStarGStarPgStarP2")) <= (#tokens("GP3")))) U (((#tokens("KdStarGStarP3kStarP3")) <= (#tokens("KdStarGStarPgP3")))))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A X G ((((1) <= (#tokens("PtP2")))) U (((#tokens("KdStarGStarP3kStar")) <= (#tokens("KdStarGStarP3kStarP3P2")))))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A G G ((((1) <= (#tokens("PtP2")))) U (((2) <= (#tokens("GStarPgP3")))))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A G X ((2) <= (#tokens("KdStarPgStarP2")))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A G G ((((1) <= (#tokens("KdStarGStarPgStarP3P2")))) U (((2) <= (#tokens("KdStarGStarP3k")))))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A X X F X ((3) <= (#tokens("DAG")))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((((((#tokens("KdStarGStarP3kP3")) <= (#tokens("KdStarPgStar")))) U (((#tokens("KdStarGStarPg")) <= (#tokens("KdStarGStarP3kStarP2")))))) U (((1) <= (#tokens("PtP3")))))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((#tokens("Akt")) <= (#tokens("AktP3")))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A ((#tokens("AktP3")) <= (#tokens("Pip3")))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((F G ((1) <= (#tokens("AktP3")))) U (G X ((#tokens("DAGE")) <= (#tokens("Pip2")))))
+  end.
+Property Angiogenesis-PT-05-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A G F F G ((1) <= (#tokens("KdStarG")))
+  end.

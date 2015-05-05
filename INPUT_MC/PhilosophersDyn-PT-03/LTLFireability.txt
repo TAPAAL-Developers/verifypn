@@ -1,0 +1,80 @@
+Property PhilosophersDyn-COL-03-LTLFireability-0
+  "Automatically generated"
+  is:
+    A X G G X ("Leave_2_1_1", "Leave_3_2_3", "Leave_1_1_2", "Leave_3_1_1", "Leave_3_3_2", "Leave_1_2_1", "Leave_1_1_3", "Leave_2_2_3", "Leave_3_3_1", "Leave_2_3_3", "Leave_2_2_1", "Leave_1_3_2", "Leave_2_3_1", "Leave_1_3_3", "Leave_2_3_2", "Leave_1_3_1", "Leave_3_1_3", "Leave_1_2_2", "Leave_3_3_3", "Leave_3_2_1", "Leave_2_1_3", "Leave_3_2_2", "Leave_2_2_2", "Leave_3_1_2", "Leave_1_1_1", "Leave_2_1_2", "Leave_1_2_3")?
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-1
+  "Automatically generated"
+  is:
+    A G F ((F ("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?) U (("TakeLeft_3", "TakeLeft_1", "TakeLeft_2")?))
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-2
+  "Automatically generated"
+  is:
+    A ((((("Eat_3_2", "Eat_1_3", "Eat_1_2", "Eat_2_2", "Eat_3_1", "Eat_2_1", "Eat_2_3", "Eat_1_1", "Eat_3_3")?) U (F ("Initialize_3_1", "Initialize_2_1", "Initialize_3_2", "Initialize_1_2", "Initialize_1_3", "Initialize_2_3")?))) U (((F ("Eat_3_2", "Eat_1_3", "Eat_1_2", "Eat_2_2", "Eat_3_1", "Eat_2_1", "Eat_2_3", "Eat_1_1", "Eat_3_3")?) U (F ("TakeRight_1_1", "TakeRight_2_3", "TakeRight_2_1", "TakeRight_3_1", "TakeRight_1_3", "TakeRight_3_2", "TakeRight_1_2", "TakeRight_2_2", "TakeRight_3_3")?))))
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-3
+  "Automatically generated"
+  is:
+    A G X ("Initialize_3_1", "Initialize_2_1", "Initialize_3_2", "Initialize_1_2", "Initialize_1_3", "Initialize_2_3")?
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-4
+  "Automatically generated"
+  is:
+    A ("TakeRight_1_1", "TakeRight_2_3", "TakeRight_2_1", "TakeRight_3_1", "TakeRight_1_3", "TakeRight_3_2", "TakeRight_1_2", "TakeRight_2_2", "TakeRight_3_3")?
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-5
+  "Automatically generated"
+  is:
+    A X F F F G ("SearchForks_1", "SearchForks_3", "SearchForks_2")?
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-6
+  "Automatically generated"
+  is:
+    A G ("Eat_3_2", "Eat_1_3", "Eat_1_2", "Eat_2_2", "Eat_3_1", "Eat_2_1", "Eat_2_3", "Eat_1_1", "Eat_3_3")?
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-7
+  "Automatically generated"
+  is:
+    A ("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-8
+  "Automatically generated"
+  is:
+    A F ((((("Leave_2_1_1", "Leave_3_2_3", "Leave_1_1_2", "Leave_3_1_1", "Leave_3_3_2", "Leave_1_2_1", "Leave_1_1_3", "Leave_2_2_3", "Leave_3_3_1", "Leave_2_3_3", "Leave_2_2_1", "Leave_1_3_2", "Leave_2_3_1", "Leave_1_3_3", "Leave_2_3_2", "Leave_1_3_1", "Leave_3_1_3", "Leave_1_2_2", "Leave_3_3_3", "Leave_3_2_1", "Leave_2_1_3", "Leave_3_2_2", "Leave_2_2_2", "Leave_3_1_2", "Leave_1_1_1", "Leave_2_1_2", "Leave_1_2_3")?) U (("Eat_3_2", "Eat_1_3", "Eat_1_2", "Eat_2_2", "Eat_3_1", "Eat_2_1", "Eat_2_3", "Eat_1_1", "Eat_3_3")?))) U (F F ("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?))
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-9
+  "Automatically generated"
+  is:
+    A ("Initialize_3_1", "Initialize_2_1", "Initialize_3_2", "Initialize_1_2", "Initialize_1_3", "Initialize_2_3")?
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-10
+  "Automatically generated"
+  is:
+    A ("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-11
+  "Automatically generated"
+  is:
+    A ("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-12
+  "Automatically generated"
+  is:
+    A F G G F G ("Leave_2_1_1", "Leave_3_2_3", "Leave_1_1_2", "Leave_3_1_1", "Leave_3_3_2", "Leave_1_2_1", "Leave_1_1_3", "Leave_2_2_3", "Leave_3_3_1", "Leave_2_3_3", "Leave_2_2_1", "Leave_1_3_2", "Leave_2_3_1", "Leave_1_3_3", "Leave_2_3_2", "Leave_1_3_1", "Leave_3_1_3", "Leave_1_2_2", "Leave_3_3_3", "Leave_3_2_1", "Leave_2_1_3", "Leave_3_2_2", "Leave_2_2_2", "Leave_3_1_2", "Leave_1_1_1", "Leave_2_1_2", "Leave_1_2_3")?
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-13
+  "Automatically generated"
+  is:
+    A X ("TakeRight_1_1", "TakeRight_2_3", "TakeRight_2_1", "TakeRight_3_1", "TakeRight_1_3", "TakeRight_3_2", "TakeRight_1_2", "TakeRight_2_2", "TakeRight_3_3")?
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-14
+  "Automatically generated"
+  is:
+    A G G ("Initialize_3_1", "Initialize_2_1", "Initialize_3_2", "Initialize_1_2", "Initialize_1_3", "Initialize_2_3")?
+  end.
+Property PhilosophersDyn-COL-03-LTLFireability-15
+  "Automatically generated"
+  is:
+    A F ("TakeRight_1_1", "TakeRight_2_3", "TakeRight_2_1", "TakeRight_3_1", "TakeRight_1_3", "TakeRight_3_2", "TakeRight_1_2", "TakeRight_2_2", "TakeRight_3_3")?
+  end.

@@ -1,0 +1,80 @@
+Property Eratosthenes-PT-010-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((! ((((2) <= (#tokens("p3")))) | (((3) <= (#tokens("p2")))))) | (((((((#tokens("p4")) <= (#tokens("p7")))) | (((#tokens("p3")) <= (#tokens("p4")))))) & (((((3) <= (#tokens("p8")))) & (((#tokens("p2")) <= (#tokens("p2")))))))))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((! ! ((2) <= (#tokens("p5")))) | (((#tokens("p7")) <= (#tokens("p2")))))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("p8")) <= (#tokens("p4")))) & (((2) <= (#tokens("p3")))))) & (((((1) <= (#tokens("p2")))) | (((1) <= (#tokens("p6")))))))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ((#tokens("p10")) <= (#tokens("p5")))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ((#tokens("p8")) <= (#tokens("p9")))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ! ((((((#tokens("p8")) <= (#tokens("p5")))) | (((#tokens("p9")) <= (#tokens("p6")))))) & (((2) <= (#tokens("p9")))))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ! ((((1) <= (#tokens("p8")))) & (((((1) <= (#tokens("p10")))) & (((#tokens("p3")) <= (#tokens("p4")))))))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ! ((1) <= (#tokens("p7")))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ((((! ((#tokens("p6")) <= (#tokens("p2")))) & (! ((#tokens("p10")) <= (#tokens("p3")))))) | (((3) <= (#tokens("p2")))))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("p6")) <= (#tokens("p10")))) | (((1) <= (#tokens("p7")))))) & (((((((2) <= (#tokens("p6")))) | (((1) <= (#tokens("p5")))))) | (((#tokens("p10")) <= (#tokens("p10")))))))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((((#tokens("p9")) <= (#tokens("p8")))) | (((2) <= (#tokens("p10")))))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ! ! ((#tokens("p4")) <= (#tokens("p10")))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((! ((((#tokens("p2")) <= (#tokens("p10")))) | (((2) <= (#tokens("p4")))))) & (((#tokens("p6")) <= (#tokens("p10")))))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((((2) <= (#tokens("p2")))) | (((#tokens("p10")) <= (#tokens("p8")))))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ! ! ((#tokens("p4")) <= (#tokens("p9")))
+  end.
+Property Eratosthenes-PT-010-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((#tokens("p5")) <= (#tokens("p9")))
+  end.

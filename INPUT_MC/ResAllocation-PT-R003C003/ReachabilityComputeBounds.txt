@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("p_0_0")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("r_0_1")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("p_1_2")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("r_1_0")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("r_2_2")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("r_0_0")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("p_2_0")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("p_1_1")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("p_2_2")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("p_1_1")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("r_1_0")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("r_2_0")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("r_0_2")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("p_0_2")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("p_0_0")
+  end.
+Property ResAllocation-PT-R003C003-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("r_2_1")
+  end.

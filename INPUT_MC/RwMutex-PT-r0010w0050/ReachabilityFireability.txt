@@ -1,0 +1,80 @@
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F (("t108"?) & ((((((("t23"?) | ("t56"?))) & ((("t110"?) & ("t69"?))))) | (((! "t50"?) & ("t37"?))))))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    A G (((((((("t17"?) & ("t73"?))) & ("t74"?))) | ((((("t19"?) & ("t83"?))) & (! "t94"?))))) | (! (((("t25"?) & ("t104"?))) & ("t61"?))))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F ((((! ! "t45"?) & ("t51"?))) & ((("t70"?) & ((((("t75"?) | ("t22"?))) | ((("t102"?) & ("t73"?))))))))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    A G ! ((((! "t71"?) & ((("t68"?) & ("t71"?))))) & ("t83"?))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    A G ! ((! ! "t39"?) & ((((("t111"?) & ("t113"?))) & ((("t28"?) & ("t19"?))))))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G ((((! (("t46"?) & ("t99"?))) | ("t88"?))) | ((("t71"?) | (((! "t4"?) | ((("t37"?) | ("t19"?))))))))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G (("t2"?) | (! "t12"?))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F ((((! ! "t66"?) & (((! "t20"?) | (! "t49"?))))) & ((("t74"?) & (((! "t112"?) & ((("t68"?) & ("t63"?))))))))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    A G ((! (((("t75"?) & ("t115"?))) & ((("t36"?) & ("t32"?))))) | (! "t12"?))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F ! ! (((("t111"?) | ("t106"?))) & ((("t102"?) | ("t62"?))))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    A G ((((((! "t32"?) | ((("t42"?) | ("t115"?))))) | ((("t119"?) | ((("t115"?) | ("t41"?))))))) | (! "t2"?))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F (((((((("t62"?) | ("t79"?))) & (! "t67"?))) | ("t74"?))) & ("t84"?))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F (((((((("t92"?) | ("t45"?))) | ((("t37"?) | ("t94"?))))) & (! ! "t4"?))) & ((("t37"?) & (! ! "t114"?))))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    A G (((("t99"?) | (((! "t47"?) | ("t7"?))))) | ((((((("t62"?) | ("t48"?))) | ("t84"?))) & (! ! "t92"?))))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    A G ((! ! (("t38"?) | ("t61"?))) | (((! "t93"?) | ((("t64"?) | (! "t36"?))))))
+  end.
+Property RwMutex-PT-r0010w0050-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F (((("t59"?) & ((((("t40"?) & ("t5"?))) & ((("t116"?) | ("t106"?))))))) & ((("t109"?) | ("t106"?))))
+  end.

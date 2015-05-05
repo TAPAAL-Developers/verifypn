@@ -1,0 +1,80 @@
+Property Angiogenesis-PT-01-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "k6"?
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "k22"?
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "k57"?
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E G "k34"?
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A (("k32"?) U ("k18"?))
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A X "k9"?
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A X "k6"?
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "k40"?
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A X "k26"?
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "k0"?
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A (("k8"?) U ("k0"?))
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "k43"?
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E (("k46"?) U ("k60"?))
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A G "k54"?
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E X "k32"?
+  end.
+Property Angiogenesis-PT-01-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A G "k23"?
+  end.

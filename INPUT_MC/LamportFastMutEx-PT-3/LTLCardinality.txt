@@ -1,0 +1,80 @@
+Property LamportFastMutEx-COL-3-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A ((F F ((#tokens("x_0", "x_1", "x_2", "x_3")) <= (#tokens("wait_0_0", "wait_0_1", "wait_0_2", "wait_0_3", "wait_1_0", "wait_1_1", "wait_1_2", "wait_1_3", "wait_2_0", "wait_2_1", "wait_2_2", "wait_2_3", "wait_3_0", "wait_3_1", "wait_3_2", "wait_3_3")))) U (X X ((#tokens("ifxi_10_0", "ifxi_10_1", "ifxi_10_2", "ifxi_10_3")) <= (#tokens("done_0_0", "done_0_1", "done_0_2", "done_0_3", "done_1_0", "done_1_1", "done_1_2", "done_1_3", "done_2_0", "done_2_1", "done_2_2", "done_2_3", "done_3_0", "done_3_1", "done_3_2", "done_3_3")))))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("setx_3_0", "setx_3_1", "setx_3_2", "setx_3_3")))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A ((G G ((3) <= (#tokens("ifxi_10_0", "ifxi_10_1", "ifxi_10_2", "ifxi_10_3")))) U (G ((3) <= (#tokens("y_0", "y_1", "y_2", "y_3")))))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A X X F G ((#tokens("ifxi_10_0", "ifxi_10_1", "ifxi_10_2", "ifxi_10_3")) <= (#tokens("ifyi_15_0", "ifyi_15_1", "ifyi_15_2", "ifyi_15_3")))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A X ((2) <= (#tokens("wait_0_0", "wait_0_1", "wait_0_2", "wait_0_3", "wait_1_0", "wait_1_1", "wait_1_2", "wait_1_3", "wait_2_0", "wait_2_1", "wait_2_2", "wait_2_3", "wait_3_0", "wait_3_1", "wait_3_2", "wait_3_3")))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A ((((#tokens("y_0", "y_1", "y_2", "y_3")) <= (#tokens("ify0_4_0", "ify0_4_1", "ify0_4_2", "ify0_4_3")))) U (X G ((1) <= (#tokens("y_0", "y_1", "y_2", "y_3")))))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A X X ((#tokens("sety_9_0", "sety_9_1", "sety_9_2", "sety_9_3")) <= (#tokens("wait_0_0", "wait_0_1", "wait_0_2", "wait_0_3", "wait_1_0", "wait_1_1", "wait_1_2", "wait_1_3", "wait_2_0", "wait_2_1", "wait_2_2", "wait_2_3", "wait_3_0", "wait_3_1", "wait_3_2", "wait_3_3")))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A G X F ((#tokens("ifyi_15_0", "ifyi_15_1", "ifyi_15_2", "ifyi_15_3")) <= (#tokens("start_1_0", "start_1_1", "start_1_2", "start_1_3")))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A ((G ((2) <= (#tokens("setx_3_0", "setx_3_1", "setx_3_2", "setx_3_3")))) U (((#tokens("ify0_4_0", "ify0_4_1", "ify0_4_2", "ify0_4_3")) <= (#tokens("setbi_11_0", "setbi_11_1", "setbi_11_2", "setbi_11_3")))))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((F F ((1) <= (#tokens("CS_21_0", "CS_21_1", "CS_21_2", "CS_21_3")))) U (G ((1) <= (#tokens("ifxi_10_0", "ifxi_10_1", "ifxi_10_2", "ifxi_10_3")))))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A X ((((#tokens("fordo_12_0", "fordo_12_1", "fordo_12_2", "fordo_12_3")) <= (#tokens("ifxi_10_0", "ifxi_10_1", "ifxi_10_2", "ifxi_10_3")))) U (G ((#tokens("ifxi_10_0", "ifxi_10_1", "ifxi_10_2", "ifxi_10_3")) <= (#tokens("setbi_5_0", "setbi_5_1", "setbi_5_2", "setbi_5_3")))))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A F X G ((2) <= (#tokens("y_0", "y_1", "y_2", "y_3")))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A X X X G ((1) <= (#tokens("ify0_4_0", "ify0_4_1", "ify0_4_2", "ify0_4_3")))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("awaity_0", "awaity_1", "awaity_2", "awaity_3")))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((#tokens("setx_3_0", "setx_3_1", "setx_3_2", "setx_3_3")) <= (#tokens("wait_0_0", "wait_0_1", "wait_0_2", "wait_0_3", "wait_1_0", "wait_1_1", "wait_1_2", "wait_1_3", "wait_2_0", "wait_2_1", "wait_2_2", "wait_2_3", "wait_3_0", "wait_3_1", "wait_3_2", "wait_3_3")))
+  end.
+Property LamportFastMutEx-COL-3-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A X G F ((#tokens("done_0_0", "done_0_1", "done_0_2", "done_0_3", "done_1_0", "done_1_1", "done_1_2", "done_1_3", "done_2_0", "done_2_1", "done_2_2", "done_2_3", "done_3_0", "done_3_1", "done_3_2", "done_3_3")) <= (#tokens("x_0", "x_1", "x_2", "x_3")))
+  end.

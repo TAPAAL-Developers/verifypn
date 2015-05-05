@@ -1,0 +1,80 @@
+Property Planning-PT-none-CTLFireability-0
+  "Automatically generated"
+  is:
+    ! ((((((! ! "t115"?) | (A X "t118"?))) | ("t47"?))) | (E F E X "t101"?))
+  end.
+Property Planning-PT-none-CTLFireability-1
+  "Automatically generated"
+  is:
+    A G ! "t126"?
+  end.
+Property Planning-PT-none-CTLFireability-2
+  "Automatically generated"
+  is:
+    A G E ((! "t83"?) U (! "t113"?))
+  end.
+Property Planning-PT-none-CTLFireability-3
+  "Automatically generated"
+  is:
+    E ((A F ! "t75"?) U (((E X "t61"?) & (A X "t76"?))))
+  end.
+Property Planning-PT-none-CTLFireability-4
+  "Automatically generated"
+  is:
+    E X ! A G ! "t126"?
+  end.
+Property Planning-PT-none-CTLFireability-5
+  "Automatically generated"
+  is:
+    ! ((A G E X "t86"?) & (! (((("t95"?) | ((("t52"?) | ("t105"?))))) & (! (("t125"?) & ("t86"?))))))
+  end.
+Property Planning-PT-none-CTLFireability-6
+  "Automatically generated"
+  is:
+    E X E (((("t1"?) | ("t47"?))) U ("t96"?))
+  end.
+Property Planning-PT-none-CTLFireability-7
+  "Automatically generated"
+  is:
+    ! A G E X (("t78"?) | ("t12"?))
+  end.
+Property Planning-PT-none-CTLFireability-8
+  "Automatically generated"
+  is:
+    E F A X E G "t102"?
+  end.
+Property Planning-PT-none-CTLFireability-9
+  "Automatically generated"
+  is:
+    E F "t118"?
+  end.
+Property Planning-PT-none-CTLFireability-10
+  "Automatically generated"
+  is:
+    ((((A X "t84"?) & (! E (("t58"?) U ("t44"?))))) | (E F A (("t36"?) U ("t113"?))))
+  end.
+Property Planning-PT-none-CTLFireability-11
+  "Automatically generated"
+  is:
+    ((((! ! (("t76"?) & ((("t96"?) | ("t50"?))))) | (((A G "t29"?) & (E F "t8"?))))) | (((A G E F "t51"?) & (E X ((! "t70"?) | ((("t104"?) | ("t9"?))))))))
+  end.
+Property Planning-PT-none-CTLFireability-12
+  "Automatically generated"
+  is:
+    E F A X A X "t81"?
+  end.
+Property Planning-PT-none-CTLFireability-13
+  "Automatically generated"
+  is:
+    ((! (((((((("t50"?) | ("t119"?))) | ("t79"?))) & (E F "t93"?))) | (((A G "t93"?) & (A F "t86"?))))) | (E F ! ! "t32"?))
+  end.
+Property Planning-PT-none-CTLFireability-14
+  "Automatically generated"
+  is:
+    A G ((((! (("t12"?) & ("t75"?))) | ((((("t64"?) & ("t81"?))) & ("t113"?))))) | (((A F "t4"?) & ((((("t7"?) & ("t66"?))) & ((("t84"?) & ("t54"?))))))))
+  end.
+Property Planning-PT-none-CTLFireability-15
+  "Automatically generated"
+  is:
+    A F E F A G "t70"?
+  end.

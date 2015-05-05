@@ -1,0 +1,80 @@
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.
+Property CSRepetitions-COL-03-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A G ("Prepare_Request_7", "Prepare_Request_8", "Prepare_Request_2", "Prepare_Request_9", "Prepare_Request_1", "Prepare_Request_3", "Prepare_Request_4", "Prepare_Request_5", "Prepare_Request_6")?
+  end.

@@ -1,0 +1,80 @@
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F (("t15196"?) & ("t16557"?))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    A G ! ((((! "t3678"?) | ((("t29651"?) & ("t29075"?))))) & ("t26883"?))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    A G ((((! (("t3869"?) & ("t28154"?))) & (((! "t15414"?) | ("t7717"?))))) & (! (((("t31478"?) & ("t31100"?))) & (! "t33438"?))))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    A G ! (("t29727"?) | ("t19007"?))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F (((("t1697"?) & ((("t14062"?) | ("t8775"?))))) | ((((((("t7943"?) & ("t19641"?))) & ((("t2591"?) & ("t28571"?))))) & ((("t3594"?) & (! "t2759"?))))))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F ! ! "t10382"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G (((((((("t31752"?) & ("t7051"?))) & ("t12024"?))) & ("t5944"?))) | (((((! "t30874"?) | (! "t642"?))) | ((((("t28108"?) & ("t893"?))) | ("t24925"?))))))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G ! ((! (("t30543"?) & ("t30816"?))) & ((("t16469"?) & (! "t6659"?))))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F ((! ((! "t24790"?) & (! "t15220"?))) & ("t1959"?))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G (((("t22027"?) | (! "t2702"?))) | ((((((("t23460"?) & ("t7881"?))) & ((("t26172"?) & ("t18487"?))))) & ("t19680"?))))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    A G ! ! ! (("t23594"?) & ("t13969"?))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F "t18058"?
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ((! ! ! "t5808"?) | ((("t4910"?) | ((((("t4266"?) | ("t1496"?))) | (! "t954"?))))))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F ! (("t1557"?) | (! (("t2990"?) & ("t28367"?))))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F ! ! (((("t694"?) & ("t16705"?))) & (! "t21857"?))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F ((! ! (("t23657"?) & ("t10390"?))) & (! ! "t20638"?))
+  end.

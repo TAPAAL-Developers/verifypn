@@ -1,0 +1,80 @@
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("p57")) <= (3))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((((((((((bound("p2")) <= (1))) & (((((bound("p35")) <= (3))) & (((bound("p81")) <= (2))))))) & (((((bound("p53")) <= (1))) & (((((bound("p71")) <= (3))) & (((bound("p47")) <= (3))))))))) & (((bound("p37")) <= (3))))) & (((bound("p70")) <= (2))))) & (((bound("p17")) <= (1))))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("p39")) <= (1))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("p84")) <= (1))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("p46")) <= (3))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("p57")) <= (1))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("p29")) <= (2))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("p48")) <= (1))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((bound("p36")) <= (2))) & (((((((bound("p33")) <= (1))) & (((bound("p54")) <= (2))))) & (((bound("p3")) <= (3))))))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((bound("p72")) <= (2))) & (((bound("p52")) <= (1))))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((bound("p20")) <= (1))) & (((bound("p58")) <= (2))))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("p65")) <= (1))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((bound("p37")) <= (3))) & (((((((bound("p27")) <= (2))) & (((((bound("p15")) <= (1))) & (((bound("p47")) <= (1))))))) & (((((bound("p55")) <= (2))) & (((bound("p57")) <= (3))))))))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("p9")) <= (3))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("p1")) <= (3))
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("p42")) <= (3))
+  end.

@@ -1,0 +1,80 @@
+Property Ring-PT-none-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("P109")) <= (2))
+  end.
+Property Ring-PT-none-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("P58")) <= (1))
+  end.
+Property Ring-PT-none-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("P28")) <= (3))
+  end.
+Property Ring-PT-none-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((bound("P25")) <= (1))) & (((((bound("P10")) <= (2))) & (((bound("P94")) <= (3))))))
+  end.
+Property Ring-PT-none-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("P60")) <= (3))
+  end.
+Property Ring-PT-none-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("P27")) <= (2))
+  end.
+Property Ring-PT-none-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("P102")) <= (3))
+  end.
+Property Ring-PT-none-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("P128")) <= (3))
+  end.
+Property Ring-PT-none-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((bound("P91")) <= (2))) & (((bound("P58")) <= (2))))
+  end.
+Property Ring-PT-none-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((((((((((((bound("P15")) <= (1))) & (((bound("P59")) <= (2))))) & (((bound("P124")) <= (2))))) & (((bound("P116")) <= (1))))) & (((((bound("P22")) <= (3))) & (((bound("P23")) <= (1))))))) & (((bound("P80")) <= (3))))) & (((bound("P79")) <= (2))))
+  end.
+Property Ring-PT-none-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("P13")) <= (3))
+  end.
+Property Ring-PT-none-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("P45")) <= (1))
+  end.
+Property Ring-PT-none-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("P94")) <= (1))
+  end.
+Property Ring-PT-none-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((bound("P26")) <= (3))) & (((bound("P119")) <= (1))))
+  end.
+Property Ring-PT-none-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("P69")) <= (1))
+  end.
+Property Ring-PT-none-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("P113")) <= (1))
+  end.

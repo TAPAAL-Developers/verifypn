@@ -1,0 +1,5 @@
+Property IBMB2S565S3960-PT-none-ReachabilityDeadlock-0
+  "Automatically generated"
+  is:
+    E F deadlock
+  end.

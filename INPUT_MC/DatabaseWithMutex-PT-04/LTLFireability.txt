@@ -1,0 +1,80 @@
+Property DatabaseWithMutex-COL-04-LTLFireability-0
+  "Automatically generated"
+  is:
+    A F ("end_update_4_3", "end_update_1_2", "end_update_3_3", "end_update_3_1", "end_update_2_2", "end_update_1_4", "end_update_4_1", "end_update_2_4", "end_update_3_4", "end_update_4_2", "end_update_2_1", "end_update_3_2", "end_update_4_4", "end_update_2_3", "end_update_1_3", "end_update_1_1")?
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-1
+  "Automatically generated"
+  is:
+    A ("Change_2_1", "Change_4_1", "Change_3_3", "Change_1_2", "Change_2_2", "Change_3_2", "Change_4_4", "Change_1_1", "Change_4_2", "Change_3_4", "Change_2_4", "Change_1_4", "Change_1_3", "Change_2_3", "Change_3_1", "Change_4_3")?
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-2
+  "Automatically generated"
+  is:
+    A X X X F ("Change_2_1", "Change_4_1", "Change_3_3", "Change_1_2", "Change_2_2", "Change_3_2", "Change_4_4", "Change_1_1", "Change_4_2", "Change_3_4", "Change_2_4", "Change_1_4", "Change_1_3", "Change_2_3", "Change_3_1", "Change_4_3")?
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-3
+  "Automatically generated"
+  is:
+    A ((((X ("SendMsg_3_4", "SendMsg_2_2", "SendMsg_1_1", "SendMsg_4_2", "SendMsg_1_3", "SendMsg_3_1", "SendMsg_3_3", "SendMsg_2_3", "SendMsg_2_1", "SendMsg_4_3", "SendMsg_1_2", "SendMsg_1_4", "SendMsg_4_1", "SendMsg_4_4", "SendMsg_2_4", "SendMsg_3_2")?) U (G ("Start_2_2", "Start_3_1", "Start_1_1", "Start_4_3", "Start_1_4", "Start_2_4", "Start_3_4", "Start_1_2", "Start_4_2", "Start_3_2", "Start_4_4", "Start_1_3", "Start_2_1", "Start_2_3", "Start_3_3", "Start_4_1")?))) U (F G G ("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?))
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-4
+  "Automatically generated"
+  is:
+    A G ((((("Start_2_2", "Start_3_1", "Start_1_1", "Start_4_3", "Start_1_4", "Start_2_4", "Start_3_4", "Start_1_2", "Start_4_2", "Start_3_2", "Start_4_4", "Start_1_3", "Start_2_1", "Start_2_3", "Start_3_3", "Start_4_1")?) U (("Acquire_3_2", "Acquire_1_1", "Acquire_1_4", "Acquire_3_4", "Acquire_2_4", "Acquire_4_3", "Acquire_2_1", "Acquire_3_3", "Acquire_3_1", "Acquire_2_3", "Acquire_1_3", "Acquire_4_1", "Acquire_1_2", "Acquire_4_4", "Acquire_2_2", "Acquire_4_2")?))) U (("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?))
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-5
+  "Automatically generated"
+  is:
+    A G X ("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-6
+  "Automatically generated"
+  is:
+    A ("Start_2_2", "Start_3_1", "Start_1_1", "Start_4_3", "Start_1_4", "Start_2_4", "Start_3_4", "Start_1_2", "Start_4_2", "Start_3_2", "Start_4_4", "Start_1_3", "Start_2_1", "Start_2_3", "Start_3_3", "Start_4_1")?
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-7
+  "Automatically generated"
+  is:
+    A G ((((("SendMsg_3_4", "SendMsg_2_2", "SendMsg_1_1", "SendMsg_4_2", "SendMsg_1_3", "SendMsg_3_1", "SendMsg_3_3", "SendMsg_2_3", "SendMsg_2_1", "SendMsg_4_3", "SendMsg_1_2", "SendMsg_1_4", "SendMsg_4_1", "SendMsg_4_4", "SendMsg_2_4", "SendMsg_3_2")?) U (("Change_2_1", "Change_4_1", "Change_3_3", "Change_1_2", "Change_2_2", "Change_3_2", "Change_4_4", "Change_1_1", "Change_4_2", "Change_3_4", "Change_2_4", "Change_1_4", "Change_1_3", "Change_2_3", "Change_3_1", "Change_4_3")?))) U (G X ("Acquire_3_2", "Acquire_1_1", "Acquire_1_4", "Acquire_3_4", "Acquire_2_4", "Acquire_4_3", "Acquire_2_1", "Acquire_3_3", "Acquire_3_1", "Acquire_2_3", "Acquire_1_3", "Acquire_4_1", "Acquire_1_2", "Acquire_4_4", "Acquire_2_2", "Acquire_4_2")?))
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-8
+  "Automatically generated"
+  is:
+    A ("SendReply_1_4", "SendReply_2_2", "SendReply_3_2", "SendReply_3_4", "SendReply_4_3", "SendReply_1_2", "SendReply_2_4", "SendReply_4_1", "SendReply_2_3", "SendReply_3_1", "SendReply_3_3", "SendReply_2_1", "SendReply_4_4", "SendReply_4_2", "SendReply_1_1", "SendReply_1_3")?
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-9
+  "Automatically generated"
+  is:
+    A ((G ("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?) U (X ("SendMsg_3_4", "SendMsg_2_2", "SendMsg_1_1", "SendMsg_4_2", "SendMsg_1_3", "SendMsg_3_1", "SendMsg_3_3", "SendMsg_2_3", "SendMsg_2_1", "SendMsg_4_3", "SendMsg_1_2", "SendMsg_1_4", "SendMsg_4_1", "SendMsg_4_4", "SendMsg_2_4", "SendMsg_3_2")?))
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-10
+  "Automatically generated"
+  is:
+    A ("SendReply_1_4", "SendReply_2_2", "SendReply_3_2", "SendReply_3_4", "SendReply_4_3", "SendReply_1_2", "SendReply_2_4", "SendReply_4_1", "SendReply_2_3", "SendReply_3_1", "SendReply_3_3", "SendReply_2_1", "SendReply_4_4", "SendReply_4_2", "SendReply_1_1", "SendReply_1_3")?
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-11
+  "Automatically generated"
+  is:
+    A F G ("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-12
+  "Automatically generated"
+  is:
+    A ("SendReply_1_4", "SendReply_2_2", "SendReply_3_2", "SendReply_3_4", "SendReply_4_3", "SendReply_1_2", "SendReply_2_4", "SendReply_4_1", "SendReply_2_3", "SendReply_3_1", "SendReply_3_3", "SendReply_2_1", "SendReply_4_4", "SendReply_4_2", "SendReply_1_1", "SendReply_1_3")?
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-13
+  "Automatically generated"
+  is:
+    A ("end_update_4_3", "end_update_1_2", "end_update_3_3", "end_update_3_1", "end_update_2_2", "end_update_1_4", "end_update_4_1", "end_update_2_4", "end_update_3_4", "end_update_4_2", "end_update_2_1", "end_update_3_2", "end_update_4_4", "end_update_2_3", "end_update_1_3", "end_update_1_1")?
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-14
+  "Automatically generated"
+  is:
+    A F G ("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?
+  end.
+Property DatabaseWithMutex-COL-04-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X X X ("Start_2_2", "Start_3_1", "Start_1_1", "Start_4_3", "Start_1_4", "Start_2_4", "Start_3_4", "Start_1_2", "Start_4_2", "Start_3_2", "Start_4_4", "Start_1_3", "Start_2_1", "Start_2_3", "Start_3_3", "Start_4_1")?
+  end.

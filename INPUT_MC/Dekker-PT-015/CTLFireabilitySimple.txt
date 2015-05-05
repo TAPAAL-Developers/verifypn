@@ -1,0 +1,80 @@
+Property Dekker-PT-015-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "withdraw/0/8"?
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E X "withdraw/10/14"?
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "withdraw/4/6"?
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E (("withdraw/10/8"?) U ("withdraw/8/4"?))
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E (("withdraw/1/3"?) U ("withdraw/7/6"?))
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "withdraw/10/12"?
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "withdraw/12/2"?
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E X "withdraw/6/2"?
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A (("withdraw/12/9"?) U ("withdraw/0/5"?))
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "withdraw/1/12"?
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E (("enter/1"?) U ("withdraw/12/7"?))
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "try/14"?
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E X "withdraw/12/4"?
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A X "withdraw/8/12"?
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A X "withdraw/12/4"?
+  end.
+Property Dekker-PT-015-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "try/3"?
+  end.

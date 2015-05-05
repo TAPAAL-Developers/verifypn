@@ -1,0 +1,80 @@
+Property Railroad-PT-020-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("pl_P61_16")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("pl_P111_1")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("pl_P44_1")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("pl_P16_1")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("pl_P100_16")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("pl_P100_14")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("pl_P23_8")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("pl_P21_2")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("pl_P61_18")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("pl_P113_1")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("pl_P21_7")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("pl_P23_9")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("pl_P61_9")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("pl_P61_20")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("pl_P55_1")
+  end.
+Property Railroad-PT-020-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("pl_P61_19")
+  end.

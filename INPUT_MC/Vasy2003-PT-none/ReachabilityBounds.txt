@@ -1,0 +1,80 @@
+Property Vasy2003-PT-none-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((bound("p66")) <= (3))) & (((((bound("p439")) <= (2))) & (((bound("p420")) <= (3))))))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((((bound("p109")) <= (1))) & (((bound("p330")) <= (2))))) & (((((((((bound("p101")) <= (1))) & (((((((bound("p50")) <= (3))) & (((bound("p392")) <= (2))))) & (((((bound("p405")) <= (3))) & (((bound("p105")) <= (1))))))))) & (((((((bound("p265")) <= (3))) & (((bound("p257")) <= (1))))) & (((bound("p112")) <= (2))))))) & (((bound("p209")) <= (2))))))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("p357")) <= (1))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((((bound("p207")) <= (2))) & (((bound("p252")) <= (2))))) & (((bound("p401")) <= (1))))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((((((((bound("p178")) <= (1))) & (((((((bound("p417")) <= (3))) & (((bound("p245")) <= (1))))) & (((((bound("p385")) <= (3))) & (((bound("p87")) <= (3))))))))) & (((((((bound("p7")) <= (1))) & (((((bound("p130")) <= (1))) & (((bound("p227")) <= (1))))))) & (((bound("p383")) <= (3))))))) & (((((((bound("p189")) <= (3))) & (((((bound("p97")) <= (1))) & (((bound("p464")) <= (1))))))) & (((((((bound("p404")) <= (2))) & (((((bound("p333")) <= (3))) & (((bound("p339")) <= (3))))))) & (((bound("p256")) <= (3))))))))) & (((bound("p49")) <= (1))))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((bound("p5")) <= (3))) & (((((bound("p220")) <= (2))) & (((bound("p447")) <= (3))))))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("p292")) <= (1))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((((((((bound("p382")) <= (1))) & (((((((bound("p277")) <= (1))) & (((bound("p391")) <= (1))))) & (((bound("p244")) <= (3))))))) & (((bound("p300")) <= (3))))) & (((((bound("p308")) <= (2))) & (((((bound("p289")) <= (1))) & (((((bound("p145")) <= (2))) & (((bound("p163")) <= (3))))))))))) & (((((((((((bound("p45")) <= (1))) & (((bound("p20")) <= (1))))) & (((((((bound("p24")) <= (3))) & (((bound("p459")) <= (2))))) & (((bound("p334")) <= (2))))))) & (((bound("p74")) <= (3))))) & (((bound("p273")) <= (3))))))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("p286")) <= (1))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("p18")) <= (1))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("p23")) <= (1))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((((((((((((bound("p426")) <= (3))) & (((bound("p140")) <= (1))))) & (((((bound("p455")) <= (3))) & (((bound("p131")) <= (1))))))) & (((bound("p380")) <= (3))))) & (((((((bound("p124")) <= (3))) & (((((bound("p342")) <= (3))) & (((bound("p105")) <= (2))))))) & (((bound("p19")) <= (1))))))) & (((bound("p311")) <= (1))))) & (((bound("p17")) <= (1))))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((((((bound("p339")) <= (3))) & (((((bound("p325")) <= (1))) & (((bound("p390")) <= (3))))))) & (((bound("p37")) <= (3))))) & (((bound("p481")) <= (3))))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("p93")) <= (3))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("p131")) <= (3))
+  end.
+Property Vasy2003-PT-none-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((((bound("p243")) <= (1))) & (((((bound("p342")) <= (2))) & (((bound("p290")) <= (2))))))) & (((((bound("p351")) <= (3))) & (((bound("p348")) <= (1))))))
+  end.

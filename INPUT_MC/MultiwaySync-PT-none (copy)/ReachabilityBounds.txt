@@ -1,0 +1,80 @@
+Property MultiwaySync-PT-none-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((((bound("p111")) <= (3))) & (((((bound("p48")) <= (1))) & (((bound("p46")) <= (2))))))) & (((bound("p17")) <= (2))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("p86")) <= (2))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((bound("p70")) <= (3))) & (((((((((bound("p186")) <= (1))) & (((bound("p5")) <= (2))))) & (((((bound("p192")) <= (3))) & (((bound("p167")) <= (1))))))) & (((bound("p115")) <= (3))))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((bound("p106")) <= (2))) & (((bound("p161")) <= (2))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((((((((((((bound("p12")) <= (1))) & (((bound("p111")) <= (2))))) & (((bound("p205")) <= (2))))) & (((((((bound("p88")) <= (3))) & (((bound("p40")) <= (2))))) & (((((bound("p2")) <= (2))) & (((bound("p27")) <= (3))))))))) & (((bound("p216")) <= (3))))) & (((bound("p108")) <= (3))))) & (((bound("p26")) <= (1))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((bound("p205")) <= (3))) & (((((bound("p13")) <= (3))) & (((((((((bound("p3")) <= (3))) & (((((bound("p208")) <= (3))) & (((bound("p44")) <= (3))))))) & (((bound("p116")) <= (1))))) & (((((((((bound("p67")) <= (2))) & (((bound("p156")) <= (2))))) & (((bound("p2")) <= (2))))) & (((((((bound("p207")) <= (2))) & (((bound("p164")) <= (1))))) & (((((bound("p21")) <= (1))) & (((bound("p154")) <= (3))))))))))))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("p72")) <= (2))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((((bound("p47")) <= (2))) & (((((bound("p213")) <= (1))) & (((bound("p76")) <= (2))))))) & (((bound("p73")) <= (1))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((bound("p102")) <= (2))) & (((bound("p91")) <= (1))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("p144")) <= (1))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("p219")) <= (1))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("p182")) <= (1))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("p140")) <= (3))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((bound("p24")) <= (2))) & (((((bound("p165")) <= (1))) & (((((bound("p193")) <= (1))) & (((bound("p44")) <= (2))))))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("p135")) <= (1))
+  end.
+Property MultiwaySync-PT-none-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((bound("p37")) <= (2))) & (((bound("p8")) <= (3))))
+  end.

@@ -1,0 +1,80 @@
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((((! ((#tokens("Neighbourhood_1_2", "Neighbourhood_2_2", "Neighbourhood_3_3", "Neighbourhood_1_1", "Neighbourhood_2_3", "Neighbourhood_2_1", "Neighbourhood_1_3", "Neighbourhood_3_2", "Neighbourhood_3_1")) <= (#tokens("Neighbourhood_1_2", "Neighbourhood_2_2", "Neighbourhood_3_3", "Neighbourhood_1_1", "Neighbourhood_2_3", "Neighbourhood_2_1", "Neighbourhood_1_3", "Neighbourhood_3_2", "Neighbourhood_3_1")))) & (! ((#tokens("Outside_3", "Outside_2", "Outside_1")) <= (#tokens("Outside_3", "Outside_2", "Outside_1")))))) | (((((((3) <= (#tokens("Outside_3", "Outside_2", "Outside_1")))) & (((#tokens("Think_3", "Think_2", "Think_1")) <= (#tokens("Think_3", "Think_2", "Think_1")))))) | (! ((1) <= (#tokens("Neighbourhood_1_2", "Neighbourhood_2_2", "Neighbourhood_3_3", "Neighbourhood_1_1", "Neighbourhood_2_3", "Neighbourhood_2_1", "Neighbourhood_1_3", "Neighbourhood_3_2", "Neighbourhood_3_1")))))))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("Think_3", "Think_2", "Think_1")) <= (#tokens("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")))) | (((2) <= (#tokens("Forks_1", "Forks_2", "Forks_3")))))) | (((((2) <= (#tokens("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")))) | (((1) <= (#tokens("WaitRight_1", "WaitRight_2", "WaitRight_3")))))))) & (((((3) <= (#tokens("WaitRight_1", "WaitRight_2", "WaitRight_3")))) & (! ((#tokens("Outside_3", "Outside_2", "Outside_1")) <= (#tokens("WaitRight_1", "WaitRight_2", "WaitRight_3")))))))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ! ((#tokens("HasLeft_2", "HasLeft_3", "HasLeft_1")) <= (#tokens("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ((1) <= (#tokens("Neighbourhood_1_2", "Neighbourhood_2_2", "Neighbourhood_3_3", "Neighbourhood_1_1", "Neighbourhood_2_3", "Neighbourhood_2_1", "Neighbourhood_1_3", "Neighbourhood_3_2", "Neighbourhood_3_1")))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ! ! ((((#tokens("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")) <= (#tokens("Neighbourhood_1_2", "Neighbourhood_2_2", "Neighbourhood_3_3", "Neighbourhood_1_1", "Neighbourhood_2_3", "Neighbourhood_2_1", "Neighbourhood_1_3", "Neighbourhood_3_2", "Neighbourhood_3_1")))) | (((1) <= (#tokens("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")))))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((((((((3) <= (#tokens("WaitRight_1", "WaitRight_2", "WaitRight_3")))) | (((1) <= (#tokens("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")))))) | (! ((#tokens("Outside_3", "Outside_2", "Outside_1")) <= (#tokens("HasLeft_2", "HasLeft_3", "HasLeft_1")))))) & (((3) <= (#tokens("Forks_1", "Forks_2", "Forks_3")))))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((#tokens("Neighbourhood_1_2", "Neighbourhood_2_2", "Neighbourhood_3_3", "Neighbourhood_1_1", "Neighbourhood_2_3", "Neighbourhood_2_1", "Neighbourhood_1_3", "Neighbourhood_3_2", "Neighbourhood_3_1")) <= (#tokens("Forks_1", "Forks_2", "Forks_3")))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ! ! ((#tokens("Think_3", "Think_2", "Think_1")) <= (#tokens("HasRight_2", "HasRight_1", "HasRight_3")))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ((((! ((2) <= (#tokens("Neighbourhood_1_2", "Neighbourhood_2_2", "Neighbourhood_3_3", "Neighbourhood_1_1", "Neighbourhood_2_3", "Neighbourhood_2_1", "Neighbourhood_1_3", "Neighbourhood_3_2", "Neighbourhood_3_1")))) | (((((2) <= (#tokens("WaitRight_1", "WaitRight_2", "WaitRight_3")))) & (((#tokens("HasRight_2", "HasRight_1", "HasRight_3")) <= (#tokens("Forks_1", "Forks_2", "Forks_3")))))))) | (((1) <= (#tokens("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")))))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")) <= (#tokens("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")))) | (((#tokens("Forks_1", "Forks_2", "Forks_3")) <= (#tokens("Outside_3", "Outside_2", "Outside_1")))))) | (((((3) <= (#tokens("Outside_3", "Outside_2", "Outside_1")))) & (((1) <= (#tokens("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")))))))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((((! ((1) <= (#tokens("HasRight_2", "HasRight_1", "HasRight_3")))) | (((((2) <= (#tokens("HasRight_2", "HasRight_1", "HasRight_3")))) & (((1) <= (#tokens("Forks_1", "Forks_2", "Forks_3")))))))) | (((! ((#tokens("HasRight_2", "HasRight_1", "HasRight_3")) <= (#tokens("WaitRight_1", "WaitRight_2", "WaitRight_3")))) | (((((#tokens("HasRight_2", "HasRight_1", "HasRight_3")) <= (#tokens("Think_3", "Think_2", "Think_1")))) | (((3) <= (#tokens("HasRight_2", "HasRight_1", "HasRight_3")))))))))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((! ((#tokens("Think_3", "Think_2", "Think_1")) <= (#tokens("WaitRight_1", "WaitRight_2", "WaitRight_3")))) & (((#tokens("Outside_3", "Outside_2", "Outside_1")) <= (#tokens("Neighbourhood_1_2", "Neighbourhood_2_2", "Neighbourhood_3_3", "Neighbourhood_1_1", "Neighbourhood_2_3", "Neighbourhood_2_1", "Neighbourhood_1_3", "Neighbourhood_3_2", "Neighbourhood_3_1")))))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((#tokens("WaitRight_1", "WaitRight_2", "WaitRight_3")) <= (#tokens("Think_3", "Think_2", "Think_1")))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ! ((((((#tokens("Forks_1", "Forks_2", "Forks_3")) <= (#tokens("Neighbourhood_1_2", "Neighbourhood_2_2", "Neighbourhood_3_3", "Neighbourhood_1_1", "Neighbourhood_2_3", "Neighbourhood_2_1", "Neighbourhood_1_3", "Neighbourhood_3_2", "Neighbourhood_3_1")))) | (((#tokens("Outside_3", "Outside_2", "Outside_1")) <= (#tokens("HasLeft_2", "HasLeft_3", "HasLeft_1")))))) | (((((1) <= (#tokens("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")))) & (((3) <= (#tokens("Forks_1", "Forks_2", "Forks_3")))))))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ((((2) <= (#tokens("Think_3", "Think_2", "Think_1")))) | (((! ((#tokens("WaitRight_1", "WaitRight_2", "WaitRight_3")) <= (#tokens("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")))) | (((((#tokens("Think_3", "Think_2", "Think_1")) <= (#tokens("Forks_1", "Forks_2", "Forks_3")))) | (((1) <= (#tokens("HasLeft_2", "HasLeft_3", "HasLeft_1")))))))))
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("WaitRight_1", "WaitRight_2", "WaitRight_3")))
+  end.

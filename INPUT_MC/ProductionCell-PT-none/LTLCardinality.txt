@@ -1,0 +1,80 @@
+Property ProductionCell-PT-none-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A G G ((#tokens("p174")) <= (#tokens("p166")))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A X ((F ((2) <= (#tokens("p77")))) U (F ((2) <= (#tokens("p152")))))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A X ((3) <= (#tokens("p24")))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((#tokens("p97")) <= (#tokens("p98")))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A G ((X ((#tokens("p113")) <= (#tokens("p51")))) U (X ((2) <= (#tokens("p88")))))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A F ((G ((2) <= (#tokens("p32")))) U (F ((3) <= (#tokens("p54")))))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((2) <= (#tokens("p161")))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A ((#tokens("p51")) <= (#tokens("p147")))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A ((#tokens("p12")) <= (#tokens("p10")))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((((#tokens("p19")) <= (#tokens("p4")))) U (X G ((3) <= (#tokens("p87")))))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A X ((2) <= (#tokens("p70")))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A G X ((3) <= (#tokens("p122")))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A G F ((((#tokens("p168")) <= (#tokens("p144")))) U (((3) <= (#tokens("p93")))))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A X F G ((2) <= (#tokens("p150")))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A F F X G ((#tokens("p31")) <= (#tokens("p155")))
+  end.
+Property ProductionCell-PT-none-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A X X X G ((2) <= (#tokens("p12")))
+  end.

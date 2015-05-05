@@ -864,7 +864,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                         string queryResult2;
 
        					if(tool == TSEQ){
-                        queryResult2 = string("STATE_SPACE TRANSITIONS") + ssresult + " TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT";
+                        queryResult2 = string("STATE_SPACE TRANSITIONS -1 TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT");
                     	}
                         printf("%s\n", queryResult2.c_str());
                         results++;

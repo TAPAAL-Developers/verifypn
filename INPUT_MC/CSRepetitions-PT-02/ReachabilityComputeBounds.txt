@@ -1,0 +1,80 @@
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("Client_Waiting_4", "Client_Waiting_3", "Client_Waiting_2", "Client_Waiting_1")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("Client_Waiting_4", "Client_Waiting_3", "Client_Waiting_2", "Client_Waiting_1")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("Server_Anwering_3_2", "Server_Anwering_1_2", "Server_Anwering_4_1", "Server_Anwering_3_1", "Server_Anwering_2_1", "Server_Anwering_1_1", "Server_Anwering_4_2", "Server_Anwering_2_2")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("Client_Waiting_4", "Client_Waiting_3", "Client_Waiting_2", "Client_Waiting_1")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("RequestBufferSlots")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("Server_Waiting_2", "Server_Waiting_1")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("RequestBufferSlots")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("Server_Waiting_2", "Server_Waiting_1")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("RequestBufferSlots")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("Server_Waiting_2", "Server_Waiting_1")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("Server_Anwering_3_2", "Server_Anwering_1_2", "Server_Anwering_4_1", "Server_Anwering_3_1", "Server_Anwering_2_1", "Server_Anwering_1_1", "Server_Anwering_4_2", "Server_Anwering_2_2")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")
+  end.
+Property CSRepetitions-COL-02-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("Client_Waiting_4", "Client_Waiting_3", "Client_Waiting_2", "Client_Waiting_1")
+  end.

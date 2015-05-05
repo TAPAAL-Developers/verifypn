@@ -1,0 +1,80 @@
+Property FMS-PT-010-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    A G ((((((! "tM3"?) | ("tP1j"?))) | ("tP2j"?))) | ("tP3M2"?))
+  end.
+Property FMS-PT-010-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F ((! (((("tP1M1"?) | ("tP2s"?))) | (! "tP1e"?))) & (! "tP2"?))
+  end.
+Property FMS-PT-010-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F "tP12M3"?
+  end.
+Property FMS-PT-010-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    A G ((((! (("tP12s"?) & ("tP3s"?))) | (! ! "tP12"?))) | ("tP1s"?))
+  end.
+Property FMS-PT-010-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F ((! (("tP1"?) & ((("tP12s"?) & ("tM2"?))))) & ((("tP1e"?) & (((! "tP12"?) & ("tP12M3"?))))))
+  end.
+Property FMS-PT-010-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F ((! "tP1"?) & ((("tP12M3"?) | (! "tP3M2"?))))
+  end.
+Property FMS-PT-010-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G (((((("tP2"?) & (! "tM1"?))) | ((((("tP2s"?) & ("tP3"?))) | ((("tP1M1"?) | ("tP1"?))))))) | ("tM2"?))
+  end.
+Property FMS-PT-010-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G ! ((((! "tP2"?) & ((("tP2M2"?) | ("tP1e"?))))) & (((! "tP2M2"?) | ("tP1j"?))))
+  end.
+Property FMS-PT-010-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F ((((! (("tM1"?) & ("tP1s"?))) | (((! "tP12"?) & ((("tP12"?) & ("tM2"?))))))) & (((((! "tM1"?) & (! "tP1e"?))) & ("tP1j"?))))
+  end.
+Property FMS-PT-010-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F "tM3"?
+  end.
+Property FMS-PT-010-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F ((((! (("tP3s"?) | ("tP1j"?))) & ("tP1e"?))) & (! (((("tP2j"?) & ("tP2e"?))) | ((("tP12"?) | ("tP3M2"?))))))
+  end.
+Property FMS-PT-010-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    A G ((((! (("tP12s"?) & ("tP1e"?))) | ((((("tP1j"?) | ("tP2j"?))) | ("tP1j"?))))) | ("tP3"?))
+  end.
+Property FMS-PT-010-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F ! "tP3"?
+  end.
+Property FMS-PT-010-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    A G "tP1"?
+  end.
+Property FMS-PT-010-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    A G "tP3"?
+  end.
+Property FMS-PT-010-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F (((("tP1j"?) & ((((("tP3M2"?) & ("tP2e"?))) & ((("tP3s"?) | ("tx"?))))))) & ("tM1"?))
+  end.

@@ -1,0 +1,80 @@
+Property ProductionCell-PT-none-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "t118"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t11"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "t10"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t51"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "t22"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "t27"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "t46"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t100"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t84"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t33"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t41"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "t55"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "t48"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "t41"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "t115"?
+  end.
+Property ProductionCell-PT-none-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "t42"?
+  end.

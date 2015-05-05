@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R003C003-CTLCardinality-0
+  "Automatically generated"
+  is:
+    E F ! ((#tokens("r_1_2")) <= (#tokens("r_0_0")))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ((1) <= (#tokens("p_0_1")))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-2
+  "Automatically generated"
+  is:
+    ((3) <= (#tokens("r_0_0")))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((E G ((3) <= (#tokens("p_1_2")))) U (((((((#tokens("p_1_1")) <= (#tokens("p_1_0")))) & (((3) <= (#tokens("p_0_0")))))) & (((((3) <= (#tokens("p_0_1")))) & (((#tokens("p_2_0")) <= (#tokens("p_0_0")))))))))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-4
+  "Automatically generated"
+  is:
+    E G ! E X ((#tokens("p_2_0")) <= (#tokens("p_0_2")))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-5
+  "Automatically generated"
+  is:
+    ((! E G ((2) <= (#tokens("p_2_2")))) & (A X A F ((#tokens("r_1_2")) <= (#tokens("r_0_1")))))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-6
+  "Automatically generated"
+  is:
+    E X ! A X ((#tokens("r_0_1")) <= (#tokens("p_1_2")))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-7
+  "Automatically generated"
+  is:
+    ! ((! ((((3) <= (#tokens("p_1_2")))) | (((3) <= (#tokens("r_1_1")))))) | (((! ((((#tokens("r_1_1")) <= (#tokens("r_0_0")))) | (((1) <= (#tokens("r_2_2")))))) & (((((((#tokens("r_2_2")) <= (#tokens("p_1_1")))) & (((3) <= (#tokens("r_0_0")))))) & (((((3) <= (#tokens("p_1_1")))) & (((#tokens("p_0_1")) <= (#tokens("r_1_0")))))))))))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-8
+  "Automatically generated"
+  is:
+    E G ! ((((((#tokens("r_1_1")) <= (#tokens("r_0_2")))) & (((#tokens("r_0_0")) <= (#tokens("r_0_2")))))) & (((((3) <= (#tokens("p_2_0")))) & (((#tokens("p_1_1")) <= (#tokens("p_0_2")))))))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-9
+  "Automatically generated"
+  is:
+    A G E G ((#tokens("r_2_2")) <= (#tokens("p_1_1")))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-10
+  "Automatically generated"
+  is:
+    ((E X A F ((2) <= (#tokens("r_0_2")))) & (((A F ((3) <= (#tokens("p_2_1")))) | (((#tokens("p_0_1")) <= (#tokens("r_0_1")))))))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-11
+  "Automatically generated"
+  is:
+    E ((A F ((#tokens("r_2_2")) <= (#tokens("p_2_2")))) U (((((((3) <= (#tokens("r_1_0")))) & (((#tokens("r_0_2")) <= (#tokens("p_0_2")))))) & (((((#tokens("p_0_1")) <= (#tokens("p_1_0")))) & (((2) <= (#tokens("p_0_0")))))))))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-12
+  "Automatically generated"
+  is:
+    ((((2) <= (#tokens("p_1_0")))) | (((#tokens("p_2_2")) <= (#tokens("p_0_1")))))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-13
+  "Automatically generated"
+  is:
+    ! ((3) <= (#tokens("p_1_0")))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-14
+  "Automatically generated"
+  is:
+    A X ((E G ((2) <= (#tokens("r_1_2")))) & (A X ((#tokens("r_0_0")) <= (#tokens("p_0_1")))))
+  end.
+Property ResAllocation-PT-R003C003-CTLCardinality-15
+  "Automatically generated"
+  is:
+    ! ! A F ! ((2) <= (#tokens("p_0_2")))
+  end.

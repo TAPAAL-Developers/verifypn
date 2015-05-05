@@ -1,0 +1,80 @@
+Property ERK-PT-000001-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G G ((G "r8"?) U (G "r1"?))
+  end.
+Property ERK-PT-000001-LTLFireability-1
+  "Automatically generated"
+  is:
+    A F "r10"?
+  end.
+Property ERK-PT-000001-LTLFireability-2
+  "Automatically generated"
+  is:
+    A "r11"?
+  end.
+Property ERK-PT-000001-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X F ((X "r1"?) U ("r3"?))
+  end.
+Property ERK-PT-000001-LTLFireability-4
+  "Automatically generated"
+  is:
+    A F (((("r5"?) U ("r1"?))) U (X F "r7"?))
+  end.
+Property ERK-PT-000001-LTLFireability-5
+  "Automatically generated"
+  is:
+    A X ((F F "r11"?) U (F G "r3"?))
+  end.
+Property ERK-PT-000001-LTLFireability-6
+  "Automatically generated"
+  is:
+    A ((F G G "r2"?) U ("r5"?))
+  end.
+Property ERK-PT-000001-LTLFireability-7
+  "Automatically generated"
+  is:
+    A "r4"?
+  end.
+Property ERK-PT-000001-LTLFireability-8
+  "Automatically generated"
+  is:
+    A "r5"?
+  end.
+Property ERK-PT-000001-LTLFireability-9
+  "Automatically generated"
+  is:
+    A ((((X "r4"?) U (G "r4"?))) U (((F "r9"?) U (G "r3"?))))
+  end.
+Property ERK-PT-000001-LTLFireability-10
+  "Automatically generated"
+  is:
+    A G F "r8"?
+  end.
+Property ERK-PT-000001-LTLFireability-11
+  "Automatically generated"
+  is:
+    A X ((X "r6"?) U (F X "r10"?))
+  end.
+Property ERK-PT-000001-LTLFireability-12
+  "Automatically generated"
+  is:
+    A "r11"?
+  end.
+Property ERK-PT-000001-LTLFireability-13
+  "Automatically generated"
+  is:
+    A F F F "r7"?
+  end.
+Property ERK-PT-000001-LTLFireability-14
+  "Automatically generated"
+  is:
+    A F "r3"?
+  end.
+Property ERK-PT-000001-LTLFireability-15
+  "Automatically generated"
+  is:
+    A G G G X G "r10"?
+  end.

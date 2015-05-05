@@ -1,0 +1,80 @@
+Property PhilosophersDyn-COL-03-CTLFireability-0
+  "Automatically generated"
+  is:
+    ! ((((! ((("TakeLeft_3", "TakeLeft_1", "TakeLeft_2")?) | (((("Eat_3_2", "Eat_1_3", "Eat_1_2", "Eat_2_2", "Eat_3_1", "Eat_2_1", "Eat_2_3", "Eat_1_1", "Eat_3_3")?) & (("SearchForks_1", "SearchForks_3", "SearchForks_2")?))))) | (("TakeLeft_3", "TakeLeft_1", "TakeLeft_2")?))) & (((((A F ("Eat_3_2", "Eat_1_3", "Eat_1_2", "Eat_2_2", "Eat_3_1", "Eat_2_1", "Eat_2_3", "Eat_1_1", "Eat_3_3")?) & (E X ("SearchForks_1", "SearchForks_3", "SearchForks_2")?))) & (A F ("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?))))
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-1
+  "Automatically generated"
+  is:
+    ((! ! ! A F ("TakeLeft_3", "TakeLeft_1", "TakeLeft_2")?) | (A G A X ((("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?) | (("Eat_3_2", "Eat_1_3", "Eat_1_2", "Eat_2_2", "Eat_3_1", "Eat_2_1", "Eat_2_3", "Eat_1_1", "Eat_3_3")?))))
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-2
+  "Automatically generated"
+  is:
+    ((("SearchForks_1", "SearchForks_3", "SearchForks_2")?) | (((E G ! ((("SearchForks_1", "SearchForks_3", "SearchForks_2")?) & (("TakeRight_1_1", "TakeRight_2_3", "TakeRight_2_1", "TakeRight_3_1", "TakeRight_1_3", "TakeRight_3_2", "TakeRight_1_2", "TakeRight_2_2", "TakeRight_3_3")?))) & (((((A X ("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?) | (((! ("Eat_3_2", "Eat_1_3", "Eat_1_2", "Eat_2_2", "Eat_3_1", "Eat_2_1", "Eat_2_3", "Eat_1_1", "Eat_3_3")?) & (! ("TakeRight_1_1", "TakeRight_2_3", "TakeRight_2_1", "TakeRight_3_1", "TakeRight_1_3", "TakeRight_3_2", "TakeRight_1_2", "TakeRight_2_2", "TakeRight_3_3")?))))) | (A ((("Eat_3_2", "Eat_1_3", "Eat_1_2", "Eat_2_2", "Eat_3_1", "Eat_2_1", "Eat_2_3", "Eat_1_1", "Eat_3_3")?) U (("TakeRight_1_1", "TakeRight_2_3", "TakeRight_2_1", "TakeRight_3_1", "TakeRight_1_3", "TakeRight_3_2", "TakeRight_1_2", "TakeRight_2_2", "TakeRight_3_3")?))))))))
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-3
+  "Automatically generated"
+  is:
+    A F A ((! ("SearchForks_1", "SearchForks_3", "SearchForks_2")?) U (("Eat_3_2", "Eat_1_3", "Eat_1_2", "Eat_2_2", "Eat_3_1", "Eat_2_1", "Eat_2_3", "Eat_1_1", "Eat_3_3")?))
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-4
+  "Automatically generated"
+  is:
+    A ((! ((((("Initialize_3_1", "Initialize_2_1", "Initialize_3_2", "Initialize_1_2", "Initialize_1_3", "Initialize_2_3")?) | (("TakeLeft_3", "TakeLeft_1", "TakeLeft_2")?))) & (! ("TakeRight_1_1", "TakeRight_2_3", "TakeRight_2_1", "TakeRight_3_1", "TakeRight_1_3", "TakeRight_3_2", "TakeRight_1_2", "TakeRight_2_2", "TakeRight_3_3")?))) U (E G ! ("Eat_3_2", "Eat_1_3", "Eat_1_2", "Eat_2_2", "Eat_3_1", "Eat_2_1", "Eat_2_3", "Eat_1_1", "Eat_3_3")?))
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-5
+  "Automatically generated"
+  is:
+    A F ("Eat_3_2", "Eat_1_3", "Eat_1_2", "Eat_2_2", "Eat_3_1", "Eat_2_1", "Eat_2_3", "Eat_1_1", "Eat_3_3")?
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-6
+  "Automatically generated"
+  is:
+    ! E G ! ("Eat_3_2", "Eat_1_3", "Eat_1_2", "Eat_2_2", "Eat_3_1", "Eat_2_1", "Eat_2_3", "Eat_1_1", "Eat_3_3")?
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-7
+  "Automatically generated"
+  is:
+    A X ! E F ("Initialize_3_1", "Initialize_2_1", "Initialize_3_2", "Initialize_1_2", "Initialize_1_3", "Initialize_2_3")?
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-8
+  "Automatically generated"
+  is:
+    A X ! ((A F ("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?) | (A G ("TakeRight_1_1", "TakeRight_2_3", "TakeRight_2_1", "TakeRight_3_1", "TakeRight_1_3", "TakeRight_3_2", "TakeRight_1_2", "TakeRight_2_2", "TakeRight_3_3")?))
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-9
+  "Automatically generated"
+  is:
+    ("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-10
+  "Automatically generated"
+  is:
+    E ((((E F ("Eat_3_2", "Eat_1_3", "Eat_1_2", "Eat_2_2", "Eat_3_1", "Eat_2_1", "Eat_2_3", "Eat_1_1", "Eat_3_3")?) | (A F ("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?))) U (((A G ("SearchForks_1", "SearchForks_3", "SearchForks_2")?) | (! ((("Leave_2_1_1", "Leave_3_2_3", "Leave_1_1_2", "Leave_3_1_1", "Leave_3_3_2", "Leave_1_2_1", "Leave_1_1_3", "Leave_2_2_3", "Leave_3_3_1", "Leave_2_3_3", "Leave_2_2_1", "Leave_1_3_2", "Leave_2_3_1", "Leave_1_3_3", "Leave_2_3_2", "Leave_1_3_1", "Leave_3_1_3", "Leave_1_2_2", "Leave_3_3_3", "Leave_3_2_1", "Leave_2_1_3", "Leave_3_2_2", "Leave_2_2_2", "Leave_3_1_2", "Leave_1_1_1", "Leave_2_1_2", "Leave_1_2_3")?) & (("Leave_2_1_1", "Leave_3_2_3", "Leave_1_1_2", "Leave_3_1_1", "Leave_3_3_2", "Leave_1_2_1", "Leave_1_1_3", "Leave_2_2_3", "Leave_3_3_1", "Leave_2_3_3", "Leave_2_2_1", "Leave_1_3_2", "Leave_2_3_1", "Leave_1_3_3", "Leave_2_3_2", "Leave_1_3_1", "Leave_3_1_3", "Leave_1_2_2", "Leave_3_3_3", "Leave_3_2_1", "Leave_2_1_3", "Leave_3_2_2", "Leave_2_2_2", "Leave_3_1_2", "Leave_1_1_1", "Leave_2_1_2", "Leave_1_2_3")?))))))
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-11
+  "Automatically generated"
+  is:
+    ((! ("TakeLeft_3", "TakeLeft_1", "TakeLeft_2")?) & (A X E G ! ("Leave_2_1_1", "Leave_3_2_3", "Leave_1_1_2", "Leave_3_1_1", "Leave_3_3_2", "Leave_1_2_1", "Leave_1_1_3", "Leave_2_2_3", "Leave_3_3_1", "Leave_2_3_3", "Leave_2_2_1", "Leave_1_3_2", "Leave_2_3_1", "Leave_1_3_3", "Leave_2_3_2", "Leave_1_3_1", "Leave_3_1_3", "Leave_1_2_2", "Leave_3_3_3", "Leave_3_2_1", "Leave_2_1_3", "Leave_3_2_2", "Leave_2_2_2", "Leave_3_1_2", "Leave_1_1_1", "Leave_2_1_2", "Leave_1_2_3")?))
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-12
+  "Automatically generated"
+  is:
+    ("Leave_2_1_1", "Leave_3_2_3", "Leave_1_1_2", "Leave_3_1_1", "Leave_3_3_2", "Leave_1_2_1", "Leave_1_1_3", "Leave_2_2_3", "Leave_3_3_1", "Leave_2_3_3", "Leave_2_2_1", "Leave_1_3_2", "Leave_2_3_1", "Leave_1_3_3", "Leave_2_3_2", "Leave_1_3_1", "Leave_3_1_3", "Leave_1_2_2", "Leave_3_3_3", "Leave_3_2_1", "Leave_2_1_3", "Leave_3_2_2", "Leave_2_2_2", "Leave_3_1_2", "Leave_1_1_1", "Leave_2_1_2", "Leave_1_2_3")?
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-13
+  "Automatically generated"
+  is:
+    E ((! E G ("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?) U (("Initialize_3_1", "Initialize_2_1", "Initialize_3_2", "Initialize_1_2", "Initialize_1_3", "Initialize_2_3")?))
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-14
+  "Automatically generated"
+  is:
+    E ((E ((("SearchForks_1", "SearchForks_3", "SearchForks_2")?) U (("SearchForks_1", "SearchForks_3", "SearchForks_2")?))) U (E G ((("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?) & (("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?))))
+  end.
+Property PhilosophersDyn-COL-03-CTLFireability-15
+  "Automatically generated"
+  is:
+    ! ! E G E G ("Join_2_1_2", "Join_2_1_1", "Join_2_3_2", "Join_1_1_2", "Join_3_1_1", "Join_3_2_3", "Join_1_2_1", "Join_3_3_2", "Join_3_3_1", "Join_2_2_3", "Join_2_3_1", "Join_3_2_2", "Join_1_3_1", "Join_1_3_3", "Join_1_3_2", "Join_1_2_2", "Join_2_1_3", "Join_3_2_1", "Join_2_2_2", "Join_2_3_3", "Join_2_2_1", "Join_1_1_3", "Join_3_3_3", "Join_1_2_3", "Join_1_1_1", "Join_3_1_3", "Join_3_1_2")?
+  end.

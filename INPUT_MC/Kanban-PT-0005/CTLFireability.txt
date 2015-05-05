@@ -1,0 +1,80 @@
+Property Kanban-PT-0005-CTLFireability-0
+  "Automatically generated"
+  is:
+    A G (((((((("tok3"?) & ("tout1"?))) | (! "tback4"?))) | (E G "tok1"?))) | ((((((("tredo4"?) & ("tredo4"?))) | ("tback1"?))) | (E F "tsynch4_23"?))))
+  end.
+Property Kanban-PT-0005-CTLFireability-1
+  "Automatically generated"
+  is:
+    A G E G E F "tredo2"?
+  end.
+Property Kanban-PT-0005-CTLFireability-2
+  "Automatically generated"
+  is:
+    E F A G (((("tout1"?) & ("tout1"?))) & ((("tsynch4_23"?) | ("tback4"?))))
+  end.
+Property Kanban-PT-0005-CTLFireability-3
+  "Automatically generated"
+  is:
+    ((! E F (((("tsynch4_23"?) & ("tok1"?))) & ("tout1"?))) & (((E G (((("tok3"?) & ("tok1"?))) | ("tin4"?))) | ("tback4"?))))
+  end.
+Property Kanban-PT-0005-CTLFireability-4
+  "Automatically generated"
+  is:
+    ! ((((E G ! "tok2"?) & (! E X "tback3"?))) & (E (((("tback4"?) | ("tin4"?))) U ((("tok1"?) & ("tback1"?))))))
+  end.
+Property Kanban-PT-0005-CTLFireability-5
+  "Automatically generated"
+  is:
+    E X E F (((("tout1"?) & ("tok1"?))) & ("tback1"?))
+  end.
+Property Kanban-PT-0005-CTLFireability-6
+  "Automatically generated"
+  is:
+    E F "tout1"?
+  end.
+Property Kanban-PT-0005-CTLFireability-7
+  "Automatically generated"
+  is:
+    A X A (("tback3"?) U ((("tredo3"?) & ("tin4"?))))
+  end.
+Property Kanban-PT-0005-CTLFireability-8
+  "Automatically generated"
+  is:
+    ! ((((A (("tok1"?) U ("tredo2"?))) | (! A X "tsynch4_23"?))) | (((A X (("tok3"?) | ("tredo3"?))) & (((! (("tok3"?) & ("tin4"?))) | (! ! "tin4"?))))))
+  end.
+Property Kanban-PT-0005-CTLFireability-9
+  "Automatically generated"
+  is:
+    A G E (("tredo2"?) U (! "tback3"?))
+  end.
+Property Kanban-PT-0005-CTLFireability-10
+  "Automatically generated"
+  is:
+    ! (("tin4"?) | (! E X (("tredo1"?) | ("tout1"?))))
+  end.
+Property Kanban-PT-0005-CTLFireability-11
+  "Automatically generated"
+  is:
+    A F ! ((A G "tok4"?) & (A X "tok3"?))
+  end.
+Property Kanban-PT-0005-CTLFireability-12
+  "Automatically generated"
+  is:
+    A F A (("tback2"?) U ((("tok4"?) & ("tok3"?))))
+  end.
+Property Kanban-PT-0005-CTLFireability-13
+  "Automatically generated"
+  is:
+    ((((! A F (("tredo2"?) & ("tredo3"?))) | (A (("tok4"?) U ((("tredo1"?) & ("tin4"?))))))) | (((((! (((("tsynch4_23"?) & ("tredo4"?))) & ((("tsynch1_23"?) & ("tout1"?))))) & (A (("tback1"?) U ("tback1"?))))) | ("tback4"?))))
+  end.
+Property Kanban-PT-0005-CTLFireability-14
+  "Automatically generated"
+  is:
+    A ((A G "tok1"?) U (((A G "tback4"?) & (A X "tback3"?))))
+  end.
+Property Kanban-PT-0005-CTLFireability-15
+  "Automatically generated"
+  is:
+    E ((E X ! "tredo1"?) U (((! (("tredo3"?) & ("tin4"?))) | ((("tredo2"?) | (! "tback2"?))))))
+  end.

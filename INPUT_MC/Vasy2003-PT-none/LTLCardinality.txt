@@ -1,0 +1,80 @@
+Property Vasy2003-PT-none-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A G X ((((#tokens("p265")) <= (#tokens("p365")))) U (((#tokens("p165")) <= (#tokens("p279")))))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A F ((#tokens("p254")) <= (#tokens("p67")))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A G F ((#tokens("p263")) <= (#tokens("p236")))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A F X G F ((#tokens("p393")) <= (#tokens("p402")))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A X F F G ((#tokens("p443")) <= (#tokens("p270")))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A G X G F ((#tokens("p8")) <= (#tokens("p319")))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A X ((X ((#tokens("p73")) <= (#tokens("p35")))) U (G ((#tokens("p81")) <= (#tokens("p456")))))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A G X ((#tokens("p462")) <= (#tokens("p82")))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A F F ((((#tokens("p338")) <= (#tokens("p334")))) U (((#tokens("p102")) <= (#tokens("p190")))))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A G F ((1) <= (#tokens("p257")))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((((((3) <= (#tokens("p336")))) U (((3) <= (#tokens("p229")))))) U (F ((#tokens("p439")) <= (#tokens("p301")))))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A G ((F ((1) <= (#tokens("p338")))) U (X ((1) <= (#tokens("p261")))))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((G X ((1) <= (#tokens("p240")))) U (((#tokens("p179")) <= (#tokens("p79")))))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A X G G ((#tokens("p442")) <= (#tokens("p336")))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((F G ((3) <= (#tokens("p222")))) U (G ((3) <= (#tokens("p397")))))
+  end.
+Property Vasy2003-PT-none-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A X ((X ((1) <= (#tokens("p222")))) U (((1) <= (#tokens("p397")))))
+  end.

@@ -1,0 +1,80 @@
+Property Vasy2003-PT-none-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A G "t397"?
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t12"?
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A G "t689"?
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A (("t445"?) U ("t749"?))
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A X "t221"?
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A (("t442"?) U ("t112"?))
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A G "t142"?
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A X "t613"?
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A X "t721"?
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A (("t68"?) U ("t469"?))
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A (("t318"?) U ("t765"?))
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "t439"?
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A G "t286"?
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A G "t700"?
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "t739"?
+  end.
+Property Vasy2003-PT-none-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A (("t475"?) U ("t21"?))
+  end.
