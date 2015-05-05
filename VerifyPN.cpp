@@ -290,6 +290,8 @@ int main(int argc, char* argv[]){
 					"                                     - 1  verify sequentially\n"
 					"                                     - 2  verify parallely\n"
 					"\n"
+					"  -c, --cores <query index>          Run LTSmin multicore with a given number of cores\n"
+					"\n"
 					"Return Values:\n"
 					"  0   Successful, query satisfiable\n"
 					"  1   Unsuccesful, query not satisfiable\n"
