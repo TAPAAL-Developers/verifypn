@@ -1,0 +1,80 @@
+Property MAPK-PT-160-CTLFireability-0
+  "Automatically generated"
+  is:
+    A G "k1"?
+  end.
+Property MAPK-PT-160-CTLFireability-1
+  "Automatically generated"
+  is:
+    E ((! "k14"?) U (A X ! "k1"?))
+  end.
+Property MAPK-PT-160-CTLFireability-2
+  "Automatically generated"
+  is:
+    E F (("k8"?) & (A G (("k19"?) & ("k13"?))))
+  end.
+Property MAPK-PT-160-CTLFireability-3
+  "Automatically generated"
+  is:
+    ((E F A F ! "k12"?) & (E F A G ! "k15"?))
+  end.
+Property MAPK-PT-160-CTLFireability-4
+  "Automatically generated"
+  is:
+    ((((E F A G "k8"?) & (! "k13"?))) | ((("k17"?) | (A F (((("k18"?) & ("k2"?))) & ((("k11"?) | ("k5"?))))))))
+  end.
+Property MAPK-PT-160-CTLFireability-5
+  "Automatically generated"
+  is:
+    A G ! (("k24"?) & ((((("k10"?) | ("k19"?))) & ((("k18"?) & ("k19"?))))))
+  end.
+Property MAPK-PT-160-CTLFireability-6
+  "Automatically generated"
+  is:
+    A G A F "k1"?
+  end.
+Property MAPK-PT-160-CTLFireability-7
+  "Automatically generated"
+  is:
+    A G ! ((((! "k12"?) & ("k27"?))) & (E G "k23"?))
+  end.
+Property MAPK-PT-160-CTLFireability-8
+  "Automatically generated"
+  is:
+    ((! E G "k17"?) | ("k12"?))
+  end.
+Property MAPK-PT-160-CTLFireability-9
+  "Automatically generated"
+  is:
+    (((("k21"?) & ("k13"?))) & (A F A (("k8"?) U ("k15"?))))
+  end.
+Property MAPK-PT-160-CTLFireability-10
+  "Automatically generated"
+  is:
+    E ((A X ! "k22"?) U (E X (("k3"?) | ("k19"?))))
+  end.
+Property MAPK-PT-160-CTLFireability-11
+  "Automatically generated"
+  is:
+    "k22"?
+  end.
+Property MAPK-PT-160-CTLFireability-12
+  "Automatically generated"
+  is:
+    E ((((((! "k3"?) & ("k9"?))) | ((((("k10"?) & ("k11"?))) | ((("k29"?) | ("k22"?))))))) U ((((((("k5"?) & ("k30"?))) & (! "k13"?))) | ("k29"?))))
+  end.
+Property MAPK-PT-160-CTLFireability-13
+  "Automatically generated"
+  is:
+    ! ((((E X (("k2"?) & ("k7"?))) | (! E F "k13"?))) & ((((((((("k13"?) | ("k4"?))) & ((("k2"?) | ("k12"?))))) & (A X "k10"?))) | (((! ! "k12"?) & (! ! "k22"?))))))
+  end.
+Property MAPK-PT-160-CTLFireability-14
+  "Automatically generated"
+  is:
+    A F A G (((("k24"?) & ("k18"?))) | (! "k6"?))
+  end.
+Property MAPK-PT-160-CTLFireability-15
+  "Automatically generated"
+  is:
+    E G "k6"?
+  end.

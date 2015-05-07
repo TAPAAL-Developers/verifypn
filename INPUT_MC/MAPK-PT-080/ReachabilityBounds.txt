@@ -1,0 +1,80 @@
+Property MAPK-PT-080-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((bound("RafP")) <= (3))) & (((bound("ERKPP")) <= (2))))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("ERKPP")) <= (2))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("Raf_RasGTP")) <= (2))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("Raf_RasGTP")) <= (2))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((bound("RafP")) <= (3))) & (((((bound("Raf")) <= (2))) & (((bound("MEKP_RafP")) <= (3))))))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("MEKP_Phase2")) <= (3))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((bound("Phase2")) <= (2))) & (((((bound("ERKP_Phase3")) <= (1))) & (((bound("ERKP_MEKPP")) <= (2))))))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((((bound("MEK_RafP")) <= (3))) & (((bound("RasGTP")) <= (1))))) & (((((bound("Phase2")) <= (1))) & (((((((bound("ERKP_MEKPP")) <= (2))) & (((bound("Raf")) <= (3))))) & (((((((((bound("Raf_RasGTP")) <= (2))) & (((bound("ERKPP_Phase3")) <= (3))))) & (((bound("ERK_MEKPP")) <= (3))))) & (((bound("MEK_RafP")) <= (3))))))))))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((((((((((bound("RafP")) <= (1))) & (((((bound("ERKP_Phase3")) <= (1))) & (((bound("MEK_RafP")) <= (3))))))) & (((bound("MEKPP_Phase2")) <= (3))))) & (((((((((bound("Raf")) <= (3))) & (((bound("ERKP_MEKPP")) <= (1))))) & (((bound("MEK")) <= (3))))) & (((((((bound("ERKPP")) <= (3))) & (((bound("MEKPP_Phase2")) <= (3))))) & (((((bound("MEK")) <= (2))) & (((bound("ERKPP_Phase3")) <= (3))))))))))) & (((bound("RafP_Phase1")) <= (2))))) & (((((((((((((bound("ERK_MEKPP")) <= (2))) & (((bound("ERKPP_Phase3")) <= (2))))) & (((bound("ERK_MEKPP")) <= (1))))) & (((((((bound("ERKPP_Phase3")) <= (3))) & (((bound("ERKP")) <= (1))))) & (((((bound("MEKPP")) <= (1))) & (((bound("ERK")) <= (1))))))))) & (((((((((bound("MEKP_Phase2")) <= (3))) & (((bound("MEK_RafP")) <= (2))))) & (((bound("MEK")) <= (2))))) & (((((((bound("Raf")) <= (2))) & (((bound("Raf_RasGTP")) <= (1))))) & (((bound("MEKP")) <= (1))))))))) & (((((bound("ERKPP")) <= (2))) & (((bound("ERKP")) <= (2))))))))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((((((((bound("MEKPP_Phase2")) <= (2))) & (((((((bound("MEKPP")) <= (2))) & (((bound("RafP")) <= (3))))) & (((bound("ERKP_Phase3")) <= (3))))))) & (((((((((bound("MEKP_Phase2")) <= (1))) & (((bound("ERKP_MEKPP")) <= (2))))) & (((bound("ERKP")) <= (3))))) & (((((bound("MEK_RafP")) <= (2))) & (((((bound("MEKP_Phase2")) <= (2))) & (((bound("Phase1")) <= (3))))))))))) & (((bound("ERKP_Phase3")) <= (2))))) & (((bound("MEKPP_Phase2")) <= (2))))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("MEKP_Phase2")) <= (1))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((bound("ERK_MEKPP")) <= (3))) & (((((bound("MEKP_RafP")) <= (3))) & (((((bound("ERKPP_Phase3")) <= (3))) & (((bound("RafP")) <= (1))))))))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("ERKPP")) <= (3))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("MEKPP")) <= (3))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("ERKP")) <= (2))
+  end.
+Property MAPK-PT-080-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("MEKP")) <= (3))
+  end.

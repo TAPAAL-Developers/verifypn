@@ -125,8 +125,9 @@ double diffclock(clock_t clock1, clock_t clock2){
 
 // Path to LTSmin run script
 //string cmd = "/home/mads/verifypnLTSmin/runLTSmin.sh";
+string cmd = "/home/isabella/Documents/verifypnLTSmin/runLTSmin.sh";
 //string cmd = "/home/isabella/Documents/verifypnLTSmin/runLTSmin.sh";
-string cmd = "/user/ikaufm12/verifypnLTSmin/runLTSmin.sh";
+
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -146,7 +147,6 @@ int main(int argc, char* argv[]){
 	bool statespaceexploration = false;
 	bool printstatistics = true;
 	int enableLTSmin = 0;
-	int enableAltSearch = 0;
 	std::string LTSminRunning = "start - \n";
 	std::vector<std::string> stateLabels;
             bool isReachBound = false;
@@ -698,9 +698,9 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
             bool exitLTSmin = 0;
             if(debugging) printf("%s\n", startMessage.c_str());
             stream = popen(cmd.c_str(), "r");
+
             while (!exitLTSmin){
                 if (fgets(buffer, max_buffer, stream) != NULL){
-
                     size_t found;
                     data = "";
                     data.append(buffer);
@@ -949,15 +949,11 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                     if (notSatisfiable[i] == 0){
                         if(!firstAccurance)
                             reductionquerystr += " and ";
-                        if(XMLparser.queries[i].isPlaceBound)
-                        reductionquerystr += XMLparser.queries[i].queryText;
-                    	else reductionquerystr += querylist[i]->toString();
-                    	
+                        reductionquerystr += querylist[i]->toString();
                         firstAccurance = false;
                     }
                 }
                 Condition* reductionquery;
-                if(debugging) printf("reduction qeury string: %s\n", reductionquerystr.c_str());
                 if(!firstAccurance) {
                     reductionquery = ParseQuery(reductionquerystr);
                     reductionquery->analyze(placecontext);
@@ -1182,27 +1178,6 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 
                     
 		if(debugging) printf("%s\n", startMessage.c_str());
-
-	  if(debugging) cout<<"first round of Starting LTSmin with the cmd: "<<cmd<<endl;
-
-	  if (false){
-		sec_cmd:
-		enableAltSearch++;		
-		size_t found1;
-			if ((found1 = cmd.find("dfs"))!=std::string::npos) {     
-	        size_t searchStrat = 3;
-	        cmd.replace(found1, searchStrat, "bfs");
-	        
-
-			if(debugging) cout<<"second round of Starting LTSmin with the cmd "<<cmd<<endl;
-			if(debugging) cout<<"second round of Starting LTSmin with the int  "<<enableAltSearch<<endl;
-	        }
-	        
-		}
-
-
-
-
 		stream = popen(cmd.c_str(), "r");
 	                while (!exitLTSmin){
 	                    if (fgets(buffer, max_buffer, stream) != NULL){
@@ -1319,36 +1294,26 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 
                                         else{
 
-			                                string searchSat = string("#Query ") + number + " is satisfied.";
-			                                string searchNotSat = string("#Query ") + number + " is NOT satisfied.";
-			                                string hashTableFull = string("Error: hash table full!");
+	                                string searchSat = string("#Query ") + number + " is satisfied.";
+	                                string searchNotSat = string("#Query ") + number + " is NOT satisfied.";
 
-			                                if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified[q] && !solved[q]) {
+	                                if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified[q]) {
 
-		                                                if(isInvariantlist[q])
-			                                       printf("%s\n", queryResultNotSat.c_str());
-		                                                else if(!isInvariantlist[q])
-		                                                    printf("%s\n", queryResultSat.c_str());
-			                                    solved[q] = 1;
-			                                    ltsminVerified[q] = 1;
-			                                }
-			                                else if((found = data.find(searchNotSat)) != std::string::npos && !ltsminVerified[q] && !solved[q]){
-		                                                if(isInvariantlist[q])
-		                                                    printf("%s\n", queryResultSat.c_str());
-		                                                else if(!isInvariantlist[q])
-		                                                    printf("%s\n", queryResultNotSat.c_str());
-		                                                solved[q] = 1;
-			                                    ltsminVerified[q] = 1;
-			                                }
-			                                else if((found = data.find(hashTableFull)) != std::string::npos && enableAltSearch == 0){
-			                                	if(debugging) cout<<"second round about to begin "<<endl;
-			                                    goto sec_cmd; 
-			                                }
-			                               	else if((found = data.find(hashTableFull)) != std::string::npos && enableAltSearch != 0){
-			                                	if(debugging) cout<<"second round finished "<<endl;
-			                                	printf("CANNOT_COMPUTE");
-			                                	goto end_prog; 
-			                                }
+                                                if(isInvariantlist[q])
+	                                       printf("%s\n", queryResultNotSat.c_str());
+                                                else if(!isInvariantlist[q])
+                                                    printf("%s\n", queryResultSat.c_str());
+	                                    solved[q] = 1;
+	                                    ltsminVerified[q] = 1;
+	                                }
+	                                else if((found = data.find(searchNotSat)) != std::string::npos && !ltsminVerified[q]){
+                                                if(isInvariantlist[q])
+                                                    printf("%s\n", queryResultSat.c_str());
+                                                else if(!isInvariantlist[q])
+                                                    printf("%s\n", queryResultNotSat.c_str());
+                                                solved[q] = 1;
+	                                    ltsminVerified[q] = 1;
+	                                }
                                         }
                                     }
 
@@ -1410,8 +1375,6 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 	                if(debugging) printf("%s\n", exitMessage.c_str());
 
 	  }
-
-	  end_prog:
 
             clock_t LTSmin_end = clock();
             if(debugging) cout<<"------------LTSmin Verification time elapsed: "<<double(diffclock(LTSmin_end,LTSmin_begin))<<" ms-----------\n"<<endl;
@@ -1562,6 +1525,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 	}
 
 	//----------------------- Output Statistics -----------------------//
+
 	if (printstatistics) {
 	//Print statistics
 	fprintf(stdout, "STATS:\n");
