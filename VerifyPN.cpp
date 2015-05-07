@@ -147,6 +147,7 @@ int main(int argc, char* argv[]){
 	bool statespaceexploration = false;
 	bool printstatistics = true;
 	int enableLTSmin = 0;
+	int AltSS = 0;
 	std::string LTSminRunning = "start - \n";
 	std::vector<std::string> stateLabels;
             bool isReachBound = false;
@@ -949,7 +950,9 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                     if (notSatisfiable[i] == 0){
                         if(!firstAccurance)
                             reductionquerystr += " and ";
-                        reductionquerystr += querylist[i]->toString();
+                        if(XMLparser.queries[i].isPlaceBound)
+                        	reductionquerystr += XMLparser.queries[i].queryText;
+                        else reductionquerystr += querylist[i]->toString();
                         firstAccurance = false;
                     }
                 }
@@ -1176,6 +1179,18 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                                 satRecords[q] = 0;
                         }
 
+        if(false){
+        	sec_cmd:
+        	AltSS++;
+        	size_t found1;
+        	if ((found1 = cmd.find("dfs"))!=std::string::npos) {     
+                size_t AltssLenght = 3;
+                cmd.replace(found1, AltssLenght, "bfs");
+                if (debugging) printf("New command for second attempt %s\n", cmd.c_str());
+            }
+        }
+
+
                     
 		if(debugging) printf("%s\n", startMessage.c_str());
 		stream = popen(cmd.c_str(), "r");
@@ -1296,6 +1311,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 
 	                                string searchSat = string("#Query ") + number + " is satisfied.";
 	                                string searchNotSat = string("#Query ") + number + " is NOT satisfied.";
+	                                string hashtable = string("Error: hash table full!");
 
 	                                if ((found = data.find(searchSat))!=std::string::npos && !ltsminVerified[q]) {
 
@@ -1313,6 +1329,11 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                                                     printf("%s\n", queryResultNotSat.c_str());
                                                 solved[q] = 1;
 	                                    ltsminVerified[q] = 1;
+	                                }
+	                                else if((found = data.find(hashtable)) != std::string::npos && AltSS == 0){
+                                             goto sec_cmd;
+	                                } else if((found = data.find(hashtable)) != std::string::npos && AltSS != 0){
+                                             goto end;
 	                                }
                                         }
                                     }
@@ -1375,7 +1396,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 	                if(debugging) printf("%s\n", exitMessage.c_str());
 
 	  }
-
+	  end:
             clock_t LTSmin_end = clock();
             if(debugging) cout<<"------------LTSmin Verification time elapsed: "<<double(diffclock(LTSmin_end,LTSmin_begin))<<" ms-----------\n"<<endl;
 
