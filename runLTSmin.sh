@@ -14,13 +14,13 @@
 # Expect -mc to run ltsmin multicore (default sequential)
 
 #PREFIX=/home/mads/verifypnLTSmin
-PREFIX=/home/isabella/Documents/verifypnLTSmin
+#PREFIX=/home/isabella/Documents/verifypnLTSmin
+PREFIX=/Users/user/ikaufm12/verifypnLTSmin
 
 STRAT=$1
 NRCORES=$2
 ISDEADLOCK=$3
 LTSMINTYPE=$4
-
 
 if [[ $OSTYPE == linux* ]]
 then

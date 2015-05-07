@@ -125,9 +125,8 @@ double diffclock(clock_t clock1, clock_t clock2){
 
 // Path to LTSmin run script
 //string cmd = "/home/mads/verifypnLTSmin/runLTSmin.sh";
-string cmd = "/home/isabella/Documents/verifypnLTSmin/runLTSmin.sh";
 //string cmd = "/home/isabella/Documents/verifypnLTSmin/runLTSmin.sh";
-
+string cmd = "/user/ikaufm12/verifypnLTSmin/runLTSmin.sh";
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -699,9 +698,9 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
             bool exitLTSmin = 0;
             if(debugging) printf("%s\n", startMessage.c_str());
             stream = popen(cmd.c_str(), "r");
-
             while (!exitLTSmin){
                 if (fgets(buffer, max_buffer, stream) != NULL){
+
                     size_t found;
                     data = "";
                     data.append(buffer);
