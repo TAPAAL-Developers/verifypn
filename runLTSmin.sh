@@ -7,20 +7,16 @@
 # Setting for deadlock: --deadlock
 # Setting for benchmark-test: --when
 # Setting for use of table instead of tree: --state=table
-
+# Setting for hash table size: --size=18
 # Pretty Print tracelog: ltsmin-printtrace solution.gcf
 # ********************************************************
 
-# Expect -mc to run ltsmin multicore (default sequential)
+PREFIX=.
 
-#PREFIX=/home/mads/verifypnLTSmin
-PREFIX=/home/isabella/Documents/verifypnLTSmin
-
-STRAT=$1
-NRCORES=$2
-ISDEADLOCK=$3
-LTSMINTYPE=$4
-
+STRAT=$1      # bfs/dfs
+NRCORES=$2    # 1..N
+ISDEADLOCK=$3 # false/true
+LTSMINTYPE=$4 # -mc/-seq
 
 if [[ $OSTYPE == linux* ]]
 then

@@ -6,7 +6,7 @@
 #include <autogen.h>
 
 // set the name of this PINS plugin
-char pins_plugin_name[] = "TAPAAL on the fly compilation";
+char pins_plugin_name[] = "VerifyPN extension";
 
 void pins_model_init(model_t m) {
 
@@ -20,27 +20,16 @@ void pins_model_init(model_t m) {
     int int_type = lts_type_add_type(ltstype, "int", NULL);
     lts_type_set_format (ltstype, int_type, LTStypeDirect);
 
-    // add an "action" type for edge labels
-    /*int action_type = lts_type_add_type(ltstype, "action", NULL);
-    lts_type_set_format (ltstype, action_type, LTStypeEnum);*/
-
     // add a "bool" type for state labels
     int bool_type = lts_type_add_type (ltstype, LTSMIN_TYPE_BOOL, NULL);
     lts_type_set_format(ltstype, bool_type, LTStypeEnum);
 
     // set state name & type
     for (int i=0; i < state_length(); ++i) {
-        //char name[3]; sprintf(name, "%d", i);
         char name[16]; sprintf(name, "%d", i);
         lts_type_set_state_name(ltstype,i,name);
         lts_type_set_state_typeno(ltstype,i,int_type);
     }
-
-    // edge label types
-    //lts_type_set_edge_label_count (ltstype, 1);
-    /*lts_type_set_edge_label_name(ltstype, 0, "action");
-    lts_type_set_edge_label_type(ltstype, 0, "action");
-    lts_type_set_edge_label_typeno(ltstype, 0, action_type);*/
 
     // state label types
     lts_type_set_state_label_count (ltstype, 1);
@@ -54,9 +43,6 @@ void pins_model_init(model_t m) {
     GBsetLTStype(m, ltstype);
 
     // setting all values for all non direct types
-   /* GBchunkPut(m, action_type, chunk_str("walk_left"));
-    GBchunkPut(m, action_type, chunk_str("push_left"));
-    GBchunkPut(m, action_type, chunk_str("walk_right"));*/
     GBchunkPut(m, bool_type, chunk_str(LTSMIN_VALUE_BOOL_FALSE));
     GBchunkPut(m, bool_type, chunk_str(LTSMIN_VALUE_BOOL_TRUE));
 
@@ -69,9 +55,8 @@ void pins_model_init(model_t m) {
     // set function pointer for the label evaluation function
     GBsetStateLabelLong(m, (get_label_method_t) state_label);
 
-
     int exit_func(void* model);
-    GBsetExit(m, exit_func);
+    GBsetExit(m, (void*)exit_func);
 
     // create combined matrix
     matrix_t *cm = malloc(sizeof(matrix_t));
@@ -88,6 +73,7 @@ void pins_model_init(model_t m) {
 
         }
     }
+
     GBsetDMInfoRead(m, rm);
 
     // set the write dependency matrix
@@ -101,6 +87,7 @@ void pins_model_init(model_t m) {
 
         }
     }
+
     GBsetDMInfoMustWrite(m, wm);
 
     // set the combined matrix
@@ -114,6 +101,6 @@ void pins_model_init(model_t m) {
             dm_set(lm, i, j);
         }
     }
-    GBsetStateLabelInfo(m, lm);
 
+    GBsetStateLabelInfo(m, lm);
 }

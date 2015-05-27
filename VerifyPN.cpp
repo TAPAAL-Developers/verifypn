@@ -3,7 +3,7 @@
  *                          Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                          Lars Kærlund Østergaard <larsko@gmail.com>,
  *                          Jiri Srba <srba.jiri@gmail.com>
- *                          Jakob Dyhr <>
+ *                          Jakob Dyhr <jdyhr12@student.aau.dk>
  *                          Mads Johannsen <mjohan12@student.aau.dk>
  *                          Isabella Kaufmann <ikaufm12@student.aau.dk>
  *                          Søren Moss Nielsen <smni12@student.aau.dk>
@@ -124,10 +124,7 @@ double diffclock(clock_t clock1, clock_t clock2){
 }
 
 // Path to LTSmin run script
-//string cmd = "/home/mads/verifypnLTSmin/runLTSmin.sh";
-string cmd = "/home/isabella/Documents/verifypnLTSmin/runLTSmin.sh";
-//string cmd = "/home/isabella/Documents/verifypnLTSmin/runLTSmin.sh";
-
+string cmd = "./runLTSmin.sh";
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -504,7 +501,7 @@ int main(int argc, char* argv[]){
 		isInvariantlist[i] = XMLparser.queries[i].negateResult;
 		querylist[i] = ParseQuery(querystring);
 	}
-        
+
         std::size_t found = querystring.find("deadlock");
         if(found!=std::string::npos){
             queryisdeadlock = true;
@@ -631,10 +628,10 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                 else if(result.result() == ReachabilityResult::NotSatisfied){
        				if(tool == TSEQ){
                 		if (isInvariantlist[i]) fprintf(stdout, "\nFORMULA %s TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ", XMLparser.queries[i].id.c_str());
-                    	else if(!isInvariantlist[i]) fprintf(stdout, "\nFORMULA %s FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION \n ", XMLparser.queries[i].id.c_str());	
+                    	else if(!isInvariantlist[i]) fprintf(stdout, "\nFORMULA %s FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION \n ", XMLparser.queries[i].id.c_str());
                 	}else if(tool == TPAR){
                 		if (isInvariantlist[i]) fprintf(stdout, "\nFORMULA %s TRUE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ", XMLparser.queries[i].id.c_str());
-                    	else if(!isInvariantlist[i]) fprintf(stdout, "\nFORMULA %s FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION \n ", XMLparser.queries[i].id.c_str());	
+                    	else if(!isInvariantlist[i]) fprintf(stdout, "\nFORMULA %s FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION \n ", XMLparser.queries[i].id.c_str());
                 	}
                 }
                 else {
@@ -662,7 +659,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
             string searchS = string("Explored");
             string searchT = string("Explored");
             //string searchTMT = string("tokens in marking");
-            //string searchMT = string("tokens in one Place");            
+            //string searchMT = string("tokens in one Place");
             string searchMarking = "#marking";
             string searchPlaceTokens = "#placetokens";
 
@@ -678,7 +675,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
             string stdmsg = "State space: ";
             string startMessage = "LTSmin has started";
             string exitMessage = "LTSmin finished";
-          
+
             if(queryisdeadlock){
                 cmd += " true";
             } else{
@@ -705,14 +702,14 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                     size_t found;
                     data = "";
                     data.append(buffer);
-                    
+
                     // Find the amout of cores being used by LTSmin
-                    if ((found = data.find("cores"))!=std::string::npos) {     
+                    if ((found = data.find("core"))!=std::string::npos) {
                         size_t startPos = 0;
                         string ssresult;
 
                             if((startPos = data.find("using")) !=std::string::npos){
-                                size_t end_quote = data.find("cores", startPos + 1);
+                                size_t end_quote = data.find("core", startPos + 1);
                                 size_t nameLen = (end_quote - startPos) + 1;
 
                                 ssresult = data.substr(startPos + 6, nameLen - 8);
@@ -723,7 +720,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                                 }
 
                             }
-                    }               
+                    }
 
                     if ((found = data.find(searchS))!=std::string::npos) {
                         size_t startPos = found;
@@ -770,8 +767,8 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                         if(atoi( ssresult.c_str() ) > atoi( maxTokInMark.c_str() ) ){
                             maxTokInMark = ssresult;
                         }
-                        
-                        maxTokInMarkRecords++;                        
+
+                        maxTokInMarkRecords++;
                     }
 
                     // Tokens in one place
@@ -789,8 +786,8 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                         if(atoi( ssresult.c_str() ) > atoi( tokInOnePlace.c_str() ) ){
                             tokInOnePlace = ssresult;
                         }
-                        
-                        tokInOnePlaceRecords++;                        
+
+                        tokInOnePlaceRecords++;
                     }
 
                     // exit messages
@@ -823,7 +820,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
             string searchS = string("levels,");
             string searchT = string("levels,");
             string searchTMT = string("tokens in marking");
-            string searchMT = string("tokens in one Place");            
+            string searchMT = string("tokens in one Place");
 
             if(debugging) printf("%s\n", startMessage.c_str());
             stream = popen(cmd.c_str(), "r");
@@ -901,7 +898,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                             fprintf(stdout, "STATE_SPACE MAX_TOKENS_IN_PLACE %s TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT\n", ssresult.c_str());
 	                    	}
                             results++;
-                        }                      
+                        }
                     }
 
                     // exit messages
@@ -1011,7 +1008,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 
                 if(debugging) cout<<"Number of places: "<<net->numberOfPlaces()<<endl;
                 if(debugging) cout<<"Number of transisions: "<<net->numberOfTransitions()<<endl;
-                
+
                 if(debugging) cout<<"Creating Code Generator object"<<endl;
                 cout<<"query: "<<XMLparser.queries[xmlquery - 1].queryText<<endl;
                 CodeGenerator codeGen(net, m0, inhibarcs, stateLabels[xmlquery - 1], XMLparser.queries[xmlquery - 1].isReachBound, XMLparser.queries[xmlquery - 1].isPlaceBound, XMLparser.queries[xmlquery - 1].quickSolve, &XMLparser);
@@ -1028,7 +1025,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                     if(debugging) cout<<"Generating code for all queries"<<endl;
                     codeGen.generateSourceMultipleQueries(&stateLabels, notSatisfiable, isInvariantlist, numberOfQueries);
                 }
-                
+
                 else if(queryisdeadlock){
                     if(debugging) cout<<"Generating code for deadlock query"<<endl;
                     codeGen.generateSource(isInvariantlist, -1);
@@ -1108,7 +1105,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 		size_t startPos = 0;
 
 	        if((startPos = data.find(searchDeadlock)) != std::string::npos) {
-		    string queryResultSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() + 
+		    string queryResultSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() +
                     " TRUE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
                     printf("%s\n", queryResultSat.c_str());
 		    deadlockFound = true;
@@ -1117,7 +1114,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 
      		if((startPos = data.find(searchDeadlock1)) != std::string::npos) {
 	     		if(tool == TSEQ){
-	     			string queryResultSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() + 
+	     			string queryResultSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() +
 	                    " TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                    printf("%s\n", queryResultSat.c_str());
 			    deadlockFound = true;
@@ -1130,7 +1127,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 
 	        if(tool == TSEQ){
 
-		    string queryResultNotSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() + 
+		    string queryResultNotSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() +
                     " FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
         	    printf("%s\n", queryResultNotSat.c_str());
                     break;
@@ -1138,7 +1135,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 	        }
 	        else if(tool == TPAR){
 
-		    string queryResultNotSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() + 
+		    string queryResultNotSat = string("FORMULA ") + XMLparser.queries[0].id.c_str() +
                     " FALSE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
         	    printf("%s\n", queryResultNotSat.c_str());
                     break;
@@ -1183,7 +1180,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
         	sec_cmd:
         	AltSS++;
         	size_t found1;
-        	if ((found1 = cmd.find("dfs"))!=std::string::npos) {     
+        	if ((found1 = cmd.find("dfs"))!=std::string::npos) {
                 size_t AltssLenght = 3;
                 cmd.replace(found1, AltssLenght, "bfs");
                 if (debugging) printf("New command for second attempt %s\n", cmd.c_str());
@@ -1191,7 +1188,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
         }
 
 
-                    
+
 		if(debugging) printf("%s\n", startMessage.c_str());
 		stream = popen(cmd.c_str(), "r");
 	                while (!exitLTSmin){
@@ -1201,12 +1198,12 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 	                        data.append(buffer);
 
                                     // Find the amout of cores being used by LTSmin
-                                    if ((found = data.find("Running"))!=std::string::npos) {     
+                                    if ((found = data.find("Running"))!=std::string::npos) {
                                         size_t startPos = 0;
                                         string ssresult;
 
                                             if((startPos = data.find("using")) !=std::string::npos){
-                                                size_t end_quote = data.find("cores", startPos + 1);
+                                                size_t end_quote = data.find("core", startPos + 1);
                                                 size_t nameLen = (end_quote - startPos) + 1;
 
                                                 ssresult = data.substr(startPos + 6, nameLen - 8);
@@ -1218,7 +1215,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                                             }
                                         if(cores < 0)
                                         cores = 1;
-                                    }               
+                                    }
 
 	                        for(q = 0; q<numberOfQueries; q++){
 
@@ -1242,7 +1239,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 
 
                                         if(XMLparser.queries[q].isPlaceBound){
-                                            
+
                                             string searchPlaceBound = string("Query ") + number.c_str() + " max tokens are";
                                             string tokens;
                                             size_t startPos = 0;
@@ -1284,7 +1281,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                                                     }
                                                     else if(!isInvariantlist[q])
                                                         printf("%s\n", queryResultSat.c_str());
-                                                
+
                                                     solved[q] = 1;
                                                     ltsminVerified[q] = 1;
                                                 }
@@ -1292,7 +1289,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 
                                             else if((found = data.find(searchUnknown)) != std::string::npos){
                                                 satRecords[q]++;
-                                            } 
+                                            }
 
                                             if(cores > 0){
                                                 for(int q = 0; q < numberOfQueries; q++){
@@ -1304,7 +1301,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                                                         continue;
                                                     }
                                                 }
-                                            }                                               
+                                            }
                                         }
 
                                         else{
@@ -1367,7 +1364,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 	                		fprintf(stdout, "%s\n", queryResultNotSat.c_str());
 	                	}
 
-			       
+
 	                	}
 
 	                	//AG satisfied
@@ -1381,7 +1378,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 	                			queryResultSat = string("FORMULA ") + XMLparser.queries[q].id.c_str() + " TRUE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n ";
 	                		fprintf(stdout, "%s\n", queryResultSat.c_str());
 	                		}
-	                		
+
 	                	}
                                     else if(XMLparser.queries[q].isPlaceBound){
                                     	if(tool == TSEQ){
@@ -1390,7 +1387,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                                     	else if(tool == TPAR){
                                     		fprintf(stdout, "FORMULA %s %d TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", XMLparser.queries[q].id.c_str(), maxTokens[q]);
                                     	}
-                                        
+
                                     }
 	                }
 	                if(debugging) printf("%s\n", exitMessage.c_str());
@@ -1419,7 +1416,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                         fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
                     	}
 
-                      
+
                     }
 
                     else if(solution == SuccessCode){

@@ -17,10 +17,10 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
     int max_buffer = 256;
     char buffer[max_buffer];
     string searchExit = "exiting now";
-    string searchPins2lts = "pins2lts-seq";    
+    string searchPins2lts = "pins2lts-seq";
 
     int q, m, s;
-    string data;                
+    string data;
     int solved = 0;
     int ltsminVerified = 0;
     bool exitLTSmin = 0;
@@ -48,7 +48,7 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
                 string ssresult;
 
                     if((startPos = data.find("using")) !=std::string::npos){
-                        size_t end_quote = data.find("cores", startPos + 1);
+                        size_t end_quote = data.find("core", startPos + 1);
                         size_t nameLen = (end_quote - startPos) + 1;
 
                         ssresult = data.substr(startPos + 6, nameLen - 8);
@@ -61,7 +61,7 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
                     }
                 if(cores < 0)
                     cores = 1;
-            }  
+            }
 
 
             if(isPlaceBound){
@@ -69,18 +69,18 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
                 size_t startPos = 0;
 
 
-                    
+
                 if((startPos = data.find("\'", startPos)) != std::string::npos) {
                     size_t end_quote = data.find("\'", startPos + 1);
                     size_t nameLen = (end_quote - startPos) + 1;
-                    tokens = data.substr(startPos + 1, nameLen - 2);   
+                    tokens = data.substr(startPos + 1, nameLen - 2);
                     startPos += tokens.size();
                 }
 
                 if((found = data.find(searchPlaceBound)) != std::string::npos){
                     if(atoi( tokens.c_str() ) > maxTokens ){
                         maxTokens = atoi( tokens.c_str());
-                    }                    
+                    }
                     ltsminVerified = 1;
                     maxTokensRecords++;
                 }
@@ -88,7 +88,7 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
                 if(cores > 0 && maxTokensRecords >= cores){
                     exitLTSmin = 1;
                     break;
-                }     
+                }
             }
             else if(isReachBound){
                 string searchUnknown = string("#Query ") + number + " unable to decide.";
@@ -103,7 +103,7 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
 
                 else if((found = data.find(searchUnknown)) != std::string::npos){
                     satRecords++;
-                } 
+                }
 
                 if(cores > 0){
                     if(satRecords >= cores){
@@ -114,7 +114,7 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
                         continue;
                     }
                 }
-            }                                               
+            }
             else{
                 searchSat = string("#Query ") + number + " is satisfied.";
                 searchNotSat = string("#Query ") + number + " is NOT satisfied.";
@@ -131,11 +131,11 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
                 }
             }
             // exit messages
-        
+
             if((found = data.find(searchExit)) != std::string::npos){
                 exitLTSmin = 1;
                 break;
-            }       
+            }
         }
     }
 
