@@ -49,7 +49,7 @@ namespace PetriEngine{
 
         int p,t, q, nested_count;
 
-        group_count = _ntransitions;
+        group_count = 1;
         state_count = _nplaces;
         label_count = 1;
 
@@ -283,7 +283,7 @@ namespace PetriEngine{
         int group_count, state_count, label_count, dest = 0;
         int p,t,q, nested_count;
 
-        group_count = _ntransitions;
+        group_count = 1;
         state_count = _nplaces;
         label_count = 1;
 
@@ -538,7 +538,7 @@ namespace PetriEngine{
 
         int p,t, nested_count;
 
-        group_count = _ntransitions;
+        group_count = 1;
         state_count = _nplaces;
         label_count = 1;
 
