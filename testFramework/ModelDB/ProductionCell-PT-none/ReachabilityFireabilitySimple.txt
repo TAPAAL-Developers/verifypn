@@ -1,0 +1,80 @@
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t70"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t124"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t131"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t115"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t83"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t91"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t59"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t81"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t20"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t1"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t122"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t68"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t19"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t62"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t38"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t129"?
+  end.

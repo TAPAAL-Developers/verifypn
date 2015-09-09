@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>ERKP_MEKPP</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>ERKP_MEKPP</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>ERK</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Raf_RasGTP</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Phase3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>ERKP_MEKPP</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Phase2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>ERKP</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Phase2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>ERKP_MEKPP</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>ERKP_Phase3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>ERKP_MEKPP</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Phase3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>ERKP</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>MEKP_Phase2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>MAPK-PT-160-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>MEKP_Phase2</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

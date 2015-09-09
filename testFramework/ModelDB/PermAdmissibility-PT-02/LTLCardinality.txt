@@ -1,0 +1,80 @@
+Property PermAdmissibility-COL-02-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A G G G G ((2) <= (#tokens("c7")))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A F G ((((2) <= (#tokens("in4_6", "in4_7")))) U (((1) <= (#tokens("aux12_6", "aux12_5", "aux12_4", "aux12_3", "aux12_2", "aux12_1", "aux12_0", "aux12_7")))))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A X F F ((#tokens("out6_1", "out6_2", "out6_0", "out6_6", "out6_5", "out6_4", "out6_3", "out6_7")) <= (#tokens("out7_1", "out7_0", "out7_3", "out7_2", "out7_5", "out7_4", "out7_7", "out7_6")))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((#tokens("c8")) <= (#tokens("c110")))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((((((1) <= (#tokens("aux9_4", "aux9_5", "aux9_6", "aux9_7", "aux9_0", "aux9_1", "aux9_2", "aux9_3")))) U (((#tokens("in3_5", "in3_4")) <= (#tokens("c15")))))) U (X F ((1) <= (#tokens("out1_0", "out1_6", "out1_5", "out1_7", "out1_2", "out1_1", "out1_4", "out1_3")))))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A F X ((#tokens("aux11_5", "aux11_4", "aux11_3", "aux11_2", "aux11_1", "aux11_0", "aux11_7", "aux11_6")) <= (#tokens("aux15_2", "aux15_1", "aux15_0", "aux15_6", "aux15_5", "aux15_4", "aux15_3", "aux15_7")))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((((#tokens("c11")) <= (#tokens("c9")))) U (G G ((2) <= (#tokens("aux13_2", "aux13_1", "aux13_0", "aux13_7", "aux13_3", "aux13_4", "aux13_5", "aux13_6")))))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A G F X ((#tokens("aux9_4", "aux9_5", "aux9_6", "aux9_7", "aux9_0", "aux9_1", "aux9_2", "aux9_3")) <= (#tokens("aux8_7", "aux8_3", "aux8_6", "aux8_2")))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A F ((((#tokens("out3_0", "out3_1", "out3_6", "out3_7", "out3_2", "out3_3", "out3_4", "out3_5")) <= (#tokens("out5_1", "out5_2", "out5_0", "out5_5", "out5_6", "out5_3", "out5_4", "out5_7")))) U (((3) <= (#tokens("aux11_5", "aux11_4", "aux11_3", "aux11_2", "aux11_1", "aux11_0", "aux11_7", "aux11_6")))))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("out7_1", "out7_0", "out7_3", "out7_2", "out7_5", "out7_4", "out7_7", "out7_6")))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((((#tokens("aux9_4", "aux9_5", "aux9_6", "aux9_7", "aux9_0", "aux9_1", "aux9_2", "aux9_3")) <= (#tokens("aux7_7", "aux7_6", "aux7_3", "aux7_2")))) U (G F ((1) <= (#tokens("out4_0", "out4_1", "out4_7", "out4_6", "out4_3", "out4_2", "out4_5", "out4_4")))))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((((((3) <= (#tokens("aux12_6", "aux12_5", "aux12_4", "aux12_3", "aux12_2", "aux12_1", "aux12_0", "aux12_7")))) U (((#tokens("out5_1", "out5_2", "out5_0", "out5_5", "out5_6", "out5_3", "out5_4", "out5_7")) <= (#tokens("c6")))))) U (((#tokens("aux9_4", "aux9_5", "aux9_6", "aux9_7", "aux9_0", "aux9_1", "aux9_2", "aux9_3")) <= (#tokens("aux13_2", "aux13_1", "aux13_0", "aux13_7", "aux13_3", "aux13_4", "aux13_5", "aux13_6")))))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A X G G G ((#tokens("out1_0", "out1_6", "out1_5", "out1_7", "out1_2", "out1_1", "out1_4", "out1_3")) <= (#tokens("aux15_2", "aux15_1", "aux15_0", "aux15_6", "aux15_5", "aux15_4", "aux15_3", "aux15_7")))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A F G ((#tokens("out2_0", "out2_7", "out2_5", "out2_6", "out2_3", "out2_4", "out2_1", "out2_2")) <= (#tokens("in3_5", "in3_4")))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A F ((G ((#tokens("aux8_7", "aux8_3", "aux8_6", "aux8_2")) <= (#tokens("out2_0", "out2_7", "out2_5", "out2_6", "out2_3", "out2_4", "out2_1", "out2_2")))) U (F ((#tokens("out3_0", "out3_1", "out3_6", "out3_7", "out3_2", "out3_3", "out3_4", "out3_5")) <= (#tokens("aux13_2", "aux13_1", "aux13_0", "aux13_7", "aux13_3", "aux13_4", "aux13_5", "aux13_6")))))
+  end.
+Property PermAdmissibility-COL-02-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((#tokens("c14")) <= (#tokens("aux7_7", "aux7_6", "aux7_3", "aux7_2")))
+  end.

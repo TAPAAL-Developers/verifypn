@@ -1,0 +1,80 @@
+Property Dekker-PT-015-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ! ! ((((2) <= (#tokens("flag=0/1")))) & (((#tokens("p1/6")) <= (#tokens("flag=0/13")))))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ((#tokens("p3/2")) <= (#tokens("p3/2")))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ! ((! ((3) <= (#tokens("flag=1/1")))) | (((((#tokens("flag=0/4")) <= (#tokens("p3/11")))) & (((1) <= (#tokens("p0/2")))))))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("flag=0/1")) <= (#tokens("p0/7")))) | (((#tokens("p1/10")) <= (#tokens("p3/2")))))) & (((2) <= (#tokens("p1/4")))))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ! ((3) <= (#tokens("flag=0/2")))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ((! ((((3) <= (#tokens("p3/14")))) & (((#tokens("p0/12")) <= (#tokens("flag=0/7")))))) | (((((((#tokens("flag=1/8")) <= (#tokens("p3/6")))) | (((3) <= (#tokens("p0/14")))))) & (! ((#tokens("flag=0/3")) <= (#tokens("flag=1/1")))))))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((((((3) <= (#tokens("flag=1/9")))) & (! ((2) <= (#tokens("flag=0/1")))))) & (! ((((#tokens("p1/2")) <= (#tokens("p3/12")))) & (((1) <= (#tokens("p0/10")))))))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    E F ((((2) <= (#tokens("flag=1/6")))) | (((((((#tokens("flag=1/9")) <= (#tokens("flag=1/12")))) & (((#tokens("p1/10")) <= (#tokens("p3/4")))))) & (((((#tokens("flag=0/1")) <= (#tokens("p0/8")))) & (((2) <= (#tokens("p3/3")))))))))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ! ((2) <= (#tokens("flag=0/0")))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ((((#tokens("p3/8")) <= (#tokens("flag=0/7")))) | (((#tokens("flag=0/4")) <= (#tokens("flag=0/3")))))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ! ! ((((2) <= (#tokens("p3/11")))) & (((3) <= (#tokens("flag=1/5")))))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((! ! ((2) <= (#tokens("p0/13")))) & (((((((#tokens("flag=1/0")) <= (#tokens("p1/2")))) & (((#tokens("p1/6")) <= (#tokens("p1/8")))))) & (((((2) <= (#tokens("flag=0/12")))) | (((#tokens("p1/3")) <= (#tokens("flag=1/7")))))))))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ! ((((((2) <= (#tokens("p0/7")))) & (((3) <= (#tokens("flag=1/9")))))) & (((#tokens("p0/14")) <= (#tokens("flag=0/13")))))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ! ! ((((2) <= (#tokens("p1/12")))) & (((#tokens("p1/5")) <= (#tokens("p1/1")))))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("p0/11")))
+  end.
+Property Dekker-PT-015-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ! ((3) <= (#tokens("p1/13")))
+  end.

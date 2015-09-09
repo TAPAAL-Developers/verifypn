@@ -1,0 +1,80 @@
+Property UtahNoC-PT-none-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A (("t391"?) U ("t884"?))
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A G "t143"?
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A (("t92"?) U ("t230"?))
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t652"?
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A X "t436"?
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A (("t149"?) U ("t501"?))
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A G "t652"?
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A G "t907"?
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A G "t340"?
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A (("t704"?) U ("t180"?))
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t628"?
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A X "t821"?
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A X "t716"?
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A X "t784"?
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A G "t202"?
+  end.
+Property UtahNoC-PT-none-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A X "t263"?
+  end.

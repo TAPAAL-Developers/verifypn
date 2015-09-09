@@ -1,0 +1,80 @@
+Property SharedMemory-COL-000005-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")) <= (#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ! ((#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")) <= (#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((((! ((#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")) <= (#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")))) & (((((2) <= (#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")))) & (((#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")) <= (#tokens("Ext_Mem_Acc_2_1", "Ext_Mem_Acc_3_1", "Ext_Mem_Acc_4_1", "Ext_Mem_Acc_5_1", "Ext_Mem_Acc_1_2", "Ext_Mem_Acc_3_2", "Ext_Mem_Acc_4_2", "Ext_Mem_Acc_5_2", "Ext_Mem_Acc_1_3", "Ext_Mem_Acc_2_3", "Ext_Mem_Acc_4_3", "Ext_Mem_Acc_5_3", "Ext_Mem_Acc_1_4", "Ext_Mem_Acc_3_4", "Ext_Mem_Acc_2_4", "Ext_Mem_Acc_1_5", "Ext_Mem_Acc_5_4", "Ext_Mem_Acc_3_5", "Ext_Mem_Acc_2_5", "Ext_Mem_Acc_4_5")))))))) & (((#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")) <= (#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")))))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((((! ((3) <= (#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")))) & (((2) <= (#tokens("Ext_Bus")))))) | (! ! ((2) <= (#tokens("Ext_Mem_Acc_2_1", "Ext_Mem_Acc_3_1", "Ext_Mem_Acc_4_1", "Ext_Mem_Acc_5_1", "Ext_Mem_Acc_1_2", "Ext_Mem_Acc_3_2", "Ext_Mem_Acc_4_2", "Ext_Mem_Acc_5_2", "Ext_Mem_Acc_1_3", "Ext_Mem_Acc_2_3", "Ext_Mem_Acc_4_3", "Ext_Mem_Acc_5_3", "Ext_Mem_Acc_1_4", "Ext_Mem_Acc_3_4", "Ext_Mem_Acc_2_4", "Ext_Mem_Acc_1_5", "Ext_Mem_Acc_5_4", "Ext_Mem_Acc_3_5", "Ext_Mem_Acc_2_5", "Ext_Mem_Acc_4_5")))))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((((#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")) <= (#tokens("Ext_Mem_Acc_2_1", "Ext_Mem_Acc_3_1", "Ext_Mem_Acc_4_1", "Ext_Mem_Acc_5_1", "Ext_Mem_Acc_1_2", "Ext_Mem_Acc_3_2", "Ext_Mem_Acc_4_2", "Ext_Mem_Acc_5_2", "Ext_Mem_Acc_1_3", "Ext_Mem_Acc_2_3", "Ext_Mem_Acc_4_3", "Ext_Mem_Acc_5_3", "Ext_Mem_Acc_1_4", "Ext_Mem_Acc_3_4", "Ext_Mem_Acc_2_4", "Ext_Mem_Acc_1_5", "Ext_Mem_Acc_5_4", "Ext_Mem_Acc_3_5", "Ext_Mem_Acc_2_5", "Ext_Mem_Acc_4_5")))) & (! ((#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")) <= (#tokens("Ext_Bus")))))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ((#tokens("Ext_Mem_Acc_2_1", "Ext_Mem_Acc_3_1", "Ext_Mem_Acc_4_1", "Ext_Mem_Acc_5_1", "Ext_Mem_Acc_1_2", "Ext_Mem_Acc_3_2", "Ext_Mem_Acc_4_2", "Ext_Mem_Acc_5_2", "Ext_Mem_Acc_1_3", "Ext_Mem_Acc_2_3", "Ext_Mem_Acc_4_3", "Ext_Mem_Acc_5_3", "Ext_Mem_Acc_1_4", "Ext_Mem_Acc_3_4", "Ext_Mem_Acc_2_4", "Ext_Mem_Acc_1_5", "Ext_Mem_Acc_5_4", "Ext_Mem_Acc_3_5", "Ext_Mem_Acc_2_5", "Ext_Mem_Acc_4_5")) <= (#tokens("Ext_Mem_Acc_2_1", "Ext_Mem_Acc_3_1", "Ext_Mem_Acc_4_1", "Ext_Mem_Acc_5_1", "Ext_Mem_Acc_1_2", "Ext_Mem_Acc_3_2", "Ext_Mem_Acc_4_2", "Ext_Mem_Acc_5_2", "Ext_Mem_Acc_1_3", "Ext_Mem_Acc_2_3", "Ext_Mem_Acc_4_3", "Ext_Mem_Acc_5_3", "Ext_Mem_Acc_1_4", "Ext_Mem_Acc_3_4", "Ext_Mem_Acc_2_4", "Ext_Mem_Acc_1_5", "Ext_Mem_Acc_5_4", "Ext_Mem_Acc_3_5", "Ext_Mem_Acc_2_5", "Ext_Mem_Acc_4_5")))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ((((2) <= (#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")))) | (((((((#tokens("Ext_Bus")) <= (#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")))) | (((#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")) <= (#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")))))) & (((((#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")) <= (#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")))) & (((#tokens("Ext_Bus")) <= (#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")))))))))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((((! ((2) <= (#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")))) & (! ((3) <= (#tokens("Ext_Bus")))))) | (((((((#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")) <= (#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")))) | (((3) <= (#tokens("Ext_Bus")))))) | (! ((3) <= (#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")))))))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ((((((((2) <= (#tokens("Ext_Bus")))) | (((#tokens("Ext_Mem_Acc_2_1", "Ext_Mem_Acc_3_1", "Ext_Mem_Acc_4_1", "Ext_Mem_Acc_5_1", "Ext_Mem_Acc_1_2", "Ext_Mem_Acc_3_2", "Ext_Mem_Acc_4_2", "Ext_Mem_Acc_5_2", "Ext_Mem_Acc_1_3", "Ext_Mem_Acc_2_3", "Ext_Mem_Acc_4_3", "Ext_Mem_Acc_5_3", "Ext_Mem_Acc_1_4", "Ext_Mem_Acc_3_4", "Ext_Mem_Acc_2_4", "Ext_Mem_Acc_1_5", "Ext_Mem_Acc_5_4", "Ext_Mem_Acc_3_5", "Ext_Mem_Acc_2_5", "Ext_Mem_Acc_4_5")) <= (#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")))))) & (((#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")) <= (#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")))))) & (! ((((1) <= (#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")))) | (((2) <= (#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")))))))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ! ((((2) <= (#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")))) & (((((#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")) <= (#tokens("Ext_Bus")))) & (((#tokens("Ext_Bus")) <= (#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")))))))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((((((((1) <= (#tokens("Ext_Bus")))) | (((#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")) <= (#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")))))) | (((((#tokens("Ext_Mem_Acc_2_1", "Ext_Mem_Acc_3_1", "Ext_Mem_Acc_4_1", "Ext_Mem_Acc_5_1", "Ext_Mem_Acc_1_2", "Ext_Mem_Acc_3_2", "Ext_Mem_Acc_4_2", "Ext_Mem_Acc_5_2", "Ext_Mem_Acc_1_3", "Ext_Mem_Acc_2_3", "Ext_Mem_Acc_4_3", "Ext_Mem_Acc_5_3", "Ext_Mem_Acc_1_4", "Ext_Mem_Acc_3_4", "Ext_Mem_Acc_2_4", "Ext_Mem_Acc_1_5", "Ext_Mem_Acc_5_4", "Ext_Mem_Acc_3_5", "Ext_Mem_Acc_2_5", "Ext_Mem_Acc_4_5")) <= (#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")))) & (((2) <= (#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")))))))) & (((((#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")) <= (#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")))) & (! ((#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")) <= (#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")))))))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((((2) <= (#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")))) & (! ((((1) <= (#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")))) & (((2) <= (#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")))))))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")) <= (#tokens("Ext_Mem_Acc_2_1", "Ext_Mem_Acc_3_1", "Ext_Mem_Acc_4_1", "Ext_Mem_Acc_5_1", "Ext_Mem_Acc_1_2", "Ext_Mem_Acc_3_2", "Ext_Mem_Acc_4_2", "Ext_Mem_Acc_5_2", "Ext_Mem_Acc_1_3", "Ext_Mem_Acc_2_3", "Ext_Mem_Acc_4_3", "Ext_Mem_Acc_5_3", "Ext_Mem_Acc_1_4", "Ext_Mem_Acc_3_4", "Ext_Mem_Acc_2_4", "Ext_Mem_Acc_1_5", "Ext_Mem_Acc_5_4", "Ext_Mem_Acc_3_5", "Ext_Mem_Acc_2_5", "Ext_Mem_Acc_4_5")))) | (((2) <= (#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")))))) | (! ((2) <= (#tokens("Ext_Bus")))))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((! ((3) <= (#tokens("Ext_Bus")))) & (! ((((1) <= (#tokens("Ext_Bus")))) | (((#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")) <= (#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")))))))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")) <= (#tokens("Ext_Bus")))) | (((#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")) <= (#tokens("Ext_Mem_Acc_2_1", "Ext_Mem_Acc_3_1", "Ext_Mem_Acc_4_1", "Ext_Mem_Acc_5_1", "Ext_Mem_Acc_1_2", "Ext_Mem_Acc_3_2", "Ext_Mem_Acc_4_2", "Ext_Mem_Acc_5_2", "Ext_Mem_Acc_1_3", "Ext_Mem_Acc_2_3", "Ext_Mem_Acc_4_3", "Ext_Mem_Acc_5_3", "Ext_Mem_Acc_1_4", "Ext_Mem_Acc_3_4", "Ext_Mem_Acc_2_4", "Ext_Mem_Acc_1_5", "Ext_Mem_Acc_5_4", "Ext_Mem_Acc_3_5", "Ext_Mem_Acc_2_5", "Ext_Mem_Acc_4_5")))))) & (((((1) <= (#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")))) | (((#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")) <= (#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")))))))) | (((#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")) <= (#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")))))
+  end.
+Property SharedMemory-COL-000005-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((((#tokens("Ext_Mem_Acc_2_1", "Ext_Mem_Acc_3_1", "Ext_Mem_Acc_4_1", "Ext_Mem_Acc_5_1", "Ext_Mem_Acc_1_2", "Ext_Mem_Acc_3_2", "Ext_Mem_Acc_4_2", "Ext_Mem_Acc_5_2", "Ext_Mem_Acc_1_3", "Ext_Mem_Acc_2_3", "Ext_Mem_Acc_4_3", "Ext_Mem_Acc_5_3", "Ext_Mem_Acc_1_4", "Ext_Mem_Acc_3_4", "Ext_Mem_Acc_2_4", "Ext_Mem_Acc_1_5", "Ext_Mem_Acc_5_4", "Ext_Mem_Acc_3_5", "Ext_Mem_Acc_2_5", "Ext_Mem_Acc_4_5")) <= (#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")))) | (((((((#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")) <= (#tokens("Active_1", "Active_3", "Active_2", "Active_4", "Active_5")))) & (((2) <= (#tokens("Memory_2", "Memory_1", "Memory_4", "Memory_3", "Memory_5")))))) | (((((1) <= (#tokens("OwnMemAcc_1", "OwnMemAcc_4", "OwnMemAcc_5", "OwnMemAcc_2", "OwnMemAcc_3")))) | (((#tokens("Queue_1", "Queue_2", "Queue_5", "Queue_3", "Queue_4")) <= (#tokens("Ext_Bus")))))))))
+  end.

@@ -1,0 +1,80 @@
+Property Eratosthenes-PT-010-LTLFireability-0
+  "Automatically generated"
+  is:
+    A ((F X "t10.2"?) U ("t6.2"?))
+  end.
+Property Eratosthenes-PT-010-LTLFireability-1
+  "Automatically generated"
+  is:
+    A (((("t6.3"?) U (X "t10.5"?))) U (F (("t8.4"?) U ("t4.2"?))))
+  end.
+Property Eratosthenes-PT-010-LTLFireability-2
+  "Automatically generated"
+  is:
+    A G (((("t10.2"?) U ("t9.3"?))) U (X "t4.2"?))
+  end.
+Property Eratosthenes-PT-010-LTLFireability-3
+  "Automatically generated"
+  is:
+    A ((X X X "t6.3"?) U ("t10.2"?))
+  end.
+Property Eratosthenes-PT-010-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X (("t4.2"?) U ((("t9.3"?) U ("t6.3"?))))
+  end.
+Property Eratosthenes-PT-010-LTLFireability-5
+  "Automatically generated"
+  is:
+    A (("t4.2"?) U ("t10.2"?))
+  end.
+Property Eratosthenes-PT-010-LTLFireability-6
+  "Automatically generated"
+  is:
+    A ((((X "t8.2"?) U (G "t8.4"?))) U (F F "t4.2"?))
+  end.
+Property Eratosthenes-PT-010-LTLFireability-7
+  "Automatically generated"
+  is:
+    A ((G (("t10.5"?) U ("t10.2"?))) U ("t9.3"?))
+  end.
+Property Eratosthenes-PT-010-LTLFireability-8
+  "Automatically generated"
+  is:
+    A ((X X G "t8.4"?) U (F "t6.2"?))
+  end.
+Property Eratosthenes-PT-010-LTLFireability-9
+  "Automatically generated"
+  is:
+    A ((G (("t6.3"?) U ("t9.3"?))) U (X F G "t8.2"?))
+  end.
+Property Eratosthenes-PT-010-LTLFireability-10
+  "Automatically generated"
+  is:
+    A G F "t9.3"?
+  end.
+Property Eratosthenes-PT-010-LTLFireability-11
+  "Automatically generated"
+  is:
+    A X G X X "t9.3"?
+  end.
+Property Eratosthenes-PT-010-LTLFireability-12
+  "Automatically generated"
+  is:
+    A G "t6.3"?
+  end.
+Property Eratosthenes-PT-010-LTLFireability-13
+  "Automatically generated"
+  is:
+    A "t8.2"?
+  end.
+Property Eratosthenes-PT-010-LTLFireability-14
+  "Automatically generated"
+  is:
+    A (("t6.2"?) U ("t9.3"?))
+  end.
+Property Eratosthenes-PT-010-LTLFireability-15
+  "Automatically generated"
+  is:
+    A "t9.3"?
+  end.

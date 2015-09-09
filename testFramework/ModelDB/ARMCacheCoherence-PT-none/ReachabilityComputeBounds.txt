@@ -1,0 +1,80 @@
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("p25")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("p40")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("p30")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("p77")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("p1")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("p56")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("p15")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("p57")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("p61")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("p57")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("p53")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("p14")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("p56")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("p62")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("p32")
+  end.
+Property ARMCacheCoherence-PT-none-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("p70")
+  end.

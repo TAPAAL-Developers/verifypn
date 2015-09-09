@@ -1,0 +1,80 @@
+Property MultiwaySync-PT-none-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ! ! ((((2) <= (#tokens("p1")))) | (((#tokens("p73")) <= (#tokens("p67")))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("p51")))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("p111")) <= (#tokens("p132")))) | (((#tokens("p20")) <= (#tokens("p187")))))) & (((((1) <= (#tokens("p214")))) & (((((1) <= (#tokens("p20")))) & (((2) <= (#tokens("p201")))))))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ! ((((((2) <= (#tokens("p153")))) | (((#tokens("p173")) <= (#tokens("p65")))))) & (! ((#tokens("p113")) <= (#tokens("p181")))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((1) <= (#tokens("p35")))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ! ((((((#tokens("p184")) <= (#tokens("p158")))) & (((3) <= (#tokens("p118")))))) & (((((2) <= (#tokens("p11")))) & (((2) <= (#tokens("p199")))))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((((! ((1) <= (#tokens("p142")))) | (! ((#tokens("p54")) <= (#tokens("p45")))))) & (((((((#tokens("p88")) <= (#tokens("p87")))) & (((2) <= (#tokens("p183")))))) & (! ((#tokens("p180")) <= (#tokens("p182")))))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((#tokens("p140")) <= (#tokens("p161")))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ((((2) <= (#tokens("p157")))) | (((! ((1) <= (#tokens("p124")))) & (((3) <= (#tokens("p135")))))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ((#tokens("p158")) <= (#tokens("p52")))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((#tokens("p92")) <= (#tokens("p121")))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((((! ((#tokens("p43")) <= (#tokens("p157")))) & (((#tokens("p120")) <= (#tokens("p36")))))) | (((((((1) <= (#tokens("p96")))) | (((#tokens("p19")) <= (#tokens("p42")))))) | (! ((2) <= (#tokens("p171")))))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ! ((! ((3) <= (#tokens("p0")))) | (((2) <= (#tokens("p128")))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((((! ((1) <= (#tokens("p121")))) | (((((#tokens("p64")) <= (#tokens("p138")))) | (((3) <= (#tokens("p53")))))))) | (((3) <= (#tokens("p212")))))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ! ! ((#tokens("p73")) <= (#tokens("p143")))
+  end.
+Property MultiwaySync-PT-none-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((1) <= (#tokens("p49")))
+  end.

@@ -1,0 +1,80 @@
+Property Dekker-PT-020-CTLCardinality-0
+  "Automatically generated"
+  is:
+    E F ! ((((#tokens("p3/10")) <= (#tokens("p1/16")))) | (((((2) <= (#tokens("p0/13")))) | (((#tokens("flag=1/19")) <= (#tokens("flag=1/10")))))))
+  end.
+Property Dekker-PT-020-CTLCardinality-1
+  "Automatically generated"
+  is:
+    E X ((E F ((3) <= (#tokens("flag=0/11")))) & (! ((((#tokens("flag=0/15")) <= (#tokens("flag=1/9")))) | (((1) <= (#tokens("p1/14")))))))
+  end.
+Property Dekker-PT-020-CTLCardinality-2
+  "Automatically generated"
+  is:
+    ((((1) <= (#tokens("p1/10")))) | (A F E F ((3) <= (#tokens("p1/19")))))
+  end.
+Property Dekker-PT-020-CTLCardinality-3
+  "Automatically generated"
+  is:
+    E ((! ((((2) <= (#tokens("p0/15")))) | (((2) <= (#tokens("p0/4")))))) U (((3) <= (#tokens("p0/12")))))
+  end.
+Property Dekker-PT-020-CTLCardinality-4
+  "Automatically generated"
+  is:
+    ((A X E G ((2) <= (#tokens("flag=0/7")))) | (E F ((((#tokens("p0/2")) <= (#tokens("p0/9")))) & (((((2) <= (#tokens("flag=1/6")))) & (((#tokens("p3/14")) <= (#tokens("p3/8")))))))))
+  end.
+Property Dekker-PT-020-CTLCardinality-5
+  "Automatically generated"
+  is:
+    ((E G ((! ((2) <= (#tokens("p1/10")))) | (! ((#tokens("p1/15")) <= (#tokens("p1/15")))))) & (A G ! ((((2) <= (#tokens("flag=1/4")))) & (((#tokens("p1/11")) <= (#tokens("flag=1/5")))))))
+  end.
+Property Dekker-PT-020-CTLCardinality-6
+  "Automatically generated"
+  is:
+    E F E ((((#tokens("p3/4")) <= (#tokens("flag=1/19")))) U (((2) <= (#tokens("p0/18")))))
+  end.
+Property Dekker-PT-020-CTLCardinality-7
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("p0/15")))
+  end.
+Property Dekker-PT-020-CTLCardinality-8
+  "Automatically generated"
+  is:
+    A G E X ((((#tokens("p0/7")) <= (#tokens("flag=0/14")))) & (((#tokens("flag=1/16")) <= (#tokens("flag=1/8")))))
+  end.
+Property Dekker-PT-020-CTLCardinality-9
+  "Automatically generated"
+  is:
+    ! A G ! ((3) <= (#tokens("p3/1")))
+  end.
+Property Dekker-PT-020-CTLCardinality-10
+  "Automatically generated"
+  is:
+    A G ((E F ((#tokens("p3/7")) <= (#tokens("p3/17")))) | (((((#tokens("flag=0/18")) <= (#tokens("flag=0/3")))) & (((((#tokens("flag=0/12")) <= (#tokens("p1/19")))) & (((#tokens("flag=0/16")) <= (#tokens("p1/7")))))))))
+  end.
+Property Dekker-PT-020-CTLCardinality-11
+  "Automatically generated"
+  is:
+    E F ! A F ((#tokens("flag=1/13")) <= (#tokens("p0/10")))
+  end.
+Property Dekker-PT-020-CTLCardinality-12
+  "Automatically generated"
+  is:
+    A G ((! ((((2) <= (#tokens("flag=0/6")))) & (((#tokens("flag=1/1")) <= (#tokens("p3/2")))))) | (E X ((1) <= (#tokens("p3/7")))))
+  end.
+Property Dekker-PT-020-CTLCardinality-13
+  "Automatically generated"
+  is:
+    A G ! ((3) <= (#tokens("p1/5")))
+  end.
+Property Dekker-PT-020-CTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((A G ((2) <= (#tokens("flag=1/7")))) U (E F ((3) <= (#tokens("p0/11")))))
+  end.
+Property Dekker-PT-020-CTLCardinality-15
+  "Automatically generated"
+  is:
+    A F A X ((((#tokens("flag=0/2")) <= (#tokens("p3/7")))) | (((2) <= (#tokens("p1/8")))))
+  end.

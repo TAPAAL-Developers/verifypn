@@ -1,0 +1,80 @@
+Property MultiwaySync-PT-none-LTLFireability-0
+  "Automatically generated"
+  is:
+    A X F G G X "t85"?
+  end.
+Property MultiwaySync-PT-none-LTLFireability-1
+  "Automatically generated"
+  is:
+    A "t313"?
+  end.
+Property MultiwaySync-PT-none-LTLFireability-2
+  "Automatically generated"
+  is:
+    A F G X G F "t155"?
+  end.
+Property MultiwaySync-PT-none-LTLFireability-3
+  "Automatically generated"
+  is:
+    A F ((F G "t159"?) U (X F "t390"?))
+  end.
+Property MultiwaySync-PT-none-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X "t350"?
+  end.
+Property MultiwaySync-PT-none-LTLFireability-5
+  "Automatically generated"
+  is:
+    A "t207"?
+  end.
+Property MultiwaySync-PT-none-LTLFireability-6
+  "Automatically generated"
+  is:
+    A (("t471"?) U ("t258"?))
+  end.
+Property MultiwaySync-PT-none-LTLFireability-7
+  "Automatically generated"
+  is:
+    A F G X F F "t110"?
+  end.
+Property MultiwaySync-PT-none-LTLFireability-8
+  "Automatically generated"
+  is:
+    A (((("t250"?) U (F "t375"?))) U (((G "t227"?) U (X "t260"?))))
+  end.
+Property MultiwaySync-PT-none-LTLFireability-9
+  "Automatically generated"
+  is:
+    A ((F (("t154"?) U ("t141"?))) U (F (("t79"?) U ("t458"?))))
+  end.
+Property MultiwaySync-PT-none-LTLFireability-10
+  "Automatically generated"
+  is:
+    A F X X G F "t224"?
+  end.
+Property MultiwaySync-PT-none-LTLFireability-11
+  "Automatically generated"
+  is:
+    A G (("t57"?) U ((("t401"?) U ("t63"?))))
+  end.
+Property MultiwaySync-PT-none-LTLFireability-12
+  "Automatically generated"
+  is:
+    A G G G G X "t14"?
+  end.
+Property MultiwaySync-PT-none-LTLFireability-13
+  "Automatically generated"
+  is:
+    A "t101"?
+  end.
+Property MultiwaySync-PT-none-LTLFireability-14
+  "Automatically generated"
+  is:
+    A G X X "t54"?
+  end.
+Property MultiwaySync-PT-none-LTLFireability-15
+  "Automatically generated"
+  is:
+    A "t214"?
+  end.

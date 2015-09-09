@@ -1,0 +1,80 @@
+Property LamportFastMutEx-COL-4-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A F G G F ((1) <= (#tokens("ifyi_15_0", "ifyi_15_1", "ifyi_15_2", "ifyi_15_3", "ifyi_15_4")))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A G ((2) <= (#tokens("awaity_0", "awaity_1", "awaity_2", "awaity_3", "awaity_4")))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A F G F ((1) <= (#tokens("awaity_0", "awaity_1", "awaity_2", "awaity_3", "awaity_4")))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A X G ((1) <= (#tokens("ifyi_15_0", "ifyi_15_1", "ifyi_15_2", "ifyi_15_3", "ifyi_15_4")))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A G G ((#tokens("setbi_5_0", "setbi_5_1", "setbi_5_2", "setbi_5_3", "setbi_5_4")) <= (#tokens("setbi_24_0", "setbi_24_1", "setbi_24_2", "setbi_24_3", "setbi_24_4")))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A F ((1) <= (#tokens("setx_3_0", "setx_3_1", "setx_3_2", "setx_3_3", "setx_3_4")))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((((#tokens("ify0_4_0", "ify0_4_1", "ify0_4_2", "ify0_4_3", "ify0_4_4")) <= (#tokens("ifyi_15_0", "ifyi_15_1", "ifyi_15_2", "ifyi_15_3", "ifyi_15_4")))) U (G F ((#tokens("sety_9_0", "sety_9_1", "sety_9_2", "sety_9_3", "sety_9_4")) <= (#tokens("setbi_11_0", "setbi_11_1", "setbi_11_2", "setbi_11_3", "setbi_11_4")))))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A G ((X ((#tokens("wait_0_0", "wait_0_1", "wait_0_2", "wait_0_3", "wait_0_4", "wait_1_0", "wait_1_1", "wait_1_2", "wait_1_3", "wait_1_4", "wait_2_0", "wait_2_1", "wait_2_2", "wait_2_3", "wait_2_4", "wait_3_0", "wait_3_1", "wait_3_2", "wait_3_3", "wait_3_4", "wait_4_0", "wait_4_1", "wait_4_2", "wait_4_3", "wait_4_4")) <= (#tokens("ify0_4_0", "ify0_4_1", "ify0_4_2", "ify0_4_3", "ify0_4_4")))) U (G ((#tokens("setbi_5_0", "setbi_5_1", "setbi_5_2", "setbi_5_3", "setbi_5_4")) <= (#tokens("ify0_4_0", "ify0_4_1", "ify0_4_2", "ify0_4_3", "ify0_4_4")))))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A G G F G ((#tokens("fordo_12_0", "fordo_12_1", "fordo_12_2", "fordo_12_3", "fordo_12_4")) <= (#tokens("CS_21_0", "CS_21_1", "CS_21_2", "CS_21_3", "CS_21_4")))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A F F G G ((2) <= (#tokens("await_13_0", "await_13_1", "await_13_2", "await_13_3", "await_13_4")))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((#tokens("ifyi_15_0", "ifyi_15_1", "ifyi_15_2", "ifyi_15_3", "ifyi_15_4")) <= (#tokens("b_0_false", "b_0_true", "b_1_false", "b_1_true", "b_2_false", "b_2_true", "b_3_false", "b_3_true", "b_4_false", "b_4_true")))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A F ((#tokens("ifyi_15_0", "ifyi_15_1", "ifyi_15_2", "ifyi_15_3", "ifyi_15_4")) <= (#tokens("ify0_4_0", "ify0_4_1", "ify0_4_2", "ify0_4_3", "ify0_4_4")))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A X G G ((#tokens("fordo_12_0", "fordo_12_1", "fordo_12_2", "fordo_12_3", "fordo_12_4")) <= (#tokens("y_0", "y_1", "y_2", "y_3", "y_4")))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A G F G G ((#tokens("fordo_12_0", "fordo_12_1", "fordo_12_2", "fordo_12_3", "fordo_12_4")) <= (#tokens("CS_21_0", "CS_21_1", "CS_21_2", "CS_21_3", "CS_21_4")))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A X G ((#tokens("setbi_5_0", "setbi_5_1", "setbi_5_2", "setbi_5_3", "setbi_5_4")) <= (#tokens("start_1_0", "start_1_1", "start_1_2", "start_1_3", "start_1_4")))
+  end.
+Property LamportFastMutEx-COL-4-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("ify0_4_0", "ify0_4_1", "ify0_4_2", "ify0_4_3", "ify0_4_4")))
+  end.

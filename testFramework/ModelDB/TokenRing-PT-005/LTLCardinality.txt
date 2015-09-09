@@ -1,0 +1,80 @@
+Property TokenRing-COL-005-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A X F X G ((3) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))
+  end.
+Property TokenRing-COL-005-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A X F ((3) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))
+  end.
+Property TokenRing-COL-005-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A X G F G ((2) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))
+  end.
+Property TokenRing-COL-005-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A G X G F ((2) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))
+  end.
+Property TokenRing-COL-005-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))
+  end.
+Property TokenRing-COL-005-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A ((G F ((3) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))) U (X F ((2) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))))
+  end.
+Property TokenRing-COL-005-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A F ((2) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))
+  end.
+Property TokenRing-COL-005-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A ((X X ((3) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))) U (X G ((1) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))))
+  end.
+Property TokenRing-COL-005-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A F G F ((2) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))
+  end.
+Property TokenRing-COL-005-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((2) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))
+  end.
+Property TokenRing-COL-005-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((G ((3) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))) U (((((2) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))) U (((2) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))))))
+  end.
+Property TokenRing-COL-005-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))
+  end.
+Property TokenRing-COL-005-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A G ((1) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))
+  end.
+Property TokenRing-COL-005-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A G G ((((2) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))) U (((3) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))))
+  end.
+Property TokenRing-COL-005-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))
+  end.
+Property TokenRing-COL-005-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("State_3_1", "State_1_3", "State_4_4", "State_5_2", "State_3_0", "State_0_4", "State_4_1", "State_1_5", "State_4_2", "State_0_5", "State_2_0", "State_1_4", "State_3_2", "State_4_3", "State_4_0", "State_5_3", "State_5_0", "State_3_5", "State_2_5", "State_2_2", "State_4_5", "State_0_1", "State_1_2", "State_3_4", "State_1_1", "State_2_3", "State_2_4", "State_0_2", "State_5_5", "State_3_3", "State_0_3", "State_5_1", "State_5_4", "State_2_1", "State_1_0", "State_0_0")))
+  end.

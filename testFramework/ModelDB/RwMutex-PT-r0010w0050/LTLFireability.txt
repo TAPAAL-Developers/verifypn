@@ -1,0 +1,80 @@
+Property RwMutex-PT-r0010w0050-LTLFireability-0
+  "Automatically generated"
+  is:
+    A "t57"?
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-1
+  "Automatically generated"
+  is:
+    A G G "t89"?
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-2
+  "Automatically generated"
+  is:
+    A "t32"?
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X "t115"?
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-4
+  "Automatically generated"
+  is:
+    A F ((F G "t7"?) U (X X "t54"?))
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-5
+  "Automatically generated"
+  is:
+    A "t48"?
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-6
+  "Automatically generated"
+  is:
+    A "t119"?
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X (((("t12"?) U ("t87"?))) U ("t14"?))
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-8
+  "Automatically generated"
+  is:
+    A "t96"?
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-9
+  "Automatically generated"
+  is:
+    A X X "t35"?
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-10
+  "Automatically generated"
+  is:
+    A F ((F G "t51"?) U (X G "t114"?))
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-11
+  "Automatically generated"
+  is:
+    A ((F F X "t64"?) U (((F "t63"?) U ("t69"?))))
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-12
+  "Automatically generated"
+  is:
+    A ((F "t88"?) U (X F G "t46"?))
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-13
+  "Automatically generated"
+  is:
+    A X "t21"?
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-14
+  "Automatically generated"
+  is:
+    A ((G F "t87"?) U (X F F "t83"?))
+  end.
+Property RwMutex-PT-r0010w0050-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X F X (("t45"?) U ("t60"?))
+  end.

@@ -1,0 +1,80 @@
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("p10")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("p6")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("p14")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("p12")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("p8")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("p12")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("p17")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("p4")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("p8")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("p14")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("p18")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("p10")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("p5")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("p18")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("p14")
+  end.
+Property Eratosthenes-PT-020-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("p17")
+  end.

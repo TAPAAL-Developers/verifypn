@@ -1,0 +1,80 @@
+Property Vasy2003-PT-none-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("p316")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("p367")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("p463")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("p277")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("p442")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("p94")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("p400")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("p124")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("p252")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("p345")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("p71")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("p79")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("p358")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("p170")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("p107")
+  end.
+Property Vasy2003-PT-none-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("p28")
+  end.

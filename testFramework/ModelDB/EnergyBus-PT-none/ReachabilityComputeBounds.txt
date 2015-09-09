@@ -1,0 +1,80 @@
+Property EnergyBus-PT-none-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("p92")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("p149")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("p85")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("p71")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("p130")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("p116")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("p81")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("p67")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("p152")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("p47")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("p13")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("p141")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("p89")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("p108")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("p5")
+  end.
+Property EnergyBus-PT-none-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("p30")
+  end.

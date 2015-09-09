@@ -1,0 +1,80 @@
+Property MAPK-PT-080-LTLFireability-0
+  "Automatically generated"
+  is:
+    A "k25"?
+  end.
+Property MAPK-PT-080-LTLFireability-1
+  "Automatically generated"
+  is:
+    A G G F X "k24"?
+  end.
+Property MAPK-PT-080-LTLFireability-2
+  "Automatically generated"
+  is:
+    A G G ((G "k17"?) U (G "k9"?))
+  end.
+Property MAPK-PT-080-LTLFireability-3
+  "Automatically generated"
+  is:
+    A ((X F G "k9"?) U (X F "k18"?))
+  end.
+Property MAPK-PT-080-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X X G F G "k18"?
+  end.
+Property MAPK-PT-080-LTLFireability-5
+  "Automatically generated"
+  is:
+    A "k25"?
+  end.
+Property MAPK-PT-080-LTLFireability-6
+  "Automatically generated"
+  is:
+    A X X F "k14"?
+  end.
+Property MAPK-PT-080-LTLFireability-7
+  "Automatically generated"
+  is:
+    A ((((X "k12"?) U (F "k15"?))) U (((X "k2"?) U (F "k25"?))))
+  end.
+Property MAPK-PT-080-LTLFireability-8
+  "Automatically generated"
+  is:
+    A G X G "k15"?
+  end.
+Property MAPK-PT-080-LTLFireability-9
+  "Automatically generated"
+  is:
+    A X F "k13"?
+  end.
+Property MAPK-PT-080-LTLFireability-10
+  "Automatically generated"
+  is:
+    A G G F "k14"?
+  end.
+Property MAPK-PT-080-LTLFireability-11
+  "Automatically generated"
+  is:
+    A F "k10"?
+  end.
+Property MAPK-PT-080-LTLFireability-12
+  "Automatically generated"
+  is:
+    A G (((("k18"?) U ("k8"?))) U ((("k12"?) U ("k5"?))))
+  end.
+Property MAPK-PT-080-LTLFireability-13
+  "Automatically generated"
+  is:
+    A "k24"?
+  end.
+Property MAPK-PT-080-LTLFireability-14
+  "Automatically generated"
+  is:
+    A F "k15"?
+  end.
+Property MAPK-PT-080-LTLFireability-15
+  "Automatically generated"
+  is:
+    A G "k22"?
+  end.

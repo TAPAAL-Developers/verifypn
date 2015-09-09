@@ -1,0 +1,80 @@
+Property MAPK-PT-080-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F ! ! ! (("k1"?) | ("k10"?))
+  end.
+Property MAPK-PT-080-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    A G (("k21"?) | (! "k20"?))
+  end.
+Property MAPK-PT-080-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    A G ((! (("k30"?) & ((("k14"?) & ("k29"?))))) | ("k14"?))
+  end.
+Property MAPK-PT-080-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    A G ! ! "k1"?
+  end.
+Property MAPK-PT-080-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F (("k9"?) & ((("k27"?) & ((("k14"?) | ((("k9"?) | ("k17"?))))))))
+  end.
+Property MAPK-PT-080-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G (((("k24"?) & (! (("k4"?) & ("k14"?))))) | (! (("k27"?) & ((("k15"?) | ("k18"?))))))
+  end.
+Property MAPK-PT-080-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F (((("k24"?) & ("k11"?))) & ("k19"?))
+  end.
+Property MAPK-PT-080-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G ((! "k13"?) | ((((("k5"?) | ((("k29"?) | ("k23"?))))) | ("k13"?))))
+  end.
+Property MAPK-PT-080-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F ((! ! (("k24"?) & ("k22"?))) | (! ! (("k9"?) & ("k26"?))))
+  end.
+Property MAPK-PT-080-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G ! ! ((! "k27"?) | (! "k30"?))
+  end.
+Property MAPK-PT-080-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F (("k27"?) & ("k28"?))
+  end.
+Property MAPK-PT-080-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F (((((((("k10"?) & ("k21"?))) | ((("k11"?) | ("k24"?))))) & ((((("k13"?) | ("k20"?))) | ((("k16"?) & ("k18"?))))))) & (((! ! "k27"?) & ("k14"?))))
+  end.
+Property MAPK-PT-080-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ((! ! ! "k12"?) | ((("k11"?) | (((! "k25"?) & ((("k23"?) & ("k2"?))))))))
+  end.
+Property MAPK-PT-080-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F ! (((("k20"?) | (! "k11"?))) | (((! "k21"?) | ((("k23"?) & ("k18"?))))))
+  end.
+Property MAPK-PT-080-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    A G ((((((! "k8"?) | (! "k28"?))) | ((("k27"?) & ((("k4"?) | ("k20"?))))))) | (((! ! "k2"?) | ((("k1"?) | ((("k30"?) | ("k2"?))))))))
+  end.
+Property MAPK-PT-080-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    A G ! (((((("k13"?) | ("k21"?))) & ((("k20"?) | ("k10"?))))) & (! ! "k14"?))
+  end.

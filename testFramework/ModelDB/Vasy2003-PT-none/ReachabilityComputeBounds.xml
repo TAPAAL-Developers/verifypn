@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p316</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p367</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p463</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p277</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p442</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p94</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p400</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p124</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p252</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p345</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p71</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p79</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p358</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p170</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p107</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Vasy2003-PT-none-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p28</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

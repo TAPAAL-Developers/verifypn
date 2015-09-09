@@ -1,0 +1,80 @@
+Property Ring-PT-none-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F (((((((("T41"?) & ("T83"?))) & (! "T17"?))) & ((("T57"?) & ((("T58"?) & ("T76"?))))))) | ("T58"?))
+  end.
+Property Ring-PT-none-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F ((! (((("T32"?) & ("T58"?))) & (! "T40"?))) & (! ((! "T13"?) | ((("T81"?) | ("T64"?))))))
+  end.
+Property Ring-PT-none-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    A G ! "T3"?
+  end.
+Property Ring-PT-none-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F ((((! "T3"?) | ((((("T10"?) | ("T68"?))) | ("T31"?))))) & ((("T12"?) & ((((("T77"?) & ("T28"?))) | ("T34"?))))))
+  end.
+Property Ring-PT-none-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F ! ! "T79"?
+  end.
+Property Ring-PT-none-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F ((((((! "T1"?) & ((("T60"?) & ("T1"?))))) | (! (("T15"?) & ("T70"?))))) & ((((("T14"?) | ("T48"?))) & (! ! "T53"?))))
+  end.
+Property Ring-PT-none-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G ((((((! "T23"?) | ("T25"?))) | (! "T53"?))) | (! (("T41"?) | ((("T71"?) | ("T21"?))))))
+  end.
+Property Ring-PT-none-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G ! "T59"?
+  end.
+Property Ring-PT-none-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F "T24"?
+  end.
+Property Ring-PT-none-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F "T55"?
+  end.
+Property Ring-PT-none-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F ((! (("T43"?) | ("T28"?))) & ("T64"?))
+  end.
+Property Ring-PT-none-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F "T67"?
+  end.
+Property Ring-PT-none-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F ((! (((("T3"?) | ("T17"?))) & (! "T63"?))) & ((((((("T56"?) | ("T80"?))) & ("T80"?))) | ("T12"?))))
+  end.
+Property Ring-PT-none-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F ((((! (("T84"?) & ("T61"?))) & ((("T50"?) & ((("T14"?) & ("T25"?))))))) & (((((! "T86"?) | (! "T32"?))) | ((((("T34"?) & ("T31"?))) | ("T61"?))))))
+  end.
+Property Ring-PT-none-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    A G ! (((((("T15"?) & ("T7"?))) | ((("T58"?) | ("T32"?))))) & (((! "T83"?) & ((("T1"?) & ("T39"?))))))
+  end.
+Property Ring-PT-none-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F ! ((((! "T7"?) | ((("T37"?) | ("T73"?))))) | (! (("T8"?) | ("T60"?))))
+  end.

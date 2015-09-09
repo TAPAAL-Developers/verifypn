@@ -1,0 +1,80 @@
+Property DatabaseWithMutex-COL-04-CTLFireability-0
+  "Automatically generated"
+  is:
+    ((A X E G ! ("end_update_4_3", "end_update_1_2", "end_update_3_3", "end_update_3_1", "end_update_2_2", "end_update_1_4", "end_update_4_1", "end_update_2_4", "end_update_3_4", "end_update_4_2", "end_update_2_1", "end_update_3_2", "end_update_4_4", "end_update_2_3", "end_update_1_3", "end_update_1_1")?) | (A ((! ((("end_update_4_3", "end_update_1_2", "end_update_3_3", "end_update_3_1", "end_update_2_2", "end_update_1_4", "end_update_4_1", "end_update_2_4", "end_update_3_4", "end_update_4_2", "end_update_2_1", "end_update_3_2", "end_update_4_4", "end_update_2_3", "end_update_1_3", "end_update_1_1")?) | (("end_update_4_3", "end_update_1_2", "end_update_3_3", "end_update_3_1", "end_update_2_2", "end_update_1_4", "end_update_4_1", "end_update_2_4", "end_update_3_4", "end_update_4_2", "end_update_2_1", "end_update_3_2", "end_update_4_4", "end_update_2_3", "end_update_1_3", "end_update_1_1")?))) U (("Update_3_1", "Update_2_3", "Update_1_3", "Update_4_2", "Update_3_4", "Update_3_2", "Update_4_4", "Update_2_2", "Update_1_4", "Update_1_2", "Update_2_4", "Update_4_1", "Update_1_1", "Update_3_3", "Update_4_3", "Update_2_1")?))))
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-1
+  "Automatically generated"
+  is:
+    ((! A G E F ("SendMsg_3_4", "SendMsg_2_2", "SendMsg_1_1", "SendMsg_4_2", "SendMsg_1_3", "SendMsg_3_1", "SendMsg_3_3", "SendMsg_2_3", "SendMsg_2_1", "SendMsg_4_3", "SendMsg_1_2", "SendMsg_1_4", "SendMsg_4_1", "SendMsg_4_4", "SendMsg_2_4", "SendMsg_3_2")?) | (((("SendMsg_3_4", "SendMsg_2_2", "SendMsg_1_1", "SendMsg_4_2", "SendMsg_1_3", "SendMsg_3_1", "SendMsg_3_3", "SendMsg_2_3", "SendMsg_2_1", "SendMsg_4_3", "SendMsg_1_2", "SendMsg_1_4", "SendMsg_4_1", "SendMsg_4_4", "SendMsg_2_4", "SendMsg_3_2")?) | (! E G ! ("Change_2_1", "Change_4_1", "Change_3_3", "Change_1_2", "Change_2_2", "Change_3_2", "Change_4_4", "Change_1_1", "Change_4_2", "Change_3_4", "Change_2_4", "Change_1_4", "Change_1_3", "Change_2_3", "Change_3_1", "Change_4_3")?))))
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-2
+  "Automatically generated"
+  is:
+    A F ((! ((("Change_2_1", "Change_4_1", "Change_3_3", "Change_1_2", "Change_2_2", "Change_3_2", "Change_4_4", "Change_1_1", "Change_4_2", "Change_3_4", "Change_2_4", "Change_1_4", "Change_1_3", "Change_2_3", "Change_3_1", "Change_4_3")?) & (((("Acquire_3_2", "Acquire_1_1", "Acquire_1_4", "Acquire_3_4", "Acquire_2_4", "Acquire_4_3", "Acquire_2_1", "Acquire_3_3", "Acquire_3_1", "Acquire_2_3", "Acquire_1_3", "Acquire_4_1", "Acquire_1_2", "Acquire_4_4", "Acquire_2_2", "Acquire_4_2")?) & (("Change_2_1", "Change_4_1", "Change_3_3", "Change_1_2", "Change_2_2", "Change_3_2", "Change_4_4", "Change_1_1", "Change_4_2", "Change_3_4", "Change_2_4", "Change_1_4", "Change_1_3", "Change_2_3", "Change_3_1", "Change_4_3")?))))) & (((E X ("Acquire_3_2", "Acquire_1_1", "Acquire_1_4", "Acquire_3_4", "Acquire_2_4", "Acquire_4_3", "Acquire_2_1", "Acquire_3_3", "Acquire_3_1", "Acquire_2_3", "Acquire_1_3", "Acquire_4_1", "Acquire_1_2", "Acquire_4_4", "Acquire_2_2", "Acquire_4_2")?) & (("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?))))
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-3
+  "Automatically generated"
+  is:
+    ((E ((! ((("SendMsg_3_4", "SendMsg_2_2", "SendMsg_1_1", "SendMsg_4_2", "SendMsg_1_3", "SendMsg_3_1", "SendMsg_3_3", "SendMsg_2_3", "SendMsg_2_1", "SendMsg_4_3", "SendMsg_1_2", "SendMsg_1_4", "SendMsg_4_1", "SendMsg_4_4", "SendMsg_2_4", "SendMsg_3_2")?) & (("Start_2_2", "Start_3_1", "Start_1_1", "Start_4_3", "Start_1_4", "Start_2_4", "Start_3_4", "Start_1_2", "Start_4_2", "Start_3_2", "Start_4_4", "Start_1_3", "Start_2_1", "Start_2_3", "Start_3_3", "Start_4_1")?))) U (A G ("SendReply_1_4", "SendReply_2_2", "SendReply_3_2", "SendReply_3_4", "SendReply_4_3", "SendReply_1_2", "SendReply_2_4", "SendReply_4_1", "SendReply_2_3", "SendReply_3_1", "SendReply_3_3", "SendReply_2_1", "SendReply_4_4", "SendReply_4_2", "SendReply_1_1", "SendReply_1_3")?))) & (! ((E X ("SendReply_1_4", "SendReply_2_2", "SendReply_3_2", "SendReply_3_4", "SendReply_4_3", "SendReply_1_2", "SendReply_2_4", "SendReply_4_1", "SendReply_2_3", "SendReply_3_1", "SendReply_3_3", "SendReply_2_1", "SendReply_4_4", "SendReply_4_2", "SendReply_1_1", "SendReply_1_3")?) & (E ((("Change_2_1", "Change_4_1", "Change_3_3", "Change_1_2", "Change_2_2", "Change_3_2", "Change_4_4", "Change_1_1", "Change_4_2", "Change_3_4", "Change_2_4", "Change_1_4", "Change_1_3", "Change_2_3", "Change_3_1", "Change_4_3")?) U (("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?))))))
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-4
+  "Automatically generated"
+  is:
+    ((((E G A F ("SendMsg_3_4", "SendMsg_2_2", "SendMsg_1_1", "SendMsg_4_2", "SendMsg_1_3", "SendMsg_3_1", "SendMsg_3_3", "SendMsg_2_3", "SendMsg_2_1", "SendMsg_4_3", "SendMsg_1_2", "SendMsg_1_4", "SendMsg_4_1", "SendMsg_4_4", "SendMsg_2_4", "SendMsg_3_2")?) | (((((A X ("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?) | (((((("Acquire_3_2", "Acquire_1_1", "Acquire_1_4", "Acquire_3_4", "Acquire_2_4", "Acquire_4_3", "Acquire_2_1", "Acquire_3_3", "Acquire_3_1", "Acquire_2_3", "Acquire_1_3", "Acquire_4_1", "Acquire_1_2", "Acquire_4_4", "Acquire_2_2", "Acquire_4_2")?) | (("SendMsg_3_4", "SendMsg_2_2", "SendMsg_1_1", "SendMsg_4_2", "SendMsg_1_3", "SendMsg_3_1", "SendMsg_3_3", "SendMsg_2_3", "SendMsg_2_1", "SendMsg_4_3", "SendMsg_1_2", "SendMsg_1_4", "SendMsg_4_1", "SendMsg_4_4", "SendMsg_2_4", "SendMsg_3_2")?))) & (("Acquire_3_2", "Acquire_1_1", "Acquire_1_4", "Acquire_3_4", "Acquire_2_4", "Acquire_4_3", "Acquire_2_1", "Acquire_3_3", "Acquire_3_1", "Acquire_2_3", "Acquire_1_3", "Acquire_4_1", "Acquire_1_2", "Acquire_4_4", "Acquire_2_2", "Acquire_4_2")?))))) & (("SendReply_1_4", "SendReply_2_2", "SendReply_3_2", "SendReply_3_4", "SendReply_4_3", "SendReply_1_2", "SendReply_2_4", "SendReply_4_1", "SendReply_2_3", "SendReply_3_1", "SendReply_3_3", "SendReply_2_1", "SendReply_4_4", "SendReply_4_2", "SendReply_1_1", "SendReply_1_3")?))))) & (("Start_2_2", "Start_3_1", "Start_1_1", "Start_4_3", "Start_1_4", "Start_2_4", "Start_3_4", "Start_1_2", "Start_4_2", "Start_3_2", "Start_4_4", "Start_1_3", "Start_2_1", "Start_2_3", "Start_3_3", "Start_4_1")?))
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-5
+  "Automatically generated"
+  is:
+    ! E F ! A F ("Update_3_1", "Update_2_3", "Update_1_3", "Update_4_2", "Update_3_4", "Update_3_2", "Update_4_4", "Update_2_2", "Update_1_4", "Update_1_2", "Update_2_4", "Update_4_1", "Update_1_1", "Update_3_3", "Update_4_3", "Update_2_1")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-6
+  "Automatically generated"
+  is:
+    ((A F A X ((("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?) & (("end_update_4_3", "end_update_1_2", "end_update_3_3", "end_update_3_1", "end_update_2_2", "end_update_1_4", "end_update_4_1", "end_update_2_4", "end_update_3_4", "end_update_4_2", "end_update_2_1", "end_update_3_2", "end_update_4_4", "end_update_2_3", "end_update_1_3", "end_update_1_1")?))) & (((E F ! ((("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?) & (("Acquire_3_2", "Acquire_1_1", "Acquire_1_4", "Acquire_3_4", "Acquire_2_4", "Acquire_4_3", "Acquire_2_1", "Acquire_3_3", "Acquire_3_1", "Acquire_2_3", "Acquire_1_3", "Acquire_4_1", "Acquire_1_2", "Acquire_4_4", "Acquire_2_2", "Acquire_4_2")?))) | (((A G ! ("SendReply_1_4", "SendReply_2_2", "SendReply_3_2", "SendReply_3_4", "SendReply_4_3", "SendReply_1_2", "SendReply_2_4", "SendReply_4_1", "SendReply_2_3", "SendReply_3_1", "SendReply_3_3", "SendReply_2_1", "SendReply_4_4", "SendReply_4_2", "SendReply_1_1", "SendReply_1_3")?) & (! ("Change_2_1", "Change_4_1", "Change_3_3", "Change_1_2", "Change_2_2", "Change_3_2", "Change_4_4", "Change_1_1", "Change_4_2", "Change_3_4", "Change_2_4", "Change_1_4", "Change_1_3", "Change_2_3", "Change_3_1", "Change_4_3")?))))))
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-7
+  "Automatically generated"
+  is:
+    E G ("Start_2_2", "Start_3_1", "Start_1_1", "Start_4_3", "Start_1_4", "Start_2_4", "Start_3_4", "Start_1_2", "Start_4_2", "Start_3_2", "Start_4_4", "Start_1_3", "Start_2_1", "Start_2_3", "Start_3_3", "Start_4_1")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-8
+  "Automatically generated"
+  is:
+    A F ("end_update_4_3", "end_update_1_2", "end_update_3_3", "end_update_3_1", "end_update_2_2", "end_update_1_4", "end_update_4_1", "end_update_2_4", "end_update_3_4", "end_update_4_2", "end_update_2_1", "end_update_3_2", "end_update_4_4", "end_update_2_3", "end_update_1_3", "end_update_1_1")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-9
+  "Automatically generated"
+  is:
+    A G E F E F ("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-10
+  "Automatically generated"
+  is:
+    E G ((! E X ("end_update_4_3", "end_update_1_2", "end_update_3_3", "end_update_3_1", "end_update_2_2", "end_update_1_4", "end_update_4_1", "end_update_2_4", "end_update_3_4", "end_update_4_2", "end_update_2_1", "end_update_3_2", "end_update_4_4", "end_update_2_3", "end_update_1_3", "end_update_1_1")?) | (A X ! ("Update_3_1", "Update_2_3", "Update_1_3", "Update_4_2", "Update_3_4", "Update_3_2", "Update_4_4", "Update_2_2", "Update_1_4", "Update_1_2", "Update_2_4", "Update_4_1", "Update_1_1", "Update_3_3", "Update_4_3", "Update_2_1")?))
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-11
+  "Automatically generated"
+  is:
+    ((((E ((("SendMsg_3_4", "SendMsg_2_2", "SendMsg_1_1", "SendMsg_4_2", "SendMsg_1_3", "SendMsg_3_1", "SendMsg_3_3", "SendMsg_2_3", "SendMsg_2_1", "SendMsg_4_3", "SendMsg_1_2", "SendMsg_1_4", "SendMsg_4_1", "SendMsg_4_4", "SendMsg_2_4", "SendMsg_3_2")?) U (("Update_3_1", "Update_2_3", "Update_1_3", "Update_4_2", "Update_3_4", "Update_3_2", "Update_4_4", "Update_2_2", "Update_1_4", "Update_1_2", "Update_2_4", "Update_4_1", "Update_1_1", "Update_3_3", "Update_4_3", "Update_2_1")?))) & (((! A X ("Change_2_1", "Change_4_1", "Change_3_3", "Change_1_2", "Change_2_2", "Change_3_2", "Change_4_4", "Change_1_1", "Change_4_2", "Change_3_4", "Change_2_4", "Change_1_4", "Change_1_3", "Change_2_3", "Change_3_1", "Change_4_3")?) | (((! ! ("Change_2_1", "Change_4_1", "Change_3_3", "Change_1_2", "Change_2_2", "Change_3_2", "Change_4_4", "Change_1_1", "Change_4_2", "Change_3_4", "Change_2_4", "Change_1_4", "Change_1_3", "Change_2_3", "Change_3_1", "Change_4_3")?) | (((((("Change_2_1", "Change_4_1", "Change_3_3", "Change_1_2", "Change_2_2", "Change_3_2", "Change_4_4", "Change_1_1", "Change_4_2", "Change_3_4", "Change_2_4", "Change_1_4", "Change_1_3", "Change_2_3", "Change_3_1", "Change_4_3")?) | (("Update_3_1", "Update_2_3", "Update_1_3", "Update_4_2", "Update_3_4", "Update_3_2", "Update_4_4", "Update_2_2", "Update_1_4", "Update_1_2", "Update_2_4", "Update_4_1", "Update_1_1", "Update_3_3", "Update_4_3", "Update_2_1")?))) & (("SendReply_1_4", "SendReply_2_2", "SendReply_3_2", "SendReply_3_4", "SendReply_4_3", "SendReply_1_2", "SendReply_2_4", "SendReply_4_1", "SendReply_2_3", "SendReply_3_1", "SendReply_3_3", "SendReply_2_1", "SendReply_4_4", "SendReply_4_2", "SendReply_1_1", "SendReply_1_3")?))))))))) | (E G E ((("Start_2_2", "Start_3_1", "Start_1_1", "Start_4_3", "Start_1_4", "Start_2_4", "Start_3_4", "Start_1_2", "Start_4_2", "Start_3_2", "Start_4_4", "Start_1_3", "Start_2_1", "Start_2_3", "Start_3_3", "Start_4_1")?) U (("SendMsg_3_4", "SendMsg_2_2", "SendMsg_1_1", "SendMsg_4_2", "SendMsg_1_3", "SendMsg_3_1", "SendMsg_3_3", "SendMsg_2_3", "SendMsg_2_1", "SendMsg_4_3", "SendMsg_1_2", "SendMsg_1_4", "SendMsg_4_1", "SendMsg_4_4", "SendMsg_2_4", "SendMsg_3_2")?))))
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-12
+  "Automatically generated"
+  is:
+    E F A G E G ("Acquire_3_2", "Acquire_1_1", "Acquire_1_4", "Acquire_3_4", "Acquire_2_4", "Acquire_4_3", "Acquire_2_1", "Acquire_3_3", "Acquire_3_1", "Acquire_2_3", "Acquire_1_3", "Acquire_4_1", "Acquire_1_2", "Acquire_4_4", "Acquire_2_2", "Acquire_4_2")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-13
+  "Automatically generated"
+  is:
+    ! A F ("end_update_4_3", "end_update_1_2", "end_update_3_3", "end_update_3_1", "end_update_2_2", "end_update_1_4", "end_update_4_1", "end_update_2_4", "end_update_3_4", "end_update_4_2", "end_update_2_1", "end_update_3_2", "end_update_4_4", "end_update_2_3", "end_update_1_3", "end_update_1_1")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-14
+  "Automatically generated"
+  is:
+    A F ("end_update_4_3", "end_update_1_2", "end_update_3_3", "end_update_3_1", "end_update_2_2", "end_update_1_4", "end_update_4_1", "end_update_2_4", "end_update_3_4", "end_update_4_2", "end_update_2_1", "end_update_3_2", "end_update_4_4", "end_update_2_3", "end_update_1_3", "end_update_1_1")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireability-15
+  "Automatically generated"
+  is:
+    ((! A F ((! ("SendReply_1_4", "SendReply_2_2", "SendReply_3_2", "SendReply_3_4", "SendReply_4_3", "SendReply_1_2", "SendReply_2_4", "SendReply_4_1", "SendReply_2_3", "SendReply_3_1", "SendReply_3_3", "SendReply_2_1", "SendReply_4_4", "SendReply_4_2", "SendReply_1_1", "SendReply_1_3")?) & (("SendMsg_3_4", "SendMsg_2_2", "SendMsg_1_1", "SendMsg_4_2", "SendMsg_1_3", "SendMsg_3_1", "SendMsg_3_3", "SendMsg_2_3", "SendMsg_2_1", "SendMsg_4_3", "SendMsg_1_2", "SendMsg_1_4", "SendMsg_4_1", "SendMsg_4_4", "SendMsg_2_4", "SendMsg_3_2")?))) | (A X ("Change_2_1", "Change_4_1", "Change_3_3", "Change_1_2", "Change_2_2", "Change_3_2", "Change_4_4", "Change_1_1", "Change_4_2", "Change_3_4", "Change_2_4", "Change_1_4", "Change_1_3", "Change_2_3", "Change_3_1", "Change_4_3")?))
+  end.

@@ -1,0 +1,80 @@
+Property SimpleLoadBal-COL-02-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("lb_load_1_0", "lb_load_1_1", "lb_load_1_2", "lb_load_2_0", "lb_load_2_1", "lb_load_2_2")) <= (3))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("lb_load_1_0", "lb_load_1_1", "lb_load_1_2", "lb_load_2_0", "lb_load_2_1", "lb_load_2_2")) <= (3))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("server_waiting_1", "server_waiting_2")) <= (3))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("server_notification_ack_1", "server_notification_ack_2")) <= (2))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("server_notification_1", "server_notification_2")) <= (1))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("lb_idle_1")) <= (2))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("server_waiting_1", "server_waiting_2")) <= (2))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("lb_idle_1")) <= (3))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((bound("server_processed_1", "server_processed_2")) <= (1))) & (((bound("lb_idle_1")) <= (3))))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("lb_load_1_0", "lb_load_1_1", "lb_load_1_2", "lb_load_2_0", "lb_load_2_1", "lb_load_2_2")) <= (3))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((((bound("lb_idle_1")) <= (3))) & (((bound("client_ack_1", "client_ack_2")) <= (1))))) & (((bound("server_notification_ack_1", "server_notification_ack_2")) <= (1))))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("lb_routing_1_1", "lb_routing_1_2")) <= (2))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((bound("server_processed_1", "server_processed_2")) <= (3))) & (((((((((bound("server_processed_1", "server_processed_2")) <= (3))) & (((bound("server_idle_1", "server_idle_2")) <= (1))))) & (((bound("client_ack_1", "client_ack_2")) <= (1))))) & (((bound("lb_idle_1")) <= (1))))))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((bound("server_idle_1", "server_idle_2")) <= (2))) & (((((bound("server_idle_1", "server_idle_2")) <= (1))) & (((bound("client_waiting_1", "client_waiting_2")) <= (2))))))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("client_ack_1", "client_ack_2")) <= (2))
+  end.
+Property SimpleLoadBal-COL-02-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("server_idle_1", "server_idle_2")) <= (1))
+  end.

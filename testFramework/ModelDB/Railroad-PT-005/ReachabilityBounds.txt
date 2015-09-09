@@ -1,0 +1,80 @@
+Property Railroad-PT-005-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((bound("pl_P0_3")) <= (3))) & (((((bound("pl_P34_2")) <= (1))) & (((bound("pl_P2_1")) <= (1))))))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("pl_P21_1")) <= (3))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("pl_P5_1")) <= (2))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("pl_P25_1")) <= (2))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((bound("pl_P26_1")) <= (2))) & (((bound("pl_P32_1")) <= (3))))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((bound("pl_P27_1")) <= (3))) & (((((bound("pl_P7_4")) <= (1))) & (((((((bound("pl_P3_1")) <= (3))) & (((bound("pl_P2_1")) <= (2))))) & (((((bound("pl_P11_1")) <= (1))) & (((bound("pl_P7_4")) <= (1))))))))))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("pl_P30_1")) <= (2))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((bound("pl_P5_1")) <= (3))) & (((bound("pl_P0_6")) <= (2))))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("pl_P7_1")) <= (3))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("pl_P4_1")) <= (1))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((bound("pl_P40_2")) <= (3))) & (((((bound("pl_P40_5")) <= (2))) & (((bound("pl_P42_1")) <= (2))))))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((bound("pl_P14_1")) <= (3))) & (((((((bound("pl_P39_1")) <= (2))) & (((((((bound("pl_P31_1")) <= (1))) & (((bound("pl_P0_3")) <= (2))))) & (((((((bound("pl_P34_6")) <= (2))) & (((bound("pl_P16_1")) <= (2))))) & (((bound("pl_P41_1")) <= (3))))))))) & (((bound("pl_P3_1")) <= (1))))))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((bound("pl_P0_6")) <= (1))) & (((bound("pl_P33_1")) <= (2))))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((bound("pl_P40_2")) <= (1))) & (((((((bound("pl_P37_1")) <= (3))) & (((((bound("pl_P7_1")) <= (3))) & (((bound("pl_P9_1")) <= (1))))))) & (((((((((bound("pl_P34_4")) <= (2))) & (((((bound("pl_P29_6")) <= (3))) & (((bound("pl_P34_1")) <= (2))))))) & (((((((bound("pl_P26_1")) <= (2))) & (((bound("pl_P29_6")) <= (3))))) & (((((bound("pl_P17_1")) <= (3))) & (((bound("pl_P27_1")) <= (2))))))))) & (((bound("pl_P5_1")) <= (1))))))))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((((bound("pl_P11_1")) <= (2))) & (((bound("pl_P27_1")) <= (3))))) & (((((((((((bound("pl_P0_3")) <= (1))) & (((bound("pl_P29_5")) <= (3))))) & (((bound("pl_P29_3")) <= (3))))) & (((bound("pl_P0_5")) <= (1))))) & (((((bound("pl_P7_4")) <= (3))) & (((bound("pl_P0_2")) <= (2))))))))
+  end.
+Property Railroad-PT-005-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((((bound("pl_P33_1")) <= (2))) & (((bound("pl_P13_1")) <= (2))))) & (((bound("pl_P16_1")) <= (2))))
+  end.

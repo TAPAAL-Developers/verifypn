@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask.s00003964.output.s00001054</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask.s00003973.output.s00001077</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToProcess.s00003876.output.s00001077</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>merge.s00002239.input.s00001052</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToProcess.s00003904.output.s00001077</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask.s00003976.output.s00001054</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask.s00003976.input.s00001066</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>decision.s00002761.activated</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask.s00003969.output.s00001077</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>merge.s00002238.activated</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToProcess.s00003859.input.s00001068</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask.s00003963.input.s00001052</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask.s00003908.output.s00001083</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask.s00003973.output.s00001077</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>merge.s00001162.input.s00001052</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBMB2S565S3960-PT-none-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask.s00003968.output.s00001054</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

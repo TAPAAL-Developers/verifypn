@@ -1,0 +1,80 @@
+Property UtahNoC-PT-none-CTLFireability-0
+  "Automatically generated"
+  is:
+    E F E (("t152"?) U ((("t39"?) & ("t393"?))))
+  end.
+Property UtahNoC-PT-none-CTLFireability-1
+  "Automatically generated"
+  is:
+    E F "t238"?
+  end.
+Property UtahNoC-PT-none-CTLFireability-2
+  "Automatically generated"
+  is:
+    E (((((((("t750"?) | ("t182"?))) | (! "t581"?))) & ("t542"?))) U (E F (("t831"?) & ("t690"?))))
+  end.
+Property UtahNoC-PT-none-CTLFireability-3
+  "Automatically generated"
+  is:
+    E (((((((("t691"?) | ("t675"?))) & ("t30"?))) | (! "t723"?))) U ((((((("t708"?) & ("t321"?))) & ((("t203"?) | ("t544"?))))) | ((("t125"?) & ((("t421"?) & ("t230"?))))))))
+  end.
+Property UtahNoC-PT-none-CTLFireability-4
+  "Automatically generated"
+  is:
+    E ((E X ! "t254"?) U (A (("t373"?) U ("t867"?))))
+  end.
+Property UtahNoC-PT-none-CTLFireability-5
+  "Automatically generated"
+  is:
+    E F ((E (("t152"?) U ("t720"?))) & (A (("t692"?) U ("t659"?))))
+  end.
+Property UtahNoC-PT-none-CTLFireability-6
+  "Automatically generated"
+  is:
+    ! E F (((((("t648"?) & ("t613"?))) | ((("t840"?) | ("t608"?))))) | ("t419"?))
+  end.
+Property UtahNoC-PT-none-CTLFireability-7
+  "Automatically generated"
+  is:
+    ((E F E F (("t891"?) | ("t644"?))) | (A G ! A X "t285"?))
+  end.
+Property UtahNoC-PT-none-CTLFireability-8
+  "Automatically generated"
+  is:
+    E ((((A F "t307"?) | ((((("t290"?) & ("t363"?))) & ("t776"?))))) U (((E F "t239"?) | ("t62"?))))
+  end.
+Property UtahNoC-PT-none-CTLFireability-9
+  "Automatically generated"
+  is:
+    (((("t184"?) | (E F (("t973"?) & ((("t797"?) & ("t381"?))))))) & (A G E F (("t846"?) | ("t956"?))))
+  end.
+Property UtahNoC-PT-none-CTLFireability-10
+  "Automatically generated"
+  is:
+    A G ((! E F "t785"?) | (((! "t29"?) | ("t890"?))))
+  end.
+Property UtahNoC-PT-none-CTLFireability-11
+  "Automatically generated"
+  is:
+    ((((! ((E F "t418"?) | (((! "t338"?) & ((("t398"?) & ("t514"?))))))) & (((((! (("t697"?) | ("t179"?))) | (A F "t416"?))) | (((E F "t445"?) | (A F "t829"?))))))) | (((A G ((! "t213"?) & (! "t9"?))) & ((((((("t465"?) & ((("t62"?) & ("t44"?))))) | (! (("t658"?) | ("t763"?))))) & ("t640"?))))))
+  end.
+Property UtahNoC-PT-none-CTLFireability-12
+  "Automatically generated"
+  is:
+    E ((((! (("t232"?) & ("t538"?))) | (((! "t940"?) | ((("t42"?) & ("t405"?))))))) U (((E X "t120"?) & ("t649"?))))
+  end.
+Property UtahNoC-PT-none-CTLFireability-13
+  "Automatically generated"
+  is:
+    E F A G "t298"?
+  end.
+Property UtahNoC-PT-none-CTLFireability-14
+  "Automatically generated"
+  is:
+    E F ! ((E X "t858"?) | (! (("t232"?) | ("t762"?))))
+  end.
+Property UtahNoC-PT-none-CTLFireability-15
+  "Automatically generated"
+  is:
+    ! ! A G ((! "t968"?) | (! "t53"?))
+  end.

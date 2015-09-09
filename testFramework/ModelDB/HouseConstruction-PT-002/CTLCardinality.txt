@@ -1,0 +1,80 @@
+Property HouseConstruction-PT-002-CTLCardinality-0
+  "Automatically generated"
+  is:
+    E G ((((((((3) <= (#tokens("p21")))) | (((3) <= (#tokens("p17")))))) | (((((#tokens("p16")) <= (#tokens("p9")))) & (((#tokens("p1")) <= (#tokens("p11")))))))) | (A X ((#tokens("p22")) <= (#tokens("p18")))))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ((E G ! ((2) <= (#tokens("p23")))) | (A ((((((#tokens("p14")) <= (#tokens("p27")))) & (((3) <= (#tokens("p18")))))) U (((((3) <= (#tokens("p13")))) & (((#tokens("p22")) <= (#tokens("p6")))))))))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-2
+  "Automatically generated"
+  is:
+    ! ((E ((((#tokens("p18")) <= (#tokens("p14")))) U (((3) <= (#tokens("p10")))))) | (A X ((((2) <= (#tokens("p20")))) & (((#tokens("p2")) <= (#tokens("p17")))))))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-3
+  "Automatically generated"
+  is:
+    A F ! ((((((3) <= (#tokens("p5")))) | (((3) <= (#tokens("p17")))))) | (((((#tokens("p11")) <= (#tokens("p23")))) | (((2) <= (#tokens("p2")))))))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-4
+  "Automatically generated"
+  is:
+    E G E ((((2) <= (#tokens("p13")))) U (((#tokens("p21")) <= (#tokens("p27")))))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-5
+  "Automatically generated"
+  is:
+    A F ((2) <= (#tokens("p17")))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-6
+  "Automatically generated"
+  is:
+    E F ! E F ((#tokens("p8")) <= (#tokens("p3")))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-7
+  "Automatically generated"
+  is:
+    A F ((((3) <= (#tokens("p18")))) | (E G ((2) <= (#tokens("p19")))))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-8
+  "Automatically generated"
+  is:
+    ((E G ((#tokens("p17")) <= (#tokens("p2")))) & (! A X ! ((#tokens("p6")) <= (#tokens("p25")))))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-9
+  "Automatically generated"
+  is:
+    ((A F A F ((3) <= (#tokens("p23")))) | (((2) <= (#tokens("p19")))))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-10
+  "Automatically generated"
+  is:
+    E F A F ((((#tokens("p27")) <= (#tokens("p5")))) & (((3) <= (#tokens("p8")))))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-11
+  "Automatically generated"
+  is:
+    ((((E ((((#tokens("p26")) <= (#tokens("p4")))) U (((#tokens("p1")) <= (#tokens("p6")))))) & (! ((((#tokens("p7")) <= (#tokens("p26")))) & (((((#tokens("p18")) <= (#tokens("p11")))) | (((#tokens("p25")) <= (#tokens("p21")))))))))) | (! ((((((((#tokens("p17")) <= (#tokens("p18")))) & (((1) <= (#tokens("p17")))))) & (((((3) <= (#tokens("p18")))) | (((2) <= (#tokens("p16")))))))) | (A F ((1) <= (#tokens("p21")))))))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-12
+  "Automatically generated"
+  is:
+    A G A F ((((#tokens("p6")) <= (#tokens("p10")))) & (((#tokens("p4")) <= (#tokens("p9")))))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-13
+  "Automatically generated"
+  is:
+    ! ((E ((((#tokens("p15")) <= (#tokens("p1")))) U (((3) <= (#tokens("p2")))))) & (A F ((2) <= (#tokens("p16")))))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-14
+  "Automatically generated"
+  is:
+    E ((((#tokens("p22")) <= (#tokens("p11")))) U (E X ((3) <= (#tokens("p12")))))
+  end.
+Property HouseConstruction-PT-002-CTLCardinality-15
+  "Automatically generated"
+  is:
+    ! A F A F ((1) <= (#tokens("p20")))
+  end.

@@ -1,0 +1,80 @@
+Property Eratosthenes-PT-020-CTLFireability-0
+  "Automatically generated"
+  is:
+    E G (("t18.3"?) & (((! ! "t20.10"?) | ("t20.10"?))))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-1
+  "Automatically generated"
+  is:
+    A F ! E (("t14.2"?) U ("t8.2"?))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-2
+  "Automatically generated"
+  is:
+    E G ! A G (("t18.3"?) | ("t6.3"?))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-3
+  "Automatically generated"
+  is:
+    E G E (((("t8.4"?) | ("t14.2"?))) U (! "t20.10"?))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-4
+  "Automatically generated"
+  is:
+    ((((E G E F "t6.2"?) & ("t8.4"?))) & (((E F ! (("t12.3"?) | ("t18.9"?))) | (((E (("t14.7"?) U ("t12.6"?))) & ("t16.4"?))))))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-5
+  "Automatically generated"
+  is:
+    A G ! E G (("t9.3"?) | ("t4.2"?))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-6
+  "Automatically generated"
+  is:
+    E G ((A (("t9.3"?) U ("t18.3"?))) | (((A G "t12.2"?) & ((((("t18.2"?) | ("t15.3"?))) | (! "t14.2"?))))))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-7
+  "Automatically generated"
+  is:
+    E G E ((! "t18.2"?) U ("t14.7"?))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-8
+  "Automatically generated"
+  is:
+    ! E G ((A X "t12.3"?) | ((((("t16.2"?) & ("t9.3"?))) & ((("t12.3"?) | ("t6.2"?))))))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-9
+  "Automatically generated"
+  is:
+    ((E G ((E F "t18.3"?) | ((("t16.4"?) & ("t10.2"?))))) & (((A G "t20.2"?) | (((((A F "t18.9"?) & (E X "t20.5"?))) | ((((("t20.4"?) & ((("t18.3"?) & ("t12.3"?))))) & ("t20.4"?))))))))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-10
+  "Automatically generated"
+  is:
+    A G A F ((! "t12.6"?) | (! "t14.7"?))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-11
+  "Automatically generated"
+  is:
+    E F ((E G "t10.2"?) & (! A F "t16.4"?))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-12
+  "Automatically generated"
+  is:
+    A X A F ! (("t12.6"?) | ("t16.4"?))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-13
+  "Automatically generated"
+  is:
+    A ((((((! "t12.4"?) & ((("t15.3"?) & ("t20.2"?))))) | (E G "t16.2"?))) U (A F ! "t20.10"?))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-14
+  "Automatically generated"
+  is:
+    ((E ((! (("t10.2"?) | ("t6.3"?))) U (E F "t20.10"?))) & (A F A G ! "t10.5"?))
+  end.
+Property Eratosthenes-PT-020-CTLFireability-15
+  "Automatically generated"
+  is:
+    ((E G A (("t18.3"?) U ("t15.5"?))) | (((E G (((("t12.3"?) & ("t18.3"?))) | ("t15.5"?))) | (E G (((("t10.2"?) & ("t18.6"?))) | ("t10.5"?))))))
+  end.

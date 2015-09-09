@@ -1,0 +1,80 @@
+Property LamportFastMutEx-COL-2-CTLFireability-0
+  "Automatically generated"
+  is:
+    ((((((("fordo_12_1", "fordo_12_2", "fordo_12_3")?) & (("setbi_24_1", "setbi_24_2", "setbi_24_3", "setbi_24_4", "setbi_24_5", "setbi_24_6")?))) | (((("yeq0_4_1", "yeq0_4_2", "yeq0_4_3")?) & (((("awaity_1", "awaity_2", "awaity_3")?) & (((((("await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5", "await_13_6", "await_13_7", "await_13_8", "await_13_9")?) | (("await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5", "await_13_6", "await_13_7", "await_13_8", "await_13_9")?))) | (! ("yeq0_4_1", "yeq0_4_2", "yeq0_4_3")?))))))))) & (A G ((("sety0_23_1", "sety0_23_2", "sety0_23_3", "sety0_23_4", "sety0_23_5", "sety0_23_6", "sety0_23_7", "sety0_23_8", "sety0_23_9")?) | (((((("setbi_2_1", "setbi_2_2", "setbi_2_3", "setbi_2_4", "setbi_2_5", "setbi_2_6")?) & (("sety0_23_1", "sety0_23_2", "sety0_23_3", "sety0_23_4", "sety0_23_5", "sety0_23_6", "sety0_23_7", "sety0_23_8", "sety0_23_9")?))) | (("sety_9_1", "sety_9_2", "sety_9_3", "sety_9_4", "sety_9_5", "sety_9_6", "sety_9_7", "sety_9_8", "sety_9_9")?))))))
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-1
+  "Automatically generated"
+  is:
+    E G ((! ((("setbi_2_1", "setbi_2_2", "setbi_2_3", "setbi_2_4", "setbi_2_5", "setbi_2_6")?) | (! ("awaity_1", "awaity_2", "awaity_3")?))) & (! ! ("xeqi_10_1", "xeqi_10_5", "xeqi_10_9")?))
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-2
+  "Automatically generated"
+  is:
+    ((("sety0_23_1", "sety0_23_2", "sety0_23_3", "sety0_23_4", "sety0_23_5", "sety0_23_6", "sety0_23_7", "sety0_23_8", "sety0_23_9")?) & (((((E G ((("setbi_24_1", "setbi_24_2", "setbi_24_3", "setbi_24_4", "setbi_24_5", "setbi_24_6")?) | (("setbi_5_1", "setbi_5_2", "setbi_5_3", "setbi_5_4", "setbi_5_5", "setbi_5_6")?))) | (((((((("awaity_1", "awaity_2", "awaity_3")?) & (("forod_13_1", "forod_13_2", "forod_13_3")?))) & (! ("setbi_2_1", "setbi_2_2", "setbi_2_3", "setbi_2_4", "setbi_2_5", "setbi_2_6")?))) | (! ! ("ynei_15_2", "ynei_15_3", "ynei_15_4", "ynei_15_6", "ynei_15_7", "ynei_15_8")?))))) & (((((A G ("setbi_2_1", "setbi_2_2", "setbi_2_3", "setbi_2_4", "setbi_2_5", "setbi_2_6")?) & (E F ("awaity_1", "awaity_2", "awaity_3")?))) & (((A F ("awaity_1", "awaity_2", "awaity_3")?) & (! ((("fordo_12_1", "fordo_12_2", "fordo_12_3")?) | (("ynei_15_2", "ynei_15_3", "ynei_15_4", "ynei_15_6", "ynei_15_7", "ynei_15_8")?))))))))))
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-3
+  "Automatically generated"
+  is:
+    E G A F ((((("ynei_15_2", "ynei_15_3", "ynei_15_4", "ynei_15_6", "ynei_15_7", "ynei_15_8")?) | (("setbi_24_1", "setbi_24_2", "setbi_24_3", "setbi_24_4", "setbi_24_5", "setbi_24_6")?))) & (("fordo_12_1", "fordo_12_2", "fordo_12_3")?))
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-4
+  "Automatically generated"
+  is:
+    ((((E ((("xnei_10_2", "xnei_10_3", "xnei_10_4", "xnei_10_6", "xnei_10_7", "xnei_10_8")?) U (((("setbi_2_1", "setbi_2_2", "setbi_2_3", "setbi_2_4", "setbi_2_5", "setbi_2_6")?) & (("ynei_15_2", "ynei_15_3", "ynei_15_4", "ynei_15_6", "ynei_15_7", "ynei_15_8")?))))) | (((E F ((("setbi_5_1", "setbi_5_2", "setbi_5_3", "setbi_5_4", "setbi_5_5", "setbi_5_6")?) | (("await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5", "await_13_6", "await_13_7", "await_13_8", "await_13_9")?))) | (((! ("setbi_5_1", "setbi_5_2", "setbi_5_3", "setbi_5_4", "setbi_5_5", "setbi_5_6")?) & (A X ("sety0_23_1", "sety0_23_2", "sety0_23_3", "sety0_23_4", "sety0_23_5", "sety0_23_6", "sety0_23_7", "sety0_23_8", "sety0_23_9")?))))))) & (((("xeqi_10_1", "xeqi_10_5", "xeqi_10_9")?) | (E ((! ("sety_9_1", "sety_9_2", "sety_9_3", "sety_9_4", "sety_9_5", "sety_9_6", "sety_9_7", "sety_9_8", "sety_9_9")?) U (("setbi_11_1", "setbi_11_2", "setbi_11_3", "setbi_11_4", "setbi_11_5", "setbi_11_6")?))))))
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-5
+  "Automatically generated"
+  is:
+    ! E ((((! ("xeqi_10_1", "xeqi_10_5", "xeqi_10_9")?) & (("xeqi_10_1", "xeqi_10_5", "xeqi_10_9")?))) U (A X ("xeqi_10_1", "xeqi_10_5", "xeqi_10_9")?))
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-6
+  "Automatically generated"
+  is:
+    ("sety0_23_1", "sety0_23_2", "sety0_23_3", "sety0_23_4", "sety0_23_5", "sety0_23_6", "sety0_23_7", "sety0_23_8", "sety0_23_9")?
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-7
+  "Automatically generated"
+  is:
+    ((("setbi_2_1", "setbi_2_2", "setbi_2_3", "setbi_2_4", "setbi_2_5", "setbi_2_6")?) & (E X ! ("yeqi_15_1", "yeqi_15_5", "yeqi_15_9")?))
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-8
+  "Automatically generated"
+  is:
+    E G ! ((((((("setbi_2_1", "setbi_2_2", "setbi_2_3", "setbi_2_4", "setbi_2_5", "setbi_2_6")?) & (("yeq0_4_1", "yeq0_4_2", "yeq0_4_3")?))) & (((("setbi_2_1", "setbi_2_2", "setbi_2_3", "setbi_2_4", "setbi_2_5", "setbi_2_6")?) | (("sety_9_1", "sety_9_2", "sety_9_3", "sety_9_4", "sety_9_5", "sety_9_6", "sety_9_7", "sety_9_8", "sety_9_9")?))))) & (! ! ("await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5", "await_13_6", "await_13_7", "await_13_8", "await_13_9")?))
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-9
+  "Automatically generated"
+  is:
+    ((A G E G ("xnei_10_2", "xnei_10_3", "xnei_10_4", "xnei_10_6", "xnei_10_7", "xnei_10_8")?) | (((((E X ! ("sety_9_1", "sety_9_2", "sety_9_3", "sety_9_4", "sety_9_5", "sety_9_6", "sety_9_7", "sety_9_8", "sety_9_9")?) & (A F ((("xeqi_10_1", "xeqi_10_5", "xeqi_10_9")?) & (("awaity_1", "awaity_2", "awaity_3")?))))) & (("awaity_1", "awaity_2", "awaity_3")?))))
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-10
+  "Automatically generated"
+  is:
+    E F E X E F ("forod_13_1", "forod_13_2", "forod_13_3")?
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-11
+  "Automatically generated"
+  is:
+    E X ((E ((("xeqi_10_1", "xeqi_10_5", "xeqi_10_9")?) U (("xeqi_10_1", "xeqi_10_5", "xeqi_10_9")?))) | (("xeqi_10_1", "xeqi_10_5", "xeqi_10_9")?))
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-12
+  "Automatically generated"
+  is:
+    ((A ((((((("forod_13_1", "forod_13_2", "forod_13_3")?) | (("yne0_4_2", "yne0_4_3", "yne0_4_5", "yne0_4_6", "yne0_4_8", "yne0_4_9")?))) | (! ("xeqi_10_1", "xeqi_10_5", "xeqi_10_9")?))) U (((! ("setbi_11_1", "setbi_11_2", "setbi_11_3", "setbi_11_4", "setbi_11_5", "setbi_11_6")?) & (((("await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5", "await_13_6", "await_13_7", "await_13_8", "await_13_9")?) | (("awaity_1", "awaity_2", "awaity_3")?))))))) | (("setbi_11_1", "setbi_11_2", "setbi_11_3", "setbi_11_4", "setbi_11_5", "setbi_11_6")?))
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-13
+  "Automatically generated"
+  is:
+    A X ((((((((("setbi_24_1", "setbi_24_2", "setbi_24_3", "setbi_24_4", "setbi_24_5", "setbi_24_6")?) & (("awaity_1", "awaity_2", "awaity_3")?))) | (((("xnei_10_2", "xnei_10_3", "xnei_10_4", "xnei_10_6", "xnei_10_7", "xnei_10_8")?) | (("xnei_10_2", "xnei_10_3", "xnei_10_4", "xnei_10_6", "xnei_10_7", "xnei_10_8")?))))) & (((("xeqi_10_1", "xeqi_10_5", "xeqi_10_9")?) | (((("setbi_5_1", "setbi_5_2", "setbi_5_3", "setbi_5_4", "setbi_5_5", "setbi_5_6")?) | (("yne0_4_2", "yne0_4_3", "yne0_4_5", "yne0_4_6", "yne0_4_8", "yne0_4_9")?))))))) | (((A F ("forod_13_1", "forod_13_2", "forod_13_3")?) | (("yeq0_4_1", "yeq0_4_2", "yeq0_4_3")?))))
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-14
+  "Automatically generated"
+  is:
+    ! ((((A X ((("yeq0_4_1", "yeq0_4_2", "yeq0_4_3")?) | (("setx_3_1", "setx_3_2", "setx_3_3", "setx_3_4", "setx_3_5", "setx_3_6", "setx_3_7", "setx_3_8", "setx_3_9")?))) | (((E F ("fordo_12_1", "fordo_12_2", "fordo_12_3")?) & (("setbi_5_1", "setbi_5_2", "setbi_5_3", "setbi_5_4", "setbi_5_5", "setbi_5_6")?))))) | (((A G ("xnei_10_2", "xnei_10_3", "xnei_10_4", "xnei_10_6", "xnei_10_7", "xnei_10_8")?) | (((((("xnei_10_2", "xnei_10_3", "xnei_10_4", "xnei_10_6", "xnei_10_7", "xnei_10_8")?) | (("fordo_12_1", "fordo_12_2", "fordo_12_3")?))) | (("fordo_12_1", "fordo_12_2", "fordo_12_3")?))))))
+  end.
+Property LamportFastMutEx-COL-2-CTLFireability-15
+  "Automatically generated"
+  is:
+    ("setbi_2_1", "setbi_2_2", "setbi_2_3", "setbi_2_4", "setbi_2_5", "setbi_2_6")?
+  end.

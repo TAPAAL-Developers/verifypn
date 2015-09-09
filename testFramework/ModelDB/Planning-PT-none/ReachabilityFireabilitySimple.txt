@@ -1,0 +1,80 @@
+Property Planning-PT-none-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t109"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t27"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t128"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t32"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t116"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t7"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t29"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t2"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t31"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t113"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t97"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t61"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t106"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t122"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t60"?
+  end.
+Property Planning-PT-none-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t25"?
+  end.
