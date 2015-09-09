@@ -1,8 +1,8 @@
-#export PREFIX=/home/mads/verifypnLTSmin/Scripts
-export PREFIX=/Users/dyhr/Bazaar/verifypnLTSmin/Scripts
+PROGRAMPATH=$1
+export PREFIX=$PROGRAMPATH/Scripts
 
-#INPUTSPATH=/home/mads/INPUTS
-INPUTSPATH=/Users/dyhr/Bazaar/MCC/INPUTS
+
+INPUTSPATH=$PROGRAMPATH/ModelDB
 
 TOOL=BenchKit_head.sh
 	
@@ -23,6 +23,15 @@ TOOL=BenchKit_head.sh
  #         echo "!!!******************************************************************!!!"
  #         exit
  #     fi
+echo "####################################################################";
+echo "##########################TEST INFORMATION##########################";
+echo "####################################################################";
+echo "||Program path: $PROGRAMPATH";
+echo "||";
+echo "####################################################################";
+echo "";
+echo "Running tests... Please wait";
+
 
 for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
     echo;
@@ -48,3 +57,6 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
     done 
     cd ../..
 done
+echo "Done testing";
+echo "Starting analisys";
+
