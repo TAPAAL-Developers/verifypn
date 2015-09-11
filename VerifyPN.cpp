@@ -2,7 +2,7 @@
  * Copyright (C) 2011-2014  Jonas Finnemann Jensen <jopsen@gmail.com>,
  *                          Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                          Lars Kærlund Østergaard <larsko@gmail.com>,
- *					        Jiri Srba <srba.jiri@gmail.com>
+ *                          Jiri Srba <srba.jiri@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,6 +41,8 @@
 #include "PetriEngine/Reducer.h"
 #include "PetriParse/QueryXMLParser.h"
 
+#include "CTLEngine/CTLEngine.h"
+
 
 using namespace std;
 using namespace PetriEngine;
@@ -64,6 +66,17 @@ enum SearchStrategies{
 	OverApprox		//LinearOverApprx
 };
 
+string parseCTLQuery(char*){return "stub text";}
+ReturnValues result_analysis(CTLEngine engine){
+    return SuccessCode;
+}
+ReturnValues search_ctl_query(PetriNet* net, MarkVal* m0, string query_str){
+    CTLEngine engine;
+    //engine->search(net, m0, query_str);
+    ReturnValues result = result_analysis(engine);
+    return result;
+}
+
 #define VERSION		"1.2.0"
 
 int main(int argc, char* argv[]){
@@ -80,6 +93,10 @@ int main(int argc, char* argv[]){
 						 // number xmlquery
 	bool statespaceexploration = false;
 	bool printstatistics = true;
+        
+        //CTL variables
+        bool isCTLlogic = false;
+        string query_string_ctl;
 
         
 	//----------------------- Parse Arguments -----------------------//
@@ -199,7 +216,9 @@ int main(int argc, char* argv[]){
 			modelfile = argv[i];
 		}else if(queryfile == NULL){
 			queryfile = argv[i];
-		}else{
+		}else if(strcmp(argv[i], "-ctl")){
+                    isCTLlogic = true;
+                }else{
 			fprintf(stderr, "Argument Error: Unrecognized option \"%s\"\n", modelfile);
 			return ErrorCode;
 		}
@@ -269,8 +288,13 @@ int main(int argc, char* argv[]){
 		mfile.close();
 	}
 	
-	//----------------------- Parse Query -----------------------//
-
+    //----------------------- Parse CTL Query -----------------------//
+    if(isCTLlogic){
+        query_string_ctl = parseCTLQuery(queryfile);
+    }
+    
+	//----------------------- Parse Reachability Query -----------------------//
+        
 	//Condition to check
 	Condition* query = NULL;
 	bool isInvariant = false;
@@ -278,7 +302,7 @@ int main(int argc, char* argv[]){
 	//Read query file, begin scope to release memory
 	{
 		string querystring; // excluding EF and AG
-		if (!statespaceexploration) {
+		if (!statespaceexploration || !isCTLlogic) {
 			//Open query file
 			ifstream qfile(queryfile, ifstream::in);
 			if (!qfile) {
@@ -339,7 +363,7 @@ int main(int argc, char* argv[]){
 			}
 			//Close query file
 			qfile.close();
-		} else { // state-space exploration
+		} else { // state-space exploration or CTL
 			querystring = "false";
 			isInvariant = false;
 		}
@@ -351,6 +375,7 @@ int main(int argc, char* argv[]){
 			return ErrorCode;
 		}
 	}
+        
 
 	//----------------------- Context Analysis -----------------------//
 
@@ -408,6 +433,10 @@ int main(int argc, char* argv[]){
 		strategy = new RandomDFS(kbound, memorylimit);
 	else if(searchstrategy == OverApprox)
 		strategy = NULL;
+        else if(isCTLlogic){
+                strategy = NULL;
+                disableoverapprox = true;
+        }
 	else{
 		fprintf(stderr, "Error: Search strategy selection out of range.\n");
 		return ErrorCode;
@@ -418,12 +447,17 @@ int main(int argc, char* argv[]){
 		strategy = new LinearOverApprox(strategy);
 
 	// If no strategy is provided
-	if(!strategy){
+	if(!strategy && !isCTLlogic){
 		fprintf(stderr, "Error: No search strategy provided!\n");
 		return ErrorCode;
 	}
-
-	//Reachability search
+        
+        
+        ReturnValues retval = ErrorCode;
+        if(!isCTLlogic){
+        //-------------------------------------------------------------------//
+	//----------------------- Reachability search -----------------------//
+        //-------------------------------------------------------------------//
 	ReachabilityResult result = strategy->reachable(*net, m0, v0, query);
 
 	
@@ -432,7 +466,7 @@ int main(int argc, char* argv[]){
 	const std::vector<std::string>& tnames = net->transitionNames();
 	const std::vector<std::string>& pnames = net->placeNames();
 
-	ReturnValues retval = ErrorCode;
+	
 
 	if (statespaceexploration) {
 		retval = UnknownCode;
@@ -541,7 +575,16 @@ int main(int argc, char* argv[]){
 	}
 	fprintf(stdout,"\n\n");
 	}
-	
+        }
+        
+        //-------------------------------------------------------------------//
+	//---------------------------- CTL search ---------------------------//
+        //-------------------------------------------------------------------//
+	else {
+            //stubs
+            
+            retval = search_ctl_query(net, m0, query_string_ctl);
+        }
 	//------------------------ Return the Output Value -------------------//
 	
 	return retval;
