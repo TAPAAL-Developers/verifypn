@@ -540,40 +540,40 @@ int main(int argc, char* argv[]){
 	//----------------------- Output Statistics -----------------------//
 
 	if (printstatistics) {
-	//Print statistics
-	fprintf(stdout, "STATS:\n");
-	fprintf(stdout, "\tdiscovered states: %lli\n", result.discoveredStates());
-	fprintf(stdout, "\texplored states:   %lli\n", result.exploredStates());
-	fprintf(stdout, "\texpanded states:   %lli\n", result.expandedStates());
-	fprintf(stdout, "\tmax tokens:        %i\n", result.maxTokens());
-        if (enablereduction!=0) {
-                fprintf(stdout, "\nNet reduction is enabled.\n");
-                fprintf(stdout, "Removed transitions: %d\n", reducer.RemovedTransitions());
-                fprintf(stdout, "Removed places: %d\n", reducer.RemovedPlaces());
-                fprintf(stdout, "Applications of rule A: %d\n", reducer.RuleA());
-                fprintf(stdout, "Applications of rule B: %d\n", reducer.RuleB());
-                fprintf(stdout, "Applications of rule C: %d\n", reducer.RuleC());
-                fprintf(stdout, "Applications of rule D: %d\n", reducer.RuleD()); 
-        }
-	fprintf(stdout,"\nTRANSITION STATISTICS\n");
-	for(size_t t = 0; t < result.enabledTransitionsCount().size(); t++) { 
-		// report how many times transitions were enabled (? means that the transition was removed in net reduction)
-		if (net->isTransitionSkipped(t)) {
-			fprintf(stdout,"<%s:?> ", tnames[t].c_str());
-		} else {
-			fprintf(stdout,"<%s:%lli> ", tnames[t].c_str(), result.enabledTransitionsCount()[t]);	
-		}
-	}
-	fprintf(stdout,"\n\nPLACE-BOUND STATISTICS\n");
-	for(size_t p = 0; p < result.maxPlaceBound().size(); p++) { 
-		// report maximum bounds for each place (? means that the place was removed in net reduction)
-		if (net->isPlaceSkipped(p)) {
-			fprintf(stdout,"<%s;?> ", pnames[p].c_str());
-		} else {
-			fprintf(stdout,"<%s;%i> ", pnames[p].c_str(), result.maxPlaceBound()[p]);	
-		}
-	}
-	fprintf(stdout,"\n\n");
+            //Print statistics
+            fprintf(stdout, "STATS:\n");
+            fprintf(stdout, "\tdiscovered states: %lli\n", result.discoveredStates());
+            fprintf(stdout, "\texplored states:   %lli\n", result.exploredStates());
+            fprintf(stdout, "\texpanded states:   %lli\n", result.expandedStates());
+            fprintf(stdout, "\tmax tokens:        %i\n", result.maxTokens());
+            if (enablereduction!=0) {
+                    fprintf(stdout, "\nNet reduction is enabled.\n");
+                    fprintf(stdout, "Removed transitions: %d\n", reducer.RemovedTransitions());
+                    fprintf(stdout, "Removed places: %d\n", reducer.RemovedPlaces());
+                    fprintf(stdout, "Applications of rule A: %d\n", reducer.RuleA());
+                    fprintf(stdout, "Applications of rule B: %d\n", reducer.RuleB());
+                    fprintf(stdout, "Applications of rule C: %d\n", reducer.RuleC());
+                    fprintf(stdout, "Applications of rule D: %d\n", reducer.RuleD());
+            }
+            fprintf(stdout,"\nTRANSITION STATISTICS\n");
+            for(size_t t = 0; t < result.enabledTransitionsCount().size(); t++) { 
+                    // report how many times transitions were enabled (? means that the transition was removed in net reduction)
+                    if (net->isTransitionSkipped(t)) {
+                            fprintf(stdout,"<%s:?> ", tnames[t].c_str());
+                    } else {
+                            fprintf(stdout,"<%s:%lli> ", tnames[t].c_str(), result.enabledTransitionsCount()[t]);	
+                    }
+            }
+            fprintf(stdout,"\n\nPLACE-BOUND STATISTICS\n");
+            for(size_t p = 0; p < result.maxPlaceBound().size(); p++) { 
+                    // report maximum bounds for each place (? means that the place was removed in net reduction)
+                    if (net->isPlaceSkipped(p)) {
+                            fprintf(stdout,"<%s;?> ", pnames[p].c_str());
+                    } else {
+                            fprintf(stdout,"<%s;%i> ", pnames[p].c_str(), result.maxPlaceBound()[p]);	
+                    }
+            }
+            fprintf(stdout,"\n\n");
 	}
         }
         
@@ -584,6 +584,18 @@ int main(int argc, char* argv[]){
             //stubs
             
             retval = search_ctl_query(net, m0, query_string_ctl);
+            if (retval == UnknownCode) {
+                fprintf("ERROR:");
+            }
+            else if (retval == FailedCode){
+                fprintf("NOT_SATISFIED:");
+            }
+            else if (retval == SuccessCode){
+                fprintf("SATISFIED:");
+            }
+            else {
+                fprintf("BAD_ASS_ERROR:");
+            }
         }
 	//------------------------ Return the Output Value -------------------//
 	
