@@ -18,10 +18,11 @@ public:
                 NOT_FOUND,
             } result;
     
-    //search(PetriNet*, MarkVal*, string);
+    void search(PetriEngine::PetriNet* net, PetriEngine::MarkVal* marking, string query_str);
+    bool readSatisfactory();
     
 private:
-
+    bool querySatisfied;
 };
 
 #endif	/* CTLENGINE_H */

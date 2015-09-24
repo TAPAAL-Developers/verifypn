@@ -41,7 +41,7 @@
 #include "PetriEngine/Reducer.h"
 #include "PetriParse/QueryXMLParser.h"
 
-#include "CTLEngine/CTLEngine.h"
+#include <CTLEngine/CTLEngine.h>
 
 
 using namespace std;
@@ -67,12 +67,19 @@ enum SearchStrategies{
 };
 
 string parseCTLQuery(char*){return "stub text";}
+
 ReturnValues result_analysis(CTLEngine engine){
-    return SuccessCode;
+    bool res = engine.readSatisfactory();
+    if (res)
+        return SuccessCode;
+    else if (res)
+        return FailedCode;
+    else return ErrorCode;
 }
 ReturnValues search_ctl_query(PetriNet* net, MarkVal* m0, string query_str){
     CTLEngine engine;
-    //engine->search(net, m0, query_str);
+    engine.search(net, m0, query_str);
+    
     ReturnValues result = result_analysis(engine);
     return result;
 }
@@ -585,16 +592,16 @@ int main(int argc, char* argv[]){
             
             retval = search_ctl_query(net, m0, query_string_ctl);
             if (retval == UnknownCode) {
-                fprintf("ERROR:");
+                fprintf(stdout,"ERROR:");
             }
             else if (retval == FailedCode){
-                fprintf("NOT_SATISFIED:");
+                fprintf(stdout,"NOT_SATISFIED:");
             }
             else if (retval == SuccessCode){
-                fprintf("SATISFIED:");
+                fprintf(stdout,"SATISFIED:");
             }
             else {
-                fprintf("BAD_ASS_ERROR:");
+                fprintf(stdout,"BAD_ASS_ERROR:");
             }
         }
 	//------------------------ Return the Output Value -------------------//
