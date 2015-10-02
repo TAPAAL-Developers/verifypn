@@ -23,6 +23,7 @@
 #include <PetriEngine/PetriNetBuilder.h>
 #include <PetriEngine/PQL/PQL.h>
 #include <string>
+#include <vector>
 #include <string.h>
 #include <iostream>
 #include <fstream>
@@ -40,6 +41,7 @@
 
 #include "PetriEngine/Reducer.h"
 #include "PetriParse/QueryXMLParser.h"
+#include "CTLParser/CTLParser.h"
 
 #include <CTLEngine/CTLEngine.h>
 
@@ -65,8 +67,6 @@ enum SearchStrategies{
 	RDFS,			//LinearOverAprox + RandomDFS
 	OverApprox		//LinearOverApprx
 };
-
-string parseCTLQuery(char*){return "stub text";}
 
 ReturnValues result_analysis(CTLEngine engine){
     bool res = engine.readSatisfactory();
@@ -121,7 +121,11 @@ int main(int argc, char* argv[]){
 			}
 		}else if(strcmp(argv[i], "-t") == 0 || strcmp(argv[i], "--trace") == 0){
 			outputtrace = true;
-		}else if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--search-strategy") == 0){
+		}else if(strcmp(argv[i], "-ctl") == 0){
+                    fprintf(stdout, "Should be working");
+                    cout << "STUFF" << flush;
+                    isCTLlogic = true;
+                }else if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--search-strategy") == 0){
 			if (i==argc-1) {
                                 fprintf(stderr, "Missing search strategy after \"%s\"\n\n", argv[i]);
 				return ErrorCode;                           
@@ -193,10 +197,10 @@ int main(int argc, char* argv[]){
 					"  -e, --state-space-exploration      State-space exploration only (query-file is irrelevant)\n"
 					"  -x, --xml-query <query index>      Parse XML query file and verify query of a given index\n"
 					"  -d, --disable-over-approximation   Disable linear over approximation\n"
-                    "  -r, --reduction                    Enable structural net reduction:\n"
-                    "                                     - 0  disabled (default)\n"
-                    "                                     - 1  aggressive reduction\n"
-                    "                                     - 2  reduction preserving k-boundedness\n"
+                                        "  -r, --reduction                    Enable structural net reduction:\n"
+                                        "                                     - 0  disabled (default)\n"
+                                        "                                     - 1  aggressive reduction\n"
+                                        "                                     - 2  reduction preserving k-boundedness\n"
 					"  -n, --no-statistics                Do not display any statistics (default is to display it)\n"
 					"  -h, --help                         Display this help message\n"
 					"  -v, --version                      Display version information\n"
@@ -223,9 +227,7 @@ int main(int argc, char* argv[]){
 			modelfile = argv[i];
 		}else if(queryfile == NULL){
 			queryfile = argv[i];
-		}else if(strcmp(argv[i], "-ctl")){
-                    isCTLlogic = true;
-                }else{
+		}else{
 			fprintf(stderr, "Argument Error: Unrecognized option \"%s\"\n", modelfile);
 			return ErrorCode;
 		}
@@ -294,10 +296,22 @@ int main(int argc, char* argv[]){
 		// Close the file
 		mfile.close();
 	}
-	
+    
     //----------------------- Parse CTL Query -----------------------//
+    QueryNode *queryList[15];
+    
     if(isCTLlogic){
-        query_string_ctl = parseCTLQuery(queryfile);
+        cout << "We start parsing!" << flush;
+        string queryXMLlist[15];
+        ifstream xmlfile (queryfile);
+        vector<char> buffer((istreambuf_iterator<char>(xmlfile)), istreambuf_iterator<char>());
+        buffer.push_back('\0');
+        
+        CTLParser ctlParser = CTLParser();
+        
+        ctlParser.ParseXMLQuery(buffer, queryList);
+        cout << "Done parsing - all other faults are irrelevant\n";
+        
     }
     
 	//----------------------- Parse Reachability Query -----------------------//
@@ -307,7 +321,7 @@ int main(int argc, char* argv[]){
 	bool isInvariant = false;
 	QueryXMLParser XMLparser(transitionEnabledness); // parser for XML queries
 	//Read query file, begin scope to release memory
-	{
+	if (!isCTLlogic) {
 		string querystring; // excluding EF and AG
 		if (!statespaceexploration || !isCTLlogic) {
 			//Open query file

@@ -21,6 +21,7 @@ public:
     void search(PetriEngine::PetriNet* net, PetriEngine::MarkVal* marking, string query_str);
     bool readSatisfactory();
     
+    
 private:
     bool querySatisfied;
 };

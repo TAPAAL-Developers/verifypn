@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>CircularTrains-PT-012-CTLFireabilitySimple-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <all-paths>
+        <finally>
+          <is-fireable>
+            <transition>t6_to_7</transition>
+          </is-fireable>
+        </finally>
+      </all-paths>
+    </formula>
+  </property>
+</property-set>
