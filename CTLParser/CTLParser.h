@@ -9,27 +9,22 @@
 #include "rapidxml-1.13/rapidxml.hpp"
 #define	CTLPARSER_H
 
-enum Quantifier { AND, OR, A = 99, E, NEG };
-enum Path { G, F, X, U, pError = -1 };
+enum Quantifier { AND = 1, OR, A, E, NEG };
+enum Path { G = 1, F, X, U, pError = -1 };
 
 struct Atom {
-    int i;
+    bool isFireable;
+    char *set;
 };
 
-struct CTLquery {
+struct CTLTree {
   Quantifier quantifier;
   Path path;
-  bool isatom;
-  union QueryNode *tail;
-  
+  CTLTree *first;
+  CTLTree *second;
+  Atom a;
 } ;
 
-
-
-union QueryNode {
-    CTLquery ctlquery;
-    Atom atom;
-};
 
 
 class CTLParser {
@@ -37,9 +32,9 @@ public:
     CTLParser();
     CTLParser(const CTLParser& orig);
     virtual ~CTLParser();
-    void ParseXMLQuery(std::vector<char> buffer, QueryNode **queryList);
+    void ParseXMLQuery(std::vector<char> buffer, CTLTree **queryList);
 private:
-    QueryNode* xmlToCTLquery(rapidxml::xml_node<> * root);
+    CTLTree* xmlToCTLquery(rapidxml::xml_node<> * root);
     Path setPathOperator(rapidxml::xml_node<> * root);
     
 };

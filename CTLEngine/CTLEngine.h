@@ -18,7 +18,7 @@ public:
                 NOT_FOUND,
             } result;
     
-    void search(PetriEngine::PetriNet* net, PetriEngine::MarkVal* marking, string query_str);
+    void search(PetriEngine::PetriNet* net, PetriEngine::MarkVal* marking, CTLTree *queryList[]);
     bool readSatisfactory();
     
     

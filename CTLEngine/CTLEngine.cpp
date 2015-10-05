@@ -29,8 +29,12 @@
 #include "PetriEngine/Reducer.h"
 #include "PetriParse/QueryXMLParser.h"
 
+#include "CTLParser/CTLParser.h"
 #include "CTLEngine.h"
 
+struct LTSstate {
+    
+};
 
 CTLEngine::CTLEngine() {
     
@@ -42,9 +46,9 @@ CTLEngine::CTLEngine(const CTLEngine& orig) {
 CTLEngine::~CTLEngine() {
 }
 
-void CTLEngine::search(PetriEngine::PetriNet* net, PetriEngine::MarkVal* marking, string query_str){
+void CTLEngine::search(PetriEngine::PetriNet* net, PetriEngine::MarkVal* marking, CTLTree *queryList[]){
     
-    //CTLEngine.querySatisfied = true;
+    
 }
 bool CTLEngine::readSatisfactory() {
     return false;

@@ -72,13 +72,13 @@ ReturnValues result_analysis(CTLEngine engine){
     bool res = engine.readSatisfactory();
     if (res)
         return SuccessCode;
-    else if (res)
+    else if (!res)
         return FailedCode;
     else return ErrorCode;
 }
-ReturnValues search_ctl_query(PetriNet* net, MarkVal* m0, string query_str){
+ReturnValues search_ctl_query(PetriNet* net, MarkVal* m0, CTLTree *queryList[]){
     CTLEngine engine;
-    engine.search(net, m0, query_str);
+    engine.search(net, m0, queryList);
     
     ReturnValues result = result_analysis(engine);
     return result;
@@ -298,7 +298,7 @@ int main(int argc, char* argv[]){
 	}
     
     //----------------------- Parse CTL Query -----------------------//
-    QueryNode *queryList[15];
+    CTLTree *queryList[15];
     
     if(isCTLlogic){
         cout << "We start parsing!" << flush;
@@ -604,7 +604,7 @@ int main(int argc, char* argv[]){
 	else {
             //stubs
             
-            retval = search_ctl_query(net, m0, query_string_ctl);
+            retval = search_ctl_query(net, m0, queryList);
             if (retval == UnknownCode) {
                 fprintf(stdout,"ERROR:");
             }
