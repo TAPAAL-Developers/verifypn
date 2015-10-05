@@ -32,12 +32,11 @@
 #include "CTLParser/CTLParser.h"
 #include "CTLEngine.h"
 
-struct LTSstate {
-    
-};
 
-CTLEngine::CTLEngine() {
-    
+
+CTLEngine::CTLEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]) {
+    _net = net;
+    _m0 = initialmarking;
 }
 
 CTLEngine::CTLEngine(const CTLEngine& orig) {
@@ -46,10 +45,57 @@ CTLEngine::CTLEngine(const CTLEngine& orig) {
 CTLEngine::~CTLEngine() {
 }
 
-void CTLEngine::search(PetriEngine::PetriNet* net, PetriEngine::MarkVal* marking, CTLTree *queryList[]){
+
+
+void CTLEngine::search(CTLTree *queryList[]){
     
+    pNetPrinter(_net, _m0, queryList);
     
+    if (checkCurrentState(_m0)) {
+        querySatisfied = true;
+    }
+    else if (!hasChildren(_m0)) {
+        querySatisfied = false;
+    }
+    else {
+        
+    }
 }
 bool CTLEngine::readSatisfactory() {
-    return false;
+    return querySatisfied;
+}
+
+bool CTLEngine::checkCurrentState(PetriEngine::MarkVal initialmarking[]) {
+    return true;
+}
+
+bool CTLEngine::hasChildren(PetriEngine::MarkVal initialmarking[]) {
+    return true;
+}
+
+PetriEngine::MarkVal* CTLEngine::getNextState(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]) {
+    return initialmarking;
+}
+
+void CTLEngine::pNetPrinter(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], CTLTree *queryList[]){
+    std::cout << "--------------- Petri Net Information -------------------\n";
+    
+    std::cout << "******** Number of Places: " << net->numberOfPlaces() << " \n";
+    std::cout << "******** Number of Transitions: " << net->numberOfTransitions() << " \n";
+    std::cout << "******** Place names: \n";
+    for(std::vector<int>::size_type i = 0; i != net->placeNames().size(); i++){
+        std::cout << "-------------- " << net->placeNames()[i] << "\n";
+    }
+    std::cout << "******** Transition names: \n";
+    for(std::vector<int>::size_type i = 0; i != net->transitionNames().size(); i++){
+        std::cout << "-------------- " << net->transitionNames()[i] << "\n";
+    }
+    
+    int j;
+    std::cout << "******** Initial Marking: \n";
+    for(j = 0; j < net->numberOfPlaces(); j++){
+        std::cout << "-------------- PlaceID " << j << ": " << initialmarking[j] << "\n";
+    }
+    
+    std::cout << "---------------------------------------------------------\n";
 }

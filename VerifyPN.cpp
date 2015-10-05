@@ -77,8 +77,8 @@ ReturnValues result_analysis(CTLEngine engine){
     else return ErrorCode;
 }
 ReturnValues search_ctl_query(PetriNet* net, MarkVal* m0, CTLTree *queryList[]){
-    CTLEngine engine;
-    engine.search(net, m0, queryList);
+    CTLEngine engine(net, m0);
+    engine.search(queryList);
     
     ReturnValues result = result_analysis(engine);
     return result;
@@ -310,7 +310,7 @@ int main(int argc, char* argv[]){
         CTLParser ctlParser = CTLParser();
         
         ctlParser.ParseXMLQuery(buffer, queryList);
-        cout << "Done parsing - all other faults are irrelevant\n";
+        //cout << "Done parsing - all other faults are irrelevant\n";
         
     }
     
@@ -401,7 +401,7 @@ int main(int argc, char* argv[]){
 	//----------------------- Context Analysis -----------------------//
 
 	//Create scope for AnalysisContext
-	{
+	if (!isCTLlogic){
 		//Context analysis
 		AnalysisContext context(*net);
 		query->analyze(context);
