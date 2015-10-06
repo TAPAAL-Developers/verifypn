@@ -46,38 +46,102 @@ CTLEngine::~CTLEngine() {
 }
 
 
-
-void CTLEngine::search(CTLTree *queryList[]){
+//Public functions
+void CTLEngine::search(CTLTree *query){
+    pNetPrinter(_net, _m0);
+    Configuration v0 = createConfiguration(_m0, query);
+    querySatisfied = localSmolka(v0);
     
-    pNetPrinter(_net, _m0, queryList);
-    
-    if (checkCurrentState(_m0)) {
-        querySatisfied = true;
-    }
-    else if (!hasChildren(_m0)) {
-        querySatisfied = false;
-    }
-    else {
-        
-    }
 }
 bool CTLEngine::readSatisfactory() {
     return querySatisfied;
 }
 
-bool CTLEngine::checkCurrentState(PetriEngine::MarkVal initialmarking[]) {
-    return true;
+
+
+
+
+//Private functions
+
+bool CTLEngine::localSmolka(Configuration v){
+    assignConfiguration(v, ZERO);
+    std::vector<CTLEngine::Edge> D;
+    std::vector<CTLEngine::Edge> W;
+    successors(v, W);
+    while (W.size() != 0) {
+        int i = 0;
+        Edge e = W.front();
+        //MISSING: remove/pop e from W
+        
+        /*****************************************************************/
+        /*Data handling*/
+        int targetONEassignments = 0;
+        int targetZEROassignments = 0;
+        for (i = 0; i < (sizeof(e.targets) / sizeof(Configuration)); i++ ){
+            if (e.targets[i].assignment == ONE) {
+                targetONEassignments++;
+            }
+            else if (e.targets[i].assignment == ZERO) {
+                targetZEROassignments++;
+            }
+        }
+        /*****************************************************************/
+        /*if A(u) = 1, ∀u ∈ T then A(v) ← 1; W ← W ∪ D(v);*/
+        if (targetONEassignments == (sizeof(e.targets) / sizeof(Configuration))) {
+            int j = 0;
+            v.assignment = ONE;
+            for (j = 0; j < D.size(); j++) {
+                W.push_back(D.front());
+                //remove/pop D.front from D
+            }
+        }
+        /*****************************************************************/ 
+        /*else if ∃u ∈ T where A(u) = 0 then D(u) ← D(u) ∪ {e}*/
+        else if (targetZEROassignments > 0) {
+            D.push_back(e);
+        }
+        /*****************************************************************/ 
+        /*else if ∃u ∈ T where A(u) = ⊥ then A(u) ← 0; D(u) ← D(u) ∪ e; W ← W ∪ succ(u)*/
+        else {
+            for (i = 0; i < (sizeof(e.targets) / sizeof(Configuration)); i++ ){
+                if (e.targets[i].assignment == UNKNOWN) {
+                    Configuration u = e.targets[i];
+                    assignConfiguration(u, ZERO);
+                    D.push_back(e);
+                    successors(u,W);
+                }
+            }
+        }
+        /*****************************************************************/ 
+    }
+    return v.assignment;
 }
 
-bool CTLEngine::hasChildren(PetriEngine::MarkVal initialmarking[]) {
-    return true;
+void CTLEngine::assignConfiguration(Configuration v, Assignment a) {
+    v.assignment = a;
 }
 
-PetriEngine::MarkVal* CTLEngine::getNextState(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]) {
-    return initialmarking;
+
+
+void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge> W) {
+    Configuration **succ;
+    
+    
+    
+    //v.successors = succ;
 }
 
-void CTLEngine::pNetPrinter(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], CTLTree *queryList[]){
+
+CTLEngine::Configuration CTLEngine::createConfiguration(PetriEngine::MarkVal *marking, CTLTree *query){
+    Configuration newConfig;
+    newConfig.marking = marking;
+    newConfig.query = query;
+    newConfig.assignment = UNKNOWN;
+    return newConfig;
+}
+
+
+void CTLEngine::pNetPrinter(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]){
     std::cout << "--------------- Petri Net Information -------------------\n";
     
     std::cout << "******** Number of Places: " << net->numberOfPlaces() << " \n";
