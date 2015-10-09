@@ -33,7 +33,7 @@ public:
 
     struct Edge {
         CTLEngine::Configuration source;
-        CTLEngine::Configuration *targets;
+        std::vector<CTLEngine::Configuration> targets;
     };
     
     struct Markings{
@@ -70,6 +70,7 @@ private:
     bool querySatisfied;
     CTLEngine::Configuration createConfiguration(PetriEngine::MarkVal *marking, CTLTree *query);
     int next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal* next_m);
+  
     
     //Debug functions
     void pNetPrinter(PetriEngine::PetriNet* net, PetriEngine::MarkVal* initialmarking);
