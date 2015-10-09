@@ -45,6 +45,7 @@ public:
     typedef std::vector<Markings> MarkingsList;
     typedef MarkingsList::iterator mIter;
     
+    
     void search(CTLTree *queryList);
     bool readSatisfactory();
 
@@ -58,8 +59,9 @@ private:
     int _ntransitions;
 
     std::vector<CTLEngine::Markings> list;
+    std::vector<CTLEngine::Configuration> configlist;
     
-
+    
 
     //Engine functions
     bool localSmolka(Configuration v);
@@ -77,6 +79,7 @@ private:
     std::vector<int> calculateFireableTransistions(PetriEngine::MarkVal m[]);
     void makeNewMarking(PetriEngine::MarkVal m[], int t, PetriEngine::MarkVal nm[]);
     bool compareMarking(PetriEngine::MarkVal *m, PetriEngine::MarkVal *m1);
+    int configurationExits(PetriEngine::MarkVal *marking, CTLTree *query);
 
  
 };

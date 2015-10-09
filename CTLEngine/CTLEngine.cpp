@@ -175,9 +175,18 @@ int CTLEngine::next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal*
 
 CTLEngine::Configuration CTLEngine::createConfiguration(PetriEngine::MarkVal *marking, CTLTree *query){
     Configuration newConfig;
-    newConfig.marking = marking;
-    newConfig.query = query;
-    newConfig.assignment = UNKNOWN;
+    bool isNewConfiguration = true;
+    int i = configurationExits(marking, query);
+    if (i > 0) { 
+        newConfig = configlist[i];
+        isNewConfiguration = false;
+    }
+    
+    if (isNewConfiguration) {
+        newConfig.marking = marking;
+        newConfig.query = query;
+        newConfig.assignment = UNKNOWN;
+    }
     return newConfig;
 }
 
@@ -241,4 +250,9 @@ std::vector<int> CTLEngine::calculateFireableTransistions(PetriEngine::MarkVal m
     }
     return pt;
 }  //possibleTransitions
+
+int CTLEngine::configurationExits(PetriEngine::MarkVal *marking, CTLTree *query) {
+    //TODO: Lav correct if-check
+    return false;
+}
 
