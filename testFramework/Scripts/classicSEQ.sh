@@ -1,4 +1,10 @@
 #!/bin/bash
+#SBATCH --cpus-per-task=64
+#SBATCH --exclusive
+#SBATCH --nodes=1 - 1
+#SBATCH --partition=production
+#SBATCH --mail-type=END # Type of email notification- BEGIN,END,FAIL,ALL 
+##SBATCH --mail-user=ikaufm12@student.aau.dk
 
 # This is the initialization script for the participation of TAPAAL
 # untimed engine verifypn in the Petri net competition 2015.
@@ -9,9 +15,9 @@
 #export PATH="$PATH:/home/mcc/BenchKit/bin/"
 #VERIFYPN=$HOME/BenchKit/bin/verifypn
 
-#VERIFYPN=/home/mads/competition2015multiplePlaceBounds/verifypn-linux64
-VERIFYPN=/Users/dyhr/Bazaar/competition2015multiplePlaceBounds/verifypn-osx64
-TIMEOUT=20
+#VERIFYPN=/home/mTads/competition2015multiplePlaceBounds/verifypn-linux64
+VERIFYPN=/home/isabella/Documents/P6project/verifypn/verifypn-linux64
+TIMEOUT=$TOUT
 
 
 

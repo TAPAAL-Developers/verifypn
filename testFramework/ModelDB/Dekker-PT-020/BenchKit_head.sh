@@ -12,7 +12,7 @@ case "$BK_TOOL" in
 
 	simpleCTL)
 		echo "---> " $BK_TOOL " --- TAPAAL CTL Sequential"
-		sbatch $PREFIX/simpleCTL.sh
+		$PREFIX/simpleCTL.sh
 		;;
 
 	classicSEQ)

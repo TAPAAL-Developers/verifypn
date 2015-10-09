@@ -37,6 +37,8 @@
 CTLEngine::CTLEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]) {
     _net = net;
     _m0 = initialmarking;
+    _nplaces = net->numberOfPlaces();
+    _ntransitions = net->numberOfTransitions();
 }
 
 CTLEngine::CTLEngine(const CTLEngine& orig) {
@@ -56,6 +58,7 @@ void CTLEngine::search(CTLTree *query){
 bool CTLEngine::readSatisfactory() {
     return querySatisfied;
 }
+
 
 
 
@@ -131,6 +134,44 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge> W) {
     //v.successors = succ;
 }
 
+int CTLEngine::next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal* next_m){
+
+    bool found = false;
+    int nr_t = 0;
+
+
+    CTLEngine::mIter m;
+
+    if(!list.empty()){
+        for (m = list.begin(); m != list.end(); m++) 
+        {
+            if(compareMarking(m->marking, current_m)){
+                found = true;
+                nr_t = m->index;
+                if (nr_t < m->possibleTransitions.size()){
+                    m->index++;
+                    makeNewMarking(current_m, m->possibleTransitions[nr_t], next_m);
+                    return 1;
+                }
+                else { m->index = 0; return 2;}
+                }
+            }
+        }
+    
+
+
+    if (found == false){
+        std::vector<int> tempPossibleTransitions = calculateFireableTransistions(current_m);
+        CTLEngine::Markings temp;
+        temp.possibleTransitions = tempPossibleTransitions;
+        temp.index = 1;
+        temp.marking = current_m;
+        list.push_back(temp);
+        makeNewMarking(current_m, tempPossibleTransitions[0], next_m);
+        return 1;
+    }
+
+}
 
 CTLEngine::Configuration CTLEngine::createConfiguration(PetriEngine::MarkVal *marking, CTLTree *query){
     Configuration newConfig;
@@ -163,3 +204,41 @@ void CTLEngine::pNetPrinter(PetriEngine::PetriNet* net, PetriEngine::MarkVal ini
     
     std::cout << "---------------------------------------------------------\n";
 }
+
+bool CTLEngine::compareMarking(PetriEngine::MarkVal m[], PetriEngine::MarkVal m1[]){
+        for(int i = 0; i < 4; i++)
+        {
+            if (m[i] != m1[i])
+                return false;
+        }
+        return true;
+}
+
+
+void CTLEngine::makeNewMarking(PetriEngine::MarkVal m[], int t, PetriEngine::MarkVal nm[]){
+
+
+        for(int p = 0; p < _nplaces; p++){
+            nm[p] = m[p];
+            int place = nm[p] - _net->inArc(p,t);  
+            nm[p] = place + _net->outArc(t,p);
+        }
+       
+}
+
+
+
+std::vector<int> CTLEngine::calculateFireableTransistions(PetriEngine::MarkVal m[]){
+    std::vector<int> pt;
+
+    for(int t = 0; t < _ntransitions; t++){
+        bool transitionFound = true;
+        for(int p = 0; p < _nplaces; p++){
+            if(m[p] < _net->inArc(p,t)) {transitionFound = false;}
+        }
+
+        if(transitionFound){ pt.push_back(t); }
+    }
+    return pt;
+}  //possibleTransitions
+

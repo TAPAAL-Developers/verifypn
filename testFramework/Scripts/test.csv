@@ -1,0 +1,1271 @@
+####################################################################
+##########################TEST INFORMATION##########################
+####################################################################
+||Program path: /home/isabella/Documents/verifypnCTL/testFramework
+||
+####################################################################
+
+Running tests... Please wait
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/ERK-PT-000010
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 47047 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 50 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 10 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Angiogenesis-PT-05
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/MultiwaySync-PT-none
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Angiogenesis-PT-01
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 110 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 8 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/HouseConstruction-PT-002
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 1501 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 12 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 2 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/MAPK-PT-040
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/PermAdmissibility-PT-02
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Dekker-PT-010
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 6144 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 20 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Peterson-PT-4
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/CSRepetitions-PT-03
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Planning-PT-none
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/LamportFastMutEx-PT-3
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 19742 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 14 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/FMS-PT-010
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Kanban-PT-0010
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/ResAllocation-PT-R003C002
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 20 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 6 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/SharedMemory-PT-000010
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Eratosthenes-PT-050
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/PermAdmissibility-PT-01
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/CircularTrains-PT-024
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 86515 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 24 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 2 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/UtahNoC-PT-none
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Kanban-PT-0020
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/ERK-PT-000001
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 13 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 5 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/PhilosophersDyn-PT-10
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/RwMutex-PT-r0010w0010
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 1034 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 30 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Kanban-PT-0005
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/TokenRing-PT-010
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Railroad-PT-020
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Ring-PT-none
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/DrinkVendingMachine-PT-10
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+File 'model.pnml' not found!
+--->  classicMC  --- TAPAAL Classic Multicore
+File 'model.pnml' not found!
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/DatabaseWithMutex-PT-04
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/DrinkVendingMachine-PT-02
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 1024 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 12 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/MultiwaySync-PT-none
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+(copy)
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/PermAdmissibility-PT-05
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/PhilosophersDyn-PT-20
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/CircadianClock-PT-000001
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 128 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 7 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/RwMutex-PT-r0010w0020
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 1044 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 40 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Dekker-PT-020
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/TokenRing-PT-015
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/IBMB2S565S3960-PT-none
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/CircadianClock-PT-000100
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/ResAllocation-PT-R002C002
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 8 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 4 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/SimpleLoadBal-PT-05
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/HouseConstruction-PT-005
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/EnergyBus-PT-none
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/HouseConstruction-PT-010
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/SimpleLoadBal-PT-02
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 832 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 11 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/MAPK-PT-160
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/FMS-PT-020
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/ProductionCell-PT-none
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/ResAllocation-PT-R003C003
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 92 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 9 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/ARMCacheCoherence-PT-none
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/DatabaseWithMutex-PT-02
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 153 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 6 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/SharedMemory-PT-000005
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 1863 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 11 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/MAPK-PT-008
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Eratosthenes-PT-010
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 32 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 9 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/FMS-PT-005
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/RwMutex-PT-r0010w0050
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 1074 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 70 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/ERK-PT-000100
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/CircularTrains-PT-012
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 195 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 12 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 2 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/MAPK-PT-080
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Peterson-PT-3
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Angiogenesis-PT-10
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Dekker-PT-015
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/CSRepetitions-PT-02
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 7424 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 8 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 2 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/MAPK-PT-320
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/SimpleLoadBal-PT-10
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/LamportFastMutEx-PT-2
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 380 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 8 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/CircadianClock-PT-000010
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Railroad-PT-005
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 1838 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 16 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/MAPK-PT-020
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/TokenRing-PT-005
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 166 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 6 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/CircularTrains-PT-048
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/DatabaseWithMutex-PT-10
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/CSRepetitions-PT-04
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Vasy2003-PT-none
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/LamportFastMutEx-PT-4
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/SharedMemory-PT-000020
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Railroad-PT-010
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/GlobalResAllocation-PT-03
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/PhilosophersDyn-PT-03
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 325 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 11 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Peterson-PT-2
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 20754 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 8 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/GlobalResAllocation-PT-05
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+File 'model.pnml' not found!
+--->  classicMC  --- TAPAAL Classic Multicore
+File 'model.pnml' not found!
+
+####################################################################
+/home/isabella/Documents/verifypnCTL/testFramework/ModelDB/Eratosthenes-PT-020
+--->  classicSEQ  --- TAPAAL Classic Sequential
+timeout is  1
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+STATE_SPACE STATES 2048 TECHNIQUES EXPLICIT
+STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_PER_MARKING 19 TECHNIQUES EXPLICIT
+STATE_SPACE MAX_TOKEN_IN_PLACE 1 TECHNIQUES EXPLICIT
+--->  classicMC  --- TAPAAL Classic Multicore
+
+*****************************************
+*  TAPAAL performing StateSpace search  *
+*****************************************
+Done testing
+Starting analisys

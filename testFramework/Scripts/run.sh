@@ -1,8 +1,14 @@
 PROGRAMPATH=$1
+MODELS=$2
+ENGINE=$3
+QUERYTYPE=$4
+TIMEOUT=$5
+
 export PREFIX=$PROGRAMPATH/Scripts
+export TOUT=$TIMEOUT
 
 
-INPUTSPATH=$PROGRAMPATH/ModelDB
+INPUTSPATH=$PROGRAMPATH/$MODELS
 
 TOOL=BenchKit_head.sh
 	
@@ -41,15 +47,15 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
     cd $D ;
 
     #for TOOLNAME in classicSEQ classicMC ontheflySEQ ontheflyMC ontheflyPAR; do
-    for TOOLNAME in classicSEQ ontheflySEQ; do
+    for TOOLNAME in $ENGINE; do
       export BK_TOOL=$TOOLNAME ;
       
       #for EXAMINATION in StateSpace ReachabilityComputeBounds ReachabilityDeadlock \
       #                   ReachabilityCardinality ReachabilityFireability \
-      #                   ReachabilityFireabilitySimple; do
+      #                   ReachabilityFireabilitySimple CTLFireabilitySimple CTLFireability CTLCardinality; do
 
 
-      for EXAMINATION in ReachabilityCardinality ReachabilityFireability ReachabilityFireabilitySimple ReachabilityDeadlock; do
+      for EXAMINATION in $QUERYTYPE; do
 
          export BK_EXAMINATION=$EXAMINATION ;
          time ./$TOOL
