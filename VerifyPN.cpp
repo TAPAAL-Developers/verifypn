@@ -78,10 +78,10 @@ ReturnValues result_analysis(CTLEngine engine){
 }
 void search_ctl_query(PetriNet* net, MarkVal* m0, CTLTree *queryList[], ReturnValues result[]){
     CTLEngine engine(net, m0);
-    for (int i = 0; i < 16 / sizeof(CTLTree*); i++) {
+    /*for (int i = 0; i < 16 / sizeof(CTLTree*); i++) {
         engine.search(queryList[i]);
         result[i] = result_analysis(engine);
-    }
+    }*/
 }
 
 #define VERSION		"2.0.0 - CTL Expansion"

@@ -46,7 +46,8 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLTree *queryList[]) {
         std::cout << "Property id: " << id_node->value() << "\n";
         xml_node<> * formula_node = id_node->next_sibling("description")->next_sibling("formula");
         queryList[i] = xmlToCTLquery(formula_node->first_node());
-        //std::cout << "TEST:: Print of queryList " << queryList[i]->ctlquery.quantifier << " " << queryList[i]->ctlquery.path << " \n" << std::flush;
+        printQuery(queryList[i]);
+        std::cout << "\n";
         i++;
     }
 }
@@ -55,44 +56,76 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     CTLTree *query = (CTLTree*)malloc(sizeof(CTLTree));
     
     char *root_name = root->name();
-    std::cout << "TEST:: Running xmlToCTLquery with " << root_name << " as root\n";
+   // std::cout << "TEST:: Running xmlToCTLquery with " << root_name << " as root\n";
     char firstLetter = root_name[0];
     
     if (firstLetter == 'a') {
         query->quantifier = A;
-        std::cout << "TEST:: Q: " << root_name << "\n";
+       // std::cout << "TEST:: Q: " << root_name << "\n";
         query->path = setPathOperator(root->first_node());
         
     }
     else if (firstLetter == 'e' ) {
         query->quantifier = E;
-        std::cout << "TEST:: Q: " << root_name << " \n";
+        //std::cout << "TEST:: Q: " << root_name << " \n";
         query->path = setPathOperator(root->first_node());
         
     }
     else if (firstLetter == 'n' ) {
         query->quantifier = NEG;
-        std::cout << "TEST:: Q: " << root_name << "\n";
-        query->path = setPathOperator(root->first_node());
+        //std::cout << "TEST:: Q: " << root_name << "\n";
+        //query->path = setPathOperator(root->first_node());
         
     }
     else if (firstLetter == 'c' ) {
         query->quantifier = AND;
-        std::cout << "TEST:: Q: " << root_name << "\n";
+        //std::cout << "TEST:: Q: " << root_name << "\n";
     }
     else if (firstLetter == 'd' ) {
         query->quantifier = OR;
-        std::cout << "TEST:: Q: " << root_name << "\n";
+        //std::cout << "TEST:: Q: " << root_name << "\n";
     }
     else if (firstLetter == 'i' ) {
-        std::cout << "TEST:: ATOM: " << root_name << "\n";
+        //std::cout << "TEST:: ATOM: " << root_name << "\n";
         if (root_name[1] == 's' ) {
             query->a.isFireable = true;
             query->a.set = root->first_node()->value();
-            return query;
+            //std::cout << "-----TEST:: Returning query set: " << query->a.set << "\n" << std::flush;
+            return query; 
         }
         else if (root_name[1] == 'n') {
+            xml_node<> * integerNode = root->first_node();
             query->a.isFireable = false;
+            std::string integerExpression;
+            if (integerNode->name()[0] == 't') {
+                char *temp;
+                temp = integerNode->first_node()->value();
+                integerExpression = temp;
+            }
+            else if (integerNode->name()[0] == 'i') {
+                char *temp;
+                temp = integerNode->value();
+                integerExpression = temp;
+            }
+            //Set less-than between
+            integerExpression = integerExpression + " le ";
+            integerNode = integerNode->next_sibling();
+            
+            if (integerNode->name()[0] == 't') {
+                char *temp;
+                temp = integerNode->first_node()->value();
+                integerExpression = integerExpression + temp;
+            }
+                
+            else if (integerNode->name()[0] == 'i') {
+                char *temp;
+                temp = integerNode->value();
+                integerExpression = integerExpression + temp;
+            }
+            
+            query->a.set = &integerExpression[0];
+            //std::cout << "-----TEST:: Returning query set: " << query->a.set << "\n" << std::flush;
+            return query; 
         }
         else {
             std::cout << "ERROR in xmlToCTLquery: Invalid atom " << root_name << "\n";
@@ -107,28 +140,28 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         
     }
     else if (query->path == U) {
-        std::cout << "TEST:: Setting binary boolean with a path " << query->path << "\n";
+        query->a.set = NULL;
         xml_node<> * child_node = root->first_node()->first_node();
         query->first = xmlToCTLquery(child_node->first_node());
-        std::cout << "-----TEST:: Set first child: " << child_node->first_node()->name() << "\n";
         child_node = child_node->next_sibling();
         query->second = xmlToCTLquery(child_node->first_node());
-        std::cout << "-----TEST:: Set second child: " << child_node->first_node()->name() << "\n";
     }
     else if (query->quantifier == AND || query->quantifier == OR) {
-        std::cout << "TEST:: Setting binary boolean without a path " << root_name << "\n";
+        query->a.set = NULL;
         xml_node<> * child_node = root->first_node();
         query->first = xmlToCTLquery(child_node);
-        std::cout << "-----TEST:: Set first child: " << child_node->name() << "\n";
         child_node = child_node->next_sibling();
         query->second = xmlToCTLquery(child_node);
-        std::cout << "-----TEST:: Set second child: " << child_node->name() << "\n";
+    }
+    else if (query->quantifier == NEG) {
+        query->a.set = NULL;
+        query->first = xmlToCTLquery(root->first_node());
     }
     else {
-        std::cout << "TEST:: Setting unary boolean with a path " << query->path << "\n";
+        query->a.set = NULL;
         query->first = xmlToCTLquery(root->first_node()->first_node());
     }
-    std::cout << "TEST:: Returning " << root_name << "\n";
+    //std::cout << "TEST:: Returning " << root_name << "\n";
     return query;
 }
 
@@ -137,19 +170,15 @@ Path CTLParser::setPathOperator(xml_node<> * root) {
     char firstLetter = root_name[0];
     
     if (firstLetter == 'g') {
-        std::cout << "TEST:: P: " << root_name << "\n";
         return G;
     }
     else if (firstLetter == 'f') {
-        std::cout << "TEST:: P: " << root_name << "\n";
         return F;
     }
     else if (firstLetter == 'n') {
-        std::cout << "TEST:: P: " << root_name << "\n";
         return X;
     }
     else if (firstLetter == 'u') {
-        std::cout << "TEST:: P: " << root_name << "\n";
         return U;
     }
     else {
@@ -158,3 +187,52 @@ Path CTLParser::setPathOperator(xml_node<> * root) {
     return pError;
 }
 
+void CTLParser::printQuery(CTLTree *query) {
+    if(!charEmpty(query->a.set)) {
+        if(query->a.isFireable){
+            std::cout << "isFireable(" << query->a.set <<")";
+            return;
+        }
+        std::cout<< " TokenCount(" << query->a.set << ")";
+        return;
+    }
+    else if (query->quantifier == NEG){
+        std::cout << "!("; printQuery(query->first) ;std::cout <<")";
+    }
+    else if (query->quantifier == AND){
+        std::cout << "(" ; printQuery(query->first);std::cout <<") AND ("; printQuery(query->second);std::cout<< ")";
+    }
+    else if (query->quantifier == OR){
+        std::cout << "("; printQuery(query->first);std::cout <<") OR ("; printQuery(query->second);std::cout << ")";
+    }
+    else if (query->quantifier == A){
+        std::cout << "A";
+        printPath(query);
+        printQuery(query->first);
+    }
+    else if ( query->quantifier == E){
+        std::cout << "E";
+        printPath(query);
+        printQuery(query->first);
+    }
+    else return;
+}
+
+void CTLParser::printPath(CTLTree *query) {
+    if (query->path == G)
+        std::cout << "G";
+    else if (query->path == F)
+        std::cout << "F";
+    else if (query->path == U)
+        {std::cout << "("; printQuery(query->first);std::cout <<") U ("; printQuery(query->second);std::cout << ")";}
+    else if (query->path == X)
+        std::cout << "X";
+}
+
+bool CTLParser::charEmpty(char *query) {
+    int i;
+    if (query == NULL) {
+        return true;
+    }
+    return false;
+}
