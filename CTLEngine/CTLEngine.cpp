@@ -72,11 +72,14 @@ bool CTLEngine::localSmolka(Configuration v){
     assignConfiguration(v, ZERO);
     std::vector<CTLEngine::Edge> D;
     std::vector<CTLEngine::Edge> W;
-    successors(v, W);
+        std::cout << "\n\n\n before succ" << flush;
+        successors(v,W);
+        std::cout << "\n\n\n after succ" << flush;
     while (W.size() != 0) {
         int i = 0;
         Edge e = W.front();
         //MISSING: remove/pop e from W
+
         
         /*****************************************************************/
         /*Data handling*/
@@ -150,20 +153,26 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge> W) {
         W.push_back(e2);
     } else if(v.query->path == U){
         if(v.query->quantifier == A){
-            PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
             Configuration c = createConfiguration(v.marking, v.query->second);
             Edge e, e1;
             e.source = v;
             e.targets.push_back(c);
+            edgePrinter(e);
             e1.source = v;
-            c = createConfiguration(v.marking, v.query->first);
-            e1.targets.push_back(c);
-            while(next_state(v.marking, nxt_m) == 1){
-                c = createConfiguration(nxt_m, v.query);
-                e1.targets.push_back(c);
-                
+            Configuration b = createConfiguration(v.marking, v.query->first);
+            e1.targets.push_back(b);
+            int i = 0;
+            while(true){             
+            PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
+                if(next_state(v.marking, nxt_m) == 1){
+                Configuration c1 = createConfiguration(nxt_m, v.query);
+                e1.targets.push_back(c1);          
+
+                } else break;
             }
+            edgePrinter(e1);    
         } else if(v.query->quantifier == E){
+            return;
 
         }
     }
@@ -223,7 +232,8 @@ CTLEngine::Configuration CTLEngine::createConfiguration(PetriEngine::MarkVal *ma
         newConfig.marking = marking;
         newConfig.query = query;
         newConfig.assignment = UNKNOWN;
-    }
+    }    
+
     return newConfig;
 }
 
@@ -268,10 +278,9 @@ void CTLEngine::edgePrinter(CTLEngine::Edge e){
     std::cout << "--------------- source config----------------------\n";
     configPrinter(e.source);
     std::cout << "--------------- target configs----------------------\n";
-    CTLEngine::confIter ci;
-    for (ci = e.targets.begin(); ci != e.targets.end(); ci++){
-        configPrinter(*ci);
-    }
+    for(int i = 0; i < e.targets.size(); i++)
+         configPrinter(e.targets.at(i));
+    
 
     std::cout << "---------------------------------------------------------\n";
 

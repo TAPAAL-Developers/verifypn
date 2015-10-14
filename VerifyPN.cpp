@@ -76,18 +76,13 @@ ReturnValues result_analysis(CTLEngine engine){
         return FailedCode;
     else return ErrorCode;
 }
-ReturnValues search_ctl_query(PetriNet* net, MarkVal* m0, CTLTree *queryList[]){
+void search_ctl_query(PetriNet* net, MarkVal* m0, CTLTree *queryList[], ReturnValues result[]){
     CTLEngine engine(net, m0);
-    /*for (int i = 0; i < 16 / sizeof(CTLTree*); i++) {
+    for (int i = 0; i < 16 / sizeof(CTLTree*); i++) {
         engine.search(queryList[i]);
-<<<<<<< TREE
-    }
-    ReturnValues result = result_analysis(engine);
-    return result;
-=======
         result[i] = result_analysis(engine);
-    }*/
->>>>>>> MERGE-SOURCE
+   }
+
 }
 
 #define VERSION		"1.2.0"
@@ -610,19 +605,23 @@ int main(int argc, char* argv[]){
 	else {
             //stubs
             
-            retval = search_ctl_query(net, m0, queryList);
-            if (retval == UnknownCode) {
-                fprintf(stdout,"ERROR:");
-            }
-            else if (retval == FailedCode){
-                fprintf(stdout,"NOT_SATISFIED:");
-            }
-            else if (retval == SuccessCode){
-                fprintf(stdout,"SATISFIED:");
-            }
-            else {
-                fprintf(stdout,"BAD_ASS_ERROR:");
-            }
+            ReturnValues retval[16];
+            search_ctl_query(net, m0, queryList, retval);
+            int i;
+            for(i = 0; i < 16; i++){
+	            if (retval[i] == ErrorCode) {
+	                fprintf(stdout,"ERROR:");
+	            }
+	            else if (retval[i] == FailedCode){
+	                fprintf(stdout,"NOT_SATISFIED:");
+	            }
+	            else if (retval[i] == SuccessCode){
+	                fprintf(stdout,"SATISFIED:");
+	            }
+	            else {
+	                fprintf(stdout,"BAD_ASS_ERROR:");
+	            }
+      		}
         }
 	//------------------------ Return the Output Value -------------------//
 	
