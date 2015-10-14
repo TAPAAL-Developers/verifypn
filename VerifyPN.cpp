@@ -603,25 +603,23 @@ int main(int argc, char* argv[]){
 	//---------------------------- CTL search ---------------------------//
         //-------------------------------------------------------------------//
 	else {
-            //stubs
-            
             ReturnValues retval[16];
             search_ctl_query(net, m0, queryList, retval);
             int i;
-            for(i = 0; i < 16; i++){
-	            if (retval[i] == ErrorCode) {
-	                fprintf(stdout,"ERROR:");
-	            }
-	            else if (retval[i] == FailedCode){
-	                fprintf(stdout,"NOT_SATISFIED:");
-	            }
-	            else if (retval[i] == SuccessCode){
-	                fprintf(stdout,"SATISFIED:");
-	            }
-	            else {
-	                fprintf(stdout,"BAD_ASS_ERROR:");
-	            }
-      		}
+            for (i = 0; i <16; i++){
+                if (retval[i] == ErrorCode) {
+                    fprintf(stdout,"Query %d ERROR: The CTL Engine did not return any results\n", i);
+                }
+                else if (retval[i] == FailedCode){
+                    fprintf(stdout,"Query %d NOT_SATISFIED: \n", i);
+                }
+                else if (retval[i] == SuccessCode){
+                    fprintf(stdout,"Query %d SATISFIED:\n", i);
+                }
+                else {
+                    fprintf(stdout,"Query %d BAD_ASS_ERROR:\n", i);
+                }
+            }
         }
 	//------------------------ Return the Output Value -------------------//
 	
