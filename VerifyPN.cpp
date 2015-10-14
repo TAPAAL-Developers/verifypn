@@ -76,16 +76,15 @@ ReturnValues result_analysis(CTLEngine engine){
         return FailedCode;
     else return ErrorCode;
 }
-ReturnValues search_ctl_query(PetriNet* net, MarkVal* m0, CTLTree *queryList[]){
+void search_ctl_query(PetriNet* net, MarkVal* m0, CTLTree *queryList[], ReturnValues result[]){
     CTLEngine engine(net, m0);
     for (int i = 0; i < 16 / sizeof(CTLTree*); i++) {
         engine.search(queryList[i]);
+        result[i] = result_analysis(engine);
     }
-    ReturnValues result = result_analysis(engine);
-    return result;
 }
 
-#define VERSION		"1.2.0"
+#define VERSION		"2.0.0 - CTL Expansion"
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -604,19 +603,22 @@ int main(int argc, char* argv[]){
         //-------------------------------------------------------------------//
 	else {
             //stubs
-            
-            retval = search_ctl_query(net, m0, queryList);
-            if (retval == UnknownCode) {
-                fprintf(stdout,"ERROR:");
-            }
-            else if (retval == FailedCode){
-                fprintf(stdout,"NOT_SATISFIED:");
-            }
-            else if (retval == SuccessCode){
-                fprintf(stdout,"SATISFIED:");
-            }
-            else {
-                fprintf(stdout,"BAD_ASS_ERROR:");
+            ReturnValues retval[16];
+            search_ctl_query(net, m0, queryList, retval);
+            int i;
+            for (i = 0; i <16; i++){
+                if (retval[i] == ErrorCode) {
+                    fprintf(stdout,"Query %d ERROR: The CTL Engine did not return any results\n", i);
+                }
+                else if (retval[i] == FailedCode){
+                    fprintf(stdout,"Query %d NOT_SATISFIED: \n", i);
+                }
+                else if (retval[i] == SuccessCode){
+                    fprintf(stdout,"Query %d SATISFIED:\n", i);
+                }
+                else {
+                    fprintf(stdout,"Query %d BAD_ASS_ERROR:\n", i);
+                }
             }
         }
 	//------------------------ Return the Output Value -------------------//
