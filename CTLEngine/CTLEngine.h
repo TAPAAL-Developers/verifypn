@@ -33,9 +33,12 @@ public:
 
     struct Edge {
         CTLEngine::Configuration source;
-        std::vector<Configuration> targets;
+        std::vector<CTLEngine::Configuration> targets;
     };
 
+    typedef std::vector<CTLEngine::Configuration> ConfigurationsList;
+    typedef ConfigurationsList::iterator confIter;
+    
     struct Markings{
         std::vector<int> possibleTransitions;
         int index;
