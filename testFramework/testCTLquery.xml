@@ -13,7 +13,7 @@
             </before>
             <reach>
               <is-fireable>
-                <transition>T1_to_P1</transition>
+                <transition>T2_to_P3</transition>
               </is-fireable>
             </reach>
           </until>
