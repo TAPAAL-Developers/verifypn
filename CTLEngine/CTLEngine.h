@@ -35,12 +35,17 @@ public:
         CTLEngine::Configuration source;
         std::vector<CTLEngine::Configuration> targets;
     };
+
+    typedef std::vector<CTLEngine::Configuration> ConfigurationsList;
+    typedef ConfigurationsList::iterator confIter;
     
     struct Markings{
         std::vector<int> possibleTransitions;
         int index;
         PetriEngine::MarkVal* marking;
     };
+
+    
 
     typedef std::vector<Markings> MarkingsList;
     typedef MarkingsList::iterator mIter;
@@ -82,7 +87,7 @@ private:
     bool compareMarking(PetriEngine::MarkVal *m, PetriEngine::MarkVal *m1);
     int configurationExits(PetriEngine::MarkVal *marking, CTLTree *query);
     void configPrinter(CTLEngine::Configuration c);
-
+    void edgePrinter(CTLEngine::Edge e);
  
 };
 

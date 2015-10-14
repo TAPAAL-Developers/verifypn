@@ -227,7 +227,6 @@ CTLEngine::Configuration CTLEngine::createConfiguration(PetriEngine::MarkVal *ma
     return newConfig;
 }
 
-
 void CTLEngine::pNetPrinter(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]){
     std::cout << "--------------- Petri Net Information -------------------\n";
     
@@ -261,6 +260,21 @@ void CTLEngine::configPrinter(CTLEngine::Configuration c){
     std::cout << "Configuration assignment: " << c.assignment<<"\n";
     
     std::cout << "---------------------------------------------------------\n";
+}
+
+void CTLEngine::edgePrinter(CTLEngine::Edge e){
+
+    std::cout << "--------------- Edge Information -------------------\n";
+    std::cout << "--------------- source config----------------------\n";
+    configPrinter(e.source);
+    std::cout << "--------------- target configs----------------------\n";
+    CTLEngine::confIter ci;
+    for (ci = e.targets.begin(); ci != e.targets.end(); ci++){
+        configPrinter(*ci);
+    }
+
+    std::cout << "---------------------------------------------------------\n";
+
 }
 
 bool CTLEngine::compareMarking(PetriEngine::MarkVal m[], PetriEngine::MarkVal m1[]){

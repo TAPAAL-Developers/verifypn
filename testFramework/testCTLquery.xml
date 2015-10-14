@@ -4,13 +4,21 @@
     <id>test</id>
     <description>Automatically generated</description>
     <formula>
-      <all-paths>
-        <finally>
-          <is-fireable>
-            <transition>T1_to_P1</transition>
-          </is-fireable>
-        </finally>
-      </all-paths>
+        <all-paths>
+          <until>
+            <before>
+              <is-fireable>
+                <transition>T1_to_P1</transition>
+              </is-fireable>
+            </before>
+            <reach>
+              <is-fireable>
+                <transition>T1_to_P1</transition>
+              </is-fireable>
+            </reach>
+          </until>
+       </all-paths>
     </formula>
   </property>
 </property-set>
+
