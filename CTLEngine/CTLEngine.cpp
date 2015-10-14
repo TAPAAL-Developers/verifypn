@@ -52,6 +52,8 @@ CTLEngine::~CTLEngine() {
 void CTLEngine::search(CTLTree *query){
     pNetPrinter(_net, _m0);
     Configuration v0 = createConfiguration(_m0, query);
+    cout << "Created initial configuration\n";
+    configPrinter(v0);
     querySatisfied = localSmolka(v0);
     
 }
@@ -245,6 +247,18 @@ void CTLEngine::pNetPrinter(PetriEngine::PetriNet* net, PetriEngine::MarkVal ini
     for(j = 0; j < net->numberOfPlaces(); j++){
         std::cout << "-------------- PlaceID " << j << ": " << initialmarking[j] << "\n";
     }
+    
+    std::cout << "---------------------------------------------------------\n";
+}
+
+void CTLEngine::configPrinter(CTLEngine::Configuration c){
+    std::cout << "--------------- Configuration Information -------------------\n";
+    int i = 0;
+    for (i = 0; i < _net->numberOfPlaces(); i++) {
+        std::cout << "Configuration marking: " << c.marking[i]<<"\n";
+    }
+    std::cout << "Configuration query::::\n --- Quantifier: " << c.query->quantifier << "\n --- Path: " << c.query->path;
+    std::cout << "Configuration assignment: " << c.assignment<<"\n";
     
     std::cout << "---------------------------------------------------------\n";
 }

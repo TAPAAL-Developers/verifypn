@@ -81,6 +81,7 @@ private:
     void makeNewMarking(PetriEngine::MarkVal m[], int t, PetriEngine::MarkVal nm[]);
     bool compareMarking(PetriEngine::MarkVal *m, PetriEngine::MarkVal *m1);
     int configurationExits(PetriEngine::MarkVal *marking, CTLTree *query);
+    void configPrinter(CTLEngine::Configuration c);
 
  
 };

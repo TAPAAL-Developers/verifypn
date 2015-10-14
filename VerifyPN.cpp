@@ -78,7 +78,7 @@ ReturnValues result_analysis(CTLEngine engine){
 }
 ReturnValues search_ctl_query(PetriNet* net, MarkVal* m0, CTLTree *queryList[]){
     CTLEngine engine(net, m0);
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < 16 / sizeof(CTLTree*); i++) {
         engine.search(queryList[i]);
     }
     ReturnValues result = result_analysis(engine);
@@ -311,7 +311,7 @@ int main(int argc, char* argv[]){
         CTLParser ctlParser = CTLParser();
         
         ctlParser.ParseXMLQuery(buffer, queryList);
-        //cout << "Done parsing - all other faults are irrelevant\n";
+        cout << "Done parsing - all other faults are irrelevant\n";
         
     }
     
