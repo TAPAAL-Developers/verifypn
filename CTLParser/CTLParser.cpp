@@ -34,7 +34,6 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLTree *queryList[]) {
     xml_node<> * root_node;
     
     
-    std::cout << "Parsing?\n" << std::flush;
     std::cout << "Size of Path enum: " << sizeof(Path)*8 <<"\n";
     doc.parse<0>(&buffer[0]);
     std::cout << "Name of my first node is: " << doc.first_node()->name() << "\n";
