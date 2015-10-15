@@ -123,8 +123,6 @@ int main(int argc, char* argv[]){
 		}else if(strcmp(argv[i], "-t") == 0 || strcmp(argv[i], "--trace") == 0){
 			outputtrace = true;
 		}else if(strcmp(argv[i], "-ctl") == 0){
-                    fprintf(stdout, "Should be working");
-                    cout << "STUFF" << flush;
                     isCTLlogic = true;
                 }else if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--search-strategy") == 0){
 			if (i==argc-1) {
@@ -302,7 +300,6 @@ int main(int argc, char* argv[]){
     CTLTree *queryList[15];
     
     if(isCTLlogic){
-        cout << "We start parsing!" << flush;
         string queryXMLlist[15];
         ifstream xmlfile (queryfile);
         vector<char> buffer((istreambuf_iterator<char>(xmlfile)), istreambuf_iterator<char>());
@@ -311,7 +308,6 @@ int main(int argc, char* argv[]){
         CTLParser ctlParser = CTLParser();
         
         ctlParser.ParseXMLQuery(buffer, queryList);
-        cout << "Done parsing - all other faults are irrelevant\n";
         
     }
     
