@@ -74,20 +74,21 @@ private:
     bool querySatisfied;
     CTLEngine::Configuration createConfiguration(PetriEngine::MarkVal *marking, CTLTree *query);
     int next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal* next_m);
-    bool evaluateQuery(CTLTree *query);
+    
   
     
     //Debug functions
     void pNetPrinter(PetriEngine::PetriNet* net, PetriEngine::MarkVal* initialmarking);
+    void configPrinter(CTLEngine::Configuration c);
+    void edgePrinter(CTLEngine::Edge e);
 
-
+    
        //Helping functions
     std::vector<int> calculateFireableTransistions(PetriEngine::MarkVal m[]);
     void makeNewMarking(PetriEngine::MarkVal m[], int t, PetriEngine::MarkVal nm[]);
     bool compareMarking(PetriEngine::MarkVal *m, PetriEngine::MarkVal *m1);
     int configurationExits(PetriEngine::MarkVal *marking, CTLTree *query);
-    void configPrinter(CTLEngine::Configuration c);
-    void edgePrinter(CTLEngine::Edge e);
+    bool evaluateQuery(PetriEngine::MarkVal *marking, CTLTree *query);
  
 };
 

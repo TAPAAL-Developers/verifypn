@@ -280,14 +280,29 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge> W) {
     		return;
     		//Make stuff that goes here
     } else {
-    	if (evaluateQuery(v.query)){
+    	if (evaluateQuery(v.marking, v.query)){
     		v.assignment = ONE;
 		}
 		else v.assignment = ZERO; //FINAL ZERO
     } 
 }
 
-bool CTLEngine::evaluateQuery(CTLTree *query){return false;}
+bool CTLEngine::evaluateQuery(PetriEngine::MarkVal *marking, CTLTree *query){
+    if (query->a.isFireable) {
+        bool canFire = false;
+        std::vector<int> possibleTransitionById = calculateFireableTransistions(marking);
+        
+        for (int i = 0; i < possibleTransitionById.size(); i++) {
+            if (strcmp(_net->transitionNames()[possibleTransitionById[i]].c_str(), query->a.set) == 0) 
+                canFire = true;
+        }
+        return canFire;
+    }
+    else {
+        
+    }
+    return false;
+}
 
 int CTLEngine::next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal* next_m){
 
@@ -426,10 +441,12 @@ std::vector<int> CTLEngine::calculateFireableTransistions(PetriEngine::MarkVal m
     for(int t = 0; t < _ntransitions; t++){
         bool transitionFound = true;
         for(int p = 0; p < _nplaces; p++){
-            if(m[p] < _net->inArc(p,t)) {transitionFound = false;}
+            if(m[p] < _net->inArc(p,t)) 
+                transitionFound = false;
         }
 
-        if(transitionFound){ pt.push_back(t); }
+        if(transitionFound)
+            pt.push_back(t); 
     }
     return pt;
 }  //possibleTransitions
