@@ -44,7 +44,6 @@ public:
         int index;
         PetriEngine::MarkVal* marking;
     };
-
     
 
     typedef std::vector<Markings> MarkingsList;
@@ -75,6 +74,7 @@ private:
     bool querySatisfied;
     CTLEngine::Configuration createConfiguration(PetriEngine::MarkVal *marking, CTLTree *query);
     int next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal* next_m);
+    bool evaluateQuery(CTLTree *query);
   
     
     //Debug functions

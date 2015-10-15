@@ -33,10 +33,11 @@ public:
     CTLParser(const CTLParser& orig);
     virtual ~CTLParser();
     void ParseXMLQuery(std::vector<char> buffer, CTLTree **queryList);
+    void printQuery(CTLTree *query);
 private:
     CTLTree* xmlToCTLquery(rapidxml::xml_node<> * root);
     Path setPathOperator(rapidxml::xml_node<> * root);
-    void printQuery(CTLTree *query);
+    
     bool charEmpty(char *query);
     void printPath(CTLTree *query);
     

@@ -132,53 +132,162 @@ void CTLEngine::assignConfiguration(Configuration v, Assignment a) {
 
 
 void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge> W) {
-    if(v.query->quantifier == AND){
-        Configuration c1 = createConfiguration(v.marking, v.query->first);
-        Configuration c2 = createConfiguration(v.marking, v.query->second);
-        Edge e;
-        e.source = v;
-        e.targets.push_back(c1);
-        e.targets.push_back(c2);
-        W.push_back(e);
-            return;
+	if(v.query->quantifier == A){
+		if(v.query->path == U){
+	        Configuration c = createConfiguration(v.marking, v.query->second);
+	        Edge e, e1;
+	        e.source = v;
+	        e.targets.push_back(c);
+	        e1.source = v;
+	        Configuration b = createConfiguration(v.marking, v.query->first);
+	        e1.targets.push_back(b);
+	        int i = 0;
+	        while(true){             
+	        PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
+	            if(next_state(v.marking, nxt_m) == 1){
+	            Configuration c1 = createConfiguration(nxt_m, v.query);
+	            e1.targets.push_back(c1);          
+
+	            } else break;
+	        }
+	        W.push_back(e);
+	        W.push_back(e1);
+	    } else if(v.query->path == X){
+	    	Edge e;
+	    	e.source = v;
+	    	while(true){             
+	        PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
+	            if(next_state(v.marking, nxt_m) == 1){
+	            Configuration c1 = createConfiguration(nxt_m, v.query->first);
+	            e.targets.push_back(c1);          
+
+	            } else break;
+	        }
+	        W.push_back(e);
+	    } else if(v.query->path == F){
+	    	Configuration c = createConfiguration(v.marking, v.query->first);
+	    	Edge e, e1;
+	    	e.source = v;
+	    	e.targets.push_back(c);
+	    	e1.source = v;
+	    	while(true){             
+	        PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
+	            if(next_state(v.marking, nxt_m) == 1){
+	            Configuration c1 = createConfiguration(nxt_m, v.query);
+	            e1.targets.push_back(c1);          
+
+	            } else break;
+	        }
+	        W.push_back(e);
+	        W.push_back(e1); 
+	         edgePrinter(e);
+	        edgePrinter(e1); 
+	    } else if (v.query->path == G){
+	    	Configuration c = createConfiguration(v.marking, v.query->first);
+	    	Edge e;
+	    	e.source = v;
+	    	e.targets.push_back(c);
+	    	while(true){             
+	        PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
+	            if(next_state(v.marking, nxt_m) == 1){
+	            Configuration c1 = createConfiguration(nxt_m, v.query);
+	            e.targets.push_back(c1);          
+
+	            } else break;
+	        }
+	        W.push_back(e);
+	    }
+    } else if (v.query->quantifier == E){
+    	if(v.query->path == U){
+    		Configuration c = createConfiguration(v.marking, v.query->first);
+    		Configuration c1 = createConfiguration(v.marking, v.query->second);
+    		Edge e;
+    		e.source = v;
+    		e.targets.push_back(c1);
+    		W.push_back(e);
+    		while(true){     
+    		Edge e1;
+    		e1.source = v;
+    		e1.targets.push_back(c);        
+	        PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
+	            if(next_state(v.marking, nxt_m) == 1){
+	            Configuration c1 = createConfiguration(nxt_m, v.query);
+	            e1.targets.push_back(c1);          
+	        	} else break;
+	        W.push_back(e1);
+	        }
+	  	} else if(v.query->path == X){
+	  		while(true){     
+    		Edge e1;
+    		e1.source = v;       
+	        PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
+	            if(next_state(v.marking, nxt_m) == 1){
+	            Configuration c1 = createConfiguration(nxt_m, v.query->first);
+	            e1.targets.push_back(c1);          
+	        	} else break;
+	        W.push_back(e1);
+	        }
+	  	} else if(v.query->path == F){
+	  		Configuration c = createConfiguration(v.marking, v.query->first);
+	  		Edge e;
+	  		e.source = v;
+	  		e.targets.push_back(c);
+	  		W.push_back(e);
+	  		while(true){     
+    		Edge e1;
+    		e1.source = v;       
+	        PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
+	            if(next_state(v.marking, nxt_m) == 1){
+	            Configuration c1 = createConfiguration(nxt_m, v.query);
+	            e1.targets.push_back(c1);          
+	        	} else break;
+	        W.push_back(e1);
+	        }
+	  	} else if(v.query->path == G){
+	  		while(true){
+	  		Configuration c = createConfiguration(v.marking, v.query->first);
+	  		Edge e;
+	  		e.source = v;
+	  		e.targets.push_back(c);           
+	        PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
+	            if(next_state(v.marking, nxt_m) == 1){
+	            Configuration c1 = createConfiguration(nxt_m, v.query);
+	            e.targets.push_back(c1);          
+	        	} else break;
+	        W.push_back(e);
+	        edgePrinter(e);
+	        }
+	  	}
+    } else if (v.query->quantifier == AND){
+    	Configuration c = createConfiguration(v.marking, v.query->first);
+    	Configuration c1 = createConfiguration(v.marking, v.query->second);
+    	Edge e;
+    	e.source = v;
+    	e.targets.push_back(c);
+    	e.targets.push_back(c1);
+    	W.push_back(e);
     } else if (v.query->quantifier == OR){
-        Configuration c1 = createConfiguration(v.marking, v.query->first);
-        Configuration c2 = createConfiguration(v.marking, v.query->second);
-        Edge e1, e2;
-        e1.source = v;
-        e2.source = v;
-        e1.targets.push_back(c1);
-        e2.targets.push_back(c2);
-        W.push_back(e1);
-        W.push_back(e2);
-    } else if(v.query->path == U){
-        if(v.query->quantifier == A){
-            Configuration c = createConfiguration(v.marking, v.query->second);
-            Edge e, e1;
-            e.source = v;
-            e.targets.push_back(c);
-            edgePrinter(e);
-            e1.source = v;
-            Configuration b = createConfiguration(v.marking, v.query->first);
-            e1.targets.push_back(b);
-            int i = 0;
-            while(true){             
-            PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
-                if(next_state(v.marking, nxt_m) == 1){
-                Configuration c1 = createConfiguration(nxt_m, v.query);
-                e1.targets.push_back(c1);          
-
-                } else break;
-            }
-            edgePrinter(e1);    
-        } else if(v.query->quantifier == E){
-            return;
-
-        }
-    }
+    	Configuration c = createConfiguration(v.marking, v.query->first);
+    	Configuration c1 = createConfiguration(v.marking, v.query->second);
+    	Edge e, e1;
+    	e.source = v;
+    	e1.source = v;
+    	e.targets.push_back(c);
+    	e1.targets.push_back(c1);
+    	W.push_back(e);
+    	W.push_back(e1);
+    } else if (v.query->quantifier == NEG){
+    		return;
+    		//Make stuff that goes here
+    } else {
+    	if (evaluateQuery(v.query)){
+    		v.assignment = ONE;
+		}
+		else v.assignment = ZERO; //FINAL ZERO
+    } 
 }
 
-
+bool CTLEngine::evaluateQuery(CTLTree *query){return false;}
 
 int CTLEngine::next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal* next_m){
 
@@ -262,11 +371,13 @@ void CTLEngine::pNetPrinter(PetriEngine::PetriNet* net, PetriEngine::MarkVal ini
 
 void CTLEngine::configPrinter(CTLEngine::Configuration c){
     std::cout << "--------------- Configuration Information -------------------\n";
+    CTLParser ctlParser = CTLParser();
     int i = 0;
     for (i = 0; i < _net->numberOfPlaces(); i++) {
         std::cout << "Configuration marking: " << c.marking[i]<<"\n";
     }
-    std::cout << "Configuration query::::\n --- Quantifier: " << c.query->quantifier << "\n --- Path: " << c.query->path;
+    std::cout << "Configuration query::::\n" ;
+    ctlParser.printQuery(c.query);
     std::cout << "Configuration assignment: " << c.assignment<<"\n";
     
     std::cout << "---------------------------------------------------------\n";
