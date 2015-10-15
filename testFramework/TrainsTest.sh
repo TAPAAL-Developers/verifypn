@@ -1,1 +1,2 @@
-./verifypn-linux64 -ctl ../INPUTS/CircularTrains-PT-012/model.pnml ../INPUTS/CircularTrains-PT-012/CTLFireability.xml
+./verifypn-linux64 -ctl ../INPUTS/CircularTrains-PT-012/model.pnml ../INPUTS/CircularTrains-PT-012/CTLCardinality.xml
+#./verifypn-linux64 -ctl ../INPUTS/CircularTrains-PT-012/model.pnml ../INPUTS/CircularTrains-PT-012/CTLFireability.xml

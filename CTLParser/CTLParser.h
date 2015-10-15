@@ -9,12 +9,20 @@
 #include "rapidxml-1.13/rapidxml.hpp"
 #define	CTLPARSER_H
 
-enum Quantifier { AND = 1, OR, A, E, NEG };
+enum Quantifier { AND = 1, OR, A, E, NEG, EMPTY = -1 };
 enum Path { G = 1, F, X, U, pError = -1 };
+
+struct Cardinality {
+    int intSmaller;
+    char *placeSmaller;
+    int intLarger;
+    char *placeLarger;
+};
 
 struct Atom {
     bool isFireable;
-    char *set;
+    char *fireset;
+    Cardinality tokenCount;
 };
 
 struct CTLTree {

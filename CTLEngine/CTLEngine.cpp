@@ -293,7 +293,7 @@ bool CTLEngine::evaluateQuery(PetriEngine::MarkVal *marking, CTLTree *query){
         std::vector<int> possibleTransitionById = calculateFireableTransistions(marking);
         
         for (int i = 0; i < possibleTransitionById.size(); i++) {
-            if (strcmp(_net->transitionNames()[possibleTransitionById[i]].c_str(), query->a.set) == 0) 
+            if (strcmp(_net->transitionNames()[possibleTransitionById[i]].c_str(), query->a.fireset) == 0) 
                 canFire = true;
         }
         return canFire;
@@ -393,7 +393,7 @@ void CTLEngine::configPrinter(CTLEngine::Configuration c){
     }
     std::cout << "Configuration query::::\n" ;
     ctlParser.printQuery(c.query);
-    std::cout << "Configuration assignment: " << c.assignment<<"\n";
+    std::cout << "\nConfiguration assignment: " << c.assignment<<"\n";
     
     std::cout << "---------------------------------------------------------\n";
 }
