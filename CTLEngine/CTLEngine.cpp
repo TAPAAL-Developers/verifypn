@@ -72,9 +72,7 @@ bool CTLEngine::localSmolka(Configuration v){
     assignConfiguration(v, ZERO);
     std::vector<CTLEngine::Edge> D;
     std::vector<CTLEngine::Edge> W;
-        std::cout << "\n\n\n before succ" << flush;
         successors(v,W);
-        std::cout << "\n\n\n after succ" << flush;
     while (W.size() != 0) {
         int i = 0;
         Edge e = W.front();
@@ -85,7 +83,7 @@ bool CTLEngine::localSmolka(Configuration v){
         /*Data handling*/
         int targetONEassignments = 0;
         int targetZEROassignments = 0;
-        for (i = 0; i < (sizeof(e.targets) / sizeof(Configuration)); i++ ){
+        for (i = 0; i < e.targets.size(); i++ ){
             if (e.targets[i].assignment == ONE) {
                 targetONEassignments++;
             }
@@ -95,11 +93,13 @@ bool CTLEngine::localSmolka(Configuration v){
         }
         /*****************************************************************/
         /*if A(u) = 1, ∀u ∈ T then A(v) ← 1; W ← W ∪ D(v);*/
-        if (targetONEassignments == (sizeof(e.targets) / sizeof(Configuration))) {
+        if (targetONEassignments == e.targets.size()) {
             int j = 0;
             v.assignment = ONE;
             for (j = 0; j < D.size(); j++) {
-                W.push_back(D.front());
+            	Edge e = D.back();
+            	D.pop_back();
+                W.push_back(e);               
                 //remove/pop D.front from D
             }
         }
@@ -111,12 +111,14 @@ bool CTLEngine::localSmolka(Configuration v){
         /*****************************************************************/ 
         /*else if ∃u ∈ T where A(u) = ⊥ then A(u) ← 0; D(u) ← D(u) ∪ e; W ← W ∪ succ(u)*/
         else {
-            for (i = 0; i < (sizeof(e.targets) / sizeof(Configuration)); i++ ){
+            for (i = 0; i < e.targets.size(); i++ ){
                 if (e.targets[i].assignment == UNKNOWN) {
                     Configuration u = e.targets[i];
                     assignConfiguration(u, ZERO);
                     D.push_back(e);
                     successors(u,W);
+                    edgePrinter(e);
+                    cout << "\n\n\n\n are now in W yay \n\n\n\n" << flush;
                 }
             }
         }
