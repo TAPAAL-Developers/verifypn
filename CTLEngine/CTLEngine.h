@@ -26,9 +26,16 @@ public:
     struct Configuration {
         PetriEngine::MarkVal *marking;
         CTLTree *query;
-        CTLEngine::Assignment assignment;
+        CTLEngine::Assignment *assignment;
+        int mCount;
         //CTLEngine::Configuration successors[][];
         
+        bool operator==(const Configuration & rhs){
+            if(query == rhs.query)
+                return !memcmp(marking, rhs.marking, mCount);
+            
+            return false;
+        }
     };
 
     struct Edge {
@@ -36,9 +43,6 @@ public:
         std::vector<CTLEngine::Configuration> targets;
     };
 
-    typedef std::vector<CTLEngine::Configuration> ConfigurationsList;
-    typedef ConfigurationsList::iterator confIter;
-    
     struct Markings{
         std::vector<int> possibleTransitions;
         int index;
@@ -46,6 +50,9 @@ public:
     };
     
 
+    typedef std::vector<CTLEngine::Configuration> ConfigurationsList;
+    typedef ConfigurationsList::iterator confIter;
+    
     typedef std::vector<Markings> MarkingsList;
     typedef MarkingsList::iterator mIter;
     
@@ -87,7 +94,6 @@ private:
     std::vector<int> calculateFireableTransistions(PetriEngine::MarkVal m[]);
     void makeNewMarking(PetriEngine::MarkVal m[], int t, PetriEngine::MarkVal nm[]);
     bool compareMarking(PetriEngine::MarkVal *m, PetriEngine::MarkVal *m1);
-    int configurationExits(PetriEngine::MarkVal *marking, CTLTree *query);
     bool evaluateQuery(PetriEngine::MarkVal *marking, CTLTree *query);
     int secondEvaluatedParam(PetriEngine::MarkVal *marking, CTLTree *query);
  

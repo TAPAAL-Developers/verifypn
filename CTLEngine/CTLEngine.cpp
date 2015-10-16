@@ -84,10 +84,10 @@ bool CTLEngine::localSmolka(Configuration v){
         int targetONEassignments = 0;
         int targetZEROassignments = 0;
         for (i = 0; i < e.targets.size(); i++ ){
-            if (e.targets[i].assignment == ONE) {
+            if (*(e.targets[i].assignment) == ONE) {
                 targetONEassignments++;
             }
-            else if (e.targets[i].assignment == ZERO) {
+            else if (*(e.targets[i].assignment) == ZERO) {
                 targetZEROassignments++;
             }
         }
@@ -95,7 +95,7 @@ bool CTLEngine::localSmolka(Configuration v){
         /*if A(u) = 1, ∀u ∈ T then A(v) ← 1; W ← W ∪ D(v);*/
         if (targetONEassignments == e.targets.size()) {
             int j = 0;
-            v.assignment = ONE;
+            *(v.assignment) = ONE;
             for (j = 0; j < D.size(); j++) {
             	Edge e = D.back();
             	D.pop_back();
@@ -112,7 +112,7 @@ bool CTLEngine::localSmolka(Configuration v){
         /*else if ∃u ∈ T where A(u) = ⊥ then A(u) ← 0; D(u) ← D(u) ∪ e; W ← W ∪ succ(u)*/
         else {
             for (i = 0; i < e.targets.size(); i++ ){
-                if (e.targets[i].assignment == UNKNOWN) {
+                if (*(e.targets[i].assignment) == UNKNOWN) {
                     Configuration u = e.targets[i];
                     assignConfiguration(u, ZERO);
                     D.push_back(e);
@@ -128,7 +128,7 @@ bool CTLEngine::localSmolka(Configuration v){
 }
 
 void CTLEngine::assignConfiguration(Configuration v, Assignment a) {
-    v.assignment = a;
+    *(v.assignment) = a;
 }
 
 
@@ -283,9 +283,9 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge> W) {
     		//Make stuff that goes here
     } else {
     	if (evaluateQuery(v.marking, v.query)){
-    		v.assignment = ONE;
+    		*(v.assignment) = ONE;
 		}
-		else v.assignment = ZERO; //FINAL ZERO
+		else *(v.assignment) = ZERO; //FINAL ZERO
     } 
 }
 
@@ -374,22 +374,36 @@ int CTLEngine::next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal*
 
 }
 
+// This version of createConfiguration makes use of a vector to hold all configurations
+// Function makes use of the == operator on a Configuration
 CTLEngine::Configuration CTLEngine::createConfiguration(PetriEngine::MarkVal *marking, CTLTree *query){
-    Configuration newConfig;
-    bool isNewConfiguration = true;
-    int i = configurationExits(marking, query);
-    if (i > 0) { 
-        newConfig = configlist[i];
-        isNewConfiguration = false;
-    }
     
-    if (isNewConfiguration) {
-        newConfig.marking = marking;
-        newConfig.query = query;
-        newConfig.assignment = UNKNOWN;
+    Assignment* a = (Assignment*)malloc(sizeof(Assignment));
+    
+    *a = UNKNOWN;
+    
+    Configuration newConfig = {
+        marking, //marking
+        query, //query
+        a, //assignment
+        CTLEngine::_nplaces //mCount
+    };
+    
+    auto iterator = configlist.begin();
+    
+    while(iterator != configlist.end()){
+        
+        if( (*iterator) == newConfig){
+            //Element already exists, no need to look any further
+            return *iterator;
+        }
+        iterator++;
     }    
-
-    return newConfig;
+    
+    configlist.push_back(newConfig);
+    
+    //Last element is the newly inserted Configuration
+    return configlist.back();
 }
 
 void CTLEngine::pNetPrinter(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]){
@@ -444,14 +458,13 @@ void CTLEngine::edgePrinter(CTLEngine::Edge e){
 }
 
 bool CTLEngine::compareMarking(PetriEngine::MarkVal m[], PetriEngine::MarkVal m1[]){
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < _nplaces; i++)
         {
             if (m[i] != m1[i])
                 return false;
         }
         return true;
 }
-
 
 void CTLEngine::makeNewMarking(PetriEngine::MarkVal m[], int t, PetriEngine::MarkVal nm[]){
 
@@ -463,8 +476,6 @@ void CTLEngine::makeNewMarking(PetriEngine::MarkVal m[], int t, PetriEngine::Mar
         }
        
 }
-
-
 
 std::vector<int> CTLEngine::calculateFireableTransistions(PetriEngine::MarkVal m[]){
     std::vector<int> pt;
@@ -481,9 +492,3 @@ std::vector<int> CTLEngine::calculateFireableTransistions(PetriEngine::MarkVal m
     }
     return pt;
 }  //possibleTransitions
-
-int CTLEngine::configurationExits(PetriEngine::MarkVal *marking, CTLTree *query) {
-    //TODO: Lav correct if-check
-    return false;
-}
-
