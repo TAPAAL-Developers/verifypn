@@ -88,6 +88,7 @@ private:
     bool compareMarking(PetriEngine::MarkVal *m, PetriEngine::MarkVal *m1);
     int configurationExits(PetriEngine::MarkVal *marking, CTLTree *query);
     bool evaluateQuery(PetriEngine::MarkVal *marking, CTLTree *query);
+    int secondEvaluatedParam(PetriEngine::MarkVal *marking, CTLTree *query);
  
 };
 

@@ -308,15 +308,44 @@ bool CTLEngine::evaluateQuery(PetriEngine::MarkVal *marking, CTLTree *query){
         std::vector<int> possibleTransitionById = calculateFireableTransistions(marking);
         
         for (int i = 0; i < possibleTransitionById.size(); i++) {
-            if (strcmp(_net->transitionNames()[possibleTransitionById[i]].c_str(), query->a.set) == 0) 
+            if (strcmp(_net->transitionNames()[possibleTransitionById[i]].c_str(), query->a.fireset) == 0) 
                 canFire = true;
         }
         return canFire;
     }
-    else {
-        
+    else if (!(query->a.tokenCount.intSmaller == -1)) {
+        bool isLessThan = false;
+        int firstIntConst = query->a.tokenCount.intSmaller;
+        if (firstIntConst <= secondEvaluatedParam(marking, query))
+            isLessThan = true;
+        return isLessThan;
     }
-    return false;
+    else if (!(query->a.tokenCount.placeSmaller == NULL)) {
+        bool isLessThan = false;
+        int firstPlaceCount;
+        for (int i = 0; i < _nplaces; i++) {
+            if (strcmp(query->a.tokenCount.placeSmaller, _net->placeNames()[i].c_str()))
+                    firstPlaceCount = int(marking[i]); 
+        }
+        if (firstPlaceCount <= secondEvaluatedParam(marking, query))
+            isLessThan = true;
+        return isLessThan;
+    }
+    else
+        return false;
+}
+
+int CTLEngine::secondEvaluatedParam(PetriEngine::MarkVal *marking, CTLTree *query) {
+    int secondParam;
+    if (!(query->a.tokenCount.intLarger == -1))
+        secondParam = query->a.tokenCount.intLarger;
+    else {
+        for (int i = 0; i < _nplaces; i++) {
+            if (strcmp(query->a.tokenCount.placeLarger, _net->placeNames()[i].c_str()))
+                    secondParam = int(marking[i]); 
+        }
+    }
+    return secondParam;
 }
 
 int CTLEngine::next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal* next_m){
@@ -420,7 +449,7 @@ void CTLEngine::configPrinter(CTLEngine::Configuration c){
     }
     std::cout << "Configuration query::::\n" ;
     ctlParser.printQuery(c.query);
-    std::cout << "Configuration assignment: " << c.assignment<<"\n";
+    std::cout << "\nConfiguration assignment: " << c.assignment<<"\n";
     
     std::cout << "---------------------------------------------------------\n";
 }

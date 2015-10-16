@@ -85,44 +85,48 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         //std::cout << "TEST:: Q: " << root_name << "\n";
     }
     else if (firstLetter == 'i' ) {
+        query->quantifier = EMPTY;
         //std::cout << "TEST:: ATOM: " << root_name << "\n";
         if (root_name[1] == 's' ) {
             query->a.isFireable = true;
-            query->a.set = root->first_node()->value();
+            query->a.fireset = root->first_node()->value();
             //std::cout << "-----TEST:: Returning query set: " << query->a.set << "\n" << std::flush;
             return query; 
         }
         else if (root_name[1] == 'n') {
             xml_node<> * integerNode = root->first_node();
             query->a.isFireable = false;
-            std::string integerExpression;
+            query->a.fireset = NULL;
+           // std::cout<< "\n\n ---------------> Found Token Count ";
             if (integerNode->name()[0] == 't') {
-                char *temp;
-                temp = integerNode->first_node()->value();
-                integerExpression = temp;
+                query->a.tokenCount.placeSmaller = integerNode->first_node()->value();
+                query->a.tokenCount.intSmaller = -1;
+               // std::cout<< query->a.tokenCount.placeSmaller << " should be a smaller PLACE than ";
             }
             else if (integerNode->name()[0] == 'i') {
                 char *temp;
                 temp = integerNode->value();
-                integerExpression = temp;
+                query->a.tokenCount.intSmaller = atoi(temp);
+                query->a.tokenCount.placeSmaller = NULL;
+              //  std::cout<< query->a.tokenCount.intSmaller << " should be a smaller INTEGER-CONTANT than ";
             }
-            //Set less-than between
-            integerExpression = integerExpression + " le ";
+            
             integerNode = integerNode->next_sibling();
             
             if (integerNode->name()[0] == 't') {
-                char *temp;
-                temp = integerNode->first_node()->value();
-                integerExpression = integerExpression + temp;
+                query->a.tokenCount.placeLarger = integerNode->first_node()->value();
+                query->a.tokenCount.intLarger = -1;
+              //  std::cout<< query->a.tokenCount.placeLarger << " - witch is a PLACE ";
             }
                 
             else if (integerNode->name()[0] == 'i') {
                 char *temp;
                 temp = integerNode->value();
-                integerExpression = integerExpression + temp;
+                query->a.tokenCount.intLarger = atoi(temp);
+                query->a.tokenCount.placeLarger = NULL;
+               // std::cout<< query->a.tokenCount.intLarger << " - witch is an INTEGER-CONTANT ";
             }
             
-            query->a.set = &integerExpression[0];
             //std::cout << "-----TEST:: Returning query set: " << query->a.set << "\n" << std::flush;
             return query; 
         }
@@ -139,25 +143,25 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         
     }
     else if (query->path == U) {
-        query->a.set = NULL;
+        query->a.fireset = NULL;
         xml_node<> * child_node = root->first_node()->first_node();
         query->first = xmlToCTLquery(child_node->first_node());
         child_node = child_node->next_sibling();
         query->second = xmlToCTLquery(child_node->first_node());
     }
     else if (query->quantifier == AND || query->quantifier == OR) {
-        query->a.set = NULL;
+        query->a.fireset = NULL;
         xml_node<> * child_node = root->first_node();
         query->first = xmlToCTLquery(child_node);
         child_node = child_node->next_sibling();
         query->second = xmlToCTLquery(child_node);
     }
     else if (query->quantifier == NEG) {
-        query->a.set = NULL;
+        query->a.fireset = NULL;
         query->first = xmlToCTLquery(root->first_node());
     }
     else {
-        query->a.set = NULL;
+        query->a.fireset = NULL;
         query->first = xmlToCTLquery(root->first_node()->first_node());
     }
     //std::cout << "TEST:: Returning " << root_name << "\n";
@@ -187,12 +191,25 @@ Path CTLParser::setPathOperator(xml_node<> * root) {
 }
 
 void CTLParser::printQuery(CTLTree *query) {
-    if(!charEmpty(query->a.set)) {
-        if(query->a.isFireable){
-            std::cout << "isFireable(" << query->a.set <<")";
+    if(query->quantifier == EMPTY) {
+        Atom a = query->a;
+        if(a.isFireable){
+            std::cout << "isFireable(" << query->a.fireset <<")";
             return;
         }
-        std::cout<< " TokenCount(" << query->a.set << ")";
+        else {
+            std::cout<< " Tokencount(";
+            if (a.tokenCount.intSmaller == -1) 
+                std::cout<< a.tokenCount.placeSmaller;
+            else 
+                std::cout << a.tokenCount.intSmaller;
+            std::cout<< " le ";
+            if (a.tokenCount.intLarger == -1) 
+                std::cout<< a.tokenCount.placeLarger;
+            else 
+                std::cout<< a.tokenCount.intLarger;
+            std::cout << ")";
+        }
         return;
     }
     else if (query->quantifier == NEG){
