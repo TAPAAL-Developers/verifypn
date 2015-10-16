@@ -16,7 +16,7 @@ public:
     CTLEngine(const CTLEngine& orig);
     virtual ~CTLEngine();
     enum Assignment {
-        ONE, ZERO, UNKNOWN
+        ONE = 1, ZERO = 0, UNKNOWN = -1
     };
     enum { 
                 FOUND,
@@ -69,8 +69,7 @@ private:
 
     //Engine functions
     bool localSmolka(Configuration v);
-    void assignConfiguration(Configuration v, Assignment a);
-    void successors(Configuration v, std::vector<CTLEngine::Edge> W);
+    void successors(Configuration v, std::vector<CTLEngine::Edge>& W);
     bool querySatisfied;
     CTLEngine::Configuration createConfiguration(PetriEngine::MarkVal *marking, CTLTree *query);
     int next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal* next_m);

@@ -50,7 +50,8 @@ CTLEngine::~CTLEngine() {
 
 //Public functions
 void CTLEngine::search(CTLTree *query){
-    pNetPrinter(_net, _m0);
+    //pNetPrinter(_net, _m0);
+    cout << "--------------------- NEW QUERY-------------------------------------------\n\n\n" << flush;
     Configuration v0 = createConfiguration(_m0, query);
     cout << "Created initial configuration\n";
     configPrinter(v0);
@@ -69,13 +70,16 @@ bool CTLEngine::readSatisfactory() {
 //Private functions
 
 bool CTLEngine::localSmolka(Configuration v){
-    assignConfiguration(v, ZERO);
+    v.assignment = ZERO;
     std::vector<CTLEngine::Edge> D;
     std::vector<CTLEngine::Edge> W;
         successors(v,W);
+
     while (W.size() != 0) {
         int i = 0;
-        Edge e = W.front();
+        Edge e = W.back();
+        W.pop_back();
+
         //MISSING: remove/pop e from W
 
         
@@ -99,7 +103,9 @@ bool CTLEngine::localSmolka(Configuration v){
             for (j = 0; j < D.size(); j++) {
             	Edge e = D.back();
             	D.pop_back();
-                W.push_back(e);               
+                W.push_back(e);
+                configPrinter(v);
+                    cout << "\n\n\n\n assigning to one \n\n\n\n" << flush;               
                 //remove/pop D.front from D
             }
         }
@@ -114,11 +120,16 @@ bool CTLEngine::localSmolka(Configuration v){
             for (i = 0; i < e.targets.size(); i++ ){
                 if (e.targets[i].assignment == UNKNOWN) {
                     Configuration u = e.targets[i];
-                    assignConfiguration(u, ZERO);
+                    u.assignment = ZERO;
                     D.push_back(e);
                     successors(u,W);
-                    edgePrinter(e);
-                    cout << "\n\n\n\n are now in W yay \n\n\n\n" << flush;
+                    cout << "\n\n\n\n NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n \n\n\n :" << flush;
+                    for(int k = 0; k < W.size(); k++){
+                    	edgePrinter(W.at(k));
+                    }
+
+                    configPrinter(u);
+                    cout << "\n\n\n\n assigning to zero \n\n\n\n" << flush;
                 }
             }
         }
@@ -127,13 +138,10 @@ bool CTLEngine::localSmolka(Configuration v){
     return v.assignment;
 }
 
-void CTLEngine::assignConfiguration(Configuration v, Assignment a) {
-    v.assignment = a;
-}
 
 
 
-void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge> W) {
+void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
 	if(v.query->quantifier == A){
 		if(v.query->path == U){
 	        Configuration c = createConfiguration(v.marking, v.query->second);
@@ -154,6 +162,7 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge> W) {
 	        }
 	        W.push_back(e);
 	        W.push_back(e1);
+
 	    } else if(v.query->path == X){
 	    	Edge e;
 	    	e.source = v;
@@ -182,8 +191,6 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge> W) {
 	        }
 	        W.push_back(e);
 	        W.push_back(e1); 
-	         edgePrinter(e);
-	        edgePrinter(e1); 
 	    } else if (v.query->path == G){
 	    	Configuration c = createConfiguration(v.marking, v.query->first);
 	    	Edge e;
@@ -244,6 +251,7 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge> W) {
 	            e1.targets.push_back(c1);          
 	        	} else break;
 	        W.push_back(e1);
+
 	        }
 	  	} else if(v.query->path == G){
 	  		while(true){
@@ -257,7 +265,6 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge> W) {
 	            e.targets.push_back(c1);          
 	        	} else break;
 	        W.push_back(e);
-	        edgePrinter(e);
 	        }
 	  	}
     } else if (v.query->quantifier == AND){
@@ -271,7 +278,8 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge> W) {
     } else if (v.query->quantifier == OR){
     	Configuration c = createConfiguration(v.marking, v.query->first);
     	Configuration c1 = createConfiguration(v.marking, v.query->second);
-    	Edge e, e1;
+    	Edge e;
+    	Edge e1;
     	e.source = v;
     	e1.source = v;
     	e.targets.push_back(c);
@@ -279,7 +287,12 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge> W) {
     	W.push_back(e);
     	W.push_back(e1);
     } else if (v.query->quantifier == NEG){
-    		return;
+    		Configuration c = createConfiguration(v.marking, v.query->first);
+    		Edge e;
+    		e.source = v;
+    		e.targets.push_back(c);
+    		W.push_back(e);
+
     		//Make stuff that goes here
     } else {
     	if (evaluateQuery(v.marking, v.query)){
@@ -318,29 +331,41 @@ int CTLEngine::next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal*
         for (m = list.begin(); m != list.end(); m++) 
         {
             if(compareMarking(m->marking, current_m)){
-                found = true;
-                nr_t = m->index;
-                if (nr_t < m->possibleTransitions.size()){
-                    m->index++;
-                    makeNewMarking(current_m, m->possibleTransitions[nr_t], next_m);
-                    return 1;
-                }
-                else { m->index = 0; return 2;}
-                }
-            }
+            	if(!m->possibleTransitions.empty()){
+	                found = true;
+	                nr_t = m->index;
+	                if (nr_t < m->possibleTransitions.size()){
+	                    m->index++;
+	                    makeNewMarking(current_m, m->possibleTransitions[nr_t], next_m);
+	                    return 1;
+	                }
+	                else { m->index = 0; return 2;}
+	            }
+            else return 2;
+           	}
         }
-    
+    }
+
 
 
     if (found == false){
         std::vector<int> tempPossibleTransitions = calculateFireableTransistions(current_m);
-        CTLEngine::Markings temp;
-        temp.possibleTransitions = tempPossibleTransitions;
-        temp.index = 1;
-        temp.marking = current_m;
-        list.push_back(temp);
-        makeNewMarking(current_m, tempPossibleTransitions[0], next_m);
-        return 1;
+     	if(!tempPossibleTransitions.empty()){
+	        CTLEngine::Markings temp;
+	        temp.possibleTransitions = tempPossibleTransitions;
+	        temp.index = 1;
+	        temp.marking = current_m;
+	        list.push_back(temp);
+	        makeNewMarking(current_m, tempPossibleTransitions[0], next_m);
+			return 1;
+		} else {
+			CTLEngine::Markings temp;
+	        temp.possibleTransitions = tempPossibleTransitions;
+	        temp.index = 1;
+	        temp.marking = current_m;
+	        list.push_back(temp);
+	        return 2;
+		}
     }
 
 }
