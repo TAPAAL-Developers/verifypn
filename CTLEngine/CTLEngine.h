@@ -21,27 +21,31 @@ public:
     enum { 
                 FOUND,
                 NOT_FOUND,
-            } result;
-            
+            } 
+    result;
+     
+    struct Edge;
     struct Configuration {
         PetriEngine::MarkVal *marking;
         CTLTree *query;
         CTLEngine::Assignment *assignment;
         int mCount;
-        //CTLEngine::Configuration successors[][];
+        list<Edge> denpendencyList;
         
-        bool operator==(const Configuration & rhs){
+        
+        bool operator==(const Configuration & rhs)const{
             if(query == rhs.query)
                 return !memcmp(marking, rhs.marking, mCount);
             
             return false;
         }
     };
-
     struct Edge {
         CTLEngine::Configuration source;
         std::vector<CTLEngine::Configuration> targets;
     };
+
+    
 
     struct Markings{
         std::vector<int> possibleTransitions;

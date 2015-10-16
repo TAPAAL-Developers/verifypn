@@ -69,6 +69,10 @@ enum SearchStrategies{
 };
 
 ReturnValues result_analysis(CTLEngine engine){
+    if (engine.readSatisfactory())
+        cout<<"Query was satisfied"<<endl;
+    else
+        cout<<"Query was NOT satisfied"<<endl;
     bool res = engine.readSatisfactory();
     if (res)
         return SuccessCode;
@@ -78,11 +82,10 @@ ReturnValues result_analysis(CTLEngine engine){
 }
 void search_ctl_query(PetriNet* net, MarkVal* m0, CTLTree *queryList[], ReturnValues result[]){
     CTLEngine engine(net, m0);
-    for (int i = 0; i < 16 / sizeof(CTLTree*); i++) {
+    for (int i = 0; i < 1 ; i++) {
         engine.search(queryList[i]);
         result[i] = result_analysis(engine);
    }
-
 }
 
 #define VERSION		"1.2.0"

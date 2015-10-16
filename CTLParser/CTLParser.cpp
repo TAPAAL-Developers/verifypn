@@ -224,12 +224,10 @@ void CTLParser::printQuery(CTLTree *query) {
     else if (query->quantifier == A){
         std::cout << "A";
         printPath(query);
-        printQuery(query->first);
     }
     else if ( query->quantifier == E){
         std::cout << "E";
         printPath(query);
-        printQuery(query->first);
     }
     else return;
 }
@@ -240,9 +238,10 @@ void CTLParser::printPath(CTLTree *query) {
     else if (query->path == F)
         std::cout << "F";
     else if (query->path == U)
-        {std::cout << "("; printQuery(query->first);std::cout <<") U ("; printQuery(query->second);std::cout << ")";}
+        {std::cout << "("; printQuery(query->first);std::cout <<") U ("; printQuery(query->second);std::cout << ")"; return;}
     else if (query->path == X)
         std::cout << "X";
+    printQuery(query->first);
 }
 
 bool CTLParser::charEmpty(char *query) {
