@@ -51,11 +51,19 @@ CTLEngine::~CTLEngine() {
 //Public functions
 void CTLEngine::search(CTLTree *query){
     //pNetPrinter(_net, _m0);
+    #ifdef DEBUG
     cout << "--------------------- NEW QUERY-------------------------------------------\n" << flush;
+    #endif
     Configuration v0 = createConfiguration(_m0, query);
+    #ifdef DEBUG
     cout << ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n::::::::::::::::: Initial Configuration\n::::::::::::::::";
+    #endif
+    #ifdef PP
     configPrinter(v0);
+    #endif
+    #ifdef DEBUG
     cout << ":\n:::::::::::::::::\n:::::::::::::::::\n:::::::::::::::::\n";
+    #endif
     querySatisfied = localSmolka(v0);
     
 }
@@ -75,7 +83,9 @@ bool CTLEngine::localSmolka(Configuration v){
     std::vector<CTLEngine::Edge> W;
     successors(v,W);
     while (W.size() != 0) {
+        #ifdef DEBUG
         cout << "Starting while loop - size of W:" << W.size() <<endl;
+        #endif
         int i = 0;
         Edge e = W.back();
         W.pop_back();
@@ -83,11 +93,15 @@ bool CTLEngine::localSmolka(Configuration v){
         
         /*****************************************************************/
         /*Data handling*/
+        #ifdef DEBUG
         cout<<"Starting Data Handling\n"<<flush;
+        #endif
         int targetONEassignments = 0;
         int targetZEROassignments = 0;
         for (i = 0; i < e.targets.size(); i++ ){
+            #ifdef DEBUG
             cout<<"Target "<< i << " out of " << e.targets.size() << " assignment: "<< *(e.targets[i].assignment) << "\n"<<flush;
+            #endif
             if (*(e.targets[i].assignment) == ONE) {
                 targetONEassignments++;
             }
@@ -95,27 +109,35 @@ bool CTLEngine::localSmolka(Configuration v){
                 targetZEROassignments++;
             }
         }
+        #ifdef DEBUG
         cout<<"Completed Data Handling\nResult:\n"<<flush;
         cout<<"ONE's: "<< targetONEassignments<<"\n" <<flush;
         cout<<"Zero's: "<< targetZEROassignments<<"\n" <<flush;
         cout<<"Unknowns's: "<< e.targets.size() - targetONEassignments - targetZEROassignments<<"\n" <<flush;
+        #endif
         /*****************************************************************/
         /*if A(u) = 1, ∀u ∈ T then A(v) ← 1; W ← W ∪ D(v);*/
         if (targetONEassignments == e.targets.size()) {
+            #ifdef DEBUG
             cout<<"All targets were 1-assigned\n"<<flush;
+            #endif
             int j = 0;
             *(v.assignment) = ONE;
             for (j = 0; j < v.denpendencyList.size(); j++) {
             	e = v.denpendencyList.back();
                 W.push_back(e);
                 //configPrinter(v);
+                #ifdef DEBUG
                 cout << "\n\n\n\n assigning to one \n\n\n\n" << flush;  
+                #endif
             }
         }
         /*****************************************************************/ 
         /*else if ∃u ∈ T where A(u) = 0 then D(u) ← D(u) ∪ {e}*/
         else if (targetZEROassignments > 0) {
+            #ifdef DEBUG
             cout<<"One or more targets were 0-assigned\n"<<flush;
+            #endif
             for (i = 0; i < e.targets.size(); i++ ){
                 if (*(e.targets[i].assignment) == ZERO)
                     e.targets[i].denpendencyList.push_back(e);
@@ -124,25 +146,35 @@ bool CTLEngine::localSmolka(Configuration v){
         /*****************************************************************/ 
         /*else if ∃u ∈ T where A(u) = ⊥ then A(u) ← 0; D(u) ← D(u) ∪ e; W ← W ∪ succ(u)*/
         else {
+            #ifdef DEBUG
             cout<<"All assignments were unknown"<<endl;
+            #endif
             for (i = 0; i < e.targets.size(); i++ ){
                 if (*(e.targets[i].assignment) == UNKNOWN) {
                     Configuration u = e.targets[i];
                     *(u.assignment) = ZERO;
                     u.denpendencyList.push_back(e);
                     successors(u,W);
+                    #ifdef DEBUG
                     cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << flush;
+                    #endif
+                    #ifdef PP
                     for(int k = 0; k < W.size(); k++){
                     	edgePrinter(W.at(k));
                     }
                     configPrinter(u);
+                    #endif
+                    #ifdef DEBUG
                     cout << "\n\n\n\n assigning to zero \n\n\n\n" << flush;
+                    #endif
                 }
             }
         }
         /*****************************************************************/ 
     }
+    #ifdef DEBUG
     cout<<"The final assignment of the initial configuration is: " << *(v.assignment)<<endl;
+    #endif
     return (*(v.assignment) == ONE) ? true : false ;
 }
 
@@ -174,8 +206,10 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
 
 	            } else break;
 	        }
+                #ifdef PP
                 edgePrinter(e);edgePrinter(e1);
-	        W.push_back(e);
+                #endif
+                W.push_back(e);
 	        W.push_back(e1);
 
 	    } else if(v.query->path == X){

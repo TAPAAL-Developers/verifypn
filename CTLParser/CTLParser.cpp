@@ -28,25 +28,34 @@ CTLParser::~CTLParser() {
 }
 
 void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLTree *queryList[]) {
+    #ifdef DEBUG
     std::cout << "Creating doc\n" << std::flush;
+    #endif
 //    CTLquery ctlquery;
     xml_document<> doc;
     xml_node<> * root_node;
     
-    
+    #ifdef DEBUG
     std::cout << "Size of Path enum: " << sizeof(Path)*8 <<"\n";
+    #endif
     doc.parse<0>(&buffer[0]);
+    #ifdef DEBUG
     std::cout << "Name of my first node is: " << doc.first_node()->name() << "\n";
+    #endif
     root_node = doc.first_node();
     
     int i = 0;
     for (xml_node<> * property_node = root_node->first_node("property"); property_node; property_node = property_node->next_sibling()) {
         xml_node<> * id_node = property_node->first_node("id"); 
+        #ifdef DEBUG
         std::cout << "Property id: " << id_node->value() << "\n";
+        #endif
         xml_node<> * formula_node = id_node->next_sibling("description")->next_sibling("formula");
         queryList[i] = xmlToCTLquery(formula_node->first_node());
         printQuery(queryList[i]);
+        #ifdef DEBUG
         std::cout << "\n";
+        #endif
         i++;
     }
 }
@@ -131,16 +140,21 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             return query; 
         }
         else {
+            #ifdef DEBUG
             std::cout << "ERROR in xmlToCTLquery: Invalid atom " << root_name << "\n";
+            #endif
         }
     }
     else {
+        #ifdef DEBUG
         std::cout << "ERROR in xmlToCTLquery: Invalid boolean operator: " << root_name << "\n";
+        #endif
     }
     
     if (query->path == pError) {
+        #ifdef DEBUG
         std::cout << "ERROR in xmlToCTLquery: !!Exiting - parse error!!\n";
-        
+        #endif
     }
     else if (query->path == U) {
         query->a.fireset = NULL;
@@ -185,7 +199,9 @@ Path CTLParser::setPathOperator(xml_node<> * root) {
         return U;
     }
     else {
+        #ifdef DEBUG
         std::cout << "ERROR in setPathOperator: Invalid path operator: " << root_name << "\n";
+        #endif
     }
     return pError;
 }
