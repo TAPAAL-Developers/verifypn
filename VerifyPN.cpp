@@ -82,7 +82,7 @@ ReturnValues result_analysis(CTLEngine engine){
 }
 void search_ctl_query(PetriNet* net, MarkVal* m0, CTLTree *queryList[], ReturnValues result[]){
     CTLEngine engine(net, m0);
-    for (int i = 0; i < 1 ; i++) {
+    for (int i = 0; i < 16 ; i++) {
         engine.search(queryList[i]);
         result[i] = result_analysis(engine);
    }

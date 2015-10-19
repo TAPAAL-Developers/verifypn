@@ -34,12 +34,16 @@ public:
         
         
         bool operator==(const Configuration & rhs)const{
-            if(query == rhs.query)
-                return !memcmp(marking, rhs.marking, mCount);
-            
+   
+
+            if(query == rhs.query){
+                return !memcmp(marking, rhs.marking, sizeof(PetriEngine::MarkVal)*mCount);
+
+            }
             return false;
         }
     };
+
     struct Edge {
         CTLEngine::Configuration source;
         std::vector<CTLEngine::Configuration> targets;

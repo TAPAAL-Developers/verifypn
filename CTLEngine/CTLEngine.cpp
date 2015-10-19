@@ -85,6 +85,10 @@ bool CTLEngine::localSmolka(Configuration v){
     while (W.size() != 0) {
         #ifdef DEBUG
         cout << "Starting while loop - size of W:" << W.size() <<endl;
+        cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << flush;
+        for(int k = 0; k < W.size(); k++){
+            edgePrinter(W.at(k));
+        }
         #endif
         int i = 0;
         Edge e = W.back();
@@ -155,13 +159,8 @@ bool CTLEngine::localSmolka(Configuration v){
                     *(u.assignment) = ZERO;
                     u.denpendencyList.push_back(e);
                     successors(u,W);
-                    #ifdef DEBUG
-                    cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << flush;
-                    #endif
-                    #ifdef PP
-                    for(int k = 0; k < W.size(); k++){
-                    	edgePrinter(W.at(k));
-                    }
+                   
+                    #ifdef PP               
                     configPrinter(u);
                     #endif
                     #ifdef DEBUG
@@ -206,26 +205,28 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
 
 	            } else break;
 	        }
-                #ifdef PP
-                edgePrinter(e);edgePrinter(e1);
-                #endif
-                W.push_back(e);
+            #ifdef PP
+            edgePrinter(e);edgePrinter(e1);
+            #endif
+            W.push_back(e);
 	        W.push_back(e1);
-
 	    } else if(v.query->path == X){
+            bool nxt_s = false;
 	    	Edge e;
 	    	e.source = v;
 	    	while(true){             
 	        PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
 	            if(next_state(v.marking, nxt_m) == 1){
+                nxt_s = true;
 	            Configuration c1 = createConfiguration(nxt_m, v.query->first);
 	            e.targets.push_back(c1);          
 
 	            } else break;
 	        }
-	        W.push_back(e);
+            if(nxt_s){ W.push_back(e);}
 	    } else if(v.query->path == F){
 	    	Configuration c = createConfiguration(v.marking, v.query->first);
+            bool nxt_s = false;
 	    	Edge e, e1;
 	    	e.source = v;
 	    	e.targets.push_back(c);
@@ -233,27 +234,34 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
 	    	while(true){             
 	        PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
 	            if(next_state(v.marking, nxt_m) == 1){
+                nxt_s = true;
 	            Configuration c1 = createConfiguration(nxt_m, v.query);
 	            e1.targets.push_back(c1);          
 
 	            } else break;
 	        }
-	        W.push_back(e);
-	        W.push_back(e1); 
+            if(nxt_s){
+    	        W.push_back(e);
+    	        W.push_back(e1);
+            }
 	    } else if (v.query->path == G){
 	    	Configuration c = createConfiguration(v.marking, v.query->first);
+            bool nxt_s = false;
 	    	Edge e;
 	    	e.source = v;
 	    	e.targets.push_back(c);
 	    	while(true){             
 	        PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
 	            if(next_state(v.marking, nxt_m) == 1){
+                nxt_s = true;
 	            Configuration c1 = createConfiguration(nxt_m, v.query);
 	            e.targets.push_back(c1);          
 
 	            } else break;
 	        }
-	        W.push_back(e);
+            if(nxt_s){
+	           W.push_back(e);
+            }
 	    }
     } else if (v.query->quantifier == E){
     	if(v.query->path == U){
@@ -263,7 +271,7 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
     		e.source = v;
     		e.targets.push_back(c1);
     		W.push_back(e);
-    		while(true){     
+    		while(true){ 
     		Edge e1;
     		e1.source = v;
     		e1.targets.push_back(c);        
@@ -275,31 +283,35 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
 	        W.push_back(e1);
 	        }
 	  	} else if(v.query->path == X){
-	  		while(true){     
+	  		while(true){   
+            bool nxt_s = false;  
     		Edge e1;
     		e1.source = v;       
 	        PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
 	            if(next_state(v.marking, nxt_m) == 1){
+                nxt_s = true;
 	            Configuration c1 = createConfiguration(nxt_m, v.query->first);
 	            e1.targets.push_back(c1);          
 	        	} else break;
-	        W.push_back(e1);
-	        }
-	  	} else if(v.query->path == F){
+            if(nxt_s){  W.push_back(e1); }     
+            }
+	   	} else if(v.query->path == F){
 	  		Configuration c = createConfiguration(v.marking, v.query->first);
 	  		Edge e;
 	  		e.source = v;
 	  		e.targets.push_back(c);
 	  		W.push_back(e);
 	  		while(true){     
+            bool nxt_s = false;
     		Edge e1;
     		e1.source = v;       
 	        PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
 	            if(next_state(v.marking, nxt_m) == 1){
+                nxt_s = true;
 	            Configuration c1 = createConfiguration(nxt_m, v.query);
 	            e1.targets.push_back(c1);          
 	        	} else break;
-	        W.push_back(e1);
+            if(nxt_s){ W.push_back(e1); }
 
 	        }
 	  	} else if(v.query->path == G){
@@ -345,7 +357,16 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
     		//Make stuff that goes here
     } else {
     	if (evaluateQuery(v.marking, v.query)){
-    		*(v.assignment) = ONE;
+            Edge e;
+            e.source = v;
+            Configuration &c = v;
+            *(c.assignment) = ONE;
+            e.targets.push_back(c);
+            W.push_back(e);
+             #ifdef DEBUG
+    cout<<"The assignment of original is: " << *(v.assignment)<<endl;
+    cout<<"The assignment of target is: " << *(c.assignment)<<endl;
+    #endif
 		}
 		else *(v.assignment) = ZERO; //FINAL ZERO
     } 
@@ -453,7 +474,7 @@ int CTLEngine::next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal*
 CTLEngine::Configuration CTLEngine::createConfiguration(PetriEngine::MarkVal *marking, CTLTree *query){
     
     Assignment* a = (Assignment*)malloc(sizeof(Assignment));
-    
+
     *a = UNKNOWN;
     
     Configuration newConfig = {
@@ -462,21 +483,22 @@ CTLEngine::Configuration CTLEngine::createConfiguration(PetriEngine::MarkVal *ma
         a, //assignment
         CTLEngine::_nplaces //mCount
     };
-    
+
     auto iterator = configlist.begin();
     
     while(iterator != configlist.end()){
         
         if( (*iterator) == newConfig){
             //Element already exists, no need to look any further
+     
             return *iterator;
         }
         iterator++;
     }    
     
     configlist.push_back(newConfig);
-    
     //Last element is the newly inserted Configuration
+
     return configlist.back();
 }
 
