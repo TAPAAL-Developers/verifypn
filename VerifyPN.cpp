@@ -607,16 +607,24 @@ int main(int argc, char* argv[]){
             int i;
             for (i = 0; i <16; i++){
                 if (retval[i] == ErrorCode) {
+                    #ifdef DEBUG
                     fprintf(stdout,"Query %d ERROR: The CTL Engine did not return any results\n", i);
+                    #endif
                 }
                 else if (retval[i] == FailedCode){
+                    #ifdef DEBUG
                     fprintf(stdout,"Query %d NOT_SATISFIED: \n", i);
+                    #endif
                 }
                 else if (retval[i] == SuccessCode){
+                    #ifdef DEBUG
                     fprintf(stdout,"Query %d SATISFIED:\n", i);
+                    #endif
                 }
                 else {
+                    #ifdef DEBUG
                     fprintf(stdout,"Query %d BAD_ASS_ERROR:\n", i);
+                    #endif
                 }
             }
         }
