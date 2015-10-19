@@ -76,6 +76,7 @@ private:
     PetriEngine::MarkVal* _m0;
     int _nplaces;
     int _ntransitions;
+    bool querySatisfied;
 
     std::vector<CTLEngine::Markings> list;
     std::vector<CTLEngine::Configuration> configlist;
@@ -85,7 +86,6 @@ private:
     //Engine functions
     bool localSmolka(Configuration v);
     void successors(Configuration v, std::vector<CTLEngine::Edge>& W);
-    bool querySatisfied;
     CTLEngine::Configuration createConfiguration(PetriEngine::MarkVal *marking, CTLTree *query);
     int next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal* next_m);
     

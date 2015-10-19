@@ -39,6 +39,8 @@ CTLEngine::CTLEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmar
     _m0 = initialmarking;
     _nplaces = net->numberOfPlaces();
     _ntransitions = net->numberOfTransitions();
+    querySatisfied = false;
+
 }
 
 CTLEngine::CTLEngine(const CTLEngine& orig) {

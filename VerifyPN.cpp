@@ -68,23 +68,21 @@ enum SearchStrategies{
 	OverApprox		//LinearOverApprx
 };
 
-ReturnValues result_analysis(CTLEngine engine){
-    if (engine.readSatisfactory())
-        cout<<"Query was satisfied"<<endl;
-    else
-        cout<<"Query was NOT satisfied"<<endl;
-    bool res = engine.readSatisfactory();
-    if (res)
-        return SuccessCode;
-    else if (!res)
-        return FailedCode;
-    else return ErrorCode;
-}
+
 void search_ctl_query(PetriNet* net, MarkVal* m0, CTLTree *queryList[], ReturnValues result[]){
     CTLEngine engine(net, m0);
     for (int i = 0; i < 16 ; i++) {
         engine.search(queryList[i]);
-        result[i] = result_analysis(engine);
+      	if (engine.readSatisfactory() == true)
+        	cout<<"Query was satisfied"<<endl;
+	    else
+	        cout<<"Query was NOT satisfied"<<endl;
+	    bool res = engine.readSatisfactory();
+	    if (res)
+	        result[i] = SuccessCode;
+	    else if (!res)
+	        result[i] = FailedCode;
+	    else result[i] = ErrorCode;
    }
 }
 
