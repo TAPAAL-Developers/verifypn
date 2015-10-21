@@ -1,3 +1,8 @@
 makefile
 nbproject
 verifypn-linux64
+verifypn.config
+verifypn.creator
+verifypn.creator.user
+verifypn.files
+verifypn.includes

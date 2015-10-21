@@ -128,13 +128,14 @@ bool CTLEngine::localSmolka(Configuration v){
             cout<<"All targets were 1-assigned\n"<<flush;
             #endif
             int j = 0;
-            *(v.assignment) = ONE;
-            for (j = 0; j < v.denpendencyList.size(); j++) {
-            	e = v.denpendencyList.back();
+            *(e.source.assignment) = ONE;
+            int dependencySetSize = e.source.denpendencyList.size();
+            for (j = 0; j < dependencySetSize; j++) {
+                e = e.source.denpendencyList.back();
                 W.push_back(e);
                 //configPrinter(v);
                 #ifdef DEBUG
-                cout << "\n\n\n\n assigning to one \n\n\n\n" << flush;  
+                cout << "\n\n\n\n assigning to one \n\n\n\n" << flush;
                 #endif
             }
         }
