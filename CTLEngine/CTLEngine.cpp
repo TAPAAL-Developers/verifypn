@@ -131,8 +131,9 @@ bool CTLEngine::localSmolka(Configuration v){
             *(e.source.assignment) = ONE;
             int dependencySetSize = e.source.denpendencyList.size();
             for (j = 0; j < dependencySetSize; j++) {
-                e = e.source.denpendencyList.back();
-                W.push_back(e);
+                Edge e1;
+                e1 = e.source.denpendencyList.back();
+                W.push_back(e1);
                 //configPrinter(v);
                 #ifdef DEBUG
                 cout << "\n\n\n\n assigning to one \n\n\n\n" << flush;
