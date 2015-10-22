@@ -30,6 +30,7 @@ public:
         CTLTree *query;
         CTLEngine::Assignment *assignment;
         int mCount;
+        bool shouldBeNegated;
         list<Edge> denpendencyList;
         
         
@@ -37,7 +38,9 @@ public:
    
 
             if(query == rhs.query){
-                return !memcmp(marking, rhs.marking, sizeof(PetriEngine::MarkVal)*mCount);
+                if(!memcmp(marking, rhs.marking, sizeof(PetriEngine::MarkVal)*mCount)){
+                    return (shouldBeNegated == rhs.shouldBeNegated);
+                }
 
             }
             return false;
@@ -104,6 +107,7 @@ void assignConfiguration(Configuration v, Assignment a);
     bool compareMarking(PetriEngine::MarkVal *m, PetriEngine::MarkVal *m1);
     bool evaluateQuery(PetriEngine::MarkVal *marking, CTLTree *query);
     int secondEvaluatedParam(PetriEngine::MarkVal *marking, CTLTree *query);
+    bool calculateCZERO(CTLEngine::Edge e, std::vector<CTLEngine::Edge>& W);
  
 };
 

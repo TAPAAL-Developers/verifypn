@@ -71,10 +71,8 @@ enum SearchStrategies{
 
 void search_ctl_query(PetriNet* net, MarkVal* m0, CTLTree *queryList[], ReturnValues result[]){
     CTLEngine engine(net, m0);
-    for (int i = 0; i < 1 ; i++) {
-#ifdef DEBUG
-        cout << "Searching query: " << i << endl;
-#endif
+
+    for (int i = 0; i < 16 ; i++) {
         engine.search(queryList[i]);
 #ifdef Analysis
         cout << "Analysis:: Query: " << i;

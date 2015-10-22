@@ -66,6 +66,8 @@ void CTLEngine::search(CTLTree *query){
     #ifdef DEBUG
     cout << ":\n:::::::::::::::::\n:::::::::::::::::\n:::::::::::::::::\n";
     #endif
+    CTLParser ctlParser = CTLParser();
+    ctlParser.printQuery(query);
     querySatisfied = localSmolka(v0);
     
 }
@@ -85,7 +87,7 @@ bool CTLEngine::localSmolka(Configuration v){
     std::vector<CTLEngine::Edge> W;
     successors(v,W);
     while (W.size() != 0) {
-        #ifdef DEBUG
+         #ifdef DEBUG
         cout << "Starting while loop - size of W:" << W.size() <<endl;
         cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << flush;
         for(int k = 0; k < W.size(); k++){
@@ -105,6 +107,11 @@ bool CTLEngine::localSmolka(Configuration v){
         int targetONEassignments = 0;
         int targetZEROassignments = 0;
         int targetCZEROassignments = 0;
+
+        if(calculateCZERO(e, W)) targetCZEROassignments = 1;
+
+
+
         for (i = 0; i < e.targets.size(); i++ ){
             #ifdef DEBUG
             cout<<"Target "<< i << " out of " << e.targets.size() << " assignment: "<< *(e.targets[i].assignment) << "\n"<<flush;
@@ -115,14 +122,12 @@ bool CTLEngine::localSmolka(Configuration v){
             else if (*(e.targets[i].assignment) == ZERO) {
                 targetZEROassignments++;
             }
-            else if (*(e.targets[i].assignment) == CZERO) {
-                targetCZEROassignments++;
-            }
         }
         #ifdef DEBUG
         cout<<"Completed Data Handling\nResult:\n"<<flush;
         cout<<"ONE's: "<< targetONEassignments<<"\n" <<flush;
         cout<<"Zero's: "<< targetZEROassignments<<"\n" <<flush;
+        cout<<"CZERO's: "<< targetCZEROassignments<<"\n" <<flush;
         cout<<"Unknowns's: "<< e.targets.size() - targetONEassignments - targetZEROassignments<<"\n" <<flush;
         #endif
         /*****************************************************************/
@@ -131,44 +136,42 @@ bool CTLEngine::localSmolka(Configuration v){
             #ifdef DEBUG
             cout<<"All targets were 1-assigned\n"<<flush;
             #endif
-            int j = 0;
-            *(e.source.assignment) = ONE;
-            int dependencySetSize = e.source.denpendencyList.size();
-            for (j = 0; j < dependencySetSize; j++) {
-                Edge e1;
-                e1 = e.source.denpendencyList.back();
-                W.push_back(e1);
-                //configPrinter(v);
+
+             if(e.source.shouldBeNegated)
+            *(e.source.assignment) = CZERO;
+            else  *(e.source.assignment) = ONE;
+
+            if(e.source == v){return true;}
+            W.insert(W.end(), e.source.denpendencyList.begin(), e.source.denpendencyList.end());
+                
                 #ifdef DEBUG
                 cout << "\n\n\n\n assigning to one \n\n\n\n" << flush;
                 #endif
-            }
+            
         }
-        
         if (targetCZEROassignments > 0) {
-            #ifdef DEBUG
-            cout<<"one or more targets were certain 0-assigned\n"<<flush;
-            #endif
-            int j = 0;
-            *(e.source.assignment) = CZERO;
-            int dependencySetSize = e.source.denpendencyList.size();
-            for (j = 0; j < dependencySetSize; j++) {
-                Edge e1;
-                e1 = e.source.denpendencyList.back();
-                W.push_back(e1);
-                //configPrinter(v);
+            
+            if(e.source.shouldBeNegated)
+            *(e.source.assignment) = ONE;
+            else  *(e.source.assignment) = CZERO;
+
+            if(e.source == v){return false;}
+            W.insert(W.end(), e.source.denpendencyList.begin(), e.source.denpendencyList.end());
+                
+
+
                 #ifdef DEBUG
                 cout << "\n\n\n\n assigning to certain zero\n\n\n\n" << flush;
                 #endif
-            }
         }
         
         /*****************************************************************/ 
         /*else if ∃u ∈ T where A(u) = 0 then D(u) ← D(u) ∪ {e}*/
-        else if (targetZEROassignments > 0) {
+        if (targetZEROassignments > 0) {
             #ifdef DEBUG
             cout<<"One or more targets were 0-assigned\n"<<flush;
             #endif
+
             for (i = 0; i < e.targets.size(); i++ ){
                 if (*(e.targets[i].assignment) == ZERO)
                     e.targets[i].denpendencyList.push_back(e);
@@ -235,8 +238,9 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
             #ifdef PP
             edgePrinter(e);edgePrinter(e1);
             #endif
+             W.push_back(e1);             
             W.push_back(e);
-	        W.push_back(e1);
+
 	    } else if(v.query->path == X){
             bool nxt_s = false;
 	    	Edge e;
@@ -268,27 +272,23 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
 	            } else break;
 	        }
             if(nxt_s){
+
+                W.push_back(e1);
     	        W.push_back(e);
-    	        W.push_back(e1);
             }
 	    } else if (v.query->path == G){
 	    	Configuration c = createConfiguration(v.marking, v.query->first);
-            bool nxt_s = false;
 	    	Edge e;
 	    	e.source = v;
 	    	e.targets.push_back(c);
 	    	while(true){             
 	        PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
-	            if(next_state(v.marking, nxt_m) == 1){
-                nxt_s = true;
-	            Configuration c1 = createConfiguration(nxt_m, v.query);
-	            e.targets.push_back(c1);          
-
+	            if(next_state(v.marking, nxt_m) == 1){ 
+	            Configuration c1 = createConfiguration(nxt_m, v.query); 
+	            e.targets.push_back(c1);   
 	            } else break;
 	        }
-            if(nxt_s){
 	           W.push_back(e);
-            }
 	    }
     } else if (v.query->quantifier == E){
     	if(v.query->path == U){
@@ -297,7 +297,7 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
     		Edge e;
     		e.source = v;
     		e.targets.push_back(c1);
-    		W.push_back(e);
+    	
     		while(true){ 
     		Edge e1;
     		e1.source = v;
@@ -309,6 +309,7 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
 	        	} else break;
 	        W.push_back(e1);
 	        }
+             W.push_back(e);
 	  	} else if(v.query->path == X){
 	  		while(true){   
             bool nxt_s = false;  
@@ -327,7 +328,7 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
 	  		Edge e;
 	  		e.source = v;
 	  		e.targets.push_back(c);
-	  		W.push_back(e);
+	  		
 	  		while(true){     
             bool nxt_s = false;
     		Edge e1;
@@ -341,7 +342,9 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
             if(nxt_s){ W.push_back(e1); }
 
 	        }
+            W.push_back(e);
 	  	} else if(v.query->path == G){
+            int i = 0;
 	  		while(true){
 	  		Configuration c = createConfiguration(v.marking, v.query->first);
 	  		Edge e;
@@ -351,8 +354,9 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
 	            if(next_state(v.marking, nxt_m) == 1){
 	            Configuration c1 = createConfiguration(nxt_m, v.query);
 	            e.targets.push_back(c1);          
-	        	} else break;
-	        W.push_back(e);
+	        	} else { if (i == 0)  W.push_back(e); break;  }
+            i++;
+            W.push_back(e);
 	        }
 	  	}
     } else if (v.query->quantifier == AND){
@@ -373,7 +377,7 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
     	e.targets.push_back(c);
     	e1.targets.push_back(c1);
     	W.push_back(e);
-    	W.push_back(e1);
+        W.push_back(e1);
     } else if (v.query->quantifier == NEG){
     		Configuration c = createConfiguration(v.marking, v.query->first);
     		Edge e;
@@ -386,16 +390,24 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
     	if (evaluateQuery(v.marking, v.query)){
             Edge e;
             e.source = v;
+            if(v.shouldBeNegated){
+                *(v.assignment) = CZERO;
+            } else *(v.assignment) = ONE;
             Configuration &c = v;
-            *(c.assignment) = ONE;
             e.targets.push_back(c);
             W.push_back(e);
-             #ifdef DEBUG
-    cout<<"The assignment of original is: " << *(v.assignment)<<endl;
-    cout<<"The assignment of target is: " << *(c.assignment)<<endl;
-    #endif
-		}
-		else *(v.assignment) = CZERO; //FINAL ZERO
+
+		} else {
+            Edge e;
+            e.source = v;
+            if(v.shouldBeNegated){
+                *(v.assignment) = ONE;
+            } else *(v.assignment) = CZERO;
+
+            Configuration &c = v;
+            e.targets.push_back(c);
+            W.push_back(e);
+      }
     } 
 }
 
@@ -405,6 +417,7 @@ bool CTLEngine::evaluateQuery(PetriEngine::MarkVal *marking, CTLTree *query){
         std::vector<int> possibleTransitionById = calculateFireableTransistions(marking);
         
         for (int i = 0; i < possibleTransitionById.size(); i++) {
+
             if (strcmp(_net->transitionNames()[possibleTransitionById[i]].c_str(), query->a.fireset) == 0) 
                 canFire = true;
         }
@@ -500,15 +513,19 @@ int CTLEngine::next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal*
 // Function makes use of the == operator on a Configuration
 CTLEngine::Configuration CTLEngine::createConfiguration(PetriEngine::MarkVal *marking, CTLTree *query){
     
+    bool shouldBeNegated;
     Assignment* a = (Assignment*)malloc(sizeof(Assignment));
-
+    if(query->quantifier == NEG)
+    shouldBeNegated = true;
+    else shouldBeNegated = false;
     *a = UNKNOWN;
     
     Configuration newConfig = {
         marking, //marking
         query, //query
         a, //assignment
-        CTLEngine::_nplaces //mCount
+        CTLEngine::_nplaces, //mCount
+        shouldBeNegated
     };
 
     auto iterator = configlist.begin();
@@ -556,12 +573,16 @@ void CTLEngine::configPrinter(CTLEngine::Configuration c){
     std::cout << "--------------- Configuration Information -------------------\n";
     CTLParser ctlParser = CTLParser();
     int i = 0;
+    cout << "Configuration marking: " << flush;
     for (i = 0; i < _net->numberOfPlaces(); i++) {
-        std::cout << "Configuration marking: " << c.marking[i]<<"\n";
+        std::cout << c.marking[i]<< flush;
     }
-    std::cout << "Configuration query::::\n" ;
+    std::cout << "\nConfiguration query::::\n" ;
     ctlParser.printQuery(c.query);
     std::cout << "\nConfiguration assignment: " << *(c.assignment)<<"\n";
+
+    std::cout << "\nshould be negated?: " << c.shouldBeNegated <<"\n";
+
     
     std::cout << "---------------------------------------------------------\n";
 }
@@ -615,3 +636,53 @@ std::vector<int> CTLEngine::calculateFireableTransistions(PetriEngine::MarkVal m
     }
     return pt;
 }  //possibleTransitions
+
+
+bool CTLEngine::calculateCZERO(CTLEngine::Edge e, std::vector<CTLEngine::Edge>& W){
+
+    bool propegateCZERO = true;
+
+    std::vector<CTLEngine::Edge> czeroEdges;
+
+    for(int i = 0; i < W.size(); i++){
+        if(W[i].source == e.source){
+           czeroEdges.push_back(W[i]);
+        }
+    }
+
+    /*cout << "WE ARE NOW IN THE CALC THING NOW WHAT ARE THE EDGES WE ARE COMPARING WITH" << flush;
+    for(int i = 0; i < czeroEdges.size(); i++){
+        edgePrinter(czeroEdges.at(i));
+    } */
+
+    auto zeroIt = czeroEdges.begin();
+
+    if(zeroIt == czeroEdges.end()) {
+        propegateCZERO = false;
+        for(int c = 0; c < e.targets.size(); c++){
+            if(*(e.targets.at(c).assignment) == CZERO)
+                propegateCZERO = true;
+        }
+    }
+
+
+    
+    else{
+        while(zeroIt != czeroEdges.end()){
+
+            bool isEdgeGood = false;
+
+            for(int i = 0; i < (*zeroIt).targets.size(); i++){
+                if(*((*zeroIt).targets.at(i).assignment) == CZERO){
+                    isEdgeGood = true;
+                }
+                if(isEdgeGood) break;
+            }
+
+            if(!isEdgeGood) {propegateCZERO = false; return propegateCZERO;}
+            else zeroIt++;
+        }
+    }
+
+    return propegateCZERO;    
+}
