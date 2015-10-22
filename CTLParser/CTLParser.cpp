@@ -100,7 +100,9 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         //std::cout << "TEST:: ATOM: " << root_name << "\n";
         if (root_name[1] == 's' ) {
             query->a.isFireable = true;
-            query->a.fireset = root->first_node()->value();
+            int size = root->first_node()->value_size();
+            query->a.fireset = strcpy((char*)malloc(sizeof(char)*size),
+                                      root->first_node()->value());
             //std::cout << "-----TEST:: Returning query set: " << query->a.set << "\n" << std::flush;
             return query; 
         }
@@ -110,7 +112,9 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             query->a.fireset = NULL;
            // std::cout<< "\n\n ---------------> Found Token Count ";
             if (integerNode->name()[0] == 't') {
-                query->a.tokenCount.placeSmaller = integerNode->first_node()->value();
+                int size = integerNode->first_node()->value_size();
+                query->a.tokenCount.placeSmaller = strcpy((char*)malloc(sizeof(char)*size),
+                                                          integerNode->first_node()->value());
                 query->a.tokenCount.intSmaller = -1;
                // std::cout<< query->a.tokenCount.placeSmaller << " should be a smaller PLACE than ";
             }
@@ -125,7 +129,9 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             integerNode = integerNode->next_sibling();
             
             if (integerNode->name()[0] == 't') {
-                query->a.tokenCount.placeLarger = integerNode->first_node()->value();
+                int size = integerNode->first_node()->value_size();
+                query->a.tokenCount.placeLarger = strcpy((char*)malloc(sizeof(char) * size),
+                                                         integerNode->first_node()->value());
                 query->a.tokenCount.intLarger = -1;
               //  std::cout<< query->a.tokenCount.placeLarger << " - witch is a PLACE ";
             }

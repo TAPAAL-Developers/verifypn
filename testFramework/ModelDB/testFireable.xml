@@ -7,8 +7,23 @@
       <exists-paths>
         <finally>
            <is-fireable>
-            <transition>T1_to_P2</transition>
+            <transition>T1</transition>
           </is-fireable>
+        </finally>
+      </exists-paths>
+    </formula>
+  </property>
+    <property>
+    <id>test_f</id>
+    <description>Automatically generated</description>
+    <formula>
+      <exists-paths>
+        <finally>
+          <negation>
+           <is-fireable>
+            <transition>T2</transition>
+          </is-fireable>
+          </negation>
         </finally>
       </exists-paths>
     </formula>
