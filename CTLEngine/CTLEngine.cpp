@@ -145,6 +145,24 @@ bool CTLEngine::localSmolka(Configuration v){
             }
         }
         
+        if (targetCZEROassignments > 0) {
+            #ifdef DEBUG
+            cout<<"one or more targets were certain 0-assigned\n"<<flush;
+            #endif
+            int j = 0;
+            *(e.source.assignment) = CZERO;
+            int dependencySetSize = e.source.denpendencyList.size();
+            for (j = 0; j < dependencySetSize; j++) {
+                Edge e1;
+                e1 = e.source.denpendencyList.back();
+                W.push_back(e1);
+                //configPrinter(v);
+                #ifdef DEBUG
+                cout << "\n\n\n\n assigning to certain zero\n\n\n\n" << flush;
+                #endif
+            }
+        }
+        
         /*****************************************************************/ 
         /*else if ∃u ∈ T where A(u) = 0 then D(u) ← D(u) ∪ {e}*/
         else if (targetZEROassignments > 0) {
