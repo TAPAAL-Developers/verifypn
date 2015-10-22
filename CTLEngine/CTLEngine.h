@@ -16,7 +16,7 @@ public:
     CTLEngine(const CTLEngine& orig);
     virtual ~CTLEngine();
     enum Assignment {
-        ONE = 1, ZERO = 0, UNKNOWN = -1
+        CZERO = 2, ONE = 1, ZERO = 0, UNKNOWN = -1
     };
     enum { 
                 FOUND,
