@@ -171,6 +171,7 @@ bool CTLEngine::localSmolka(Configuration v){
             #ifdef DEBUG
             cout<<"One or more targets were 0-assigned\n"<<flush;
             #endif
+
             for (i = 0; i < e.targets.size(); i++ ){
                 if (*(e.targets[i].assignment) == ZERO)
                     e.targets[i].denpendencyList.push_back(e);
