@@ -104,6 +104,7 @@ bool CTLEngine::localSmolka(Configuration v){
         #endif
         int targetONEassignments = 0;
         int targetZEROassignments = 0;
+        int targetCZEROassignments = 0;
         for (i = 0; i < e.targets.size(); i++ ){
             #ifdef DEBUG
             cout<<"Target "<< i << " out of " << e.targets.size() << " assignment: "<< *(e.targets[i].assignment) << "\n"<<flush;
@@ -113,6 +114,9 @@ bool CTLEngine::localSmolka(Configuration v){
             }
             else if (*(e.targets[i].assignment) == ZERO) {
                 targetZEROassignments++;
+            }
+            else if (*(e.targets[i].assignment) == CZERO) {
+                targetCZEROassignments++;
             }
         }
         #ifdef DEBUG
@@ -131,14 +135,16 @@ bool CTLEngine::localSmolka(Configuration v){
             *(e.source.assignment) = ONE;
             int dependencySetSize = e.source.denpendencyList.size();
             for (j = 0; j < dependencySetSize; j++) {
-                e = e.source.denpendencyList.back();
-                W.push_back(e);
+                Edge e1;
+                e1 = e.source.denpendencyList.back();
+                W.push_back(e1);
                 //configPrinter(v);
                 #ifdef DEBUG
                 cout << "\n\n\n\n assigning to one \n\n\n\n" << flush;
                 #endif
             }
         }
+        
         /*****************************************************************/ 
         /*else if ∃u ∈ T where A(u) = 0 then D(u) ← D(u) ∪ {e}*/
         else if (targetZEROassignments > 0) {
@@ -371,7 +377,7 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
     cout<<"The assignment of target is: " << *(c.assignment)<<endl;
     #endif
 		}
-		else *(v.assignment) = ZERO; //FINAL ZERO
+		else *(v.assignment) = CZERO; //FINAL ZERO
     } 
 }
 

@@ -1,1 +1,1 @@
-../verifypn-linux64 -ctl ModelDB/CircularTrains-PT-012/model.pnml testCTLquery.xml
+../verifypn-linux64 -ctl ModelDB/TEST.pnml testFireable.xml
