@@ -66,8 +66,8 @@ void CTLEngine::search(CTLTree *query){
     #ifdef DEBUG
     cout << ":\n:::::::::::::::::\n:::::::::::::::::\n:::::::::::::::::\n";
     #endif
-    CTLParser ctlParser = CTLParser();
-    ctlParser.printQuery(query);
+    //CTLParser ctlParser = CTLParser();
+    //ctlParser.printQuery(query);
     querySatisfied = localSmolka(v0);
     
 }

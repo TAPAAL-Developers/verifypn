@@ -6,7 +6,7 @@ CUT				= cut
 
 # Compiler and linker flags
 
-CFLAGS			= -std=c++11 -D Analysis D DEBUG -D PP -m64 -O3 -I.
+CFLAGS			= -std=c++11 -D Analysis -m64 -O3 -I.
 LDFLAGS			= -static -m64 -O3 lpsolve/liblpsolve55-linux64.a -ldl \
               -static-libgcc -static-libstdc++
 
