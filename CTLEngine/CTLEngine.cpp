@@ -66,6 +66,7 @@ void CTLEngine::search(CTLTree *query){
     #ifdef DEBUG
     cout << ":\n:::::::::::::::::\n:::::::::::::::::\n:::::::::::::::::\n" << flush;
     #endif
+
 #ifdef DEBUG
     CTLParser ctlParser = CTLParser();
     ctlParser.printQuery(query);
@@ -650,6 +651,7 @@ bool CTLEngine::calculateCZERO(CTLEngine::Edge e, std::vector<CTLEngine::Edge>& 
     bool propegateCZERO = true;
 
     std::vector<CTLEngine::Edge> czeroEdges;
+    czeroEdges.push_back(e);
 
     for(int i = 0; i < W.size(); i++){
         if(W[i].source == e.source){
