@@ -64,12 +64,13 @@ void CTLEngine::search(CTLTree *query){
     configPrinter(v0);
     #endif
     #ifdef DEBUG
-    cout << ":\n:::::::::::::::::\n:::::::::::::::::\n:::::::::::::::::\n";
+    cout << ":\n:::::::::::::::::\n:::::::::::::::::\n:::::::::::::::::\n" << flush;
     #endif
+#ifdef DEBUG
     CTLParser ctlParser = CTLParser();
     ctlParser.printQuery(query);
+#endif
     querySatisfied = localSmolka(v0);
-    
 }
 bool CTLEngine::readSatisfactory() {
     return querySatisfied;
@@ -204,6 +205,7 @@ bool CTLEngine::localSmolka(Configuration v){
     #ifdef DEBUG
     cout<<"The final assignment of the initial configuration is: " << *(v.assignment)<<endl;
     #endif
+
     return (*(v.assignment) == ONE) ? true : false ;
 }
 
@@ -515,11 +517,16 @@ CTLEngine::Configuration CTLEngine::createConfiguration(PetriEngine::MarkVal *ma
     
     bool shouldBeNegated;
     Assignment* a = (Assignment*)malloc(sizeof(Assignment));
-    if(query->quantifier == NEG)
-    shouldBeNegated = true;
-    else shouldBeNegated = false;
+
+    if(query->quantifier == NEG){
+        shouldBeNegated = true;
+    }
+    else {
+        shouldBeNegated = false;
+    }
+
     *a = UNKNOWN;
-    
+
     Configuration newConfig = {
         marking, //marking
         query, //query

@@ -14,7 +14,6 @@
 #include "rapidxml-1.13/rapidxml.hpp"
 #include "CTLParser.h"
 
-//#include "CTLquery.h"
 
 using namespace rapidxml;
 
@@ -27,7 +26,7 @@ CTLParser::CTLParser(const CTLParser& orig) {
 CTLParser::~CTLParser() {
 }
 
-void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLTree *queryList[]) {
+void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[]) {
     #ifdef DEBUG
     std::cout << "Creating doc\n" << std::flush;
     #endif
@@ -54,14 +53,24 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLTree *queryList[]) {
     for (xml_node<> * property_node = root_node->first_node("property"); property_node; property_node = property_node->next_sibling()) {
         xml_node<> * id_node = property_node->first_node("id"); 
 
+        queryList[i] = (CTLFormula*)malloc(sizeof(CTLFormula));
+
+        int size = id_node->value_size();
+
+        queryList[i]->Name = strcpy((char*)malloc(sizeof(char)*size),
+                                  id_node->value());
+
+        queryList[i]->Result = false;
+        queryList[i]->Techniques = new std::vector<std::string>();
+
 #ifdef Analysis
         std::cout << "Analysis:: Query: " << id_node->value() << std::endl;
 #endif
         xml_node<> * formula_node = id_node->next_sibling("description")->next_sibling("formula");
-        queryList[i] = xmlToCTLquery(formula_node->first_node());
+        queryList[i]->Query = xmlToCTLquery(formula_node->first_node());
 
         #ifdef PP
-        printQuery(queryList[i]);
+        printQuery(queryList[i]->Query);
         #endif
 
         #ifdef DEBUG
@@ -76,12 +85,12 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     CTLTree *query = (CTLTree*)malloc(sizeof(CTLTree));
     
     char *root_name = root->name();
-   // std::cout << "TEST:: Running xmlToCTLquery with " << root_name << " as root\n";
+    //std::cout << "TEST:: Running xmlToCTLquery with " << root_name << " as root\n";
     char firstLetter = root_name[0];
     
     if (firstLetter == 'a') {
         query->quantifier = A;
-       // std::cout << "TEST:: Q: " << root_name << "\n";
+        //std::cout << "TEST:: Q: " << root_name << "\n";
         query->path = setPathOperator(root->first_node());
         
     }

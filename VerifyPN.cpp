@@ -69,25 +69,22 @@ enum SearchStrategies{
 };
 
 
-void search_ctl_query(PetriNet* net, MarkVal* m0, CTLTree *queryList[], ReturnValues result[]){
+void search_ctl_query(PetriNet* net, MarkVal* m0, CTLFormula *queryList[], ReturnValues result[]){
     CTLEngine engine(net, m0);
 
     for (int i = 0; i < 16 ; i++) {
-        engine.search(queryList[i]);
-#ifdef Analysis
-        cout << "Analysis:: Query: " << i;
+        engine.search(queryList[i]->Query);
 
-      	if (engine.readSatisfactory() == true)
-            cout<< " Satisfied" << endl;
-	    else
-            cout<<" NOT satisfied" << endl;
-#endif
+        queryList[i]->Result = engine.readSatisfactory();
+
 	    bool res = engine.readSatisfactory();
 	    if (res)
 	        result[i] = SuccessCode;
 	    else if (!res)
 	        result[i] = FailedCode;
 	    else result[i] = ErrorCode;
+
+        queryList[i]->pResult();
    }
 }
 
@@ -304,7 +301,7 @@ int main(int argc, char* argv[]){
 	}
     
     //----------------------- Parse CTL Query -----------------------//
-    CTLTree *queryList[15];
+    CTLFormula *queryList[15];
     
     if(isCTLlogic){
 //#ifdef Analysis //Extract the name of the model used

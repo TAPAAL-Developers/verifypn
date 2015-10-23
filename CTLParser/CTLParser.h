@@ -33,14 +33,44 @@ struct CTLTree {
   Atom a;
 } ;
 
+struct CTLFormula {
+    char* Name;
+    bool Result;
+    std::vector<std::string>* Techniques;
+    CTLTree* Query;
 
+    std::string boolToString(){
+        if(Result)
+            return " TRUE ";
+        else if (!Result)
+            return " FALSE ";
+        else
+            return " ERROR ";
+    }
+
+    //MCC2015 result printer
+    void pResult(){
+        std::cout << "FORMULA "
+                  << Name
+                  << boolToString()
+                  << "TECHNIQUES ";
+
+        for(std::vector<std::string>::const_iterator iter = Techniques->begin();
+            iter != Techniques->end();
+            iter++ )
+        {
+            std::cout << *iter << " ";
+        }
+        std::cout << std::endl;
+    }
+};
 
 class CTLParser {
 public:
     CTLParser();
     CTLParser(const CTLParser& orig);
     virtual ~CTLParser();
-    void ParseXMLQuery(std::vector<char> buffer, CTLTree **queryList);
+    void ParseXMLQuery(std::vector<char> buffer, CTLFormula **queryList);
     void printQuery(CTLTree *query);
 private:
     CTLTree* xmlToCTLquery(rapidxml::xml_node<> * root);

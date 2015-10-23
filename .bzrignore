@@ -12,3 +12,10 @@ verifypnCTL.creator.user
 verifypnCTL.files
 verifypnCTL.includes
 log.txt
+testlog.log
+testFramework/analysis.log
+testFramework/CZERO.log
+testFramework/log.log
+*/*/*.log
+*/*.log
+*/*/*/*.log
