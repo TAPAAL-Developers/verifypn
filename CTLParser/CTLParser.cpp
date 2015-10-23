@@ -39,25 +39,35 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLTree *queryList[]) {
     std::cout << "Size of Path enum: " << sizeof(Path)*8 <<"\n";
     #endif
     doc.parse<0>(&buffer[0]);
-    #ifdef DEBUG
-    std::cout << "Name of my first node is: " << doc.first_node()->name() << "\n";
-    #endif
+
+#ifdef DEBUG
+    std::cout << "First node id: " << doc.first_node()->name() << std::endl;
+#endif
+
     root_node = doc.first_node();
-    
+
+#ifdef Analysis
+    std::cout << "Analysis:: Queries:" << std::endl;
+#endif
+
     int i = 0;
     for (xml_node<> * property_node = root_node->first_node("property"); property_node; property_node = property_node->next_sibling()) {
         xml_node<> * id_node = property_node->first_node("id"); 
-        #ifdef DEBUG
-        std::cout << "Property id: " << id_node->value() << "\n";
-        #endif
+
+#ifdef Analysis
+        std::cout << "Analysis:: Query: " << id_node->value() << std::endl;
+#endif
         xml_node<> * formula_node = id_node->next_sibling("description")->next_sibling("formula");
         queryList[i] = xmlToCTLquery(formula_node->first_node());
+
         #ifdef PP
         printQuery(queryList[i]);
         #endif
+
         #ifdef DEBUG
         std::cout << "\n";
         #endif
+
         i++;
     }
 }

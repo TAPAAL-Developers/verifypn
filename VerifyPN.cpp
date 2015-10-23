@@ -71,12 +71,17 @@ enum SearchStrategies{
 
 void search_ctl_query(PetriNet* net, MarkVal* m0, CTLTree *queryList[], ReturnValues result[]){
     CTLEngine engine(net, m0);
+
     for (int i = 0; i < 16 ; i++) {
         engine.search(queryList[i]);
+#ifdef Analysis
+        cout << "Analysis:: Query: " << i;
+
       	if (engine.readSatisfactory() == true)
-        	cout<<"Query was satisfied"<<endl;
+            cout<< " Satisfied" << endl;
 	    else
-	        cout<<"Query was NOT satisfied"<<endl;
+            cout<<" NOT satisfied" << endl;
+#endif
 	    bool res = engine.readSatisfactory();
 	    if (res)
 	        result[i] = SuccessCode;
@@ -94,7 +99,7 @@ int main(int argc, char* argv[]){
 	int kbound = 0;
 	SearchStrategies searchstrategy = BestFS;
 	int memorylimit = 0;
-	char* modelfile = NULL;
+    char* modelfile = NULL;
 	char* queryfile = NULL;
 	bool disableoverapprox = false;
   	int enablereduction = 0; // 0 ... disabled (default),  1 ... aggresive, 2 ... k-boundedness preserving
@@ -282,6 +287,7 @@ int main(int argc, char* argv[]){
 		//Parse and build the petri net
 		PetriNetBuilder builder(false);
 		PNMLParser parser;
+
 		parser.parse(buffer.str(), &builder);
 		parser.makePetriNet();
                 
@@ -301,11 +307,51 @@ int main(int argc, char* argv[]){
     CTLTree *queryList[15];
     
     if(isCTLlogic){
+//#ifdef Analysis //Extract the name of the model used
+        std::string modelname;
+
+        ifstream mfile(modelfile, ifstream::in);
+        stringstream buf;
+        buf << mfile.rdbuf();
+        std::string str = buf.str();
+        mfile.close();
+
+        //Gets the name of the petrinet being passed
+        for(auto iter = str.begin(); iter != str.end(); iter++){
+            if((*iter) == 'i'){
+                iter++;
+                if((*iter) == 'd'){
+                    iter++;
+                    if((*iter) == '='){
+                        iter++;
+                        if((*iter) == '"'){
+                            while(true){
+                                iter++;
+                                if((*iter) != '"'){
+                                    modelname.push_back(*iter);
+                                }
+                                else
+                                    break;
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        mfile.close();
+        std::cout << "Analysis:: Modefile: " << modelfile << endl;
+        std::cout << "Analysis:: Modelname: " << modelname << endl;
+//#endif
         string queryXMLlist[15];
         ifstream xmlfile (queryfile);
         vector<char> buffer((istreambuf_iterator<char>(xmlfile)), istreambuf_iterator<char>());
         buffer.push_back('\0');
         
+#ifdef DEBUG
+        fprintf(stdout, "Parsing queries");
+#endif
         CTLParser ctlParser = CTLParser();
         
         ctlParser.ParseXMLQuery(buffer, queryList);
