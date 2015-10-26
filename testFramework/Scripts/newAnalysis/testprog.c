@@ -11,17 +11,23 @@ int main(int argc, char const *argv[])
 {
 	clock_t parse_begin = clock();
 	int i;
-	for (i = 0; i < 90; ++i)
+	int count = 0;
+	for ( i = 0; i < 50; ++i)
 	{
-		if (i%2 == 1) //Fake error data
-			printf("%s %d\n", "ERROR Number", i);
-		if (i%10 == 5) //Fake correctness data
+		int j;
+		for( j = 0; j < 4; j++)
 		{
-			printf("%s %d\n", "NOT_CORRECT", i);
-		}
-		if (i%20 < 4) //Fake result data
-		{
-			printf("%s\n", "RESULT: Success");
+			if(j == 0){
+				printf("%s-%d %s\n", "FORMULA TEST", ++count, "TRUE");	
+			}
+			else if (j == 1)
+				printf("%s-%d %s\n", "FORMULA TEST", ++count, "FALSE");
+			else if (j == 2){
+				printf("%s-%d %s\n", "FORMULA TEST", ++count, "CANNOT_COMPUTE");
+				printf("%s-%d %s\n", "FORMULA TEST", ++count, "CANNOT_COMPUTE");
+			}
+			else if(j == 3)
+				printf("%s-%d %s\n", "FORMULA TEST", ++count, "DO_NOT_COMPETE");
 		}
 	}
 	clock_t parse_end = clock();

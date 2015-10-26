@@ -3,6 +3,8 @@
 inputfile=$1
 outputfile=errorlog.log
 
-echo "========================================================="
-cat $inputfile | grep ERROR >> $outputfile
-echo "========================================================="
+echo "==================== Error Analysis ====================="
+echo "======== Compute errors ========" >> $outputfile
+cat $1 | grep FORMULA | grep CANNOT_COMPUTE | awk '{print $2,$3}' OFS=";" >> $outputfile
+echo "====== Consistency errors ======" >> $outputfile
+cat $1 | grep FORMULA | grep -v CANNOT | awk '{print $1,$2,$3}' | sort | uniq | awk '{print $2}' | uniq -d >> $outputfile

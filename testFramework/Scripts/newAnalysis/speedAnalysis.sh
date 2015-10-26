@@ -3,6 +3,5 @@
 inputfile=$1
 outputfile=speedlog.log
 
-echo "========================================================="
+echo "==================== Speed analysis ====================="
 cat $inputfile | grep TIME_ELAPSE >> $outputfile
-echo "========================================================="

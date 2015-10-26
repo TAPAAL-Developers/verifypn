@@ -3,6 +3,5 @@
 inputfile=$1
 outputfile=resultlog.log
 
-echo "========================================================="
-cat $inputfile | grep RESULT >> $outputfile
-echo "========================================================="
+echo "==================== Result Analysis ===================="
+cat $inputfile | grep FORMULA | grep -v CANNOT_COMPUTE | grep -v DO_NOT_COMPETE  >> $outputfile
