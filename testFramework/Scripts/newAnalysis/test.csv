@@ -1,0 +1,13 @@
+Marcie,Angiogenesis-PT-01,CTLCardinality,OK,TFTFTTTFFFTTFTTT,normal,TFTFTTT(F)FFTTFTTT
+Marcie,Angiogenesis-PT-05,CTLCardinality,OK,TTTFFFFFTFTTTFFT,normal,TTTFFFFFTFTTTFFT
+Marcie,Angiogenesis-PT-10,CTLCardinality,DNF,DNF,timeout,(NOVAL)
+Marcie,Angiogenesis-PT-15,CTLCardinality,DNF,DNF,timeout,(NOVAL)
+Marcie,Angiogenesis-PT-20,CTLCardinality,DNF,DNF,timeout,(NOVAL)
+Marcie,Angiogenesis-PT-25,CTLCardinality,DNF,DNF,timeout,(NOVAL)
+Marcie,Angiogenesis-PT-50,CTLCardinality,DNF,DNF,timeout,(NOVAL)
+Marcie,CSRepetitions-COL-02,CTLCardinality,OK,F-F----T-F------,normal,(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)
+Marcie,CSRepetitions-COL-03,CTLCardinality,DNF,#REF!,timeout,(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)(NOVAL)
+Marcie,CSRepetitions-COL-04,CTLCardinality,DNF,DNF,timeout,(NOVAL)
+Marcie,CSRepetitions-COL-05,CTLCardinality,DNF,DNF,timeout,(NOVAL)
+Marcie,CSRepetitions-COL-07,CTLCardinality,DNF,DNF,timeout,(NOVAL)
+Marcie,CSRepetitions-COL-10,CTLCardinality,DNF,DNF,timeout,(NOVAL)
