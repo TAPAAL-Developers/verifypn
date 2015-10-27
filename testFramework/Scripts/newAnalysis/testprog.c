@@ -18,7 +18,7 @@ int main(int argc, char const *argv[])
 		for( j = 0; j < 4; j++)
 		{
 			if(j == 0){
-				printf("%s-%d %s\n", "FORMULA TEST", ++count, "TRUE");	
+				printf("%s-%d %s\n", "FORMULA TEST", ++count, "TRUE");
 			}
 			else if (j == 1)
 				printf("%s-%d %s\n", "FORMULA TEST", ++count, "FALSE");
