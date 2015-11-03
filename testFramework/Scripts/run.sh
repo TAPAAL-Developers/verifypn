@@ -11,7 +11,7 @@ export TOUT=$TIMEOUT
 INPUTSPATH=$PROGRAMPATH/$MODELS
 
 TOOL=BenchKit_head.sh
-	
+
  # CACHE_SIZE=$(cat /sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size)
 
  #     if [[ $CACHE_SIZE  !=  64 ]]
