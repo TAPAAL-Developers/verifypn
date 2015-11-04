@@ -15,7 +15,12 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <map>
+
+//Unordered set area
+#include <stdlib.h>
+#include <algorithm>
+//#include <unordered_set>
+#include <boost/unordered_set.hpp>
 
 #include <PetriEngine/PQL/PQLParser.h>
 #include <PetriEngine/PQL/Contexts.h>
@@ -71,6 +76,7 @@ void CTLEngine::search(CTLTree *query){
     CTLParser ctlParser = CTLParser();
     ctlParser.printQuery(query);
 #endif
+    uset.clear();
     querySatisfied = localSmolka(v0);
 }
 bool CTLEngine::readSatisfactory() {
@@ -512,6 +518,30 @@ int CTLEngine::next_state(PetriEngine::MarkVal* current_m, PetriEngine::MarkVal*
 
 }
 
+CTLEngine::Configuration CTLEngine::createConfiguration(PetriEngine::MarkVal *marking, CTLTree *query){
+    bool shouldBeNegated;
+    Assignment* a = (Assignment*)malloc(sizeof(Assignment));
+
+    if(query->quantifier == NEG){
+        shouldBeNegated = true;
+    }
+    else {
+        shouldBeNegated = false;
+    }
+
+    *a = UNKNOWN;
+
+    Configuration newConfig = {
+        marking, //marking
+        query, //query
+        a, //assignment
+        CTLEngine::_nplaces, //mCount
+        shouldBeNegated
+    };
+
+    return *((uset.insert(newConfig)).first);
+}
+/*
 // This version of createConfiguration makes use of a vector to hold all configurations
 // Function makes use of the == operator on a Configuration
 CTLEngine::Configuration CTLEngine::createConfiguration(PetriEngine::MarkVal *marking, CTLTree *query){
@@ -553,7 +583,7 @@ CTLEngine::Configuration CTLEngine::createConfiguration(PetriEngine::MarkVal *ma
 
     return configlist.back();
 }
-
+*/
 void CTLEngine::pNetPrinter(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]){
     std::cout << "--------------- Petri Net Information -------------------\n";
     

@@ -1,0 +1,75 @@
+QUERYTYPE=$1
+MODELFILE=model.pnml
+PROGRAMPATH="../verifypn-linux64" #Path to verifypn executable
+
+
+echo "=================================================="
+echo "=========== VerifyPN CTLEngine Script ============"
+echo "=================================================="
+echo ""
+echo "Verifying arguments"
+
+declare -a models
+models=( $@ )
+
+arraylength=${#array[@]}
+for (( i=1; i<${arraylength}+1; i++ ));
+do
+   echo "${array[$i-1]}"
+done
+
+#verify program
+if [ -f $PROGRAMPATH ] 
+	then
+	echo "Programpath: $PROGRAMPATH"
+else
+	echo "Cannot find executable file $PROGRAMPATH"
+	exit
+fi
+
+#verify model exists
+if [ -f $MODELFILE ] 
+	then
+	echo "Model: $MODELFILE"
+else
+	echo "Cannot find $MODELFILE in $MODELPATH"
+	exit
+fi
+
+#Verify engine
+#if [ "$3" != "ctl" ]; then
+#	echo "Expected ctl engine"
+#else
+#	echo "engine chosen: $3"
+#fi
+
+#CTLFireabilitySimple
+#CTLFireability
+#CTLCardinality
+#All
+
+case $QUERYTYPE in
+	"All" ) 
+		echo "Running all queries not supported yet"
+		exit
+	;;
+	"CTLFireabilitySimple")
+		echo "QUERYTYPE: CTLFireabilitySimple"
+	;;
+	"CTLFireability")
+		echo "QUERYTYPE: CTLFireability"
+	;;
+	"CTLCardinality")
+		echo "QUERYTYPE: CTLCardinality"
+	;;
+esac
+
+echo ""
+echo "=================================================="
+echo "================== Starting Run =================="
+echo "=================================================="
+echo ""
+
+
+
+echo "=================================================="
