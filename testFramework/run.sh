@@ -5,6 +5,7 @@ MODELFILE="model.pnml"
 RESULTS="testResults"
 ENGINE="-ctl"
 TOOL="CTLEngine.sh"
+ANALYSE="analyse.sh"
 
 REL_PROGRAMPATH="$1"
 
@@ -15,6 +16,7 @@ declare -a QUERY;
 
 INPUTSPATH=$RUNPATH/$MODELS
 RESULTPATH=$RUNPATH/$RESULTS
+ANALISEPATH="$RUNPATH/analysis"
 
 #export PREFIX=$PROGRAMPATH/Scripts
 #export TOUT=$TIMEOUT
@@ -107,9 +109,27 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 		mv "$log" "$RESULTPATH"
 	done
 
-	#rm $TOOL
-    cd $RUNPATH
 done
+
 echo "Done testing";
 echo "Starting analisys";
 
+cd "$RUNPATH"
+
+for s in $(find ${ANALISEPATH} -mindepth 1 -maxdepth 1 -type f -name '*.sh'); do
+	cp $s $RESULTPATH
+done
+
+cd "$RESULTPATH"
+
+for result in $(find -mindepth 1 -maxdepth 1 -type f -name '*CTL*'); do
+
+	./$ANALYSE "$result"
+
+done
+
+for s in $(find ${RESULTPATH} -mindepth 1 -maxdepth 1 -type f -name '*.sh'); do
+	rm $s
+done
+
+echo "Done analysing"

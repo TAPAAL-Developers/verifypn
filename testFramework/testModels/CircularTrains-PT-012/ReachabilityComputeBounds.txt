@@ -1,0 +1,80 @@
+Property CircularTrains-PT-012-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("F6")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("Section_3")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("F6")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("F7")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("F12")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("Section_7")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("F4")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("Section_6")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("Section_4")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("F2")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("F4")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("F12")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("Section_11")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("F12")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("F1")
+  end.
+Property CircularTrains-PT-012-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("Section_9")
+  end.
