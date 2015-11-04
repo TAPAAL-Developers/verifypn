@@ -69,9 +69,10 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[])
         xml_node<> * formula_node = id_node->next_sibling("description")->next_sibling("formula");
         queryList[i]->Query = xmlToCTLquery(formula_node->first_node());
 
-        #ifdef PP
+        //#ifdef PP
+        std::cout << "\n";
         printQuery(queryList[i]->Query);
-        #endif
+        //#endif
 
         #ifdef DEBUG
         std::cout << "\n";
