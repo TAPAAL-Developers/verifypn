@@ -7,6 +7,7 @@
 
 #ifndef CTLPARSER_H
 #include "rapidxml-1.13/rapidxml.hpp"
+ 
 #define	CTLPARSER_H
 
 enum Quantifier { AND = 1, OR, A, E, NEG, EMPTY = -1 };

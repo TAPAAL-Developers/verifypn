@@ -11,5 +11,5 @@ FILENAME="${FILENAME%%.*}"
 LOGFILE="$CURRENTDIR-$FILENAME.log"
 
 echo "Running CTLEngine"
-$1 $2 $3 $4 >> "$LOGFILE"
+$1 $2 $3 $4 | tee "$LOGFILE"
 
