@@ -83,6 +83,7 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[])
 }
 
 CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
+    bool isA = false;
     CTLTree *query = (CTLTree*)malloc(sizeof(CTLTree));
     
     char *root_name = root->name();
@@ -90,15 +91,37 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     char firstLetter = root_name[0];
     
     if (firstLetter == 'a') {
+        isA = true;
         query->quantifier = A;
         //std::cout << "TEST:: Q: " << root_name << "\n";
-        query->path = setPathOperator(root->first_node());
+        query->path = setPathOperator(root->first_node(), isA);
+        isA = false;
+        if(isAG){
+            CTLTree *query1 = (CTLTree*)malloc(sizeof(CTLTree));
+            CTLTree *query2 = (CTLTree*)malloc(sizeof(CTLTree));
+
+            query->quantifier = NEG;
+            query->a.fireset = NULL;
+            query->first = query1;
+
+            query1->quantifier = E;
+            query1->path = F;
+            query1->a.fireset = NULL;
+            query1->first = query2;
+
+            query2->quantifier = NEG;
+            query2->a.fireset = NULL;
+            query2->first = xmlToCTLquery(root->first_node()->first_node());
+
+            isAG = false;
+            return query;
+        }
         
     }
     else if (firstLetter == 'e' ) {
         query->quantifier = E;
         //std::cout << "TEST:: Q: " << root_name << " \n";
-        query->path = setPathOperator(root->first_node());
+        query->path = setPathOperator(root->first_node(), isA);
         
     }
     else if (firstLetter == 'n' ) {
@@ -119,10 +142,24 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         query->quantifier = EMPTY;
         //std::cout << "TEST:: ATOM: " << root_name << "\n";
         if (root_name[1] == 's' ) {
+            numberoftransitions = 0;
+            int i= 0;
             query->a.isFireable = true;
-            int size = root->first_node()->value_size();
-            query->a.fireset = strcpy((char*)malloc(sizeof(char)*size),
-                                      root->first_node()->value());
+            //std::cout << "TEST:: Current set made" <<std::endl;
+            for (xml_node<> * transition_node = root->first_node(); transition_node; transition_node = transition_node->next_sibling()) {
+                numberoftransitions++;
+            }
+            numberoftransitions++;
+            query->a.fireset = (char**)malloc(sizeof(char*)*numberoftransitions);
+         
+            for (xml_node<> * transition_node = root->first_node(); transition_node; transition_node = transition_node->next_sibling()) {
+                int size = transition_node->value_size();
+               // std::cout << "TEST:: Size ------ " << size <<std::endl;
+                query->a.fireset[i] = strcpy((char*)malloc(sizeof(char)*size), transition_node->value());
+                //std::cout << "This would be nice to read: " << query->a.fireset[i] << " \n";
+                i++;
+            }
+            query->a.fireset[i] = NULL;
             //std::cout << "-----TEST:: Returning query set: " << query->a.set << "\n" << std::flush;
             return query; 
         }
@@ -210,11 +247,12 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     return query;
 }
 
-Path CTLParser::setPathOperator(xml_node<> * root) {
+Path CTLParser::setPathOperator(xml_node<> * root, bool isA) {
     char *root_name = root->name();
     char firstLetter = root_name[0];
     
     if (firstLetter == 'g') {
+        if(isA) { isAG = true; }
         return G;
     }
     else if (firstLetter == 'f') {
@@ -238,7 +276,13 @@ void CTLParser::printQuery(CTLTree *query) {
     if(query->quantifier == EMPTY) {
         Atom a = query->a;
         if(a.isFireable){
-            std::cout << "isFireable(" << query->a.fireset <<")";
+            std::cout << "isFireable(" << std::flush;
+            int i = 0;
+            while(query->a.fireset[i] != NULL){
+                std::cout << " (" << query->a.fireset[i] << ") " << std::flush;
+                i++;
+            } 
+            std::cout << ")" << std::flush;
             return;
         }
         else {
@@ -289,7 +333,7 @@ void CTLParser::printPath(CTLTree *query) {
 }
 
 bool CTLParser::charEmpty(char *query) {
-    int i;
+
     if (query == NULL) {
         return true;
     }

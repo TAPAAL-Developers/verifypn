@@ -21,7 +21,7 @@ struct Cardinality {
 
 struct Atom {
     bool isFireable;
-    char *fireset;
+    char** fireset;
     Cardinality tokenCount;
 };
 
@@ -73,8 +73,10 @@ public:
     void ParseXMLQuery(std::vector<char> buffer, CTLFormula **queryList);
     void printQuery(CTLTree *query);
 private:
+    bool isAG = false;
+    int numberoftransitions;
     CTLTree* xmlToCTLquery(rapidxml::xml_node<> * root);
-    Path setPathOperator(rapidxml::xml_node<> * root);
+    Path setPathOperator(rapidxml::xml_node<> * root, bool isA);
     
     bool charEmpty(char *query);
     void printPath(CTLTree *query);

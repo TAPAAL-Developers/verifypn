@@ -219,7 +219,7 @@ bool CTLEngine::localSmolka(Configuration v){
     if (v.shouldBeNegated){
     	return (*(v.assignment) == ONE) ? false : true;
     } else { 
-    	return (*(v.assignment) == CZERO) ? false : true;
+    	return (*(v.assignment) == ONE) ? true : false;
     }
 }
 
@@ -441,9 +441,13 @@ bool CTLEngine::evaluateQuery(PetriEngine::MarkVal *marking, CTLTree *query){
         std::vector<int> possibleTransitionById = calculateFireableTransistions(marking);
         
         for (int i = 0; i < possibleTransitionById.size(); i++) {
-
-            if (strcmp(_net->transitionNames()[possibleTransitionById[i]].c_str(), query->a.fireset) == 0) 
-                canFire = true;
+        int j = 0;
+			while(query->a.fireset[j] != NULL){
+				if (strcmp(_net->transitionNames()[possibleTransitionById[i]].c_str(), query->a.fireset[j]) == 0){
+	        		return true;           
+	        	}
+	        	j++;
+	        }
         }
         return canFire;
     }
@@ -459,7 +463,7 @@ bool CTLEngine::evaluateQuery(PetriEngine::MarkVal *marking, CTLTree *query){
         bool isLessThan = false;
         int firstPlaceCount;
         for (int i = 0; i < _nplaces; i++) {
-            if (strcmp(query->a.tokenCount.placeSmaller, _net->placeNames()[i].c_str()))
+            if (0 == (strcmp(query->a.tokenCount.placeSmaller, _net->placeNames()[i].c_str())))
                     firstPlaceCount = int(marking[i]); 
         }
         if (firstPlaceCount <= secondEvaluatedParam(marking, query))
@@ -476,7 +480,7 @@ int CTLEngine::secondEvaluatedParam(PetriEngine::MarkVal *marking, CTLTree *quer
         secondParam = query->a.tokenCount.intLarger;
     else {
         for (int i = 0; i < _nplaces; i++) {
-            if (!strcmp(query->a.tokenCount.placeLarger, _net->placeNames()[i].c_str())){
+            if (0 == (strcmp(query->a.tokenCount.placeLarger, _net->placeNames()[i].c_str()))){
             		//cout << "place " << query->a.tokenCount.placeLarger << " " << flush;
                     secondParam = int(marking[i]); 
             }
@@ -609,7 +613,6 @@ void CTLEngine::configPrinter(CTLEngine::Configuration c){
     int i = 0;
     cout << "Configuration marking: " << flush;
     for (i = 0; i < _net->numberOfPlaces(); i++) {
-    	cout << _net->placeNames()[i].c_str() << flush;
         std::cout << c.marking[i]<< flush;
     }
     std::cout << "\nConfiguration query::::\n" ;
