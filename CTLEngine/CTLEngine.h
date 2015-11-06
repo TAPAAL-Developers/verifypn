@@ -8,6 +8,7 @@
 #ifndef CTLENGINE_H
 #define	CTLENGINE_H
 
+#include <unordered_set>
 
 
 class CTLEngine {
@@ -32,11 +33,8 @@ public:
         int mCount;
         bool shouldBeNegated;
         list<Edge> denpendencyList;
-        
-        
+               
         bool operator==(const Configuration & rhs)const{
-   
-
             if(query == rhs.query){
                 if(!memcmp(marking, rhs.marking, sizeof(PetriEngine::MarkVal)*mCount)){
                     return (shouldBeNegated == rhs.shouldBeNegated);
@@ -44,6 +42,16 @@ public:
 
             }
             return false;
+        }
+    };
+
+    struct hash{
+        size_t operator() (const CTLEngine::Configuration& conf) const {
+            size_t hash = 0;
+            for(int i = 0; i < conf.mCount; i++){
+                hash ^= (conf.marking[i] << (i*4 % (sizeof(PetriEngine::MarkVal)*8))) |
+                        (conf.marking[i] >> (32 - (i*4 % (sizeof(PetriEngine::MarkVal)*8))));
+            }
         }
     };
 
@@ -83,7 +91,9 @@ private:
 
     std::vector<CTLEngine::Markings> list;
     std::vector<CTLEngine::Configuration> configlist;
-    
+    //std::tr1::unordered_set<CTLEngine::Configuration> uset;
+    unordered_set<CTLEngine::Configuration, hash> uset;
+
     
 
     //Engine functions

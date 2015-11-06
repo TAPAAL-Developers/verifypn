@@ -1,0 +1,67 @@
+Analysis:: Modefile: ModelDB/CircularTrains-PT-012/model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+Analysis:: Queries:
+name is size: 38
+name is size: 38 and text is: CircularTrains-PT-012-CTLCardinality-0
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-0
+name is size: 38
+name is size: 38 and text is: CircularTrains-PT-012-CTLCardinality-1
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-1
+name is size: 38
+name is size: 38 and text is: CircularTrains-PT-012-CTLCardinality-2
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-2
+name is size: 38
+name is size: 38 and text is: CircularTrains-PT-012-CTLCardinality-3
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-3
+name is size: 38
+name is size: 38 and text is: CircularTrains-PT-012-CTLCardinality-4
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-4
+name is size: 38
+name is size: 38 and text is: CircularTrains-PT-012-CTLCardinality-5
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-5
+name is size: 38
+name is size: 38 and text is: CircularTrains-PT-012-CTLCardinality-6
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-6
+name is size: 38
+name is size: 38 and text is: CircularTrains-PT-012-CTLCardinality-7
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-7
+name is size: 38
+name is size: 38 and text is: CircularTrains-PT-012-CTLCardinality-8
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-8
+name is size: 38
+name is size: 38 and text is: CircularTrains-PT-012-CTLCardinality-9
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-9
+name is size: 39
+name is size: 39 and text is: CircularTrains-PT-012-CTLCardinality-10
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-10
+name is size: 39
+name is size: 39 and text is: CircularTrains-PT-012-CTLCardinality-11
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-11
+name is size: 39
+name is size: 39 and text is: CircularTrains-PT-012-CTLCardinality-12
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-12
+name is size: 39
+name is size: 39 and text is: CircularTrains-PT-012-CTLCardinality-13
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-13
+name is size: 39
+name is size: 39 and text is: CircularTrains-PT-012-CTLCardinality-14
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-14
+name is size: 39
+name is size: 39 and text is: CircularTrains-PT-012-CTLCardinality-15
+Analysis:: Query: CircularTrains-PT-012-CTLCardinality-15
+!((!(AF Tokencount(F4 le Section_6))) AND (!( Tokencount(3 le F2))))FORMULA CircularTrains-PT-012-CTLCardinality-0 0 TECHNIQUES 
+AXE( Tokencount(3 le Section_7)) U ( Tokencount(3 le F8))FORMULA CircularTrains-PT-012-CTLCardinality-1 0 TECHNIQUES 
+A(!(( Tokencount(Section_9 le F12)) OR ( Tokencount(F4 le Section_3)))) U (!(( Tokencount(F11 le Section_8)) OR ( Tokencount(F5 le Section_6))))FORMULA CircularTrains-PT-012-CTLCardinality-2 0 TECHNIQUES 
+( Tokencount(1 le F3)) OR (EX!( Tokencount(Section_11 le F7)))FORMULA CircularTrains-PT-012-CTLCardinality-3 0 TECHNIQUES 
+ Tokencount(2 le Section_6)FORMULA CircularTrains-PT-012-CTLCardinality-4 0 TECHNIQUES 
+!(AXAG Tokencount(2 le F1))FORMULA CircularTrains-PT-012-CTLCardinality-5 0 TECHNIQUES 
+AX( Tokencount(1 le F11)) AND (( Tokencount(Section_9 le F8)) OR (( Tokencount(1 le Section_5)) OR ( Tokencount(Section_5 le Section_9))))FORMULA CircularTrains-PT-012-CTLCardinality-6 0 TECHNIQUES 
+(EFAG Tokencount(3 le F1)) AND (EFAF Tokencount(Section_12 le Section_9))FORMULA CircularTrains-PT-012-CTLCardinality-7 0 TECHNIQUES 
+ Tokencount(Section_11 le F4)FORMULA CircularTrains-PT-012-CTLCardinality-8 1 TECHNIQUES 
+!(((!( Tokencount(1 le F12))) OR ( Tokencount(3 le F7))) AND (EF( Tokencount(1 le F9)) OR ( Tokencount(1 le Section_8))))FORMULA CircularTrains-PT-012-CTLCardinality-9 1 TECHNIQUES 
+ Tokencount(Section_8 le F4)FORMULA CircularTrains-PT-012-CTLCardinality-10 1 TECHNIQUES 
+ Tokencount(F10 le Section_5)FORMULA CircularTrains-PT-012-CTLCardinality-11 1 TECHNIQUES 
+EX Tokencount(Section_3 le F10)FORMULA CircularTrains-PT-012-CTLCardinality-12 1 TECHNIQUES 
+EX(EX Tokencount(F2 le F11)) AND ((( Tokencount(3 le F2)) AND ( Tokencount(Section_2 le F5))) OR ( Tokencount(Section_7 le F7)))FORMULA CircularTrains-PT-012-CTLCardinality-13 0 TECHNIQUES 
+!(( Tokencount(Section_2 le F2)) OR (E( Tokencount(F12 le Section_6)) U ( Tokencount(1 le Section_4))))FORMULA CircularTrains-PT-012-CTLCardinality-14 1 TECHNIQUES 
+!( Tokencount(2 le F1))FORMULA CircularTrains-PT-012-CTLCardinality-15 0 TECHNIQUES 
