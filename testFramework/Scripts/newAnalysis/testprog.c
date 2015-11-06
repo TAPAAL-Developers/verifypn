@@ -1,10 +1,29 @@
 #include <stdio.h>
+#include <string.h>
 #include "time.h"
 
-double diffclock(clock_t clock1, clock_t clock2){
-    double diffticks = clock1 + clock2;
-    double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
-    return diffms;
+struct result
+{
+	char *toolname;
+	char *modelname;
+	char *examination;
+	int time_flag;
+	char *result;
+	char *status;
+	char *estimated_result;
+};
+
+const char* getfield(char* line, int num)
+{
+    const char* tok;
+    for (tok = strtok(line, ",");
+            tok && *tok;
+            tok = strtok(NULL, ",\n"))
+    {
+        if (!--num)
+            return tok;
+    }
+    return NULL;
 }
 
 int main(int argc, char const *argv[])
@@ -30,8 +49,6 @@ int main(int argc, char const *argv[])
 				printf("%s-%d %s\n", "FORMULA TEST", ++count, "DO_NOT_COMPETE");
 		}
 	}
-	clock_t parse_end = clock();
-	double elapse = diffclock(parse_end,parse_begin);
-	printf("%s: %lf\n", "TIME_ELAPSE", elapse);
+	fclose(ifp);
 	return 0;
 }
