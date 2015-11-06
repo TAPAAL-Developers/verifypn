@@ -47,7 +47,7 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[])
     root_node = doc.first_node();
 
 #ifdef Analysis
-    std::cout << "Analysis:: Queries:" << std::endl;
+    std::cout << "\nAnalysis:: Queries:" << std::endl;
 #endif
 
     int i = 0;
@@ -65,14 +65,14 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[])
         queryList[i]->Techniques = new std::vector<std::string>();
 
 #ifdef Analysis
-        std::cout << "Analysis:: Query: " << id_node->value() << std::endl;
+        std::cout << "\nAnalysis:: Query: " << id_node->value() << std::endl;
 #endif
         xml_node<> * formula_node = id_node->next_sibling("description")->next_sibling("formula");
         queryList[i]->Query = xmlToCTLquery(formula_node->first_node());
 
         //#ifdef PP
-        std::cout << "\n";
         printQuery(queryList[i]->Query);
+        std::cout << "\n";
         //#endif
 
         #ifdef DEBUG
