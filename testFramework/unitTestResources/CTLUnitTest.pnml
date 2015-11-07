@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+<net id="ComposedModel" type="http://www.pnml.org/version-2009/grammar/ptnet">
+<page id="page0">
+<place id="P0">
+<graphics>
+<position x="270" y="180"/>
+</graphics>
+<name>
+<graphics>
+<offset x="-5" y="35"/>
+</graphics>
+<text>P4</text>
+</name>
+<initialMarking>
+<graphics>
+<offset x="0" y="0"/>
+</graphics>
+<text>0</text>
+</initialMarking>
+</place>
+<place id="P1">
+<graphics>
+<position x="210" y="300"/>
+</graphics>
+<name>
+<graphics>
+<offset x="-5" y="35"/>
+</graphics>
+<text>P5</text>
+</name>
+<initialMarking>
+<graphics>
+<offset x="0" y="0"/>
+</graphics>
+<text>0</text>
+</initialMarking>
+</place>
+<place id="P2">
+<graphics>
+<position x="270" y="90"/>
+</graphics>
+<name>
+<graphics>
+<offset x="-5" y="35"/>
+</graphics>
+<text>P6</text>
+</name>
+<initialMarking>
+<graphics>
+<offset x="0" y="0"/>
+</graphics>
+<text>2</text>
+</initialMarking>
+</place>
+<place id="P3">
+<graphics>
+<position x="450" y="255"/>
+</graphics>
+<name>
+<graphics>
+<offset x="-5" y="35"/>
+</graphics>
+<text>P7</text>
+</name>
+<initialMarking>
+<graphics>
+<offset x="0" y="0"/>
+</graphics>
+<text>0</text>
+</initialMarking>
+</place>
+<transition id="T4">
+<name>
+<graphics>
+<offset x="-5" y="35"/>
+</graphics>
+<text>T4</text>
+</name>
+<graphics>
+<position x="120" y="184"/>
+</graphics>
+</transition>
+<transition id="T5">
+<name>
+<graphics>
+<offset x="-5" y="35"/>
+</graphics>
+<text>T5</text>
+</name>
+<graphics>
+<position x="405" y="186"/>
+</graphics>
+</transition>
+<transition id="T6">
+<name>
+<graphics>
+<offset x="-5" y="35"/>
+</graphics>
+<text>T6</text>
+</name>
+<graphics>
+<position x="360" y="300"/>
+</graphics>
+</transition>
+<arc id="P5_to_T5" source="P5" target="T5" type="normal">
+<inscription>
+<text>2</text>
+</inscription>
+</arc>
+<arc id="P4_to_T5" source="P4" target="T5" type="normal"/>
+<arc id="P6_to_T4" source="P6" target="T4" type="normal"/>
+<arc id="P7_to_T6" source="P7" target="T6" type="normal"/>
+<arc id="T4_to_P5" source="T4" target="P5" type="normal"/>
+<arc id="T4_to_P4" source="T4" target="P4" type="normal"/>
+<arc id="T5_to_P7" source="T5" target="P7" type="normal"/>
+<arc id="T5_to_P6" source="T5" target="P6" type="normal"/>
+<arc id="T6_to_P5" source="T6" target="P5" type="normal"/>
+</page>
+<name>
+<text>ComposedModel</text>
+</name>
+</net>
+</pnml>

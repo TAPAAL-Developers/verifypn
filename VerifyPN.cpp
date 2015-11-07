@@ -74,14 +74,41 @@ void testsuit(){
     CTLParser testParser = CTLParser();
     testParser.RunParserTest();
     
-    
-    /*Under construction
     //Test the Engine
-    PetriNet* net; 
-    MarkVal* m0;
+    string modelfilestring = "testFramework/unitTestResources/CTLUnitTest.pnml";
+    const char *modelfile = modelfilestring.c_str();
+    PetriNet* net = NULL; 
+    MarkVal* m0 = NULL;
+    
+    //Load the model
+		ifstream mfile(modelfile, ifstream::in);
+		if(!mfile){
+			fprintf(stderr, "Error: Model file \"%s\" couldn't be opened\n", modelfile);
+			fprintf(stdout, "CANNOT_COMPUTE\n");
+			return;
+		}
+
+		//Read everything
+		stringstream buffer;
+		buffer << mfile.rdbuf();
+
+		//Parse and build the petri net
+		PetriNetBuilder builder(false);
+		PNMLParser parser;
+
+		parser.parse(buffer.str(), &builder);
+		parser.makePetriNet();
+                		
+		//Build the petri net
+		net = builder.makePetriNet();
+		m0 = builder.makeInitialMarking();
+
+		// Close the file
+		mfile.close();
+    
     CTLEngine testEngine(net, m0);
     testEngine.RunEgineTest();
-    */
+    
 }
 
 void search_ctl_query(PetriNet* net, MarkVal* m0, CTLFormula *queryList[], ReturnValues result[]){
@@ -111,7 +138,7 @@ int main(int argc, char* argv[]){
 	int kbound = 0;
 	SearchStrategies searchstrategy = BestFS;
 	int memorylimit = 0;
-    char* modelfile = NULL;
+        char* modelfile = NULL;
 	char* queryfile = NULL;
 	bool disableoverapprox = false;
   	int enablereduction = 0; // 0 ... disabled (default),  1 ... aggresive, 2 ... k-boundedness preserving

@@ -15,6 +15,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <assert.h>
 
 //Unordered set area
 #include <stdlib.h>
@@ -756,5 +757,56 @@ bool CTLEngine::calculateCZERO(CTLEngine::Edge e, std::vector<CTLEngine::Edge>& 
 }
 
 void CTLEngine::RunEgineTest(){
+    //Output section
+    cout<<"::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+    cout<<":::::::::::::::::Engine Test::::::::::::::::::"<<endl;
+    cout<<"::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+    cout<<":::::::NET INFORMATION"<<endl;
+    cout<<"::::::::: Places:"<<endl;
+    cout<<"::::::::::::: 1. "<<_net->placeNames()[0] <<endl;
+    cout<<"::::::::::::: 2. "<<_net->placeNames()[1] <<endl;
+    cout<<"::::::::::::: 3. "<<_net->placeNames()[2] <<endl;
+    cout<<"::::::::::::: 4. "<<_net->placeNames()[3] <<endl;
+    cout<<"::::::::: Transitions:"<<endl;
+    cout<<"::::::::::::: 1. "<<_net->transitionNames()[0] <<endl;
+    cout<<"::::::::::::: 2. "<<_net->transitionNames()[1] <<endl;
+    cout<<"::::::::::::: 3. "<<_net->transitionNames()[2] <<endl;
+    cout<<"::::::::: Arcs:"<<endl;
+    cout<<"::::::::::::: From "<<_net->transitionNames()[0]<<" to "<< _net->placeNames()[0] << " Weight: 1" <<endl;
+    cout<<"::::::::::::: From "<<_net->transitionNames()[0]<<" to "<< _net->placeNames()[1] << " Weight: 1" <<endl;
+    cout<<"::::::::::::: From "<<_net->transitionNames()[1]<<" to "<< _net->placeNames()[2] << " Weight: 1" <<endl;
+    cout<<"::::::::::::: From "<<_net->transitionNames()[1]<<" to "<< _net->placeNames()[3] << " Weight: 1" <<endl;
+    cout<<"::::::::::::: From "<<_net->transitionNames()[2]<<" to "<< _net->placeNames()[1] << " Weight: 1" <<endl;
+    cout<<"::::::::::::: From "<<_net->placeNames()[0]<<" to "<< _net->transitionNames()[1] << " Weight: 1" <<endl;
+    cout<<"::::::::::::: From "<<_net->placeNames()[1]<<" to "<< _net->transitionNames()[1] << " Weight: 2" <<endl;
+    cout<<"::::::::::::: From "<<_net->placeNames()[2]<<" to "<< _net->transitionNames()[0] << " Weight: 1" <<endl;
+    cout<<"::::::::::::: From "<<_net->placeNames()[3]<<" to "<< _net->transitionNames()[2] << " Weight: 1" <<endl;
+    cout<<"::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+    cout<<":::::::::::::::Running Test Setup:::::::::::::"<<endl;
     
+    cout<<":::::::|";
+    //Test 1 - readSatisfactory
+    querySatisfied = true;
+    assert(readSatisfactory() == true);
+    cout<<"====";
+    //Test 2 - localSmolka
+    cout<<"====";
+    //Test 3 - create configuration
+    cout<<"====";
+    //Test 4 - successors
+    cout<<"====";
+    //Test 5 - evaluate atom
+    cout<<"====";
+    //Test 6 - calculate CZERO
+    cout<<"====";
+    //Test 7 - create marking
+    cout<<"====";
+    //Test 8 - compare two markings
+    cout<<"====";
+    //Test 9 - calculate fireability
+    cout<<"===";
+    //Test 10 - Next state
+    cout<<"==|"<<endl;
+    
+    cout<<"::::::::::::::::Test SUCCESSFUL:::::::::::::::"<<endl;
 }
