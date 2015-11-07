@@ -29,6 +29,7 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include <assert.h>
 
 #include <PetriEngine/PQL/PQLParser.h>
 #include <PetriEngine/PQL/Contexts.h>
@@ -68,6 +69,20 @@ enum SearchStrategies{
 	OverApprox		//LinearOverApprx
 };
 
+void testsuit(){
+    //Test the Parser
+    CTLParser testParser = CTLParser();
+    testParser.RunParserTest();
+    
+    
+    /*Under construction
+    //Test the Engine
+    PetriNet* net; 
+    MarkVal* m0;
+    CTLEngine testEngine(net, m0);
+    testEngine.RunEgineTest();
+    */
+}
 
 void search_ctl_query(PetriNet* net, MarkVal* m0, CTLFormula *queryList[], ReturnValues result[]){
     CTLEngine engine(net, m0);
@@ -107,6 +122,7 @@ int main(int argc, char* argv[]){
         
         //CTL variables
         bool isCTLlogic = false;
+        bool istest = false;
         string query_string_ctl;
 
         
@@ -127,6 +143,8 @@ int main(int argc, char* argv[]){
 			outputtrace = true;
 		}else if(strcmp(argv[i], "-ctl") == 0){
                     isCTLlogic = true;
+                }else if(strcmp(argv[i], "-test") == 0){
+                    istest = true;
                 }else if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--search-strategy") == 0){
 			if (i==argc-1) {
                                 fprintf(stderr, "Missing search strategy after \"%s\"\n\n", argv[i]);
@@ -245,7 +263,11 @@ int main(int argc, char* argv[]){
 	
 
 	//----------------------- Validate Arguments -----------------------//
-
+        if(istest){
+            cout<<"Entering test suit"<<endl;
+            testsuit();
+            return 0;
+        }
 	//Check for model file
 	if(!modelfile){
 		fprintf(stderr, "Argument Error: No model-file provided\n");
@@ -341,7 +363,6 @@ int main(int argc, char* argv[]){
         std::cout << "Analysis:: Modefile: " << modelfile << endl;
         std::cout << "Analysis:: Modelname: " << modelname << endl;
 //#endif
-        string queryXMLlist[15];
         ifstream xmlfile (queryfile);
         vector<char> buffer((istreambuf_iterator<char>(xmlfile)), istreambuf_iterator<char>());
         buffer.push_back('\0');

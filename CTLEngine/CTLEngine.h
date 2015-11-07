@@ -74,7 +74,7 @@ public:
     typedef std::vector<Markings> MarkingsList;
     typedef MarkingsList::iterator mIter;
     
-    
+    void RunEgineTest();
     void search(CTLTree *queryList);
     bool readSatisfactory();
 

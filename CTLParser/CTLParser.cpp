@@ -7,6 +7,7 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <string.h>
 #include <iostream>
 #include <stdio.h>
@@ -339,4 +340,53 @@ bool CTLParser::charEmpty(char *query) {
         return true;
     }
     return false;
+}
+
+//Test functions
+void CTLParser::RunParserTest(){
+    CTLFormula *queryList[8];
+    std::string queryXMLlist[8];
+    std::string querypath = "testFramework/unitTestResources/TEST_CTLFireabilitySimple.xml";
+            //"testFramework/unitTestResources/TEST_CTLFireabilitySimple.xml";
+    const char* queryfile = querypath.c_str();
+    std::cout<<"Set queryfile to path: "<<queryfile<<std::endl;
+    std::ifstream xmlfile (queryfile);
+    std::cout<<"Created file stream"<<std::endl;
+    std::vector<char> buffer((std::istreambuf_iterator<char>(xmlfile)), std::istreambuf_iterator<char>());
+    buffer.push_back('\0');
+    
+    //Test 1 - charEmpty
+    char* test1input = NULL;
+    bool resTest1 = charEmpty(test1input);
+    assert(resTest1 == true);
+    
+    //Test 2 - Correct queries
+    ParseXMLQuery(buffer, queryList);
+        //Confirm AF becomes AF
+        assert(queryList[0]->Query->quantifier == A);
+        assert(queryList[0]->Query->path == F);
+        //Confirm EF becomes EF
+        assert(queryList[1]->Query->quantifier == E);
+        assert(queryList[1]->Query->path == F);
+        //Confirm AG becomes !EF!()
+        assert(queryList[2]->Query->quantifier == NEG);
+        assert(queryList[2]->Query->first->quantifier == E);
+        assert(queryList[2]->Query->first->path == F);
+        assert(queryList[2]->Query->first->first->quantifier == NEG);
+        //Confirm EG becomes EG
+        assert(queryList[3]->Query->quantifier == E);
+        assert(queryList[3]->Query->path == G);
+        //Confirm AU becomes AU
+        assert(queryList[4]->Query->quantifier == A);
+        assert(queryList[4]->Query->path == U);
+        //Confirm EU becomes EU
+        assert(queryList[5]->Query->quantifier == E);
+        assert(queryList[5]->Query->path == U);
+        //Confirm AX becomes AX
+        assert(queryList[6]->Query->quantifier == A);
+        assert(queryList[6]->Query->path == X);
+        //Confirm EX becomes EX
+        assert(queryList[7]->Query->quantifier == E);
+        assert(queryList[7]->Query->path == X);
+    
 }

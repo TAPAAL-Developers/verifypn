@@ -754,3 +754,7 @@ bool CTLEngine::calculateCZERO(CTLEngine::Edge e, std::vector<CTLEngine::Edge>& 
 
     return propegateCZERO;    
 }
+
+void CTLEngine::RunEgineTest(){
+    
+}

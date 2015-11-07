@@ -73,6 +73,7 @@ public:
     virtual ~CTLParser();
     void ParseXMLQuery(std::vector<char> buffer, CTLFormula **queryList);
     void printQuery(CTLTree *query);
+    void RunParserTest();
 private:
     bool isAG = false;
     int numberoftransitions;
