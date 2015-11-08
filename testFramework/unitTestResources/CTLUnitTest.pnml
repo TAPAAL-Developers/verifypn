@@ -10,7 +10,7 @@
 <graphics>
 <offset x="-5" y="35"/>
 </graphics>
-<text>P4</text>
+<text>P0</text>
 </name>
 <initialMarking>
 <graphics>
@@ -27,7 +27,7 @@
 <graphics>
 <offset x="-5" y="35"/>
 </graphics>
-<text>P5</text>
+<text>P1</text>
 </name>
 <initialMarking>
 <graphics>
@@ -44,7 +44,7 @@
 <graphics>
 <offset x="-5" y="35"/>
 </graphics>
-<text>P6</text>
+<text>P2</text>
 </name>
 <initialMarking>
 <graphics>
@@ -61,7 +61,7 @@
 <graphics>
 <offset x="-5" y="35"/>
 </graphics>
-<text>P7</text>
+<text>P3</text>
 </name>
 <initialMarking>
 <graphics>
@@ -70,52 +70,52 @@
 <text>0</text>
 </initialMarking>
 </place>
-<transition id="T4">
+<transition id="T0">
 <name>
 <graphics>
 <offset x="-5" y="35"/>
 </graphics>
-<text>T4</text>
+<text>T0</text>
 </name>
 <graphics>
 <position x="120" y="184"/>
 </graphics>
 </transition>
-<transition id="T5">
+<transition id="T1">
 <name>
 <graphics>
 <offset x="-5" y="35"/>
 </graphics>
-<text>T5</text>
+<text>T1</text>
 </name>
 <graphics>
 <position x="405" y="186"/>
 </graphics>
 </transition>
-<transition id="T6">
+<transition id="T2">
 <name>
 <graphics>
 <offset x="-5" y="35"/>
 </graphics>
-<text>T6</text>
+<text>T2</text>
 </name>
 <graphics>
 <position x="360" y="300"/>
 </graphics>
 </transition>
-<arc id="P5_to_T5" source="P5" target="T5" type="normal">
+<arc id="P1_to_T1" source="P1" target="T1" type="normal">
 <inscription>
 <text>2</text>
 </inscription>
 </arc>
-<arc id="P4_to_T5" source="P4" target="T5" type="normal"/>
-<arc id="P6_to_T4" source="P6" target="T4" type="normal"/>
-<arc id="P7_to_T6" source="P7" target="T6" type="normal"/>
-<arc id="T4_to_P5" source="T4" target="P5" type="normal"/>
-<arc id="T4_to_P4" source="T4" target="P4" type="normal"/>
-<arc id="T5_to_P7" source="T5" target="P7" type="normal"/>
-<arc id="T5_to_P6" source="T5" target="P6" type="normal"/>
-<arc id="T6_to_P5" source="T6" target="P5" type="normal"/>
+<arc id="P0_to_T1" source="P0" target="T1" type="normal"/>
+<arc id="P2_to_T0" source="P2" target="T0" type="normal"/>
+<arc id="P3_to_T2" source="P3" target="T2" type="normal"/>
+<arc id="T0_to_P1" source="T0" target="P1" type="normal"/>
+<arc id="T0_to_P0" source="T0" target="P0" type="normal"/>
+<arc id="T1_to_P3" source="T1" target="P3" type="normal"/>
+<arc id="T1_to_P2" source="T1" target="P2" type="normal"/>
+<arc id="T2_to_P1" source="T2" target="P1" type="normal"/>
 </page>
 <name>
 <text>ComposedModel</text>

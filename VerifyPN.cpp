@@ -79,7 +79,8 @@ void testsuit(){
     const char *modelfile = modelfilestring.c_str();
     PetriNet* net = NULL; 
     MarkVal* m0 = NULL;
-    
+    PNMLParser::InhibitorArcList inhibarcs;
+    PNMLParser::TransitionEnablednessMap transitionEnabledness;
     //Load the model
 		ifstream mfile(modelfile, ifstream::in);
 		if(!mfile){
@@ -99,6 +100,8 @@ void testsuit(){
 		parser.parse(buffer.str(), &builder);
 		parser.makePetriNet();
                 		
+                inhibarcs = parser.getInhibitorArcs(); // Remember inhibitor arcs
+		transitionEnabledness = parser.getTransitionEnabledness(); // Remember conditions for transitions
 		//Build the petri net
 		net = builder.makePetriNet();
 		m0 = builder.makeInitialMarking();

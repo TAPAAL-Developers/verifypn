@@ -679,14 +679,11 @@ bool CTLEngine::compareMarking(PetriEngine::MarkVal m[], PetriEngine::MarkVal m1
 }
 
 void CTLEngine::makeNewMarking(PetriEngine::MarkVal m[], int t, PetriEngine::MarkVal nm[]){
-
-
-        for(int p = 0; p < _nplaces; p++){
-            nm[p] = m[p];
-            int place = nm[p] - _net->inArc(p,t);  
-            nm[p] = place + _net->outArc(t,p);
-        }
-       
+    memcpy(nm, m, (sizeof(int)*_nplaces));
+    for(int p = 0; p < _nplaces; p++){
+        int place = nm[p] - _net->inArc(p,t);  
+        nm[p] = place + _net->outArc(t,p);
+    }
 }
 
 std::vector<int> CTLEngine::calculateFireableTransistions(PetriEngine::MarkVal m[]){
@@ -772,15 +769,20 @@ void CTLEngine::RunEgineTest(){
     cout<<"::::::::::::: 2. "<<_net->transitionNames()[1] <<endl;
     cout<<"::::::::::::: 3. "<<_net->transitionNames()[2] <<endl;
     cout<<"::::::::: Arcs:"<<endl;
-    cout<<"::::::::::::: From "<<_net->transitionNames()[0]<<" to "<< _net->placeNames()[0] << " Weight: 1" <<endl;
-    cout<<"::::::::::::: From "<<_net->transitionNames()[0]<<" to "<< _net->placeNames()[1] << " Weight: 1" <<endl;
-    cout<<"::::::::::::: From "<<_net->transitionNames()[1]<<" to "<< _net->placeNames()[2] << " Weight: 1" <<endl;
-    cout<<"::::::::::::: From "<<_net->transitionNames()[1]<<" to "<< _net->placeNames()[3] << " Weight: 1" <<endl;
-    cout<<"::::::::::::: From "<<_net->transitionNames()[2]<<" to "<< _net->placeNames()[1] << " Weight: 1" <<endl;
-    cout<<"::::::::::::: From "<<_net->placeNames()[0]<<" to "<< _net->transitionNames()[1] << " Weight: 1" <<endl;
-    cout<<"::::::::::::: From "<<_net->placeNames()[1]<<" to "<< _net->transitionNames()[1] << " Weight: 2" <<endl;
-    cout<<"::::::::::::: From "<<_net->placeNames()[2]<<" to "<< _net->transitionNames()[0] << " Weight: 1" <<endl;
-    cout<<"::::::::::::: From "<<_net->placeNames()[3]<<" to "<< _net->transitionNames()[2] << " Weight: 1" <<endl;
+    cout<<"::::::::::::: From "<<_net->transitionNames()[0]<<" to "<< _net->placeNames()[0] << " Weight: "<<_net->outArc(0,0) <<endl;
+    cout<<"::::::::::::: From "<<_net->transitionNames()[0]<<" to "<< _net->placeNames()[1] << " Weight: "<<_net->outArc(0,1) <<endl;
+    cout<<"::::::::::::: From "<<_net->transitionNames()[1]<<" to "<< _net->placeNames()[2] << " Weight: "<<_net->outArc(1,2) <<endl;
+    cout<<"::::::::::::: From "<<_net->transitionNames()[1]<<" to "<< _net->placeNames()[3] << " Weight: "<<_net->outArc(1,3) <<endl;
+    cout<<"::::::::::::: From "<<_net->transitionNames()[2]<<" to "<< _net->placeNames()[1] << " Weight: "<<_net->outArc(2,1) <<endl;
+    cout<<"::::::::::::: From "<<_net->placeNames()[0]<<" to "<< _net->transitionNames()[1] << " Weight: "<<_net->inArc(0,1) <<endl;
+    cout<<"::::::::::::: From "<<_net->placeNames()[1]<<" to "<< _net->transitionNames()[1] << " Weight: "<<_net->inArc(1,1) <<endl;
+    cout<<"::::::::::::: From "<<_net->placeNames()[2]<<" to "<< _net->transitionNames()[0] << " Weight: "<<_net->inArc(2,0) <<endl;
+    cout<<"::::::::::::: From "<<_net->placeNames()[3]<<" to "<< _net->transitionNames()[2] << " Weight: "<<_net->inArc(3,2) <<endl;
+    cout<<"::::::::: Initial Marking:"<<endl;
+    cout<<"::::::::::::: P0: "<<_m0[0] <<endl;
+    cout<<"::::::::::::: P1: "<<_m0[1] <<endl;
+    cout<<"::::::::::::: P2: "<<_m0[2] <<endl;
+    cout<<"::::::::::::: P3: "<<_m0[3] <<endl;
     cout<<"::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
     cout<<":::::::::::::::Running Test Setup:::::::::::::"<<endl;
     
@@ -789,22 +791,45 @@ void CTLEngine::RunEgineTest(){
     querySatisfied = true;
     assert(readSatisfactory() == true);
     cout<<"====";
+    
     //Test 2 - localSmolka
     cout<<"====";
+    
     //Test 3 - create configuration
+    /** createConfiguration 
+     ** - IN *marking, *query 
+     ** - OUT configuration  **/
     cout<<"====";
+    
     //Test 4 - successors
     cout<<"====";
+    
     //Test 5 - evaluate atom
     cout<<"====";
+    
     //Test 6 - calculate CZERO
     cout<<"====";
+    
     //Test 7 - create marking
+    PetriEngine::MarkVal* testMarking = new PetriEngine::MarkVal[_nplaces];
+    makeNewMarking(_m0, 0, testMarking);
+    assert(testMarking[0] == 1);
+    assert(testMarking[1] == 1);
+    assert(testMarking[2] == 1);
+    assert(testMarking[3] == 0);
     cout<<"====";
+    
     //Test 8 - compare two markings
+    assert(compareMarking(_m0, testMarking) == false);
+    assert(compareMarking(_m0, _m0) == true);
     cout<<"====";
+    
     //Test 9 - calculate fireability
+    vector<int> resvector = calculateFireableTransistions(_m0);
+    assert(resvector[0] == 0);
+    assert(resvector.size() == 1);
     cout<<"===";
+    
     //Test 10 - Next state
     cout<<"==|"<<endl;
     
