@@ -79,6 +79,7 @@ void testsuit(){
     const char *modelfile = modelfilestring.c_str();
     PetriNet* net = NULL; 
     MarkVal* m0 = NULL;
+    bool certainZero = true;
     PNMLParser::InhibitorArcList inhibarcs;
     PNMLParser::TransitionEnablednessMap transitionEnabledness;
     //Load the model
@@ -109,13 +110,13 @@ void testsuit(){
 		// Close the file
 		mfile.close();
     
-    CTLEngine testEngine(net, m0);
+    CTLEngine testEngine(net, m0, certainZero);
     testEngine.RunEgineTest();
     
 }
 
-void search_ctl_query(PetriNet* net, MarkVal* m0, CTLFormula *queryList[], ReturnValues result[]){
-    CTLEngine engine(net, m0);
+void search_ctl_query(PetriNet* net, MarkVal* m0, CTLFormula *queryList[], ReturnValues result[], bool certainZero){
+    CTLEngine engine(net, m0, certainZero);
 
     for (int i = 0; i < 16 ; i++) {
         engine.search(queryList[i]->Query);
@@ -154,6 +155,7 @@ int main(int argc, char* argv[]){
         bool isCTLlogic = false;
         bool istest = false;
         string query_string_ctl;
+        bool certainZero = false;
 
         
 	//----------------------- Parse Arguments -----------------------//
@@ -173,6 +175,7 @@ int main(int argc, char* argv[]){
 			outputtrace = true;
 		}else if(strcmp(argv[i], "-ctl") == 0){
                     isCTLlogic = true;
+
                 }else if(strcmp(argv[i], "-test") == 0){
                     istest = true;
                 }else if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--search-strategy") == 0){
@@ -195,7 +198,9 @@ int main(int argc, char* argv[]){
 				fprintf(stderr, "Argument Error: Unrecognized search strategy \"%s\"\n", s);
 				return ErrorCode;
 			}
-		} else if (strcmp(argv[i], "-m") == 0 || strcmp(argv[i], "--memory-limit") == 0) {
+		} else if(strcmp(argv[i], "-czero") == 0){
+                    	certainZero = true;
+        } else if (strcmp(argv[i], "-m") == 0 || strcmp(argv[i], "--memory-limit") == 0) {
 			if (i == argc - 1) {
 				fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
 				return ErrorCode;
@@ -695,7 +700,7 @@ int main(int argc, char* argv[]){
         //-------------------------------------------------------------------//
 	else {
             ReturnValues retval[16];
-            search_ctl_query(net, m0, queryList, retval);
+            search_ctl_query(net, m0, queryList, retval, certainZero);
             int i;
             for (i = 0; i <16; i++){
                 if (retval[i] == ErrorCode) {
