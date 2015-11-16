@@ -6,9 +6,12 @@
  */
 
 #ifndef CTLPARSER_H
-#include "rapidxml-1.13/rapidxml.hpp"
- 
 #define	CTLPARSER_H
+
+#include "rapidxml-1.13/rapidxml.hpp"
+#include <vector>
+#include <string>
+#include <iostream>
 
 enum Quantifier { AND = 1, OR, A, E, NEG, EMPTY = -1 };
 enum Path { G = 1, F, X, U, pError = -1 };

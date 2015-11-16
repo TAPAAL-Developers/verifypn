@@ -10,7 +10,7 @@ namespace ctl {
 //VLA we must make use of a variable to
 //said length.
 //Along with that we are going make a few
-//inline functions to make it the class
+//inline functions to make the class
 //act/look/feel like an array.
 
 class Marking

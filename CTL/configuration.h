@@ -1,11 +1,14 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
+#include "../CTLParser/CTLParser.h"
+#include "marking.h"
+#include <list>
+
 namespace ctl {
 
-//Forward Decleration
+//Forward Declaration of edge
 class Edge;
-class CTLTree;
 
 class Configuration
 {
@@ -13,20 +16,21 @@ class Configuration
         CZERO = 2, ONE = 1, ZERO = 0, UNKNOWN = -1
     };
 public:
-    Configuration(){};
-    Configuration(Marking* t_marking, CTLParser::CTLTree* t_query)
-        : m_marking(t_marking), m_query(t_query){}
+    Configuration(){}
+    Configuration(Marking* t_marking, CTLTree* t_query);
 
     bool operator==(const Configuration& rhs)const;
 
-    //Return pointers here instead?
-    inline Marking& Marking(){return m_marking;}
-    inline CTLParser::CTLTree& Query(){return m_query;}
+    inline Marking* marking(){return m_marking;}
+    inline CTLTree* Query(){return m_query;}
 
+    bool IsNegated = false;
     Assignment assignment = UNKNOWN;
+    std::list<edge> DependencySet;
+
 private:
     Marking* m_marking;
-    CTLParser::CTLTree* m_query;
+    CTLTree* m_query;
 };
 }// end of ctl
 
