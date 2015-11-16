@@ -23,12 +23,12 @@ public:
 
     inline Marking* marking(){return m_marking;}
     inline CTLTree* Query(){return m_query;}
-
+    std::list<Edge*> DependencySet;
     bool IsNegated = false;
     Assignment assignment = UNKNOWN;
-    std::list<edge> DependencySet;
 
 private:
+
     Marking* m_marking;
     CTLTree* m_query;
 };
