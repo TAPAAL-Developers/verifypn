@@ -15,27 +15,60 @@ namespace ctl {
 
 class Marking
 {
-public:
+    public:
+    // Equality checker for containers
+    // with pointers to markings
+    struct Marking_Equal_To{
+        bool operator()(const Marking* rhs, const Marking* lhs) const{
+            return (*rhs)==(*lhs);
+        }
+    };
+
     Marking(){}
     Marking(PetriEngine::MarkVal* t_marking, size_t t_length)
         : m_marking(t_marking), m_length(t_length){}
 
-    ~Marking(){free(m_marking);}
+    virtual ~Marking(){free(m_marking);}
 
     void CopyMarking(const Marking& t_marking);
-    void CopyMarking(const PetriEngine::MarkVal t_markvals[], const size_t t_length);
 
     bool operator==(const Marking& rhs) const;
 
     //Hopefully the compiler with agree with this inlining
-    inline PetriEngine::MarkVal operator[](const int index) const {
+    inline PetriEngine::MarkVal& operator[](const int index) const {
         return m_marking[index];
     }
     inline PetriEngine::MarkVal* Value() const {return m_marking;}
     inline size_t Length() const {return m_length;}
+
 private:
     PetriEngine::MarkVal* m_marking;
     size_t m_length;
 };
+}
+
+namespace std{
+    // Specializations of hash functions.
+    // Normal
+    template<>
+    struct hash<ctl::Marking>{
+        size_t operator()(const ctl::Marking& t_marking ) const {
+            size_t seed = 0x9e3779b9;
+
+            for(int i = 0; i < t_marking.Length(); i++){
+                seed ^= t_marking[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+            }
+
+            return seed;
+        }
+    };
+    // Pointer to Marking
+    template<>
+    struct hash<ctl::Marking*>{
+        size_t operator()(const ctl::Marking* t_marking ) const {
+            hash<ctl::Marking> hasher;
+            return hasher.operator ()(*t_marking);
+        }
+    };
 }
 #endif // MARKING_H

@@ -4,6 +4,7 @@
 #include "../CTLParser/CTLParser.h"
 #include "marking.h"
 #include <list>
+#include <stdint.h>
 
 namespace ctl {
 
@@ -21,17 +22,27 @@ public:
 
     bool operator==(const Configuration& rhs)const;
 
-    inline Marking* marking(){return m_marking;}
-    inline CTLTree* Query(){return m_query;}
+    Marking* marking;
+    CTLTree* Query;
     std::list<Edge*> DependencySet;
     bool IsNegated = false;
     Assignment assignment = UNKNOWN;
-
-private:
-
-    Marking* m_marking;
-    CTLTree* m_query;
 };
 }// end of ctl
+
+namespace std{
+template<>
+struct hash<ctl::Configuration>{
+    size_t operator()(const ctl::Configuration& t_config) const {
+        hash<ctl::Marking> hasher;
+        size_t seed = (size_t)reinterpret_cast<uintptr_t>(t_config.Query);
+        //Combine query ptr adr with marking hashing
+        size_t result = hasher.operator ()(*t_config.marking);
+        result ^= seed + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+
+        return result;
+    }
+};
+}
 
 #endif // CONFIGURATION_H

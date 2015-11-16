@@ -2,19 +2,19 @@
 
 namespace ctl{
 
-Configuration::Configuration(Marking *t_marking, CTLTree *t_query){
-    m_marking = t_marking;
-    m_query = t_query;
+Configuration::Configuration(Marking * t_marking, CTLTree * t_query){
+    marking = t_marking;
+    Query = t_query;
 }
 
 bool Configuration::operator ==(const Configuration& rhs) const{
-    if(m_query != rhs.m_query)
+    if(Query != rhs.Query)
         return false;
     else if(assignment != rhs.assignment)
         return false;
     else if(IsNegated != rhs.IsNegated)
         return false;
-    else if(*m_marking == *(rhs.m_marking))//Use equality from marking
+    else if(*marking == *(rhs.marking))//Use equality from marking
         return true;
     else
         return false;
