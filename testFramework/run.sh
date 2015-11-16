@@ -7,7 +7,7 @@ ENGINE="-ctl"
 TOOL="CTLEngine.sh"
 ANALYSE="analyse.sh"
 
-REL_PROGRAMPATH="$1"
+REL_PROGRAMPATH="../verifypn-linux64"
 
 QUERYTYPE=$2
 declare -a QUERY;
