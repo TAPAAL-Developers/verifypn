@@ -91,7 +91,7 @@ bool CTLEngine::readSatisfactory() {
 //Private functions
 
 bool CTLEngine::localSmolka(Configuration v){
-    *(v.assignment) = ZERO;
+    assignConfiguration(v, ZERO);
     std::vector<CTLEngine::Edge> W;
     successors(v,W);
     while (W.size() != 0) {
@@ -147,12 +147,10 @@ bool CTLEngine::localSmolka(Configuration v){
             cout<<"All targets were 1-assigned\n"<<flush;
             #endif
 
-            if(e.source.shouldBeNegated)
-            *(e.source.assignment) = CZERO;
-            else  *(e.source.assignment) = ONE;
+            assignConfiguration(e.source, ONE);
 
             if(e.source == v){
-			    	return (*(v.assignment) == ONE) ? true : false;
+			    return (*(v.assignment) == ONE) ? true : false;
 			}
 		
 
@@ -165,12 +163,9 @@ bool CTLEngine::localSmolka(Configuration v){
         }
         if (targetCZEROassignments > 0) {
             
-            if(e.source.shouldBeNegated)
-            *(e.source.assignment) = ONE;
-            else  *(e.source.assignment) = CZERO;	
+            assignConfiguration(e.source, CZERO);
 
             if(e.source == v){
-
 			    	return (*(v.assignment) == ONE) ? true : false;
             } 
 
@@ -204,7 +199,7 @@ bool CTLEngine::localSmolka(Configuration v){
             for (i = 0; i < e.targets.size(); i++ ){
                 if (*(e.targets[i].assignment) == UNKNOWN) {
                     Configuration u = e.targets[i];
-                    *(u.assignment) = ZERO;
+                    assignConfiguration(u, ZERO);
                     u.denpendencyList.push_back(e);
                     successors(u,W);
                    
@@ -222,18 +217,21 @@ bool CTLEngine::localSmolka(Configuration v){
     #ifdef DEBUG
     cout<<"The final assignment of the initial configuration is: " << *(v.assignment)<<endl;
     #endif
-    if (v.shouldBeNegated){
-    	return (*(v.assignment) == ONE) ? false : true;
-    } else { 
-    	return (*(v.assignment) == ONE) ? true : false;
-    }
+    //cout << "the final value is: " << *(v.assignment) << "\n" << flush;
+    return (*(v.assignment) == ONE) ? true : false;
 }
 
 
 
 
 void CTLEngine::assignConfiguration(Configuration v, Assignment a) {
-    *(v.assignment) = a;
+	if(v.shouldBeNegated == true && a == ONE){
+		*(v.assignment) = CZERO;
+	} else if(v.shouldBeNegated == true && (a == CZERO || a == ZERO)) {
+		*(v.assignment) = ONE;
+	} else {
+		*(v.assignment) = a;
+	}
 }
 
 
@@ -412,6 +410,7 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
     		Configuration c = createConfiguration(v.marking, v.query->first);
     		Edge e;
     		e.source = v;
+    		localSmolka(c);
     		e.targets.push_back(c);
     		W.push_back(e);
 
@@ -420,9 +419,7 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
     	if (evaluateQuery(v.marking, v.query)){
             Edge e;
             e.source = v;
-            if(v.shouldBeNegated){
-                *(v.assignment) = CZERO;
-            } else *(v.assignment) = ONE;
+            assignConfiguration(v, ONE);
             Configuration &c = v;
             e.targets.push_back(c);
             W.push_back(e);
@@ -430,10 +427,7 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
 		} else {
             Edge e;
             e.source = v;
-            if(v.shouldBeNegated){
-                *(v.assignment) = ONE;
-            } else *(v.assignment) = CZERO;
-
+            assignConfiguration(v, CZERO);
             Configuration &c = v;
             e.targets.push_back(c);
             W.push_back(e);
