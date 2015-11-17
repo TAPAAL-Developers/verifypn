@@ -388,5 +388,6 @@ void CTLParser::RunParserTest(){
         //Confirm EX becomes EX
         assert(queryList[7]->Query->quantifier == E);
         assert(queryList[7]->Query->path == X);
-    
+    //Test 3 - The printer
+        printQuery(queryList[0]->Query);
 }

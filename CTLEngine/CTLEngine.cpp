@@ -781,21 +781,55 @@ void CTLEngine::RunEgineTest(){
     cout<<":::::::::::::::Running Test Setup:::::::::::::"<<endl;
     
     cout<<":::::::|";
+    PetriEngine::MarkVal* testMarking = new PetriEngine::MarkVal[_nplaces];
+    cout<<"Making Query\n";
+    CTLTree *testquery = (CTLTree*)malloc(sizeof(CTLTree));
+    testquery->quantifier = E;
+    testquery->path = F;
+    CTLTree *subtestquery = (CTLTree*)malloc(sizeof(CTLTree));
+    subtestquery->quantifier = AND;
+    
+    CTLTree *subsubtestquery1 = (CTLTree*)malloc(sizeof(CTLTree));
+    subsubtestquery1->a.isFireable = true;
+    subsubtestquery1->a.fireset[0] = strcpy((char*)malloc(sizeof(char)*sizeof("T0")), "T0");
+    
+    CTLTree *subsubtestquery2 = (CTLTree*)malloc(sizeof(CTLTree));  
+    subsubtestquery2->a.isFireable = true;
+    /*subsubtestquery2->a.fireset[0] = */strcpy((char*)malloc(sizeof(char)*sizeof("T0")), "T0");
+                                         
+    subtestquery->first = subsubtestquery1;
+    subtestquery->second = subsubtestquery2;
+    testquery->first = subtestquery;
+    
+    cout<<"Making Query from "<<subsubtestquery1->a.fireset[0]<<"\n";
+    
     //Test 1 - readSatisfactory
     querySatisfied = true;
     assert(readSatisfactory() == true);
     cout<<"====";
     
-    //Test 2 - localSmolka
+    //Test 2 - Create Configuration
+    Configuration testconf = createConfiguration(_m0, testquery);
+    assert(testconf.shouldBeNegated == false);
+    configPrinter(testconf);
     cout<<"====";
     
-    //Test 3 - create configuration
-    /** createConfiguration 
-     ** - IN *marking, *query 
-     ** - OUT configuration  **/
+    //Test 3 - localSmolka
+    assert(localSmolka(testconf));
     cout<<"====";
     
+    
+            
+            
+    
+    
+    
+    std::vector<CTLEngine::Edge> W;
     //Test 4 - successors
+    successors(testconf, W);
+    assert(W.size() == 2);
+    assert(W.front().targets.size() == 1);
+    assert(W.back().targets.size() == 1);
     cout<<"====";
     
     //Test 5 - evaluate atom
@@ -805,7 +839,6 @@ void CTLEngine::RunEgineTest(){
     cout<<"====";
     
     //Test 7 - create marking
-    PetriEngine::MarkVal* testMarking = new PetriEngine::MarkVal[_nplaces];
     makeNewMarking(_m0, 0, testMarking);
     assert(testMarking[0] == 1);
     assert(testMarking[1] == 1);
