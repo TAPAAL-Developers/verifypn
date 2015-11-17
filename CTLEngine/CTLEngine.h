@@ -12,7 +12,7 @@
 
 class CTLEngine {
 public:
-    CTLEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]);
+    CTLEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool CertainZero);
     CTLEngine(const CTLEngine& orig);
     virtual ~CTLEngine();
     enum Assignment {
@@ -87,6 +87,7 @@ private:
     int _nplaces;
     int _ntransitions;
     bool querySatisfied;
+    bool _CertainZero;
 
     std::vector<CTLEngine::Markings> list;
     std::vector<CTLEngine::Configuration> configlist;

@@ -39,12 +39,13 @@
 
 
 
-CTLEngine::CTLEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]) {
+CTLEngine::CTLEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool CertainZero) {
     _net = net;
     _m0 = initialmarking;
     _nplaces = net->numberOfPlaces();
     _ntransitions = net->numberOfTransitions();
     querySatisfied = false;
+    _CertainZero = CertainZero; 
 
 }
 
@@ -91,7 +92,9 @@ bool CTLEngine::readSatisfactory() {
 //Private functions
 
 bool CTLEngine::localSmolka(Configuration v){
-    assignConfiguration(v, ZERO);
+    *(v.assignment) = ZERO;
+    //cout << "FIRST config :\n" << flush;
+   // configPrinter(v);
     std::vector<CTLEngine::Edge> W;
     successors(v,W);
     while (W.size() != 0) {
@@ -115,7 +118,9 @@ bool CTLEngine::localSmolka(Configuration v){
         int targetCZEROassignments = 0;
         int targetUNKNOWNassignments = 0;
 
-        if(calculateCZERO(e, W)) targetCZEROassignments = 1;
+        if(_CertainZero){
+        	if(calculateCZERO(e, W)) targetCZEROassignments = 1;
+        }
 
 
 
@@ -155,6 +160,13 @@ bool CTLEngine::localSmolka(Configuration v){
 		
 
             W.insert(W.end(), e.source.denpendencyList.begin(), e.source.denpendencyList.end());
+
+            /*cout << "Sdependency set - for:\n" << flush;
+	        edgePrinter(e);
+	        cout << "--------- NUMBER OF EDGES IN D NOW AND THEIR LOOK "<< e.source.denpendencyList.size() << "\n" << flush;
+	        for(auto it = e.source.denpendencyList.begin(); it != e.source.denpendencyList.end(); ++it){
+	            edgePrinter(*it);
+	        }*/
                 
                 #ifdef DEBUG
                 cout << "\n\n\n\n assigning to one \n\n\n\n" << flush;
@@ -203,9 +215,12 @@ bool CTLEngine::localSmolka(Configuration v){
                     u.denpendencyList.push_back(e);
                     successors(u,W);
                    
-                    #ifdef PP               
+                    //#ifdef PP
+                    /*cout << "currnet config: \n" << flush;                
                     configPrinter(u);
-                    #endif
+                    cout << "current dependency for this is\n " << flush;
+                    edgePrinter(u.denpendencyList.back()); */
+                    //#endif
                     #ifdef DEBUG
                     cout << "\n\n\n\n assigning to zero \n\n\n\n" << flush;
                     #endif
@@ -218,6 +233,7 @@ bool CTLEngine::localSmolka(Configuration v){
     cout<<"The final assignment of the initial configuration is: " << *(v.assignment)<<endl;
     #endif
     //cout << "the final value is: " << *(v.assignment) << "\n" << flush;
+    //assignConfiguration(v, *(v.assignment));
     return (*(v.assignment) == ONE) ? true : false;
 }
 
@@ -226,9 +242,12 @@ bool CTLEngine::localSmolka(Configuration v){
 
 void CTLEngine::assignConfiguration(Configuration v, Assignment a) {
 	if(v.shouldBeNegated == true && a == ONE){
-		*(v.assignment) = CZERO;
+		if(_CertainZero){ *(v.assignment) = CZERO; }
+		else {*(v.assignment) = ZERO;}
 	} else if(v.shouldBeNegated == true && (a == CZERO || a == ZERO)) {
 		*(v.assignment) = ONE;
+	} else if(a == CZERO && !(_CertainZero)) {
+		*(v.assignment) = ZERO;
 	} else {
 		*(v.assignment) = a;
 	}
@@ -410,9 +429,14 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
     		Configuration c = createConfiguration(v.marking, v.query->first);
     		Edge e;
     		e.source = v;
-    		localSmolka(c);
+    		if(!(localSmolka(c))){
+    		*(v.assignment) = ONE;
+            W.insert(W.end(), v.denpendencyList.begin(), v.denpendencyList.end());
+
+    		} else{		
     		e.targets.push_back(c);
     		W.push_back(e);
+    		}
 
     		//Make stuff that goes here
     } else {
