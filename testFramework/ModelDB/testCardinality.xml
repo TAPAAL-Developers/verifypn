@@ -4,7 +4,7 @@
     <id>test_0</id>
     <description>Automatically generated</description>
     <formula>
-      <all-paths>
+      <exists-paths>
         <globally>
          <negation>
           <integer-le>
@@ -15,7 +15,7 @@
             </integer-le>
           </negation>
         </globally>
-      </all-paths>
+      </exists-paths>
     </formula>
   </property>
    <property>
@@ -243,6 +243,32 @@
         </reach>
     </until>
   </exists-paths>
+    </negation>
+    </formula>
+  </property>
+  <property>
+    <id>test_12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <negation>
+      <all-paths>
+        <next>
+          <negation>
+            <negation>
+            <exists-paths>
+        <next>
+          <integer-le>
+            <integer-constant>1</integer-constant>
+              <tokens-count>
+                <place>P0</place>
+              </tokens-count>
+            </integer-le>
+                  </next>
+      </exists-paths>
+    </negation>
+  </negation>
+        </next>
+      </all-paths>
     </negation>
     </formula>
   </property>

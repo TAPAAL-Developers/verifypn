@@ -86,6 +86,7 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[])
 
 CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     bool isA = false;
+    bool isE = false;
     CTLTree *query = (CTLTree*)malloc(sizeof(CTLTree));
     
     char *root_name = root->name();
@@ -96,7 +97,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         isA = true;
         query->quantifier = A;
         //std::cout << "TEST:: Q: " << root_name << "\n";
-        query->path = setPathOperator(root->first_node(), isA);
+        query->path = setPathOperator(root->first_node(), isA, isE);
         isA = false;
         if(isAG){
             CTLTree *query1 = (CTLTree*)malloc(sizeof(CTLTree));
@@ -121,9 +122,31 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         
     }
     else if (firstLetter == 'e' ) {
+    	isE = true;
         query->quantifier = E;
         //std::cout << "TEST:: Q: " << root_name << " \n";
-        query->path = setPathOperator(root->first_node(), isA);
+        query->path = setPathOperator(root->first_node(), isA, isE);
+        isE = false;
+        if(isEG){
+            CTLTree *query1 = (CTLTree*)malloc(sizeof(CTLTree));
+            CTLTree *query2 = (CTLTree*)malloc(sizeof(CTLTree));
+
+            query->quantifier = NEG;
+            query->a.fireset = NULL;
+            query->first = query1;
+
+            query1->quantifier = A;
+            query1->path = F;
+            query1->a.fireset = NULL;
+            query1->first = query2;
+
+            query2->quantifier = NEG;
+            query2->a.fireset = NULL;
+            query2->first = xmlToCTLquery(root->first_node()->first_node());
+
+            isEG = false;
+            return query;
+        }
         
     }
     else if (firstLetter == 'n' ) {
@@ -249,12 +272,13 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     return query;
 }
 
-Path CTLParser::setPathOperator(xml_node<> * root, bool isA) {
+Path CTLParser::setPathOperator(xml_node<> * root, bool isA, bool isE) {
     char *root_name = root->name();
     char firstLetter = root_name[0];
     
     if (firstLetter == 'g') {
         if(isA) { isAG = true; }
+        if(isE){ isEG = true; }
         return G;
     }
     else if (firstLetter == 'f') {
@@ -388,5 +412,6 @@ void CTLParser::RunParserTest(){
         //Confirm EX becomes EX
         assert(queryList[7]->Query->quantifier == E);
         assert(queryList[7]->Query->path == X);
-    
+    //Test 3 - The printer
+        printQuery(queryList[0]->Query);
 }

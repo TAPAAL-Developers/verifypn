@@ -79,9 +79,10 @@ public:
     void RunParserTest();
 private:
     bool isAG = false;
+    bool isEG = false;
     int numberoftransitions;
     CTLTree* xmlToCTLquery(rapidxml::xml_node<> * root);
-    Path setPathOperator(rapidxml::xml_node<> * root, bool isA);
+    Path setPathOperator(rapidxml::xml_node<> * root, bool isA, bool isE);
     
     bool charEmpty(char *query);
     void printPath(CTLTree *query);

@@ -39,12 +39,13 @@
 
 
 
-CTLEngine::CTLEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]) {
+CTLEngine::CTLEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool CertainZero) {
     _net = net;
     _m0 = initialmarking;
     _nplaces = net->numberOfPlaces();
     _ntransitions = net->numberOfTransitions();
     querySatisfied = false;
+    _CertainZero = CertainZero; 
 
 }
 
@@ -91,7 +92,9 @@ bool CTLEngine::readSatisfactory() {
 //Private functions
 
 bool CTLEngine::localSmolka(Configuration v){
-    assignConfiguration(v, ZERO);
+    *(v.assignment) = ZERO;
+    //cout << "FIRST config :\n" << flush;
+   // configPrinter(v);
     std::vector<CTLEngine::Edge> W;
     successors(v,W);
     while (W.size() != 0) {
@@ -115,8 +118,9 @@ bool CTLEngine::localSmolka(Configuration v){
         int targetCZEROassignments = 0;
         int targetUNKNOWNassignments = 0;
 
-        if(calculateCZERO(e, W)) targetCZEROassignments = 1;
-
+        if(_CertainZero){
+        	if(calculateCZERO(e, W)) targetCZEROassignments = 1;
+        }
 
 
         for (i = 0; i < e.targets.size(); i++ ){
@@ -140,6 +144,31 @@ bool CTLEngine::localSmolka(Configuration v){
         cout<<"CZERO's: "<< targetCZEROassignments<<"\n" <<flush;
         cout<<"Unknowns's: "<< targetUNKNOWNassignments<<"\n" <<flush;
         #endif
+
+        /******************************************************************/
+        if(e.source.query->quantifier == NEG){
+        	
+	        if(!(localSmolka(e.targets[0]))){
+	    		assignConfiguration(e.source, ZERO);
+	    		    		
+	    		if(e.source == v){
+				    return (*(v.assignment) == ONE) ? true : false;
+					}
+
+	            W.insert(W.end(), e.source.denpendencyList.begin(), e.source.denpendencyList.end());
+
+	    		} else {
+	    		assignConfiguration(e.source, ONE);
+	
+	    		if(e.source == v){
+				    return (*(v.assignment) == ONE) ? true : false;
+				}
+
+				if(_CertainZero) {
+					W.insert(W.end(), e.source.denpendencyList.begin(), e.source.denpendencyList.end());
+				}
+			}
+    	} else {		
         /*****************************************************************/
         /*if A(u) = 1, ∀u ∈ T then A(v) ← 1; W ← W ∪ D(v);*/
         if (targetONEassignments == e.targets.size()) {
@@ -155,6 +184,13 @@ bool CTLEngine::localSmolka(Configuration v){
 		
 
             W.insert(W.end(), e.source.denpendencyList.begin(), e.source.denpendencyList.end());
+
+            /*cout << "Sdependency set - for:\n" << flush;
+	        edgePrinter(e);
+	        cout << "--------- NUMBER OF EDGES IN D NOW AND THEIR LOOK "<< e.source.denpendencyList.size() << "\n" << flush;
+	        for(auto it = e.source.denpendencyList.begin(); it != e.source.denpendencyList.end(); ++it){
+	            edgePrinter(*it);
+	        }*/
                 
                 #ifdef DEBUG
                 cout << "\n\n\n\n assigning to one \n\n\n\n" << flush;
@@ -199,25 +235,30 @@ bool CTLEngine::localSmolka(Configuration v){
             for (i = 0; i < e.targets.size(); i++ ){
                 if (*(e.targets[i].assignment) == UNKNOWN) {
                     Configuration u = e.targets[i];
-                    assignConfiguration(u, ZERO);
+                    *(u.assignment) = ZERO;
                     u.denpendencyList.push_back(e);
                     successors(u,W);
                    
-                    #ifdef PP               
+                    //#ifdef PP
+                    /*cout << "currnet config: \n" << flush;                
                     configPrinter(u);
-                    #endif
+                    cout << "current dependency for this is\n " << flush;
+                    edgePrinter(u.denpendencyList.back()); */
+                    //#endif
                     #ifdef DEBUG
                     cout << "\n\n\n\n assigning to zero \n\n\n\n" << flush;
                     #endif
                 }
             }
         }
+    }
         /*****************************************************************/ 
     }
     #ifdef DEBUG
     cout<<"The final assignment of the initial configuration is: " << *(v.assignment)<<endl;
     #endif
     //cout << "the final value is: " << *(v.assignment) << "\n" << flush;
+    //assignConfiguration(v, *(v.assignment));
     return (*(v.assignment) == ONE) ? true : false;
 }
 
@@ -226,9 +267,12 @@ bool CTLEngine::localSmolka(Configuration v){
 
 void CTLEngine::assignConfiguration(Configuration v, Assignment a) {
 	if(v.shouldBeNegated == true && a == ONE){
-		*(v.assignment) = CZERO;
+		if(_CertainZero){ *(v.assignment) = CZERO; }
+		else {*(v.assignment) = ZERO;}
 	} else if(v.shouldBeNegated == true && (a == CZERO || a == ZERO)) {
 		*(v.assignment) = ONE;
+	} else if(a == CZERO && !(_CertainZero)) {
+		*(v.assignment) = ZERO;
 	} else {
 		*(v.assignment) = a;
 	}
@@ -410,9 +454,9 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
     		Configuration c = createConfiguration(v.marking, v.query->first);
     		Edge e;
     		e.source = v;
-    		localSmolka(c);
     		e.targets.push_back(c);
     		W.push_back(e);
+    		
 
     		//Make stuff that goes here
     } else {
@@ -781,21 +825,55 @@ void CTLEngine::RunEgineTest(){
     cout<<":::::::::::::::Running Test Setup:::::::::::::"<<endl;
     
     cout<<":::::::|";
+    PetriEngine::MarkVal* testMarking = new PetriEngine::MarkVal[_nplaces];
+    cout<<"Making Query\n";
+    CTLTree *testquery = (CTLTree*)malloc(sizeof(CTLTree));
+    testquery->quantifier = E;
+    testquery->path = F;
+    CTLTree *subtestquery = (CTLTree*)malloc(sizeof(CTLTree));
+    subtestquery->quantifier = AND;
+    
+    CTLTree *subsubtestquery1 = (CTLTree*)malloc(sizeof(CTLTree));
+    subsubtestquery1->a.isFireable = true;
+    subsubtestquery1->a.fireset[0] = strcpy((char*)malloc(sizeof(char)*sizeof("T0")), "T0");
+    
+    CTLTree *subsubtestquery2 = (CTLTree*)malloc(sizeof(CTLTree));  
+    subsubtestquery2->a.isFireable = true;
+    /*subsubtestquery2->a.fireset[0] = */strcpy((char*)malloc(sizeof(char)*sizeof("T0")), "T0");
+                                         
+    subtestquery->first = subsubtestquery1;
+    subtestquery->second = subsubtestquery2;
+    testquery->first = subtestquery;
+    
+    cout<<"Making Query from "<<subsubtestquery1->a.fireset[0]<<"\n";
+    
     //Test 1 - readSatisfactory
     querySatisfied = true;
     assert(readSatisfactory() == true);
     cout<<"====";
     
-    //Test 2 - localSmolka
+    //Test 2 - Create Configuration
+    Configuration testconf = createConfiguration(_m0, testquery);
+    assert(testconf.shouldBeNegated == false);
+    configPrinter(testconf);
     cout<<"====";
     
-    //Test 3 - create configuration
-    /** createConfiguration 
-     ** - IN *marking, *query 
-     ** - OUT configuration  **/
+    //Test 3 - localSmolka
+    assert(localSmolka(testconf));
     cout<<"====";
     
+    
+            
+            
+    
+    
+    
+    std::vector<CTLEngine::Edge> W;
     //Test 4 - successors
+    successors(testconf, W);
+    assert(W.size() == 2);
+    assert(W.front().targets.size() == 1);
+    assert(W.back().targets.size() == 1);
     cout<<"====";
     
     //Test 5 - evaluate atom
@@ -805,7 +883,6 @@ void CTLEngine::RunEgineTest(){
     cout<<"====";
     
     //Test 7 - create marking
-    PetriEngine::MarkVal* testMarking = new PetriEngine::MarkVal[_nplaces];
     makeNewMarking(_m0, 0, testMarking);
     assert(testMarking[0] == 1);
     assert(testMarking[1] == 1);
