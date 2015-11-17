@@ -13,8 +13,8 @@ class Edge
 public:
     Edge(){};
 
-    Configuration* Source;
-    std::list<Configuration*> Targets;
+    Configuration* source;
+    std::list<Configuration*> targets;
 
     bool operator==(const Edge & rhs) const;
 };

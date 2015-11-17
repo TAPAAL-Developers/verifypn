@@ -2,6 +2,7 @@
 #define DGENGINE_H
 
 #include <unordered_set>
+#include <vector>
 
 #include "marking.h"
 #include "configuration.h"
@@ -31,6 +32,10 @@ private:
                         Configuration::Configuration_Equal_To> Configurations;
     //std::unordered_set<Edge*> Edges;
 
+    std::vector<Edge*> successors(Configuration& v);
+
+    std::vector<Marking*> nextState(Marking& t_marking);
+    int calculateFireableTransistions(Marking& t_marking);
     Marking* createMarking(const Marking& t_marking, int t_transition);
     Configuration* createConfiguration(Marking& t_marking, CTLTree& t_query);
 

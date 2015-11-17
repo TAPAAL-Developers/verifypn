@@ -4,11 +4,11 @@ namespace ctl{
 
 Configuration::Configuration(Marking * t_marking, CTLTree * t_query){
     marking = t_marking;
-    Query = t_query;
+    query = t_query;
 }
 
 bool Configuration::operator ==(const Configuration& rhs) const{
-    if(Query != rhs.Query)
+    if(query != rhs.query)
         return false;
     else if(assignment != rhs.assignment)
         return false;
