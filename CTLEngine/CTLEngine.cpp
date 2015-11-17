@@ -123,7 +123,6 @@ bool CTLEngine::localSmolka(Configuration v){
         }
 
 
-
         for (i = 0; i < e.targets.size(); i++ ){
             #ifdef DEBUG
             cout<<"Target "<< i << " out of " << e.targets.size() << " assignment: "<< *(e.targets[i].assignment) << "\n"<<flush;
@@ -145,6 +144,31 @@ bool CTLEngine::localSmolka(Configuration v){
         cout<<"CZERO's: "<< targetCZEROassignments<<"\n" <<flush;
         cout<<"Unknowns's: "<< targetUNKNOWNassignments<<"\n" <<flush;
         #endif
+
+        /******************************************************************/
+        if(e.source.query->quantifier == NEG){
+        	
+	        if(!(localSmolka(e.targets[0]))){
+	    		assignConfiguration(e.source, ZERO);
+	    		    		
+	    		if(e.source == v){
+				    return (*(v.assignment) == ONE) ? true : false;
+					}
+
+	            W.insert(W.end(), e.source.denpendencyList.begin(), e.source.denpendencyList.end());
+
+	    		} else {
+	    		assignConfiguration(e.source, ONE);
+	
+	    		if(e.source == v){
+				    return (*(v.assignment) == ONE) ? true : false;
+				}
+
+				if(_CertainZero) {
+					W.insert(W.end(), e.source.denpendencyList.begin(), e.source.denpendencyList.end());
+				}
+			}
+    	} else {		
         /*****************************************************************/
         /*if A(u) = 1, ∀u ∈ T then A(v) ← 1; W ← W ∪ D(v);*/
         if (targetONEassignments == e.targets.size()) {
@@ -211,7 +235,7 @@ bool CTLEngine::localSmolka(Configuration v){
             for (i = 0; i < e.targets.size(); i++ ){
                 if (*(e.targets[i].assignment) == UNKNOWN) {
                     Configuration u = e.targets[i];
-                    assignConfiguration(u, ZERO);
+                    *(u.assignment) = ZERO;
                     u.denpendencyList.push_back(e);
                     successors(u,W);
                    
@@ -227,6 +251,7 @@ bool CTLEngine::localSmolka(Configuration v){
                 }
             }
         }
+    }
         /*****************************************************************/ 
     }
     #ifdef DEBUG
@@ -429,14 +454,9 @@ void CTLEngine::successors(Configuration v, std::vector<CTLEngine::Edge>& W) {
     		Configuration c = createConfiguration(v.marking, v.query->first);
     		Edge e;
     		e.source = v;
-    		if(!(localSmolka(c))){
-    		*(v.assignment) = ONE;
-            W.insert(W.end(), v.denpendencyList.begin(), v.denpendencyList.end());
-
-    		} else{		
     		e.targets.push_back(c);
     		W.push_back(e);
-    		}
+    		
 
     		//Make stuff that goes here
     } else {
