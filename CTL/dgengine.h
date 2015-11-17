@@ -22,11 +22,17 @@ private:
     int _nplaces;
     int _ntransitions;
 
-    std::unordered_set<Marking*, std::hash<Marking*>, Marking::Marking_Equal_To> Markings;
-    //std::unordered_set<Configuration*> Configurations;
+    std::unordered_set< Marking*,
+                        std::hash<Marking*>,
+                        Marking::Marking_Equal_To> Markings;
+
+    std::unordered_set< Configuration*,
+                        std::hash<Configuration*>,
+                        Configuration::Configuration_Equal_To> Configurations;
     //std::unordered_set<Edge*> Edges;
 
-    Marking* CreateMarking(const Marking& t_marking, int t_transition);
+    Marking* createMarking(const Marking& t_marking, int t_transition);
+    Configuration* createConfiguration(Marking& t_marking, CTLTree& t_query);
 
 };
 }

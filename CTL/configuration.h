@@ -11,12 +11,20 @@ namespace ctl {
 //Forward Declaration of edge
 class Edge;
 
+enum Assignment {
+    CZERO = 2, ONE = 1, ZERO = 0, UNKNOWN = -1
+};
+
 class Configuration
 {
-    enum Assignment {
-        CZERO = 2, ONE = 1, ZERO = 0, UNKNOWN = -1
-    };
 public:
+
+    struct Configuration_Equal_To{
+        bool operator()(const Configuration* rhs, const Configuration* lhs) const{
+            return (*rhs)==(*lhs);
+        }
+    };
+
     Configuration(){}
     Configuration(Marking* t_marking, CTLTree* t_query);
 
@@ -31,6 +39,7 @@ public:
 }// end of ctl
 
 namespace std{
+//Hash specialization implementations
 template<>
 struct hash<ctl::Configuration>{
     size_t operator()(const ctl::Configuration& t_config) const {
@@ -43,6 +52,14 @@ struct hash<ctl::Configuration>{
         return result;
     }
 };
+template<>
+struct hash<ctl::Configuration*>{
+    size_t operator()(const ctl::Configuration* t_config) const {
+        hash<ctl::Configuration> hasher;
+        return hasher.operator ()(*t_config);
+    }
+};
+
 }
 
 #endif // CONFIGURATION_H
