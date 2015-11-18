@@ -10,241 +10,215 @@ DGEngine::DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarki
     _ntransitions = net->numberOfTransitions();
 }
 
-//std::vector<Edge*> DGEngine::successors(Configuration& v) {
-//    std::vector<Edge*> W;
-//    if(v.query->quantifier == A){
-//        if(v.query->path == U){
-//            Configuration* c = createConfiguration(*(v.marking), *(v.query->second));
-//            Edge* e = new Edge();
-//            Edge* e1 = new Edge();
-//            e->source = &v;
-//            e->targets.push_back(c);
-//            W.push_back(e);
+std::list<Edge*> DGEngine::successors(Configuration& v) {
+    std::list<Edge*> succ;
+    //All
+    if(v.query->quantifier == A){
+        //All Until
+        if(v.query->path == U){
+            Configuration* c = createConfiguration(*(v.marking), *(v.query->second));
+            Edge* e = new Edge(&v);
+            e->targets.push_back(c);
+            succ.push_back(e);
 
-//            e1->source = &v;
-//            Configuration* b = createConfiguration(*v.marking, *v.query->first);
-//            e1->targets.push_back(b);
-//            int i = 0;
-//            while(true){
-//            PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
-//                if(next_state(v.marking, nxt_m) == 1){
-//                    i++;
-//                Configuration c1 = createConfiguration(nxt_m, v.query);
-//                e1.targets.push_back(c1);
+            auto targets = nextState (*(v.marking));
 
-//                } else break;
-//            }
-//            #ifdef PP
-//            edgePrinter(e);edgePrinter(e1);
-//            #endif
-//            if(i > 0){
-//             W.push_back(e1);
-//            }
+            if(!targets.empty()){
+                Edge* e1 = new Edge(&v);
+                Configuration* b = createConfiguration(*(v.marking), *(v.query->first));
+                e1->targets.push_back(b);
 
+                for(auto m : targets){
+                    Configuration* c = createConfiguration(*m, *(v.query));
+                    e1->targets.push_back(c);
+                }
+            }
 
-//        } else if(v.query->path == X){
-//            bool nxt_s = false;
-//            Edge e;
-//            e.source = v;
-//            while(true){
-//            PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
-//                if(next_state(v.marking, nxt_m) == 1){
-//                nxt_s = true;
-//                Configuration c1 = createConfiguration(nxt_m, v.query->first);
-//                e.targets.push_back(c1);
+            #ifdef PP
+            edgePrinter(e);edgePrinter(e1);
+            #endif
 
-//                } else break;
-//            }
-//            if(nxt_s){ W.push_back(e);}
-//        } else if(v.query->path == F){
-//            Configuration c = createConfiguration(v.marking, v.query->first);
-//            bool nxt_s = false;
-//            Edge e, e1;
-//            e.source = v;
-//            e.targets.push_back(c);
+        } //All Until end
 
-//                W.push_back(e);
-//            e1.source = v;
-//            while(true){
-//            PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
-//                if(next_state(v.marking, nxt_m) == 1){
-//                nxt_s = true;
-//                Configuration c1 = createConfiguration(nxt_m, v.query);
-//                e1.targets.push_back(c1);
+        //All Next begin
+        else if(v.query->path == X){
+            auto targets = nextState(*v.marking);
+            if(!targets.empty())
+            {
+                Edge* e = new Edge(&v);
 
-//                } else break;
-//            }
-//            if(nxt_s){
+                for (auto m : targets){
+                    Configuration* c = createConfiguration(*m, *(v.query->first));
+                    e->targets.push_back(c);
+                }
+            }
+        } //All Next End
 
-//                W.push_back(e1);
-//            }
-//        } else if (v.query->path == G){
-//            Configuration c = createConfiguration(v.marking, v.query->first);
-//            Edge e;
-//            e.source = v;
-//            e.targets.push_back(c);
-//            while(true){
-//            PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
-//                if(next_state(v.marking, nxt_m) == 1){
-//                Configuration c1 = createConfiguration(nxt_m, v.query);
-//                e.targets.push_back(c1);
-//                } else break;
-//            }
-//               W.push_back(e);
-//        }
-//    } else if (v.query->quantifier == E){
-//        if(v.query->path == U){
-//            Configuration c = createConfiguration(v.marking, v.query->first);
-//            Configuration c1 = createConfiguration(v.marking, v.query->second);
-//            Edge e;
-//            e.source = v;
-//            e.targets.push_back(c1);
+        //All Finally start
+        else if(v.query->path == F){
+            Edge* e = new Edge(&v);
+            Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
+            e->targets.push_back(c);
+            succ.push_back(e);
 
-//            while(true){
-//            int i = 0;
-//            Edge e1;
-//            e1.source = v;
-//            e1.targets.push_back(c);
-//            PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
-//                if(next_state(v.marking, nxt_m) == 1){
-//                i++;
-//                Configuration c1 = createConfiguration(nxt_m, v.query);
-//                e1.targets.push_back(c1);
-//                } else break;
-//            if(i > 0){ W.push_back(e1); }
-//            }
-//            W.push_back(e);
-//        } else if(v.query->path == X){
-//            while(true){
-//            bool nxt_s = false;
-//            Edge e1;
-//            e1.source = v;
-//            PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
-//                if(next_state(v.marking, nxt_m) == 1){
-//                nxt_s = true;
-//                Configuration c1 = createConfiguration(nxt_m, v.query->first);
-//                e1.targets.push_back(c1);
-//                } else break;
-//            if(nxt_s){  W.push_back(e1); }
-//            }
-//        } else if(v.query->path == F){
-//            Configuration c = createConfiguration(v.marking, v.query->first);
-//            Edge e;
-//            e.source = v;
-//            e.targets.push_back(c);
+            auto targets = nextState(*(v.marking));
 
-//            while(true){
-//            bool nxt_s = false;
-//            Edge e1;
-//            e1.source = v;
-//            PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
-//                if(next_state(v.marking, nxt_m) == 1){
-//                nxt_s = true;
-//                Configuration c1 = createConfiguration(nxt_m, v.query);
-//                e1.targets.push_back(c1);
-//                } else break;
-//            if(nxt_s){ W.push_back(e1); }
+            if(!targets.empty()){
+                Edge* e1 = new Edge();
+                e1->source = &v;
 
-//            }
-//            W.push_back(e);
-//        } else if(v.query->path == G){
-//            int i = 0;
-//            while(true){
-//            Configuration c = createConfiguration(v.marking, v.query->first);
-//            Edge e;
-//            e.source = v;
-//            e.targets.push_back(c);
-//            PetriEngine::MarkVal* nxt_m = new PetriEngine::MarkVal[_nplaces];
-//                if(next_state(v.marking, nxt_m) == 1){
-//                Configuration c1 = createConfiguration(nxt_m, v.query);
-//                e.targets.push_back(c1);
-//                } else { if (i == 0)  W.push_back(e); break;  }
-//            i++;
-//            W.push_back(e);
-//            }
-//        }
-//    } else if (v.query->quantifier == AND){
-//        Configuration c = createConfiguration(v.marking, v.query->first);
-//        Configuration c1 = createConfiguration(v.marking, v.query->second);
-//        Edge e;
-//        e.source = v;
-//        e.targets.push_back(c);
-//        e.targets.push_back(c1);
-//        W.push_back(e);
-//    } else if (v.query->quantifier == OR){
-//        Configuration c = createConfiguration(v.marking, v.query->first);
-//        Configuration c1 = createConfiguration(v.marking, v.query->second);
-//        Edge e;
-//        Edge e1;
-//        e.source = v;
-//        e1.source = v;
-//        e.targets.push_back(c);
-//        e1.targets.push_back(c1);
-//        W.push_back(e);
-//        W.push_back(e1);
-//    } else if (v.query->quantifier == NEG){
-//            Configuration c = createConfiguration(v.marking, v.query->first);
-//            Edge e;
-//            e.source = v;
-//            localSmolka(c);
-//            e.targets.push_back(c);
-//            W.push_back(e);
+                for(auto m : targets){
+                    Configuration* c = createConfiguration(*m, *(v.query));
+                    e1->targets.push_back(c);
+                }
+            }
+        }//All Finally end
+    } //All end
 
-//            //Make stuff that goes here
-//    } else {
-//        if (evaluateQuery(v.marking, v.query)){
-//            Edge e;
-//            e.source = v;
-//            assignConfiguration(v, ONE);
-//            Configuration &c = v;
-//            e.targets.push_back(c);
-//            W.push_back(e);
+    //Exists start
+    else if (v.query->quantifier == E){
 
-//        } else {
-//            Edge e;
-//            e.source = v;
-//            assignConfiguration(v, CZERO);
-//            Configuration &c = v;
-//            e.targets.push_back(c);
-//            W.push_back(e);
-//      }
-//    }
-//}
+        //Exists Untill start
+        if(v.query->path == U){
+            Configuration* c = createConfiguration(*(v.marking), *(v.query->second));
+            Edge* e = new Edge(&v);
+            e->targets.push_back(c);
+            succ.push_back(e);
 
-std::vector<Marking*> DGEngine::nextState(Marking& t_marking){
+            auto targets = nextState(*(v.marking));
 
-    std::vector<Marking*> nextStates;
+            if(!targets.empty()){
+                Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
+                for(auto m : targets){
+                    Edge* e = new Edge(&v);
+                    Configuration* c1 = createConfiguration(*m, *(v.query));
+                    e->targets.push_back(c);
+                    e->targets.push_back(c1);
+                    succ.push_back(e);
+                }
+            }
+        } //Exists Until end
 
-    //Calculate possible fireable transistions
-    //if necessary
-    if(t_marking.possibleTransistions.size() == 0)
-        calculateFireableTransistions(t_marking);
+        //Exists Next start
+        else if(v.query->path == X){
+            auto targets = nextState(*(v.marking));
+            CTLTree* query = v.query->first;
 
-    auto iter = t_marking.possibleTransistions.begin();
-    auto iterEnd = t_marking.possibleTransistions.end();
+            if(!targets.empty())
+            {
+                for(auto m : targets){
+                    Edge* e = new Edge(&v);
+                    Configuration* c = createConfiguration(*m, *query);
+                    e->targets.push_back(c);
+                    succ.push_back(e);
+                }
+            }
+        }//Exists Next end
 
-    //Create new markings for each possible
-    //fireable transistion
+        //Exists Finally start
+        else if(v.query->path == F){
+            Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
+            Edge* e = new Edge(&v);
+            e->targets.push_back(c);
+            succ.push_back(e);
+
+            auto targets = nextState(*(v.marking));
+
+            if(!targets.empty()){
+                for(auto m : targets){
+                    Edge* e = new Edge(&v);
+                    Configuration* c = createConfiguration(*m, *(v.query));
+                    e->targets.push_back(c);
+                    succ.push_back(e);
+                }
+            }
+        }//Exists Finally end
+    } //Exists end
+
+    //And start
+    else if (v.query->quantifier == AND){
+        Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
+        Configuration* c1 = createConfiguration(*(v.marking), *(v.query->second));
+        Edge* e = new Edge(&v);
+        e->targets.push_back(c);
+        e->targets.push_back(c1);
+        succ.push_back(e);
+    } //And end
+
+    //Or start
+    else if (v.query->quantifier == OR){
+        Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
+        Configuration* c1 = createConfiguration(*(v.marking), *(v.query->second));
+        Edge* e = new Edge(&v);
+        Edge* e1 = new Edge(&v);
+        e->targets.push_back(c);
+        e1->targets.push_back(c1);
+        succ.push_back(e);
+        succ.push_back(e1);
+    } //Or end
+
+    //Negate start
+    else if (v.query->quantifier == NEG){
+            Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
+            Edge* e = new Edge(&v);
+            e->targets.push_back(c);
+            succ.push_back(e);
+    } //Negate end
+
+    //Evaluate Query Begin
+    else {
+        if (evaluateQuery(v.marking, v.query)){
+            Edge e;
+            e.source = v;
+            assignConfiguration(v, ONE);
+            Configuration &c = v;
+            e.targets.push_back(c);
+            W.push_back(e);
+
+        } else {
+            Edge e;
+            e.source = v;
+            assignConfiguration(v, CZERO);
+            Configuration &c = v;
+            e.targets.push_back(c);
+            W.push_back(e);
+      }
+    }
+    return succ;
+}
+
+std::list<Marking*> DGEngine::nextState(Marking& t_marking){
+
+    std::list<int> fireableTransistions = calculateFireableTransistions(t_marking);
+    std::list<Marking*> nextStates;
+
+    auto iter = fireableTransistions.begin();
+    auto iterEnd = fireableTransistions.end();
+
+    //Create new markings for each fireable transistion
     for(; iter != iterEnd; iter++){
         nextStates.push_back(createMarking(t_marking, *iter));
     }
 
+    //return the set of reachable markings
     return nextStates;
 }
 
-int DGEngine::calculateFireableTransistions(Marking &t_marking){
+std::list<int> DGEngine::calculateFireableTransistions(Marking &t_marking){
+
+    std::list<int> fireableTransistions;
 
     for(int t = 0; t < _ntransitions; t++){
         bool transitionFound = true;
         for(int p = 0; p < _nplaces; p++){
-            if(t_marking.possibleTransistions[p] < _net->inArc(p,t))
+            if(t_marking[p] < _net->inArc(p,t))
                 transitionFound = false;
         }
 
         if(transitionFound)
-            t_marking.possibleTransistions.push_back(t);
+            fireableTransistions.push_back(t);
     }
-    return t_marking.possibleTransistions.size();
+    return fireableTransistions;
 }
 
 Configuration* DGEngine::createConfiguration(Marking &t_marking, CTLTree& t_query){

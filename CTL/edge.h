@@ -12,6 +12,7 @@ class Edge
 {
 public:
     Edge(){};
+    Edge(Configuration* t_source) : source(t_source) {}
 
     Configuration* source;
     std::list<Configuration*> targets;

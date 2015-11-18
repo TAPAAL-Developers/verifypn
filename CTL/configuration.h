@@ -27,11 +27,13 @@ public:
 
     Configuration(){}
     Configuration(Marking* t_marking, CTLTree* t_query);
+    virtual ~Configuration();
 
     bool operator==(const Configuration& rhs)const;
 
     Marking* marking;
     CTLTree* query;
+    std::list<Edge*> Successors;
     std::list<Edge*> DependencySet;
     bool IsNegated = false;
     Assignment assignment = UNKNOWN;

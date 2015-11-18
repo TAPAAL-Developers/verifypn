@@ -3,9 +3,9 @@
 namespace ctl{
 
     bool Edge::operator ==(const Edge& rhs) const {
-        if(Source != rhs.Source)
+        if(source != rhs.source)
             return false;
-        return (Targets == rhs.Targets);
+        return (targets == rhs.targets);
     }
 
 }

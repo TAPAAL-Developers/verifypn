@@ -41,8 +41,6 @@ class Marking
     }
     inline PetriEngine::MarkVal* Value() const {return m_marking;}
     inline size_t Length() const {return m_length;}
-
-    std::vector<int> possibleTransistions;
 private:
     PetriEngine::MarkVal* m_marking;
     size_t m_length;
