@@ -7,9 +7,9 @@ Configuration::Configuration(Marking * t_marking, CTLTree * t_query){
     query = t_query;
 }
 
-virtual Configuration::~Configuration(){
+Configuration::~Configuration(){
     for(Edge* e: Successors){
-        delete (*e);
+        delete (e);
     }
 }
 

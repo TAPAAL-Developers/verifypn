@@ -1,13 +1,16 @@
 #include "dgengine.h"
 #include "../CTLParser/CTLParser.h"
 
+#include <string.h>
+
 namespace ctl {
 
-DGEngine::DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]){
+DGEngine::DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool t_CZero){
     _net = net;
     _m0 = initialmarking;
     _nplaces = net->numberOfPlaces();
     _ntransitions = net->numberOfTransitions();
+    _CZero = t_CZero;
 }
 
 std::list<Edge*> DGEngine::successors(Configuration& v) {
@@ -167,24 +170,85 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
 
     //Evaluate Query Begin
     else {
-        if (evaluateQuery(v.marking, v.query)){
-            Edge e;
-            e.source = v;
+        Edge* e = new Edge(&v);
+        e->targets.push_back(&v);
+        if (evaluateQuery(v)){
             assignConfiguration(v, ONE);
-            Configuration &c = v;
-            e.targets.push_back(c);
-            W.push_back(e);
-
         } else {
-            Edge e;
-            e.source = v;
             assignConfiguration(v, CZERO);
-            Configuration &c = v;
-            e.targets.push_back(c);
-            W.push_back(e);
-      }
+        }
+        succ.push_back(e);
     }
     return succ;
+}
+
+
+bool DGEngine::evaluateQuery(Configuration &t_config){
+
+    CTLTree* query = t_config.query;
+
+    if (t_config.query->a.isFireable) {
+        std::list<int> transistions = calculateFireableTransistions(*(t_config.marking));
+
+        for (auto t : transistions) {
+            int j = 0;
+            while(query->a.fireset[j] != NULL){
+                if (strcmp(_net->transitionNames()[t].c_str(), query->a.fireset[j]) == 0){
+                    return true;
+                }
+                j++;
+            }
+        }
+        return false;
+    }
+
+    int less = query->a.tokenCount.intSmaller;
+    int greater= query->a.tokenCount.intLarger;
+
+    if( less == -1 ){
+        int index = indexOfPlace(query->a.tokenCount.placeSmaller);
+        less = t_config.marking->Value()[index];
+    }
+
+    if (greater == -1){
+        int index = indexOfPlace(query->a.tokenCount.placeLarger);
+        greater = t_config.marking->Value()[index];
+    }
+
+    return less < greater;
+}
+
+int DGEngine::indexOfPlace(char *t_place){
+    for (int i = 0; i < _nplaces; i++) {
+        if (0 == (strcmp(t_place, _net->placeNames()[i].c_str()))){
+                //cout << "place " << query->a.tokenCount.placeLarger << " " << flush;
+                return i;
+        }
+    }
+    return -1;
+}
+
+void DGEngine::assignConfiguration(Configuration& t_config, Assignment t_assignment){
+
+    if(t_config.IsNegated){
+        //Under zero means Assignment enum is either ZERO og CZERO
+        if(t_assignment < 0){
+            t_config.assignment = ONE;
+        }
+        else if(_CZero){
+            t_config.assignment = CZERO;
+        }
+        else { t_config.assignment = ZERO; }
+    }
+    else {
+        if(t_assignment > 0){
+            t_config.assignment = t_assignment;
+        }
+        else if(_CZero){
+            t_config.assignment = CZERO;
+        }
+        else { t_config.assignment = ZERO; }
+    }
 }
 
 std::list<Marking*> DGEngine::nextState(Marking& t_marking){

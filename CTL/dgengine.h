@@ -15,7 +15,7 @@ namespace ctl{
 class DGEngine
 {
 public:
-    DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]);
+    DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool t_CZero);
 
     bool querySatisfied = false;
 private:
@@ -23,6 +23,7 @@ private:
     PetriEngine::MarkVal* _m0;
     int _nplaces;
     int _ntransitions;
+    bool _CZero;
 
     std::unordered_set< Marking*,
                         std::hash<Marking*>,
@@ -35,6 +36,10 @@ private:
 
     std::list<Edge*> successors(Configuration& v);
 
+    bool evaluateQuery(Configuration& t_config);
+    int indexOfPlace(char* t_place);
+
+    void assignConfiguration(Configuration& t_config, Assignment t_assignment);
     std::list<Marking*> nextState(Marking& t_marking);
     std::list<int> calculateFireableTransistions(Marking& t_marking);
     Marking* createMarking(const Marking& t_marking, int t_transition);

@@ -3,16 +3,14 @@
 
 #include "../CTLParser/CTLParser.h"
 #include "marking.h"
+#include "edge.h"
 #include <list>
 #include <stdint.h>
 
 namespace ctl {
 
-//Forward Declaration of edge
-class Edge;
-
 enum Assignment {
-    CZERO = 2, ONE = 1, ZERO = 0, UNKNOWN = -1
+    ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2
 };
 
 class Configuration
