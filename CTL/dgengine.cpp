@@ -61,7 +61,6 @@ bool DGEngine::localSmolka(Configuration &v){
         W.pop();
         e->edgePrinter();
 
-
         /*****************************************************************/
         /*Data handling*/
         #ifdef DEBUG
