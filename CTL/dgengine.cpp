@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include <fstream>
+#include <iostream>
 #include <stack>
 
 namespace ctl {
@@ -16,30 +17,17 @@ DGEngine::DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarki
 }
 
 void DGEngine::search(CTLTree *t_query){
-    //pNetPrinter(_net, _m0);
-    #ifdef DEBUG
-    cout << "--------------------- NEW QUERY-------------------------------------------\n" << flush;
-    #endif
 
     Marking* firstMarking = new Marking(_m0, _nplaces);
     Configuration* v0 = createConfiguration(*firstMarking, *t_query);
 
-    #ifdef DEBUG
-    cout << ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n::::::::::::::::: Initial Configuration\n::::::::::::::::";
-    #endif
-    #ifdef PP
-    configPrinter(v0);
-    #endif
-    #ifdef DEBUG
-    cout << ":\n:::::::::::::::::\n:::::::::::::::::\n:::::::::::::::::\n" << flush;
-    #endif
-    #ifdef DEBUG
-    CTLParser ctlParser = CTLParser();
-    ctlParser.printQuery(query);
-    #endif
-
-    Markings.clear();
     _querySatisfied = localSmolka(*v0);
+
+//    for(auto c : Configurations){
+//        delete c;
+//    }
+//    Configurations.clear();
+
 }
 
 bool DGEngine::localSmolka(Configuration &v){
@@ -48,6 +36,14 @@ bool DGEngine::localSmolka(Configuration &v){
     std::stack<Edge*> W;
     auto initialSucc = successors(v);
 
+     std::cout << "Starting while loop - size of W:" << W.size() << std::endl;
+    std::cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << std::flush;
+        for(auto c : initialSucc){
+        c->edgePrinter();
+        }
+        //#endif
+
+
     //cout << "FIRST config :\n" << flush;
    // configPrinter(v);
 
@@ -55,15 +51,9 @@ bool DGEngine::localSmolka(Configuration &v){
         W.push(s);
 
     while (!W.empty()) {
-        #ifdef DEBUG
-        cout << "Starting while loop - size of W:" << W.size() <<endl;
-        cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << flush;
-//        for(int k = 0; k < W.size(); k++){
-//            edgePrinter(W.at(k));
-//        }
-        #endif
-
-        int i = 0;
+        //#ifdef DEBUG
+       
+        int i = 0;  
         Edge* e = W.top();
         W.pop();
 
@@ -179,6 +169,7 @@ bool DGEngine::localSmolka(Configuration &v){
                     c->assignment = ZERO;
                     c->DependencySet.push_back(e);
                     for(auto s : successors(*c)){
+                        s->edgePrinter();
                         W.push(s);
                     }
                 }
@@ -359,6 +350,8 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
             assignConfiguration(v, CZERO);
         }
         succ.push_back(e);
+        std::cout << "printing eval edge\n" << std::flush;
+        e->edgePrinter();
     }
 
     v.Successors = succ;
@@ -492,8 +485,14 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
             (*new_marking)[p] = place + _net->outArc(t_transition,p);
         }
 
-        //insert function either inserts or finds the element
-        return *(Markings.insert(new_marking).first);
+        auto result = Markings.find(new_marking);
+
+        if(result == Markings.end())
+            return *(Markings.insert(new_marking).first);
+        else
+            delete new_marking;
+
+        return *result;
     }
 
     

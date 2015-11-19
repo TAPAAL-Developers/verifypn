@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F12</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F12</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_15</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F5</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_16</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_8</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F8</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F18</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_22</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F7</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F16</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_11</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-024-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F9</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

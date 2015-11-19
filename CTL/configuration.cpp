@@ -24,6 +24,24 @@ void Configuration::removeSuccessor(Edge *t_successor){
     }
 }
 
+
+void Configuration::configPrinter(){
+    std::cout << "--------------- Configuration Information -------------------\n";
+    CTLParser ctlParser = CTLParser();
+    int i = 0;
+    std::cout << "Configuration marking: " << std::flush;
+    marking->print();
+
+    std::cout << "\nConfiguration query::::\n" ;
+    ctlParser.printQuery(query);
+    std::cout << "\nConfiguration assignment: " << assignment<<"\n";
+
+    std::cout << "\nshould be negated?: " << IsNegated <<"\n";
+
+    
+    std::cout << "---------------------------------------------------------\n";
+}
+
 bool Configuration::operator ==(const Configuration& rhs) const{
     if(query != rhs.query)
         return false;

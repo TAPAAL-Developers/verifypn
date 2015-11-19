@@ -2,7 +2,7 @@
 #define EDGE_H
 
 #include <list>
-
+#include <iostream>
 namespace ctl {
 
 //To avoid circular dependency
@@ -18,6 +18,7 @@ public:
     std::list<Configuration*> targets;
 
     bool operator==(const Edge & rhs) const;
+    void edgePrinter();
 };
 
 }

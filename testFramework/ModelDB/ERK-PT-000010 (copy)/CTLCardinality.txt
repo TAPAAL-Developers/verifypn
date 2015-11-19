@@ -1,0 +1,80 @@
+Property ERK-PT-000010-CTLCardinality-0
+  "Automatically generated"
+  is:
+    ((((3) <= (#tokens("ERK")))) & (E G A G ((#tokens("ERK")) <= (#tokens("MEKPP")))))
+  end.
+Property ERK-PT-000010-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ! A G E F ((1) <= (#tokens("RKIPP")))
+  end.
+Property ERK-PT-000010-CTLCardinality-2
+  "Automatically generated"
+  is:
+    A G A X ((((2) <= (#tokens("RP")))) | (((2) <= (#tokens("Raf1Star_RKIP")))))
+  end.
+Property ERK-PT-000010-CTLCardinality-3
+  "Automatically generated"
+  is:
+    A G ((E F ((#tokens("ERKPP")) <= (#tokens("MEKPP_ERK")))) | (E F ((1) <= (#tokens("ERKPP")))))
+  end.
+Property ERK-PT-000010-CTLCardinality-4
+  "Automatically generated"
+  is:
+    E F A G ! ((2) <= (#tokens("ERKPP")))
+  end.
+Property ERK-PT-000010-CTLCardinality-5
+  "Automatically generated"
+  is:
+    ((A G ((((((#tokens("ERKPP")) <= (#tokens("RP")))) | (((2) <= (#tokens("RKIPP")))))) | (((#tokens("RKIPP")) <= (#tokens("RKIPP")))))) | (((1) <= (#tokens("RKIPP_RP")))))
+  end.
+Property ERK-PT-000010-CTLCardinality-6
+  "Automatically generated"
+  is:
+    ((((#tokens("MEKPP_ERK")) <= (#tokens("ERKPP")))) & (((A G ((((#tokens("RKIPP_RP")) <= (#tokens("ERK")))) | (((#tokens("Raf1Star")) <= (#tokens("RP")))))) | (((((((3) <= (#tokens("RKIPP_RP")))) & (((#tokens("Raf1Star_RKIP_ERKPP")) <= (#tokens("Raf1Star_RKIP_ERKPP")))))) | (A X ((#tokens("MEKPP_ERK")) <= (#tokens("RKIPP_RP")))))))))
+  end.
+Property ERK-PT-000010-CTLCardinality-7
+  "Automatically generated"
+  is:
+    ! ((((#tokens("Raf1Star_RKIP_ERKPP")) <= (#tokens("Raf1Star")))) & (((((((((#tokens("Raf1Star_RKIP")) <= (#tokens("RKIP")))) & (((#tokens("RKIPP_RP")) <= (#tokens("ERK")))))) | (((((3) <= (#tokens("Raf1Star")))) | (((1) <= (#tokens("Raf1Star_RKIP")))))))) | (((#tokens("MEKPP")) <= (#tokens("Raf1Star_RKIP_ERKPP")))))))
+  end.
+Property ERK-PT-000010-CTLCardinality-8
+  "Automatically generated"
+  is:
+    ! E X ! ((((#tokens("MEKPP_ERK")) <= (#tokens("Raf1Star_RKIP_ERKPP")))) & (((1) <= (#tokens("MEKPP")))))
+  end.
+Property ERK-PT-000010-CTLCardinality-9
+  "Automatically generated"
+  is:
+    ((#tokens("Raf1Star_RKIP")) <= (#tokens("RKIP")))
+  end.
+Property ERK-PT-000010-CTLCardinality-10
+  "Automatically generated"
+  is:
+    ((! ((1) <= (#tokens("RKIPP_RP")))) & (((((#tokens("ERK")) <= (#tokens("Raf1Star")))) | (A F ! ((#tokens("RP")) <= (#tokens("MEKPP")))))))
+  end.
+Property ERK-PT-000010-CTLCardinality-11
+  "Automatically generated"
+  is:
+    ! ! ! ! ((((#tokens("RP")) <= (#tokens("RKIP")))) | (((#tokens("RKIP")) <= (#tokens("ERK")))))
+  end.
+Property ERK-PT-000010-CTLCardinality-12
+  "Automatically generated"
+  is:
+    ! ! ((! ((((#tokens("MEKPP")) <= (#tokens("Raf1Star_RKIP")))) & (((#tokens("Raf1Star")) <= (#tokens("Raf1Star_RKIP")))))) | (E X ((2) <= (#tokens("ERKPP")))))
+  end.
+Property ERK-PT-000010-CTLCardinality-13
+  "Automatically generated"
+  is:
+    E ((((#tokens("MEKPP_ERK")) <= (#tokens("RKIP")))) U (E X ((#tokens("Raf1Star_RKIP_ERKPP")) <= (#tokens("Raf1Star_RKIP_ERKPP")))))
+  end.
+Property ERK-PT-000010-CTLCardinality-14
+  "Automatically generated"
+  is:
+    A F E G ! ((1) <= (#tokens("ERK")))
+  end.
+Property ERK-PT-000010-CTLCardinality-15
+  "Automatically generated"
+  is:
+    A F ! ((#tokens("RP")) <= (#tokens("RKIP")))
+  end.

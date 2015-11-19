@@ -1,0 +1,80 @@
+Property GlobalResAllocation-COL-05-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A F ((#tokens("pr_in_1", "pr_in_2", "pr_in_3", "pr_in_4", "pr_in_5")) <= (#tokens("pr_released_4", "pr_released_5", "pr_released_1", "pr_released_2", "pr_released_3")))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A X ((F ((#tokens("pr_released_4", "pr_released_5", "pr_released_1", "pr_released_2", "pr_released_3")) <= (#tokens("pr_in_1", "pr_in_2", "pr_in_3", "pr_in_4", "pr_in_5")))) U (X ((3) <= (#tokens("pr_released_4", "pr_released_5", "pr_released_1", "pr_released_2", "pr_released_3")))))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A X ((3) <= (#tokens("pr_in_1", "pr_in_2", "pr_in_3", "pr_in_4", "pr_in_5")))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A G ((2) <= (#tokens("pr_released_4", "pr_released_5", "pr_released_1", "pr_released_2", "pr_released_3")))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A G ((#tokens("pr_in_1", "pr_in_2", "pr_in_3", "pr_in_4", "pr_in_5")) <= (#tokens("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6", "Resources_7", "Resources_8", "Resources_10", "Resources_9")))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A F X X G ((#tokens("pr_in_1", "pr_in_2", "pr_in_3", "pr_in_4", "pr_in_5")) <= (#tokens("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6", "Resources_7", "Resources_8", "Resources_10", "Resources_9")))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((X ((#tokens("pr_in_1", "pr_in_2", "pr_in_3", "pr_in_4", "pr_in_5")) <= (#tokens("Processes_1", "Processes_2", "Processes_3", "Processes_4", "Processes_5")))) U (G ((3) <= (#tokens("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6", "Resources_7", "Resources_8", "Resources_10", "Resources_9")))))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A X G ((((3) <= (#tokens("Processes_1", "Processes_2", "Processes_3", "Processes_4", "Processes_5")))) U (((3) <= (#tokens("pr_released_4", "pr_released_5", "pr_released_1", "pr_released_2", "pr_released_3")))))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6", "Resources_7", "Resources_8", "Resources_10", "Resources_9")))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((2) <= (#tokens("in_critical_s_2_1", "in_critical_s_1_1", "in_critical_s_4_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_5_1", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_5_2", "in_critical_s_4_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_4_3", "in_critical_s_3_3", "in_critical_s_2_4", "in_critical_s_3_4", "in_critical_s_5_3", "in_critical_s_1_4", "in_critical_s_1_5", "in_critical_s_2_5", "in_critical_s_4_4", "in_critical_s_5_4", "in_critical_s_5_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_4_5", "in_critical_s_4_6", "in_critical_s_5_6", "in_critical_s_2_6", "in_critical_s_3_6", "in_critical_s_4_7", "in_critical_s_3_7", "in_critical_s_2_7", "in_critical_s_1_7", "in_critical_s_3_8", "in_critical_s_2_8", "in_critical_s_1_8", "in_critical_s_5_7", "in_critical_s_2_9", "in_critical_s_1_9", "in_critical_s_5_8", "in_critical_s_4_8", "in_critical_s_1_10", "in_critical_s_5_9", "in_critical_s_4_9", "in_critical_s_3_9", "in_critical_s_2_10", "in_critical_s_3_10", "in_critical_s_4_10", "in_critical_s_5_10")))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A X ((2) <= (#tokens("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6", "Resources_7", "Resources_8", "Resources_10", "Resources_9")))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A F X X G ((1) <= (#tokens("in_critical_s_2_1", "in_critical_s_1_1", "in_critical_s_4_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_5_1", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_5_2", "in_critical_s_4_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_4_3", "in_critical_s_3_3", "in_critical_s_2_4", "in_critical_s_3_4", "in_critical_s_5_3", "in_critical_s_1_4", "in_critical_s_1_5", "in_critical_s_2_5", "in_critical_s_4_4", "in_critical_s_5_4", "in_critical_s_5_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_4_5", "in_critical_s_4_6", "in_critical_s_5_6", "in_critical_s_2_6", "in_critical_s_3_6", "in_critical_s_4_7", "in_critical_s_3_7", "in_critical_s_2_7", "in_critical_s_1_7", "in_critical_s_3_8", "in_critical_s_2_8", "in_critical_s_1_8", "in_critical_s_5_7", "in_critical_s_2_9", "in_critical_s_1_9", "in_critical_s_5_8", "in_critical_s_4_8", "in_critical_s_1_10", "in_critical_s_5_9", "in_critical_s_4_9", "in_critical_s_3_9", "in_critical_s_2_10", "in_critical_s_3_10", "in_critical_s_4_10", "in_critical_s_5_10")))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((#tokens("in_critical_s_2_1", "in_critical_s_1_1", "in_critical_s_4_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_5_1", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_5_2", "in_critical_s_4_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_4_3", "in_critical_s_3_3", "in_critical_s_2_4", "in_critical_s_3_4", "in_critical_s_5_3", "in_critical_s_1_4", "in_critical_s_1_5", "in_critical_s_2_5", "in_critical_s_4_4", "in_critical_s_5_4", "in_critical_s_5_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_4_5", "in_critical_s_4_6", "in_critical_s_5_6", "in_critical_s_2_6", "in_critical_s_3_6", "in_critical_s_4_7", "in_critical_s_3_7", "in_critical_s_2_7", "in_critical_s_1_7", "in_critical_s_3_8", "in_critical_s_2_8", "in_critical_s_1_8", "in_critical_s_5_7", "in_critical_s_2_9", "in_critical_s_1_9", "in_critical_s_5_8", "in_critical_s_4_8", "in_critical_s_1_10", "in_critical_s_5_9", "in_critical_s_4_9", "in_critical_s_3_9", "in_critical_s_2_10", "in_critical_s_3_10", "in_critical_s_4_10", "in_critical_s_5_10")) <= (#tokens("pr_released_4", "pr_released_5", "pr_released_1", "pr_released_2", "pr_released_3")))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A ((#tokens("in_critical_s_2_1", "in_critical_s_1_1", "in_critical_s_4_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_5_1", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_5_2", "in_critical_s_4_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_4_3", "in_critical_s_3_3", "in_critical_s_2_4", "in_critical_s_3_4", "in_critical_s_5_3", "in_critical_s_1_4", "in_critical_s_1_5", "in_critical_s_2_5", "in_critical_s_4_4", "in_critical_s_5_4", "in_critical_s_5_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_4_5", "in_critical_s_4_6", "in_critical_s_5_6", "in_critical_s_2_6", "in_critical_s_3_6", "in_critical_s_4_7", "in_critical_s_3_7", "in_critical_s_2_7", "in_critical_s_1_7", "in_critical_s_3_8", "in_critical_s_2_8", "in_critical_s_1_8", "in_critical_s_5_7", "in_critical_s_2_9", "in_critical_s_1_9", "in_critical_s_5_8", "in_critical_s_4_8", "in_critical_s_1_10", "in_critical_s_5_9", "in_critical_s_4_9", "in_critical_s_3_9", "in_critical_s_2_10", "in_critical_s_3_10", "in_critical_s_4_10", "in_critical_s_5_10")) <= (#tokens("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6", "Resources_7", "Resources_8", "Resources_10", "Resources_9")))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A G ((#tokens("pr_released_4", "pr_released_5", "pr_released_1", "pr_released_2", "pr_released_3")) <= (#tokens("in_critical_s_2_1", "in_critical_s_1_1", "in_critical_s_4_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_5_1", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_5_2", "in_critical_s_4_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_4_3", "in_critical_s_3_3", "in_critical_s_2_4", "in_critical_s_3_4", "in_critical_s_5_3", "in_critical_s_1_4", "in_critical_s_1_5", "in_critical_s_2_5", "in_critical_s_4_4", "in_critical_s_5_4", "in_critical_s_5_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_4_5", "in_critical_s_4_6", "in_critical_s_5_6", "in_critical_s_2_6", "in_critical_s_3_6", "in_critical_s_4_7", "in_critical_s_3_7", "in_critical_s_2_7", "in_critical_s_1_7", "in_critical_s_3_8", "in_critical_s_2_8", "in_critical_s_1_8", "in_critical_s_5_7", "in_critical_s_2_9", "in_critical_s_1_9", "in_critical_s_5_8", "in_critical_s_4_8", "in_critical_s_1_10", "in_critical_s_5_9", "in_critical_s_4_9", "in_critical_s_3_9", "in_critical_s_2_10", "in_critical_s_3_10", "in_critical_s_4_10", "in_critical_s_5_10")))
+  end.
+Property GlobalResAllocation-COL-05-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((((((#tokens("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6", "Resources_7", "Resources_8", "Resources_10", "Resources_9")) <= (#tokens("Processes_1", "Processes_2", "Processes_3", "Processes_4", "Processes_5")))) U (((#tokens("pr_in_1", "pr_in_2", "pr_in_3", "pr_in_4", "pr_in_5")) <= (#tokens("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6", "Resources_7", "Resources_8", "Resources_10", "Resources_9")))))) U (((((2) <= (#tokens("pr_released_4", "pr_released_5", "pr_released_1", "pr_released_2", "pr_released_3")))) U (((#tokens("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6", "Resources_7", "Resources_8", "Resources_10", "Resources_9")) <= (#tokens("pr_in_1", "pr_in_2", "pr_in_3", "pr_in_4", "pr_in_5")))))))
+  end.

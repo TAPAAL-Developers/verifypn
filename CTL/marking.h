@@ -2,6 +2,7 @@
 #define MARKING_H
 
 #include <vector>
+#include <iostream> 
 #include "../PetriEngine/PetriNet.h"
 
 namespace ctl {
@@ -29,7 +30,10 @@ class Marking
     Marking(PetriEngine::MarkVal* t_marking, size_t t_length)
         : m_marking(t_marking), m_length(t_length){}
 
-    virtual ~Marking(){free(m_marking);}
+    virtual ~Marking(){
+        std::cout << "Destroying Marking\n" << std::flush;
+        free(m_marking);
+    }
 
     void CopyMarking(const Marking& t_marking);
 
@@ -40,6 +44,11 @@ class Marking
         return m_marking[index];
     }
     inline PetriEngine::MarkVal* Value() const {return m_marking;}
+    inline void print() const {
+        for(int i = 0; i < m_length; i++){
+            std::cout << m_marking[i] <<std::flush;
+        }
+    }
     inline size_t Length() const {return m_length;}
 private:
     PetriEngine::MarkVal* m_marking;

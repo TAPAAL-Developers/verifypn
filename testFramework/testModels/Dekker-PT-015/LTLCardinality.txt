@@ -1,0 +1,80 @@
+Property Dekker-PT-015-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A X G ((3) <= (#tokens("flag=0/5")))
+  end.
+Property Dekker-PT-015-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A ((2) <= (#tokens("p0/0")))
+  end.
+Property Dekker-PT-015-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A F ((X ((#tokens("p0/8")) <= (#tokens("p3/7")))) U (F ((#tokens("p3/10")) <= (#tokens("p3/11")))))
+  end.
+Property Dekker-PT-015-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((X G ((#tokens("p1/13")) <= (#tokens("flag=1/7")))) U (((((3) <= (#tokens("flag=1/14")))) U (((#tokens("p3/8")) <= (#tokens("flag=1/14")))))))
+  end.
+Property Dekker-PT-015-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((G ((1) <= (#tokens("flag=1/2")))) U (X X ((3) <= (#tokens("p1/14")))))
+  end.
+Property Dekker-PT-015-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A F ((1) <= (#tokens("p0/10")))
+  end.
+Property Dekker-PT-015-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A F F X F ((3) <= (#tokens("p0/3")))
+  end.
+Property Dekker-PT-015-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A G ((#tokens("p1/6")) <= (#tokens("flag=0/14")))
+  end.
+Property Dekker-PT-015-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A ((((#tokens("p1/3")) <= (#tokens("flag=1/10")))) U (G F ((1) <= (#tokens("p3/8")))))
+  end.
+Property Dekker-PT-015-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((((2) <= (#tokens("flag=0/2")))) U (((3) <= (#tokens("flag=1/8")))))
+  end.
+Property Dekker-PT-015-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A G X ((((#tokens("flag=1/10")) <= (#tokens("p3/3")))) U (((1) <= (#tokens("p0/3")))))
+  end.
+Property Dekker-PT-015-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((X F ((#tokens("p3/10")) <= (#tokens("p0/2")))) U (((#tokens("p1/7")) <= (#tokens("p0/10")))))
+  end.
+Property Dekker-PT-015-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((#tokens("p1/7")) <= (#tokens("flag=1/5")))
+  end.
+Property Dekker-PT-015-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A ((((((#tokens("p1/8")) <= (#tokens("p1/13")))) U (((2) <= (#tokens("p1/14")))))) U (((1) <= (#tokens("p0/13")))))
+  end.
+Property Dekker-PT-015-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A X ((F ((3) <= (#tokens("p1/14")))) U (((1) <= (#tokens("flag=0/0")))))
+  end.
+Property Dekker-PT-015-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A F ((((#tokens("flag=0/3")) <= (#tokens("flag=0/11")))) U (F ((#tokens("p3/12")) <= (#tokens("p3/9")))))
+  end.

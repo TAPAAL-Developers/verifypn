@@ -1,0 +1,80 @@
+Property GlobalResAllocation-COL-03-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((((bound("pr_in_2", "pr_in_1", "pr_in_3")) <= (1))) & (((((bound("in_critical_s_1_1", "in_critical_s_2_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_1_4", "in_critical_s_3_3", "in_critical_s_3_4", "in_critical_s_2_4", "in_critical_s_2_5", "in_critical_s_1_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_3_6", "in_critical_s_2_6")) <= (3))) & (((((bound("Processes_1", "Processes_2", "Processes_3")) <= (2))) & (((bound("in_critical_s_1_1", "in_critical_s_2_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_1_4", "in_critical_s_3_3", "in_critical_s_3_4", "in_critical_s_2_4", "in_critical_s_2_5", "in_critical_s_1_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_3_6", "in_critical_s_2_6")) <= (2))))))))) & (((((((((bound("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6")) <= (3))) & (((((((bound("pr_in_2", "pr_in_1", "pr_in_3")) <= (3))) & (((bound("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6")) <= (3))))) & (((((bound("pr_in_2", "pr_in_1", "pr_in_3")) <= (2))) & (((bound("Processes_1", "Processes_2", "Processes_3")) <= (1))))))))) & (((((((((bound("pr_in_2", "pr_in_1", "pr_in_3")) <= (2))) & (((bound("pr_released_2", "pr_released_3", "pr_released_1")) <= (3))))) & (((((bound("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6")) <= (2))) & (((bound("pr_in_2", "pr_in_1", "pr_in_3")) <= (3))))))) & (((bound("in_critical_s_1_1", "in_critical_s_2_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_1_4", "in_critical_s_3_3", "in_critical_s_3_4", "in_critical_s_2_4", "in_critical_s_2_5", "in_critical_s_1_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_3_6", "in_critical_s_2_6")) <= (1))))))) & (((((bound("in_critical_s_1_1", "in_critical_s_2_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_1_4", "in_critical_s_3_3", "in_critical_s_3_4", "in_critical_s_2_4", "in_critical_s_2_5", "in_critical_s_1_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_3_6", "in_critical_s_2_6")) <= (3))) & (((((bound("pr_released_2", "pr_released_3", "pr_released_1")) <= (2))) & (((bound("pr_in_2", "pr_in_1", "pr_in_3")) <= (3))))))))))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("Processes_1", "Processes_2", "Processes_3")) <= (1))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((((((bound("Processes_1", "Processes_2", "Processes_3")) <= (2))) & (((bound("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6")) <= (3))))) & (((((bound("Processes_1", "Processes_2", "Processes_3")) <= (1))) & (((bound("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6")) <= (1))))))) & (((bound("pr_released_2", "pr_released_3", "pr_released_1")) <= (2))))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6")) <= (3))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("pr_in_2", "pr_in_1", "pr_in_3")) <= (2))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((bound("pr_released_2", "pr_released_3", "pr_released_1")) <= (3))) & (((((bound("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6")) <= (3))) & (((bound("in_critical_s_1_1", "in_critical_s_2_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_1_4", "in_critical_s_3_3", "in_critical_s_3_4", "in_critical_s_2_4", "in_critical_s_2_5", "in_critical_s_1_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_3_6", "in_critical_s_2_6")) <= (1))))))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("Processes_1", "Processes_2", "Processes_3")) <= (2))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("in_critical_s_1_1", "in_critical_s_2_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_1_4", "in_critical_s_3_3", "in_critical_s_3_4", "in_critical_s_2_4", "in_critical_s_2_5", "in_critical_s_1_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_3_6", "in_critical_s_2_6")) <= (2))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((bound("in_critical_s_1_1", "in_critical_s_2_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_1_4", "in_critical_s_3_3", "in_critical_s_3_4", "in_critical_s_2_4", "in_critical_s_2_5", "in_critical_s_1_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_3_6", "in_critical_s_2_6")) <= (2))) & (((((((((bound("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6")) <= (2))) & (((((((bound("pr_in_2", "pr_in_1", "pr_in_3")) <= (2))) & (((bound("pr_in_2", "pr_in_1", "pr_in_3")) <= (1))))) & (((((bound("pr_released_2", "pr_released_3", "pr_released_1")) <= (3))) & (((bound("Processes_1", "Processes_2", "Processes_3")) <= (2))))))))) & (((((((bound("pr_released_2", "pr_released_3", "pr_released_1")) <= (3))) & (((bound("pr_in_2", "pr_in_1", "pr_in_3")) <= (1))))) & (((((bound("pr_in_2", "pr_in_1", "pr_in_3")) <= (1))) & (((bound("Processes_1", "Processes_2", "Processes_3")) <= (3))))))))) & (((bound("Processes_1", "Processes_2", "Processes_3")) <= (1))))))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((((((bound("in_critical_s_1_1", "in_critical_s_2_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_1_4", "in_critical_s_3_3", "in_critical_s_3_4", "in_critical_s_2_4", "in_critical_s_2_5", "in_critical_s_1_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_3_6", "in_critical_s_2_6")) <= (3))) & (((((bound("in_critical_s_1_1", "in_critical_s_2_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_1_4", "in_critical_s_3_3", "in_critical_s_3_4", "in_critical_s_2_4", "in_critical_s_2_5", "in_critical_s_1_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_3_6", "in_critical_s_2_6")) <= (1))) & (((((bound("in_critical_s_1_1", "in_critical_s_2_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_1_4", "in_critical_s_3_3", "in_critical_s_3_4", "in_critical_s_2_4", "in_critical_s_2_5", "in_critical_s_1_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_3_6", "in_critical_s_2_6")) <= (2))) & (((((bound("pr_in_2", "pr_in_1", "pr_in_3")) <= (2))) & (((bound("pr_released_2", "pr_released_3", "pr_released_1")) <= (2))))))))))) & (((bound("pr_released_2", "pr_released_3", "pr_released_1")) <= (3))))) & (((bound("pr_released_2", "pr_released_3", "pr_released_1")) <= (2))))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((bound("Processes_1", "Processes_2", "Processes_3")) <= (1))) & (((bound("in_critical_s_1_1", "in_critical_s_2_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_1_4", "in_critical_s_3_3", "in_critical_s_3_4", "in_critical_s_2_4", "in_critical_s_2_5", "in_critical_s_1_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_3_6", "in_critical_s_2_6")) <= (2))))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((bound("pr_released_2", "pr_released_3", "pr_released_1")) <= (2))) & (((bound("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6")) <= (3))))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6")) <= (1))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("Processes_1", "Processes_2", "Processes_3")) <= (3))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((bound("in_critical_s_1_1", "in_critical_s_2_1", "in_critical_s_3_1", "in_critical_s_1_2", "in_critical_s_3_2", "in_critical_s_2_2", "in_critical_s_2_3", "in_critical_s_1_3", "in_critical_s_1_4", "in_critical_s_3_3", "in_critical_s_3_4", "in_critical_s_2_4", "in_critical_s_2_5", "in_critical_s_1_5", "in_critical_s_1_6", "in_critical_s_3_5", "in_critical_s_3_6", "in_critical_s_2_6")) <= (3))) & (((bound("pr_released_2", "pr_released_3", "pr_released_1")) <= (3))))
+  end.
+Property GlobalResAllocation-COL-03-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((((((bound("pr_in_2", "pr_in_1", "pr_in_3")) <= (3))) & (((bound("pr_released_2", "pr_released_3", "pr_released_1")) <= (1))))) & (((bound("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6")) <= (1))))) & (((((bound("pr_in_2", "pr_in_1", "pr_in_3")) <= (1))) & (((bound("Resources_1", "Resources_2", "Resources_3", "Resources_4", "Resources_5", "Resources_6")) <= (2))))))
+  end.

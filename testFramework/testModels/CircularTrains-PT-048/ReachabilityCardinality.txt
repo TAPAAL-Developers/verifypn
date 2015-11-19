@@ -1,0 +1,80 @@
+Property CircularTrains-PT-048-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ((((1) <= (#tokens("Section_22")))) & (((3) <= (#tokens("Section_41")))))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ((! ! ((1) <= (#tokens("Section_23")))) | (((((((#tokens("F41")) <= (#tokens("F8")))) & (((#tokens("F15")) <= (#tokens("F35")))))) | (! ((2) <= (#tokens("F42")))))))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ((#tokens("Section_17")) <= (#tokens("F8")))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ((((! ((2) <= (#tokens("Section_38")))) | (((((#tokens("Section_41")) <= (#tokens("Section_43")))) & (((3) <= (#tokens("Section_2")))))))) | (((3) <= (#tokens("F42")))))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ((#tokens("F39")) <= (#tokens("F29")))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ! ((! ((#tokens("Section_36")) <= (#tokens("F35")))) & (((((2) <= (#tokens("Section_19")))) | (((2) <= (#tokens("Section_7")))))))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ((((((((3) <= (#tokens("F28")))) | (((#tokens("Section_8")) <= (#tokens("F31")))))) | (! ((#tokens("F37")) <= (#tokens("Section_35")))))) | (((#tokens("Section_42")) <= (#tokens("Section_25")))))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((((((1) <= (#tokens("Section_30")))) | (((((#tokens("F15")) <= (#tokens("Section_48")))) | (((#tokens("F35")) <= (#tokens("Section_18")))))))) | (! ! ((#tokens("Section_7")) <= (#tokens("F4")))))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ! ((2) <= (#tokens("Section_25")))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("F10")))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((! ((((3) <= (#tokens("F39")))) | (((#tokens("F5")) <= (#tokens("Section_48")))))) & (((((((3) <= (#tokens("F23")))) & (((#tokens("F34")) <= (#tokens("Section_28")))))) & (((((#tokens("F10")) <= (#tokens("Section_12")))) & (((3) <= (#tokens("Section_9")))))))))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("F4")))) | (((3) <= (#tokens("F11")))))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ! ! ((3) <= (#tokens("F15")))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("F25")))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((((((((2) <= (#tokens("F35")))) | (((3) <= (#tokens("Section_37")))))) | (! ((#tokens("Section_16")) <= (#tokens("Section_46")))))) & (((2) <= (#tokens("F30")))))
+  end.
+Property CircularTrains-PT-048-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((((! ((3) <= (#tokens("F14")))) | (((((3) <= (#tokens("F23")))) & (((#tokens("Section_2")) <= (#tokens("F36")))))))) | (((((((3) <= (#tokens("Section_7")))) & (((3) <= (#tokens("F33")))))) | (! ((#tokens("F39")) <= (#tokens("F11")))))))
+  end.

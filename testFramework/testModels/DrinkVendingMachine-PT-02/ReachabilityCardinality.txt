@@ -1,0 +1,80 @@
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ! ! ((((#tokens("theOptions_1", "theOptions_2")) <= (#tokens("productSlots_1", "productSlots_2")))) & (((3) <= (#tokens("productSlots_1", "productSlots_2")))))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ! ((#tokens("productSlots_1", "productSlots_2")) <= (#tokens("productSlots_1", "productSlots_2")))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ! ((#tokens("theProducts_1", "theProducts_2")) <= (#tokens("theProducts_1", "theProducts_2")))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ((#tokens("theProducts_1", "theProducts_2")) <= (#tokens("theProducts_1", "theProducts_2")))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ((((#tokens("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (#tokens("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")))) | (! ((1) <= (#tokens("productSlots_1", "productSlots_2")))))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ! ((((((2) <= (#tokens("theProducts_1", "theProducts_2")))) | (((#tokens("theOptions_1", "theOptions_2")) <= (#tokens("productSlots_1", "productSlots_2")))))) | (((#tokens("productSlots_1", "productSlots_2")) <= (#tokens("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")))))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("productSlots_1", "productSlots_2")))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ! ((((#tokens("theProducts_1", "theProducts_2")) <= (#tokens("optionSlots_1", "optionSlots_2")))) & (((((#tokens("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (#tokens("theOptions_1", "theOptions_2")))) & (((1) <= (#tokens("theProducts_1", "theProducts_2")))))))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((! ((((#tokens("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (#tokens("theProducts_1", "theProducts_2")))) | (((#tokens("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (#tokens("theOptions_1", "theOptions_2")))))) | (((#tokens("theProducts_1", "theProducts_2")) <= (#tokens("productSlots_1", "productSlots_2")))))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ((1) <= (#tokens("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ! ((#tokens("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (#tokens("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((! ((((2) <= (#tokens("theProducts_1", "theProducts_2")))) & (((#tokens("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (#tokens("theProducts_1", "theProducts_2")))))) | (((((((3) <= (#tokens("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")))) | (((3) <= (#tokens("optionSlots_1", "optionSlots_2")))))) | (! ((1) <= (#tokens("productSlots_1", "productSlots_2")))))))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((((#tokens("theProducts_1", "theProducts_2")) <= (#tokens("optionSlots_1", "optionSlots_2")))) | (((((((3) <= (#tokens("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")))) | (((1) <= (#tokens("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")))))) | (((((#tokens("productSlots_1", "productSlots_2")) <= (#tokens("optionSlots_1", "optionSlots_2")))) & (((1) <= (#tokens("productSlots_1", "productSlots_2")))))))))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((((((2) <= (#tokens("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")))) | (((((2) <= (#tokens("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")))) & (((1) <= (#tokens("optionSlots_1", "optionSlots_2")))))))) | (((((((#tokens("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (#tokens("theProducts_1", "theProducts_2")))) & (((#tokens("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (#tokens("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")))))) & (((((#tokens("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (#tokens("theProducts_1", "theProducts_2")))) & (((3) <= (#tokens("theOptions_1", "theOptions_2")))))))))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ((((#tokens("productSlots_1", "productSlots_2")) <= (#tokens("productSlots_1", "productSlots_2")))) | (! ((((#tokens("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (#tokens("optionSlots_1", "optionSlots_2")))) & (((#tokens("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (#tokens("theProducts_1", "theProducts_2")))))))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((((((((2) <= (#tokens("productSlots_1", "productSlots_2")))) & (((#tokens("theOptions_1", "theOptions_2")) <= (#tokens("theProducts_1", "theProducts_2")))))) | (((((#tokens("productSlots_1", "productSlots_2")) <= (#tokens("optionSlots_1", "optionSlots_2")))) & (((3) <= (#tokens("theOptions_1", "theOptions_2")))))))) & (((((((1) <= (#tokens("theOptions_1", "theOptions_2")))) & (((3) <= (#tokens("productSlots_1", "productSlots_2")))))) & (((((#tokens("theOptions_1", "theOptions_2")) <= (#tokens("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")))) & (((#tokens("theProducts_1", "theProducts_2")) <= (#tokens("theProducts_1", "theProducts_2")))))))))
+  end.

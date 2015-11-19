@@ -1,0 +1,80 @@
+Property Angiogenesis-PT-01-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F ((((! "k46"?) | ("k53"?))) | ("k29"?))
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F (((("k60"?) & (! "k13"?))) | ("k55"?))
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F ((! "k21"?) | (! ! "k33"?))
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F ((((! "k52"?) & ((("k36"?) | ((("k48"?) & ("k4"?))))))) & (((! (("k57"?) & ("k54"?))) | ("k53"?))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    A G ! (((((("k61"?) | ("k47"?))) & ("k14"?))) & ((((("k41"?) & ("k33"?))) | ((("k47"?) & ("k16"?))))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G ! ! ! (("k41"?) & ("k4"?))
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G (("k55"?) & ("k12"?))
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F ! ! ((! "k6"?) & (! "k16"?))
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    A G "k8"?
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G "k62"?
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    A G ! "k28"?
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F (("k30"?) & ((((((("k48"?) & ("k40"?))) & ((("k18"?) | ("k49"?))))) & (! ! "k22"?))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G (("k18"?) | ((("k10"?) & ("k39"?))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    A G (((((("k45"?) & ((("k28"?) & ("k52"?))))) & ((((("k2"?) | ("k46"?))) & ("k5"?))))) | ((((((("k63"?) | ("k47"?))) & (! "k48"?))) | ((("k59"?) & (! "k9"?))))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F ((! "k11"?) & (! "k51"?))
+  end.
+Property Angiogenesis-PT-01-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F ! (("k16"?) & ((((("k21"?) & ("k55"?))) | ((("k36"?) & ("k6"?))))))
+  end.

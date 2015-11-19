@@ -1,0 +1,80 @@
+Property Ring-PT-none-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "T20"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "T34"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "T60"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "T15"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "T79"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "T15"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "T11"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "T54"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "T39"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "T53"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "T59"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "T26"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "T23"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "T22"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "T30"?
+  end.
+Property Ring-PT-none-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "T8"?
+  end.

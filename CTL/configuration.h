@@ -28,6 +28,7 @@ public:
     virtual ~Configuration();
 
     void removeSuccessor(Edge* t_successor);
+    void configPrinter();
 
     bool operator==(const Configuration& rhs)const;
 
