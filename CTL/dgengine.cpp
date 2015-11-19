@@ -16,30 +16,17 @@ DGEngine::DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarki
 }
 
 void DGEngine::search(CTLTree *t_query){
-    //pNetPrinter(_net, _m0);
-    #ifdef DEBUG
-    cout << "--------------------- NEW QUERY-------------------------------------------\n" << flush;
-    #endif
 
     Marking* firstMarking = new Marking(_m0, _nplaces);
     Configuration* v0 = createConfiguration(*firstMarking, *t_query);
 
-    #ifdef DEBUG
-    cout << ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n::::::::::::::::: Initial Configuration\n::::::::::::::::";
-    #endif
-    #ifdef PP
-    configPrinter(v0);
-    #endif
-    #ifdef DEBUG
-    cout << ":\n:::::::::::::::::\n:::::::::::::::::\n:::::::::::::::::\n" << flush;
-    #endif
-    #ifdef DEBUG
-    CTLParser ctlParser = CTLParser();
-    ctlParser.printQuery(query);
-    #endif
-
-    Markings.clear();
     _querySatisfied = localSmolka(*v0);
+
+    for(auto c : Configurations){
+        delete c;
+    }
+    Configurations.clear();
+
 }
 
 bool DGEngine::localSmolka(Configuration &v){
