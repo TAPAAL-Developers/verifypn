@@ -16,12 +16,14 @@ Configuration::~Configuration(){
 
 void Configuration::removeSuccessor(Edge *t_successor){
     {
-        for(auto e : Successors){
-            if(e == t_successor){
-                delete e;
-                return;
-            }
+        Successors.remove(t_successor);
+
+        for(auto t : t_successor->targets){
+            t->DependencySet.remove(t_successor);
         }
+
+        delete t_successor;
+        return;
     }
 }
 

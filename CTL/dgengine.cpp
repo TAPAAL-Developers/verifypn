@@ -142,7 +142,7 @@ bool DGEngine::localSmolka(Configuration &v){
             Configuration* negConfig = *(e->targets.begin());
             localSmolka(*negConfig);
 
-            assignConfiguration(*(e->source) *negConfig->assignment);
+            assignConfiguration(*(e->source), negConfig->assignment);
 
             if(e->source->assignment == ONE || e->source->assignment == CZERO){
                 for(auto edge : e->source->DependencySet)
