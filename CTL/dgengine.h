@@ -16,14 +16,15 @@ class DGEngine
 {
 public:
     DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool t_CZero);
-
-    bool querySatisfied = false;
+    void search(CTLTree* t_query);
+    inline bool querySatisfied(){return _querySatisfied; }
 private:
     PetriEngine::PetriNet* _net;
     PetriEngine::MarkVal* _m0;
     int _nplaces;
     int _ntransitions;
     bool _CZero;
+    bool _querySatisfied = false;
 
     std::unordered_set< Marking*,
                         std::hash<Marking*>,
@@ -33,6 +34,8 @@ private:
                         std::hash<Configuration*>,
                         Configuration::Configuration_Equal_To> Configurations;
     //std::unordered_set<Edge*> Edges;
+
+    bool localSmolka(Configuration& v);
 
     std::list<Edge*> successors(Configuration& v);
 
