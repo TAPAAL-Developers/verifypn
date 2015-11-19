@@ -40,7 +40,7 @@ class Marking
         return m_marking[index];
     }
     inline PetriEngine::MarkVal* Value() const {return m_marking;}
-    inline void print() const;
+    void print() const;
     inline size_t Length() const {return m_length;}
 private:
     PetriEngine::MarkVal* m_marking;
