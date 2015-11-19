@@ -101,7 +101,7 @@ bool DGEngine::localSmolka(Configuration &v){
 
         /******************************************************************/
         //Case: One
-        else if (targetONEassignments == e->targets.size()){
+        if (targetONEassignments == e->targets.size()){
             #ifdef DEBUG
             cout<<"All assignments were ONE"<<endl;
             #endif
