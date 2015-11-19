@@ -545,12 +545,57 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         //----------------------------------------------
         CTLParser *testparser = new CTLParser();
         CTLFormula *testquery[1];
-        std::vector<char> buffer = buffercreator(true, true);
-        testparser->ParseXMLQuery(buffer, testquery);
-        
+        std::vector<char> simple_buffer = buffercreator(true, true);
+        testparser->ParseXMLQuery(simple_buffer, testquery);
         Configuration *testinitconfig = createConfiguration(*(initmarking), *(testquery[0]->Query));
         
+        //-------- Create  Config - Start
+        for (i = 0; i > _nplaces; i++){
+            assert(testinitconfig->marking->Value()[i] == _m0[i]);
+        }
+        assert(testinitconfig->query == testquery[0]->Query);
+        //-------- Create  Config - Done
+        //-------- Create Duplicate Config - Start
+        Configuration *duplicatetestconfig = createConfiguration(*(initmarking), *(testquery[0]->Query));
+        assert(duplicatetestconfig == testinitconfig);
+        //-------- Create Duplicate Config - Done
         
+        
+        //----------------------------------------------
+        //--------------- Test Fireability -------------
+        //----------------------------------------------
+        //-------- Create fireability list - Start
+        std::list<int> possible_t_list = calculateFireableTransistions(*initmarking);
+        assert(possible_t_list.size() == 2);
+        assert(possible_t_list.front() == 0);
+        assert(possible_t_list.back() == 4);
+        //-------- Create fireability list - Done
+        
+        
+        //----------------------------------------------
+        //--------------- Test Next state -------------
+        //----------------------------------------------
+        //-------- Create next state list - Start
+        std::list<Marking*> next_state_list = nextState(*initmarking);
+        std::list<Marking*>::iterator ns_iter = next_state_list.begin();
+        
+        
+        assert(next_state_list.size() == 2);
+        for (i = 0; i < _nplaces; i++){
+            if (i == 0 || i == 1)
+                assert(next_state_list.front()->Value()[i] == 0);
+            else if (i == 2)
+                assert(next_state_list.front()->Value()[i] == 1);
+            else assert(next_state_list.front()->Value()[i] == _m0[i]);
+        }
+        for (i = 0; i < _nplaces; i++){
+            if (i == 4 )
+                assert(next_state_list.back()->Value()[i] == 1);
+            else if (i == 7 || i == 8)
+                assert(next_state_list.back()->Value()[i] == 0);
+            else assert(next_state_list.back()->Value()[i] == _m0[i]);
+        }
+        //-------- Create next state list - Done
     }
     
     std::vector<char> DGEngine::buffercreator(bool fire, bool simple){
@@ -571,7 +616,4 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         buffer.push_back('\0');
         return buffer;
     }
-    
-    
-    
 }
