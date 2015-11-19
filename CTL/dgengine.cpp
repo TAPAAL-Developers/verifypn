@@ -23,13 +23,13 @@ void DGEngine::search(CTLTree *t_query){
 
     _querySatisfied = localSmolka(*v0);
 
-    std::cout << "Cleaning Up Configurations: " << Configurations.size() << std::endl << std::flush;
+    //std::cout << "Cleaning Up Configurations: " << Configurations.size() << std::endl << std::flush;
 
     for(auto c : Configurations){
         delete c;
     }
     Configurations.clear();
-    std::cout << "Clean Up Done" << Configurations.size() << std::endl << std::flush;
+    //std::cout << "Clean Up Done" << Configurations.size() << std::endl << std::flush;
 }
 
 bool DGEngine::localSmolka(Configuration &v){
@@ -59,6 +59,7 @@ bool DGEngine::localSmolka(Configuration &v){
         int i = 0;  
         Edge* e = W.top();
         W.pop();
+        e->edgePrinter();
 
 
         /*****************************************************************/
@@ -142,12 +143,14 @@ bool DGEngine::localSmolka(Configuration &v){
             Configuration* negConfig = *(e->targets.begin());
             localSmolka(*negConfig);
 
-            assignConfiguration(*(e->source) *negConfig->assignment);
+            assignConfiguration(*(e->source), negConfig->assignment);
 
             if(e->source->assignment == ONE || e->source->assignment == CZERO){
-                for(auto edge : e->source->DependencySet)
+                for(auto edge : e->source->DependencySet)   
                     W.push(edge);
             }
+
+            //std::cout << "\n---------- WE ARE DONE WITH REC SMOLKA------------\n" << std::flush;
         }
         /*****************************************************************/
         // CASE: ZERO
@@ -167,7 +170,7 @@ bool DGEngine::localSmolka(Configuration &v){
                     c->assignment = ZERO;
                     c->DependencySet.push_back(e);
                     for(auto s : successors(*c)){
-                        s->edgePrinter();
+                        //s->edgePrinter();
                         W.push(s);
                     }
                 }
@@ -225,6 +228,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                     Configuration* c = createConfiguration(*m, *(v.query->first));
                     e->targets.push_back(c);
                 }
+                succ.push_back(e);
             }
         } //All Next End
 
@@ -390,7 +394,7 @@ bool DGEngine::evaluateQuery(Configuration &t_config){
         greater = t_config.marking->Value()[index];
     }
 
-    return less < greater;
+    return (less <= greater);
 }
 
 int DGEngine::indexOfPlace(char *t_place){
