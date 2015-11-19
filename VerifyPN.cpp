@@ -135,10 +135,16 @@ void testsuit(){
     //DGEngine (net, m0, certainZero);
     ctl::DGEngine engine(net, m0, false);
     engine.RunEgineTest();
+    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+    cout<<"::::::::: Completed normal Engine Test ::::::::::"<<endl;
+    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
     
     //Test the Engine - without certainZero
     ctl::DGEngine cZEROengine(net, m0, true);
     cZEROengine.RunEgineTest();
+    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+    cout<<":::::::::: Completed CZERO Engine Test ::::::::::"<<endl;
+    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
 }
 
 void search_ctl_query(PetriNet* net, MarkVal* m0, CTLFormula *queryList[], ReturnValues result[], bool certainZero){
