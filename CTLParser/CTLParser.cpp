@@ -6,7 +6,6 @@
  */
 
 #include <string>
-#include <iostream>
 #include <fstream>
 #include <string.h>
 #include <iostream>
@@ -369,7 +368,7 @@ bool CTLParser::charEmpty(char *query) {
 //Test functions
 void CTLParser::RunParserTest(){
     CTLFormula *queryList[8];
-    std::string queryXMLlist[8];
+    //std::string queryXMLlist[8];
     std::string querypath = "testFramework/unitTestResources/TEST_CTLFireabilitySimple.xml";
             //"testFramework/unitTestResources/TEST_CTLFireabilitySimple.xml";
     const char* queryfile = querypath.c_str();

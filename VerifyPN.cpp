@@ -72,8 +72,73 @@ enum SearchStrategies{
 
 void testsuit(){
     //Test the Parser
-    CTLParser testParser = CTLParser();
-    testParser.RunParserTest();
+    CTLParser *testParser = new CTLParser();
+    testParser->RunParserTest();
+    
+    //Setup Test model
+    string modelfile_str = "testFramework/ModelDB/ERK-PT-000001/model.pnml";
+    const char* modelfile = modelfile_str.c_str();
+    PetriNet* net = NULL;
+    MarkVal* m0 = NULL;
+    {
+        ifstream mfile(modelfile, ifstream::in);
+        stringstream buffer;
+        buffer << mfile.rdbuf();
+
+        //Parse and build the petri net
+        PetriNetBuilder builder(false);
+        PNMLParser parser;
+
+        parser.parse(buffer.str(), &builder);
+        parser.makePetriNet();
+        net = builder.makePetriNet();
+        m0 = builder.makeInitialMarking();
+        mfile.close();
+    }
+    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+    cout<<":::::::::::::::: Model Information ::::::::::::::"<<endl;
+    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+    cout<<"::::::::::: Number of places parsed: "<<net->numberOfPlaces()<<endl;
+    cout<<"::::::::::: Number of transitions parsed: "<<net->numberOfTransitions()<<endl;
+    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+    cout<<"::::::::: Places:"<<endl;
+    int i = 0;
+    for(i = 0; i< net->numberOfPlaces(); i++){
+        cout<<  "::::::::::::: "<< i+1 << ". " << net->placeNames()[i] <<endl;
+    }
+    cout<<"::::::::: Transitions:"<<endl;
+    for(i = 0; i< net->numberOfTransitions(); i++){
+        cout<<  "::::::::::::: "<< i+1 << ". " << net->transitionNames()[i] <<endl;
+    }
+    cout<<"::::::::: Arcs:"<<endl;
+    for(i = 0; i< net->numberOfTransitions(); i++){
+        int j = 0;
+        for(j = 0; j< net->numberOfPlaces(); j++){
+            if (net->outArc(i,j) > 0)
+                cout<<"::::::::::::: From "<<net->transitionNames()[i]<<" to "<< net->placeNames()[j] << " Weight: "<<net->outArc(i,j) <<endl;
+        }
+    }
+    for(i = 0; i< net->numberOfPlaces(); i++){
+        int j = 0;
+        for(j = 0; j< net->numberOfTransitions(); j++){
+            if (net->inArc(i,j) > 0)
+                cout<<"::::::::::::: From "<<net->placeNames()[i]<<" to "<< net->transitionNames()[j] << " Weight: "<<net->inArc(i,j) <<endl;
+        }
+    }
+    cout<<"::::::::: Initial Marking:"<<endl;
+    for(i = 0; i< net->numberOfPlaces(); i++){
+        cout<<"::::::::::::: P"<<i<<": "<<m0[i] <<endl;
+    }
+    
+    
+    //Test the Engine - without certainZero
+    //DGEngine (net, m0, certainZero);
+    ctl::DGEngine engine(net, m0, false);
+    engine.RunEgineTest();
+    
+    //Test the Engine - without certainZero
+    ctl::DGEngine cZEROengine(net, m0, true);
+    cZEROengine.RunEgineTest();
 }
 
 void search_ctl_query(PetriNet* net, MarkVal* m0, CTLFormula *queryList[], ReturnValues result[], bool certainZero){

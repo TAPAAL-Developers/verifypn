@@ -5,6 +5,7 @@
 #include <vector>
 #include <list>
 
+
 #include "marking.h"
 #include "configuration.h"
 #include "edge.h"
@@ -17,7 +18,7 @@ class DGEngine
 public:
     DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool t_CZero);
 
-    void RunEgineTest(PetriEngine::PetriNet net, PetriEngine::MarkVal m0);
+    void RunEgineTest();
     void search(CTLTree* t_query);
     inline bool querySatisfied(){return _querySatisfied; }
 private:
@@ -50,6 +51,7 @@ private:
     Marking* createMarking(const Marking& t_marking, int t_transition);
     Configuration* createConfiguration(Marking& t_marking, CTLTree& t_query);
 
+    std::vector<char> buffercreator(bool fire, bool simple);
 };
 }
 #endif // DGENGINE_H

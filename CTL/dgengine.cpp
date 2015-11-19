@@ -2,6 +2,7 @@
 #include "../CTLParser/CTLParser.h"
 
 #include <string.h>
+#include <fstream>
 #include <stack>
 
 namespace ctl {
@@ -495,14 +496,48 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         return *(Markings.insert(new_marking).first);
     }
 
-    void DGEngine::RunEgineTest(PetriEngine::PetriNet net, PetriEngine::MarkVal m0){
-        /*Marking *initmarking = new Marking(m0);
+    
+
+    void DGEngine::RunEgineTest(){
+        //Test create Marking
+        Marking *initmarking = new Marking(_m0, _nplaces);
+        std::cout<<initmarking->Length()<<std::endl;
+        int i = 0;
+        for (i = 0; i > _nplaces; i++){
+            //Also Valid!!! assert((*initmarking)[i] == _m0[i]); 
+            assert(initmarking->Value()[i] == _m0[i]);
+        }
         Marking *testmarking = createMarking(*initmarking, 0);
-        CTLParser testparser = new CTLParser();
-        CTLFormula testquery[1];
-        //testparser.ParseXMLQuery(buffer, testquery);
         
-        Configuration *testconfig = createConfiguration(m0, testquery[0].Query);*/
+        CTLParser *testparser = new CTLParser();
+        CTLFormula *testquery[1];
+        
+        
+        std::vector<char> buffer = buffercreator(true, true);
+        testparser->ParseXMLQuery(buffer, testquery);
+        
+        Configuration *testinitconfig = createConfiguration(*(initmarking), *(testquery[0]->Query));
     }
+    
+    std::vector<char> DGEngine::buffercreator(bool fire, bool simple){
+        CTLFormula *queryList[8];
+        std::string queryXMLlist[8];
+        std::string querypath;
+        
+        //"testFramework/ModelDB/ERK-PT-000001/";
+        std::string querypath_simple = "testFramework/ModelDB/ERK-PT-000001/CTLFireabilitySimple.xml";
+        std::string querypath_fireable = "testFramework/ModelDB/ERK-PT-000001/CTLFireability.xml";
+        std::string querypath_cardinality = "testFramework/ModelDB/ERK-PT-000001/CTLCardinality.xml";
+        
+        fire ? ( simple ? querypath = querypath_simple : querypath = querypath_fireable) : querypath = querypath_cardinality; 
+        
+        const char* queryfile = querypath.c_str();
+        std::ifstream xmlfile (queryfile);
+        std::vector<char> buffer((std::istreambuf_iterator<char>(xmlfile)), std::istreambuf_iterator<char>());
+        buffer.push_back('\0');
+        return buffer;
+    }
+    
+    
     
 }
