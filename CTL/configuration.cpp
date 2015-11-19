@@ -8,6 +8,7 @@ Configuration::Configuration(Marking * t_marking, CTLTree * t_query){
 }
 
 Configuration::~Configuration(){
+    std::cout << "Destroying Configuration\n" << std::flush;
     for(Edge* e: Successors){
         delete (e);
     }

@@ -31,7 +31,9 @@ class Marking
         : m_marking(t_marking), m_length(t_length){}
 
     virtual ~Marking(){
-        std::cout << "Destroying Marking\n" << std::flush;
+        std::cout << "Destroying Marking: " << std::flush;
+        print();
+        std::cout << std::endl << std::flush;
         free(m_marking);
     }
 

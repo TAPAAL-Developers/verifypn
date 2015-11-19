@@ -22,11 +22,13 @@ void DGEngine::search(CTLTree *t_query){
 
     _querySatisfied = localSmolka(*v0);
 
-//    for(auto c : Configurations){
-//        delete c;
-//    }
-//    Configurations.clear();
+    std::cout << "Cleaning Up Configurations: " << Configurations.size() << std::endl << std::flush;
 
+    for(auto c : Configurations){
+        delete c;
+    }
+    Configurations.clear();
+    std::cout << "Clean Up Done" << Configurations.size() << std::endl << std::flush;
 }
 
 bool DGEngine::localSmolka(Configuration &v){
@@ -120,6 +122,9 @@ bool DGEngine::localSmolka(Configuration &v){
 
                 if(*(e->source) == v)
                     return v.assignment == ONE ? true : false;
+
+                for(auto edge : e->source->DependencySet)
+                    W.push(edge);
             }
             e->source->removeSuccessor(e);
         }
@@ -134,18 +139,9 @@ bool DGEngine::localSmolka(Configuration &v){
             Configuration* negConfig = *(e->targets.begin());
             localSmolka(*negConfig);
 
-            if(negConfig->assignment == ONE){
-                assignConfiguration(*(e->source), CZERO);
-                e->source->removeSuccessor(e);
+            assignConfiguration(*(e->source) *negConfig->assignment);
 
-                if(_CZero){
-                    for(auto edge : e->source->DependencySet)
-                        W.push(edge);
-                }
-            }
-            else {
-                assignConfiguration(*(e->source), ONE);
-
+            if(e->source->assignment == ONE || e->source->assignment == CZERO){
                 for(auto edge : e->source->DependencySet)
                     W.push(edge);
             }
