@@ -44,7 +44,8 @@
 #include "PetriParse/QueryXMLParser.h"
 #include "CTLParser/CTLParser.h"
 
-#include <CTLEngine/CTLEngine.h>
+#include "CTLEngine/CTLEngine.h"
+#include "CTL/dgengine.h"
 
 
 using namespace std;
@@ -76,14 +77,14 @@ void testsuit(){
 }
 
 void search_ctl_query(PetriNet* net, MarkVal* m0, CTLFormula *queryList[], ReturnValues result[], bool certainZero){
-    CTLEngine engine(net, m0, certainZero);
+    ctl::DGEngine engine(net, m0, certainZero);
 
     for (int i = 0; i < 16 ; i++) {
         engine.search(queryList[i]->Query);
 
-        queryList[i]->Result = engine.readSatisfactory();
+        queryList[i]->Result = engine.querySatisfied();
 
-	    bool res = engine.readSatisfactory();
+        bool res = engine.querySatisfied();
 	    if (res)
 	        result[i] = SuccessCode;
 	    else if (!res)

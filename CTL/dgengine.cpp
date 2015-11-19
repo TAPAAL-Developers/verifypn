@@ -2,6 +2,7 @@
 #include "../CTLParser/CTLParser.h"
 
 #include <string.h>
+#include <stack>
 
 namespace ctl {
 
@@ -11,6 +12,185 @@ DGEngine::DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarki
     _nplaces = net->numberOfPlaces();
     _ntransitions = net->numberOfTransitions();
     _CZero = t_CZero;
+}
+
+void DGEngine::search(CTLTree *t_query){
+    //pNetPrinter(_net, _m0);
+    #ifdef DEBUG
+    cout << "--------------------- NEW QUERY-------------------------------------------\n" << flush;
+    #endif
+
+    Marking* firstMarking = new Marking(_m0, _nplaces);
+    Configuration* v0 = createConfiguration(*firstMarking, *t_query);
+
+    #ifdef DEBUG
+    cout << ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n::::::::::::::::: Initial Configuration\n::::::::::::::::";
+    #endif
+    #ifdef PP
+    configPrinter(v0);
+    #endif
+    #ifdef DEBUG
+    cout << ":\n:::::::::::::::::\n:::::::::::::::::\n:::::::::::::::::\n" << flush;
+    #endif
+    #ifdef DEBUG
+    CTLParser ctlParser = CTLParser();
+    ctlParser.printQuery(query);
+    #endif
+
+    Markings.clear();
+    _querySatisfied = localSmolka(*v0);
+}
+
+bool DGEngine::localSmolka(Configuration &v){
+
+    v.assignment = ZERO;
+    std::stack<Edge*> W;
+    auto initialSucc = successors(v);
+
+    //cout << "FIRST config :\n" << flush;
+   // configPrinter(v);
+
+    for(auto s : initialSucc)
+        W.push(s);
+
+    while (!W.empty()) {
+        #ifdef DEBUG
+        cout << "Starting while loop - size of W:" << W.size() <<endl;
+        cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << flush;
+//        for(int k = 0; k < W.size(); k++){
+//            edgePrinter(W.at(k));
+//        }
+        #endif
+
+        int i = 0;
+        Edge* e = W.top();
+        W.pop();
+
+        /*****************************************************************/
+        /*Data handling*/
+        #ifdef DEBUG
+        cout<<"Starting Data Handling\n"<<flush;
+        #endif
+        int targetONEassignments = 0;
+        int targetZEROassignments = 0;
+        int targetUKNOWNassignments = 0;
+        bool czero = false;
+
+        for(auto c : e->targets){
+            #ifdef DEBUG
+            cout<<"Target "<< i << " out of " << e.targets.size() << " assignment: "<< *(e.targets[i].assignment) << "\n"<<flush;
+            #endif
+            if (c->assignment == ONE) {
+                targetONEassignments++;
+            }
+            else if (c->assignment == ZERO) {
+                targetZEROassignments++;
+            }
+            else if (c->assignment == CZERO){
+                czero = true;
+                break;
+            }
+            else if(c-> assignment == UNKNOWN){
+                targetUKNOWNassignments++;
+            }
+        }
+
+        #ifdef DEBUG
+        cout<<"Completed Data Handling\nResult:\n"<<flush;
+        cout<<"ONE's: "<< targetONEassignments<<"\n" <<flush;
+        cout<<"CZERO: "<< czero << endl << flush;
+        cout<<"Zero's: "<< targetZEROassignments<<"\n" <<flush;
+        cout<<"Unknowns's: "<< targetUNKNOWNassignments<<"\n" <<flush;
+        #endif
+
+        /******************************************************************/
+        //Case: One
+        if (targetONEassignments == e->targets.size()){
+            #ifdef DEBUG
+            cout<<"All assignments were ONE"<<endl;
+            #endif
+            assignConfiguration(*(e->source), ONE);
+
+            if(*(e->source) == v)
+                return v.assignment == ONE ? true : false;
+
+            for(auto edge : e->source->DependencySet)
+                W.push(edge);
+        }
+        /*****************************************************************/
+        // Case: CZERO
+        else if(czero){
+
+            #ifdef DEBUG
+            cout<<"Certain Zero in target configurations"<<endl;
+            #endif
+
+            if(e->source->Successors.size() == 1){
+                assignConfiguration(*(e->source), CZERO);
+
+                if(*(e->source) == v)
+                    return v.assignment == ONE ? true : false;
+            }
+            e->source->removeSuccessor(e);
+        }
+        /*****************************************************************/
+        // Case: Negated
+        else if(e->source->IsNegated){
+
+            #ifdef DEBUG
+            cout<<"Negated: Calling smolka recursively"<<endl;
+            #endif
+
+            Configuration* negConfig = *(e->targets.begin());
+            localSmolka(*negConfig);
+
+            if(negConfig->assignment == ONE){
+                assignConfiguration(*(e->source), CZERO);
+                e->source->removeSuccessor(e);
+
+                if(_CZero){
+                    for(auto edge : e->source->DependencySet)
+                        W.push(edge);
+                }
+            }
+            else {
+                assignConfiguration(*(e->source), ONE);
+
+                for(auto edge : e->source->DependencySet)
+                    W.push(edge);
+            }
+        }
+        /*****************************************************************/
+        // CASE: ZERO
+        else if ( targetZEROassignments > 0){
+            for(auto c : e->targets){
+                if(c->assignment == ZERO) c->DependencySet.push_back(e);
+            }
+        }
+        /*****************************************************************/
+        // Case: UNKNOWN
+        else if (targetUKNOWNassignments > 0){
+            #ifdef DEBUG
+            cout<<"All assignments were unknown"<<endl;
+            #endif
+            for(auto c : e->targets){
+                if(c->assignment == UNKNOWN){
+                    c->assignment = ZERO;
+                    c->DependencySet.push_back(e);
+                    for(auto s : successors(*c)){
+                        W.push(s);
+                    }
+                }
+            }
+        }
+
+    }
+    #ifdef DEBUG
+    cout<<"The final assignment of the initial configuration is: " << *(v.assignment)<<endl;
+    #endif
+    //cout << "the final value is: " << *(v.assignment) << "\n" << flush;
+    //assignConfiguration(v, *(v.assignment));
+    return (v.assignment == ONE) ? true : false;
 }
 
 std::list<Edge*> DGEngine::successors(Configuration& v) {
@@ -179,6 +359,8 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
         }
         succ.push_back(e);
     }
+
+    v.Successors = succ;
     return succ;
 }
 

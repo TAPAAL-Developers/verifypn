@@ -27,6 +27,8 @@ public:
     Configuration(Marking* t_marking, CTLTree* t_query);
     virtual ~Configuration();
 
+    void removeSuccessor(Edge* t_successor);
+
     bool operator==(const Configuration& rhs)const;
 
     Marking* marking;

@@ -13,6 +13,17 @@ Configuration::~Configuration(){
     }
 }
 
+void Configuration::removeSuccessor(Edge *t_successor){
+    {
+        for(auto e : Successors){
+            if(e == t_successor){
+                delete e;
+                return;
+            }
+        }
+    }
+}
+
 bool Configuration::operator ==(const Configuration& rhs) const{
     if(query != rhs.query)
         return false;
