@@ -35,13 +35,14 @@ bool DGEngine::localSmolka(Configuration &v){
     std::stack<Edge*> W;
     auto initialSucc = successors(v);
 
+    ///*
      std::cout << "Starting while loop - size of W:" << W.size() << std::endl;
     std::cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << std::flush;
         for(auto c : initialSucc){
         c->edgePrinter();
         }
         //#endif
-
+    //*/
 
     //cout << "FIRST config :\n" << flush;
    // configPrinter(v);
@@ -55,6 +56,7 @@ bool DGEngine::localSmolka(Configuration &v){
         int i = 0;  
         Edge* e = W.top();
         W.pop();
+
 
         /*****************************************************************/
         /*Data handling*/
@@ -206,6 +208,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                     Configuration* c = createConfiguration(*m, *(v.query));
                     e1->targets.push_back(c);
                 }
+                succ.push_back(e1);
             }
 
             #ifdef PP
@@ -245,6 +248,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                     Configuration* c = createConfiguration(*m, *(v.query));
                     e1->targets.push_back(c);
                 }
+                succ.push_back(e1);
             }
         }//All Finally end
     } //All end
@@ -349,8 +353,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
             assignConfiguration(v, CZERO);
         }
         succ.push_back(e);
-        std::cout << "printing eval edge\n" << std::flush;
-        e->edgePrinter();
+        
     }
 
     v.Successors = succ;
@@ -440,6 +443,7 @@ std::list<Marking*> DGEngine::nextState(Marking& t_marking){
     }
 
     //return the set of reachable markings
+
     return nextStates;
 }
 
