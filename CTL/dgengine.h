@@ -16,6 +16,8 @@ class DGEngine
 {
 public:
     DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool t_CZero);
+
+    void RunEgineTest(PetriEngine::PetriNet net, PetriEngine::MarkVal m0);
     void search(CTLTree* t_query);
     inline bool querySatisfied(){return _querySatisfied; }
 private:
