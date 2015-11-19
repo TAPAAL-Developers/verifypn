@@ -48,8 +48,6 @@ void Configuration::configPrinter(){
 bool Configuration::operator ==(const Configuration& rhs) const{
     if(query != rhs.query)
         return false;
-    else if(assignment != rhs.assignment)
-        return false;
     else if(IsNegated != rhs.IsNegated)
         return false;
     else if(*marking == *(rhs.marking))//Use equality from marking

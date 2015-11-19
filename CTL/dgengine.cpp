@@ -555,9 +555,12 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         }
         assert(testinitconfig->query == testquery[0]->Query);
         //-------- Create  Config - Done
+        
         //-------- Create Duplicate Config - Start
+        testinitconfig->assignment = ONE;
         Configuration *duplicatetestconfig = createConfiguration(*(initmarking), *(testquery[0]->Query));
         assert(duplicatetestconfig == testinitconfig);
+        assert(duplicatetestconfig->assignment == ONE);
         //-------- Create Duplicate Config - Done
         
         
