@@ -475,8 +475,12 @@ Configuration* DGEngine::createConfiguration(Marking &t_marking, CTLTree& t_quer
     if(t_query.quantifier == NEG){
         newConfig->IsNegated = true;
     }
-
-    return *(Configurations.insert(newConfig).first);
+    
+    auto result = Configurations.find(newConfig);
+    if (result == Configurations.end())
+        return *(Configurations.insert(newConfig).first);
+    delete newConfig;
+    return *result;
 }
 
 Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
@@ -502,24 +506,51 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
     
 
     void DGEngine::RunEgineTest(){
-        //Test create Marking
+        //----------------------------------------------
+        //----------- Test of Marking ------------------
+        //----------------------------------------------
+        //-------- New Marking - Start
         Marking *initmarking = new Marking(_m0, _nplaces);
-        std::cout<<initmarking->Length()<<std::endl;
         int i = 0;
         for (i = 0; i > _nplaces; i++){
             //Also Valid!!! assert((*initmarking)[i] == _m0[i]); 
             assert(initmarking->Value()[i] == _m0[i]);
         }
-        Marking *testmarking = createMarking(*initmarking, 0);
+        //-------- New Marking - Done
+        //-------- Create Marking - Start
+        int t_r6;
+        std::string t_r6_str = "r6";
+        for (i = 0; i < _ntransitions; i++){
+            const char *t_name = _net->transitionNames()[i].c_str();
+            if (strcmp(t_name,t_r6_str.c_str()) == 0)
+                t_r6 = i;
+        }
         
+        Marking *testmarking = createMarking(*initmarking, t_r6);
+        for (i = 0; i < _nplaces; i++){
+            if (i == 4 )
+                assert(testmarking->Value()[i] == 1);
+            else if (i == 7 || i == 8)
+                assert(testmarking->Value()[i] == 0);
+            else assert(testmarking->Value()[i] == _m0[i]);
+        }
+        //-------- Create Marking - Done
+        //-------- Create Duplicate Marking - Start
+        Marking *duplicatetestmarking = createMarking(*initmarking, t_r6);
+        assert(duplicatetestmarking == testmarking);
+        //-------- Create Duplicate Marking - Done
+        
+        //----------------------------------------------
+        //-------------- Test Configuartion ------------
+        //----------------------------------------------
         CTLParser *testparser = new CTLParser();
         CTLFormula *testquery[1];
-        
-        
         std::vector<char> buffer = buffercreator(true, true);
         testparser->ParseXMLQuery(buffer, testquery);
         
         Configuration *testinitconfig = createConfiguration(*(initmarking), *(testquery[0]->Query));
+        
+        
     }
     
     std::vector<char> DGEngine::buffercreator(bool fire, bool simple){
