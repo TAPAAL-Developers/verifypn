@@ -53,7 +53,7 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[])
     int i = 0;
     for (xml_node<> * property_node = root_node->first_node("property"); property_node; property_node = property_node->next_sibling()) {
         xml_node<> * id_node = property_node->first_node("id"); 
-
+        std::cout << "\n\nTest:: Query: " << id_node->value() << std::endl;
         queryList[i] = (CTLFormula*)malloc(sizeof(CTLFormula));
 
         int size = id_node->value_size();
@@ -63,6 +63,27 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[])
 
         queryList[i]->Result = false;
         queryList[i]->Techniques = new std::vector<std::string>();
+        
+        /*if (i == 8){
+            std::cout<<"Root: "<<std::endl;
+            xml_node<> * test_formula_node = id_node->next_sibling("description")->next_sibling("formula");
+            std::cout<<test_formula_node->name()<<std::endl;
+            std::cout<<"-"<<test_formula_node->first_node()->name()<<std::endl;
+            std::cout<<"--"<<test_formula_node->first_node()->first_node()->name()<<std::endl;
+            xml_node<> * second_operator = test_formula_node->first_node()->first_node();
+            std::cout<<"---"<<second_operator->first_node()->name()<<std::endl;
+            std::cout<<"----"<<second_operator->first_node()->first_node()->name()<<std::endl;
+            
+            for (xml_node<> * untill_operator = second_operator->first_node()->first_node()->first_node(); untill_operator; untill_operator = untill_operator->next_sibling()) {
+                std::cout<<"-----"<<untill_operator->name()<<std::endl;
+                std::cout<<"------"<<untill_operator->first_node()->name()<<std::endl;
+                for (xml_node<> * left_side = untill_operator->first_node()->first_node(); left_side; left_side = left_side->next_sibling()){
+                    std::cout<<"-------"<<left_side->name()<<std::endl;
+                    std::cout<<"-------v: "<<left_side->value()<<std::endl;
+                }
+            }
+        }*/
+        
 
 #ifdef Analysis
         std::cout << "\nAnalysis:: Query: " << id_node->value() << std::endl;
@@ -80,16 +101,18 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[])
         #endif
 
         i++;
+        std::cout << "Running query id: "<<i<<"\n"<<std::flush;
     }
 }
 
 CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
+    std::cout << "Running xmlToCTLquery...\n"<<std::flush;
     bool isA = false;
     bool isE = false;
     CTLTree *query = (CTLTree*)malloc(sizeof(CTLTree));
-    
+    std::cout << "Setting root name\n"<<std::flush;
     char *root_name = root->name();
-    //std::cout << "TEST:: Running xmlToCTLquery with " << root_name << " as root\n";
+    std::cout << "TEST:: Running xmlToCTLquery with " << root_name << " as root\n";
     char firstLetter = root_name[0];
     
     if (firstLetter == 'a') {
@@ -123,10 +146,11 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     else if (firstLetter == 'e' ) {
     	isE = true;
         query->quantifier = E;
-        //std::cout << "TEST:: Q: " << root_name << " \n";
+        std::cout << "TEST:: Q in E: " << root_name << " \n";
         query->path = setPathOperator(root->first_node(), isA, isE);
         isE = false;
         if(isEG){
+            std::cout<<"This is from EG"<<std::endl;
             CTLTree *query1 = (CTLTree*)malloc(sizeof(CTLTree));
             CTLTree *query2 = (CTLTree*)malloc(sizeof(CTLTree));
 
@@ -144,6 +168,8 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             query2->first = xmlToCTLquery(root->first_node()->first_node());
 
             isEG = false;
+            std::cout<<"Made subquery for EG:"<<std::endl;
+            printQuery(query);
             return query;
         }
         
@@ -188,11 +214,14 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             return query; 
         }
         else if (root_name[1] == 'n') {
+            std::cout<< "\n\n"<<root->first_node()->name()<< "\n\n";
             xml_node<> * integerNode = root->first_node();
+            integerNode = root->first_node();
             query->a.isFireable = false;
             query->a.fireset = NULL;
-           // std::cout<< "\n\n ---------------> Found Token Count ";
+            std::cout<< "\n\n ---------------> Found integer-le - First attribute:\n ::Name: "<<integerNode->name()<<"\n ::Value: "<<integerNode->value()<<"\n"<<std::flush;
             if (integerNode->name()[0] == 't') {
+                std::cout<<"This is from token count: "<<integerNode->value()<<std::endl;
                 int size = integerNode->first_node()->value_size();
                 query->a.tokenCount.placeSmaller = strcpy((char*)malloc(sizeof(char)*size),
                                                           integerNode->first_node()->value());
@@ -200,6 +229,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
                // std::cout<< query->a.tokenCount.placeSmaller << " should be a smaller PLACE than ";
             }
             else if (integerNode->name()[0] == 'i') {
+                std::cout<<"This is from integer constant: "<<integerNode->value()<<std::endl;
                 char *temp;
                 temp = integerNode->value();
                 query->a.tokenCount.intSmaller = atoi(temp);
@@ -367,8 +397,7 @@ bool CTLParser::charEmpty(char *query) {
 
 //Test functions
 void CTLParser::RunParserTest(){
-    CTLFormula *queryList[8];
-    //std::string queryXMLlist[8];
+    CTLFormula *queryList[12];
     std::string querypath = "testFramework/unitTestResources/TEST_CTLFireabilitySimple.xml";
             //"testFramework/unitTestResources/TEST_CTLFireabilitySimple.xml";
     const char* queryfile = querypath.c_str();
@@ -376,10 +405,12 @@ void CTLParser::RunParserTest(){
     std::vector<char> buffer((std::istreambuf_iterator<char>(xmlfile)), std::istreambuf_iterator<char>());
     buffer.push_back('\0');
     
+    
     //Test 1 - charEmpty
     char* test1input = NULL;
     bool resTest1 = charEmpty(test1input);
     assert(resTest1 == true);
+  
     
     //Test 2 - Correct queries
     ParseXMLQuery(buffer, queryList);
@@ -411,5 +442,9 @@ void CTLParser::RunParserTest(){
         //Confirm EX becomes EX
         assert(queryList[7]->Query->quantifier == E);
         assert(queryList[7]->Query->path == X);
+        //Confirm Houseconstructions
+        
+        
         std::cout<<"::::::::::::::::::::::::::::::::\n:::::::: Parse Test End ::::::::\n::::::::::::::::::::::::::::::::\n"<<std::endl;
+        
 }

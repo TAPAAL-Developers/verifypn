@@ -118,4 +118,37 @@
       </exists-paths>
     </formula>
   </property>
+  <property>
+   <id>HouseConstruction-PT-002-CTLCardinality-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <exists-path>
+        <globally>
+          <exists-path>
+            <until>
+              <before>
+                <integer-le>
+                  <integer-constant>2</integer-constant>
+                  <tokens-count>
+                    <place>p13</place>
+                  </tokens-count>
+                </integer-le>
+              </before>
+              <reach>
+                <integer-le>
+                  <tokens-count>
+                    <place>p21</place>
+                  </tokens-count>
+                  <tokens-count>
+                    <place>p27</place>
+                  </tokens-count>
+                </integer-le>
+              </reach>
+            </until>
+          </exists-path>
+        </globally>
+      </exists-path>
+    </formula>
+  </property>
+  
 </property-set>
