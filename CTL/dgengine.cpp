@@ -22,10 +22,10 @@ void DGEngine::search(CTLTree *t_query){
 
     _querySatisfied = localSmolka(*v0);
 
-    for(auto c : Configurations){
-        delete c;
-    }
-    Configurations.clear();
+//    for(auto c : Configurations){
+//        delete c;
+//    }
+//    Configurations.clear();
 
 }
 
@@ -349,7 +349,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
             assignConfiguration(v, CZERO);
         }
         succ.push_back(e);
-        std::cout << "printing eval edge" << std::flush;
+        std::cout << "printing eval edge\n" << std::flush;
         e->edgePrinter();
     }
 
@@ -484,8 +484,14 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
             (*new_marking)[p] = place + _net->outArc(t_transition,p);
         }
 
-        //insert function either inserts or finds the element
-        return *(Markings.insert(new_marking).first);
+        auto result = Markings.find(new_marking);
+
+        if(result == Markings.end())
+            return *(Markings.insert(new_marking).first);
+        else
+            delete new_marking;
+
+        return *result;
     }
 
     void DGEngine::RunEgineTest(PetriEngine::PetriNet net, PetriEngine::MarkVal m0){

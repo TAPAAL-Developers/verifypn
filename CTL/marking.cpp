@@ -17,7 +17,9 @@ namespace ctl {
         this->m_marking = (MarkVal*)malloc(sizeof(MarkVal) * t_marking.Length());
         this->m_length = t_marking.Length();
 
-        memcpy(this->m_marking, t_marking.m_marking, this->m_length);
+        for(int i = 0; i < m_length; i++){
+            m_marking[i] = t_marking[i];
+        }
     }
 }
 

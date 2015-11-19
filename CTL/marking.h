@@ -30,7 +30,10 @@ class Marking
     Marking(PetriEngine::MarkVal* t_marking, size_t t_length)
         : m_marking(t_marking), m_length(t_length){}
 
-    virtual ~Marking(){free(m_marking);}
+    virtual ~Marking(){
+        std::cout << "Destroying Marking\n" << std::flush;
+        free(m_marking);
+    }
 
     void CopyMarking(const Marking& t_marking);
 
