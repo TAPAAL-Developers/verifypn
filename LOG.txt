@@ -1,0 +1,292 @@
+Analysis:: Modefile: testFramework/ModelDB/HouseConstruction-PT-002/model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+
+Analysis:: Queries:
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-0
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-0
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t12) )
+Running query id: 1
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-1
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-1
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t18) )
+Running query id: 2
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-2
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-2
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t14) )
+Running query id: 3
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-3
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-3
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t17) )
+Running query id: 4
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-4
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-4
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t16) )
+Running query id: 5
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-5
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-5
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t12) )
+Running query id: 6
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-6
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-6
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t12) )
+Running query id: 7
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-7
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-7
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t15) )
+Running query id: 8
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-8
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-8
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t18) )
+Running query id: 9
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-9
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-9
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t15) )
+Running query id: 10
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-10
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-10
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t16) )
+Running query id: 11
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-11
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-11
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t15) )
+Running query id: 12
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-12
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-12
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t9) )
+Running query id: 13
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-13
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-13
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t9) )
+Running query id: 14
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-14
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-14
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t12) )
+Running query id: 15
+
+
+Test:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-15
+
+Analysis:: Query: HouseConstruction-PT-002-CTLFireabilitySimple-15
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with all-paths as root
+Running xmlToCTLquery...
+Setting root name
+TEST:: Running xmlToCTLquery with is-fireable as root
+AFisFireable( (t10) )
+Running query id: 16
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-0 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-1 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-2 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-3 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-4 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-5 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-6 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-7 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-8 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-9 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-10 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-11 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-12 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-13 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-14 FALSE TECHNIQUES 
+
+--------------we are setting a czero-------------------------
+
+--------------done-------------------------
+FORMULA HouseConstruction-PT-002-CTLFireabilitySimple-15 FALSE TECHNIQUES 

@@ -39,13 +39,14 @@
 
 
 
-CTLEngine::CTLEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool CertainZero) {
+CTLEngine::CTLEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool CertainZero, bool global) {
     _net = net;
     _m0 = initialmarking;
     _nplaces = net->numberOfPlaces();
     _ntransitions = net->numberOfTransitions();
     querySatisfied = false;
     _CertainZero = CertainZero; 
+    _global = global;
 
 }
 
@@ -78,7 +79,9 @@ void CTLEngine::search(CTLTree *query){
     ctlParser.printQuery(query);
 #endif
     uset.clear();
-    querySatisfied = localSmolka(v0);
+    if(_global){
+        querySatisfied = globalSmolka(v0);
+    }else  querySatisfied = localSmolka(v0);
 }
 bool CTLEngine::readSatisfactory() {
     return querySatisfied;
@@ -86,7 +89,86 @@ bool CTLEngine::readSatisfactory() {
 
 
 
+bool CTLEngine::globalSmolka(Configuration v){
+    std::vector<CTLEngine::Edge> E;
+    std::vector<CTLEngine::Configuration> C;
+    std::vector<CTLEngine::Edge> temp;
+    C.push_back(v);
+    while(C.size() != 0){
 
+        Configuration v = C.back();
+        C.pop_back();
+        successors(v, temp);
+        for(int i = 0; i < temp.size(); i++){
+            if(!(std::find(E.begin(), E.end(), temp.at(i)) != E.end())){
+               E.push_back(temp.at(i));
+               for (int j = 0; j < temp.at(i).targets.size(); j++){
+                C.push_back(temp.at(i).targets.at(j));
+               } 
+            } 
+        }
+        temp.clear();
+    
+    }
+    while(E.size() != 0) {
+        int i;
+        Edge e = E.back();
+        E.pop_back();
+
+ 
+        int targetONEassignments = 0;
+        int targetZEROassignments = 0;
+
+        for (i = 0; i < e.targets.size(); i++ ){
+            if (*(e.targets[i].assignment) == ONE) {
+                targetONEassignments++;
+            }
+            else if (*(e.targets[i].assignment) == ZERO) {
+                targetZEROassignments++;
+            }
+        }
+        
+        if(e.source.query->quantifier == NEG){
+            
+            if(!(globalSmolka(e.targets[0]))){
+                assignConfiguration(e.source, ZERO);
+                            
+                if(e.source == v){
+                    return (*(v.assignment) == ONE) ? true : false;
+                    }
+
+                E.insert(E.end(), e.source.denpendencyList.begin(), e.source.denpendencyList.end());
+
+                } else {
+                assignConfiguration(e.source, ONE);
+    
+                if(e.source == v){
+                    return (*(v.assignment) == ONE) ? true : false;
+                }
+
+                if(_CertainZero) {
+                    E.insert(E.end(), e.source.denpendencyList.begin(), e.source.denpendencyList.end());
+                }
+            }
+        } else {        
+
+             if (targetONEassignments == e.targets.size()) {
+                assignConfiguration(e.source, ONE);
+                if(e.source == v){
+                    return (*(v.assignment) == ONE) ? true : false;
+                }
+                E.insert(E.end(), e.source.denpendencyList.begin(), e.source.denpendencyList.end());
+            } else if (targetZEROassignments > 0) {
+                  for (i = 0; i < e.targets.size(); i++ ){
+                    if (*(e.targets[i].assignment) == ZERO)
+                        e.targets[i].denpendencyList.push_back(e);
+                }
+            }
+          }
+        }
+
+      return (*(v.assignment) == ONE) ? true : false;
+}
 
 
 //Private functions

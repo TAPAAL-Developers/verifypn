@@ -147,9 +147,9 @@ void testsuit(){
     cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
 }
 
-void search_ctl_query(PetriNet* net, MarkVal* m0, CTLFormula *queryList[], ReturnValues result[], bool certainZero){
+void search_ctl_query(PetriNet* net, MarkVal* m0, CTLFormula *queryList[], ReturnValues result[], bool certainZero, bool global){
     //ctl::DGEngine engine(net, m0, certainZero);
-    CTLEngine *engine = new CTLEngine(net, m0, certainZero);
+    CTLEngine *engine = new CTLEngine(net, m0, certainZero, global);
 
     for (int i = 0; i < 16 ; i++) {
         engine->search(queryList[i]->Query);
@@ -191,6 +191,7 @@ int main(int argc, char* argv[]){
         bool istest = false;
         string query_string_ctl;
         bool certainZero = false;
+        bool global = false;
 
         
 	//----------------------- Parse Arguments -----------------------//
@@ -235,6 +236,8 @@ int main(int argc, char* argv[]){
 			}
 		} else if(strcmp(argv[i], "-czero") == 0){
                     	certainZero = true;
+        } else if(strcmp(argv[i], "-global") == 0){
+                    	global = true;
         } else if (strcmp(argv[i], "-m") == 0 || strcmp(argv[i], "--memory-limit") == 0) {
 			if (i == argc - 1) {
 				fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
@@ -734,7 +737,7 @@ int main(int argc, char* argv[]){
         //-------------------------------------------------------------------//
 	else {
             ReturnValues retval[16];
-            search_ctl_query(net, m0, queryList, retval, certainZero);
+            search_ctl_query(net, m0, queryList, retval, certainZero, global);
             int i;
             for (i = 0; i <16; i++){
                 if (retval[i] == ErrorCode) {

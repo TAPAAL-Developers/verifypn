@@ -12,7 +12,7 @@
 
 class CTLEngine {
 public:
-    CTLEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool CertainZero);
+    CTLEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool CertainZero, bool global);
     CTLEngine(const CTLEngine& orig);
     virtual ~CTLEngine();
     enum Assignment {
@@ -32,6 +32,7 @@ public:
         int mCount;
         bool shouldBeNegated;
         list<Edge> denpendencyList;
+        list<Edge> *succ;
                
         bool operator==(const Configuration & rhs)const{
             if(query == rhs.query){
@@ -57,6 +58,16 @@ public:
     struct Edge {
         CTLEngine::Configuration source;
         std::vector<CTLEngine::Configuration> targets;
+        bool operator==(const Edge & rhs)const{
+            if(source == rhs.source){
+                for(int i = 0; i < targets.size(); i++){
+                    if(!(targets.at(i) == rhs.targets.at(i))){
+                        return false;
+                    }
+                } return true;
+            } else return false;
+        }
+
     };
 
     
@@ -88,6 +99,7 @@ private:
     int _ntransitions;
     bool querySatisfied;
     bool _CertainZero;
+    bool _global;
 
     std::vector<CTLEngine::Markings> list;
     std::vector<CTLEngine::Configuration> configlist;
@@ -97,6 +109,7 @@ private:
     
 
     //Engine functions
+    bool globalSmolka(Configuration v);
     bool localSmolka(Configuration v);
     void successors(Configuration v, std::vector<CTLEngine::Edge>& W);
     CTLEngine::Configuration createConfiguration(PetriEngine::MarkVal *marking, CTLTree *query);
