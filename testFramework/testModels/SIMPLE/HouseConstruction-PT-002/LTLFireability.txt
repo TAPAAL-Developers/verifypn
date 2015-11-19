@@ -1,0 +1,80 @@
+Property HouseConstruction-PT-002-LTLFireability-0
+  "Automatically generated"
+  is:
+    A "t12"?
+  end.
+Property HouseConstruction-PT-002-LTLFireability-1
+  "Automatically generated"
+  is:
+    A F X ((F "t1"?) U (F "t18"?))
+  end.
+Property HouseConstruction-PT-002-LTLFireability-2
+  "Automatically generated"
+  is:
+    A ((((G "t1"?) U (X "t15"?))) U (X X G "t2"?))
+  end.
+Property HouseConstruction-PT-002-LTLFireability-3
+  "Automatically generated"
+  is:
+    A G "t1"?
+  end.
+Property HouseConstruction-PT-002-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X "t8"?
+  end.
+Property HouseConstruction-PT-002-LTLFireability-5
+  "Automatically generated"
+  is:
+    A X "t3"?
+  end.
+Property HouseConstruction-PT-002-LTLFireability-6
+  "Automatically generated"
+  is:
+    A ((F F F "t2"?) U ("t12"?))
+  end.
+Property HouseConstruction-PT-002-LTLFireability-7
+  "Automatically generated"
+  is:
+    A "t9"?
+  end.
+Property HouseConstruction-PT-002-LTLFireability-8
+  "Automatically generated"
+  is:
+    A G "t9"?
+  end.
+Property HouseConstruction-PT-002-LTLFireability-9
+  "Automatically generated"
+  is:
+    A "t6"?
+  end.
+Property HouseConstruction-PT-002-LTLFireability-10
+  "Automatically generated"
+  is:
+    A "t7"?
+  end.
+Property HouseConstruction-PT-002-LTLFireability-11
+  "Automatically generated"
+  is:
+    A ((F (("t10"?) U ("t15"?))) U (X G "t10"?))
+  end.
+Property HouseConstruction-PT-002-LTLFireability-12
+  "Automatically generated"
+  is:
+    A G F "t10"?
+  end.
+Property HouseConstruction-PT-002-LTLFireability-13
+  "Automatically generated"
+  is:
+    A F ((X "t2"?) U (G F "t17"?))
+  end.
+Property HouseConstruction-PT-002-LTLFireability-14
+  "Automatically generated"
+  is:
+    A "t5"?
+  end.
+Property HouseConstruction-PT-002-LTLFireability-15
+  "Automatically generated"
+  is:
+    A "t16"?
+  end.

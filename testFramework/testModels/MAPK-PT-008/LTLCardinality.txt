@@ -1,0 +1,80 @@
+Property MAPK-PT-008-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A G ((3) <= (#tokens("MEKPP_Phase2")))
+  end.
+Property MAPK-PT-008-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A ((G F ((#tokens("ERKP_MEKPP")) <= (#tokens("Raf_RasGTP")))) U (G G ((1) <= (#tokens("RafP_Phase1")))))
+  end.
+Property MAPK-PT-008-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A X X F ((1) <= (#tokens("MEK_RafP")))
+  end.
+Property MAPK-PT-008-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A G G X F ((#tokens("ERK")) <= (#tokens("MEK")))
+  end.
+Property MAPK-PT-008-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A F F X G ((#tokens("ERKP_Phase3")) <= (#tokens("ERK")))
+  end.
+Property MAPK-PT-008-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A F ((((3) <= (#tokens("MEKPP")))) U (((#tokens("Raf_RasGTP")) <= (#tokens("Phase2")))))
+  end.
+Property MAPK-PT-008-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A G F X ((#tokens("Phase3")) <= (#tokens("ERKP")))
+  end.
+Property MAPK-PT-008-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A G X ((((#tokens("ERK_MEKPP")) <= (#tokens("Raf")))) U (((2) <= (#tokens("Raf_RasGTP")))))
+  end.
+Property MAPK-PT-008-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("RasGTP")))
+  end.
+Property MAPK-PT-008-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((X ((3) <= (#tokens("ERK_MEKPP")))) U (X F ((2) <= (#tokens("ERKP_Phase3")))))
+  end.
+Property MAPK-PT-008-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A G X ((((1) <= (#tokens("ERKP_MEKPP")))) U (((1) <= (#tokens("MEKPP_Phase2")))))
+  end.
+Property MAPK-PT-008-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((((#tokens("Phase3")) <= (#tokens("ERKP_Phase3")))) U (G G ((2) <= (#tokens("ERKP_MEKPP")))))
+  end.
+Property MAPK-PT-008-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A G ((((1) <= (#tokens("MEK_RafP")))) U (((3) <= (#tokens("RafP")))))
+  end.
+Property MAPK-PT-008-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A G ((((#tokens("ERKP_Phase3")) <= (#tokens("MEKP")))) U (F ((2) <= (#tokens("RafP")))))
+  end.
+Property MAPK-PT-008-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A F X ((3) <= (#tokens("Raf_RasGTP")))
+  end.
+Property MAPK-PT-008-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A G F ((#tokens("ERKP")) <= (#tokens("ERK_MEKPP")))
+  end.

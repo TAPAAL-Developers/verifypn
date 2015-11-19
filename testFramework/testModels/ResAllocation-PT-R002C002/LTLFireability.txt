@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R002C002-LTLFireability-0
+  "Automatically generated"
+  is:
+    A ((X G G "t_1_2"?) U ("t_1_2"?))
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-1
+  "Automatically generated"
+  is:
+    A X ((X F "t_0_0"?) U (F F "t_0_0"?))
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-2
+  "Automatically generated"
+  is:
+    A G "t_1_2"?
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-3
+  "Automatically generated"
+  is:
+    A ((G "t_1_2"?) U ("t_0_1"?))
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-4
+  "Automatically generated"
+  is:
+    A "t_1_0"?
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-5
+  "Automatically generated"
+  is:
+    A (("t_1_0"?) U (X F F "t_1_0"?))
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-6
+  "Automatically generated"
+  is:
+    A (((("t_1_1"?) U (F "t_0_2"?))) U ((("t_0_0"?) U (F "t_0_2"?))))
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X F "t_1_0"?
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-8
+  "Automatically generated"
+  is:
+    A "t_1_1"?
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-9
+  "Automatically generated"
+  is:
+    A F ((G "t_1_1"?) U ((("t_0_1"?) U ("t_0_1"?))))
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-10
+  "Automatically generated"
+  is:
+    A F G F X F "t_1_2"?
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-11
+  "Automatically generated"
+  is:
+    A F G X F "t_0_2"?
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-12
+  "Automatically generated"
+  is:
+    A (("t_1_1"?) U ("t_1_2"?))
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-13
+  "Automatically generated"
+  is:
+    A G F F G G "t_1_0"?
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-14
+  "Automatically generated"
+  is:
+    A F (((("t_0_1"?) U ("t_1_0"?))) U (F "t_1_0"?))
+  end.
+Property ResAllocation-PT-R002C002-LTLFireability-15
+  "Automatically generated"
+  is:
+    A F ((X X "t_0_1"?) U (F F "t_1_1"?))
+  end.

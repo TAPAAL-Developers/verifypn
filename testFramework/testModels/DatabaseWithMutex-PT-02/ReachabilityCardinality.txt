@@ -1,0 +1,80 @@
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ((((#tokens("Active_1_2", "Active_2_2", "Active_1_1", "Active_2_1")) <= (#tokens("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")))) | (((! ((#tokens("Active_1_2", "Active_2_2", "Active_1_1", "Active_2_1")) <= (#tokens("MesBuffReply_2_1", "MesBuffReply_1_2", "MesBuffReply_2_2", "MesBuffReply_1_1")))) & (((((#tokens("all_active_1", "all_active_2")) <= (#tokens("all_active_1", "all_active_2")))) & (((#tokens("Active_1_2", "Active_2_2", "Active_1_1", "Active_2_1")) <= (#tokens("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")))))))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ((((((((3) <= (#tokens("all_passive_2", "all_passive_1")))) & (((3) <= (#tokens("MesBuffReply_2_1", "MesBuffReply_1_2", "MesBuffReply_2_2", "MesBuffReply_1_1")))))) | (((((#tokens("Modify_2_2", "Modify_2_1", "Modify_1_1", "Modify_1_2")) <= (#tokens("Active_1_2", "Active_2_2", "Active_1_1", "Active_2_1")))) | (((#tokens("updating_2_1", "updating_1_1", "updating_1_2", "updating_2_2")) <= (#tokens("all_active_1", "all_active_2")))))))) | (! ! ((#tokens("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")) <= (#tokens("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((#tokens("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")) <= (#tokens("Mutex_2", "Mutex_1")))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ((((((((3) <= (#tokens("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")))) & (((2) <= (#tokens("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")))))) & (((((#tokens("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")) <= (#tokens("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")))) & (((3) <= (#tokens("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")))))))) | (((((((2) <= (#tokens("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")))) | (((1) <= (#tokens("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")))))) & (((((2) <= (#tokens("all_active_1", "all_active_2")))) | (((#tokens("Mutex_2", "Mutex_1")) <= (#tokens("Modify_2_2", "Modify_2_1", "Modify_1_1", "Modify_1_2")))))))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ! ((#tokens("all_active_1", "all_active_2")) <= (#tokens("all_passive_2", "all_passive_1")))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("MesBuffReply_2_1", "MesBuffReply_1_2", "MesBuffReply_2_2", "MesBuffReply_1_1")))) & (! ((((#tokens("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")) <= (#tokens("MesBuffReply_2_1", "MesBuffReply_1_2", "MesBuffReply_2_2", "MesBuffReply_1_1")))) | (((2) <= (#tokens("Modify_2_2", "Modify_2_1", "Modify_1_1", "Modify_1_2")))))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((((((#tokens("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")) <= (#tokens("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")))) & (((((1) <= (#tokens("all_passive_2", "all_passive_1")))) & (((#tokens("all_active_1", "all_active_2")) <= (#tokens("Active_1_2", "Active_2_2", "Active_1_1", "Active_2_1")))))))) & (! ((((1) <= (#tokens("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")))) | (((#tokens("MesBuffReply_2_1", "MesBuffReply_1_2", "MesBuffReply_2_2", "MesBuffReply_1_1")) <= (#tokens("all_active_1", "all_active_2")))))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ! ((3) <= (#tokens("all_active_1", "all_active_2")))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ((#tokens("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")) <= (#tokens("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ! ! ((((#tokens("all_active_1", "all_active_2")) <= (#tokens("updating_2_1", "updating_1_1", "updating_1_2", "updating_2_2")))) & (((#tokens("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")) <= (#tokens("updating_2_1", "updating_1_1", "updating_1_2", "updating_2_2")))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((! ((3) <= (#tokens("MesBuffReply_2_1", "MesBuffReply_1_2", "MesBuffReply_2_2", "MesBuffReply_1_1")))) & (((((((1) <= (#tokens("Active_1_2", "Active_2_2", "Active_1_1", "Active_2_1")))) & (((#tokens("Modify_2_2", "Modify_2_1", "Modify_1_1", "Modify_1_2")) <= (#tokens("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")))))) | (((((1) <= (#tokens("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")))) & (((1) <= (#tokens("all_active_1", "all_active_2")))))))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ! ((((((1) <= (#tokens("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")))) | (((#tokens("all_passive_2", "all_passive_1")) <= (#tokens("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")))))) | (! ((3) <= (#tokens("all_passive_2", "all_passive_1")))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ! ((((#tokens("Mutex_2", "Mutex_1")) <= (#tokens("all_active_1", "all_active_2")))) & (! ((#tokens("updating_2_1", "updating_1_1", "updating_1_2", "updating_2_2")) <= (#tokens("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((#tokens("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (#tokens("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")) <= (#tokens("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")))) & (((3) <= (#tokens("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")))))) | (((((1) <= (#tokens("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")))) & (((3) <= (#tokens("MesBuffReply_2_1", "MesBuffReply_1_2", "MesBuffReply_2_2", "MesBuffReply_1_1")))))))) | (! ((#tokens("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (#tokens("MesBuffReply_2_1", "MesBuffReply_1_2", "MesBuffReply_2_2", "MesBuffReply_1_1")))))
+  end.

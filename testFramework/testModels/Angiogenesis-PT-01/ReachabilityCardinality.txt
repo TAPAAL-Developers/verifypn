@@ -1,0 +1,80 @@
+Property Angiogenesis-PT-01-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((1) <= (#tokens("KdStarGStarPg")))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("KdStarPgStarP2")) <= (#tokens("KdStarGStarPg")))) | (((#tokens("AktStar")) <= (#tokens("KdStarGStarP3k")))))) | (! ((2) <= (#tokens("KdStarGStarPgStarP3P2")))))) | (((((((#tokens("KdStarGStarP3kP3")) <= (#tokens("KdStarGStarP3kStar")))) | (((#tokens("KdStarGP3")) <= (#tokens("Pg")))))) & (((2) <= (#tokens("P3k")))))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ! ((2) <= (#tokens("GP3")))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("PtP3")) <= (#tokens("PtP2")))) & (((2) <= (#tokens("KdStarGStar")))))) | (((((#tokens("DAGE")) <= (#tokens("Pip3")))) | (((3) <= (#tokens("DAGE")))))))) | (((#tokens("PtP3")) <= (#tokens("Gab1")))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ((3) <= (#tokens("AktP3")))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("KdStarGStarPg")) <= (#tokens("GStarP3kP3")))) | (((#tokens("KdStarGStarPgStarP3")) <= (#tokens("PtP3")))))) | (((1) <= (#tokens("KdStarGStarPgStar")))))) | (((((((#tokens("KdStarGStarPg")) <= (#tokens("AktP3")))) & (((1) <= (#tokens("KdStarGStarPgP3")))))) & (((1) <= (#tokens("KdStarGStarPgStarP3")))))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ! ! ((((3) <= (#tokens("KdStarGStarPgP3")))) | (((3) <= (#tokens("KdStarGStarP3kP3")))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((! ((1) <= (#tokens("GP3")))) & (((((#tokens("Pip2")) <= (#tokens("GStarP3kP3")))) | (((((#tokens("KdStarGStarP3")) <= (#tokens("KdStarGP3")))) & (((2) <= (#tokens("Enz")))))))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ! ((((((2) <= (#tokens("GP3")))) | (((1) <= (#tokens("KdStarGStarPgStar")))))) & (! ((3) <= (#tokens("Pip3")))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("Pip2")) <= (#tokens("KdStarGStarPgStarP2")))) | (((3) <= (#tokens("KdStarGStarP3kP3")))))) & (((((((#tokens("KdStarGStarPg")) <= (#tokens("AktP3")))) | (((#tokens("KdStar")) <= (#tokens("KdStarGStarP3kStar")))))) | (((((#tokens("KdStarGStarPgStarP3P2")) <= (#tokens("AktP3")))) & (((#tokens("Gab1")) <= (#tokens("GStarP3kP3")))))))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((((! ((1) <= (#tokens("P3k")))) & (((3) <= (#tokens("KdStarGStarP3kStarP3")))))) | (((#tokens("GStarP3")) <= (#tokens("KdStarGStarPgP3")))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("KdStarGStarP3k")) <= (#tokens("KdStarGStarPg")))) | (((3) <= (#tokens("P3k")))))) & (! ((#tokens("Pten")) <= (#tokens("KdStarG")))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((! ! ((2) <= (#tokens("DAGE")))) | (((((1) <= (#tokens("GStarPgP3")))) & (((((#tokens("KdStarGStarPgP3")) <= (#tokens("KdStarGStarP3kStarP3P2")))) | (((3) <= (#tokens("KdStarG")))))))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((! ((#tokens("KdStarGStarP3kP3")) <= (#tokens("GStarP3")))) & (((((#tokens("KdStarGStarPgStarP3")) <= (#tokens("KdStarPgStar")))) & (! ((1) <= (#tokens("Pip3")))))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("KdStarGStarPgStarP3P2")) <= (#tokens("KdStarGStarPgStar")))) | (((2) <= (#tokens("Pip3")))))) & (((((#tokens("P3k")) <= (#tokens("Pip2")))) | (((1) <= (#tokens("AktP3")))))))) | (((((#tokens("AktP3")) <= (#tokens("PtP3P2")))) | (((((#tokens("KdStarGP3")) <= (#tokens("KdStarGStarPgStarP3")))) & (((1) <= (#tokens("GStarP3")))))))))
+  end.
+Property Angiogenesis-PT-01-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((1) <= (#tokens("DAG")))
+  end.

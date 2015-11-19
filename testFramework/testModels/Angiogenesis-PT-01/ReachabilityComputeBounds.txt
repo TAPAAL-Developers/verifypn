@@ -1,0 +1,80 @@
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("KdStarGStarPg")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("GStarPgP3")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("PtP3")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("Pten")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("GStarP3kP3")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("KdStarGStarPgStarP3")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("PtP3P2")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("KdStarPg")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("KdStarGStarPgStar")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("KdStarGStarP3k")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("KdStarGStarPg")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("GStarPgP3")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("KdStarGStarPgStarP2")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("KdStarGStarPgStar")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("PtP2")
+  end.
+Property Angiogenesis-PT-01-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("PtP3P2")
+  end.

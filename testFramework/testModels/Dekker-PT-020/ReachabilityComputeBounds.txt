@@ -1,0 +1,80 @@
+Property Dekker-PT-020-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("p0/0")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("flag=1/14")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("flag=1/6")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("flag=1/15")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("p3/15")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("flag=0/1")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("p1/14")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("flag=1/10")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("p3/3")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("p0/0")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("flag=0/10")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("p3/17")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("p1/18")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("p0/6")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("p1/11")
+  end.
+Property Dekker-PT-020-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("flag=0/12")
+  end.

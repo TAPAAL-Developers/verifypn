@@ -1,0 +1,80 @@
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((bound("productSlots_1", "productSlots_2")) <= (1))) & (((bound("optionSlots_1", "optionSlots_2")) <= (3))))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((((bound("theOptions_1", "theOptions_2")) <= (1))) & (((((((((bound("optionSlots_1", "optionSlots_2")) <= (3))) & (((bound("theOptions_1", "theOptions_2")) <= (2))))) & (((((((bound("theOptions_1", "theOptions_2")) <= (2))) & (((bound("optionSlots_1", "optionSlots_2")) <= (1))))) & (((bound("theOptions_1", "theOptions_2")) <= (3))))))) & (((((bound("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (3))) & (((((((bound("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (3))) & (((bound("productSlots_1", "productSlots_2")) <= (2))))) & (((((bound("theProducts_1", "theProducts_2")) <= (1))) & (((bound("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (3))))))))))))) & (((((bound("theOptions_1", "theOptions_2")) <= (2))) & (((bound("theOptions_1", "theOptions_2")) <= (3))))))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("optionSlots_1", "optionSlots_2")) <= (3))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("productSlots_1", "productSlots_2")) <= (2))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((((((((((((bound("theProducts_1", "theProducts_2")) <= (2))) & (((bound("optionSlots_1", "optionSlots_2")) <= (2))))) & (((((bound("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (3))) & (((bound("theProducts_1", "theProducts_2")) <= (1))))))) & (((((bound("theOptions_1", "theOptions_2")) <= (1))) & (((((bound("theProducts_1", "theProducts_2")) <= (1))) & (((bound("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (3))))))))) & (((bound("productSlots_1", "productSlots_2")) <= (1))))) & (((((bound("productSlots_1", "productSlots_2")) <= (2))) & (((((bound("optionSlots_1", "optionSlots_2")) <= (3))) & (((bound("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (2))))))))) & (((bound("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (1))))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (1))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("productSlots_1", "productSlots_2")) <= (2))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("theOptions_1", "theOptions_2")) <= (2))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("theOptions_1", "theOptions_2")) <= (2))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((((bound("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (1))) & (((bound("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (1))))) & (((((bound("theOptions_1", "theOptions_2")) <= (1))) & (((bound("productSlots_1", "productSlots_2")) <= (3))))))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (2))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (1))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("theProducts_1", "theProducts_2")) <= (2))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((((((((bound("theProducts_1", "theProducts_2")) <= (3))) & (((bound("theOptions_1", "theOptions_2")) <= (2))))) & (((((((((bound("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (2))) & (((bound("theProducts_1", "theProducts_2")) <= (2))))) & (((((bound("theOptions_1", "theOptions_2")) <= (2))) & (((bound("theOptions_1", "theOptions_2")) <= (1))))))) & (((((bound("optionSlots_1", "optionSlots_2")) <= (1))) & (((((bound("productSlots_1", "productSlots_2")) <= (1))) & (((bound("theOptions_1", "theOptions_2")) <= (2))))))))))) & (((bound("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (2))))) & (((((((bound("optionSlots_1", "optionSlots_2")) <= (2))) & (((bound("theProducts_1", "theProducts_2")) <= (2))))) & (((((bound("optionSlots_1", "optionSlots_2")) <= (2))) & (((bound("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (3))))))))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("theProducts_1", "theProducts_2")) <= (1))
+  end.
+Property DrinkVendingMachine-COL-02-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((bound("theOptions_1", "theOptions_2")) <= (3))) & (((((((bound("productSlots_1", "productSlots_2")) <= (2))) & (((bound("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (1))))) & (((((((bound("theProducts_1", "theProducts_2")) <= (2))) & (((((((bound("productSlots_1", "productSlots_2")) <= (1))) & (((bound("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (2))))) & (((bound("ready_1", "ready_3", "ready_2", "ready_5", "ready_4", "ready_7", "ready_6", "ready_8")) <= (2))))))) & (((bound("wait_1", "wait_2", "wait_3", "wait_4", "wait_5", "wait_6", "wait_7", "wait_8")) <= (1))))))))
+  end.

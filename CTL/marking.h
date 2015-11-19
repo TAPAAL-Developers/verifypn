@@ -2,6 +2,7 @@
 #define MARKING_H
 
 #include <vector>
+#include <iostream> 
 #include "../PetriEngine/PetriNet.h"
 
 namespace ctl {
@@ -40,6 +41,11 @@ class Marking
         return m_marking[index];
     }
     inline PetriEngine::MarkVal* Value() const {return m_marking;}
+    inline void print() const {
+        for(int i = 0; i < m_length; i++){
+            std::cout << m_marking[i] <<std::flush;
+        }
+    }
     inline size_t Length() const {return m_length;}
 private:
     PetriEngine::MarkVal* m_marking;

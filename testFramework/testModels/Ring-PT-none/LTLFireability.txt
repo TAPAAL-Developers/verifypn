@@ -1,0 +1,80 @@
+Property Ring-PT-none-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G G X F "T17"?
+  end.
+Property Ring-PT-none-LTLFireability-1
+  "Automatically generated"
+  is:
+    A G X ((F "T11"?) U ("T77"?))
+  end.
+Property Ring-PT-none-LTLFireability-2
+  "Automatically generated"
+  is:
+    A (("T49"?) U (G (("T70"?) U ("T20"?))))
+  end.
+Property Ring-PT-none-LTLFireability-3
+  "Automatically generated"
+  is:
+    A ((X G X "T6"?) U ("T77"?))
+  end.
+Property Ring-PT-none-LTLFireability-4
+  "Automatically generated"
+  is:
+    A ((G "T58"?) U (F "T17"?))
+  end.
+Property Ring-PT-none-LTLFireability-5
+  "Automatically generated"
+  is:
+    A ((G G X "T39"?) U (((F "T78"?) U (G "T44"?))))
+  end.
+Property Ring-PT-none-LTLFireability-6
+  "Automatically generated"
+  is:
+    A "T85"?
+  end.
+Property Ring-PT-none-LTLFireability-7
+  "Automatically generated"
+  is:
+    A "T20"?
+  end.
+Property Ring-PT-none-LTLFireability-8
+  "Automatically generated"
+  is:
+    A X (("T48"?) U (F F "T27"?))
+  end.
+Property Ring-PT-none-LTLFireability-9
+  "Automatically generated"
+  is:
+    A X F (("T70"?) U (F "T25"?))
+  end.
+Property Ring-PT-none-LTLFireability-10
+  "Automatically generated"
+  is:
+    A ((X G "T43"?) U (X G X "T49"?))
+  end.
+Property Ring-PT-none-LTLFireability-11
+  "Automatically generated"
+  is:
+    A G X G (("T28"?) U ("T72"?))
+  end.
+Property Ring-PT-none-LTLFireability-12
+  "Automatically generated"
+  is:
+    A G X X (("T5"?) U ("T25"?))
+  end.
+Property Ring-PT-none-LTLFireability-13
+  "Automatically generated"
+  is:
+    A X "T83"?
+  end.
+Property Ring-PT-none-LTLFireability-14
+  "Automatically generated"
+  is:
+    A G X F "T28"?
+  end.
+Property Ring-PT-none-LTLFireability-15
+  "Automatically generated"
+  is:
+    A G "T39"?
+  end.

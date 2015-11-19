@@ -1,0 +1,80 @@
+Property SimpleLoadBal-COL-02-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G G F F F ("server_endloop_1", "server_endloop_2")?
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-1
+  "Automatically generated"
+  is:
+    A G G X ((("lb_route_to_2_4", "lb_route_to_2_8", "lb_route_to_2_13", "lb_route_to_2_17")?) U (("lb_balance_to_2_13", "lb_balance_to_2_14")?))
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-2
+  "Automatically generated"
+  is:
+    A G F X ((("client_send_1", "client_send_2")?) U (("lb_receive_client_1", "lb_receive_client_2")?))
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-3
+  "Automatically generated"
+  is:
+    A ((X ("server_process_1", "server_process_2", "server_process_3", "server_process_4")?) U (X X ("lb_no_balance_1", "lb_no_balance_2", "lb_no_balance_4", "lb_no_balance_5", "lb_no_balance_6", "lb_no_balance_8", "lb_no_balance_9")?))
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X ((((("lb_balancing_receive_notification_2", "lb_balancing_receive_notification_3", "lb_balancing_receive_notification_5", "lb_balancing_receive_notification_6")?) U (("lb_balance_to_2_13", "lb_balance_to_2_14")?))) U (("lb_receive_client_1", "lb_receive_client_2")?))
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-5
+  "Automatically generated"
+  is:
+    A G G F ((("lb_route_to_1_1", "lb_route_to_1_2", "lb_route_to_1_5", "lb_route_to_1_6", "lb_route_to_1_10", "lb_route_to_1_11", "lb_route_to_1_14", "lb_route_to_1_15")?) U (("client_receive_1", "client_receive_2")?))
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-6
+  "Automatically generated"
+  is:
+    A ((((X ("server_process_1", "server_process_2", "server_process_3", "server_process_4")?) U (X ("client_send_1", "client_send_2")?))) U (F ("server_process_1", "server_process_2", "server_process_3", "server_process_4")?))
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X G F G F ("lb_route_to_2_4", "lb_route_to_2_8", "lb_route_to_2_13", "lb_route_to_2_17")?
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-8
+  "Automatically generated"
+  is:
+    A F ((G X ("client_receive_1", "client_receive_2")?) U (G F ("lb_no_balance_1", "lb_no_balance_2", "lb_no_balance_4", "lb_no_balance_5", "lb_no_balance_6", "lb_no_balance_8", "lb_no_balance_9")?))
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-9
+  "Automatically generated"
+  is:
+    A ("lb_balance_to_1_5", "lb_balance_to_1_6")?
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-10
+  "Automatically generated"
+  is:
+    A ("lb_balance_to_1_5", "lb_balance_to_1_6")?
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-11
+  "Automatically generated"
+  is:
+    A ("lb_no_balance_1", "lb_no_balance_2", "lb_no_balance_4", "lb_no_balance_5", "lb_no_balance_6", "lb_no_balance_8", "lb_no_balance_9")?
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-12
+  "Automatically generated"
+  is:
+    A ((("server_endloop_1", "server_endloop_2")?) U (("lb_balance_to_1_5", "lb_balance_to_1_6")?))
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-13
+  "Automatically generated"
+  is:
+    A ((X F G ("lb_receive_client_1", "lb_receive_client_2")?) U (((X ("lb_no_balance_1", "lb_no_balance_2", "lb_no_balance_4", "lb_no_balance_5", "lb_no_balance_6", "lb_no_balance_8", "lb_no_balance_9")?) U (F ("lb_balancing_receive_notification_2", "lb_balancing_receive_notification_3", "lb_balancing_receive_notification_5", "lb_balancing_receive_notification_6")?))))
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-14
+  "Automatically generated"
+  is:
+    A F F ((G ("server_process_1", "server_process_2", "server_process_3", "server_process_4")?) U (F ("client_send_1", "client_send_2")?))
+  end.
+Property SimpleLoadBal-COL-02-LTLFireability-15
+  "Automatically generated"
+  is:
+    A ((G G ("lb_route_to_1_1", "lb_route_to_1_2", "lb_route_to_1_5", "lb_route_to_1_6", "lb_route_to_1_10", "lb_route_to_1_11", "lb_route_to_1_14", "lb_route_to_1_15")?) U (G G X ("client_receive_1", "client_receive_2")?))
+  end.

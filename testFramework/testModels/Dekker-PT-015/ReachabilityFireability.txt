@@ -1,0 +1,80 @@
+Property Dekker-PT-015-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    A G ((((((! "exit/0"?) | ((("exit/1"?) & ("withdraw/0/13"?))))) | ((((("withdraw/6/11"?) | ("withdraw/11/14"?))) | ((("withdraw/12/13"?) | ("withdraw/14/6"?))))))) | ((("try/7"?) | (! (("withdraw/8/4"?) | ("withdraw/5/11"?))))))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F ((((((! "withdraw/9/5"?) & ((("withdraw/7/13"?) | ("withdraw/11/5"?))))) & (((! "withdraw/7/14"?) & ("withdraw/9/11"?))))) & ((("withdraw/6/1"?) | ("withdraw/4/12"?))))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F (((("exit/12"?) & ("withdraw/8/5"?))) | (((((! "withdraw/4/0"?) & ("withdraw/0/14"?))) & ("enter/5"?))))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    A G ((! "try/9"?) | (! (((("withdraw/0/7"?) & ("enter/1"?))) & ("enter/11"?))))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    A G ((((((! "withdraw/10/2"?) & ((("withdraw/4/10"?) & ("withdraw/11/2"?))))) & (! "withdraw/14/0"?))) | (! (((("enter/13"?) & ("withdraw/13/10"?))) & ("withdraw/6/12"?))))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G (((("withdraw/13/4"?) & ((("try/10"?) & ((("withdraw/13/2"?) & ("enter/0"?))))))) | (((! "withdraw/7/9"?) | (((! "withdraw/9/13"?) | (! "enter/3"?))))))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G ! (("withdraw/9/3"?) & ("exit/11"?))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G ((! ((! "withdraw/10/6"?) & ((("withdraw/12/1"?) & ("withdraw/2/5"?))))) & (((((! "exit/0"?) & (! "exit/7"?))) | (! "withdraw/13/2"?))))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F (((((((("withdraw/6/12"?) & ("try/14"?))) & ("withdraw/6/1"?))) & ((((("withdraw/2/9"?) & ("try/5"?))) | (! "withdraw/2/10"?))))) & ("withdraw/3/13"?))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F ((! ! (("withdraw/8/11"?) | ("withdraw/9/12"?))) & (((! ! "enter/2"?) & (((! "withdraw/6/12"?) & ((("withdraw/2/3"?) & ("withdraw/3/5"?))))))))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F (((((((("withdraw/9/6"?) | ("withdraw/7/1"?))) & ((("withdraw/11/12"?) & ("withdraw/4/8"?))))) & ("withdraw/14/2"?))) & (! ((! "withdraw/3/12"?) & ((("withdraw/7/9"?) | ("withdraw/11/6"?))))))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    A G (("withdraw/8/7"?) | (((! (("withdraw/12/0"?) | ("withdraw/10/0"?))) | (! (("withdraw/12/10"?) & ("withdraw/1/9"?))))))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ((((! (("withdraw/9/4"?) & ("withdraw/2/7"?))) | ("withdraw/3/1"?))) | ("withdraw/11/1"?))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    A G (((("withdraw/2/5"?) | (! (("withdraw/7/4"?) & ("withdraw/12/14"?))))) | ("withdraw/7/4"?))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F (("withdraw/1/5"?) & ("withdraw/9/2"?))
+  end.
+Property Dekker-PT-015-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F ((((! "withdraw/6/5"?) & ((((("withdraw/6/12"?) & ("withdraw/10/8"?))) & ((("withdraw/1/6"?) | ("withdraw/9/10"?))))))) & ("withdraw/4/11"?))
+  end.

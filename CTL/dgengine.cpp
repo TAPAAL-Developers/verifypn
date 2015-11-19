@@ -2,6 +2,7 @@
 #include "../CTLParser/CTLParser.h"
 
 #include <string.h>
+#include <iostream>
 #include <stack>
 
 namespace ctl {
@@ -47,6 +48,14 @@ bool DGEngine::localSmolka(Configuration &v){
     std::stack<Edge*> W;
     auto initialSucc = successors(v);
 
+     std::cout << "Starting while loop - size of W:" << W.size() << std::endl;
+    std::cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << std::flush;
+        for(auto c : initialSucc){
+        c->edgePrinter();
+        }
+        //#endif
+
+
     //cout << "FIRST config :\n" << flush;
    // configPrinter(v);
 
@@ -54,15 +63,9 @@ bool DGEngine::localSmolka(Configuration &v){
         W.push(s);
 
     while (!W.empty()) {
-        #ifdef DEBUG
-        cout << "Starting while loop - size of W:" << W.size() <<endl;
-        cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << flush;
-//        for(int k = 0; k < W.size(); k++){
-//            edgePrinter(W.at(k));
-//        }
-        #endif
-
-        int i = 0;
+        //#ifdef DEBUG
+       
+        int i = 0;  
         Edge* e = W.top();
         W.pop();
 
@@ -178,6 +181,7 @@ bool DGEngine::localSmolka(Configuration &v){
                     c->assignment = ZERO;
                     c->DependencySet.push_back(e);
                     for(auto s : successors(*c)){
+                        s->edgePrinter();
                         W.push(s);
                     }
                 }
@@ -358,6 +362,8 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
             assignConfiguration(v, CZERO);
         }
         succ.push_back(e);
+        std::cout << "printing eval edge" << std::flush;
+        e->edgePrinter();
     }
 
     v.Successors = succ;
