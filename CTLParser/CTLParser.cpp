@@ -373,9 +373,7 @@ void CTLParser::RunParserTest(){
     std::string querypath = "testFramework/unitTestResources/TEST_CTLFireabilitySimple.xml";
             //"testFramework/unitTestResources/TEST_CTLFireabilitySimple.xml";
     const char* queryfile = querypath.c_str();
-    std::cout<<"Set queryfile to path: "<<queryfile<<std::endl;
     std::ifstream xmlfile (queryfile);
-    std::cout<<"Created file stream"<<std::endl;
     std::vector<char> buffer((std::istreambuf_iterator<char>(xmlfile)), std::istreambuf_iterator<char>());
     buffer.push_back('\0');
     
@@ -397,9 +395,11 @@ void CTLParser::RunParserTest(){
         assert(queryList[2]->Query->first->quantifier == E);
         assert(queryList[2]->Query->first->path == F);
         assert(queryList[2]->Query->first->first->quantifier == NEG);
-        //Confirm EG becomes EG
-        assert(queryList[3]->Query->quantifier == E);
-        assert(queryList[3]->Query->path == G);
+        //Confirm EG becomes !AF!()
+        assert(queryList[3]->Query->quantifier == NEG);
+        assert(queryList[3]->Query->first->quantifier == A);
+        assert(queryList[3]->Query->first->path == F);
+        assert(queryList[3]->Query->first->first->quantifier == NEG);
         //Confirm AU becomes AU
         assert(queryList[4]->Query->quantifier == A);
         assert(queryList[4]->Query->path == U);
@@ -412,6 +412,5 @@ void CTLParser::RunParserTest(){
         //Confirm EX becomes EX
         assert(queryList[7]->Query->quantifier == E);
         assert(queryList[7]->Query->path == X);
-    //Test 3 - The printer
-        printQuery(queryList[0]->Query);
+        std::cout<<"::::::::::::::::::::::::::::::::\n:::::::: Parse Test End ::::::::\n::::::::::::::::::::::::::::::::\n"<<std::endl;
 }

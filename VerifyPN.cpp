@@ -73,46 +73,6 @@ void testsuit(){
     //Test the Parser
     CTLParser testParser = CTLParser();
     testParser.RunParserTest();
-    
-    //Test the Engine
-    string modelfilestring = "testFramework/unitTestResources/CTLUnitTest.pnml";
-    const char *modelfile = modelfilestring.c_str();
-    PetriNet* net = NULL; 
-    MarkVal* m0 = NULL;
-    bool certainZero = true;
-    PNMLParser::InhibitorArcList inhibarcs;
-    PNMLParser::TransitionEnablednessMap transitionEnabledness;
-    //Load the model
-		ifstream mfile(modelfile, ifstream::in);
-		if(!mfile){
-			fprintf(stderr, "Error: Model file \"%s\" couldn't be opened\n", modelfile);
-			fprintf(stdout, "CANNOT_COMPUTE\n");
-			return;
-		}
-
-		//Read everything
-		stringstream buffer;
-		buffer << mfile.rdbuf();
-
-		//Parse and build the petri net
-		PetriNetBuilder builder(false);
-		PNMLParser parser;
-
-		parser.parse(buffer.str(), &builder);
-		parser.makePetriNet();
-                		
-                inhibarcs = parser.getInhibitorArcs(); // Remember inhibitor arcs
-		transitionEnabledness = parser.getTransitionEnabledness(); // Remember conditions for transitions
-		//Build the petri net
-		net = builder.makePetriNet();
-		m0 = builder.makeInitialMarking();
-
-		// Close the file
-		mfile.close();
-    
-    CTLEngine testEngine(net, m0, certainZero);
-    testEngine.RunEgineTest();
-    
 }
 
 void search_ctl_query(PetriNet* net, MarkVal* m0, CTLFormula *queryList[], ReturnValues result[], bool certainZero){
@@ -299,7 +259,6 @@ int main(int argc, char* argv[]){
 
 	//----------------------- Validate Arguments -----------------------//
         if(istest){
-            cout<<"Entering test suit"<<endl;
             testsuit();
             return 0;
         }

@@ -18,6 +18,8 @@ public:
     DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool t_CZero);
 
     bool querySatisfied = false;
+    
+    void RunEgineTest(PetriEngine::PetriNet net, PetriEngine::MarkVal m0);
 private:
     PetriEngine::PetriNet* _net;
     PetriEngine::MarkVal* _m0;

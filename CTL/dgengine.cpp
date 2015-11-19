@@ -312,4 +312,15 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         //insert function either inserts or finds the element
         return *(Markings.insert(new_marking).first);
     }
+
+    void DGEngine::RunEgineTest(PetriEngine::PetriNet net, PetriEngine::MarkVal m0){
+        /*Marking *initmarking = new Marking(m0);
+        Marking *testmarking = createMarking(*initmarking, 0);
+        CTLParser testparser = new CTLParser();
+        CTLFormula testquery[1];
+        //testparser.ParseXMLQuery(buffer, testquery);
+        
+        Configuration *testconfig = createConfiguration(m0, testquery[0].Query);*/
+    }
+    
 }
