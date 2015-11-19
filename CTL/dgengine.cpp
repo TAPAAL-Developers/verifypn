@@ -2,6 +2,7 @@
 #include "../CTLParser/CTLParser.h"
 
 #include <string.h>
+#include <fstream>
 #include <iostream>
 #include <stack>
 
@@ -37,13 +38,14 @@ bool DGEngine::localSmolka(Configuration &v){
     std::stack<Edge*> W;
     auto initialSucc = successors(v);
 
+    ///*
      std::cout << "Starting while loop - size of W:" << W.size() << std::endl;
     std::cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << std::flush;
         for(auto c : initialSucc){
         c->edgePrinter();
         }
         //#endif
-
+    //*/
 
     //cout << "FIRST config :\n" << flush;
    // configPrinter(v);
@@ -57,6 +59,7 @@ bool DGEngine::localSmolka(Configuration &v){
         int i = 0;  
         Edge* e = W.top();
         W.pop();
+
 
         /*****************************************************************/
         /*Data handling*/
@@ -202,6 +205,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                     Configuration* c = createConfiguration(*m, *(v.query));
                     e1->targets.push_back(c);
                 }
+                succ.push_back(e1);
             }
 
             #ifdef PP
@@ -241,6 +245,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                     Configuration* c = createConfiguration(*m, *(v.query));
                     e1->targets.push_back(c);
                 }
+                succ.push_back(e1);
             }
         }//All Finally end
     } //All end
@@ -345,8 +350,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
             assignConfiguration(v, CZERO);
         }
         succ.push_back(e);
-        std::cout << "printing eval edge\n" << std::flush;
-        e->edgePrinter();
+        
     }
 
     v.Successors = succ;
@@ -436,6 +440,7 @@ std::list<Marking*> DGEngine::nextState(Marking& t_marking){
     }
 
     //return the set of reachable markings
+
     return nextStates;
 }
 
@@ -490,14 +495,48 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         return *result;
     }
 
-    void DGEngine::RunEgineTest(PetriEngine::PetriNet net, PetriEngine::MarkVal m0){
-        /*Marking *initmarking = new Marking(m0);
+    
+
+    void DGEngine::RunEgineTest(){
+        //Test create Marking
+        Marking *initmarking = new Marking(_m0, _nplaces);
+        std::cout<<initmarking->Length()<<std::endl;
+        int i = 0;
+        for (i = 0; i > _nplaces; i++){
+            //Also Valid!!! assert((*initmarking)[i] == _m0[i]); 
+            assert(initmarking->Value()[i] == _m0[i]);
+        }
         Marking *testmarking = createMarking(*initmarking, 0);
-        CTLParser testparser = new CTLParser();
-        CTLFormula testquery[1];
-        //testparser.ParseXMLQuery(buffer, testquery);
         
-        Configuration *testconfig = createConfiguration(m0, testquery[0].Query);*/
+        CTLParser *testparser = new CTLParser();
+        CTLFormula *testquery[1];
+        
+        
+        std::vector<char> buffer = buffercreator(true, true);
+        testparser->ParseXMLQuery(buffer, testquery);
+        
+        Configuration *testinitconfig = createConfiguration(*(initmarking), *(testquery[0]->Query));
     }
+    
+    std::vector<char> DGEngine::buffercreator(bool fire, bool simple){
+        CTLFormula *queryList[8];
+        std::string queryXMLlist[8];
+        std::string querypath;
+        
+        //"testFramework/ModelDB/ERK-PT-000001/";
+        std::string querypath_simple = "testFramework/ModelDB/ERK-PT-000001/CTLFireabilitySimple.xml";
+        std::string querypath_fireable = "testFramework/ModelDB/ERK-PT-000001/CTLFireability.xml";
+        std::string querypath_cardinality = "testFramework/ModelDB/ERK-PT-000001/CTLCardinality.xml";
+        
+        fire ? ( simple ? querypath = querypath_simple : querypath = querypath_fireable) : querypath = querypath_cardinality; 
+        
+        const char* queryfile = querypath.c_str();
+        std::ifstream xmlfile (queryfile);
+        std::vector<char> buffer((std::istreambuf_iterator<char>(xmlfile)), std::istreambuf_iterator<char>());
+        buffer.push_back('\0');
+        return buffer;
+    }
+    
+    
     
 }
