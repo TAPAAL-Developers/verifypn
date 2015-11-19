@@ -27,7 +27,6 @@ public:
     Configuration(Marking* t_marking, CTLTree* t_query);
     virtual ~Configuration();
 
-    void removeDependecy(Edge *t_successor);
     void removeSuccessor(Edge *t_successor);
     void configPrinter();
 

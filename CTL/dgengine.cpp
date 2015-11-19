@@ -23,13 +23,13 @@ void DGEngine::search(CTLTree *t_query){
 
     _querySatisfied = localSmolka(*v0);
 
-    std::cout << "Cleaning Up Configurations: " << Configurations.size() << std::endl << std::flush;
+    //std::cout << "Cleaning Up Configurations: " << Configurations.size() << std::endl << std::flush;
 
     for(auto c : Configurations){
         delete c;
     }
     Configurations.clear();
-    std::cout << "Clean Up Done" << Configurations.size() << std::endl << std::flush;
+    //std::cout << "Clean Up Done" << Configurations.size() << std::endl << std::flush;
 }
 
 bool DGEngine::localSmolka(Configuration &v){
@@ -59,6 +59,7 @@ bool DGEngine::localSmolka(Configuration &v){
         int i = 0;  
         Edge* e = W.top();
         W.pop();
+        e->edgePrinter();
 
 
         /*****************************************************************/
@@ -100,7 +101,7 @@ bool DGEngine::localSmolka(Configuration &v){
 
         /******************************************************************/
         //Case: One
-        if (targetONEassignments == e->targets.size()){
+        else if (targetONEassignments == e->targets.size()){
             #ifdef DEBUG
             cout<<"All assignments were ONE"<<endl;
             #endif
@@ -145,9 +146,11 @@ bool DGEngine::localSmolka(Configuration &v){
             assignConfiguration(*(e->source), negConfig->assignment);
 
             if(e->source->assignment == ONE || e->source->assignment == CZERO){
-                for(auto edge : e->source->DependencySet)
+                for(auto edge : e->source->DependencySet)   
                     W.push(edge);
             }
+
+            //std::cout << "\n---------- WE ARE DONE WITH REC SMOLKA------------\n" << std::flush;
         }
         /*****************************************************************/
         // CASE: ZERO
@@ -167,7 +170,7 @@ bool DGEngine::localSmolka(Configuration &v){
                     c->assignment = ZERO;
                     c->DependencySet.push_back(e);
                     for(auto s : successors(*c)){
-                        s->edgePrinter();
+                        //s->edgePrinter();
                         W.push(s);
                     }
                 }
@@ -225,6 +228,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                     Configuration* c = createConfiguration(*m, *(v.query->first));
                     e->targets.push_back(c);
                 }
+                succ.push_back(e);
             }
         } //All Next End
 
@@ -390,7 +394,7 @@ bool DGEngine::evaluateQuery(Configuration &t_config){
         greater = t_config.marking->Value()[index];
     }
 
-    return less < greater;
+    return (less <= greater);
 }
 
 int DGEngine::indexOfPlace(char *t_place){
@@ -471,8 +475,12 @@ Configuration* DGEngine::createConfiguration(Marking &t_marking, CTLTree& t_quer
     if(t_query.quantifier == NEG){
         newConfig->IsNegated = true;
     }
-
-    return *(Configurations.insert(newConfig).first);
+    
+    auto result = Configurations.find(newConfig);
+    if (result == Configurations.end())
+        return *(Configurations.insert(newConfig).first);
+    delete newConfig;
+    return *result;
 }
 
 Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
@@ -498,24 +506,51 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
     
 
     void DGEngine::RunEgineTest(){
-        //Test create Marking
+        //----------------------------------------------
+        //----------- Test of Marking ------------------
+        //----------------------------------------------
+        //-------- New Marking - Start
         Marking *initmarking = new Marking(_m0, _nplaces);
-        std::cout<<initmarking->Length()<<std::endl;
         int i = 0;
         for (i = 0; i > _nplaces; i++){
             //Also Valid!!! assert((*initmarking)[i] == _m0[i]); 
             assert(initmarking->Value()[i] == _m0[i]);
         }
-        Marking *testmarking = createMarking(*initmarking, 0);
+        //-------- New Marking - Done
+        //-------- Create Marking - Start
+        int t_r6;
+        std::string t_r6_str = "r6";
+        for (i = 0; i < _ntransitions; i++){
+            const char *t_name = _net->transitionNames()[i].c_str();
+            if (strcmp(t_name,t_r6_str.c_str()) == 0)
+                t_r6 = i;
+        }
         
+        Marking *testmarking = createMarking(*initmarking, t_r6);
+        for (i = 0; i < _nplaces; i++){
+            if (i == 4 )
+                assert(testmarking->Value()[i] == 1);
+            else if (i == 7 || i == 8)
+                assert(testmarking->Value()[i] == 0);
+            else assert(testmarking->Value()[i] == _m0[i]);
+        }
+        //-------- Create Marking - Done
+        //-------- Create Duplicate Marking - Start
+        Marking *duplicatetestmarking = createMarking(*initmarking, t_r6);
+        assert(duplicatetestmarking == testmarking);
+        //-------- Create Duplicate Marking - Done
+        
+        //----------------------------------------------
+        //-------------- Test Configuartion ------------
+        //----------------------------------------------
         CTLParser *testparser = new CTLParser();
         CTLFormula *testquery[1];
-        
-        
         std::vector<char> buffer = buffercreator(true, true);
         testparser->ParseXMLQuery(buffer, testquery);
         
         Configuration *testinitconfig = createConfiguration(*(initmarking), *(testquery[0]->Query));
+        
+        
     }
     
     std::vector<char> DGEngine::buffercreator(bool fire, bool simple){
