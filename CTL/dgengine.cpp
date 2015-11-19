@@ -23,11 +23,13 @@ void DGEngine::search(CTLTree *t_query){
 
     _querySatisfied = localSmolka(*v0);
 
-//    for(auto c : Configurations){
-//        delete c;
-//    }
-//    Configurations.clear();
+    std::cout << "Cleaning Up Configurations: " << Configurations.size() << std::endl << std::flush;
 
+    for(auto c : Configurations){
+        delete c;
+    }
+    Configurations.clear();
+    std::cout << "Clean Up Done" << Configurations.size() << std::endl << std::flush;
 }
 
 bool DGEngine::localSmolka(Configuration &v){
@@ -36,13 +38,14 @@ bool DGEngine::localSmolka(Configuration &v){
     std::stack<Edge*> W;
     auto initialSucc = successors(v);
 
+    ///*
      std::cout << "Starting while loop - size of W:" << W.size() << std::endl;
     std::cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << std::flush;
         for(auto c : initialSucc){
         c->edgePrinter();
         }
         //#endif
-
+    //*/
 
     //cout << "FIRST config :\n" << flush;
    // configPrinter(v);
@@ -56,6 +59,7 @@ bool DGEngine::localSmolka(Configuration &v){
         int i = 0;  
         Edge* e = W.top();
         W.pop();
+
 
         /*****************************************************************/
         /*Data handling*/
@@ -121,6 +125,9 @@ bool DGEngine::localSmolka(Configuration &v){
 
                 if(*(e->source) == v)
                     return v.assignment == ONE ? true : false;
+
+                for(auto edge : e->source->DependencySet)
+                    W.push(edge);
             }
             e->source->removeSuccessor(e);
         }
@@ -135,18 +142,9 @@ bool DGEngine::localSmolka(Configuration &v){
             Configuration* negConfig = *(e->targets.begin());
             localSmolka(*negConfig);
 
-            if(negConfig->assignment == ONE){
-                assignConfiguration(*(e->source), CZERO);
-                e->source->removeSuccessor(e);
+            assignConfiguration(*(e->source) *negConfig->assignment);
 
-                if(_CZero){
-                    for(auto edge : e->source->DependencySet)
-                        W.push(edge);
-                }
-            }
-            else {
-                assignConfiguration(*(e->source), ONE);
-
+            if(e->source->assignment == ONE || e->source->assignment == CZERO){
                 for(auto edge : e->source->DependencySet)
                     W.push(edge);
             }
@@ -207,6 +205,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                     Configuration* c = createConfiguration(*m, *(v.query));
                     e1->targets.push_back(c);
                 }
+                succ.push_back(e1);
             }
 
             #ifdef PP
@@ -246,6 +245,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                     Configuration* c = createConfiguration(*m, *(v.query));
                     e1->targets.push_back(c);
                 }
+                succ.push_back(e1);
             }
         }//All Finally end
     } //All end
@@ -350,8 +350,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
             assignConfiguration(v, CZERO);
         }
         succ.push_back(e);
-        std::cout << "printing eval edge\n" << std::flush;
-        e->edgePrinter();
+        
     }
 
     v.Successors = succ;
@@ -441,6 +440,7 @@ std::list<Marking*> DGEngine::nextState(Marking& t_marking){
     }
 
     //return the set of reachable markings
+
     return nextStates;
 }
 
