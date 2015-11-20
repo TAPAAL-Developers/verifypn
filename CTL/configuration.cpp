@@ -16,6 +16,7 @@ Configuration::~Configuration(){
 
 void Configuration::removeSuccessor(Edge *t_successor){
     {
+        std::cout << "destroying config" << std::endl << std::flush;
         Successors.remove(t_successor);
 
         for(auto t : t_successor->targets){
@@ -29,20 +30,16 @@ void Configuration::removeSuccessor(Edge *t_successor){
 
 
 void Configuration::configPrinter(){
-    std::cout << "--------------- Configuration Information -------------------\n";
     CTLParser ctlParser = CTLParser();
     int i = 0;
-    std::cout << "Configuration marking: " << std::flush;
+    std::cout << "Marking: ";
     marking->print();
 
-    std::cout << "\nConfiguration query::::\n" ;
+    std::cout << " Q: " ;
     ctlParser.printQuery(query);
-    std::cout << "\nConfiguration assignment: " << assignment<<"\n";
+    std::cout << " Assign: " << assignment;
 
-    std::cout << "\nshould be negated?: " << IsNegated <<"\n";
-
-    
-    std::cout << "---------------------------------------------------------\n";
+    std::cout << " NEG: " << IsNegated << "\n";
 }
 
 bool Configuration::operator ==(const Configuration& rhs) const{

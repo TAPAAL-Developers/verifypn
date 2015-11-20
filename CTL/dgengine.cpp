@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <stack>
+#include <queue>
 
 namespace ctl {
 
@@ -35,46 +36,34 @@ void DGEngine::search(CTLTree *t_query){
 bool DGEngine::localSmolka(Configuration &v){
 
     v.assignment = ZERO;
-    std::stack<Edge*> W;
+    std::queue<Edge*> W;
     auto initialSucc = successors(v);
 
-    ///*
-     std::cout << "Starting while loop - size of W:" << W.size() << std::endl;
-    std::cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << std::flush;
-        for(auto c : initialSucc){
-        c->edgePrinter();
-        }
-        //#endif
-    //*/
-
-    //cout << "FIRST config :\n" << flush;
-   // configPrinter(v);
+    //std::cout << "Starting while loop - size of W:" << W.size() << std::endl;
+    //std::cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << std::flush;
+//    for(auto c : initialSucc){
+//    c->edgePrinter();
+//    }
 
     for(auto s : initialSucc)
         W.push(s);
 
     while (!W.empty()) {
-        //#ifdef DEBUG
-       
+
         int i = 0;  
-        Edge* e = W.top();
+        Edge* e = W.front();
         W.pop();
-        e->edgePrinter();
+        //e->edgePrinter();
 
         /*****************************************************************/
         /*Data handling*/
-        #ifdef DEBUG
-        cout<<"Starting Data Handling\n"<<flush;
-        #endif
         int targetONEassignments = 0;
         int targetZEROassignments = 0;
         int targetUKNOWNassignments = 0;
         bool czero = false;
 
         for(auto c : e->targets){
-            #ifdef DEBUG
-            cout<<"Target "<< i << " out of " << e.targets.size() << " assignment: "<< *(e.targets[i].assignment) << "\n"<<flush;
-            #endif
+
             if (c->assignment == ONE) {
                 targetONEassignments++;
             }
@@ -90,24 +79,23 @@ bool DGEngine::localSmolka(Configuration &v){
             }
         }
 
-        #ifdef DEBUG
-        cout<<"Completed Data Handling\nResult:\n"<<flush;
-        cout<<"ONE's: "<< targetONEassignments<<"\n" <<flush;
-        cout<<"CZERO: "<< czero << endl << flush;
-        cout<<"Zero's: "<< targetZEROassignments<<"\n" <<flush;
-        cout<<"Unknowns's: "<< targetUNKNOWNassignments<<"\n" <<flush;
-        #endif
-
+        if(e->source->DependencySet.empty() && *e->source != v){
+            //This is suppose to be empty.
+            //If the D(e.source) is empty, no need to process it.
+        }
         /******************************************************************/
         //Case: One
-        if (targetONEassignments == e->targets.size()){
+        else if (targetONEassignments == e->targets.size()){
             #ifdef DEBUG
             cout<<"All assignments were ONE"<<endl;
             #endif
             assignConfiguration(*(e->source), ONE);
 
-            if(*(e->source) == v)
-                return v.assignment == ONE ? true : false;
+            if(*(e->source) == v){
+                bool result = v.assignment == ONE ? true : false;
+                //std::cout << "Returning Early from smolka result: " << result << std::endl << std::flush;
+                return result;
+            }
 
             for(auto edge : e->source->DependencySet)
                 W.push(edge);
@@ -116,28 +104,42 @@ bool DGEngine::localSmolka(Configuration &v){
         // Case: CZERO
         else if(czero){
 
-            #ifdef DEBUG
-            cout<<"Certain Zero in target configurations"<<endl;
-            #endif
+            bool isCzero = true;
+            for(auto edge : e->source->Successors){
+                bool found = false;
+                for( auto c : edge->targets){
+                    if(c->assignment == CZERO){
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found){
+                    isCzero = false;
+                    break;
+                }
+            }
 
-            if(e->source->Successors.size() == 1){
-                assignConfiguration(*(e->source), CZERO);
-
-                if(*(e->source) == v)
-                    return v.assignment == ONE ? true : false;
+            if(isCzero){
+                e->source->assignment == CZERO;
 
                 for(auto edge : e->source->DependencySet)
                     W.push(edge);
             }
-            e->source->removeSuccessor(e);
+
+//            if(e->source->Successors.size() == 1){
+//                assignConfiguration(*(e->source), CZERO);
+
+//                if(*(e->source) == v)
+//                    return v.assignment == ONE ? true : false;
+
+//                for(auto edge : e->source->DependencySet)
+//                    W.push(edge);
+//            }
+            //e->source->removeSuccessor(e);
         }
         /*****************************************************************/
         // Case: Negated
         else if(e->source->IsNegated){
-
-            #ifdef DEBUG
-            cout<<"Negated: Calling smolka recursively"<<endl;
-            #endif
 
             Configuration* negConfig = *(e->targets.begin());
             localSmolka(*negConfig);
@@ -161,9 +163,7 @@ bool DGEngine::localSmolka(Configuration &v){
         /*****************************************************************/
         // Case: UNKNOWN
         else if (targetUKNOWNassignments > 0){
-            #ifdef DEBUG
-            cout<<"All assignments were unknown"<<endl;
-            #endif
+
             for(auto c : e->targets){
                 if(c->assignment == UNKNOWN){
                     c->assignment = ZERO;
@@ -177,10 +177,7 @@ bool DGEngine::localSmolka(Configuration &v){
         }
 
     }
-    #ifdef DEBUG
-    cout<<"The final assignment of the initial configuration is: " << *(v.assignment)<<endl;
-    #endif
-    //cout << "the final value is: " << *(v.assignment) << "\n" << flush;
+    //std::cout << "the final value is: " << v.assignment << "\n" << std::flush;
     //assignConfiguration(v, *(v.assignment));
     return (v.assignment == ONE) ? true : false;
 }
@@ -236,7 +233,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
             Edge* e = new Edge(&v);
             Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
             e->targets.push_back(c);
-            succ.push_back(e);
+
 
             auto targets = nextState(*(v.marking));
 
@@ -250,6 +247,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                 }
                 succ.push_back(e1);
             }
+            succ.push_back(e);
         }//All Finally end
     } //All end
 
@@ -365,19 +363,29 @@ bool DGEngine::evaluateQuery(Configuration &t_config){
 
     CTLTree* query = t_config.query;
 
+    bool result = false;
+
     if (t_config.query->a.isFireable) {
         std::list<int> transistions = calculateFireableTransistions(*(t_config.marking));
 
         for (auto t : transistions) {
+
             int j = 0;
+            auto tName = _net->transitionNames()[t].c_str();
+
             while(query->a.fireset[j] != NULL){
-                if (strcmp(_net->transitionNames()[t].c_str(), query->a.fireset[j]) == 0){
-                    return true;
+
+                auto fsetName = query->a.fireset[j];
+                bool b = strcmp(tName, fsetName) == 0;
+
+                if (b){
+                    result= true;
                 }
                 j++;
             }
         }
-        return false;
+        //std::cout << "Evaluation: " << result << std::endl << std::flush;
+        return result;
     }
 
     int less = query->a.tokenCount.intSmaller;
@@ -393,7 +401,10 @@ bool DGEngine::evaluateQuery(Configuration &t_config){
         greater = t_config.marking->Value()[index];
     }
 
-    return (less <= greater);
+    result = less <= greater;
+    //std::cout << "Evaluation: " << result << std::endl << std::flush;
+
+    return result;
 }
 
 int DGEngine::indexOfPlace(char *t_place){
@@ -542,19 +553,20 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         //----------------------------------------------
         //-------------- Test Configuartion ------------
         //----------------------------------------------
+
         CTLParser *testparser = new CTLParser();
         CTLFormula *testquery[1];
         std::vector<char> simple_buffer = buffercreator(true, true);
         testparser->ParseXMLQuery(simple_buffer, testquery);
         Configuration *testinitconfig = createConfiguration(*(initmarking), *(testquery[0]->Query));
-        
+
         //-------- Create  Config - Start
         for (i = 0; i > _nplaces; i++){
             assert(testinitconfig->marking->Value()[i] == _m0[i]);
         }
         assert(testinitconfig->query == testquery[0]->Query);
         //-------- Create  Config - Done
-        
+
         //-------- Create Duplicate Config - Start
         testinitconfig->assignment = ONE;
         Configuration *duplicatetestconfig = createConfiguration(*(initmarking), *(testquery[0]->Query));
@@ -562,7 +574,7 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         assert(duplicatetestconfig->assignment == ONE);
         //-------- Create Duplicate Config - Done
         
-        
+
         //----------------------------------------------
         //--------------- Test Fireability -------------
         //----------------------------------------------
@@ -573,7 +585,7 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         assert(possible_t_list.back() == 4);
         //-------- Create fireability list - Done
         
-        
+
         //----------------------------------------------
         //--------------- Test Next state -------------
         //----------------------------------------------
@@ -598,6 +610,7 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
             else assert(next_state_list.back()->Value()[i] == _m0[i]);
         }
         //-------- Create next state list - Done
+std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!DEBUGGING!!!!!!!!!!!!!!!!!!!!!" << std::endl << std::flush;
     }
     
     std::vector<char> DGEngine::buffercreator(bool fire, bool simple){
