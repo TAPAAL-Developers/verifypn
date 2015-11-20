@@ -409,7 +409,6 @@ int DGEngine::indexOfPlace(char *t_place){
 void DGEngine::assignConfiguration(Configuration& t_config, Assignment t_assignment){
 
     if(t_config.IsNegated){
-        //Under zero means Assignment enum is either ZERO og CZERO
         if(t_assignment < 0){
             t_config.assignment = ONE;
         }
@@ -423,7 +422,7 @@ void DGEngine::assignConfiguration(Configuration& t_config, Assignment t_assignm
             t_config.assignment = t_assignment;
         }
         else if(_CZero){
-            t_config.assignment = CZERO;
+            t_config.assignment = t_assignment;
         }
         else { t_config.assignment = ZERO; }
     }
@@ -543,7 +542,7 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         //-------------- Test Configuartion ------------
         //----------------------------------------------
         CTLParser *testparser = new CTLParser();
-        CTLFormula *testquery[1];
+        CTLFormula *testquery[16];
         std::vector<char> simple_buffer = buffercreator(true, true);
         testparser->ParseXMLQuery(simple_buffer, testquery);
         Configuration *testinitconfig = createConfiguration(*(initmarking), *(testquery[0]->Query));
@@ -598,6 +597,48 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
             else assert(next_state_list.back()->Value()[i] == _m0[i]);
         }
         //-------- Create next state list - Done
+        
+        //----------------------------------------------
+        //----------- Test of assignment ------------------
+        //----------------------------------------------
+        //-------- Unnegated assignment confirmation - Start
+        testinitconfig->assignment = UNKNOWN;
+        assert(testinitconfig->assignment == UNKNOWN);
+        
+        assignConfiguration(*testinitconfig, ONE);
+        assert(testinitconfig->assignment == ONE);
+        
+        assignConfiguration(*testinitconfig, ZERO);
+        assert(testinitconfig->assignment == ZERO);
+        
+        assignConfiguration(*testinitconfig, CZERO);
+        if (_CZero)
+            assert(testinitconfig->assignment == CZERO);
+        else {
+            assert(testinitconfig->assignment == ZERO);
+        }
+        //-------- Unnegated assignment confirmation - Done
+        //-------- Negated assignment confirmation - Start
+        Configuration *negatedconfig = createConfiguration(*(initmarking), *(testquery[11]->Query));
+        negatedconfig->assignment = UNKNOWN;
+        assert(negatedconfig->assignment == UNKNOWN);
+        
+        negatedconfig->configPrinter();
+        
+        assignConfiguration(*negatedconfig, ONE);
+        if (_CZero)
+            assert(negatedconfig->assignment == CZERO);
+        else assert(negatedconfig->assignment == ZERO);
+        
+        assignConfiguration(*negatedconfig, ZERO);
+        assert(negatedconfig->assignment == ONE);
+        
+        assignConfiguration(*negatedconfig, CZERO);
+        if (_CZero)
+            assert(negatedconfig->assignment == ONE);
+        else assert(negatedconfig->assignment == ONE);
+        //-------- Negated assignment confirmation - Done
+        
     }
     
     std::vector<char> DGEngine::buffercreator(bool fire, bool simple){
