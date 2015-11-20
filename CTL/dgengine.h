@@ -36,7 +36,8 @@ private:
     std::unordered_set< Configuration*,
                         std::hash<Configuration*>,
                         Configuration::Configuration_Equal_To> Configurations;
-    //std::unordered_set<Edge*> Edges;
+    //std::unordered_set<Edge*> Edge
+     int computedSucc = 0;
 
     bool localSmolka(Configuration& v);
 
@@ -45,7 +46,7 @@ private:
     bool evaluateQuery(Configuration& t_config);
     int indexOfPlace(char* t_place);
 
-    void assignConfiguration(Configuration& t_config, Assignment t_assignment);
+    void assignConfiguration(Configuration* t_config, Assignment t_assignment);
     std::list<Marking*> nextState(Marking& t_marking);
     std::list<int> calculateFireableTransistions(Marking& t_marking);
     Marking* createMarking(const Marking& t_marking, int t_transition);

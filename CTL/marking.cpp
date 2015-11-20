@@ -10,7 +10,12 @@ using namespace PetriEngine;
 namespace ctl {
 
     bool Marking::operator ==(const Marking& rhs) const {
-        return !memcmp(this->Value(), rhs.Value(), this->Length());
+        for(int i = 0; i < this->Length(); i++){
+            if(!(this->Value()[i] == rhs.Value()[i])){
+                return false;
+            }
+        } return true;
+        //return (0 == (memcmp(this->Value(), rhs.Value(), this->Length())));
     }
 
     void Marking::CopyMarking(const Marking& t_marking){
