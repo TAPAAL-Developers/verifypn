@@ -13,13 +13,10 @@ namespace ctl{
     	std::cout << "--------------- Edge Information -------------------\n";
 	    std::cout << "--------------- source config----------------------\n";
 	    	source->configPrinter();
-	    std::cout << "--------------- target configs----------------------\n";
+        std::cout << "--------------- target configs----------------------\n";
 	    for( auto c : targets){
 	    	c->configPrinter();
-	    }	    
-
-	    std::cout << "---------------------------------------------------------\n";
-
+        }
+        std::cout << "-------------------------------------------------------\n";
     }
-
 }

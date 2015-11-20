@@ -31,6 +31,7 @@ public:
     void configPrinter();
 
     bool operator==(const Configuration& rhs)const;
+    bool operator!=(const Configuration &rhs) const {return !(*this == rhs);}
 
     Marking* marking;
     CTLTree* query;
