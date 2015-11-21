@@ -89,7 +89,7 @@ bool DGEngine::localSmolka(Configuration &v){
         else if (targetONEassignments == e->targets.size()){
             
 //std::cout << "\n-----------SIZE OF E's TARGES :" << e->targets.size() << std::flush;
-  //          e->edgePrinter();
+           // e->edgePrinter();
             #ifdef DEBUG
             cout<<"All assignments were ONE"<<endl;
             #endif
@@ -115,11 +115,15 @@ bool DGEngine::localSmolka(Configuration &v){
             }
 
             for(auto edge : e->source->DependencySet){
-    //            std::cout << "\n----------E's DS is :\n" << std::flush;
-      //          edge->edgePrinter();
-                if(!(edge->source->assignment == ONE))
-                W.push(edge);
+               //std::cout << "\n----------E's DS is :\n" << std::flush;
+                //edge->edgePrinter();
+                if(!(edge->source->assignment == ONE)){
+                    W.push(edge);
+
+                }
+
             }
+            e->source->DependencySet.clear();
         }
         /*****************************************************************/
         // Case: CZERO
@@ -378,7 +382,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
     v.Successors = succ;
     return succ;
     computedSucc += succ.size();
-    std::cout << "-----------EDGES NOW : " << computedSucc << "\n" << std::flush;
+    //std::cout << "-----------EDGES NOW : " << computedSucc << "\n" << std::flush;
 }
 
 
@@ -513,10 +517,10 @@ Configuration* DGEngine::createConfiguration(Marking &t_marking, CTLTree& t_quer
     
     auto result = Configurations.find(newConfig);
     if (result == Configurations.end()){
-        std::cout << "Inserted Configuration - Size now: " << Configurations.size() << std::endl;
+       // std::cout << "Inserted Configuration - Size now: " << Configurations.size() << std::endl;
         return *(Configurations.insert(newConfig).first);
     }
-    std::cout << "Configuration exists - Size now: " << Configurations.size() << std::endl;
+    //std::cout << "Configuration exists - Size now: " << Configurations.size() << std::endl;
     delete newConfig;
     return *result;
 }
@@ -534,12 +538,12 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         auto result = Markings.find(new_marking);
 
         if(result == Markings.end()){
-            std::cout << "Inserted marking - Size now: " << Markings.size() << std::endl;
+      //      std::cout << "Inserted marking - Size now: " << Markings.size() << std::endl;
             return *(Markings.insert(new_marking).first);
         }
         else{
             delete new_marking;
-            std::cout << "Marking exists - Size now: " << Markings.size() << std::endl;
+        //    std::cout << "Marking exists - Size now: " << Markings.size() << std::endl;
         }
         
 
