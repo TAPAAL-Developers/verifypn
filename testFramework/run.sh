@@ -1,6 +1,6 @@
 #!/bin/bash
 RUNPATH=`pwd`
-MODELS="testModels/SIMPLE"
+MODELS="testModels"
 MODELFILE="model.pnml"
 RESULTS="testResults"
 ENGINE="-ctl"

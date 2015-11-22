@@ -38,7 +38,8 @@ public:
     std::list<Edge*> Successors;
     std::list<Edge*> DependencySet;
     bool IsNegated = false;
-    Assignment assignment = UNKNOWN;
+    
+ Assignment assignment = UNKNOWN;
 };
 }// end of ctl
 

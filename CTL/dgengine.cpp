@@ -10,6 +10,7 @@
 namespace ctl {
 
 DGEngine::DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool t_CZero){
+    std::cout << "-------------------RUNNING DGENGINE---------------------------------" << std::flush;
     _net = net;
     _m0 = initialmarking;
     _nplaces = net->numberOfPlaces();
@@ -34,16 +35,15 @@ void DGEngine::search(CTLTree *t_query){
 }
 
 bool DGEngine::localSmolka(Configuration &v){
-
     v.assignment = ZERO;
     std::queue<Edge*> W;
     auto initialSucc = successors(v);
 
-    //std::cout << "Starting while loop - size of W:" << W.size() << std::endl;
-    //std::cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << std::flush;
-//    for(auto c : initialSucc){
-//    c->edgePrinter();
-//    }
+   /* std::cout << "Starting while loop - size of W:" << W.size() << std::endl;
+    std::cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << std::flush;
+    for(auto c : initialSucc){
+    c->edgePrinter();
+    }*/
 
     for(auto s : initialSucc)
         W.push(s);
@@ -77,6 +77,7 @@ bool DGEngine::localSmolka(Configuration &v){
             else if(c-> assignment == UNKNOWN){
                 targetUKNOWNassignments++;
             }
+
         }
 
         if(e->source->DependencySet.empty() && *e->source != v){
@@ -86,19 +87,43 @@ bool DGEngine::localSmolka(Configuration &v){
         /******************************************************************/
         //Case: One
         else if (targetONEassignments == e->targets.size()){
+            
+//std::cout << "\n-----------SIZE OF E's TARGES :" << e->targets.size() << std::flush;
+           // e->edgePrinter();
             #ifdef DEBUG
             cout<<"All assignments were ONE"<<endl;
             #endif
-            assignConfiguration(*(e->source), ONE);
+
+
+            //std::cout << "\nbefore assignment e " << e->source->assignment << std::flush;
+            //std::cout << "before assignment v " << v.assignment << std::flush;
+
+            assignConfiguration((e->source), ONE);
+            
+           // std::cout << "\nafter assignment e " << e->source->assignment << std::flush;
+            //std::cout << "after assignment v " << v.assignment << std::flush;
+
 
             if(*(e->source) == v){
-                bool result = v.assignment == ONE ? true : false;
-                //std::cout << "Returning Early from smolka result: " << result << std::endl << std::flush;
-                return result;
+               /*std::cout << "------------it IS ewual------------------------\n" << std::flush;   
+
+               std::cout << "------------first marking :"  << std::flush;   e->source->marking->print();
+
+               std::cout << "\n------------second marking:"  << std::flush;   v.marking->print();*/
+               return (e->source->assignment == ONE) ? true : false;
+                
             }
 
-            for(auto edge : e->source->DependencySet)
-                W.push(edge);
+            for(auto edge : e->source->DependencySet){
+               //std::cout << "\n----------E's DS is :\n" << std::flush;
+                //edge->edgePrinter();
+                if(!(edge->source->assignment == ONE)){
+                    W.push(edge);
+
+                }
+
+            }
+            e->source->DependencySet.clear();
         }
         /*****************************************************************/
         // Case: CZERO
@@ -136,6 +161,7 @@ bool DGEngine::localSmolka(Configuration &v){
 //                    W.push(edge);
 //            }
             //e->source->removeSuccessor(e);
+
         }
         /*****************************************************************/
         // Case: Negated
@@ -144,7 +170,7 @@ bool DGEngine::localSmolka(Configuration &v){
             Configuration* negConfig = *(e->targets.begin());
             localSmolka(*negConfig);
 
-            assignConfiguration(*(e->source), negConfig->assignment);
+            assignConfiguration((e->source), negConfig->assignment);
 
             if(e->source->assignment == ONE || e->source->assignment == CZERO){
                 for(auto edge : e->source->DependencySet)   
@@ -163,22 +189,24 @@ bool DGEngine::localSmolka(Configuration &v){
         /*****************************************************************/
         // Case: UNKNOWN
         else if (targetUKNOWNassignments > 0){
+           // std::cout << "--------------SUCC------------------------------" << std::flush;
 
             for(auto c : e->targets){
                 if(c->assignment == UNKNOWN){
                     c->assignment = ZERO;
                     c->DependencySet.push_back(e);
                     for(auto s : successors(*c)){
-                        //s->edgePrinter();
+                //        s->edgePrinter();
                         W.push(s);
                     }
                 }
             }
         }
-
+        
     }
     //std::cout << "the final value is: " << v.assignment << "\n" << std::flush;
     //assignConfiguration(v, *(v.assignment));
+
     return (v.assignment == ONE) ? true : false;
 }
 
@@ -191,7 +219,6 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
             Configuration* c = createConfiguration(*(v.marking), *(v.query->second));
             Edge* e = new Edge(&v);
             e->targets.push_back(c);
-            succ.push_back(e);
 
             auto targets = nextState (*(v.marking));
 
@@ -207,9 +234,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                 succ.push_back(e1);
             }
 
-            #ifdef PP
-            edgePrinter(e);edgePrinter(e1);
-            #endif
+            succ.push_back(e);
 
         } //All Until end
 
@@ -346,9 +371,9 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
         Edge* e = new Edge(&v);
         e->targets.push_back(&v);
         if (evaluateQuery(v)){
-            assignConfiguration(v, ONE);
+            assignConfiguration(&v, ONE);
         } else {
-            assignConfiguration(v, CZERO);
+            assignConfiguration(&v, CZERO);
         }
         succ.push_back(e);
         
@@ -356,6 +381,8 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
 
     v.Successors = succ;
     return succ;
+    computedSucc += succ.size();
+    //std::cout << "-----------EDGES NOW : " << computedSucc << "\n" << std::flush;
 }
 
 
@@ -417,25 +444,28 @@ int DGEngine::indexOfPlace(char *t_place){
     return -1;
 }
 
-void DGEngine::assignConfiguration(Configuration& t_config, Assignment t_assignment){
+void DGEngine::assignConfiguration(Configuration* t_config, Assignment t_assignment){
 
-    if(t_config.IsNegated){
+
+    if(t_config->IsNegated){
+        //Under zero means Assignment enum is either ZERO og CZERO
         if(t_assignment < 0){
-            t_config.assignment = ONE;
+            t_config->assignment = ONE;
         }
         else if(_CZero){
-            t_config.assignment = CZERO;
+            t_config->assignment = CZERO;
         }
-        else { t_config.assignment = ZERO; }
+        else { t_config->assignment = ZERO; }
     }
     else {
         if(t_assignment > 0){
-            t_config.assignment = t_assignment;
+            t_config->assignment = t_assignment;
         }
         else if(_CZero){
-            t_config.assignment = t_assignment;
+            t_config->assignment = t_assignment;
+
         }
-        else { t_config.assignment = ZERO; }
+        else { t_config->assignment = ZERO; }
     }
 }
 
@@ -486,8 +516,11 @@ Configuration* DGEngine::createConfiguration(Marking &t_marking, CTLTree& t_quer
     }
     
     auto result = Configurations.find(newConfig);
-    if (result == Configurations.end())
+    if (result == Configurations.end()){
+       // std::cout << "Inserted Configuration - Size now: " << Configurations.size() << std::endl;
         return *(Configurations.insert(newConfig).first);
+    }
+    //std::cout << "Configuration exists - Size now: " << Configurations.size() << std::endl;
     delete newConfig;
     return *result;
 }
@@ -504,10 +537,15 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
 
         auto result = Markings.find(new_marking);
 
-        if(result == Markings.end())
+        if(result == Markings.end()){
+      //      std::cout << "Inserted marking - Size now: " << Markings.size() << std::endl;
             return *(Markings.insert(new_marking).first);
-        else
+        }
+        else{
             delete new_marking;
+        //    std::cout << "Marking exists - Size now: " << Markings.size() << std::endl;
+        }
+        
 
         return *result;
     }
@@ -630,13 +668,13 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         testinitconfig->assignment = UNKNOWN;
         assert(testinitconfig->assignment == UNKNOWN);
         
-        assignConfiguration(*testinitconfig, ONE);
+        assignConfiguration(testinitconfig, ONE);
         assert(testinitconfig->assignment == ONE);
         
-        assignConfiguration(*testinitconfig, ZERO);
+        assignConfiguration(testinitconfig, ZERO);
         assert(testinitconfig->assignment == ZERO);
         
-        assignConfiguration(*testinitconfig, CZERO);
+        assignConfiguration(testinitconfig, CZERO);
         if (_CZero)
             assert(testinitconfig->assignment == CZERO);
         else {
@@ -650,15 +688,15 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         
         negatedconfig->configPrinter();
         
-        assignConfiguration(*negatedconfig, ONE);
+        assignConfiguration(negatedconfig, ONE);
         if (_CZero)
             assert(negatedconfig->assignment == CZERO);
         else assert(negatedconfig->assignment == ZERO);
         
-        assignConfiguration(*negatedconfig, ZERO);
+        assignConfiguration(negatedconfig, ZERO);
         assert(negatedconfig->assignment == ONE);
         
-        assignConfiguration(*negatedconfig, CZERO);
+        assignConfiguration(negatedconfig, CZERO);
         if (_CZero)
             assert(negatedconfig->assignment == ONE);
         else assert(negatedconfig->assignment == ONE);
