@@ -69,6 +69,7 @@ void DGEngine::buildDependencyGraph(Configuration &v){
 //            e->edgePrinter();
             for(Configuration* tc : e->targets){
                 if(tc->assignment == UNKNOWN){
+                    std::cout << "Setting Edge to ZERO" << std::endl;
                     tc->assignment = ZERO;
                     C.push(tc);
                 }
@@ -102,7 +103,7 @@ void DGEngine::CalculateEdges(Configuration &v, std::queue<Edge*> &W){
 
 bool DGEngine::globalSmolka(Configuration &v){
     std::queue<Edge*> W;
-    v.assignment = ZERO;
+    //v.assignment = ZERO;
 
     CalculateEdges(v, W);
 
@@ -488,8 +489,10 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
         Edge* e = new Edge(&v);
         e->targets.push_back(&v);
         if (evaluateQuery(v)){
+            std::cout << "True" << std::endl;
             assignConfiguration(&v, ONE);
         } else {
+            std::cout << "False" << std::endl;
             assignConfiguration(&v, CZERO);
         }
         succ.push_back(e);
@@ -575,14 +578,20 @@ void DGEngine::assignConfiguration(Configuration* t_config, Assignment t_assignm
         else { t_config->assignment = ZERO; }
     }
     else {
+        std::cout << "Assigning ";
         if(t_assignment > 0){
+            std::cout << t_assignment << std::endl;
             t_config->assignment = t_assignment;
         }
         else if(_CZero){
+            std::cout << t_assignment << std::endl;
             t_config->assignment = t_assignment;
 
         }
-        else { t_config->assignment = ZERO; }
+        else {
+            std::cout << ZERO << std::endl;
+            t_config->assignment = ZERO;
+        }
     }
 }
 
