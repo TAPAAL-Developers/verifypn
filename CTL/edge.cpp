@@ -6,7 +6,10 @@ namespace ctl{
     bool Edge::operator ==(const Edge& rhs) const {
         if(source != rhs.source)
             return false;
-        return (targets == rhs.targets);
+        if(!(targets == rhs.targets))
+                return false;
+        
+        return true;
     }
 
     void Edge::edgePrinter(){
@@ -19,4 +22,31 @@ namespace ctl{
         }
         std::cout << "-------------------------------------------------------\n";
     }
+}
+namespace std{
+    // Specializations of hash functions.
+    // Normal
+    template<>
+    struct hash<ctl::Edge>{
+        size_t operator()(const ctl::Edge& t_edge ) const {
+            size_t seed = 0x9e3779b9;
+            hash<ctl::Configuration> hasher;
+            size_t result = hasher.operator()(*t_edge.source);
+
+            for(auto t : t_edge.targets){
+                result ^= hasher.operator()(*t);
+            }
+            result ^= seed + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+
+            return result;
+        }
+    };
+    //
+    template<>
+    struct hash<ctl::Edge*>{
+        size_t operator()(const ctl::Edge* t_edge ) const {
+            hash<ctl::Edge> hasher;
+            return hasher.operator ()(*t_edge);
+        }
+    };
 }

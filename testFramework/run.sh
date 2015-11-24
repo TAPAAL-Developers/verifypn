@@ -6,10 +6,11 @@ RESULTS="testResults"
 ENGINE="-ctl"
 TOOL="CTLEngine.sh"
 ANALYSE="analyse.sh"
+MEM="../../mem.sh"
 
 REL_PROGRAMPATH="../verifypn-linux64"
 
-FLAG=$1
+#FLAG=$1
 QUERYTYPE=$2
 declare -a QUERY;
 
@@ -99,7 +100,13 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 			#echo "$(basename $QF)"
 		
 			#<PROGRAMPATH> <ENGINE> <MODELFILE> <QUERYFILE>
-			time ./$TOOL $PROGRAMPATH $ENGINE $MODELFILE $QF $FLAG
+			time ./$TOOL $PROGRAMPATH $ENGINE $MODELFILE $QF 
+			#$FLAG &
+			#./$MEM 2> err.txt
+			#rm err.txt	
+			#wait
+			#sleep 20
+
 		done
 
 	else

@@ -36,10 +36,15 @@ private:
     std::unordered_set< Configuration*,
                         std::hash<Configuration*>,
                         Configuration::Configuration_Equal_To> Configurations;
+
+     std::unordered_set< Edge*,
+                        std::hash<Edge*>,
+                        Edge::Edge_Equal_To> Edges;
     //std::unordered_set<Edge*> Edge
-     int computedSucc = 0;
+    // int computedSucc = 0;
 
     bool localSmolka(Configuration& v);
+    bool globalSmolka(Configuration& v);
 
     std::list<Edge*> successors(Configuration& v);
 

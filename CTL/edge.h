@@ -11,6 +11,12 @@ class Configuration;
 class Edge
 {
 public:
+	struct Edge_Equal_To{
+        bool operator()(const Edge* rhs, const Edge* lhs) const{
+            return (*rhs)==(*lhs);
+        }
+    };
+
     Edge(){};
     Edge(Configuration* t_source) : source(t_source) {}
 
@@ -20,6 +26,6 @@ public:
     bool operator==(const Edge & rhs) const;
     void edgePrinter();
 };
-
 }
+
 #endif // EDGE_H

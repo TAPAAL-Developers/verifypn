@@ -34,6 +34,28 @@ void DGEngine::search(CTLTree *t_query){
     //std::cout << "Clean Up Done" << Configurations.size() << std::endl << std::flush;
 }
 
+bool DGEngine::globalSmolka(Configuration &v){
+    std::queue<Configuration> C;
+    std::queue<Edge*> W;
+    C.push(v);
+
+    while(!C.empty()) {
+        Configuration c = C.front();
+        C.pop();
+        auto newEdges = successors(c);
+        for(auto m : newEdges){
+            auto result = Edges.find(m);
+            if(result == Edges.end()){
+               Edges.insert(m);
+            }
+            
+        }
+    }
+    
+    
+}
+
+
 bool DGEngine::localSmolka(Configuration &v){
     v.assignment = ZERO;
     std::queue<Edge*> W;
@@ -381,7 +403,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
 
     v.Successors = succ;
     return succ;
-    computedSucc += succ.size();
+    //computedSucc += succ.size();
     //std::cout << "-----------EDGES NOW : " << computedSucc << "\n" << std::flush;
 }
 
