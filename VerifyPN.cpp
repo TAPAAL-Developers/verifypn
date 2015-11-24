@@ -135,7 +135,6 @@ void testsuit(){
     //DGEngine (net, m0, certainZero);
     ctl::DGEngine engine(net, m0, false);
     engine.RunEgineTest();
-    std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!DEBUGGING!!!!!!!!!!!!!!!!!!!!!" << std::endl << std::flush;
     cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
     cout<<"::::::::: Completed normal Engine Test ::::::::::"<<endl;
     cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
@@ -143,7 +142,6 @@ void testsuit(){
     //Test the Engine - without certainZero
     ctl::DGEngine cZEROengine(net, m0, true);
     cZEROengine.RunEgineTest();
-    std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!DEBUGGING!!!!!!!!!!!!!!!!!!!!!" << std::endl << std::flush;
     cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
     cout<<":::::::::: Completed CZERO Engine Test ::::::::::"<<endl;
     cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;

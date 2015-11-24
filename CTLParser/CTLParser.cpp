@@ -192,11 +192,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             query->a.isFireable = false;
             query->a.fireset = NULL;
             xml_node<> * temp_node = integerNode;
-            while(temp_node != 0){
-                std::cout<<"Name: "<<temp_node->name()<<std::endl;
-                temp_node = temp_node->parent();
-            }
-            std::cout<< "\n\n ---------------> Found integer-le - First attribute:\n ::Name: "<<integerNode->name()<<"\n ::Value: "<<integerNode->value()<<"\n"<<std::flush;
+            //std::cout<< "\n\n ---------------> Found integer-le - First attribute:\n ::Name: "<<integerNode->name()<<"\n ::Value: "<<integerNode->value()<<"\n"<<std::flush;
             if (integerNode->name()[0] == 't') {
                 int size = integerNode->first_node()->value_size();
                 query->a.tokenCount.placeSmaller = strcpy((char*)calloc(size, sizeof(char)*size),

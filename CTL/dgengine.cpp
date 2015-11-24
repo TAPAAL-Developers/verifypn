@@ -618,6 +618,18 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         std::vector<char> simple_buffer = buffercreator(true, true);
         testparser->ParseXMLQuery(simple_buffer, testquery);
         Configuration *testinitconfig = createConfiguration(*(initmarking), *(testquery[0]->Query));
+        
+        CTLParser *Fireble_testparser = new CTLParser();
+        CTLFormula *Fireble_testquery[16];
+        std::vector<char> Fireble_buffer = buffercreator(true, false);
+        Fireble_testparser->ParseXMLQuery(Fireble_buffer, Fireble_testquery);
+        //Configuration *Fireble_testinitconfig = createConfiguration(*(initmarking), *(Fireble_testquery[0]->Query));
+        
+        CTLParser *Cardi_testparser = new CTLParser();
+        CTLFormula *Cardi_testquery[16];
+        std::vector<char> Cardi_buffer = buffercreator(false, false);
+        Cardi_testparser->ParseXMLQuery(Cardi_buffer, Cardi_testquery);
+        //Configuration *Cardi_testinitconfig = createConfiguration(*(initmarking), *(Cardi_testquery[0]->Query));
 
         //-------- Create  Config - Start
         for (i = 0; i > _nplaces; i++){
@@ -712,7 +724,40 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         else assert(negatedconfig->assignment == ONE);
         //-------- Negated assignment confirmation - Done
         
-
+        //----------------------------------------------
+        //----------- Test of indexOfPlace() -----------
+        //----------------------------------------------
+        //-------- Check false place - Start
+        std::string false_placename_str = "SOmeR4nd0MMM-nezz";
+        size_t size = false_placename_str.size();
+        char* false_placename = strcpy((char*)malloc(sizeof(char)*size), false_placename_str.c_str());
+        assert(-1 == indexOfPlace(false_placename));
+        //-------- Check false place - Done
+        //-------- Check true place - Start
+        std::string true_placename_str = "Raf1Star";
+        size_t t_size = true_placename_str.size();
+        char* true_placename = strcpy((char*)malloc(sizeof(char)*t_size), true_placename_str.c_str());
+        assert(0 == indexOfPlace(true_placename));
+        //-------- Check true place - Done
+        
+        //----------------------------------------------
+        //------- Test of evaluateQuery(v):bool  -------
+        //----------------------------------------------
+        //Configuration *Simple_testinitconfig = createConfiguration(*(initmarking), *(testquery[0]->Query));
+        //Configuration *Fireble_testinitconfig = createConfiguration(*(initmarking), *(Fireble_testquery[0]->Query));
+        //Configuration *Cardi_testinitconfig = createConfiguration(*(initmarking), *(Cardi_testquery[0]->Query));
+        //-------- Evaluate single isFire - Start
+        
+        //-------- Evaluate single isFire - Done
+        //-------- Evaluate Multi isFire - Start
+        //-------- Evaluate Multi isFire - Done
+        //-------- Evaluate int vs place - Start
+        //-------- Evaluate int vs place - Done
+        //-------- Evaluate place vs place - Start
+        //-------- Evaluate place vs place - Done
+        //-------- Evaluate place vs int - Start
+        //-------- Evaluate place vs int - Done
+        
     }
     
     std::vector<char> DGEngine::buffercreator(bool fire, bool simple){
