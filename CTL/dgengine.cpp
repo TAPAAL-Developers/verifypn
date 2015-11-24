@@ -10,7 +10,7 @@
 namespace ctl {
 
 DGEngine::DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool t_CZero){
-    std::cout << "-------------------RUNNING DGENGINE---------------------------------" << std::flush;
+    std::cout << "-------------------RUNNING DGENGINE---------------------------------"<< std::endl << std::flush;
     _net = net;
     _m0 = initialmarking;
     _nplaces = net->numberOfPlaces();
@@ -18,12 +18,28 @@ DGEngine::DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarki
     _CZero = t_CZero;
 }
 
-void DGEngine::search(CTLTree *t_query){
+void DGEngine::search(CTLTree *t_query, Search_Strategy t_strategy){
 
+    _strategy = t_strategy;
     Marking* firstMarking = new Marking(_m0, _nplaces);
     Configuration* v0 = createConfiguration(*firstMarking, *t_query);
 
-    _querySatisfied = localSmolka(*v0);
+
+    if(_strategy == LOCALSMOLKA){
+        //std::cout << "FORMULA:: Local Smolka:\n";
+        _querySatisfied = localSmolka(*v0);
+        _querySatisfied = v0->assignment == ONE? true : false;
+    }
+    else if(_strategy == GLOBALSMOLKA){
+        //std::cout << "FORMULA:: Global Smolka:\n";
+        buildDependencyGraph(*v0);
+        _querySatisfied = globalSmolka(*v0);
+        _querySatisfied = v0->assignment == ONE? true : false;
+    }
+    else{
+        std::cout << "Error Unknown Search Strategy";
+        return;
+    }
 
     //std::cout << "Cleaning Up Configurations: " << Configurations.size() << std::endl << std::flush;
 
@@ -34,27 +50,106 @@ void DGEngine::search(CTLTree *t_query){
     //std::cout << "Clean Up Done" << Configurations.size() << std::endl << std::flush;
 }
 
-bool DGEngine::globalSmolka(Configuration &v){
-    std::queue<Configuration> C;
-    std::queue<Edge*> W;
-    C.push(v);
+void DGEngine::buildDependencyGraph(Configuration &v){
+    std::queue<Configuration*> C;
+    v.assignment = ZERO;
+    C.push(&v);
 
-    while(!C.empty()) {
-        Configuration c = C.front();
+    //    Make dependency graph
+    //    std::cout << "==========================================================" << std::endl;
+    //    std::cout << "======================= Start Global =====================" << std::endl;
+    //    std::cout << "==========================================================" << std::endl;
+    while(!C.empty()){
+        Configuration* c = C.front();
         C.pop();
-        auto newEdges = successors(c);
-        for(auto m : newEdges){
-            auto result = Edges.find(m);
-            if(result == Edges.end()){
-               Edges.insert(m);
+
+        successors(*c);
+
+        for(Edge* e : c->Successors){
+//            e->edgePrinter();
+            for(Configuration* tc : e->targets){
+                if(tc->assignment == UNKNOWN){
+                    tc->assignment = ZERO;
+                    C.push(tc);
+                }
             }
-            
         }
     }
-    
-    
 }
 
+void DGEngine::CalculateEdges(Configuration &v, std::queue<Edge*> &W){
+    std::unordered_set< Configuration*,
+                        std::hash<Configuration*>,
+                        Configuration::Configuration_Equal_To> Visisted;
+
+    std::queue<Configuration*> C;
+    Visisted.insert(&v);
+    C.push(&v);
+
+    while(!C.empty()){
+        Configuration* c = C.front();
+        C.pop();
+        for(Edge* e : c->Successors){
+            W.push(e);
+            for(Configuration* tc : e->targets){
+                auto result = Visisted.insert(tc);
+                if(result.second)
+                    C.push(tc);
+            }
+        }
+    }
+}
+
+bool DGEngine::globalSmolka(Configuration &v){
+    std::queue<Edge*> W;
+    v.assignment = ZERO;
+
+    CalculateEdges(v, W);
+
+    std::cout << "==========================================================" << std::endl;
+    std::cout << "====== Traversing DG :: Size of W is: " << W.size() << std::endl;
+    std::cout << "==========================================================" << std::endl;
+
+    while(!W.empty()){
+        Edge* e = W.front();
+        W.pop();
+
+        e->edgePrinter();
+        if(e->source->assignment == ONE){}
+        else if(e->source->IsNegated){
+            globalSmolka(*(e->targets.front()));
+            if(e->targets.front()->assignment == ONE)
+                e->source->assignment = ZERO;
+            else {
+                e->source->assignment = ONE;
+                for(auto de : e->source->DependencySet){
+                    W.push(de);
+                }
+            }
+        }
+        else{
+            bool allOnes = true;
+
+            for(Configuration* tc : e->targets){
+                if(tc->assignment == ZERO){
+                    tc->DependencySet.push_back(e);
+                    allOnes = false;
+                }
+            }
+
+            if(allOnes){
+                e->source->assignment = ONE;
+                for(Edge* de : e->source->DependencySet){
+                    W.push(de);
+                }
+                e->source->DependencySet.clear();
+            }
+        }
+    }
+    std::cout << "Final value of v is: " << v.assignment << std::endl << std::flush;
+    //Due to compiler optimization, this might return the wrong value
+    return v.assignment == ONE ? true : false;
+}
 
 bool DGEngine::localSmolka(Configuration &v){
     v.assignment = ZERO;

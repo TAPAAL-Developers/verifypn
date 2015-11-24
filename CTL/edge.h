@@ -11,11 +11,11 @@ class Configuration;
 class Edge
 {
 public:
-	struct Edge_Equal_To{
+    /*struct Edge_Equal_To{
         bool operator()(const Edge* rhs, const Edge* lhs) const{
             return (*rhs)==(*lhs);
         }
-    };
+    };*/
 
     Edge(){};
     Edge(Configuration* t_source) : source(t_source) {}
@@ -23,7 +23,7 @@ public:
     Configuration* source;
     std::list<Configuration*> targets;
 
-    bool operator==(const Edge & rhs) const;
+    //bool operator==(const Edge & rhs) const;
     void edgePrinter();
 };
 }

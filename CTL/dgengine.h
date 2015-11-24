@@ -4,6 +4,7 @@
 #include <unordered_set>
 #include <vector>
 #include <list>
+#include <queue>
 
 
 #include "marking.h"
@@ -13,15 +14,18 @@
 
 namespace ctl{
 
+enum Search_Strategy { LOCALSMOLKA = 0, GLOBALSMOLKA = 1 };
+
 class DGEngine
 {
 public:
     DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool t_CZero);
 
     void RunEgineTest();
-    void search(CTLTree* t_query);
+    void search(CTLTree* t_query, Search_Strategy t_strategy);
     inline bool querySatisfied(){return _querySatisfied; }
 private:
+    Search_Strategy _strategy;
     PetriEngine::PetriNet* _net;
     PetriEngine::MarkVal* _m0;
     int _nplaces;
@@ -37,16 +41,12 @@ private:
                         std::hash<Configuration*>,
                         Configuration::Configuration_Equal_To> Configurations;
 
-     std::unordered_set< Edge*,
-                        std::hash<Edge*>,
-                        Edge::Edge_Equal_To> Edges;
-    //std::unordered_set<Edge*> Edge
-    // int computedSucc = 0;
-
     bool localSmolka(Configuration& v);
     bool globalSmolka(Configuration& v);
 
     std::list<Edge*> successors(Configuration& v);
+    void CalculateEdges(Configuration &v, std::queue<Edge*> &W);
+    void buildDependencyGraph(Configuration &v);
 
     bool evaluateQuery(Configuration& t_config);
     int indexOfPlace(char* t_place);
