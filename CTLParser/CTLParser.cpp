@@ -146,8 +146,8 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             query2->first = xmlToCTLquery(root->first_node()->first_node());
 
             isEG = false;
-            std::cout<<"Made subquery for EG:"<<std::endl;
-            printQuery(query);
+            //std::cout<<"Made subquery for EG:"<<std::endl;
+            //printQuery(query);
             return query;
         }
         

@@ -1,9 +1,6 @@
 Analysis:: Modefile: ./model.pnml
 Analysis:: Modelname: ERK-PT-000001
-Made subquery for EG:
-!(AF!(!((( Tokencount(1 le Raf1Star, 1 le RKIP)) AND (( Tokencount(1 le RKIPP, 1 le RP)) OR ( Tokencount(1 le MEKPP_ERK)))) AND ( Tokencount(1 le MEKPP, 1 le ERK)))))Made subquery for EG:
-!(AF!(( Tokencount(1 le RKIPP, 1 le RP)) AND (( Tokencount(1 le Raf1Star_RKIP_ERKPP)) AND ( Tokencount(1 le MEKPP_ERK)))))Made subquery for EG:
-!(AF!(!(!( Tokencount(1 le Raf1Star_RKIP_ERKPP)))))FORMULA ERK-PT-000001-CTLFireability-0 TRUE TECHNIQUES 
+FORMULA ERK-PT-000001-CTLFireability-0 TRUE TECHNIQUES 
 FORMULA ERK-PT-000001-CTLFireability-1 FALSE TECHNIQUES 
 FORMULA ERK-PT-000001-CTLFireability-2 TRUE TECHNIQUES 
 FORMULA ERK-PT-000001-CTLFireability-3 TRUE TECHNIQUES 
@@ -20,7 +17,7 @@ FORMULA ERK-PT-000001-CTLFireability-13 FALSE TECHNIQUES
 FORMULA ERK-PT-000001-CTLFireability-14 TRUE TECHNIQUES 
 FORMULA ERK-PT-000001-CTLFireability-15 TRUE TECHNIQUES 
 
-real	0m0.020s
+real	0m0.002s
 user	0m0.000s
 sys	0m0.000s
 [H[2Jfinal memory comsumption: 
