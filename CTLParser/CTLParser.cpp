@@ -75,8 +75,8 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[])
         queryList[i]->Query = xmlToCTLquery(formula_node->first_node());
 
         //#ifdef PP
-        printQuery(queryList[i]->Query);
-        std::cout << "\n";
+        /*printQuery(queryList[i]->Query);
+        std::cout << "\n";*/
         //#endif
 
         #ifdef DEBUG
@@ -178,7 +178,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
                 numberoftransitions++;
             }
             //numberoftransitions++;
-            std::cout << "TEST:: Number of transitions: "<<numberoftransitions <<std::endl;
+            //std::cout << "TEST:: Number of transitions: "<<numberoftransitions <<std::endl;
             query->a.firesize = numberoftransitions;
             query->a.fireset = (Fireability*) calloc(numberoftransitions, sizeof(Fireability));
             
@@ -194,8 +194,11 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
                                 numberofdependencyplaces++;
                             }
                         }
+                        
                         query->a.fireset[i].denpencyplaces = (Cardinality*) calloc(numberofdependencyplaces, sizeof(Cardinality));
                         query->a.fireset[i].sizeofdenpencyplaces = numberofdependencyplaces;
+                        
+                        
                     }
                 }
                 for (t_count = 0; t_count < _net->numberOfTransitions(); t_count++){
@@ -219,9 +222,9 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
                 i++;
             }
             
-            std::cout << "-----TEST:: Returning query atom from fireability: \n" << std::flush;
-            printQuery(query);
-            std::cout << "\n" << std::flush;
+            //std::cout << "-----TEST:: Returning query atom from fireability: \n" << std::flush;
+            //printQuery(query);
+            //std::cout << "\n" << std::flush;
             return query; 
         }
         else if (root_name[1] == 'n') {
@@ -353,7 +356,7 @@ void CTLParser::printQuery(CTLTree *query) {
             for(i = 0; i < query->a.firesize; i++){
                 int j = 0;
                 for (j = 0; j < query->a.fireset[i].sizeofdenpencyplaces; j++){
-                    std::cout<< query->a.fireset[i].denpencyplaces->intSmaller<<" le p_id("<<query->a.fireset[i].denpencyplaces->placeLarger<<")";
+                    std::cout<< query->a.fireset[i].denpencyplaces[j].intSmaller<<" le "<<_net->placeNames()[query->a.fireset[i].denpencyplaces[j].placeLarger];
                     if(j < (query->a.fireset[i].sizeofdenpencyplaces - 1))
                         std::cout << ", ";
                 }

@@ -10,7 +10,6 @@
 namespace ctl {
 
 DGEngine::DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool t_CZero){
-    std::cout << "-------------------RUNNING DGENGINE---------------------------------"<< std::endl << std::flush;
     _net = net;
     _m0 = initialmarking;
     _nplaces = net->numberOfPlaces();
@@ -508,27 +507,27 @@ bool DGEngine::evaluateQuery(Configuration &t_config){
     CTLTree* query = t_config.query;
 
     bool result = false;
-
+    
     if (t_config.query->a.isFireable) {
         std::list<int> transistions = calculateFireableTransistions(*(t_config.marking));
 
         for (auto t : transistions) {
-
-            int j = 0;
-            auto tName = _net->transitionNames()[t].c_str();
-
-            while(query->a.fireset[j] != NULL){
-
-                auto fsetName = query->a.fireset[j];
-                bool b = strcmp(tName, fsetName) == 0;
-
-                if (b){
-                    result= true;
+            int fs_transition = 0;
+            for(fs_transition = 0; fs_transition < query->a.firesize; fs_transition++){
+                int dpc_place = 0;
+                int truedependencyplaces = 0;
+                for (dpc_place = 0; dpc_place < query->a.fireset[fs_transition].sizeofdenpencyplaces; dpc_place++){
+                    
+                    if((query->a.fireset[fs_transition].denpencyplaces[dpc_place].intSmaller - 1) < t_config.marking->Value()[query->a.fireset[fs_transition].denpencyplaces[dpc_place].placeLarger]){
+                        //std::cout<<_net->placeNames()[query->a.fireset[fs_transition].denpencyplaces[dpc_place].placeLarger]<<" is true"<<std::endl;
+                        truedependencyplaces++;
+                    }
                 }
-                j++;
+                if (truedependencyplaces == query->a.fireset[fs_transition].sizeofdenpencyplaces){
+                    result = true;
+                }
             }
         }
-        //std::cout << "Evaluation: " << result << std::endl << std::flush;
         return result;
     }
 
@@ -536,12 +535,12 @@ bool DGEngine::evaluateQuery(Configuration &t_config){
     int greater= query->a.tokenCount.intLarger;
 
     if( less == -1 ){
-        int index = indexOfPlace(query->a.tokenCount.placeSmaller);
+        int index = query->a.tokenCount.placeSmaller;
         less = t_config.marking->Value()[index];
     }
 
     if (greater == -1){
-        int index = indexOfPlace(query->a.tokenCount.placeLarger);
+        int index = query->a.tokenCount.placeLarger;
         greater = t_config.marking->Value()[index];
     }
 
