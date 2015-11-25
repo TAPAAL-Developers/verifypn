@@ -265,6 +265,7 @@ bool DGEngine::localSmolka(Configuration &v){
 
                 for(auto edge : e->source->DependencySet)
                     W.push(edge);
+                e->source->DependencySet.clear();
             }
 
 //            if(e->source->Successors.size() == 1){
