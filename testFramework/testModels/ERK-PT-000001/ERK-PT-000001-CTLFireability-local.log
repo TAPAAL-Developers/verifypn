@@ -20,7 +20,7 @@ FORMULA ERK-PT-000001-CTLFireability-13 FALSE TECHNIQUES
 FORMULA ERK-PT-000001-CTLFireability-14 TRUE TECHNIQUES 
 FORMULA ERK-PT-000001-CTLFireability-15 TRUE TECHNIQUES 
 
-real	0m0.002s
+real	0m0.020s
 user	0m0.000s
 sys	0m0.000s
-[3;J[H[2Jfinal memory comsumption: 
+[H[2Jfinal memory comsumption: 

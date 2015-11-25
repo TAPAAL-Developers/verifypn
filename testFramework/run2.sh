@@ -4,7 +4,7 @@ RUNPATH=`pwd`
 MODELFILE="./model.pnml"
 ENGINE="-ctl"
 TOOL="DGEngine.sh"
-STRATEGY=("local" "czero" "global")
+STRATEGY=("local" "global") #"czero"
 ANALYSE="analyse.sh"
 MEMORY="mem.sh"
 
