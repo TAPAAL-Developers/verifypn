@@ -12,20 +12,27 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include "../PetriEngine/PetriNet.h"
 
 enum Quantifier { AND = 1, OR, A, E, NEG, EMPTY = -1 };
 enum Path { G = 1, F, X, U, pError = -1 };
 
 struct Cardinality {
     int intSmaller;
-    char *placeSmaller;
+    int placeSmaller;
     int intLarger;
-    char *placeLarger;
+    int placeLarger;
+};
+
+struct Fireability{
+    int sizeofdenpencyplaces;
+    Cardinality* denpencyplaces;
 };
 
 struct Atom {
     bool isFireable;
-    char** fireset;
+    int firesize;
+    Fireability* fireset;
     Cardinality tokenCount;
 };
 
@@ -72,12 +79,14 @@ struct CTLFormula {
 class CTLParser {
 public:
     CTLParser();
+    CTLParser(PetriEngine::PetriNet* net);
     CTLParser(const CTLParser& orig);
     virtual ~CTLParser();
     void ParseXMLQuery(std::vector<char> buffer, CTLFormula **queryList);
     void printQuery(CTLTree *query);
     void RunParserTest();
 private:
+    PetriEngine::PetriNet* _net;
     bool isAG = false;
     bool isEG = false;
     int numberoftransitions;

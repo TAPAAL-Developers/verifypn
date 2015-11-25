@@ -71,9 +71,7 @@ enum SearchStrategies{
 };
 
 void testsuit(){
-    //Test the Parser
-    CTLParser *testParser = new CTLParser();
-    testParser->RunParserTest();
+    
     
     //Setup Test model
     string modelfile_str = "testFramework/ModelDB/ERK-PT-000001/model.pnml";
@@ -130,6 +128,10 @@ void testsuit(){
         cout<<"::::::::::::: P"<<i<<": "<<m0[i] <<endl;
     }
     
+    
+    //Test the Parser
+    CTLParser *testParser = new CTLParser(net);
+    testParser->RunParserTest();
     
     //Test the Engine - without certainZero
     //DGEngine (net, m0, certainZero);
@@ -448,7 +450,7 @@ int main(int argc, char* argv[]){
 #ifdef DEBUG
         fprintf(stdout, "Parsing queries");
 #endif
-        CTLParser ctlParser = CTLParser();
+        CTLParser ctlParser = CTLParser(net);
         
         ctlParser.ParseXMLQuery(buffer, queryList);
         
