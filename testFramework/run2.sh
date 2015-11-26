@@ -45,7 +45,7 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 	#verify model exists
 	if [ -f $MODELFILE ] ; then
 
-		for QF in $(find -mindepth 1 -maxdepth 1 -type f -name 'ReachabilityFi*.xml') ; do
+		for QF in $(find -mindepth 1 -maxdepth 1 -type f -name 'CTL*.xml') ; do
 
 		 	qfile="$(basename $QF)"
 		 	echo "$qfile"
