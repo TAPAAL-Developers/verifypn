@@ -104,8 +104,8 @@ bool DGEngine::globalSmolka(Configuration &v){
     //v.assignment = ZERO;
 
     CalculateEdges(v, W);
-
-    /*std::cout << "==========================================================" << std::endl;
+/*
+    std::cout << "==========================================================" << std::endl;
     std::cout << "====== Traversing DG :: Size of W is: " << W.size() << std::endl;
     std::cout << "==========================================================" << std::endl;
 */
@@ -145,7 +145,9 @@ bool DGEngine::globalSmolka(Configuration &v){
             }
         }
     }
+
    // std::cout << "Final value of v is: " << v.assignment << std::endl << std::flush;
+
     //Due to compiler optimization, this might return the wrong value
     return v.assignment == ONE ? true : false;
 }

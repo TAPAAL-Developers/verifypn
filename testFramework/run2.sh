@@ -16,7 +16,7 @@ ANALISEPATH="$RUNPATH/analysis"
 
 if [ -f $REL_PROGRAMPATH ] 
 	then
-	PROGRAMPATH=$(cd $(dirname $REL_PROGRAMPATH); pwd)/$(basename $REL_PROGRAMPATH)
+	PROGRAMPATH=$(cd $(dirname $REL_PROGRAMPATH); pwd)/$(babzsename $REL_PROGRAMPATH)
 else
 	echo "Cannot find file $PROGRAMPATH"
 	exit 1
