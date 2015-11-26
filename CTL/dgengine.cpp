@@ -247,39 +247,39 @@ bool DGEngine::localSmolka(Configuration &v){
         // Case: CZERO
         else if(czero){
 
-            bool isCzero = true;
-            for(auto edge : e->source->Successors){
-                bool found = false;
-                for( auto c : edge->targets){
-                    if(c->assignment == CZERO){
-                        found = true;
-                        break;
-                    }
-                }
-                if(!found){
-                    isCzero = false;
-                    break;
-                }
-            }
+            // bool isCzero = true;
+            // for(auto edge : e->source->Successors){
+            //     bool found = false;
+            //     for( auto c : edge->targets){
+            //         if(c->assignment == CZERO){
+            //             found = true;
+            //             break;
+            //         }
+            //     }
+            //     if(!found){
+            //         isCzero = false;
+            //         break;
+            //     }
+            // }
 
-            if(isCzero){
-                e->source->assignment == CZERO;
+            // if(isCzero){
+            //     e->source->assignment == CZERO;
 
-                for(auto edge : e->source->DependencySet)
-                    W.push(edge);
-                e->source->DependencySet.clear();
-            }
+            //     for(auto edge : e->source->DependencySet)
+            //         W.push(edge);
+            //     e->source->DependencySet.clear();
+            // }
 
-//            if(e->source->Successors.size() == 1){
-//                assignConfiguration(*(e->source), CZERO);
+           if(e->source->Successors.size() == 1){
+               assignConfiguration((e->source), CZERO);
 
-//                if(*(e->source) == v)
-//                    return v.assignment == ONE ? true : false;
+               if(*(e->source) == v)
+                   return v.assignment == ONE ? true : false;
 
-//                for(auto edge : e->source->DependencySet)
-//                    W.push(edge);
-//            }
-            //e->source->removeSuccessor(e);
+               for(auto edge : e->source->DependencySet)
+                   W.push(edge);
+           }
+            e->source->removeSuccessor(e);
 
         }
         /*****************************************************************/

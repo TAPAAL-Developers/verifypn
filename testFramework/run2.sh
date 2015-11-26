@@ -7,10 +7,10 @@ TOOL="DGEngine.sh"
 STRATEGY=("local" "global" "czero")
 ANALYSE="analyse.sh"
 MEMORY="mem.sh"
-TIMEOUT=500
+TIMEOUT=1000
 
 REL_PROGRAMPATH="../verifypn-linux64"
-INPUTSPATH="$RUNPATH/testModels/"
+INPUTSPATH="$RUNPATH/ModelDB/"
 RESULTPATH="$RUNPATH/testResults/"
 ANALISEPATH="$RUNPATH/analysis"
 
