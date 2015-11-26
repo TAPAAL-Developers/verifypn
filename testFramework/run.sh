@@ -96,7 +96,7 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 	#verify model exists
 	if [ -f $MODELFILE ] ; then
 
-		for QF in $(find -mindepth 1 -maxdepth 1 -type f -name 'CTL*.xml') ; do
+		for QF in $(find -mindepth 1 -maxdepth 1 -type f -name 'ReachabilityCa*.xml') ; do
 			#echo "$(basename $QF)"
 		
 			#<PROGRAMPATH> <ENGINE> <MODELFILE> <QUERYFILE>
@@ -113,31 +113,7 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 		echo "Cannot find matching $MODELFILE in $MODELPATH"
 	fi
 
-	for log in $(find -mindepth 1 -maxdepth 1 -type f -name '*.log'); do
-		mv "$log" "$RESULTPATH"
-	done
 
 done
 
 echo "Done testing";
-echo "Starting analisys";
-
-cd "$RUNPATH"
-
-for s in $(find ${ANALISEPATH} -mindepth 1 -maxdepth 1 -type f -name '*.sh'); do
-	cp $s $RESULTPATH
-done
-
-cd "$RESULTPATH"
-
-for result in $(find -mindepth 1 -maxdepth 1 -type f -name '*CTL*'); do
-
-	./$ANALYSE "$result"
-
-done
-
-for s in $(find ${RESULTPATH} -mindepth 1 -maxdepth 1 -type f -name '*.sh'); do
-	rm $s
-done
-
-echo "Done analysing"

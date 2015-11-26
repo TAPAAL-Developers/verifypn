@@ -4,9 +4,10 @@ RUNPATH=`pwd`
 MODELFILE="./model.pnml"
 ENGINE="-ctl"
 TOOL="DGEngine.sh"
-STRATEGY=("local" "global") #"czero"
+STRATEGY=("local" "global" "czero")
 ANALYSE="analyse.sh"
 MEMORY="mem.sh"
+TIMEOUT=500
 
 REL_PROGRAMPATH="../verifypn-linux64"
 INPUTSPATH="$RUNPATH/testModels/"
@@ -54,9 +55,12 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 				export sname="$S"
 				echo "$S"
 				#<PROGRAMPATH> <MODELFILE> <QUERYFILE> <ENGINE> <STRATEGY>
-			 	./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE #&
-			 	{ ./$MEMORY; } >> "$mname-$qname-$sname.log"
-			 	echo ""
+			 	timeout $TIMEOUT ./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE &
+			 	{ ./$MEMORY; } > "$mname-$qname-$sname-mem.log" 
+			 	cat "$mname-$qname-$sname.log" "$mname-$qname-$sname-mem.log" >> "$mname-$qname-$sname-all.log"
+			 	rm "$mname-$qname-$sname.log" 
+			 	rm "$mname-$qname-$sname-mem.log"
+			 	mv $mname-$qname-$sname-all.log ../../testResults/$mname-$qname-$sname.log
 			done
 
 		 done

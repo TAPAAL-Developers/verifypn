@@ -52,9 +52,9 @@ struct CTLFormula {
 
     std::string boolToString(){
         if(Result)
-            return " TRUE ";
+            return " T ";
         else if (!Result)
-            return " FALSE ";
+            return " F ";
         else
             return " ERROR ";
     }
