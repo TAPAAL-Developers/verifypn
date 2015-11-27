@@ -4,9 +4,8 @@
 #include <unordered_set>
 #include <vector>
 #include <list>
-#include <queue>
-#include <stack>
-
+//#include <queue>
+//#include <stack>
 
 #include "marking.h"
 #include "configuration.h"
@@ -15,7 +14,9 @@
 
 namespace ctl{
 
-enum Search_Strategy { LOCALSMOLKA = 0, GLOBALSMOLKA = 1 };
+class EdgePicker;
+
+enum Search_Strategy { LOCALSMOLKA, LOCALSMOLKA_BFS, GLOBALSMOLKA, GLOBALSMOLKA_BFS };
 
 class DGEngine
 {
@@ -46,7 +47,7 @@ private:
     bool globalSmolka(Configuration& v);
 
     std::list<Edge*> successors(Configuration& v);
-    void CalculateEdges(Configuration &v, std::queue<Edge*> &W);
+    void CalculateEdges(Configuration &v, EdgePicker &W);
     void buildDependencyGraph(Configuration &v);
 
     bool evaluateQuery(Configuration& t_config);
