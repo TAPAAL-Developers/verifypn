@@ -1,0 +1,80 @@
+Property RwMutex-PT-r0010w0050-CTLCardinality-0
+  "Automatically generated"
+  is:
+    ((! A G ! ((2) <= (#tokens("p111")))) & (! A X ((((2) <= (#tokens("p111")))) | (((1) <= (#tokens("p7")))))))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-1
+  "Automatically generated"
+  is:
+    A G A F ((#tokens("p58")) <= (#tokens("p52")))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-2
+  "Automatically generated"
+  is:
+    ((A G E F ((2) <= (#tokens("p123")))) | (((3) <= (#tokens("p93")))))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-3
+  "Automatically generated"
+  is:
+    E F E F ((2) <= (#tokens("p62")))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((A G ((1) <= (#tokens("p31")))) U (E F ((2) <= (#tokens("p106")))))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-5
+  "Automatically generated"
+  is:
+    A G ((E F ((2) <= (#tokens("p61")))) | (((#tokens("p48")) <= (#tokens("p60")))))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-6
+  "Automatically generated"
+  is:
+    ((A G ((((#tokens("p33")) <= (#tokens("p57")))) | (! ((#tokens("p15")) <= (#tokens("p118")))))) | (E F ((((((#tokens("p75")) <= (#tokens("p78")))) & (((2) <= (#tokens("p37")))))) | (((((2) <= (#tokens("p24")))) | (((3) <= (#tokens("p48")))))))))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-7
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("p95")))) & (E G ((#tokens("p40")) <= (#tokens("p50")))))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-8
+  "Automatically generated"
+  is:
+    A G E F ! ((#tokens("p63")) <= (#tokens("p83")))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-9
+  "Automatically generated"
+  is:
+    A G ! E X ((3) <= (#tokens("p44")))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-10
+  "Automatically generated"
+  is:
+    E G E F ((((3) <= (#tokens("p89")))) & (((2) <= (#tokens("p73")))))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-11
+  "Automatically generated"
+  is:
+    E F A ((((#tokens("p32")) <= (#tokens("p94")))) U (((2) <= (#tokens("p58")))))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-12
+  "Automatically generated"
+  is:
+    E ((((((((#tokens("p36")) <= (#tokens("p59")))) | (((#tokens("p84")) <= (#tokens("p72")))))) | (! ((#tokens("p116")) <= (#tokens("p63")))))) U (! ((((#tokens("p104")) <= (#tokens("p45")))) | (((1) <= (#tokens("p102")))))))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-13
+  "Automatically generated"
+  is:
+    E ((((((((#tokens("p108")) <= (#tokens("p95")))) | (((#tokens("p129")) <= (#tokens("p28")))))) | (((((1) <= (#tokens("p85")))) & (((1) <= (#tokens("p76")))))))) U (A G ((#tokens("p33")) <= (#tokens("p90")))))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-14
+  "Automatically generated"
+  is:
+    E ((((! ((1) <= (#tokens("p30")))) | (! ((#tokens("p117")) <= (#tokens("p101")))))) U (E F ((3) <= (#tokens("p7")))))
+  end.
+Property RwMutex-PT-r0010w0050-CTLCardinality-15
+  "Automatically generated"
+  is:
+    ((((((((! ((3) <= (#tokens("p108")))) | (((((2) <= (#tokens("p22")))) | (((#tokens("p13")) <= (#tokens("p54")))))))) & (((! ((3) <= (#tokens("p122")))) & (! ((3) <= (#tokens("p72")))))))) | (((E X ((#tokens("p35")) <= (#tokens("p103")))) | (((3) <= (#tokens("p89")))))))) & (A G ((! ((#tokens("p103")) <= (#tokens("p1")))) | (((#tokens("p107")) <= (#tokens("p28")))))))
+  end.

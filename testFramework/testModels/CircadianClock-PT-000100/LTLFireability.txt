@@ -1,0 +1,80 @@
+Property CircadianClock-PT-000100-LTLFireability-0
+  "Automatically generated"
+  is:
+    A F (("rel_r"?) U (G X "transc_da_a"?))
+  end.
+Property CircadianClock-PT-000100-LTLFireability-1
+  "Automatically generated"
+  is:
+    A "bind_r"?
+  end.
+Property CircadianClock-PT-000100-LTLFireability-2
+  "Automatically generated"
+  is:
+    A ((X (("transl_a"?) U ("deg_mr"?))) U (X F X "transl_r"?))
+  end.
+Property CircadianClock-PT-000100-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X (("transl_a"?) U (G G "rel_r"?))
+  end.
+Property CircadianClock-PT-000100-LTLFireability-4
+  "Automatically generated"
+  is:
+    A "transc_da_a"?
+  end.
+Property CircadianClock-PT-000100-LTLFireability-5
+  "Automatically generated"
+  is:
+    A F "transc_dr"?
+  end.
+Property CircadianClock-PT-000100-LTLFireability-6
+  "Automatically generated"
+  is:
+    A F G ((F "transl_r"?) U (X "deactive"?))
+  end.
+Property CircadianClock-PT-000100-LTLFireability-7
+  "Automatically generated"
+  is:
+    A "transc_da_a"?
+  end.
+Property CircadianClock-PT-000100-LTLFireability-8
+  "Automatically generated"
+  is:
+    A X G (("deg_c"?) U (F "transc_da_a"?))
+  end.
+Property CircadianClock-PT-000100-LTLFireability-9
+  "Automatically generated"
+  is:
+    A "transc_dr_a"?
+  end.
+Property CircadianClock-PT-000100-LTLFireability-10
+  "Automatically generated"
+  is:
+    A ((G G X "bind_r"?) U ("transc_dr_a"?))
+  end.
+Property CircadianClock-PT-000100-LTLFireability-11
+  "Automatically generated"
+  is:
+    A F ((X "transc_da"?) U ("transc_dr"?))
+  end.
+Property CircadianClock-PT-000100-LTLFireability-12
+  "Automatically generated"
+  is:
+    A F ((X X "bind_r"?) U (F "transl_a"?))
+  end.
+Property CircadianClock-PT-000100-LTLFireability-13
+  "Automatically generated"
+  is:
+    A (((("rel_a"?) U ("transc_dr"?))) U ("bind_r"?))
+  end.
+Property CircadianClock-PT-000100-LTLFireability-14
+  "Automatically generated"
+  is:
+    A "transl_a"?
+  end.
+Property CircadianClock-PT-000100-LTLFireability-15
+  "Automatically generated"
+  is:
+    A ((G X "deg_mr"?) U (X X G "deg_c"?))
+  end.

@@ -1,0 +1,80 @@
+Property CircadianClock-PT-000100-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E X "deg_c"?
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "rel_r"?
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A G "transl_r"?
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A G "transl_r"?
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A X "deg_a"?
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A (("deactive"?) U ("transl_a"?))
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E (("transc_dr"?) U ("transc_da_a"?))
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "deg_ma"?
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E (("rel_r"?) U ("transl_a"?))
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "transl_a"?
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E (("transl_a"?) U ("deg_r"?))
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A X "rel_r"?
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E X "transl_r"?
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "bind_a"?
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A X "transc_dr_a"?
+  end.
+Property CircadianClock-PT-000100-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E (("rel_r"?) U ("transc_da"?))
+  end.

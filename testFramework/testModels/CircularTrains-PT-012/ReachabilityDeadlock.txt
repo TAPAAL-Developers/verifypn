@@ -1,0 +1,5 @@
+Property CircularTrains-PT-012-ReachabilityDeadlock-0
+  "Automatically generated"
+  is:
+    E F deadlock
+  end.

@@ -1,0 +1,80 @@
+Property Peterson-COL-3-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F ("EndLoop_3_1", "EndLoop_0_2", "EndLoop_1_1", "EndLoop_2_1", "EndLoop_3_0", "EndLoop_0_1", "EndLoop_1_0", "EndLoop_2_0", "EndLoop_0_0", "EndLoop_3_2", "EndLoop_1_2", "EndLoop_2_2")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F ("BecomeIdle_0", "BecomeIdle_1", "BecomeIdle_2", "BecomeIdle_3")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F ("AccessCS_3", "AccessCS_2", "AccessCS_1", "AccessCS_0")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F ("EndLoop_3_1", "EndLoop_0_2", "EndLoop_1_1", "EndLoop_2_1", "EndLoop_3_0", "EndLoop_0_1", "EndLoop_1_0", "EndLoop_2_0", "EndLoop_0_0", "EndLoop_3_2", "EndLoop_1_2", "EndLoop_2_2")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F ("AccessCS_3", "AccessCS_2", "AccessCS_1", "AccessCS_0")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F ("AccessCS_3", "AccessCS_2", "AccessCS_1", "AccessCS_0")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F ("EndLoop_3_1", "EndLoop_0_2", "EndLoop_1_1", "EndLoop_2_1", "EndLoop_3_0", "EndLoop_0_1", "EndLoop_1_0", "EndLoop_2_0", "EndLoop_0_0", "EndLoop_3_2", "EndLoop_1_2", "EndLoop_2_2")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F ("BecomeIdle_0", "BecomeIdle_1", "BecomeIdle_2", "BecomeIdle_3")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F ("AccessCS_3", "AccessCS_2", "AccessCS_1", "AccessCS_0")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F ("BecomeIdle_0", "BecomeIdle_1", "BecomeIdle_2", "BecomeIdle_3")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F ("AccessCS_3", "AccessCS_2", "AccessCS_1", "AccessCS_0")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F ("BecomeIdle_0", "BecomeIdle_1", "BecomeIdle_2", "BecomeIdle_3")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F ("EndLoop_3_1", "EndLoop_0_2", "EndLoop_1_1", "EndLoop_2_1", "EndLoop_3_0", "EndLoop_0_1", "EndLoop_1_0", "EndLoop_2_0", "EndLoop_0_0", "EndLoop_3_2", "EndLoop_1_2", "EndLoop_2_2")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F ("AccessCS_3", "AccessCS_2", "AccessCS_1", "AccessCS_0")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F ("AccessCS_3", "AccessCS_2", "AccessCS_1", "AccessCS_0")?
+  end.
+Property Peterson-COL-3-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F ("BecomeIdle_0", "BecomeIdle_1", "BecomeIdle_2", "BecomeIdle_3")?
+  end.
