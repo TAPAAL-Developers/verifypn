@@ -7,7 +7,6 @@ TOOL="DGEngine.sh"
 STRATEGY=("local" "global" "czero")
 ANALYSE="analyse.sh"
 MEMORY="mem.sh"
-TIMEOUT=3600
 
 REL_PROGRAMPATH="../verifypn-linux64"
 INPUTSPATH="$RUNPATH/testModels/"
@@ -55,7 +54,7 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 				export sname="$S"
 				echo "$S"
 				#<PROGRAMPATH> <MODELFILE> <QUERYFILE> <ENGINE> <STRATEGY>
-			 	timeout $TIMEOUT ./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE &
+			 	./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE &
 			 	{ ./$MEMORY; } > "$mname-$qname-$sname-mem.log" 
 			 	cat "$mname-$qname-$sname.log" "$mname-$qname-$sname-mem.log" >> "$mname-$qname-$sname-all.log"
 			 	rm "$mname-$qname-$sname.log" 
