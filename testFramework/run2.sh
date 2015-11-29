@@ -10,7 +10,7 @@ MEMORY="mem.sh"
 TIMEOUT=3600
 
 REL_PROGRAMPATH="../verifypn-linux64"
-INPUTSPATH="$RUNPATH/ModelDB	/"
+INPUTSPATH="$RUNPATH/testModels/"
 RESULTPATH="$RUNPATH/testResults/"
 ANALISEPATH="$RUNPATH/analysis"
 
