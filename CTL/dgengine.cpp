@@ -170,11 +170,12 @@ bool DGEngine::localSmolka(Configuration &v){
     c->edgePrinter();
     }*/
 
-    for(auto s : initialSucc)
+    for(auto s : initialSucc) {
         W.push(s);
+    }
+
 
     while (!W.empty()) {
-
         int i = 0;  
         Edge* e = W.pop();
         //e->edgePrinter();
@@ -664,7 +665,7 @@ Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
         auto result = Markings.find(new_marking);
 
         if(result == Markings.end()){
-      //      std::cout << "Inserted marking - Size now: " << Markings.size() << std::endl;
+        //   std::cout << "Inserted marking - Size now: " << Markings.size() << std::endl;
             return *(Markings.insert(new_marking).first);
         }
         else{

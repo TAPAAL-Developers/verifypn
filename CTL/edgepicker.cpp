@@ -9,6 +9,9 @@ Edge* EdgePicker::pop(){
     else if (_strategy == CTL_BFS){
         return BFS();
     }
+    else if (_strategy == CTL_BestFS){
+        return BestFS();
+    }
 }
 
 void EdgePicker::push(Edge *t_edge){
@@ -17,6 +20,9 @@ void EdgePicker::push(Edge *t_edge){
     }
     else if (_strategy == CTL_BFS){
         BFS(t_edge);
+    }
+    else if (_strategy == CTL_BestFS){
+        return BestFS(t_edge);
     }
 }
 
@@ -40,6 +46,34 @@ inline Edge* EdgePicker::BFS(){
 inline void EdgePicker::BFS(Edge* t_edge){
     W.push_back(t_edge);
 }
+
+//BestFS pop
+inline Edge* EdgePicker::BestFS(){
+    Edge* bestEdge = W.front();
+    int i = 0;
+    int lowestNR = bestEdge->targets.size();
+
+    for (auto e : W){
+        if(e->targets.size() < lowestNR){
+            if(lowestNR == 1){
+                W.erase(W.begin() + i);
+                return e;
+            } 
+        }
+        i++;
+        if(i > 10){
+            break;
+        }
+    }
+    Edge* e = W.front();
+    W.pop_front();
+    return e;
+}
+//BestFS push
+inline void EdgePicker::BestFS(Edge* t_edge){
+    W.push_back(t_edge);
+}
+
 
 
 }

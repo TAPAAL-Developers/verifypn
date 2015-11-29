@@ -28,6 +28,10 @@ private:
     inline Edge* BFS();
     inline void BFS(Edge* e);
 
+    //Functions used to implement BFS
+    inline Edge* BestFS();
+    inline void BestFS(Edge* e);
+
     ctl_search_strategy _strategy;
     std::deque<Edge*> W;
 };
