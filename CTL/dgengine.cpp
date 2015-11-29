@@ -10,34 +10,41 @@
 
 namespace ctl {
 
-DGEngine::DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool t_CZero){
+DGEngine::DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]){
     _net = net;
     _m0 = initialmarking;
     _nplaces = net->numberOfPlaces();
     _ntransitions = net->numberOfTransitions();
-    _CZero = t_CZero;
+    _CZero = false;
 }
 
-void DGEngine::search(CTLTree *t_query, Search_Strategy t_strategy){
+void DGEngine::search(CTLTree *t_query, ctl_algorithm t_algorithm, ctl_search_strategy t_strategy){
 
     _strategy = t_strategy;
     Marking* firstMarking = new Marking(_m0, _nplaces);
     Configuration* v0 = createConfiguration(*firstMarking, *t_query);
 
 
-    if(_strategy == LOCALSMOLKA){
-        //std::cout << "FORMULA:: Local Smolka:\n";
+    if(t_algorithm == Local){
+        std::cout << "FORMULA:: Local Smolka with strategy:" << t_strategy << "\n";
         _querySatisfied = localSmolka(*v0);
         _querySatisfied = v0->assignment == ONE? true : false;
     }
-    else if(_strategy == GLOBALSMOLKA){
-        //std::cout << "FORMULA:: Global Smolka:\n";
+    else if(t_algorithm == CZero){
+        std::cout << "FORMULA:: CZERO smolka with strategy:" << t_strategy << "\n";
+        _CZero = true;
+        _querySatisfied = localSmolka(*v0);
+        _querySatisfied = v0->assignment == ONE? true : false;
+        _CZero = false;
+    }
+    else if(t_algorithm == Global){
+        std::cout << "FORMULA:: Global Smolka with strategy:" << t_strategy << "\n";
         buildDependencyGraph(*v0);
         _querySatisfied = globalSmolka(*v0);
         _querySatisfied = v0->assignment == ONE? true : false;
     }
     else{
-        std::cout << "Error Unknown Search Strategy";
+        std::cout << "Error Unknown ctl algorithm";
         return;
     }
 

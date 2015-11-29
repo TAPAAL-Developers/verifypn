@@ -1,26 +1,26 @@
 #!/bin/bash
 
-OUTPUT="$mname-$qname-$sname.log"
+OUTPUT="$mname-$qname-$aname-$sname.log"
 ENGINE="-ctl"
 
 if [[ -f "$OUTPUT" ]]; then
 	rm "$OUTPUT"
 fi
 
-case $sname in
+case $aname in
 	"local" )
-		echo "Search: local" >> "$OUTPUT"
+		echo "Search: local $sname" >> "$OUTPUT"
 		echo "Query type: $qname"  >> "$OUTPUT"
-		{ time "$1" "$2" "$3" "$4"; } >> "$OUTPUT" 2>&1
+		{ time "$1" "$2" "$3" "$4" "local" "-s" "$sname"; } >> "$OUTPUT" 2>&1
 		;;
 	"global" )
-		echo "Search: global" >> "$OUTPUT"
+		echo "Search: global $sname" >> "$OUTPUT"
 		echo "Query type: $qname"  >> "$OUTPUT"
-		{ time "$1" "$2" "$3" "$4" "-global"; } >> "$OUTPUT" 2>&1
+		{ time "$1" "$2" "$3" "$4" "global" "-s" "$sname"; } >> "$OUTPUT" 2>&1
 		;;
 	"czero" )
-		echo "Search: czero" >> "$OUTPUT"
+		echo "Search: czero $sname" >> "$OUTPUT"
 		echo "Query type: $qname"  >> "$OUTPUT"
-		{ time "$1" "$2" "$3" "$4" "-czero"; }  >> "$OUTPUT" 2>&1
+		{ time "$1" "$2" "$3" "$4" "czero" "-s" "$sname"; }  >> "$OUTPUT" 2>&1
 		;;
 esac

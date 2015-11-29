@@ -11,7 +11,7 @@ namespace ctl {
 class EdgePicker
 {
 public:
-    EdgePicker(Search_Strategy t_strategy) : _strategy(t_strategy){}
+    EdgePicker(ctl_search_strategy t_strategy) : _strategy(t_strategy){}
 
     Edge* pop();
     void push(Edge* t_edge);
@@ -28,7 +28,7 @@ private:
     inline Edge* BFS();
     inline void BFS(Edge* e);
 
-    Search_Strategy _strategy = LOCALSMOLKA;
+    ctl_search_strategy _strategy;
     std::deque<Edge*> W;
 };
 

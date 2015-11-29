@@ -16,18 +16,20 @@ namespace ctl{
 
 class EdgePicker;
 
-enum Search_Strategy { LOCALSMOLKA, LOCALSMOLKA_BFS, GLOBALSMOLKA, GLOBALSMOLKA_BFS };
+//enum Search_Strategy { LOCALSMOLKA, LOCALSMOLKA_BFS, GLOBALSMOLKA, GLOBALSMOLKA_BFS };
+enum ctl_algorithm {Local, Global, CZero};
+enum ctl_search_strategy {CTL_BFS, CTL_DFS, CTL_BestFS};
 
 class DGEngine
 {
 public:
-    DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[], bool t_CZero);
+    DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarking[]);
 
     void RunEgineTest();
-    void search(CTLTree* t_query, Search_Strategy t_strategy);
+    void search(CTLTree* t_query, ctl_algorithm t_algorithm, ctl_search_strategy t_strategy);
     inline bool querySatisfied(){return _querySatisfied; }
 private:
-    Search_Strategy _strategy;
+    ctl_search_strategy _strategy;
     PetriEngine::PetriNet* _net;
     PetriEngine::MarkVal* _m0;
     int _nplaces;
