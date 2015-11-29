@@ -26,19 +26,19 @@ void DGEngine::search(CTLTree *t_query, ctl_algorithm t_algorithm, ctl_search_st
 
 
     if(t_algorithm == Local){
-        std::cout << "FORMULA:: Local Smolka with strategy:" << t_strategy << "\n";
+        //std::cout << "FORMULA:: Local Smolka with strategy:" << t_strategy << "\n";
         _querySatisfied = localSmolka(*v0);
         _querySatisfied = v0->assignment == ONE? true : false;
     }
     else if(t_algorithm == CZero){
-        std::cout << "FORMULA:: CZERO smolka with strategy:" << t_strategy << "\n";
+        //std::cout << "FORMULA:: CZERO smolka with strategy:" << t_strategy << "\n";
         _CZero = true;
         _querySatisfied = localSmolka(*v0);
         _querySatisfied = v0->assignment == ONE? true : false;
         _CZero = false;
     }
     else if(t_algorithm == Global){
-        std::cout << "FORMULA:: Global Smolka with strategy:" << t_strategy << "\n";
+        //std::cout << "FORMULA:: Global Smolka with strategy:" << t_strategy << "\n";
         buildDependencyGraph(*v0);
         _querySatisfied = globalSmolka(*v0);
         _querySatisfied = v0->assignment == ONE? true : false;
@@ -384,7 +384,6 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
             Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
             e->targets.push_back(c);
 
-
             auto targets = nextState(*(v.marking));
 
             if(!targets.empty()){
@@ -409,7 +408,6 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
             Configuration* c = createConfiguration(*(v.marking), *(v.query->second));
             Edge* e = new Edge(&v);
             e->targets.push_back(c);
-            succ.push_back(e);
 
             auto targets = nextState(*(v.marking));
 
@@ -423,6 +421,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                     succ.push_back(e);
                 }
             }
+            succ.push_back(e);
         } //Exists Until end
 
         //Exists Next start
@@ -446,7 +445,6 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
             Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
             Edge* e = new Edge(&v);
             e->targets.push_back(c);
-            succ.push_back(e);
 
             auto targets = nextState(*(v.marking));
 
@@ -458,6 +456,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                     succ.push_back(e);
                 }
             }
+            succ.push_back(e);
         }//Exists Finally end
     } //Exists end
 

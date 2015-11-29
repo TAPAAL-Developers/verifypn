@@ -10,7 +10,7 @@ ANALYSE="analyse.sh"
 MEMORY="mem.sh"
 
 REL_PROGRAMPATH="../verifypn-linux64"
-INPUTSPATH="$RUNPATH/testModels/SIMPLE"
+INPUTSPATH="$RUNPATH/testModels/"
 RESULTPATH="$RUNPATH/testResults/"
 ANALISEPATH="$RUNPATH/analysis"
 
@@ -74,6 +74,10 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 	else
 		echo "Cannot find $MODELFILE in $MODELPATH"
 	fi
+
+	#remove scripts after usage
+	rm $TOOL
+	rm $MEMORY
 
 	#for log in $(find -mindepth 1 -maxdepth 1 -type f -name '*.log'); do
 	#	mv "$log" "$RESULTPATH"
