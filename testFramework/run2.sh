@@ -4,7 +4,8 @@ RUNPATH=`pwd`
 MODELFILE="./model.pnml"
 ENGINE="-ctl"
 TOOL="DGEngine.sh"
-STRATEGY=("local" "global" "czero")
+ALGORITHM=("local" "global" "czero")
+STRATEGY=("BFS" "DFS")
 ANALYSE="analyse.sh"
 MEMORY="mem.sh"
 
@@ -50,20 +51,24 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 		 	echo "$qfile"
 			export qname="${qfile%.*}"
 
-			for S in ${STRATEGY[@]}; do
-				export sname="$S"
-				echo "$S"
-				#<PROGRAMPATH> <MODELFILE> <QUERYFILE> <ENGINE> <STRATEGY>
-			 	./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE &
-			 	{ ./$MEMORY; } > "$mname-$qname-$sname-mem.log" 
-			 	cat "$mname-$qname-$sname.log" "$mname-$qname-$sname-mem.log" >> "$mname-$qname-$sname-all.log"
-			 	rm "$mname-$qname-$sname.log" 
-			 	rm "$mname-$qname-$sname-mem.log"
-			 	mv $mname-$qname-$sname-all.log ../../testResults/$mname-$qname-$sname.log
+			for A in ${ALGORITHM[@]}; do
+				export aname="$A"
+				echo "$A"
+
+				for S in ${STRATEGY[@]}; do
+					export sname="$S"
+					echo "$S"
+
+					#<PROGRAMPATH> <MODELFILE> <QUERYFILE> <ENGINE> <ALGORITHM>
+				 	timeout $TIMEOUT ./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE&
+				 	{ ./$MEMORY; } > "$mname-$qname-$aname-$sname-mem.log" 
+				 	cat "$mname-$qname-$aname-$sname.log" "$mname-$qname-$aname-$sname-mem.log" >> "$mname-$qname-$aname-$sname-all.log"
+				 	rm "$mname-$qname-$aname-$sname.log" 
+				 	rm "$mname-$qname-$aname-$sname-mem.log"
+				 	mv $mname-$qname-$aname-$sname-all.log ../../testResults/$mname-$qname-$aname-$sname.log
+			 	done
 			done
-
 		 done
-
 	else
 		echo "Cannot find $MODELFILE in $MODELPATH"
 	fi
@@ -76,4 +81,4 @@ done
 
 unset qname
 unset mname
-unset sname
+unset aname

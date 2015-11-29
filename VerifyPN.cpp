@@ -142,14 +142,14 @@ void testsuit(){
     
     //Test the Engine - without certainZero
     //DGEngine (net, m0, certainZero);
-    ctl::DGEngine engine(net, m0, false);
+    ctl::DGEngine engine(net, m0);
     engine.RunEgineTest();
     cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
     cout<<"::::::::: Completed normal Engine Test ::::::::::"<<endl;
     cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
     
     //Test the Engine - without certainZero
-    ctl::DGEngine cZEROengine(net, m0, true);
+    ctl::DGEngine cZEROengine(net, m0);
     cZEROengine.RunEgineTest();
     cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
     cout<<":::::::::: Completed CZERO Engine Test ::::::::::"<<endl;
@@ -160,19 +160,24 @@ void search_ctl_query(PetriNet* net,
                       MarkVal* m0,
                       CTLFormula *queryList[],
                       ReturnValues result[],
-                      bool certainZero,
-                      ctl::Search_Strategy t_strategy)
+                      ctl::ctl_algorithm t_algorithm,
+                      ctl::ctl_search_strategy t_strategy)
 {
-    ctl::DGEngine engine(net, m0, certainZero);
+    ctl::DGEngine engine(net, m0);
     //CTLEngine *engine = new CTLEngine(net, m0, certainZero, global);
 
     for (int i = 0; i < 16 ; i++) {
+<<<<<<< TREE
         clock_t individual_search_begin = clock();
         engine.search(queryList[i]->Query, t_strategy);
         clock_t individual_search_end = clock();
         if(true)
             cout<<":::TIME::: Search elapsed time for query "<<i<<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
         
+=======
+        engine.search(queryList[i]->Query, t_algorithm, t_strategy);
+
+>>>>>>> MERGE-SOURCE
         queryList[i]->Result = engine.querySatisfied();
         //queryList[i]->Result = engine->readSatisfactory();
 
@@ -196,7 +201,7 @@ int main(int argc, char* argv[]){
 	int kbound = 0;
 	SearchStrategies searchstrategy = BestFS;
 	int memorylimit = 0;
-        char* modelfile = NULL;
+    char* modelfile = NULL;
 	char* queryfile = NULL;
 	bool disableoverapprox = false;
   	int enablereduction = 0; // 0 ... disabled (default),  1 ... aggresive, 2 ... k-boundedness preserving
@@ -205,12 +210,14 @@ int main(int argc, char* argv[]){
 	bool statespaceexploration = false;
 	bool printstatistics = true;
         
-        //CTL variables
-        bool isCTLlogic = false;
-        bool istest = false;
-        string query_string_ctl;
-        bool certainZero = false;
-        ctl::Search_Strategy ctl_search_strategy = ctl::LOCALSMOLKA;
+    //CTL variables
+    //TODO Sort out when done
+    bool isCTLlogic = false;
+    bool istest = false;
+    string query_string_ctl;
+    //bool certainZero = false;
+    ctl::ctl_search_strategy ctl_search_strategy = ctl::CTL_DFS;
+    ctl::ctl_algorithm ctl_algorithm;
 
         
 	//----------------------- Parse Arguments -----------------------//
@@ -228,10 +235,30 @@ int main(int argc, char* argv[]){
 			}
 		}else if(strcmp(argv[i], "-t") == 0 || strcmp(argv[i], "--trace") == 0){
 			outputtrace = true;
-		}else if(strcmp(argv[i], "-ctl") == 0){
-                    isCTLlogic = true;
+        }else if(strcmp(argv[i], "-ctl") == 0){
+            isCTLlogic = true;
+            if(i == argc-1){
+                fprintf(stderr, "Missing ctl Algorithm after \"%s\"\n\n", argv[i]);
+                return ErrorCode;
+            }
+            else{
+                char *s = argv[++i];
+                if(strcmp(s, "local") == 0){
+                    ctl_algorithm = ctl::Local;
+                }
+                else if(strcmp(s, "global") == 0){
+                    ctl_algorithm = ctl::Global;
+                }
+                else if(strcmp(s, "czero") == 0){
+                    ctl_algorithm = ctl::CZero;
+                }
+                else{
+                    fprintf(stderr, "Argument Error: Unrecognized ctl algorithm \"%s\"\n", s);
+                    return ErrorCode;
+                }
+            }
 
-                }else if(strcmp(argv[i], "-test") == 0){
+        }else if(strcmp(argv[i], "-test") == 0){
                     istest = true;
                 }else if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--search-strategy") == 0){
 			if (i==argc-1) {
@@ -252,11 +279,7 @@ int main(int argc, char* argv[]){
 			else{
 				fprintf(stderr, "Argument Error: Unrecognized search strategy \"%s\"\n", s);
 				return ErrorCode;
-			}
-		} else if(strcmp(argv[i], "-czero") == 0){
-                    	certainZero = true;
-        } else if(strcmp(argv[i], "-global") == 0){
-                        ctl_search_strategy = ctl::GLOBALSMOLKA;
+            }
         } else if (strcmp(argv[i], "-m") == 0 || strcmp(argv[i], "--memory-limit") == 0) {
 			if (i == argc - 1) {
 				fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
@@ -761,12 +784,26 @@ int main(int argc, char* argv[]){
 	//---------------------------- CTL search ---------------------------//
         //-------------------------------------------------------------------//
 	else {
+            if(searchstrategy == BFS){
+                ctl_search_strategy = ctl::CTL_BFS;
+            }
+            else if(searchstrategy == DFS){
+                ctl_search_strategy = ctl::CTL_DFS;
+            }
+            else if(searchstrategy == BestFS){
+                //ctl_search_strategy = ctl::CTL_BestFS;
+            }
+
             ReturnValues retval[16];
+<<<<<<< TREE
             clock_t total_search_begin = clock();
             search_ctl_query(net, m0, queryList, retval, certainZero, ctl_search_strategy);
             clock_t total_search_end = clock();
             if(timeInfo)
                 cout<<"\n:::TIME::: Total search elapsed time: "<<double(diffclock(total_search_end,total_search_begin))<<" ms\n"<<endl;
+=======
+            search_ctl_query(net, m0, queryList, retval, ctl_algorithm, ctl_search_strategy);
+>>>>>>> MERGE-SOURCE
             int i;
             for (i = 0; i <16; i++){
                 if (retval[i] == ErrorCode) {

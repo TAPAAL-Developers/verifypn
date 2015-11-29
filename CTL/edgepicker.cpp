@@ -3,31 +3,19 @@
 namespace ctl {
 
 Edge* EdgePicker::pop(){
-    if(_strategy == LOCALSMOLKA){
+    if(_strategy == CTL_DFS){
         return DFS();
     }
-    else if (_strategy == LOCALSMOLKA_BFS){
-        return BFS();
-    }
-    else if (_strategy == GLOBALSMOLKA){
-        return DFS();
-    }
-    else if (_strategy == GLOBALSMOLKA_BFS){
+    else if (_strategy == CTL_BFS){
         return BFS();
     }
 }
 
 void EdgePicker::push(Edge *t_edge){
-    if(_strategy == LOCALSMOLKA){
+    if(_strategy == CTL_DFS){
         DFS(t_edge);
     }
-    else if (_strategy == LOCALSMOLKA_BFS){
-        BFS(t_edge);
-    }
-    else if (_strategy == GLOBALSMOLKA){
-        DFS(t_edge);
-    }
-    else if (_strategy == GLOBALSMOLKA_BFS){
+    else if (_strategy == CTL_BFS){
         BFS(t_edge);
     }
 }
