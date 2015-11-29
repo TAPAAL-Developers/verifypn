@@ -788,7 +788,7 @@ int main(int argc, char* argv[]){
                 ctl_search_strategy = ctl::CTL_DFS;
             }
             else if(searchstrategy == BestFS){
-                //ctl_search_strategy = ctl::CTL_BestFS;
+                ctl_search_strategy = ctl::CTL_BestFS;
             }
 
             ReturnValues retval[16];

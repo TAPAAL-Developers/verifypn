@@ -75,6 +75,10 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 		echo "Cannot find $MODELFILE in $MODELPATH"
 	fi
 
+	#remove scripts after usage
+	rm $TOOL
+	rm $MEMORY
+
 	#for log in $(find -mindepth 1 -maxdepth 1 -type f -name '*.log'); do
 	#	mv "$log" "$RESULTPATH"
 	#done
