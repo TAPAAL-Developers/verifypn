@@ -31,6 +31,8 @@
 #include <map>
 #include <assert.h>
 
+#include <time.h>
+
 #include <PetriEngine/PQL/PQLParser.h>
 #include <PetriEngine/PQL/Contexts.h>
 
@@ -68,6 +70,12 @@ enum SearchStrategies{
 	RDFS,			//LinearOverAprox + RandomDFS
 	OverApprox		//LinearOverApprx
 };
+
+double diffclock(clock_t clock1, clock_t clock2){
+    double diffticks = clock1 - clock2;
+    double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
+    return diffms;
+}
 
 void testsuit(){
     
@@ -159,8 +167,12 @@ void search_ctl_query(PetriNet* net,
     //CTLEngine *engine = new CTLEngine(net, m0, certainZero, global);
 
     for (int i = 0; i < 16 ; i++) {
+        clock_t individual_search_begin = clock();
         engine.search(queryList[i]->Query, t_strategy);
-
+        clock_t individual_search_end = clock();
+        if(true)
+            cout<<":::TIME::: Search elapsed time for query "<<i<<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+        
         queryList[i]->Result = engine.querySatisfied();
         //queryList[i]->Result = engine->readSatisfactory();
 
@@ -340,7 +352,7 @@ int main(int argc, char* argv[]){
 		outputtrace = false;
 		searchstrategy = BFS;
 	}
-	
+	bool timeInfo = true;
 
 	//----------------------- Validate Arguments -----------------------//
         if(istest){
@@ -360,7 +372,7 @@ int main(int argc, char* argv[]){
 	}
 
 	//----------------------- Open Model -----------------------//
-
+        clock_t parse_model_begin = clock();
 	//Load the model, begin scope to release memory from the stack
 	PetriNet* net = NULL;
 	MarkVal* m0 = NULL;
@@ -400,8 +412,11 @@ int main(int argc, char* argv[]){
 		// Close the file
 		mfile.close();
 	}
-    
+    clock_t parse_model_end = clock();
+    if(timeInfo)
+        cout<<":::TIME::: Parse model elapsed time: "<<double(diffclock(parse_model_end,parse_model_begin))<<" ms"<<endl;
     //----------------------- Parse CTL Query -----------------------//
+    clock_t parse_ctl_query_begin = clock();
     CTLFormula *queryList[15];
     
     if(isCTLlogic){
@@ -453,6 +468,9 @@ int main(int argc, char* argv[]){
         
         ctlParser.ParseXMLQuery(buffer, queryList);
         
+        clock_t parse_ctl_query_end = clock();
+        if(timeInfo)
+            cout<<":::TIME::: Parse of CTL query elapsed time: "<<double(diffclock(parse_ctl_query_end,parse_ctl_query_begin))<<" ms\n"<<endl;
     }
     
 	//----------------------- Parse Reachability Query -----------------------//
@@ -744,7 +762,11 @@ int main(int argc, char* argv[]){
         //-------------------------------------------------------------------//
 	else {
             ReturnValues retval[16];
+            clock_t total_search_begin = clock();
             search_ctl_query(net, m0, queryList, retval, certainZero, ctl_search_strategy);
+            clock_t total_search_end = clock();
+            if(timeInfo)
+                cout<<"\n:::TIME::: Total search elapsed time: "<<double(diffclock(total_search_end,total_search_begin))<<" ms\n"<<endl;
             int i;
             for (i = 0; i <16; i++){
                 if (retval[i] == ErrorCode) {
