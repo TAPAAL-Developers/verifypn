@@ -167,17 +167,13 @@ void search_ctl_query(PetriNet* net,
     //CTLEngine *engine = new CTLEngine(net, m0, certainZero, global);
 
     for (int i = 0; i < 16 ; i++) {
-<<<<<<< TREE
+
         clock_t individual_search_begin = clock();
-        engine.search(queryList[i]->Query, t_strategy);
+        engine.search(queryList[i]->Query, t_algorithm, t_strategy);
         clock_t individual_search_end = clock();
         if(true)
             cout<<":::TIME::: Search elapsed time for query "<<i<<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
-        
-=======
-        engine.search(queryList[i]->Query, t_algorithm, t_strategy);
 
->>>>>>> MERGE-SOURCE
         queryList[i]->Result = engine.querySatisfied();
         //queryList[i]->Result = engine->readSatisfactory();
 
@@ -260,25 +256,25 @@ int main(int argc, char* argv[]){
 
         }else if(strcmp(argv[i], "-test") == 0){
                     istest = true;
-                }else if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--search-strategy") == 0){
-			if (i==argc-1) {
-                                fprintf(stderr, "Missing search strategy after \"%s\"\n\n", argv[i]);
-				return ErrorCode;                           
-                        }
-                        char* s = argv[++i];
-			if(strcmp(s, "BestFS") == 0)
-				searchstrategy = BestFS;
-			else if(strcmp(s, "BFS") == 0)
-				searchstrategy = BFS;
-			else if(strcmp(s, "DFS") == 0)
-				searchstrategy = DFS;
-			else if(strcmp(s, "RDFS") == 0)
-				searchstrategy = RDFS;
-			else if(strcmp(s, "OverApprox") == 0)
-				searchstrategy = OverApprox;
-			else{
-				fprintf(stderr, "Argument Error: Unrecognized search strategy \"%s\"\n", s);
-				return ErrorCode;
+        }else if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--search-strategy") == 0){
+                if (i==argc-1) {
+                        fprintf(stderr, "Missing search strategy after \"%s\"\n\n", argv[i]);
+                        return ErrorCode;                           
+                }
+                char* s = argv[++i];
+                if(strcmp(s, "BestFS") == 0)
+                        searchstrategy = BestFS;
+                else if(strcmp(s, "BFS") == 0)
+                        searchstrategy = BFS;
+                else if(strcmp(s, "DFS") == 0)
+                        searchstrategy = DFS;
+                else if(strcmp(s, "RDFS") == 0)
+                        searchstrategy = RDFS;
+                else if(strcmp(s, "OverApprox") == 0)
+                        searchstrategy = OverApprox;
+                else{
+                        fprintf(stderr, "Argument Error: Unrecognized search strategy \"%s\"\n", s);
+                        return ErrorCode;
             }
         } else if (strcmp(argv[i], "-m") == 0 || strcmp(argv[i], "--memory-limit") == 0) {
 			if (i == argc - 1) {
@@ -795,15 +791,12 @@ int main(int argc, char* argv[]){
             }
 
             ReturnValues retval[16];
-<<<<<<< TREE
             clock_t total_search_begin = clock();
-            search_ctl_query(net, m0, queryList, retval, certainZero, ctl_search_strategy);
+            search_ctl_query(net, m0, queryList, retval, ctl_algorithm, ctl_search_strategy);
             clock_t total_search_end = clock();
             if(timeInfo)
                 cout<<"\n:::TIME::: Total search elapsed time: "<<double(diffclock(total_search_end,total_search_begin))<<" ms\n"<<endl;
-=======
-            search_ctl_query(net, m0, queryList, retval, ctl_algorithm, ctl_search_strategy);
->>>>>>> MERGE-SOURCE
+
             int i;
             for (i = 0; i <16; i++){
                 if (retval[i] == ErrorCode) {

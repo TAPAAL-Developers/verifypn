@@ -10,7 +10,7 @@ ANALYSE="analyse.sh"
 MEMORY="mem.sh"
 
 REL_PROGRAMPATH="../verifypn-linux64"
-INPUTSPATH="$RUNPATH/testModels/"
+INPUTSPATH="$RUNPATH/testModels/SIMPLE"
 RESULTPATH="$RUNPATH/testResults/"
 ANALISEPATH="$RUNPATH/analysis"
 
@@ -54,18 +54,20 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 			for A in ${ALGORITHM[@]}; do
 				export aname="$A"
 				echo "$A"
+                                
 
 				for S in ${STRATEGY[@]}; do
 					export sname="$S"
 					echo "$S"
 
+
 					#<PROGRAMPATH> <MODELFILE> <QUERYFILE> <ENGINE> <ALGORITHM>
-				 	timeout $TIMEOUT ./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE&
-				 	{ ./$MEMORY; } > "$mname-$qname-$aname-$sname-mem.log" 
-				 	cat "$mname-$qname-$aname-$sname.log" "$mname-$qname-$aname-$sname-mem.log" >> "$mname-$qname-$aname-$sname-all.log"
-				 	rm "$mname-$qname-$aname-$sname.log" 
-				 	rm "$mname-$qname-$aname-$sname-mem.log"
-				 	mv $mname-$qname-$aname-$sname-all.log ../../testResults/$mname-$qname-$aname-$sname.log
+				 	./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE
+				 	#{ ./$MEMORY; } > "$mname-$qname-$aname-$sname-mem.log" 
+				 	#cat "$mname-$qname-$aname-$sname.log" "$mname-$qname-$aname-$sname-mem.log" >> "$mname-$qname-$aname-$sname-all.log"
+				 	#rm "$mname-$qname-$aname-$sname-mem.log"
+				 	mv $mname-$qname-$aname-$sname.log ../../../testResults/$mname-$qname-$aname-$sname.log
+                                        
 			 	done
 			done
 		 done
