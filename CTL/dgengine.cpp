@@ -73,7 +73,7 @@ void DGEngine::buildDependencyGraph(Configuration &v){
         successors(*c);
 
         for(Edge* e : c->Successors){
-//            e->edgePrinter();
+            e->edgePrinter();
             for(Configuration* tc : e->targets){
                 if(tc->assignment == UNKNOWN){
                     tc->assignment = ZERO;

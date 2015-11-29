@@ -116,8 +116,12 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             query2->quantifier = NEG;
             query2->a.fireset = NULL;
             query2->first = xmlToCTLquery(root->first_node()->first_node());
+            query2->depth = (query2->first->depth + 1);
 
             isAG = false;
+            query1->depth = (query2->depth + 1);
+            query->depth = (query1->depth + 1);
+            
             return query;
         }
         
@@ -144,10 +148,13 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             query2->quantifier = NEG;
             query2->a.fireset = NULL;
             query2->first = xmlToCTLquery(root->first_node()->first_node());
-
+            query2->depth = (query2->first->depth + 1);
             isEG = false;
             //std::cout<<"Made subquery for EG:"<<std::endl;
             //printQuery(query);
+            query1->depth = (query2->depth + 1);
+            query->depth = (query1->depth + 1);
+            
             return query;
         }
         
@@ -168,6 +175,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     }
     else if (firstLetter == 'i' ) {
         query->quantifier = EMPTY;
+        query->depth = 0;
         //std::cout << "TEST:: ATOM: " << root_name << "\n";
         if (root_name[1] == 's' ) {
             numberoftransitions = 0;
@@ -225,6 +233,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             //std::cout << "-----TEST:: Returning query atom from fireability: \n" << std::flush;
             //printQuery(query);
             //std::cout << "\n" << std::flush;
+            
             return query; 
         }
         else if (root_name[1] == 'n') {
@@ -274,6 +283,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             }
             
             //std::cout << "-----TEST:: Returning query set: " << query->a.set << "\n" << std::flush;
+            
             return query; 
         }
         else {
@@ -312,6 +322,13 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         query->first = xmlToCTLquery(root->first_node()->first_node());
     }
     //std::cout << "TEST:: Returning " << root_name << "\n";
+    
+    if (query->quantifier == AND || query->quantifier == OR || query->path == U){
+        int first_depth = query->first->depth, second_depth = query->second->depth;
+        query->depth = (lowerDepth(first_depth, second_depth) + 1);
+    }
+    else query->depth = (query->first->depth + 1);
+    
     return query;
 }
 
@@ -351,12 +368,12 @@ void CTLParser::printQuery(CTLTree *query) {
     if(query->quantifier == EMPTY) {
         Atom a = query->a;
         if(a.isFireable){
-            std::cout<< " Tokencount(";
+            std::cout<< " IsFireable(";
             int i = 0;
             for(i = 0; i < query->a.firesize; i++){
                 int j = 0;
                 for (j = 0; j < query->a.fireset[i].sizeofdenpencyplaces; j++){
-                    std::cout<< query->a.fireset[i].denpencyplaces[j].intSmaller<<" le "<<_net->placeNames()[query->a.fireset[i].denpencyplaces[j].placeLarger];
+                    std::cout<<"t_name_not_available";
                     if(j < (query->a.fireset[i].sizeofdenpencyplaces - 1))
                         std::cout << ", ";
                 }
@@ -419,6 +436,14 @@ bool CTLParser::charEmpty(char *query) {
     return false;
 }
 
+unsigned int CTLParser::lowerDepth(unsigned int a, unsigned int b){
+    if (a < b)
+        return a;
+    else if (a == b)
+        return a;
+    else return b;
+}
+
 //Test functions
 void CTLParser::RunParserTest(){
     CTLFormula *queryList[12];
@@ -467,7 +492,7 @@ void CTLParser::RunParserTest(){
         assert(queryList[7]->Query->quantifier == E);
         assert(queryList[7]->Query->path == X);
         //Confirm Houseconstructions
-        
+        int i = 0;
         
         std::cout<<"::::::::::::::::::::::::::::::::\n:::::::: Parse Test End ::::::::\n::::::::::::::::::::::::::::::::\n"<<std::endl;
         

@@ -66,7 +66,7 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 				 	#{ ./$MEMORY; } > "$mname-$qname-$aname-$sname-mem.log" 
 				 	#cat "$mname-$qname-$aname-$sname.log" "$mname-$qname-$aname-$sname-mem.log" >> "$mname-$qname-$aname-$sname-all.log"
 				 	#rm "$mname-$qname-$aname-$sname-mem.log"
-				 	mv $mname-$qname-$aname-$sname.log ../../../testResults/$mname-$qname-$aname-$sname.log
+				 	mv $mname-$qname-$aname-$sname.log ../../testResults/$mname-$qname-$aname-$sname.log
                                         
 			 	done
 			done

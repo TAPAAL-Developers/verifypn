@@ -486,6 +486,7 @@ int main(int argc, char* argv[]){
         CTLParser ctlParser = CTLParser(net);
         
         ctlParser.ParseXMLQuery(buffer, queryList);
+        ctlParser.printQuery(queryList[0]->Query);
         
         clock_t parse_ctl_query_end = clock();
         if(timeInfo)

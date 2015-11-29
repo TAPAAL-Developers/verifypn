@@ -42,6 +42,7 @@ struct CTLTree {
   CTLTree *first;
   CTLTree *second;
   Atom a;
+  unsigned int depth;
 } ;
 
 struct CTLFormula {
@@ -90,6 +91,7 @@ private:
     bool isAG = false;
     bool isEG = false;
     int numberoftransitions;
+    unsigned int lowerDepth(unsigned int a, unsigned int b);
     CTLTree* xmlToCTLquery(rapidxml::xml_node<> * root);
     Path setPathOperator(rapidxml::xml_node<> * root, bool isA, bool isE);
     

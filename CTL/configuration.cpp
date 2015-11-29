@@ -37,6 +37,7 @@ void Configuration::configPrinter(){
 
     std::cout << " Q: " ;
     ctlParser.printQuery(query);
+    std::cout << " D: "<<query->depth ;
     std::cout << " Assign: " << assignment;
 
     std::cout << " NEG: " << IsNegated << "\n";
