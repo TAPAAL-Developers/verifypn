@@ -1,10 +1,11 @@
 #include "dgengine.h"
 #include "../CTLParser/CTLParser.h"
+#include "edgepicker.h"
 
 #include <string.h>
 #include <fstream>
 #include <iostream>
-#include <stack>
+//#include <stack>
 #include <queue>
 
 namespace ctl {
@@ -76,7 +77,7 @@ void DGEngine::buildDependencyGraph(Configuration &v){
     }
 }
 
-void DGEngine::CalculateEdges(Configuration &v, std::queue<Edge*> &W){
+void DGEngine::CalculateEdges(Configuration &v, EdgePicker &W){
     std::unordered_set< Configuration*,
                         std::hash<Configuration*>,
                         Configuration::Configuration_Equal_To> Visisted;
@@ -100,7 +101,7 @@ void DGEngine::CalculateEdges(Configuration &v, std::queue<Edge*> &W){
 }
 
 bool DGEngine::globalSmolka(Configuration &v){
-    std::queue<Edge*> W;
+    EdgePicker W = EdgePicker(_strategy);
     //v.assignment = ZERO;
 
     CalculateEdges(v, W);
@@ -110,8 +111,7 @@ bool DGEngine::globalSmolka(Configuration &v){
     std::cout << "==========================================================" << std::endl;
 */
     while(!W.empty()){
-        Edge* e = W.front();
-        W.pop();
+        Edge* e = W.pop();
 
         //e->edgePrinter();
         if(e->source->assignment == ONE){}
@@ -154,7 +154,7 @@ bool DGEngine::globalSmolka(Configuration &v){
 
 bool DGEngine::localSmolka(Configuration &v){
     v.assignment = ZERO;
-    std::queue<Edge*> W;
+    EdgePicker W = EdgePicker(_strategy);
     auto initialSucc = successors(v);
 
    /* std::cout << "Starting while loop - size of W:" << W.size() << std::endl;
@@ -169,8 +169,7 @@ bool DGEngine::localSmolka(Configuration &v){
     while (!W.empty()) {
 
         int i = 0;  
-        Edge* e = W.front();
-        W.pop();
+        Edge* e = W.pop();
         //e->edgePrinter();
 
         /*****************************************************************/
@@ -247,39 +246,39 @@ bool DGEngine::localSmolka(Configuration &v){
         // Case: CZERO
         else if(czero){
 
-            // bool isCzero = true;
-            // for(auto edge : e->source->Successors){
-            //     bool found = false;
-            //     for( auto c : edge->targets){
-            //         if(c->assignment == CZERO){
-            //             found = true;
-            //             break;
-            //         }
-            //     }
-            //     if(!found){
-            //         isCzero = false;
-            //         break;
-            //     }
-            // }
+             bool isCzero = true;
+             for(auto edge : e->source->Successors){
+                 bool found = false;
+                 for( auto c : edge->targets){
+                     if(c->assignment == CZERO){
+                         found = true;
+                         break;
+                     }
+                 }
+                 if(!found){
+                     isCzero = false;
+                     break;
+                 }
+             }
 
-            // if(isCzero){
-            //     e->source->assignment == CZERO;
+             if(isCzero){
+                 e->source->assignment == CZERO;
 
-            //     for(auto edge : e->source->DependencySet)
-            //         W.push(edge);
-            //     e->source->DependencySet.clear();
-            // }
+                 for(auto edge : e->source->DependencySet)
+                     W.push(edge);
+                 e->source->DependencySet.clear();
+             }
 
-           if(e->source->Successors.size() == 1){
-               assignConfiguration((e->source), CZERO);
+//           if(e->source->Successors.size() == 1){
+//               assignConfiguration((e->source), CZERO);
 
-               if(*(e->source) == v)
-                   return v.assignment == ONE ? true : false;
+//               if(*(e->source) == v)
+//                   return v.assignment == ONE ? true : false;
 
-               for(auto edge : e->source->DependencySet)
-                   W.push(edge);
-           }
-            e->source->removeSuccessor(e);
+//               for(auto edge : e->source->DependencySet)
+//                   W.push(edge);
+//           }
+//            e->source->removeSuccessor(e);
 
         }
         /*****************************************************************/
