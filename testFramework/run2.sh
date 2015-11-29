@@ -8,7 +8,6 @@ ALGORITHM=("local" "global" "czero")
 STRATEGY=("BFS" "DFS")
 ANALYSE="analyse.sh"
 MEMORY="mem.sh"
-TIMEOUT=3600
 
 REL_PROGRAMPATH="../verifypn-linux64"
 INPUTSPATH="$RUNPATH/testModels/"
@@ -69,9 +68,7 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 				 	mv $mname-$qname-$aname-$sname-all.log ../../testResults/$mname-$qname-$aname-$sname.log
 			 	done
 			done
-
 		 done
-
 	else
 		echo "Cannot find $MODELFILE in $MODELPATH"
 	fi
