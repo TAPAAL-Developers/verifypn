@@ -22,6 +22,20 @@ namespace ctl{
         }
         std::cout << "-------------------------------------------------------\n";
     }
+
+    void Edge::rateEdge(){
+        int dist = 0;
+        int max_dist
+        int breath = 0;
+
+        for(auto t : targets){
+            dist += t->query->depth;
+            breath++;
+        }
+        //make equation
+        Rating = (3*breath) + (2*dist);
+    }
+
 }
 //namespace std{
 //    // Specializations of hash functions.

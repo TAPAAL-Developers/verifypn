@@ -1,4 +1,5 @@
 #include "edgepicker.h"
+#include <algorithm> 
 
 namespace ctl {
 
@@ -47,9 +48,13 @@ inline void EdgePicker::BFS(Edge* t_edge){
     W.push_back(t_edge);
 }
 
+
 //BestFS pop
 inline Edge* EdgePicker::BestFS(){
-    Edge* bestEdge = W.front();
+    Edge* e = W.front();
+    W.pop_front(); 
+    return e; 
+   /*Edge* bestEdge = W.front();
     int i = 0;
     int lowestNR = bestEdge->targets.size();
 
@@ -67,11 +72,15 @@ inline Edge* EdgePicker::BestFS(){
     }
     Edge* e = W.front();
     W.pop_front();
-    return e;
+    return e;*/
+
+
 }
 //BestFS push
 inline void EdgePicker::BestFS(Edge* t_edge){
+    t_edge->rateEdge();
     W.push_back(t_edge);
+    std::sort(W.begin(), W.end());
 }
 
 

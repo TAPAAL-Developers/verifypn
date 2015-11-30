@@ -20,11 +20,15 @@ public:
     Edge(){};
     Edge(Configuration* t_source) : source(t_source) {}
 
+    bool operator()(Edge *first, Edge *second) {return (first->Rating < second->Rating); }
+
+    int Rating;
     Configuration* source;
     std::list<Configuration*> targets;
 
     //bool operator==(const Edge & rhs) const;
     void edgePrinter();
+    void rateEdge();
 };
 }
 
