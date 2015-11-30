@@ -351,12 +351,12 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
             if(!targets.empty()){
                 Edge* e1 = new Edge(&v);
                 Configuration* b = createConfiguration(*(v.marking), *(v.query->first));
-                e1->targets.push_back(b);
 
                 for(auto m : targets){
                     Configuration* c = createConfiguration(*m, *(v.query));
                     e1->targets.push_back(c);
                 }
+                e1->targets.push_back(b);
                 succ.push_back(e1);
             }
 
@@ -417,8 +417,8 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                 for(auto m : targets){
                     Edge* e = new Edge(&v);
                     Configuration* c1 = createConfiguration(*m, *(v.query));
-                    e->targets.push_back(c);
                     e->targets.push_back(c1);
+                    e->targets.push_back(c);
                     succ.push_back(e);
                 }
             }

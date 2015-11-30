@@ -80,7 +80,20 @@ inline Edge* EdgePicker::BestFS(){
 inline void EdgePicker::BestFS(Edge* t_edge){
     t_edge->rateEdge();
     W.push_back(t_edge);
-    std::sort(W.begin(), W.end());
+
+    auto it = W.begin();
+
+    while(it != W.end()){
+        if(t_edge->Rating < (*it)->Rating){
+            W.insert(it, 1, t_edge);
+            return;
+        }
+        else {
+            it++;
+        }
+    }
+
+    W.push_back(t_edge);
 }
 
 
