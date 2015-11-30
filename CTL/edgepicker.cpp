@@ -1,5 +1,4 @@
 #include "edgepicker.h"
-#include <algorithm> 
 
 namespace ctl {
 
