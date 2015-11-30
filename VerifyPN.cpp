@@ -156,6 +156,37 @@ void testsuit(){
     cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
 }
 
+void getQueryPlaces(vector<string> *QueryPlaces, CTLTree* current, PetriNet *net){
+    if(current->depth == 0){
+        if(current->a.isFireable){
+            int i = 0;
+            for(i = 0; i < current->a.firesize; i++){
+                int j = 0;
+                for (j = 0; j < current->a.fireset->sizeofdenpencyplaces; j++){
+                    const char *pname_c = net->placeNames()[current->a.fireset[i].denpencyplaces[j].placeLarger].c_str();
+                    string pname = pname_c;
+                    QueryPlaces->insert(QueryPlaces->end(), pname);
+                }
+            }
+        }
+        else {
+            const char *lname_c = net->placeNames()[current->a.tokenCount.placeLarger].c_str();
+            string lname = lname_c;
+            const char *sname_c = net->placeNames()[current->a.tokenCount.placeSmaller].c_str();
+            string sname = sname_c;
+            QueryPlaces->insert(QueryPlaces->end(), lname);
+            QueryPlaces->insert(QueryPlaces->end(), sname);
+        }
+    }
+    else if (current->quantifier == AND || current->quantifier == OR || current->path == U){
+        getQueryPlaces(QueryPlaces, current->first, net);
+        getQueryPlaces(QueryPlaces, current->second, net);
+    }
+    else {
+        getQueryPlaces(QueryPlaces, current->first, net);
+    }
+}
+
 void search_ctl_query(PetriNet* net,
                       MarkVal* m0,
                       CTLFormula *queryList[],
@@ -570,6 +601,7 @@ int main(int argc, char* argv[]){
 	
 		//Parse query
 		query = ParseQuery(querystring);
+                cout<<":::::::::::::::::::\n"<<querystring<<endl;
 		if(!query){
 			fprintf(stderr, "Error: Failed to parse query \"%s\"\n", querystring.c_str()); //querystr.substr(2).c_str());
 			return ErrorCode;
@@ -605,18 +637,67 @@ int main(int argc, char* argv[]){
 			placeInQuery[i] = 0;
 		}
 		QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
-		query->analyze(placecontext);
-
-		// Compute the places and transitions that connect to inhibitor arcs
-		MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
-		MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
+                MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
+                MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
+                
+                string reductionquerystr;
+                reductionquerystr += "(";
+                bool firstAccurance = true;
+                int i = 0;
+                vector<string> AllQeuryPlaces;
+                for (i = 0; i < 15; i++){
+                    CTLTree* current = queryList[i]->Query;
+                    vector<string> *QueryPlaces = new vector<string>();
+                    getQueryPlaces(QueryPlaces, current, net);
+                    AllQeuryPlaces.reserve(AllQeuryPlaces.size() + QueryPlaces->size());
+                    AllQeuryPlaces.insert(AllQeuryPlaces.end(), QueryPlaces->begin(), QueryPlaces->end());
+                    
+                }
+                vector<string> UniqueAllQeuryPlaces;
+                for(auto a : AllQeuryPlaces){
+                    bool isUnique = true;
+                    string newplace = "0 <= \"" + a + "\"";
+                    if(UniqueAllQeuryPlaces.empty()){
+                        
+                        UniqueAllQeuryPlaces.insert(UniqueAllQeuryPlaces.end(), newplace);
+                        isUnique = false;
+                    }
+                    else {
+                        for(auto u : UniqueAllQeuryPlaces){
+                            if (newplace.compare(u) == 0){
+                                isUnique = false;
+                            }
+                        }
+                    }
+                    if (isUnique){
+                        UniqueAllQeuryPlaces.insert(UniqueAllQeuryPlaces.end(), newplace);
+                    }
+                }
+                for(auto a : UniqueAllQeuryPlaces){
+                    if(!firstAccurance)
+                        reductionquerystr += ") and (";
+                    reductionquerystr += a;
+                    firstAccurance = false;
+                }
+                reductionquerystr += ")";
+                
+                cout<<reductionquerystr<<endl;
+                
+                Condition* reductionquery;
+                
+                if(!firstAccurance) {
+                    reductionquery = ParseQuery(reductionquerystr);
+                    reductionquery->analyze(placecontext);
+                }
+               
 
 		// CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
 		reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
 
-		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib); 
+		reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib); 
 		reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
-		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
+		cout<<"::::::::::::REDUCE::::::::::::::"<<endl;
+                reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
 	}
         
 	//----------------------- Reachability -----------------------//

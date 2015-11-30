@@ -1,6 +1,6 @@
 # Programs for processing
 LEX				= flex
-YACC			= bison
+YACC                            = bison
 CC				= g++
 CUT				= cut
 
