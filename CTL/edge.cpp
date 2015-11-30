@@ -24,6 +24,11 @@ namespace ctl{
     }
 
     void Edge::rateEdge(){
+
+        if(Rating > -1){
+            return;
+        }
+
         int dist = 0;
         int breath = 0;
 

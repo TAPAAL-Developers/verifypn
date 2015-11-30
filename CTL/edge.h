@@ -20,9 +20,7 @@ public:
     Edge(){};
     Edge(Configuration* t_source) : source(t_source) {}
 
-    bool operator()(Edge *first, Edge *second) {return (first->Rating < second->Rating); }
-
-    int Rating;
+    int Rating = -1;
     Configuration* source;
     std::list<Configuration*> targets;
 
