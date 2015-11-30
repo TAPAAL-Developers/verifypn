@@ -5,7 +5,7 @@ MODELFILE="./model.pnml"
 ENGINE="-ctl"
 TOOL="DGEngine.sh"
 ALGORITHM=("local" "global" "czero")
-STRATEGY=("BFS" "DFS")
+STRATEGY=("BFS" "DFS" "BestFS")
 ANALYSE="analyse.sh"
 MEMORY="mem.sh"
 

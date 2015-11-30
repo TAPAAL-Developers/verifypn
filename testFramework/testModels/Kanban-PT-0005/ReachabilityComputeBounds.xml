@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>P4</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Pout3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Pout1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Pout1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Pout3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Pm1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Pm3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Pback3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Pout3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Pout4</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>P3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Pback1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Pm1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Pm3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Pm3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Kanban-PT-0005-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Pm2</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>
