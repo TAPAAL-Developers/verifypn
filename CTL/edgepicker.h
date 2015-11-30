@@ -16,6 +16,8 @@ public:
     Edge* pop();
     void push(Edge* t_edge);
     void remove(Edge* t_edge);
+    void print();
+    bool find(Edge* t_edge);
     inline size_t size() {return W.size();}
     inline bool empty() {return W.empty();}
 

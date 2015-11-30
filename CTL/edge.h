@@ -21,6 +21,7 @@ public:
     Edge(Configuration* t_source) : source(t_source) {}
 
     int Rating = -1;
+    bool isDeleted = false;
     Configuration* source;
     std::list<Configuration*> targets;
 

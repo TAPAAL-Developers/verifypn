@@ -176,10 +176,19 @@ bool DGEngine::localSmolka(Configuration &v){
 
 
     while (!W.empty()) {
+    	//std::cout << "in w now, size of w:\n" << W.size() << std::flush;
+    	//W.print();
+		//std::cout << "NOT IN wnow:\n" << std::flush;
         int i = 0;  
         Edge* e = W.pop();
-       // std::cout << "First edge :\n" << std::flush;
-       // e->edgePrinter();
+
+       //std::cout << "First edge :\n" << std::flush;
+       //e->edgePrinter();
+
+       //std::cout << "First edge  succ :\n" << std::flush;
+       //for (auto l : e->source->Successors){
+       //	l->edgePrinter();
+       //}
 
         /*****************************************************************/
         /*Data handling*/
@@ -189,6 +198,7 @@ bool DGEngine::localSmolka(Configuration &v){
         bool czero = false;
 
         for(auto c : e->targets){
+
 
             if (c->assignment == ONE) {
                 targetONEassignments++;
@@ -205,6 +215,7 @@ bool DGEngine::localSmolka(Configuration &v){
             }
 
         }
+
 
         if(e->source->DependencySet.empty() && *e->source != v){
             //This is suppose to be empty.
@@ -290,20 +301,24 @@ bool DGEngine::localSmolka(Configuration &v){
                  e->source->DependencySet.clear();
              }*/
 
+
            if(e->source->Successors.size() == 1){
+           //	std::cout << "begin\n" << std::flush;
+           //	e->edgePrinter();
+           //	std::cout << "DS\n" << std::flush;
                assignConfiguration((e->source), CZERO);
 
                if(*(e->source) == v)
                    return v.assignment == ONE ? true : false;
 
-               for(auto edge : e->source->DependencySet)
+               for(auto edge : e->source->DependencySet){
+             //  	   edge->edgePrinter();
                    W.push(edge);
+                }
 
                e->source->DependencySet.clear();
            }
-
-           //std::cout << "We are deleting :\n" << std::flush;
-           //e->edgePrinter();
+           //std::cout << "and we are out" << std::flush;
            W.remove(e);
            e->source->removeSuccessor(e);
 
@@ -313,6 +328,7 @@ bool DGEngine::localSmolka(Configuration &v){
         /*****************************************************************/
         // Case: Negated
         else if(e->source->IsNegated){
+
 
             Configuration* negConfig = *(e->targets.begin());
             localSmolka(*negConfig);
@@ -372,12 +388,12 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
             if(!targets.empty()){
                 Edge* e1 = new Edge(&v);
                 Configuration* b = createConfiguration(*(v.marking), *(v.query->first));
-                e1->targets.push_back(b);
 
                 for(auto m : targets){
                     Configuration* c = createConfiguration(*m, *(v.query));
                     e1->targets.push_back(c);
                 }
+                e1->targets.push_back(b);
                 succ.push_back(e1);
             }
 
@@ -438,8 +454,8 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                 for(auto m : targets){
                     Edge* e = new Edge(&v);
                     Configuration* c1 = createConfiguration(*m, *(v.query));
-                    e->targets.push_back(c);
                     e->targets.push_back(c1);
+                    e->targets.push_back(c);
                     succ.push_back(e);
                 }
             }

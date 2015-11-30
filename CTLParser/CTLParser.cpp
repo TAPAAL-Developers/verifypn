@@ -368,12 +368,12 @@ void CTLParser::printQuery(CTLTree *query) {
     if(query->quantifier == EMPTY) {
         Atom a = query->a;
         if(a.isFireable){
-            std::cout<< " IsFireable(";
+            std::cout<< " IsFireable(" << std::flush;
             int i = 0;
             for(i = 0; i < query->a.firesize; i++){
                 int j = 0;
                 for (j = 0; j < query->a.fireset[i].sizeofdenpencyplaces; j++){
-                    std::cout<<"t_name_not_available";
+                    std::cout<<"t_name_not_available" << std::flush;
                     if(j < (query->a.fireset[i].sizeofdenpencyplaces - 1))
                         std::cout << ", ";
                 }
@@ -382,12 +382,12 @@ void CTLParser::printQuery(CTLTree *query) {
             return;
         }
         else {
-            std::cout<< " Tokencount(";
+            std::cout<< " Tokencount(" << std::flush;
             if (a.tokenCount.intSmaller == -1) 
                 std::cout<< a.tokenCount.placeSmaller;
             else 
                 std::cout << a.tokenCount.intSmaller;
-            std::cout<< " le ";
+            std::cout<< " le " << std::flush;
             if (a.tokenCount.intLarger == -1) 
                 std::cout<< a.tokenCount.placeLarger;
             else 
@@ -397,20 +397,20 @@ void CTLParser::printQuery(CTLTree *query) {
         return;
     }
     else if (query->quantifier == NEG){
-        std::cout << "!("; printQuery(query->first) ;std::cout <<")";
+        std::cout << "!("; printQuery(query->first) ;std::cout <<")" << std::flush;
     }
     else if (query->quantifier == AND){
-        std::cout << "(" ; printQuery(query->first);std::cout <<") AND ("; printQuery(query->second);std::cout<< ")";
+        std::cout << "(" ; printQuery(query->first);std::cout <<") AND ("; printQuery(query->second);std::cout<< ")" << std::flush;
     }
     else if (query->quantifier == OR){
-        std::cout << "("; printQuery(query->first);std::cout <<") OR ("; printQuery(query->second);std::cout << ")";
+        std::cout << "("; printQuery(query->first);std::cout <<") OR ("; printQuery(query->second);std::cout << ")" << std::flush;
     }
     else if (query->quantifier == A){
-        std::cout << "A";
+        std::cout << "A" << std::flush;
         printPath(query);
     }
     else if ( query->quantifier == E){
-        std::cout << "E";
+        std::cout << "E" << std::flush;
         printPath(query);
     }
     else return;

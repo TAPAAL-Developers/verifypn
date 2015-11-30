@@ -23,18 +23,32 @@ void EdgePicker::push(Edge *t_edge){
         BFS(t_edge);
     }
     else if (_strategy == CTL_BestFS){
-        return BestFS(t_edge);
+        BestFS(t_edge);
     }
 }
 
 void EdgePicker::remove(Edge* t_edge){
-    if(std::find(W.begin(), W.end(), t_edge) != W.end()){
-        int i = 0;
-        for (auto e : W){
-            if(e == t_edge)
-                W.erase(W.begin() + i);
-            i++;
-        }
+    auto it=W.begin();
+    auto itn=W.end();
+    int i = 0;
+
+    while(it!=itn) {
+        if(*it == t_edge){    
+            W.erase(it);
+            itn=W.end();
+            it=W.begin()+i;
+        } else {it++; i++;}
+    }
+}
+
+bool EdgePicker::find(Edge* t_edge){
+  if(std::find(W.begin(), W.end(), t_edge) != W.end()) return true;
+  else return false;   
+}
+
+void EdgePicker::print(){
+    for (auto w : W){
+        w->edgePrinter();
     }
 }
 
@@ -90,7 +104,6 @@ inline Edge* EdgePicker::BestFS(){
 //BestFS push
 inline void EdgePicker::BestFS(Edge* t_edge){
     t_edge->rateEdge();
-    W.push_back(t_edge);
 
     auto it = W.begin();
 
