@@ -27,6 +27,17 @@ void EdgePicker::push(Edge *t_edge){
     }
 }
 
+void EdgePicker::remove(Edge* t_edge){
+    if(std::find(W.begin(), W.end(), t_edge) != W.end()){
+        int i = 0;
+        for (auto e : W){
+            if(e == t_edge)
+                W.erase(W.begin() + i);
+            i++;
+        }
+    }
+}
+
 //DFS pop
 inline Edge* EdgePicker::DFS(){
     Edge* e = W.front();

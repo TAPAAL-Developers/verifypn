@@ -178,7 +178,8 @@ bool DGEngine::localSmolka(Configuration &v){
     while (!W.empty()) {
         int i = 0;  
         Edge* e = W.pop();
-        //e->edgePrinter();
+       // std::cout << "First edge :\n" << std::flush;
+       // e->edgePrinter();
 
         /*****************************************************************/
         /*Data handling*/
@@ -248,13 +249,25 @@ bool DGEngine::localSmolka(Configuration &v){
                 }
 
             }
+
             e->source->DependencySet.clear();
         }
         /*****************************************************************/
         // Case: CZERO
         else if(czero){
+        	/*std::cout << "we are in czero with edge :\n" << std::flush;
+        	e->edgePrinter();
+        	std::cout << "where source dependency set :\n" << std::flush;
+        	for (auto t : e->source->DependencySet){
+        		t->edgePrinter();
+        	}
+        	std::cout << "and source successor set :\n" << std::flush;
+        	for (auto t : e->source->Successors){
+        		t->edgePrinter();
+        	}
+			
 
-             bool isCzero = true;
+             /*bool isCzero = true;
              for(auto edge : e->source->Successors){
                  bool found = false;
                  for( auto c : edge->targets){
@@ -275,18 +288,26 @@ bool DGEngine::localSmolka(Configuration &v){
                  for(auto edge : e->source->DependencySet)
                      W.push(edge);
                  e->source->DependencySet.clear();
-             }
+             }*/
 
-//           if(e->source->Successors.size() == 1){
-//               assignConfiguration((e->source), CZERO);
+           if(e->source->Successors.size() == 1){
+               assignConfiguration((e->source), CZERO);
 
-//               if(*(e->source) == v)
-//                   return v.assignment == ONE ? true : false;
+               if(*(e->source) == v)
+                   return v.assignment == ONE ? true : false;
 
-//               for(auto edge : e->source->DependencySet)
-//                   W.push(edge);
-//           }
-//            e->source->removeSuccessor(e);
+               for(auto edge : e->source->DependencySet)
+                   W.push(edge);
+
+               e->source->DependencySet.clear();
+           }
+
+           //std::cout << "We are deleting :\n" << std::flush;
+           //e->edgePrinter();
+           W.remove(e);
+           e->source->removeSuccessor(e);
+
+         // std::cout << "We now deleting :\n" << std::flush;
 
         }
         /*****************************************************************/

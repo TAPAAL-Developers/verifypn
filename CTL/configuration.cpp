@@ -23,6 +23,7 @@ void Configuration::removeSuccessor(Edge *t_successor){
             t->DependencySet.remove(t_successor);
         }
 
+
         delete t_successor;
         return;
     }

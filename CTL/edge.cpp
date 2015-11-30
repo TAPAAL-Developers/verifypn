@@ -37,7 +37,7 @@ namespace ctl{
             breath++;
         }
         //make equation
-        Rating = (3*breath) + (2*dist);
+        Rating = (0*breath) + (2*dist);
     }
 
 }
