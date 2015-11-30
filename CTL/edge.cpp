@@ -25,7 +25,6 @@ namespace ctl{
 
     void Edge::rateEdge(){
         int dist = 0;
-        int max_dist
         int breath = 0;
 
         for(auto t : targets){
