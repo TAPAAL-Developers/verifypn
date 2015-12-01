@@ -5,7 +5,7 @@ MODELFILE="./model.pnml"
 ENGINE="-ctl"
 TOOL="DGEngine.sh"
 ALGORITHM=("local" "global" "czero")
-STRATEGY=("BFS" "DFS" "BestFS")
+STRATEGY=("BFS" "DFS" "BestFS" "CDFS")
 ANALYSE="analyse.sh"
 MEMORY="mem.sh"
 
@@ -60,14 +60,17 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 					export sname="$S"
 					echo "$S"
 
-
-					#<PROGRAMPATH> <MODELFILE> <QUERYFILE> <ENGINE> <ALGORITHM>
-				 	./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE
-				 	#{ ./$MEMORY; } > "$mname-$qname-$aname-$sname-mem.log" 
-				 	#cat "$mname-$qname-$aname-$sname.log" "$mname-$qname-$aname-$sname-mem.log" >> "$mname-$qname-$aname-$sname-all.log"
-				 	#rm "$mname-$qname-$aname-$sname-mem.log"
-				 	mv $mname-$qname-$aname-$sname.log ../../testResults/$mname-$qname-$aname-$sname.log
-                                        
+					if [[ "$S" == CDFS && "$A" != "czero" ]]; then
+						echo"incompatible algorithm and search strategy"
+					else
+						#<PROGRAMPATH> <MODELFILE> <QUERYFILE> <ENGINE> <ALGORITHM>
+					 	./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE
+					 	#{ ./$MEMORY; } > "$mname-$qname-$aname-$sname-mem.log" 
+					 	#cat "$mname-$qname-$aname-$sname.log" "$mname-$qname-$aname-$sname-mem.log" >> "$mname-$qname-$aname-$sname-all.log"
+					 	#rm "$mname-$qname-$aname-$sname-mem.log"
+					 	mv $mname-$qname-$aname-$sname.log ../../testResults/$mname-$qname-$aname-$sname.log         
+					fi
+					                    
 			 	done
 			done
 		 done
