@@ -5,7 +5,7 @@
 #include <string.h>
 #include <fstream>
 #include <iostream>
-//#include <stack>
+#include <stack>
 #include <queue>
 
 namespace ctl {
@@ -159,21 +159,71 @@ bool DGEngine::globalSmolka(Configuration &v){
     return v.assignment == ONE ? true : false;
 }
 
+//TODO This function doesn't work. Should it just be deleted?
+std::list<Edge*> DGEngine::detectCircle(Configuration *t_source, Configuration *t_target){
+    std::stack<Edge*> DFT;
+    std::list<Edge*> result;
+    bool found = false;
+
+    colorprinter("Circle::Begin", FG_GREEN);
+
+    if(t_source == t_target){
+        colorprinter("Circle::Trivial Circle", FG_GREEN);
+        return result;
+    }
+
+    std::list<Edge*> ds = t_source->DependencySet;
+    for(Edge* e : ds){
+        if(e->source->query == t_source->query)
+            DFT.push(e);
+    }
+    int i = 1;
+    //colorprinter("Cirle::Processed dependency", FG_PURPLE);
+    while(!DFT.empty()){
+        Edge* e = DFT.top();
+        DFT.pop();
+
+        e->edgePrinter();
+        std::cout << std::flush;
+
+        if(e->source == t_target){
+            colorprinter("Cirle::Source equals Target", FG_PURPLE);
+            found = true;
+            break;
+        }
+        else{
+            colorprinter("Cirle::Source not equal Target", FG_PURPLE);
+            for(Edge* e: e->source->DependencySet){
+                if(e->source->query == t_source->query)
+                    DFT.push(e);
+            }
+        }
+        i++;
+        std::cout << "Going for round: " << i << std::endl << std::flush;
+    }
+
+    if(found){
+        colorprinter("Circle::Found", FG_BLUE);
+    }
+    else{
+        colorprinter("Circle::NOT FOUND", FG_RED);
+    }
+
+    return result;
+}
+
 bool DGEngine::localSmolka(Configuration &v){
     v.assignment = ZERO;
     EdgePicker W = EdgePicker(_strategy);
     auto initialSucc = successors(v);
 
-   /* std::cout << "Starting while loop - size of W:" << W.size() << std::endl;
-    std::cout << "--------- NUMBER OF EDGES IN w NOW AND THEIR LOOK "<< W.size() << "\n" << std::flush;
-    for(auto c : initialSucc){
-    c->edgePrinter();
-    }*/
+//    for(auto c : initialSucc){
+//        c->edgePrinter();
+//    }
 
     for(auto s : initialSucc) {
         W.push(s);
     }
-
 
     while (!W.empty()) {
     	//std::cout << "in w now, size of w:\n" << W.size() << std::flush;
@@ -181,6 +231,15 @@ bool DGEngine::localSmolka(Configuration &v){
 		//std::cout << "NOT IN wnow:\n" << std::flush;
         int i = 0;  
         Edge* e = W.pop();
+<<<<<<< TREE
+        //e->edgePrinter();
+        if(e->processed){
+            //colorprinter("Proccesed before", FG_DEFAULT);
+        }
+        else{
+            e->processed = true;
+        }
+=======
 
        //std::cout << "First edge :\n" << std::flush;
        //e->edgePrinter();
@@ -189,6 +248,7 @@ bool DGEngine::localSmolka(Configuration &v){
        //for (auto l : e->source->Successors){
        //	l->edgePrinter();
        //}
+>>>>>>> MERGE-SOURCE
 
         /*****************************************************************/
         /*Data handling*/
@@ -346,7 +406,10 @@ bool DGEngine::localSmolka(Configuration &v){
         // CASE: ZERO
         else if ( targetZEROassignments > 0){
             for(auto c : e->targets){
-                if(c->assignment == ZERO) c->DependencySet.push_back(e);
+                if(c->assignment == ZERO) {
+                    //detectCircle(e->source, c);
+                    c->DependencySet.push_back(e);
+                }
             }
         }
         /*****************************************************************/
@@ -691,31 +754,33 @@ Configuration* DGEngine::createConfiguration(Marking &t_marking, CTLTree& t_quer
 }
 
 Marking* DGEngine::createMarking(const Marking& t_marking, int t_transition){
-        Marking* new_marking = new Marking();
+    Marking* new_marking = new Marking();
 
-        new_marking->CopyMarking(t_marking);
+    new_marking->CopyMarking(t_marking);
 
-        for(int p = 0; p < _nplaces; p++){
-            int place = (*new_marking)[p] - _net->inArc(p,t_transition);
-            (*new_marking)[p] = place + _net->outArc(t_transition,p);
-        }
-
-        auto result = Markings.find(new_marking);
-
-        if(result == Markings.end()){
-        //   std::cout << "Inserted marking - Size now: " << Markings.size() << std::endl;
-            return *(Markings.insert(new_marking).first);
-        }
-        else{
-            delete new_marking;
-        //    std::cout << "Marking exists - Size now: " << Markings.size() << std::endl;
-        }
-        
-
-        return *result;
+    for(int p = 0; p < _nplaces; p++){
+        int place = (*new_marking)[p] - _net->inArc(p,t_transition);
+        (*new_marking)[p] = place + _net->outArc(t_transition,p);
     }
 
-    
+    auto result = Markings.find(new_marking);
+
+    if(result == Markings.end()){
+    //   std::cout << "Inserted marking - Size now: " << Markings.size() << std::endl;
+        return *(Markings.insert(new_marking).first);
+    }
+    else{
+        delete new_marking;
+    //    std::cout << "Marking exists - Size now: " << Markings.size() << std::endl;
+    }
+
+
+    return *result;
+}
+
+void DGEngine::colorprinter(std::string str, ColourCode cc){
+    std::cout << "\033[" << cc << "m" << str << "\033[" << FG_DEFAULT << "m" << std::endl;
+}
 
     void DGEngine::RunEgineTest(){
         //----------------------------------------------

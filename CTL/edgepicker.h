@@ -3,6 +3,7 @@
 
 #include <deque>
 
+#include "circledetector.h"
 #include "edge.h"
 #include "dgengine.h"
 
@@ -35,6 +36,8 @@ private:
     inline Edge* BestFS();
     inline void BestFS(Edge* e);
 
+
+    ctl::CircleDetector _detector;
     ctl_search_strategy _strategy;
     std::deque<Edge*> W;
 };

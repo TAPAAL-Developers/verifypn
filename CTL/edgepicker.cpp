@@ -55,6 +55,12 @@ void EdgePicker::print(){
 //DFS pop
 inline Edge* EdgePicker::DFS(){
     Edge* e = W.front();
+
+    if(_detector.push(e)){
+        e->source->assignment = CZERO;
+        std::cout << "circle detected" << std::endl;
+    }
+
     W.pop_front();
     return e;
 }

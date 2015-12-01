@@ -29,6 +29,19 @@ public:
     void search(CTLTree* t_query, ctl_algorithm t_algorithm, ctl_search_strategy t_strategy);
     inline bool querySatisfied(){return _querySatisfied; }
 private:
+
+    enum ColourCode {
+        FG_BLACK    = 30,
+        FG_RED      = 31,
+        FG_GREEN    = 32,
+        FG_YELLOW   = 33,
+        FG_BLUE     = 34,
+        FG_PURPLE   = 35,
+        FG_CYAN     = 36,
+        FG_WHITE    = 37,
+        FG_DEFAULT  = 39,
+    };
+
     ctl_search_strategy _strategy;
     PetriEngine::PetriNet* _net;
     PetriEngine::MarkVal* _m0;
@@ -45,6 +58,9 @@ private:
                         std::hash<Configuration*>,
                         Configuration::Configuration_Equal_To> Configurations;
 
+    void colorprinter(std::string str, ColourCode cc);
+
+    std::list<Edge*> detectCircle(Configuration *t_source, Configuration *t_target);
     bool localSmolka(Configuration& v);
     bool globalSmolka(Configuration& v);
 
