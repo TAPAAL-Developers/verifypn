@@ -25,7 +25,7 @@ void DGEngine::search(CTLTree *t_query, ctl_algorithm t_algorithm, ctl_search_st
     Configuration* v0 = createConfiguration(*firstMarking, *t_query);
 
 
-    if(t_algorithm == Local){
+    if(t_algorithm == Local && t_strategy != CTL_CDFS){
         //std::cout << "FORMULA:: Local Smolka with strategy:" << t_strategy << "\n";
         _querySatisfied = localSmolka(*v0);
         _querySatisfied = v0->assignment == ONE? true : false;
@@ -37,14 +37,18 @@ void DGEngine::search(CTLTree *t_query, ctl_algorithm t_algorithm, ctl_search_st
         _querySatisfied = v0->assignment == ONE? true : false;
         _CZero = false;
     }
-    else if(t_algorithm == Global){
+    else if(t_algorithm == Global && t_strategy != CTL_CDFS){
         //std::cout << "FORMULA:: Global Smolka with strategy:" << t_strategy << "\n";
         buildDependencyGraph(*v0);
         _querySatisfied = globalSmolka(*v0);
         _querySatisfied = v0->assignment == ONE? true : false;
     }
+    else if(t_algorithm != CZero && t_strategy == CTL_CDFS){
+        std::cout << "Error algorithm and strategy mismatch.";
+        return;
+    }
     else{
-        std::cout << "Error Unknown ctl algorithm";
+        std::cout << "Error Unknown ctl algorithm" << std::endl;
         return;
     }
 
@@ -231,15 +235,6 @@ bool DGEngine::localSmolka(Configuration &v){
 		//std::cout << "NOT IN wnow:\n" << std::flush;
         int i = 0;  
         Edge* e = W.pop();
-<<<<<<< TREE
-        //e->edgePrinter();
-        if(e->processed){
-            //colorprinter("Proccesed before", FG_DEFAULT);
-        }
-        else{
-            e->processed = true;
-        }
-=======
 
        //std::cout << "First edge :\n" << std::flush;
        //e->edgePrinter();
@@ -248,7 +243,6 @@ bool DGEngine::localSmolka(Configuration &v){
        //for (auto l : e->source->Successors){
        //	l->edgePrinter();
        //}
->>>>>>> MERGE-SOURCE
 
         /*****************************************************************/
         /*Data handling*/

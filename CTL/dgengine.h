@@ -18,7 +18,10 @@ class EdgePicker;
 
 //enum Search_Strategy { LOCALSMOLKA, LOCALSMOLKA_BFS, GLOBALSMOLKA, GLOBALSMOLKA_BFS };
 enum ctl_algorithm {Local, Global, CZero};
-enum ctl_search_strategy {CTL_BFS, CTL_DFS, CTL_BestFS};
+enum ctl_search_strategy {CTL_BFS,                      //Breadth-First Search
+                          CTL_DFS,                      //Depth-First Search
+                          CTL_BestFS,                   //Heuristic Search
+                          CTL_CDFS};    //DFS with circle dection
 
 class DGEngine
 {

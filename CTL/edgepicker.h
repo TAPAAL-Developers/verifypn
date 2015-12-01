@@ -28,6 +28,11 @@ private:
     inline Edge* DFS();
     inline void DFS(Edge* e);
 
+    //Function used to implement DFS
+    //With Circle Dectection
+    inline Edge* CDFS();
+    inline void CDFS(Edge* e);
+
     //Functions used to implement BFS
     inline Edge* BFS();
     inline void BFS(Edge* e);

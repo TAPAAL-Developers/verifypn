@@ -7,6 +7,9 @@ Edge* EdgePicker::pop(){
     if(_strategy == CTL_DFS){
         return DFS();
     }
+    if(_strategy == CTL_CDFS){
+        return CDFS();
+    }
     else if (_strategy == CTL_BFS){
         return BFS();
     }
@@ -18,6 +21,9 @@ Edge* EdgePicker::pop(){
 void EdgePicker::push(Edge *t_edge){
     if(_strategy == CTL_DFS){
         DFS(t_edge);
+    }
+    else if(_strategy == CTL_CDFS){
+        CDFS(t_edge);
     }
     else if (_strategy == CTL_BFS){
         BFS(t_edge);
@@ -33,11 +39,11 @@ void EdgePicker::remove(Edge* t_edge){
     int i = 0;
 
     while(it!=itn) {
-        if(*it == t_edge){    
+        if(*it == t_edge){
             W.erase(it);
             itn=W.end();
             it=W.begin()+i;
-        } else {it++; i++;}
+        } else {it++;}
     }
 }
 
@@ -55,18 +61,31 @@ void EdgePicker::print(){
 //DFS pop
 inline Edge* EdgePicker::DFS(){
     Edge* e = W.front();
-
-    if(_detector.push(e)){
-        e->source->assignment = CZERO;
-        std::cout << "circle detected" << std::endl;
-    }
-
     W.pop_front();
     return e;
 }
 //DFS push
 inline void EdgePicker::DFS(Edge* t_edge){
     W.push_front(t_edge);
+}
+
+//CDFS pop
+Edge *EdgePicker::CDFS()
+{
+    Edge* e = W.front();
+
+    if(_detector.push(e)){
+        e->source->assignment = CZERO;
+        //std::cout << "circle detected" << std::endl;
+    }
+
+    W.pop_front();
+    return e;
+}
+//CDFS push
+void EdgePicker::CDFS(Edge *e)
+{
+    W.push_front(e);
 }
 
 //BFS pop
