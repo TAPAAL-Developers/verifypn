@@ -483,6 +483,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
             Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
             Edge* e = new Edge(&v);
             e->targets.push_back(c);
+             succ.push_back(e);
 
             auto targets = nextState(*(v.marking));
 
@@ -494,7 +495,7 @@ std::list<Edge*> DGEngine::successors(Configuration& v) {
                     succ.push_back(e);
                 }
             }
-            succ.push_back(e);
+           
         }//Exists Finally end
     } //Exists end
 
