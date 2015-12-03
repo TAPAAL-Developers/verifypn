@@ -54,6 +54,8 @@ void DGEngine::search(CTLTree *t_query, ctl_algorithm t_algorithm, ctl_search_st
 
     //std::cout << "Cleaning Up Configurations: " << Configurations.size() << std::endl << std::flush;
 
+    std::cout << ":::DATA::: Configurations: " << Configurations.size() << " Markings: " << Markings.size() << std::endl;
+
     for(auto c : Configurations){
         delete c;
     }
@@ -133,7 +135,7 @@ bool DGEngine::globalSmolka(Configuration &v){
             else {
                 e->source->assignment = ONE;
                 for(auto de : e->source->DependencySet){
-                    W.push(de);
+                    W.push_dependency(de);
                 }
             }
         }
@@ -150,7 +152,7 @@ bool DGEngine::globalSmolka(Configuration &v){
             if(allOnes){
                 e->source->assignment = ONE;
                 for(Edge* de : e->source->DependencySet){
-                    W.push(de);
+                    W.push_dependency(de);
                 }
                 e->source->DependencySet.clear();
             }
@@ -161,59 +163,6 @@ bool DGEngine::globalSmolka(Configuration &v){
 
     //Due to compiler optimization, this might return the wrong value
     return v.assignment == ONE ? true : false;
-}
-
-//TODO This function doesn't work. Should it just be deleted?
-std::list<Edge*> DGEngine::detectCircle(Configuration *t_source, Configuration *t_target){
-    std::stack<Edge*> DFT;
-    std::list<Edge*> result;
-    bool found = false;
-
-    colorprinter("Circle::Begin", FG_GREEN);
-
-    if(t_source == t_target){
-        colorprinter("Circle::Trivial Circle", FG_GREEN);
-        return result;
-    }
-
-    std::list<Edge*> ds = t_source->DependencySet;
-    for(Edge* e : ds){
-        if(e->source->query == t_source->query)
-            DFT.push(e);
-    }
-    int i = 1;
-    //colorprinter("Cirle::Processed dependency", FG_PURPLE);
-    while(!DFT.empty()){
-        Edge* e = DFT.top();
-        DFT.pop();
-
-        e->edgePrinter();
-        std::cout << std::flush;
-
-        if(e->source == t_target){
-            colorprinter("Cirle::Source equals Target", FG_PURPLE);
-            found = true;
-            break;
-        }
-        else{
-            colorprinter("Cirle::Source not equal Target", FG_PURPLE);
-            for(Edge* e: e->source->DependencySet){
-                if(e->source->query == t_source->query)
-                    DFT.push(e);
-            }
-        }
-        i++;
-        std::cout << "Going for round: " << i << std::endl << std::flush;
-    }
-
-    if(found){
-        colorprinter("Circle::Found", FG_BLUE);
-    }
-    else{
-        colorprinter("Circle::NOT FOUND", FG_RED);
-    }
-
-    return result;
 }
 
 bool DGEngine::localSmolka(Configuration &v){
@@ -309,7 +258,7 @@ bool DGEngine::localSmolka(Configuration &v){
                //std::cout << "\n----------E's DS is :\n" << std::flush;
                 //edge->edgePrinter();
                 if(!(edge->source->assignment == ONE)){
-                    W.push(edge);
+                    W.push_dependency(edge);
 
                 }
 
@@ -367,7 +316,7 @@ bool DGEngine::localSmolka(Configuration &v){
 
                for(auto edge : e->source->DependencySet){
              //  	   edge->edgePrinter();
-                   W.push(edge);
+                   W.push_dependency(edge);
                 }
 
                e->source->DependencySet.clear();
@@ -391,7 +340,7 @@ bool DGEngine::localSmolka(Configuration &v){
 
             if(e->source->assignment == ONE || e->source->assignment == CZERO){
                 for(auto edge : e->source->DependencySet)   
-                    W.push(edge);
+                    W.push_dependency(edge);
             }
 
             //std::cout << "\n---------- WE ARE DONE WITH REC SMOLKA------------\n" << std::flush;

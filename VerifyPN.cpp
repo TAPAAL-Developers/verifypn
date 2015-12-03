@@ -69,7 +69,10 @@ enum SearchStrategies{
 	DFS,			//LinearOverAprox + DepthFirstReachabilitySearch
 	RDFS,			//LinearOverAprox + RandomDFS
     OverApprox,		//LinearOverApprx
-    CDFS            //DFS + circle detection(dgengine only)
+    CDFS,           //DFS + circle detection(dgengine only)
+    FBFS,           //Foward BFS(dgengine only)
+    BBFS,           //Backward BFS(dgengine only)
+    BDFS            //Backward DFS(dgengine only)
 };
 
 double diffclock(clock_t clock1, clock_t clock2){
@@ -306,6 +309,12 @@ int main(int argc, char* argv[]){
                         searchstrategy = OverApprox;
                 else if(strcmp(s, "CDFS") == 0)
                         searchstrategy = CDFS;
+                else if(strcmp(s, "BDFS") == 0)
+                        searchstrategy = BDFS;
+                else if(strcmp(s, "BBFS") == 0)
+                        searchstrategy = BBFS;
+                else if(strcmp(s, "FBFS") == 0)
+                        searchstrategy = FBFS;
                 else{
                         fprintf(stderr, "Argument Error: Unrecognized search strategy \"%s\"\n", s);
                         return ErrorCode;
@@ -874,8 +883,18 @@ int main(int argc, char* argv[]){
             else if(searchstrategy == BestFS){
                 ctl_search_strategy = ctl::CTL_BestFS;
             }
-            else if(searchstrategy == CDFS)
+            else if(searchstrategy == CDFS) {
                 ctl_search_strategy = ctl::CTL_CDFS;
+            }
+            else if(searchstrategy == BDFS) {
+                ctl_search_strategy = ctl::CTL_BDFS;
+            }
+            else if(searchstrategy == BBFS) {
+                ctl_search_strategy = ctl::CTL_BBFS;
+            }
+            else if(searchstrategy == FBFS) {
+                ctl_search_strategy = ctl::CTL_FBFS;
+            }
 
             ReturnValues retval[16];
             clock_t total_search_begin = clock();

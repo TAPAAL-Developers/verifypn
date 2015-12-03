@@ -16,6 +16,7 @@ public:
 
     Edge* pop();
     void push(Edge* t_edge);
+    void push_dependency(Edge *t_edge);
     void remove(Edge* t_edge);
     void print();
     bool find(Edge* t_edge);
@@ -28,6 +29,11 @@ private:
     inline Edge* DFS();
     inline void DFS(Edge* e);
 
+    //Functions used to implement BDFS
+    inline Edge* BDFS();
+    inline void BDFS(Edge* t_edge);
+    inline void BDFS_dependency(Edge* t_edge);
+
     //Function used to implement DFS
     //With Circle Dectection
     inline Edge* CDFS();
@@ -36,6 +42,16 @@ private:
     //Functions used to implement BFS
     inline Edge* BFS();
     inline void BFS(Edge* e);
+
+    //Functions used to implement Forward BFS
+    inline Edge* FBFS();
+    inline void FBFS(Edge* t_edge);
+    inline void FBFS_dependency(Edge* t_edge);
+
+    //Functions used to implement Backward BFS
+    inline Edge* BBFS();
+    inline void BBFS(Edge* t_edge);
+    inline void BBFS_dependency(Edge* t_edge);
 
     //Functions used to implement BFS
     inline Edge* BestFS();
