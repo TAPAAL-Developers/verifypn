@@ -10,7 +10,7 @@ ANALYSE="analyse.sh"
 MEMORY="mem.sh"
 
 REL_PROGRAMPATH="../verifypn-linux64"
-INPUTSPATH="$RUNPATH/smallModels/"
+INPUTSPATH="$RUNPATH/testModels/"
 RESULTPATH="$RUNPATH/testResults/"
 ANALISEPATH="$RUNPATH/analysis"
 
@@ -63,13 +63,8 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 					if [[ "$S" == CDFS && "$A" != "czero" ]]; then
 						echo"incompatible algorithm and search strategy"
 					else
-						
-						for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
-						do
-							#<PROGRAMPATH> <MODELFILE> <QUERYFILE> <ENGINE> <ALGORITHM>
-					 		./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE $i
-					 	done
-					 	#{ ./$MEMORY; } > "$mname-$qname-$aname-$sname-mem.log" 
+						./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE 1 & ./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE 2
+					 	##{ ./$MEMORY; } > "$mname-$qname-$aname-$sname-mem.log" 
 					 	#cat "$mname-$qname-$aname-$sname.log" "$mname-$qname-$aname-$sname-mem.log" >> "$mname-$qname-$aname-$sname-all.log"
 					 	#rm "$mname-$qname-$aname-$sname-mem.log"
 					 	mv $mname-$qname-$aname-$sname.log ../../testResults/$mname-$qname-$aname-$sname.log         
@@ -84,7 +79,7 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 
 	#remove scripts after usage
 	rm $TOOL
-	rm $MEMORY
+	#rm $MEMORY
 	cd ../..
 	#for log in $(find -mindepth 1 -maxdepth 1 -type f -name '*.log'); do
 	#	mv "$log" "$RESULTPATH"
