@@ -1,0 +1,80 @@
+Property SharedMemory-COL-000005-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E ((("End_Ext_Acc_4_1", "End_Ext_Acc_5_1", "End_Ext_Acc_2_1", "End_Ext_Acc_3_1", "End_Ext_Acc_5_2", "End_Ext_Acc_4_2", "End_Ext_Acc_3_2", "End_Ext_Acc_1_2", "End_Ext_Acc_5_3", "End_Ext_Acc_4_3", "End_Ext_Acc_2_3", "End_Ext_Acc_1_3", "End_Ext_Acc_5_4", "End_Ext_Acc_3_4", "End_Ext_Acc_2_4", "End_Ext_Acc_1_4", "End_Ext_Acc_4_5", "End_Ext_Acc_3_5", "End_Ext_Acc_2_5", "End_Ext_Acc_1_5")?) U (("Begin_Own_Acc_2", "Begin_Own_Acc_1", "Begin_Own_Acc_5", "Begin_Own_Acc_3", "Begin_Own_Acc_4")?))
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E ((("Begin_Own_Acc_2", "Begin_Own_Acc_1", "Begin_Own_Acc_5", "Begin_Own_Acc_3", "Begin_Own_Acc_4")?) U (("Begin_Own_Acc_2", "Begin_Own_Acc_1", "Begin_Own_Acc_5", "Begin_Own_Acc_3", "Begin_Own_Acc_4")?))
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E ((("Req_Ext_Acc_2", "Req_Ext_Acc_1", "Req_Ext_Acc_4", "Req_Ext_Acc_3", "Req_Ext_Acc_5")?) U (("Begin_Ext_Acc_1_2", "Begin_Ext_Acc_3_2", "Begin_Ext_Acc_4_2", "Begin_Ext_Acc_5_2", "Begin_Ext_Acc_2_1", "Begin_Ext_Acc_3_1", "Begin_Ext_Acc_4_1", "Begin_Ext_Acc_5_1", "Begin_Ext_Acc_1_4", "Begin_Ext_Acc_2_4", "Begin_Ext_Acc_3_4", "Begin_Ext_Acc_5_4", "Begin_Ext_Acc_1_3", "Begin_Ext_Acc_2_3", "Begin_Ext_Acc_4_3", "Begin_Ext_Acc_5_3", "Begin_Ext_Acc_2_5", "Begin_Ext_Acc_1_5", "Begin_Ext_Acc_4_5", "Begin_Ext_Acc_3_5")?))
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F ("Req_Ext_Acc_2", "Req_Ext_Acc_1", "Req_Ext_Acc_4", "Req_Ext_Acc_3", "Req_Ext_Acc_5")?
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A ((("Begin_Ext_Acc_1_2", "Begin_Ext_Acc_3_2", "Begin_Ext_Acc_4_2", "Begin_Ext_Acc_5_2", "Begin_Ext_Acc_2_1", "Begin_Ext_Acc_3_1", "Begin_Ext_Acc_4_1", "Begin_Ext_Acc_5_1", "Begin_Ext_Acc_1_4", "Begin_Ext_Acc_2_4", "Begin_Ext_Acc_3_4", "Begin_Ext_Acc_5_4", "Begin_Ext_Acc_1_3", "Begin_Ext_Acc_2_3", "Begin_Ext_Acc_4_3", "Begin_Ext_Acc_5_3", "Begin_Ext_Acc_2_5", "Begin_Ext_Acc_1_5", "Begin_Ext_Acc_4_5", "Begin_Ext_Acc_3_5")?) U (("Begin_Ext_Acc_1_2", "Begin_Ext_Acc_3_2", "Begin_Ext_Acc_4_2", "Begin_Ext_Acc_5_2", "Begin_Ext_Acc_2_1", "Begin_Ext_Acc_3_1", "Begin_Ext_Acc_4_1", "Begin_Ext_Acc_5_1", "Begin_Ext_Acc_1_4", "Begin_Ext_Acc_2_4", "Begin_Ext_Acc_3_4", "Begin_Ext_Acc_5_4", "Begin_Ext_Acc_1_3", "Begin_Ext_Acc_2_3", "Begin_Ext_Acc_4_3", "Begin_Ext_Acc_5_3", "Begin_Ext_Acc_2_5", "Begin_Ext_Acc_1_5", "Begin_Ext_Acc_4_5", "Begin_Ext_Acc_3_5")?))
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E ((("Req_Ext_Acc_2", "Req_Ext_Acc_1", "Req_Ext_Acc_4", "Req_Ext_Acc_3", "Req_Ext_Acc_5")?) U (("End_Own_Acc_5_5", "End_Own_Acc_4_4", "End_Own_Acc_1_1", "End_Own_Acc_3_3", "End_Own_Acc_2_2")?))
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E G ("End_Ext_Acc_4_1", "End_Ext_Acc_5_1", "End_Ext_Acc_2_1", "End_Ext_Acc_3_1", "End_Ext_Acc_5_2", "End_Ext_Acc_4_2", "End_Ext_Acc_3_2", "End_Ext_Acc_1_2", "End_Ext_Acc_5_3", "End_Ext_Acc_4_3", "End_Ext_Acc_2_3", "End_Ext_Acc_1_3", "End_Ext_Acc_5_4", "End_Ext_Acc_3_4", "End_Ext_Acc_2_4", "End_Ext_Acc_1_4", "End_Ext_Acc_4_5", "End_Ext_Acc_3_5", "End_Ext_Acc_2_5", "End_Ext_Acc_1_5")?
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E ((("Begin_Own_Acc_2", "Begin_Own_Acc_1", "Begin_Own_Acc_5", "Begin_Own_Acc_3", "Begin_Own_Acc_4")?) U (("Req_Ext_Acc_2", "Req_Ext_Acc_1", "Req_Ext_Acc_4", "Req_Ext_Acc_3", "Req_Ext_Acc_5")?))
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A G ("End_Own_Acc_5_5", "End_Own_Acc_4_4", "End_Own_Acc_1_1", "End_Own_Acc_3_3", "End_Own_Acc_2_2")?
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F ("Req_Ext_Acc_2", "Req_Ext_Acc_1", "Req_Ext_Acc_4", "Req_Ext_Acc_3", "Req_Ext_Acc_5")?
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F ("End_Ext_Acc_4_1", "End_Ext_Acc_5_1", "End_Ext_Acc_2_1", "End_Ext_Acc_3_1", "End_Ext_Acc_5_2", "End_Ext_Acc_4_2", "End_Ext_Acc_3_2", "End_Ext_Acc_1_2", "End_Ext_Acc_5_3", "End_Ext_Acc_4_3", "End_Ext_Acc_2_3", "End_Ext_Acc_1_3", "End_Ext_Acc_5_4", "End_Ext_Acc_3_4", "End_Ext_Acc_2_4", "End_Ext_Acc_1_4", "End_Ext_Acc_4_5", "End_Ext_Acc_3_5", "End_Ext_Acc_2_5", "End_Ext_Acc_1_5")?
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F ("End_Own_Acc_5_5", "End_Own_Acc_4_4", "End_Own_Acc_1_1", "End_Own_Acc_3_3", "End_Own_Acc_2_2")?
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E G ("Begin_Own_Acc_2", "Begin_Own_Acc_1", "Begin_Own_Acc_5", "Begin_Own_Acc_3", "Begin_Own_Acc_4")?
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F ("Begin_Ext_Acc_1_2", "Begin_Ext_Acc_3_2", "Begin_Ext_Acc_4_2", "Begin_Ext_Acc_5_2", "Begin_Ext_Acc_2_1", "Begin_Ext_Acc_3_1", "Begin_Ext_Acc_4_1", "Begin_Ext_Acc_5_1", "Begin_Ext_Acc_1_4", "Begin_Ext_Acc_2_4", "Begin_Ext_Acc_3_4", "Begin_Ext_Acc_5_4", "Begin_Ext_Acc_1_3", "Begin_Ext_Acc_2_3", "Begin_Ext_Acc_4_3", "Begin_Ext_Acc_5_3", "Begin_Ext_Acc_2_5", "Begin_Ext_Acc_1_5", "Begin_Ext_Acc_4_5", "Begin_Ext_Acc_3_5")?
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E X ("End_Own_Acc_5_5", "End_Own_Acc_4_4", "End_Own_Acc_1_1", "End_Own_Acc_3_3", "End_Own_Acc_2_2")?
+  end.
+Property SharedMemory-COL-000005-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E X ("Req_Ext_Acc_2", "Req_Ext_Acc_1", "Req_Ext_Acc_4", "Req_Ext_Acc_3", "Req_Ext_Acc_5")?
+  end.

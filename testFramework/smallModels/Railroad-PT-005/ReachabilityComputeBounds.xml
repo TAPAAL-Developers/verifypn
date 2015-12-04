@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P29_2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P7_5</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P1_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P34_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P31_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P30_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P15_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P0_6</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P34_6</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P28_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P0_4</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P0_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P29_5</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P34_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P29_4</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-005-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P32_1</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

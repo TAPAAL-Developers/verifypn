@@ -1,0 +1,80 @@
+Property CircularTrains-PT-012-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A (("t9_to_10"?) U ("t3_to_4"?))
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t8_to_9"?
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A (("t5_to_6"?) U ("t12_to_1"?))
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t11_to_12"?
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A X "t9_to_10"?
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A (("t9_to_10"?) U ("t9_to_10"?))
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A (("t12_to_1"?) U ("t6_to_7"?))
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A X "t8_to_9"?
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A G "t5_to_6"?
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "t4_to_5"?
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A X "t1_to_2"?
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A G "t5_to_6"?
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A G "t5_to_6"?
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A G "t11_to_12"?
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A (("t7_to_8"?) U ("t12_to_1"?))
+  end.
+Property CircularTrains-PT-012-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A X "t1_to_2"?
+  end.

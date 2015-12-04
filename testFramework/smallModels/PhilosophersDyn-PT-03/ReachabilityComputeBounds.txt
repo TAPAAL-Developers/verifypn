@@ -1,0 +1,80 @@
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("HasRight_2", "HasRight_1", "HasRight_3")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("WaitRight_1", "WaitRight_2", "WaitRight_3")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("Forks_1", "Forks_2", "Forks_3")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("Neighbourhood_1_2", "Neighbourhood_2_2", "Neighbourhood_3_3", "Neighbourhood_1_1", "Neighbourhood_2_3", "Neighbourhood_2_1", "Neighbourhood_1_3", "Neighbourhood_3_2", "Neighbourhood_3_1")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("Neighbourhood_1_2", "Neighbourhood_2_2", "Neighbourhood_3_3", "Neighbourhood_1_1", "Neighbourhood_2_3", "Neighbourhood_2_1", "Neighbourhood_1_3", "Neighbourhood_3_2", "Neighbourhood_3_1")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("Neighbourhood_1_2", "Neighbourhood_2_2", "Neighbourhood_3_3", "Neighbourhood_1_1", "Neighbourhood_2_3", "Neighbourhood_2_1", "Neighbourhood_1_3", "Neighbourhood_3_2", "Neighbourhood_3_1")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("HasLeft_2", "HasLeft_3", "HasLeft_1")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("Neighbourhood_1_2", "Neighbourhood_2_2", "Neighbourhood_3_3", "Neighbourhood_1_1", "Neighbourhood_2_3", "Neighbourhood_2_1", "Neighbourhood_1_3", "Neighbourhood_3_2", "Neighbourhood_3_1")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("Neighbourhood_1_2", "Neighbourhood_2_2", "Neighbourhood_3_3", "Neighbourhood_1_1", "Neighbourhood_2_3", "Neighbourhood_2_1", "Neighbourhood_1_3", "Neighbourhood_3_2", "Neighbourhood_3_1")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("Outside_3", "Outside_2", "Outside_1")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("Forks_1", "Forks_2", "Forks_3")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("WaitLeft_2", "WaitLeft_3", "WaitLeft_1")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("HasLeft_2", "HasLeft_3", "HasLeft_1")
+  end.
+Property PhilosophersDyn-COL-03-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("HasLeft_2", "HasLeft_3", "HasLeft_1")
+  end.

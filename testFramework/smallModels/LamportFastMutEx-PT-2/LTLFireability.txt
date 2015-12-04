@@ -1,0 +1,80 @@
+Property LamportFastMutEx-COL-2-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G ((G F ("yeq0_4_1", "yeq0_4_2", "yeq0_4_3")?) U (G ("awaity_1", "awaity_2", "awaity_3")?))
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-1
+  "Automatically generated"
+  is:
+    A F ((G G ("ynei_15_2", "ynei_15_3", "ynei_15_4", "ynei_15_6", "ynei_15_7", "ynei_15_8")?) U (((("yeqi_15_1", "yeqi_15_5", "yeqi_15_9")?) U (("setbi_2_1", "setbi_2_2", "setbi_2_3", "setbi_2_4", "setbi_2_5", "setbi_2_6")?))))
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-2
+  "Automatically generated"
+  is:
+    A X X ((X ("ynei_15_2", "ynei_15_3", "ynei_15_4", "ynei_15_6", "ynei_15_7", "ynei_15_8")?) U (("setbi_5_1", "setbi_5_2", "setbi_5_3", "setbi_5_4", "setbi_5_5", "setbi_5_6")?))
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-3
+  "Automatically generated"
+  is:
+    A F G ("setbi_24_1", "setbi_24_2", "setbi_24_3", "setbi_24_4", "setbi_24_5", "setbi_24_6")?
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-4
+  "Automatically generated"
+  is:
+    A F ((G F ("fordo_12_1", "fordo_12_2", "fordo_12_3")?) U (F G ("forod_13_1", "forod_13_2", "forod_13_3")?))
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-5
+  "Automatically generated"
+  is:
+    A ("awaity_1", "awaity_2", "awaity_3")?
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-6
+  "Automatically generated"
+  is:
+    A F G F ((("sety0_23_1", "sety0_23_2", "sety0_23_3", "sety0_23_4", "sety0_23_5", "sety0_23_6", "sety0_23_7", "sety0_23_8", "sety0_23_9")?) U (("xnei_10_2", "xnei_10_3", "xnei_10_4", "xnei_10_6", "xnei_10_7", "xnei_10_8")?))
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-7
+  "Automatically generated"
+  is:
+    A F G X X G ("xeqi_10_1", "xeqi_10_5", "xeqi_10_9")?
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-8
+  "Automatically generated"
+  is:
+    A G ((G G ("setbi_2_1", "setbi_2_2", "setbi_2_3", "setbi_2_4", "setbi_2_5", "setbi_2_6")?) U (G X ("awaity_1", "awaity_2", "awaity_3")?))
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-9
+  "Automatically generated"
+  is:
+    A ((((F ("yeqi_15_1", "yeqi_15_5", "yeqi_15_9")?) U (G ("xnei_10_2", "xnei_10_3", "xnei_10_4", "xnei_10_6", "xnei_10_7", "xnei_10_8")?))) U (X F ("fordo_12_1", "fordo_12_2", "fordo_12_3")?))
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-10
+  "Automatically generated"
+  is:
+    A ((("setbi_24_1", "setbi_24_2", "setbi_24_3", "setbi_24_4", "setbi_24_5", "setbi_24_6")?) U (X ("yeqi_15_1", "yeqi_15_5", "yeqi_15_9")?))
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-11
+  "Automatically generated"
+  is:
+    A F G ((F ("sety_9_1", "sety_9_2", "sety_9_3", "sety_9_4", "sety_9_5", "sety_9_6", "sety_9_7", "sety_9_8", "sety_9_9")?) U (X ("sety_9_1", "sety_9_2", "sety_9_3", "sety_9_4", "sety_9_5", "sety_9_6", "sety_9_7", "sety_9_8", "sety_9_9")?))
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-12
+  "Automatically generated"
+  is:
+    A F ("sety_9_1", "sety_9_2", "sety_9_3", "sety_9_4", "sety_9_5", "sety_9_6", "sety_9_7", "sety_9_8", "sety_9_9")?
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-13
+  "Automatically generated"
+  is:
+    A G ((("xnei_10_2", "xnei_10_3", "xnei_10_4", "xnei_10_6", "xnei_10_7", "xnei_10_8")?) U (((("awaity_1", "awaity_2", "awaity_3")?) U (("setbi_24_1", "setbi_24_2", "setbi_24_3", "setbi_24_4", "setbi_24_5", "setbi_24_6")?))))
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-14
+  "Automatically generated"
+  is:
+    A G X F F X ("setbi_5_1", "setbi_5_2", "setbi_5_3", "setbi_5_4", "setbi_5_5", "setbi_5_6")?
+  end.
+Property LamportFastMutEx-COL-2-LTLFireability-15
+  "Automatically generated"
+  is:
+    A ("yeq0_4_1", "yeq0_4_2", "yeq0_4_3")?
+  end.

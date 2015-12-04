@@ -2,7 +2,7 @@
 
 OUTPUT="$mname-$qname-$aname-$sname.log"
 ENGINE="-ctl"
-TIMEOUT=60
+TIMEOUT=3600
 
 if [[ -f "$OUTPUT" ]]; then
 	rm "$OUTPUT"
@@ -13,18 +13,18 @@ case $aname in
                 echo "Algorithm: $aname" >> $mname-$qname-$aname-$sname.log;
 		echo "Search: $sname" >> "$OUTPUT"
 		echo "Query type: $qname"  >> "$OUTPUT"
-		{ timeout $TIMEOUT "$1" "$2" "$3" "$4" "local" "-s" "$sname" "-x" "$5"; } >> "$OUTPUT" 2>&1
+		{ timeout $TIMEOUT "$1" "$2" "$3" "$4" "local" "-s" "$sname"; } >> "$OUTPUT" 2>&1
 		;;
 	"global" )
                 echo "Algorithm: $aname" >> $mname-$qname-$aname-$sname.log;
 		echo "Search: $sname" >> "$OUTPUT"
 		echo "Query type: $qname"  >> "$OUTPUT"
-		{ timeout $TIMEOUT "$1" "$2" "$3" "$4" "global" "-s" "$sname" "-x" "$5"; } >> "$OUTPUT" 2>&1
+		{ timeout $TIMEOUT "$1" "$2" "$3" "$4" "global" "-s" "$sname"; } >> "$OUTPUT" 2>&1
 		;;
 	"czero" )
                 echo "Algorithm: $aname" >> $mname-$qname-$aname-$sname.log;
 		echo "Search: $sname" >> "$OUTPUT"
 		echo "Query type: $qname"  >> "$OUTPUT"
-		{ timeout $TIMEOUT "$1" "$2" "$3" "$4" "czero" "-s" "$sname" "-x" "$5"; }  >> "$OUTPUT" 2>&1
+		{ timeout $TIMEOUT "$1" "$2" "$3" "$4" "czero" "-s" "$sname"; }  >> "$OUTPUT" 2>&1
 		;;
 esac

@@ -1,0 +1,80 @@
+Property CircularTrains-PT-012-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G X X G X "t5_to_6"?
+  end.
+Property CircularTrains-PT-012-LTLFireability-1
+  "Automatically generated"
+  is:
+    A X G X X X "t4_to_5"?
+  end.
+Property CircularTrains-PT-012-LTLFireability-2
+  "Automatically generated"
+  is:
+    A X X F G X "t12_to_1"?
+  end.
+Property CircularTrains-PT-012-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X "t9_to_10"?
+  end.
+Property CircularTrains-PT-012-LTLFireability-4
+  "Automatically generated"
+  is:
+    A F "t3_to_4"?
+  end.
+Property CircularTrains-PT-012-LTLFireability-5
+  "Automatically generated"
+  is:
+    A X F X F G "t9_to_10"?
+  end.
+Property CircularTrains-PT-012-LTLFireability-6
+  "Automatically generated"
+  is:
+    A X ((F G "t12_to_1"?) U ((("t7_to_8"?) U ("t4_to_5"?))))
+  end.
+Property CircularTrains-PT-012-LTLFireability-7
+  "Automatically generated"
+  is:
+    A F ((X G "t1_to_2"?) U ("t1_to_2"?))
+  end.
+Property CircularTrains-PT-012-LTLFireability-8
+  "Automatically generated"
+  is:
+    A F F (("t3_to_4"?) U (F "t9_to_10"?))
+  end.
+Property CircularTrains-PT-012-LTLFireability-9
+  "Automatically generated"
+  is:
+    A X G F "t2_to_3"?
+  end.
+Property CircularTrains-PT-012-LTLFireability-10
+  "Automatically generated"
+  is:
+    A ((G "t5_to_6"?) U (((G "t2_to_3"?) U ("t2_to_3"?))))
+  end.
+Property CircularTrains-PT-012-LTLFireability-11
+  "Automatically generated"
+  is:
+    A G (((("t11_to_12"?) U ("t6_to_7"?))) U (X X "t1_to_2"?))
+  end.
+Property CircularTrains-PT-012-LTLFireability-12
+  "Automatically generated"
+  is:
+    A X F G G X "t11_to_12"?
+  end.
+Property CircularTrains-PT-012-LTLFireability-13
+  "Automatically generated"
+  is:
+    A X G X F F "t9_to_10"?
+  end.
+Property CircularTrains-PT-012-LTLFireability-14
+  "Automatically generated"
+  is:
+    A F "t6_to_7"?
+  end.
+Property CircularTrains-PT-012-LTLFireability-15
+  "Automatically generated"
+  is:
+    A G X "t7_to_8"?
+  end.

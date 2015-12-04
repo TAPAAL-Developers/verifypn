@@ -1,0 +1,80 @@
+Property Railroad-PT-005-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ((! ! ((1) <= (#tokens("pl_P7_3")))) & (((((((1) <= (#tokens("pl_P10_1")))) | (((#tokens("pl_P29_4")) <= (#tokens("pl_P34_4")))))) & (! ((#tokens("pl_P40_3")) <= (#tokens("pl_P42_1")))))))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ((((((((3) <= (#tokens("pl_P15_1")))) & (((1) <= (#tokens("pl_P23_1")))))) & (! ((1) <= (#tokens("pl_P14_1")))))) | (((#tokens("pl_P7_4")) <= (#tokens("pl_P40_6")))))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ((! ((((3) <= (#tokens("pl_P13_1")))) | (((2) <= (#tokens("pl_P34_2")))))) | (((((1) <= (#tokens("pl_P14_1")))) | (((((#tokens("pl_P29_4")) <= (#tokens("pl_P38_1")))) & (((#tokens("pl_P40_4")) <= (#tokens("pl_P0_1")))))))))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ((#tokens("pl_P36_1")) <= (#tokens("pl_P34_1")))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("pl_P17_1")))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("pl_P9_1")))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("pl_P40_4")))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("pl_P0_3")))) & (((#tokens("pl_P29_3")) <= (#tokens("pl_P7_4")))))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ((((! ((1) <= (#tokens("pl_P34_2")))) | (((3) <= (#tokens("pl_P31_1")))))) & (((3) <= (#tokens("pl_P40_6")))))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ((#tokens("pl_P38_1")) <= (#tokens("pl_P0_6")))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("pl_P27_1")) <= (#tokens("pl_P23_1")))) | (((1) <= (#tokens("pl_P29_4")))))) & (((((((2) <= (#tokens("pl_P7_1")))) & (((3) <= (#tokens("pl_P34_3")))))) & (((((#tokens("pl_P34_6")) <= (#tokens("pl_P6_1")))) & (((2) <= (#tokens("pl_P34_3")))))))))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((! ((2) <= (#tokens("pl_P16_1")))) & (((! ((3) <= (#tokens("pl_P13_1")))) | (((((#tokens("pl_P6_1")) <= (#tokens("pl_P7_6")))) | (((#tokens("pl_P21_1")) <= (#tokens("pl_P7_6")))))))))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((#tokens("pl_P29_2")) <= (#tokens("pl_P29_2")))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ! ! ((((1) <= (#tokens("pl_P1_1")))) | (((3) <= (#tokens("pl_P32_1")))))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ((#tokens("pl_P34_5")) <= (#tokens("pl_P11_1")))
+  end.
+Property Railroad-PT-005-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ! ((((1) <= (#tokens("pl_P12_1")))) & (((((3) <= (#tokens("pl_P36_1")))) & (((#tokens("pl_P0_1")) <= (#tokens("pl_P22_1")))))))
+  end.
