@@ -194,33 +194,49 @@ void getQueryPlaces(vector<string> *QueryPlaces, CTLTree* current, PetriNet *net
 void search_ctl_query(PetriNet* net,
                       MarkVal* m0,
                       CTLFormula *queryList[],
+                      int t_xmlquery,
                       ReturnValues result[],
                       ctl::ctl_algorithm t_algorithm,
                       ctl::ctl_search_strategy t_strategy)
 {
     ctl::DGEngine engine(net, m0);
-    //CTLEngine *engine = new CTLEngine(net, m0, certainZero, global);
 
-    for (int i = 0; i < 16 ; i++) {
-
+    if(t_xmlquery >= 0){
         clock_t individual_search_begin = clock();
-        engine.search(queryList[i]->Query, t_algorithm, t_strategy);
+        engine.search(queryList[t_xmlquery]->Query, t_algorithm, t_strategy);
         clock_t individual_search_end = clock();
-        if(true)
-            cout<<":::TIME::: Search elapsed time for query "<<i<<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+        cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+        cout<<":::DATA::: Configurations: " << engine.configuration_count() << " Markings: " << engine.marking_count() << endl;
 
-        queryList[i]->Result = engine.querySatisfied();
-        //queryList[i]->Result = engine->readSatisfactory();
-
+        queryList[t_xmlquery]->Result = engine.querySatisfied();
         bool res = engine.querySatisfied();
-        //bool res = engine->readSatisfactory();
-	    if (res)
-	        result[i] = SuccessCode;
-	    else if (!res)
-	        result[i] = FailedCode;
-	    else result[i] = ErrorCode;
+        if (res)
+            result[t_xmlquery] = SuccessCode;
+        else if (!res)
+            result[t_xmlquery] = FailedCode;
+        else result[t_xmlquery] = ErrorCode;
+        queryList[t_xmlquery]->pResult();
+    }
+    else{
+        for (int i = 0; i < 16 ; i++) {
 
-        queryList[i]->pResult();
+            clock_t individual_search_begin = clock();
+            engine.search(queryList[i]->Query, t_algorithm, t_strategy);
+            clock_t individual_search_end = clock();
+            cout<<":::TIME::: Search elapsed time for query "<<i<<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+            cout<<":::DATA::: Configurations: " << engine.configuration_count() << " Markings: " << engine.marking_count() << endl;
+
+            queryList[i]->Result = engine.querySatisfied();
+            bool res = engine.querySatisfied();
+            if (res)
+                result[i] = SuccessCode;
+            else if (!res)
+                result[i] = FailedCode;
+            else result[i] = ErrorCode;
+            queryList[i]->pResult();
+
+            engine.clear(); //Clean up configurations
+       }
    }
 }
 
@@ -414,7 +430,7 @@ int main(int argc, char* argv[]){
 		outputtrace = false;
 		searchstrategy = BFS;
 	}
-	bool timeInfo = true;
+    bool timeInfo = true;
 
 	//----------------------- Validate Arguments -----------------------//
         if(istest){
@@ -897,14 +913,23 @@ int main(int argc, char* argv[]){
             }
 
             ReturnValues retval[16];
+
             clock_t total_search_begin = clock();
-            search_ctl_query(net, m0, queryList, retval, ctl_algorithm, ctl_search_strategy);
+            search_ctl_query(net, m0, queryList, xmlquery, retval, ctl_algorithm, ctl_search_strategy);
             clock_t total_search_end = clock();
+
             if(timeInfo)
                 cout<<"\n:::TIME::: Total search elapsed time: "<<double(diffclock(total_search_end,total_search_begin))<<" ms\n"<<endl;
 
             int i;
-            for (i = 0; i <16; i++){
+            int queryCount = 16;
+
+            if(xmlquery >= 0){
+                i = xmlquery;
+                queryCount = ++i;
+            }
+
+            for (i = 0; i <queryCount; i++){
                 if (retval[i] == ErrorCode) {
                     #ifdef DEBUG
                     fprintf(stdout,"Query %d ERROR: The CTL Engine did not return any results\n", i);

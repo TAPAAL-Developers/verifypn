@@ -51,16 +51,21 @@ void DGEngine::search(CTLTree *t_query, ctl_algorithm t_algorithm, ctl_search_st
         std::cout << "Error Unknown ctl algorithm" << std::endl;
         return;
     }
+}
 
-    //std::cout << "Cleaning Up Configurations: " << Configurations.size() << std::endl << std::flush;
-
-    std::cout << ":::DATA::: Configurations: " << Configurations.size() << " Markings: " << Markings.size() << std::endl;
-
+void DGEngine::clear(bool t_clear_all)
+{
     for(auto c : Configurations){
         delete c;
     }
     Configurations.clear();
-    //std::cout << "Clean Up Done" << Configurations.size() << std::endl << std::flush;
+
+    if(t_clear_all){
+        for(auto m : Markings){
+            delete m;
+        }
+        Markings.clear();
+    }
 }
 
 void DGEngine::buildDependencyGraph(Configuration &v){

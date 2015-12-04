@@ -34,6 +34,9 @@ public:
     void RunEgineTest();
     void search(CTLTree* t_query, ctl_algorithm t_algorithm, ctl_search_strategy t_strategy);
     inline bool querySatisfied(){return _querySatisfied; }
+    inline int configuration_count(){return Configurations.size();}
+    inline int marking_count() {return Markings.size();}
+    void clear(bool t_clear_all = false);
 private:
 
     enum ColourCode {
