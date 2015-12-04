@@ -37,7 +37,7 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
     echo "####################################################################";
     echo $D ;
     cp $TOOL $D
-    cp $MEMORY $D
+    #cp $MEMORY $D
     cd $D ;
     
 	export mname="`basename "$PWD"`"
@@ -63,8 +63,12 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 					if [[ "$S" == CDFS && "$A" != "czero" ]]; then
 						echo"incompatible algorithm and search strategy"
 					else
-						#<PROGRAMPATH> <MODELFILE> <QUERYFILE> <ENGINE> <ALGORITHM>
-					 	./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE
+						
+						for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+						do
+							#<PROGRAMPATH> <MODELFILE> <QUERYFILE> <ENGINE> <ALGORITHM>
+					 		./$TOOL $PROGRAMPATH $MODELFILE $QF $ENGINE $i
+					 	done
 					 	#{ ./$MEMORY; } > "$mname-$qname-$aname-$sname-mem.log" 
 					 	#cat "$mname-$qname-$aname-$sname.log" "$mname-$qname-$aname-$sname-mem.log" >> "$mname-$qname-$aname-$sname-all.log"
 					 	#rm "$mname-$qname-$aname-$sname-mem.log"
@@ -81,7 +85,7 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 	#remove scripts after usage
 	rm $TOOL
 	rm $MEMORY
-
+	cd ../..
 	#for log in $(find -mindepth 1 -maxdepth 1 -type f -name '*.log'); do
 	#	mv "$log" "$RESULTPATH"
 	#done
