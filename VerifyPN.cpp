@@ -201,21 +201,21 @@ void search_ctl_query(PetriNet* net,
 {
     ctl::DGEngine engine(net, m0);
 
-    if(t_xmlquery >= 0){
+    if(t_xmlquery > 0){
         clock_t individual_search_begin = clock();
-        engine.search(queryList[t_xmlquery]->Query, t_algorithm, t_strategy);
+        engine.search(queryList[t_xmlquery - 1]->Query, t_algorithm, t_strategy);
         clock_t individual_search_end = clock();
-        cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+        cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery - 1 <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
         cout<<":::DATA::: Configurations: " << engine.configuration_count() << " Markings: " << engine.marking_count() << endl;
 
-        queryList[t_xmlquery]->Result = engine.querySatisfied();
+        queryList[t_xmlquery - 1]->Result = engine.querySatisfied();
         bool res = engine.querySatisfied();
         if (res)
-            result[t_xmlquery] = SuccessCode;
+            result[t_xmlquery - 1] = SuccessCode;
         else if (!res)
-            result[t_xmlquery] = FailedCode;
-        else result[t_xmlquery] = ErrorCode;
-        queryList[t_xmlquery]->pResult();
+            result[t_xmlquery - 1] = FailedCode;
+        else result[t_xmlquery - 1] = ErrorCode;
+        queryList[t_xmlquery - 1]->pResult();
     }
     else{
         for (int i = 0; i < 16 ; i++) {
@@ -921,36 +921,6 @@ int main(int argc, char* argv[]){
             if(timeInfo)
                 cout<<"\n:::TIME::: Total search elapsed time: "<<double(diffclock(total_search_end,total_search_begin))<<" ms\n"<<endl;
 
-            int i;
-            int queryCount = 16;
-
-            if(xmlquery >= 0){
-                i = xmlquery;
-                queryCount = ++i;
-            }
-
-            for (i = 0; i <queryCount; i++){
-                if (retval[i] == ErrorCode) {
-                    #ifdef DEBUG
-                    fprintf(stdout,"Query %d ERROR: The CTL Engine did not return any results\n", i);
-                    #endif
-                }
-                else if (retval[i] == FailedCode){
-                    #ifdef DEBUG
-                    fprintf(stdout,"Query %d NOT_SATISFIED: \n", i);
-                    #endif
-                }
-                else if (retval[i] == SuccessCode){
-                    #ifdef DEBUG
-                    fprintf(stdout,"Query %d SATISFIED:\n", i);
-                    #endif
-                }
-                else {
-                    #ifdef DEBUG
-                    fprintf(stdout,"Query %d BAD_ASS_ERROR:\n", i);
-                    #endif
-                }
-            }
         }
 	//------------------------ Return the Output Value -------------------//
 	
