@@ -18,6 +18,7 @@ public:
     void push(Edge* t_edge);
     void push_dependency(Edge *t_edge);
     void remove(Edge* t_edge);
+    void reset();
     void print();
     bool find(Edge* t_edge);
     inline size_t size() {return W.size();}
