@@ -255,6 +255,8 @@ bool DGEngine::localSmolka(Configuration &v){
                std::cout << "------------first marking :"  << std::flush;   e->source->marking->print();
 
                std::cout << "\n------------second marking:"  << std::flush;   v.marking->print();*/
+               std::cout<<"::::: EARLY TERMINATION ::::"<<std::endl;
+               v.configPrinter();
                return (e->source->assignment == ONE) ? true : false;
                 
             }
@@ -274,61 +276,23 @@ bool DGEngine::localSmolka(Configuration &v){
         /*****************************************************************/
         // Case: CZERO
         else if(czero){
-        	/*std::cout << "we are in czero with edge :\n" << std::flush;
-        	e->edgePrinter();
-        	std::cout << "where source dependency set :\n" << std::flush;
-        	for (auto t : e->source->DependencySet){
-        		t->edgePrinter();
-        	}
-        	std::cout << "and source successor set :\n" << std::flush;
-        	for (auto t : e->source->Successors){
-        		t->edgePrinter();
-        	}
-			
-
-             /*bool isCzero = true;
-             for(auto edge : e->source->Successors){
-                 bool found = false;
-                 for( auto c : edge->targets){
-                     if(c->assignment == CZERO){
-                         found = true;
-                         break;
-                     }
-                 }
-                 if(!found){
-                     isCzero = false;
-                     break;
-                 }
-             }
-
-             if(isCzero){
-                 e->source->assignment == CZERO;
-
-                 for(auto edge : e->source->DependencySet)
-                     W.push(edge);
-                 e->source->DependencySet.clear();
-             }*/
-
-
            if(e->source->Successors.size() == 1){
-           //	std::cout << "begin\n" << std::flush;
-           //	e->edgePrinter();
-           //	std::cout << "DS\n" << std::flush;
                assignConfiguration((e->source), CZERO);
 
-               if(*(e->source) == v)
+               if(*(e->source) == v){
+                   std::cout<<"::::: EARLY TERMINATION ::::"<<std::endl;
+                   v.configPrinter();
                    return v.assignment == ONE ? true : false;
+               }
 
                for(auto edge : e->source->DependencySet){
-             //  	   edge->edgePrinter();
                    W.push_dependency(edge);
                 }
 
                e->source->DependencySet.clear();
            }
-           //std::cout << "and we are out" << std::flush;
            W.remove(e);
-           e->source->removeSuccessor(e);
+           //e->source->removeSuccessor(e);
 
          // std::cout << "We now deleting :\n" << std::flush;
 
@@ -340,9 +304,10 @@ bool DGEngine::localSmolka(Configuration &v){
 
             Configuration* negConfig = *(e->targets.begin());
             localSmolka(*negConfig);
-
+            
             assignConfiguration((e->source), negConfig->assignment);
-
+            e->source->configPrinter();
+            
             if(e->source->assignment == ONE || e->source->assignment == CZERO){
                 for(auto edge : e->source->DependencySet)   
                     W.push_dependency(edge);
@@ -380,7 +345,7 @@ bool DGEngine::localSmolka(Configuration &v){
     }
     //std::cout << "the final value is: " << v.assignment << "\n" << std::flush;
     //assignConfiguration(v, *(v.assignment));
-
+    std::cout<<"Long road to ruin"<<std::endl;
     return (v.assignment == ONE) ? true : false;
 }
 
