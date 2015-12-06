@@ -76,6 +76,15 @@ void EdgePicker::push_dependency(Edge *t_edge)
     }
 }
 
+void EdgePicker::reset(){
+    auto it = W.begin();
+
+    while(it != W.end()){
+        if((*it)->source->assignment == ZERO)
+            (*it)->source->assignment = UNKNOWN;
+        it++;
+    }
+}
 void EdgePicker::remove(Edge* t_edge){
     auto it=W.begin();
     auto itn=W.end();

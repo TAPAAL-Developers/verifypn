@@ -255,6 +255,7 @@ bool DGEngine::localSmolka(Configuration &v){
                std::cout << "------------first marking :"  << std::flush;   e->source->marking->print();
 
                std::cout << "\n------------second marking:"  << std::flush;   v.marking->print();*/
+               W.reset();
                return (e->source->assignment == ONE) ? true : false;
                 
             }
