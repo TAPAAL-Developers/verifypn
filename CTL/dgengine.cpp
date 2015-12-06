@@ -227,8 +227,8 @@ bool DGEngine::localSmolka(Configuration &v){
 
 
         if(e->source->DependencySet.empty() && *e->source != v && !_CZero){
-            //This is suppose to be empty.
-            //If the D(e.source) is empty, no need to process it.
+            //This is suppose to be empty, when not using certain zero!
+            //If the D(e.source) is empty, no need to process it, unless we used czero to remove them.
         }
         /******************************************************************/
         //Case: One
