@@ -5,12 +5,12 @@ MODELFILE="./model.pnml"
 ENGINE="-ctl"
 TOOL="DGEngine.sh"
 ALGORITHM=("local" "global" "czero")
-STRATEGY=("BFS" "DFS" "BestFS" "CDFS")
+STRATEGY=("BFS" "DFS" "BestFS" "CDFS" "FBFS" "BBFS" "BDFS")
 ANALYSE="analyse.sh"
 MEMORY="mem.sh"
 
 REL_PROGRAMPATH="../verifypn-linux64"
-INPUTSPATH="$RUNPATH/testModels/"
+INPUTSPATH="$RUNPATH/smallModels/"
 RESULTPATH="$RUNPATH/testResults/"
 ANALISEPATH="$RUNPATH/analysis"
 

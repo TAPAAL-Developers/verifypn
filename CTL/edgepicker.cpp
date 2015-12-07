@@ -77,16 +77,20 @@ void EdgePicker::push_dependency(Edge *t_edge)
 }
 
 void EdgePicker::reset(){
+    auto itn = W.end();
     auto it = W.begin();
 
-    while(it != W.end()){
+    while(it != itn){
         if((*it)->source->assignment == ZERO){
             (*it)->source->assignment = UNKNOWN;
-            (*it)->source->DependencySet.clear();
-               
-        }
-        it++;
+            for(auto b : (*it)->source->DependencySet){
+                W.push_front(b);
+            }
+            it = W.begin();
+            itn = W.end();
+        } else it++;
     }
+
 }
 
 void EdgePicker::restore(){
@@ -189,8 +193,15 @@ inline void EdgePicker::BFS(Edge* t_edge){
 //Foward BFS pop
 Edge *EdgePicker::FBFS()
 {
-    Edge* e = W.front();
-    W.pop_front();
+    Edge* e;
+    if(W.empty()){
+        e = dW.front();
+        dW.pop_front();
+    }
+    else{
+        e = W.front();
+        W.pop_front();
+    }
     return e;
 }
 //Forward BFS push
@@ -201,7 +212,7 @@ void EdgePicker::FBFS(Edge *t_edge)
 //Forward BFS push dependency edge
 void EdgePicker::FBFS_dependency(Edge *t_edge)
 {
-    W.push_front(t_edge);
+    dW.push_back(t_edge);
 }
 
 //Backward BFS pop
