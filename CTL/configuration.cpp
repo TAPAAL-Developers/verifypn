@@ -16,8 +16,8 @@ Configuration::~Configuration(){
 
 void Configuration::removeSuccessor(Edge *t_successor){
     {
-        //std::cout << "destroying config" << std::endl << std::flush;
-
+        if (t_successor->isDeleted)
+            return;
         Successors.remove(t_successor);
 
         for(auto t : t_successor->targets){
