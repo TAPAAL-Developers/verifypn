@@ -240,22 +240,10 @@ bool DGEngine::localSmolka(Configuration &v){
             #ifdef DEBUG
             cout<<"All assignments were ONE"<<endl;
             #endif
-
-            
-            //std::cout << "\nbefore assignment e " << e->source->assignment << std::flush;
-            //std::cout << "before assignment v " << v.assignment << std::flush;
-
             assignConfiguration((e->source), ONE);
             
-           // std::cout << "\nafter assignment e " << e->source->assignment << std::flush;
-            //std::cout << "after assignment v " << v.assignment << std::flush;
-
-            //e->edgePrinter();
             if(*(e->source) == v){
-               /*std::cout << "------------first marking :"  << std::flush;   e->source->marking->print();
-
-               std::cout << "\n------------second marking:"  << std::flush;   v.marking->print();*/
-                
+               
                    // W.reset();
                 if(_strategy == CTL_BFS || _strategy == CTL_FBFS || _strategy == CTL_BBFS || _strategy == CTL_BestFS)
                 { 
