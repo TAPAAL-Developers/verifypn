@@ -37,6 +37,8 @@ public:
     inline int configuration_count(){return Configurations.size();}
     inline int marking_count() {return Markings.size();}
     void clear(bool t_clear_all = false);
+    volatile int evilCircles;
+    volatile int circles;
 private:
 
     enum ColourCode {

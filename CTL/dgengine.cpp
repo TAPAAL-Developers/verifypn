@@ -25,6 +25,8 @@ void DGEngine::search(CTLTree *t_query, ctl_algorithm t_algorithm, ctl_search_st
     Marking* firstMarking = new Marking(_m0, _nplaces);
     Configuration* v0 = createConfiguration(*firstMarking, *t_query);
 
+    evilCircles = 0;
+    circles = 0;
 
     if(t_algorithm == Local && t_strategy != CTL_CDFS){
         //std::cout << "FORMULA:: Local Smolka with strategy:" << t_strategy << "\n";
@@ -52,6 +54,7 @@ void DGEngine::search(CTLTree *t_query, ctl_algorithm t_algorithm, ctl_search_st
         std::cout << "Error Unknown ctl algorithm" << std::endl;
         return;
     }
+    std::cout << "::CIRCLES:: "<< circles << "::Evil circles:: " << evilCircles << std::endl;
 }
 
 void DGEngine::clear(bool t_clear_all)
@@ -227,7 +230,7 @@ bool DGEngine::localSmolka(Configuration &v){
         }
 
 
-        if(e->source->DependencySet.empty() && e->source->assignment != ZERO){
+        if(e->source->DependencySet.empty() && e->source->assignment != ZERO && _strategy != CTL_CDFS){
             //This is suppose to be empty, when not using certain zero!
             //If the D(e.source) is empty, no need to process it, unless we used czero to remove them.
         }
@@ -245,11 +248,12 @@ bool DGEngine::localSmolka(Configuration &v){
             if(*(e->source) == v){
                
                    // W.reset();
-                if(_strategy == CTL_BFS || _strategy == CTL_FBFS || _strategy == CTL_BBFS || _strategy == CTL_BestFS || _strategy == CTL_BDFS)
-                { 
-                    if(W.empty()){ return (e->source->assignment == ONE) ? true : false;}
-               }else  return (e->source->assignment == ONE) ? true : false;
-                
+                if(_strategy == CTL_BFS || _strategy == CTL_FBFS || _strategy == CTL_BBFS || _strategy == CTL_BestFS)
+                {
+                }
+                else {
+                    break;
+                }
             }
 
             for(auto edge : e->source->DependencySet){
@@ -271,7 +275,7 @@ bool DGEngine::localSmolka(Configuration &v){
                 assignConfiguration((e->source), CZERO);
 
                 if(*(e->source) == v){
-                    return v.assignment == ONE ? true : false;
+                    break;
                 }
 
                 for(auto edge : e->source->DependencySet){
@@ -330,9 +334,12 @@ bool DGEngine::localSmolka(Configuration &v){
         }
         
     }
-    //std::cout << "the final value is: " << v.assignment << "\n" << std::flush;
-    //assignConfiguration(v, *(v.assignment));
-    //std::cout<<"Long road to ruin"<<std::endl;
+    END:
+    if(_strategy == CTL_CDFS){
+        //std::cout << W.circles() << " " << W.circles() << std::endl;
+        evilCircles += W.evilCircles();
+        circles += W.circles();
+    }
     return (v.assignment == ONE) ? true : false;
 }
 

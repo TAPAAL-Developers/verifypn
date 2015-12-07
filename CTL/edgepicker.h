@@ -25,6 +25,9 @@ public:
     inline size_t size() {return W.size();}
     inline bool empty() {return W.empty();}
 
+    int circles(){ return _detector.circles;}
+    int evilCircles() {return _detector.evilCircles;}
+
 private:
 
     //Function used to implement DFS
@@ -58,7 +61,6 @@ private:
     //Functions used to implement BFS
     inline Edge* BestFS();
     inline void BestFS(Edge* e);
-
 
     ctl::CircleDetector _detector;
     ctl_search_strategy _strategy;

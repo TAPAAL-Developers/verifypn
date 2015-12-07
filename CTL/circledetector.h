@@ -34,17 +34,19 @@ class CircleDetector
     };
 
 public:
-    CircleDetector(){};
+    CircleDetector();
     //virtual ~CircleDetector(){};
 
     bool push(Edge* e);
     bool get_trace(Configuration* t_source);
+    int circles = 0;
+    int evilCircles = 0;
 
 private:
-
+    typedef std::vector<Edge*>::reverse_iterator vector_riter;
     typedef std::unordered_set<Configuration*, CircleDetector::pointer_hash, CircleDetector::pointer_equal_to> configSet;
 
-    std::stack<Edge*> _path;
+    std::vector<Edge*> _path;
     configSet _configs;
 };
 }

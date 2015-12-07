@@ -164,6 +164,7 @@ void EdgePicker::BDFS_dependency(Edge *t_edge)
 Edge *EdgePicker::CDFS()
 {
     Edge* e = W.front();
+    CTLTree* q = e->source->query;
 
     if(_detector.push(e)){
         e->source->assignment = CZERO;

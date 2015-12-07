@@ -26,7 +26,7 @@ void Configuration::removeSuccessor(Edge *t_successor){
 
         t_successor->isDeleted = true;
 
-        delete t_successor;
+        //delete t_successor;
         return;
     }
 }
