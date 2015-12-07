@@ -80,11 +80,28 @@ void EdgePicker::reset(){
     auto it = W.begin();
 
     while(it != W.end()){
-        if((*it)->source->assignment == ZERO)
+        if((*it)->source->assignment == ZERO){
             (*it)->source->assignment = UNKNOWN;
+            (*it)->source->DependencySet.clear();
+               
+        }
         it++;
     }
 }
+
+void EdgePicker::restore(){
+    auto it = W.begin();
+
+    while(it != W.end()){
+        if((*it)->source->assignment == UNKNOWN){   
+            (*it)->source->assignment = ZERO;
+
+        }
+        it++;
+    }
+
+}
+
 void EdgePicker::remove(Edge* t_edge){
     auto it=W.begin();
     auto itn=W.end();
@@ -213,21 +230,25 @@ inline Edge* EdgePicker::BestFS(){
 }
 //BestFS push
 inline void EdgePicker::BestFS(Edge* t_edge){
-    t_edge->rateEdge();
+    if(t_edge->processed){
+        W.push_front(t_edge);
+    } else {
+        t_edge->rateEdge();
 
-    auto it = W.begin();
+        auto it = W.begin();
 
-    while(it != W.end()){
-        if(t_edge->Rating < (*it)->Rating){
-            W.insert(it, 1, t_edge);
-            return;
+        while(it != W.end()){
+            if(t_edge->Rating < (*it)->Rating){
+                W.insert(it, 1, t_edge);
+                return;
+            }
+            else {
+                it++;
+            }
         }
-        else {
-            it++;
-        }
+
+        W.push_back(t_edge);
     }
-
-    W.push_back(t_edge);
 }
 
 }

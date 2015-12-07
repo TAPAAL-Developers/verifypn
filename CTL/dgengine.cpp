@@ -21,6 +21,7 @@ DGEngine::DGEngine(PetriEngine::PetriNet* net, PetriEngine::MarkVal initialmarki
 void DGEngine::search(CTLTree *t_query, ctl_algorithm t_algorithm, ctl_search_strategy t_strategy){
 
     _strategy = t_strategy;
+
     Marking* firstMarking = new Marking(_m0, _nplaces);
     Configuration* v0 = createConfiguration(*firstMarking, *t_query);
 
@@ -189,14 +190,14 @@ bool DGEngine::localSmolka(Configuration &v){
 		//std::cout << "NOT IN wnow:\n" << std::flush;
         int i = 0;  
         Edge* e = W.pop();
+        e->processed = true;
+     //  std::cout << "First edge :\n" << std::flush;
+     //  e->edgePrinter();
 
-       //std::cout << "First edge :\n" << std::flush;
-       //e->edgePrinter();
-
-       //std::cout << "First edge  succ :\n" << std::flush;
-       //for (auto l : e->source->Successors){
-       //	l->edgePrinter();
-       //}
+/*       std::cout << "First edge  succ :\n" << std::flush;
+       for (auto l : e->source->Successors){
+       	l->edgePrinter();
+       }*/
 
         /*****************************************************************/
         /*Data handling*/
@@ -250,13 +251,17 @@ bool DGEngine::localSmolka(Configuration &v){
 
 
             if(*(e->source) == v){
-               /*std::cout << "------------it IS ewual------------------------\n" << std::flush;   
 
-               std::cout << "------------first marking :"  << std::flush;   e->source->marking->print();
+               /*std::cout << "------------first marking :"  << std::flush;   e->source->marking->print();
 
                std::cout << "\n------------second marking:"  << std::flush;   v.marking->print();*/
-               W.reset();
-               return (e->source->assignment == ONE) ? true : false;
+                
+                   // W.reset();
+                if(_strategy == CTL_BFS || _strategy == CTL_FBFS || _strategy == CTL_BBFS || _strategy == CTL_BestFS)
+                { 
+                    if(W.empty()){ return (e->source->assignment == ONE) ? true : false;}
+               }else  return (e->source->assignment == ONE) ? true : false;
+                
                 
             }
 
@@ -312,16 +317,17 @@ bool DGEngine::localSmolka(Configuration &v){
 
 
            if(e->source->Successors.size() == 1){
-           //	std::cout << "begin\n" << std::flush;
-           //	e->edgePrinter();
-           //	std::cout << "DS\n" << std::flush;
+
+           	//std::cout << "begin\n" << std::flush;
+           	//e->edgePrinter();
+           	//std::cout << "DS\n" << std::flush;
                assignConfiguration((e->source), CZERO);
 
                if(*(e->source) == v)
                    return v.assignment == ONE ? true : false;
 
                for(auto edge : e->source->DependencySet){
-             //  	   edge->edgePrinter();
+              	//   edge->edgePrinter();
                    W.push_dependency(edge);
                 }
 
@@ -341,6 +347,8 @@ bool DGEngine::localSmolka(Configuration &v){
 
             Configuration* negConfig = *(e->targets.begin());
             localSmolka(*negConfig);
+            negConfig->DependencySet.push_back(e);
+
 
             assignConfiguration((e->source), negConfig->assignment);
 
@@ -348,6 +356,7 @@ bool DGEngine::localSmolka(Configuration &v){
                 for(auto edge : e->source->DependencySet)   
                     W.push_dependency(edge);
             }
+            e->source->DependencySet.clear();
 
             //std::cout << "\n---------- WE ARE DONE WITH REC SMOLKA------------\n" << std::flush;
         }
@@ -364,7 +373,7 @@ bool DGEngine::localSmolka(Configuration &v){
         /*****************************************************************/
         // Case: UNKNOWN
         else if (targetUKNOWNassignments > 0){
-           // std::cout << "--------------SUCC------------------------------" << std::flush;
+        //    std::cout << "--------------SUCC------------------------------" << std::flush;
 
             for(auto c : e->targets){
                 if(c->assignment == UNKNOWN){
