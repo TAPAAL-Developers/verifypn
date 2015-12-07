@@ -63,7 +63,7 @@ private:
     ctl::CircleDetector _detector;
     ctl_search_strategy _strategy;
     std::deque<Edge*> W;
-    std::deque<Edge*> dW:
+    std::deque<Edge*> dW;
 };
 
 }

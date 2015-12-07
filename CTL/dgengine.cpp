@@ -227,7 +227,7 @@ bool DGEngine::localSmolka(Configuration &v){
         }
 
 
-        if(e->source->DependencySet.empty() && *e->source->assignment != ZERO){
+        if(e->source->DependencySet.empty() && e->source->assignment != ZERO){
             //This is suppose to be empty, when not using certain zero!
             //If the D(e.source) is empty, no need to process it, unless we used czero to remove them.
         }
@@ -245,7 +245,7 @@ bool DGEngine::localSmolka(Configuration &v){
             if(*(e->source) == v){
                
                    // W.reset();
-                if(_strategy == CTL_BFS || _strategy == CTL_FBFS || _strategy == CTL_BBFS || _strategy == CTL_BestFS)
+                if(_strategy == CTL_BFS || _strategy == CTL_FBFS || _strategy == CTL_BBFS || _strategy == CTL_BestFS || _strategy == CTL_BDFS)
                 { 
                     if(W.empty()){ return (e->source->assignment == ONE) ? true : false;}
                }else  return (e->source->assignment == ONE) ? true : false;
