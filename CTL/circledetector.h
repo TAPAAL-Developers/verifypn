@@ -41,6 +41,8 @@ public:
     bool push(Edge* e);
     bool push2(Edge* e);
     void newPath(Edge *e);
+    void newPseudoPath(Edge *e);
+    bool isSubQuery(CTLTree *subquery, CTLTree *query);
     bool isEvilCircle(Configuration* t_source);
 
     CTLTree *current_query;

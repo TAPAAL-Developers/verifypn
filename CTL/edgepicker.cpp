@@ -163,14 +163,22 @@ void EdgePicker::BDFS_dependency(Edge *t_edge)
 //CDFS pop
 Edge *EdgePicker::CDFS()
 {
+//    std::cout << "Enter CDFS pop\n" << std::flush;
+//    std::cout << "Size of W: ";
+//    std::cout << W.size() << std::endl << std::flush;
+
     Edge* e = W.front();
     CTLTree* q = e->source->query;
 
-    if(_detector.push(e)){
-        e->source->assignment = CZERO;
-        //std::cout << "circle detected" << std::endl;
-    }
+//    std::cout << "Enter circle detection\n" << std::flush;
+//    if(_detector.push(e)){
+//        e->source->assignment = CZERO;
+//      std::cout << "circle detected" << std::endl;
+//    }
 
+    _detector.push(e);
+
+//    std::cout << "End, Size of W: " << W.size() << std::endl << std::flush;
     W.pop_front();
     return e;
 }
