@@ -14,8 +14,8 @@
 #include <iostream>
 #include "../PetriEngine/PetriNet.h"
 
-enum Quantifier { AND = 1, OR, A, E, NEG, EMPTY = -1 };
-enum Path { G = 1, F, X, U, pError = -1 };
+enum Quantifier { AND = 1, OR = 2, A = 3, E = 4, NEG = 5, EMPTY = -1 };
+enum Path { G = 1, X = 2, F = 3, U = 4, pError = -1 };
 
 struct Cardinality {
     int intSmaller;

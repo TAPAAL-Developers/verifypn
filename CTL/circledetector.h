@@ -3,7 +3,7 @@
 
 #include "configuration.h"
 #include "edge.h"
-
+#include "../CTLParser/CTLParser.h"
 #include <list>
 #include <unordered_set>
 #include <stack>
@@ -34,15 +34,21 @@ class CircleDetector
     };
 
 public:
+
     CircleDetector();
     //virtual ~CircleDetector(){};
 
     bool push(Edge* e);
-    bool get_trace(Configuration* t_source);
+    bool push2(Edge* e);
+    void newPath(Edge *e);
+    bool isEvilCircle(Configuration* t_source);
+
+    CTLTree *current_query;
     int circles = 0;
     int evilCircles = 0;
 
 private:
+    typedef std::vector<Edge*>::iterator vector_iter;
     typedef std::vector<Edge*>::reverse_iterator vector_riter;
     typedef std::unordered_set<Configuration*, CircleDetector::pointer_hash, CircleDetector::pointer_equal_to> configSet;
 
