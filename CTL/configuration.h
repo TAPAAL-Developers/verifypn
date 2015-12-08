@@ -38,8 +38,10 @@ public:
     std::list<Edge*> Successors;
     std::list<Edge*> DependencySet;
     bool IsNegated = false;
-    
- Assignment assignment = UNKNOWN;
+    Assignment assignment = UNKNOWN;
+
+private:
+    std::list<Edge*> deletedSuccessors;
 };
 }// end of ctl
 
