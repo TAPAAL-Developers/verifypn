@@ -12,6 +12,9 @@ Configuration::~Configuration(){
     for(Edge* e: Successors){
         delete (e);
     }
+    for(Edge* e: deletedSuccessors){
+        delete e;
+    }
 }
 
 void Configuration::removeSuccessor(Edge *t_successor){
@@ -25,7 +28,7 @@ void Configuration::removeSuccessor(Edge *t_successor){
         }
 
         t_successor->isDeleted = true;
-
+        deletedSuccessors.push_front(t_successor);
         //delete t_successor;
         return;
     }
