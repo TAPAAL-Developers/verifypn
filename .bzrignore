@@ -19,3 +19,5 @@ testFramework/log.log
 */*/*.log
 */*.log
 */*/*/*.log
+cdfs_czero.log
+dfs_czero.log
