@@ -43,13 +43,15 @@ public:
     void newPath(Edge *e);
     void newPseudoPath(Edge *e);
     bool isSubQuery(CTLTree *subquery, CTLTree *query);
-    bool isEvilCircle(Configuration* t_source);
+    bool isEvilCircle(Configuration *t_config);
 
     CTLTree *current_query;
     int circles = 0;
     int evilCircles = 0;
 
 private:
+    bool verify_consistency();
+
     typedef std::vector<Edge*>::iterator vector_iter;
     typedef std::vector<Edge*>::reverse_iterator vector_riter;
     typedef std::unordered_set<Configuration*, CircleDetector::pointer_hash, CircleDetector::pointer_equal_to> configSet;

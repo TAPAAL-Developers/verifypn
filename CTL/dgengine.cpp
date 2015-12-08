@@ -248,7 +248,7 @@ bool DGEngine::localSmolka(Configuration &v){
             if(*(e->source) == v){
                
                    // W.reset();
-                if(_strategy == CTL_BFS || _strategy == CTL_FBFS || _strategy == CTL_BBFS || _strategy == CTL_BestFS)
+                if(_strategy == CTL_BFS || _strategy == CTL_FBFS || _strategy == CTL_BBFS || _strategy == CTL_BestFS || _strategy == CTL_BDFS)
                 {
                 }
                 else {
