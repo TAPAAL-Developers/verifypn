@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Algorithm, Search strategy, query, time(ms, #configurations, #markings" >> result.csv
+echo "Algorithm, Search strategy, query, time(ms, #configurations, #markings" >> result_q.csv
 
 for R in *.log; do
 

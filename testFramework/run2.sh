@@ -4,13 +4,13 @@ RUNPATH=`pwd`
 MODELFILE="./model.pnml"
 ENGINE="-ctl"
 TOOL="DGEngine.sh"
-ALGORITHM=("local" "global" "czero")
-STRATEGY=("BFS" "DFS" "BestFS" "CDFS" "FBFS" "BBFS" "BDFS")
+ALGORITHM=("czero")
+STRATEGY=("DFS")
 ANALYSE="analyse.sh"
 MEMORY="mem.sh"
 
 REL_PROGRAMPATH="../verifypn-linux64"
-INPUTSPATH="$RUNPATH/smallModels/"
+INPUTSPATH="$RUNPATH/ModelDB/"
 RESULTPATH="$RUNPATH/testResults/"
 ANALISEPATH="$RUNPATH/analysis"
 
@@ -45,7 +45,7 @@ for D in $(find ${INPUTSPATH} -mindepth 1 -maxdepth 1 -type d) ; do
 	#verify model exists
 	if [ -f $MODELFILE ] ; then
 
-		for QF in $(find -mindepth 1 -maxdepth 1 -type f -name 'CTL*.xml') ; do
+		for QF in $(find -mindepth 1 -maxdepth 1 -type f -name 'ReachabilityCard*.xml') ; do
 
 		 	qfile="$(basename $QF)"
 		 	echo "$qfile"

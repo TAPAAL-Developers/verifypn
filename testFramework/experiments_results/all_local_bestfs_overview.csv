@@ -1,0 +1,241 @@
+Algorithm, Search strategy, Query, Modelname, #Results)
+local, BestFS, CTLCardinality, Angiogenesis-PT-01, 12
+local, BestFS, CTLFireability, Angiogenesis-PT-01, 14
+local, BestFS, CTLFireabilitySimple, Angiogenesis-PT-01, 14
+local, BestFS, CTLCardinality, Angiogenesis-PT-05, 3
+local, BestFS, CTLFireability, Angiogenesis-PT-05, 
+local, BestFS, CTLFireabilitySimple, Angiogenesis-PT-05, 
+local, BestFS, CTLCardinality, Angiogenesis-PT-10, 
+local, BestFS, CTLFireability, Angiogenesis-PT-10, 
+local, BestFS, CTLFireabilitySimple, Angiogenesis-PT-10, 
+local, BestFS, CTLCardinality, ARMCacheCoherence-PT-none, 
+local, BestFS, CTLFireability, ARMCacheCoherence-PT-none, 
+local, BestFS, CTLFireabilitySimple, ARMCacheCoherence-PT-none, 4
+local, BestFS, CTLCardinality, CircadianClock-PT-000001, 13
+local, BestFS, CTLFireability, CircadianClock-PT-000001, 12
+local, BestFS, CTLFireabilitySimple, CircadianClock-PT-000001, 10
+local, BestFS, CTLCardinality, CircadianClock-PT-000010, 
+local, BestFS, CTLFireability, CircadianClock-PT-000010, 4
+local, BestFS, CTLFireabilitySimple, CircadianClock-PT-000010, 7
+local, BestFS, CTLCardinality, CircadianClock-PT-000100, 
+local, BestFS, CTLFireability, CircadianClock-PT-000100, 7
+local, BestFS, CTLFireabilitySimple, CircadianClock-PT-000100, 10
+local, BestFS, CTLCardinality, CircularTrains-PT-012, 14
+local, BestFS, CTLFireability, CircularTrains-PT-012, 12
+local, BestFS, CTLFireabilitySimple, CircularTrains-PT-012, 13
+local, BestFS, CTLCardinality, CircularTrains-PT-024, 11
+local, BestFS, CTLFireability, CircularTrains-PT-024, 7
+local, BestFS, CTLFireabilitySimple, CircularTrains-PT-024, 16
+local, BestFS, CTLCardinality, CircularTrains-PT-048, 4
+local, BestFS, CTLFireability, CircularTrains-PT-048, 1
+local, BestFS, CTLFireabilitySimple, CircularTrains-PT-048, 
+local, BestFS, CTLCardinality, CSRepetitions-PT-02, 15
+local, BestFS, CTLFireability, CSRepetitions-PT-02, 14
+local, BestFS, CTLFireabilitySimple, CSRepetitions-PT-02, 12
+local, BestFS, CTLCardinality, CSRepetitions-PT-03, 1
+local, BestFS, CTLFireability, CSRepetitions-PT-03, 
+local, BestFS, CTLFireabilitySimple, CSRepetitions-PT-03, 
+local, BestFS, CTLCardinality, CSRepetitions-PT-04, 1
+local, BestFS, CTLFireability, CSRepetitions-PT-04, 1
+local, BestFS, CTLFireabilitySimple, CSRepetitions-PT-04, 
+local, BestFS, CTLCardinality, DatabaseWithMutex-PT-02, 13
+local, BestFS, CTLFireability, DatabaseWithMutex-PT-02, 13
+local, BestFS, CTLFireabilitySimple, DatabaseWithMutex-PT-02, 14
+local, BestFS, CTLCardinality, DatabaseWithMutex-PT-04, 
+local, BestFS, CTLFireability, DatabaseWithMutex-PT-04, 
+local, BestFS, CTLFireabilitySimple, DatabaseWithMutex-PT-04, 
+local, BestFS, CTLCardinality, DatabaseWithMutex-PT-10, 
+local, BestFS, CTLFireability, DatabaseWithMutex-PT-10, 
+local, BestFS, CTLFireabilitySimple, DatabaseWithMutex-PT-10, 
+local, BestFS, CTLCardinality, Dekker-PT-010, 13
+local, BestFS, CTLFireability, Dekker-PT-010, 12
+local, BestFS, CTLFireabilitySimple, Dekker-PT-010, 15
+local, BestFS, CTLCardinality, Dekker-PT-015, 
+local, BestFS, CTLFireability, Dekker-PT-015, 2
+local, BestFS, CTLFireabilitySimple, Dekker-PT-015, 11
+local, BestFS, CTLCardinality, Dekker-PT-020, 1
+local, BestFS, CTLFireability, Dekker-PT-020, 
+local, BestFS, CTLFireabilitySimple, Dekker-PT-020, 11
+local, BestFS, CTLCardinality, DrinkVendingMachine-PT-02, 14
+local, BestFS, CTLFireability, DrinkVendingMachine-PT-02, 15
+local, BestFS, CTLFireabilitySimple, DrinkVendingMachine-PT-02, 14
+local, BestFS, CTLCardinality, EnergyBus-PT-none, 
+local, BestFS, CTLFireability, EnergyBus-PT-none, 
+local, BestFS, CTLFireabilitySimple, EnergyBus-PT-none, 
+local, BestFS, CTLCardinality, Eratosthenes-PT-010, 13
+local, BestFS, CTLFireability, Eratosthenes-PT-010, 14
+local, BestFS, CTLFireabilitySimple, Eratosthenes-PT-010, 14
+local, BestFS, CTLCardinality, Eratosthenes-PT-020, 15
+local, BestFS, CTLFireability, Eratosthenes-PT-020, 12
+local, BestFS, CTLFireabilitySimple, Eratosthenes-PT-020, 13
+local, BestFS, CTLCardinality, Eratosthenes-PT-050, 4
+local, BestFS, CTLFireability, Eratosthenes-PT-050, 
+local, BestFS, CTLFireabilitySimple, Eratosthenes-PT-050, 
+local, BestFS, CTLCardinality, ERK-PT-000001, 15
+local, BestFS, CTLFireability, ERK-PT-000001, 14
+local, BestFS, CTLFireabilitySimple, ERK-PT-000001, 12
+local, BestFS, CTLCardinality, ERK-PT-000010, 9
+local, BestFS, CTLFireability, ERK-PT-000010, 7
+local, BestFS, CTLFireabilitySimple, ERK-PT-000010, 8
+local, BestFS, CTLCardinality, ERK-PT-000100, 
+local, BestFS, CTLFireability, ERK-PT-000100, 
+local, BestFS, CTLFireabilitySimple, ERK-PT-000100, 5
+local, BestFS, CTLCardinality, FMS-PT-005, 
+local, BestFS, CTLFireability, FMS-PT-005, 
+local, BestFS, CTLFireabilitySimple, FMS-PT-005, 
+local, BestFS, CTLCardinality, FMS-PT-010, 
+local, BestFS, CTLFireability, FMS-PT-010, 
+local, BestFS, CTLFireabilitySimple, FMS-PT-010, 
+local, BestFS, CTLCardinality, FMS-PT-020, 
+local, BestFS, CTLFireability, FMS-PT-020, 
+local, BestFS, CTLFireabilitySimple, FMS-PT-020, 
+local, BestFS, CTLCardinality, GlobalResAllocation-PT-03, 9
+local, BestFS, CTLFireability, GlobalResAllocation-PT-03, 1
+local, BestFS, CTLFireabilitySimple, GlobalResAllocation-PT-03, 2
+local, BestFS, CTLCardinality, HouseConstruction-PT-002, 14
+local, BestFS, CTLFireability, HouseConstruction-PT-002, 14
+local, BestFS, CTLFireabilitySimple, HouseConstruction-PT-002, 14
+local, BestFS, CTLCardinality, HouseConstruction-PT-005, 5
+local, BestFS, CTLFireability, HouseConstruction-PT-005, 4
+local, BestFS, CTLFireabilitySimple, HouseConstruction-PT-005, 11
+local, BestFS, CTLCardinality, HouseConstruction-PT-010, 2
+local, BestFS, CTLFireability, HouseConstruction-PT-010, 
+local, BestFS, CTLFireabilitySimple, HouseConstruction-PT-010, 
+local, BestFS, CTLCardinality, IBMB2S565S3960-PT-none, 
+local, BestFS, CTLFireability, IBMB2S565S3960-PT-none, 1
+local, BestFS, CTLFireabilitySimple, IBMB2S565S3960-PT-none, 
+local, BestFS, CTLCardinality, Kanban-PT-0005, 1
+local, BestFS, CTLFireability, Kanban-PT-0005, 1
+local, BestFS, CTLFireabilitySimple, Kanban-PT-0005, 8
+local, BestFS, CTLCardinality, Kanban-PT-0010, 
+local, BestFS, CTLFireability, Kanban-PT-0010, 4
+local, BestFS, CTLFireabilitySimple, Kanban-PT-0010, 8
+local, BestFS, CTLCardinality, Kanban-PT-0020, 
+local, BestFS, CTLFireability, Kanban-PT-0020, 7
+local, BestFS, CTLFireabilitySimple, Kanban-PT-0020, 5
+local, BestFS, CTLCardinality, LamportFastMutEx-PT-2, 13
+local, BestFS, CTLFireability, LamportFastMutEx-PT-2, 14
+local, BestFS, CTLFireabilitySimple, LamportFastMutEx-PT-2, 12
+local, BestFS, CTLCardinality, LamportFastMutEx-PT-3, 13
+local, BestFS, CTLFireability, LamportFastMutEx-PT-3, 14
+local, BestFS, CTLFireabilitySimple, LamportFastMutEx-PT-3, 12
+local, BestFS, CTLCardinality, LamportFastMutEx-PT-4, 3
+local, BestFS, CTLFireability, LamportFastMutEx-PT-4, 3
+local, BestFS, CTLFireabilitySimple, LamportFastMutEx-PT-4, 9
+local, BestFS, CTLCardinality, MAPK-PT-008, 
+local, BestFS, CTLFireability, MAPK-PT-008, 7
+local, BestFS, CTLFireabilitySimple, MAPK-PT-008, 8
+local, BestFS, CTLCardinality, MAPK-PT-020, 
+local, BestFS, CTLFireability, MAPK-PT-020, 2
+local, BestFS, CTLFireabilitySimple, MAPK-PT-020, 12
+local, BestFS, CTLCardinality, MAPK-PT-040, 
+local, BestFS, CTLFireability, MAPK-PT-040, 1
+local, BestFS, CTLFireabilitySimple, MAPK-PT-040, 8
+local, BestFS, CTLCardinality, MAPK-PT-080, 
+local, BestFS, CTLFireability, MAPK-PT-080, 3
+local, BestFS, CTLFireabilitySimple, MAPK-PT-080, 7
+local, BestFS, CTLCardinality, MAPK-PT-160, 
+local, BestFS, CTLFireability, MAPK-PT-160, 2
+local, BestFS, CTLFireabilitySimple, MAPK-PT-160, 4
+local, BestFS, CTLCardinality, MAPK-PT-320, 
+local, BestFS, CTLFireability, MAPK-PT-320, 3
+local, BestFS, CTLFireabilitySimple, MAPK-PT-320, 5
+local, BestFS, CTLCardinality, MultiwaySync-PT-none, 
+local, BestFS, CTLFireability, MultiwaySync-PT-none, 
+local, BestFS, CTLFireabilitySimple, MultiwaySync-PT-none, 
+local, BestFS, CTLCardinality, PermAdmissibility-PT-01, 16
+local, BestFS, CTLFireability, PermAdmissibility-PT-01, 13
+local, BestFS, CTLFireabilitySimple, PermAdmissibility-PT-01, 13
+local, BestFS, CTLCardinality, PermAdmissibility-PT-02, 
+local, BestFS, CTLFireability, PermAdmissibility-PT-02, 
+local, BestFS, CTLFireabilitySimple, PermAdmissibility-PT-02, 
+local, BestFS, CTLCardinality, PermAdmissibility-PT-05, 
+local, BestFS, CTLFireability, PermAdmissibility-PT-05, 
+local, BestFS, CTLFireabilitySimple, PermAdmissibility-PT-05, 
+local, BestFS, CTLCardinality, Peterson-PT-2, 14
+local, BestFS, CTLFireability, Peterson-PT-2, 15
+local, BestFS, CTLFireabilitySimple, Peterson-PT-2, 13
+local, BestFS, CTLCardinality, Peterson-PT-3, 1
+local, BestFS, CTLFireability, Peterson-PT-3, 1
+local, BestFS, CTLFireabilitySimple, Peterson-PT-3, 5
+local, BestFS, CTLCardinality, Peterson-PT-4, 
+local, BestFS, CTLFireability, Peterson-PT-4, 
+local, BestFS, CTLFireabilitySimple, Peterson-PT-4, 
+local, BestFS, CTLCardinality, PhilosophersDyn-PT-03, 15
+local, BestFS, CTLFireability, PhilosophersDyn-PT-03, 12
+local, BestFS, CTLFireabilitySimple, PhilosophersDyn-PT-03, 14
+local, BestFS, CTLCardinality, PhilosophersDyn-PT-10, 3
+local, BestFS, CTLFireability, PhilosophersDyn-PT-10, 2
+local, BestFS, CTLFireabilitySimple, PhilosophersDyn-PT-10, 7
+local, BestFS, CTLCardinality, PhilosophersDyn-PT-20, 
+local, BestFS, CTLFireability, PhilosophersDyn-PT-20, 
+local, BestFS, CTLFireabilitySimple, PhilosophersDyn-PT-20, 
+local, BestFS, CTLCardinality, Planning-PT-none, 
+local, BestFS, CTLFireability, Planning-PT-none, 
+local, BestFS, CTLFireabilitySimple, Planning-PT-none, 
+local, BestFS, CTLCardinality, ProductionCell-PT-none, 
+local, BestFS, CTLFireability, ProductionCell-PT-none, 
+local, BestFS, CTLFireabilitySimple, ProductionCell-PT-none, 
+local, BestFS, CTLCardinality, Railroad-PT-005, 15
+local, BestFS, CTLFireability, Railroad-PT-005, 11
+local, BestFS, CTLFireabilitySimple, Railroad-PT-005, 12
+local, BestFS, CTLCardinality, Railroad-PT-010, 4
+local, BestFS, CTLFireability, Railroad-PT-010, 4
+local, BestFS, CTLFireabilitySimple, Railroad-PT-010, 9
+local, BestFS, CTLCardinality, Railroad-PT-020, 2
+local, BestFS, CTLFireability, Railroad-PT-020, 3
+local, BestFS, CTLFireabilitySimple, Railroad-PT-020, 10
+local, BestFS, CTLCardinality, ResAllocation-PT-R002C002, 14
+local, BestFS, CTLFireability, ResAllocation-PT-R002C002, 14
+local, BestFS, CTLFireabilitySimple, ResAllocation-PT-R002C002, 15
+local, BestFS, CTLCardinality, ResAllocation-PT-R003C002, 15
+local, BestFS, CTLFireability, ResAllocation-PT-R003C002, 12
+local, BestFS, CTLFireabilitySimple, ResAllocation-PT-R003C002, 12
+local, BestFS, CTLCardinality, ResAllocation-PT-R003C003, 14
+local, BestFS, CTLFireability, ResAllocation-PT-R003C003, 14
+local, BestFS, CTLFireabilitySimple, ResAllocation-PT-R003C003, 14
+local, BestFS, CTLCardinality, Ring-PT-none, 
+local, BestFS, CTLFireability, Ring-PT-none, 
+local, BestFS, CTLFireabilitySimple, Ring-PT-none, 
+local, BestFS, CTLCardinality, RwMutex-PT-r0010w0010, 14
+local, BestFS, CTLFireability, RwMutex-PT-r0010w0010, 14
+local, BestFS, CTLFireabilitySimple, RwMutex-PT-r0010w0010, 15
+local, BestFS, CTLCardinality, RwMutex-PT-r0010w0020, 15
+local, BestFS, CTLFireability, RwMutex-PT-r0010w0020, 12
+local, BestFS, CTLFireabilitySimple, RwMutex-PT-r0010w0020, 11
+local, BestFS, CTLCardinality, RwMutex-PT-r0010w0050, 12
+local, BestFS, CTLFireability, RwMutex-PT-r0010w0050, 9
+local, BestFS, CTLFireabilitySimple, RwMutex-PT-r0010w0050, 14
+local, BestFS, CTLCardinality, SharedMemory-PT-000005, 15
+local, BestFS, CTLFireability, SharedMemory-PT-000005, 15
+local, BestFS, CTLFireabilitySimple, SharedMemory-PT-000005, 14
+local, BestFS, CTLCardinality, SharedMemory-PT-000010, 
+local, BestFS, CTLFireability, SharedMemory-PT-000010, 
+local, BestFS, CTLFireabilitySimple, SharedMemory-PT-000010, 
+local, BestFS, CTLCardinality, SharedMemory-PT-000020, 
+local, BestFS, CTLFireability, SharedMemory-PT-000020, 
+local, BestFS, CTLFireabilitySimple, SharedMemory-PT-000020, 
+local, BestFS, CTLCardinality, SimpleLoadBal-PT-02, 14
+local, BestFS, CTLFireability, SimpleLoadBal-PT-02, 13
+local, BestFS, CTLFireabilitySimple, SimpleLoadBal-PT-02, 14
+local, BestFS, CTLCardinality, SimpleLoadBal-PT-05, 10
+local, BestFS, CTLFireability, SimpleLoadBal-PT-05, 6
+local, BestFS, CTLFireabilitySimple, SimpleLoadBal-PT-05, 12
+local, BestFS, CTLCardinality, SimpleLoadBal-PT-10, 
+local, BestFS, CTLFireability, SimpleLoadBal-PT-10, 
+local, BestFS, CTLFireabilitySimple, SimpleLoadBal-PT-10, 
+local, BestFS, CTLCardinality, TokenRing-PT-005, 14
+local, BestFS, CTLFireability, TokenRing-PT-005, 11
+local, BestFS, CTLFireabilitySimple, TokenRing-PT-005, 13
+local, BestFS, CTLCardinality, TokenRing-PT-010, 16
+local, BestFS, CTLFireability, TokenRing-PT-010, 2
+local, BestFS, CTLFireabilitySimple, TokenRing-PT-010, 3
+local, BestFS, CTLCardinality, TokenRing-PT-015, 
+local, BestFS, CTLFireability, TokenRing-PT-015, 
+local, BestFS, CTLFireabilitySimple, TokenRing-PT-015, 
+local, BestFS, CTLCardinality, UtahNoC-PT-none, 
+local, BestFS, CTLFireability, UtahNoC-PT-none, 
+local, BestFS, CTLFireabilitySimple, UtahNoC-PT-none, 
+local, BestFS, CTLCardinality, Vasy2003-PT-none, 
+local, BestFS, CTLFireability, Vasy2003-PT-none, 
+local, BestFS, CTLFireabilitySimple, Vasy2003-PT-none, 

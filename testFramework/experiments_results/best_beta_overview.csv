@@ -1,0 +1,67 @@
+Algorithm, Search strategy, Query, Modelname, #Results)
+czero, BestFS, CTLCardinality, Angiogenesis-PT-01, 14
+global, BestFS, CTLCardinality, Angiogenesis-PT-01, 13
+local, BestFS, CTLCardinality, Angiogenesis-PT-01, 15
+czero, BestFS, CTLCardinality, Angiogenesis-PT-05, 3
+global, BestFS, CTLCardinality, Angiogenesis-PT-05, 2
+local, BestFS, CTLCardinality, Angiogenesis-PT-05, 3
+czero, BestFS, CTLCardinality, CircadianClock-PT-000001, 13
+global, BestFS, CTLCardinality, CircadianClock-PT-000001, 14
+local, BestFS, CTLCardinality, CircadianClock-PT-000001, 12
+czero, BestFS, CTLCardinality, CircadianClock-PT-000010, 
+global, BestFS, CTLCardinality, CircadianClock-PT-000010, 
+local, BestFS, CTLCardinality, CircadianClock-PT-000010, 
+czero, BestFS, CTLCardinality, CircularTrains-PT-012, 12
+global, BestFS, CTLCardinality, CircularTrains-PT-012, 14
+local, BestFS, CTLCardinality, CircularTrains-PT-012, 14
+czero, BestFS, CTLCardinality, CSRepetitions-PT-02, 12
+global, BestFS, CTLCardinality, CSRepetitions-PT-02, 1
+local, BestFS, CTLCardinality, CSRepetitions-PT-02, 10
+czero, BestFS, CTLCardinality, DatabaseWithMutex-PT-02, 12
+global, BestFS, CTLCardinality, DatabaseWithMutex-PT-02, 12
+local, BestFS, CTLCardinality, DatabaseWithMutex-PT-02, 13
+czero, BestFS, CTLCardinality, Dekker-PT-010, 2
+global, BestFS, CTLCardinality, Dekker-PT-010, 2
+local, BestFS, CTLCardinality, Dekker-PT-010, 3
+czero, BestFS, CTLCardinality, DrinkVendingMachine-PT-02, 14
+global, BestFS, CTLCardinality, DrinkVendingMachine-PT-02, 14
+local, BestFS, CTLCardinality, DrinkVendingMachine-PT-02, 11
+czero, BestFS, CTLCardinality, ERK-PT-000001, 14
+global, BestFS, CTLCardinality, ERK-PT-000001, 15
+local, BestFS, CTLCardinality, ERK-PT-000001, 15
+czero, BestFS, CTLCardinality, ERK-PT-000010, 13
+global, BestFS, CTLCardinality, ERK-PT-000010, 5
+local, BestFS, CTLCardinality, ERK-PT-000010, 15
+czero, BestFS, CTLCardinality, HouseConstruction-PT-002, 11
+global, BestFS, CTLCardinality, HouseConstruction-PT-002, 13
+local, BestFS, CTLCardinality, HouseConstruction-PT-002, 14
+czero, BestFS, CTLCardinality, HouseConstruction-PT-005, 4
+global, BestFS, CTLCardinality, HouseConstruction-PT-005, 
+local, BestFS, CTLCardinality, HouseConstruction-PT-005, 4
+czero, BestFS, CTLCardinality, Kanban-PT-0005, 1
+global, BestFS, CTLCardinality, Kanban-PT-0005, 
+local, BestFS, CTLCardinality, Kanban-PT-0005, 1
+czero, BestFS, CTLCardinality, LamportFastMutEx-PT-2, 15
+global, BestFS, CTLCardinality, LamportFastMutEx-PT-2, 11
+local, BestFS, CTLCardinality, LamportFastMutEx-PT-2, 12
+czero, BestFS, CTLCardinality, PhilosophersDyn-PT-03, 12
+global, BestFS, CTLCardinality, PhilosophersDyn-PT-03, 14
+local, BestFS, CTLCardinality, PhilosophersDyn-PT-03, 15
+czero, BestFS, CTLCardinality, Railroad-PT-005, 16
+global, BestFS, CTLCardinality, Railroad-PT-005, 9
+local, BestFS, CTLCardinality, Railroad-PT-005, 14
+czero, BestFS, CTLCardinality, RwMutex-PT-r0010w0010, 13
+global, BestFS, CTLCardinality, RwMutex-PT-r0010w0010, 8
+local, BestFS, CTLCardinality, RwMutex-PT-r0010w0010, 11
+czero, BestFS, CTLCardinality, RwMutex-PT-r0010w0020, 14
+global, BestFS, CTLCardinality, RwMutex-PT-r0010w0020, 1
+local, BestFS, CTLCardinality, RwMutex-PT-r0010w0020, 10
+czero, BestFS, CTLCardinality, SharedMemory-PT-000005, 16
+global, BestFS, CTLCardinality, SharedMemory-PT-000005, 6
+local, BestFS, CTLCardinality, SharedMemory-PT-000005, 11
+czero, BestFS, CTLCardinality, SimpleLoadBal-PT-02, 7
+global, BestFS, CTLCardinality, SimpleLoadBal-PT-02, 13
+local, BestFS, CTLCardinality, SimpleLoadBal-PT-02, 9
+czero, BestFS, CTLCardinality, TokenRing-PT-005, 14
+global, BestFS, CTLCardinality, TokenRing-PT-005, 14
+local, BestFS, CTLCardinality, TokenRing-PT-005, 13
