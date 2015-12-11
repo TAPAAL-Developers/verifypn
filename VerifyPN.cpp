@@ -51,6 +51,7 @@
 #include "CTL/fp_algorithm.h"
 #include "CTL/local_fp_algorithm.h"
 #include "CTL/czero_fp_algorithm.h"
+#include "CTL/global_fp_algorithm.h"
 
 
 using namespace std;
@@ -207,7 +208,7 @@ void search_ctl_query(PetriNet* net,
     ctl::ctl_search_strategy strategy = t_strategy;
 
     if(t_algorithm == ctl::Local_i){
-        //engine2 = new ctl::Local_FP_Algorithm(net, m0);
+        engine2 = new ctl::Local_FP_Algorithm(net, m0);
         if(t_strategy == ctl::CTL_CDFS) {
             strategy = ctl::CTL_DFS;
         }
@@ -220,7 +221,11 @@ void search_ctl_query(PetriNet* net,
         }
     }
     else if(t_algorithm == ctl::Global_i){
-        exit(EXIT_FAILURE);
+        engine2 = new ctl::Global_FP_Algorithm(net, m0);
+
+        if(t_strategy == ctl::CTL_CDFS) {
+            strategy = ctl::CTL_DFS;
+        }
     }
 
     ctl::DGEngine engine(net, m0);
@@ -229,12 +234,11 @@ void search_ctl_query(PetriNet* net,
 
     if(t_xmlquery > 0){
         clock_t individual_search_begin = clock();
-        if(t_algorithm == ctl::CZero_i || t_algorithm == ctl::Local_i){
+        if(t_algorithm == ctl::CZero_i || t_algorithm == ctl::Local_i || t_algorithm == ctl::Global_i){
             if(t_strategy == ctl::CTL_CDFS){
                 engine2->search(queryList[t_xmlquery - 1]->Query, new ctl::EdgePicker(strategy), new ctl::CircleDetector());
             }
             else{
-                cout << "test\n" << flush;
                 engine2->search(queryList[t_xmlquery - 1]->Query, new ctl::EdgePicker(strategy));
             }
 
@@ -251,6 +255,9 @@ void search_ctl_query(PetriNet* net,
             res = engine.querySatisfied();
         }
         clock_t individual_search_end = clock();
+        if(t_strategy == ctl::CTL_CDFS && (t_algorithm == ctl::CZero_i || t_algorithm == ctl::Local_i || t_algorithm == ctl::Global_i)){
+            cout << ":::CYCLE:: Detected: " << engine2->cycles << " Evil Cycles: " << engine2->evilCycles << endl;
+        }
         cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery - 1 <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
         cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
 
@@ -265,8 +272,7 @@ void search_ctl_query(PetriNet* net,
         for (int i = 0; i < 16 ; i++) {
             clock_t individual_search_end, individual_search_begin;
 
-            if(t_algorithm == ctl::CZero_i){
-
+            if(t_algorithm == ctl::CZero_i || t_algorithm == ctl::Local_i || t_algorithm == ctl::Global_i){
                 individual_search_begin = clock();
                 if(t_strategy == ctl::CTL_CDFS){
                     engine2->search(queryList[i]->Query, new ctl::EdgePicker(strategy), new ctl::CircleDetector());
@@ -292,6 +298,9 @@ void search_ctl_query(PetriNet* net,
                 res = engine.querySatisfied();
                 engine.clear();
             }
+            if(t_strategy == ctl::CTL_CDFS && (t_algorithm == ctl::CZero_i || t_algorithm == ctl::Local_i || t_algorithm == ctl::Global_i)){
+                cout << ":::CYCLE:: Detected: " << engine2->cycles << " Evil Cycles: " << engine2->evilCycles << endl;
+            }
             cout<<":::TIME::: Search elapsed time for query "<< i <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
             cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
 
@@ -301,6 +310,7 @@ void search_ctl_query(PetriNet* net,
                 result[i] = FailedCode;
             else result[i] = ErrorCode;
             queryList[i]->pResult();
+            cout << endl;
         }
    }
 }
@@ -366,6 +376,12 @@ int main(int argc, char* argv[]){
                 }
                 else if(strcmp(s, "czero-i") == 0){
                     ctl_algorithm = ctl::CZero_i;
+                }
+                else if(strcmp(s, "global-i") == 0){
+                    ctl_algorithm = ctl::Global_i;
+                }
+                else if(strcmp(s, "local-i") == 0){
+                    ctl_algorithm = ctl::Local_i;
                 }
                 else{
                     fprintf(stderr, "Argument Error: Unrecognized ctl algorithm \"%s\"\n", s);

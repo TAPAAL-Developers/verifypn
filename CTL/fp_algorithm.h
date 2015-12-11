@@ -5,6 +5,7 @@
 #include "configuration.h"
 #include "edge.h"
 #include "edgepicker.h"
+#include "../CTLParser/CTLParser.h"
 
 #include <unordered_set>
 #include <list>
@@ -20,8 +21,8 @@ public:
     inline bool querySatisfied(){return _querySatisfied; }
     inline int configuration_count(){return Configurations.size();}
     inline int marking_count() {return Markings.size();}
-    volatile int evilCircles = 0;
-    volatile int circles = 0;
+    volatile int evilCycles = 0;
+    volatile int cycles = 0;
 
 protected:
     std::list<Edge *> successors(Configuration &v);

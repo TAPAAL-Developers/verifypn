@@ -14,7 +14,6 @@ CZero_FP_Algorithm::CZero_FP_Algorithm(PetriEngine::PetriNet *net, PetriEngine::
 
 bool CZero_FP_Algorithm::search(CTLTree *t_query, EdgePicker *t_W)
 {
-    std::cout << _net->numberOfTransitions() << std::endl << std::flush;
     Marking *m0 = new Marking(_m0, _nplaces);
     Configuration *c0 = createConfiguration(*m0, *t_query);
     _querySatisfied = czero_fp_algorithm(*c0, *t_W);
@@ -27,10 +26,12 @@ bool CZero_FP_Algorithm::search(CTLTree *t_query, EdgePicker *t_W)
 
 bool CZero_FP_Algorithm::search(CTLTree *t_query, EdgePicker *t_W, CircleDetector *t_detector)
 {
-    std::cout << _net->numberOfTransitions() << std::endl << std::flush;
     Marking *m0 = new Marking(_m0, _nplaces);
     Configuration *c0 = createConfiguration(*m0, *t_query);
     _querySatisfied = czero_fp_algorithm(*c0, *t_W, true, t_detector);
+
+    cycles = t_detector->circles;
+    evilCycles = t_detector->evilCircles;
 
     //Clean up
     delete t_W;
