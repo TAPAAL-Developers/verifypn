@@ -93,6 +93,7 @@ private:
     bool isEG = false;
     int numberoftransitions;
     unsigned int lowerDepth(unsigned int a, unsigned int b);
+    unsigned int higherDepth(unsigned int a, unsigned int b);
     CTLTree* xmlToCTLquery(rapidxml::xml_node<> * root);
     Path setPathOperator(rapidxml::xml_node<> * root, bool isA, bool isE);
     

@@ -116,11 +116,17 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             query2->quantifier = NEG;
             query2->a.fireset = NULL;
             query2->first = xmlToCTLquery(root->first_node()->first_node());
+            
+            query2->max_depth = (query2->first->max_depth + 1);
             query2->depth = (query2->first->depth + 1);
 
             isAG = false;
             query1->depth = (query2->depth + 1);
+            query1->max_depth = (query2->max_depth + 1);
             query->depth = (query1->depth + 1);
+            query->max_depth = (query1->max_depth + 1);
+            
+            std::cout<<"::: AG Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
             
             return query;
         }
@@ -149,11 +155,14 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             query2->a.fireset = NULL;
             query2->first = xmlToCTLquery(root->first_node()->first_node());
             query2->depth = (query2->first->depth + 1);
+            query2->max_depth = (query2->first->max_depth + 1);
             isEG = false;
-            //std::cout<<"Made subquery for EG:"<<std::endl;
-            //printQuery(query);
             query1->depth = (query2->depth + 1);
+            query1->max_depth = (query2->max_depth + 1);
             query->depth = (query1->depth + 1);
+            query->max_depth = (query1->max_depth + 1);
+            
+            std::cout<<"::: EG Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
             
             return query;
         }
@@ -176,6 +185,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     else if (firstLetter == 'i' ) {
         query->quantifier = EMPTY;
         query->depth = 0;
+        query->max_depth = 0;
         //std::cout << "TEST:: ATOM: " << root_name << "\n";
         if (root_name[1] == 's' ) {
             numberoftransitions = 0;
@@ -230,9 +240,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
                 i++;
             }
             
-            //std::cout << "-----TEST:: Returning query atom from fireability: \n" << std::flush;
-            //printQuery(query);
-            //std::cout << "\n" << std::flush;
+            std::cout<<"::: Atom Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
             
             return query; 
         }
@@ -283,7 +291,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             }
             
             //std::cout << "-----TEST:: Returning query set: " << query->a.set << "\n" << std::flush;
-            
+            std::cout<<"::: Atom Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
             return query; 
         }
         else {
@@ -326,8 +334,16 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     if (query->quantifier == AND || query->quantifier == OR || query->path == U){
         int first_depth = query->first->depth, second_depth = query->second->depth;
         query->depth = (lowerDepth(first_depth, second_depth) + 1);
+        
+        int first_max_depth = query->first->max_depth, second_max_depth = query->second->max_depth;
+        query->max_depth = (higherDepth(first_max_depth, second_max_depth) + 1);
     }
-    else query->depth = (query->first->depth + 1);
+    else {
+        query->depth = (query->first->depth + 1);
+        query->max_depth = (query->first->max_depth + 1);
+    }
+    
+    std::cout<<"::: True Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
     
     return query;
 }
@@ -442,6 +458,14 @@ unsigned int CTLParser::lowerDepth(unsigned int a, unsigned int b){
     else if (a == b)
         return a;
     else return b;
+}
+
+unsigned int CTLParser::higherDepth(unsigned int a, unsigned int b){
+    if (b > a)
+        return b;
+    else if (a == b)
+        return b;
+    else return a;
 }
 
 //Test functions
