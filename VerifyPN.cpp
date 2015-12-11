@@ -48,6 +48,8 @@
 
 #include "CTL/dgengine.h"
 #include "CTL/edgepicker.h"
+#include "CTL/fp_algorithm.h"
+#include "CTL/local_fp_algorithm.h"
 #include "CTL/czero_fp_algorithm.h"
 
 
@@ -201,19 +203,45 @@ void search_ctl_query(PetriNet* net,
                       ctl::ctl_algorithm t_algorithm,
                       ctl::ctl_search_strategy t_strategy)
 {
+    ctl::FP_Algorithm *engine2;
+    ctl::ctl_search_strategy strategy = t_strategy;
+
+    if(t_algorithm == ctl::Local_i){
+        //engine2 = new ctl::Local_FP_Algorithm(net, m0);
+        if(t_strategy == ctl::CTL_CDFS) {
+            strategy = ctl::CTL_DFS;
+        }
+    }
+    else if(t_algorithm == ctl::CZero_i){
+        engine2 = new ctl::CZero_FP_Algorithm(net, m0);
+
+        if(t_strategy == ctl::CTL_CDFS) {
+            strategy = ctl::CTL_DFS;
+        }
+    }
+    else if(t_algorithm == ctl::Global_i){
+        exit(EXIT_FAILURE);
+    }
+
     ctl::DGEngine engine(net, m0);
-    ctl::CZero_FP_Algorithm engine2(net, m0);
     int configCount = 0, markingCount = 0;
     bool res;
 
     if(t_xmlquery > 0){
         clock_t individual_search_begin = clock();
-        if(t_algorithm == ctl::CZero_i){
-            engine2.search(queryList[t_xmlquery - 1]->Query, new ctl::EdgePicker(t_strategy));
-            configCount = engine2.configuration_count();
-            markingCount = engine2.marking_count();
-            queryList[t_xmlquery - 1]->Result = engine2.querySatisfied();
-            res = engine2.querySatisfied();
+        if(t_algorithm == ctl::CZero_i || t_algorithm == ctl::Local_i){
+            if(t_strategy == ctl::CTL_CDFS){
+                engine2->search(queryList[t_xmlquery - 1]->Query, new ctl::EdgePicker(strategy), new ctl::CircleDetector());
+            }
+            else{
+                cout << "test\n" << flush;
+                engine2->search(queryList[t_xmlquery - 1]->Query, new ctl::EdgePicker(strategy));
+            }
+
+            configCount = engine2->configuration_count();
+            markingCount = engine2->marking_count();
+            queryList[t_xmlquery - 1]->Result = engine2->querySatisfied();
+            res = engine2->querySatisfied();
         }
         else{
             engine.search(queryList[t_xmlquery - 1]->Query, t_algorithm, t_strategy);
@@ -238,20 +266,27 @@ void search_ctl_query(PetriNet* net,
             clock_t individual_search_end, individual_search_begin;
 
             if(t_algorithm == ctl::CZero_i){
-                engine2.search(queryList[i]->Query, new ctl::EdgePicker(t_strategy));
+
                 individual_search_begin = clock();
-                configCount = engine2.configuration_count();
+                if(t_strategy == ctl::CTL_CDFS){
+                    engine2->search(queryList[i]->Query, new ctl::EdgePicker(strategy), new ctl::CircleDetector());
+                }
+                else{
+                    engine2->search(queryList[i]->Query, new ctl::EdgePicker(strategy));
+                }
                 individual_search_end = clock();
-                markingCount = engine2.marking_count();
-                queryList[i]->Result = engine2.querySatisfied();
-                res = engine2.querySatisfied();
-                engine2.clear();
+
+                configCount = engine2->configuration_count();
+                markingCount = engine2->marking_count();
+                queryList[i]->Result = engine2->querySatisfied();
+                res = engine2->querySatisfied();
+                engine2->clear();
             }
             else{
-                engine.search(queryList[i]->Query, t_algorithm, t_strategy);
                 individual_search_begin = clock();
-                configCount = engine.configuration_count();
+                engine.search(queryList[i]->Query, t_algorithm, t_strategy);
                 individual_search_end = clock();
+                configCount = engine.configuration_count();
                 markingCount = engine.marking_count();
                 queryList[i]->Result = engine.querySatisfied();
                 res = engine.querySatisfied();
