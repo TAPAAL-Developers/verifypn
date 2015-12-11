@@ -25,16 +25,8 @@ bool Local_FP_Algorithm::search(CTLTree *t_query, EdgePicker *t_W)
 
 bool Local_FP_Algorithm::search(CTLTree *t_query, EdgePicker *t_W, CircleDetector *t_detector)
 {
-    std::cout << _net->numberOfTransitions() << std::endl << std::flush;
-    Marking *m0 = new Marking(_m0, _nplaces);
-    Configuration *c0 = createConfiguration(*m0, *t_query);
-    _querySatisfied = local_fp_algorithm(*c0, *t_W);
-
-    //Clean up
-    delete t_W;
-    delete t_detector;
-
-    return _querySatisfied;
+    std::cout << "Strategy Error: Local Fixed Point Algorithm does not support circle detection\n";
+    exit(EXIT_FAILURE);
 }
 
 bool Local_FP_Algorithm::local_fp_algorithm(Configuration &v, EdgePicker &W)
@@ -112,7 +104,11 @@ bool Local_FP_Algorithm::local_fp_algorithm(Configuration &v, EdgePicker &W)
                 e->source->DependencySet.clear();
             }
             else{
-                e->source->DependencySet.push_back(e);
+                for(auto c : e->targets){
+                    if(c->assignment == ZERO) {
+                        c->DependencySet.push_back(e);
+                    }
+                }
             }
         }
         else if(targetUKNOWNassignments > 0){

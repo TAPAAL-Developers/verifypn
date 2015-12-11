@@ -81,6 +81,39 @@ bool Global_FP_Algorithm::global_fp_algorithm(Configuration &v, EdgePicker &W, b
         if(e->source->assignment == ONE){
             //std::cout << "== Ignored ==\n" << std::flush;
         }
+        else if(e->targets.size() == targetONEassignments){
+            if(e->source->IsNegated){
+                e->source->assignment = ZERO;
+            }
+            else{
+                e->source->assignment = ONE;
+
+                for(Edge *de : e->source->DependencySet){
+                    W.push_dependency(de);
+                }
+                e->source->DependencySet.clear();
+            }
+        }
+        else if(targetZEROassignments > 0){
+            if(e->source->IsNegated && e->processed){
+                e->source->assignment = ONE;
+
+                for(Edge *de : e->source->DependencySet){
+                    W.push_dependency(de);
+                }
+                e->source->DependencySet.clear();
+            }
+            else{
+                for(auto c : e->targets){
+                    if(c->assignment == ZERO) {
+                        c->DependencySet.push_back(e);
+                    }
+                }
+            }
+        }
+
+        if(e->source->IsNegated && !e->processed)
+            N.push(e);
 
         e->processed = true;
     }
