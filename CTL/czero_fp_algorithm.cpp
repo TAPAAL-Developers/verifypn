@@ -16,16 +16,146 @@ bool CZero_FP_Algorithm::search(CTLTree *t_query, EdgePicker *t_W)
 {
     Marking *m0 = new Marking(_m0, _nplaces);
     Configuration *c0 = createConfiguration(*m0, *t_query);
-    return czero_fp_algorithm(*c0, *t_W);
+    _querySatisfied = czero_fp_algorithm(*c0, *t_W);
+    return _querySatisfied;
 }
 
 bool CZero_FP_Algorithm::czero_fp_algorithm(Configuration &v, EdgePicker &W)
 {
     PriorityQueue N;
-    return false;
+
+    v.assignment = ZERO;
+    for(Edge *e : successors(v)){
+        W.push(e);
+        if(e->source->IsNegated)
+            N.push(e);
+    }
+
+    while(!W.empty() || !N.empty()){
+        Edge *e;
+
+        if(!W.empty()) {
+            e = W.pop();
+            //std::cout << "Popped negation edge from N: \n" << std::flush;
+            //e->edgePrinter();
+        }
+        else if (!N.empty()) {
+            e = N.top();
+            N.pop();
+            //std::cout << "Popped negation edge from N: \n" << std::flush;
+            //e->edgePrinter();
+        }
+
+        /*****************************************************************/
+        /*Data handling*/
+        int targetONEassignments = 0;
+        int targetZEROassignments = 0;
+        int targetUKNOWNassignments = 0;
+        bool czero = false;
+
+        for(auto c : e->targets){
+            if (c->assignment == ONE) {
+                targetONEassignments++;
+            }
+            else if (c->assignment == ZERO) {
+                targetZEROassignments++;
+            }
+            else if (c->assignment == CZERO){
+                czero = true;
+                break;
+            }
+            else if(c-> assignment == UNKNOWN){
+                targetUKNOWNassignments++;
+            }
+
+        }
+        /*****************************************************************/
+
+        if(e->isDeleted || e->source->assignment == ONE || e->source->assignment == CZERO){
+            //std::cout << "== Ignored ==\n" << std::flush;
+        }
+        /*****************************************************************/
+
+        else if(e->targets.size() == targetONEassignments){
+
+            if(e->source->IsNegated){
+                e->source->assignment = CZERO;
+                e->source->removeSuccessor(e);
+            }
+            else{
+                e->source->assignment = ONE;
+            }
+            if(e->source == &v) break;
+
+            for(Edge *de : e->source->DependencySet){
+                W.push_dependency(de);
+            }
+            e->source->DependencySet.clear();
+        }
+        else if(czero){
+            if(e->source->IsNegated){
+                e->source->assignment = ONE;
+                if(e->source == &v) break;
+
+                for(Edge *de : e->source->DependencySet){
+                    W.push_dependency(de);
+                }
+                e->source->DependencySet.clear();
+            }
+            else{
+                if(e->source->Successors.size() == 1){
+                    e->source->assignment == CZERO;
+                    if(e->source == &v) break;
+
+                    for(Edge *de : e->source->DependencySet){
+                        W.push_dependency(de);
+                    }
+                    e->source->DependencySet.clear();
+                }
+            }
+            e->source->removeSuccessor(e);
+        }
+        else if(targetZEROassignments > 0){
+            if(e->source->IsNegated && e->processed){
+                e->source->assignment = ONE;
+                if(e->source == &v) break;
+                for(Edge *de : e->source->DependencySet){
+                    W.push_dependency(de);
+                }
+                e->source->DependencySet.clear();
+            }
+            else {
+                for(auto c : e->targets){
+                    if(c->assignment == ZERO) {
+                        c->DependencySet.push_back(e);
+                    }
+                }
+            }
+        }
+        else if(targetUKNOWNassignments > 0){
+            for(Configuration *tc : e->targets){
+                if(tc->assignment == UNKNOWN){
+                    tc->assignment = ZERO;
+                    tc->DependencySet.push_back(e);
+
+                    for(Edge *succ : successors(*tc)){
+                        W.push(succ);
+                        if(succ->source->IsNegated){
+                            N.push(succ);
+                        }
+                    }
+                }
+            }
+        }
+        e->processed = true;
+    }
+
+    //std::cout << "Final Assignment: " << v.assignment << " " << ((v.assignment == ONE) ? true : false) << std::endl;
+    return (v.assignment == ONE) ? true : false;
 }
 
-std::list<Edge*> CZero_FP_Algorithm::successors(Configuration& v) {
+std::list<Edge *> CZero_FP_Algorithm::successors(Configuration &v)
+{
     std::list<Edge*> succ;
     //All
     if(v.query->quantifier == A){
@@ -135,6 +265,7 @@ std::list<Edge*> CZero_FP_Algorithm::successors(Configuration& v) {
             Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
             Edge* e = new Edge(&v);
             e->targets.push_back(c);
+             succ.push_back(e);
 
             auto targets = nextState(*(v.marking));
 
@@ -146,7 +277,6 @@ std::list<Edge*> CZero_FP_Algorithm::successors(Configuration& v) {
                     succ.push_back(e);
                 }
             }
-            succ.push_back(e);
 
         }//Exists Finally end
     } //Exists end
@@ -186,7 +316,8 @@ std::list<Edge*> CZero_FP_Algorithm::successors(Configuration& v) {
         //Edge* e = new Edge(&v);
         //e->targets.push_back(&v);
         if (evaluateQuery(v)){
-           succ.push_back(new Edge(&v));
+            //assignConfiguration(&v, ONE);
+            succ.push_back(new Edge(&v));
         } else {
             //assignConfiguration(&v, CZERO);
         }
@@ -199,7 +330,6 @@ std::list<Edge*> CZero_FP_Algorithm::successors(Configuration& v) {
     //computedSucc += succ.size();
     //std::cout << "-----------EDGES NOW : " << computedSucc << "\n" << std::flush;
 }
-
 
 bool CZero_FP_Algorithm::evaluateQuery(Configuration &t_config){
 

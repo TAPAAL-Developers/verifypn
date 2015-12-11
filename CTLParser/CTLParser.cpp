@@ -126,7 +126,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             query->depth = (query1->depth + 1);
             query->max_depth = (query1->max_depth + 1);
             
-            std::cout<<"::: AG Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
+            //std::cout<<"::: AG Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
             
             return query;
         }
@@ -162,7 +162,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             query->depth = (query1->depth + 1);
             query->max_depth = (query1->max_depth + 1);
             
-            std::cout<<"::: EG Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
+            //std::cout<<"::: EG Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
             
             return query;
         }
@@ -240,7 +240,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
                 i++;
             }
             
-            std::cout<<"::: Atom Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
+            //std::cout<<"::: Atom Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
             
             return query; 
         }
@@ -291,7 +291,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             }
             
             //std::cout << "-----TEST:: Returning query set: " << query->a.set << "\n" << std::flush;
-            std::cout<<"::: Atom Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
+            //std::cout<<"::: Atom Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
             return query; 
         }
         else {
@@ -343,7 +343,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         query->max_depth = (query->first->max_depth + 1);
     }
     
-    std::cout<<"::: True Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
+    //std::cout<<"::: True Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
     
     return query;
 }

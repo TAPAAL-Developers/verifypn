@@ -25,22 +25,26 @@ void Edge::edgePrinter(){
         std::cout << "-------------------------------------------------------\n";
     }
 
-    void Edge::rateEdge(){
+void Edge::rateEdge(){
 
-        if(Rating > -1){
-            return;
-        }
-
-        int dist = 0;
-        int breath = 0;
-
-        for(auto t : targets){
-            dist += t->query->depth;
-            breath++;
-        }
-        //make equation
-        Rating = (0*breath) + (2*dist);
+    if(Rating > -1){
+        return;
     }
+    int alpha = 1;
+    int beta = 1;
+    int gamma = 2;
+
+    int dist = 0;
+    int breath = 0;
+    int succ = source->Successors.size();
+
+    for(auto t : targets){
+        dist += t->query->depth;
+        breath++;
+    }
+    //make equation
+    Rating = (alpha*dist) + (beta*breath) + (gamma*succ);
+}
 
 }
 //namespace std{
