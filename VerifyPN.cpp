@@ -47,6 +47,8 @@
 #include "CTLParser/CTLParser.h"
 
 #include "CTL/dgengine.h"
+#include "CTL/edgepicker.h"
+#include "CTL/czero_fp_algorithm.h"
 
 
 using namespace std;
@@ -200,16 +202,30 @@ void search_ctl_query(PetriNet* net,
                       ctl::ctl_search_strategy t_strategy)
 {
     ctl::DGEngine engine(net, m0);
+    ctl::CZero_FP_Algorithm engine2(net, m0);
+    int configCount = 0, markingCount = 0;
+    bool res;
 
     if(t_xmlquery > 0){
         clock_t individual_search_begin = clock();
-        engine.search(queryList[t_xmlquery - 1]->Query, t_algorithm, t_strategy);
+        if(t_algorithm == ctl::CZero_i){
+            engine2.search(queryList[t_xmlquery - 1]->Query, new ctl::EdgePicker(t_strategy));
+            configCount = engine2.configuration_count();
+            markingCount = engine2.marking_count();
+            queryList[t_xmlquery - 1]->Result = engine2.querySatisfied();
+            res = engine2.querySatisfied();
+        }
+        else{
+            engine.search(queryList[t_xmlquery - 1]->Query, t_algorithm, t_strategy);
+            configCount = engine.configuration_count();
+            markingCount = engine.marking_count();
+            queryList[t_xmlquery - 1]->Result = engine.querySatisfied();
+            res = engine.querySatisfied();
+        }
         clock_t individual_search_end = clock();
         cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery - 1 <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
-        cout<<":::DATA::: Configurations: " << engine.configuration_count() << " Markings: " << engine.marking_count() << endl;
+        cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
 
-        queryList[t_xmlquery - 1]->Result = engine.querySatisfied();
-        bool res = engine.querySatisfied();
         if (res)
             result[t_xmlquery - 1] = SuccessCode;
         else if (!res)
@@ -219,24 +235,38 @@ void search_ctl_query(PetriNet* net,
     }
     else{
         for (int i = 0; i < 16 ; i++) {
+            clock_t individual_search_end, individual_search_begin;
 
-            clock_t individual_search_begin = clock();
-            engine.search(queryList[i]->Query, t_algorithm, t_strategy);
-            clock_t individual_search_end = clock();
-            cout<<":::TIME::: Search elapsed time for query "<<i<<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
-            cout<<":::DATA::: Configurations: " << engine.configuration_count() << " Markings: " << engine.marking_count() << endl;
+            if(t_algorithm == ctl::CZero_i){
+                engine2.search(queryList[i]->Query, new ctl::EdgePicker(t_strategy));
+                individual_search_begin = clock();
+                configCount = engine2.configuration_count();
+                individual_search_end = clock();
+                markingCount = engine2.marking_count();
+                queryList[i]->Result = engine2.querySatisfied();
+                res = engine2.querySatisfied();
+                engine2.clear();
+            }
+            else{
+                engine.search(queryList[i]->Query, t_algorithm, t_strategy);
+                individual_search_begin = clock();
+                configCount = engine.configuration_count();
+                individual_search_end = clock();
+                markingCount = engine.marking_count();
+                queryList[i]->Result = engine.querySatisfied();
+                res = engine.querySatisfied();
+                engine.clear();
+            }
+            cout<<":::TIME::: Search elapsed time for query "<< i <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+            cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
 
-            queryList[i]->Result = engine.querySatisfied();
-            bool res = engine.querySatisfied();
             if (res)
                 result[i] = SuccessCode;
             else if (!res)
                 result[i] = FailedCode;
             else result[i] = ErrorCode;
             queryList[i]->pResult();
-
-            engine.clear(); //Clean up configurations
-       }
+        }
    }
 }
 
@@ -298,6 +328,9 @@ int main(int argc, char* argv[]){
                 }
                 else if(strcmp(s, "czero") == 0){
                     ctl_algorithm = ctl::CZero;
+                }
+                else if(strcmp(s, "czero-i") == 0){
+                    ctl_algorithm = ctl::CZero_i;
                 }
                 else{
                     fprintf(stderr, "Argument Error: Unrecognized ctl algorithm \"%s\"\n", s);

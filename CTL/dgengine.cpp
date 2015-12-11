@@ -23,6 +23,7 @@ void DGEngine::search(CTLTree *t_query, ctl_algorithm t_algorithm, ctl_search_st
     _strategy = t_strategy;
 
     Marking* firstMarking = new Marking(_m0, _nplaces);
+    Markings.insert(firstMarking);
     Configuration* v0 = createConfiguration(*firstMarking, *t_query);
 
     evilCircles = 0;

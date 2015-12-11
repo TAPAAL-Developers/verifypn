@@ -12,7 +12,7 @@ namespace ctl{
 //        return true;
 //    }
 
-    void Edge::edgePrinter(){
+void Edge::edgePrinter(){
     	std::cout << "--------------- Edge Information -------------------\n";
 	    std::cout << "--------------- source config----------------------\n";
 	    	source->configPrinter();

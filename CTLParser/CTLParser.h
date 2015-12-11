@@ -43,6 +43,7 @@ struct CTLTree {
   CTLTree *second;
   Atom a;
   unsigned int depth;
+  unsigned int max_depth;
 } ;
 
 struct CTLFormula {
