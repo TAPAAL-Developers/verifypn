@@ -6,11 +6,19 @@
 #include "../CTLParser/CTLParser.h"
 #include "../PetriEngine/PetriNet.h"
 
+#include <queue>
+
 namespace ctl{
 
 class CZero_FP_Algorithm
 {
 public:
+    struct edge_prioritizer{
+        bool operator()(const Edge *lhs, const Edge *rhs) const {
+            return (lhs->source->query->max_depth > rhs->source->query->max_depth);
+        }
+    };
+
     CZero_FP_Algorithm(PetriEngine::PetriNet *net, PetriEngine::MarkVal *initialmarking);
     bool search(CTLTree *t_query, EdgePicker *t_W);
     inline bool querySatisfied(){return _querySatisfied; }
@@ -35,7 +43,7 @@ private:
                         std::hash<Configuration*>,
                         Configuration::Configuration_Equal_To> Configurations;
 
-    bool czero_fp_algorithm(Configuration &v);
+    bool czero_fp_algorithm(Configuration &v, EdgePicker &W);
 
     std::list<Edge *> successors(Configuration &v);
     bool evaluateQuery(Configuration &t_config);
@@ -44,6 +52,8 @@ private:
     std::list<int> calculateFireableTransistions(Marking &t_marking);
     Configuration *createConfiguration(Marking &t_marking, CTLTree &t_query);
     Marking *createMarking(const Marking &t_marking, int t_transition);
+
+    typedef std::priority_queue<Edge*, std::vector<Edge*>, ctl::CZero_FP_Algorithm::edge_prioritizer> PriorityQueue;
 };
 }//ctl
 #endif // CZERO_FP_ALGORITHM_H

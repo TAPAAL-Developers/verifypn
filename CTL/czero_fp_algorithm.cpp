@@ -1,6 +1,6 @@
 #include "czero_fp_algorithm.h"
 
-#include "string.h"
+#include <string.h>
 
 namespace ctl{
 
@@ -16,11 +16,12 @@ bool CZero_FP_Algorithm::search(CTLTree *t_query, EdgePicker *t_W)
 {
     Marking *m0 = new Marking(_m0, _nplaces);
     Configuration *c0 = createConfiguration(*m0, *t_query);
-    return czero_fp_algorithm(*c0);
+    return czero_fp_algorithm(*c0, *t_W);
 }
 
-bool CZero_FP_Algorithm::czero_fp_algorithm(Configuration &v)
+bool CZero_FP_Algorithm::czero_fp_algorithm(Configuration &v, EdgePicker &W)
 {
+    PriorityQueue N;
     return false;
 }
 
