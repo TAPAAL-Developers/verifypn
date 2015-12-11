@@ -9,6 +9,8 @@
 
 namespace ctl {
 
+class Edge;
+
 enum Assignment {
     ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2
 };

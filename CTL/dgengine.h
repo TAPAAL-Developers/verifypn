@@ -17,7 +17,7 @@ namespace ctl{
 class EdgePicker;
 
 //enum Search_Strategy { LOCALSMOLKA, LOCALSMOLKA_BFS, GLOBALSMOLKA, GLOBALSMOLKA_BFS };
-enum ctl_algorithm {Local, Global, CZero};
+enum ctl_algorithm {Local, Global, CZero, CZero_i};
 enum ctl_search_strategy {CTL_BFS,              //Breadth-First Search
                           CTL_FBFS,             //BFS + propagation first
                           CTL_BBFS,             //BFS + propagation last
