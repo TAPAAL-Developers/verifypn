@@ -117,7 +117,7 @@ bool CZero_FP_Algorithm::czero_fp_algorithm(Configuration &v, EdgePicker &W, boo
             }
             e->source->DependencySet.clear();
         }
-        else if(czero || e->source->Successors.size() == 0){
+        else if(czero){
             if(e->source->IsNegated){
                 e->source->assignment = ONE;
                 if(e->source == &v) break;
@@ -162,11 +162,18 @@ bool CZero_FP_Algorithm::czero_fp_algorithm(Configuration &v, EdgePicker &W, boo
                 if(tc->assignment == UNKNOWN){
                     tc->assignment = ZERO;
                     tc->DependencySet.push_back(e);
+                    successors(*tc);
 
-                    for(Edge *succ : successors(*tc)){
-                        W.push(succ);
-                        if(succ->source->IsNegated){
-                            N.push(succ);
+                    if(tc->Successors.empty()){
+                        tc->assignment = CZERO;
+                        W.push_dependency(e);
+                    }
+                    else {
+                        for(Edge *succ : tc->Successors){
+                            W.push(succ);
+                            if(succ->source->IsNegated){
+                                N.push(succ);
+                            }
                         }
                     }
                 }
