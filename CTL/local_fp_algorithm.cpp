@@ -46,13 +46,13 @@ bool Local_FP_Algorithm::local_fp_algorithm(Configuration &v, EdgePicker &W)
         if(!W.empty()) {
             e = W.pop();
             //std::cout << "Popped negation edge from N: \n" << std::flush;
-            e->edgePrinter();
+           // e->edgePrinter();
         }
         else if (!N.empty()) {
             e = N.top();
             N.pop();
             //std::cout << "Popped negation edge from N: \n" << std::flush;
-            e->edgePrinter();
+            //e->edgePrinter();
         }
 
         /*****************************************************************/

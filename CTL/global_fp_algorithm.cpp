@@ -49,13 +49,13 @@ bool Global_FP_Algorithm::global_fp_algorithm(Configuration &v, EdgePicker &W, b
         if(!W.empty()) {
             e = W.pop();
             //std::cout << "Popped negation edge from N: \n" << std::flush;
-            e->edgePrinter();
+          //  e->edgePrinter();
         }
         else if (!N.empty()) {
             e = N.top();
             N.pop();
             //std::cout << "Popped negation edge from N: \n" << std::flush;
-            e->edgePrinter();
+            //e->edgePrinter();
         }
 
         /*****************************************************************/
