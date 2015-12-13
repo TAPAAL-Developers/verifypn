@@ -549,17 +549,26 @@ bool DGEngine::evaluateQuery(Configuration &t_config){
         return result;
     }
 
-    int less = query->a.tokenCount.intSmaller;
-    int greater= query->a.tokenCount.intLarger;
+    int less = query->a.cardinality.intSmaller;
+    int greater= query->a.cardinality.intLarger;
 
     if( less == -1 ){
-        int index = query->a.tokenCount.placeSmaller;
-        less = t_config.marking->Value()[index];
+        int i = 0;
+        less = 0;
+        for (i = 0; i < query->a.cardinality.placeSmaller.sizeoftokencount; i++){
+            int index = query->a.cardinality.placeSmaller.cardinality[i];
+            less += t_config.marking->Value()[index];
+        }
     }
 
     if (greater == -1){
-        int index = query->a.tokenCount.placeLarger;
-        greater = t_config.marking->Value()[index];
+        int i = 0;
+        greater = 0;
+        for (i = 0; query->a.cardinality.placeLarger.sizeoftokencount; i++){
+            int index = query->a.cardinality.placeLarger.cardinality[i];
+            greater = t_config.marking->Value()[index];
+        }
+        
     }
 
     result = less <= greater;

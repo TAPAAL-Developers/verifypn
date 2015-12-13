@@ -179,10 +179,16 @@ void getQueryPlaces(vector<string> *QueryPlaces, CTLTree* current, PetriNet *net
             }
         }
         else {
-            const char *lname_c = net->placeNames()[current->a.tokenCount.placeLarger].c_str();
-            string lname = lname_c;
-            const char *sname_c = net->placeNames()[current->a.tokenCount.placeSmaller].c_str();
-            string sname = sname_c;
+            int i = 0;
+            string lname, sname;
+            for (i = 0; i < current->a.cardinality.placeLarger.sizeoftokencount; i++){
+                const char *lname_c = net->placeNames()[current->a.cardinality.placeLarger.cardinality[i]].c_str();
+                lname += lname_c;
+            }
+            for(i = 0; i < current->a.cardinality.placeSmaller.sizeoftokencount; i++){
+                const char *sname_c = net->placeNames()[current->a.cardinality.placeSmaller.cardinality[i]].c_str();
+                sname += sname_c;
+            }
             QueryPlaces->insert(QueryPlaces->end(), lname);
             QueryPlaces->insert(QueryPlaces->end(), sname);
         }
@@ -580,6 +586,17 @@ int main(int argc, char* argv[]){
     //----------------------- Parse CTL Query -----------------------//
     clock_t parse_ctl_query_begin = clock();
     CTLFormula *queryList[15];
+    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+    cout<<":::::::::::::::: Model Information ::::::::::::::"<<endl;
+    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+    cout<<"::::::::::: Number of places parsed: "<<net->numberOfPlaces()<<endl;
+    cout<<"::::::::::: Number of transitions parsed: "<<net->numberOfTransitions()<<endl;
+    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+    cout<<"::::::::: Places:"<<endl;
+    int i = 0;
+    for(i = 0; i< net->numberOfPlaces(); i++){
+        cout<<  "::::::::::::: "<< i << ". " << net->placeNames()[i] <<endl;
+    }
     
     if(isCTLlogic){
 //#ifdef Analysis //Extract the name of the model used

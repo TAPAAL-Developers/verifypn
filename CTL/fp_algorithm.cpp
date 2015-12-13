@@ -165,6 +165,7 @@ std::list<Edge *> FP_Algorithm::successors(Configuration &v)
     else {
         //Edge* e = new Edge(&v);
         //e->targets.push_back(&v);
+       // v.configPrinter();
         if (evaluateQuery(v)){
             //assignConfiguration(&v, ONE);
             succ.push_back(new Edge(&v));
@@ -210,22 +211,40 @@ bool FP_Algorithm::evaluateQuery(Configuration &t_config){
         return result;
     }
 
-    int less = query->a.tokenCount.intSmaller;
-    int greater= query->a.tokenCount.intLarger;
-
+    ///std::cout<<"Evaluating cardinality... "<<std::endl;
+ //   t_config.configPrinter();
+ //   std::cout<<"Less: ";
+    int less = query->a.cardinality.intSmaller;
+    int greater= query->a.cardinality.intLarger;
     if( less == -1 ){
-        int index = query->a.tokenCount.placeSmaller;
-        less = t_config.marking->Value()[index];
+        int i = 0;
+        less = 0;
+        for (i = 0; i < query->a.cardinality.placeSmaller.sizeoftokencount; i++){
+            int index = query->a.cardinality.placeSmaller.cardinality[i];
+            less += t_config.marking->Value()[index];
+ //           std::cout<<t_config.marking->Value()[index]<<" + ";
+        }
     }
-
+//    std::cout<<" = "<<less<<std::endl;
+//    std::cout<<"Greater: ";
     if (greater == -1){
-        int index = query->a.tokenCount.placeLarger;
-        greater = t_config.marking->Value()[index];
+        int i = 0;
+        greater = 0;
+       // std::cout<<"::: Number of places: "<<query->a.cardinality.placeLarger.sizeoftokencount<<std::endl;
+        for (i = 0; i < query->a.cardinality.placeLarger.sizeoftokencount; i++){
+            //std::cout<<"::::: i: "<<i<<std::endl;
+            int index = query->a.cardinality.placeLarger.cardinality[i];
+            //std::cout<<"::::: Index: "<<index<<" - Value: "<<t_config.marking->Value()[index]<<std::endl;
+            greater += t_config.marking->Value()[index];
+  //          std::cout<<t_config.marking->Value()[index]<<" + ";
+       //     std::cout<<"::::: greater: "<<greater<<std::endl;
+        }
+        
     }
-
+  //  std::cout<<" = "<<greater<<std::endl;
+    
     result = less <= greater;
-    //std::cout << "Evaluation: " << result << std::endl << std::flush;
-
+   // std::cout<<"... evaluation Done"<<std::endl;
     return result;
 }
 
