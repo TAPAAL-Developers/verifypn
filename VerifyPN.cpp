@@ -586,17 +586,6 @@ int main(int argc, char* argv[]){
     //----------------------- Parse CTL Query -----------------------//
     clock_t parse_ctl_query_begin = clock();
     CTLFormula *queryList[15];
-    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
-    cout<<":::::::::::::::: Model Information ::::::::::::::"<<endl;
-    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
-    cout<<"::::::::::: Number of places parsed: "<<net->numberOfPlaces()<<endl;
-    cout<<"::::::::::: Number of transitions parsed: "<<net->numberOfTransitions()<<endl;
-    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
-    cout<<"::::::::: Places:"<<endl;
-    int i = 0;
-    for(i = 0; i< net->numberOfPlaces(); i++){
-        cout<<  "::::::::::::: "<< i << ". " << net->placeNames()[i] <<endl;
-    }
     
     if(isCTLlogic){
 //#ifdef Analysis //Extract the name of the model used
@@ -756,7 +745,6 @@ int main(int argc, char* argv[]){
 
 	
     //--------------------- Apply Net Reduction ---------------//
-
     Reducer reducer = Reducer(net); // reduced is needed also in trace generation (hence the extended scope)
 	if (enablereduction == 1 or enablereduction == 2) {
 		// Compute how many times each place appears in the query
@@ -764,70 +752,70 @@ int main(int argc, char* argv[]){
 		for (size_t i = 0; i < net->numberOfPlaces(); i++) {
 			placeInQuery[i] = 0;
 		}
-		QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
-                MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
-                MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
-                
-                string reductionquerystr;
-                reductionquerystr += "(";
-                bool firstAccurance = true;
-                int i = 0;
-                vector<string> AllQeuryPlaces;
-                for (i = 0; i < 15; i++){
-                    CTLTree* current = queryList[i]->Query;
+                QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
+                //Translate from CTL
+                if(isCTLlogic){
+                    string reductionquerystr;
+                    reductionquerystr += "(";
+                    bool firstAccurance = true;
+                    int i = 0;
+                    vector<string> AllQeuryPlaces;
+                    CTLTree* current = queryList[xmlquery-1]->Query;
                     vector<string> *QueryPlaces = new vector<string>();
                     getQueryPlaces(QueryPlaces, current, net);
                     AllQeuryPlaces.reserve(AllQeuryPlaces.size() + QueryPlaces->size());
                     AllQeuryPlaces.insert(AllQeuryPlaces.end(), QueryPlaces->begin(), QueryPlaces->end());
-                    
-                }
-                vector<string> UniqueAllQeuryPlaces;
-                for(auto a : AllQeuryPlaces){
-                    bool isUnique = true;
-                    string newplace = "0 <= \"" + a + "\"";
-                    if(UniqueAllQeuryPlaces.empty()){
-                        
-                        UniqueAllQeuryPlaces.insert(UniqueAllQeuryPlaces.end(), newplace);
-                        isUnique = false;
-                    }
-                    else {
-                        for(auto u : UniqueAllQeuryPlaces){
-                            if (newplace.compare(u) == 0){
-                                isUnique = false;
+
+                    vector<string> UniqueAllQeuryPlaces;
+                    for(auto a : AllQeuryPlaces){
+                        bool isUnique = true;
+                        string newplace = "0 <= \"" + a + "\"";
+                        if(UniqueAllQeuryPlaces.empty()){
+
+                            UniqueAllQeuryPlaces.insert(UniqueAllQeuryPlaces.end(), newplace);
+                            isUnique = false;
+                        }
+                        else {
+                            for(auto u : UniqueAllQeuryPlaces){
+                                if (newplace.compare(u) == 0){
+                                    isUnique = false;
+                                }
                             }
                         }
+                        if (isUnique){
+                            UniqueAllQeuryPlaces.insert(UniqueAllQeuryPlaces.end(), newplace);
+                        }
                     }
-                    if (isUnique){
-                        UniqueAllQeuryPlaces.insert(UniqueAllQeuryPlaces.end(), newplace);
+                    for(auto a : UniqueAllQeuryPlaces){
+                        if(!firstAccurance)
+                            reductionquerystr += ") and (";
+                        reductionquerystr += a;
+                        firstAccurance = false;
+                    }
+                    reductionquerystr += ")";
+
+
+
+                    Condition* reductionquery;
+
+                    if(!firstAccurance) {
+                        reductionquery = ParseQuery(reductionquerystr);
+                        reductionquery->analyze(placecontext);
                     }
                 }
-                for(auto a : UniqueAllQeuryPlaces){
-                    if(!firstAccurance)
-                        reductionquerystr += ") and (";
-                    reductionquerystr += a;
-                    firstAccurance = false;
-                }
-                reductionquerystr += ")";
                 
-                cout<<reductionquerystr<<endl;
-                
-                Condition* reductionquery;
-                
-                if(!firstAccurance) {
-                    reductionquery = ParseQuery(reductionquerystr);
-                    reductionquery->analyze(placecontext);
-                }
-               
+		// Compute the places and transitions that connect to inhibitor arcs
+		MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
+		MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
 
 		// CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
 		reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
 
-		reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib); 
+		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib); 
 		reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
-		cout<<"::::::::::::REDUCE::::::::::::::"<<endl;
-                reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
+		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
 	}
-        
+    
 	//----------------------- Reachability -----------------------//
 
 	//Create reachability search strategy
