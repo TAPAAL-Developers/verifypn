@@ -803,6 +803,9 @@ int main(int argc, char* argv[]){
                         reductionquery->analyze(placecontext);
                     }
                 }
+                else {
+                    query->analyze(placecontext);
+                }
                 
 		// Compute the places and transitions that connect to inhibitor arcs
 		MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];

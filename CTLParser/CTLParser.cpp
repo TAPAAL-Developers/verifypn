@@ -73,7 +73,7 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[])
 #endif
         xml_node<> * formula_node = id_node->next_sibling("description")->next_sibling("formula");
         queryList[i]->Query = xmlToCTLquery(formula_node->first_node());
-        printQuery(queryList[i]->Query);
+        //printQuery(queryList[i]->Query);
         //#ifdef PP
         /*printQuery(queryList[i]->Query);
         std::cout << "\n";*/
@@ -261,10 +261,8 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
                 
                 for (xml_node<> * place_node = integerNode->first_node(); place_node; place_node = place_node->next_sibling()) {
                     int p_index = 0;
-                    std::cout<<"XML place: "<<place_node->value();
                     for (p_index = 0; p_index < _net->numberOfPlaces(); p_index++){
                         if(strcmp(_net->placeNames()[p_index].c_str(),place_node->value()) == 0){
-                            std::cout<<" == "<<_net->placeNames()[p_index].c_str()<<" - Index: "<<p_index<<std::endl;
                             query->a.cardinality.placeSmaller.cardinality[smallPlacecount] = p_index;
                             smallPlacecount++;
                             break;
