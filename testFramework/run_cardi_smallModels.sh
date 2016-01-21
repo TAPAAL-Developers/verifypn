@@ -4,8 +4,8 @@ RUNPATH=`pwd`
 MODELFILE="./model.pnml"
 ENGINE="-ctl"
 TOOL="../../DGEngine_singleQuery.sh"
-ALGORITHM=("czero-i")
-STRATEGY=("CDFS")
+ALGORITHM=("czero-i" "local-i")
+STRATEGY=("BestFS")
 ANALYSE="analyse.sh"
 MEMORY="mem.sh"
 
