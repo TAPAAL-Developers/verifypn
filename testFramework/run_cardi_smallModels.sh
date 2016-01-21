@@ -10,7 +10,7 @@ ANALYSE="analyse.sh"
 MEMORY="mem.sh"
 
 REL_PROGRAMPATH="../verifypn-linux64"
-INPUTSPATH="$RUNPATH/chosenFew/"
+INPUTSPATH="$RUNPATH/smallModels/"
 RESULTPATH="$RUNPATH/testResults/"
 ANALISEPATH="$RUNPATH/analysis"
 
