@@ -1,0 +1,80 @@
+Property FMS-PT-020-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("P1wP2")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("M1")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("M2")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("M2")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("M3")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("P1wM1")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("P12wM3")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("P2wP1")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("P1wM1")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("P2s")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("P1")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("P1wP2")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("P1s")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("P2d")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("P1M1")
+  end.
+Property FMS-PT-020-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("P1")
+  end.

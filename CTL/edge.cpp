@@ -32,7 +32,7 @@ void Edge::rateEdge(){
     }
     int alpha = 1;
     int beta = 1;
-    int gamma = 2;
+    int gamma = 1;
 
     int dist = 0;
     int breath = 0;

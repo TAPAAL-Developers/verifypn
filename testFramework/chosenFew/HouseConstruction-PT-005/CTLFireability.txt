@@ -1,0 +1,80 @@
+Property HouseConstruction-PT-005-CTLFireability-0
+  "Automatically generated"
+  is:
+    ((! E F (((("t12"?) | ("t3"?))) & ((("t11"?) & ("t13"?))))) & (A F A (("t14"?) U ("t18"?))))
+  end.
+Property HouseConstruction-PT-005-CTLFireability-1
+  "Automatically generated"
+  is:
+    ((A F A G "t10"?) & (E F E X (("t15"?) | ("t7"?))))
+  end.
+Property HouseConstruction-PT-005-CTLFireability-2
+  "Automatically generated"
+  is:
+    A G ((E (("t5"?) U ("t12"?))) | (E F "t4"?))
+  end.
+Property HouseConstruction-PT-005-CTLFireability-3
+  "Automatically generated"
+  is:
+    E ((E (("t2"?) U ("t11"?))) U (E G ! "t7"?))
+  end.
+Property HouseConstruction-PT-005-CTLFireability-4
+  "Automatically generated"
+  is:
+    ! E ((A F "t12"?) U (E X "t17"?))
+  end.
+Property HouseConstruction-PT-005-CTLFireability-5
+  "Automatically generated"
+  is:
+    ((E F A G ! "t17"?) | ("t8"?))
+  end.
+Property HouseConstruction-PT-005-CTLFireability-6
+  "Automatically generated"
+  is:
+    E F A G (((("t12"?) & ("t4"?))) & ((("t4"?) & ("t9"?))))
+  end.
+Property HouseConstruction-PT-005-CTLFireability-7
+  "Automatically generated"
+  is:
+    E X A F "t17"?
+  end.
+Property HouseConstruction-PT-005-CTLFireability-8
+  "Automatically generated"
+  is:
+    ((A F "t5"?) & (! (("t18"?) & (((E X "t16"?) & ("t11"?))))))
+  end.
+Property HouseConstruction-PT-005-CTLFireability-9
+  "Automatically generated"
+  is:
+    A F ((((A F "t8"?) & (! (("t13"?) | ("t1"?))))) & (((! ! "t14"?) | (E G "t13"?))))
+  end.
+Property HouseConstruction-PT-005-CTLFireability-10
+  "Automatically generated"
+  is:
+    E X A F ! ! "t17"?
+  end.
+Property HouseConstruction-PT-005-CTLFireability-11
+  "Automatically generated"
+  is:
+    E X E G (((("t9"?) | ("t15"?))) | ((("t15"?) | ("t1"?))))
+  end.
+Property HouseConstruction-PT-005-CTLFireability-12
+  "Automatically generated"
+  is:
+    A G ((E F (("t5"?) | ("t12"?))) | (A F (("t7"?) | ("t5"?))))
+  end.
+Property HouseConstruction-PT-005-CTLFireability-13
+  "Automatically generated"
+  is:
+    E X A G A F "t1"?
+  end.
+Property HouseConstruction-PT-005-CTLFireability-14
+  "Automatically generated"
+  is:
+    E G ((! ((! "t12"?) | ((("t13"?) & ("t12"?))))) | (((! (("t18"?) & ("t6"?))) | ((((("t12"?) & ("t2"?))) & ((("t11"?) | ("t12"?))))))))
+  end.
+Property HouseConstruction-PT-005-CTLFireability-15
+  "Automatically generated"
+  is:
+    ! ((! "t18"?) & (E F A G "t7"?))
+  end.

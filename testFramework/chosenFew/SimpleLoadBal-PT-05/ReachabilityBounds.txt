@@ -1,0 +1,80 @@
+Property SimpleLoadBal-COL-05-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("server_idle_1", "server_idle_2")) <= (2))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((bound("client_waiting_1", "client_waiting_2", "client_waiting_3", "client_waiting_4", "client_waiting_5")) <= (3))) & (((bound("server_idle_1", "server_idle_2")) <= (1))))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("lb_routing_1_1", "lb_routing_1_2", "lb_routing_1_3", "lb_routing_1_4", "lb_routing_1_5")) <= (1))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("server_waiting_1", "server_waiting_2")) <= (2))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("client_idle_1", "client_idle_2", "client_idle_3", "client_idle_4", "client_idle_5")) <= (3))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("lb_routing_1_1", "lb_routing_1_2", "lb_routing_1_3", "lb_routing_1_4", "lb_routing_1_5")) <= (2))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((((bound("server_notification_ack_1", "server_notification_ack_2")) <= (2))) & (((bound("lb_balancing_1")) <= (2))))) & (((((bound("server_notification_1", "server_notification_2")) <= (1))) & (((bound("server_request_1_1", "server_request_1_2", "server_request_2_1", "server_request_2_2", "server_request_3_1", "server_request_3_2", "server_request_4_1", "server_request_4_2", "server_request_5_1", "server_request_5_2")) <= (2))))))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("server_notification_ack_1", "server_notification_ack_2")) <= (2))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((bound("server_processed_1", "server_processed_2")) <= (3))) & (((bound("client_ack_1", "client_ack_2", "client_ack_3", "client_ack_4", "client_ack_5")) <= (3))))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("client_ack_1", "client_ack_2", "client_ack_3", "client_ack_4", "client_ack_5")) <= (3))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("server_notification_1", "server_notification_2")) <= (1))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((((bound("server_waiting_1", "server_waiting_2")) <= (2))) & (((bound("lb_routing_1_1", "lb_routing_1_2", "lb_routing_1_3", "lb_routing_1_4", "lb_routing_1_5")) <= (1))))) & (((((((((((((bound("client_ack_1", "client_ack_2", "client_ack_3", "client_ack_4", "client_ack_5")) <= (1))) & (((bound("server_notification_ack_1", "server_notification_ack_2")) <= (2))))) & (((((bound("client_idle_1", "client_idle_2", "client_idle_3", "client_idle_4", "client_idle_5")) <= (1))) & (((bound("lb_routing_1_1", "lb_routing_1_2", "lb_routing_1_3", "lb_routing_1_4", "lb_routing_1_5")) <= (2))))))) & (((bound("server_processed_1", "server_processed_2")) <= (2))))) & (((bound("lb_load_1_0", "lb_load_1_1", "lb_load_1_2", "lb_load_1_3", "lb_load_1_4", "lb_load_1_5", "lb_load_2_0", "lb_load_2_1", "lb_load_2_2", "lb_load_2_3", "lb_load_2_4", "lb_load_2_5")) <= (2))))) & (((bound("server_notification_1", "server_notification_2")) <= (3))))))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((((bound("server_notification_1", "server_notification_2")) <= (1))) & (((((bound("server_idle_1", "server_idle_2")) <= (1))) & (((((bound("client_ack_1", "client_ack_2", "client_ack_3", "client_ack_4", "client_ack_5")) <= (2))) & (((bound("client_request_1", "client_request_2", "client_request_3", "client_request_4", "client_request_5")) <= (3))))))))) & (((((((bound("client_ack_1", "client_ack_2", "client_ack_3", "client_ack_4", "client_ack_5")) <= (1))) & (((((bound("lb_balancing_1")) <= (2))) & (((bound("server_request_1_1", "server_request_1_2", "server_request_2_1", "server_request_2_2", "server_request_3_1", "server_request_3_2", "server_request_4_1", "server_request_4_2", "server_request_5_1", "server_request_5_2")) <= (3))))))) & (((((((bound("server_waiting_1", "server_waiting_2")) <= (2))) & (((((((bound("server_waiting_1", "server_waiting_2")) <= (3))) & (((bound("lb_routing_1_1", "lb_routing_1_2", "lb_routing_1_3", "lb_routing_1_4", "lb_routing_1_5")) <= (3))))) & (((bound("client_waiting_1", "client_waiting_2", "client_waiting_3", "client_waiting_4", "client_waiting_5")) <= (1))))))) & (((((bound("server_idle_1", "server_idle_2")) <= (2))) & (((bound("lb_balancing_1")) <= (2))))))))))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("server_notification_ack_1", "server_notification_ack_2")) <= (3))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("server_request_1_1", "server_request_1_2", "server_request_2_1", "server_request_2_2", "server_request_3_1", "server_request_3_2", "server_request_4_1", "server_request_4_2", "server_request_5_1", "server_request_5_2")) <= (3))
+  end.
+Property SimpleLoadBal-COL-05-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((((((bound("lb_load_1_0", "lb_load_1_1", "lb_load_1_2", "lb_load_1_3", "lb_load_1_4", "lb_load_1_5", "lb_load_2_0", "lb_load_2_1", "lb_load_2_2", "lb_load_2_3", "lb_load_2_4", "lb_load_2_5")) <= (3))) & (((((((bound("lb_routing_1_1", "lb_routing_1_2", "lb_routing_1_3", "lb_routing_1_4", "lb_routing_1_5")) <= (3))) & (((((bound("lb_idle_1")) <= (3))) & (((bound("server_waiting_1", "server_waiting_2")) <= (1))))))) & (((((bound("server_waiting_1", "server_waiting_2")) <= (3))) & (((((bound("lb_routing_1_1", "lb_routing_1_2", "lb_routing_1_3", "lb_routing_1_4", "lb_routing_1_5")) <= (1))) & (((bound("lb_balancing_1")) <= (2))))))))))) & (((bound("server_processed_1", "server_processed_2")) <= (2))))) & (((bound("client_request_1", "client_request_2", "client_request_3", "client_request_4", "client_request_5")) <= (1))))
+  end.
