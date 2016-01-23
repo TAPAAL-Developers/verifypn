@@ -73,7 +73,7 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[])
 #endif
         xml_node<> * formula_node = id_node->next_sibling("description")->next_sibling("formula");
         queryList[i]->Query = xmlToCTLquery(formula_node->first_node());
-
+        //printQuery(queryList[i]->Query);
         //#ifdef PP
         /*printQuery(queryList[i]->Query);
         std::cout << "\n";*/
@@ -213,7 +213,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
                             }
                         }
                         
-                        query->a.fireset[i].denpencyplaces = (Cardinality*) calloc(numberofdependencyplaces, sizeof(Cardinality));
+                        query->a.fireset[i].denpencyplaces = (Dependency*) calloc(numberofdependencyplaces, sizeof(Dependency));
                         query->a.fireset[i].sizeofdenpencyplaces = numberofdependencyplaces;
                         
                         
@@ -246,48 +246,70 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         }
         else if (root_name[1] == 'n') {
             xml_node<> * integerNode = root->first_node();
-            integerNode = root->first_node();
             query->a.isFireable = false;
             query->a.firesize = 0;
-            xml_node<> * temp_node = integerNode;
             //std::cout<< "\n\n ---------------> Found integer-le - First attribute:\n ::Name: "<<integerNode->name()<<"\n ::Value: "<<integerNode->value()<<"\n"<<std::flush;
             if (integerNode->name()[0] == 't') {
-                int p_index = 0;
-                for (p_index = 0; p_index < _net->numberOfPlaces(); p_index++){
-                    if(strcmp(_net->placeNames()[p_index].c_str(),integerNode->first_node()->value()) == 0){
-                        query->a.tokenCount.placeSmaller = p_index;
+                int smallPlacecount = 0, numberofplaces = 0;
+                for (xml_node<> * place_node = integerNode->first_node(); place_node; place_node = place_node->next_sibling()) {
+                    numberofplaces++;
+                }
+                //std::cout<<"Number of places: "<<numberofplaces<<std::flush;
+                
+                query->a.cardinality.placeSmaller.cardinality = (int*) calloc(numberofplaces, sizeof(int));
+                query->a.cardinality.placeSmaller.sizeoftokencount = numberofplaces;
+                
+                for (xml_node<> * place_node = integerNode->first_node(); place_node; place_node = place_node->next_sibling()) {
+                    int p_index = 0;
+                    for (p_index = 0; p_index < _net->numberOfPlaces(); p_index++){
+                        if(strcmp(_net->placeNames()[p_index].c_str(),place_node->value()) == 0){
+                            query->a.cardinality.placeSmaller.cardinality[smallPlacecount] = p_index;
+                            smallPlacecount++;
+                            break;
+                        }
                     }
                 }
-                query->a.tokenCount.intSmaller = -1;
+                query->a.cardinality.intSmaller = -1;
                // std::cout<< query->a.tokenCount.placeSmaller << " should be a smaller PLACE than ";
             }
             else if (integerNode->name()[0] == 'i') {
                 char *temp;
                 temp = integerNode->value();
-                query->a.tokenCount.intSmaller = atoi(temp);
-                query->a.tokenCount.placeSmaller = -1;
-              //  std::cout<< query->a.tokenCount.intSmaller << " should be a smaller INTEGER-CONTANT than ";
+                query->a.cardinality.intSmaller = atoi(temp);
+                query->a.cardinality.placeSmaller.sizeoftokencount = 0;         
+                //std::cout<< query->a.cardinality.intSmaller << " should be a smaller INTEGER-CONTANT than ";
             }
             
+            //std::cout<<"LESS THAN";
             integerNode = integerNode->next_sibling();
             
             if (integerNode->name()[0] == 't') {
-                int p_index = 0;
-                for (p_index = 0; p_index < _net->numberOfPlaces(); p_index++){
-                    if(strcmp(_net->placeNames()[p_index].c_str(),integerNode->first_node()->value()) == 0){
-                        query->a.tokenCount.placeLarger = p_index;
+                int largePlacecount = 0, numberofplaces = 0;
+                for (xml_node<> * place_node = integerNode->first_node(); place_node; place_node = place_node->next_sibling()) {
+                    numberofplaces++;
+                }
+                //std::cout<<"Number of places: "<<numberofplaces<<std::endl;
+                query->a.cardinality.placeLarger.cardinality = (int*) calloc(numberofplaces, sizeof(int));
+                query->a.cardinality.placeLarger.sizeoftokencount = numberofplaces;
+                for (xml_node<> * place_node = integerNode->first_node(); place_node; place_node = place_node->next_sibling()) {
+                    int p_index = 0;
+                    for (p_index = 0; p_index < _net->numberOfPlaces(); p_index++){
+                        if(strcmp(_net->placeNames()[p_index].c_str(),place_node->first_node()->value()) == 0){
+                            query->a.cardinality.placeLarger.cardinality[largePlacecount] = p_index;
+                            largePlacecount++;
+                            break;
+                        }
                     }
                 }
-                query->a.tokenCount.intLarger = -1;
-              //  std::cout<< query->a.tokenCount.placeLarger << " - witch is a PLACE ";
+                query->a.cardinality.intLarger = -1;
             }
                 
             else if (integerNode->name()[0] == 'i') {
                 char *temp;
                 temp = integerNode->value();
-                query->a.tokenCount.intLarger = atoi(temp);
-                query->a.tokenCount.placeLarger = -1;
-               // std::cout<< query->a.tokenCount.intLarger << " - witch is an INTEGER-CONTANT ";
+                query->a.cardinality.intLarger = atoi(temp);
+                query->a.cardinality.placeLarger.sizeoftokencount = 0;
+                //std::cout<< query->a.cardinality.intLarger << " - witch is an INTEGER-CONTANT ";
             }
             
             //std::cout << "-----TEST:: Returning query set: " << query->a.set << "\n" << std::flush;
@@ -399,15 +421,25 @@ void CTLParser::printQuery(CTLTree *query) {
         }
         else {
             std::cout<< " Tokencount(" << std::flush;
-            if (a.tokenCount.intSmaller == -1) 
-                std::cout<< a.tokenCount.placeSmaller;
+            if (a.cardinality.intSmaller == -1){
+                int i = 0;
+                for (i = 0; i < a.cardinality.placeSmaller.sizeoftokencount; i++){
+                    std::cout<< a.cardinality.placeSmaller.cardinality[i]<<" ";
+                }
+            }
             else 
-                std::cout << a.tokenCount.intSmaller;
+                std::cout << a.cardinality.intSmaller;
+            
             std::cout<< " le " << std::flush;
-            if (a.tokenCount.intLarger == -1) 
-                std::cout<< a.tokenCount.placeLarger;
+            
+            if (a.cardinality.intLarger == -1) {
+                int i = 0;
+                for (i = 0; i < a.cardinality.placeLarger.sizeoftokencount; i++){
+                    std::cout<< a.cardinality.placeLarger.cardinality[i]<<" ";
+                }
+            }
             else 
-                std::cout<< a.tokenCount.intLarger;
+                std::cout<< a.cardinality.intLarger;
             std::cout << ")";
         }
         return;

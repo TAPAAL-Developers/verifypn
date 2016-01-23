@@ -1,8 +1,14 @@
 /* PeTe - Petri Engine exTremE
- * Copyright (C) 2011-2014  Jonas Finnemann Jensen <jopsen@gmail.com>,
+ * Copyright (C) 2011-2015  Jonas Finnemann Jensen <jopsen@gmail.com>,
  *                          Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                          Lars Kærlund Østergaard <larsko@gmail.com>,
  *                          Jiri Srba <srba.jiri@gmail.com>
+ * CTL Extension
+ *                          Isabella Kaufmann <ikaufm12@student.aau.dk>
+ *                          Lasse Steen Jensen <lasjen12@student.aau.dk>
+ *                          Søren Moss Nielsen <smni12@student.aau.dk>
+ *                          Jiri Srba <srba.jiri@gmail.com>
+ * 
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -179,10 +185,16 @@ void getQueryPlaces(vector<string> *QueryPlaces, CTLTree* current, PetriNet *net
             }
         }
         else {
-            const char *lname_c = net->placeNames()[current->a.tokenCount.placeLarger].c_str();
-            string lname = lname_c;
-            const char *sname_c = net->placeNames()[current->a.tokenCount.placeSmaller].c_str();
-            string sname = sname_c;
+            int i = 0;
+            string lname, sname;
+            for (i = 0; i < current->a.cardinality.placeLarger.sizeoftokencount; i++){
+                const char *lname_c = net->placeNames()[current->a.cardinality.placeLarger.cardinality[i]].c_str();
+                lname += lname_c;
+            }
+            for(i = 0; i < current->a.cardinality.placeSmaller.sizeoftokencount; i++){
+                const char *sname_c = net->placeNames()[current->a.cardinality.placeSmaller.cardinality[i]].c_str();
+                sname += sname_c;
+            }
             QueryPlaces->insert(QueryPlaces->end(), lname);
             QueryPlaces->insert(QueryPlaces->end(), sname);
         }
@@ -454,18 +466,21 @@ int main(int argc, char* argv[]){
 				}
 		} else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0){
 			printf(	"Usage: verifypn [options] model-file query-file\n"
-					"A tool for answering reachability of place cardinality queries (including deadlock)\n" 
+					"A tool for answering CTL and reachability of place cardinality queries (including deadlock)\n" 
                                         "for weighted P/T Petri nets extended with inhibitor arcs.\n"
 					"\n"
 					"Options:\n"
 					"  -k, --k-bound <number of tokens>   Token bound, 0 to ignore (default)\n"
 					"  -t, --trace                        Provide XML-trace to stderr\n"
 					"  -s, --search-strategy <strategy>   Search strategy:\n"
-					"                                     - BestFS       Heuristic search (default)\n"
-					"                                     - BFS          Breadth first search\n"
-					"                                     - DFS          Depth first search\n"
+					"                                     - BestFS       Heuristic search (default) (also works for CTL)\n"
+					"                                     - BFS          Breadth first search (also works for CTL)\n"
+					"                                     - DFS          Depth first search (also works for CTL)\n"
 					"                                     - RDFS         Random depth first search\n"
 					"                                     - OverApprox   Linear Over Approx\n"
+                                        "                                     - BDFS           Can only be used with the -ctl flag\n"
+                                        "                                     - BBFS           Can only be used with the -ctl flag\n"
+                                        "                                     - CDFS           Can only be used with the -ctl flag and the czero-i algorithm\n"
 					"  -m, --memory-limit <megabyte>      Memory limit for the state space search in MB,\n"
 					"                                     0 for unlimited (default)\n"
 					"  -e, --state-space-exploration      State-space exploration only (query-file is irrelevant)\n"
@@ -478,6 +493,10 @@ int main(int argc, char* argv[]){
 					"  -n, --no-statistics                Do not display any statistics (default is to display it)\n"
 					"  -h, --help                         Display this help message\n"
 					"  -v, --version                      Display version information\n"
+                                        "  -ctl <algorithm>                   CTL query verification in VerifyPN-CTL:\n"
+                                        "                                     czero-i   Certain zero early termination algorithm\n"
+                                        "                                     local-i   Local algorithm\n"
+                                        "                                     gobal-i   Global algorithm (very memory expensive)\n"
 					"\n"
 					"Return Values:\n"
 					"  0   Successful, query satisfiable\n"
@@ -739,7 +758,6 @@ int main(int argc, char* argv[]){
 
 	
     //--------------------- Apply Net Reduction ---------------//
-
     Reducer reducer = Reducer(net); // reduced is needed also in trace generation (hence the extended scope)
 	if (enablereduction == 1 or enablereduction == 2) {
 		// Compute how many times each place appears in the query
@@ -747,70 +765,73 @@ int main(int argc, char* argv[]){
 		for (size_t i = 0; i < net->numberOfPlaces(); i++) {
 			placeInQuery[i] = 0;
 		}
-		QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
-                MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
-                MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
-                
-                string reductionquerystr;
-                reductionquerystr += "(";
-                bool firstAccurance = true;
-                int i = 0;
-                vector<string> AllQeuryPlaces;
-                for (i = 0; i < 15; i++){
-                    CTLTree* current = queryList[i]->Query;
+                QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
+                //Translate from CTL
+                if(isCTLlogic){
+                    string reductionquerystr;
+                    reductionquerystr += "(";
+                    bool firstAccurance = true;
+                    int i = 0;
+                    vector<string> AllQeuryPlaces;
+                    CTLTree* current = queryList[xmlquery-1]->Query;
                     vector<string> *QueryPlaces = new vector<string>();
                     getQueryPlaces(QueryPlaces, current, net);
                     AllQeuryPlaces.reserve(AllQeuryPlaces.size() + QueryPlaces->size());
                     AllQeuryPlaces.insert(AllQeuryPlaces.end(), QueryPlaces->begin(), QueryPlaces->end());
-                    
-                }
-                vector<string> UniqueAllQeuryPlaces;
-                for(auto a : AllQeuryPlaces){
-                    bool isUnique = true;
-                    string newplace = "0 <= \"" + a + "\"";
-                    if(UniqueAllQeuryPlaces.empty()){
-                        
-                        UniqueAllQeuryPlaces.insert(UniqueAllQeuryPlaces.end(), newplace);
-                        isUnique = false;
-                    }
-                    else {
-                        for(auto u : UniqueAllQeuryPlaces){
-                            if (newplace.compare(u) == 0){
-                                isUnique = false;
+
+                    vector<string> UniqueAllQeuryPlaces;
+                    for(auto a : AllQeuryPlaces){
+                        bool isUnique = true;
+                        string newplace = "0 <= \"" + a + "\"";
+                        if(UniqueAllQeuryPlaces.empty()){
+
+                            UniqueAllQeuryPlaces.insert(UniqueAllQeuryPlaces.end(), newplace);
+                            isUnique = false;
+                        }
+                        else {
+                            for(auto u : UniqueAllQeuryPlaces){
+                                if (newplace.compare(u) == 0){
+                                    isUnique = false;
+                                }
                             }
                         }
+                        if (isUnique){
+                            UniqueAllQeuryPlaces.insert(UniqueAllQeuryPlaces.end(), newplace);
+                        }
                     }
-                    if (isUnique){
-                        UniqueAllQeuryPlaces.insert(UniqueAllQeuryPlaces.end(), newplace);
+                    for(auto a : UniqueAllQeuryPlaces){
+                        if(!firstAccurance)
+                            reductionquerystr += ") and (";
+                        reductionquerystr += a;
+                        firstAccurance = false;
+                    }
+                    reductionquerystr += ")";
+
+
+
+                    Condition* reductionquery;
+
+                    if(!firstAccurance) {
+                        reductionquery = ParseQuery(reductionquerystr);
+                        reductionquery->analyze(placecontext);
                     }
                 }
-                for(auto a : UniqueAllQeuryPlaces){
-                    if(!firstAccurance)
-                        reductionquerystr += ") and (";
-                    reductionquerystr += a;
-                    firstAccurance = false;
+                else {
+                    query->analyze(placecontext);
                 }
-                reductionquerystr += ")";
                 
-                cout<<reductionquerystr<<endl;
-                
-                Condition* reductionquery;
-                
-                if(!firstAccurance) {
-                    reductionquery = ParseQuery(reductionquerystr);
-                    reductionquery->analyze(placecontext);
-                }
-               
+		// Compute the places and transitions that connect to inhibitor arcs
+		MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
+		MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
 
 		// CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
 		reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
 
-		reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib); 
+		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib); 
 		reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
-		cout<<"::::::::::::REDUCE::::::::::::::"<<endl;
-                reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
+		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
 	}
-        
+    
 	//----------------------- Reachability -----------------------//
 
 	//Create reachability search strategy

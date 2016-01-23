@@ -32,14 +32,13 @@ void Edge::rateEdge(){
     }
     int alpha = 1;
     int beta = 1;
-    int gamma = 2;
+    int gamma = 1;
 
-    int dist = 0;
+    int dist = source->query->depth;
     int breath = 0;
     int succ = source->Successors.size();
 
     for(auto t : targets){
-        dist += t->query->depth;
         breath++;
     }
     //make equation

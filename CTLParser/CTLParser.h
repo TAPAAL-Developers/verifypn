@@ -17,7 +17,19 @@
 enum Quantifier { AND = 1, OR = 2, A = 3, E = 4, NEG = 5, EMPTY = -1 };
 enum Path { G = 1, X = 2, F = 3, U = 4, pError = -1 };
 
+struct TokenCount{
+    int sizeoftokencount;
+    int* cardinality;
+};
+
 struct Cardinality {
+    int intSmaller;
+    TokenCount placeSmaller;
+    int intLarger;
+    TokenCount placeLarger;
+};
+
+struct Dependency{
     int intSmaller;
     int placeSmaller;
     int intLarger;
@@ -26,14 +38,14 @@ struct Cardinality {
 
 struct Fireability{
     int sizeofdenpencyplaces;
-    Cardinality* denpencyplaces;
+    Dependency* denpencyplaces;
 };
 
 struct Atom {
     bool isFireable;
     int firesize;
     Fireability* fireset;
-    Cardinality tokenCount;
+    Cardinality cardinality;
 };
 
 struct CTLTree {

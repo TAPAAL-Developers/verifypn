@@ -1,0 +1,80 @@
+Property ERK-PT-000100-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A G "r1"?
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A G "r1"?
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A G "r1"?
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A G "r6"?
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A G "r6"?
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A G "r1"?
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A (("r5"?) U ("r5"?))
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E X "r8"?
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A G "r10"?
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "r6"?
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E (("r2"?) U ("r3"?))
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E (("r4"?) U ("r10"?))
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E (("r4"?) U ("r1"?))
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E G "r5"?
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E X "r2"?
+  end.
+Property ERK-PT-000100-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A X "r5"?
+  end.
