@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p224</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p249</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p243</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p99</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p196</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p227</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p433</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p158</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p16</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p445</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p76</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p239</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p318</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p240</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p412</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-500-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p363</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

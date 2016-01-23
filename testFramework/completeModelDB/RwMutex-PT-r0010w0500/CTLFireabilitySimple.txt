@@ -1,0 +1,80 @@
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A X "t100"?
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A G "t91"?
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E X "t567"?
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t925"?
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A (("t84"?) U ("t953"?))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "t603"?
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E X "t515"?
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A X "t742"?
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E G "t467"?
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A X "t732"?
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E G "t532"?
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E (("t150"?) U ("t617"?))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A (("t171"?) U ("t135"?))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "t766"?
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E (("t764"?) U ("t960"?))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "t249"?
+  end.

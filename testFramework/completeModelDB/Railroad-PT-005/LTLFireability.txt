@@ -1,0 +1,80 @@
+Property Railroad-PT-005-LTLFireability-0
+  "Automatically generated"
+  is:
+    A ((((F "tr_T8_1"?) U (X "tr_T23_21"?))) U (X X "tr_T11_1"?))
+  end.
+Property Railroad-PT-005-LTLFireability-1
+  "Automatically generated"
+  is:
+    A F ((F X "tr_T14_1"?) U (G X "tr_T9_9"?))
+  end.
+Property Railroad-PT-005-LTLFireability-2
+  "Automatically generated"
+  is:
+    A ((F G F "tr_T23_17"?) U (G G "tr_T19_1"?))
+  end.
+Property Railroad-PT-005-LTLFireability-3
+  "Automatically generated"
+  is:
+    A "tr_T23_26"?
+  end.
+Property Railroad-PT-005-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X (("tr_T15_1"?) U ((("tr_T23_13"?) U ("tr_T7_1"?))))
+  end.
+Property Railroad-PT-005-LTLFireability-5
+  "Automatically generated"
+  is:
+    A X ((G G "tr_T8_1"?) U ((("tr_T0_1"?) U ("tr_T0_1"?))))
+  end.
+Property Railroad-PT-005-LTLFireability-6
+  "Automatically generated"
+  is:
+    A ((G G X "tr_T15_1"?) U ("tr_T9_7"?))
+  end.
+Property Railroad-PT-005-LTLFireability-7
+  "Automatically generated"
+  is:
+    A G "tr_T24_4"?
+  end.
+Property Railroad-PT-005-LTLFireability-8
+  "Automatically generated"
+  is:
+    A ((F (("tr_T4_1"?) U ("tr_T23_26"?))) U (X X X "tr_T23_23"?))
+  end.
+Property Railroad-PT-005-LTLFireability-9
+  "Automatically generated"
+  is:
+    A "tr_T5_1"?
+  end.
+Property Railroad-PT-005-LTLFireability-10
+  "Automatically generated"
+  is:
+    A (("tr_T22_1"?) U (F X F "tr_T6_1"?))
+  end.
+Property Railroad-PT-005-LTLFireability-11
+  "Automatically generated"
+  is:
+    A "tr_T23_27"?
+  end.
+Property Railroad-PT-005-LTLFireability-12
+  "Automatically generated"
+  is:
+    A "tr_T5_1"?
+  end.
+Property Railroad-PT-005-LTLFireability-13
+  "Automatically generated"
+  is:
+    A F F "tr_T2_1"?
+  end.
+Property Railroad-PT-005-LTLFireability-14
+  "Automatically generated"
+  is:
+    A X X "tr_T24_4"?
+  end.
+Property Railroad-PT-005-LTLFireability-15
+  "Automatically generated"
+  is:
+    A "tr_T23_31"?
+  end.

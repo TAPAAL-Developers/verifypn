@@ -1,0 +1,80 @@
+Property EnergyBus-PT-none-CTLFireability-0
+  "Automatically generated"
+  is:
+    E F "t2851"?
+  end.
+Property EnergyBus-PT-none-CTLFireability-1
+  "Automatically generated"
+  is:
+    E ((E G "t599"?) U (E F (("t4340"?) | ("t1495"?))))
+  end.
+Property EnergyBus-PT-none-CTLFireability-2
+  "Automatically generated"
+  is:
+    ((E (((((("t3697"?) | ("t4411"?))) & (! "t101"?))) U (E F "t3477"?))) | (((((E X (("t3186"?) | ("t1045"?))) | ("t334"?))) & ("t2006"?))))
+  end.
+Property EnergyBus-PT-none-CTLFireability-3
+  "Automatically generated"
+  is:
+    ((! "t2058"?) & (A G ! ! ! "t2239"?))
+  end.
+Property EnergyBus-PT-none-CTLFireability-4
+  "Automatically generated"
+  is:
+    E ((A X ! "t3083"?) U ("t2435"?))
+  end.
+Property EnergyBus-PT-none-CTLFireability-5
+  "Automatically generated"
+  is:
+    A G ((! (((("t3876"?) | ("t1687"?))) | ("t242"?))) | ((("t755"?) | ("t1737"?))))
+  end.
+Property EnergyBus-PT-none-CTLFireability-6
+  "Automatically generated"
+  is:
+    ((! A (((("t1754"?) | ("t3348"?))) U ("t2089"?))) & (((E F (("t1890"?) | ("t1777"?))) | (A (("t4022"?) U ((("t2531"?) & ("t738"?))))))))
+  end.
+Property EnergyBus-PT-none-CTLFireability-7
+  "Automatically generated"
+  is:
+    A G ((((A G "t17"?) | (((! "t1038"?) | (! "t2165"?))))) | (A G "t3641"?))
+  end.
+Property EnergyBus-PT-none-CTLFireability-8
+  "Automatically generated"
+  is:
+    E G ((A F "t2099"?) | (! E F "t3113"?))
+  end.
+Property EnergyBus-PT-none-CTLFireability-9
+  "Automatically generated"
+  is:
+    ((A X ! E F "t2340"?) | (((((((((! "t542"?) & ((("t701"?) | ("t2747"?))))) | (A F "t890"?))) | (A F "t4176"?))) & (E F A F "t618"?))))
+  end.
+Property EnergyBus-PT-none-CTLFireability-10
+  "Automatically generated"
+  is:
+    (("t3466"?) | (((((A F (("t1283"?) & ("t2279"?))) | (A F "t3106"?))) | (A G (((("t437"?) & ("t3501"?))) | (! "t908"?))))))
+  end.
+Property EnergyBus-PT-none-CTLFireability-11
+  "Automatically generated"
+  is:
+    E X E F (((("t1373"?) & ("t640"?))) | ((("t414"?) & ("t1532"?))))
+  end.
+Property EnergyBus-PT-none-CTLFireability-12
+  "Automatically generated"
+  is:
+    A G E ((! "t3324"?) U ((("t4393"?) | ("t4146"?))))
+  end.
+Property EnergyBus-PT-none-CTLFireability-13
+  "Automatically generated"
+  is:
+    ! E X E F (("t72"?) | ("t2157"?))
+  end.
+Property EnergyBus-PT-none-CTLFireability-14
+  "Automatically generated"
+  is:
+    ! A X E F (("t865"?) & ("t4256"?))
+  end.
+Property EnergyBus-PT-none-CTLFireability-15
+  "Automatically generated"
+  is:
+    E F "t622"?
+  end.

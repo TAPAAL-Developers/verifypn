@@ -1,0 +1,80 @@
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("f2_6", "f2_38", "f2_24", "f2_31", "f2_15", "f2_32", "f2_3", "f2_10", "f2_17", "f2_40", "f2_9", "f2_37", "f2_30", "f2_18", "f2_39", "f2_12", "f2_4", "f2_29", "f2_20", "f2_1", "f2_19", "f2_11", "f2_35", "f2_2", "f2_28", "f2_21", "f2_0", "f2_7", "f2_14", "f2_36", "f2_27", "f2_33", "f2_22", "f2_26", "f2_8", "f2_13", "f2_34", "f2_25", "f2_23", "f2_16", "f2_5")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("Perform_Work_B_1_22", "Perform_Work_B_1_26", "Perform_Work_B_1_15", "Perform_Work_B_1_33", "Perform_Work_B_1_4", "Perform_Work_B_1_25", "Perform_Work_B_1_34", "Perform_Work_B_1_23", "Perform_Work_B_1_5", "Perform_Work_B_1_14", "Perform_Work_B_1_31", "Perform_Work_B_1_38", "Perform_Work_B_1_24", "Perform_Work_B_1_16", "Perform_Work_B_1_2", "Perform_Work_B_1_32", "Perform_Work_B_1_17", "Perform_Work_B_1_3", "Perform_Work_B_1_19", "Perform_Work_B_1_1", "Perform_Work_B_1_8", "Perform_Work_B_1_18", "Perform_Work_B_1_11", "Perform_Work_B_1_40", "Perform_Work_B_1_30", "Perform_Work_B_1_9", "Perform_Work_B_1_37", "Perform_Work_B_1_39", "Perform_Work_B_1_0", "Perform_Work_B_1_29", "Perform_Work_B_1_6", "Perform_Work_B_1_10", "Perform_Work_B_1_13", "Perform_Work_B_1_20", "Perform_Work_B_1_35", "Perform_Work_B_1_28", "Perform_Work_B_1_21", "Perform_Work_B_1_36", "Perform_Work_B_1_7", "Perform_Work_B_1_12", "Perform_Work_B_1_27")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("place_458")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("place_521_1")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("mo3")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("NotifyEventJobQueuedB_1_17", "NotifyEventJobQueuedB_1_10", "NotifyEventJobQueuedB_1_40", "NotifyEventJobQueuedB_1_38", "NotifyEventJobQueuedB_1_24", "NotifyEventJobQueuedB_1_31", "NotifyEventJobQueuedB_1_16", "NotifyEventJobQueuedB_1_2", "NotifyEventJobQueuedB_1_4", "NotifyEventJobQueuedB_1_30", "NotifyEventJobQueuedB_1_29", "NotifyEventJobQueuedB_1_3", "NotifyEventJobQueuedB_1_1", "NotifyEventJobQueuedB_1_8", "NotifyEventJobQueuedB_1_11", "NotifyEventJobQueuedB_1_36", "NotifyEventJobQueuedB_1_18", "NotifyEventJobQueuedB_1_9", "NotifyEventJobQueuedB_1_28", "NotifyEventJobQueuedB_1_37", "NotifyEventJobQueuedB_1_19", "NotifyEventJobQueuedB_1_20", "NotifyEventJobQueuedB_1_0", "NotifyEventJobQueuedB_1_13", "NotifyEventJobQueuedB_1_27", "NotifyEventJobQueuedB_1_34", "NotifyEventJobQueuedB_1_7", "NotifyEventJobQueuedB_1_26", "NotifyEventJobQueuedB_1_12", "NotifyEventJobQueuedB_1_21", "NotifyEventJobQueuedB_1_39", "NotifyEventJobQueuedB_1_35", "NotifyEventJobQueuedB_1_5", "NotifyEventJobQueuedB_1_25", "NotifyEventJobQueuedB_1_22", "NotifyEventJobQueuedB_1_32", "NotifyEventJobQueuedB_1_15", "NotifyEventJobQueuedB_1_14", "NotifyEventJobQueuedB_1_33", "NotifyEventJobQueuedB_1_6", "NotifyEventJobQueuedB_1_23")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("mo3")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("DataOnSrc_9", "DataOnSrc_8", "DataOnSrc_7", "DataOnSrc_6", "DataOnSrc_5", "DataOnSrc_1", "DataOnSrc_4", "DataOnSrc_2", "DataOnSrc_3", "DataOnSrc_10")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("AvailableJobId_4", "AvailableJobId_14", "AvailableJobId_23", "AvailableJobId_13", "AvailableJobId_32", "AvailableJobId_24", "AvailableJobId_17", "AvailableJobId_10", "AvailableJobId_31", "AvailableJobId_38", "AvailableJobId_3", "AvailableJobId_30", "AvailableJobId_16", "AvailableJobId_2", "AvailableJobId_25", "AvailableJobId_11", "AvailableJobId_39", "AvailableJobId_29", "AvailableJobId_8", "AvailableJobId_36", "AvailableJobId_1", "AvailableJobId_26", "AvailableJobId_19", "AvailableJobId_9", "AvailableJobId_37", "AvailableJobId_28", "AvailableJobId_0", "AvailableJobId_18", "AvailableJobId_27", "AvailableJobId_35", "AvailableJobId_21", "AvailableJobId_7", "AvailableJobId_20", "AvailableJobId_6", "AvailableJobId_34", "AvailableJobId_15", "AvailableJobId_22", "AvailableJobId_40", "AvailableJobId_12", "AvailableJobId_33", "AvailableJobId_5")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("place_456")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("place_482_1_10", "place_482_1_1", "place_482_1_4", "place_482_1_3", "place_482_1_6", "place_482_1_5", "place_482_1_7", "place_482_1_8", "place_482_1_2", "place_482_1_9")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("Try_Check_Sources_E_1")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("NotifyEventJobQueuedB_1_17", "NotifyEventJobQueuedB_1_10", "NotifyEventJobQueuedB_1_40", "NotifyEventJobQueuedB_1_38", "NotifyEventJobQueuedB_1_24", "NotifyEventJobQueuedB_1_31", "NotifyEventJobQueuedB_1_16", "NotifyEventJobQueuedB_1_2", "NotifyEventJobQueuedB_1_4", "NotifyEventJobQueuedB_1_30", "NotifyEventJobQueuedB_1_29", "NotifyEventJobQueuedB_1_3", "NotifyEventJobQueuedB_1_1", "NotifyEventJobQueuedB_1_8", "NotifyEventJobQueuedB_1_11", "NotifyEventJobQueuedB_1_36", "NotifyEventJobQueuedB_1_18", "NotifyEventJobQueuedB_1_9", "NotifyEventJobQueuedB_1_28", "NotifyEventJobQueuedB_1_37", "NotifyEventJobQueuedB_1_19", "NotifyEventJobQueuedB_1_20", "NotifyEventJobQueuedB_1_0", "NotifyEventJobQueuedB_1_13", "NotifyEventJobQueuedB_1_27", "NotifyEventJobQueuedB_1_34", "NotifyEventJobQueuedB_1_7", "NotifyEventJobQueuedB_1_26", "NotifyEventJobQueuedB_1_12", "NotifyEventJobQueuedB_1_21", "NotifyEventJobQueuedB_1_39", "NotifyEventJobQueuedB_1_35", "NotifyEventJobQueuedB_1_5", "NotifyEventJobQueuedB_1_25", "NotifyEventJobQueuedB_1_22", "NotifyEventJobQueuedB_1_32", "NotifyEventJobQueuedB_1_15", "NotifyEventJobQueuedB_1_14", "NotifyEventJobQueuedB_1_33", "NotifyEventJobQueuedB_1_6", "NotifyEventJobQueuedB_1_23")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("NotifyEventJobQueuedE_1")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("mo2")
+  end.
+Property PolyORBNT-COL-S10J40-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("NotifyEventEndOfCheckSourcesB_1")
+  end.

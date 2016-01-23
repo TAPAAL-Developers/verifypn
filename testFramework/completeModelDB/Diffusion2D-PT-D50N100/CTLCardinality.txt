@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D50N100-CTLCardinality-0
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("cAMP__16_7_")) <= (#tokens("cAMP__1_40_")))) & (((3) <= (#tokens("cAMP__28_18_")))))) | (! ((3) <= (#tokens("cAMP__27_19_")))))) & (((! ((#tokens("cAMP__32_44_")) <= (#tokens("cAMP__9_22_")))) | (((#tokens("cAMP__35_7_")) <= (#tokens("cAMP__30_26_")))))))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ((E F ((3) <= (#tokens("cAMP__28_48_")))) & (E ((((#tokens("cAMP__11_33_")) <= (#tokens("cAMP__20_43_")))) U (((((2) <= (#tokens("cAMP__47_40_")))) | (((#tokens("cAMP__22_41_")) <= (#tokens("cAMP__15_29_")))))))))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-2
+  "Automatically generated"
+  is:
+    A G ((E F ((3) <= (#tokens("cAMP__7_14_")))) & (((! ((3) <= (#tokens("cAMP__2_16_")))) & (((#tokens("cAMP__50_22_")) <= (#tokens("cAMP__38_46_")))))))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-3
+  "Automatically generated"
+  is:
+    ! ((A G ((((#tokens("cAMP__17_34_")) <= (#tokens("cAMP__1_39_")))) | (((#tokens("cAMP__49_14_")) <= (#tokens("cAMP__20_17_")))))) | (E X ((((2) <= (#tokens("cAMP__36_24_")))) & (((2) <= (#tokens("cAMP__11_21_")))))))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-4
+  "Automatically generated"
+  is:
+    ((A G ((((((1) <= (#tokens("cAMP__11_39_")))) & (((#tokens("cAMP__16_15_")) <= (#tokens("cAMP__26_16_")))))) | (! ((1) <= (#tokens("cAMP__12_26_")))))) & (((A F ! ((3) <= (#tokens("cAMP__43_36_")))) | (E G ((((#tokens("cAMP__1_4_")) <= (#tokens("cAMP__19_33_")))) | (((#tokens("cAMP__43_22_")) <= (#tokens("cAMP__24_30_")))))))))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-5
+  "Automatically generated"
+  is:
+    A X ! E F ((2) <= (#tokens("cAMP__29_21_")))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-6
+  "Automatically generated"
+  is:
+    ((E F ((1) <= (#tokens("cAMP__48_48_")))) & (E F ((((((#tokens("cAMP__24_10_")) <= (#tokens("cAMP__39_48_")))) & (((#tokens("cAMP__9_46_")) <= (#tokens("cAMP__17_44_")))))) | (((2) <= (#tokens("cAMP__15_42_")))))))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-7
+  "Automatically generated"
+  is:
+    ! ((((A G ((3) <= (#tokens("cAMP__6_16_")))) | (E F ((2) <= (#tokens("cAMP__23_22_")))))) | (((((((((3) <= (#tokens("cAMP__24_31_")))) | (((#tokens("cAMP__17_19_")) <= (#tokens("cAMP__9_32_")))))) | (! ((#tokens("cAMP__6_43_")) <= (#tokens("cAMP__24_10_")))))) & (E G ((2) <= (#tokens("cAMP__7_11_")))))))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-8
+  "Automatically generated"
+  is:
+    E F ! ((#tokens("cAMP__42_41_")) <= (#tokens("cAMP__9_22_")))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-9
+  "Automatically generated"
+  is:
+    E G A G ((#tokens("cAMP__36_50_")) <= (#tokens("cAMP__11_50_")))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-10
+  "Automatically generated"
+  is:
+    E ((((((((3) <= (#tokens("cAMP__37_50_")))) | (((#tokens("cAMP__37_2_")) <= (#tokens("cAMP__43_35_")))))) | (((3) <= (#tokens("cAMP__19_7_")))))) U (((((((#tokens("cAMP__34_24_")) <= (#tokens("cAMP__49_21_")))) | (((#tokens("cAMP__29_35_")) <= (#tokens("cAMP__20_38_")))))) & (((2) <= (#tokens("cAMP__33_50_")))))))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-11
+  "Automatically generated"
+  is:
+    E F ! ! ((((3) <= (#tokens("cAMP__39_31_")))) | (((3) <= (#tokens("cAMP__12_14_")))))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-12
+  "Automatically generated"
+  is:
+    ! ! ! E F ((2) <= (#tokens("cAMP__44_48_")))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-13
+  "Automatically generated"
+  is:
+    ! E X A G ((#tokens("cAMP__23_30_")) <= (#tokens("cAMP__49_32_")))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-14
+  "Automatically generated"
+  is:
+    E F ! A F ((#tokens("cAMP__4_45_")) <= (#tokens("cAMP__5_45_")))
+  end.
+Property Diffusion2D-PT-D50N100-CTLCardinality-15
+  "Automatically generated"
+  is:
+    ! E ((((((#tokens("cAMP__20_43_")) <= (#tokens("cAMP__37_28_")))) | (((3) <= (#tokens("cAMP__29_33_")))))) U (((((3) <= (#tokens("cAMP__11_1_")))) & (((#tokens("cAMP__34_16_")) <= (#tokens("cAMP__35_10_")))))))
+  end.

@@ -1,0 +1,80 @@
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("CHOIX_1", "CHOIX_2")) <= (1))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((bound("ATTENTE_B")) <= (3))) & (((bound("NB_ATTENTE_B_0", "NB_ATTENTE_B_1", "NB_ATTENTE_B_2", "NB_ATTENTE_B_3", "NB_ATTENTE_B_4")) <= (1))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((((bound("CHOIX_1", "CHOIX_2")) <= (2))) & (((((((((((bound("NB_ATTENTE_A_0", "NB_ATTENTE_A_1", "NB_ATTENTE_A_2", "NB_ATTENTE_A_3", "NB_ATTENTE_A_4")) <= (1))) & (((bound("ATTENTE_B")) <= (3))))) & (((bound("SORTI_A")) <= (1))))) & (((((bound("NB_ATTENTE_A_0", "NB_ATTENTE_A_1", "NB_ATTENTE_A_2", "NB_ATTENTE_A_3", "NB_ATTENTE_A_4")) <= (1))) & (((bound("CHOIX_1", "CHOIX_2")) <= (1))))))) & (((bound("SORTI_B")) <= (3))))))) & (((bound("ATTENTE_B")) <= (3))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((bound("SUR_PONT_A")) <= (2))) & (((bound("ATTENTE_A")) <= (2))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("CONTROLEUR_1", "CONTROLEUR_2")) <= (3))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("SORTI_A")) <= (1))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("ATTENTE_B")) <= (1))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("CHOIX_1", "CHOIX_2")) <= (3))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("ATTENTE_B")) <= (2))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("ATTENTE_A")) <= (1))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((bound("NB_ATTENTE_B_0", "NB_ATTENTE_B_1", "NB_ATTENTE_B_2", "NB_ATTENTE_B_3", "NB_ATTENTE_B_4")) <= (3))) & (((bound("ATTENTE_A")) <= (2))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((((bound("ATTENTE_B")) <= (1))) & (((((((bound("ROUTE_A")) <= (1))) & (((((((bound("ATTENTE_A")) <= (3))) & (((bound("SUR_PONT_B")) <= (1))))) & (((((bound("CHOIX_1", "CHOIX_2")) <= (3))) & (((bound("ATTENTE_B")) <= (2))))))))) & (((((bound("ATTENTE_B")) <= (2))) & (((((((bound("SUR_PONT_B")) <= (1))) & (((bound("SORTI_B")) <= (2))))) & (((bound("SUR_PONT_A")) <= (3))))))))))) & (((((bound("SUR_PONT_A")) <= (1))) & (((bound("VIDANGE_1", "VIDANGE_2")) <= (3))))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((bound("CHOIX_1", "CHOIX_2")) <= (2))) & (((bound("SUR_PONT_A")) <= (3))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((bound("COMPTEUR_0", "COMPTEUR_1", "COMPTEUR_2")) <= (2))) & (((bound("CONTROLEUR_1", "CONTROLEUR_2")) <= (1))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((((bound("ATTENTE_B")) <= (2))) & (((((bound("ROUTE_B")) <= (3))) & (((((((((bound("ATTENTE_A")) <= (1))) & (((bound("SORTI_A")) <= (3))))) & (((((bound("ROUTE_B")) <= (2))) & (((bound("ROUTE_B")) <= (1))))))) & (((bound("NB_ATTENTE_B_0", "NB_ATTENTE_B_1", "NB_ATTENTE_B_2", "NB_ATTENTE_B_3", "NB_ATTENTE_B_4")) <= (3))))))))) & (((bound("NB_ATTENTE_A_0", "NB_ATTENTE_A_1", "NB_ATTENTE_A_2", "NB_ATTENTE_A_3", "NB_ATTENTE_A_4")) <= (1))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((bound("NB_ATTENTE_B_0", "NB_ATTENTE_B_1", "NB_ATTENTE_B_2", "NB_ATTENTE_B_3", "NB_ATTENTE_B_4")) <= (2))) & (((bound("SUR_PONT_A")) <= (3))))
+  end.

@@ -1,0 +1,80 @@
+Property CircadianClock-PT-010000-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("ma")) <= (3))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("a")) <= (3))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("mr")) <= (1))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((bound("a")) <= (1))) & (((bound("mr")) <= (3))))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((((bound("da_a")) <= (3))) & (((((bound("c_cap")) <= (3))) & (((bound("c_cap")) <= (1))))))) & (((bound("mr_cap")) <= (2))))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((bound("dr")) <= (3))) & (((((((bound("ma_cap")) <= (3))) & (((((((((bound("ma_cap")) <= (3))) & (((bound("a_cap")) <= (1))))) & (((bound("r_cap")) <= (3))))) & (((bound("c_cap")) <= (1))))))) & (((((((((((bound("c")) <= (2))) & (((bound("r")) <= (2))))) & (((((bound("ma_cap")) <= (2))) & (((bound("c_cap")) <= (3))))))) & (((((((bound("c_cap")) <= (3))) & (((bound("mr_cap")) <= (2))))) & (((bound("ma")) <= (3))))))) & (((bound("dr_a")) <= (2))))))))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((bound("ma_cap")) <= (2))) & (((bound("a_cap")) <= (2))))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("dr_a")) <= (2))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((bound("r")) <= (1))) & (((bound("r_cap")) <= (1))))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("a")) <= (2))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((((((((((((bound("da_a")) <= (2))) & (((bound("ma_cap")) <= (3))))) & (((bound("da")) <= (3))))) & (((bound("ma_cap")) <= (2))))) & (((((bound("da_a")) <= (3))) & (((bound("da_a")) <= (2))))))) & (((((bound("a_cap")) <= (2))) & (((bound("ma")) <= (2))))))) & (((((((bound("ma")) <= (2))) & (((bound("dr")) <= (3))))) & (((bound("da")) <= (3))))))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((((((((bound("dr")) <= (1))) & (((((((bound("ma")) <= (1))) & (((bound("c")) <= (1))))) & (((bound("ma_cap")) <= (2))))))) & (((((((((bound("dr_a")) <= (1))) & (((bound("mr")) <= (2))))) & (((bound("mr")) <= (1))))) & (((((((bound("ma")) <= (2))) & (((bound("dr")) <= (3))))) & (((bound("a_cap")) <= (3))))))))) & (((bound("dr")) <= (1))))) & (((bound("dr_a")) <= (2))))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("ma")) <= (2))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("mr")) <= (3))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((((((bound("ma_cap")) <= (2))) & (((bound("c_cap")) <= (1))))) & (((((((bound("a_cap")) <= (1))) & (((((bound("c_cap")) <= (3))) & (((((bound("mr_cap")) <= (1))) & (((bound("dr_a")) <= (1))))))))) & (((bound("dr")) <= (2))))))) & (((((((((((((bound("a")) <= (1))) & (((bound("a_cap")) <= (2))))) & (((((bound("a_cap")) <= (1))) & (((bound("c")) <= (2))))))) & (((bound("a")) <= (1))))) & (((bound("dr_a")) <= (3))))) & (((bound("mr_cap")) <= (1))))))
+  end.
+Property CircadianClock-PT-010000-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("a_cap")) <= (1))
+  end.

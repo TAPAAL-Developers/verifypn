@@ -1,0 +1,80 @@
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("A2U_rot1_in")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("CL_lower_rs")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("A2L_ext_rs")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("crane_storing")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("arm1_pick_up_ext")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("belt1_stop")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("A2L_rot1_rs")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("A2L_ext_rs")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("arm2_magnet_off")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("A2U_rot2_rs")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("crane_store_free")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("A1L_in")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("arm1_having_swivel_2")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("A1L_rot1_rs")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("crane_stop_h")
+  end.
+Property ParamProductionCell-PT-2-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("A1U_ret_rs")
+  end.

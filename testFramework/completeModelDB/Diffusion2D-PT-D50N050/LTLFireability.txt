@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D50N050-LTLFireability-0
+  "Automatically generated"
+  is:
+    A (("t1_26_27_27_27"?) U ("t1_37_31_37_32"?))
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-1
+  "Automatically generated"
+  is:
+    A "t1_19_14_18_15"?
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-2
+  "Automatically generated"
+  is:
+    A F F "t1_42_1_43_2"?
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-3
+  "Automatically generated"
+  is:
+    A "t1_8_23_7_24"?
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-4
+  "Automatically generated"
+  is:
+    A G G X (("t1_34_41_34_40"?) U ("t1_18_25_18_26"?))
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-5
+  "Automatically generated"
+  is:
+    A F X "t1_5_7_4_6"?
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-6
+  "Automatically generated"
+  is:
+    A G ((G G "t1_21_16_20_16"?) U (F G "t1_6_8_6_7"?))
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-7
+  "Automatically generated"
+  is:
+    A F G X G "t1_31_38_30_38"?
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-8
+  "Automatically generated"
+  is:
+    A ((G X "t1_19_47_18_48"?) U (((F "t1_8_14_9_13"?) U ("t1_15_4_16_3"?))))
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-9
+  "Automatically generated"
+  is:
+    A G G "t1_9_3_8_3"?
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-10
+  "Automatically generated"
+  is:
+    A F "t1_24_26_24_25"?
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-11
+  "Automatically generated"
+  is:
+    A G X ((X "t1_20_11_21_11"?) U ("t1_13_31_14_32"?))
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-12
+  "Automatically generated"
+  is:
+    A "t1_44_13_43_13"?
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-13
+  "Automatically generated"
+  is:
+    A "t1_49_43_48_43"?
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-14
+  "Automatically generated"
+  is:
+    A G X X G "t1_19_24_18_24"?
+  end.
+Property Diffusion2D-PT-D50N050-LTLFireability-15
+  "Automatically generated"
+  is:
+    A F G ((X "t1_37_14_37_13"?) U (X "t1_36_33_36_34"?))
+  end.

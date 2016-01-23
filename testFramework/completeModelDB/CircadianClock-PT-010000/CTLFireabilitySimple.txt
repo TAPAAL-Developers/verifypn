@@ -1,0 +1,80 @@
+Property CircadianClock-PT-010000-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "deg_mr"?
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A X "deg_mr"?
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E (("bind_a"?) U ("deactive"?))
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A X "transc_dr_a"?
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E X "transc_da_a"?
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E G "transc_da"?
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A (("transc_da"?) U ("deactive"?))
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A G "deactive"?
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "transl_r"?
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E (("bind_a"?) U ("deactive"?))
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E G "deg_r"?
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E X "transl_a"?
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E G "transc_dr_a"?
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "transc_dr"?
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E G "deg_ma"?
+  end.
+Property CircadianClock-PT-010000-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "bind_r"?
+  end.

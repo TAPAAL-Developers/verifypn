@@ -1,0 +1,80 @@
+Property Railroad-PT-100-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F (((((((("tr_T135_7830"?) & ("tr_T135_8364"?))) | ((("tr_T135_1041"?) | ("tr_T135_5747"?))))) | ((((("tr_T135_1816"?) | ("tr_T135_398"?))) & ((("tr_T135_4950"?) & ("tr_T135_1141"?))))))) & (((! ! "tr_T135_6225"?) & ((((("tr_T135_633"?) | ("tr_T65_1"?))) | ("tr_T135_804"?))))))
+  end.
+Property Railroad-PT-100-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F ((((! ! "tr_T135_4798"?) & ((((("tr_T135_1910"?) & ("tr_T135_8150"?))) & ((("tr_T135_2494"?) & ("tr_T135_2509"?))))))) | ("tr_T135_1061"?))
+  end.
+Property Railroad-PT-100-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    A G ((((((! "tr_T135_9635"?) | ((("tr_T135_8865"?) | ("tr_T135_4557"?))))) & (! (("tr_T135_6318"?) | ("tr_T135_5671"?))))) & ((((((("tr_T135_4153"?) & ("tr_T135_3516"?))) | ("tr_T125_179"?))) | (((! "tr_T135_1036"?) | ("tr_T135_7864"?))))))
+  end.
+Property Railroad-PT-100-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F "tr_T135_9517"?
+  end.
+Property Railroad-PT-100-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F ((((((! "tr_T135_1611"?) | ((("tr_T135_1964"?) & ("tr_T197_1"?))))) & ("tr_T135_6033"?))) & ((("tr_T135_6805"?) & ((((("tr_T135_9197"?) & ("tr_T135_8786"?))) & ("tr_T135_3074"?))))))
+  end.
+Property Railroad-PT-100-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F (((((((("tr_T135_4053"?) & ("tr_T135_9998"?))) | ((("tr_T135_6787"?) & ("tr_T135_8023"?))))) | (! (("tr_T135_493"?) & ("tr_T135_8467"?))))) & ((((((("tr_T135_9537"?) & ("tr_T50_1"?))) & ((("tr_T135_4824"?) | ("tr_T135_5717"?))))) & ("tr_T135_2357"?))))
+  end.
+Property Railroad-PT-100-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F "tr_T135_4431"?
+  end.
+Property Railroad-PT-100-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F (((("tr_T135_8888"?) & (((! "tr_T135_1147"?) | ((("tr_T135_2025"?) & ("tr_T135_5422"?))))))) & (((! ! "tr_T135_4878"?) | ((("tr_T135_9539"?) & ((("tr_T256_1"?) | ("tr_T135_1948"?))))))))
+  end.
+Property Railroad-PT-100-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F ((! ((! "tr_T135_7799"?) & ((("tr_T135_1840"?) | ("tr_T135_7205"?))))) & ("tr_T135_3218"?))
+  end.
+Property Railroad-PT-100-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F "tr_T135_9111"?
+  end.
+Property Railroad-PT-100-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F ! ((! "tr_T135_4236"?) | ("tr_T135_4774"?))
+  end.
+Property Railroad-PT-100-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F "tr_T135_8675"?
+  end.
+Property Railroad-PT-100-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F (("tr_T135_221"?) | (((! ! "tr_T135_8034"?) & (((! "tr_T135_3930"?) | ("tr_T135_4017"?))))))
+  end.
+Property Railroad-PT-100-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    A G ((! (((("tr_T125_155"?) | ("tr_T236_1"?))) | ((("tr_T135_4676"?) & ("tr_T135_1154"?))))) & (! "tr_T135_8682"?))
+  end.
+Property Railroad-PT-100-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F "tr_T135_4360"?
+  end.
+Property Railroad-PT-100-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F ((! (((("tr_T135_3032"?) | ("tr_T135_6524"?))) | ((("tr_T135_1863"?) | ("tr_T135_4512"?))))) & ((((((("tr_T135_8406"?) | ("tr_T135_3147"?))) & ("tr_T135_7109"?))) & ("tr_T135_9203"?))))
+  end.

@@ -1,0 +1,80 @@
+Property Echo-PT-d03r07-CTLFireability-0
+  "Automatically generated"
+  is:
+    ((((! A F (("t555"?) & ("t1966"?))) | (((A X (("t2085"?) | ("t3105"?))) & (E X ! "t1418"?))))) & (! ((! (((("t1809"?) | ("t2779"?))) & ((("t2616"?) & ("t2179"?))))) & (E G "t306"?))))
+  end.
+Property Echo-PT-d03r07-CTLFireability-1
+  "Automatically generated"
+  is:
+    ((((((((E F "t1518"?) & (A F "t2002"?))) & (E F "t879"?))) & (! ((A X "t2036"?) | ("t2693"?))))) | (A X A (("t1216"?) U ("t3314"?))))
+  end.
+Property Echo-PT-d03r07-CTLFireability-2
+  "Automatically generated"
+  is:
+    ((((! A (("t1308"?) U ("t1596"?))) | ("t134"?))) & (A F (("t3166"?) & ("t184"?))))
+  end.
+Property Echo-PT-d03r07-CTLFireability-3
+  "Automatically generated"
+  is:
+    ! E F A (("t3244"?) U ("t343"?))
+  end.
+Property Echo-PT-d03r07-CTLFireability-4
+  "Automatically generated"
+  is:
+    ! ((! ! (((("t1305"?) | ("t2042"?))) | ("t2756"?))) | (E F "t2114"?))
+  end.
+Property Echo-PT-d03r07-CTLFireability-5
+  "Automatically generated"
+  is:
+    ((! ! ! E G "t1568"?) & (E ((E F "t1541"?) U (((! "t2368"?) & ("t450"?))))))
+  end.
+Property Echo-PT-d03r07-CTLFireability-6
+  "Automatically generated"
+  is:
+    E ((A F (("t904"?) & ("t544"?))) U ("t1045"?))
+  end.
+Property Echo-PT-d03r07-CTLFireability-7
+  "Automatically generated"
+  is:
+    ((((((E F (("t2655"?) | ("t777"?))) | (A F (("t398"?) & ("t2143"?))))) & (E X ! "t218"?))) | (((((E G (("t1253"?) | ("t656"?))) | (E (("t1077"?) U ("t1290"?))))) & (((E F (("t670"?) & ("t1770"?))) | (((A X "t136"?) | (! "t1837"?))))))))
+  end.
+Property Echo-PT-d03r07-CTLFireability-8
+  "Automatically generated"
+  is:
+    A ((E G (("t3215"?) & ("t2291"?))) U (A G ! "t1823"?))
+  end.
+Property Echo-PT-d03r07-CTLFireability-9
+  "Automatically generated"
+  is:
+    E F ! ((A G "t311"?) | ((((("t2593"?) & ("t2020"?))) | (! "t3241"?))))
+  end.
+Property Echo-PT-d03r07-CTLFireability-10
+  "Automatically generated"
+  is:
+    A ((! "t850"?) U (((A F "t463"?) & (E G "t1050"?))))
+  end.
+Property Echo-PT-d03r07-CTLFireability-11
+  "Automatically generated"
+  is:
+    ! A G E F "t273"?
+  end.
+Property Echo-PT-d03r07-CTLFireability-12
+  "Automatically generated"
+  is:
+    E F "t2938"?
+  end.
+Property Echo-PT-d03r07-CTLFireability-13
+  "Automatically generated"
+  is:
+    ! E G E F (("t2410"?) | ("t473"?))
+  end.
+Property Echo-PT-d03r07-CTLFireability-14
+  "Automatically generated"
+  is:
+    A ((E G (("t1701"?) & ("t757"?))) U (A F (("t558"?) | ("t2479"?))))
+  end.
+Property Echo-PT-d03r07-CTLFireability-15
+  "Automatically generated"
+  is:
+    E ((! (("t2046"?) | ("t1587"?))) U (E G ! "t3379"?))
+  end.

@@ -1,0 +1,80 @@
+Property IBM5964-PT-none-CTLCardinality-0
+  "Automatically generated"
+  is:
+    ! E F ((((1) <= (#tokens("callToTask.s00002741.input.s00000935")))) & (((((#tokens("callToProcess.s00005925.inputCriterion.s00000937.used")) <= (#tokens("callToTask.s00002741.output.s00000960")))) | (((#tokens("callToProcess.s00001273.input.s00000950")) <= (#tokens("fork.s00001537.activated.s00000993")))))))
+  end.
+Property IBM5964-PT-none-CTLCardinality-1
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("fork.s00001067.input.s00000935")))) & (((((((#tokens("decision.s00001617.activated")) <= (#tokens("callToTask.s00001971.output.s00000956")))) | (((#tokens("merge.s00001291.input.s00000950")) <= (#tokens("merge.s00000945.input.s00000987")))))) & (((((2) <= (#tokens("callToTask.s00002190.output.s00000979")))) | (((3) <= (#tokens("callToTask.s00002183.output.s00000962")))))))))
+  end.
+Property IBM5964-PT-none-CTLCardinality-2
+  "Automatically generated"
+  is:
+    ! ! ((((! ((#tokens("callToTask.s00001971.input.s00000985")) <= (#tokens("callToTask.s00002189.inputCriterion.s00000937.used")))) & (((((3) <= (#tokens("join.s00001295.activated.s00000946")))) | (((3) <= (#tokens("callToProcess.s00004075.output.s00000956")))))))) | (A F ((1) <= (#tokens("callToTask.s00005971.output.s00000938")))))
+  end.
+Property IBM5964-PT-none-CTLCardinality-3
+  "Automatically generated"
+  is:
+    A F E G ((#tokens("join.s00001295.activated.s00000948")) <= (#tokens("merge.s00001120.input.s00001010")))
+  end.
+Property IBM5964-PT-none-CTLCardinality-4
+  "Automatically generated"
+  is:
+    E F ((A X ((3) <= (#tokens("callToTask.s00005849.output.s00000960")))) | (A G ((2) <= (#tokens("merge.s00001291.input.s00001009")))))
+  end.
+Property IBM5964-PT-none-CTLCardinality-5
+  "Automatically generated"
+  is:
+    ! ! A G ((((#tokens("callToTask.s00002427.input.s00001013")) <= (#tokens("callToTask.s00002185.input.s00000950")))) | (((2) <= (#tokens("callToProcess.s00005925.output.s00000959")))))
+  end.
+Property IBM5964-PT-none-CTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((((((((2) <= (#tokens("callToTask.s00002526.inputCriterion.s00000937.used")))) & (((#tokens("callToTask.s00002183.inputCriterion.s00000937.used")) <= (#tokens("fork.s00001293.input.s00000952")))))) | (((#tokens("merge.s00001120.input.s00001513")) <= (#tokens("merge.s00001292.input.s00000952")))))) U (((((3) <= (#tokens("callToTask.s00001632.inputCriterion.s00000937.used")))) & (((((1) <= (#tokens("fork.s00001067.input.s00000935")))) | (((3) <= (#tokens("callToTask.s00005849.inputCriterion.s00000937.used")))))))))
+  end.
+Property IBM5964-PT-none-CTLCardinality-7
+  "Automatically generated"
+  is:
+    E ((((#tokens("callToTask.s00002183.output.s00000956")) <= (#tokens("callToTask.s00005966.output.s00000956")))) U (((((3) <= (#tokens("callToTask.s00002741.inputCriterion.s00000937.used")))) | (((1) <= (#tokens("callToTask.s00002741.output.s00000981")))))))
+  end.
+Property IBM5964-PT-none-CTLCardinality-8
+  "Automatically generated"
+  is:
+    A G ((((#tokens("callToProcess.s00002411.output.s00000956")) <= (#tokens("process.s00000383##s00005964.input.s00000936")))) & (A F ((2) <= (#tokens("decision.s00001617.activated")))))
+  end.
+Property IBM5964-PT-none-CTLCardinality-9
+  "Automatically generated"
+  is:
+    ((((((A G ((#tokens("callToTask.s00002427.input.s00000950")) <= (#tokens("callToTask.s00005849.input.s00000985")))) | (((#tokens("fork.s00001536.activated.s00000991")) <= (#tokens("callToTask.s00005968.input.s00000952")))))) & (E X ! ((#tokens("callToTask.s00001746.output.s00000960")) <= (#tokens("process.s00000383##s00005964.input.s00001512")))))) | (((((#tokens("callToTask.s00005967.output.s00000979")) <= (#tokens("callToProcess.s00004075.inputCriterion.s00000937.used")))) & (E F ((2) <= (#tokens("callToTask.s00001971.output.s00000979")))))))
+  end.
+Property IBM5964-PT-none-CTLCardinality-10
+  "Automatically generated"
+  is:
+    ! E ((((((#tokens("callToProcess.s00002538.output.s00000961")) <= (#tokens("callToTask.s00005897.output.s00000956")))) | (((2) <= (#tokens("callToTask.s00001746.inputCriterion.s00000937.used")))))) U (((((3) <= (#tokens("callToTask.s00005969.output.s00000938")))) & (((#tokens("fork.s00001536.activated.s00000993")) <= (#tokens("callToTask.s00001632.output.s00000956")))))))
+  end.
+Property IBM5964-PT-none-CTLCardinality-11
+  "Automatically generated"
+  is:
+    ((E ((! ((3) <= (#tokens("callToProcess.s00002411.input.s00000935")))) U (! ((#tokens("callToTask.s00005970.inputCriterion.s00000937.used")) <= (#tokens("callToTask.s00001632.inputCriterion.s00000937.used")))))) & (! ((1) <= (#tokens("merge.s00000945.input.s00000950")))))
+  end.
+Property IBM5964-PT-none-CTLCardinality-12
+  "Automatically generated"
+  is:
+    E G ((#tokens("callToTask.s00002186.inputCriterion.s00000937.used")) <= (#tokens("callToTask.s00001971.input.s00000952")))
+  end.
+Property IBM5964-PT-none-CTLCardinality-13
+  "Automatically generated"
+  is:
+    A G ((! ((((1) <= (#tokens("callToTask.s00005969.output.s00000960")))) & (((3) <= (#tokens("callToTask.s00005968.output.s00000979")))))) & (((#tokens("fork.s00001067.input.s00000950")) <= (#tokens("callToTask.s00005849.output.s00000938")))))
+  end.
+Property IBM5964-PT-none-CTLCardinality-14
+  "Automatically generated"
+  is:
+    ((((A G ((((1) <= (#tokens("callToProcess.s00001273.input.s00000950")))) | (((#tokens("callToTask.s00002185.input.s00000952")) <= (#tokens("callToTask.s00002183.output.s00000956")))))) | (E ((((#tokens("join.s00001295.activated.s00000946")) <= (#tokens("callToTask.s00005966.inputCriterion.s00000937.used")))) U (((3) <= (#tokens("callToTask.s00002190.output.s00000938")))))))) | (! ((#tokens("decision.s00000999.activated")) <= (#tokens("merge.s00001292.activated")))))
+  end.
+Property IBM5964-PT-none-CTLCardinality-15
+  "Automatically generated"
+  is:
+    E ((! ((((3) <= (#tokens("callToTask.s00005967.input.s00000935")))) & (((#tokens("callToProcess.s00002538.inputCriterion.s00000937.used")) <= (#tokens("callToTask.s00005968.output.s00000956")))))) U (A F ((2) <= (#tokens("callToTask.s00002741.output.s00000981")))))
+  end.

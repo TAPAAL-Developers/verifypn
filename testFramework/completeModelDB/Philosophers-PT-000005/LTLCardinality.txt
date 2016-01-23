@@ -1,0 +1,80 @@
+Property Philosophers-COL-000005-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A ((#tokens("Catch1_1", "Catch1_2", "Catch1_3", "Catch1_5", "Catch1_4")) <= (#tokens("Think_1", "Think_2", "Think_3", "Think_4", "Think_5")))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A X F X F ((1) <= (#tokens("Think_1", "Think_2", "Think_3", "Think_4", "Think_5")))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A F ((2) <= (#tokens("Catch1_1", "Catch1_2", "Catch1_3", "Catch1_5", "Catch1_4")))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((((((1) <= (#tokens("Fork_1", "Fork_2", "Fork_3", "Fork_4", "Fork_5")))) U (((2) <= (#tokens("Fork_1", "Fork_2", "Fork_3", "Fork_4", "Fork_5")))))) U (F F ((#tokens("Fork_1", "Fork_2", "Fork_3", "Fork_4", "Fork_5")) <= (#tokens("Catch2_2", "Catch2_1", "Catch2_4", "Catch2_3", "Catch2_5")))))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((((#tokens("Catch1_1", "Catch1_2", "Catch1_3", "Catch1_5", "Catch1_4")) <= (#tokens("Think_1", "Think_2", "Think_3", "Think_4", "Think_5")))) U (((((#tokens("Fork_1", "Fork_2", "Fork_3", "Fork_4", "Fork_5")) <= (#tokens("Eat_1", "Eat_3", "Eat_2", "Eat_5", "Eat_4")))) U (((#tokens("Think_1", "Think_2", "Think_3", "Think_4", "Think_5")) <= (#tokens("Catch1_1", "Catch1_2", "Catch1_3", "Catch1_5", "Catch1_4")))))))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A ((#tokens("Catch2_2", "Catch2_1", "Catch2_4", "Catch2_3", "Catch2_5")) <= (#tokens("Catch1_1", "Catch1_2", "Catch1_3", "Catch1_5", "Catch1_4")))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A G F F F ((3) <= (#tokens("Think_1", "Think_2", "Think_3", "Think_4", "Think_5")))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A F ((G ((3) <= (#tokens("Catch2_2", "Catch2_1", "Catch2_4", "Catch2_3", "Catch2_5")))) U (G ((1) <= (#tokens("Fork_1", "Fork_2", "Fork_3", "Fork_4", "Fork_5")))))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A X ((#tokens("Fork_1", "Fork_2", "Fork_3", "Fork_4", "Fork_5")) <= (#tokens("Catch2_2", "Catch2_1", "Catch2_4", "Catch2_3", "Catch2_5")))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((X X ((#tokens("Catch2_2", "Catch2_1", "Catch2_4", "Catch2_3", "Catch2_5")) <= (#tokens("Think_1", "Think_2", "Think_3", "Think_4", "Think_5")))) U (G G ((#tokens("Think_1", "Think_2", "Think_3", "Think_4", "Think_5")) <= (#tokens("Fork_1", "Fork_2", "Fork_3", "Fork_4", "Fork_5")))))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A F F F G ((#tokens("Think_1", "Think_2", "Think_3", "Think_4", "Think_5")) <= (#tokens("Catch2_2", "Catch2_1", "Catch2_4", "Catch2_3", "Catch2_5")))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A X ((F ((#tokens("Fork_1", "Fork_2", "Fork_3", "Fork_4", "Fork_5")) <= (#tokens("Catch1_1", "Catch1_2", "Catch1_3", "Catch1_5", "Catch1_4")))) U (F ((3) <= (#tokens("Catch1_1", "Catch1_2", "Catch1_3", "Catch1_5", "Catch1_4")))))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A X G F F ((#tokens("Eat_1", "Eat_3", "Eat_2", "Eat_5", "Eat_4")) <= (#tokens("Fork_1", "Fork_2", "Fork_3", "Fork_4", "Fork_5")))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A ((G ((#tokens("Catch2_2", "Catch2_1", "Catch2_4", "Catch2_3", "Catch2_5")) <= (#tokens("Eat_1", "Eat_3", "Eat_2", "Eat_5", "Eat_4")))) U (F F ((#tokens("Catch1_1", "Catch1_2", "Catch1_3", "Catch1_5", "Catch1_4")) <= (#tokens("Eat_1", "Eat_3", "Eat_2", "Eat_5", "Eat_4")))))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((#tokens("Fork_1", "Fork_2", "Fork_3", "Fork_4", "Fork_5")) <= (#tokens("Eat_1", "Eat_3", "Eat_2", "Eat_5", "Eat_4")))
+  end.
+Property Philosophers-COL-000005-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A G X ((((1) <= (#tokens("Catch2_2", "Catch2_1", "Catch2_4", "Catch2_3", "Catch2_5")))) U (((1) <= (#tokens("Fork_1", "Fork_2", "Fork_3", "Fork_4", "Fork_5")))))
+  end.

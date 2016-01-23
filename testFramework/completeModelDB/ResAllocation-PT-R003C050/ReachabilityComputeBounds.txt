@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("p_48_2")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("p_47_2")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("p_42_1")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("r_40_0")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("r_33_0")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("r_33_2")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("r_17_1")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("r_9_0")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("r_45_2")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("p_43_1")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("r_26_2")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("r_31_0")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("p_8_2")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("r_1_2")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("p_7_0")
+  end.
+Property ResAllocation-PT-R003C050-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("p_0_1")
+  end.

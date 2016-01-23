@@ -1,0 +1,80 @@
+Property SafeBus-COL-06-CTLCardinality-0
+  "Automatically generated"
+  is:
+    ((((((A F ((#tokens("wait_ack_2_1", "wait_ack_3_1", "wait_ack_4_1", "wait_ack_5_1", "wait_ack_6_1", "wait_ack_1_2", "wait_ack_3_2", "wait_ack_4_2", "wait_ack_5_2", "wait_ack_6_2", "wait_ack_1_3", "wait_ack_2_3", "wait_ack_4_3", "wait_ack_5_3", "wait_ack_6_3", "wait_ack_1_4", "wait_ack_2_4", "wait_ack_3_4", "wait_ack_5_4", "wait_ack_6_4", "wait_ack_1_5", "wait_ack_2_5", "wait_ack_3_5", "wait_ack_4_5", "wait_ack_6_5", "wait_ack_1_6", "wait_ack_2_6", "wait_ack_3_6", "wait_ack_4_6", "wait_ack_5_6")) <= (#tokens("listen_1", "listen_2", "listen_3", "listen_4", "listen_5", "listen_6")))) & (! ((#tokens("S_tout")) <= (#tokens("wait_ack_2_1", "wait_ack_3_1", "wait_ack_4_1", "wait_ack_5_1", "wait_ack_6_1", "wait_ack_1_2", "wait_ack_3_2", "wait_ack_4_2", "wait_ack_5_2", "wait_ack_6_2", "wait_ack_1_3", "wait_ack_2_3", "wait_ack_4_3", "wait_ack_5_3", "wait_ack_6_3", "wait_ack_1_4", "wait_ack_2_4", "wait_ack_3_4", "wait_ack_5_4", "wait_ack_6_4", "wait_ack_1_5", "wait_ack_2_5", "wait_ack_3_5", "wait_ack_4_5", "wait_ack_6_5", "wait_ack_1_6", "wait_ack_2_6", "wait_ack_3_6", "wait_ack_4_6", "wait_ack_5_6")))))) | (E ((((#tokens("wait_ack_2_1", "wait_ack_3_1", "wait_ack_4_1", "wait_ack_5_1", "wait_ack_6_1", "wait_ack_1_2", "wait_ack_3_2", "wait_ack_4_2", "wait_ack_5_2", "wait_ack_6_2", "wait_ack_1_3", "wait_ack_2_3", "wait_ack_4_3", "wait_ack_5_3", "wait_ack_6_3", "wait_ack_1_4", "wait_ack_2_4", "wait_ack_3_4", "wait_ack_5_4", "wait_ack_6_4", "wait_ack_1_5", "wait_ack_2_5", "wait_ack_3_5", "wait_ack_4_5", "wait_ack_6_5", "wait_ack_1_6", "wait_ack_2_6", "wait_ack_3_6", "wait_ack_4_6", "wait_ack_5_6")) <= (#tokens("listen_1", "listen_2", "listen_3", "listen_4", "listen_5", "listen_6")))) U (((2) <= (#tokens("RMC_1", "RMC_2", "RMC_3", "RMC_4", "RMC_5", "RMC_6")))))))) & (A ((! ((2) <= (#tokens("Cpt1_1", "Cpt1_2", "Cpt1_3", "Cpt1_4", "Cpt1_5", "Cpt1_6")))) U (((((#tokens("loop_em_1", "loop_em_2", "loop_em_3", "loop_em_4", "loop_em_5", "loop_em_6")) <= (#tokens("listen_1", "listen_2", "listen_3", "listen_4", "listen_5", "listen_6")))) & (((2) <= (#tokens("Cpt2_1", "Cpt2_2", "Cpt2_3", "Cpt2_4", "Cpt2_5", "Cpt2_6")))))))))
+  end.
+Property SafeBus-COL-06-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ((((A F ((1) <= (#tokens("loop_em_1", "loop_em_2", "loop_em_3", "loop_em_4", "loop_em_5", "loop_em_6")))) & (E X ((((#tokens("cable_used_1", "cable_used_2", "cable_used_3", "cable_used_4", "cable_used_5", "cable_used_6")) <= (#tokens("Cpt2_1", "Cpt2_2", "Cpt2_3", "Cpt2_4", "Cpt2_5", "Cpt2_6")))) & (((#tokens("Cpt2_1", "Cpt2_2", "Cpt2_3", "Cpt2_4", "Cpt2_5", "Cpt2_6")) <= (#tokens("FMCb")))))))) | (((! ((((((#tokens("PMC_1", "PMC_2", "PMC_3", "PMC_4", "PMC_5", "PMC_6")) <= (#tokens("wait_cable_1", "wait_cable_2", "wait_cable_3", "wait_cable_4", "wait_cable_5", "wait_cable_6")))) | (((#tokens("T_out")) <= (#tokens("wait_ack_2_1", "wait_ack_3_1", "wait_ack_4_1", "wait_ack_5_1", "wait_ack_6_1", "wait_ack_1_2", "wait_ack_3_2", "wait_ack_4_2", "wait_ack_5_2", "wait_ack_6_2", "wait_ack_1_3", "wait_ack_2_3", "wait_ack_4_3", "wait_ack_5_3", "wait_ack_6_3", "wait_ack_1_4", "wait_ack_2_4", "wait_ack_3_4", "wait_ack_5_4", "wait_ack_6_4", "wait_ack_1_5", "wait_ack_2_5", "wait_ack_3_5", "wait_ack_4_5", "wait_ack_6_5", "wait_ack_1_6", "wait_ack_2_6", "wait_ack_3_6", "wait_ack_4_6", "wait_ack_5_6")))))) | (((((#tokens("Cpt1_1", "Cpt1_2", "Cpt1_3", "Cpt1_4", "Cpt1_5", "Cpt1_6")) <= (#tokens("listen_1", "listen_2", "listen_3", "listen_4", "listen_5", "listen_6")))) | (((3) <= (#tokens("wait_ack_2_1", "wait_ack_3_1", "wait_ack_4_1", "wait_ack_5_1", "wait_ack_6_1", "wait_ack_1_2", "wait_ack_3_2", "wait_ack_4_2", "wait_ack_5_2", "wait_ack_6_2", "wait_ack_1_3", "wait_ack_2_3", "wait_ack_4_3", "wait_ack_5_3", "wait_ack_6_3", "wait_ack_1_4", "wait_ack_2_4", "wait_ack_3_4", "wait_ack_5_4", "wait_ack_6_4", "wait_ack_1_5", "wait_ack_2_5", "wait_ack_3_5", "wait_ack_4_5", "wait_ack_6_5", "wait_ack_1_6", "wait_ack_2_6", "wait_ack_3_6", "wait_ack_4_6", "wait_ack_5_6")))))))) & (((((((#tokens("FMC_1", "FMC_2", "FMC_3", "FMC_4", "FMC_5", "FMC_6")) <= (#tokens("Cpt2_1", "Cpt2_2", "Cpt2_3", "Cpt2_4", "Cpt2_5", "Cpt2_6")))) | (((((3) <= (#tokens("wait_msg_1", "wait_msg_2", "wait_msg_3", "wait_msg_4", "wait_msg_5", "wait_msg_6")))) | (((3) <= (#tokens("cable_free")))))))) & (! ((3) <= (#tokens("Cpt2_1", "Cpt2_2", "Cpt2_3", "Cpt2_4", "Cpt2_5", "Cpt2_6")))))))))
+  end.
+Property SafeBus-COL-06-CTLCardinality-2
+  "Automatically generated"
+  is:
+    A ((E F ((2) <= (#tokens("R_tout")))) U (((! ((2) <= (#tokens("ACK")))) & (((((3) <= (#tokens("AMC_1_1", "AMC_2_1", "AMC_3_1", "AMC_4_1", "AMC_5_1", "AMC_6_1", "AMC_1_2", "AMC_2_2", "AMC_3_2", "AMC_4_2", "AMC_5_2", "AMC_6_2", "AMC_1_3", "AMC_2_3", "AMC_3_3", "AMC_4_3", "AMC_5_3", "AMC_6_3", "AMC_1_4", "AMC_2_4", "AMC_3_4", "AMC_4_4", "AMC_5_4", "AMC_6_4", "AMC_1_5", "AMC_2_5", "AMC_3_5", "AMC_4_5", "AMC_5_5", "AMC_6_5", "AMC_1_6", "AMC_2_6", "AMC_3_6", "AMC_4_6", "AMC_5_6", "AMC_6_6")))) & (((#tokens("ACK")) <= (#tokens("S_tout")))))))))
+  end.
+Property SafeBus-COL-06-CTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((E F ((1) <= (#tokens("RMC_1", "RMC_2", "RMC_3", "RMC_4", "RMC_5", "RMC_6")))) U (A G ((#tokens("T_out")) <= (#tokens("ACK")))))
+  end.
+Property SafeBus-COL-06-CTLCardinality-4
+  "Automatically generated"
+  is:
+    E F E G ((2) <= (#tokens("wait_ack_2_1", "wait_ack_3_1", "wait_ack_4_1", "wait_ack_5_1", "wait_ack_6_1", "wait_ack_1_2", "wait_ack_3_2", "wait_ack_4_2", "wait_ack_5_2", "wait_ack_6_2", "wait_ack_1_3", "wait_ack_2_3", "wait_ack_4_3", "wait_ack_5_3", "wait_ack_6_3", "wait_ack_1_4", "wait_ack_2_4", "wait_ack_3_4", "wait_ack_5_4", "wait_ack_6_4", "wait_ack_1_5", "wait_ack_2_5", "wait_ack_3_5", "wait_ack_4_5", "wait_ack_6_5", "wait_ack_1_6", "wait_ack_2_6", "wait_ack_3_6", "wait_ack_4_6", "wait_ack_5_6")))
+  end.
+Property SafeBus-COL-06-CTLCardinality-5
+  "Automatically generated"
+  is:
+    ((E G E F ((2) <= (#tokens("wait_msg_1", "wait_msg_2", "wait_msg_3", "wait_msg_4", "wait_msg_5", "wait_msg_6")))) | (A G ! ((((3) <= (#tokens("cable_free")))) | (((#tokens("PMC_1", "PMC_2", "PMC_3", "PMC_4", "PMC_5", "PMC_6")) <= (#tokens("S_tout")))))))
+  end.
+Property SafeBus-COL-06-CTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((((! ((1) <= (#tokens("cable_used_1", "cable_used_2", "cable_used_3", "cable_used_4", "cable_used_5", "cable_used_6")))) | (((#tokens("msgl_1", "msgl_2", "msgl_3", "msgl_4", "msgl_5", "msgl_6")) <= (#tokens("ACK")))))) U (A F ((#tokens("R_tout")) <= (#tokens("PMC_1", "PMC_2", "PMC_3", "PMC_4", "PMC_5", "PMC_6")))))
+  end.
+Property SafeBus-COL-06-CTLCardinality-7
+  "Automatically generated"
+  is:
+    E ((((2) <= (#tokens("FMCb")))) U (A F ((3) <= (#tokens("FMCb")))))
+  end.
+Property SafeBus-COL-06-CTLCardinality-8
+  "Automatically generated"
+  is:
+    ((((! E G ((#tokens("RMC_1", "RMC_2", "RMC_3", "RMC_4", "RMC_5", "RMC_6")) <= (#tokens("RMC_1", "RMC_2", "RMC_3", "RMC_4", "RMC_5", "RMC_6")))) | (E G ((((3) <= (#tokens("msgl_1", "msgl_2", "msgl_3", "msgl_4", "msgl_5", "msgl_6")))) & (((#tokens("cable_used_1", "cable_used_2", "cable_used_3", "cable_used_4", "cable_used_5", "cable_used_6")) <= (#tokens("wait_msg_1", "wait_msg_2", "wait_msg_3", "wait_msg_4", "wait_msg_5", "wait_msg_6")))))))) | (((E G ((2) <= (#tokens("RMC_1", "RMC_2", "RMC_3", "RMC_4", "RMC_5", "RMC_6")))) & (((2) <= (#tokens("FMCb")))))))
+  end.
+Property SafeBus-COL-06-CTLCardinality-9
+  "Automatically generated"
+  is:
+    E G ((E X ((1) <= (#tokens("MSG_1", "MSG_2", "MSG_3", "MSG_4", "MSG_5", "MSG_6")))) | (! ((((#tokens("msgl_1", "msgl_2", "msgl_3", "msgl_4", "msgl_5", "msgl_6")) <= (#tokens("T_out")))) | (((#tokens("msgl_1", "msgl_2", "msgl_3", "msgl_4", "msgl_5", "msgl_6")) <= (#tokens("wait_cable_1", "wait_cable_2", "wait_cable_3", "wait_cable_4", "wait_cable_5", "wait_cable_6")))))))
+  end.
+Property SafeBus-COL-06-CTLCardinality-10
+  "Automatically generated"
+  is:
+    A F ((((1) <= (#tokens("wait_msg_1", "wait_msg_2", "wait_msg_3", "wait_msg_4", "wait_msg_5", "wait_msg_6")))) & (A G ((#tokens("cable_free")) <= (#tokens("T_out")))))
+  end.
+Property SafeBus-COL-06-CTLCardinality-11
+  "Automatically generated"
+  is:
+    ! E G A X ((#tokens("PMC_1", "PMC_2", "PMC_3", "PMC_4", "PMC_5", "PMC_6")) <= (#tokens("listen_1", "listen_2", "listen_3", "listen_4", "listen_5", "listen_6")))
+  end.
+Property SafeBus-COL-06-CTLCardinality-12
+  "Automatically generated"
+  is:
+    ((E F E G ((3) <= (#tokens("Cpt2_1", "Cpt2_2", "Cpt2_3", "Cpt2_4", "Cpt2_5", "Cpt2_6")))) | (((((2) <= (#tokens("PMC_1", "PMC_2", "PMC_3", "PMC_4", "PMC_5", "PMC_6")))) | (A X ((3) <= (#tokens("R_tout")))))))
+  end.
+Property SafeBus-COL-06-CTLCardinality-13
+  "Automatically generated"
+  is:
+    ! E ((((((#tokens("MSG_1", "MSG_2", "MSG_3", "MSG_4", "MSG_5", "MSG_6")) <= (#tokens("FMCb")))) & (((#tokens("PMC_1", "PMC_2", "PMC_3", "PMC_4", "PMC_5", "PMC_6")) <= (#tokens("ACK")))))) U (((((3) <= (#tokens("cable_free")))) | (((3) <= (#tokens("ACK")))))))
+  end.
+Property SafeBus-COL-06-CTLCardinality-14
+  "Automatically generated"
+  is:
+    ((A X E F ((3) <= (#tokens("RMC_1", "RMC_2", "RMC_3", "RMC_4", "RMC_5", "RMC_6")))) & (E X ((! ((3) <= (#tokens("msgl_1", "msgl_2", "msgl_3", "msgl_4", "msgl_5", "msgl_6")))) | (((#tokens("wait_ack_2_1", "wait_ack_3_1", "wait_ack_4_1", "wait_ack_5_1", "wait_ack_6_1", "wait_ack_1_2", "wait_ack_3_2", "wait_ack_4_2", "wait_ack_5_2", "wait_ack_6_2", "wait_ack_1_3", "wait_ack_2_3", "wait_ack_4_3", "wait_ack_5_3", "wait_ack_6_3", "wait_ack_1_4", "wait_ack_2_4", "wait_ack_3_4", "wait_ack_5_4", "wait_ack_6_4", "wait_ack_1_5", "wait_ack_2_5", "wait_ack_3_5", "wait_ack_4_5", "wait_ack_6_5", "wait_ack_1_6", "wait_ack_2_6", "wait_ack_3_6", "wait_ack_4_6", "wait_ack_5_6")) <= (#tokens("AMC_1_1", "AMC_2_1", "AMC_3_1", "AMC_4_1", "AMC_5_1", "AMC_6_1", "AMC_1_2", "AMC_2_2", "AMC_3_2", "AMC_4_2", "AMC_5_2", "AMC_6_2", "AMC_1_3", "AMC_2_3", "AMC_3_3", "AMC_4_3", "AMC_5_3", "AMC_6_3", "AMC_1_4", "AMC_2_4", "AMC_3_4", "AMC_4_4", "AMC_5_4", "AMC_6_4", "AMC_1_5", "AMC_2_5", "AMC_3_5", "AMC_4_5", "AMC_5_5", "AMC_6_5", "AMC_1_6", "AMC_2_6", "AMC_3_6", "AMC_4_6", "AMC_5_6", "AMC_6_6")))))))
+  end.
+Property SafeBus-COL-06-CTLCardinality-15
+  "Automatically generated"
+  is:
+    ! ! ((A F ((#tokens("Cpt2_1", "Cpt2_2", "Cpt2_3", "Cpt2_4", "Cpt2_5", "Cpt2_6")) <= (#tokens("FMC_1", "FMC_2", "FMC_3", "FMC_4", "FMC_5", "FMC_6")))) | (A G ((#tokens("cable_free")) <= (#tokens("FMCb")))))
+  end.

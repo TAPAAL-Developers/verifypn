@@ -1,0 +1,80 @@
+Property ProductionCell-PT-none-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F ! ! ((! "t28"?) & ((("t40"?) & ("t38"?))))
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    A G ((((! (("t52"?) & ("t117"?))) | (((! "t21"?) | ((("t4"?) | ("t106"?))))))) | (((! (("t36"?) | ("t83"?))) | (((! "t13"?) | ((("t54"?) & ("t16"?))))))))
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F "t37"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F "t114"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    A G ! ((! ! "t103"?) & (! ! "t71"?))
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F "t86"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F "t1"?
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F ((! (("t72"?) & ((("t51"?) | ("t124"?))))) & ("t55"?))
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F ((! (("t39"?) | (! "t121"?))) & (((! "t33"?) & ("t38"?))))
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F (("t88"?) & (((((! "t46"?) | (! "t43"?))) & (((! "t37"?) & ((("t8"?) | ("t23"?))))))))
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F ! ((((! "t14"?) | ((("t130"?) & ("t3"?))))) | ((("t13"?) & (! "t71"?))))
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F (("t73"?) & (! ((! "t19"?) & ("t58"?))))
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G (("t109"?) | (((! (("t12"?) & ("t46"?))) | (((! "t13"?) & ((("t91"?) | ("t52"?))))))))
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    A G (((((("t46"?) | ((("t2"?) & ("t26"?))))) | (((! "t109"?) | (! "t65"?))))) | (((! (("t19"?) | ("t90"?))) & (! (("t109"?) | ("t27"?))))))
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F (((((((("t5"?) | ("t90"?))) | ((("t111"?) & ("t72"?))))) & ((((("t48"?) & ("t91"?))) & ((("t60"?) & ("t58"?))))))) | ("t0"?))
+  end.
+Property ProductionCell-PT-none-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    A G ! "t85"?
+  end.

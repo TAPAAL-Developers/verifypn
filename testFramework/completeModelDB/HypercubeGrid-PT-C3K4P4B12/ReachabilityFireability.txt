@@ -1,0 +1,80 @@
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F ((((! ! "ti.d3.n2.d2.n1.3.2.1"?) & (! (("ti.d2.n2.d3.n1.4.1.1"?) | ("ti.d1.n1.d2.n1.2.2.4"?))))) & ((("ti.d3.n2.d2.n1.1.4.2"?) & ((((("ti.d3.n1.d2.n2.4.3.2"?) & ("to.d3.n2.4.2.1"?))) | (! "to.d3.n1.1.4.3"?))))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F ((((! ! "ti.d1.n2.d3.n1.4.4.4"?) & ("ti.d3.n1.d1.n2.1.4.2"?))) | ((((((("ti.d1.n1.d2.n2.2.1.2"?) | ("ti.d1.n2.d3.n1.1.2.4"?))) | ((("ti.d2.n1.d3.n2.2.4.4"?) & ("ti.d1.n2.d3.n1.4.4.3"?))))) & ((((("to.d1.n2.4.3.4"?) & ("ti.d2.n2.d3.n1.4.3.4"?))) & ("ti.d2.n2.d3.n2.4.3.1"?))))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    A G ! (((((("ti.d2.n1.d3.n1.4.3.3"?) | ("ti.d3.n1.d3.n2.1.4.3"?))) & ("ti.d1.n1.d2.n2.4.2.1"?))) & ("ti.d2.n1.d3.n2.2.1.1"?))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F (("ti.d1.n1.d2.n2.3.1.4"?) & ((((("ti.d2.n2.d2.n1.2.4.3"?) | ((("ti.d3.n2.d1.n1.2.3.2"?) | ("ti.d1.n2.d3.n2.4.1.4"?))))) | ("ti.d1.n2.d3.n2.2.1.4"?))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F (((((((("to.d2.n2.2.2.2"?) & ("ti.d2.n1.d3.n2.3.2.4"?))) & ((("ti.d3.n1.d1.n2.1.1.4"?) & ("ti.d1.n2.d3.n2.2.2.3"?))))) & ((("ti.d2.n2.d3.n1.3.4.4"?) | ((("to.d1.n2.3.4.4"?) | ("ti.d2.n2.d3.n1.4.4.1"?))))))) & (! ((! "to.d1.n2.3.4.4"?) | ((("ti.d1.n1.d1.n2.3.2.3"?) | ("to.d2.n1.4.3.3"?))))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F ! ((! (("ti.d2.n1.d1.n2.1.3.4"?) & ("ti.d3.n1.d1.n1.4.2.2"?))) | ((((("ti.d1.n1.d3.n1.2.4.3"?) | ("to.d3.n2.3.4.4"?))) & (! "ti.d3.n2.d2.n1.1.1.2"?))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F (("ti.d2.n2.d2.n1.3.2.2"?) & ((("ti.d3.n1.d1.n1.1.2.4"?) | ("ti.d2.n2.d1.n1.1.3.3"?))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G (((((((("ti.d2.n1.d3.n2.1.1.1"?) & ("ti.d1.n2.d1.n1.1.4.1"?))) | ("ti.d3.n1.d2.n1.1.4.2"?))) | (! (("ti.d1.n1.d3.n1.3.2.3"?) | ("ti.d3.n1.d2.n1.2.1.2"?))))) | ("to.d3.n1.4.2.4"?))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F ! ((! (("ti.d3.n2.d2.n1.1.3.1"?) & ("ti.d2.n2.d1.n1.1.3.3"?))) | (((! "ti.d3.n2.d2.n2.3.1.1"?) | ((("ti.d3.n1.d3.n2.3.2.4"?) & ("ti.d3.n2.d3.n1.1.4.4"?))))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G ((! "ti.d3.n1.d1.n2.4.4.1"?) | (((! "ti.d1.n1.d2.n2.4.1.1"?) & (((! "ti.d1.n1.d1.n2.4.2.4"?) | ((("ti.d3.n1.d1.n2.2.3.2"?) & ("ti.d2.n2.d3.n1.3.1.1"?))))))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F "ti.d1.n2.d3.n1.4.1.3"?
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    A G ! "ti.d1.n1.d1.n2.1.3.4"?
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ((! ! ! "ti.d2.n2.d1.n1.3.4.2"?) | (((((! "ti.d3.n2.d1.n2.1.2.4"?) | (! "ti.d2.n1.d1.n2.2.4.1"?))) | (((! "ti.d2.n1.d1.n1.2.1.2"?) & ((("ti.d3.n2.d3.n1.2.4.3"?) | ("ti.d3.n2.d3.n1.3.1.3"?))))))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    A G ! "ti.d1.n2.d3.n1.4.1.3"?
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    A G ! "ti.d3.n2.d1.n1.1.3.4"?
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F (((((((("ti.d1.n1.d3.n2.1.2.2"?) | ("to.d3.n1.2.1.1"?))) | ((("ti.d2.n1.d1.n1.4.3.2"?) | ("ti.d1.n1.d3.n2.2.4.1"?))))) | ((((("ti.d2.n2.d2.n1.1.1.2"?) & ("ti.d1.n1.d3.n2.3.4.4"?))) & ((("ti.d3.n2.d1.n2.3.1.3"?) | ("ti.d3.n1.d3.n2.4.1.1"?))))))) & ((("ti.d3.n2.d3.n1.4.3.3"?) & ((("ti.d3.n1.d2.n2.2.3.3"?) & ((("ti.d1.n1.d2.n1.4.4.2"?) | ("ti.d3.n1.d1.n2.2.4.3"?))))))))
+  end.

@@ -1,0 +1,80 @@
+Property PhaseVariation-PT-D20CS100-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A ((2) <= (#tokens("cell___2_14__A_")))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("cell___3_6__B_")))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A X F ((((3) <= (#tokens("pool__10_1_")))) U (((#tokens("cell___13_10__A_")) <= (#tokens("pool__13_10_")))))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A X ((X ((1) <= (#tokens("pool__2_16_")))) U (G ((3) <= (#tokens("cell___7_19__B_")))))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((((((3) <= (#tokens("pool__20_17_")))) U (((#tokens("cell___13_3__B_")) <= (#tokens("cell___11_11__A_")))))) U (((((#tokens("cell___11_3__A_")) <= (#tokens("cell___4_5__A_")))) U (((2) <= (#tokens("cell___6_14__B_")))))))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A F X X X ((#tokens("cell___11_18__B_")) <= (#tokens("cell___7_20__A_")))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((#tokens("cell___8_3__B_")) <= (#tokens("cell___6_12__B_")))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A X F ((#tokens("cell___15_5__A_")) <= (#tokens("pool__9_3_")))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A G ((G ((1) <= (#tokens("cell___7_13__B_")))) U (F ((3) <= (#tokens("cell___10_11__A_")))))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A X X ((2) <= (#tokens("cell___8_19__B_")))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("cell___6_17__B_")))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A F ((((#tokens("cell___1_20__B_")) <= (#tokens("cell___12_20__B_")))) U (G ((3) <= (#tokens("pool__11_15_")))))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((2) <= (#tokens("cell___15_19__B_")))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A X F ((((3) <= (#tokens("cell___19_8__B_")))) U (((#tokens("cell___3_2__B_")) <= (#tokens("pool__18_9_")))))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A G F ((((2) <= (#tokens("pool__16_16_")))) U (((#tokens("cell___14_8__A_")) <= (#tokens("pool__13_10_")))))
+  end.
+Property PhaseVariation-PT-D20CS100-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("pool__6_7_")))
+  end.

@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ((((! ((#tokens("OfferRequest.p10")) <= (#tokens("PaySchemeData.p21.6")))) & (((((3) <= (#tokens("p5.2")))) & (((2) <= (#tokens("PaySchemeData.p21.10")))))))) & (((2) <= (#tokens("PaymentRequest.p11.9")))))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("DeliveryNote.p22.12")))) | (((((((#tokens("Status.p21.9")) <= (#tokens("PayReceipt.p21.15")))) & (((2) <= (#tokens("p3.9")))))) & (! ((3) <= (#tokens("DeliveryRequest.p12.5")))))))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ((((((#tokens("p6.3")) <= (#tokens("ConsumerDelivery.p6.0")))) & (((((3) <= (#tokens("Organization.p21.2")))) | (((3) <= (#tokens("p3.6")))))))) | (((((((#tokens("p3.6")) <= (#tokens("PayReceipt.p21.15")))) | (((#tokens("p3.1")) <= (#tokens("p8.1")))))) & (! ((2) <= (#tokens("p4.3")))))))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ! ((#tokens("p12.7")) <= (#tokens("Status.p21.5")))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((#tokens("p3.8")) <= (#tokens("p4.3")))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ((3) <= (#tokens("p11.4")))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((! ! ((2) <= (#tokens("p2.2")))) | (((((#tokens("p11.3")) <= (#tokens("PaySchemeData.p11.10")))) & (((2) <= (#tokens("p3.10")))))))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((3) <= (#tokens("p4.3")))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((#tokens("Status.p22.13")) <= (#tokens("DeliveryResponse.p12.6")))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("PayReceipt.p21.15")) <= (#tokens("Order.p22.10")))) & (((3) <= (#tokens("MerchantOffer.p2")))))) & (((((#tokens("p6.2")) <= (#tokens("p6.2")))) | (((#tokens("p6.4")) <= (#tokens("PaymentHandlerPayment.p5.0")))))))) | (((! ((#tokens("p6.3")) <= (#tokens("Organization.p21.2")))) | (((((#tokens("OfferResponce.p10")) <= (#tokens("MerchantPayment.p4.0")))) | (((1) <= (#tokens("p1.2")))))))))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((((#tokens("PayReceipt.p21.12")) <= (#tokens("Order.p22.10")))) | (((! ((#tokens("PaymentRequest.p11.9")) <= (#tokens("PaymentNote.p21.13")))) | (((((#tokens("p6.2")) <= (#tokens("p12.3")))) & (((#tokens("p5.4")) <= (#tokens("ConsumerDelivery.p6.0")))))))))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((((2) <= (#tokens("Organization.p20.2")))) & (((2) <= (#tokens("Status.p21.14")))))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((((3) <= (#tokens("p7.1")))) | (((1) <= (#tokens("p2.2")))))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((((2) <= (#tokens("Organization.p21.2")))) & (! ((((1) <= (#tokens("PaymentRequest.p11.9")))) | (((1) <= (#tokens("OfferRequest.p10")))))))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("p5.4")))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((((! ((#tokens("BrandSelection.p11.5")) <= (#tokens("Order.p20")))) & (((((#tokens("p4.2")) <= (#tokens("p10.0")))) | (((2) <= (#tokens("Status.p21.14")))))))) & (((#tokens("p3.6")) <= (#tokens("p4.5")))))
+  end.

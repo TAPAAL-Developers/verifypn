@@ -1,0 +1,80 @@
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((#tokens("cell___3_8__A_")) <= (#tokens("cell___17_11__B_")))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ! ((((#tokens("pool__4_16_")) <= (#tokens("pool__15_18_")))) & (((((2) <= (#tokens("cell___8_1__B_")))) | (((2) <= (#tokens("pool__1_7_")))))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((! ! ((3) <= (#tokens("cell___16_8__B_")))) & (! ! ((#tokens("cell___5_20__A_")) <= (#tokens("cell___4_17__A_")))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("cell___17_2__A_")))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ((((#tokens("cell___4_15__B_")) <= (#tokens("pool__13_14_")))) | (((((#tokens("pool__3_10_")) <= (#tokens("pool__12_9_")))) | (((((#tokens("cell___3_18__B_")) <= (#tokens("pool__14_15_")))) & (((1) <= (#tokens("cell___8_1__A_")))))))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ((1) <= (#tokens("pool__19_6_")))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ((#tokens("cell___7_16__A_")) <= (#tokens("pool__17_19_")))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((#tokens("pool__19_3_")) <= (#tokens("pool__18_17_")))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((#tokens("cell___12_2__A_")) <= (#tokens("pool__9_18_")))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((1) <= (#tokens("cell___15_19__B_")))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ! ((((((1) <= (#tokens("cell___17_3__B_")))) & (((1) <= (#tokens("pool__12_13_")))))) & (! ((2) <= (#tokens("cell___2_7__A_")))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((! ((2) <= (#tokens("cell___13_20__B_")))) & (((((#tokens("cell___13_20__A_")) <= (#tokens("cell___1_12__A_")))) | (((((#tokens("cell___6_15__A_")) <= (#tokens("cell___3_19__A_")))) | (((3) <= (#tokens("pool__2_18_")))))))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ! ((! ((#tokens("pool__16_14_")) <= (#tokens("pool__13_2_")))) & (((((#tokens("cell___15_18__A_")) <= (#tokens("cell___5_15__B_")))) & (((#tokens("pool__11_9_")) <= (#tokens("cell___11_15__B_")))))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((! ((((#tokens("pool__17_9_")) <= (#tokens("cell___1_15__A_")))) | (((#tokens("cell___10_10__A_")) <= (#tokens("cell___13_3__B_")))))) | (((1) <= (#tokens("cell___17_20__A_")))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("cell___12_18__B_")))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("pool__11_14_")))) | (((1) <= (#tokens("cell___18_2__B_")))))
+  end.

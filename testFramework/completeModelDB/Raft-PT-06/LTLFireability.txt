@@ -1,0 +1,80 @@
+Property Raft-PT-06-LTLFireability-0
+  "Automatically generated"
+  is:
+    A ((G (("t281"?) U ("t249"?))) U (X X "t256"?))
+  end.
+Property Raft-PT-06-LTLFireability-1
+  "Automatically generated"
+  is:
+    A X G ((G "t158"?) U (X "t263"?))
+  end.
+Property Raft-PT-06-LTLFireability-2
+  "Automatically generated"
+  is:
+    A ((F (("t200"?) U ("t221"?))) U (F (("t231"?) U ("t107"?))))
+  end.
+Property Raft-PT-06-LTLFireability-3
+  "Automatically generated"
+  is:
+    A F "t171"?
+  end.
+Property Raft-PT-06-LTLFireability-4
+  "Automatically generated"
+  is:
+    A G F G X X "t3"?
+  end.
+Property Raft-PT-06-LTLFireability-5
+  "Automatically generated"
+  is:
+    A G F ((F "t121"?) U (F "t317"?))
+  end.
+Property Raft-PT-06-LTLFireability-6
+  "Automatically generated"
+  is:
+    A "t161"?
+  end.
+Property Raft-PT-06-LTLFireability-7
+  "Automatically generated"
+  is:
+    A F "t162"?
+  end.
+Property Raft-PT-06-LTLFireability-8
+  "Automatically generated"
+  is:
+    A (("t315"?) U (F (("t187"?) U ("t218"?))))
+  end.
+Property Raft-PT-06-LTLFireability-9
+  "Automatically generated"
+  is:
+    A G (("t43"?) U (G G "t236"?))
+  end.
+Property Raft-PT-06-LTLFireability-10
+  "Automatically generated"
+  is:
+    A X X "t236"?
+  end.
+Property Raft-PT-06-LTLFireability-11
+  "Automatically generated"
+  is:
+    A "t106"?
+  end.
+Property Raft-PT-06-LTLFireability-12
+  "Automatically generated"
+  is:
+    A ((F F "t6"?) U (X X F "t25"?))
+  end.
+Property Raft-PT-06-LTLFireability-13
+  "Automatically generated"
+  is:
+    A ((X G "t300"?) U (G F "t122"?))
+  end.
+Property Raft-PT-06-LTLFireability-14
+  "Automatically generated"
+  is:
+    A ((((G "t164"?) U ("t54"?))) U ("t51"?))
+  end.
+Property Raft-PT-06-LTLFireability-15
+  "Automatically generated"
+  is:
+    A ((((X "t69"?) U (G "t322"?))) U (G X F "t288"?))
+  end.

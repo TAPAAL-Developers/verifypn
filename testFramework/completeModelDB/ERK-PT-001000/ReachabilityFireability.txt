@@ -1,0 +1,80 @@
+Property ERK-PT-001000-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    A G ! ((! "r6"?) & ((((("r6"?) & ("r1"?))) | ("r11"?))))
+  end.
+Property ERK-PT-001000-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    A G "r1"?
+  end.
+Property ERK-PT-001000-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F ! ! ! "r6"?
+  end.
+Property ERK-PT-001000-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F ! ((((! "r10"?) | ((("r2"?) | ("r4"?))))) | ((("r9"?) | ("r6"?))))
+  end.
+Property ERK-PT-001000-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F ! "r6"?
+  end.
+Property ERK-PT-001000-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G ((! (((("r7"?) & ("r3"?))) & (! "r2"?))) | (! (("r1"?) | (! "r1"?))))
+  end.
+Property ERK-PT-001000-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G ((((! (("r5"?) & ("r5"?))) | (((! "r10"?) & ((("r11"?) & ("r8"?))))))) | ((((((("r10"?) | ("r3"?))) | (! "r11"?))) & (! ! "r5"?))))
+  end.
+Property ERK-PT-001000-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G (((((((("r9"?) | ("r2"?))) | ("r10"?))) | ((((("r7"?) & ("r7"?))) & ("r4"?))))) | (! (((("r6"?) | ("r6"?))) & ((("r11"?) & ("r4"?))))))
+  end.
+Property ERK-PT-001000-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F (("r7"?) & (((! "r5"?) & (! (("r1"?) & ("r6"?))))))
+  end.
+Property ERK-PT-001000-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G (((((((("r9"?) | ("r2"?))) | (! "r3"?))) | ((("r1"?) & ("r6"?))))) | ((((("r4"?) & (! "r4"?))) | (! (("r2"?) & ("r8"?))))))
+  end.
+Property ERK-PT-001000-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    A G (((("r11"?) | (! (("r4"?) & ("r11"?))))) | ("r6"?))
+  end.
+Property ERK-PT-001000-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F ! (((("r11"?) | ((("r6"?) & ("r3"?))))) | ("r6"?))
+  end.
+Property ERK-PT-001000-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ((((! ! "r3"?) | (! (("r10"?) & ("r3"?))))) | ((((("r4"?) & (! "r5"?))) | (! (("r5"?) | ("r1"?))))))
+  end.
+Property ERK-PT-001000-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    A G ! ! (("r6"?) & ((("r7"?) | ("r6"?))))
+  end.
+Property ERK-PT-001000-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    A G "r1"?
+  end.
+Property ERK-PT-001000-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    A G (("r6"?) | ("r7"?))
+  end.

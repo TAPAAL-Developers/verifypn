@@ -1,0 +1,80 @@
+Property Dekker-PT-050-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "withdraw/48/13"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "withdraw/27/41"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "exit/33"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "withdraw/6/27"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "withdraw/43/37"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "withdraw/17/23"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "withdraw/13/27"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "withdraw/3/37"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "withdraw/23/44"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "withdraw/41/0"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "withdraw/32/47"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "withdraw/5/15"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "withdraw/48/3"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "withdraw/10/16"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "exit/13"?
+  end.
+Property Dekker-PT-050-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "withdraw/6/46"?
+  end.

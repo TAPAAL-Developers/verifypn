@@ -1,0 +1,80 @@
+Property SwimmingPool-PT-09-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    A G (("Enter"?) | ((("RKey"?) & ((((("RBag"?) | ("GetK2"?))) | ((("GetB"?) & ("RKey"?))))))))
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    A G (((((((("Enter"?) & ("Enter"?))) | ((("RelK"?) | ("Enter"?))))) | ("RBag"?))) | (! "GetB"?))
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    A G ((! (((("RKey"?) & ("Enter"?))) & (! "GetB"?))) | (! "GetB"?))
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F (("GetK"?) & (! (("GetK"?) | ((("GetB"?) | ("GetB"?))))))
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    A G ((((! "RBag"?) | ((((("RBag"?) | ("RelK"?))) | ("GetK2"?))))) | ("GetK"?))
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G ((((((! "RelK"?) & (! "RBag"?))) & (! "RBag"?))) | ("Enter"?))
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G (((("RBag"?) & ((((("RBag"?) | ("RelK"?))) | ((("GetK"?) | ("RKey"?))))))) | (((((! "GetK2"?) | ((("RelK"?) | ("GetK2"?))))) | ((((("GetK2"?) & ("RKey"?))) & ((("RelK"?) | ("RKey"?))))))))
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F ! "Enter"?
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    A G (((((((("GetK"?) | ("RBag"?))) | (! "RelK"?))) & ((("RKey"?) & ((("RelK"?) | ("RelK"?))))))) | (! ! "Enter"?))
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G (((("RelK"?) | (((! "GetK"?) | ("GetB"?))))) | ((("Enter"?) | ("GetB"?))))
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F ((! "Enter"?) & (! ((! "GetK"?) & ((("GetB"?) & ("GetK2"?))))))
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ! ((! (("Enter"?) | ("RKey"?))) & ("RelK"?))
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F ! (((("RBag"?) & (! "RBag"?))) | ((((("RKey"?) | ("Enter"?))) | ((("RBag"?) & ("GetK"?))))))
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F (((("RKey"?) & ((("GetB"?) & (! "RKey"?))))) & ((((((("RBag"?) & ("RKey"?))) | ((("GetB"?) & ("RKey"?))))) | ((("RKey"?) & ("Enter"?))))))
+  end.
+Property SwimmingPool-PT-09-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    A G (("RBag"?) | (! (("RBag"?) & ((("RKey"?) & ("GetB"?))))))
+  end.

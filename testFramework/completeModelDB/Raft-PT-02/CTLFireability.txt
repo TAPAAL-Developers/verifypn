@@ -1,0 +1,80 @@
+Property Raft-PT-02-CTLFireability-0
+  "Automatically generated"
+  is:
+    A F E F "t51"?
+  end.
+Property Raft-PT-02-CTLFireability-1
+  "Automatically generated"
+  is:
+    A G E F ((! "t28"?) | ("t47"?))
+  end.
+Property Raft-PT-02-CTLFireability-2
+  "Automatically generated"
+  is:
+    ! (("t27"?) | (A G E F "t31"?))
+  end.
+Property Raft-PT-02-CTLFireability-3
+  "Automatically generated"
+  is:
+    E F ((A X (("t11"?) | ("t1"?))) & (((E G "t24"?) | ("t20"?))))
+  end.
+Property Raft-PT-02-CTLFireability-4
+  "Automatically generated"
+  is:
+    ! E ((! (("t45"?) & ("t36"?))) U (((! "t11"?) & ((("t9"?) & ("t32"?))))))
+  end.
+Property Raft-PT-02-CTLFireability-5
+  "Automatically generated"
+  is:
+    A F E F "t24"?
+  end.
+Property Raft-PT-02-CTLFireability-6
+  "Automatically generated"
+  is:
+    E F A G ((! "t7"?) | ("t25"?))
+  end.
+Property Raft-PT-02-CTLFireability-7
+  "Automatically generated"
+  is:
+    A G ((! A X "t9"?) | (E (("t18"?) U ("t18"?))))
+  end.
+Property Raft-PT-02-CTLFireability-8
+  "Automatically generated"
+  is:
+    ((((E F (("t42"?) | ((("t9"?) | ("t44"?))))) & (E ((! "t35"?) U ((("t38"?) & ("t44"?))))))) | (E F A G ! "t41"?))
+  end.
+Property Raft-PT-02-CTLFireability-9
+  "Automatically generated"
+  is:
+    E ((((((! "t40"?) & ((("t36"?) | ("t50"?))))) | ("t0"?))) U ("t3"?))
+  end.
+Property Raft-PT-02-CTLFireability-10
+  "Automatically generated"
+  is:
+    A G E F (("t43"?) & ((("t6"?) | ("t25"?))))
+  end.
+Property Raft-PT-02-CTLFireability-11
+  "Automatically generated"
+  is:
+    A G ! A G (("t12"?) | ("t11"?))
+  end.
+Property Raft-PT-02-CTLFireability-12
+  "Automatically generated"
+  is:
+    A F ((E F ! "t27"?) & ((("t50"?) | ((((("t36"?) & ("t47"?))) | (! "t34"?))))))
+  end.
+Property Raft-PT-02-CTLFireability-13
+  "Automatically generated"
+  is:
+    ((A ((E F "t9"?) U (A X "t13"?))) & (E G A G (("t13"?) | ("t41"?))))
+  end.
+Property Raft-PT-02-CTLFireability-14
+  "Automatically generated"
+  is:
+    A ((A (("t49"?) U ("t19"?))) U (((((! "t49"?) | ((("t44"?) & ("t21"?))))) & (((! "t51"?) | ((("t27"?) & ("t13"?))))))))
+  end.
+Property Raft-PT-02-CTLFireability-15
+  "Automatically generated"
+  is:
+    "t21"?
+  end.

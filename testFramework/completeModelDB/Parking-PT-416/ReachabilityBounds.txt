@@ -1,0 +1,80 @@
+Property Parking-PT-416-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((bound("p259")) <= (1))) & (((bound("p76")) <= (3))))
+  end.
+Property Parking-PT-416-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("p115")) <= (2))
+  end.
+Property Parking-PT-416-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((bound("p231")) <= (1))) & (((((bound("p103")) <= (1))) & (((((bound("p265")) <= (1))) & (((bound("p254")) <= (3))))))))
+  end.
+Property Parking-PT-416-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("p105")) <= (3))
+  end.
+Property Parking-PT-416-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((bound("p266")) <= (3))) & (((bound("p109")) <= (1))))
+  end.
+Property Parking-PT-416-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("p220")) <= (1))
+  end.
+Property Parking-PT-416-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((bound("p52")) <= (1))) & (((((bound("p259")) <= (1))) & (((((bound("p302")) <= (2))) & (((((bound("p145")) <= (1))) & (((((bound("p272")) <= (1))) & (((((bound("p236")) <= (1))) & (((bound("p191")) <= (2))))))))))))))
+  end.
+Property Parking-PT-416-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((bound("p208")) <= (2))) & (((((bound("p202")) <= (3))) & (((bound("p198")) <= (1))))))
+  end.
+Property Parking-PT-416-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("p182")) <= (1))
+  end.
+Property Parking-PT-416-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((bound("p177")) <= (1))) & (((bound("p101")) <= (3))))
+  end.
+Property Parking-PT-416-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("p189")) <= (2))
+  end.
+Property Parking-PT-416-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("p3")) <= (1))
+  end.
+Property Parking-PT-416-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((bound("p189")) <= (2))) & (((bound("p56")) <= (2))))
+  end.
+Property Parking-PT-416-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((((((bound("p218")) <= (2))) & (((bound("p256")) <= (2))))) & (((((((((bound("p271")) <= (1))) & (((((bound("p50")) <= (3))) & (((bound("p30")) <= (1))))))) & (((((bound("p106")) <= (1))) & (((((bound("p271")) <= (2))) & (((bound("p168")) <= (1))))))))) & (((bound("p287")) <= (1))))))) & (((bound("p206")) <= (1))))
+  end.
+Property Parking-PT-416-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((((bound("p174")) <= (1))) & (((bound("p112")) <= (1))))) & (((((bound("p181")) <= (2))) & (((((bound("p57")) <= (2))) & (((bound("p107")) <= (1))))))))
+  end.
+Property Parking-PT-416-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((((((bound("p47")) <= (1))) & (((((bound("p229")) <= (2))) & (((bound("p272")) <= (1))))))) & (((((bound("p206")) <= (2))) & (((bound("p133")) <= (2))))))) & (((((bound("p295")) <= (1))) & (((bound("p1")) <= (1))))))
+  end.

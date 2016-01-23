@@ -1,0 +1,80 @@
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((bound("cell___8_9__A_")) <= (1))) & (((((((((bound("pool__15_4_")) <= (3))) & (((bound("cell___17_15__A_")) <= (1))))) & (((bound("cell___17_17__A_")) <= (3))))) & (((((((bound("cell___16_3__A_")) <= (3))) & (((bound("pool__3_12_")) <= (2))))) & (((bound("cell___10_10__A_")) <= (1))))))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((((bound("cell___20_3__A_")) <= (1))) & (((bound("cell___15_7__A_")) <= (3))))) & (((bound("cell___7_20__B_")) <= (1))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((((bound("pool__8_11_")) <= (2))) & (((((((((((bound("pool__3_11_")) <= (1))) & (((bound("cell___9_20__A_")) <= (2))))) & (((bound("cell___14_13__A_")) <= (1))))) & (((bound("cell___8_9__A_")) <= (2))))) & (((bound("cell___6_15__B_")) <= (2))))))) & (((bound("cell___14_20__B_")) <= (1))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("cell___19_11__A_")) <= (1))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((bound("cell___3_7__B_")) <= (2))) & (((((bound("cell___18_13__A_")) <= (1))) & (((bound("pool__17_2_")) <= (2))))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("cell___3_19__A_")) <= (1))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((bound("cell___17_6__B_")) <= (3))) & (((((bound("cell___2_19__B_")) <= (3))) & (((bound("cell___4_15__B_")) <= (2))))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("cell___9_2__B_")) <= (1))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("pool__14_17_")) <= (1))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((((bound("pool__7_11_")) <= (3))) & (((((bound("cell___15_8__B_")) <= (3))) & (((bound("cell___8_2__A_")) <= (2))))))) & (((bound("cell___11_20__A_")) <= (2))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("pool__15_2_")) <= (2))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("pool__15_14_")) <= (1))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("pool__18_8_")) <= (3))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((bound("cell___1_20__A_")) <= (2))) & (((((((bound("cell___13_13__B_")) <= (3))) & (((bound("cell___3_14__A_")) <= (1))))) & (((bound("cell___1_8__A_")) <= (3))))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("cell___14_14__B_")) <= (1))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("cell___1_3__B_")) <= (1))
+  end.

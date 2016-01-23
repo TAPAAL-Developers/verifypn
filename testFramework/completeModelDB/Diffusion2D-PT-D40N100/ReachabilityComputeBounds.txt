@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("cAMP__39_31_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("cAMP__18_39_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("cAMP__40_33_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("cAMP__34_28_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("cAMP__40_10_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("cAMP__19_37_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("cAMP__30_37_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("cAMP__19_8_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("cAMP__19_31_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("cAMP__1_26_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("cAMP__25_2_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("cAMP__1_3_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("cAMP__29_14_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("cAMP__10_9_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("cAMP__12_25_")
+  end.
+Property Diffusion2D-PT-D40N100-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("cAMP__13_40_")
+  end.

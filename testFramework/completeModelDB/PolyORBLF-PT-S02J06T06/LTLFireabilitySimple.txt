@@ -1,0 +1,80 @@
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F ("T_1721_1_4", "T_1721_5_4", "T_1721_1_3", "T_1721_5_5", "T_1721_4_1", "T_1721_4_4", "T_1721_6_5", "T_1721_2_4", "T_1721_5_1", "T_1721_0_3", "T_1721_3_5", "T_1721_3_6", "T_1721_3_4", "T_1721_2_3", "T_1721_2_1", "T_1721_4_5", "T_1721_3_3", "T_1721_3_1", "T_1721_5_3", "T_1721_1_1", "T_1721_1_2", "T_1721_4_3", "T_1721_4_2", "T_1721_5_6", "T_1721_2_5", "T_1721_2_2", "T_1721_2_6", "T_1721_4_6", "T_1721_0_1", "T_1721_1_5", "T_1721_6_1", "T_1721_3_2", "T_1721_6_2", "T_1721_6_3", "T_1721_0_6", "T_1721_0_5", "T_1721_0_4", "T_1721_6_6", "T_1721_1_6", "T_1721_0_2", "T_1721_5_2", "T_1721_6_4")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F ("SetSigAbort_5", "SetSigAbort_4", "SetSigAbort_6", "SetSigAbort_1", "SetSigAbort_3", "SetSigAbort_2")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F ("T_1148_6", "T_1148_1", "T_1148_2", "T_1148_3", "T_1148_4", "T_1148_5")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F ("EnterCSIS_1_5", "EnterCSIS_2_2", "EnterCSIS_1_1", "EnterCSIS_2_6", "EnterCSIS_1_6", "EnterCSIS_2_1", "EnterCSIS_2_3", "EnterCSIS_1_3", "EnterCSIS_2_4", "EnterCSIS_1_4", "EnterCSIS_1_2", "EnterCSIS_2_5")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F ("T_2541_5", "T_2541_4", "T_2541_1", "T_2541_3", "T_2541_6", "T_2541_2")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F ("T_2315_2", "T_2315_3", "T_2315_4", "T_2315_5", "T_2315_6", "T_2315_1")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F ("T_2283_6", "T_2283_5", "T_2283_4", "T_2283_3", "T_2283_2", "T_2283_1")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F ("T_1711_3_4", "T_1711_3_6", "T_1711_3_2", "T_1711_0_5", "T_1711_1_3", "T_1711_1_1", "T_1711_0_2", "T_1711_0_6", "T_1711_0_1", "T_1711_1_6", "T_1711_6_4", "T_1711_4_3", "T_1711_3_3", "T_1711_1_2", "T_1711_5_2", "T_1711_5_1", "T_1711_5_4", "T_1711_5_6", "T_1711_5_5", "T_1711_6_1", "T_1711_5_3", "T_1711_4_6", "T_1711_4_4", "T_1711_4_2", "T_1711_0_3", "T_1711_0_4", "T_1711_6_5", "T_1711_6_3", "T_1711_6_2", "T_1711_3_1", "T_1711_3_5", "T_1711_4_1", "T_1711_1_4", "T_1711_6_6", "T_1711_4_5", "T_1711_2_1", "T_1711_2_2", "T_1711_2_6", "T_1711_2_5", "T_1711_2_4", "T_1711_2_3", "T_1711_1_5")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F ("EnterCSPW_2", "EnterCSPW_5", "EnterCSPW_3", "EnterCSPW_6", "EnterCSPW_1", "EnterCSPW_4")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F ("Run_4", "Run_6", "Run_1", "Run_3", "Run_5", "Run_2")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F ("LeaveCSPW_6", "LeaveCSPW_1", "LeaveCSPW_4", "LeaveCSPW_5", "LeaveCSPW_3", "LeaveCSPW_2")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F ("T_2317_3", "T_2317_2", "T_2317_5", "T_2317_4", "T_2317_1", "T_2317_6")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F ("T_1146_4", "T_1146_2", "T_1146_3", "T_1146_1", "T_1146_6", "T_1146_5")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F ("T_1713_5_3", "T_1713_1_6", "T_1713_1_2", "T_1713_1_4", "T_1713_5_2", "T_1713_2_5", "T_1713_2_6", "T_1713_2_2", "T_1713_6_3", "T_1713_4_2", "T_1713_2_1", "T_1713_1_1", "T_1713_3_6", "T_1713_3_2", "T_1713_3_1", "T_1713_6_6", "T_1713_1_5", "T_1713_5_6", "T_1713_4_1", "T_1713_3_3", "T_1713_3_5", "T_1713_4_3", "T_1713_4_5", "T_1713_5_5", "T_1713_4_6", "T_1713_5_4", "T_1713_2_3", "T_1713_5_1", "T_1713_2_4", "T_1713_6_1", "T_1713_6_5", "T_1713_3_4", "T_1713_4_4", "T_1713_1_3", "T_1713_0_4", "T_1713_0_1", "T_1713_0_3", "T_1713_0_2", "T_1713_0_6", "T_1713_0_5", "T_1713_6_4", "T_1713_6_2")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F ("T_1146_4", "T_1146_2", "T_1146_3", "T_1146_1", "T_1146_6", "T_1146_5")?
+  end.
+Property PolyORBLF-COL-S02J06T06-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F ("NotifyEventJobCompleted_5", "NotifyEventJobCompleted_2", "NotifyEventJobCompleted_4", "NotifyEventJobCompleted_3", "NotifyEventJobCompleted_6", "NotifyEventJobCompleted_1")?
+  end.

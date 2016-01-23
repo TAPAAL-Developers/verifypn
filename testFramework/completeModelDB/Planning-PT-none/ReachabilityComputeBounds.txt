@@ -1,0 +1,80 @@
+Property Planning-PT-none-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("p16")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("p86")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("p84")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("p86")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("p20")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("p75")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("p50")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("p119")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("p118")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("p120")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("p15")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("p110")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("p35")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("p66")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("p84")
+  end.
+Property Planning-PT-none-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("p116")
+  end.

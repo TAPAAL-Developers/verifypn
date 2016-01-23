@@ -1,0 +1,80 @@
+Property SwimmingPool-PT-03-CTLFireability-0
+  "Automatically generated"
+  is:
+    E ((A F ! "RKey"?) U (A X "RKey"?))
+  end.
+Property SwimmingPool-PT-03-CTLFireability-1
+  "Automatically generated"
+  is:
+    E F E F A G "RelK"?
+  end.
+Property SwimmingPool-PT-03-CTLFireability-2
+  "Automatically generated"
+  is:
+    ! ((A F (((("RBag"?) | ("Enter"?))) & ("RelK"?))) | ((((("RelK"?) | (((! "RKey"?) | ("GetK"?))))) & (((E G "GetB"?) & (! "RKey"?))))))
+  end.
+Property SwimmingPool-PT-03-CTLFireability-3
+  "Automatically generated"
+  is:
+    E ((! ((! "RKey"?) & (! "GetK"?))) U (((A F "GetB"?) & ((((("Enter"?) & ("Enter"?))) & ("Enter"?))))))
+  end.
+Property SwimmingPool-PT-03-CTLFireability-4
+  "Automatically generated"
+  is:
+    E ((! (((("GetK"?) & ("RelK"?))) | ((("RelK"?) & ("RelK"?))))) U (A G ! "RKey"?))
+  end.
+Property SwimmingPool-PT-03-CTLFireability-5
+  "Automatically generated"
+  is:
+    ((! A F E G "GetB"?) & (! "RKey"?))
+  end.
+Property SwimmingPool-PT-03-CTLFireability-6
+  "Automatically generated"
+  is:
+    ((((A F ((! "GetB"?) | ("GetK"?))) & ("RBag"?))) | (! E X A F "GetK2"?))
+  end.
+Property SwimmingPool-PT-03-CTLFireability-7
+  "Automatically generated"
+  is:
+    ((A (((((("Enter"?) | ("GetB"?))) | ((("GetK2"?) | ("GetK"?))))) U (E G "GetK2"?))) & (! E G "RBag"?))
+  end.
+Property SwimmingPool-PT-03-CTLFireability-8
+  "Automatically generated"
+  is:
+    A F E X "RBag"?
+  end.
+Property SwimmingPool-PT-03-CTLFireability-9
+  "Automatically generated"
+  is:
+    A G ((E X "Enter"?) | (E (("GetB"?) U ("RelK"?))))
+  end.
+Property SwimmingPool-PT-03-CTLFireability-10
+  "Automatically generated"
+  is:
+    A X A (((("RelK"?) | ("RelK"?))) U ((("GetK2"?) & ("Enter"?))))
+  end.
+Property SwimmingPool-PT-03-CTLFireability-11
+  "Automatically generated"
+  is:
+    ((((((A G "GetK2"?) | ((("RelK"?) & (((! "Enter"?) | ((("RelK"?) | ("RBag"?))))))))) | (E X (("GetK2"?) & (! "RelK"?))))) | (! ((! A G "Enter"?) | ("RBag"?))))
+  end.
+Property SwimmingPool-PT-03-CTLFireability-12
+  "Automatically generated"
+  is:
+    E F ((((A F "RKey"?) | ((((("Enter"?) | ("Enter"?))) & (! "RBag"?))))) & (! E X "Enter"?))
+  end.
+Property SwimmingPool-PT-03-CTLFireability-13
+  "Automatically generated"
+  is:
+    ! ((! ! A F "RelK"?) & (E (((("Enter"?) & ("RelK"?))) U ((("GetB"?) | ("Enter"?))))))
+  end.
+Property SwimmingPool-PT-03-CTLFireability-14
+  "Automatically generated"
+  is:
+    A G E F "GetB"?
+  end.
+Property SwimmingPool-PT-03-CTLFireability-15
+  "Automatically generated"
+  is:
+    A F ! A (("Enter"?) U ("RelK"?))
+  end.

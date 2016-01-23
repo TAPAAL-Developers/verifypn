@@ -1,0 +1,80 @@
+Property FMS-PT-050-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("M3")) <= (3))
+  end.
+Property FMS-PT-050-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("M1")) <= (3))
+  end.
+Property FMS-PT-050-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((bound("M2")) <= (1))) & (((bound("P2d")) <= (2))))
+  end.
+Property FMS-PT-050-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("P1M1")) <= (2))
+  end.
+Property FMS-PT-050-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("P3M2")) <= (3))
+  end.
+Property FMS-PT-050-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((((((bound("P3")) <= (2))) & (((((bound("P12wM3")) <= (2))) & (((bound("P1M1")) <= (1))))))) & (((((((bound("P12s")) <= (2))) & (((bound("P1wM1")) <= (1))))) & (((((((((bound("P1wP2")) <= (3))) & (((bound("P1d")) <= (1))))) & (((bound("P1wM1")) <= (2))))) & (((((bound("P3")) <= (1))) & (((((bound("M2")) <= (1))) & (((bound("M3")) <= (2))))))))))))) & (((bound("P2s")) <= (1))))
+  end.
+Property FMS-PT-050-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((bound("P1d")) <= (1))) & (((bound("P2s")) <= (3))))
+  end.
+Property FMS-PT-050-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("P2d")) <= (2))
+  end.
+Property FMS-PT-050-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("P3M2")) <= (3))
+  end.
+Property FMS-PT-050-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("M2")) <= (3))
+  end.
+Property FMS-PT-050-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("P2")) <= (1))
+  end.
+Property FMS-PT-050-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((((((((bound("P1s")) <= (2))) & (((bound("P2")) <= (3))))) & (((bound("P1d")) <= (2))))) & (((bound("P12wM3")) <= (1))))) & (((bound("P12")) <= (3))))
+  end.
+Property FMS-PT-050-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((((bound("P12")) <= (3))) & (((((bound("P12")) <= (2))) & (((((bound("P1wM1")) <= (3))) & (((((bound("P1wM1")) <= (1))) & (((((bound("P1")) <= (1))) & (((bound("M3")) <= (1))))))))))))) & (((((((bound("M1")) <= (2))) & (((bound("P1wP2")) <= (1))))) & (((bound("P3s")) <= (3))))))
+  end.
+Property FMS-PT-050-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((((bound("P12")) <= (2))) & (((((((((bound("P12M3")) <= (2))) & (((((bound("P3")) <= (2))) & (((bound("M1")) <= (3))))))) & (((((bound("P1")) <= (3))) & (((((bound("P3s")) <= (1))) & (((bound("P2")) <= (3))))))))) & (((bound("P1s")) <= (1))))))) & (((((((bound("P12s")) <= (2))) & (((((((bound("M1")) <= (1))) & (((bound("P2s")) <= (2))))) & (((bound("P1wP2")) <= (3))))))) & (((bound("P1wM1")) <= (2))))))
+  end.
+Property FMS-PT-050-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("P12M3")) <= (3))
+  end.
+Property FMS-PT-050-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((((((((((((bound("P2wP1")) <= (3))) & (((bound("P12")) <= (3))))) & (((((bound("P1d")) <= (1))) & (((bound("P1d")) <= (1))))))) & (((bound("P1wM1")) <= (1))))) & (((bound("M1")) <= (1))))) & (((bound("P3")) <= (3))))) & (((((((bound("P12")) <= (3))) & (((bound("P2")) <= (2))))) & (((((((((((bound("P1M1")) <= (2))) & (((bound("P1d")) <= (3))))) & (((((bound("P12M3")) <= (3))) & (((bound("P2wM2")) <= (3))))))) & (((((((bound("M1")) <= (2))) & (((bound("P12s")) <= (1))))) & (((bound("P1s")) <= (2))))))) & (((((((((bound("P2wP1")) <= (2))) & (((bound("P2M2")) <= (1))))) & (((bound("P12wM3")) <= (3))))) & (((((((bound("P1")) <= (2))) & (((bound("P2wM2")) <= (3))))) & (((((bound("P3")) <= (1))) & (((bound("P2wP1")) <= (1))))))))))))))
+  end.

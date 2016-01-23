@@ -1,0 +1,80 @@
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("KdStarGStarP3kP3")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("KdStarGStarPgStar")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("KdStarPgStarP2")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("KdStarGStarP3kStarP2")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("KdStarGStarPgStar")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("P3k")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("Gab1")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("KdStarGStarPgStar")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("KdStarGStarPgStarP3P2")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("KdStarGStar")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("PtP3")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("PtP3")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("GStarP3kP3")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("Pg")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("Pg")
+  end.
+Property Angiogenesis-PT-15-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("Pg")
+  end.

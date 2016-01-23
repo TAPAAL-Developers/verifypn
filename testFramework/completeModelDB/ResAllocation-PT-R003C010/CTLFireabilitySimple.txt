@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E (("t_0_0"?) U ("t_0_3"?))
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E (("t_4_0"?) U ("t_4_3"?))
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t_7_2"?
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E X "t_4_0"?
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A X "t_7_2"?
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t_2_1"?
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A (("t_8_2"?) U ("t_4_3"?))
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A (("t_0_0"?) U ("t_7_3"?))
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E X "t_1_3"?
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A (("t_6_3"?) U ("t_7_1"?))
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A (("t_5_3"?) U ("t_5_2"?))
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E X "t_4_1"?
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E X "t_7_1"?
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "t_8_0"?
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A (("t_5_0"?) U ("t_8_2"?))
+  end.
+Property ResAllocation-PT-R003C010-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E (("t_7_3"?) U ("t_6_2"?))
+  end.

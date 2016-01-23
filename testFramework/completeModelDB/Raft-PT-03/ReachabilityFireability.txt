@@ -1,0 +1,80 @@
+Property Raft-PT-03-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    A G ! ((! "t26"?) & ("t16"?))
+  end.
+Property Raft-PT-03-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F ! ! (("t16"?) & ((("t84"?) & ("t94"?))))
+  end.
+Property Raft-PT-03-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F "t16"?
+  end.
+Property Raft-PT-03-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    A G ! ! (("t43"?) | (! "t94"?))
+  end.
+Property Raft-PT-03-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F ((((((! "t28"?) & ("t79"?))) & (! (("t14"?) | ("t2"?))))) & ((("t62"?) & ("t24"?))))
+  end.
+Property Raft-PT-03-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F "t96"?
+  end.
+Property Raft-PT-03-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F ((! ! (("t59"?) & ("t22"?))) & ((((((("t75"?) | ("t63"?))) & ((("t56"?) | ("t3"?))))) | ((((("t31"?) & ("t13"?))) | ("t68"?))))))
+  end.
+Property Raft-PT-03-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F (("t29"?) & ((("t0"?) | (((! "t87"?) & ("t32"?))))))
+  end.
+Property Raft-PT-03-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    A G ! (((((("t95"?) | ("t39"?))) & ((("t35"?) & ("t10"?))))) & ("t10"?))
+  end.
+Property Raft-PT-03-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G ! (((((("t28"?) & ("t49"?))) & ("t77"?))) & ((("t21"?) | ("t34"?))))
+  end.
+Property Raft-PT-03-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    A G ((! (((("t24"?) | ("t26"?))) & ((("t24"?) | ("t48"?))))) | ((((((("t62"?) & ("t36"?))) | (! "t2"?))) & (! (("t61"?) | ("t90"?))))))
+  end.
+Property Raft-PT-03-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F (("t51"?) & ("t4"?))
+  end.
+Property Raft-PT-03-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ((! (("t11"?) & ("t65"?))) | (! ! (("t40"?) & ("t49"?))))
+  end.
+Property Raft-PT-03-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F (((((((("t23"?) & ("t10"?))) | ((("t35"?) | ("t44"?))))) | ("t24"?))) & (((((! "t66"?) & ((("t86"?) & ("t15"?))))) & ((((("t68"?) | ("t62"?))) | (! "t75"?))))))
+  end.
+Property Raft-PT-03-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    A G (("t38"?) | ((("t44"?) | (((! "t43"?) | ((("t91"?) & ("t74"?))))))))
+  end.
+Property Raft-PT-03-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F (("t79"?) & ((((("t41"?) & ("t47"?))) & ((((("t33"?) & ("t88"?))) & ((("t60"?) & ("t49"?))))))))
+  end.

@@ -1,0 +1,80 @@
+Property Angiogenesis-PT-50-CTLFireability-0
+  "Automatically generated"
+  is:
+    A ((E (("k40"?) U ("k47"?))) U (A G ! "k26"?))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-1
+  "Automatically generated"
+  is:
+    ! ((E F A F "k9"?) | (! ((A G "k47"?) | (((! "k25"?) & (! "k25"?))))))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-2
+  "Automatically generated"
+  is:
+    ((E ((E F "k39"?) U (A G "k27"?))) | (((((((A F "k19"?) | (((! "k59"?) & ("k62"?))))) & ((((((("k31"?) | ("k29"?))) | ((("k4"?) | ("k29"?))))) | (E X "k23"?))))) & (E X E G "k11"?))))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-3
+  "Automatically generated"
+  is:
+    ((! ((((A G "k62"?) & (E F "k21"?))) | (E F (("k49"?) & ("k33"?))))) | (((! A G ! "k35"?) & (((A X (("k46"?) & ("k0"?))) | (A F (("k52"?) | ("k19"?))))))))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-4
+  "Automatically generated"
+  is:
+    ((A G ! A G "k60"?) | ((("k21"?) | (! ((((! "k29"?) | (! "k60"?))) & (((! "k1"?) | (! "k38"?))))))))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-5
+  "Automatically generated"
+  is:
+    ((E F E (("k12"?) U ("k48"?))) & (! (((((("k31"?) | (! "k52"?))) & ((("k44"?) | ("k23"?))))) & ("k25"?))))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-6
+  "Automatically generated"
+  is:
+    ! A G ! (((("k2"?) & ("k22"?))) & ("k54"?))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-7
+  "Automatically generated"
+  is:
+    ! ! (("k19"?) | (A G ! "k44"?))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-8
+  "Automatically generated"
+  is:
+    ((! E ((! "k35"?) U ((("k43"?) & ("k10"?))))) & (E X ! A X "k5"?))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-9
+  "Automatically generated"
+  is:
+    ((A G A F (("k15"?) | ("k8"?))) | (E F ((E G "k46"?) & (! ! "k21"?))))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-10
+  "Automatically generated"
+  is:
+    ((E X ((E X "k51"?) & ("k46"?))) | (E F "k9"?))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-11
+  "Automatically generated"
+  is:
+    ((E F E X "k24"?) | (E (((((("k9"?) | ("k1"?))) | ("k23"?))) U ((((("k48"?) | ("k42"?))) & (! "k42"?))))))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-12
+  "Automatically generated"
+  is:
+    (((("k24"?) & (E F A F "k57"?))) | (E X ! E F "k26"?))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-13
+  "Automatically generated"
+  is:
+    ! E ((E F "k11"?) U ("k35"?))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-14
+  "Automatically generated"
+  is:
+    ! ((A F A X "k9"?) | (! E F (("k24"?) & ("k53"?))))
+  end.
+Property Angiogenesis-PT-50-CTLFireability-15
+  "Automatically generated"
+  is:
+    A X E F "k6"?
+  end.

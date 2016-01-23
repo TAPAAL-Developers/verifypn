@@ -1,0 +1,80 @@
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F ("T_1722_1_2", "T_1722_6_6", "T_1722_1_4", "T_1722_6_4", "T_1722_1_6", "T_1722_6_2", "T_1722_1_10", "T_1722_1_8", "T_1722_6_10", "T_1722_6_8", "T_1722_5_1", "T_1722_2_1", "T_1722_2_5", "T_1722_2_7", "T_1722_5_3", "T_1722_2_3", "T_1722_1_1", "T_1722_2_9", "T_1722_1_5", "T_1722_5_7", "T_1722_3_4", "T_1722_3_8", "T_1722_0_7", "T_1722_1_9", "T_1722_0_4", "T_1722_4_1", "T_1722_4_10", "T_1722_4_6", "T_1722_0_3", "T_1722_4_9", "T_1722_4_5", "T_1722_4_2", "T_1722_0_8", "T_1722_5_4", "T_1722_3_3", "T_1722_5_10", "T_1722_5_8", "T_1722_3_5", "T_1722_5_2", "T_1722_3_1", "T_1722_3_9", "T_1722_3_7", "T_1722_5_6", "T_1722_6_7", "T_1722_6_3", "T_1722_6_9", "T_1722_6_1", "T_1722_2_4", "T_1722_2_8", "T_1722_6_5", "T_1722_2_2", "T_1722_2_10", "T_1722_3_6", "T_1722_0_9", "T_1722_2_6", "T_1722_5_9", "T_1722_1_7", "T_1722_0_5", "T_1722_5_5", "T_1722_3_2", "T_1722_4_3", "T_1722_1_3", "T_1722_0_2", "T_1722_4_8", "T_1722_4_4", "T_1722_3_10", "T_1722_0_6", "T_1722_0_1", "T_1722_4_7", "T_1722_0_10")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F ("NotifyEventSourceAdded_6", "NotifyEventSourceAdded_1", "NotifyEventSourceAdded_9", "NotifyEventSourceAdded_3", "NotifyEventSourceAdded_8", "NotifyEventSourceAdded_10", "NotifyEventSourceAdded_5", "NotifyEventSourceAdded_2", "NotifyEventSourceAdded_4", "NotifyEventSourceAdded_7")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F ("T_2294_2", "T_2294_3", "T_2294_9", "T_2294_1", "T_2294_8", "T_2294_7", "T_2294_6", "T_2294_10", "T_2294_5", "T_2294_4")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F ("T_1722_1_2", "T_1722_6_6", "T_1722_1_4", "T_1722_6_4", "T_1722_1_6", "T_1722_6_2", "T_1722_1_10", "T_1722_1_8", "T_1722_6_10", "T_1722_6_8", "T_1722_5_1", "T_1722_2_1", "T_1722_2_5", "T_1722_2_7", "T_1722_5_3", "T_1722_2_3", "T_1722_1_1", "T_1722_2_9", "T_1722_1_5", "T_1722_5_7", "T_1722_3_4", "T_1722_3_8", "T_1722_0_7", "T_1722_1_9", "T_1722_0_4", "T_1722_4_1", "T_1722_4_10", "T_1722_4_6", "T_1722_0_3", "T_1722_4_9", "T_1722_4_5", "T_1722_4_2", "T_1722_0_8", "T_1722_5_4", "T_1722_3_3", "T_1722_5_10", "T_1722_5_8", "T_1722_3_5", "T_1722_5_2", "T_1722_3_1", "T_1722_3_9", "T_1722_3_7", "T_1722_5_6", "T_1722_6_7", "T_1722_6_3", "T_1722_6_9", "T_1722_6_1", "T_1722_2_4", "T_1722_2_8", "T_1722_6_5", "T_1722_2_2", "T_1722_2_10", "T_1722_3_6", "T_1722_0_9", "T_1722_2_6", "T_1722_5_9", "T_1722_1_7", "T_1722_0_5", "T_1722_5_5", "T_1722_3_2", "T_1722_4_3", "T_1722_1_3", "T_1722_0_2", "T_1722_4_8", "T_1722_4_4", "T_1722_3_10", "T_1722_0_6", "T_1722_0_1", "T_1722_4_7", "T_1722_0_10")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F ("T_1094_5", "T_1094_4", "T_1094_2", "T_1094_3", "T_1094_10", "T_1094_9", "T_1094_8", "T_1094_1", "T_1094_7", "T_1094_6")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F ("T_1146_6", "T_1146_5", "T_1146_7", "T_1146_4", "T_1146_8", "T_1146_2", "T_1146_9", "T_1146_3", "T_1146_1", "T_1146_10")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F ("T_1711_3_9", "T_1711_0_3", "T_1711_0_8", "T_1711_3_4", "T_1711_0_7", "T_1711_3_10", "T_1711_1_9", "T_1711_1_5", "T_1711_1_1", "T_1711_1_7", "T_1711_1_3", "T_1711_2_9", "T_1711_2_3", "T_1711_2_1", "T_1711_2_7", "T_1711_2_6", "T_1711_2_5", "T_1711_4_3", "T_1711_4_7", "T_1711_2_2", "T_1711_1_6", "T_1711_1_2", "T_1711_1_10", "T_1711_6_4", "T_1711_6_8", "T_1711_3_7", "T_1711_3_3", "T_1711_0_10", "T_1711_2_10", "T_1711_3_6", "T_1711_3_2", "T_1711_0_1", "T_1711_0_5", "T_1711_0_2", "T_1711_6_3", "T_1711_0_9", "T_1711_0_6", "T_1711_4_6", "T_1711_6_7", "T_1711_6_1", "T_1711_4_2", "T_1711_4_8", "T_1711_6_5", "T_1711_4_10", "T_1711_6_9", "T_1711_5_6", "T_1711_5_3", "T_1711_4_4", "T_1711_5_2", "T_1711_5_4", "T_1711_5_9", "T_1711_5_5", "T_1711_5_1", "T_1711_5_7", "T_1711_5_8", "T_1711_5_10", "T_1711_1_4", "T_1711_6_10", "T_1711_4_1", "T_1711_2_8", "T_1711_4_5", "T_1711_1_8", "T_1711_6_2", "T_1711_2_4", "T_1711_6_6", "T_1711_3_8", "T_1711_3_1", "T_1711_4_9", "T_1711_0_4", "T_1711_3_5")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F ("T_1171_6", "T_1171_2", "T_1171_7", "T_1171_10", "T_1171_3", "T_1171_4", "T_1171_5", "T_1171_8", "T_1171_9", "T_1171_1")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F ("T_1145_9", "T_1145_8", "T_1145_1", "T_1145_5", "T_1145_6", "T_1145_4", "T_1145_7", "T_1145_2", "T_1145_3", "T_1145_10")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F ("NeedMonitoring_4", "NeedMonitoring_7", "NeedMonitoring_1", "NeedMonitoring_6", "NeedMonitoring_9", "NeedMonitoring_8", "NeedMonitoring_3", "NeedMonitoring_5", "NeedMonitoring_10", "NeedMonitoring_2")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F ("T_1729_6_10", "T_1729_1_10", "T_1729_6_8", "T_1729_5_2", "T_1729_5_5", "T_1729_0_5", "T_1729_5_3", "T_1729_0_7", "T_1729_5_7", "T_1729_4_1", "T_1729_2_9", "T_1729_5_9", "T_1729_4_2", "T_1729_6_5", "T_1729_6_4", "T_1729_4_4", "T_1729_6_6", "T_1729_6_3", "T_1729_0_3", "T_1729_3_10", "T_1729_5_1", "T_1729_2_7", "T_1729_0_6", "T_1729_3_1", "T_1729_6_2", "T_1729_6_1", "T_1729_0_10", "T_1729_1_7", "T_1729_0_9", "T_1729_1_6", "T_1729_2_1", "T_1729_4_8", "T_1729_0_2", "T_1729_2_4", "T_1729_2_3", "T_1729_2_6", "T_1729_4_7", "T_1729_4_5", "T_1729_3_9", "T_1729_1_1", "T_1729_5_10", "T_1729_5_4", "T_1729_1_3", "T_1729_3_7", "T_1729_5_8", "T_1729_3_5", "T_1729_3_6", "T_1729_2_2", "T_1729_1_2", "T_1729_2_8", "T_1729_2_10", "T_1729_6_9", "T_1729_4_3", "T_1729_3_3", "T_1729_0_1", "T_1729_0_4", "T_1729_4_6", "T_1729_3_2", "T_1729_6_7", "T_1729_2_5", "T_1729_1_9", "T_1729_3_4", "T_1729_0_8", "T_1729_5_6", "T_1729_3_8", "T_1729_1_5", "T_1729_4_9", "T_1729_1_8", "T_1729_1_4", "T_1729_4_10")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F ("DummyOR1_8", "DummyOR1_5", "DummyOR1_10", "DummyOR1_2", "DummyOR1_1", "DummyOR1_6", "DummyOR1_9", "DummyOR1_4", "DummyOR1_7", "DummyOR1_3")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F ("T_2541_7", "T_2541_2", "T_2541_5", "T_2541_3", "T_2541_8", "T_2541_9", "T_2541_1", "T_2541_6", "T_2541_10", "T_2541_4")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F ("WillPerformWork_1_6", "WillPerformWork_6_10", "WillPerformWork_1_7", "WillPerformWork_0_8", "WillPerformWork_0_4", "WillPerformWork_0_1", "WillPerformWork_6_6", "WillPerformWork_1_5", "WillPerformWork_6_8", "WillPerformWork_3_6", "WillPerformWork_0_9", "WillPerformWork_4_7", "WillPerformWork_6_7", "WillPerformWork_2_7", "WillPerformWork_4_8", "WillPerformWork_0_5", "WillPerformWork_0_6", "WillPerformWork_0_10", "WillPerformWork_5_1", "WillPerformWork_0_2", "WillPerformWork_3_7", "WillPerformWork_6_4", "WillPerformWork_5_7", "WillPerformWork_3_10", "WillPerformWork_6_1", "WillPerformWork_5_9", "WillPerformWork_3_2", "WillPerformWork_2_10", "WillPerformWork_1_3", "WillPerformWork_4_5", "WillPerformWork_6_9", "WillPerformWork_5_8", "WillPerformWork_2_2", "WillPerformWork_6_3", "WillPerformWork_3_1", "WillPerformWork_5_10", "WillPerformWork_4_4", "WillPerformWork_5_6", "WillPerformWork_4_3", "WillPerformWork_3_5", "WillPerformWork_3_3", "WillPerformWork_3_9", "WillPerformWork_5_2", "WillPerformWork_5_4", "WillPerformWork_4_1", "WillPerformWork_0_7", "WillPerformWork_6_5", "WillPerformWork_4_10", "WillPerformWork_4_2", "WillPerformWork_3_8", "WillPerformWork_4_9", "WillPerformWork_1_4", "WillPerformWork_2_4", "WillPerformWork_2_3", "WillPerformWork_3_4", "WillPerformWork_1_9", "WillPerformWork_5_3", "WillPerformWork_1_1", "WillPerformWork_4_6", "WillPerformWork_0_3", "WillPerformWork_2_8", "WillPerformWork_1_2", "WillPerformWork_5_5", "WillPerformWork_2_9", "WillPerformWork_6_2", "WillPerformWork_2_5", "WillPerformWork_1_8", "WillPerformWork_2_1", "WillPerformWork_2_6", "WillPerformWork_1_10")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F ("T_0383_3_7", "T_0383_4_8", "T_0383_3_6", "T_0383_4_4", "T_0383_2_4", "T_0383_4_6", "T_0383_3_9", "T_0383_1_3", "T_0383_1_8", "T_0383_2_9", "T_0383_3_4", "T_0383_2_6", "T_0383_1_1", "T_0383_4_10", "T_0383_1_10", "T_0383_2_7", "T_0383_3_1", "T_0383_4_3", "T_0383_1_6", "T_0383_4_9", "T_0383_3_8", "T_0383_4_5", "T_0383_2_1", "T_0383_2_10", "T_0383_4_7", "T_0383_1_4", "T_0383_3_5", "T_0383_2_3", "T_0383_1_2", "T_0383_2_5", "T_0383_4_1", "T_0383_3_3", "T_0383_3_10", "T_0383_1_7", "T_0383_2_8", "T_0383_3_2", "T_0383_1_9", "T_0383_1_5", "T_0383_4_2", "T_0383_2_2")?
+  end.
+Property PolyORBLF-COL-S04J06T10-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F ("EnterCSIS_3_9", "EnterCSIS_2_2", "EnterCSIS_3_4", "EnterCSIS_4_6", "EnterCSIS_1_5", "EnterCSIS_3_2", "EnterCSIS_1_9", "EnterCSIS_1_4", "EnterCSIS_4_10", "EnterCSIS_3_7", "EnterCSIS_2_5", "EnterCSIS_2_8", "EnterCSIS_4_1", "EnterCSIS_3_10", "EnterCSIS_1_2", "EnterCSIS_3_5", "EnterCSIS_3_8", "EnterCSIS_4_3", "EnterCSIS_2_10", "EnterCSIS_3_3", "EnterCSIS_2_1", "EnterCSIS_2_7", "EnterCSIS_4_7", "EnterCSIS_1_1", "EnterCSIS_4_5", "EnterCSIS_2_3", "EnterCSIS_3_1", "EnterCSIS_1_8", "EnterCSIS_1_6", "EnterCSIS_2_4", "EnterCSIS_4_9", "EnterCSIS_3_6", "EnterCSIS_1_3", "EnterCSIS_1_10", "EnterCSIS_2_6", "EnterCSIS_4_2", "EnterCSIS_2_9", "EnterCSIS_1_7", "EnterCSIS_4_8", "EnterCSIS_4_4")?
+  end.

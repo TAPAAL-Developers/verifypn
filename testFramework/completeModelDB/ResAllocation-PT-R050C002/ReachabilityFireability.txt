@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R050C002-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F (((("t_0_42"?) & (! "t_1_11"?))) & ("t_1_19"?))
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F (((((((("t_1_13"?) & ("t_0_9"?))) & ((("t_1_33"?) | ("t_0_41"?))))) & (((! "t_0_36"?) | (! "t_0_30"?))))) & (! ! "t_1_33"?))
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F ((! (((("t_1_23"?) & ("t_0_17"?))) | (! "t_0_28"?))) & (! ! (("t_1_43"?) | ("t_0_32"?))))
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    A G ((((! (("t_1_4"?) & ("t_0_41"?))) & (! (("t_0_12"?) & ("t_1_5"?))))) | (! "t_1_13"?))
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F (((("t_1_2"?) | ((("t_0_23"?) | ((("t_0_20"?) & ("t_1_3"?))))))) | ("t_0_33"?))
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F "t_0_15"?
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F "t_0_18"?
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F ! ! ! ! "t_0_31"?
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    A G (((((("t_1_48"?) & ((("t_0_1"?) | ("t_1_43"?))))) | (((! "t_1_9"?) & ((("t_1_19"?) & ("t_1_26"?))))))) | (((! (("t_1_10"?) | ("t_1_21"?))) | (((! "t_1_49"?) | ((("t_1_42"?) & ("t_0_48"?))))))))
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F (((((((("t_0_24"?) | ("t_1_16"?))) & ((("t_0_1"?) & ("t_1_1"?))))) | ("t_1_1"?))) & ("t_0_45"?))
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F (("t_0_47"?) | ((((((("t_0_28"?) & ("t_1_27"?))) | ("t_0_13"?))) & ("t_0_19"?))))
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F ((((! (("t_1_8"?) & ("t_0_43"?))) | ((("t_0_7"?) | ((("t_1_7"?) & ("t_1_13"?))))))) & ("t_1_29"?))
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F ((! ((! "t_0_27"?) & ((("t_0_20"?) & ("t_0_41"?))))) & (((((! "t_0_45"?) & ((("t_0_29"?) & ("t_1_21"?))))) & ((("t_0_6"?) | ((("t_0_4"?) & ("t_1_9"?))))))))
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F "t_1_15"?
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    A G ! "t_0_31"?
+  end.
+Property ResAllocation-PT-R050C002-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    A G ((((((! "t_0_27"?) | ("t_1_44"?))) | ((("t_0_23"?) & ((("t_0_40"?) & ("t_1_26"?))))))) | (! (("t_1_38"?) & ("t_1_3"?))))
+  end.

@@ -1,0 +1,80 @@
+Property RwMutex-PT-r0010w0500-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A F X ((#tokens("p726")) <= (#tokens("p302")))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A F ((((#tokens("p64")) <= (#tokens("p562")))) U (G ((#tokens("p445")) <= (#tokens("p811")))))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A G ((G ((1) <= (#tokens("p461")))) U (X ((#tokens("p475")) <= (#tokens("p1027")))))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A X F ((((#tokens("p914")) <= (#tokens("p821")))) U (((3) <= (#tokens("p57")))))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A X F X X ((#tokens("p827")) <= (#tokens("p944")))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A ((F ((#tokens("p804")) <= (#tokens("p203")))) U (X F ((#tokens("p746")) <= (#tokens("p574")))))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((#tokens("p541")) <= (#tokens("p163")))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A X F X ((1) <= (#tokens("p950")))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A ((((((#tokens("p70")) <= (#tokens("p502")))) U (((2) <= (#tokens("p884")))))) U (((#tokens("p57")) <= (#tokens("p298")))))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((#tokens("p589")) <= (#tokens("p873")))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("p905")))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((#tokens("p420")) <= (#tokens("p616")))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A G X X G ((1) <= (#tokens("p61")))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("p438")))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("p595")))
+  end.
+Property RwMutex-PT-r0010w0500-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((#tokens("p224")) <= (#tokens("p192")))
+  end.

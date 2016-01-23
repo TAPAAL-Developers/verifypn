@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R003C020-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A F X ((((1) <= (#tokens("p_17_1")))) U (((3) <= (#tokens("p_0_0")))))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A ((#tokens("p_18_2")) <= (#tokens("r_2_0")))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A G X ((((#tokens("p_5_1")) <= (#tokens("p_15_1")))) U (((3) <= (#tokens("r_2_2")))))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("p_1_1")))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((#tokens("p_9_0")) <= (#tokens("p_16_0")))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A X G G X ((2) <= (#tokens("p_17_0")))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((F ((3) <= (#tokens("r_10_0")))) U (X X ((3) <= (#tokens("p_13_2")))))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A F X ((#tokens("r_12_1")) <= (#tokens("p_6_0")))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A G G ((#tokens("p_19_1")) <= (#tokens("p_9_1")))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((F F ((#tokens("p_1_2")) <= (#tokens("r_8_1")))) U (((#tokens("r_16_0")) <= (#tokens("r_5_1")))))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((((((2) <= (#tokens("r_1_0")))) U (((2) <= (#tokens("r_17_2")))))) U (((#tokens("r_0_1")) <= (#tokens("r_9_2")))))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("r_17_2")))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("r_18_0")))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A X ((G ((2) <= (#tokens("p_14_0")))) U (F ((#tokens("r_11_1")) <= (#tokens("r_17_1")))))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((F G ((#tokens("r_7_2")) <= (#tokens("r_13_0")))) U (X F ((3) <= (#tokens("r_19_2")))))
+  end.
+Property ResAllocation-PT-R003C020-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A F ((3) <= (#tokens("r_12_0")))
+  end.

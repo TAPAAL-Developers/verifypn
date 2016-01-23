@@ -1,0 +1,80 @@
+Property ERK-PT-000010-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A ((#tokens("Raf1Star_RKIP_ERKPP")) <= (#tokens("ERK")))
+  end.
+Property ERK-PT-000010-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A X ((#tokens("MEKPP_ERK")) <= (#tokens("Raf1Star_RKIP")))
+  end.
+Property ERK-PT-000010-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A F F F X ((#tokens("Raf1Star_RKIP")) <= (#tokens("Raf1Star")))
+  end.
+Property ERK-PT-000010-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A X G X F ((#tokens("MEKPP_ERK")) <= (#tokens("Raf1Star_RKIP")))
+  end.
+Property ERK-PT-000010-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A X X X F ((2) <= (#tokens("ERKPP")))
+  end.
+Property ERK-PT-000010-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A G ((3) <= (#tokens("Raf1Star")))
+  end.
+Property ERK-PT-000010-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((((((2) <= (#tokens("Raf1Star_RKIP")))) U (((#tokens("RKIPP_RP")) <= (#tokens("Raf1Star_RKIP")))))) U (X F ((#tokens("Raf1Star_RKIP")) <= (#tokens("ERKPP")))))
+  end.
+Property ERK-PT-000010-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A X F ((3) <= (#tokens("ERKPP")))
+  end.
+Property ERK-PT-000010-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A ((#tokens("RKIPP")) <= (#tokens("Raf1Star")))
+  end.
+Property ERK-PT-000010-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((2) <= (#tokens("RKIP")))
+  end.
+Property ERK-PT-000010-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A F ((G ((#tokens("MEKPP_ERK")) <= (#tokens("ERK")))) U (F ((#tokens("RKIPP_RP")) <= (#tokens("ERK")))))
+  end.
+Property ERK-PT-000010-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A F ((X ((3) <= (#tokens("RP")))) U (F ((#tokens("ERK")) <= (#tokens("RP")))))
+  end.
+Property ERK-PT-000010-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A X X G X ((1) <= (#tokens("MEKPP")))
+  end.
+Property ERK-PT-000010-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A ((#tokens("RP")) <= (#tokens("RKIP")))
+  end.
+Property ERK-PT-000010-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A F ((1) <= (#tokens("MEKPP_ERK")))
+  end.
+Property ERK-PT-000010-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((F X ((#tokens("ERK")) <= (#tokens("Raf1Star_RKIP_ERKPP")))) U (X F ((2) <= (#tokens("Raf1Star_RKIP_ERKPP")))))
+  end.

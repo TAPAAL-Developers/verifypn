@@ -1,0 +1,80 @@
+Property Echo-PT-d03r03-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t140"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t62"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "t104"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t114"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "t166"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "t141"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "t46"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "t132"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t106"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "t34"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t13"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "t178"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "t149"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "t141"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t199"?
+  end.
+Property Echo-PT-d03r03-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "t156"?
+  end.

@@ -1,0 +1,80 @@
+Property SquareGrid-PT-080408-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A X F X ((#tokens("p1o.5.6")) <= (#tokens("p1o.8.3")))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A X X X X ((#tokens("pb2.7.1")) <= (#tokens("pb4.5.1")))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A X X F G ((#tokens("p4i.1.7")) <= (#tokens("pbl.4.6")))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((G F ((#tokens("p1o.6.5")) <= (#tokens("pb3.8.6")))) U (((3) <= (#tokens("p1o.5.1")))))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A F X ((3) <= (#tokens("p1ol.1.5")))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A F X G G ((3) <= (#tokens("p4i.3.8")))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((X X ((1) <= (#tokens("p4i.3.1")))) U (X F ((2) <= (#tokens("p1i.9.7")))))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A X X G F ((#tokens("pb1.4.5")) <= (#tokens("p4il.7.9")))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A ((#tokens("p4i.8.1")) <= (#tokens("pbl.6.3")))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A X ((1) <= (#tokens("p4i.6.7")))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((((((#tokens("p4o.1.1")) <= (#tokens("pb3.6.5")))) U (((#tokens("pb1.1.2")) <= (#tokens("pb4.1.5")))))) U (F ((#tokens("p4il.5.7")) <= (#tokens("p1i.3.2")))))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((((3) <= (#tokens("pb3.8.6")))) U (G X ((#tokens("p1il.2.3")) <= (#tokens("p4il.2.9")))))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A G F ((#tokens("pbl.7.1")) <= (#tokens("p1o.2.7")))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A X X ((((#tokens("pbl.4.7")) <= (#tokens("p1ol.9.1")))) U (((2) <= (#tokens("pb3.6.4")))))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A X G G F ((3) <= (#tokens("pb4.3.4")))
+  end.
+Property SquareGrid-PT-080408-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((#tokens("pb4.8.6")) <= (#tokens("p1il.1.8")))
+  end.

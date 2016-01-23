@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D20N100-LTLFireability-0
+  "Automatically generated"
+  is:
+    A "t1_14_14_13_13"?
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-1
+  "Automatically generated"
+  is:
+    A X F F X X "t1_16_18_15_17"?
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-2
+  "Automatically generated"
+  is:
+    A G X X F G "t1_9_10_9_9"?
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-3
+  "Automatically generated"
+  is:
+    A ((F G X "t1_17_1_18_1"?) U (((X "t1_12_11_11_10"?) U (F "t1_5_20_6_20"?))))
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X F F "t1_6_2_6_1"?
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-5
+  "Automatically generated"
+  is:
+    A ((F F "t1_16_13_15_13"?) U (F (("t1_8_3_9_3"?) U ("t1_11_11_12_11"?))))
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-6
+  "Automatically generated"
+  is:
+    A "t1_4_18_3_18"?
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-7
+  "Automatically generated"
+  is:
+    A (("t1_17_14_16_14"?) U (X "t1_18_16_17_15"?))
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-8
+  "Automatically generated"
+  is:
+    A G (("t1_17_16_17_17"?) U (X "t1_19_8_18_9"?))
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-9
+  "Automatically generated"
+  is:
+    A F X ((X "t1_6_16_7_16"?) U ("t1_7_12_7_13"?))
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-10
+  "Automatically generated"
+  is:
+    A G "t1_16_4_17_5"?
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-11
+  "Automatically generated"
+  is:
+    A G X F "t1_19_13_19_12"?
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-12
+  "Automatically generated"
+  is:
+    A "t1_9_9_10_9"?
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-13
+  "Automatically generated"
+  is:
+    A F F "t1_4_13_5_12"?
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-14
+  "Automatically generated"
+  is:
+    A "t1_16_2_17_1"?
+  end.
+Property Diffusion2D-PT-D20N100-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X "t1_18_15_19_14"?
+  end.

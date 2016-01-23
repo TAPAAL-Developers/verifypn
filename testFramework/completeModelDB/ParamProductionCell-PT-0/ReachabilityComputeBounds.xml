@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>arm2_release_angle</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>A2U_rot1_rs</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>A2U_rotated</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>press_at_middle_pos</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>A2U_unloaded</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>arm2_waiting_for_swivel_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>arm2_pick_up_ext</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>DB_at_end</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>arm2_backward</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>TU_rot_run</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>TU_lift_run</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>A1L_rot2_in</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>table_load_angle</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>PL_lower_rs</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>TU_rot_rs</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-0-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>robot_right</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

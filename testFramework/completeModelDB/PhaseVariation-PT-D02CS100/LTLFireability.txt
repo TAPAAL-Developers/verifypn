@@ -1,0 +1,80 @@
+Property PhaseVariation-PT-D02CS100-LTLFireability-0
+  "Automatically generated"
+  is:
+    A "division2_mutate_2_2_A_1_1"?
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-1
+  "Automatically generated"
+  is:
+    A "division2_replicate_1_1_B_1_2"?
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-2
+  "Automatically generated"
+  is:
+    A X X G X F "division2_mutate_1_1_A_1_2"?
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-3
+  "Automatically generated"
+  is:
+    A G "division2_mutate_1_1_A_1_2"?
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-4
+  "Automatically generated"
+  is:
+    A ((((F "division2_replicate_1_1_A_2_1"?) U (G "division2_mutate_2_2_A_2_1"?))) U (X "division2_replicate_1_1_A_2_1"?))
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-5
+  "Automatically generated"
+  is:
+    A X "division2_mutate_1_1_A_1_2"?
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-6
+  "Automatically generated"
+  is:
+    A "division2_replicate_1_2_B_2_2"?
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X "division2_replicate_1_2_B_2_2"?
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-8
+  "Automatically generated"
+  is:
+    A X G X "division2_replicate_1_1_A_2_1"?
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-9
+  "Automatically generated"
+  is:
+    A G F "division2_replicate_2_2_B_1_2"?
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-10
+  "Automatically generated"
+  is:
+    A G ((G "division1_replicate_2_2_B"?) U (F G "division2_replicate_1_2_A_2_1"?))
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-11
+  "Automatically generated"
+  is:
+    A "division2_replicate_1_2_A_1_1"?
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-12
+  "Automatically generated"
+  is:
+    A "division2_replicate_2_2_A_1_2"?
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-13
+  "Automatically generated"
+  is:
+    A "division2_replicate_1_1_B_2_1"?
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-14
+  "Automatically generated"
+  is:
+    A "division1_replicate_2_2_B"?
+  end.
+Property PhaseVariation-PT-D02CS100-LTLFireability-15
+  "Automatically generated"
+  is:
+    A "division2_replicate_2_1_A_2_2"?
+  end.

@@ -1,0 +1,80 @@
+Property SwimmingPool-PT-08-LTLFireability-0
+  "Automatically generated"
+  is:
+    A F X ((X "GetK"?) U ("GetK2"?))
+  end.
+Property SwimmingPool-PT-08-LTLFireability-1
+  "Automatically generated"
+  is:
+    A X "RelK"?
+  end.
+Property SwimmingPool-PT-08-LTLFireability-2
+  "Automatically generated"
+  is:
+    A G ((X F "Enter"?) U (X F "Enter"?))
+  end.
+Property SwimmingPool-PT-08-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X ((F G "GetK2"?) U (X X "GetB"?))
+  end.
+Property SwimmingPool-PT-08-LTLFireability-4
+  "Automatically generated"
+  is:
+    A ((((G "GetK2"?) U (G "GetB"?))) U (F X G "GetB"?))
+  end.
+Property SwimmingPool-PT-08-LTLFireability-5
+  "Automatically generated"
+  is:
+    A G (("Enter"?) U (X X "RelK"?))
+  end.
+Property SwimmingPool-PT-08-LTLFireability-6
+  "Automatically generated"
+  is:
+    A X "RBag"?
+  end.
+Property SwimmingPool-PT-08-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X ((F F "Enter"?) U ((("RelK"?) U ("RKey"?))))
+  end.
+Property SwimmingPool-PT-08-LTLFireability-8
+  "Automatically generated"
+  is:
+    A ((F X "RBag"?) U (F X "RelK"?))
+  end.
+Property SwimmingPool-PT-08-LTLFireability-9
+  "Automatically generated"
+  is:
+    A "GetK2"?
+  end.
+Property SwimmingPool-PT-08-LTLFireability-10
+  "Automatically generated"
+  is:
+    A F ((F F "Enter"?) U (F G "GetK2"?))
+  end.
+Property SwimmingPool-PT-08-LTLFireability-11
+  "Automatically generated"
+  is:
+    A "RelK"?
+  end.
+Property SwimmingPool-PT-08-LTLFireability-12
+  "Automatically generated"
+  is:
+    A G X ((G "Enter"?) U (X "GetB"?))
+  end.
+Property SwimmingPool-PT-08-LTLFireability-13
+  "Automatically generated"
+  is:
+    A G X G (("Enter"?) U ("RKey"?))
+  end.
+Property SwimmingPool-PT-08-LTLFireability-14
+  "Automatically generated"
+  is:
+    A X (((("GetK"?) U ("GetK"?))) U ("GetK"?))
+  end.
+Property SwimmingPool-PT-08-LTLFireability-15
+  "Automatically generated"
+  is:
+    A F X X (("RBag"?) U ("GetB"?))
+  end.

@@ -1,0 +1,80 @@
+Property ERK-PT-010000-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((((bound("ERK")) <= (1))) & (((bound("ERK")) <= (2))))) & (((bound("RP")) <= (1))))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("MEKPP")) <= (1))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("RP")) <= (3))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((((((((((bound("MEKPP")) <= (3))) & (((bound("RKIPP_RP")) <= (3))))) & (((((bound("Raf1Star_RKIP")) <= (3))) & (((((bound("MEKPP_ERK")) <= (3))) & (((bound("Raf1Star_RKIP")) <= (1))))))))) & (((bound("RP")) <= (2))))) & (((((((bound("RKIPP")) <= (1))) & (((((bound("Raf1Star_RKIP_ERKPP")) <= (2))) & (((((bound("RKIP")) <= (2))) & (((bound("MEKPP")) <= (2))))))))) & (((bound("Raf1Star_RKIP")) <= (1))))))) & (((bound("MEKPP")) <= (2))))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("Raf1Star_RKIP")) <= (3))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((bound("Raf1Star_RKIP")) <= (3))) & (((((bound("Raf1Star_RKIP_ERKPP")) <= (3))) & (((bound("RKIPP_RP")) <= (1))))))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("ERKPP")) <= (2))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("RP")) <= (3))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((((((bound("Raf1Star_RKIP")) <= (1))) & (((((bound("MEKPP")) <= (1))) & (((bound("MEKPP_ERK")) <= (1))))))) & (((bound("ERKPP")) <= (2))))) & (((((((((((((bound("MEKPP_ERK")) <= (3))) & (((bound("ERKPP")) <= (1))))) & (((bound("RP")) <= (1))))) & (((bound("Raf1Star_RKIP_ERKPP")) <= (1))))) & (((bound("RKIP")) <= (2))))) & (((bound("MEKPP_ERK")) <= (3))))))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((bound("Raf1Star_RKIP_ERKPP")) <= (1))) & (((((bound("MEKPP_ERK")) <= (1))) & (((bound("RP")) <= (1))))))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("MEKPP")) <= (2))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("ERKPP")) <= (2))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((((((bound("MEKPP")) <= (2))) & (((((((bound("RKIPP_RP")) <= (3))) & (((((bound("RP")) <= (2))) & (((bound("RKIPP_RP")) <= (2))))))) & (((bound("Raf1Star_RKIP_ERKPP")) <= (3))))))) & (((bound("RP")) <= (2))))) & (((((((((bound("RP")) <= (2))) & (((((bound("RKIPP_RP")) <= (3))) & (((((bound("ERK")) <= (2))) & (((bound("RKIPP")) <= (2))))))))) & (((((((((bound("ERK")) <= (3))) & (((bound("MEKPP_ERK")) <= (3))))) & (((bound("RKIPP_RP")) <= (3))))) & (((bound("Raf1Star_RKIP_ERKPP")) <= (1))))))) & (((bound("RP")) <= (2))))))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((((bound("ERK")) <= (1))) & (((((((((((bound("ERK")) <= (1))) & (((bound("RP")) <= (2))))) & (((((bound("RP")) <= (2))) & (((bound("Raf1Star_RKIP_ERKPP")) <= (3))))))) & (((((((bound("MEKPP")) <= (3))) & (((bound("MEKPP")) <= (2))))) & (((bound("Raf1Star_RKIP_ERKPP")) <= (2))))))) & (((((((bound("RKIP")) <= (2))) & (((((bound("RP")) <= (1))) & (((bound("RKIPP_RP")) <= (2))))))) & (((((((bound("RKIPP_RP")) <= (3))) & (((bound("Raf1Star_RKIP_ERKPP")) <= (1))))) & (((((bound("Raf1Star")) <= (2))) & (((bound("RKIPP_RP")) <= (2))))))))))))) & (((bound("ERK")) <= (1))))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("ERK")) <= (3))
+  end.
+Property ERK-PT-010000-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("MEKPP_ERK")) <= (1))
+  end.

@@ -1,0 +1,80 @@
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-0
+  "Automatically generated"
+  is:
+    ((A ((((#tokens("pi.d2.n1.1.3.2.3")) <= (#tokens("pbl.3.3.3.1")))) U (((((3) <= (#tokens("po.d4.n1.1.1.2.2")))) | (((#tokens("pil.d2.n1.2.4.2.2")) <= (#tokens("po.d1.n1.2.1.3.2")))))))) | (((E X ((((#tokens("pol.d1.n1.2.2.2.1")) <= (#tokens("pb.d1.n2.2.1.2.3")))) & (((#tokens("pb.d1.n2.3.2.3.2")) <= (#tokens("po.d3.n1.1.1.4.3")))))) | (((2) <= (#tokens("pil.d1.n1.4.3.2.3")))))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-1
+  "Automatically generated"
+  is:
+    A G A G ((((#tokens("pil.d2.n1.1.1.2.3")) <= (#tokens("pb.d2.n1.2.2.2.2")))) & (((#tokens("po.d3.n1.2.3.1.2")) <= (#tokens("pb.d4.n2.2.2.2.1")))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-2
+  "Automatically generated"
+  is:
+    E G ((E G ((#tokens("pi.d4.n1.1.3.2.3")) <= (#tokens("pb.d1.n1.1.2.3.3")))) | (E X ((3) <= (#tokens("pol.d4.n1.1.2.1.4")))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((((((2) <= (#tokens("po.d2.n1.3.1.3.2")))) | (((((#tokens("pi.d4.n1.1.2.3.1")) <= (#tokens("pb.d2.n1.2.2.3.1")))) | (((3) <= (#tokens("pil.d4.n1.2.1.1.3")))))))) U (((((((#tokens("pb.d1.n2.2.1.2.2")) <= (#tokens("po.d4.n1.3.2.3.2")))) & (((#tokens("pi.d1.n1.1.1.1.1")) <= (#tokens("po.d1.n1.2.2.1.1")))))) & (((#tokens("pb.d1.n2.2.2.2.2")) <= (#tokens("pol.d4.n1.1.3.2.3")))))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-4
+  "Automatically generated"
+  is:
+    A X ((((((((3) <= (#tokens("pol.d2.n1.1.1.2.2")))) & (((1) <= (#tokens("pi.d3.n1.1.2.2.3")))))) & (! ((#tokens("pb.d3.n2.3.1.2.1")) <= (#tokens("pb.d1.n2.3.3.1.2")))))) | (A G ((2) <= (#tokens("pb.d3.n1.2.1.1.1")))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-5
+  "Automatically generated"
+  is:
+    ((! ((E X ((3) <= (#tokens("pb.d3.n1.2.3.3.2")))) & (E F ((#tokens("pb.d4.n1.3.1.2.3")) <= (#tokens("pb.d4.n2.3.3.3.3")))))) | (((A F ! ((2) <= (#tokens("pbl.1.3.3.2")))) & (E G ((((#tokens("po.d2.n1.3.3.2.1")) <= (#tokens("po.d4.n1.1.1.3.3")))) | (((#tokens("pi.d1.n1.1.2.2.1")) <= (#tokens("pi.d1.n1.1.2.1.1")))))))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-6
+  "Automatically generated"
+  is:
+    A G ((E F ((1) <= (#tokens("pol.d4.n1.2.3.1.1")))) | (((2) <= (#tokens("pol.d4.n1.2.1.3.2")))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-7
+  "Automatically generated"
+  is:
+    A ((((! ((#tokens("pil.d2.n1.2.4.3.3")) <= (#tokens("po.d3.n1.3.1.3.2")))) | (((((2) <= (#tokens("pol.d3.n1.3.3.2.3")))) | (((3) <= (#tokens("pol.d2.n1.3.1.3.1")))))))) U (A X ((2) <= (#tokens("pol.d4.n1.1.1.3.2")))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-8
+  "Automatically generated"
+  is:
+    A G ! A X ((1) <= (#tokens("pil.d3.n1.3.3.4.2")))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-9
+  "Automatically generated"
+  is:
+    ((((#tokens("pbl.1.3.3.2")) <= (#tokens("pol.d4.n1.3.3.3.3")))) | (A F ((! ((2) <= (#tokens("pi.d4.n1.1.1.1.1")))) & (! ((#tokens("pol.d4.n1.1.3.3.2")) <= (#tokens("pb.d1.n2.3.2.1.3")))))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-10
+  "Automatically generated"
+  is:
+    ((((((((((((3) <= (#tokens("pi.d3.n1.1.1.3.2")))) & (((1) <= (#tokens("pil.d4.n1.3.2.1.3")))))) & (((1) <= (#tokens("pb.d3.n1.2.2.3.3")))))) | (((((((1) <= (#tokens("pi.d1.n1.4.2.3.1")))) & (((2) <= (#tokens("pi.d3.n1.1.3.1.2")))))) | (((1) <= (#tokens("po.d1.n1.2.1.2.3")))))))) & (A X ((((#tokens("pb.d2.n1.1.3.1.3")) <= (#tokens("pol.d1.n1.2.3.3.3")))) | (((1) <= (#tokens("pil.d3.n1.3.2.4.3")))))))) | (E X E F ((#tokens("pb.d1.n1.3.1.2.3")) <= (#tokens("pol.d2.n1.3.2.2.3")))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((A X ((1) <= (#tokens("pb.d4.n1.3.2.2.1")))) U (E X ((2) <= (#tokens("pi.d4.n1.1.3.3.2")))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-12
+  "Automatically generated"
+  is:
+    A G ((((((((3) <= (#tokens("pbl.2.3.2.2")))) & (((#tokens("pb.d2.n1.3.1.3.2")) <= (#tokens("pil.d3.n1.1.1.3.1")))))) | (((((1) <= (#tokens("pil.d3.n1.1.3.1.3")))) & (((1) <= (#tokens("pol.d4.n1.1.2.1.4")))))))) | (((#tokens("pi.d1.n1.3.3.3.2")) <= (#tokens("pol.d3.n1.2.1.2.3")))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-13
+  "Automatically generated"
+  is:
+    ((A G ! ! ((#tokens("pi.d2.n1.2.2.2.3")) <= (#tokens("pil.d4.n1.3.1.3.4")))) & (((2) <= (#tokens("pb.d1.n2.3.1.2.3")))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-14
+  "Automatically generated"
+  is:
+    A F A G ((((2) <= (#tokens("pol.d2.n1.2.1.2.2")))) & (((#tokens("pi.d2.n1.1.2.3.3")) <= (#tokens("pi.d4.n1.1.1.3.1")))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-CTLCardinality-15
+  "Automatically generated"
+  is:
+    E G ! ((2) <= (#tokens("pi.d2.n1.3.2.3.1")))
+  end.

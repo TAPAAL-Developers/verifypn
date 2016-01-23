@@ -1,0 +1,80 @@
+Property CircularTrains-PT-768-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F "t563_to_564"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F (("t203_to_204"?) & ("t249_to_250"?))
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F (((("t146_to_147"?) | ((("t504_to_505"?) | ((("t582_to_583"?) | ("t631_to_632"?))))))) & ((("t365_to_366"?) & ("t585_to_586"?))))
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F (("t631_to_632"?) & ((("t656_to_657"?) & ((((("t203_to_204"?) | ("t214_to_215"?))) & (! "t86_to_87"?))))))
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F "t236_to_237"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F (((("t234_to_235"?) & ("t626_to_627"?))) & (! ! (("t761_to_762"?) & ("t472_to_473"?))))
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G ((((! (("t193_to_194"?) & ("t680_to_681"?))) & (! (("t330_to_331"?) & ("t629_to_630"?))))) | (((((! "t697_to_698"?) & ((("t714_to_715"?) | ("t679_to_680"?))))) & ((((("t487_to_488"?) | ("t431_to_432"?))) & ((("t245_to_246"?) | ("t148_to_149"?))))))))
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G ! ! ((! "t605_to_606"?) | (! "t581_to_582"?))
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F ((! (((("t88_to_89"?) | ("t594_to_595"?))) & ((("t571_to_572"?) | ("t416_to_417"?))))) & ((((((("t529_to_530"?) | ("t322_to_323"?))) & (! "t608_to_609"?))) & (! (("t178_to_179"?) | ("t543_to_544"?))))))
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G (((((((("t737_to_738"?) & ("t665_to_666"?))) | ("t528_to_529"?))) | (((! "t235_to_236"?) | ("t94_to_95"?))))) | ("t247_to_248"?))
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F (("t458_to_459"?) & ("t611_to_612"?))
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    A G (((("t302_to_303"?) & ("t585_to_586"?))) | (! (((("t676_to_677"?) & ("t48_to_49"?))) & (! "t261_to_262"?))))
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ! (((((("t515_to_516"?) & ("t511_to_512"?))) & ((("t381_to_382"?) & ("t480_to_481"?))))) & (! (("t694_to_695"?) & ("t93_to_94"?))))
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    A G (("t501_to_502"?) | (((! ! "t623_to_624"?) | (! (("t694_to_695"?) & ("t253_to_254"?))))))
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F (((((("t608_to_609"?) & ((("t203_to_204"?) | ("t38_to_39"?))))) & (! (("t486_to_487"?) & ("t642_to_643"?))))) & ("t70_to_71"?))
+  end.
+Property CircularTrains-PT-768-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F (((("t436_to_437"?) & ("t340_to_341"?))) & (((! ! "t751_to_752"?) | ((("t146_to_147"?) & ("t330_to_331"?))))))
+  end.

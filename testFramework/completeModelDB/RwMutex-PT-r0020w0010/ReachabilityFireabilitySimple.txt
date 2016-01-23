@@ -1,0 +1,80 @@
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t32"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A G "t52"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t14"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t48"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t58"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A G "t57"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t27"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A G "t25"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A G "t38"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t39"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t31"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A G "t49"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A G "t35"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A G "t31"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A G "t37"?
+  end.
+Property RwMutex-PT-r0020w0010-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A G "t57"?
+  end.

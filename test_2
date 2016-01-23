@@ -1,0 +1,4230 @@
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 3.749 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-01
+:::TIME::: Parse of CTL query elapsed time: 0.595 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 2: 0.045 ms
+:::TIME::: Parse model elapsed time: 3.737 ms
+:::TIME::: Parse model elapsed time: 3.908 ms
+:::DATA::: Configurations: 11 Markings: 3
+FORMULA Angiogenesis-PT-01-CTLCardinality-2 F TECHNIQUES 
+:::TIME::: Parse model elapsed time: 3.663 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-01
+
+:::TIME::: Total search elapsed time: 0.133 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-01
+Analysis:: Modelname: Angiogenesis-PT-01
+:::TIME::: Parse of CTL query elapsed time: 0.625 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.66 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 1: 0.008 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA Angiogenesis-PT-01-CTLCardinality-1 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.09 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 3: 0.18 ms
+:::DATA::: Configurations: 35 Markings: 8
+FORMULA Angiogenesis-PT-01-CTLCardinality-3 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.265 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.759 ms
+
+:::TIME::: Parse model elapsed time: 2.998 ms
+:::TIME::: Parse model elapsed time: 3.404 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-01
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-01
+:::TIME::: Parse model elapsed time: 3.369 ms
+:::TIME::: Parse model elapsed time: 3.656 ms
+:::TIME::: Parse model elapsed time: 3.602 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-01
+:::TIME::: Parse model elapsed time: 3.162 ms
+:::TIME::: Parse of CTL query elapsed time: 0.644 ms
+
+:::TIME::: Parse model elapsed time: 3.588 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-01
+:::TIME::: Parse model elapsed time: 3.679 ms
+:::TIME::: Parse of CTL query elapsed time: 0.729 ms
+
+:::TIME::: Parse model elapsed time: 3.728 ms
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 2.06 ms
+:::DATA::: Configurations: 493 Markings: 106
+FORMULA Angiogenesis-PT-01-CTLCardinality-7 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 2.141 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-01
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-01
+:::TIME::: Parse of CTL query elapsed time: 0.779 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-01
+:::TIME::: Parse of CTL query elapsed time: 0.651 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.578 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-01
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-01
+:::CYCLE:: Detected: 111 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 1.625 ms
+:::DATA::: Configurations: 268 Markings: 87
+FORMULA Angiogenesis-PT-01-CTLCardinality-9 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.723 ms
+
+:::CYCLE:: Detected: 52 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 1.461 ms
+:::DATA::: Configurations: 226 Markings: 110
+FORMULA Angiogenesis-PT-01-CTLCardinality-15 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.522 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.535 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.621 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Parse of CTL query elapsed time: 0.645 ms
+
+:::TIME::: Search elapsed time for query 10: 0.098 ms
+:::DATA::: Configurations: 19 Markings: 8
+FORMULA Angiogenesis-PT-01-CTLCardinality-10 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.294 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.701 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 0.01 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA Angiogenesis-PT-01-CTLCardinality-12 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.15 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 0.024 ms
+:::DATA::: Configurations: 12 Markings: 0
+FORMULA Angiogenesis-PT-01-CTLCardinality-6 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.177 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 0.063 ms
+:::DATA::: Configurations: 34 Markings: 3
+FORMULA Angiogenesis-PT-01-CTLCardinality-8 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.206 ms
+
+:::TIME::: Search elapsed time for query 14: 0.01 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA Angiogenesis-PT-01-CTLCardinality-14 T TECHNIQUES 
+:::TIME::: Search elapsed time for query 11: 0.022 ms
+:::DATA::: Configurations: 4 Markings: 3
+FORMULA Angiogenesis-PT-01-CTLCardinality-11 F TECHNIQUES 
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 0.036 ms
+:::DATA::: Configurations: 11 Markings: 3
+FORMULA Angiogenesis-PT-01-CTLCardinality-13 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.119 ms
+
+
+:::TIME::: Total search elapsed time: 0.244 ms
+
+
+:::TIME::: Total search elapsed time: 0.273 ms
+
+Search: CDFS
+Algorithm: czero-i
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 3.667 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-05
+:::TIME::: Parse of CTL query elapsed time: 0.798 ms
+
+:::TIME::: Parse model elapsed time: 3.792 ms
+:::TIME::: Parse model elapsed time: 3.868 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-05
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse model elapsed time: 3.627 ms
+Analysis:: Modelname: Angiogenesis-PT-05
+:::TIME::: Parse of CTL query elapsed time: 0.692 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-05
+:::TIME::: Parse of CTL query elapsed time: 0.719 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 0.13 ms
+:::DATA::: Configurations: 40 Markings: 12
+:::TIME::: Parse model elapsed time: 3.68 ms
+:::TIME::: Parse of CTL query elapsed time: 0.59 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-05
+FORMULA Angiogenesis-PT-05-CTLCardinality-12 F TECHNIQUES 
+:::TIME::: Parse model elapsed time: 3.693 ms
+:::TIME::: Parse model elapsed time: 3.241 ms
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+
+:::TIME::: Total search elapsed time: 0.247 ms
+
+:::TIME::: Parse model elapsed time: 3.634 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-05
+:::TIME::: Parse of CTL query elapsed time: 0.881 ms
+
+:::TIME::: Parse model elapsed time: 3.48 ms
+:::TIME::: Parse model elapsed time: 3.677 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-05
+:::TIME::: Parse model elapsed time: 3.267 ms
+:::TIME::: Search elapsed time for query 15: 0.106 ms
+:::DATA::: Configurations: 34 Markings: 12
+FORMULA Angiogenesis-PT-05-CTLCardinality-15 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.223 ms
+
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse model elapsed time: 3.645 ms
+:::TIME::: Parse of CTL query elapsed time: 0.688 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-05
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-05
+:::TIME::: Parse of CTL query elapsed time: 0.594 ms
+
+Analysis:: Modelname: Angiogenesis-PT-05
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Angiogenesis-PT-05
+Analysis:: Modelname: Angiogenesis-PT-05
+:::TIME::: Parse of CTL query elapsed time: 0.666 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.669 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.78 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.634 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.707 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 0.01 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA Angiogenesis-PT-05-CTLCardinality-11 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.08 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 0.017 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA Angiogenesis-PT-05-CTLCardinality-13 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.129 ms
+
+:::CYCLE:: Detected: 27343 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 398.762 ms
+:::DATA::: Configurations: 55196 Markings: 40529
+FORMULA Angiogenesis-PT-05-CTLCardinality-8 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 399.031 ms
+
+:::CYCLE:: Detected: 21092 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 3: 646.598 ms
+:::DATA::: Configurations: 99283 Markings: 56755
+FORMULA Angiogenesis-PT-05-CTLCardinality-3 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 646.984 ms
+
+:::CYCLE:: Detected: 23708 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 657.448 ms
+:::DATA::: Configurations: 106157 Markings: 59529
+FORMULA Angiogenesis-PT-05-CTLCardinality-9 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 657.569 ms
+
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+:::TIME::: Parse model elapsed time: 1.295 ms
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Analysis:: Modefile: ./model.pnml
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Analysis:: Modelname: CircadianClock-PT-000001
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse of CTL query elapsed time: 0.734 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 4: 0.017 ms
+:::DATA::: Configurations: 4 Markings: 0
+FORMULA CircadianClock-PT-000001-CTLCardinality-4 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.094 ms
+
+:::TIME::: Parse model elapsed time: 1.352 ms
+:::TIME::: Parse model elapsed time: 1.292 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000001
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000001
+:::TIME::: Parse model elapsed time: 1.313 ms
+:::TIME::: Parse model elapsed time: 1.35 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000001
+:::TIME::: Parse of CTL query elapsed time: 0.519 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.472 ms
+
+:::TIME::: Parse model elapsed time: 1.233 ms
+:::TIME::: Parse of CTL query elapsed time: 0.585 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000001
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 0.047 ms
+:::DATA::: Configurations: 25 Markings: 6
+FORMULA CircadianClock-PT-000001-CTLCardinality-15 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.149 ms
+
+:::TIME::: Parse model elapsed time: 1.32 ms
+:::TIME::: Parse model elapsed time: 1.257 ms
+:::TIME::: Parse model elapsed time: 1.313 ms
+:::CYCLE:: Detected: 24 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 0.138 ms
+:::DATA::: Configurations: 55 Markings: 36
+FORMULA CircadianClock-PT-000001-CTLCardinality-6 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.227 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000001
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 3: 0.103 ms
+:::DATA::: Configurations: 43 Markings: 16
+FORMULA CircadianClock-PT-000001-CTLCardinality-3 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.312 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.681 ms
+
+:::TIME::: Parse model elapsed time: 1.223 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000001
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000001
+:::TIME::: Parse model elapsed time: 1.216 ms
+:::TIME::: Parse model elapsed time: 1.215 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000001
+:::TIME::: Parse model elapsed time: 1.362 ms
+:::TIME::: Parse model elapsed time: 1.29 ms
+:::TIME::: Parse model elapsed time: 1.215 ms
+:::TIME::: Parse of CTL query elapsed time: 0.713 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 0.019 ms
+:::DATA::: Configurations: 12 Markings: 0
+FORMULA CircadianClock-PT-000001-CTLCardinality-9 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.045 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 0.033 ms
+:::DATA::: Configurations: 15 Markings: 5
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000001
+:::TIME::: Parse of CTL query elapsed time: 0.667 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.628 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000001
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000001
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000001
+:::TIME::: Parse of CTL query elapsed time: 0.621 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000001
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000001
+FORMULA CircadianClock-PT-000001-CTLCardinality-12 T TECHNIQUES 
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 1: 0.046 ms
+:::DATA::: Configurations: 27 Markings: 9
+FORMULA CircadianClock-PT-000001-CTLCardinality-1 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.151 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.617 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::CYCLE:: Detected: 23 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 0.136 ms
+:::DATA::: Configurations: 55 Markings: 36
+FORMULA CircadianClock-PT-000001-CTLCardinality-5 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.235 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.578 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.673 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.548 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 0.014 ms
+:::DATA::: Configurations: 7 Markings: 0
+FORMULA CircadianClock-PT-000001-CTLCardinality-10 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.039 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.715 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+
+:::TIME::: Total search elapsed time: 0.262 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.758 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 0.008 ms
+:::DATA::: Configurations: 1 Markings: 0
+:::CYCLE:: Detected: 76 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 2: 1.155 ms
+:::DATA::: Configurations: 385 Markings: 128
+FORMULA CircadianClock-PT-000001-CTLCardinality-2 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.271 ms
+
+:::TIME::: Search elapsed time for query 11: 0.021 ms
+:::DATA::: Configurations: 5 Markings: 2
+FORMULA CircadianClock-PT-000001-CTLCardinality-11 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.205 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 0.045 ms
+:::DATA::: Configurations: 33 Markings: 6
+FORMULA CircadianClock-PT-000001-CTLCardinality-14 T TECHNIQUES 
+:::TIME::: Search elapsed time for query 7: 0.025 ms
+:::DATA::: Configurations: 15 Markings: 2
+FORMULA CircadianClock-PT-000001-CTLCardinality-7 F TECHNIQUES 
+:::CYCLE:: Detected: 76 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 0.766 ms
+:::DATA::: Configurations: 256 Markings: 128
+FORMULA CircadianClock-PT-000001-CTLCardinality-8 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.845 ms
+
+FORMULA CircadianClock-PT-000001-CTLCardinality-13 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.102 ms
+
+
+:::TIME::: Total search elapsed time: 0.301 ms
+
+
+:::TIME::: Total search elapsed time: 0.139 ms
+
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 1.35 ms
+:::TIME::: Parse model elapsed time: 1.318 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000010
+:::TIME::: Parse of CTL query elapsed time: 0.716 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.594 ms
+
+:::TIME::: Parse model elapsed time: 1.141 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000010
+:::TIME::: Parse of CTL query elapsed time: 0.632 ms
+
+:::TIME::: Parse model elapsed time: 1.033 ms
+:::TIME::: Parse model elapsed time: 1.377 ms
+:::TIME::: Parse model elapsed time: 1.179 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000010
+:::TIME::: Parse model elapsed time: 1.32 ms
+:::TIME::: Parse model elapsed time: 1.321 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000010
+:::TIME::: Parse model elapsed time: 1.356 ms
+:::TIME::: Parse model elapsed time: 1.261 ms
+:::TIME::: Parse model elapsed time: 1.272 ms
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse of CTL query elapsed time: 0.736 ms
+
+:::TIME::: Parse model elapsed time: 1.336 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000010
+:::TIME::: Parse of CTL query elapsed time: 0.695 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000010
+:::TIME::: Parse of CTL query elapsed time: 0.751 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000010
+Analysis:: Modelname: CircadianClock-PT-000010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircadianClock-PT-000010
+:::TIME::: Parse of CTL query elapsed time: 0.728 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.53 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.628 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.64 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.599 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.621 ms
+
+:::CYCLE:: Detected: 90 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 13.316 ms
+:::DATA::: Configurations: 6490 Markings: 4628
+FORMULA CircadianClock-PT-000010-CTLCardinality-6 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 13.375 ms
+
+:::CYCLE:: Detected: 353604 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 3: 2240.43 ms
+:::DATA::: Configurations: 310791 Markings: 199286
+FORMULA CircadianClock-PT-000010-CTLCardinality-3 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 2241.41 ms
+
+:::CYCLE:: Detected: 384662 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 17508.1 ms
+:::DATA::: Configurations: 1932627 Markings: 644204
+FORMULA CircadianClock-PT-000010-CTLCardinality-13 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 17508.4 ms
+
+:::CYCLE:: Detected: 384663 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 18014 ms
+:::DATA::: Configurations: 2576819 Markings: 644204
+FORMULA CircadianClock-PT-000010-CTLCardinality-12 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 18014.8 ms
+
+:::CYCLE:: Detected: 384662 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 20836.6 ms
+:::DATA::: Configurations: 2580230 Markings: 644204
+FORMULA CircadianClock-PT-000010-CTLCardinality-14 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 20836.7 ms
+
+:::CYCLE:: Detected: 384662 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 22586.8 ms
+:::DATA::: Configurations: 5153632 Markings: 644204
+FORMULA CircadianClock-PT-000010-CTLCardinality-7 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 22587 ms
+
+:::CYCLE:: Detected: 2375968 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 32516.4 ms
+:::DATA::: Configurations: 4442792 Markings: 644204
+FORMULA CircadianClock-PT-000010-CTLCardinality-9 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 32516.7 ms
+
+:::CYCLE:: Detected: 384662 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 33295.6 ms
+:::DATA::: Configurations: 1932637 Markings: 644204
+FORMULA CircadianClock-PT-000010-CTLCardinality-15 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 33295.8 ms
+
+:::CYCLE:: Detected: 769325 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 37747.2 ms
+:::DATA::: Configurations: 3865243 Markings: 644204
+FORMULA CircadianClock-PT-000010-CTLCardinality-8 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 37747.4 ms
+
+:::CYCLE:: Detected: 57729 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 4: 39869.5 ms
+:::DATA::: Configurations: 5786503 Markings: 644204
+FORMULA CircadianClock-PT-000010-CTLCardinality-4 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 39869.6 ms
+
+:::CYCLE:: Detected: 770092 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 43741.2 ms
+:::DATA::: Configurations: 4509428 Markings: 644204
+FORMULA CircadianClock-PT-000010-CTLCardinality-11 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 43741.4 ms
+
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 1.231 ms
+:::TIME::: Parse model elapsed time: 1.186 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+:::TIME::: Parse model elapsed time: 1.491 ms
+:::TIME::: Parse model elapsed time: 1.422 ms
+:::TIME::: Parse model elapsed time: 1.557 ms
+:::TIME::: Parse model elapsed time: 1.508 ms
+:::TIME::: Parse model elapsed time: 1.141 ms
+:::TIME::: Parse of CTL query elapsed time: 0.405 ms
+
+:::TIME::: Parse model elapsed time: 0.97 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+:::TIME::: Parse of CTL query elapsed time: 0.507 ms
+
+:::TIME::: Parse model elapsed time: 1.168 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+:::TIME::: Parse of CTL query elapsed time: 0.54 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+:::TIME::: Parse model elapsed time: 1.054 ms
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 1: 0.694 ms
+:::DATA::: Configurations: 422 Markings: 171
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+:::TIME::: Parse model elapsed time: 1.275 ms
+:::TIME::: Parse model elapsed time: 1.069 ms
+:::TIME::: Parse of CTL query elapsed time: 0.606 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 0.007 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA CircularTrains-PT-012-CTLCardinality-11 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.061 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Parse model elapsed time: 1.216 ms
+:::TIME::: Parse model elapsed time: 1.073 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+:::TIME::: Parse model elapsed time: 1.249 ms
+:::TIME::: Parse of CTL query elapsed time: 0.493 ms
+
+:::TIME::: Parse model elapsed time: 1.205 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+:::TIME::: Parse of CTL query elapsed time: 0.507 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 0.009 ms
+:::DATA::: Configurations: 1 Markings: 0
+:::TIME::: Parse of CTL query elapsed time: 0.422 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.375 ms
+
+FORMULA CircularTrains-PT-012-CTLCardinality-1 F TECHNIQUES 
+:::TIME::: Search elapsed time for query 8: 0.016 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA CircularTrains-PT-012-CTLCardinality-8 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.125 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.675 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.4 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+:::TIME::: Search elapsed time for query 2: 0.067 ms
+:::DATA::: Configurations: 31 Markings: 14
+FORMULA CircularTrains-PT-012-CTLCardinality-2 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.192 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+Analysis:: Modefile: ./model.pnml
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CircularTrains-PT-012
+:::TIME::: Parse of CTL query elapsed time: 0.517 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 0.013 ms
+:::DATA::: Configurations: 2 Markings: 0
+:::TIME::: Parse of CTL query elapsed time: 0.589 ms
+
+FORMULA CircularTrains-PT-012-CTLCardinality-10 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.091 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 0.039 ms
+:::DATA::: Configurations: 13 Markings: 8
+FORMULA CircularTrains-PT-012-CTLCardinality-13 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.225 ms
+
+
+:::TIME::: Total search elapsed time: 0.827 ms
+
+:::CYCLE:: Detected: 8 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 0.129 ms
+:::DATA::: Configurations: 78 Markings: 46
+FORMULA CircularTrains-PT-012-CTLCardinality-9 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.247 ms
+
+:::CYCLE:: Detected: 73 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 1.283 ms
+:::DATA::: Configurations: 591 Markings: 195
+FORMULA CircularTrains-PT-012-CTLCardinality-5 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.399 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Parse of CTL query elapsed time: 0.509 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.502 ms
+
+Analysis:: Modelname: CircularTrains-PT-012
+:::TIME::: Parse of CTL query elapsed time: 0.551 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.579 ms
+
+:::TIME::: Search elapsed time for query 12: 0.02 ms
+FORMULA CircularTrains-PT-012-CTLCardinality-15 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.085 ms
+
+:::TIME::: Search elapsed time for query 3: 0.046 ms
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 0: 0.037 ms
+:::DATA::: Configurations: 11 Markings: 4
+FORMULA CircularTrains-PT-012-CTLCardinality-0 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.156 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 0.042 ms
+:::DATA::: Configurations: 16 Markings: 8
+FORMULA CircularTrains-PT-012-CTLCardinality-14 F TECHNIQUES 
+:::CYCLE:: Detected: 153 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 2.703 ms
+:::DATA::: Configurations: 1047 Markings: 195
+FORMULA CircularTrains-PT-012-CTLCardinality-7 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 2.795 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 4: 0.007 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA CircularTrains-PT-012-CTLCardinality-4 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.076 ms
+
+:::DATA::: Configurations: 5 Markings: 4
+FORMULA CircularTrains-PT-012-CTLCardinality-12 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.27 ms
+
+:::DATA::: Configurations: 11 Markings: 4
+FORMULA CircularTrains-PT-012-CTLCardinality-3 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.308 ms
+
+
+:::TIME::: Total search elapsed time: 0.164 ms
+
+:::TIME::: Search elapsed time for query 6: 0.052 ms
+:::DATA::: Configurations: 29 Markings: 4
+FORMULA CircularTrains-PT-012-CTLCardinality-6 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.191 ms
+
+Algorithm: czero-i
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 2.633 ms
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.609 ms
+
+:::TIME::: Parse model elapsed time: 2.515 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.561 ms
+
+:::TIME::: Parse model elapsed time: 2.591 ms
+:::TIME::: Parse model elapsed time: 2.551 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+:::TIME::: Parse model elapsed time: 2.582 ms
+:::TIME::: Parse of CTL query elapsed time: 0.582 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.642 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.594 ms
+
+:::TIME::: Parse model elapsed time: 2.233 ms
+:::TIME::: Parse model elapsed time: 2.596 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+:::TIME::: Parse model elapsed time: 3.18 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.639 ms
+
+:::TIME::: Parse model elapsed time: 2.468 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+:::TIME::: Parse model elapsed time: 2.61 ms
+:::TIME::: Parse model elapsed time: 2.498 ms
+:::TIME::: Parse of CTL query elapsed time: 0.809 ms
+
+:::TIME::: Parse model elapsed time: 2.465 ms
+:::TIME::: Parse of CTL query elapsed time: 0.604 ms
+
+:::TIME::: Parse model elapsed time: 3.041 ms
+:::TIME::: Parse model elapsed time: 2.506 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+:::TIME::: Parse model elapsed time: 2.811 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.589 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.658 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: CSRepetitions-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.664 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.628 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.693 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.905 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.684 ms
+
+:::CYCLE:: Detected: 1863 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 4: 105.426 ms
+:::DATA::: Configurations: 37133 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-4 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 105.535 ms
+
+:::CYCLE:: Detected: 1863 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 95.555 ms
+:::DATA::: Configurations: 22702 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-7 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 95.642 ms
+
+:::CYCLE:: Detected: 1863 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 1: 144.536 ms
+:::DATA::: Configurations: 51969 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-1 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 144.61 ms
+
+:::CYCLE:: Detected: 1863 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 156.042 ms
+:::DATA::: Configurations: 25866 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-15 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 156.118 ms
+
+:::CYCLE:: Detected: 1915 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 170.544 ms
+:::DATA::: Configurations: 29697 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-5 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 170.616 ms
+
+:::CYCLE:: Detected: 1863 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 176.186 ms
+:::DATA::: Configurations: 81664 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-13 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 176.904 ms
+
+:::CYCLE:: Detected: 1863 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 170.223 ms
+:::DATA::: Configurations: 37120 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-6 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 170.305 ms
+
+:::CYCLE:: Detected: 1863 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 3: 180.269 ms
+:::DATA::: Configurations: 29697 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-3 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 180.383 ms
+
+:::CYCLE:: Detected: 1863 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 185.44 ms
+:::DATA::: Configurations: 39139 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-11 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 185.529 ms
+
+:::CYCLE:: Detected: 1863 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 197.592 ms
+:::DATA::: Configurations: 51968 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-14 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 198.125 ms
+
+:::CYCLE:: Detected: 3680 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 209.747 ms
+:::DATA::: Configurations: 44545 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-8 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 209.812 ms
+
+:::CYCLE:: Detected: 1863 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 2: 237.716 ms
+:::DATA::: Configurations: 44544 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-2 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 237.79 ms
+
+:::CYCLE:: Detected: 1863 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 229.772 ms
+:::DATA::: Configurations: 37121 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-12 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 229.863 ms
+
+:::CYCLE:: Detected: 1863 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 238.635 ms
+:::DATA::: Configurations: 62390 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-10 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 238.715 ms
+
+:::CYCLE:: Detected: 1863 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 263.696 ms
+:::DATA::: Configurations: 81665 Markings: 7424
+FORMULA CSRepetitions-COL-02-CTLCardinality-9 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 263.756 ms
+
+Search: CDFS
+Algorithm: czero-i
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 2.885 ms
+:::TIME::: Parse model elapsed time: 3.072 ms
+:::TIME::: Parse model elapsed time: 2.898 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+:::TIME::: Parse model elapsed time: 2.976 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+:::TIME::: Parse model elapsed time: 2.874 ms
+:::TIME::: Parse model elapsed time: 3.145 ms
+:::TIME::: Parse of CTL query elapsed time: 0.776 ms
+
+:::TIME::: Parse model elapsed time: 2.824 ms
+:::TIME::: Parse model elapsed time: 2.963 ms
+:::TIME::: Parse model elapsed time: 3.119 ms
+:::TIME::: Parse model elapsed time: 2.848 ms
+:::TIME::: Parse model elapsed time: 2.914 ms
+:::TIME::: Parse model elapsed time: 2.942 ms
+:::TIME::: Parse of CTL query elapsed time: 0.718 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.907 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.953 ms
+
+:::TIME::: Parse model elapsed time: 2.871 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+:::TIME::: Parse model elapsed time: 2.973 ms
+:::TIME::: Parse model elapsed time: 2.855 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 4: 0.011 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-4 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.082 ms
+
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse model elapsed time: 3.37 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+:::CYCLE:: Detected: 24 Evil Cycles: 0
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 1.407 ms
+:::DATA::: Configurations: 849 Markings: 122
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-14 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.473 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.734 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.691 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.686 ms
+
+:::CYCLE:: Detected: 85 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 1.06 ms
+:::DATA::: Configurations: 373 Markings: 125
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-15 F TECHNIQUES 
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+Analysis:: Modelname: DatabaseWithMutex-PT-02
+:::TIME::: Parse of CTL query elapsed time: 1.043 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.75 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.849 ms
+
+:::CYCLE:: Detected: 24 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 0: 3.45 ms
+:::DATA::: Configurations: 1740 Markings: 153
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-0 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 3.521 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.88 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.993 ms
+
+:::TIME::: Search elapsed time for query 9: 1.402 ms
+:::DATA::: Configurations: 310 Markings: 153
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-9 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.55 ms
+
+:::TIME::: Parse of CTL query elapsed time: 1.045 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.812 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 3: 0.76 ms
+:::DATA::: Configurations: 196 Markings: 108
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-3 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.851 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.746 ms
+
+
+:::TIME::: Total search elapsed time: 1.119 ms
+
+:::CYCLE:: Detected: 24 Evil Cycles: 0
+:::TIME::: Parse of CTL query elapsed time: 0.82 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 0.014 ms
+:::DATA::: Configurations: 2 Markings: 0
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-7 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.077 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 0.047 ms
+:::DATA::: Configurations: 13 Markings: 4
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-5 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.199 ms
+
+:::CYCLE:: Detected: 78 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 1: 3.324 ms
+:::DATA::: Configurations: 919 Markings: 153
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-1 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 3.401 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 1.981 ms
+:::DATA::: Configurations: 700 Markings: 122
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-13 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 2.062 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 2: 0.026 ms
+:::DATA::: Configurations: 12 Markings: 4
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-2 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.136 ms
+
+:::CYCLE:: Detected: 57 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 2.486 ms
+:::DATA::: Configurations: 718 Markings: 151
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-12 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 2.566 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 0.822 ms
+:::DATA::: Configurations: 256 Markings: 61
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-6 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.913 ms
+
+:::TIME::: Search elapsed time for query 10: 1.302 ms
+:::DATA::: Configurations: 459 Markings: 153
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-10 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.518 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 0.053 ms
+:::DATA::: Configurations: 26 Markings: 4
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-11 F TECHNIQUES 
+:::TIME::: Search elapsed time for query 8: 0.035 ms
+:::DATA::: Configurations: 11 Markings: 4
+FORMULA DatabaseWithMutex-COL-02-CTLCardinality-8 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.195 ms
+
+
+:::TIME::: Total search elapsed time: 0.144 ms
+
+Search: CDFS
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 8.578 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Dekker-PT-010
+:::TIME::: Parse model elapsed time: 9.004 ms
+:::TIME::: Parse of CTL query elapsed time: 0.557 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Dekker-PT-010
+:::TIME::: Parse of CTL query elapsed time: 0.56 ms
+
+:::TIME::: Parse model elapsed time: 8.326 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Dekker-PT-010
+:::TIME::: Parse model elapsed time: 8.343 ms
+:::TIME::: Parse of CTL query elapsed time: 0.581 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Dekker-PT-010
+:::TIME::: Parse of CTL query elapsed time: 0.743 ms
+
+:::TIME::: Parse model elapsed time: 8.363 ms
+:::TIME::: Parse model elapsed time: 9.115 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Dekker-PT-010
+:::TIME::: Parse model elapsed time: 9.042 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Dekker-PT-010
+:::TIME::: Parse of CTL query elapsed time: 0.599 ms
+
+:::TIME::: Parse model elapsed time: 8.967 ms
+:::TIME::: Parse of CTL query elapsed time: 0.611 ms
+
+:::TIME::: Parse model elapsed time: 8.125 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Dekker-PT-010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Dekker-PT-010
+:::TIME::: Parse model elapsed time: 7.87 ms
+Analysis:: Modelname: Dekker-PT-010
+:::TIME::: Parse of CTL query elapsed time: 0.739 ms
+
+:::TIME::: Parse model elapsed time: 7.771 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Dekker-PT-010
+:::TIME::: Parse of CTL query elapsed time: 0.633 ms
+
+:::TIME::: Parse model elapsed time: 9.155 ms
+:::TIME::: Parse of CTL query elapsed time: 0.523 ms
+
+:::TIME::: Parse model elapsed time: 8.946 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Dekker-PT-010
+:::TIME::: Parse model elapsed time: 8.955 ms
+:::TIME::: Parse model elapsed time: 8.999 ms
+:::TIME::: Parse of CTL query elapsed time: 0.552 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Dekker-PT-010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Dekker-PT-010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Dekker-PT-010
+:::TIME::: Parse of CTL query elapsed time: 0.708 ms
+
+Analysis:: Modefile: ./model.pnml
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 0.019 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA Dekker-PT-010-CTLCardinality-14 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.109 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.724 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.616 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.608 ms
+
+Analysis:: Modelname: Dekker-PT-010
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 0.8 ms
+:::DATA::: Configurations: 159 Markings: 111
+FORMULA Dekker-PT-010-CTLCardinality-15 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.842 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.689 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 401.999 ms
+:::DATA::: Configurations: 16912 Markings: 5633
+FORMULA Dekker-PT-010-CTLCardinality-9 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 402.088 ms
+
+:::CYCLE:: Detected: 2816 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 3: 419.445 ms
+:::DATA::: Configurations: 12302 Markings: 6144
+FORMULA Dekker-PT-010-CTLCardinality-3 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 419.523 ms
+
+:::CYCLE:: Detected: 2816 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 0: 447.961 ms
+:::DATA::: Configurations: 12290 Markings: 6144
+FORMULA Dekker-PT-010-CTLCardinality-0 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 448.044 ms
+
+:::CYCLE:: Detected: 2816 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 4: 450.988 ms
+:::DATA::: Configurations: 12289 Markings: 6144
+FORMULA Dekker-PT-010-CTLCardinality-4 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 451.084 ms
+
+:::CYCLE:: Detected: 2816 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 447.014 ms
+:::DATA::: Configurations: 12288 Markings: 6144
+FORMULA Dekker-PT-010-CTLCardinality-8 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 447.136 ms
+
+:::CYCLE:: Detected: 2807 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 453.754 ms
+:::DATA::: Configurations: 12303 Markings: 6144
+FORMULA Dekker-PT-010-CTLCardinality-5 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 453.817 ms
+
+:::CYCLE:: Detected: 2816 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 467.128 ms
+:::DATA::: Configurations: 24577 Markings: 6144
+FORMULA Dekker-PT-010-CTLCardinality-12 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 467.218 ms
+
+:::CYCLE:: Detected: 2879 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 468.286 ms
+:::DATA::: Configurations: 18518 Markings: 6144
+FORMULA Dekker-PT-010-CTLCardinality-13 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 468.374 ms
+
+:::CYCLE:: Detected: 5632 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 873.244 ms
+:::DATA::: Configurations: 30732 Markings: 6144
+FORMULA Dekker-PT-010-CTLCardinality-11 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 873.328 ms
+
+:::CYCLE:: Detected: 2816 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 891.076 ms
+:::DATA::: Configurations: 24576 Markings: 6144
+FORMULA Dekker-PT-010-CTLCardinality-10 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 891.154 ms
+
+:::CYCLE:: Detected: 18166 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 1307.8 ms
+:::DATA::: Configurations: 55306 Markings: 6144
+FORMULA Dekker-PT-010-CTLCardinality-7 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1308.52 ms
+
+:::CYCLE:: Detected: 2819 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 1633.46 ms
+:::DATA::: Configurations: 58373 Markings: 6144
+FORMULA Dekker-PT-010-CTLCardinality-6 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1633.57 ms
+
+:::CYCLE:: Detected: 8959 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 2: 10566.8 ms
+:::DATA::: Configurations: 66394 Markings: 6144
+FORMULA Dekker-PT-010-CTLCardinality-2 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 10567 ms
+
+Query type: CTLCardinality
+Algorithm: czero-i
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 7.145 ms
+:::TIME::: Parse model elapsed time: 7.156 ms
+:::TIME::: Parse model elapsed time: 7.121 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DrinkVendingMachine-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DrinkVendingMachine-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DrinkVendingMachine-PT-02
+:::TIME::: Parse model elapsed time: 7.276 ms
+:::TIME::: Parse of CTL query elapsed time: 0.825 ms
+
+:::TIME::: Parse model elapsed time: 7.075 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DrinkVendingMachine-PT-02
+:::TIME::: Parse of CTL query elapsed time: 1.011 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.915 ms
+
+:::TIME::: Parse model elapsed time: 6.631 ms
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse of CTL query elapsed time: 0.815 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DrinkVendingMachine-PT-02
+Analysis:: Modelname: DrinkVendingMachine-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.995 ms
+
+:::TIME::: Parse of CTL query elapsed time: 1.158 ms
+
+:::TIME::: Parse model elapsed time: 7.223 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DrinkVendingMachine-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.94 ms
+
+:::TIME::: Parse model elapsed time: 8.934 ms
+:::TIME::: Parse model elapsed time: 6.658 ms
+:::TIME::: Parse model elapsed time: 6.598 ms
+:::TIME::: Parse model elapsed time: 6.467 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DrinkVendingMachine-PT-02
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse model elapsed time: 7.088 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DrinkVendingMachine-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.981 ms
+
+:::TIME::: Parse model elapsed time: 7.075 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DrinkVendingMachine-PT-02
+:::CYCLE:: Detected: 398 Evil Cycles: 0
+Analysis:: Modelname: DrinkVendingMachine-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DrinkVendingMachine-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.893 ms
+
+:::TIME::: Parse of CTL query elapsed time: 1.012 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DrinkVendingMachine-PT-02
+:::TIME::: Parse model elapsed time: 8.825 ms
+:::TIME::: Search elapsed time for query 8: 3.232 ms
+:::DATA::: Configurations: 530 Markings: 345
+:::TIME::: Parse of CTL query elapsed time: 0.842 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.882 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: DrinkVendingMachine-PT-02
+FORMULA DrinkVendingMachine-COL-02-CTLCardinality-8 T TECHNIQUES 
+:::TIME::: Parse of CTL query elapsed time: 1.044 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 1.34 ms
+
+:::TIME::: Total search elapsed time: 3.416 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.867 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 0.017 ms
+:::DATA::: Configurations: 7 Markings: 0
+FORMULA DrinkVendingMachine-COL-02-CTLCardinality-12 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.097 ms
+
+:::TIME::: Search elapsed time for query 15: 0.053 ms
+:::DATA::: Configurations: 26 Markings: 16
+FORMULA DrinkVendingMachine-COL-02-CTLCardinality-15 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.234 ms
+
+:::CYCLE:: Detected: 401 Evil Cycles: 0
+:::DATA::: Configurations: 365 Markings: 180
+FORMULA DrinkVendingMachine-COL-02-CTLCardinality-13 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.445 ms
+
+:::TIME::: Search elapsed time for query 10: 2.988 ms
+:::DATA::: Configurations: 541 Markings: 345
+FORMULA DrinkVendingMachine-COL-02-CTLCardinality-10 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 3.113 ms
+
+:::CYCLE:: Detected: 626 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 4.327 ms
+:::DATA::: Configurations: 614 Markings: 352
+FORMULA DrinkVendingMachine-COL-02-CTLCardinality-14 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 4.36 ms
+
+:::CYCLE:: Detected: 810 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 0: 20.29 ms
+:::DATA::: Configurations: 3132 Markings: 1024
+FORMULA DrinkVendingMachine-COL-02-CTLCardinality-0 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 20.324 ms
+
+:::CYCLE:: Detected: 810 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 21.252 ms
+:::DATA::: Configurations: 3073 Markings: 1024
+FORMULA DrinkVendingMachine-COL-02-CTLCardinality-7 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 21.34 ms
+
+:::CYCLE:: Detected: 1514 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 1: 25.443 ms
+:::DATA::: Configurations: 3667 Markings: 1024
+FORMULA DrinkVendingMachine-COL-02-CTLCardinality-1 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 25.477 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 17.861 ms
+:::DATA::: Configurations: 4002 Markings: 935
+FORMULA DrinkVendingMachine-COL-02-CTLCardinality-11 F TECHNIQUES 
+:::TIME::: Search elapsed time for query 2: 23.466 ms
+:::DATA::: Configurations: 6912 Markings: 1024
+FORMULA DrinkVendingMachine-COL-02-CTLCardinality-2 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 23.548 ms
+
+
+:::TIME::: Total search elapsed time: 17.958 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 20.596 ms
+:::DATA::: Configurations: 5121 Markings: 1024
+FORMULA DrinkVendingMachine-COL-02-CTLCardinality-9 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 20.645 ms
+
+:::CYCLE:: Detected: 2324 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 42.08 ms
+:::DATA::: Configurations: 6744 Markings: 1024
+FORMULA DrinkVendingMachine-COL-02-CTLCardinality-6 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 42.145 ms
+
+:::CYCLE:: Detected: 810 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 67.035 ms
+:::DATA::: Configurations: 3089 Markings: 1024
+FORMULA DrinkVendingMachine-COL-02-CTLCardinality-5 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 67.088 ms
+
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Query type: CTLCardinality
+Algorithm: czero-i
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+:::TIME::: Parse model elapsed time: 0.732 ms
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Analysis:: Modefile: ./model.pnml
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Analysis:: Modelname: ERK-PT-000001
+:::TIME::: Parse model elapsed time: 0.796 ms
+:::TIME::: Parse of CTL query elapsed time: 0.564 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000001
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 2: 0.02 ms
+:::TIME::: Parse model elapsed time: 0.809 ms
+:::DATA::: Configurations: 5 Markings: 0
+FORMULA ERK-PT-000001-CTLCardinality-2 T TECHNIQUES 
+:::TIME::: Parse of CTL query elapsed time: 0.521 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000001
+
+:::TIME::: Total search elapsed time: 0.112 ms
+
+:::TIME::: Parse model elapsed time: 0.885 ms
+:::TIME::: Parse model elapsed time: 0.804 ms
+:::TIME::: Parse model elapsed time: 0.819 ms
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 0: 0.022 ms
+:::DATA::: Configurations: 5 Markings: 2
+FORMULA ERK-PT-000001-CTLCardinality-0 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.089 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.505 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000001
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000001
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000001
+:::TIME::: Search elapsed time for query 8: 0.017 ms
+:::DATA::: Configurations: 6 Markings: 0
+:::TIME::: Parse of CTL query elapsed time: 0.544 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.568 ms
+
+:::TIME::: Parse model elapsed time: 1.148 ms
+FORMULA ERK-PT-000001-CTLCardinality-8 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.234 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.531 ms
+
+:::TIME::: Parse model elapsed time: 0.834 ms
+:::CYCLE:: Detected: 5 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 0.091 ms
+:::DATA::: Configurations: 40 Markings: 13
+FORMULA ERK-PT-000001-CTLCardinality-6 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.159 ms
+
+:::TIME::: Parse model elapsed time: 0.75 ms
+:::TIME::: Parse model elapsed time: 0.796 ms
+:::CYCLE:: Detected: 5 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 0.099 ms
+:::DATA::: Configurations: 46 Markings: 13
+FORMULA ERK-PT-000001-CTLCardinality-10 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.156 ms
+
+:::TIME::: Parse model elapsed time: 0.825 ms
+:::TIME::: Parse model elapsed time: 0.931 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000001
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 0.024 ms
+:::DATA::: Configurations: 7 Markings: 2
+FORMULA ERK-PT-000001-CTLCardinality-9 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.104 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000001
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000001
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000001
+:::TIME::: Parse of CTL query elapsed time: 0.623 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000001
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000001
+:::TIME::: Parse of CTL query elapsed time: 0.572 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.778 ms
+
+:::CYCLE:: Detected: 5 Evil Cycles: 0
+:::TIME::: Parse of CTL query elapsed time: 0.575 ms
+
+:::CYCLE:: Detected: 9 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 0.165 ms
+:::DATA::: Configurations: 87 Markings: 13
+:::TIME::: Parse of CTL query elapsed time: 0.838 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.723 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 0.194 ms
+:::DATA::: Configurations: 90 Markings: 13
+FORMULA ERK-PT-000001-CTLCardinality-14 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.314 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 0.021 ms
+:::DATA::: Configurations: 5 Markings: 2
+FORMULA ERK-PT-000001-CTLCardinality-11 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.353 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::CYCLE:: Detected: 10 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 0.192 ms
+:::DATA::: Configurations: 111 Markings: 13
+FORMULA ERK-PT-000001-CTLCardinality-13 F TECHNIQUES 
+:::TIME::: Search elapsed time for query 7: 0.081 ms
+:::DATA::: Configurations: 27 Markings: 5
+FORMULA ERK-PT-000001-CTLCardinality-7 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.312 ms
+
+FORMULA ERK-PT-000001-CTLCardinality-15 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.231 ms
+
+:::TIME::: Search elapsed time for query 12: 0.007 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA ERK-PT-000001-CTLCardinality-12 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.279 ms
+
+
+:::TIME::: Total search elapsed time: 0.154 ms
+
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 0.908 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000010
+:::TIME::: Parse model elapsed time: 0.774 ms
+:::TIME::: Parse of CTL query elapsed time: 0.521 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000010
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 0.031 ms
+:::DATA::: Configurations: 7 Markings: 0
+FORMULA ERK-PT-000010-CTLCardinality-11 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.13 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.688 ms
+
+:::TIME::: Parse model elapsed time: 0.976 ms
+:::TIME::: Parse model elapsed time: 0.873 ms
+:::TIME::: Parse model elapsed time: 0.922 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000010
+:::TIME::: Parse model elapsed time: 0.893 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000010
+:::TIME::: Parse of CTL query elapsed time: 0.518 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.442 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000010
+:::TIME::: Parse of CTL query elapsed time: 0.627 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Parse of CTL query elapsed time: 0.565 ms
+
+:::TIME::: Parse model elapsed time: 0.833 ms
+:::TIME::: Parse model elapsed time: 0.877 ms
+:::TIME::: Search elapsed time for query 7: 0.032 ms
+:::DATA::: Configurations: 10 Markings: 0
+FORMULA ERK-PT-000010-CTLCardinality-7 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.14 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Parse model elapsed time: 0.833 ms
+:::TIME::: Parse model elapsed time: 0.84 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000010
+:::TIME::: Parse model elapsed time: 0.977 ms
+:::TIME::: Parse model elapsed time: 0.83 ms
+:::TIME::: Parse model elapsed time: 1.006 ms
+:::TIME::: Parse model elapsed time: 0.878 ms
+:::TIME::: Parse model elapsed time: 1.038 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000010
+:::TIME::: Parse of CTL query elapsed time: 0.497 ms
+
+:::TIME::: Search elapsed time for query 10: 0.04 ms
+:::DATA::: Configurations: 18 Markings: 7
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000010
+:::TIME::: Parse of CTL query elapsed time: 0.579 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000010
+:::TIME::: Parse of CTL query elapsed time: 0.526 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: ERK-PT-000010
+:::TIME::: Parse of CTL query elapsed time: 0.603 ms
+
+Analysis:: Modefile: ./model.pnml
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 0.02 ms
+:::DATA::: Configurations: 7 Markings: 2
+FORMULA ERK-PT-000010-CTLCardinality-8 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.068 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.6 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 0.019 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA ERK-PT-000010-CTLCardinality-9 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.053 ms
+
+FORMULA ERK-PT-000010-CTLCardinality-10 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.228 ms
+
+:::TIME::: Search elapsed time for query 13: 0.02 ms
+:::TIME::: Parse of CTL query elapsed time: 0.539 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.445 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 0.035 ms
+:::DATA::: Configurations: 13 Markings: 7
+FORMULA ERK-PT-000010-CTLCardinality-15 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.104 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.693 ms
+
+Analysis:: Modelname: ERK-PT-000010
+:::DATA::: Configurations: 7 Markings: 2
+FORMULA ERK-PT-000010-CTLCardinality-13 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.258 ms
+
+:::TIME::: Search elapsed time for query 14: 0.05 ms
+:::DATA::: Configurations: 26 Markings: 7
+FORMULA ERK-PT-000010-CTLCardinality-14 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.146 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.865 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 0.025 ms
+:::DATA::: Configurations: 10 Markings: 2
+FORMULA ERK-PT-000010-CTLCardinality-12 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.101 ms
+
+:::CYCLE:: Detected: 41224 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 0: 721.036 ms
+:::DATA::: Configurations: 141157 Markings: 47047
+FORMULA ERK-PT-000010-CTLCardinality-0 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 721.115 ms
+
+:::CYCLE:: Detected: 41224 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 852.735 ms
+:::DATA::: Configurations: 235238 Markings: 47047
+FORMULA ERK-PT-000010-CTLCardinality-5 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 852.834 ms
+
+:::CYCLE:: Detected: 41224 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 866.109 ms
+:::DATA::: Configurations: 235246 Markings: 47047
+FORMULA ERK-PT-000010-CTLCardinality-6 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 866.455 ms
+
+:::CYCLE:: Detected: 41271 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 1: 1340.36 ms
+:::DATA::: Configurations: 188190 Markings: 47047
+FORMULA ERK-PT-000010-CTLCardinality-1 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1340.43 ms
+
+:::CYCLE:: Detected: 41224 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 2: 1367.63 ms
+:::DATA::: Configurations: 282215 Markings: 47047
+FORMULA ERK-PT-000010-CTLCardinality-2 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1367.71 ms
+
+:::CYCLE:: Detected: 41258 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 3: 1458.1 ms
+:::DATA::: Configurations: 282283 Markings: 47047
+FORMULA ERK-PT-000010-CTLCardinality-3 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1458.19 ms
+
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Query type: CTLCardinality
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 1.365 ms
+:::TIME::: Parse model elapsed time: 1.558 ms
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse model elapsed time: 1.714 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+Analysis:: Modelname: HouseConstruction-PT-002
+:::TIME::: Parse model elapsed time: 1.424 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+:::TIME::: Parse model elapsed time: 1.563 ms
+:::TIME::: Parse model elapsed time: 1.573 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+:::TIME::: Parse model elapsed time: 1.517 ms
+:::TIME::: Parse model elapsed time: 1.479 ms
+:::TIME::: Parse of CTL query elapsed time: 0.647 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.776 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.644 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+:::TIME::: Parse model elapsed time: 1.656 ms
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Parse model elapsed time: 1.596 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+:::TIME::: Parse model elapsed time: 1.56 ms
+:::TIME::: Parse model elapsed time: 1.575 ms
+:::TIME::: Parse of CTL query elapsed time: 0.55 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+:::TIME::: Parse model elapsed time: 1.643 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+:::TIME::: Parse of CTL query elapsed time: 0.711 ms
+
+:::TIME::: Parse model elapsed time: 1.554 ms
+:::TIME::: Parse model elapsed time: 1.498 ms
+:::TIME::: Parse model elapsed time: 1.45 ms
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 0: 1.197 ms
+:::DATA::: Configurations: 598 Markings: 121
+FORMULA HouseConstruction-PT-002-CTLCardinality-0 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.303 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.584 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+:::TIME::: Search elapsed time for query 9: 0.858 ms
+:::DATA::: Configurations: 320 Markings: 121
+FORMULA HouseConstruction-PT-002-CTLCardinality-9 F TECHNIQUES 
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse of CTL query elapsed time: 0.64 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+:::TIME::: Parse of CTL query elapsed time: 0.494 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.606 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-002
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 3: 2.776 ms
+:::DATA::: Configurations: 1956 Markings: 381
+FORMULA HouseConstruction-PT-002-CTLCardinality-3 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 2.851 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.64 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.699 ms
+
+
+:::TIME::: Total search elapsed time: 1.053 ms
+
+Analysis:: Modelname: HouseConstruction-PT-002
+:::TIME::: Parse of CTL query elapsed time: 0.473 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.594 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 0.444 ms
+:::DATA::: Configurations: 196 Markings: 121
+FORMULA HouseConstruction-PT-002-CTLCardinality-5 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.664 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.645 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.451 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 10.719 ms
+:::DATA::: Configurations: 3937 Markings: 1392
+FORMULA HouseConstruction-PT-002-CTLCardinality-8 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 10.817 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.667 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 1: 1.412 ms
+:::DATA::: Configurations: 835 Markings: 121
+FORMULA HouseConstruction-PT-002-CTLCardinality-1 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.526 ms
+
+:::TIME::: Search elapsed time for query 15: 3.63 ms
+:::DATA::: Configurations: 1138 Markings: 674
+FORMULA HouseConstruction-PT-002-CTLCardinality-15 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 3.771 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 4: 4.642 ms
+:::DATA::: Configurations: 2039 Markings: 513
+FORMULA HouseConstruction-PT-002-CTLCardinality-4 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 4.676 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 11.494 ms
+:::DATA::: Configurations: 4428 Markings: 1423
+FORMULA HouseConstruction-PT-002-CTLCardinality-7 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 11.532 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 2: 12.98 ms
+:::DATA::: Configurations: 4483 Markings: 1499
+FORMULA HouseConstruction-PT-002-CTLCardinality-2 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 13.045 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 8.459 ms
+:::DATA::: Configurations: 2543 Markings: 1374
+FORMULA HouseConstruction-PT-002-CTLCardinality-11 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 8.542 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 13.074 ms
+:::DATA::: Configurations: 4700 Markings: 1500
+FORMULA HouseConstruction-PT-002-CTLCardinality-13 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 13.108 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 21.819 ms
+:::DATA::: Configurations: 6004 Markings: 1500
+FORMULA HouseConstruction-PT-002-CTLCardinality-6 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 21.859 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 21.888 ms
+:::DATA::: Configurations: 6002 Markings: 1500
+FORMULA HouseConstruction-PT-002-CTLCardinality-14 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 21.936 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 21.775 ms
+:::DATA::: Configurations: 7505 Markings: 1500
+FORMULA HouseConstruction-PT-002-CTLCardinality-10 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 21.817 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 25.346 ms
+:::DATA::: Configurations: 9007 Markings: 1500
+FORMULA HouseConstruction-PT-002-CTLCardinality-12 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 25.386 ms
+
+Query type: CTLCardinality
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 1.572 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-005
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+:::TIME::: Parse of CTL query elapsed time: 0.553 ms
+
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 1.566 ms
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 1.316 ms
+Query type: CTLCardinality
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-005
+:::TIME::: Parse of CTL query elapsed time: 0.595 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.742 ms
+
+:::TIME::: Parse model elapsed time: 1.69 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-005
+:::TIME::: Parse model elapsed time: 1.704 ms
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 1: 1.443 ms
+:::DATA::: Configurations: 629 Markings: 418
+:::TIME::: Parse model elapsed time: 1.636 ms
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse of CTL query elapsed time: 0.555 ms
+
+:::TIME::: Parse model elapsed time: 1.513 ms
+:::TIME::: Parse model elapsed time: 1.627 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-005
+:::TIME::: Parse of CTL query elapsed time: 0.641 ms
+
+:::TIME::: Parse model elapsed time: 1.616 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-005
+:::TIME::: Parse of CTL query elapsed time: 0.575 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 2.553 ms
+:::DATA::: Configurations: 2091 Markings: 418
+FORMULA HouseConstruction-PT-005-CTLCardinality-12 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 2.58 ms
+
+:::TIME::: Parse model elapsed time: 1.591 ms
+:::TIME::: Parse model elapsed time: 1.623 ms
+FORMULA HouseConstruction-PT-005-CTLCardinality-1 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.593 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-005
+:::TIME::: Parse model elapsed time: 1.485 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-005
+:::TIME::: Parse model elapsed time: 1.586 ms
+:::TIME::: Parse of CTL query elapsed time: 0.653 ms
+
+:::TIME::: Parse model elapsed time: 1.505 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-005
+Analysis:: Modelname: HouseConstruction-PT-005
+:::TIME::: Parse model elapsed time: 1.524 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-005
+:::TIME::: Parse of CTL query elapsed time: 0.678 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-005
+:::TIME::: Parse of CTL query elapsed time: 0.464 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.782 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: HouseConstruction-PT-005
+:::TIME::: Parse of CTL query elapsed time: 0.699 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.676 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.54 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.656 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.662 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 1.43 ms
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::DATA::: Configurations: 628 Markings: 418
+FORMULA HouseConstruction-PT-005-CTLCardinality-9 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.525 ms
+
+:::TIME::: Search elapsed time for query 15: 1.434 ms
+:::DATA::: Configurations: 637 Markings: 418
+FORMULA HouseConstruction-PT-005-CTLCardinality-15 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.524 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 2: 22.282 ms
+:::DATA::: Configurations: 8091 Markings: 4424
+FORMULA HouseConstruction-PT-005-CTLCardinality-2 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 22.328 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 3.442 ms
+:::DATA::: Configurations: 1740 Markings: 531
+FORMULA HouseConstruction-PT-005-CTLCardinality-11 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 3.476 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 1911.58 ms
+:::DATA::: Configurations: 568017 Markings: 275893
+FORMULA HouseConstruction-PT-005-CTLCardinality-6 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1911.65 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 6170.45 ms
+:::DATA::: Configurations: 1358347 Markings: 452607
+FORMULA HouseConstruction-PT-005-CTLCardinality-5 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 6170.77 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 16159.5 ms
+:::DATA::: Configurations: 3563852 Markings: 1187983
+FORMULA HouseConstruction-PT-005-CTLCardinality-14 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 16159.7 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 16190.8 ms
+:::DATA::: Configurations: 3564341 Markings: 1187918
+FORMULA HouseConstruction-PT-005-CTLCardinality-10 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 16191.6 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 19038.3 ms
+:::DATA::: Configurations: 3602788 Markings: 1187983
+FORMULA HouseConstruction-PT-005-CTLCardinality-8 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 19038.4 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 20345.8 ms
+:::DATA::: Configurations: 3566232 Markings: 1187983
+FORMULA HouseConstruction-PT-005-CTLCardinality-7 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 20346 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 29435 ms
+:::DATA::: Configurations: 8315889 Markings: 1187983
+FORMULA HouseConstruction-PT-005-CTLCardinality-13 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 29435.3 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 3: 38948.2 ms
+:::DATA::: Configurations: 9503873 Markings: 1187983
+FORMULA HouseConstruction-PT-005-CTLCardinality-3 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 38948.5 ms
+
+Algorithm: czero-i
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Algorithm: czero-i
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 1.581 ms
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Kanban-PT-0005
+:::TIME::: Parse of CTL query elapsed time: 0.638 ms
+
+:::TIME::: Parse model elapsed time: 1.62 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Kanban-PT-0005
+:::TIME::: Parse of CTL query elapsed time: 0.577 ms
+
+:::TIME::: Parse model elapsed time: 1.643 ms
+:::TIME::: Parse model elapsed time: 2.163 ms
+:::TIME::: Parse model elapsed time: 1.586 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Kanban-PT-0005
+:::TIME::: Parse model elapsed time: 1.531 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Kanban-PT-0005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Kanban-PT-0005
+:::TIME::: Parse model elapsed time: 1.517 ms
+:::TIME::: Parse model elapsed time: 1.64 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Kanban-PT-0005
+:::TIME::: Parse of CTL query elapsed time: 0.708 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.505 ms
+
+:::TIME::: Parse model elapsed time: 1.59 ms
+:::TIME::: Parse of CTL query elapsed time: 0.61 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Kanban-PT-0005
+:::TIME::: Parse of CTL query elapsed time: 0.674 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Kanban-PT-0005
+:::TIME::: Parse model elapsed time: 1.62 ms
+:::TIME::: Parse model elapsed time: 1.538 ms
+:::TIME::: Parse model elapsed time: 1.544 ms
+:::TIME::: Parse model elapsed time: 1.611 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Kanban-PT-0005
+:::TIME::: Parse of CTL query elapsed time: 0.758 ms
+
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse of CTL query elapsed time: 0.659 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Kanban-PT-0005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Kanban-PT-0005
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse of CTL query elapsed time: 0.662 ms
+
+Analysis:: Modelname: Kanban-PT-0005
+Analysis:: Modelname: Kanban-PT-0005
+:::TIME::: Parse of CTL query elapsed time: 0.703 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.518 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.655 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Parse of CTL query elapsed time: 0.67 ms
+
+:::TIME::: Search elapsed time for query 14: 0.015 ms
+:::DATA::: Configurations: 2 Markings: 0
+FORMULA Kanban-PT-0005-CTLCardinality-14 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.098 ms
+
+:::CYCLE:: Detected: 5517 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 44.484 ms
+:::DATA::: Configurations: 15911 Markings: 12198
+FORMULA Kanban-PT-0005-CTLCardinality-5 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 44.537 ms
+
+:::CYCLE:: Detected: 66350 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 1: 544.16 ms
+:::DATA::: Configurations: 112561 Markings: 83929
+FORMULA Kanban-PT-0005-CTLCardinality-1 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 545.591 ms
+
+:::CYCLE:: Detected: 97115 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 850.669 ms
+:::DATA::: Configurations: 177446 Markings: 130401
+FORMULA Kanban-PT-0005-CTLCardinality-6 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 852.132 ms
+
+:::CYCLE:: Detected: 343713 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 4: 2919.52 ms
+:::DATA::: Configurations: 454264 Markings: 311094
+FORMULA Kanban-PT-0005-CTLCardinality-4 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 2919.72 ms
+
+:::CYCLE:: Detected: 2240308 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 17780.2 ms
+:::DATA::: Configurations: 2173904 Markings: 1237832
+FORMULA Kanban-PT-0005-CTLCardinality-7 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 17780.5 ms
+
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Algorithm: czero-i
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 5.076 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: LamportFastMutEx-PT-2
+:::TIME::: Parse of CTL query elapsed time: 0.694 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 2.231 ms
+:::DATA::: Configurations: 332 Markings: 41
+FORMULA LamportFastMutEx-COL-2-CTLCardinality-5 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 2.268 ms
+
+:::TIME::: Parse model elapsed time: 5.27 ms
+:::TIME::: Parse model elapsed time: 5.373 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: LamportFastMutEx-PT-2
+:::TIME::: Parse model elapsed time: 5.471 ms
+:::TIME::: Parse model elapsed time: 5.311 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: LamportFastMutEx-PT-2
+:::TIME::: Parse model elapsed time: 5.073 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: LamportFastMutEx-PT-2
+:::TIME::: Parse of CTL query elapsed time: 0.721 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.865 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: LamportFastMutEx-PT-2
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: LamportFastMutEx-PT-2
+:::TIME::: Parse of CTL query elapsed time: 0.776 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.916 ms
+
+:::CYCLE:: Detected: 33 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 1.166 ms
+:::DATA::: Configurations: 94 Markings: 47
+FORMULA LamportFastMutEx-COL-2-CTLCardinality-6 T TECHNIQUES 
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 0.013 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA LamportFastMutEx-COL-2-CTLCardinality-12 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.076 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 1.152 ms
+:::DATA::: Configurations: 415 Markings: 41
+FORMULA LamportFastMutEx-COL-2-CTLCardinality-15 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.229 ms
+
+:::TIME::: Parse model elapsed time: 5.031 ms
+:::TIME::: Parse of CTL query elapsed time: 0.776 ms
+
+:::TIME::: Parse model elapsed time: 5.428 ms
+:::TIME::: Parse model elapsed time: 5.151 ms
+:::TIME::: Parse model elapsed time: 5.447 ms
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 0.097 ms
+:::DATA::: Configurations: 19 Markings: 2
+FORMULA LamportFastMutEx-COL-2-CTLCardinality-10 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.19 ms
+
+:::TIME::: Parse model elapsed time: 5.604 ms
+
+:::TIME::: Total search elapsed time: 1.254 ms
+
+:::TIME::: Parse model elapsed time: 5.402 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: LamportFastMutEx-PT-2
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: LamportFastMutEx-PT-2
+:::TIME::: Parse of CTL query elapsed time: 0.832 ms
+
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse of CTL query elapsed time: 0.852 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: LamportFastMutEx-PT-2
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: LamportFastMutEx-PT-2
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: LamportFastMutEx-PT-2
+:::TIME::: Parse of CTL query elapsed time: 0.838 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 0.085 ms
+:::DATA::: Configurations: 18 Markings: 2
+FORMULA LamportFastMutEx-COL-2-CTLCardinality-8 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.174 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.934 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+Analysis:: Modelname: LamportFastMutEx-PT-2
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 0.038 ms
+:::DATA::: Configurations: 3 Markings: 2
+FORMULA LamportFastMutEx-COL-2-CTLCardinality-11 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.137 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.846 ms
+
+:::TIME::: Search elapsed time for query 14: 6.649 ms
+:::DATA::: Configurations: 2270 Markings: 192
+FORMULA LamportFastMutEx-COL-2-CTLCardinality-14 F TECHNIQUES 
+:::TIME::: Parse of CTL query elapsed time: 0.674 ms
+
+
+:::TIME::: Total search elapsed time: 6.769 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 0.011 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA LamportFastMutEx-COL-2-CTLCardinality-7 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.084 ms
+
+:::CYCLE:: Detected: 37 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 4: 10.838 ms
+:::DATA::: Configurations: 772 Markings: 379
+FORMULA LamportFastMutEx-COL-2-CTLCardinality-4 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 10.872 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 12.799 ms
+:::DATA::: Configurations: 1718 Markings: 379
+FORMULA LamportFastMutEx-COL-2-CTLCardinality-13 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 12.825 ms
+
+:::CYCLE:: Detected: 37 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 11.414 ms
+:::DATA::: Configurations: 1534 Markings: 379
+FORMULA LamportFastMutEx-COL-2-CTLCardinality-9 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 11.505 ms
+
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 9.162 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: PhilosophersDyn-PT-03
+:::TIME::: Parse of CTL query elapsed time: 0.817 ms
+
+:::TIME::: Parse model elapsed time: 8.25 ms
+:::TIME::: Parse model elapsed time: 8.263 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: PhilosophersDyn-PT-03
+:::TIME::: Parse model elapsed time: 8.102 ms
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse model elapsed time: 8.37 ms
+:::TIME::: Parse model elapsed time: 9.228 ms
+:::TIME::: Parse model elapsed time: 8.298 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: PhilosophersDyn-PT-03
+:::TIME::: Parse model elapsed time: 8.184 ms
+:::TIME::: Parse model elapsed time: 8.112 ms
+:::TIME::: Parse model elapsed time: 9.436 ms
+:::TIME::: Parse model elapsed time: 8.097 ms
+:::TIME::: Parse of CTL query elapsed time: 0.883 ms
+
+Analysis:: Modelname: PhilosophersDyn-PT-03
+:::TIME::: Parse model elapsed time: 8.948 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: PhilosophersDyn-PT-03
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: PhilosophersDyn-PT-03
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: PhilosophersDyn-PT-03
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: PhilosophersDyn-PT-03
+:::TIME::: Parse of CTL query elapsed time: 0.803 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: PhilosophersDyn-PT-03
+:::TIME::: Parse of CTL query elapsed time: 0.701 ms
+
+:::CYCLE:: Detected: 20 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 5.754 ms
+:::DATA::: Configurations: 1624 Markings: 324
+FORMULA PhilosophersDyn-COL-03-CTLCardinality-6 T TECHNIQUES 
+:::TIME::: Parse of CTL query elapsed time: 0.669 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: PhilosophersDyn-PT-03
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: PhilosophersDyn-PT-03
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 0.036 ms
+:::DATA::: Configurations: 4 Markings: 3
+FORMULA PhilosophersDyn-COL-03-CTLCardinality-8 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.118 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.746 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: PhilosophersDyn-PT-03
+:::TIME::: Parse of CTL query elapsed time: 0.838 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.896 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.713 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 0.037 ms
+:::DATA::: Configurations: 10 Markings: 3
+FORMULA PhilosophersDyn-COL-03-CTLCardinality-10 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.121 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 0.008 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA PhilosophersDyn-COL-03-CTLCardinality-15 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.164 ms
+
+
+:::TIME::: Total search elapsed time: 5.878 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 3: 0.03 ms
+:::DATA::: Configurations: 6 Markings: 3
+FORMULA PhilosophersDyn-COL-03-CTLCardinality-3 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.101 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.685 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.684 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 0.534 ms
+:::DATA::: Configurations: 138 Markings: 66
+FORMULA PhilosophersDyn-COL-03-CTLCardinality-5 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.657 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.927 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 0.05 ms
+:::DATA::: Configurations: 19 Markings: 3
+FORMULA PhilosophersDyn-COL-03-CTLCardinality-9 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.135 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 1.766 ms
+:::DATA::: Configurations: 321 Markings: 123
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 0.027 ms
+:::DATA::: Configurations: 11 Markings: 0
+FORMULA PhilosophersDyn-COL-03-CTLCardinality-13 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.125 ms
+
+:::TIME::: Search elapsed time for query 12: 0.028 ms
+:::DATA::: Configurations: 14 Markings: 0
+FORMULA PhilosophersDyn-COL-03-CTLCardinality-12 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.174 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 0.014 ms
+:::DATA::: Configurations: 2 Markings: 0
+FORMULA PhilosophersDyn-COL-03-CTLCardinality-14 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.312 ms
+
+FORMULA PhilosophersDyn-COL-03-CTLCardinality-11 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.973 ms
+
+:::CYCLE:: Detected: 20 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 10.15 ms
+:::DATA::: Configurations: 1922 Markings: 324
+FORMULA PhilosophersDyn-COL-03-CTLCardinality-7 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 10.183 ms
+
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 3.93 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Railroad-PT-005
+:::TIME::: Parse of CTL query elapsed time: 0.647 ms
+
+:::TIME::: Parse model elapsed time: 3.629 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Railroad-PT-005
+:::TIME::: Parse model elapsed time: 3.874 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Railroad-PT-005
+:::TIME::: Parse of CTL query elapsed time: 0.719 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.737 ms
+
+:::TIME::: Parse model elapsed time: 3.359 ms
+:::TIME::: Parse model elapsed time: 3.338 ms
+:::TIME::: Parse model elapsed time: 3.557 ms
+:::TIME::: Parse model elapsed time: 3.85 ms
+:::TIME::: Parse model elapsed time: 3.589 ms
+:::TIME::: Parse model elapsed time: 3.614 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Railroad-PT-005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Railroad-PT-005
+:::TIME::: Parse model elapsed time: 3.384 ms
+:::TIME::: Parse model elapsed time: 3.522 ms
+:::TIME::: Parse model elapsed time: 3.377 ms
+:::TIME::: Parse model elapsed time: 3.466 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Railroad-PT-005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Railroad-PT-005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Railroad-PT-005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Railroad-PT-005
+:::TIME::: Parse of CTL query elapsed time: 0.818 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.699 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Railroad-PT-005
+:::TIME::: Parse of CTL query elapsed time: 0.805 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Railroad-PT-005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Railroad-PT-005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: Railroad-PT-005
+:::TIME::: Parse of CTL query elapsed time: 0.814 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.595 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.804 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.778 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.691 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.702 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.695 ms
+
+:::CYCLE:: Detected: 940 Evil Cycles: 0
+:::CYCLE:: Detected: 941 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 43.11 ms
+:::DATA::: Configurations: 3676 Markings: 1838
+:::TIME::: Search elapsed time for query 14: 43.451 ms
+:::DATA::: Configurations: 3697 Markings: 1838
+FORMULA Railroad-PT-005-CTLCardinality-14 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 43.556 ms
+
+FORMULA Railroad-PT-005-CTLCardinality-6 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 43.236 ms
+
+:::CYCLE:: Detected: 940 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 61.009 ms
+:::DATA::: Configurations: 5135 Markings: 1838
+FORMULA Railroad-PT-005-CTLCardinality-13 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 61.046 ms
+
+:::CYCLE:: Detected: 940 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 60.957 ms
+:::DATA::: Configurations: 20218 Markings: 1838
+FORMULA Railroad-PT-005-CTLCardinality-7 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 61.023 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 72.726 ms
+:::DATA::: Configurations: 14115 Markings: 1836
+FORMULA Railroad-PT-005-CTLCardinality-8 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 72.813 ms
+
+:::CYCLE:: Detected: 940 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 63.899 ms
+:::DATA::: Configurations: 8811 Markings: 1838
+FORMULA Railroad-PT-005-CTLCardinality-12 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 63.94 ms
+
+:::CYCLE:: Detected: 940 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 4: 79.153 ms
+:::DATA::: Configurations: 22056 Markings: 1838
+FORMULA Railroad-PT-005-CTLCardinality-4 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 79.202 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 97.799 ms
+:::DATA::: Configurations: 14102 Markings: 1838
+FORMULA Railroad-PT-005-CTLCardinality-9 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 97.846 ms
+
+:::CYCLE:: Detected: 1527 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 86.959 ms
+:::DATA::: Configurations: 7382 Markings: 1838
+FORMULA Railroad-PT-005-CTLCardinality-11 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 87.007 ms
+
+:::CYCLE:: Detected: 1882 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 94.766 ms
+:::DATA::: Configurations: 11038 Markings: 1838
+FORMULA Railroad-PT-005-CTLCardinality-15 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 94.852 ms
+
+:::CYCLE:: Detected: 1880 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 102.627 ms
+:::DATA::: Configurations: 8813 Markings: 1838
+FORMULA Railroad-PT-005-CTLCardinality-5 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 102.682 ms
+
+:::CYCLE:: Detected: 1880 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 118.06 ms
+:::DATA::: Configurations: 20235 Markings: 1838
+:::CYCLE:: Detected: 940 Evil Cycles: 0
+FORMULA Railroad-PT-005-CTLCardinality-10 T TECHNIQUES 
+:::TIME::: Search elapsed time for query 3: 119.653 ms
+:::DATA::: Configurations: 12866 Markings: 1838
+
+:::TIME::: Total search elapsed time: 118.315 ms
+
+FORMULA Railroad-PT-005-CTLCardinality-3 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 119.81 ms
+
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 3.001 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+:::TIME::: Parse model elapsed time: 3.435 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+:::TIME::: Parse of CTL query elapsed time: 0.447 ms
+
+:::TIME::: Parse model elapsed time: 3.282 ms
+:::TIME::: Parse of CTL query elapsed time: 0.573 ms
+
+:::TIME::: Parse model elapsed time: 4.401 ms
+:::TIME::: Parse model elapsed time: 4.673 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+:::TIME::: Parse model elapsed time: 3.521 ms
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+:::TIME::: Parse model elapsed time: 3.327 ms
+:::TIME::: Parse of CTL query elapsed time: 0.68 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+:::TIME::: Parse of CTL query elapsed time: 0.464 ms
+
+:::TIME::: Parse model elapsed time: 3.113 ms
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse model elapsed time: 3.307 ms
+:::TIME::: Parse model elapsed time: 3.293 ms
+:::TIME::: Parse of CTL query elapsed time: 0.584 ms
+
+:::TIME::: Parse model elapsed time: 3.06 ms
+:::TIME::: Parse of CTL query elapsed time: 0.543 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+:::TIME::: Parse of CTL query elapsed time: 0.477 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.595 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.647 ms
+
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+:::TIME::: Parse of CTL query elapsed time: 0.504 ms
+
+:::TIME::: Parse model elapsed time: 2.985 ms
+:::TIME::: Parse model elapsed time: 3.349 ms
+:::TIME::: Parse model elapsed time: 3.461 ms
+:::TIME::: Parse model elapsed time: 3.344 ms
+:::TIME::: Parse model elapsed time: 3.567 ms
+:::TIME::: Parse of CTL query elapsed time: 0.604 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+:::TIME::: Parse of CTL query elapsed time: 0.543 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+:::TIME::: Parse of CTL query elapsed time: 0.481 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.522 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.663 ms
+
+Analysis:: Modelname: RwMutex-PT-r0010w0010
+:::TIME::: Parse of CTL query elapsed time: 0.593 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 33.369 ms
+:::DATA::: Configurations: 3235 Markings: 1034
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-15 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 33.439 ms
+
+:::CYCLE:: Detected: 640 Evil Cycles: 0
+:::CYCLE:: Detected: 625 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 33.647 ms
+:::DATA::: Configurations: 4269 Markings: 1034
+:::TIME::: Search elapsed time for query 0: 32.582 ms
+:::DATA::: Configurations: 2069 Markings: 1034
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-0 F TECHNIQUES 
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-5 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 32.689 ms
+
+
+:::TIME::: Total search elapsed time: 33.786 ms
+
+:::CYCLE:: Detected: 640 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 30.608 ms
+:::DATA::: Configurations: 2203 Markings: 1034
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-11 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 30.653 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 2: 37.822 ms
+:::DATA::: Configurations: 7238 Markings: 1034
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-2 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 37.9 ms
+
+:::CYCLE:: Detected: 640 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 41.168 ms
+:::DATA::: Configurations: 5171 Markings: 1034
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-7 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 41.212 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::CYCLE:: Detected: 640 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 35.284 ms
+:::DATA::: Configurations: 6153 Markings: 1034
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-6 F TECHNIQUES 
+:::TIME::: Search elapsed time for query 4: 34.158 ms
+:::DATA::: Configurations: 5172 Markings: 1034
+
+:::TIME::: Total search elapsed time: 35.44 ms
+
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-4 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 34.319 ms
+
+:::CYCLE:: Detected: 1279 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 51.656 ms
+:::DATA::: Configurations: 5170 Markings: 1034
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-8 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 51.698 ms
+
+:::CYCLE:: Detected: 640 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 59.225 ms
+:::DATA::: Configurations: 6205 Markings: 1034
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-9 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 59.281 ms
+
+:::CYCLE:: Detected: 640 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 3: 60.727 ms
+:::DATA::: Configurations: 6205 Markings: 1034
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-3 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 60.84 ms
+
+:::CYCLE:: Detected: 640 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 61.748 ms
+:::DATA::: Configurations: 6205 Markings: 1034
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-12 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 61.801 ms
+
+:::CYCLE:: Detected: 4053 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 60.952 ms
+:::DATA::: Configurations: 5170 Markings: 1034
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-13 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 61.001 ms
+
+:::CYCLE:: Detected: 640 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 1: 59.943 ms
+:::DATA::: Configurations: 5171 Markings: 1034
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-1 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 60.007 ms
+
+:::CYCLE:: Detected: 1279 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 67.699 ms
+:::DATA::: Configurations: 8273 Markings: 1034
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-10 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 67.748 ms
+
+:::CYCLE:: Detected: 3049 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 105.193 ms
+:::DATA::: Configurations: 8272 Markings: 1034
+FORMULA RwMutex-PT-r0010w0010-CTLCardinality-14 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 105.243 ms
+
+Query type: CTLCardinality
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 5.422 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0020
+:::TIME::: Parse model elapsed time: 5.391 ms
+:::TIME::: Parse of CTL query elapsed time: 0.762 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0020
+:::TIME::: Parse of CTL query elapsed time: 0.78 ms
+
+:::TIME::: Parse model elapsed time: 5.3 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0020
+:::TIME::: Parse of CTL query elapsed time: 0.756 ms
+
+:::TIME::: Parse model elapsed time: 5.862 ms
+:::TIME::: Parse model elapsed time: 5.033 ms
+:::TIME::: Parse model elapsed time: 5.19 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0020
+:::TIME::: Parse model elapsed time: 5.953 ms
+:::TIME::: Parse model elapsed time: 5.133 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0020
+:::TIME::: Parse model elapsed time: 5.101 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0020
+:::TIME::: Parse model elapsed time: 5.969 ms
+:::TIME::: Parse model elapsed time: 5.916 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0020
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0020
+:::TIME::: Parse model elapsed time: 5.988 ms
+:::TIME::: Parse of CTL query elapsed time: 0.582 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0020
+:::TIME::: Parse of CTL query elapsed time: 0.762 ms
+
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse of CTL query elapsed time: 0.799 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0020
+:::TIME::: Parse of CTL query elapsed time: 0.803 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.716 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.766 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: RwMutex-PT-r0010w0020
+:::TIME::: Parse of CTL query elapsed time: 0.779 ms
+
+Analysis:: Modelname: RwMutex-PT-r0010w0020
+:::TIME::: Parse of CTL query elapsed time: 0.621 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.92 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 48.824 ms
+:::DATA::: Configurations: 7247 Markings: 1044
+FORMULA RwMutex-PT-r0010w0020-CTLCardinality-6 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 48.889 ms
+
+:::CYCLE:: Detected: 643 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 37.999 ms
+:::DATA::: Configurations: 2096 Markings: 1044
+FORMULA RwMutex-PT-r0010w0020-CTLCardinality-7 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 38.069 ms
+
+:::CYCLE:: Detected: 643 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 44.147 ms
+:::DATA::: Configurations: 7312 Markings: 1044
+FORMULA RwMutex-PT-r0010w0020-CTLCardinality-10 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 44.19 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 44.602 ms
+:::DATA::: Configurations: 7248 Markings: 1044
+FORMULA RwMutex-PT-r0010w0020-CTLCardinality-5 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 44.648 ms
+
+:::CYCLE:: Detected: 643 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 46.736 ms
+:::DATA::: Configurations: 2471 Markings: 1044
+FORMULA RwMutex-PT-r0010w0020-CTLCardinality-12 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 46.778 ms
+
+:::CYCLE:: Detected: 643 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 49.547 ms
+:::DATA::: Configurations: 7312 Markings: 1044
+FORMULA RwMutex-PT-r0010w0020-CTLCardinality-14 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 49.589 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 55.393 ms
+:::DATA::: Configurations: 13422 Markings: 1044
+FORMULA RwMutex-PT-r0010w0020-CTLCardinality-11 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 55.44 ms
+
+:::CYCLE:: Detected: 643 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 2: 83.218 ms
+:::DATA::: Configurations: 11484 Markings: 1044
+FORMULA RwMutex-PT-r0010w0020-CTLCardinality-2 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 83.267 ms
+
+:::CYCLE:: Detected: 1283 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 86.344 ms
+:::DATA::: Configurations: 10440 Markings: 1044
+FORMULA RwMutex-PT-r0010w0020-CTLCardinality-8 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 86.408 ms
+
+:::CYCLE:: Detected: 643 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 80.45 ms
+:::DATA::: Configurations: 6265 Markings: 1044
+FORMULA RwMutex-PT-r0010w0020-CTLCardinality-15 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 80.507 ms
+
+:::CYCLE:: Detected: 1283 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 88.166 ms
+:::DATA::: Configurations: 7309 Markings: 1044
+FORMULA RwMutex-PT-r0010w0020-CTLCardinality-9 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 88.217 ms
+
+:::CYCLE:: Detected: 1929 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 117.991 ms
+:::DATA::: Configurations: 9574 Markings: 1044
+FORMULA RwMutex-PT-r0010w0020-CTLCardinality-13 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 118.044 ms
+
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 7.587 ms
+:::TIME::: Parse model elapsed time: 7.976 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SharedMemory-PT-000005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SharedMemory-PT-000005
+:::TIME::: Parse of CTL query elapsed time: 1.128 ms
+
+:::TIME::: Parse of CTL query elapsed time: 1.013 ms
+
+:::TIME::: Parse model elapsed time: 8.215 ms
+:::TIME::: Parse model elapsed time: 8.171 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SharedMemory-PT-000005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SharedMemory-PT-000005
+:::TIME::: Parse model elapsed time: 7.391 ms
+:::TIME::: Parse of CTL query elapsed time: 0.984 ms
+
+:::TIME::: Parse model elapsed time: 7.47 ms
+:::TIME::: Parse model elapsed time: 7.395 ms
+:::TIME::: Parse model elapsed time: 7.505 ms
+:::TIME::: Parse model elapsed time: 7.625 ms
+:::TIME::: Parse model elapsed time: 7.315 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SharedMemory-PT-000005
+:::TIME::: Parse model elapsed time: 7.437 ms
+:::TIME::: Parse model elapsed time: 8.021 ms
+:::TIME::: Parse of CTL query elapsed time: 0.911 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SharedMemory-PT-000005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SharedMemory-PT-000005
+:::TIME::: Parse model elapsed time: 8.28 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SharedMemory-PT-000005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SharedMemory-PT-000005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SharedMemory-PT-000005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SharedMemory-PT-000005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SharedMemory-PT-000005
+:::TIME::: Parse of CTL query elapsed time: 1.04 ms
+
+:::TIME::: Parse of CTL query elapsed time: 1.092 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SharedMemory-PT-000005
+:::TIME::: Parse of CTL query elapsed time: 1.076 ms
+
+:::TIME::: Parse of CTL query elapsed time: 1.097 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.941 ms
+
+:::TIME::: Parse of CTL query elapsed time: 1.08 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.944 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.911 ms
+
+:::TIME::: Parse of CTL query elapsed time: 1.022 ms
+
+:::CYCLE:: Detected: 476 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 6.565 ms
+:::DATA::: Configurations: 1635 Markings: 1295
+FORMULA SharedMemory-COL-000005-CTLCardinality-8 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 6.614 ms
+
+:::CYCLE:: Detected: 925 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 36.853 ms
+:::DATA::: Configurations: 5589 Markings: 1863
+FORMULA SharedMemory-COL-000005-CTLCardinality-12 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 36.902 ms
+
+:::CYCLE:: Detected: 925 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 37.659 ms
+:::DATA::: Configurations: 5611 Markings: 1863
+FORMULA SharedMemory-COL-000005-CTLCardinality-13 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 37.707 ms
+
+:::CYCLE:: Detected: 216 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 42.435 ms
+:::DATA::: Configurations: 7432 Markings: 1863
+FORMULA SharedMemory-COL-000005-CTLCardinality-9 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 42.474 ms
+
+:::CYCLE:: Detected: 925 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 2: 57.205 ms
+:::DATA::: Configurations: 23248 Markings: 1863
+FORMULA SharedMemory-COL-000005-CTLCardinality-2 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 57.487 ms
+
+:::CYCLE:: Detected: 1834 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 75.891 ms
+:::DATA::: Configurations: 11179 Markings: 1863
+FORMULA SharedMemory-COL-000005-CTLCardinality-15 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 76.02 ms
+
+:::CYCLE:: Detected: 2882 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 79.721 ms
+:::DATA::: Configurations: 7465 Markings: 1863
+FORMULA SharedMemory-COL-000005-CTLCardinality-5 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 79.789 ms
+
+:::CYCLE:: Detected: 1850 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 85.182 ms
+:::DATA::: Configurations: 11192 Markings: 1863
+FORMULA SharedMemory-COL-000005-CTLCardinality-11 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 85.248 ms
+
+:::CYCLE:: Detected: 1834 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 4: 91.318 ms
+:::DATA::: Configurations: 24219 Markings: 1863
+FORMULA SharedMemory-COL-000005-CTLCardinality-4 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 91.384 ms
+
+:::CYCLE:: Detected: 925 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 3: 92.62 ms
+:::DATA::: Configurations: 14324 Markings: 1863
+FORMULA SharedMemory-COL-000005-CTLCardinality-3 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 92.852 ms
+
+:::CYCLE:: Detected: 1834 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 90.687 ms
+:::DATA::: Configurations: 13042 Markings: 1863
+FORMULA SharedMemory-COL-000005-CTLCardinality-6 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 90.758 ms
+
+:::CYCLE:: Detected: 925 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 129.621 ms
+:::DATA::: Configurations: 13041 Markings: 1863
+FORMULA SharedMemory-COL-000005-CTLCardinality-14 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 129.704 ms
+
+:::CYCLE:: Detected: 1834 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 215.255 ms
+:::DATA::: Configurations: 13994 Markings: 1863
+FORMULA SharedMemory-COL-000005-CTLCardinality-10 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 215.338 ms
+
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Search: CDFS
+Algorithm: czero-i
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 3.24 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SimpleLoadBal-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.66 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 4: 0.022 ms
+:::DATA::: Configurations: 3 Markings: 2
+FORMULA SimpleLoadBal-COL-02-CTLCardinality-4 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.05 ms
+
+:::TIME::: Parse model elapsed time: 3.394 ms
+:::TIME::: Parse model elapsed time: 3.497 ms
+:::TIME::: Parse model elapsed time: 3.303 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SimpleLoadBal-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SimpleLoadBal-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SimpleLoadBal-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.717 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.591 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 0.034 ms
+:::DATA::: Configurations: 8 Markings: 2
+:::TIME::: Parse model elapsed time: 3.601 ms
+:::TIME::: Parse of CTL query elapsed time: 0.686 ms
+
+FORMULA SimpleLoadBal-COL-02-CTLCardinality-5 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.132 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SimpleLoadBal-PT-02
+:::TIME::: Parse model elapsed time: 3.379 ms
+Analysis:: Modefile: ./model.pnml
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 1.176 ms
+:::DATA::: Configurations: 456 Markings: 147
+FORMULA SimpleLoadBal-COL-02-CTLCardinality-9 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 1.25 ms
+
+Analysis:: Modelname: SimpleLoadBal-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.84 ms
+
+:::CYCLE:: Detected: 7 Evil Cycles: 0
+:::TIME::: Parse of CTL query elapsed time: 0.692 ms
+
+:::TIME::: Parse model elapsed time: 2.969 ms
+:::TIME::: Parse model elapsed time: 3.532 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SimpleLoadBal-PT-02
+:::TIME::: Parse model elapsed time: 3.269 ms
+:::TIME::: Parse model elapsed time: 3.478 ms
+:::TIME::: Parse of CTL query elapsed time: 0.767 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 0.082 ms
+:::DATA::: Configurations: 18 Markings: 2
+FORMULA SimpleLoadBal-COL-02-CTLCardinality-15 F TECHNIQUES 
+:::TIME::: Parse model elapsed time: 3.095 ms
+:::TIME::: Search elapsed time for query 8: 2.323 ms
+:::DATA::: Configurations: 530 Markings: 191
+FORMULA SimpleLoadBal-COL-02-CTLCardinality-8 T TECHNIQUES 
+:::TIME::: Parse model elapsed time: 3.016 ms
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 0.01 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA SimpleLoadBal-COL-02-CTLCardinality-7 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.143 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SimpleLoadBal-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SimpleLoadBal-PT-02
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SimpleLoadBal-PT-02
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 0.016 ms
+:::DATA::: Configurations: 3 Markings: 0
+FORMULA SimpleLoadBal-COL-02-CTLCardinality-6 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.177 ms
+
+
+:::TIME::: Total search elapsed time: 0.265 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SimpleLoadBal-PT-02
+
+:::TIME::: Total search elapsed time: 2.427 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: SimpleLoadBal-PT-02
+:::TIME::: Parse of CTL query elapsed time: 0.704 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.793 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Parse of CTL query elapsed time: 0.612 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.684 ms
+
+:::TIME::: Parse of CTL query elapsed time: 0.674 ms
+
+:::TIME::: Search elapsed time for query 13: 0.008 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA SimpleLoadBal-COL-02-CTLCardinality-13 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.102 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 0.011 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA SimpleLoadBal-COL-02-CTLCardinality-14 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.169 ms
+
+:::TIME::: Search elapsed time for query 12: 0.046 ms
+:::DATA::: Configurations: 18 Markings: 2
+FORMULA SimpleLoadBal-COL-02-CTLCardinality-12 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.145 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 11: 13.788 ms
+:::DATA::: Configurations: 5569 Markings: 832
+FORMULA SimpleLoadBal-COL-02-CTLCardinality-11 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 13.826 ms
+
+:::CYCLE:: Detected: 566 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 22.392 ms
+:::DATA::: Configurations: 3871 Markings: 832
+FORMULA SimpleLoadBal-COL-02-CTLCardinality-10 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 22.43 ms
+
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Query type: CTLCardinality
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Search: CDFS
+Algorithm: czero-i
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Algorithm: czero-i
+Algorithm: czero-i
+Algorithm: czero-i
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+Search: CDFS
+Search: CDFS
+Query type: CTLCardinality
+Query type: CTLCardinality
+Query type: CTLCardinality
+:::TIME::: Parse model elapsed time: 11.506 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: TokenRing-PT-005
+:::TIME::: Parse of CTL query elapsed time: 2.189 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 4: 0.009 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA TokenRing-COL-005-CTLCardinality-4 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.05 ms
+
+:::TIME::: Parse model elapsed time: 11.401 ms
+:::TIME::: Parse model elapsed time: 11.335 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: TokenRing-PT-005
+Analysis:: Modelname: TokenRing-PT-005
+:::TIME::: Parse model elapsed time: 12.443 ms
+:::TIME::: Parse model elapsed time: 12.374 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: TokenRing-PT-005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: TokenRing-PT-005
+:::TIME::: Parse model elapsed time: 11.748 ms
+:::TIME::: Parse model elapsed time: 11.709 ms
+:::TIME::: Parse of CTL query elapsed time: 2.311 ms
+
+:::TIME::: Parse of CTL query elapsed time: 2.234 ms
+
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse model elapsed time: 11.749 ms
+Analysis:: Modefile: ./model.pnml
+:::TIME::: Parse model elapsed time: 12.008 ms
+:::TIME::: Parse model elapsed time: 11.964 ms
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: TokenRing-PT-005
+:::TIME::: Parse model elapsed time: 11.679 ms
+:::TIME::: Parse model elapsed time: 11.683 ms
+:::TIME::: Parse of CTL query elapsed time: 2.381 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 5: 0.093 ms
+:::DATA::: Configurations: 15 Markings: 5
+FORMULA TokenRing-COL-005-CTLCardinality-5 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.245 ms
+
+:::TIME::: Parse of CTL query elapsed time: 2.3 ms
+
+Analysis:: Modelname: TokenRing-PT-005
+:::TIME::: Parse model elapsed time: 12.591 ms
+Analysis:: Modelname: TokenRing-PT-005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: TokenRing-PT-005
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: TokenRing-PT-005
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 6: 5.172 ms
+:::DATA::: Configurations: 528 Markings: 165
+FORMULA TokenRing-COL-005-CTLCardinality-6 F TECHNIQUES 
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Parse of CTL query elapsed time: 2.214 ms
+
+Analysis:: Modefile: ./model.pnml
+Analysis:: Modelname: TokenRing-PT-005
+Analysis:: Modelname: TokenRing-PT-005
+
+:::TIME::: Total search elapsed time: 5.244 ms
+
+:::TIME::: Search elapsed time for query 11: 0.008 ms
+:::DATA::: Configurations: 1 Markings: 0
+FORMULA TokenRing-COL-005-CTLCardinality-11 F TECHNIQUES 
+:::TIME::: Parse of CTL query elapsed time: 2.585 ms
+
+:::TIME::: Parse of CTL query elapsed time: 2.389 ms
+
+:::TIME::: Parse of CTL query elapsed time: 2.325 ms
+
+Analysis:: Modelname: TokenRing-PT-005
+:::TIME::: Parse of CTL query elapsed time: 2.198 ms
+
+
+:::TIME::: Total search elapsed time: 0.134 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 7: 0.024 ms
+:::DATA::: Configurations: 9 Markings: 0
+FORMULA TokenRing-COL-005-CTLCardinality-7 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.086 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 14: 0.258 ms
+:::DATA::: Configurations: 30 Markings: 19
+FORMULA TokenRing-COL-005-CTLCardinality-14 T TECHNIQUES 
+:::TIME::: Parse of CTL query elapsed time: 2.557 ms
+
+:::TIME::: Parse of CTL query elapsed time: 2.216 ms
+
+:::CYCLE:: Detected: 1 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 3: 5.573 ms
+:::DATA::: Configurations: 835 Markings: 165
+FORMULA TokenRing-COL-005-CTLCardinality-3 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 5.656 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 15: 4.058 ms
+:::DATA::: Configurations: 1018 Markings: 138
+FORMULA TokenRing-COL-005-CTLCardinality-15 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 4.214 ms
+
+
+:::TIME::: Total search elapsed time: 0.384 ms
+
+:::TIME::: Parse of CTL query elapsed time: 2.274 ms
+
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 12: 0.055 ms
+:::DATA::: Configurations: 7 Markings: 5
+:::CYCLE:: Detected: 0 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 9: 0.041 ms
+:::DATA::: Configurations: 6 Markings: 5
+FORMULA TokenRing-COL-005-CTLCardinality-9 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.164 ms
+
+FORMULA TokenRing-COL-005-CTLCardinality-12 T TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 0.231 ms
+
+:::CYCLE:: Detected: 1 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 8: 5.743 ms
+:::DATA::: Configurations: 1164 Markings: 165
+FORMULA TokenRing-COL-005-CTLCardinality-8 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 5.776 ms
+
+:::CYCLE:: Detected: 1 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 10: 7.866 ms
+:::DATA::: Configurations: 703 Markings: 165
+FORMULA TokenRing-COL-005-CTLCardinality-10 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 7.898 ms
+
+:::CYCLE:: Detected: 3 Evil Cycles: 0
+:::TIME::: Search elapsed time for query 13: 9.307 ms
+:::DATA::: Configurations: 1192 Markings: 165
+FORMULA TokenRing-COL-005-CTLCardinality-13 F TECHNIQUES 
+
+:::TIME::: Total search elapsed time: 9.341 ms
+

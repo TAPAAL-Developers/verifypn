@@ -1,0 +1,80 @@
+Property Ring-PT-none-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("P5")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("P80")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("P82")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("P50")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("P18")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("P122")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("P86")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("P91")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("P10")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("P62")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("P75")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("P21")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("P49")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("P24")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("P38")
+  end.
+Property Ring-PT-none-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("P36")
+  end.

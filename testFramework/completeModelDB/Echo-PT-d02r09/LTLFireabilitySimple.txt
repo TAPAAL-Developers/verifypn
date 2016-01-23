@@ -1,0 +1,80 @@
+Property Echo-PT-d02r09-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "t282"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t119"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "t83"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t555"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "t336"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "t484"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "t253"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "t508"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "t255"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "t410"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t38"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "t373"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "t270"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "t40"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "t5"?
+  end.
+Property Echo-PT-d02r09-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "t87"?
+  end.

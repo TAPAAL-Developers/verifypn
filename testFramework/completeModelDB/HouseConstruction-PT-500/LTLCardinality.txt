@@ -1,0 +1,80 @@
+Property HouseConstruction-PT-500-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A F ((3) <= (#tokens("p15")))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A F F ((3) <= (#tokens("p7")))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A F G F G ((3) <= (#tokens("p18")))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((((((#tokens("p12")) <= (#tokens("p1")))) U (((#tokens("p6")) <= (#tokens("p22")))))) U (X G ((3) <= (#tokens("p9")))))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A F ((X ((3) <= (#tokens("p14")))) U (X ((1) <= (#tokens("p15")))))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A ((((((3) <= (#tokens("p19")))) U (((1) <= (#tokens("p25")))))) U (((#tokens("p17")) <= (#tokens("p21")))))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((G G ((#tokens("p14")) <= (#tokens("p27")))) U (X ((3) <= (#tokens("p25")))))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A X X ((((2) <= (#tokens("p6")))) U (((1) <= (#tokens("p22")))))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A F X ((((2) <= (#tokens("p1")))) U (((1) <= (#tokens("p23")))))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A G ((#tokens("p26")) <= (#tokens("p20")))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A X F F F ((1) <= (#tokens("p19")))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A G X ((((3) <= (#tokens("p9")))) U (((1) <= (#tokens("p19")))))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A G X F F ((3) <= (#tokens("p4")))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A X G F F ((#tokens("p22")) <= (#tokens("p20")))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("p2")))
+  end.
+Property HouseConstruction-PT-500-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A F ((2) <= (#tokens("p11")))
+  end.

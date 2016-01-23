@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F (((((((("t1_16_17_16_16"?) & ("t1_18_30_19_29"?))) & ("t1_14_23_15_22"?))) & ((((("t1_29_1_30_1"?) & ("t1_14_1_14_2"?))) & ((("t1_4_12_3_12"?) | ("t1_3_9_4_8"?))))))) & ("t1_28_16_29_16"?))
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F ((! (((("t1_20_9_19_8"?) & ("t1_19_23_18_22"?))) & ((("t1_7_14_7_15"?) | ("t1_15_17_14_18"?))))) & ("t1_2_19_1_20"?))
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    A G ((! "t1_1_20_2_21"?) | (! "t1_26_5_25_6"?))
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    A G (((((("t1_15_2_16_1"?) & ("t1_15_28_16_27"?))) | ((((("t1_19_14_18_13"?) & ("t1_6_24_6_25"?))) | (! "t1_9_5_10_6"?))))) & (((! (("t1_24_4_24_3"?) & ("t1_25_6_25_7"?))) | (((! "t1_24_19_25_20"?) & ((("t1_29_27_29_28"?) | ("t1_6_5_5_6"?))))))))
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F "t1_26_10_27_11"?
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F (((((("t1_5_14_5_13"?) | ("t1_19_8_18_9"?))) | (! ! "t1_16_29_17_29"?))) & (((((! "t1_22_2_22_1"?) | (! "t1_2_23_1_22"?))) & ((((("t1_8_24_9_23"?) | ("t1_29_14_29_15"?))) & ((("t1_13_21_12_20"?) & ("t1_16_19_16_20"?))))))))
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F "t1_6_16_7_15"?
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F ((((! (("t1_9_16_9_17"?) & ("t1_27_12_26_13"?))) | ("t1_27_22_26_23"?))) & ("t1_22_25_22_24"?))
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F "t1_23_21_23_22"?
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G ! "t1_7_11_6_10"?
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F ((! "t1_24_10_25_11"?) & (((((! "t1_7_12_8_11"?) & ((("t1_17_19_17_20"?) & ("t1_11_7_12_7"?))))) | ((((("t1_24_16_25_15"?) | ("t1_21_20_20_20"?))) | ((("t1_13_25_12_24"?) | ("t1_21_23_21_22"?))))))))
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F "t1_25_23_26_24"?
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F "t1_30_7_29_7"?
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F ((((! (("t1_2_28_2_27"?) & ("t1_25_13_24_12"?))) & ((("t1_15_8_15_7"?) | ((("t1_10_16_11_17"?) & ("t1_8_21_7_20"?))))))) & ((("t1_2_27_2_28"?) & ((((("t1_14_23_15_22"?) & ("t1_28_14_29_14"?))) & (! "t1_17_14_16_15"?))))))
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F (((("t1_27_24_27_25"?) | ((((("t1_10_3_10_4"?) | ("t1_12_13_12_12"?))) & (! "t1_14_3_14_4"?))))) & (! (("t1_11_6_10_5"?) & ("t1_14_11_14_10"?))))
+  end.
+Property Diffusion2D-PT-D30N010-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F ((((! ! "t1_26_19_25_18"?) & ((((("t1_18_12_17_12"?) & ("t1_12_21_11_22"?))) & ((("t1_1_28_2_28"?) & ("t1_18_3_18_4"?))))))) & ((("t1_5_24_6_25"?) & ("t1_19_8_19_9"?))))
+  end.

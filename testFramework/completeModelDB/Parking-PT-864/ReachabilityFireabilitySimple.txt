@@ -1,0 +1,80 @@
+Property Parking-PT-864-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t116"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t695"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t777"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t1129"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t1224"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t1527"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t26"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t1447"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t44"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t1045"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t1388"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t1420"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t1324"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t1547"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t1535"?
+  end.
+Property Parking-PT-864-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t344"?
+  end.

@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("p8.3")) <= (#tokens("p1.3")))) | (((1) <= (#tokens("Payment.p21.1")))))) & (((((#tokens("Status.p21.5")) <= (#tokens("PayReceipt.p21.12")))) & (((2) <= (#tokens("Status.p20")))))))) & (((((((2) <= (#tokens("p3.2")))) & (((#tokens("p6.4")) <= (#tokens("p12.3")))))) | (! ((#tokens("p8.3")) <= (#tokens("PaymentHandlerPayment.p5.0")))))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ((#tokens("p8.3")) <= (#tokens("Order.p22.6")))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((((#tokens("p10.0")) <= (#tokens("PaymentHandlerPayment.p5.0")))) & (! ((((2) <= (#tokens("Payment.p21.1")))) | (((#tokens("p6.2")) <= (#tokens("HowDeliver.p12.2")))))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ! ! ((((#tokens("Status.p21.5")) <= (#tokens("p3.1")))) | (((#tokens("PayReceipt.p21.15")) <= (#tokens("MerchantOffer.p2")))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ((! ((2) <= (#tokens("MerchantDelivery.p4.6")))) & (((#tokens("p6.7")) <= (#tokens("p3.6")))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("HowDeliver.p12.2")))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ! ((((((3) <= (#tokens("Status.p21.5")))) & (((#tokens("Organization.p22.5")) <= (#tokens("Organization.p22.9")))))) | (((3) <= (#tokens("p6.2")))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ! ((((((1) <= (#tokens("Delivery.p22.4")))) & (((#tokens("p1.1")) <= (#tokens("p2.2")))))) | (((2) <= (#tokens("p11.8")))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((((! ((3) <= (#tokens("p6.1")))) | (((#tokens("Status.p20")) <= (#tokens("p3.4")))))) | (! ((1) <= (#tokens("p6.3")))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((((! ((2) <= (#tokens("p8.2")))) & (((((2) <= (#tokens("p3.7")))) | (((#tokens("p11.8")) <= (#tokens("p7.2")))))))) & (((3) <= (#tokens("HowDeliver.p12.2")))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("BrandList.p11.2")))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ! ((! ((#tokens("p11.7")) <= (#tokens("p6.1")))) | (((((3) <= (#tokens("p10.0")))) | (((#tokens("p3.8")) <= (#tokens("ConsumerDelivery.p6.0")))))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ! ! ((((1) <= (#tokens("Organization.p21.8")))) & (((1) <= (#tokens("Delivery.p22.8")))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("p4.2")) <= (#tokens("ConsumerDelivery.p6.0")))) | (((#tokens("DeliveryResponse.p12.6")) <= (#tokens("PaySchemeData.p21.6")))))) | (((((#tokens("p4.2")) <= (#tokens("p5.2")))) & (((#tokens("BrandList.p11.2")) <= (#tokens("p3.4")))))))) | (((! ((#tokens("PaySchemeData.p21.6")) <= (#tokens("Status.p22.13")))) | (((((2) <= (#tokens("p3.5")))) | (((2) <= (#tokens("p5.3")))))))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("Payment.p21.3")))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((#tokens("Order.p22.3")) <= (#tokens("Payment.p21.1")))
+  end.

@@ -1,0 +1,80 @@
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("SigAbort")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("NotifyEventEndOfCheckSourcesB_2", "NotifyEventEndOfCheckSourcesB_9", "NotifyEventEndOfCheckSourcesB_3", "NotifyEventEndOfCheckSourcesB_8", "NotifyEventEndOfCheckSourcesB_10", "NotifyEventEndOfCheckSourcesB_1", "NotifyEventEndOfCheckSourcesB_5", "NotifyEventEndOfCheckSourcesB_4", "NotifyEventEndOfCheckSourcesB_7", "NotifyEventEndOfCheckSourcesB_6")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("cIsMonitoring")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("FetchJobE_1_4", "FetchJobE_4_1", "FetchJobE_5_0", "FetchJobE_9_6", "FetchJobE_8_5", "FetchJobE_3_2", "FetchJobE_9_4", "FetchJobE_1_5", "FetchJobE_10_2", "FetchJobE_9_5", "FetchJobE_1_3", "FetchJobE_10_3", "FetchJobE_5_1", "FetchJobE_8_6", "FetchJobE_9_2", "FetchJobE_2_2", "FetchJobE_3_4", "FetchJobE_6_3", "FetchJobE_10_4", "FetchJobE_2_0", "FetchJobE_4_6", "FetchJobE_7_5", "FetchJobE_6_1", "FetchJobE_9_0", "FetchJobE_8_2", "FetchJobE_2_4", "FetchJobE_8_0", "FetchJobE_3_0", "FetchJobE_7_1", "FetchJobE_10_6", "FetchJobE_6_5", "FetchJobE_8_1", "FetchJobE_1_1", "FetchJobE_5_5", "FetchJobE_4_3", "FetchJobE_9_1", "FetchJobE_5_6", "FetchJobE_2_6", "FetchJobE_7_2", "FetchJobE_10_0", "FetchJobE_7_3", "FetchJobE_5_3", "FetchJobE_4_4", "FetchJobE_4_5", "FetchJobE_3_6", "FetchJobE_6_2", "FetchJobE_6_0", "FetchJobE_1_0", "FetchJobE_10_1", "FetchJobE_3_1", "FetchJobE_5_4", "FetchJobE_1_2", "FetchJobE_3_5", "FetchJobE_2_3", "FetchJobE_5_2", "FetchJobE_9_3", "FetchJobE_7_0", "FetchJobE_6_4", "FetchJobE_2_1", "FetchJobE_7_6", "FetchJobE_7_4", "FetchJobE_10_5", "FetchJobE_3_3", "FetchJobE_4_2", "FetchJobE_8_3", "FetchJobE_2_5", "FetchJobE_4_0", "FetchJobE_1_6", "FetchJobE_6_6", "FetchJobE_8_4")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("P_1716")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("AvailableJobId_6", "AvailableJobId_1", "AvailableJobId_3", "AvailableJobId_0", "AvailableJobId_2", "AvailableJobId_5", "AvailableJobId_4")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("P_1099")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("AbourtToModifySrc_2", "AbourtToModifySrc_1")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("FetchJobE_1_4", "FetchJobE_4_1", "FetchJobE_5_0", "FetchJobE_9_6", "FetchJobE_8_5", "FetchJobE_3_2", "FetchJobE_9_4", "FetchJobE_1_5", "FetchJobE_10_2", "FetchJobE_9_5", "FetchJobE_1_3", "FetchJobE_10_3", "FetchJobE_5_1", "FetchJobE_8_6", "FetchJobE_9_2", "FetchJobE_2_2", "FetchJobE_3_4", "FetchJobE_6_3", "FetchJobE_10_4", "FetchJobE_2_0", "FetchJobE_4_6", "FetchJobE_7_5", "FetchJobE_6_1", "FetchJobE_9_0", "FetchJobE_8_2", "FetchJobE_2_4", "FetchJobE_8_0", "FetchJobE_3_0", "FetchJobE_7_1", "FetchJobE_10_6", "FetchJobE_6_5", "FetchJobE_8_1", "FetchJobE_1_1", "FetchJobE_5_5", "FetchJobE_4_3", "FetchJobE_9_1", "FetchJobE_5_6", "FetchJobE_2_6", "FetchJobE_7_2", "FetchJobE_10_0", "FetchJobE_7_3", "FetchJobE_5_3", "FetchJobE_4_4", "FetchJobE_4_5", "FetchJobE_3_6", "FetchJobE_6_2", "FetchJobE_6_0", "FetchJobE_1_0", "FetchJobE_10_1", "FetchJobE_3_1", "FetchJobE_5_4", "FetchJobE_1_2", "FetchJobE_3_5", "FetchJobE_2_3", "FetchJobE_5_2", "FetchJobE_9_3", "FetchJobE_7_0", "FetchJobE_6_4", "FetchJobE_2_1", "FetchJobE_7_6", "FetchJobE_7_4", "FetchJobE_10_5", "FetchJobE_3_3", "FetchJobE_4_2", "FetchJobE_8_3", "FetchJobE_2_5", "FetchJobE_4_0", "FetchJobE_1_6", "FetchJobE_6_6", "FetchJobE_8_4")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("P_2321_9", "P_2321_7", "P_2321_6", "P_2321_5", "P_2321_4", "P_2321_3", "P_2321_10", "P_2321_2", "P_2321_8", "P_2321_1")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("Check_Sources_E_6", "Check_Sources_E_7", "Check_Sources_E_8", "Check_Sources_E_2", "Check_Sources_E_1", "Check_Sources_E_10", "Check_Sources_E_3", "Check_Sources_E_4", "Check_Sources_E_9", "Check_Sources_E_5")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("cJobCnt")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("ScheduleTaskE_Idle_7", "ScheduleTaskE_Idle_4", "ScheduleTaskE_Idle_6", "ScheduleTaskE_Idle_5", "ScheduleTaskE_Idle_2", "ScheduleTaskE_Idle_9", "ScheduleTaskE_Idle_8", "ScheduleTaskE_Idle_3", "ScheduleTaskE_Idle_1", "ScheduleTaskE_Idle_10")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("Insert_Source_B_4_1", "Insert_Source_B_2_2", "Insert_Source_B_1_2", "Insert_Source_B_8_2", "Insert_Source_B_9_2", "Insert_Source_B_5_1", "Insert_Source_B_6_1", "Insert_Source_B_10_1", "Insert_Source_B_6_2", "Insert_Source_B_7_2", "Insert_Source_B_9_1", "Insert_Source_B_1_1", "Insert_Source_B_8_1", "Insert_Source_B_7_1", "Insert_Source_B_4_2", "Insert_Source_B_2_1", "Insert_Source_B_5_2", "Insert_Source_B_3_2", "Insert_Source_B_10_2", "Insert_Source_B_3_1")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("P_1712_4", "P_1712_5", "P_1712_0", "P_1712_1", "P_1712_6", "P_1712_3", "P_1712_2")
+  end.
+Property PolyORBLF-COL-S02J06T10-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("PollingAbort")
+  end.

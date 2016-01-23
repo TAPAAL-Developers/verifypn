@@ -1,0 +1,80 @@
+Property ERK-PT-010000-CTLFireability-0
+  "Automatically generated"
+  is:
+    ! E ((! "r10"?) U ((("r7"?) & (! "r8"?))))
+  end.
+Property ERK-PT-010000-CTLFireability-1
+  "Automatically generated"
+  is:
+    A G ((E (("r3"?) U ("r6"?))) | ((((("r5"?) | ((("r1"?) | ("r5"?))))) & ("r7"?))))
+  end.
+Property ERK-PT-010000-CTLFireability-2
+  "Automatically generated"
+  is:
+    A G E F ! "r1"?
+  end.
+Property ERK-PT-010000-CTLFireability-3
+  "Automatically generated"
+  is:
+    ! A G A G (("r11"?) | ("r1"?))
+  end.
+Property ERK-PT-010000-CTLFireability-4
+  "Automatically generated"
+  is:
+    ! A G E F "r10"?
+  end.
+Property ERK-PT-010000-CTLFireability-5
+  "Automatically generated"
+  is:
+    ((((! ((A X "r1"?) & ("r5"?))) & (((A X ! "r4"?) & ((("r7"?) | (A G "r7"?))))))) | (E F A G "r2"?))
+  end.
+Property ERK-PT-010000-CTLFireability-6
+  "Automatically generated"
+  is:
+    ! ! E F A G "r9"?
+  end.
+Property ERK-PT-010000-CTLFireability-7
+  "Automatically generated"
+  is:
+    ((A F A (("r6"?) U ("r2"?))) | (E ((! (("r7"?) & ("r6"?))) U (E G "r3"?))))
+  end.
+Property ERK-PT-010000-CTLFireability-8
+  "Automatically generated"
+  is:
+    A X A G E X "r8"?
+  end.
+Property ERK-PT-010000-CTLFireability-9
+  "Automatically generated"
+  is:
+    ! A G ! A G "r5"?
+  end.
+Property ERK-PT-010000-CTLFireability-10
+  "Automatically generated"
+  is:
+    A G E F A X "r5"?
+  end.
+Property ERK-PT-010000-CTLFireability-11
+  "Automatically generated"
+  is:
+    E F A G ! (("r10"?) | ("r2"?))
+  end.
+Property ERK-PT-010000-CTLFireability-12
+  "Automatically generated"
+  is:
+    E (((("r5"?) | (A G "r1"?))) U (! ! (("r6"?) & ("r9"?))))
+  end.
+Property ERK-PT-010000-CTLFireability-13
+  "Automatically generated"
+  is:
+    E G E F ! (("r1"?) | ("r10"?))
+  end.
+Property ERK-PT-010000-CTLFireability-14
+  "Automatically generated"
+  is:
+    A X ! A (("r1"?) U ("r8"?))
+  end.
+Property ERK-PT-010000-CTLFireability-15
+  "Automatically generated"
+  is:
+    ! ! (((("r5"?) & ((((("r3"?) & ("r2"?))) | ("r5"?))))) & (E (("r5"?) U ("r5"?))))
+  end.

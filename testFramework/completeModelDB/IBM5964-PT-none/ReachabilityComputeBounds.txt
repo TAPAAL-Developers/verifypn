@@ -1,0 +1,80 @@
+Property IBM5964-PT-none-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("callToTask.s00005897.output.s00000979")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("callToTask.s00005969.output.s00000938")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("join.s00001295.activated.s00000948")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("callToTask.s00005965.output.s00000956")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("callToTask.s00005969.output.s00000938")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("callToTask.s00002186.output.s00000962")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("callToTask.s00002185.input.s00000950")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("callToTask.s00005897.inputCriterion.s00000937.used")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("callToProcess.s00002411.output.s00000956")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("callToTask.s00005849.input.s00000952")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("callToTask.s00005970.inputCriterion.s00000937.used")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("merge.s00000945.input.s00000986")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("callToTask.s00001632.output.s00000959")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("callToTask.s00005970.inputCriterion.s00000937.used")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("callToTask.s00005968.output.s00000956")
+  end.
+Property IBM5964-PT-none-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("callToTask.s00001305.input.s00000935")
+  end.

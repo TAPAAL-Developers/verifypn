@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t_52_3"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t_8_2"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t_11_1"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t_68_3"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t_66_2"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t_30_3"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t_11_0"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t_56_3"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t_93_1"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t_42_3"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t_75_0"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t_62_2"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t_9_0"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t_60_2"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t_43_1"?
+  end.
+Property ResAllocation-PT-R003C100-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t_99_0"?
+  end.

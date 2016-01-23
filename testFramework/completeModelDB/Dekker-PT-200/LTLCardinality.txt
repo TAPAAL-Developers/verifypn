@@ -1,0 +1,80 @@
+Property Dekker-PT-200-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A ((#tokens("p3/119")) <= (#tokens("p3/170")))
+  end.
+Property Dekker-PT-200-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A ((#tokens("p1/67")) <= (#tokens("flag=0/112")))
+  end.
+Property Dekker-PT-200-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A X F G G ((#tokens("p1/176")) <= (#tokens("p3/119")))
+  end.
+Property Dekker-PT-200-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A X F ((1) <= (#tokens("flag=1/137")))
+  end.
+Property Dekker-PT-200-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("p0/178")))
+  end.
+Property Dekker-PT-200-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A ((#tokens("flag=1/165")) <= (#tokens("p0/180")))
+  end.
+Property Dekker-PT-200-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A X G ((#tokens("flag=1/97")) <= (#tokens("p1/80")))
+  end.
+Property Dekker-PT-200-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("p1/60")))
+  end.
+Property Dekker-PT-200-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A F ((F ((2) <= (#tokens("p3/70")))) U (X ((#tokens("flag=0/82")) <= (#tokens("p3/85")))))
+  end.
+Property Dekker-PT-200-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A F ((#tokens("flag=0/113")) <= (#tokens("flag=1/25")))
+  end.
+Property Dekker-PT-200-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A F ((#tokens("flag=0/84")) <= (#tokens("flag=0/19")))
+  end.
+Property Dekker-PT-200-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A F ((#tokens("flag=1/89")) <= (#tokens("p1/192")))
+  end.
+Property Dekker-PT-200-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A X X ((((1) <= (#tokens("p1/1")))) U (((1) <= (#tokens("p1/198")))))
+  end.
+Property Dekker-PT-200-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A X ((1) <= (#tokens("flag=0/18")))
+  end.
+Property Dekker-PT-200-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A F ((#tokens("p0/156")) <= (#tokens("p1/110")))
+  end.
+Property Dekker-PT-200-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((2) <= (#tokens("p0/5")))
+  end.

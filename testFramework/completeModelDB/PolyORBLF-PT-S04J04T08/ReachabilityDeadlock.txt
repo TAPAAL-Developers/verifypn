@@ -1,0 +1,5 @@
+Property PolyORBLF-COL-S04J04T08-ReachabilityDeadlock-0
+  "Automatically generated"
+  is:
+    E F deadlock
+  end.

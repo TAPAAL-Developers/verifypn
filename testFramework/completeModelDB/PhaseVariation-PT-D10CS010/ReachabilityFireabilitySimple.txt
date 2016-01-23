@@ -1,0 +1,80 @@
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "division1_mutate_9_8_A"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "division2_replicate_8_1_A_8_2"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "division2_replicate_2_2_B_1_3"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "division2_mutate_2_5_A_1_4"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "division1_replicate_9_1_B"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "division1_replicate_8_8_A"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "division2_replicate_4_10_A_5_10"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "division1_replicate_7_10_A"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "division1_replicate_2_5_B"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "division2_mutate_2_4_B_1_4"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "division2_replicate_6_10_A_5_10"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "division2_mutate_7_9_A_7_10"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "division1_mutate_4_6_A"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "division2_mutate_3_9_A_2_8"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "division2_replicate_10_2_B_9_2"?
+  end.
+Property PhaseVariation-PT-D10CS010-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "division2_mutate_4_4_B_5_5"?
+  end.

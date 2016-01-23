@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R003C003-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G G G "t_0_0"?
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-1
+  "Automatically generated"
+  is:
+    A ((F X X "t_0_3"?) U ("t_1_1"?))
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-2
+  "Automatically generated"
+  is:
+    A X ((F X "t_0_3"?) U (X F "t_0_3"?))
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X "t_0_0"?
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-4
+  "Automatically generated"
+  is:
+    A "t_1_0"?
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-5
+  "Automatically generated"
+  is:
+    A G F F G X "t_0_0"?
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-6
+  "Automatically generated"
+  is:
+    A "t_2_2"?
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-7
+  "Automatically generated"
+  is:
+    A ((G "t_0_3"?) U (X G G "t_2_2"?))
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-8
+  "Automatically generated"
+  is:
+    A X G ((F "t_2_1"?) U (G "t_0_2"?))
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-9
+  "Automatically generated"
+  is:
+    A F G X F G "t_1_0"?
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-10
+  "Automatically generated"
+  is:
+    A ((F X G "t_0_1"?) U (F G X "t_2_1"?))
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-11
+  "Automatically generated"
+  is:
+    A X "t_0_1"?
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-12
+  "Automatically generated"
+  is:
+    A F G F (("t_2_1"?) U ("t_2_1"?))
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-13
+  "Automatically generated"
+  is:
+    A G "t_1_1"?
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-14
+  "Automatically generated"
+  is:
+    A "t_2_0"?
+  end.
+Property ResAllocation-PT-R003C003-LTLFireability-15
+  "Automatically generated"
+  is:
+    A ((((F "t_2_1"?) U ("t_2_2"?))) U (F X F "t_0_3"?))
+  end.

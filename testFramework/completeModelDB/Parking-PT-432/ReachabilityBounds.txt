@@ -1,0 +1,80 @@
+Property Parking-PT-432-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((((bound("p101")) <= (2))) & (((bound("p207")) <= (3))))) & (((((bound("p241")) <= (1))) & (((((bound("p220")) <= (3))) & (((((((((bound("p380")) <= (3))) & (((bound("p366")) <= (3))))) & (((bound("p486")) <= (2))))) & (((((bound("p233")) <= (1))) & (((bound("p55")) <= (3))))))))))))
+  end.
+Property Parking-PT-432-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("p477")) <= (2))
+  end.
+Property Parking-PT-432-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("p356")) <= (2))
+  end.
+Property Parking-PT-432-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((((((bound("p382")) <= (3))) & (((bound("p213")) <= (2))))) & (((bound("p213")) <= (3))))) & (((bound("p100")) <= (2))))
+  end.
+Property Parking-PT-432-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("p100")) <= (1))
+  end.
+Property Parking-PT-432-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("p354")) <= (1))
+  end.
+Property Parking-PT-432-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("p414")) <= (2))
+  end.
+Property Parking-PT-432-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((((((((((((bound("p135")) <= (1))) & (((bound("p455")) <= (3))))) & (((bound("p0")) <= (1))))) & (((((((bound("p387")) <= (1))) & (((bound("p46")) <= (3))))) & (((((bound("p483")) <= (2))) & (((bound("p14")) <= (1))))))))) & (((bound("p349")) <= (1))))) & (((bound("p290")) <= (2))))) & (((bound("p39")) <= (3))))
+  end.
+Property Parking-PT-432-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("p270")) <= (3))
+  end.
+Property Parking-PT-432-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((((bound("p173")) <= (2))) & (((bound("p66")) <= (3))))) & (((bound("p278")) <= (3))))
+  end.
+Property Parking-PT-432-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((bound("p254")) <= (1))) & (((((bound("p394")) <= (3))) & (((((((bound("p426")) <= (2))) & (((((((bound("p341")) <= (1))) & (((bound("p311")) <= (1))))) & (((((bound("p74")) <= (2))) & (((bound("p451")) <= (1))))))))) & (((bound("p340")) <= (3))))))))
+  end.
+Property Parking-PT-432-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((((bound("p344")) <= (3))) & (((bound("p461")) <= (2))))) & (((((bound("p518")) <= (3))) & (((bound("p195")) <= (2))))))
+  end.
+Property Parking-PT-432-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((((bound("p241")) <= (2))) & (((((bound("p41")) <= (2))) & (((((bound("p254")) <= (3))) & (((bound("p132")) <= (2))))))))) & (((bound("p64")) <= (2))))
+  end.
+Property Parking-PT-432-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((bound("p53")) <= (2))) & (((((((((bound("p91")) <= (2))) & (((((((bound("p368")) <= (3))) & (((bound("p426")) <= (2))))) & (((bound("p402")) <= (1))))))) & (((((bound("p296")) <= (2))) & (((bound("p179")) <= (1))))))) & (((((bound("p484")) <= (3))) & (((((((bound("p481")) <= (1))) & (((bound("p380")) <= (2))))) & (((((bound("p5")) <= (3))) & (((((bound("p383")) <= (1))) & (((bound("p433")) <= (3))))))))))))))
+  end.
+Property Parking-PT-432-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("p452")) <= (1))
+  end.
+Property Parking-PT-432-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((((((bound("p148")) <= (1))) & (((bound("p378")) <= (3))))) & (((((((((bound("p297")) <= (2))) & (((((bound("p11")) <= (2))) & (((bound("p394")) <= (3))))))) & (((bound("p17")) <= (2))))) & (((((bound("p458")) <= (1))) & (((bound("p70")) <= (1))))))))) & (((bound("p523")) <= (2))))
+  end.

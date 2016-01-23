@@ -1,0 +1,80 @@
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ! ! ((#tokens("cIsMonitoring")) <= (#tokens("ScheduleTaskE_Idle_2", "ScheduleTaskE_Idle_3", "ScheduleTaskE_Idle_1", "ScheduleTaskE_Idle_4")))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("EnablePollingB_4", "EnablePollingB_3", "EnablePollingB_2", "EnablePollingB_1")))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((! ! ((#tokens("P_1717")) <= (#tokens("P_1119_3_6", "P_1119_1_4", "P_1119_4_1", "P_1119_3_1", "P_1119_1_5", "P_1119_2_3", "P_1119_4_6", "P_1119_4_4", "P_1119_2_1", "P_1119_3_3", "P_1119_1_1", "P_1119_4_2", "P_1119_3_5", "P_1119_1_3", "P_1119_2_5", "P_1119_1_6", "P_1119_3_2", "P_1119_2_4", "P_1119_2_2", "P_1119_2_6", "P_1119_4_5", "P_1119_3_4", "P_1119_4_3", "P_1119_1_2")))) & (((((#tokens("P_1724_3", "P_1724_4", "P_1724_2", "P_1724_1", "P_1724_0", "P_1724_5", "P_1724_6")) <= (#tokens("IsMonitoring")))) & (((((2) <= (#tokens("ORB_Lock")))) & (((2) <= (#tokens("BlockedTasks")))))))))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("MarkerRead")))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ((((((((2) <= (#tokens("IdleTasks_3", "IdleTasks_1", "IdleTasks_2", "IdleTasks_4")))) | (((#tokens("NotifyEventJobQueuedE_4", "NotifyEventJobQueuedE_3", "NotifyEventJobQueuedE_2", "NotifyEventJobQueuedE_1")) <= (#tokens("ProcessingEvt_3", "ProcessingEvt_2", "ProcessingEvt_4", "ProcessingEvt_1")))))) & (((3) <= (#tokens("Idle_3", "Idle_2", "Idle_4", "Idle_1")))))) | (! ((((2) <= (#tokens("P_1113_3", "P_1113_4", "P_1113_2", "P_1113_1")))) & (((#tokens("QueueJobE_3", "QueueJobE_4", "QueueJobE_1", "QueueJobE_2")) <= (#tokens("RunE_3", "RunE_4", "RunE_1", "RunE_2")))))))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ! ! ((((1) <= (#tokens("NoSigAbort")))) | (((#tokens("FetchJobB_4", "FetchJobB_3", "FetchJobB_1", "FetchJobB_2")) <= (#tokens("Try_Check_Sources_B_1", "Try_Check_Sources_B_2", "Try_Check_Sources_B_3", "Try_Check_Sources_B_4")))))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("NotifyEventJobQueuedE_4", "NotifyEventJobQueuedE_3", "NotifyEventJobQueuedE_2", "NotifyEventJobQueuedE_1")) <= (#tokens("P_2318_4", "P_2318_3", "P_2318_2", "P_2318_1")))) & (((1) <= (#tokens("Insert_Source_E_4", "Insert_Source_E_3", "Insert_Source_E_2", "Insert_Source_E_1")))))) | (! ((#tokens("RunB_4", "RunB_2", "RunB_3", "RunB_1")) <= (#tokens("FetchJobB_4", "FetchJobB_3", "FetchJobB_1", "FetchJobB_2")))))) & (((((((3) <= (#tokens("cBlockedTasks")))) | (((#tokens("P_2579_3_3", "P_2579_2_1", "P_2579_3_5", "P_2579_2_5", "P_2579_1_2", "P_2579_4_1", "P_2579_4_3", "P_2579_1_4", "P_2579_1_5", "P_2579_3_2", "P_2579_3_6", "P_2579_4_6", "P_2579_4_4", "P_2579_4_2", "P_2579_2_2", "P_2579_1_1", "P_2579_3_4", "P_2579_2_4", "P_2579_1_6", "P_2579_1_3", "P_2579_2_6", "P_2579_4_5", "P_2579_2_3", "P_2579_3_1")) <= (#tokens("P_1155_3", "P_1155_4", "P_1155_1", "P_1155_2")))))) | (((((2) <= (#tokens("P_1716")))) & (((2) <= (#tokens("NotifyEventJobCompletedE_4", "NotifyEventJobCompletedE_3", "NotifyEventJobCompletedE_2", "NotifyEventJobCompletedE_1")))))))))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("P_1160_1", "P_1160_2", "P_1160_4", "P_1160_3")))) | (((! ((#tokens("P_1159_4", "P_1159_2", "P_1159_1", "P_1159_3")) <= (#tokens("cSources")))) | (! ((#tokens("ProcessingEvt_3", "ProcessingEvt_2", "ProcessingEvt_4", "ProcessingEvt_1")) <= (#tokens("AvailableJobId_6", "AvailableJobId_5", "AvailableJobId_4", "AvailableJobId_0", "AvailableJobId_1", "AvailableJobId_2", "AvailableJobId_3")))))))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((#tokens("TryAllocateOneTaskE_4", "TryAllocateOneTaskE_3", "TryAllocateOneTaskE_2", "TryAllocateOneTaskE_1")) <= (#tokens("P_1113_3", "P_1113_4", "P_1113_2", "P_1113_1")))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((((! ((#tokens("IsMonitoring")) <= (#tokens("ScheduleTaskB_1", "ScheduleTaskB_4", "ScheduleTaskB_2", "ScheduleTaskB_3")))) & (((((#tokens("Insert_Source_E_4", "Insert_Source_E_3", "Insert_Source_E_2", "Insert_Source_E_1")) <= (#tokens("NotifyEventEndOfCheckSourcesB_4", "NotifyEventEndOfCheckSourcesB_2", "NotifyEventEndOfCheckSourcesB_3", "NotifyEventEndOfCheckSourcesB_1")))) | (((#tokens("P_1097")) <= (#tokens("IdleTasks_3", "IdleTasks_1", "IdleTasks_2", "IdleTasks_4")))))))) & (((((((#tokens("NotifyEventJobCompletedE_4", "NotifyEventJobCompletedE_3", "NotifyEventJobCompletedE_2", "NotifyEventJobCompletedE_1")) <= (#tokens("P_1726")))) | (((3) <= (#tokens("ScheduleTaskE_Idle_2", "ScheduleTaskE_Idle_3", "ScheduleTaskE_Idle_1", "ScheduleTaskE_Idle_4")))))) & (((((3) <= (#tokens("RunE_3", "RunE_4", "RunE_1", "RunE_2")))) & (((3) <= (#tokens("PlaceSources_5", "PlaceSources_4", "PlaceSources_3", "PlaceSources_2", "PlaceSources_1", "PlaceSources_6")))))))))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("P_2579_3_3", "P_2579_2_1", "P_2579_3_5", "P_2579_2_5", "P_2579_1_2", "P_2579_4_1", "P_2579_4_3", "P_2579_1_4", "P_2579_1_5", "P_2579_3_2", "P_2579_3_6", "P_2579_4_6", "P_2579_4_4", "P_2579_4_2", "P_2579_2_2", "P_2579_1_1", "P_2579_3_4", "P_2579_2_4", "P_2579_1_6", "P_2579_1_3", "P_2579_2_6", "P_2579_4_5", "P_2579_2_3", "P_2579_3_1")) <= (#tokens("FetchJobB_4", "FetchJobB_3", "FetchJobB_1", "FetchJobB_2")))) | (((2) <= (#tokens("NotifyEventEndOfCheckSourcesB_4", "NotifyEventEndOfCheckSourcesB_2", "NotifyEventEndOfCheckSourcesB_3", "NotifyEventEndOfCheckSourcesB_1")))))) & (((((#tokens("EnablePollingB_4", "EnablePollingB_3", "EnablePollingB_2", "EnablePollingB_1")) <= (#tokens("Idle_3", "Idle_2", "Idle_4", "Idle_1")))) | (((1) <= (#tokens("P_1725_4", "P_1725_0", "P_1725_1", "P_1725_6", "P_1725_2", "P_1725_3", "P_1725_5")))))))) | (! ((((1) <= (#tokens("P_2579_3_3", "P_2579_2_1", "P_2579_3_5", "P_2579_2_5", "P_2579_1_2", "P_2579_4_1", "P_2579_4_3", "P_2579_1_4", "P_2579_1_5", "P_2579_3_2", "P_2579_3_6", "P_2579_4_6", "P_2579_4_4", "P_2579_4_2", "P_2579_2_2", "P_2579_1_1", "P_2579_3_4", "P_2579_2_4", "P_2579_1_6", "P_2579_1_3", "P_2579_2_6", "P_2579_4_5", "P_2579_2_3", "P_2579_3_1")))) | (((2) <= (#tokens("TryAllocateOneTaskB_1", "TryAllocateOneTaskB_2", "TryAllocateOneTaskB_4", "TryAllocateOneTaskB_3")))))))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((((! ((#tokens("P_1158_3", "P_1158_2", "P_1158_4", "P_1158_1")) <= (#tokens("Check_Sources_B_2", "Check_Sources_B_4", "Check_Sources_B_3", "Check_Sources_B_1")))) | (((1) <= (#tokens("NotifyEventSourceAddedB_1", "NotifyEventSourceAddedB_2", "NotifyEventSourceAddedB_3", "NotifyEventSourceAddedB_4")))))) | (! ((((#tokens("P_1159_4", "P_1159_2", "P_1159_1", "P_1159_3")) <= (#tokens("TryAllocateOneTaskB_1", "TryAllocateOneTaskB_2", "TryAllocateOneTaskB_4", "TryAllocateOneTaskB_3")))) | (((#tokens("P_1099")) <= (#tokens("IsMonitoring")))))))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ((((((3) <= (#tokens("cJobCnt")))) | (! ((2) <= (#tokens("IdleTasks_3", "IdleTasks_1", "IdleTasks_2", "IdleTasks_4")))))) & (((((((#tokens("TryAllocateOneTaskE_4", "TryAllocateOneTaskE_3", "TryAllocateOneTaskE_2", "TryAllocateOneTaskE_1")) <= (#tokens("P_1159_4", "P_1159_2", "P_1159_1", "P_1159_3")))) | (((1) <= (#tokens("TryAllocateOneTaskE_4", "TryAllocateOneTaskE_3", "TryAllocateOneTaskE_2", "TryAllocateOneTaskE_1")))))) & (((((2) <= (#tokens("JobCnt")))) & (((#tokens("nyo_4", "nyo_1", "nyo_2", "nyo_3")) <= (#tokens("PollingAbort")))))))))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((#tokens("P_2579_3_3", "P_2579_2_1", "P_2579_3_5", "P_2579_2_5", "P_2579_1_2", "P_2579_4_1", "P_2579_4_3", "P_2579_1_4", "P_2579_1_5", "P_2579_3_2", "P_2579_3_6", "P_2579_4_6", "P_2579_4_4", "P_2579_4_2", "P_2579_2_2", "P_2579_1_1", "P_2579_3_4", "P_2579_2_4", "P_2579_1_6", "P_2579_1_3", "P_2579_2_6", "P_2579_4_5", "P_2579_2_3", "P_2579_3_1")) <= (#tokens("AwakeTasks_2", "AwakeTasks_1", "AwakeTasks_4", "AwakeTasks_3")))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ! ! ((((1) <= (#tokens("P_2579_3_3", "P_2579_2_1", "P_2579_3_5", "P_2579_2_5", "P_2579_1_2", "P_2579_4_1", "P_2579_4_3", "P_2579_1_4", "P_2579_1_5", "P_2579_3_2", "P_2579_3_6", "P_2579_4_6", "P_2579_4_4", "P_2579_4_2", "P_2579_2_2", "P_2579_1_1", "P_2579_3_4", "P_2579_2_4", "P_2579_1_6", "P_2579_1_3", "P_2579_2_6", "P_2579_4_5", "P_2579_2_3", "P_2579_3_1")))) & (((2) <= (#tokens("ScheduleTaskE_Work_1_3", "ScheduleTaskE_Work_2_4", "ScheduleTaskE_Work_1_6", "ScheduleTaskE_Work_3_2", "ScheduleTaskE_Work_3_0", "ScheduleTaskE_Work_2_2", "ScheduleTaskE_Work_3_4", "ScheduleTaskE_Work_4_0", "ScheduleTaskE_Work_4_5", "ScheduleTaskE_Work_3_6", "ScheduleTaskE_Work_4_3", "ScheduleTaskE_Work_1_2", "ScheduleTaskE_Work_4_1", "ScheduleTaskE_Work_2_6", "ScheduleTaskE_Work_1_4", "ScheduleTaskE_Work_3_1", "ScheduleTaskE_Work_1_5", "ScheduleTaskE_Work_2_3", "ScheduleTaskE_Work_4_6", "ScheduleTaskE_Work_3_3", "ScheduleTaskE_Work_2_1", "ScheduleTaskE_Work_4_4", "ScheduleTaskE_Work_3_5", "ScheduleTaskE_Work_4_2", "ScheduleTaskE_Work_1_1", "ScheduleTaskE_Work_2_0", "ScheduleTaskE_Work_2_5", "ScheduleTaskE_Work_1_0")))))
+  end.
+Property PolyORBLF-COL-S06J06T04-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ! ((3) <= (#tokens("Idle_3", "Idle_2", "Idle_4", "Idle_1")))
+  end.

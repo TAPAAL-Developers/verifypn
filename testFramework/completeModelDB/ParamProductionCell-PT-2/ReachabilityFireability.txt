@@ -1,0 +1,80 @@
+Property ParamProductionCell-PT-2-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    A G ((((((! "A2L_ret_Pstart"?) & ((("A2L_rot3_Pstop"?) & ("A1U_rot2_Pstop"?))))) | (! (("A2L_rot1_Pstop"?) & ("crane_lock_output_area"?))))) | (! "A1U_c2"?))
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F "A1U_ungrasp"?
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F "A2U_ret_Pstop"?
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F ((! ((! "A1U_ret_Pstart"?) & ((("TL_rot_csc"?) & ("A1U_rot1_Pstart"?))))) & (! ! "arm2_unlock_output_area"?))
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F ((! ! "A2L_ext_Cstop"?) | ((("press_unlock_output_area"?) & ((("A1U_rot3_Pstop"?) | (! "TU_rot_Pstart"?))))))
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G ! ! ! (("PL_lower_csc"?) | ("A1U_rot1_Pstart"?))
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F (((((((("A2L_rot3_Pstart"?) | ("press_lock_output_area"?))) & ((("CL_grasp"?) & ("crane_unlock_output_area"?))))) | ("PU_lower_csc"?))) | (((! ! "A2U_ext_Pstop"?) & ((("CU_lower_Pstop"?) | ((("A2L_rot3_csc"?) & ("PU_lower_Pstop"?))))))))
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G (((((((("A2L_rot2_Pstart"?) & ("arm1_lock_swivel_2"?))) & ((("CL_lift_Cstop"?) | ("CU_lower_csc"?))))) | (! (("A2U_rot1_csc"?) & ("TL_lower_Pstart"?))))) | (! ! ! "PU_lower_csc"?))
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F ! (((((("A1L_rot3_Pstop"?) | ("A2L_ret_csc"?))) | ((("A1U_ext_Cstop"?) & ("DB_deliver_csc"?))))) | (! (("A2U_c1"?) | ("deposit_belt_lock_input_area"?))))
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G ! "A1U_c2"?
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F (("A2U_rot2_Cstop"?) | (((! ! "press_unlock_input_area"?) | ("DB_deliver_Pstop"?))))
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F ! (((((("A1U_ext_Pstart"?) & ("A1U_rot1_csc"?))) | (! "A2U_ungrasp"?))) | ((("feed_belt_unlock_input_area"?) | ("arm2_lock_input_area"?))))
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ! "A1U_ret_Pstop"?
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F "A1L_rot2_Cstop"?
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F "A2U_ext_Pstop"?
+  end.
+Property ParamProductionCell-PT-2-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F "A2L_rot3_Pstop"?
+  end.

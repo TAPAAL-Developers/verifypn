@@ -1,0 +1,80 @@
+Property HouseConstruction-PT-050-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F ((((! (("t17"?) | ("t17"?))) & (! "t14"?))) & (((! ! "t5"?) | (! ! "t4"?))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F ((! ((! "t4"?) & ("t2"?))) & ((((((("t9"?) & ("t13"?))) & (! "t18"?))) & ("t17"?))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    A G ! (((((("t4"?) & ("t11"?))) & ((("t6"?) | ("t14"?))))) & ((((("t17"?) | ("t8"?))) & ((("t14"?) | ("t18"?))))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F (((((("t17"?) & ((("t12"?) & ("t2"?))))) & (! (("t15"?) & ("t9"?))))) & (((((! "t5"?) & ((("t13"?) | ("t11"?))))) | (! (("t17"?) & ("t7"?))))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    A G ! "t18"?
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F ((((! ! "t18"?) & (((! "t5"?) & ((("t9"?) | ("t10"?))))))) & ((("t18"?) | ((((("t17"?) | ("t1"?))) & ((("t17"?) & ("t15"?))))))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G ! "t18"?
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G "t1"?
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F (("t5"?) & ((((("t15"?) | ("t17"?))) | ("t17"?))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F ((! ((! "t16"?) | (! "t17"?))) & (((((! "t2"?) | ("t16"?))) | ((((("t10"?) & ("t10"?))) | (! "t14"?))))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    A G ! (("t17"?) & ((("t13"?) & ("t9"?))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    A G ! ! ((! "t2"?) | ((("t15"?) | ("t2"?))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G "t1"?
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F (((((((("t4"?) & ("t14"?))) & ((("t10"?) & ("t7"?))))) | (! (("t10"?) | ("t8"?))))) & ((((((("t1"?) | ("t11"?))) & (! "t7"?))) & ((("t4"?) & ((("t7"?) | ("t18"?))))))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F ((((! ! "t5"?) | (((! "t16"?) | (! "t8"?))))) & (! "t1"?))
+  end.
+Property HouseConstruction-PT-050-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    A G ((! ! ! "t13"?) | (! "t18"?))
+  end.

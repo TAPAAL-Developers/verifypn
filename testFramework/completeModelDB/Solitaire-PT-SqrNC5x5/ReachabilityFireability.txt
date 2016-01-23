@@ -1,0 +1,80 @@
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    A G ! (("right36"?) & (((! "up34"?) & ((("up35"?) & ("down32"?))))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    A G ! (((((("left52"?) & ("right35"?))) & ("down64"?))) & (((! "right42"?) & ("down44"?))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    A G ! (((("down32"?) & ((("down44"?) & ("right36"?))))) & ((((("down53"?) & ("right42"?))) & ("down53"?))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F ! ! (((("down34"?) & ("up34"?))) & ((("left33"?) | ("left32"?))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F ((! ! (("down64"?) & ("right54"?))) & (((! "down54"?) | ("right32"?))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F (((((("up64"?) | ((("up23"?) & ("left34"?))))) & ((((("up55"?) | ("down56"?))) & ((("down36"?) & ("down42"?))))))) & ("down56"?))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F ((! ! (("up32"?) & ("up36"?))) & ((("down33"?) | ((((("down24"?) | ("left45"?))) & (! "down24"?))))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F ! ((! (("left42"?) & ("left64"?))) | (((! "up36"?) | (! "left52"?))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    A G ((((! (("left44"?) & ("up54"?))) | ((((("right23"?) | ("down23"?))) | (! "left24"?))))) | ((((((("left36"?) & ("right32"?))) | ((("left34"?) | ("down55"?))))) | ("down33"?))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F (((("down33"?) & ((("up55"?) & ("up25"?))))) & ((((("up34"?) & ("left43"?))) & ("up65"?))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    A G ((((! "down45"?) | (((! "down35"?) | ((("up24"?) & ("down53"?))))))) | ("up53"?))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F (((((("left54"?) & ((("left53"?) & ("down33"?))))) & (! (("left24"?) | ("up42"?))))) & ("down46"?))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F ((((! (("right42"?) | ("up33"?))) & ("left53"?))) & (((! "down64"?) & ("down36"?))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F (((((("down55"?) & ((("down25"?) & ("left32"?))))) & ("up32"?))) & ("right63"?))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F ! ((((! "up44"?) & (! "up46"?))) | (! (("right43"?) & ("down46"?))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F ((! ! (("left44"?) & ("down34"?))) & ((((((("left32"?) & ("down55"?))) | ((("down35"?) & ("down56"?))))) & ("left55"?))))
+  end.

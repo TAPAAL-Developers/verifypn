@@ -1,0 +1,80 @@
+Property Solitaire-PT-FrnNC7x7-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G "right44"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-1
+  "Automatically generated"
+  is:
+    A "right33"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-2
+  "Automatically generated"
+  is:
+    A F (("down41"?) U ("up34"?))
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-3
+  "Automatically generated"
+  is:
+    A ((((F "right74"?) U (X "up25"?))) U ((("down42"?) U (F "right53"?))))
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-4
+  "Automatically generated"
+  is:
+    A ((X G F "right24"?) U ("right23"?))
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-5
+  "Automatically generated"
+  is:
+    A G X "left24"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-6
+  "Automatically generated"
+  is:
+    A G "right64"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-7
+  "Automatically generated"
+  is:
+    A G F F (("up45"?) U ("left53"?))
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-8
+  "Automatically generated"
+  is:
+    A G "right33"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-9
+  "Automatically generated"
+  is:
+    A ((X G F "right56"?) U (G F G "left14"?))
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-10
+  "Automatically generated"
+  is:
+    A X "down54"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-11
+  "Automatically generated"
+  is:
+    A ((G G G "right42"?) U (((F "left14"?) U (G "right42"?))))
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-12
+  "Automatically generated"
+  is:
+    A "right42"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-13
+  "Automatically generated"
+  is:
+    A F X G F G "up54"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-14
+  "Automatically generated"
+  is:
+    A ((F (("up54"?) U ("down44"?))) U (G (("left64"?) U ("left55"?))))
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireability-15
+  "Automatically generated"
+  is:
+    A F "right25"?
+  end.

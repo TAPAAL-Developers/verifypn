@@ -1,0 +1,80 @@
+Property CircadianClock-PT-100000-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((2) <= (#tokens("c_cap")))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ((((1) <= (#tokens("a_cap")))) | (! ((((3) <= (#tokens("c")))) | (((3) <= (#tokens("a_cap")))))))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ! ((((((3) <= (#tokens("da_a")))) & (((1) <= (#tokens("a")))))) | (((((2) <= (#tokens("da")))) & (((1) <= (#tokens("r")))))))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ! ((((#tokens("a")) <= (#tokens("dr_a")))) | (((#tokens("ma_cap")) <= (#tokens("ma_cap")))))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ((((2) <= (#tokens("ma_cap")))) | (((! ((#tokens("r_cap")) <= (#tokens("r_cap")))) & (((((#tokens("c_cap")) <= (#tokens("da_a")))) | (((3) <= (#tokens("c")))))))))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ((((! ((#tokens("c")) <= (#tokens("r")))) & (((((2) <= (#tokens("mr")))) & (((#tokens("dr_a")) <= (#tokens("ma")))))))) | (((#tokens("ma")) <= (#tokens("a_cap")))))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("mr_cap")) <= (#tokens("mr_cap")))) & (((1) <= (#tokens("c_cap")))))) | (! ! ((2) <= (#tokens("da")))))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("c")) <= (#tokens("c")))) & (((#tokens("da")) <= (#tokens("a_cap")))))) | (! ((#tokens("mr")) <= (#tokens("c_cap")))))) | (! ((2) <= (#tokens("dr_a")))))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((#tokens("a")) <= (#tokens("a_cap")))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ! ! ((((#tokens("c_cap")) <= (#tokens("dr")))) & (((3) <= (#tokens("r_cap")))))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("a")) <= (#tokens("a")))) & (((1) <= (#tokens("dr_a")))))) | (((((3) <= (#tokens("mr_cap")))) & (((3) <= (#tokens("a_cap")))))))) | (((3) <= (#tokens("r")))))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("da")) <= (#tokens("da_a")))) | (((#tokens("a_cap")) <= (#tokens("ma_cap")))))) & (((3) <= (#tokens("dr")))))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((((((#tokens("mr")) <= (#tokens("ma_cap")))) | (! ((1) <= (#tokens("r_cap")))))) | (((((((#tokens("a_cap")) <= (#tokens("c")))) & (((#tokens("c")) <= (#tokens("da")))))) & (((1) <= (#tokens("mr_cap")))))))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("dr")))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((((#tokens("mr_cap")) <= (#tokens("dr")))) & (((! ((#tokens("da")) <= (#tokens("dr_a")))) | (! ((#tokens("da_a")) <= (#tokens("r_cap")))))))
+  end.
+Property CircadianClock-PT-100000-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ! ((! ((2) <= (#tokens("dr")))) & (! ((#tokens("dr")) <= (#tokens("ma_cap")))))
+  end.

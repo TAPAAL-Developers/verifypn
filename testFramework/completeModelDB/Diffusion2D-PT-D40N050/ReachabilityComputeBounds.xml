@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__10_10_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__3_2_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__28_11_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__34_31_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__18_1_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__7_31_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__34_8_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__39_12_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__26_2_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__23_10_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__4_25_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__30_37_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__30_3_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__10_31_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__30_3_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Diffusion2D-PT-D40N050-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cAMP__18_31_</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

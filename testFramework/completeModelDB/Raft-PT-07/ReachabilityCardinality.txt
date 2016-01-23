@@ -1,0 +1,80 @@
+Property Raft-PT-07-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ! ! ((((#tokens("p12")) <= (#tokens("p133")))) & (((2) <= (#tokens("p190")))))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ! ((3) <= (#tokens("p100")))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("p46")))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((((! ((1) <= (#tokens("p94")))) | (((#tokens("p159")) <= (#tokens("p26")))))) & (((((3) <= (#tokens("p138")))) & (((((#tokens("p141")) <= (#tokens("p141")))) & (((#tokens("p234")) <= (#tokens("p230")))))))))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("p83")))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ! ((((((#tokens("p4")) <= (#tokens("p56")))) & (((3) <= (#tokens("p191")))))) & (((((#tokens("p239")) <= (#tokens("p48")))) | (((#tokens("p103")) <= (#tokens("p197")))))))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ! ((2) <= (#tokens("p235")))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("p145")) <= (#tokens("p108")))) & (((#tokens("p122")) <= (#tokens("p158")))))) | (((((1) <= (#tokens("p230")))) & (((2) <= (#tokens("p113")))))))) & (((((((#tokens("p160")) <= (#tokens("p144")))) & (((3) <= (#tokens("p160")))))) | (((((2) <= (#tokens("p141")))) | (((2) <= (#tokens("p88")))))))))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((((((((1) <= (#tokens("p109")))) | (((#tokens("p213")) <= (#tokens("p228")))))) & (((((#tokens("p185")) <= (#tokens("p45")))) | (((#tokens("p162")) <= (#tokens("p34")))))))) | (! ((#tokens("p226")) <= (#tokens("p189")))))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ((((! ((3) <= (#tokens("p121")))) & (! ((2) <= (#tokens("p136")))))) | (! ((((#tokens("p96")) <= (#tokens("p132")))) | (((1) <= (#tokens("p234")))))))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((#tokens("p234")) <= (#tokens("p189")))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((! ((((#tokens("p248")) <= (#tokens("p108")))) & (((#tokens("p71")) <= (#tokens("p85")))))) | (! ((3) <= (#tokens("p130")))))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("p182")) <= (#tokens("p130")))) | (((1) <= (#tokens("p4")))))) | (((#tokens("p69")) <= (#tokens("p222")))))) | (((((((1) <= (#tokens("p224")))) | (((1) <= (#tokens("p54")))))) | (((((#tokens("p12")) <= (#tokens("p73")))) | (((2) <= (#tokens("p11")))))))))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((((! ((#tokens("p88")) <= (#tokens("p204")))) & (((1) <= (#tokens("p17")))))) & (((#tokens("p82")) <= (#tokens("p82")))))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((((((((1) <= (#tokens("p183")))) | (((1) <= (#tokens("p250")))))) & (((((1) <= (#tokens("p78")))) & (((1) <= (#tokens("p124")))))))) & (((((((#tokens("p246")) <= (#tokens("p115")))) & (((#tokens("p70")) <= (#tokens("p182")))))) & (! ((#tokens("p171")) <= (#tokens("p91")))))))
+  end.
+Property Raft-PT-07-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ! ((! ((2) <= (#tokens("p133")))) & (((((1) <= (#tokens("p183")))) | (((#tokens("p251")) <= (#tokens("p213")))))))
+  end.

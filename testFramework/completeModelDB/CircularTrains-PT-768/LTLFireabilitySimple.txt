@@ -1,0 +1,80 @@
+Property CircularTrains-PT-768-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "t761_to_762"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t604_to_605"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "t56_to_57"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t376_to_377"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "t146_to_147"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "t368_to_369"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "t499_to_500"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "t122_to_123"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "t76_to_77"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "t536_to_537"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t260_to_261"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "t631_to_632"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "t103_to_104"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "t362_to_363"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "t11_to_12"?
+  end.
+Property CircularTrains-PT-768-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "t65_to_66"?
+  end.

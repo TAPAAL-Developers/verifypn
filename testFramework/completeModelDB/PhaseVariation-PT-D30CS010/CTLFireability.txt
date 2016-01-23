@@ -1,0 +1,80 @@
+Property PhaseVariation-PT-D30CS010-CTLFireability-0
+  "Automatically generated"
+  is:
+    A F "division2_replicate_8_15_B_8_14"?
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-1
+  "Automatically generated"
+  is:
+    A (((((((("division2_mutate_9_27_A_8_27"?) | ("division2_mutate_19_18_A_20_17"?))) | ((("division2_replicate_11_6_B_10_5"?) & ("division2_replicate_15_29_A_14_30"?))))) & ((("division2_replicate_14_8_A_13_8"?) | ("division2_mutate_17_26_A_18_26"?))))) U (! A F "division2_replicate_5_29_B_4_28"?))
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-2
+  "Automatically generated"
+  is:
+    ((! ((A (("division2_replicate_6_23_B_6_22"?) U ("division2_replicate_19_29_B_18_28"?))) | ("division2_mutate_5_18_A_5_17"?))) & (A F A (("division2_mutate_2_24_B_3_25"?) U ("division1_replicate_1_21_B"?))))
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-3
+  "Automatically generated"
+  is:
+    E X ((! E F "division2_replicate_20_12_B_20_11"?) | (E G ! "division1_mutate_18_27_B"?))
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-4
+  "Automatically generated"
+  is:
+    A G E F E F "division2_mutate_8_2_B_9_3"?
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-5
+  "Automatically generated"
+  is:
+    E F A G A F "division2_replicate_15_28_A_16_29"?
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-6
+  "Automatically generated"
+  is:
+    E G E X (((("division2_replicate_3_23_A_2_24"?) | ("division2_replicate_12_6_B_11_7"?))) | (! "division2_replicate_22_8_B_21_7"?))
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-7
+  "Automatically generated"
+  is:
+    E G E (("division2_replicate_26_20_B_25_21"?) U (! "division2_mutate_1_3_A_1_2"?))
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-8
+  "Automatically generated"
+  is:
+    ((! A G ! ! "division1_mutate_14_15_B"?) & (E F ((A F "division2_mutate_16_6_B_16_7"?) | ((("division2_mutate_7_4_B_7_3"?) & ("division2_mutate_5_26_B_6_27"?))))))
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-9
+  "Automatically generated"
+  is:
+    A F A G A G "division2_replicate_22_25_A_23_26"?
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-10
+  "Automatically generated"
+  is:
+    E G ((! ! (("division2_replicate_29_28_A_28_28"?) & ("division2_replicate_20_10_A_19_9"?))) | (! "division2_mutate_10_27_A_10_28"?))
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-11
+  "Automatically generated"
+  is:
+    ((((A ((! "division2_mutate_28_28_A_29_29"?) U ((("division2_mutate_3_30_A_2_29"?) & ("division2_replicate_6_29_A_7_29"?))))) | ("division2_replicate_29_15_A_28_15"?))) | (((((E G (("division2_replicate_20_8_A_19_8"?) & ("division2_mutate_14_14_A_15_13"?))) & (((A X "division2_mutate_12_13_A_13_12"?) & (E F "division2_replicate_24_9_B_24_10"?))))) | (((E (("division2_replicate_2_30_A_2_29"?) U ("division2_mutate_18_4_B_17_3"?))) & (E F "division2_replicate_17_24_B_16_23"?))))))
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-12
+  "Automatically generated"
+  is:
+    ! ((A F (((("division2_mutate_26_22_A_25_23"?) | ("division2_replicate_8_29_A_7_29"?))) & ((("division2_replicate_3_18_A_2_17"?) & ("division2_mutate_1_23_B_2_23"?))))) | (E X E F "division2_mutate_24_24_A_25_25"?))
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-13
+  "Automatically generated"
+  is:
+    ! ((((! "division2_replicate_4_29_A_5_28"?) & (A G ! "division2_mutate_22_14_A_21_14"?))) & (E G (("division2_replicate_12_22_B_13_22"?) | (! "division2_replicate_12_15_B_11_14"?))))
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-14
+  "Automatically generated"
+  is:
+    ! ((E G ! (("division2_replicate_28_16_A_27_16"?) | ("division2_mutate_10_16_A_9_16"?))) & (! E F (("division2_mutate_18_18_B_19_18"?) | ("division2_replicate_25_29_B_25_30"?))))
+  end.
+Property PhaseVariation-PT-D30CS010-CTLFireability-15
+  "Automatically generated"
+  is:
+    ((((E (("division2_mutate_24_6_B_23_7"?) U ("division2_mutate_10_23_B_9_23"?))) | (! "division2_replicate_8_23_A_7_22"?))) & (((A F E F "division2_replicate_24_15_B_25_15"?) & (! E G (("division2_mutate_9_20_A_10_20"?) | ("division2_replicate_9_18_A_10_19"?))))))
+  end.

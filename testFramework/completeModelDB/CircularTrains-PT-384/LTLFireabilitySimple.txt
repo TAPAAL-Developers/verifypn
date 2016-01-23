@@ -1,0 +1,80 @@
+Property CircularTrains-PT-384-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "t106_to_107"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t224_to_225"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "t193_to_194"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t142_to_143"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "t248_to_249"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "t49_to_50"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "t100_to_101"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "t8_to_9"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "t367_to_368"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "t280_to_281"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t224_to_225"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "t295_to_296"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "t107_to_108"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "t206_to_207"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "t161_to_162"?
+  end.
+Property CircularTrains-PT-384-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "t239_to_240"?
+  end.

@@ -1,0 +1,80 @@
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "left63"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "down33"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "down65"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "left42"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "down46"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "down43"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "up65"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "right34"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "down32"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "up36"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "left56"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "down34"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "down46"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "right45"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "right33"?
+  end.
+Property Solitaire-PT-FrnNC7x7-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "down52"?
+  end.

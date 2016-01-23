@@ -1,0 +1,80 @@
+Property FMS-PT-002-CTLCardinality-0
+  "Automatically generated"
+  is:
+    E F E F ! ((#tokens("P12wM3")) <= (#tokens("M1")))
+  end.
+Property FMS-PT-002-CTLCardinality-1
+  "Automatically generated"
+  is:
+    E G E F ((((#tokens("P1wM1")) <= (#tokens("P2wP1")))) & (((2) <= (#tokens("P12M3")))))
+  end.
+Property FMS-PT-002-CTLCardinality-2
+  "Automatically generated"
+  is:
+    E ((((((((#tokens("P2s")) <= (#tokens("P12s")))) | (((3) <= (#tokens("P12")))))) | (((((1) <= (#tokens("P2d")))) | (((2) <= (#tokens("P1M1")))))))) U (E X ((1) <= (#tokens("P12M3")))))
+  end.
+Property FMS-PT-002-CTLCardinality-3
+  "Automatically generated"
+  is:
+    ! E ((! ((1) <= (#tokens("P1wP2")))) U (((((1) <= (#tokens("M2")))) & (((2) <= (#tokens("P12")))))))
+  end.
+Property FMS-PT-002-CTLCardinality-4
+  "Automatically generated"
+  is:
+    ((! ! ! ((2) <= (#tokens("P1M1")))) & (E G E F ((3) <= (#tokens("P2wM2")))))
+  end.
+Property FMS-PT-002-CTLCardinality-5
+  "Automatically generated"
+  is:
+    A G ((((((#tokens("P2M2")) <= (#tokens("M1")))) | (! ((#tokens("P2M2")) <= (#tokens("P3")))))) | (E G ((#tokens("M1")) <= (#tokens("P1wP2")))))
+  end.
+Property FMS-PT-002-CTLCardinality-6
+  "Automatically generated"
+  is:
+    E ((((! ((#tokens("M1")) <= (#tokens("P2wP1")))) | (((1) <= (#tokens("M2")))))) U (((3) <= (#tokens("P2")))))
+  end.
+Property FMS-PT-002-CTLCardinality-7
+  "Automatically generated"
+  is:
+    E F ((! ((2) <= (#tokens("P2s")))) & (E X ((3) <= (#tokens("P1wM1")))))
+  end.
+Property FMS-PT-002-CTLCardinality-8
+  "Automatically generated"
+  is:
+    E G E F ((((3) <= (#tokens("M2")))) & (((#tokens("P2s")) <= (#tokens("P1M1")))))
+  end.
+Property FMS-PT-002-CTLCardinality-9
+  "Automatically generated"
+  is:
+    A G ((! ((((2) <= (#tokens("P1wM1")))) | (((#tokens("M1")) <= (#tokens("P3")))))) | (((#tokens("P12s")) <= (#tokens("M1")))))
+  end.
+Property FMS-PT-002-CTLCardinality-10
+  "Automatically generated"
+  is:
+    E ((A F ((#tokens("P12wM3")) <= (#tokens("P2wP1")))) U (E F ((#tokens("M1")) <= (#tokens("P12")))))
+  end.
+Property FMS-PT-002-CTLCardinality-11
+  "Automatically generated"
+  is:
+    ((((#tokens("M2")) <= (#tokens("P2wP1")))) | (E F A G ((2) <= (#tokens("P12s")))))
+  end.
+Property FMS-PT-002-CTLCardinality-12
+  "Automatically generated"
+  is:
+    ((((2) <= (#tokens("M2")))) | (((((((((1) <= (#tokens("P2wM2")))) & (((((#tokens("P2")) <= (#tokens("P2wP1")))) & (((1) <= (#tokens("M1")))))))) & (((#tokens("M1")) <= (#tokens("P1wM1")))))) | (! A G ((#tokens("P12wM3")) <= (#tokens("P12wM3")))))))
+  end.
+Property FMS-PT-002-CTLCardinality-13
+  "Automatically generated"
+  is:
+    A G ((((((((1) <= (#tokens("P1wP2")))) & (((#tokens("P12")) <= (#tokens("P2wP1")))))) | (! ((1) <= (#tokens("P1d")))))) | (E X ((#tokens("P1s")) <= (#tokens("P2wP1")))))
+  end.
+Property FMS-PT-002-CTLCardinality-14
+  "Automatically generated"
+  is:
+    ((! ! ((1) <= (#tokens("P3")))) & (E F E F ((2) <= (#tokens("P12")))))
+  end.
+Property FMS-PT-002-CTLCardinality-15
+  "Automatically generated"
+  is:
+    A G E F ((((3) <= (#tokens("P1d")))) | (((3) <= (#tokens("P1wP2")))))
+  end.

@@ -1,0 +1,80 @@
+Property SwimmingPool-PT-05-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ! ((((((1) <= (#tokens("Out")))) | (((#tokens("Dress")) <= (#tokens("Out")))))) | (((((#tokens("InBath")) <= (#tokens("Dress")))) | (((#tokens("Undress")) <= (#tokens("InBath")))))))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((#tokens("Bags")) <= (#tokens("Cabins")))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((! ((#tokens("Entered")) <= (#tokens("Entered")))) & (((((#tokens("Undress")) <= (#tokens("Bags")))) & (((((2) <= (#tokens("Dress")))) & (((2) <= (#tokens("Undress")))))))))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ! ! ((((#tokens("Dress")) <= (#tokens("Bags")))) | (((#tokens("Entered")) <= (#tokens("Out")))))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((! ((((2) <= (#tokens("Undress")))) | (((2) <= (#tokens("Entered")))))) & (((! ((#tokens("Bags")) <= (#tokens("Entered")))) & (((#tokens("Cabins")) <= (#tokens("InBath")))))))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ! ((((1) <= (#tokens("Out")))) & (((((3) <= (#tokens("Bags")))) & (((#tokens("Bags")) <= (#tokens("Cabins")))))))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("Bags")) <= (#tokens("Out")))) & (((#tokens("Cabins")) <= (#tokens("Out")))))) | (((((#tokens("InBath")) <= (#tokens("Cabins")))) & (((#tokens("Cabins")) <= (#tokens("Bags")))))))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((! ((#tokens("Dress")) <= (#tokens("Out")))) | (((((#tokens("Cabins")) <= (#tokens("Bags")))) & (((((2) <= (#tokens("Bags")))) | (((1) <= (#tokens("Dressed")))))))))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ((#tokens("Out")) <= (#tokens("Undress")))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ((#tokens("WaitBag")) <= (#tokens("Bags")))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("InBath")) <= (#tokens("Cabins")))) & (((#tokens("Undress")) <= (#tokens("Cabins")))))) & (! ! ((#tokens("Cabins")) <= (#tokens("Cabins")))))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("Entered")) <= (#tokens("InBath")))) | (((2) <= (#tokens("Entered")))))) & (((((1) <= (#tokens("Bags")))) & (! ((#tokens("InBath")) <= (#tokens("WaitBag")))))))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((((((3) <= (#tokens("Cabins")))) | (((((1) <= (#tokens("WaitBag")))) | (((3) <= (#tokens("Dressed")))))))) | (((#tokens("WaitBag")) <= (#tokens("Dress")))))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ! ((((((1) <= (#tokens("Bags")))) & (((#tokens("Dressed")) <= (#tokens("Out")))))) | (((((#tokens("Cabins")) <= (#tokens("Bags")))) & (((1) <= (#tokens("Entered")))))))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((((! ((#tokens("Undress")) <= (#tokens("Out")))) & (! ((#tokens("Undress")) <= (#tokens("Undress")))))) & (((((((2) <= (#tokens("Dress")))) & (((3) <= (#tokens("Bags")))))) | (((((#tokens("Entered")) <= (#tokens("Dressed")))) & (((2) <= (#tokens("Cabins")))))))))
+  end.
+Property SwimmingPool-PT-05-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((((((((2) <= (#tokens("Dress")))) & (((3) <= (#tokens("Undress")))))) | (((((#tokens("InBath")) <= (#tokens("Cabins")))) | (((3) <= (#tokens("InBath")))))))) & (((! ((2) <= (#tokens("Out")))) | (! ((#tokens("WaitBag")) <= (#tokens("Cabins")))))))
+  end.

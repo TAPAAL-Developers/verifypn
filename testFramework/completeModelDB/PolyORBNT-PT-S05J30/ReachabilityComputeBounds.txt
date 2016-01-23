@@ -1,0 +1,80 @@
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("place_518_1")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("CreatedJobs_12_2", "CreatedJobs_28_3", "CreatedJobs_19_5", "CreatedJobs_24_1", "CreatedJobs_3_2", "CreatedJobs_22_2", "CreatedJobs_0_3", "CreatedJobs_23_4", "CreatedJobs_14_4", "CreatedJobs_0_1", "CreatedJobs_21_2", "CreatedJobs_5_4", "CreatedJobs_1_5", "CreatedJobs_27_5", "CreatedJobs_29_5", "CreatedJobs_18_3", "CreatedJobs_6_1", "CreatedJobs_25_1", "CreatedJobs_8_5", "CreatedJobs_9_3", "CreatedJobs_21_1", "CreatedJobs_9_5", "CreatedJobs_1_3", "CreatedJobs_18_5", "CreatedJobs_14_1", "CreatedJobs_25_2", "CreatedJobs_24_4", "CreatedJobs_18_2", "CreatedJobs_8_3", "CreatedJobs_22_3", "CreatedJobs_7_1", "CreatedJobs_15_3", "CreatedJobs_29_3", "CreatedJobs_28_1", "CreatedJobs_7_5", "CreatedJobs_22_1", "CreatedJobs_11_2", "CreatedJobs_0_5", "CreatedJobs_21_5", "CreatedJobs_14_5", "CreatedJobs_28_5", "CreatedJobs_4_2", "CreatedJobs_4_4", "CreatedJobs_11_4", "CreatedJobs_5_2", "CreatedJobs_25_4", "CreatedJobs_21_3", "CreatedJobs_7_3", "CreatedJobs_18_4", "CreatedJobs_24_2", "CreatedJobs_8_1", "CreatedJobs_9_1", "CreatedJobs_6_5", "CreatedJobs_27_1", "CreatedJobs_10_2", "CreatedJobs_2_1", "CreatedJobs_13_1", "CreatedJobs_20_5", "CreatedJobs_17_4", "CreatedJobs_2_3", "CreatedJobs_12_4", "CreatedJobs_19_2", "CreatedJobs_16_3", "CreatedJobs_26_4", "CreatedJobs_6_3", "CreatedJobs_16_2", "CreatedJobs_13_3", "CreatedJobs_30_1", "CreatedJobs_6_2", "CreatedJobs_3_4", "CreatedJobs_9_2", "CreatedJobs_3_3", "CreatedJobs_27_4", "CreatedJobs_24_3", "CreatedJobs_20_4", "CreatedJobs_1_1", "CreatedJobs_19_1", "CreatedJobs_27_2", "CreatedJobs_30_3", "CreatedJobs_12_1", "CreatedJobs_17_2", "CreatedJobs_10_1", "CreatedJobs_14_3", "CreatedJobs_12_5", "CreatedJobs_28_4", "CreatedJobs_29_1", "CreatedJobs_5_3", "CreatedJobs_0_4", "CreatedJobs_5_5", "CreatedJobs_7_2", "CreatedJobs_8_2", "CreatedJobs_23_3", "CreatedJobs_19_4", "CreatedJobs_26_2", "CreatedJobs_15_5", "CreatedJobs_13_5", "CreatedJobs_4_3", "CreatedJobs_22_5", "CreatedJobs_20_1", "CreatedJobs_11_1", "CreatedJobs_4_5", "CreatedJobs_15_4", "CreatedJobs_10_4", "CreatedJobs_29_4", "CreatedJobs_1_4", "CreatedJobs_22_4", "CreatedJobs_26_3", "CreatedJobs_23_5", "CreatedJobs_12_3", "CreatedJobs_3_1", "CreatedJobs_19_3", "CreatedJobs_29_2", "CreatedJobs_17_1", "CreatedJobs_30_4", "CreatedJobs_10_5", "CreatedJobs_2_4", "CreatedJobs_18_1", "CreatedJobs_3_5", "CreatedJobs_17_5", "CreatedJobs_9_4", "CreatedJobs_16_4", "CreatedJobs_0_2", "CreatedJobs_15_2", "CreatedJobs_1_2", "CreatedJobs_28_2", "CreatedJobs_4_1", "CreatedJobs_24_5", "CreatedJobs_14_2", "CreatedJobs_21_4", "CreatedJobs_11_3", "CreatedJobs_8_4", "CreatedJobs_25_5", "CreatedJobs_27_3", "CreatedJobs_25_3", "CreatedJobs_26_1", "CreatedJobs_6_4", "CreatedJobs_5_1", "CreatedJobs_11_5", "CreatedJobs_16_1", "CreatedJobs_23_2", "CreatedJobs_30_2", "CreatedJobs_20_3", "CreatedJobs_2_2", "CreatedJobs_2_5", "CreatedJobs_16_5", "CreatedJobs_23_1", "CreatedJobs_17_3", "CreatedJobs_20_2", "CreatedJobs_30_5", "CreatedJobs_10_3", "CreatedJobs_13_4", "CreatedJobs_7_4", "CreatedJobs_15_1", "CreatedJobs_26_5", "CreatedJobs_13_2")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("place_520_1")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("Try_Check_Sources_B_1")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("Perform_Work_B_1_16", "Perform_Work_B_1_7", "Perform_Work_B_1_26", "Perform_Work_B_1_8", "Perform_Work_B_1_1", "Perform_Work_B_1_15", "Perform_Work_B_1_29", "Perform_Work_B_1_22", "Perform_Work_B_1_9", "Perform_Work_B_1_14", "Perform_Work_B_1_28", "Perform_Work_B_1_0", "Perform_Work_B_1_23", "Perform_Work_B_1_20", "Perform_Work_B_1_13", "Perform_Work_B_1_3", "Perform_Work_B_1_2", "Perform_Work_B_1_21", "Perform_Work_B_1_12", "Perform_Work_B_1_30", "Perform_Work_B_1_25", "Perform_Work_B_1_18", "Perform_Work_B_1_11", "Perform_Work_B_1_4", "Perform_Work_B_1_5", "Perform_Work_B_1_24", "Perform_Work_B_1_10", "Perform_Work_B_1_19", "Perform_Work_B_1_6", "Perform_Work_B_1_27", "Perform_Work_B_1_17")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("Perform_Work_B_1_16", "Perform_Work_B_1_7", "Perform_Work_B_1_26", "Perform_Work_B_1_8", "Perform_Work_B_1_1", "Perform_Work_B_1_15", "Perform_Work_B_1_29", "Perform_Work_B_1_22", "Perform_Work_B_1_9", "Perform_Work_B_1_14", "Perform_Work_B_1_28", "Perform_Work_B_1_0", "Perform_Work_B_1_23", "Perform_Work_B_1_20", "Perform_Work_B_1_13", "Perform_Work_B_1_3", "Perform_Work_B_1_2", "Perform_Work_B_1_21", "Perform_Work_B_1_12", "Perform_Work_B_1_30", "Perform_Work_B_1_25", "Perform_Work_B_1_18", "Perform_Work_B_1_11", "Perform_Work_B_1_4", "Perform_Work_B_1_5", "Perform_Work_B_1_24", "Perform_Work_B_1_10", "Perform_Work_B_1_19", "Perform_Work_B_1_6", "Perform_Work_B_1_27", "Perform_Work_B_1_17")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("Perform_Work_B_1_16", "Perform_Work_B_1_7", "Perform_Work_B_1_26", "Perform_Work_B_1_8", "Perform_Work_B_1_1", "Perform_Work_B_1_15", "Perform_Work_B_1_29", "Perform_Work_B_1_22", "Perform_Work_B_1_9", "Perform_Work_B_1_14", "Perform_Work_B_1_28", "Perform_Work_B_1_0", "Perform_Work_B_1_23", "Perform_Work_B_1_20", "Perform_Work_B_1_13", "Perform_Work_B_1_3", "Perform_Work_B_1_2", "Perform_Work_B_1_21", "Perform_Work_B_1_12", "Perform_Work_B_1_30", "Perform_Work_B_1_25", "Perform_Work_B_1_18", "Perform_Work_B_1_11", "Perform_Work_B_1_4", "Perform_Work_B_1_5", "Perform_Work_B_1_24", "Perform_Work_B_1_10", "Perform_Work_B_1_19", "Perform_Work_B_1_6", "Perform_Work_B_1_27", "Perform_Work_B_1_17")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("NotifyEventJobQueuedB_1_9", "NotifyEventJobQueuedB_1_11", "NotifyEventJobQueuedB_1_18", "NotifyEventJobQueuedB_1_25", "NotifyEventJobQueuedB_1_4", "NotifyEventJobQueuedB_1_12", "NotifyEventJobQueuedB_1_26", "NotifyEventJobQueuedB_1_6", "NotifyEventJobQueuedB_1_13", "NotifyEventJobQueuedB_1_24", "NotifyEventJobQueuedB_1_3", "NotifyEventJobQueuedB_1_5", "NotifyEventJobQueuedB_1_14", "NotifyEventJobQueuedB_1_23", "NotifyEventJobQueuedB_1_1", "NotifyEventJobQueuedB_1_29", "NotifyEventJobQueuedB_1_8", "NotifyEventJobQueuedB_1_15", "NotifyEventJobQueuedB_1_22", "NotifyEventJobQueuedB_1_21", "NotifyEventJobQueuedB_1_2", "NotifyEventJobQueuedB_1_30", "NotifyEventJobQueuedB_1_27", "NotifyEventJobQueuedB_1_20", "NotifyEventJobQueuedB_1_16", "NotifyEventJobQueuedB_1_7", "NotifyEventJobQueuedB_1_17", "NotifyEventJobQueuedB_1_10", "NotifyEventJobQueuedB_1_0", "NotifyEventJobQueuedB_1_19", "NotifyEventJobQueuedB_1_28")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("place_456")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("f2_28", "f2_11", "f2_7", "f2_27", "f2_14", "f2_20", "f2_21", "f2_0", "f2_22", "f2_8", "f2_26", "f2_13", "f2_25", "f2_23", "f2_5", "f2_16", "f2_15", "f2_24", "f2_6", "f2_30", "f2_17", "f2_4", "f2_18", "f2_3", "f2_29", "f2_9", "f2_2", "f2_19", "f2_10", "f2_1", "f2_12")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("place_522_1")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("place_462")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("Try_Check_Sources_E_1")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("place_782_1")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("place_787_1")
+  end.
+Property PolyORBNT-COL-S05J30-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("NotifyEventJobQueuedB_1_9", "NotifyEventJobQueuedB_1_11", "NotifyEventJobQueuedB_1_18", "NotifyEventJobQueuedB_1_25", "NotifyEventJobQueuedB_1_4", "NotifyEventJobQueuedB_1_12", "NotifyEventJobQueuedB_1_26", "NotifyEventJobQueuedB_1_6", "NotifyEventJobQueuedB_1_13", "NotifyEventJobQueuedB_1_24", "NotifyEventJobQueuedB_1_3", "NotifyEventJobQueuedB_1_5", "NotifyEventJobQueuedB_1_14", "NotifyEventJobQueuedB_1_23", "NotifyEventJobQueuedB_1_1", "NotifyEventJobQueuedB_1_29", "NotifyEventJobQueuedB_1_8", "NotifyEventJobQueuedB_1_15", "NotifyEventJobQueuedB_1_22", "NotifyEventJobQueuedB_1_21", "NotifyEventJobQueuedB_1_2", "NotifyEventJobQueuedB_1_30", "NotifyEventJobQueuedB_1_27", "NotifyEventJobQueuedB_1_20", "NotifyEventJobQueuedB_1_16", "NotifyEventJobQueuedB_1_7", "NotifyEventJobQueuedB_1_17", "NotifyEventJobQueuedB_1_10", "NotifyEventJobQueuedB_1_0", "NotifyEventJobQueuedB_1_19", "NotifyEventJobQueuedB_1_28")
+  end.

@@ -1,0 +1,80 @@
+Property Parking-PT-864-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("p1069")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("p713")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("p483")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("p552")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("p393")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("p248")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("p751")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("p557")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("p399")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("p112")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("p89")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("p821")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("p418")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("p732")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("p834")
+  end.
+Property Parking-PT-864-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("p791")
+  end.

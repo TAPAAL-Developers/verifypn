@@ -1,0 +1,80 @@
+Property CircularTrains-PT-096-LTLFireability-0
+  "Automatically generated"
+  is:
+    A "t28_to_29"?
+  end.
+Property CircularTrains-PT-096-LTLFireability-1
+  "Automatically generated"
+  is:
+    A F (((("t42_to_43"?) U ("t24_to_25"?))) U (X X "t95_to_96"?))
+  end.
+Property CircularTrains-PT-096-LTLFireability-2
+  "Automatically generated"
+  is:
+    A ((G X F "t82_to_83"?) U (X X F "t55_to_56"?))
+  end.
+Property CircularTrains-PT-096-LTLFireability-3
+  "Automatically generated"
+  is:
+    A G F G (("t43_to_44"?) U ("t28_to_29"?))
+  end.
+Property CircularTrains-PT-096-LTLFireability-4
+  "Automatically generated"
+  is:
+    A G G G "t34_to_35"?
+  end.
+Property CircularTrains-PT-096-LTLFireability-5
+  "Automatically generated"
+  is:
+    A ((F X F "t95_to_96"?) U (G X G "t66_to_67"?))
+  end.
+Property CircularTrains-PT-096-LTLFireability-6
+  "Automatically generated"
+  is:
+    A F X X G F "t21_to_22"?
+  end.
+Property CircularTrains-PT-096-LTLFireability-7
+  "Automatically generated"
+  is:
+    A G G G (("t52_to_53"?) U ("t59_to_60"?))
+  end.
+Property CircularTrains-PT-096-LTLFireability-8
+  "Automatically generated"
+  is:
+    A X X ((G "t47_to_48"?) U (F "t57_to_58"?))
+  end.
+Property CircularTrains-PT-096-LTLFireability-9
+  "Automatically generated"
+  is:
+    A ((X (("t95_to_96"?) U ("t5_to_6"?))) U (((X "t76_to_77"?) U (X "t89_to_90"?))))
+  end.
+Property CircularTrains-PT-096-LTLFireability-10
+  "Automatically generated"
+  is:
+    A F G F "t45_to_46"?
+  end.
+Property CircularTrains-PT-096-LTLFireability-11
+  "Automatically generated"
+  is:
+    A X X "t71_to_72"?
+  end.
+Property CircularTrains-PT-096-LTLFireability-12
+  "Automatically generated"
+  is:
+    A ((G X F "t58_to_59"?) U (G G "t43_to_44"?))
+  end.
+Property CircularTrains-PT-096-LTLFireability-13
+  "Automatically generated"
+  is:
+    A ((((G "t52_to_53"?) U (X "t5_to_6"?))) U (((G "t12_to_13"?) U (G "t90_to_91"?))))
+  end.
+Property CircularTrains-PT-096-LTLFireability-14
+  "Automatically generated"
+  is:
+    A X "t65_to_66"?
+  end.
+Property CircularTrains-PT-096-LTLFireability-15
+  "Automatically generated"
+  is:
+    A G "t60_to_61"?
+  end.

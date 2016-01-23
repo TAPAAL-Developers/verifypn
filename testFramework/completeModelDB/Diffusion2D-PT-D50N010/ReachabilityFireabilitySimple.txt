@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t1_25_13_24_13"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t1_42_31_42_30"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t1_29_41_29_42"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t1_10_11_11_12"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t1_12_29_11_30"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t1_50_41_49_40"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t1_13_35_14_35"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t1_46_7_45_8"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t1_36_20_37_21"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t1_21_45_20_44"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t1_9_27_8_27"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t1_33_36_34_37"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t1_18_30_19_29"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t1_43_17_43_16"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t1_42_50_41_50"?
+  end.
+Property Diffusion2D-PT-D50N010-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t1_3_41_3_42"?
+  end.

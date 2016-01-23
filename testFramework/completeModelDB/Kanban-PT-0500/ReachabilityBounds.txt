@@ -1,0 +1,80 @@
+Property Kanban-PT-0500-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((((bound("Pout3")) <= (3))) & (((((bound("P1")) <= (2))) & (((((((((bound("Pm4")) <= (2))) & (((bound("Pback2")) <= (3))))) & (((((bound("Pback2")) <= (2))) & (((bound("Pm4")) <= (2))))))) & (((((((bound("P3")) <= (1))) & (((bound("P4")) <= (1))))) & (((((bound("Pm1")) <= (1))) & (((bound("Pback1")) <= (2))))))))))))) & (((bound("Pm3")) <= (3))))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("Pm1")) <= (2))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("Pm3")) <= (1))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("Pback1")) <= (3))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("P2")) <= (2))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((bound("P4")) <= (2))) & (((bound("Pback1")) <= (1))))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("Pout3")) <= (1))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("Pout3")) <= (1))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("Pout3")) <= (3))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("Pm2")) <= (2))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("Pback2")) <= (3))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("Pm2")) <= (1))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((((bound("Pm4")) <= (3))) & (((((bound("P3")) <= (1))) & (((bound("Pback4")) <= (3))))))) & (((bound("Pback3")) <= (3))))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((bound("P4")) <= (1))) & (((bound("Pout3")) <= (2))))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("Pm4")) <= (1))
+  end.
+Property Kanban-PT-0500-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((bound("Pout4")) <= (2))) & (((((((bound("Pout4")) <= (2))) & (((bound("Pout4")) <= (3))))) & (((bound("Pout2")) <= (3))))))
+  end.

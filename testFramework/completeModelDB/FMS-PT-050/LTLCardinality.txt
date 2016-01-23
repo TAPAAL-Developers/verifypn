@@ -1,0 +1,80 @@
+Property FMS-PT-050-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A F ((#tokens("M2")) <= (#tokens("P1s")))
+  end.
+Property FMS-PT-050-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A G X X X ((3) <= (#tokens("P2")))
+  end.
+Property FMS-PT-050-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A G G F X ((3) <= (#tokens("M1")))
+  end.
+Property FMS-PT-050-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A G ((1) <= (#tokens("P2wM2")))
+  end.
+Property FMS-PT-050-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((#tokens("P2wM2")) <= (#tokens("P3s")))
+  end.
+Property FMS-PT-050-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A ((#tokens("P2")) <= (#tokens("P2M2")))
+  end.
+Property FMS-PT-050-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A G ((G ((3) <= (#tokens("P1M1")))) U (F ((#tokens("P2M2")) <= (#tokens("P1")))))
+  end.
+Property FMS-PT-050-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A G F F ((2) <= (#tokens("P2M2")))
+  end.
+Property FMS-PT-050-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A F G X ((#tokens("P12M3")) <= (#tokens("P2")))
+  end.
+Property FMS-PT-050-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((X G ((3) <= (#tokens("P12M3")))) U (((2) <= (#tokens("M2")))))
+  end.
+Property FMS-PT-050-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A F X X F ((#tokens("P1wM1")) <= (#tokens("P2wM2")))
+  end.
+Property FMS-PT-050-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((F X ((#tokens("P12M3")) <= (#tokens("P2")))) U (X X ((#tokens("P2wM2")) <= (#tokens("P1")))))
+  end.
+Property FMS-PT-050-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((#tokens("P2")) <= (#tokens("P1wP2")))
+  end.
+Property FMS-PT-050-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A ((#tokens("P1d")) <= (#tokens("P1wP2")))
+  end.
+Property FMS-PT-050-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A G X F F ((2) <= (#tokens("P3M2")))
+  end.
+Property FMS-PT-050-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((2) <= (#tokens("P2wM2")))
+  end.

@@ -1,0 +1,80 @@
+Property SwimmingPool-PT-04-CTLCardinality-0
+  "Automatically generated"
+  is:
+    A F ((1) <= (#tokens("WaitBag")))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ((((((2) <= (#tokens("Dressed")))) & (E F ((((#tokens("Bags")) <= (#tokens("Out")))) & (((1) <= (#tokens("Entered")))))))) | (((E G ((((2) <= (#tokens("Entered")))) | (((3) <= (#tokens("InBath")))))) | (A ((((#tokens("WaitBag")) <= (#tokens("Bags")))) U (((1) <= (#tokens("InBath")))))))))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-2
+  "Automatically generated"
+  is:
+    ((E F ((#tokens("Entered")) <= (#tokens("InBath")))) & (((E F ((((3) <= (#tokens("Dressed")))) & (((2) <= (#tokens("Undress")))))) & (((1) <= (#tokens("Out")))))))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-3
+  "Automatically generated"
+  is:
+    ((((((#tokens("Out")) <= (#tokens("WaitBag")))) | (! ((3) <= (#tokens("Undress")))))) & (((A ((((2) <= (#tokens("InBath")))) U (((1) <= (#tokens("WaitBag")))))) | (E ((((#tokens("Undress")) <= (#tokens("InBath")))) U (((3) <= (#tokens("Dress")))))))))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-4
+  "Automatically generated"
+  is:
+    ((((E F ((#tokens("Entered")) <= (#tokens("Dressed")))) & (A G ((#tokens("Undress")) <= (#tokens("Bags")))))) & (((((((! ((#tokens("Entered")) <= (#tokens("Dress")))) | (((((#tokens("Undress")) <= (#tokens("Entered")))) & (((3) <= (#tokens("Out")))))))) | (A G ((3) <= (#tokens("Undress")))))) | (((A X ((#tokens("Dressed")) <= (#tokens("Entered")))) | (A X ((2) <= (#tokens("Dressed")))))))))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-5
+  "Automatically generated"
+  is:
+    ((((1) <= (#tokens("InBath")))) | (E X E F ((#tokens("Out")) <= (#tokens("Bags")))))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-6
+  "Automatically generated"
+  is:
+    ((((((#tokens("Out")) <= (#tokens("WaitBag")))) | (E F ((((1) <= (#tokens("InBath")))) & (((3) <= (#tokens("Dress")))))))) & (((3) <= (#tokens("Bags")))))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-7
+  "Automatically generated"
+  is:
+    ((((((3) <= (#tokens("InBath")))) & (! ((2) <= (#tokens("WaitBag")))))) | (E ((! ((#tokens("Bags")) <= (#tokens("WaitBag")))) U (! ((2) <= (#tokens("Cabins")))))))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-8
+  "Automatically generated"
+  is:
+    E G E F ! ((3) <= (#tokens("Cabins")))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-9
+  "Automatically generated"
+  is:
+    A G A F ((((2) <= (#tokens("Dressed")))) | (((1) <= (#tokens("InBath")))))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-10
+  "Automatically generated"
+  is:
+    ! E G A G ((3) <= (#tokens("Cabins")))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-11
+  "Automatically generated"
+  is:
+    ((((A F ((((3) <= (#tokens("Out")))) | (((3) <= (#tokens("Cabins")))))) | (((! ! ((1) <= (#tokens("Undress")))) & (((3) <= (#tokens("Out")))))))) & (E X A G ((1) <= (#tokens("Bags")))))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-12
+  "Automatically generated"
+  is:
+    E F ((#tokens("Out")) <= (#tokens("InBath")))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-13
+  "Automatically generated"
+  is:
+    E G ((! ((#tokens("WaitBag")) <= (#tokens("Dressed")))) | (A G ((#tokens("Bags")) <= (#tokens("Out")))))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-14
+  "Automatically generated"
+  is:
+    ! A G ((! ((#tokens("Cabins")) <= (#tokens("WaitBag")))) | (((((#tokens("Cabins")) <= (#tokens("Cabins")))) & (((#tokens("WaitBag")) <= (#tokens("Entered")))))))
+  end.
+Property SwimmingPool-PT-04-CTLCardinality-15
+  "Automatically generated"
+  is:
+    E G A X ! ((1) <= (#tokens("Undress")))
+  end.

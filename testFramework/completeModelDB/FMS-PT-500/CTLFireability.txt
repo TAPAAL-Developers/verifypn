@@ -1,0 +1,80 @@
+Property FMS-PT-500-CTLFireability-0
+  "Automatically generated"
+  is:
+    ((E F ((E X "tP2"?) & ((((("tM3"?) & ("tx"?))) & ((("tP2e"?) | ("tM2"?))))))) | (((E X ! (("tM3"?) | ("tP2s"?))) & ((("tP12s"?) & (A G ! "tM2"?))))))
+  end.
+Property FMS-PT-500-CTLFireability-1
+  "Automatically generated"
+  is:
+    A G ((((A G "tP1s"?) | (E F "tP1j"?))) | (((E X "tP2"?) | (E G "tP1s"?))))
+  end.
+Property FMS-PT-500-CTLFireability-2
+  "Automatically generated"
+  is:
+    E F ((A (("tP1j"?) U ("tx"?))) & (! (((("tP3s"?) & ("tP2M2"?))) & ((("tx"?) & ("tP3M2"?))))))
+  end.
+Property FMS-PT-500-CTLFireability-3
+  "Automatically generated"
+  is:
+    A G E F A G "tP2s"?
+  end.
+Property FMS-PT-500-CTLFireability-4
+  "Automatically generated"
+  is:
+    ((A F ! E F "tP12"?) | ((((("tP1M1"?) & (E (("tP12"?) U ("tP2j"?))))) & ("tP12s"?))))
+  end.
+Property FMS-PT-500-CTLFireability-5
+  "Automatically generated"
+  is:
+    A G E F ! (("tP3M2"?) | ("tP2j"?))
+  end.
+Property FMS-PT-500-CTLFireability-6
+  "Automatically generated"
+  is:
+    ((A G ! (("tP12s"?) & ((("tP3M2"?) | ("tP1"?))))) & (((((E (("tM1"?) U ("tP3M2"?))) | (E (("tP12M3"?) U ("tP3s"?))))) | (A F ! (("tx"?) & ("tM1"?))))))
+  end.
+Property FMS-PT-500-CTLFireability-7
+  "Automatically generated"
+  is:
+    ! E F A X (("tP1j"?) & ("tP1s"?))
+  end.
+Property FMS-PT-500-CTLFireability-8
+  "Automatically generated"
+  is:
+    E F A (((("tP2s"?) | ("tP12M3"?))) U ((("tM1"?) & ("tM3"?))))
+  end.
+Property FMS-PT-500-CTLFireability-9
+  "Automatically generated"
+  is:
+    ((((((E (("tP1"?) U ("tP12"?))) & ((((("tP3"?) & (! "tP2M2"?))) | ("tP1"?))))) | ("tM1"?))) | (E ((A G "tP1"?) U ((("tP1j"?) & ("tP12M3"?))))))
+  end.
+Property FMS-PT-500-CTLFireability-10
+  "Automatically generated"
+  is:
+    A G (((((((("tP12M3"?) & ("tP1"?))) | ((("tP3s"?) & ("tP2"?))))) | ((((("tP2"?) & ("tP12s"?))) | ("tP1"?))))) | (E X (("tP12M3"?) & ("tP1s"?))))
+  end.
+Property FMS-PT-500-CTLFireability-11
+  "Automatically generated"
+  is:
+    ! A G E F (("tM3"?) & ("tP1s"?))
+  end.
+Property FMS-PT-500-CTLFireability-12
+  "Automatically generated"
+  is:
+    E F ((E (("tP3"?) U ("tM3"?))) & ((("tx"?) | (A X "tP1"?))))
+  end.
+Property FMS-PT-500-CTLFireability-13
+  "Automatically generated"
+  is:
+    ! ((((! ((! "tP1s"?) | ("tP1"?))) | ("tP1e"?))) | (E F (((("tP12s"?) & ("tP1e"?))) & ("tP12M3"?))))
+  end.
+Property FMS-PT-500-CTLFireability-14
+  "Automatically generated"
+  is:
+    E F "tM3"?
+  end.
+Property FMS-PT-500-CTLFireability-15
+  "Automatically generated"
+  is:
+    A G E F (((("tM1"?) & ("tM2"?))) | ((("tM1"?) & ("tP3s"?))))
+  end.

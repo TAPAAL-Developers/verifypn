@@ -1,0 +1,80 @@
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t200.50"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t90.5"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A G "t192.4"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A G "t105.3"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A G "t184.8"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t150.50"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t136.34"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t104.13"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A G "t77.11"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A G "t117.13"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t52.4"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A G "t158.79"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A G "t135.3"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A G "t194.97"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t120.20"?
+  end.
+Property Eratosthenes-PT-200-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t120.20"?
+  end.

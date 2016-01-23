@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R003C020-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("p_2_0")) <= (1))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("r_7_2")) <= (1))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((bound("p_12_0")) <= (2))) & (((bound("p_17_1")) <= (2))))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((((((bound("r_12_1")) <= (1))) & (((bound("r_7_0")) <= (2))))) & (((bound("p_14_0")) <= (2))))) & (((bound("p_14_1")) <= (2))))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("r_17_0")) <= (2))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("p_16_2")) <= (2))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("r_7_1")) <= (3))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("r_8_1")) <= (2))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((bound("p_8_0")) <= (3))) & (((bound("r_18_0")) <= (1))))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((((bound("r_4_2")) <= (2))) & (((((bound("r_17_0")) <= (1))) & (((((((bound("r_4_1")) <= (3))) & (((((bound("r_8_2")) <= (3))) & (((bound("r_10_1")) <= (1))))))) & (((((bound("p_1_1")) <= (3))) & (((((bound("r_13_0")) <= (2))) & (((bound("p_13_2")) <= (2))))))))))))) & (((((bound("p_14_2")) <= (2))) & (((((((((((bound("r_5_1")) <= (2))) & (((bound("r_19_1")) <= (1))))) & (((bound("p_19_1")) <= (2))))) & (((((bound("r_8_2")) <= (2))) & (((bound("p_4_0")) <= (1))))))) & (((bound("p_4_2")) <= (2))))))))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("p_11_2")) <= (2))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((bound("p_11_2")) <= (3))) & (((bound("r_6_2")) <= (1))))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("p_1_2")) <= (1))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("r_4_0")) <= (2))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("r_7_0")) <= (2))
+  end.
+Property ResAllocation-PT-R003C020-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("p_10_2")) <= (2))
+  end.

@@ -1,0 +1,80 @@
+Property IBM703-PT-none-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("merge.s00000458.input.s00000285")) <= (1))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("task.s00000744.input.s00000263")) <= (1))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((bound("task.s00000706.output.s00000264")) <= (3))) & (((bound("merge.s00000319.activated")) <= (3))))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((bound("decision.s00000802.input.s00000263")) <= (3))) & (((((bound("task.s00000743.output.s00000264")) <= (3))) & (((bound("task.s00000732.input.s00000263")) <= (3))))))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("task.s00000740.output.s00000264")) <= (3))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((bound("task.s00000748.output.s00000264")) <= (2))) & (((bound("task.s00000760.input.s00000263")) <= (3))))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((((((((bound("task.s00000762.output.s00000264")) <= (3))) & (((bound("merge.s00000456.input.s00000290")) <= (3))))) & (((((((bound("fork.s00000465.activated.s00000274")) <= (3))) & (((bound("merge.s00000456.input.s00000263")) <= (2))))) & (((bound("task.s00000704.output.s00000264")) <= (2))))))) & (((bound("fork.s00000465.activated.s00000272")) <= (1))))) & (((((((((bound("merge.s00000458.input.s00000285")) <= (3))) & (((((bound("callToProcess.s00000808.inputCriterion.s00000257.used")) <= (1))) & (((((bound("decision.s00000772.activated")) <= (3))) & (((bound("merge.s00000283.input.s00000263")) <= (2))))))))) & (((((bound("callToProcess.s00000807.output.s00000264")) <= (2))) & (((((bound("decision.s00000783.activated")) <= (3))) & (((bound("task.s00000710.input.s00000263")) <= (1))))))))) & (((bound("task.s00000723.inputCriterion.s00000257.used")) <= (3))))))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((bound("task.s00000737.output.s00000264")) <= (1))) & (((bound("stopNode.s00000597.input.default")) <= (3))))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((((((((((((bound("task.s00000729.input.s00000263")) <= (2))) & (((bound("merge.s00000451.input.s00000285")) <= (3))))) & (((((bound("merge.s00000458.activated")) <= (3))) & (((bound("callToProcess.s00000596.output.s00000264")) <= (1))))))) & (((((((bound("merge.s00000341.input.s00000263")) <= (1))) & (((bound("decision.s00000772.activated")) <= (2))))) & (((((bound("merge.s00000446.input.s00000447")) <= (2))) & (((bound("task.s00000715.input.s00000263")) <= (1))))))))) & (((bound("task.s00000718.inputCriterion.s00000257.used")) <= (2))))) & (((bound("merge.s00000288.activated")) <= (3))))) & (((bound("task.s00000743.output.s00000264")) <= (3))))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("merge.s00000283.input.s00000263")) <= (1))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((((((bound("decision.s00000775.activated")) <= (2))) & (((((((((bound("task.s00000749.output.s00000264")) <= (1))) & (((bound("task.s00000728.output.s00000264")) <= (3))))) & (((((bound("decision.s00000784.input.s00000263")) <= (1))) & (((bound("task.s00000763.output.s00000264")) <= (1))))))) & (((bound("task.s00000760.output.s00000264")) <= (1))))))) & (((((bound("merge.s00000462.input.s00000285")) <= (3))) & (((bound("task.s00000734.output.s00000264")) <= (3))))))) & (((bound("merge.s00000446.input.s00000447")) <= (3))))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("task.s00000718.output.s00000264")) <= (3))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((((bound("decision.s00000774.activated")) <= (1))) & (((bound("decision.s00000780.activated")) <= (1))))) & (((bound("merge.s00000453.input.s00000263")) <= (3))))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("task.s00000715.inputCriterion.s00000257.used")) <= (3))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("task.s00000743.output.s00000264")) <= (3))
+  end.
+Property IBM703-PT-none-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((bound("callToProcess.s00000808.inputCriterion.s00000257.used")) <= (2))) & (((bound("merge.s00000453.input.s00000263")) <= (1))))
+  end.

@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A G "t1_3_3_4_3"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A G "t1_3_3_2_4"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A G "t1_3_3_4_4"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A G "t1_3_3_2_2"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A G "t1_3_3_2_2"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A G "t1_3_3_2_2"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A G "t1_3_3_3_2"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A G "t1_3_3_4_2"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A G "t1_3_3_4_4"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A G "t1_2_3_3_3"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t1_4_5_3_5"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t1_4_3_3_3"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A G "t1_1_2_1_3"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A G "t1_2_5_3_4"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A G "t1_4_3_3_4"?
+  end.
+Property Diffusion2D-PT-D05N300-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A G "t1_3_3_4_2"?
+  end.

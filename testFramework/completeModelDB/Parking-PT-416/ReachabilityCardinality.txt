@@ -1,0 +1,80 @@
+Property Parking-PT-416-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ! ! ((((#tokens("p139")) <= (#tokens("p137")))) | (((1) <= (#tokens("p285")))))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((! ((#tokens("p270")) <= (#tokens("p3")))) | (((((((1) <= (#tokens("p108")))) & (((#tokens("p245")) <= (#tokens("p97")))))) & (((((2) <= (#tokens("p253")))) & (((3) <= (#tokens("p210")))))))))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("p261")))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ((((((1) <= (#tokens("p92")))) & (((((3) <= (#tokens("p204")))) & (((#tokens("p70")) <= (#tokens("p280")))))))) | (((#tokens("p156")) <= (#tokens("p113")))))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ((((((((3) <= (#tokens("p174")))) | (((#tokens("p32")) <= (#tokens("p80")))))) & (! ((#tokens("p264")) <= (#tokens("p164")))))) | (((((((#tokens("p203")) <= (#tokens("p59")))) | (((#tokens("p97")) <= (#tokens("p118")))))) & (! ((1) <= (#tokens("p127")))))))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((((! ((2) <= (#tokens("p227")))) & (((3) <= (#tokens("p109")))))) & (((3) <= (#tokens("p298")))))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((((((((1) <= (#tokens("p258")))) | (((3) <= (#tokens("p148")))))) | (((((2) <= (#tokens("p136")))) & (((3) <= (#tokens("p179")))))))) & (! ! ((3) <= (#tokens("p191")))))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    E F ! ((#tokens("p70")) <= (#tokens("p28")))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ((((#tokens("p63")) <= (#tokens("p200")))) & (((2) <= (#tokens("p138")))))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("p247")))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ! ! ((((#tokens("p103")) <= (#tokens("p117")))) | (((#tokens("p61")) <= (#tokens("p169")))))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((((((#tokens("p188")) <= (#tokens("p182")))) & (((((#tokens("p13")) <= (#tokens("p277")))) | (((#tokens("p187")) <= (#tokens("p232")))))))) & (((! ((3) <= (#tokens("p177")))) & (! ((#tokens("p297")) <= (#tokens("p21")))))))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ((! ((#tokens("p215")) <= (#tokens("p131")))) & (((2) <= (#tokens("p245")))))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ! ((((#tokens("p206")) <= (#tokens("p44")))) | (! ((3) <= (#tokens("p42")))))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ! ((! ((2) <= (#tokens("p154")))) | (! ((3) <= (#tokens("p231")))))
+  end.
+Property Parking-PT-416-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ! ((3) <= (#tokens("p65")))
+  end.

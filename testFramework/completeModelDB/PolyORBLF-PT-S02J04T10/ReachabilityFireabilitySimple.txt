@@ -1,0 +1,80 @@
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F ("GoCheckSource_7", "GoCheckSource_4", "GoCheckSource_5", "GoCheckSource_10", "GoCheckSource_8", "GoCheckSource_3", "GoCheckSource_2", "GoCheckSource_1", "GoCheckSource_6", "GoCheckSource_9")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F ("T_2315_1", "T_2315_10", "T_2315_2", "T_2315_9", "T_2315_4", "T_2315_6", "T_2315_5", "T_2315_3", "T_2315_8", "T_2315_7")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F ("LeaveCSIS_5", "LeaveCSIS_10", "LeaveCSIS_4", "LeaveCSIS_7", "LeaveCSIS_6", "LeaveCSIS_9", "LeaveCSIS_8", "LeaveCSIS_1", "LeaveCSIS_2", "LeaveCSIS_3")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F ("NOPEP_9", "NOPEP_3", "NOPEP_1", "NOPEP_6", "NOPEP_10", "NOPEP_8", "NOPEP_5", "NOPEP_2", "NOPEP_4", "NOPEP_7")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F ("NoMonitoring_5", "NoMonitoring_10", "NoMonitoring_3", "NoMonitoring_9", "NoMonitoring_4", "NoMonitoring_8", "NoMonitoring_7", "NoMonitoring_1", "NoMonitoring_6", "NoMonitoring_2")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F ("NOPDP_2_9", "NOPDP_1_4", "NOPDP_1_9", "NOPDP_2_4", "NOPDP_1_3", "NOPDP_1_10", "NOPDP_2_6", "NOPDP_2_10", "NOPDP_2_3", "NOPDP_2_2", "NOPDP_1_6", "NOPDP_2_7", "NOPDP_1_2", "NOPDP_1_7", "NOPDP_1_5", "NOPDP_2_8", "NOPDP_2_1", "NOPDP_2_5", "NOPDP_1_1", "NOPDP_1_8")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F ("WillPerformWork_1_8", "WillPerformWork_3_7", "WillPerformWork_2_2", "WillPerformWork_0_1", "WillPerformWork_1_5", "WillPerformWork_2_10", "WillPerformWork_1_9", "WillPerformWork_2_6", "WillPerformWork_2_1", "WillPerformWork_3_6", "WillPerformWork_4_5", "WillPerformWork_3_2", "WillPerformWork_4_10", "WillPerformWork_2_9", "WillPerformWork_1_4", "WillPerformWork_1_2", "WillPerformWork_3_3", "WillPerformWork_1_7", "WillPerformWork_4_3", "WillPerformWork_4_6", "WillPerformWork_0_4", "WillPerformWork_0_2", "WillPerformWork_4_8", "WillPerformWork_4_9", "WillPerformWork_4_7", "WillPerformWork_4_1", "WillPerformWork_1_6", "WillPerformWork_1_3", "WillPerformWork_2_8", "WillPerformWork_3_9", "WillPerformWork_3_4", "WillPerformWork_0_9", "WillPerformWork_3_5", "WillPerformWork_2_7", "WillPerformWork_3_1", "WillPerformWork_0_10", "WillPerformWork_1_10", "WillPerformWork_2_3", "WillPerformWork_0_3", "WillPerformWork_0_5", "WillPerformWork_2_4", "WillPerformWork_4_4", "WillPerformWork_0_6", "WillPerformWork_4_2", "WillPerformWork_0_8", "WillPerformWork_3_8", "WillPerformWork_2_5", "WillPerformWork_1_1", "WillPerformWork_3_10", "WillPerformWork_0_7")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F ("NotifyEventSourceAdded_5", "NotifyEventSourceAdded_4", "NotifyEventSourceAdded_7", "NotifyEventSourceAdded_6", "NotifyEventSourceAdded_9", "NotifyEventSourceAdded_8", "NotifyEventSourceAdded_2", "NotifyEventSourceAdded_1", "NotifyEventSourceAdded_10", "NotifyEventSourceAdded_3")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F ("T_1125_2_2_2_2", "T_1125_7_1_2_1", "T_1125_2_1_2_2", "T_1125_7_2_2_1", "T_1125_5_2_1_2", "T_1125_9_2_2_2", "T_1125_10_1_2_2", "T_1125_7_1_1_1", "T_1125_2_1_1_2", "T_1125_4_2_1_1", "T_1125_6_1_1_1", "T_1125_6_2_1_2", "T_1125_8_1_2_1", "T_1125_1_2_2_2", "T_1125_9_1_2_1", "T_1125_5_2_1_1", "T_1125_7_2_1_2", "T_1125_10_1_1_2", "T_1125_3_1_1_2", "T_1125_1_2_2_1", "T_1125_9_2_1_2", "T_1125_2_1_2_1", "T_1125_9_1_1_2", "T_1125_1_1_2_1", "T_1125_7_2_2_2", "T_1125_10_2_2_1", "T_1125_2_2_1_1", "T_1125_8_1_2_2", "T_1125_8_2_1_2", "T_1125_10_1_2_1", "T_1125_6_2_2_2", "T_1125_8_2_2_2", "T_1125_1_2_1_2", "T_1125_3_1_2_1", "T_1125_1_1_1_1", "T_1125_3_2_1_1", "T_1125_1_1_1_2", "T_1125_10_2_1_1", "T_1125_3_2_2_1", "T_1125_3_1_1_1", "T_1125_9_1_2_2", "T_1125_8_1_1_2", "T_1125_2_2_1_2", "T_1125_1_1_2_2", "T_1125_9_2_1_1", "T_1125_4_1_2_1", "T_1125_10_1_1_1", "T_1125_6_1_2_2", "T_1125_7_1_1_2", "T_1125_10_2_2_2", "T_1125_5_2_2_2", "T_1125_2_1_1_1", "T_1125_3_2_1_2", "T_1125_2_2_2_1", "T_1125_8_2_2_1", "T_1125_5_1_2_1", "T_1125_1_2_1_1", "T_1125_9_2_2_1", "T_1125_4_2_2_2", "T_1125_6_1_1_2", "T_1125_8_2_1_1", "T_1125_10_2_1_2", "T_1125_7_1_2_2", "T_1125_5_2_2_1", "T_1125_8_1_1_1", "T_1125_7_2_1_1", "T_1125_4_1_2_2", "T_1125_5_1_1_2", "T_1125_3_1_2_2", "T_1125_5_1_1_1", "T_1125_6_1_2_1", "T_1125_6_2_2_1", "T_1125_4_2_1_2", "T_1125_4_1_1_1", "T_1125_5_1_2_2", "T_1125_9_1_1_1", "T_1125_6_2_1_1", "T_1125_3_2_2_2", "T_1125_4_2_2_1", "T_1125_4_1_1_2")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F ("T_1147_8", "T_1147_1", "T_1147_2", "T_1147_10", "T_1147_3", "T_1147_5", "T_1147_4", "T_1147_7", "T_1147_6", "T_1147_9")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F ("GoIdle_7", "GoIdle_6", "GoIdle_1", "GoIdle_9", "GoIdle_10", "GoIdle_3", "GoIdle_2", "GoIdle_5", "GoIdle_8", "GoIdle_4")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F ("T_1100_5", "T_1100_10", "T_1100_2", "T_1100_7", "T_1100_4", "T_1100_9", "T_1100_3", "T_1100_6", "T_1100_1", "T_1100_8")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F ("NoCheck_4", "NoCheck_6", "NoCheck_7", "NoCheck_8", "NoCheck_1", "NoCheck_10", "NoCheck_9", "NoCheck_3", "NoCheck_2", "NoCheck_5")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F ("WaitCompleted_1_3", "WaitCompleted_1_8", "WaitCompleted_2_3", "WaitCompleted_2_4", "WaitCompleted_1_4", "WaitCompleted_2_8", "WaitCompleted_1_7", "WaitCompleted_2_7", "WaitCompleted_2_6", "WaitCompleted_1_10", "WaitCompleted_1_1", "WaitCompleted_2_10", "WaitCompleted_1_6", "WaitCompleted_2_1", "WaitCompleted_1_2", "WaitCompleted_2_5", "WaitCompleted_1_9", "WaitCompleted_2_2", "WaitCompleted_1_5", "WaitCompleted_2_9")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F ("NOPDP_2_9", "NOPDP_1_4", "NOPDP_1_9", "NOPDP_2_4", "NOPDP_1_3", "NOPDP_1_10", "NOPDP_2_6", "NOPDP_2_10", "NOPDP_2_3", "NOPDP_2_2", "NOPDP_1_6", "NOPDP_2_7", "NOPDP_1_2", "NOPDP_1_7", "NOPDP_1_5", "NOPDP_2_8", "NOPDP_2_1", "NOPDP_2_5", "NOPDP_1_1", "NOPDP_1_8")?
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F ("NopAbort_10", "NopAbort_4", "NopAbort_3", "NopAbort_5", "NopAbort_6", "NopAbort_1", "NopAbort_7", "NopAbort_8", "NopAbort_2", "NopAbort_9")?
+  end.

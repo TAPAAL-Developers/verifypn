@@ -1,0 +1,80 @@
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "t2676"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t3169"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "t2459"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t2039"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "t3368"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "t2465"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "t2331"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "t3725"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "t3715"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "t3038"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t2831"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "t3992"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "t2696"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "t2572"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "t2915"?
+  end.
+Property RwMutex-PT-r0010w2000-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "t2643"?
+  end.

@@ -1,0 +1,80 @@
+Property Parking-PT-832-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t440"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t939"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t195"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t969"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t71"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "t585"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "t75"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "t11"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t989"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "t28"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t910"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "t202"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "t848"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t679"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t891"?
+  end.
+Property Parking-PT-832-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "t624"?
+  end.

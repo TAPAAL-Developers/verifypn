@@ -1,0 +1,80 @@
+Property SwimmingPool-PT-04-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("Dressed")) <= (1))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("Undress")) <= (1))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("WaitBag")) <= (2))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((((bound("Out")) <= (1))) & (((((bound("Entered")) <= (3))) & (((((((((bound("Undress")) <= (3))) & (((bound("Dress")) <= (1))))) & (((bound("Out")) <= (3))))) & (((bound("Cabins")) <= (1))))))))) & (((((bound("Bags")) <= (3))) & (((bound("Cabins")) <= (1))))))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((bound("InBath")) <= (1))) & (((((((((bound("Dress")) <= (2))) & (((bound("Out")) <= (3))))) & (((bound("Entered")) <= (2))))) & (((bound("WaitBag")) <= (3))))))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("Bags")) <= (1))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((bound("Undress")) <= (2))) & (((bound("Bags")) <= (1))))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((bound("Undress")) <= (3))) & (((bound("Dressed")) <= (1))))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("Bags")) <= (1))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("WaitBag")) <= (1))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("Cabins")) <= (1))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("InBath")) <= (1))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((((bound("InBath")) <= (1))) & (((bound("Undress")) <= (1))))) & (((((bound("Out")) <= (3))) & (((bound("Dress")) <= (2))))))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((((((bound("Bags")) <= (3))) & (((bound("Undress")) <= (3))))) & (((bound("Undress")) <= (1))))) & (((((bound("Dress")) <= (2))) & (((((bound("Entered")) <= (1))) & (((bound("WaitBag")) <= (3))))))))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("InBath")) <= (3))
+  end.
+Property SwimmingPool-PT-04-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((((((bound("Undress")) <= (3))) & (((bound("InBath")) <= (2))))) & (((bound("Cabins")) <= (2))))) & (((((bound("Entered")) <= (1))) & (((((((bound("WaitBag")) <= (3))) & (((((bound("Entered")) <= (3))) & (((((bound("WaitBag")) <= (2))) & (((bound("InBath")) <= (3))))))))) & (((((((bound("WaitBag")) <= (2))) & (((((bound("InBath")) <= (2))) & (((bound("Bags")) <= (3))))))) & (((((((bound("Dressed")) <= (3))) & (((bound("Undress")) <= (2))))) & (((((bound("WaitBag")) <= (3))) & (((bound("Out")) <= (1))))))))))))))
+  end.

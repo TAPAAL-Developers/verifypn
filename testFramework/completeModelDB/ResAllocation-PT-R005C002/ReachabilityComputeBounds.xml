@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p_0_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>r_0_0</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p_0_0</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>r_1_4</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p_1_4</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p_1_0</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>r_0_2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>r_0_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>r_1_2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p_1_0</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p_1_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p_0_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p_1_2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>r_1_0</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>r_1_0</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ResAllocation-PT-R005C002-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>r_0_4</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

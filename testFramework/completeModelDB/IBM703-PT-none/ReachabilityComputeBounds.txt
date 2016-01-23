@@ -1,0 +1,80 @@
+Property IBM703-PT-none-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("decision.s00000780.activated")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("alpha")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("task.s00000736.output.s00000264")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("merge.s00000288.activated")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("task.s00000719.input.s00000263")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("task.s00000756.inputCriterion.s00000257.used")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("task.s00000723.input.s00000263")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("task.s00000754.inputCriterion.s00000257.used")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("decision.s00000788.activated")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("task.s00000757.input.s00000263")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("task.s00000708.output.s00000264")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("task.s00000761.output.s00000264")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("callToProcess.s00000596.output.s00000264")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("task.s00000738.input.s00000263")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("task.s00000706.inputCriterion.s00000257.used")
+  end.
+Property IBM703-PT-none-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("task.s00000726.output.s00000264")
+  end.

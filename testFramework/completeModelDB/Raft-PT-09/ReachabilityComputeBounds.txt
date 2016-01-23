@@ -1,0 +1,80 @@
+Property Raft-PT-09-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("p255")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("p61")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("p366")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("p355")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("p129")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("p334")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("p30")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("p121")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("p54")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("p398")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("p251")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("p79")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("p133")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("p268")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("p206")
+  end.
+Property Raft-PT-09-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("p190")
+  end.

@@ -1,0 +1,80 @@
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("p1il.6.7")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("p1ol.7.10")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("p1il.4.9")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("p1i.9.2")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("pb1.8.10")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("pb2.4.4")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("pb3.1.10")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("p4o.5.6")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("p4o.10.10")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("pb3.6.7")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("p4il.3.1")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("p1il.7.7")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("pb1.8.8")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("pb3.1.8")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("p1il.2.1")
+  end.
+Property SquareGrid-PT-100510-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("p4o.4.7")
+  end.

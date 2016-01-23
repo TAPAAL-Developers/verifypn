@@ -1,0 +1,80 @@
+Property MAPK-PT-008-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("Raf_RasGTP")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("ERKP_Phase3")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("RasGTP")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("ERK")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("Raf")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("Phase2")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("ERKP_Phase3")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("Phase2")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("Phase1")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("MEKP_RafP")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("ERKPP")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("MEKPP_Phase2")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("MEKP_RafP")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("MEK_RafP")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("ERKPP_Phase3")
+  end.
+Property MAPK-PT-008-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("Raf")
+  end.

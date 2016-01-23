@@ -1,0 +1,80 @@
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A X ((#tokens("T43")) <= (#tokens("F51")))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A G F ((((1) <= (#tokens("F62")))) U (((3) <= (#tokens("T64")))))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A ((F F ((#tokens("T62")) <= (#tokens("F41")))) U (F ((#tokens("counter")) <= (#tokens("T74")))))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((((((1) <= (#tokens("F15")))) U (((#tokens("F63")) <= (#tokens("F41")))))) U (((#tokens("T25")) <= (#tokens("T52")))))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A G ((X ((3) <= (#tokens("T37")))) U (X ((#tokens("F22")) <= (#tokens("F54")))))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A X ((2) <= (#tokens("T41")))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((#tokens("T52")) <= (#tokens("F13")))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("F22")))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A F ((3) <= (#tokens("T53")))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A F ((#tokens("T33")) <= (#tokens("T45")))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((((((1) <= (#tokens("F63")))) U (((#tokens("F52")) <= (#tokens("T65")))))) U (X G ((#tokens("T36")) <= (#tokens("F47")))))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A F ((F ((2) <= (#tokens("T54")))) U (((1) <= (#tokens("F57")))))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A F ((G ((#tokens("T54")) <= (#tokens("T33")))) U (X ((#tokens("T34")) <= (#tokens("F35")))))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A G X F ((#tokens("counter")) <= (#tokens("F36")))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A X G F ((1) <= (#tokens("T37")))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((F ((#tokens("T43")) <= (#tokens("T33")))) U (X ((#tokens("T51")) <= (#tokens("F13")))))
+  end.

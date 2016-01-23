@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G "PaymentResponse.t3.9"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-1
+  "Automatically generated"
+  is:
+    A ((F (("CheckDeliveryNote.t6.6"?) U ("PutWhatDeliver.t6.1"?))) U (X X "PutOfferResponse.t2"?))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-2
+  "Automatically generated"
+  is:
+    A (((("GetPaymentAmount.t3.5"?) U (G "CheckDeliveryRequest.t8.1"?))) U (X G G "PaymentResponse.t5.3"?))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-3
+  "Automatically generated"
+  is:
+    A F G F F X "PaymentExchange.t5.2"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-4
+  "Automatically generated"
+  is:
+    A ((((G "PutHowDeliver.t7.2"?) U (X "PutBrandList.t4.2"?))) U (G (("GetPaymentRequest.t5.0"?) U ("GetDeliveryRequest.t8.0"?))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-5
+  "Automatically generated"
+  is:
+    A F "PutBrandSelection.t3.4"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-6
+  "Automatically generated"
+  is:
+    A G F ((F "t7.4"?) U (G "t7.4"?))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X (("PutBrandSelection.t3.4"?) U (F X "GetBrandList.t3.2"?))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-8
+  "Automatically generated"
+  is:
+    A G "CheckPaymentRequest.t5.1"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-9
+  "Automatically generated"
+  is:
+    A F F F G X "PutDeliveryResponse.t8.2"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-10
+  "Automatically generated"
+  is:
+    A "PutPaymentRequest.t3.7"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-11
+  "Automatically generated"
+  is:
+    A X F G G F "PutPaidFor.t3.1"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-12
+  "Automatically generated"
+  is:
+    A "GetPaymentRequest.t5.0"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-13
+  "Automatically generated"
+  is:
+    A ((G F X "GetHowDeliver.t6.2"?) U (X (("t5.4"?) U ("GetPaidFor.t4.0"?))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-14
+  "Automatically generated"
+  is:
+    A ((G X "BrandDecision.t4.1"?) U (F "SelectBrand.t3.3"?))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X G X "CheckDeliveryInfo.t6.3"?
+  end.

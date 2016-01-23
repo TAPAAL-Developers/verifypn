@@ -1,0 +1,80 @@
+Property RwMutex-PT-r1000w0010-CTLCardinality-0
+  "Automatically generated"
+  is:
+    E F A X ! ((#tokens("p2687")) <= (#tokens("p1219")))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-1
+  "Automatically generated"
+  is:
+    A ((A X ((#tokens("p1434")) <= (#tokens("p391")))) U (A X ((#tokens("p2521")) <= (#tokens("p1107")))))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-2
+  "Automatically generated"
+  is:
+    ((((2) <= (#tokens("p1176")))) | (E G ((! ((3) <= (#tokens("p2927")))) | (((#tokens("p2225")) <= (#tokens("p2861")))))))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-3
+  "Automatically generated"
+  is:
+    ((A F ! ((((#tokens("p837")) <= (#tokens("p2590")))) | (((2) <= (#tokens("p1110")))))) & (((#tokens("p38")) <= (#tokens("p2260")))))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-4
+  "Automatically generated"
+  is:
+    A F ! ((((#tokens("p2485")) <= (#tokens("p1779")))) | (! ((2) <= (#tokens("p1988")))))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-5
+  "Automatically generated"
+  is:
+    ((((((((#tokens("p101")) <= (#tokens("p335")))) | (! ((((#tokens("p2782")) <= (#tokens("p356")))) | (((1) <= (#tokens("p1726")))))))) | (((A X ((#tokens("p1439")) <= (#tokens("p2177")))) & (! ((1) <= (#tokens("p2434")))))))) & (A G ((((((#tokens("p45")) <= (#tokens("p1943")))) & (((1) <= (#tokens("p1433")))))) | (! ((2) <= (#tokens("p764")))))))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-6
+  "Automatically generated"
+  is:
+    ((A F ! ((((#tokens("p2883")) <= (#tokens("p105")))) | (((2) <= (#tokens("p2431")))))) | (E G A F ((1) <= (#tokens("p660")))))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-7
+  "Automatically generated"
+  is:
+    ! E X A X ((2) <= (#tokens("p2612")))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-8
+  "Automatically generated"
+  is:
+    E X E G ((((#tokens("p445")) <= (#tokens("p1419")))) & (((1) <= (#tokens("p1236")))))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-9
+  "Automatically generated"
+  is:
+    ((((E G ((#tokens("p2725")) <= (#tokens("p339")))) & (((((((#tokens("p503")) <= (#tokens("p287")))) & (((((1) <= (#tokens("p2919")))) & (((#tokens("p2256")) <= (#tokens("p198")))))))) | (E F ((#tokens("p1372")) <= (#tokens("p91")))))))) & (((! ((((((3) <= (#tokens("p1849")))) & (((1) <= (#tokens("p1397")))))) | (((((1) <= (#tokens("p2469")))) | (((1) <= (#tokens("p566")))))))) | (A F ! ((1) <= (#tokens("p1942")))))))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-10
+  "Automatically generated"
+  is:
+    A F E X ((((3) <= (#tokens("p1505")))) & (((2) <= (#tokens("p777")))))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-11
+  "Automatically generated"
+  is:
+    E X ((E G ((1) <= (#tokens("p1371")))) & (((((((3) <= (#tokens("p1963")))) & (((2) <= (#tokens("p1884")))))) | (((((#tokens("p3009")) <= (#tokens("p631")))) & (((1) <= (#tokens("p1344")))))))))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-12
+  "Automatically generated"
+  is:
+    ((((((E G ((#tokens("p608")) <= (#tokens("p2555")))) | (((! ((2) <= (#tokens("p1537")))) | (((((#tokens("p2636")) <= (#tokens("p2364")))) | (((#tokens("p2116")) <= (#tokens("p1393")))))))))) | (E G ! ((#tokens("p1132")) <= (#tokens("p1269")))))) & (E G E F ((#tokens("p407")) <= (#tokens("p1277")))))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-13
+  "Automatically generated"
+  is:
+    ((((((#tokens("p430")) <= (#tokens("p830")))) & (A X ! ((3) <= (#tokens("p2814")))))) | (E F ((((3) <= (#tokens("p2022")))) | (((3) <= (#tokens("p265")))))))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-14
+  "Automatically generated"
+  is:
+    A F ((((((((#tokens("p1625")) <= (#tokens("p2606")))) & (((2) <= (#tokens("p2439")))))) & (! ((1) <= (#tokens("p1352")))))) | (A X ((#tokens("p1923")) <= (#tokens("p430")))))
+  end.
+Property RwMutex-PT-r1000w0010-CTLCardinality-15
+  "Automatically generated"
+  is:
+    ((((((((! ((#tokens("p359")) <= (#tokens("p903")))) | (! ((3) <= (#tokens("p2160")))))) & (((((((#tokens("p840")) <= (#tokens("p2659")))) & (((3) <= (#tokens("p1823")))))) | (! ((3) <= (#tokens("p1910")))))))) & (! ((2) <= (#tokens("p205")))))) & (! E X ((((2) <= (#tokens("p333")))) & (((3) <= (#tokens("p2776")))))))
+  end.

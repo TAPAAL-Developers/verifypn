@@ -1,0 +1,80 @@
+Property ParamProductionCell-PT-5-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("A2U_extended")) <= (1))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((bound("swivel")) <= (2))) & (((((((bound("swivel")) <= (3))) & (((((bound("A1U_rot2_rs")) <= (2))) & (((((bound("table_ready_for_unloading")) <= (2))) & (((((bound("PL_in")) <= (3))) & (((bound("A1U_rot2_in")) <= (3))))))))))) & (((bound("arm2_retract_ext")) <= (1))))))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("belt2_stop")) <= (2))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((bound("forge_rs")) <= (1))) & (((((bound("DB_deliver_run")) <= (1))) & (((bound("A2U_out")) <= (3))))))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("TU_lift_run")) <= (2))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((bound("swivel")) <= (2))) & (((bound("arm2_store_free")) <= (1))))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("A2L_loaded")) <= (2))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((((bound("A2L_rot3_in")) <= (1))) & (((bound("A2U_rot3_run")) <= (2))))) & (((((((((((bound("ch_FT_full")) <= (3))) & (((bound("A2L_ext_run")) <= (3))))) & (((((bound("DB_out")) <= (2))) & (((((bound("crane_mag_on")) <= (1))) & (((bound("arm1_release_ext")) <= (1))))))))) & (((((((((bound("A2U_out")) <= (3))) & (((bound("feed_belt_idle")) <= (2))))) & (((((bound("DB_deliver_run")) <= (2))) & (((bound("A2U_rot3_rs")) <= (3))))))) & (((((bound("blank_forged")) <= (3))) & (((((bound("TU_rot_rs")) <= (1))) & (((bound("crane_transport_height")) <= (2))))))))))) & (((((((((((bound("belt1_light_barrier_false")) <= (2))) & (((bound("crane_stop_v")) <= (2))))) & (((bound("ch_A2D_full")) <= (1))))) & (((bound("A1U_rot1_in")) <= (1))))) & (((((bound("PU_lower_run")) <= (1))) & (((((((bound("ch_A1P_full")) <= (3))) & (((bound("A2L_rotated")) <= (1))))) & (((((bound("DB_at_end")) <= (1))) & (((bound("A1L_rot2_rs")) <= (1))))))))))))))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((bound("crane_store_free")) <= (2))) & (((((((bound("arm2_pick_up_angle")) <= (1))) & (((bound("press_ready_for_unloading")) <= (2))))) & (((((((bound("ch_A2D_full")) <= (2))) & (((((bound("ch_CF_full")) <= (1))) & (((bound("A2U_rot1_run")) <= (3))))))) & (((bound("FB_in")) <= (2))))))))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((bound("CU_unloaded")) <= (2))) & (((((((bound("A2U_rot3_rs")) <= (1))) & (((((((((bound("TU_rot_run")) <= (3))) & (((bound("crane_above_feed_belt")) <= (3))))) & (((((bound("TL_in")) <= (3))) & (((bound("A2U_rot3_run")) <= (3))))))) & (((bound("CL_out")) <= (3))))))) & (((((bound("A2L_rotated")) <= (3))) & (((bound("press_at_upper_pos")) <= (2))))))))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((bound("DB_trans_rs")) <= (3))) & (((((bound("arm2_store_free")) <= (1))) & (((((bound("arm2_backward")) <= (2))) & (((bound("A2L_rot2_in")) <= (3))))))))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((bound("crane_to_belt2")) <= (1))) & (((bound("press_down")) <= (2))))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("CL_lower_run")) <= (1))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("TU_lift_rs")) <= (3))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("table_right")) <= (1))
+  end.
+Property ParamProductionCell-PT-5-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((bound("table_at_unload_angle")) <= (2))) & (((bound("A1L_rot2_rs")) <= (3))))
+  end.

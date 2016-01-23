@@ -1,0 +1,80 @@
+Property IBM703-PT-none-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F (((("callToProcess.s00000348.inputCriterion.s00000257"?) | ("decision.s00000780.fire.s00000274"?))) & ((("fork.s00000465.fire.s00000274"?) & ((((("task.s00000734.outputCriterion.s00000258"?) | ("merge.s00000455.activate.s00000289"?))) & (! "decision.s00000789.fire.s00000274"?))))))
+  end.
+Property IBM703-PT-none-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    A G (("merge.s00000461.activate.s00000289"?) | (! (((("task.s00000761.inputCriterion.s00000257"?) & ("task.s00000706.outputCriterion.s00000258"?))) & (! "task.s00000735.inputCriterion.s00000257"?))))
+  end.
+Property IBM703-PT-none-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F (("merge.s00000456.activate.s00000289"?) & ((((("merge.s00000457.activate.s00000284"?) & ((("task.s00000756.outputCriterion.s00000258"?) & ("decision.s00000768.fire.s00000441"?))))) | ("merge.s00000449.fire.s00000287"?))))
+  end.
+Property IBM703-PT-none-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F ((! (("task.s00000758.inputCriterion.s00000257"?) | ((("task.s00000729.inputCriterion.s00000257"?) & ("task.s00000759.outputCriterion.s00000258"?))))) & ((((((("task.s00000713.outputCriterion.s00000258"?) | ("decision.s00000787.fire.s00000274"?))) & ((("task.s00000745.inputCriterion.s00000257"?) & ("decision.s00000805.activate.s00000271"?))))) | (((! "task.s00000740.outputCriterion.s00000258"?) & ((("decision.s00000799.fire.s00000274"?) & ("decision.s00000792.fire.s00000274"?))))))))
+  end.
+Property IBM703-PT-none-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F (("decision.s00000778.fire.s00000272"?) & (((! ! "merge.s00000341.fire.s00000287"?) | ((("task.s00000749.inputCriterion.s00000257"?) | ((("merge.s00000446.activate.s00000286"?) | ("merge.s00000462.fire.s00000287"?))))))))
+  end.
+Property IBM703-PT-none-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F (((("task.s00000729.outputCriterion.s00000258"?) & ("merge.s00000453.fire.s00000287"?))) & (! ((! "task.s00000736.outputCriterion.s00000258"?) | (! "merge.s00000288.activate.s00000284"?))))
+  end.
+Property IBM703-PT-none-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G ! (("task.s00000748.outputCriterion.s00000258"?) & ("task.s00000710.outputCriterion.s00000258"?))
+  end.
+Property IBM703-PT-none-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F (((("decision.s00000792.activate.s00000271"?) | (((! "task.s00000736.outputCriterion.s00000258"?) & ((("merge.s00000452.activate.s00000284"?) & ("decision.s00000796.fire.s00000272"?))))))) & ((((((("decision.s00000777.fire.s00000272"?) | ("task.s00000750.outputCriterion.s00000258"?))) & ("task.s00000758.inputCriterion.s00000257"?))) | ("task.s00000752.outputCriterion.s00000258"?))))
+  end.
+Property IBM703-PT-none-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F (((((((("merge.s00000319.activate.s00000289"?) | ("merge.s00000319.activate.s00000284"?))) & ((("task.s00000740.inputCriterion.s00000257"?) & ("task.s00000726.outputCriterion.s00000258"?))))) & ("decision.s00000793.activate.s00000271"?))) & (! (((("decision.s00000793.activate.s00000271"?) & ("decision.s00000793.activate.s00000271"?))) & ((("task.s00000718.inputCriterion.s00000257"?) & ("merge.s00000451.activate.s00000286"?))))))
+  end.
+Property IBM703-PT-none-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G (((((("task.s00000737.inputCriterion.s00000257"?) | ((("merge.s00000452.fire.s00000287"?) & ("task.s00000758.outputCriterion.s00000258"?))))) | ((((("merge.s00000456.activate.s00000289"?) & ("task.s00000751.outputCriterion.s00000258"?))) & (! "callToProcess.s00000808.outputCriterion.s00000258"?))))) | (((! "merge.s00000456.activate.s00000286"?) | ((((("decision.s00000773.fire.s00000272"?) | ("merge.s00000456.activate.s00000284"?))) | (! "callToProcess.s00000807.outputCriterion.s00000258"?))))))
+  end.
+Property IBM703-PT-none-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F ((! ! (("task.s00000754.inputCriterion.s00000257"?) | ("task.s00000728.outputCriterion.s00000258"?))) & ((((((("task.s00000727.outputCriterion.s00000258"?) & ("decision.s00000773.fire.s00000272"?))) | ("decision.s00000799.fire.s00000272"?))) & (! "callToProcess.s00000807.inputCriterion.s00000257"?))))
+  end.
+Property IBM703-PT-none-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    A G ! (((((("task.s00000759.inputCriterion.s00000257"?) & ("fork.s00000464.fire.s00000274"?))) & ("task.s00000728.outputCriterion.s00000258"?))) & ("decision.s00000775.fire.s00000272"?))
+  end.
+Property IBM703-PT-none-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ! "task.s00000762.outputCriterion.s00000258"?
+  end.
+Property IBM703-PT-none-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F (((("task.s00000729.inputCriterion.s00000257"?) | (((! "merge.s00000451.activate.s00000286"?) & ((("decision.s00000783.fire.s00000272"?) & ("task.s00000737.outputCriterion.s00000258"?))))))) & ((((((("task.s00000714.outputCriterion.s00000258"?) | ("decision.s00000764.fire.s00000272"?))) & ("task.s00000744.inputCriterion.s00000257"?))) & (((! "decision.s00000774.activate.s00000271"?) & ((("task.s00000710.inputCriterion.s00000257"?) | ("decision.s00000784.activate.s00000271"?))))))))
+  end.
+Property IBM703-PT-none-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    A G ((((((! "decision.s00000793.activate.s00000271"?) | (! "task.s00000762.outputCriterion.s00000258"?))) | ((((("task.s00000736.inputCriterion.s00000257"?) | ("task.s00000719.inputCriterion.s00000257"?))) & (! "merge.s00000806.activate.s00000286"?))))) | ((((((("task.s00000716.inputCriterion.s00000257"?) & ("decision.s00000805.activate.s00000271"?))) & (! "fork.s00000466.fire.s00000274"?))) | ("task.s00000725.outputCriterion.s00000258"?))))
+  end.
+Property IBM703-PT-none-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F ! ! (((("task.s00000706.inputCriterion.s00000257"?) & ("merge.s00000455.activate.s00000289"?))) | ((("decision.s00000775.fire.s00000272"?) & ("merge.s00000341.activate.s00000284"?))))
+  end.

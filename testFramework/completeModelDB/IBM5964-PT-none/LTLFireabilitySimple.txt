@@ -1,0 +1,80 @@
+Property IBM5964-PT-none-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "callToProcess.s00002316.inputCriterion.s00000937"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "merge.s00000945.activate.s00000946"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "callToTask.s00001971.outputCriterion.s00000939"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "decision.s00000999.activate.s00000990"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "decision.s00001288.fire.s00000991"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "merge.s00003354.activate.s00000946"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "callToTask.s00002185.outputCriterion.s00000939"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "callToTask.s00002190.outputCriterion.s00000939"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "join.s00001295.activate.s00000946"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "decision.s00001288.fire.s00000991"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "merge.s00000945.activate.s00000948"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "join.s00001294.fire.s00000953"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "decision.s00001288.fire.s00000993"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "decision.s00001286.activate.s00000990"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "decision.s00001288.fire.s00000995"?
+  end.
+Property IBM5964-PT-none-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "callToTask.s00005970.outputCriterion.s00000939"?
+  end.

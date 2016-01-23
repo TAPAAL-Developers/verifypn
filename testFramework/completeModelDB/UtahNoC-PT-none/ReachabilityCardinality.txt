@@ -1,0 +1,80 @@
+Property UtahNoC-PT-none-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ! ((! ((2) <= (#tokens("p11")))) & (((#tokens("p198")) <= (#tokens("p1")))))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((((! ((3) <= (#tokens("p145")))) & (! ((1) <= (#tokens("p114")))))) & (((((3) <= (#tokens("p141")))) & (((3) <= (#tokens("p75")))))))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("p53")) <= (#tokens("p121")))) & (((#tokens("p163")) <= (#tokens("p32")))))) & (((3) <= (#tokens("p21")))))) | (((! ((#tokens("p95")) <= (#tokens("p178")))) & (! ((1) <= (#tokens("p177")))))))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("p210")))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("p13")))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ((#tokens("p145")) <= (#tokens("p109")))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((((1) <= (#tokens("p120")))) | (((((((#tokens("p59")) <= (#tokens("p47")))) | (((#tokens("p58")) <= (#tokens("p26")))))) & (! ((#tokens("p128")) <= (#tokens("p197")))))))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ! ((((2) <= (#tokens("p186")))) & (((((#tokens("p170")) <= (#tokens("p87")))) | (((#tokens("p50")) <= (#tokens("p210")))))))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((#tokens("p112")) <= (#tokens("p147")))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ((((#tokens("p118")) <= (#tokens("p151")))) | (((((((3) <= (#tokens("p121")))) & (((#tokens("p107")) <= (#tokens("p70")))))) | (((((#tokens("p92")) <= (#tokens("p43")))) & (((3) <= (#tokens("p93")))))))))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((! ((1) <= (#tokens("p42")))) | (((#tokens("p44")) <= (#tokens("p201")))))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((! ((#tokens("p49")) <= (#tokens("p75")))) | (((3) <= (#tokens("p88")))))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((#tokens("p211")) <= (#tokens("p164")))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((#tokens("p66")) <= (#tokens("p188")))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((((1) <= (#tokens("p207")))) & (! ((((#tokens("p190")) <= (#tokens("p44")))) | (((#tokens("p103")) <= (#tokens("p46")))))))
+  end.
+Property UtahNoC-PT-none-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("p162")))
+  end.

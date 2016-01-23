@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D10N200-LTLFireability-0
+  "Automatically generated"
+  is:
+    A ((X "t1_1_9_2_10"?) U (G F G "t1_6_6_5_6"?))
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-1
+  "Automatically generated"
+  is:
+    A ((X "t1_1_9_2_10"?) U (G F X "t1_2_9_3_8"?))
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-2
+  "Automatically generated"
+  is:
+    A ((((X "t1_7_10_8_10"?) U (X "t1_4_8_4_9"?))) U (F (("t1_4_2_5_3"?) U ("t1_5_10_5_9"?))))
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-3
+  "Automatically generated"
+  is:
+    A ((X "t1_6_6_7_5"?) U (((F "t1_8_6_8_5"?) U (F "t1_6_4_6_3"?))))
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X G X F "t1_7_9_8_10"?
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-5
+  "Automatically generated"
+  is:
+    A ((((X "t1_1_3_2_4"?) U (F "t1_2_2_2_3"?))) U (G G F "t1_9_7_8_8"?))
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-6
+  "Automatically generated"
+  is:
+    A F "t1_5_9_4_9"?
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X F (("t1_8_6_7_6"?) U (F "t1_2_7_3_8"?))
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-8
+  "Automatically generated"
+  is:
+    A ((X (("t1_5_4_4_5"?) U ("t1_2_4_1_5"?))) U (F "t1_3_1_4_2"?))
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-9
+  "Automatically generated"
+  is:
+    A "t1_3_8_3_7"?
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-10
+  "Automatically generated"
+  is:
+    A X ((F "t1_6_3_6_2"?) U (G X "t1_2_9_2_8"?))
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-11
+  "Automatically generated"
+  is:
+    A "t1_6_3_5_4"?
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-12
+  "Automatically generated"
+  is:
+    A X X ((G "t1_9_9_8_9"?) U (F "t1_8_2_9_3"?))
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-13
+  "Automatically generated"
+  is:
+    A F G G G "t1_5_4_6_3"?
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-14
+  "Automatically generated"
+  is:
+    A (("t1_8_10_9_9"?) U (((G "t1_2_4_1_4"?) U (X "t1_8_8_9_8"?))))
+  end.
+Property Diffusion2D-PT-D10N200-LTLFireability-15
+  "Automatically generated"
+  is:
+    A "t1_1_1_2_1"?
+  end.

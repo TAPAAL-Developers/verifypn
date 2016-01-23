@@ -1,0 +1,80 @@
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "division2_replicate_27_5_A_26_5"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "division2_replicate_29_25_B_30_26"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "division2_mutate_15_14_A_16_14"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "division2_mutate_8_8_B_7_7"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "division2_replicate_9_18_A_9_19"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "division2_mutate_18_13_B_19_14"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "division2_mutate_10_30_A_11_29"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "division2_replicate_22_21_B_23_20"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "division2_mutate_19_20_A_20_20"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "division1_replicate_24_4_B"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "division2_replicate_18_8_A_19_9"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "division1_mutate_9_10_A"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "division2_mutate_23_24_B_22_25"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "division2_mutate_21_22_B_22_23"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "division2_mutate_13_29_B_12_30"?
+  end.
+Property PhaseVariation-PT-D30CS010-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "division2_replicate_5_26_B_6_26"?
+  end.

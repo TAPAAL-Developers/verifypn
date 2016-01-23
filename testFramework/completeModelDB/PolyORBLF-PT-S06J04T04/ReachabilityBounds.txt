@@ -1,0 +1,80 @@
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("NotifyEventSourceAddedE_4", "NotifyEventSourceAddedE_3", "NotifyEventSourceAddedE_2", "NotifyEventSourceAddedE_1")) <= (3))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((((bound("P_1617_3", "P_1617_2", "P_1617_4", "P_1617_1")) <= (1))) & (((((bound("P_1093")) <= (3))) & (((((bound("P_1716")) <= (2))) & (((((((bound("Check_Sources_B_4", "Check_Sources_B_1", "Check_Sources_B_2", "Check_Sources_B_3")) <= (3))) & (((bound("IsMonitoring")) <= (1))))) & (((bound("P_1113_3", "P_1113_4", "P_1113_2", "P_1113_1")) <= (1))))))))))) & (((bound("P_1712_3", "P_1712_4", "P_1712_0", "P_1712_2", "P_1712_1")) <= (1))))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((bound("P_2579_1_5", "P_2579_2_6", "P_2579_3_4", "P_2579_3_2", "P_2579_2_4", "P_2579_3_6", "P_2579_1_1", "P_2579_4_2", "P_2579_4_5", "P_2579_1_4", "P_2579_4_3", "P_2579_1_6", "P_2579_2_1", "P_2579_3_3", "P_2579_2_5", "P_2579_3_1", "P_2579_3_5", "P_2579_2_3", "P_2579_4_6", "P_2579_4_1", "P_2579_4_4", "P_2579_1_3", "P_2579_2_2", "P_2579_1_2")) <= (3))) & (((((bound("P_1617_3", "P_1617_2", "P_1617_4", "P_1617_1")) <= (2))) & (((((((((bound("MarkerWrite")) <= (1))) & (((((bound("ScheduleTaskE_Idle_4", "ScheduleTaskE_Idle_1", "ScheduleTaskE_Idle_2", "ScheduleTaskE_Idle_3")) <= (3))) & (((bound("Abort_Check_Sources_B_1", "Abort_Check_Sources_B_2", "Abort_Check_Sources_B_3", "Abort_Check_Sources_B_4")) <= (1))))))) & (((((bound("P_1727")) <= (3))) & (((((bound("IdleTasks_3", "IdleTasks_1", "IdleTasks_2", "IdleTasks_4")) <= (1))) & (((bound("P_1119_2_2", "P_1119_4_4", "P_1119_3_4", "P_1119_3_5", "P_1119_4_3", "P_1119_1_2", "P_1119_2_5", "P_1119_4_1", "P_1119_1_4", "P_1119_2_3", "P_1119_3_1", "P_1119_1_6", "P_1119_3_3", "P_1119_1_1", "P_1119_2_1", "P_1119_4_5", "P_1119_3_6", "P_1119_1_3", "P_1119_2_6", "P_1119_4_2", "P_1119_1_5", "P_1119_4_6", "P_1119_2_4", "P_1119_3_2")) <= (2))))))))) & (((bound("P_1716")) <= (1))))))))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((bound("P_1724_0", "P_1724_2", "P_1724_1", "P_1724_4", "P_1724_3")) <= (3))) & (((((((((((bound("MarkerRead")) <= (1))) & (((bound("cBlockedTasks")) <= (2))))) & (((((bound("ORB_Lock")) <= (1))) & (((bound("cIdleTasks")) <= (1))))))) & (((bound("Insert_Source_B_3_4", "Insert_Source_B_4_3", "Insert_Source_B_2_3", "Insert_Source_B_1_6", "Insert_Source_B_3_1", "Insert_Source_B_2_6", "Insert_Source_B_2_1", "Insert_Source_B_1_1", "Insert_Source_B_3_6", "Insert_Source_B_4_6", "Insert_Source_B_2_4", "Insert_Source_B_1_5", "Insert_Source_B_4_2", "Insert_Source_B_4_4", "Insert_Source_B_1_3", "Insert_Source_B_2_2", "Insert_Source_B_2_5", "Insert_Source_B_3_3", "Insert_Source_B_3_2", "Insert_Source_B_3_5", "Insert_Source_B_4_1", "Insert_Source_B_4_5", "Insert_Source_B_1_2", "Insert_Source_B_1_4")) <= (1))))) & (((bound("Check_Sources_E_1", "Check_Sources_E_2", "Check_Sources_E_3", "Check_Sources_E_4")) <= (2))))))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((bound("P_1095")) <= (1))) & (((((((bound("Check_Sources_B_4", "Check_Sources_B_1", "Check_Sources_B_2", "Check_Sources_B_3")) <= (2))) & (((bound("MarkerWrite")) <= (3))))) & (((bound("IdleTasks_3", "IdleTasks_1", "IdleTasks_2", "IdleTasks_4")) <= (2))))))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("FetchJobB_1", "FetchJobB_3", "FetchJobB_4", "FetchJobB_2")) <= (3))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("cJobCnt")) <= (2))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("P_1097")) <= (2))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("MarkerWrite")) <= (3))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((bound("P_1727")) <= (2))) & (((((bound("cIdleTasks")) <= (1))) & (((((((((bound("TryAllocateOneTaskB_1", "TryAllocateOneTaskB_2", "TryAllocateOneTaskB_4", "TryAllocateOneTaskB_3")) <= (2))) & (((bound("ScheduleTaskB_1", "ScheduleTaskB_2", "ScheduleTaskB_3", "ScheduleTaskB_4")) <= (3))))) & (((bound("P_1727")) <= (1))))) & (((((bound("DisablePollingB_2_4", "DisablePollingB_1_2", "DisablePollingB_4_5", "DisablePollingB_1_4", "DisablePollingB_2_2", "DisablePollingB_3_2", "DisablePollingB_1_6", "DisablePollingB_4_3", "DisablePollingB_3_3", "DisablePollingB_2_5", "DisablePollingB_1_1", "DisablePollingB_2_3", "DisablePollingB_3_5", "DisablePollingB_4_4", "DisablePollingB_3_6", "DisablePollingB_1_3", "DisablePollingB_2_1", "DisablePollingB_1_5", "DisablePollingB_4_2", "DisablePollingB_3_1", "DisablePollingB_2_6", "DisablePollingB_4_1", "DisablePollingB_4_6", "DisablePollingB_3_4")) <= (1))) & (((((((bound("cBlockedTasks")) <= (3))) & (((bound("P_1724_0", "P_1724_2", "P_1724_1", "P_1724_4", "P_1724_3")) <= (1))))) & (((((bound("SigAbort")) <= (2))) & (((bound("QueueJobE_3", "QueueJobE_4", "QueueJobE_1", "QueueJobE_2")) <= (1))))))))))))))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((((bound("Perform_Work_E_4", "Perform_Work_E_1", "Perform_Work_E_3", "Perform_Work_E_2")) <= (3))) & (((bound("DisablePollingB_2_4", "DisablePollingB_1_2", "DisablePollingB_4_5", "DisablePollingB_1_4", "DisablePollingB_2_2", "DisablePollingB_3_2", "DisablePollingB_1_6", "DisablePollingB_4_3", "DisablePollingB_3_3", "DisablePollingB_2_5", "DisablePollingB_1_1", "DisablePollingB_2_3", "DisablePollingB_3_5", "DisablePollingB_4_4", "DisablePollingB_3_6", "DisablePollingB_1_3", "DisablePollingB_2_1", "DisablePollingB_1_5", "DisablePollingB_4_2", "DisablePollingB_3_1", "DisablePollingB_2_6", "DisablePollingB_4_1", "DisablePollingB_4_6", "DisablePollingB_3_4")) <= (3))))) & (((((bound("RunE_1", "RunE_4", "RunE_3", "RunE_2")) <= (1))) & (((((bound("ProcessingEvt_2", "ProcessingEvt_1", "ProcessingEvt_3", "ProcessingEvt_4")) <= (3))) & (((bound("Abort_Check_Sources_E_1", "Abort_Check_Sources_E_3", "Abort_Check_Sources_E_2", "Abort_Check_Sources_E_4")) <= (2))))))))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("P_1160_1", "P_1160_2", "P_1160_3", "P_1160_4")) <= (1))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("ScheduleTaskE_Check_4", "ScheduleTaskE_Check_3", "ScheduleTaskE_Check_2", "ScheduleTaskE_Check_1")) <= (2))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((((bound("P_2579_1_5", "P_2579_2_6", "P_2579_3_4", "P_2579_3_2", "P_2579_2_4", "P_2579_3_6", "P_2579_1_1", "P_2579_4_2", "P_2579_4_5", "P_2579_1_4", "P_2579_4_3", "P_2579_1_6", "P_2579_2_1", "P_2579_3_3", "P_2579_2_5", "P_2579_3_1", "P_2579_3_5", "P_2579_2_3", "P_2579_4_6", "P_2579_4_1", "P_2579_4_4", "P_2579_1_3", "P_2579_2_2", "P_2579_1_2")) <= (2))) & (((bound("NoSigAbort")) <= (2))))) & (((bound("P_1099")) <= (2))))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("DisablePollingB_2_4", "DisablePollingB_1_2", "DisablePollingB_4_5", "DisablePollingB_1_4", "DisablePollingB_2_2", "DisablePollingB_3_2", "DisablePollingB_1_6", "DisablePollingB_4_3", "DisablePollingB_3_3", "DisablePollingB_2_5", "DisablePollingB_1_1", "DisablePollingB_2_3", "DisablePollingB_3_5", "DisablePollingB_4_4", "DisablePollingB_3_6", "DisablePollingB_1_3", "DisablePollingB_2_1", "DisablePollingB_1_5", "DisablePollingB_4_2", "DisablePollingB_3_1", "DisablePollingB_2_6", "DisablePollingB_4_1", "DisablePollingB_4_6", "DisablePollingB_3_4")) <= (1))
+  end.
+Property PolyORBLF-COL-S06J04T04-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((((bound("TryAllocateOneTaskB_1", "TryAllocateOneTaskB_2", "TryAllocateOneTaskB_4", "TryAllocateOneTaskB_3")) <= (3))) & (((((bound("BlockedTasks")) <= (1))) & (((bound("NotifyEventEndOfCheckSourcesE_2", "NotifyEventEndOfCheckSourcesE_4", "NotifyEventEndOfCheckSourcesE_1", "NotifyEventEndOfCheckSourcesE_3")) <= (2))))))) & (((bound("DisablePollingE_4_2", "DisablePollingE_4_4", "DisablePollingE_1_3", "DisablePollingE_4_6", "DisablePollingE_3_1", "DisablePollingE_2_3", "DisablePollingE_3_4", "DisablePollingE_2_1", "DisablePollingE_3_3", "DisablePollingE_2_6", "DisablePollingE_2_4", "DisablePollingE_4_1", "DisablePollingE_3_6", "DisablePollingE_1_4", "DisablePollingE_3_5", "DisablePollingE_1_2", "DisablePollingE_4_3", "DisablePollingE_1_6", "DisablePollingE_4_5", "DisablePollingE_2_2", "DisablePollingE_1_1", "DisablePollingE_2_5", "DisablePollingE_3_2", "DisablePollingE_1_5")) <= (3))))
+  end.

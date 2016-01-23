@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D50N050-CTLCardinality-0
+  "Automatically generated"
+  is:
+    ((((A G ((((#tokens("cAMP__25_49_")) <= (#tokens("cAMP__39_5_")))) | (((3) <= (#tokens("cAMP__27_44_")))))) & (((#tokens("cAMP__23_12_")) <= (#tokens("cAMP__4_47_")))))) & (E G ((! ((3) <= (#tokens("cAMP__4_5_")))) | (((2) <= (#tokens("cAMP__28_12_")))))))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ! E F ((1) <= (#tokens("cAMP__20_15_")))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-2
+  "Automatically generated"
+  is:
+    ((((((1) <= (#tokens("cAMP__22_22_")))) | (((((((((#tokens("cAMP__5_42_")) <= (#tokens("cAMP__23_7_")))) | (((2) <= (#tokens("cAMP__38_3_")))))) | (((((3) <= (#tokens("cAMP__27_15_")))) & (((2) <= (#tokens("cAMP__12_36_")))))))) & (E F ((1) <= (#tokens("cAMP__41_40_")))))))) & (((! A G ((1) <= (#tokens("cAMP__12_20_")))) | (((! ! ((2) <= (#tokens("cAMP__26_37_")))) | (((#tokens("cAMP__9_42_")) <= (#tokens("cAMP__8_37_")))))))))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-3
+  "Automatically generated"
+  is:
+    E F A X ! ((#tokens("cAMP__2_27_")) <= (#tokens("cAMP__8_30_")))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-4
+  "Automatically generated"
+  is:
+    E F ! E F ((#tokens("cAMP__12_47_")) <= (#tokens("cAMP__26_35_")))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-5
+  "Automatically generated"
+  is:
+    A F ((((((((#tokens("cAMP__42_34_")) <= (#tokens("cAMP__23_34_")))) & (((3) <= (#tokens("cAMP__37_16_")))))) & (((3) <= (#tokens("cAMP__2_18_")))))) | (E F ((1) <= (#tokens("cAMP__10_47_")))))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-6
+  "Automatically generated"
+  is:
+    ((A X E F ((3) <= (#tokens("cAMP__26_45_")))) & (E F ((#tokens("cAMP__10_46_")) <= (#tokens("cAMP__33_11_")))))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-7
+  "Automatically generated"
+  is:
+    ! ((! ! ((((2) <= (#tokens("cAMP__10_39_")))) | (((2) <= (#tokens("cAMP__45_47_")))))) | (! E F ((3) <= (#tokens("cAMP__2_19_")))))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-8
+  "Automatically generated"
+  is:
+    A G E X ((((#tokens("cAMP__25_6_")) <= (#tokens("cAMP__30_18_")))) | (((#tokens("cAMP__21_18_")) <= (#tokens("cAMP__49_33_")))))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-9
+  "Automatically generated"
+  is:
+    ! A G ((#tokens("cAMP__17_50_")) <= (#tokens("cAMP__21_33_")))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-10
+  "Automatically generated"
+  is:
+    E F ((((1) <= (#tokens("cAMP__21_17_")))) & (((((((#tokens("cAMP__31_18_")) <= (#tokens("cAMP__1_15_")))) & (((3) <= (#tokens("cAMP__41_22_")))))) | (((#tokens("cAMP__44_4_")) <= (#tokens("cAMP__19_45_")))))))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-11
+  "Automatically generated"
+  is:
+    A F ((A G ((#tokens("cAMP__22_41_")) <= (#tokens("cAMP__20_37_")))) & (E G ((#tokens("cAMP__20_16_")) <= (#tokens("cAMP__39_39_")))))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-12
+  "Automatically generated"
+  is:
+    A G ((E F ((1) <= (#tokens("cAMP__31_29_")))) | (! ((((#tokens("cAMP__42_17_")) <= (#tokens("cAMP__11_50_")))) | (((3) <= (#tokens("cAMP__33_44_")))))))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-13
+  "Automatically generated"
+  is:
+    A G ! ((! ((#tokens("cAMP__19_45_")) <= (#tokens("cAMP__9_14_")))) & (((#tokens("cAMP__18_5_")) <= (#tokens("cAMP__34_49_")))))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-14
+  "Automatically generated"
+  is:
+    E ((((#tokens("cAMP__47_11_")) <= (#tokens("cAMP__11_20_")))) U (! ((#tokens("cAMP__34_36_")) <= (#tokens("cAMP__12_5_")))))
+  end.
+Property Diffusion2D-PT-D50N050-CTLCardinality-15
+  "Automatically generated"
+  is:
+    ((A G ! ((((3) <= (#tokens("cAMP__28_41_")))) & (((#tokens("cAMP__40_31_")) <= (#tokens("cAMP__48_17_")))))) & (((! ! ((2) <= (#tokens("cAMP__21_8_")))) | (((#tokens("cAMP__31_20_")) <= (#tokens("cAMP__41_27_")))))))
+  end.

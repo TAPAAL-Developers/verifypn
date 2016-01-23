@@ -1,0 +1,80 @@
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("pool__2_1_")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("pool__2_2_")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("cell___2_1__B_")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("size_dot")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("cell___2_1__A_")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("cell___2_2__B_")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("run_dot")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("pool__2_2_")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("cell___2_2__B_")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("pool__1_1_")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("cell___2_1__B_")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("pool__2_2_")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("cell___2_1__A_")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("cell___1_1__A_")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("cell___1_1__B_")
+  end.
+Property PhaseVariation-PT-D02CS100-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("run_dot")
+  end.

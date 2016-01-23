@@ -1,0 +1,80 @@
+Property Railroad-PT-010-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F ((! (((("tr_T33_32"?) & ("tr_T33_70"?))) & ("tr_T15_1"?))) & (((((! "tr_T33_81"?) & ((("tr_T33_113"?) & ("tr_T37_10"?))))) & ("tr_T33_53"?))))
+  end.
+Property Railroad-PT-010-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F ((! ! (("tr_T38_1"?) & ("tr_T37_10"?))) | ((((((("tr_T33_109"?) & ("tr_T33_113"?))) & ((("tr_T33_28"?) | ("tr_T33_50"?))))) | (((! "tr_T25_1"?) & ("tr_T33_109"?))))))
+  end.
+Property Railroad-PT-010-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F "tr_T33_89"?
+  end.
+Property Railroad-PT-010-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F "tr_T33_51"?
+  end.
+Property Railroad-PT-010-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F ((((((! "tr_T33_26"?) & ("tr_T17_1"?))) | ("tr_T5_1"?))) & ((("tr_T33_99"?) & ("tr_T33_77"?))))
+  end.
+Property Railroad-PT-010-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F (((("tr_T33_70"?) & (! ! "tr_T33_40"?))) & ("tr_T33_38"?))
+  end.
+Property Railroad-PT-010-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F "tr_T33_114"?
+  end.
+Property Railroad-PT-010-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G ! "tr_T33_106"?
+  end.
+Property Railroad-PT-010-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F (("tr_T10_1"?) & (((((! "tr_T33_97"?) | (! "tr_T15_1"?))) & (! (("tr_T33_77"?) | ("tr_T33_77"?))))))
+  end.
+Property Railroad-PT-010-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F ((! ((! "tr_T13_1"?) | ((("tr_T33_62"?) | ("tr_T37_10"?))))) & ((("tr_T33_56"?) & (! "tr_T33_111"?))))
+  end.
+Property Railroad-PT-010-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F "tr_T33_85"?
+  end.
+Property Railroad-PT-010-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F "tr_T33_46"?
+  end.
+Property Railroad-PT-010-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ! ((! (("tr_T33_28"?) | ("tr_T1_1"?))) & ("tr_T33_73"?))
+  end.
+Property Railroad-PT-010-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F "tr_T33_52"?
+  end.
+Property Railroad-PT-010-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F ((((! "tr_T33_62"?) | ((((("tr_T14_21"?) | ("tr_T32_1"?))) | ("tr_T37_10"?))))) & ((("tr_T33_78"?) & (((! "tr_T33_76"?) | ((("tr_T14_22"?) & ("tr_T18_1"?))))))))
+  end.
+Property Railroad-PT-010-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F (("tr_T33_117"?) & ("tr_T14_20"?))
+  end.

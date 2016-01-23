@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t1_4_2_5_1"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t1_15_14_16_13"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t1_2_17_1_18"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t1_17_1_18_1"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t1_11_20_10_20"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t1_14_3_15_3"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t1_14_2_14_3"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t1_3_5_2_6"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t1_15_2_14_3"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t1_5_18_5_19"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t1_16_9_15_8"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t1_11_4_10_4"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t1_15_16_15_15"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t1_3_5_2_6"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t1_16_6_16_7"?
+  end.
+Property Diffusion2D-PT-D20N050-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t1_6_7_6_8"?
+  end.

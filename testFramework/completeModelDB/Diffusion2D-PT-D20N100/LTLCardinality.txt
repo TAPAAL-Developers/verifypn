@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D20N100-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A G G ((((#tokens("cAMP__4_10_")) <= (#tokens("cAMP__15_12_")))) U (((1) <= (#tokens("cAMP__3_5_")))))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A G X ((((#tokens("cAMP__13_19_")) <= (#tokens("cAMP__14_15_")))) U (((#tokens("cAMP__10_12_")) <= (#tokens("cAMP__19_1_")))))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A X X F F ((2) <= (#tokens("cAMP__2_19_")))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((((((3) <= (#tokens("cAMP__9_15_")))) U (((2) <= (#tokens("cAMP__16_13_")))))) U (((#tokens("cAMP__17_13_")) <= (#tokens("cAMP__15_7_")))))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("cAMP__20_18_")))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A ((X X ((#tokens("cAMP__1_8_")) <= (#tokens("cAMP__12_17_")))) U (((1) <= (#tokens("cAMP__8_19_")))))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("cAMP__8_15_")))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A G G G G ((1) <= (#tokens("cAMP__17_10_")))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A X X ((3) <= (#tokens("cAMP__20_3_")))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A X ((3) <= (#tokens("cAMP__13_7_")))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A F F F ((3) <= (#tokens("cAMP__5_2_")))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A X ((#tokens("cAMP__17_18_")) <= (#tokens("cAMP__6_18_")))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((F X ((3) <= (#tokens("cAMP__9_3_")))) U (((((#tokens("cAMP__12_7_")) <= (#tokens("cAMP__17_7_")))) U (((2) <= (#tokens("cAMP__4_9_")))))))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A X ((#tokens("cAMP__12_17_")) <= (#tokens("cAMP__12_13_")))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((X ((#tokens("cAMP__15_9_")) <= (#tokens("cAMP__16_4_")))) U (((((#tokens("cAMP__20_16_")) <= (#tokens("cAMP__17_16_")))) U (((#tokens("cAMP__10_18_")) <= (#tokens("cAMP__14_15_")))))))
+  end.
+Property Diffusion2D-PT-D20N100-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A G F F G ((3) <= (#tokens("cAMP__5_15_")))
+  end.

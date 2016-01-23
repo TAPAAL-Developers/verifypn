@@ -1,0 +1,80 @@
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("p11")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("p4")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("p5")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("p3")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("p27")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("p19")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("p21")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("p15")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("p26")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("p25")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("p22")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("p18")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("p8")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("p14")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("p9")
+  end.
+Property HouseConstruction-PT-500-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("p10")
+  end.

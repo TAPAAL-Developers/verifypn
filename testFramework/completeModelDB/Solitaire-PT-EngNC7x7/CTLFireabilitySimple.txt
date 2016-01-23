@@ -1,0 +1,80 @@
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "right44"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "left52"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "up42"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "up64"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "right32"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "left32"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "right43"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "right64"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "down24"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "up64"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "down46"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "up33"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "up41"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "up44"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "left53"?
+  end.
+Property Solitaire-PT-EngNC7x7-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "right53"?
+  end.

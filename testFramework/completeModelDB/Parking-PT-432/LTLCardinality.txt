@@ -1,0 +1,80 @@
+Property Parking-PT-432-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A ((((((1) <= (#tokens("p287")))) U (((1) <= (#tokens("p313")))))) U (((2) <= (#tokens("p93")))))
+  end.
+Property Parking-PT-432-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A F G F G ((2) <= (#tokens("p212")))
+  end.
+Property Parking-PT-432-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A X ((2) <= (#tokens("p363")))
+  end.
+Property Parking-PT-432-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A G G ((((2) <= (#tokens("p116")))) U (((#tokens("p69")) <= (#tokens("p490")))))
+  end.
+Property Parking-PT-432-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((#tokens("p281")) <= (#tokens("p24")))
+  end.
+Property Parking-PT-432-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A G ((#tokens("p281")) <= (#tokens("p52")))
+  end.
+Property Parking-PT-432-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((#tokens("p169")) <= (#tokens("p132")))
+  end.
+Property Parking-PT-432-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A ((F ((#tokens("p524")) <= (#tokens("p10")))) U (F G ((1) <= (#tokens("p72")))))
+  end.
+Property Parking-PT-432-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A ((((((2) <= (#tokens("p184")))) U (((#tokens("p178")) <= (#tokens("p446")))))) U (F ((#tokens("p175")) <= (#tokens("p233")))))
+  end.
+Property Parking-PT-432-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A F G ((((#tokens("p471")) <= (#tokens("p507")))) U (((2) <= (#tokens("p59")))))
+  end.
+Property Parking-PT-432-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((2) <= (#tokens("p290")))
+  end.
+Property Parking-PT-432-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((#tokens("p235")) <= (#tokens("p216")))
+  end.
+Property Parking-PT-432-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((#tokens("p288")) <= (#tokens("p385")))
+  end.
+Property Parking-PT-432-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A F F G ((#tokens("p519")) <= (#tokens("p223")))
+  end.
+Property Parking-PT-432-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((G ((3) <= (#tokens("p220")))) U (((((#tokens("p187")) <= (#tokens("p274")))) U (((3) <= (#tokens("p361")))))))
+  end.
+Property Parking-PT-432-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A F ((#tokens("p153")) <= (#tokens("p171")))
+  end.

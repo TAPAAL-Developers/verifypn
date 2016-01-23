@@ -1,0 +1,80 @@
+Property FMS-PT-100-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("P12M3")))
+  end.
+Property FMS-PT-100-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A F ((3) <= (#tokens("P1wM1")))
+  end.
+Property FMS-PT-100-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A ((((((#tokens("P1M1")) <= (#tokens("P1d")))) U (((#tokens("P3")) <= (#tokens("P1M1")))))) U (((#tokens("M1")) <= (#tokens("P2s")))))
+  end.
+Property FMS-PT-100-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("P12")))
+  end.
+Property FMS-PT-100-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("P12s")))
+  end.
+Property FMS-PT-100-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A G ((#tokens("P2wP1")) <= (#tokens("P2wM2")))
+  end.
+Property FMS-PT-100-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((X G ((#tokens("P1wP2")) <= (#tokens("P12M3")))) U (X F ((#tokens("P12M3")) <= (#tokens("P12")))))
+  end.
+Property FMS-PT-100-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A X F X F ((#tokens("P3")) <= (#tokens("P12M3")))
+  end.
+Property FMS-PT-100-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A ((X X ((1) <= (#tokens("P2wM2")))) U (G ((#tokens("M2")) <= (#tokens("P3s")))))
+  end.
+Property FMS-PT-100-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((X G ((#tokens("P2wM2")) <= (#tokens("P1s")))) U (F X ((3) <= (#tokens("P12")))))
+  end.
+Property FMS-PT-100-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A F ((#tokens("P1s")) <= (#tokens("P3s")))
+  end.
+Property FMS-PT-100-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((#tokens("P1wP2")) <= (#tokens("P12")))
+  end.
+Property FMS-PT-100-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A X ((F ((3) <= (#tokens("P2")))) U (G ((#tokens("P3")) <= (#tokens("P2d")))))
+  end.
+Property FMS-PT-100-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A F F ((1) <= (#tokens("P1wP2")))
+  end.
+Property FMS-PT-100-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("P12")))
+  end.
+Property FMS-PT-100-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("P2d")))
+  end.

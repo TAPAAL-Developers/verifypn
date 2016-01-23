@@ -1,0 +1,80 @@
+Property Raft-PT-03-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t97"?
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t97"?
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t3"?
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E G "t86"?
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E X "t20"?
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A X "t63"?
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A (("t63"?) U ("t96"?))
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E X "t85"?
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E (("t38"?) U ("t35"?))
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A (("t23"?) U ("t48"?))
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E X "t70"?
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "t2"?
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A (("t87"?) U ("t74"?))
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A G "t28"?
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A (("t9"?) U ("t92"?))
+  end.
+Property Raft-PT-03-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E (("t13"?) U ("t88"?))
+  end.

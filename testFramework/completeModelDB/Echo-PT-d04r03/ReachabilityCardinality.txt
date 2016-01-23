@@ -1,0 +1,80 @@
+Property Echo-PT-d04r03-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((((((((2) <= (#tokens("p601")))) | (((#tokens("p871")) <= (#tokens("p871")))))) & (! ((#tokens("p683")) <= (#tokens("p882")))))) | (((((((3) <= (#tokens("p792")))) | (((#tokens("p100")) <= (#tokens("p106")))))) | (((((#tokens("p177")) <= (#tokens("p710")))) & (((#tokens("p219")) <= (#tokens("p156")))))))))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((((! ((3) <= (#tokens("p235")))) | (((((1) <= (#tokens("p639")))) | (((2) <= (#tokens("p412")))))))) & (((((((#tokens("p261")) <= (#tokens("p650")))) & (((3) <= (#tokens("p712")))))) & (((((#tokens("p693")) <= (#tokens("p302")))) & (((1) <= (#tokens("p1014")))))))))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("p882")))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("p66")))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ((((! ((1) <= (#tokens("p21")))) | (((((1) <= (#tokens("p13")))) | (((#tokens("p143")) <= (#tokens("p41")))))))) | (((2) <= (#tokens("p194")))))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("p529")) <= (#tokens("p786")))) | (((#tokens("p663")) <= (#tokens("p275")))))) | (((((3) <= (#tokens("p735")))) & (((((#tokens("p295")) <= (#tokens("p989")))) & (((1) <= (#tokens("p133")))))))))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ((#tokens("p859")) <= (#tokens("p976")))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((((((#tokens("p727")) <= (#tokens("p648")))) | (((((1) <= (#tokens("p133")))) | (((#tokens("p731")) <= (#tokens("p1014")))))))) | (! ((#tokens("p393")) <= (#tokens("p629")))))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ! ! ! ((#tokens("p633")) <= (#tokens("p477")))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ((! ((((3) <= (#tokens("p130")))) & (((1) <= (#tokens("p563")))))) | (! ((((#tokens("p770")) <= (#tokens("p270")))) & (((#tokens("p961")) <= (#tokens("p311")))))))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((! ((3) <= (#tokens("p41")))) | (((((((3) <= (#tokens("p611")))) | (((2) <= (#tokens("p237")))))) | (((#tokens("p355")) <= (#tokens("p157")))))))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("p281")) <= (#tokens("p412")))) | (((#tokens("p638")) <= (#tokens("p242")))))) | (((((1) <= (#tokens("p35")))) | (((#tokens("p673")) <= (#tokens("p385")))))))) | (((((((#tokens("p266")) <= (#tokens("p194")))) | (((#tokens("p937")) <= (#tokens("p317")))))) & (! ((3) <= (#tokens("p199")))))))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ((((((2) <= (#tokens("p171")))) & (((((#tokens("p769")) <= (#tokens("p523")))) & (((1) <= (#tokens("p957")))))))) & (((3) <= (#tokens("p940")))))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("p979")))) & (((((((3) <= (#tokens("p8")))) & (((#tokens("p811")) <= (#tokens("p131")))))) | (((1) <= (#tokens("p92")))))))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ((((#tokens("p847")) <= (#tokens("p409")))) | (((((((3) <= (#tokens("p579")))) & (((2) <= (#tokens("p866")))))) | (((((#tokens("p8")) <= (#tokens("p88")))) | (((1) <= (#tokens("p568")))))))))
+  end.
+Property Echo-PT-d04r03-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((! ((((3) <= (#tokens("p975")))) & (((#tokens("p123")) <= (#tokens("p482")))))) | (! ((((3) <= (#tokens("p19")))) & (((#tokens("p895")) <= (#tokens("p205")))))))
+  end.

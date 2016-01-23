@@ -1,0 +1,80 @@
+Property Echo-PT-d03r05-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((bound("p426")) <= (1))) & (((((((((bound("p1147")) <= (1))) & (((((bound("p1317")) <= (3))) & (((((bound("p606")) <= (3))) & (((bound("p230")) <= (1))))))))) & (((((((((bound("p690")) <= (3))) & (((bound("p355")) <= (2))))) & (((((bound("p201")) <= (1))) & (((bound("p354")) <= (3))))))) & (((bound("p1032")) <= (3))))))) & (((bound("p49")) <= (3))))))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("p419")) <= (2))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("p1004")) <= (2))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((((((((bound("p1245")) <= (3))) & (((((bound("p1424")) <= (1))) & (((bound("p241")) <= (1))))))) & (((((((bound("p250")) <= (3))) & (((bound("p1133")) <= (2))))) & (((((((bound("p1239")) <= (1))) & (((bound("p889")) <= (2))))) & (((bound("p459")) <= (3))))))))) & (((((((bound("p776")) <= (2))) & (((bound("p968")) <= (2))))) & (((((((bound("p811")) <= (2))) & (((((bound("p548")) <= (2))) & (((bound("p81")) <= (2))))))) & (((((bound("p12")) <= (2))) & (((bound("p1018")) <= (2))))))))))) & (((((((bound("p108")) <= (3))) & (((((bound("p962")) <= (2))) & (((bound("p823")) <= (2))))))) & (((((((bound("p674")) <= (2))) & (((((((bound("p95")) <= (3))) & (((bound("p40")) <= (1))))) & (((bound("p409")) <= (2))))))) & (((bound("p775")) <= (2))))))))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("p784")) <= (1))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((bound("p376")) <= (3))) & (((bound("p338")) <= (1))))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("p16")) <= (3))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((((((bound("p417")) <= (3))) & (((bound("p378")) <= (1))))) & (((bound("p585")) <= (2))))) & (((bound("p924")) <= (3))))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((bound("p396")) <= (1))) & (((((bound("p221")) <= (2))) & (((((bound("p1386")) <= (2))) & (((((((((bound("p1181")) <= (3))) & (((bound("p873")) <= (1))))) & (((((bound("p560")) <= (1))) & (((bound("p786")) <= (1))))))) & (((((((bound("p346")) <= (2))) & (((bound("p1271")) <= (1))))) & (((bound("p22")) <= (1))))))))))))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("p1433")) <= (3))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("p808")) <= (1))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((((bound("p150")) <= (2))) & (((bound("p948")) <= (2))))) & (((bound("p1162")) <= (1))))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((bound("p927")) <= (2))) & (((bound("p1287")) <= (1))))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((((bound("p151")) <= (3))) & (((bound("p1021")) <= (1))))) & (((bound("p278")) <= (1))))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((bound("p1305")) <= (2))) & (((((((((bound("p1213")) <= (1))) & (((((((bound("p1375")) <= (2))) & (((bound("p106")) <= (2))))) & (((bound("p446")) <= (2))))))) & (((((bound("p597")) <= (3))) & (((bound("p1306")) <= (1))))))) & (((bound("p456")) <= (3))))))
+  end.
+Property Echo-PT-d03r05-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((((bound("p785")) <= (2))) & (((bound("p718")) <= (1))))) & (((((((bound("p104")) <= (3))) & (((((((bound("p274")) <= (2))) & (((((bound("p772")) <= (2))) & (((bound("p427")) <= (3))))))) & (((bound("p632")) <= (1))))))) & (((((bound("p800")) <= (1))) & (((((((((bound("p922")) <= (1))) & (((bound("p1344")) <= (1))))) & (((((bound("p1413")) <= (3))) & (((bound("p481")) <= (1))))))) & (((((((bound("p1129")) <= (1))) & (((bound("p1426")) <= (1))))) & (((((bound("p554")) <= (3))) & (((bound("p254")) <= (3))))))))))))))
+  end.

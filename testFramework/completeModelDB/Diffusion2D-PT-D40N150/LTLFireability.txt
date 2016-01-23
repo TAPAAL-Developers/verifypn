@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D40N150-LTLFireability-0
+  "Automatically generated"
+  is:
+    A "t1_23_28_24_29"?
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-1
+  "Automatically generated"
+  is:
+    A "t1_21_18_20_17"?
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-2
+  "Automatically generated"
+  is:
+    A X F ((G "t1_19_4_19_5"?) U ("t1_11_13_12_12"?))
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X F "t1_20_38_21_38"?
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-4
+  "Automatically generated"
+  is:
+    A G "t1_40_22_39_23"?
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-5
+  "Automatically generated"
+  is:
+    A ((G F G "t1_29_24_28_25"?) U (F (("t1_23_8_22_8"?) U ("t1_36_3_35_3"?))))
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-6
+  "Automatically generated"
+  is:
+    A ((X G F "t1_6_7_5_6"?) U (((G "t1_15_35_14_36"?) U ("t1_22_8_22_7"?))))
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-7
+  "Automatically generated"
+  is:
+    A F G ((F "t1_13_20_14_20"?) U (G "t1_4_35_5_36"?))
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-8
+  "Automatically generated"
+  is:
+    A "t1_32_1_33_1"?
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-9
+  "Automatically generated"
+  is:
+    A ((F "t1_6_6_5_7"?) U (G G X "t1_17_4_18_5"?))
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-10
+  "Automatically generated"
+  is:
+    A ((F G F "t1_25_33_24_34"?) U ("t1_15_8_15_7"?))
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-11
+  "Automatically generated"
+  is:
+    A X ((F F "t1_10_3_11_2"?) U (F G "t1_24_18_23_17"?))
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-12
+  "Automatically generated"
+  is:
+    A G G G X F "t1_26_2_27_3"?
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-13
+  "Automatically generated"
+  is:
+    A "t1_31_14_30_13"?
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-14
+  "Automatically generated"
+  is:
+    A F G G "t1_13_29_14_29"?
+  end.
+Property Diffusion2D-PT-D40N150-LTLFireability-15
+  "Automatically generated"
+  is:
+    A G X "t1_13_12_12_12"?
+  end.

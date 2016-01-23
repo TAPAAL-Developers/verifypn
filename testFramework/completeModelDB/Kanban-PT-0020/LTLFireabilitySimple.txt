@@ -1,0 +1,80 @@
+Property Kanban-PT-0020-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A G "tin4"?
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A G "tin4"?
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A G "tin4"?
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A G "tin4"?
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A G "tin4"?
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A G "tin4"?
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A G "tin4"?
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A G "tin4"?
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A X "tok2"?
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A X "tok3"?
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A (("tredo2"?) U ("tout1"?))
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A X "tout1"?
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A (("tback3"?) U ("tok3"?))
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A G "tredo4"?
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "tok3"?
+  end.
+Property Kanban-PT-0020-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "tredo3"?
+  end.

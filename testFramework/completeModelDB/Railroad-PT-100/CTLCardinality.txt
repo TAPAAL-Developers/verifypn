@@ -1,0 +1,80 @@
+Property Railroad-PT-100-CTLCardinality-0
+  "Automatically generated"
+  is:
+    ! A G E F ((#tokens("pl_P218_40")) <= (#tokens("pl_P304_78")))
+  end.
+Property Railroad-PT-100-CTLCardinality-1
+  "Automatically generated"
+  is:
+    E G ! A F ((2) <= (#tokens("pl_P66_1")))
+  end.
+Property Railroad-PT-100-CTLCardinality-2
+  "Automatically generated"
+  is:
+    E G ((#tokens("pl_P335_1")) <= (#tokens("pl_P502_60")))
+  end.
+Property Railroad-PT-100-CTLCardinality-3
+  "Automatically generated"
+  is:
+    A F ((#tokens("pl_P435_19")) <= (#tokens("pl_P304_8")))
+  end.
+Property Railroad-PT-100-CTLCardinality-4
+  "Automatically generated"
+  is:
+    ! E F ((2) <= (#tokens("pl_P463_1")))
+  end.
+Property Railroad-PT-100-CTLCardinality-5
+  "Automatically generated"
+  is:
+    A ((((! ((3) <= (#tokens("pl_P137_1")))) & (((((#tokens("pl_P304_41")) <= (#tokens("pl_P218_6")))) & (((#tokens("pl_P502_53")) <= (#tokens("pl_P478_1")))))))) U (! ((((#tokens("pl_P218_95")) <= (#tokens("pl_P29_13")))) | (((2) <= (#tokens("pl_P29_101")))))))
+  end.
+Property Railroad-PT-100-CTLCardinality-6
+  "Automatically generated"
+  is:
+    E F ! ((#tokens("pl_P29_57")) <= (#tokens("pl_P304_81")))
+  end.
+Property Railroad-PT-100-CTLCardinality-7
+  "Automatically generated"
+  is:
+    ! A G ((#tokens("pl_P304_36")) <= (#tokens("pl_P309_1")))
+  end.
+Property Railroad-PT-100-CTLCardinality-8
+  "Automatically generated"
+  is:
+    ((E G ((! ((#tokens("pl_P29_55")) <= (#tokens("pl_P29_96")))) | (((((#tokens("pl_P141_1")) <= (#tokens("pl_P384_1")))) | (((#tokens("pl_P435_24")) <= (#tokens("pl_P96_1")))))))) | (((A G ((((3) <= (#tokens("pl_P351_1")))) | (((2) <= (#tokens("pl_P435_68")))))) & (A G ((#tokens("pl_P29_7")) <= (#tokens("pl_P218_9")))))))
+  end.
+Property Railroad-PT-100-CTLCardinality-9
+  "Automatically generated"
+  is:
+    E G E F ((((#tokens("pl_P467_1")) <= (#tokens("pl_P502_3")))) & (((#tokens("pl_P29_10")) <= (#tokens("pl_P218_2")))))
+  end.
+Property Railroad-PT-100-CTLCardinality-10
+  "Automatically generated"
+  is:
+    E F ((E G ((#tokens("pl_P50_1")) <= (#tokens("pl_P375_1")))) & (! ((((#tokens("pl_P250_1")) <= (#tokens("pl_P15_1")))) | (((3) <= (#tokens("pl_P435_1")))))))
+  end.
+Property Railroad-PT-100-CTLCardinality-11
+  "Automatically generated"
+  is:
+    E ((((((((2) <= (#tokens("pl_P435_92")))) & (((#tokens("pl_P218_24")) <= (#tokens("pl_P14_1")))))) | (((((#tokens("pl_P46_1")) <= (#tokens("pl_P435_100")))) & (((3) <= (#tokens("pl_P36_1")))))))) U (A F ((2) <= (#tokens("pl_P102_1")))))
+  end.
+Property Railroad-PT-100-CTLCardinality-12
+  "Automatically generated"
+  is:
+    A G ! ((1) <= (#tokens("pl_P29_34")))
+  end.
+Property Railroad-PT-100-CTLCardinality-13
+  "Automatically generated"
+  is:
+    E F A ((((1) <= (#tokens("pl_P304_19")))) U (((2) <= (#tokens("pl_P304_101")))))
+  end.
+Property Railroad-PT-100-CTLCardinality-14
+  "Automatically generated"
+  is:
+    ! E F ((((1) <= (#tokens("pl_P316_1")))) & (((3) <= (#tokens("pl_P435_56")))))
+  end.
+Property Railroad-PT-100-CTLCardinality-15
+  "Automatically generated"
+  is:
+    ((A G ((! ((1) <= (#tokens("pl_P252_1")))) | (! ((#tokens("pl_P341_1")) <= (#tokens("pl_P218_99")))))) | (((((((3) <= (#tokens("pl_P218_19")))) | (A G ((2) <= (#tokens("pl_P405_1")))))) & (((#tokens("pl_P502_29")) <= (#tokens("pl_P304_1")))))))
+  end.

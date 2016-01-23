@@ -1,0 +1,80 @@
+Property Kanban-PT-0500-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((((((#tokens("Pout4")) <= (#tokens("Pback1")))) | (((((3) <= (#tokens("Pback1")))) & (((#tokens("Pout4")) <= (#tokens("Pback1")))))))) | (! ! ((2) <= (#tokens("P3")))))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("Pback1")) <= (#tokens("Pback4")))) | (((1) <= (#tokens("P4")))))) | (! ((#tokens("Pout4")) <= (#tokens("Pback1")))))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ((! ((#tokens("P3")) <= (#tokens("Pm3")))) | (((! ((#tokens("Pm1")) <= (#tokens("Pm4")))) & (((((1) <= (#tokens("Pm4")))) & (((#tokens("Pm1")) <= (#tokens("Pout2")))))))))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((((((#tokens("Pback2")) <= (#tokens("P2")))) | (((((#tokens("P2")) <= (#tokens("Pout4")))) | (((#tokens("P3")) <= (#tokens("Pm1")))))))) & (! ((((#tokens("Pm3")) <= (#tokens("P2")))) | (((2) <= (#tokens("P1")))))))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ((((#tokens("Pback1")) <= (#tokens("P3")))) & (((((((#tokens("Pback2")) <= (#tokens("P1")))) | (((#tokens("P4")) <= (#tokens("Pback4")))))) | (((3) <= (#tokens("Pback3")))))))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ! ! ((((#tokens("Pm2")) <= (#tokens("Pout4")))) & (((3) <= (#tokens("Pback2")))))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ((2) <= (#tokens("P1")))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((! ((((3) <= (#tokens("Pm4")))) & (((#tokens("P3")) <= (#tokens("Pout4")))))) | (((((((#tokens("Pout1")) <= (#tokens("Pback4")))) & (((3) <= (#tokens("Pout1")))))) & (((((1) <= (#tokens("Pout3")))) & (((1) <= (#tokens("Pm4")))))))))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ! ((((((1) <= (#tokens("P4")))) | (((2) <= (#tokens("Pout2")))))) | (! ((#tokens("Pm3")) <= (#tokens("Pback3")))))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((((((((2) <= (#tokens("P2")))) | (((#tokens("Pm3")) <= (#tokens("Pm4")))))) & (((((2) <= (#tokens("Pout4")))) | (((2) <= (#tokens("Pm1")))))))) & (! ((((1) <= (#tokens("P1")))) | (((1) <= (#tokens("Pm3")))))))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ! ! ((((3) <= (#tokens("Pback3")))) | (((#tokens("Pout2")) <= (#tokens("P1")))))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((((((((3) <= (#tokens("Pback4")))) & (((1) <= (#tokens("Pout4")))))) | (((((1) <= (#tokens("P3")))) & (((2) <= (#tokens("Pm4")))))))) & (! ! ((#tokens("P2")) <= (#tokens("Pback3")))))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("Pback1")))) & (((#tokens("P3")) <= (#tokens("Pout4")))))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((! ! ((2) <= (#tokens("Pout1")))) | (! ((((3) <= (#tokens("Pout1")))) | (((1) <= (#tokens("P1")))))))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((((! ((2) <= (#tokens("P2")))) & (((((2) <= (#tokens("P2")))) & (((#tokens("Pback2")) <= (#tokens("Pout1")))))))) & (((1) <= (#tokens("Pm1")))))
+  end.
+Property Kanban-PT-0500-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("Pback1")) <= (#tokens("Pm3")))) | (((#tokens("Pback4")) <= (#tokens("Pback1")))))) & (((#tokens("Pm3")) <= (#tokens("Pout4")))))) | (((((3) <= (#tokens("Pm3")))) | (((#tokens("Pback2")) <= (#tokens("P4")))))))
+  end.

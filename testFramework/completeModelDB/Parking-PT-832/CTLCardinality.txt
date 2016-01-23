@@ -1,0 +1,80 @@
+Property Parking-PT-832-CTLCardinality-0
+  "Automatically generated"
+  is:
+    A F A X ((((1) <= (#tokens("p618")))) | (((3) <= (#tokens("p483")))))
+  end.
+Property Parking-PT-832-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ((((E ((((3) <= (#tokens("p23")))) U (((#tokens("p280")) <= (#tokens("p582")))))) | (((2) <= (#tokens("p379")))))) & (((((E F ((2) <= (#tokens("p460")))) | (! ((#tokens("p449")) <= (#tokens("p428")))))) | (((((((3) <= (#tokens("p260")))) & (! ((#tokens("p60")) <= (#tokens("p612")))))) & (((! ((#tokens("p256")) <= (#tokens("p275")))) & (((1) <= (#tokens("p27")))))))))))
+  end.
+Property Parking-PT-832-CTLCardinality-2
+  "Automatically generated"
+  is:
+    E ((((((((3) <= (#tokens("p17")))) & (((#tokens("p642")) <= (#tokens("p452")))))) | (((((#tokens("p190")) <= (#tokens("p27")))) & (((#tokens("p290")) <= (#tokens("p370")))))))) U (A G ((#tokens("p211")) <= (#tokens("p39")))))
+  end.
+Property Parking-PT-832-CTLCardinality-3
+  "Automatically generated"
+  is:
+    ((A X ((((#tokens("p243")) <= (#tokens("p582")))) | (((((#tokens("p2")) <= (#tokens("p69")))) | (((#tokens("p514")) <= (#tokens("p321")))))))) & (A G A F ((#tokens("p36")) <= (#tokens("p202")))))
+  end.
+Property Parking-PT-832-CTLCardinality-4
+  "Automatically generated"
+  is:
+    E F A G ((((2) <= (#tokens("p598")))) | (((1) <= (#tokens("p291")))))
+  end.
+Property Parking-PT-832-CTLCardinality-5
+  "Automatically generated"
+  is:
+    E F E F ((2) <= (#tokens("p2")))
+  end.
+Property Parking-PT-832-CTLCardinality-6
+  "Automatically generated"
+  is:
+    A G A ((((#tokens("p192")) <= (#tokens("p267")))) U (((#tokens("p171")) <= (#tokens("p540")))))
+  end.
+Property Parking-PT-832-CTLCardinality-7
+  "Automatically generated"
+  is:
+    E F ((! ! ((2) <= (#tokens("p292")))) | (((((((3) <= (#tokens("p472")))) | (((3) <= (#tokens("p629")))))) & (((((2) <= (#tokens("p507")))) | (((3) <= (#tokens("p102")))))))))
+  end.
+Property Parking-PT-832-CTLCardinality-8
+  "Automatically generated"
+  is:
+    ((((((E G ((#tokens("p47")) <= (#tokens("p135")))) | (((! ((#tokens("p55")) <= (#tokens("p511")))) | (((#tokens("p126")) <= (#tokens("p35")))))))) & (((((! ((1) <= (#tokens("p289")))) | (((1) <= (#tokens("p543")))))) | (((((#tokens("p607")) <= (#tokens("p149")))) | (! ((#tokens("p229")) <= (#tokens("p536")))))))))) & (A G ((((2) <= (#tokens("p410")))) | (! ((1) <= (#tokens("p211")))))))
+  end.
+Property Parking-PT-832-CTLCardinality-9
+  "Automatically generated"
+  is:
+    A G ((#tokens("p493")) <= (#tokens("p401")))
+  end.
+Property Parking-PT-832-CTLCardinality-10
+  "Automatically generated"
+  is:
+    A F ((((((((1) <= (#tokens("p27")))) | (((1) <= (#tokens("p482")))))) & (((((2) <= (#tokens("p66")))) | (((3) <= (#tokens("p672")))))))) | (! ! ((3) <= (#tokens("p518")))))
+  end.
+Property Parking-PT-832-CTLCardinality-11
+  "Automatically generated"
+  is:
+    A F ((1) <= (#tokens("p551")))
+  end.
+Property Parking-PT-832-CTLCardinality-12
+  "Automatically generated"
+  is:
+    E G A X ((((#tokens("p576")) <= (#tokens("p521")))) | (((#tokens("p682")) <= (#tokens("p18")))))
+  end.
+Property Parking-PT-832-CTLCardinality-13
+  "Automatically generated"
+  is:
+    E F E G ! ((2) <= (#tokens("p35")))
+  end.
+Property Parking-PT-832-CTLCardinality-14
+  "Automatically generated"
+  is:
+    ! A F E G ((#tokens("p531")) <= (#tokens("p382")))
+  end.
+Property Parking-PT-832-CTLCardinality-15
+  "Automatically generated"
+  is:
+    A F ((((1) <= (#tokens("p344")))) & (((((1) <= (#tokens("p446")))) | (! ((#tokens("p629")) <= (#tokens("p608")))))))
+  end.

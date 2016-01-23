@@ -1,0 +1,80 @@
+Property CircadianClock-PT-100000-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G X (("deactive"?) U (X "bind_a"?))
+  end.
+Property CircadianClock-PT-100000-LTLFireability-1
+  "Automatically generated"
+  is:
+    A G X (("rel_r"?) U ("deactive"?))
+  end.
+Property CircadianClock-PT-100000-LTLFireability-2
+  "Automatically generated"
+  is:
+    A F ((G "transc_dr_a"?) U (F "deg_mr"?))
+  end.
+Property CircadianClock-PT-100000-LTLFireability-3
+  "Automatically generated"
+  is:
+    A G ((X F "transl_a"?) U (F X "bind_a"?))
+  end.
+Property CircadianClock-PT-100000-LTLFireability-4
+  "Automatically generated"
+  is:
+    A G X F G F "deg_mr"?
+  end.
+Property CircadianClock-PT-100000-LTLFireability-5
+  "Automatically generated"
+  is:
+    A G X X F X "deg_mr"?
+  end.
+Property CircadianClock-PT-100000-LTLFireability-6
+  "Automatically generated"
+  is:
+    A G (((("transl_r"?) U ("bind_a"?))) U (X F "deg_mr"?))
+  end.
+Property CircadianClock-PT-100000-LTLFireability-7
+  "Automatically generated"
+  is:
+    A G ((F X "transl_a"?) U (G X "transl_r"?))
+  end.
+Property CircadianClock-PT-100000-LTLFireability-8
+  "Automatically generated"
+  is:
+    A ((G F F "rel_r"?) U (X F X "transl_r"?))
+  end.
+Property CircadianClock-PT-100000-LTLFireability-9
+  "Automatically generated"
+  is:
+    A G X F "transl_a"?
+  end.
+Property CircadianClock-PT-100000-LTLFireability-10
+  "Automatically generated"
+  is:
+    A F G G G X "bind_r"?
+  end.
+Property CircadianClock-PT-100000-LTLFireability-11
+  "Automatically generated"
+  is:
+    A X X G (("deg_ma"?) U ("transc_dr_a"?))
+  end.
+Property CircadianClock-PT-100000-LTLFireability-12
+  "Automatically generated"
+  is:
+    A G X G G G "deg_r"?
+  end.
+Property CircadianClock-PT-100000-LTLFireability-13
+  "Automatically generated"
+  is:
+    A ((((F "transl_r"?) U (F "rel_r"?))) U ("transc_dr"?))
+  end.
+Property CircadianClock-PT-100000-LTLFireability-14
+  "Automatically generated"
+  is:
+    A G F ((X "deg_ma"?) U (X "deg_a"?))
+  end.
+Property CircadianClock-PT-100000-LTLFireability-15
+  "Automatically generated"
+  is:
+    A F X G (("transc_da"?) U ("rel_r"?))
+  end.

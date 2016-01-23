@@ -1,0 +1,80 @@
+Property SquareGrid-PT-020102-CTLFireability-0
+  "Automatically generated"
+  is:
+    E G ((A G (("t2i1.2.1"?) & ("t2i1.2.1"?))) | (((! (("t2i4.2.1"?) & ("t1i2.1.1"?))) | ((("t1i3.2.2"?) | ((("t2i3.2.2"?) | ("t1i2.1.2"?))))))))
+  end.
+Property SquareGrid-PT-020102-CTLFireability-1
+  "Automatically generated"
+  is:
+    E G (((((((("tf-u.2"?) | ("tf-l.1"?))) | ((("t2i4.1.1"?) & ("t3o.1.1"?))))) & (A G "t3i2.1.1"?))) | (E (("t4i1.1.2"?) U ("t4o.1.1"?))))
+  end.
+Property SquareGrid-PT-020102-CTLFireability-2
+  "Automatically generated"
+  is:
+    A F ((E F (("t4i1.1.1"?) | ("t2i4.2.2"?))) & ("t3i1.2.2"?))
+  end.
+Property SquareGrid-PT-020102-CTLFireability-3
+  "Automatically generated"
+  is:
+    ! E F A G "tf-l.1"?
+  end.
+Property SquareGrid-PT-020102-CTLFireability-4
+  "Automatically generated"
+  is:
+    A G A F "t2o.2.1"?
+  end.
+Property SquareGrid-PT-020102-CTLFireability-5
+  "Automatically generated"
+  is:
+    E G ((! (("t4i3.2.2"?) & ((("t1i4.2.2"?) & ("tf-u.1"?))))) | (A X (("t4i1.2.2"?) & ("t2i3.2.2"?))))
+  end.
+Property SquareGrid-PT-020102-CTLFireability-6
+  "Automatically generated"
+  is:
+    ((((((A X (("t4i2.1.1"?) | ("t1i4.2.2"?))) | (A F (("t2i4.1.2"?) & ("t3i1.1.1"?))))) & (((((! (("t3o.1.2"?) & ("t2i3.2.2"?))) & ((((("t2i4.2.2"?) | ("t1o.1.1"?))) & (! "t2i4.2.2"?))))) | (A (("t3i1.1.2"?) U ("t3i2.2.1"?))))))) | (! ((A X (("t1o.1.1"?) | ("tf-u.1"?))) | (! A X "t4i3.2.2"?))))
+  end.
+Property SquareGrid-PT-020102-CTLFireability-7
+  "Automatically generated"
+  is:
+    ((E F A X (("t1o.2.2"?) & ("t2i3.2.2"?))) & (A F A F (("t3o.2.1"?) & ("tf-l.1"?))))
+  end.
+Property SquareGrid-PT-020102-CTLFireability-8
+  "Automatically generated"
+  is:
+    ((((((((A X "tf-l.2"?) & (((! "t4i3.1.1"?) & ((("tf-d.2"?) | ("tf-d.1"?))))))) & (A G (("t1i3.1.2"?) & ("t3i1.2.1"?))))) & (A (((("t4i2.1.1"?) | ("tf-u.1"?))) U ((("tf-l.1"?) | ("t2o.2.1"?))))))) | (((E G "t1i2.1.2"?) | (! ((! ! "t4i1.2.2"?) | (A F "t1i3.1.1"?))))))
+  end.
+Property SquareGrid-PT-020102-CTLFireability-9
+  "Automatically generated"
+  is:
+    ((E G E G "t4o.2.2"?) | (A F "tf-l.2"?))
+  end.
+Property SquareGrid-PT-020102-CTLFireability-10
+  "Automatically generated"
+  is:
+    E G ! ((E F "t2i3.2.1"?) & ((("t3i2.2.1"?) & ((("t4o.2.1"?) & ("t4i3.2.1"?))))))
+  end.
+Property SquareGrid-PT-020102-CTLFireability-11
+  "Automatically generated"
+  is:
+    (((("t4o.1.2"?) & (A F (((("t2i3.2.2"?) & ("tf-l.1"?))) | ((("t2i4.1.1"?) | ("tf-r.1"?))))))) | (! ! E G "t4i2.1.2"?))
+  end.
+Property SquareGrid-PT-020102-CTLFireability-12
+  "Automatically generated"
+  is:
+    E G ((((((! "tf-u.1"?) | ("t1i3.2.2"?))) & ((((("t2o.2.2"?) & ("tf-u.2"?))) & ((("t4i1.1.2"?) & ("tf-r.2"?))))))) | (((! (("t4i3.2.2"?) | ("t2i1.1.2"?))) | ((((("t2i3.2.1"?) & ("t4i2.1.2"?))) & ((("t3o.1.2"?) | ("tf-u.1"?))))))))
+  end.
+Property SquareGrid-PT-020102-CTLFireability-13
+  "Automatically generated"
+  is:
+    A F E G ((! "t4i2.2.2"?) & ("t4i2.1.2"?))
+  end.
+Property SquareGrid-PT-020102-CTLFireability-14
+  "Automatically generated"
+  is:
+    ! A ((A F "tf-u.1"?) U ("t4i1.1.2"?))
+  end.
+Property SquareGrid-PT-020102-CTLFireability-15
+  "Automatically generated"
+  is:
+    ((E F (("t3i2.1.1"?) & ((((("t4i1.1.1"?) | ("t3i2.1.1"?))) & ((("tf-u.2"?) & ("t1i2.1.2"?))))))) | ("t1i4.1.2"?))
+  end.

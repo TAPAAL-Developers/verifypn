@@ -1,0 +1,80 @@
+Property Solitaire-PT-SqrNC5x5-LTLFireability-0
+  "Automatically generated"
+  is:
+    A X "right65"?
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-1
+  "Automatically generated"
+  is:
+    A G F ((X "left65"?) U (F "up34"?))
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-2
+  "Automatically generated"
+  is:
+    A X X ((G "left63"?) U (G "left46"?))
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-3
+  "Automatically generated"
+  is:
+    A "right36"?
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-4
+  "Automatically generated"
+  is:
+    A "left23"?
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-5
+  "Automatically generated"
+  is:
+    A F F F G F "right35"?
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-6
+  "Automatically generated"
+  is:
+    A ((X G "left43"?) U (X X F "left63"?))
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X G ((X "down24"?) U (F "left52"?))
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-8
+  "Automatically generated"
+  is:
+    A G X F (("right42"?) U ("down64"?))
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-9
+  "Automatically generated"
+  is:
+    A (("down65"?) U ("down54"?))
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-10
+  "Automatically generated"
+  is:
+    A "right54"?
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-11
+  "Automatically generated"
+  is:
+    A G (((("right42"?) U ("left46"?))) U (X G "up52"?))
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-12
+  "Automatically generated"
+  is:
+    A ((((X "down63"?) U (F "down46"?))) U (((X "down64"?) U (X "down24"?))))
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-13
+  "Automatically generated"
+  is:
+    A X X X F X "left33"?
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-14
+  "Automatically generated"
+  is:
+    A ((F X F "down34"?) U ("down34"?))
+  end.
+Property Solitaire-PT-SqrNC5x5-LTLFireability-15
+  "Automatically generated"
+  is:
+    A "down24"?
+  end.

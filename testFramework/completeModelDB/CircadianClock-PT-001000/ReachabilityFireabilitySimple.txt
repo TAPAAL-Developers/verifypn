@@ -1,0 +1,80 @@
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A G "deg_mr"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A G "bind_a"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "transc_dr"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A G "deg_c"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A G "transc_dr_a"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "transc_dr_a"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A G "deg_mr"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A G "deg_ma"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "bind_r"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A G "transl_r"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "deg_c"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "transc_da"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A G "transc_da"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "rel_a"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A G "transc_da"?
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A G "transc_dr"?
+  end.

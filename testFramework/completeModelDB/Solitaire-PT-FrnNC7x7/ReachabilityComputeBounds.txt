@@ -1,0 +1,80 @@
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("T74")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("T43")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("T56")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("F52")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("F14")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("T35")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("F45")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("T66")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("F22")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("F75")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("F63")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("T64")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("T65")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("T54")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("T65")
+  end.
+Property Solitaire-PT-FrnNC7x7-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("T24")
+  end.

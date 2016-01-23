@@ -1,0 +1,80 @@
+Property Dekker-PT-050-CTLCardinality-0
+  "Automatically generated"
+  is:
+    A F A F ((#tokens("flag=0/33")) <= (#tokens("p3/28")))
+  end.
+Property Dekker-PT-050-CTLCardinality-1
+  "Automatically generated"
+  is:
+    E G A F ! ((#tokens("flag=0/18")) <= (#tokens("flag=0/19")))
+  end.
+Property Dekker-PT-050-CTLCardinality-2
+  "Automatically generated"
+  is:
+    A X E F ((((#tokens("p0/0")) <= (#tokens("p3/22")))) | (((#tokens("p0/17")) <= (#tokens("p0/13")))))
+  end.
+Property Dekker-PT-050-CTLCardinality-3
+  "Automatically generated"
+  is:
+    A G E X ((#tokens("p0/24")) <= (#tokens("p0/49")))
+  end.
+Property Dekker-PT-050-CTLCardinality-4
+  "Automatically generated"
+  is:
+    ((A X E X ((#tokens("p0/23")) <= (#tokens("p0/48")))) & (((1) <= (#tokens("flag=0/43")))))
+  end.
+Property Dekker-PT-050-CTLCardinality-5
+  "Automatically generated"
+  is:
+    E G ((((((((#tokens("flag=0/32")) <= (#tokens("p3/19")))) | (((1) <= (#tokens("p0/2")))))) | (((#tokens("p1/26")) <= (#tokens("p1/33")))))) & (! ((((1) <= (#tokens("p3/6")))) & (((#tokens("p1/27")) <= (#tokens("p1/25")))))))
+  end.
+Property Dekker-PT-050-CTLCardinality-6
+  "Automatically generated"
+  is:
+    ((((E G ! ((2) <= (#tokens("p3/20")))) & (! ((((((#tokens("flag=1/34")) <= (#tokens("p1/18")))) & (((1) <= (#tokens("p1/40")))))) & (! ((#tokens("p0/17")) <= (#tokens("p1/6")))))))) & (A F ((1) <= (#tokens("p3/16")))))
+  end.
+Property Dekker-PT-050-CTLCardinality-7
+  "Automatically generated"
+  is:
+    A ((A F ((3) <= (#tokens("p0/49")))) U (((1) <= (#tokens("p3/23")))))
+  end.
+Property Dekker-PT-050-CTLCardinality-8
+  "Automatically generated"
+  is:
+    A F ((((((#tokens("flag=0/27")) <= (#tokens("flag=0/14")))) & (((((#tokens("p1/14")) <= (#tokens("p1/10")))) | (((#tokens("p1/6")) <= (#tokens("flag=0/28")))))))) & (((((((2) <= (#tokens("p1/33")))) & (((#tokens("flag=1/30")) <= (#tokens("flag=1/17")))))) & (((((#tokens("p3/4")) <= (#tokens("p1/30")))) & (((#tokens("p0/33")) <= (#tokens("p3/22")))))))))
+  end.
+Property Dekker-PT-050-CTLCardinality-9
+  "Automatically generated"
+  is:
+    E G E ((((3) <= (#tokens("p3/38")))) U (((#tokens("p0/20")) <= (#tokens("p0/8")))))
+  end.
+Property Dekker-PT-050-CTLCardinality-10
+  "Automatically generated"
+  is:
+    ((((A X ! ((1) <= (#tokens("flag=1/7")))) | (((E G ((#tokens("p3/32")) <= (#tokens("flag=0/7")))) | (((((((2) <= (#tokens("p0/47")))) | (((2) <= (#tokens("p3/9")))))) & (((((#tokens("p3/42")) <= (#tokens("p3/19")))) | (((#tokens("p0/30")) <= (#tokens("flag=0/49")))))))))))) | (((((E X ((3) <= (#tokens("p0/26")))) | (((! ((#tokens("flag=1/18")) <= (#tokens("p1/23")))) | (((#tokens("flag=1/25")) <= (#tokens("p1/16")))))))) & (E G ((((#tokens("flag=0/25")) <= (#tokens("p3/35")))) | (((1) <= (#tokens("flag=0/29")))))))))
+  end.
+Property Dekker-PT-050-CTLCardinality-11
+  "Automatically generated"
+  is:
+    E G ! ((((((#tokens("p3/8")) <= (#tokens("p3/18")))) & (((3) <= (#tokens("p0/26")))))) | (((((#tokens("p1/5")) <= (#tokens("p1/34")))) & (((3) <= (#tokens("p0/5")))))))
+  end.
+Property Dekker-PT-050-CTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((E G ((#tokens("p3/42")) <= (#tokens("flag=0/48")))) U (A X ((#tokens("flag=1/7")) <= (#tokens("p3/42")))))
+  end.
+Property Dekker-PT-050-CTLCardinality-13
+  "Automatically generated"
+  is:
+    ((E G A F ((3) <= (#tokens("p0/45")))) & (E X A G ((#tokens("flag=1/42")) <= (#tokens("p0/30")))))
+  end.
+Property Dekker-PT-050-CTLCardinality-14
+  "Automatically generated"
+  is:
+    A G ((((3) <= (#tokens("flag=1/29")))) | (((((((#tokens("p3/37")) <= (#tokens("flag=0/25")))) | (((3) <= (#tokens("p3/3")))))) | (! ((3) <= (#tokens("flag=1/27")))))))
+  end.
+Property Dekker-PT-050-CTLCardinality-15
+  "Automatically generated"
+  is:
+    ((((((((((#tokens("flag=0/47")) <= (#tokens("p0/35")))) & (((((#tokens("flag=1/4")) <= (#tokens("flag=1/47")))) & (((#tokens("flag=0/0")) <= (#tokens("p0/14")))))))) | (((1) <= (#tokens("flag=0/23")))))) & (((2) <= (#tokens("flag=0/3")))))) | (E G ((1) <= (#tokens("p0/42")))))
+  end.

@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D05N010-LTLFireability-0
+  "Automatically generated"
+  is:
+    A X F ((X "t1_4_5_5_4"?) U (G "t1_3_2_4_2"?))
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-1
+  "Automatically generated"
+  is:
+    A G ((X G "t1_1_4_2_4"?) U ("t1_1_4_2_3"?))
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-2
+  "Automatically generated"
+  is:
+    A F F F (("t1_3_1_2_1"?) U ("t1_3_1_3_2"?))
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X ((X F "t1_1_2_2_1"?) U (G F "t1_3_3_3_4"?))
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-4
+  "Automatically generated"
+  is:
+    A "t1_4_1_4_2"?
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-5
+  "Automatically generated"
+  is:
+    A X X (("t1_3_4_3_3"?) U (G "t1_3_4_2_3"?))
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-6
+  "Automatically generated"
+  is:
+    A "t1_4_5_3_4"?
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-7
+  "Automatically generated"
+  is:
+    A (("t1_3_2_4_1"?) U (G X F "t1_4_2_5_3"?))
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-8
+  "Automatically generated"
+  is:
+    A X F F (("t1_1_5_2_5"?) U ("t1_2_2_2_3"?))
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-9
+  "Automatically generated"
+  is:
+    A "t1_5_1_4_1"?
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-10
+  "Automatically generated"
+  is:
+    A X F ((G "t1_1_1_2_2"?) U (X "t1_4_4_3_5"?))
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-11
+  "Automatically generated"
+  is:
+    A G (((("t1_3_2_4_3"?) U ("t1_4_3_5_4"?))) U (X X "t1_2_1_1_2"?))
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-12
+  "Automatically generated"
+  is:
+    A ((X (("t1_2_2_3_3"?) U ("t1_2_3_2_2"?))) U ("t1_5_3_4_4"?))
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-13
+  "Automatically generated"
+  is:
+    A (("t1_3_5_2_4"?) U ((("t1_4_2_3_3"?) U (G "t1_3_3_2_4"?))))
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-14
+  "Automatically generated"
+  is:
+    A X "t1_3_3_2_4"?
+  end.
+Property Diffusion2D-PT-D05N010-LTLFireability-15
+  "Automatically generated"
+  is:
+    A "t1_1_5_2_4"?
+  end.

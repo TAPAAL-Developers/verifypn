@@ -1,0 +1,80 @@
+Property CircularTrains-PT-384-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((((bound("Section_319")) <= (3))) & (((bound("Section_71")) <= (3))))) & (((bound("F14")) <= (3))))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((((((bound("Section_375")) <= (3))) & (((bound("F179")) <= (2))))) & (((((bound("Section_263")) <= (1))) & (((bound("F208")) <= (2))))))) & (((((bound("Section_5")) <= (1))) & (((bound("F14")) <= (2))))))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("Section_48")) <= (1))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((((bound("Section_180")) <= (2))) & (((((bound("Section_202")) <= (1))) & (((bound("F77")) <= (2))))))) & (((bound("Section_225")) <= (2))))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((((bound("Section_359")) <= (3))) & (((bound("F252")) <= (3))))) & (((bound("Section_63")) <= (3))))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((((bound("Section_364")) <= (1))) & (((((bound("Section_252")) <= (1))) & (((((((((bound("Section_163")) <= (1))) & (((bound("F21")) <= (3))))) & (((((bound("Section_46")) <= (2))) & (((bound("F13")) <= (3))))))) & (((((((bound("Section_1")) <= (2))) & (((bound("Section_135")) <= (3))))) & (((((bound("F294")) <= (1))) & (((bound("Section_158")) <= (3))))))))))))) & (((bound("Section_259")) <= (1))))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("F122")) <= (2))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("F22")) <= (3))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("Section_376")) <= (3))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((bound("Section_308")) <= (3))) & (((((bound("Section_219")) <= (2))) & (((bound("Section_327")) <= (1))))))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((((bound("Section_73")) <= (2))) & (((bound("Section_13")) <= (2))))) & (((bound("F278")) <= (2))))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("F364")) <= (2))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((bound("F314")) <= (1))) & (((bound("Section_301")) <= (2))))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((((((bound("F146")) <= (1))) & (((((((bound("F94")) <= (2))) & (((((bound("Section_274")) <= (3))) & (((bound("F34")) <= (1))))))) & (((((((bound("F118")) <= (3))) & (((bound("Section_37")) <= (1))))) & (((bound("F11")) <= (3))))))))) & (((bound("F23")) <= (3))))) & (((((((bound("Section_103")) <= (3))) & (((((bound("F334")) <= (2))) & (((((bound("Section_164")) <= (2))) & (((bound("F247")) <= (2))))))))) & (((bound("Section_83")) <= (2))))))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("Section_36")) <= (1))
+  end.
+Property CircularTrains-PT-384-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("F353")) <= (1))
+  end.

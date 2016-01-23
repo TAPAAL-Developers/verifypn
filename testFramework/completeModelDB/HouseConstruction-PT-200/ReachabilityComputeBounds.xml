@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p17</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p18</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p11</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p14</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p4</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p13</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p13</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p8</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p8</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p16</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p17</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p8</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p6</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p19</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HouseConstruction-PT-200-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p20</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

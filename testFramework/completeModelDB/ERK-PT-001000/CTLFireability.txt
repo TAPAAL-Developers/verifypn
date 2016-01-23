@@ -1,0 +1,80 @@
+Property ERK-PT-001000-CTLFireability-0
+  "Automatically generated"
+  is:
+    A G ((! ((! "r10"?) & (! "r1"?))) | (E X (("r3"?) | ("r5"?))))
+  end.
+Property ERK-PT-001000-CTLFireability-1
+  "Automatically generated"
+  is:
+    A F E ((! "r3"?) U ((("r4"?) & ("r3"?))))
+  end.
+Property ERK-PT-001000-CTLFireability-2
+  "Automatically generated"
+  is:
+    ((E G "r10"?) | (E ((A F "r6"?) U ((("r4"?) & (! "r5"?))))))
+  end.
+Property ERK-PT-001000-CTLFireability-3
+  "Automatically generated"
+  is:
+    A G ! ((A G "r6"?) & (A F "r9"?))
+  end.
+Property ERK-PT-001000-CTLFireability-4
+  "Automatically generated"
+  is:
+    A G A G "r1"?
+  end.
+Property ERK-PT-001000-CTLFireability-5
+  "Automatically generated"
+  is:
+    ((((E F (((("r11"?) & ("r1"?))) & (! "r1"?))) | (A G ! ! "r9"?))) | (A ((A F "r9"?) U (! "r6"?))))
+  end.
+Property ERK-PT-001000-CTLFireability-6
+  "Automatically generated"
+  is:
+    E X E (((("r7"?) | ("r3"?))) U (! "r6"?))
+  end.
+Property ERK-PT-001000-CTLFireability-7
+  "Automatically generated"
+  is:
+    E G A G E F "r7"?
+  end.
+Property ERK-PT-001000-CTLFireability-8
+  "Automatically generated"
+  is:
+    ((! A G "r1"?) | ("r3"?))
+  end.
+Property ERK-PT-001000-CTLFireability-9
+  "Automatically generated"
+  is:
+    E F A G "r9"?
+  end.
+Property ERK-PT-001000-CTLFireability-10
+  "Automatically generated"
+  is:
+    ! E F ((E G "r10"?) & (A G "r2"?))
+  end.
+Property ERK-PT-001000-CTLFireability-11
+  "Automatically generated"
+  is:
+    E X ! (("r6"?) & (A G "r1"?))
+  end.
+Property ERK-PT-001000-CTLFireability-12
+  "Automatically generated"
+  is:
+    ! E F A G (("r1"?) & ("r11"?))
+  end.
+Property ERK-PT-001000-CTLFireability-13
+  "Automatically generated"
+  is:
+    A G ((((((! "r9"?) & ("r7"?))) | (((! "r8"?) | (! "r6"?))))) | (A F "r9"?))
+  end.
+Property ERK-PT-001000-CTLFireability-14
+  "Automatically generated"
+  is:
+    E F ((((A X "r7"?) | (A G "r1"?))) & (! E F "r8"?))
+  end.
+Property ERK-PT-001000-CTLFireability-15
+  "Automatically generated"
+  is:
+    A F E (("r8"?) U ((("r9"?) & ("r1"?))))
+  end.

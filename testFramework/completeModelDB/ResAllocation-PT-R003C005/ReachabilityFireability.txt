@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R003C005-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    A G ! (("t_2_1"?) & ((("t_4_3"?) & ("t_4_2"?))))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    A G ! (((((("t_3_2"?) | ("t_3_0"?))) | ((("t_1_3"?) & ("t_0_2"?))))) & (! (("t_3_0"?) | ("t_3_0"?))))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F ((((((! "t_2_2"?) & ((("t_0_2"?) & ("t_3_1"?))))) & ("t_3_2"?))) & ("t_4_0"?))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    A G (((((((("t_2_0"?) | ("t_4_1"?))) | ("t_1_0"?))) | (! ! "t_1_2"?))) | (! (((("t_2_0"?) & ("t_1_0"?))) & ((("t_3_0"?) & ("t_0_2"?))))))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F (("t_3_1"?) & ("t_3_0"?))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G (((((((("t_2_3"?) | ("t_4_0"?))) | ((("t_4_2"?) & ("t_1_2"?))))) | ((((("t_4_3"?) & ("t_3_0"?))) | (! "t_4_0"?))))) | ((("t_1_2"?) | (! ! "t_3_2"?))))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F ! ! (((("t_2_2"?) & ("t_1_0"?))) & ("t_2_2"?))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G ((((! (("t_4_3"?) & ("t_0_1"?))) | (! (("t_3_0"?) | ("t_3_3"?))))) | (! "t_2_1"?))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    A G ((! ((! "t_3_2"?) & (! "t_1_2"?))) | (! (((("t_1_1"?) | ("t_4_1"?))) & ((("t_0_3"?) & ("t_3_1"?))))))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F ! ((! (("t_2_0"?) | ("t_3_1"?))) | (! (("t_4_2"?) & ("t_1_0"?))))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F ! (("t_2_2"?) | (! (("t_2_2"?) & ("t_2_1"?))))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F (((((((("t_4_2"?) | ("t_3_2"?))) & (! "t_3_3"?))) & (((! "t_0_0"?) & ((("t_4_3"?) | ("t_4_2"?))))))) & (((((! "t_4_2"?) | ("t_1_1"?))) | ("t_3_1"?))))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F ((((! ! "t_0_2"?) | (((! "t_1_1"?) & ("t_4_3"?))))) & (((((! "t_0_1"?) & ("t_4_2"?))) & ((((("t_4_3"?) | ("t_3_3"?))) & ((("t_1_0"?) & ("t_2_0"?))))))))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F ((! ! (("t_4_3"?) & ("t_4_3"?))) | (! "t_1_2"?))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F ! (("t_1_1"?) & ("t_4_3"?))
+  end.
+Property ResAllocation-PT-R003C005-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F "t_3_3"?
+  end.

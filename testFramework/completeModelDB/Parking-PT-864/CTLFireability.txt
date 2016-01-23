@@ -1,0 +1,80 @@
+Property Parking-PT-864-CTLFireability-0
+  "Automatically generated"
+  is:
+    A (("t271"?) U (((E F "t803"?) | ((("t734"?) & (! "t1204"?))))))
+  end.
+Property Parking-PT-864-CTLFireability-1
+  "Automatically generated"
+  is:
+    ((((((((E G "t235"?) & ((("t1226"?) | ((("t190"?) & ("t1395"?))))))) | (! ((! "t1052"?) | ((("t645"?) & ("t1050"?))))))) | (E F "t599"?))) | (! ! A F (("t1606"?) | ("t1256"?))))
+  end.
+Property Parking-PT-864-CTLFireability-2
+  "Automatically generated"
+  is:
+    ((((((A F "t114"?) & (! (((("t907"?) | ("t966"?))) & (! "t1414"?))))) & (! "t416"?))) | (A X (("t1312"?) | (E G "t1373"?))))
+  end.
+Property Parking-PT-864-CTLFireability-3
+  "Automatically generated"
+  is:
+    A G ! A G ! "t727"?
+  end.
+Property Parking-PT-864-CTLFireability-4
+  "Automatically generated"
+  is:
+    ((! ((A F "t732"?) & (((! (("t1509"?) & ("t706"?))) & (A F "t1062"?))))) & (E ((! (("t1582"?) & ("t1215"?))) U ("t836"?))))
+  end.
+Property Parking-PT-864-CTLFireability-5
+  "Automatically generated"
+  is:
+    ((A G E X "t338"?) | (A X E G (("t948"?) | ("t1270"?))))
+  end.
+Property Parking-PT-864-CTLFireability-6
+  "Automatically generated"
+  is:
+    E X E G ! "t132"?
+  end.
+Property Parking-PT-864-CTLFireability-7
+  "Automatically generated"
+  is:
+    A F E G ! (("t844"?) | ("t842"?))
+  end.
+Property Parking-PT-864-CTLFireability-8
+  "Automatically generated"
+  is:
+    ! ((((E G ! "t554"?) | (! ! "t720"?))) | (E X "t596"?))
+  end.
+Property Parking-PT-864-CTLFireability-9
+  "Automatically generated"
+  is:
+    ((((E G ! (("t1077"?) & ("t1233"?))) | (E G (("t1121"?) & ((("t770"?) | ("t1543"?))))))) | (A X E F (("t1541"?) & ("t758"?))))
+  end.
+Property Parking-PT-864-CTLFireability-10
+  "Automatically generated"
+  is:
+    E X A F ! (("t406"?) | ("t1417"?))
+  end.
+Property Parking-PT-864-CTLFireability-11
+  "Automatically generated"
+  is:
+    E F A G E G "t1694"?
+  end.
+Property Parking-PT-864-CTLFireability-12
+  "Automatically generated"
+  is:
+    E X E F A G "t352"?
+  end.
+Property Parking-PT-864-CTLFireability-13
+  "Automatically generated"
+  is:
+    ((E G A G ! "t1399"?) | (((! (("t969"?) & (((! "t1633"?) | ((("t311"?) & ("t159"?))))))) & (E (((("t804"?) | ("t96"?))) U ((("t1251"?) & ("t863"?))))))))
+  end.
+Property Parking-PT-864-CTLFireability-14
+  "Automatically generated"
+  is:
+    ! E G A F (("t710"?) | ("t1388"?))
+  end.
+Property Parking-PT-864-CTLFireability-15
+  "Automatically generated"
+  is:
+    A G E ((! "t246"?) U ((("t941"?) & ("t996"?))))
+  end.

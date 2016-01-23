@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p86</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p60</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p62</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p27</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p20</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p94</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p78</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p57</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p99</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p34</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p13</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p17</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p9</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p67</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p49</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Eratosthenes-PT-100-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p37</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

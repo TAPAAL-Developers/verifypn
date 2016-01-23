@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p3_5</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>DeliveryNote_p22_14</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p5_2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p6_7</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p11_13</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p6_5</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Organization_p22_2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>PaymentNote_p21_13</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p10_0</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Organization_p20_7</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p2_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p3_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>ConsumerDelivery_p6_0</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p3_6</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>DeliveryResponse_p12_6</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p4_5</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

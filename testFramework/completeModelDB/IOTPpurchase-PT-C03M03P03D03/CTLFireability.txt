@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-0
+  "Automatically generated"
+  is:
+    A G ((A F "WhatDeliverDecision.t6.0"?) | (((A X "PutDeliveryResponse.t8.2"?) & ((((("BrandDecision.t4.1"?) | ("CheckOffer.t3"?))) | (! "t5.4"?))))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-1
+  "Automatically generated"
+  is:
+    ((A X ! (("CheckDeliveryRequest.t8.1"?) & ((("GetDeliveryRequest.t8.0"?) | ("GetDeliveryRequest.t8.0"?))))) & (A F E (("BrandDecision.t4.1"?) U ("PutDeliveryRequest.t6.4"?))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-2
+  "Automatically generated"
+  is:
+    A X E G A F "t5.4"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-3
+  "Automatically generated"
+  is:
+    ! E G ! E X "CheckDeliveryNote.t6.6"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-4
+  "Automatically generated"
+  is:
+    E ((E F (("PutBrandList.t4.2"?) | ("t8.4"?))) U (E F (("t6.7"?) & ("CheckRequest.t2"?))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-5
+  "Automatically generated"
+  is:
+    A ((! (("GetDeliveryResponse.t6.5"?) | ("PutBrandList.t4.2"?))) U (A G ! "CheckDeliveryInfo.t6.3"?))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-6
+  "Automatically generated"
+  is:
+    A ((A F "PutBrandList.t4.2"?) U (E G (("CheckDeliveryNote.t6.6"?) | ("GetBrandList.t3.2"?))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-7
+  "Automatically generated"
+  is:
+    E G ((! A X "GetDeliveryRequest.t8.0"?) | (! (((("GetPaidFor.t4.0"?) & ("PaymentExchange.t3.8"?))) | ((("PutOfferRequest.t1"?) & ("CheckPaymentReseitp.t3.10"?))))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-8
+  "Automatically generated"
+  is:
+    E ((A (("PaymentExchange.t5.2"?) U ("MakeChoice.t1"?))) U ("t6.7"?))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-9
+  "Automatically generated"
+  is:
+    ((! E F A X "PutHowDeliver.t7.2"?) | (A F A G "GetOfferRequest.t2"?))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-10
+  "Automatically generated"
+  is:
+    A F ((! "SelectBrand.t3.3"?) & (E G (("PutOfferResponse.t2"?) | ("PutWhatDeliver.t6.1"?))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-11
+  "Automatically generated"
+  is:
+    ! ((E G E F "PutDeliveryRequest.t6.4"?) | (E G "PutOfferResponse.t2"?))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-12
+  "Automatically generated"
+  is:
+    A F (("SelectBrand.t3.3"?) | (E F (("PutPaymentRequest.t3.7"?) & ("PaymentResponse.t5.3"?))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-13
+  "Automatically generated"
+  is:
+    E G A (((("CheckOffer.t3"?) & ("PaymentExchange.t5.2"?))) U ((("PaymentResponse.t5.3"?) | ("PaymentResponse.t5.3"?))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-14
+  "Automatically generated"
+  is:
+    A F ((((! ! "t7.4"?) & (! (("t5.4"?) & ("PutDeliveryRequest.t6.4"?))))) & (A G (("t8.4"?) | ("CheckOffer.t3"?))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireability-15
+  "Automatically generated"
+  is:
+    E G ! ! ! "t7.4"?
+  end.

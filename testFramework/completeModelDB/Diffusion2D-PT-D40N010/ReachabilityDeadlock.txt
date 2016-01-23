@@ -1,0 +1,5 @@
+Property Diffusion2D-PT-D40N010-ReachabilityDeadlock-0
+  "Automatically generated"
+  is:
+    E F deadlock
+  end.

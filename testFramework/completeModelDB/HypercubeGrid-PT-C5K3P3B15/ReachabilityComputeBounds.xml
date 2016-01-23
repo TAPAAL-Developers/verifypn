@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pi_d2_n1_3_4_1_3_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pol_d5_n1_2_1_1_2_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pol_d2_n1_3_3_1_1_2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>po_d3_n1_2_3_3_2_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pi_d2_n1_2_2_3_3_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pol_d3_n1_2_3_1_2_2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pi_d4_n1_1_1_3_3_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pol_d4_n1_3_1_2_2_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>po_d1_n1_2_2_3_3_2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pb_d2_n1_1_2_2_1_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pb_d4_n2_3_3_1_1_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pb_d3_n1_2_3_2_1_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>po_d4_n1_3_1_1_2_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pol_d5_n1_1_2_1_1_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>po_d2_n1_2_3_3_1_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>HypercubeGrid-PT-C5K3P3B15-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pb_d5_n1_1_1_3_3_1</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

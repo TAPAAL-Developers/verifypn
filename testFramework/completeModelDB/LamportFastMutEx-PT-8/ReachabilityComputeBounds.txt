@@ -1,0 +1,80 @@
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("awaity_0", "awaity_1", "awaity_2", "awaity_3", "awaity_4", "awaity_5", "awaity_6", "awaity_7", "awaity_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("y_0", "y_1", "y_2", "y_3", "y_4", "y_5", "y_6", "y_7", "y_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("awaity_0", "awaity_1", "awaity_2", "awaity_3", "awaity_4", "awaity_5", "awaity_6", "awaity_7", "awaity_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("setx_3_0", "setx_3_1", "setx_3_2", "setx_3_3", "setx_3_4", "setx_3_5", "setx_3_6", "setx_3_7", "setx_3_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("CS_21_0", "CS_21_1", "CS_21_2", "CS_21_3", "CS_21_4", "CS_21_5", "CS_21_6", "CS_21_7", "CS_21_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("awaity_0", "awaity_1", "awaity_2", "awaity_3", "awaity_4", "awaity_5", "awaity_6", "awaity_7", "awaity_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("awaity_0", "awaity_1", "awaity_2", "awaity_3", "awaity_4", "awaity_5", "awaity_6", "awaity_7", "awaity_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("CS_21_0", "CS_21_1", "CS_21_2", "CS_21_3", "CS_21_4", "CS_21_5", "CS_21_6", "CS_21_7", "CS_21_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("awaity_0", "awaity_1", "awaity_2", "awaity_3", "awaity_4", "awaity_5", "awaity_6", "awaity_7", "awaity_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("y_0", "y_1", "y_2", "y_3", "y_4", "y_5", "y_6", "y_7", "y_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("x_0", "x_1", "x_2", "x_3", "x_4", "x_5", "x_6", "x_7", "x_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("ifxi_10_0", "ifxi_10_1", "ifxi_10_2", "ifxi_10_3", "ifxi_10_4", "ifxi_10_5", "ifxi_10_6", "ifxi_10_7", "ifxi_10_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("awaity_0", "awaity_1", "awaity_2", "awaity_3", "awaity_4", "awaity_5", "awaity_6", "awaity_7", "awaity_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("setbi_24_0", "setbi_24_1", "setbi_24_2", "setbi_24_3", "setbi_24_4", "setbi_24_5", "setbi_24_6", "setbi_24_7", "setbi_24_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("x_0", "x_1", "x_2", "x_3", "x_4", "x_5", "x_6", "x_7", "x_8")
+  end.
+Property LamportFastMutEx-COL-8-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("ifxi_10_0", "ifxi_10_1", "ifxi_10_2", "ifxi_10_3", "ifxi_10_4", "ifxi_10_5", "ifxi_10_6", "ifxi_10_7", "ifxi_10_8")
+  end.

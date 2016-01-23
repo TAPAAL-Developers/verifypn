@@ -1,0 +1,80 @@
+Property NeoElection-COL-2-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F ("poll__handleAnsP2_3", "poll__handleAnsP2_4", "poll__handleAnsP2_5", "poll__handleAnsP2_6", "poll__handleAnsP2_9", "poll__handleAnsP2_10", "poll__handleAnsP2_11", "poll__handleAnsP2_12", "poll__handleAnsP2_15", "poll__handleAnsP2_16", "poll__handleAnsP2_17", "poll__handleAnsP2_18", "poll__handleAnsP2_21", "poll__handleAnsP2_22", "poll__handleAnsP2_23", "poll__handleAnsP2_24", "poll__handleAnsP2_27", "poll__handleAnsP2_28", "poll__handleAnsP2_29", "poll__handleAnsP2_30", "poll__handleAnsP2_33", "poll__handleAnsP2_34", "poll__handleAnsP2_35", "poll__handleAnsP2_36", "poll__handleAnsP2_39", "poll__handleAnsP2_40", "poll__handleAnsP2_41", "poll__handleAnsP2_42", "poll__handleAnsP2_45", "poll__handleAnsP2_46", "poll__handleAnsP2_47", "poll__handleAnsP2_48", "poll__handleAnsP2_51", "poll__handleAnsP2_52", "poll__handleAnsP2_53", "poll__handleAnsP2_54")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F ("sendAnnPs__end_1", "sendAnnPs__end_2", "sendAnnPs__end_3")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F ("sendAnnPs__end_1", "sendAnnPs__end_2", "sendAnnPs__end_3")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F ("poll__iAmSecondary_1", "poll__iAmSecondary_2", "poll__iAmSecondary_3", "poll__iAmSecondary_4", "poll__iAmSecondary_5", "poll__iAmSecondary_6", "poll__iAmSecondary_7", "poll__iAmSecondary_8", "poll__iAmSecondary_9")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F ("poll__iAmPrimary_1", "poll__iAmPrimary_2", "poll__iAmPrimary_3")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F ("poll__handleAnnP1_2", "poll__handleAnnP1_3", "poll__handleAnnP1_5", "poll__handleAnnP1_6", "poll__handleAnnP1_8", "poll__handleAnnP1_9", "poll__handleAnnP1_11", "poll__handleAnnP1_12", "poll__handleAnnP1_14", "poll__handleAnnP1_15", "poll__handleAnnP1_17", "poll__handleAnnP1_18", "poll__handleAnnP1_19", "poll__handleAnnP1_21", "poll__handleAnnP1_22", "poll__handleAnnP1_24", "poll__handleAnnP1_25", "poll__handleAnnP1_27", "poll__handleAnnP1_28", "poll__handleAnnP1_30", "poll__handleAnnP1_31", "poll__handleAnnP1_33", "poll__handleAnnP1_34", "poll__handleAnnP1_36", "poll__handleAnnP1_37", "poll__handleAnnP1_38", "poll__handleAnnP1_40", "poll__handleAnnP1_41", "poll__handleAnnP1_43", "poll__handleAnnP1_44", "poll__handleAnnP1_46", "poll__handleAnnP1_47", "poll__handleAnnP1_49", "poll__handleAnnP1_50", "poll__handleAnnP1_52", "poll__handleAnnP1_53")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F ("poll__iAmSecondary_1", "poll__iAmSecondary_2", "poll__iAmSecondary_3", "poll__iAmSecondary_4", "poll__iAmSecondary_5", "poll__iAmSecondary_6", "poll__iAmSecondary_7", "poll__iAmSecondary_8", "poll__iAmSecondary_9")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F ("poll__handleAnsP2_3", "poll__handleAnsP2_4", "poll__handleAnsP2_5", "poll__handleAnsP2_6", "poll__handleAnsP2_9", "poll__handleAnsP2_10", "poll__handleAnsP2_11", "poll__handleAnsP2_12", "poll__handleAnsP2_15", "poll__handleAnsP2_16", "poll__handleAnsP2_17", "poll__handleAnsP2_18", "poll__handleAnsP2_21", "poll__handleAnsP2_22", "poll__handleAnsP2_23", "poll__handleAnsP2_24", "poll__handleAnsP2_27", "poll__handleAnsP2_28", "poll__handleAnsP2_29", "poll__handleAnsP2_30", "poll__handleAnsP2_33", "poll__handleAnsP2_34", "poll__handleAnsP2_35", "poll__handleAnsP2_36", "poll__handleAnsP2_39", "poll__handleAnsP2_40", "poll__handleAnsP2_41", "poll__handleAnsP2_42", "poll__handleAnsP2_45", "poll__handleAnsP2_46", "poll__handleAnsP2_47", "poll__handleAnsP2_48", "poll__handleAnsP2_51", "poll__handleAnsP2_52", "poll__handleAnsP2_53", "poll__handleAnsP2_54")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F ("startSec_1", "startSec_2", "startSec_3")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F ("poll__handleAnsP2_3", "poll__handleAnsP2_4", "poll__handleAnsP2_5", "poll__handleAnsP2_6", "poll__handleAnsP2_9", "poll__handleAnsP2_10", "poll__handleAnsP2_11", "poll__handleAnsP2_12", "poll__handleAnsP2_15", "poll__handleAnsP2_16", "poll__handleAnsP2_17", "poll__handleAnsP2_18", "poll__handleAnsP2_21", "poll__handleAnsP2_22", "poll__handleAnsP2_23", "poll__handleAnsP2_24", "poll__handleAnsP2_27", "poll__handleAnsP2_28", "poll__handleAnsP2_29", "poll__handleAnsP2_30", "poll__handleAnsP2_33", "poll__handleAnsP2_34", "poll__handleAnsP2_35", "poll__handleAnsP2_36", "poll__handleAnsP2_39", "poll__handleAnsP2_40", "poll__handleAnsP2_41", "poll__handleAnsP2_42", "poll__handleAnsP2_45", "poll__handleAnsP2_46", "poll__handleAnsP2_47", "poll__handleAnsP2_48", "poll__handleAnsP2_51", "poll__handleAnsP2_52", "poll__handleAnsP2_53", "poll__handleAnsP2_54")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F ("sendAnnPs__start_1", "sendAnnPs__start_2", "sendAnnPs__start_3")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F ("poll__handleRP_1", "poll__handleRP_2", "poll__handleRP_3", "poll__handleRP_4", "poll__handleRP_5", "poll__handleRP_6", "poll__handleRP_7", "poll__handleRP_8", "poll__handleRP_9")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F ("sendAnnPs__start_1", "sendAnnPs__start_2", "sendAnnPs__start_3")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F ("poll__handleAnnP2_1", "poll__handleAnnP2_2", "poll__handleAnnP2_3", "poll__handleAnnP2_4", "poll__handleAnnP2_5", "poll__handleAnnP2_6", "poll__handleAnnP2_7", "poll__handleAnnP2_8", "poll__handleAnnP2_9")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F ("poll__handleAnsP4_3", "poll__handleAnsP4_4", "poll__handleAnsP4_5", "poll__handleAnsP4_6", "poll__handleAnsP4_9", "poll__handleAnsP4_10", "poll__handleAnsP4_11", "poll__handleAnsP4_12", "poll__handleAnsP4_15", "poll__handleAnsP4_16", "poll__handleAnsP4_17", "poll__handleAnsP4_18", "poll__handleAnsP4_21", "poll__handleAnsP4_22", "poll__handleAnsP4_23", "poll__handleAnsP4_24", "poll__handleAnsP4_27", "poll__handleAnsP4_28", "poll__handleAnsP4_29", "poll__handleAnsP4_30", "poll__handleAnsP4_33", "poll__handleAnsP4_34", "poll__handleAnsP4_35", "poll__handleAnsP4_36", "poll__handleAnsP4_39", "poll__handleAnsP4_40", "poll__handleAnsP4_41", "poll__handleAnsP4_42", "poll__handleAnsP4_45", "poll__handleAnsP4_46", "poll__handleAnsP4_47", "poll__handleAnsP4_48", "poll__handleAnsP4_51", "poll__handleAnsP4_52", "poll__handleAnsP4_53", "poll__handleAnsP4_54")?
+  end.
+Property NeoElection-COL-2-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F ("startSec_1", "startSec_2", "startSec_3")?
+  end.

@@ -1,0 +1,80 @@
+Property SafeBus-COL-03-CTLFireability-0
+  "Automatically generated"
+  is:
+    E G A F A X ("I_rec1_1_1", "I_rec1_2_2", "I_rec1_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireability-1
+  "Automatically generated"
+  is:
+    ((E ((((("I_reemit_2_1", "I_reemit_3_1", "I_reemit_1_2", "I_reemit_3_2", "I_reemit_1_3", "I_reemit_2_3")?) | (("I_rec1_1_1", "I_rec1_2_2", "I_rec1_3_3")?))) U (! ("I_ask1_1_1", "I_ask1_2_1", "I_ask1_3_1", "I_ask1_1_2", "I_ask1_2_2", "I_ask1_3_2", "I_ask1_1_3", "I_ask1_2_3", "I_ask1_3_3")?))) | (A F A F ((("C_provide_1_1_1", "C_provide_2_1_1", "C_provide_3_1_1", "C_provide_1_2_2", "C_provide_2_2_2", "C_provide_3_2_2", "C_provide_1_3_3", "C_provide_2_3_3", "C_provide_3_3_3")?) & (("C_refuse_1_1_1_1", "C_refuse_2_1_1_1", "C_refuse_3_1_1_1", "C_refuse_1_2_1_1", "C_refuse_2_2_1_1", "C_refuse_3_2_1_1", "C_refuse_1_3_1_1", "C_refuse_2_3_1_1", "C_refuse_3_3_1_1", "C_refuse_1_1_2_2", "C_refuse_2_1_2_2", "C_refuse_3_1_2_2", "C_refuse_1_2_2_2", "C_refuse_2_2_2_2", "C_refuse_3_2_2_2", "C_refuse_1_3_2_2", "C_refuse_2_3_2_2", "C_refuse_3_3_2_2", "C_refuse_1_1_3_3", "C_refuse_2_1_3_3", "C_refuse_3_1_3_3", "C_refuse_1_2_3_3", "C_refuse_2_2_3_3", "C_refuse_3_2_3_3", "C_refuse_1_3_3_3", "C_refuse_2_3_3_3", "C_refuse_3_3_3_3")?))))
+  end.
+Property SafeBus-COL-03-CTLFireability-2
+  "Automatically generated"
+  is:
+    ((! E G ! ("I_rec2_1_1", "I_rec2_2_2", "I_rec2_3_3")?) & (! ("Gto_1", "Gto_2", "Gto_3")?))
+  end.
+Property SafeBus-COL-03-CTLFireability-3
+  "Automatically generated"
+  is:
+    ! A G E F ("I_reemit_2_1", "I_reemit_3_1", "I_reemit_1_2", "I_reemit_3_2", "I_reemit_1_3", "I_reemit_2_3")?
+  end.
+Property SafeBus-COL-03-CTLFireability-4
+  "Automatically generated"
+  is:
+    ((A F A G ("I_rec1_1_1", "I_rec1_2_2", "I_rec1_3_3")?) & (A ((! ((("I_rec2_1_1", "I_rec2_2_2", "I_rec2_3_3")?) | (("C_provide_1_1_1", "C_provide_2_1_1", "C_provide_3_1_1", "C_provide_1_2_2", "C_provide_2_2_2", "C_provide_3_2_2", "C_provide_1_3_3", "C_provide_2_3_3", "C_provide_3_3_3")?))) U (A X ("I_ask1_1_1", "I_ask1_2_1", "I_ask1_3_1", "I_ask1_1_2", "I_ask1_2_2", "I_ask1_3_2", "I_ask1_1_3", "I_ask1_2_3", "I_ask1_3_3")?))))
+  end.
+Property SafeBus-COL-03-CTLFireability-5
+  "Automatically generated"
+  is:
+    A F A X ("I_refused_1_1", "I_refused_2_2", "I_refused_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireability-6
+  "Automatically generated"
+  is:
+    A X ! ((A F ("C_refuse_1_1_1_1", "C_refuse_2_1_1_1", "C_refuse_3_1_1_1", "C_refuse_1_2_1_1", "C_refuse_2_2_1_1", "C_refuse_3_2_1_1", "C_refuse_1_3_1_1", "C_refuse_2_3_1_1", "C_refuse_3_3_1_1", "C_refuse_1_1_2_2", "C_refuse_2_1_2_2", "C_refuse_3_1_2_2", "C_refuse_1_2_2_2", "C_refuse_2_2_2_2", "C_refuse_3_2_2_2", "C_refuse_1_3_2_2", "C_refuse_2_3_2_2", "C_refuse_3_3_2_2", "C_refuse_1_1_3_3", "C_refuse_2_1_3_3", "C_refuse_3_1_3_3", "C_refuse_1_2_3_3", "C_refuse_2_2_3_3", "C_refuse_3_2_3_3", "C_refuse_1_3_3_3", "C_refuse_2_3_3_3", "C_refuse_3_3_3_3")?) & (((! ("I_ask1_1_1", "I_ask1_2_1", "I_ask1_3_1", "I_ask1_1_2", "I_ask1_2_2", "I_ask1_3_2", "I_ask1_1_3", "I_ask1_2_3", "I_ask1_3_3")?) | (! ("C_free_1_1", "C_free_2_2", "C_free_3_3")?))))
+  end.
+Property SafeBus-COL-03-CTLFireability-7
+  "Automatically generated"
+  is:
+    E ((((((! ("C_refuse_1_1_1_1", "C_refuse_2_1_1_1", "C_refuse_3_1_1_1", "C_refuse_1_2_1_1", "C_refuse_2_2_1_1", "C_refuse_3_2_1_1", "C_refuse_1_3_1_1", "C_refuse_2_3_1_1", "C_refuse_3_3_1_1", "C_refuse_1_1_2_2", "C_refuse_2_1_2_2", "C_refuse_3_1_2_2", "C_refuse_1_2_2_2", "C_refuse_2_2_2_2", "C_refuse_3_2_2_2", "C_refuse_1_3_2_2", "C_refuse_2_3_2_2", "C_refuse_3_3_2_2", "C_refuse_1_1_3_3", "C_refuse_2_1_3_3", "C_refuse_3_1_3_3", "C_refuse_1_2_3_3", "C_refuse_2_2_3_3", "C_refuse_3_2_3_3", "C_refuse_1_3_3_3", "C_refuse_2_3_3_3", "C_refuse_3_3_3_3")?) | (((("I_emit_2_2_1", "I_emit_3_3_1", "I_emit_1_1_2", "I_emit_3_3_2", "I_emit_1_1_3", "I_emit_2_2_3")?) & (("loss_m_1", "loss_m_2", "loss_m_3")?))))) | (A X "loss_a"?))) U (! (((("loss_a"?) & (("C_provide_1_1_1", "C_provide_2_1_1", "C_provide_3_1_1", "C_provide_1_2_2", "C_provide_2_2_2", "C_provide_3_2_2", "C_provide_1_3_3", "C_provide_2_3_3", "C_provide_3_3_3")?))) | (! ("I_ask2_1_1", "I_ask2_2_1", "I_ask2_3_1", "I_ask2_1_2", "I_ask2_2_2", "I_ask2_3_2", "I_ask2_1_3", "I_ask2_2_3", "I_ask2_3_3")?))))
+  end.
+Property SafeBus-COL-03-CTLFireability-8
+  "Automatically generated"
+  is:
+    E ((A F ((("C_provide_1_1_1", "C_provide_2_1_1", "C_provide_3_1_1", "C_provide_1_2_2", "C_provide_2_2_2", "C_provide_3_2_2", "C_provide_1_3_3", "C_provide_2_3_3", "C_provide_3_3_3")?) | (("loss_m_1", "loss_m_2", "loss_m_3")?))) U (((! ((("C_free_1_1", "C_free_2_2", "C_free_3_3")?) | (("I_ask2_1_1", "I_ask2_2_1", "I_ask2_3_1", "I_ask2_1_2", "I_ask2_2_2", "I_ask2_3_2", "I_ask2_1_3", "I_ask2_2_3", "I_ask2_3_3")?))) & (A G ("I_ask2_1_1", "I_ask2_2_1", "I_ask2_3_1", "I_ask2_1_2", "I_ask2_2_2", "I_ask2_3_2", "I_ask2_1_3", "I_ask2_2_3", "I_ask2_3_3")?))))
+  end.
+Property SafeBus-COL-03-CTLFireability-9
+  "Automatically generated"
+  is:
+    ((A F ("I_free_2_1", "I_free_3_1", "I_free_1_2", "I_free_3_2", "I_free_1_3", "I_free_2_3")?) | (((A F ! ! ("C_refuse_1_1_1_1", "C_refuse_2_1_1_1", "C_refuse_3_1_1_1", "C_refuse_1_2_1_1", "C_refuse_2_2_1_1", "C_refuse_3_2_1_1", "C_refuse_1_3_1_1", "C_refuse_2_3_1_1", "C_refuse_3_3_1_1", "C_refuse_1_1_2_2", "C_refuse_2_1_2_2", "C_refuse_3_1_2_2", "C_refuse_1_2_2_2", "C_refuse_2_2_2_2", "C_refuse_3_2_2_2", "C_refuse_1_3_2_2", "C_refuse_2_3_2_2", "C_refuse_3_3_2_2", "C_refuse_1_1_3_3", "C_refuse_2_1_3_3", "C_refuse_3_1_3_3", "C_refuse_1_2_3_3", "C_refuse_2_2_3_3", "C_refuse_3_2_3_3", "C_refuse_1_3_3_3", "C_refuse_2_3_3_3", "C_refuse_3_3_3_3")?) & (A F A F ("I_free_2_1", "I_free_3_1", "I_free_1_2", "I_free_3_2", "I_free_1_3", "I_free_2_3")?))))
+  end.
+Property SafeBus-COL-03-CTLFireability-10
+  "Automatically generated"
+  is:
+    ! ((A F ("I_emit_2_2_1", "I_emit_3_3_1", "I_emit_1_1_2", "I_emit_3_3_2", "I_emit_1_1_3", "I_emit_2_2_3")?) & (E F E G ("I_free_2_1", "I_free_3_1", "I_free_1_2", "I_free_3_2", "I_free_1_3", "I_free_2_3")?))
+  end.
+Property SafeBus-COL-03-CTLFireability-11
+  "Automatically generated"
+  is:
+    ! A F E G ("C_refuse_1_1_1_1", "C_refuse_2_1_1_1", "C_refuse_3_1_1_1", "C_refuse_1_2_1_1", "C_refuse_2_2_1_1", "C_refuse_3_2_1_1", "C_refuse_1_3_1_1", "C_refuse_2_3_1_1", "C_refuse_3_3_1_1", "C_refuse_1_1_2_2", "C_refuse_2_1_2_2", "C_refuse_3_1_2_2", "C_refuse_1_2_2_2", "C_refuse_2_2_2_2", "C_refuse_3_2_2_2", "C_refuse_1_3_2_2", "C_refuse_2_3_2_2", "C_refuse_3_3_2_2", "C_refuse_1_1_3_3", "C_refuse_2_1_3_3", "C_refuse_3_1_3_3", "C_refuse_1_2_3_3", "C_refuse_2_2_3_3", "C_refuse_3_2_3_3", "C_refuse_1_3_3_3", "C_refuse_2_3_3_3", "C_refuse_3_3_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireability-12
+  "Automatically generated"
+  is:
+    ((! ("I_emit_2_2_1", "I_emit_3_3_1", "I_emit_1_1_2", "I_emit_3_3_2", "I_emit_1_1_3", "I_emit_2_2_3")?) & (E G A F ("C_free_1_1", "C_free_2_2", "C_free_3_3")?))
+  end.
+Property SafeBus-COL-03-CTLFireability-13
+  "Automatically generated"
+  is:
+    E F E G ! (("loss_a"?) | (("Gto_1", "Gto_2", "Gto_3")?))
+  end.
+Property SafeBus-COL-03-CTLFireability-14
+  "Automatically generated"
+  is:
+    E ((((A G ("I_ask2_1_1", "I_ask2_2_1", "I_ask2_3_1", "I_ask2_1_2", "I_ask2_2_2", "I_ask2_3_2", "I_ask2_1_3", "I_ask2_2_3", "I_ask2_3_3")?) & (("loss_m_1", "loss_m_2", "loss_m_3")?))) U (A F ("I_refused_1_1", "I_refused_2_2", "I_refused_3_3")?))
+  end.
+Property SafeBus-COL-03-CTLFireability-15
+  "Automatically generated"
+  is:
+    A X A F ("I_rec1_1_1", "I_rec1_2_2", "I_rec1_3_3")?
+  end.

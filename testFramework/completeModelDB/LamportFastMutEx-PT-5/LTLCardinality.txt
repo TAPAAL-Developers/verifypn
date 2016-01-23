@@ -1,0 +1,80 @@
+Property LamportFastMutEx-COL-5-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A X X ((1) <= (#tokens("await_13_0", "await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5")))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A ((G F ((#tokens("sety_9_0", "sety_9_1", "sety_9_2", "sety_9_3", "sety_9_4", "sety_9_5")) <= (#tokens("ify0_4_0", "ify0_4_1", "ify0_4_2", "ify0_4_3", "ify0_4_4", "ify0_4_5")))) U (((((#tokens("awaity_0", "awaity_1", "awaity_2", "awaity_3", "awaity_4", "awaity_5")) <= (#tokens("fordo_12_0", "fordo_12_1", "fordo_12_2", "fordo_12_3", "fordo_12_4", "fordo_12_5")))) U (((#tokens("sety_9_0", "sety_9_1", "sety_9_2", "sety_9_3", "sety_9_4", "sety_9_5")) <= (#tokens("y_0", "y_1", "y_2", "y_3", "y_4", "y_5")))))))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A G ((G ((#tokens("done_0_0", "done_0_1", "done_0_2", "done_0_3", "done_0_4", "done_0_5", "done_1_0", "done_1_1", "done_1_2", "done_1_3", "done_1_4", "done_1_5", "done_2_0", "done_2_1", "done_2_2", "done_2_3", "done_2_4", "done_2_5", "done_3_0", "done_3_1", "done_3_2", "done_3_3", "done_3_4", "done_3_5", "done_4_0", "done_4_1", "done_4_2", "done_4_3", "done_4_4", "done_4_5", "done_5_0", "done_5_1", "done_5_2", "done_5_3", "done_5_4", "done_5_5")) <= (#tokens("b_0_false", "b_0_true", "b_1_false", "b_1_true", "b_2_false", "b_2_true", "b_3_false", "b_3_true", "b_4_false", "b_4_true", "b_5_false", "b_5_true")))) U (G ((3) <= (#tokens("b_0_false", "b_0_true", "b_1_false", "b_1_true", "b_2_false", "b_2_true", "b_3_false", "b_3_true", "b_4_false", "b_4_true", "b_5_false", "b_5_true")))))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((#tokens("start_1_0", "start_1_1", "start_1_2", "start_1_3", "start_1_4", "start_1_5")) <= (#tokens("setbi_5_0", "setbi_5_1", "setbi_5_2", "setbi_5_3", "setbi_5_4", "setbi_5_5")))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A F X ((3) <= (#tokens("setbi_11_0", "setbi_11_1", "setbi_11_2", "setbi_11_3", "setbi_11_4", "setbi_11_5")))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A F ((#tokens("y_0", "y_1", "y_2", "y_3", "y_4", "y_5")) <= (#tokens("ifyi_15_0", "ifyi_15_1", "ifyi_15_2", "ifyi_15_3", "ifyi_15_4", "ifyi_15_5")))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A F X G F ((3) <= (#tokens("awaity_0", "awaity_1", "awaity_2", "awaity_3", "awaity_4", "awaity_5")))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A F X X F ((#tokens("b_0_false", "b_0_true", "b_1_false", "b_1_true", "b_2_false", "b_2_true", "b_3_false", "b_3_true", "b_4_false", "b_4_true", "b_5_false", "b_5_true")) <= (#tokens("await_13_0", "await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5")))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A X ((2) <= (#tokens("ifxi_10_0", "ifxi_10_1", "ifxi_10_2", "ifxi_10_3", "ifxi_10_4", "ifxi_10_5")))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A X G X G ((1) <= (#tokens("CS_21_0", "CS_21_1", "CS_21_2", "CS_21_3", "CS_21_4", "CS_21_5")))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A F X X ((1) <= (#tokens("wait_0_0", "wait_0_1", "wait_0_2", "wait_0_3", "wait_0_4", "wait_0_5", "wait_1_0", "wait_1_1", "wait_1_2", "wait_1_3", "wait_1_4", "wait_1_5", "wait_2_0", "wait_2_1", "wait_2_2", "wait_2_3", "wait_2_4", "wait_2_5", "wait_3_0", "wait_3_1", "wait_3_2", "wait_3_3", "wait_3_4", "wait_3_5", "wait_4_0", "wait_4_1", "wait_4_2", "wait_4_3", "wait_4_4", "wait_4_5", "wait_5_0", "wait_5_1", "wait_5_2", "wait_5_3", "wait_5_4", "wait_5_5")))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("ifyi_15_0", "ifyi_15_1", "ifyi_15_2", "ifyi_15_3", "ifyi_15_4", "ifyi_15_5")))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A G F ((((1) <= (#tokens("setx_3_0", "setx_3_1", "setx_3_2", "setx_3_3", "setx_3_4", "setx_3_5")))) U (((#tokens("ifyi_15_0", "ifyi_15_1", "ifyi_15_2", "ifyi_15_3", "ifyi_15_4", "ifyi_15_5")) <= (#tokens("fordo_12_0", "fordo_12_1", "fordo_12_2", "fordo_12_3", "fordo_12_4", "fordo_12_5")))))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A F F ((((2) <= (#tokens("awaity_0", "awaity_1", "awaity_2", "awaity_3", "awaity_4", "awaity_5")))) U (((#tokens("await_13_0", "await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5")) <= (#tokens("CS_21_0", "CS_21_1", "CS_21_2", "CS_21_3", "CS_21_4", "CS_21_5")))))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A F ((#tokens("setx_3_0", "setx_3_1", "setx_3_2", "setx_3_3", "setx_3_4", "setx_3_5")) <= (#tokens("ify0_4_0", "ify0_4_1", "ify0_4_2", "ify0_4_3", "ify0_4_4", "ify0_4_5")))
+  end.
+Property LamportFastMutEx-COL-5-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A G ((G ((#tokens("ifyi_15_0", "ifyi_15_1", "ifyi_15_2", "ifyi_15_3", "ifyi_15_4", "ifyi_15_5")) <= (#tokens("x_0", "x_1", "x_2", "x_3", "x_4", "x_5")))) U (F ((#tokens("wait_0_0", "wait_0_1", "wait_0_2", "wait_0_3", "wait_0_4", "wait_0_5", "wait_1_0", "wait_1_1", "wait_1_2", "wait_1_3", "wait_1_4", "wait_1_5", "wait_2_0", "wait_2_1", "wait_2_2", "wait_2_3", "wait_2_4", "wait_2_5", "wait_3_0", "wait_3_1", "wait_3_2", "wait_3_3", "wait_3_4", "wait_3_5", "wait_4_0", "wait_4_1", "wait_4_2", "wait_4_3", "wait_4_4", "wait_4_5", "wait_5_0", "wait_5_1", "wait_5_2", "wait_5_3", "wait_5_4", "wait_5_5")) <= (#tokens("done_0_0", "done_0_1", "done_0_2", "done_0_3", "done_0_4", "done_0_5", "done_1_0", "done_1_1", "done_1_2", "done_1_3", "done_1_4", "done_1_5", "done_2_0", "done_2_1", "done_2_2", "done_2_3", "done_2_4", "done_2_5", "done_3_0", "done_3_1", "done_3_2", "done_3_3", "done_3_4", "done_3_5", "done_4_0", "done_4_1", "done_4_2", "done_4_3", "done_4_4", "done_4_5", "done_5_0", "done_5_1", "done_5_2", "done_5_3", "done_5_4", "done_5_5")))))
+  end.

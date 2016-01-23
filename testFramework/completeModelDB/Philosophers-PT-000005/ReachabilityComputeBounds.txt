@@ -1,0 +1,80 @@
+Property Philosophers-COL-000005-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("Catch2_2", "Catch2_1", "Catch2_4", "Catch2_3", "Catch2_5")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("Think_1", "Think_2", "Think_3", "Think_4", "Think_5")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("Eat_1", "Eat_3", "Eat_2", "Eat_5", "Eat_4")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("Eat_1", "Eat_3", "Eat_2", "Eat_5", "Eat_4")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("Eat_1", "Eat_3", "Eat_2", "Eat_5", "Eat_4")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("Catch2_2", "Catch2_1", "Catch2_4", "Catch2_3", "Catch2_5")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("Catch1_1", "Catch1_2", "Catch1_3", "Catch1_5", "Catch1_4")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("Catch2_2", "Catch2_1", "Catch2_4", "Catch2_3", "Catch2_5")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("Catch1_1", "Catch1_2", "Catch1_3", "Catch1_5", "Catch1_4")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("Think_1", "Think_2", "Think_3", "Think_4", "Think_5")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("Eat_1", "Eat_3", "Eat_2", "Eat_5", "Eat_4")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("Catch2_2", "Catch2_1", "Catch2_4", "Catch2_3", "Catch2_5")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("Think_1", "Think_2", "Think_3", "Think_4", "Think_5")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("Catch1_1", "Catch1_2", "Catch1_3", "Catch1_5", "Catch1_4")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("Think_1", "Think_2", "Think_3", "Think_4", "Think_5")
+  end.
+Property Philosophers-COL-000005-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("Fork_1", "Fork_2", "Fork_3", "Fork_4", "Fork_5")
+  end.

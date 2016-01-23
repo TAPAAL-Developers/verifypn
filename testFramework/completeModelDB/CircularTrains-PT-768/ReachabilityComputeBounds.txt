@@ -1,0 +1,80 @@
+Property CircularTrains-PT-768-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("F118")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("F323")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("F310")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("Section_504")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("Section_413")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("Section_735")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("F19")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("Section_300")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("Section_412")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("F381")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("Section_272")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("F525")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("F621")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("F457")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("F586")
+  end.
+Property CircularTrains-PT-768-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("Section_687")
+  end.

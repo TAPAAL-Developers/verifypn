@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F "t6.7"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F (("PutPaidFor.t3.1"?) & (! ((! "t8.4"?) & (! "GetPaidFor.t4.0"?))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    A G ((((! "CheckDeliveryInfo.t6.3"?) | (! (("CheckDeliveryNote.t6.6"?) | ("PutDeliveryResponse.t8.2"?))))) | ((((((("CheckDeliveryInfo.t6.3"?) & ("PaymentExchange.t3.8"?))) | ("t8.4"?))) & ("GetBrandList.t3.2"?))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F "PaymentResponse.t5.3"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F ((! (((("PaymentExchange.t5.2"?) & ("MakeChoice.t1"?))) & ("GetDeliveryRequest.t8.0"?))) & ("GetPaymentRequest.t5.0"?))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G ! "PutDeliveryRequest.t6.4"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F ((! (((("GetOfferRequest.t2"?) & ("PutOfferRequest.t1"?))) | ("PaymentExchange.t5.2"?))) & ("CheckDeliveryInfo.t6.3"?))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F ! (((("MakeChoice.t1"?) | ((("GetDeliveryResponse.t6.5"?) & ("PutPaymentAmount.t4.5"?))))) | (((! "CheckDeliveryRequest.t8.1"?) | ((("PutHowDeliver.t7.2"?) & ("GetDeliveryRequest.t8.0"?))))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F "t8.4"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F ((! ! (("PutOfferRequest.t1"?) & ("CheckPaymentReseitp.t3.10"?))) | ("CheckPaymentRequest.t5.1"?))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    A G ! "GetWhatDeliver.t7.0"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F (((("PaymentExchange.t3.8"?) & (! (("GetBrandList.t3.2"?) & ("PutHowDeliver.t7.2"?))))) | ((((((("PutPaymentRequest.t3.7"?) & ("GetHowDeliver.t6.2"?))) & ((("PutPaymentRequest.t3.7"?) & ("MakeChoice.t1"?))))) | ((("GetBrandSelection.t4.3"?) & ((("PaymentExchange.t3.8"?) & ("GetHowDeliver.t6.2"?))))))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F (((("t6.7"?) & (! ! "CheckOffer.t3"?))) | ((((((("CheckWhatDeliver.t7.1"?) & ("t5.4"?))) & ("CheckPaymentRequest.t5.1"?))) & ((((("t8.4"?) & ("GetPaymentRequest.t5.0"?))) | ((("PutDeliveryRequest.t6.4"?) & ("PaymentExchange.t5.2"?))))))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F ((((((! "PutPaymentRequest.t3.7"?) | (! "PutPaymentAmount.t4.5"?))) | ("PaymentResponse.t3.9"?))) & ((("CheckDeliveryInfo.t6.3"?) & ("WhatDeliverDecision.t6.0"?))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F (((((("t7.4"?) & ((("CheckBrandSelection.t4.4"?) & ("PaymentExchange.t3.8"?))))) & ((((("SelectBrand.t3.3"?) | ("PaymentResponse.t3.9"?))) | ((("PutBrandList.t4.2"?) | ("CheckDeliveryInfo.t6.3"?))))))) & (((! ! "TradeDecision.t3,0"?) & ((((("PaymentResponse.t5.3"?) & ("PaymentExchange.t5.2"?))) & (! "SelectBrand.t3.3"?))))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F ((((! (("GetDeliveryResponse.t6.5"?) & ("CheckBrandSelection.t4.4"?))) | (((! "PutPaymentRequest.t3.7"?) & ((("PutPaymentRequest.t3.7"?) & ("WhatDeliverDecision.t6.0"?))))))) & (((((! "GetOfferResponse.t1"?) & (! "MakeChoice.t1"?))) & ("GetWhatDeliver.t7.0"?))))
+  end.

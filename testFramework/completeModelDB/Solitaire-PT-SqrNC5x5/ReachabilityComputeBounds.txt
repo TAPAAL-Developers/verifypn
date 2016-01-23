@@ -1,0 +1,80 @@
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("F53")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("F46")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("F63")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("F26")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("F22")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("F46")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("F33")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("F56")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("F22")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("T54")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("F32")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("T64")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("T22")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("T26")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("F46")
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("F53")
+  end.

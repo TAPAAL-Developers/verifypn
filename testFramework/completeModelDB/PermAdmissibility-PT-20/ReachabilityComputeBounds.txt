@@ -1,0 +1,80 @@
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("aux11_5", "aux11_4", "aux11_3", "aux11_2", "aux11_1", "aux11_0", "aux11_7", "aux11_6")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("c9")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("in1_1", "in1_0")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("aux6_0", "aux6_5", "aux6_1", "aux6_4")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("aux7_7", "aux7_6", "aux7_3", "aux7_2")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("aux12_6", "aux12_5", "aux12_4", "aux12_3", "aux12_2", "aux12_1", "aux12_0", "aux12_7")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("aux8_7", "aux8_3", "aux8_6", "aux8_2")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("out5_1", "out5_2", "out5_0", "out5_5", "out5_6", "out5_3", "out5_4", "out5_7")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("aux11_5", "aux11_4", "aux11_3", "aux11_2", "aux11_1", "aux11_0", "aux11_7", "aux11_6")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("out7_1", "out7_0", "out7_3", "out7_2", "out7_5", "out7_4", "out7_7", "out7_6")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("c16")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("in3_5", "in3_4")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("c15")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("aux12_6", "aux12_5", "aux12_4", "aux12_3", "aux12_2", "aux12_1", "aux12_0", "aux12_7")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("c18")
+  end.
+Property PermAdmissibility-COL-20-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("aux7_7", "aux7_6", "aux7_3", "aux7_2")
+  end.

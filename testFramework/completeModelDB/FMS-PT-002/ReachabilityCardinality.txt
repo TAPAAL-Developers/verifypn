@@ -1,0 +1,80 @@
+Property FMS-PT-002-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((! ((((3) <= (#tokens("P3M2")))) | (((#tokens("P2wP1")) <= (#tokens("P2")))))) | (((! ((1) <= (#tokens("P12M3")))) | (((((3) <= (#tokens("P2M2")))) | (((3) <= (#tokens("P1d")))))))))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ((#tokens("P3")) <= (#tokens("P3")))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((#tokens("M3")) <= (#tokens("M2")))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ! ((3) <= (#tokens("P1M1")))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((((((1) <= (#tokens("P2d")))) | (((#tokens("P3M2")) <= (#tokens("P1s")))))) & (((((((2) <= (#tokens("M2")))) & (((1) <= (#tokens("P12")))))) & (((((2) <= (#tokens("P1")))) | (((#tokens("P2wP1")) <= (#tokens("P3M2")))))))))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("P2d")))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ! ((! ((3) <= (#tokens("P1wM1")))) | (((((3) <= (#tokens("P3s")))) & (((#tokens("P3M2")) <= (#tokens("P2s")))))))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((((! ((2) <= (#tokens("M2")))) | (((#tokens("M1")) <= (#tokens("P1M1")))))) | (((((2) <= (#tokens("P1M1")))) | (((1) <= (#tokens("P12wM3")))))))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((1) <= (#tokens("M3")))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((((((((1) <= (#tokens("P2s")))) & (((1) <= (#tokens("P12M3")))))) & (((#tokens("P12")) <= (#tokens("P12")))))) | (! ! ((3) <= (#tokens("P12M3")))))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((((((((3) <= (#tokens("P2M2")))) | (((#tokens("P12M3")) <= (#tokens("P2")))))) & (((((#tokens("P1wM1")) <= (#tokens("P12s")))) & (((#tokens("P2wP1")) <= (#tokens("P1wP2")))))))) & (((((((#tokens("P12wM3")) <= (#tokens("M3")))) & (((#tokens("P1M1")) <= (#tokens("P12")))))) & (((2) <= (#tokens("M2")))))))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("P1wP2")) <= (#tokens("P12s")))) & (((#tokens("P2M2")) <= (#tokens("P2wP1")))))) & (! ((#tokens("P2wM2")) <= (#tokens("P2s")))))) & (((2) <= (#tokens("P2M2")))))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((! ((3) <= (#tokens("P3")))) | (((((#tokens("P2s")) <= (#tokens("P12")))) & (! ((3) <= (#tokens("P1M1")))))))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("P2wM2")))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((((((1) <= (#tokens("P2d")))) | (((2) <= (#tokens("P1s")))))) & (((! ((#tokens("P12M3")) <= (#tokens("M1")))) & (((#tokens("P1d")) <= (#tokens("M3")))))))
+  end.
+Property FMS-PT-002-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("P2wP1")))) & (! ((#tokens("P12")) <= (#tokens("P1s")))))
+  end.

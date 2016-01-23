@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("cAMP__2_15_")))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("cAMP__12_20_")))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("cAMP__26_18_")) <= (#tokens("cAMP__19_24_")))) | (((3) <= (#tokens("cAMP__12_17_")))))) | (((((#tokens("cAMP__26_29_")) <= (#tokens("cAMP__1_20_")))) & (((1) <= (#tokens("cAMP__28_23_")))))))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((((((((2) <= (#tokens("cAMP__15_11_")))) | (((3) <= (#tokens("cAMP__6_26_")))))) & (((((#tokens("cAMP__12_22_")) <= (#tokens("cAMP__23_29_")))) & (((1) <= (#tokens("cAMP__8_17_")))))))) & (((((((#tokens("cAMP__19_13_")) <= (#tokens("cAMP__3_24_")))) & (((1) <= (#tokens("cAMP__17_16_")))))) | (((((#tokens("cAMP__3_10_")) <= (#tokens("cAMP__13_11_")))) | (((2) <= (#tokens("cAMP__19_16_")))))))))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ! ! ((((#tokens("cAMP__11_7_")) <= (#tokens("cAMP__19_9_")))) | (((#tokens("cAMP__27_4_")) <= (#tokens("cAMP__28_29_")))))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("cAMP__30_22_")))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ((((#tokens("cAMP__9_24_")) <= (#tokens("cAMP__15_5_")))) | (! ((((1) <= (#tokens("cAMP__25_19_")))) & (((#tokens("cAMP__30_26_")) <= (#tokens("cAMP__26_1_")))))))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ! ! ((((#tokens("cAMP__7_29_")) <= (#tokens("cAMP__23_30_")))) & (((#tokens("cAMP__13_7_")) <= (#tokens("cAMP__20_13_")))))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ! ! ((((2) <= (#tokens("cAMP__2_4_")))) & (((#tokens("cAMP__1_20_")) <= (#tokens("cAMP__1_8_")))))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((1) <= (#tokens("cAMP__1_9_")))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ! ! ((((#tokens("cAMP__27_4_")) <= (#tokens("cAMP__6_1_")))) & (((2) <= (#tokens("cAMP__17_10_")))))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((((! ((3) <= (#tokens("cAMP__27_13_")))) | (! ((2) <= (#tokens("cAMP__14_3_")))))) & (((2) <= (#tokens("cAMP__17_25_")))))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ((! ((#tokens("cAMP__1_4_")) <= (#tokens("cAMP__3_22_")))) | (((((2) <= (#tokens("cAMP__4_25_")))) & (((((#tokens("cAMP__9_26_")) <= (#tokens("cAMP__22_23_")))) | (((#tokens("cAMP__13_22_")) <= (#tokens("cAMP__4_8_")))))))))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((! ((3) <= (#tokens("cAMP__28_25_")))) | (((((((2) <= (#tokens("cAMP__26_9_")))) | (((#tokens("cAMP__14_11_")) <= (#tokens("cAMP__10_2_")))))) | (((((#tokens("cAMP__10_10_")) <= (#tokens("cAMP__27_4_")))) | (((1) <= (#tokens("cAMP__24_16_")))))))))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ! ((#tokens("cAMP__8_7_")) <= (#tokens("cAMP__11_13_")))
+  end.
+Property Diffusion2D-PT-D30N150-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((((1) <= (#tokens("cAMP__10_29_")))) | (((((((2) <= (#tokens("cAMP__10_11_")))) | (((#tokens("cAMP__30_3_")) <= (#tokens("cAMP__20_5_")))))) | (((((2) <= (#tokens("cAMP__22_30_")))) | (((#tokens("cAMP__3_21_")) <= (#tokens("cAMP__15_17_")))))))))
+  end.

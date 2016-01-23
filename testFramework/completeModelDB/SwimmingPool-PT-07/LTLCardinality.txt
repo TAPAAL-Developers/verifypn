@@ -1,0 +1,80 @@
+Property SwimmingPool-PT-07-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A G X F F ((2) <= (#tokens("Cabins")))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A X ((X ((3) <= (#tokens("Undress")))) U (((2) <= (#tokens("WaitBag")))))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("Dress")))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((((((3) <= (#tokens("Out")))) U (((3) <= (#tokens("Dress")))))) U (F F ((2) <= (#tokens("Undress")))))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A F ((3) <= (#tokens("Undress")))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A X X F F ((#tokens("Entered")) <= (#tokens("Cabins")))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((#tokens("Out")) <= (#tokens("Dressed")))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A G G F ((1) <= (#tokens("Dress")))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A G F F F ((1) <= (#tokens("Cabins")))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((F ((1) <= (#tokens("Bags")))) U (X G ((#tokens("Bags")) <= (#tokens("Dressed")))))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((((((1) <= (#tokens("Out")))) U (((#tokens("Entered")) <= (#tokens("InBath")))))) U (((#tokens("Undress")) <= (#tokens("Dressed")))))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A F X F X ((#tokens("Undress")) <= (#tokens("Dressed")))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((#tokens("Dressed")) <= (#tokens("Cabins")))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A G ((F ((#tokens("InBath")) <= (#tokens("Bags")))) U (((2) <= (#tokens("Entered")))))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((((#tokens("InBath")) <= (#tokens("Bags")))) U (((3) <= (#tokens("Cabins")))))
+  end.
+Property SwimmingPool-PT-07-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A F G F G ((#tokens("Bags")) <= (#tokens("Entered")))
+  end.

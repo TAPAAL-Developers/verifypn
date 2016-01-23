@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A (("t1_14_32_15_33"?) U ("t1_1_35_2_34"?))
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t1_1_14_1_15"?
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A (("t1_20_35_20_34"?) U ("t1_32_9_32_10"?))
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t1_14_37_15_37"?
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "t1_34_8_35_8"?
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "t1_20_29_21_30"?
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "t1_33_2_34_2"?
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A X "t1_15_39_15_38"?
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A (("t1_38_3_37_4"?) U ("t1_26_12_27_12"?))
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A X "t1_40_11_40_10"?
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A X "t1_29_28_30_27"?
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A G "t1_37_7_38_7"?
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A G "t1_17_13_16_14"?
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A X "t1_26_6_26_7"?
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A G "t1_7_22_7_21"?
+  end.
+Property Diffusion2D-PT-D40N050-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A (("t1_1_34_1_35"?) U ("t1_34_10_33_11"?))
+  end.

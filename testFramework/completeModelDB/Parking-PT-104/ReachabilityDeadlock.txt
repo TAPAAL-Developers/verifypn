@@ -1,0 +1,5 @@
+Property Parking-PT-104-ReachabilityDeadlock-0
+  "Automatically generated"
+  is:
+    E F deadlock
+  end.

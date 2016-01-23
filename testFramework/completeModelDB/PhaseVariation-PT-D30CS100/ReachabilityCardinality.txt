@@ -1,0 +1,80 @@
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ((! ! ((2) <= (#tokens("pool__20_26_")))) & (((((((#tokens("cell___7_30__A_")) <= (#tokens("pool__5_24_")))) | (((#tokens("cell___9_10__A_")) <= (#tokens("cell___23_28__A_")))))) | (((((#tokens("cell___8_3__B_")) <= (#tokens("cell___25_29__B_")))) & (((3) <= (#tokens("cell___30_3__A_")))))))))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((! ((#tokens("cell___5_30__A_")) <= (#tokens("cell___6_3__A_")))) & (((! ((2) <= (#tokens("cell___20_12__B_")))) | (((((3) <= (#tokens("pool__25_27_")))) | (((3) <= (#tokens("cell___2_30__A_")))))))))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ! ((! ((1) <= (#tokens("cell___9_14__B_")))) | (! ((#tokens("cell___26_5__B_")) <= (#tokens("pool__27_17_")))))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("cell___6_25__B_")))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ! ! ! ((#tokens("pool__12_8_")) <= (#tokens("cell___27_3__B_")))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("cell___29_16__B_")) <= (#tokens("pool__6_10_")))) & (((#tokens("cell___4_11__B_")) <= (#tokens("pool__2_12_")))))) & (((#tokens("cell___3_27__B_")) <= (#tokens("pool__16_27_")))))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ! ((! ((2) <= (#tokens("pool__6_7_")))) | (((((#tokens("cell___30_25__A_")) <= (#tokens("pool__1_29_")))) | (((#tokens("cell___11_28__B_")) <= (#tokens("pool__16_23_")))))))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ! ((((((3) <= (#tokens("cell___24_2__A_")))) | (((2) <= (#tokens("cell___26_27__A_")))))) & (((2) <= (#tokens("cell___16_22__B_")))))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ! ((((#tokens("cell___23_25__A_")) <= (#tokens("cell___28_10__A_")))) | (((1) <= (#tokens("cell___3_12__A_")))))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ((1) <= (#tokens("pool__25_15_")))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("pool__1_17_")))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("cell___1_18__B_")) <= (#tokens("pool__18_23_")))) & (((#tokens("pool__25_4_")) <= (#tokens("cell___10_13__A_")))))) | (((#tokens("pool__12_1_")) <= (#tokens("pool__24_27_")))))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("cell___5_26__B_")) <= (#tokens("cell___8_11__B_")))) | (((3) <= (#tokens("cell___6_4__B_")))))) & (((((1) <= (#tokens("cell___22_7__A_")))) | (((#tokens("cell___23_15__A_")) <= (#tokens("cell___17_20__B_")))))))) | (! ! ((1) <= (#tokens("cell___9_15__A_")))))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((((((((2) <= (#tokens("cell___7_16__B_")))) & (((3) <= (#tokens("cell___25_18__A_")))))) | (! ((1) <= (#tokens("pool__3_16_")))))) | (! ((((#tokens("cell___9_15__B_")) <= (#tokens("cell___27_26__A_")))) & (((1) <= (#tokens("pool__9_27_")))))))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ! ((1) <= (#tokens("cell___16_2__A_")))
+  end.
+Property PhaseVariation-PT-D30CS100-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ! ! ! ((#tokens("cell___13_18__B_")) <= (#tokens("pool__26_3_")))
+  end.

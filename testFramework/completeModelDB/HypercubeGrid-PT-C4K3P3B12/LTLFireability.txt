@@ -1,0 +1,80 @@
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-0
+  "Automatically generated"
+  is:
+    A F G X "ti.d2.n1.d4.n1.3.1.1.1"?
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-1
+  "Automatically generated"
+  is:
+    A X (((("ti.d3.n1.d4.n2.2.1.1.3"?) U ("ti.d1.n1.d2.n1.1.3.1.1"?))) U ((("ti.d3.n2.d1.n1.2.2.1.3"?) U ("ti.d1.n1.d3.n1.2.3.1.1"?))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-2
+  "Automatically generated"
+  is:
+    A "ti.d1.n2.d2.n1.3.3.2.2"?
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X "ti.d2.n1.d1.n1.1.1.2.1"?
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-4
+  "Automatically generated"
+  is:
+    A (("ti.d4.n1.d1.n1.2.2.1.2"?) U (((F "ti.d3.n1.d2.n1.2.3.1.3"?) U ("ti.d4.n2.d1.n2.1.1.3.3"?))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-5
+  "Automatically generated"
+  is:
+    A G F X "ti.d4.n1.d3.n2.2.1.2.3"?
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-6
+  "Automatically generated"
+  is:
+    A "ti.d1.n2.d3.n1.1.3.3.3"?
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-7
+  "Automatically generated"
+  is:
+    A "ti.d1.n2.d1.n1.2.1.3.1"?
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-8
+  "Automatically generated"
+  is:
+    A ((F F X "ti.d1.n1.d2.n2.3.3.2.3"?) U ("ti.d2.n1.d2.n2.1.2.1.1"?))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-9
+  "Automatically generated"
+  is:
+    A X ((X G "ti.d2.n2.d4.n1.3.3.2.2"?) U (X X "ti.d1.n1.d1.n2.1.3.2.1"?))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-10
+  "Automatically generated"
+  is:
+    A "to.d3.n1.3.3.2.3"?
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-11
+  "Automatically generated"
+  is:
+    A F (("ti.d3.n2.d1.n1.1.3.3.3"?) U ((("ti.d1.n1.d2.n2.1.2.1.3"?) U ("to.d4.n1.2.2.1.2"?))))
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-12
+  "Automatically generated"
+  is:
+    A "ti.d4.n1.d4.n2.3.1.2.1"?
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-13
+  "Automatically generated"
+  is:
+    A F "ti.d2.n2.d1.n2.3.2.1.2"?
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-14
+  "Automatically generated"
+  is:
+    A X G G F F "ti.d3.n2.d2.n2.3.1.2.2"?
+  end.
+Property HypercubeGrid-PT-C4K3P3B12-LTLFireability-15
+  "Automatically generated"
+  is:
+    A G "ti.d4.n1.d3.n2.1.2.1.1"?
+  end.

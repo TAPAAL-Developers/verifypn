@@ -1,0 +1,80 @@
+Property Raft-PT-09-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "t634"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t547"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "t221"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t145"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "t224"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "t638"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "t408"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "t37"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "t510"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "t504"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t328"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "t353"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "t629"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "t417"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "t395"?
+  end.
+Property Raft-PT-09-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "t152"?
+  end.

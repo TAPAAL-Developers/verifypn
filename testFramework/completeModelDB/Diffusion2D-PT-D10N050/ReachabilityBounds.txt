@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((bound("cAMP__3_8_")) <= (2))) & (((((((bound("cAMP__6_3_")) <= (2))) & (((bound("cAMP__4_9_")) <= (1))))) & (((((((bound("cAMP__3_1_")) <= (1))) & (((((bound("cAMP__10_4_")) <= (1))) & (((((bound("cAMP__7_1_")) <= (3))) & (((bound("cAMP__2_2_")) <= (2))))))))) & (((bound("cAMP__6_7_")) <= (1))))))))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("cAMP__5_8_")) <= (1))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((bound("cAMP__4_5_")) <= (3))) & (((bound("cAMP__5_2_")) <= (2))))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("cAMP__4_7_")) <= (2))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("cAMP__2_7_")) <= (1))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((((bound("cAMP__1_6_")) <= (3))) & (((bound("cAMP__4_10_")) <= (1))))) & (((((((((bound("cAMP__6_9_")) <= (2))) & (((((bound("cAMP__1_5_")) <= (2))) & (((((bound("cAMP__10_9_")) <= (3))) & (((bound("cAMP__1_4_")) <= (3))))))))) & (((((((((bound("cAMP__4_6_")) <= (1))) & (((bound("cAMP__10_2_")) <= (2))))) & (((bound("cAMP__8_10_")) <= (2))))) & (((bound("cAMP__8_3_")) <= (3))))))) & (((bound("cAMP__8_1_")) <= (1))))))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("cAMP__9_1_")) <= (2))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("cAMP__7_6_")) <= (1))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("cAMP__10_2_")) <= (1))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((((bound("cAMP__3_8_")) <= (2))) & (((((((((((bound("cAMP__3_10_")) <= (2))) & (((bound("cAMP__8_6_")) <= (3))))) & (((((bound("cAMP__6_10_")) <= (2))) & (((bound("cAMP__7_4_")) <= (3))))))) & (((bound("cAMP__9_8_")) <= (1))))) & (((((((bound("cAMP__10_4_")) <= (2))) & (((bound("cAMP__7_7_")) <= (1))))) & (((bound("cAMP__9_4_")) <= (3))))))))) & (((((bound("cAMP__2_4_")) <= (1))) & (((((bound("cAMP__6_6_")) <= (3))) & (((((bound("cAMP__9_2_")) <= (2))) & (((bound("cAMP__3_2_")) <= (1))))))))))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((((((bound("cAMP__4_8_")) <= (3))) & (((bound("cAMP__6_1_")) <= (2))))) & (((((((((((bound("cAMP__3_5_")) <= (3))) & (((bound("cAMP__8_9_")) <= (2))))) & (((((bound("cAMP__1_4_")) <= (3))) & (((bound("cAMP__2_6_")) <= (2))))))) & (((bound("cAMP__4_1_")) <= (1))))) & (((((bound("cAMP__3_4_")) <= (2))) & (((bound("cAMP__9_5_")) <= (3))))))))) & (((bound("cAMP__8_8_")) <= (1))))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("cAMP__5_5_")) <= (2))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((((((bound("cAMP__7_3_")) <= (1))) & (((((bound("cAMP__4_8_")) <= (1))) & (((bound("cAMP__10_10_")) <= (2))))))) & (((((((bound("cAMP__9_3_")) <= (3))) & (((((bound("cAMP__1_5_")) <= (2))) & (((((bound("cAMP__10_10_")) <= (3))) & (((bound("cAMP__6_1_")) <= (2))))))))) & (((bound("cAMP__4_5_")) <= (2))))))) & (((((((bound("cAMP__4_3_")) <= (3))) & (((bound("cAMP__1_8_")) <= (1))))) & (((bound("cAMP__7_7_")) <= (2))))))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("cAMP__4_2_")) <= (1))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("cAMP__1_1_")) <= (2))
+  end.
+Property Diffusion2D-PT-D10N050-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((bound("cAMP__10_7_")) <= (3))) & (((((bound("cAMP__8_10_")) <= (3))) & (((bound("cAMP__9_9_")) <= (2))))))
+  end.

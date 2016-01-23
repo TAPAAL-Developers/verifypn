@@ -1,0 +1,80 @@
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("SigAbort")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("ScheduleTaskB_9", "ScheduleTaskB_8", "ScheduleTaskB_10", "ScheduleTaskB_3", "ScheduleTaskB_5", "ScheduleTaskB_2", "ScheduleTaskB_4", "ScheduleTaskB_7", "ScheduleTaskB_6", "ScheduleTaskB_1")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("CreatedJobs_2_1", "CreatedJobs_1_2", "CreatedJobs_0_2", "CreatedJobs_0_1", "CreatedJobs_3_2", "CreatedJobs_2_2", "CreatedJobs_3_1", "CreatedJobs_4_1", "CreatedJobs_4_2", "CreatedJobs_1_1")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("cBlockedTasks")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("P_1617_4", "P_1617_3", "P_1617_10", "P_1617_2", "P_1617_8", "P_1617_1", "P_1617_9", "P_1617_7", "P_1617_6", "P_1617_5")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("QueueJobE_10", "QueueJobE_3", "QueueJobE_4", "QueueJobE_9", "QueueJobE_2", "QueueJobE_1", "QueueJobE_7", "QueueJobE_8", "QueueJobE_5", "QueueJobE_6")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("MarkerRead")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("JobCnt")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("P_1119_1_2", "P_1119_9_2", "P_1119_2_2", "P_1119_5_1", "P_1119_1_1", "P_1119_3_2", "P_1119_4_1", "P_1119_8_2", "P_1119_7_2", "P_1119_4_2", "P_1119_7_1", "P_1119_6_1", "P_1119_5_2", "P_1119_6_2", "P_1119_9_1", "P_1119_2_1", "P_1119_3_1", "P_1119_8_1", "P_1119_10_1", "P_1119_10_2")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("P_1099")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("MarkerWrite")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("P_1119_1_2", "P_1119_9_2", "P_1119_2_2", "P_1119_5_1", "P_1119_1_1", "P_1119_3_2", "P_1119_4_1", "P_1119_8_2", "P_1119_7_2", "P_1119_4_2", "P_1119_7_1", "P_1119_6_1", "P_1119_5_2", "P_1119_6_2", "P_1119_9_1", "P_1119_2_1", "P_1119_3_1", "P_1119_8_1", "P_1119_10_1", "P_1119_10_2")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("nyo_10", "nyo_1", "nyo_2", "nyo_9", "nyo_3", "nyo_8", "nyo_7", "nyo_6", "nyo_5", "nyo_4")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("AbourtToModifySrc_2", "AbourtToModifySrc_1")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("cBlockedTasks")
+  end.
+Property PolyORBLF-COL-S02J04T10-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("FetchJobB_6", "FetchJobB_5", "FetchJobB_9", "FetchJobB_2", "FetchJobB_8", "FetchJobB_3", "FetchJobB_1", "FetchJobB_10", "FetchJobB_7", "FetchJobB_4")
+  end.

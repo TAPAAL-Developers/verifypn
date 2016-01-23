@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R100C002-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A ((#tokens("r_1_11")) <= (#tokens("p_1_65")))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A X X G G ((1) <= (#tokens("r_0_57")))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A G ((((#tokens("r_0_38")) <= (#tokens("p_1_25")))) U (X ((#tokens("p_1_18")) <= (#tokens("p_1_19")))))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A F ((G ((2) <= (#tokens("r_1_17")))) U (X ((#tokens("r_0_91")) <= (#tokens("r_1_10")))))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A G F G ((#tokens("r_0_13")) <= (#tokens("r_0_58")))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A F F F F ((#tokens("r_1_17")) <= (#tokens("p_0_81")))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A G ((#tokens("r_1_92")) <= (#tokens("r_1_66")))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A ((((((3) <= (#tokens("p_1_68")))) U (((#tokens("p_1_96")) <= (#tokens("p_1_18")))))) U (((#tokens("r_1_55")) <= (#tokens("r_1_23")))))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A X ((G ((#tokens("p_0_18")) <= (#tokens("p_1_8")))) U (X ((#tokens("r_1_39")) <= (#tokens("r_0_71")))))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A F F X X ((1) <= (#tokens("p_0_37")))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((#tokens("r_1_77")) <= (#tokens("r_0_91")))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A F F G G ((#tokens("r_0_73")) <= (#tokens("p_1_14")))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A F F ((#tokens("r_0_87")) <= (#tokens("r_0_44")))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A ((#tokens("r_1_7")) <= (#tokens("p_1_71")))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A G ((#tokens("r_0_58")) <= (#tokens("r_1_95")))
+  end.
+Property ResAllocation-PT-R100C002-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A X G ((((1) <= (#tokens("r_0_42")))) U (((2) <= (#tokens("r_0_39")))))
+  end.

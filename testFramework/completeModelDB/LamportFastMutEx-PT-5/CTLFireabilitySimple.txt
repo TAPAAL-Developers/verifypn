@@ -1,0 +1,80 @@
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F ("fordo_12_1", "fordo_12_2", "fordo_12_3", "fordo_12_4", "fordo_12_5", "fordo_12_6")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E G ("setbi_2_1", "setbi_2_2", "setbi_2_3", "setbi_2_4", "setbi_2_5", "setbi_2_6", "setbi_2_7", "setbi_2_8", "setbi_2_9", "setbi_2_10", "setbi_2_11", "setbi_2_12")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F ("setbi_11_1", "setbi_11_2", "setbi_11_3", "setbi_11_4", "setbi_11_5", "setbi_11_6", "setbi_11_7", "setbi_11_8", "setbi_11_9", "setbi_11_10", "setbi_11_11", "setbi_11_12")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F ("await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5", "await_13_6", "await_13_7", "await_13_8", "await_13_9", "await_13_10", "await_13_11", "await_13_12", "await_13_13", "await_13_14", "await_13_15", "await_13_16", "await_13_17", "await_13_18", "await_13_19", "await_13_20", "await_13_21", "await_13_22", "await_13_23", "await_13_24", "await_13_25", "await_13_26", "await_13_27", "await_13_28", "await_13_29", "await_13_30", "await_13_31", "await_13_32", "await_13_33", "await_13_34", "await_13_35", "await_13_36")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F ("yeqi_15_1", "yeqi_15_8", "yeqi_15_15", "yeqi_15_22", "yeqi_15_29", "yeqi_15_36")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F ("setbi_24_1", "setbi_24_2", "setbi_24_3", "setbi_24_4", "setbi_24_5", "setbi_24_6", "setbi_24_7", "setbi_24_8", "setbi_24_9", "setbi_24_10", "setbi_24_11", "setbi_24_12")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F ("await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5", "await_13_6", "await_13_7", "await_13_8", "await_13_9", "await_13_10", "await_13_11", "await_13_12", "await_13_13", "await_13_14", "await_13_15", "await_13_16", "await_13_17", "await_13_18", "await_13_19", "await_13_20", "await_13_21", "await_13_22", "await_13_23", "await_13_24", "await_13_25", "await_13_26", "await_13_27", "await_13_28", "await_13_29", "await_13_30", "await_13_31", "await_13_32", "await_13_33", "await_13_34", "await_13_35", "await_13_36")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F ("fordo_12_1", "fordo_12_2", "fordo_12_3", "fordo_12_4", "fordo_12_5", "fordo_12_6")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F ("sety0_23_1", "sety0_23_2", "sety0_23_3", "sety0_23_4", "sety0_23_5", "sety0_23_6", "sety0_23_7", "sety0_23_8", "sety0_23_9", "sety0_23_10", "sety0_23_11", "sety0_23_12", "sety0_23_13", "sety0_23_14", "sety0_23_15", "sety0_23_16", "sety0_23_17", "sety0_23_18", "sety0_23_19", "sety0_23_20", "sety0_23_21", "sety0_23_22", "sety0_23_23", "sety0_23_24", "sety0_23_25", "sety0_23_26", "sety0_23_27", "sety0_23_28", "sety0_23_29", "sety0_23_30", "sety0_23_31", "sety0_23_32", "sety0_23_33", "sety0_23_34", "sety0_23_35", "sety0_23_36")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E G ("setbi_2_1", "setbi_2_2", "setbi_2_3", "setbi_2_4", "setbi_2_5", "setbi_2_6", "setbi_2_7", "setbi_2_8", "setbi_2_9", "setbi_2_10", "setbi_2_11", "setbi_2_12")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F ("awaity_1", "awaity_2", "awaity_3", "awaity_4", "awaity_5", "awaity_6")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F ("await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5", "await_13_6", "await_13_7", "await_13_8", "await_13_9", "await_13_10", "await_13_11", "await_13_12", "await_13_13", "await_13_14", "await_13_15", "await_13_16", "await_13_17", "await_13_18", "await_13_19", "await_13_20", "await_13_21", "await_13_22", "await_13_23", "await_13_24", "await_13_25", "await_13_26", "await_13_27", "await_13_28", "await_13_29", "await_13_30", "await_13_31", "await_13_32", "await_13_33", "await_13_34", "await_13_35", "await_13_36")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F ("await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5", "await_13_6", "await_13_7", "await_13_8", "await_13_9", "await_13_10", "await_13_11", "await_13_12", "await_13_13", "await_13_14", "await_13_15", "await_13_16", "await_13_17", "await_13_18", "await_13_19", "await_13_20", "await_13_21", "await_13_22", "await_13_23", "await_13_24", "await_13_25", "await_13_26", "await_13_27", "await_13_28", "await_13_29", "await_13_30", "await_13_31", "await_13_32", "await_13_33", "await_13_34", "await_13_35", "await_13_36")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F ("yeqi_15_1", "yeqi_15_8", "yeqi_15_15", "yeqi_15_22", "yeqi_15_29", "yeqi_15_36")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F ("await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5", "await_13_6", "await_13_7", "await_13_8", "await_13_9", "await_13_10", "await_13_11", "await_13_12", "await_13_13", "await_13_14", "await_13_15", "await_13_16", "await_13_17", "await_13_18", "await_13_19", "await_13_20", "await_13_21", "await_13_22", "await_13_23", "await_13_24", "await_13_25", "await_13_26", "await_13_27", "await_13_28", "await_13_29", "await_13_30", "await_13_31", "await_13_32", "await_13_33", "await_13_34", "await_13_35", "await_13_36")?
+  end.
+Property LamportFastMutEx-COL-5-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F ("await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5", "await_13_6", "await_13_7", "await_13_8", "await_13_9", "await_13_10", "await_13_11", "await_13_12", "await_13_13", "await_13_14", "await_13_15", "await_13_16", "await_13_17", "await_13_18", "await_13_19", "await_13_20", "await_13_21", "await_13_22", "await_13_23", "await_13_24", "await_13_25", "await_13_26", "await_13_27", "await_13_28", "await_13_29", "await_13_30", "await_13_31", "await_13_32", "await_13_33", "await_13_34", "await_13_35", "await_13_36")?
+  end.

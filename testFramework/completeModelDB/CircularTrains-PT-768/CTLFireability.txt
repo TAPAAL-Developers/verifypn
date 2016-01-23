@@ -1,0 +1,80 @@
+Property CircularTrains-PT-768-CTLFireability-0
+  "Automatically generated"
+  is:
+    A X E G E F "t169_to_170"?
+  end.
+Property CircularTrains-PT-768-CTLFireability-1
+  "Automatically generated"
+  is:
+    ((((A X A F "t268_to_269"?) & (A F E G "t222_to_223"?))) & (! ((A (("t489_to_490"?) U ("t176_to_177"?))) & ("t102_to_103"?))))
+  end.
+Property CircularTrains-PT-768-CTLFireability-2
+  "Automatically generated"
+  is:
+    A F ((((A X "t470_to_471"?) & ((("t507_to_508"?) | ("t716_to_717"?))))) & (A F ! "t497_to_498"?))
+  end.
+Property CircularTrains-PT-768-CTLFireability-3
+  "Automatically generated"
+  is:
+    ! ((! A F "t598_to_599"?) | ("t320_to_321"?))
+  end.
+Property CircularTrains-PT-768-CTLFireability-4
+  "Automatically generated"
+  is:
+    A F ! A F (("t503_to_504"?) & ("t350_to_351"?))
+  end.
+Property CircularTrains-PT-768-CTLFireability-5
+  "Automatically generated"
+  is:
+    ! ! A F ((! "t511_to_512"?) & ((("t163_to_164"?) & ("t327_to_328"?))))
+  end.
+Property CircularTrains-PT-768-CTLFireability-6
+  "Automatically generated"
+  is:
+    A G ((E F "t747_to_748"?) & (! A G "t608_to_609"?))
+  end.
+Property CircularTrains-PT-768-CTLFireability-7
+  "Automatically generated"
+  is:
+    E F A G "t57_to_58"?
+  end.
+Property CircularTrains-PT-768-CTLFireability-8
+  "Automatically generated"
+  is:
+    E F (((("t56_to_57"?) | (A X "t270_to_271"?))) | ((((((("t709_to_710"?) & ("t284_to_285"?))) | ("t461_to_462"?))) | ((((("t81_to_82"?) & ("t349_to_350"?))) & ("t698_to_699"?))))))
+  end.
+Property CircularTrains-PT-768-CTLFireability-9
+  "Automatically generated"
+  is:
+    A G ! A F (("t539_to_540"?) | ("t491_to_492"?))
+  end.
+Property CircularTrains-PT-768-CTLFireability-10
+  "Automatically generated"
+  is:
+    ((((E G "t207_to_208"?) | ((("t654_to_655"?) & (A G "t342_to_343"?))))) | ((("t436_to_437"?) & ("t527_to_528"?))))
+  end.
+Property CircularTrains-PT-768-CTLFireability-11
+  "Automatically generated"
+  is:
+    ((A F ! ! (("t75_to_76"?) & ("t490_to_491"?))) & (E G E (("t228_to_229"?) U ("t113_to_114"?))))
+  end.
+Property CircularTrains-PT-768-CTLFireability-12
+  "Automatically generated"
+  is:
+    ((((((((! ! "t378_to_379"?) | (A G "t141_to_142"?))) | (((! (("t319_to_320"?) | ("t150_to_151"?))) & ((((("t461_to_462"?) | ("t344_to_345"?))) & ("t607_to_608"?))))))) | (((! ((! "t555_to_556"?) & (! "t658_to_659"?))) | (! "t517_to_518"?))))) & (! A G A F "t307_to_308"?))
+  end.
+Property CircularTrains-PT-768-CTLFireability-13
+  "Automatically generated"
+  is:
+    A F E X E F "t272_to_273"?
+  end.
+Property CircularTrains-PT-768-CTLFireability-14
+  "Automatically generated"
+  is:
+    ! ((E G (((("t672_to_673"?) | ("t170_to_171"?))) & ("t465_to_466"?))) | (A X "t409_to_410"?))
+  end.
+Property CircularTrains-PT-768-CTLFireability-15
+  "Automatically generated"
+  is:
+    ((! A G E F "t577_to_578"?) & (((((! (((("t91_to_92"?) | ("t92_to_93"?))) | ((("t611_to_612"?) & ("t386_to_387"?))))) & (((A F "t133_to_134"?) | (A G "t329_to_330"?))))) | ((((("t391_to_392"?) | ((((("t62_to_63"?) | ("t417_to_418"?))) & ((("t256_to_257"?) & ("t523_to_524"?))))))) | ("t471_to_472"?))))))
+  end.

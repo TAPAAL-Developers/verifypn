@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "GetHowDeliver.t6.2"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "PutHowDeliver.t7.2"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "WhatDeliverDecision.t6.0"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "CheckDeliveryRequest.t8.1"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "CheckWhatDeliver.t7.1"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "GetHowDeliver.t6.2"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t5.4"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "GetDeliveryResponse.t6.5"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "GetHowDeliver.t6.2"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "GetHowDeliver.t6.2"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "PutDeliveryRequest.t6.4"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "PutDeliveryRequest.t6.4"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t5.4"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "PutDeliveryResponse.t8.2"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "PutWhatDeliver.t6.1"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "CheckWhatDeliver.t7.1"?
+  end.

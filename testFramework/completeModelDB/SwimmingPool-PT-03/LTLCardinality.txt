@@ -1,0 +1,80 @@
+Property SwimmingPool-PT-03-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A F F ((((#tokens("WaitBag")) <= (#tokens("Bags")))) U (((2) <= (#tokens("Dress")))))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A ((X F ((3) <= (#tokens("Dress")))) U (((((#tokens("Out")) <= (#tokens("Bags")))) U (((3) <= (#tokens("Undress")))))))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A X F G ((#tokens("InBath")) <= (#tokens("Undress")))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A X G G F ((2) <= (#tokens("Cabins")))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((X F ((#tokens("Out")) <= (#tokens("InBath")))) U (((#tokens("Cabins")) <= (#tokens("Dress")))))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A G ((2) <= (#tokens("Entered")))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A X F ((((2) <= (#tokens("Dress")))) U (((#tokens("Dress")) <= (#tokens("Out")))))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A ((((((#tokens("Out")) <= (#tokens("InBath")))) U (((#tokens("WaitBag")) <= (#tokens("Out")))))) U (G F ((2) <= (#tokens("Dressed")))))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A ((2) <= (#tokens("Dress")))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((((((3) <= (#tokens("InBath")))) U (((3) <= (#tokens("Dressed")))))) U (F F ((2) <= (#tokens("Undress")))))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("WaitBag")))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A G F F ((#tokens("Out")) <= (#tokens("Entered")))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A G ((X ((#tokens("Bags")) <= (#tokens("Dress")))) U (((#tokens("Dress")) <= (#tokens("Cabins")))))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A G G G G ((1) <= (#tokens("Dress")))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((#tokens("Cabins")) <= (#tokens("WaitBag")))
+  end.
+Property SwimmingPool-PT-03-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A F G F ((3) <= (#tokens("Cabins")))
+  end.

@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pool__15_4_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cell___11_14__A_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cell___2_16__A_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cell___16_2__A_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cell___18_19__A_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cell___1_6__A_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cell___1_3__B_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cell___3_4__B_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cell___17_15__B_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cell___2_12__B_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cell___10_10__B_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cell___20_3__A_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pool__6_12_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cell___20_11__B_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cell___2_7__B_</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>PhaseVariation-PT-D20CS010-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cell___10_3__B_</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

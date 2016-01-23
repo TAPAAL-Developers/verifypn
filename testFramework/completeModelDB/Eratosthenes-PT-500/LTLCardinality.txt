@@ -1,0 +1,80 @@
+Property Eratosthenes-PT-500-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A ((2) <= (#tokens("p110")))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A G ((3) <= (#tokens("p322")))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("p81")))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A F ((X ((#tokens("p333")) <= (#tokens("p83")))) U (G ((#tokens("p277")) <= (#tokens("p232")))))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((X F ((#tokens("p184")) <= (#tokens("p191")))) U (X X ((1) <= (#tokens("p330")))))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A F G G X ((3) <= (#tokens("p326")))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A X ((#tokens("p65")) <= (#tokens("p131")))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A G X ((((#tokens("p310")) <= (#tokens("p218")))) U (((1) <= (#tokens("p453")))))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A X F ((((2) <= (#tokens("p40")))) U (((1) <= (#tokens("p379")))))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A X G G X ((#tokens("p429")) <= (#tokens("p319")))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A G F G ((1) <= (#tokens("p315")))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A F X F X ((#tokens("p452")) <= (#tokens("p280")))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((((((1) <= (#tokens("p168")))) U (((2) <= (#tokens("p168")))))) U (X F ((3) <= (#tokens("p62")))))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A ((#tokens("p495")) <= (#tokens("p486")))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A X ((((#tokens("p481")) <= (#tokens("p70")))) U (((#tokens("p381")) <= (#tokens("p6")))))
+  end.
+Property Eratosthenes-PT-500-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A G ((G ((2) <= (#tokens("p35")))) U (((#tokens("p247")) <= (#tokens("p27")))))
+  end.

@@ -1,0 +1,80 @@
+Property SwimmingPool-PT-07-LTLFireability-0
+  "Automatically generated"
+  is:
+    A "GetB"?
+  end.
+Property SwimmingPool-PT-07-LTLFireability-1
+  "Automatically generated"
+  is:
+    A X X ((X "RBag"?) U (X "RelK"?))
+  end.
+Property SwimmingPool-PT-07-LTLFireability-2
+  "Automatically generated"
+  is:
+    A F F F (("Enter"?) U ("GetK2"?))
+  end.
+Property SwimmingPool-PT-07-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X X X G "GetK"?
+  end.
+Property SwimmingPool-PT-07-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X G G X G "RBag"?
+  end.
+Property SwimmingPool-PT-07-LTLFireability-5
+  "Automatically generated"
+  is:
+    A "Enter"?
+  end.
+Property SwimmingPool-PT-07-LTLFireability-6
+  "Automatically generated"
+  is:
+    A ((G (("RKey"?) U ("RBag"?))) U (F X X "GetK"?))
+  end.
+Property SwimmingPool-PT-07-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X G G (("GetK2"?) U ("RKey"?))
+  end.
+Property SwimmingPool-PT-07-LTLFireability-8
+  "Automatically generated"
+  is:
+    A ((((F "GetK2"?) U ("GetK"?))) U (X X "RBag"?))
+  end.
+Property SwimmingPool-PT-07-LTLFireability-9
+  "Automatically generated"
+  is:
+    A ((((G "Enter"?) U (G "GetK2"?))) U (((F "GetK2"?) U (F "GetK"?))))
+  end.
+Property SwimmingPool-PT-07-LTLFireability-10
+  "Automatically generated"
+  is:
+    A ((X F G "RKey"?) U (F "GetB"?))
+  end.
+Property SwimmingPool-PT-07-LTLFireability-11
+  "Automatically generated"
+  is:
+    A "GetK"?
+  end.
+Property SwimmingPool-PT-07-LTLFireability-12
+  "Automatically generated"
+  is:
+    A ((((X "GetK2"?) U (G "Enter"?))) U (X G G "RelK"?))
+  end.
+Property SwimmingPool-PT-07-LTLFireability-13
+  "Automatically generated"
+  is:
+    A X "GetK2"?
+  end.
+Property SwimmingPool-PT-07-LTLFireability-14
+  "Automatically generated"
+  is:
+    A G F ((F "RelK"?) U (G "RKey"?))
+  end.
+Property SwimmingPool-PT-07-LTLFireability-15
+  "Automatically generated"
+  is:
+    A (((("GetB"?) U (X "RKey"?))) U ("GetK"?))
+  end.

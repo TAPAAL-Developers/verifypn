@@ -1,0 +1,80 @@
+Property Eratosthenes-PT-200-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E G "t176.8"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E G "t195.13"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E G "t144.8"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E G "t192.2"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E G "t158.79"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E G "t177.3"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E G "t100.50"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E G "t100.20"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E G "t170.17"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E G "t44.22"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E G "t90.5"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E G "t95.19"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E G "t102.34"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E G "t156.52"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E G "t184.46"?
+  end.
+Property Eratosthenes-PT-200-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E G "t45.15"?
+  end.

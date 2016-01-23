@@ -1,0 +1,80 @@
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("p125")) <= (3))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((bound("p253")) <= (1))) & (((((bound("p62")) <= (1))) & (((bound("p8")) <= (2))))))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("p142")) <= (2))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("p219")) <= (2))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("p54")) <= (3))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((((bound("p104")) <= (2))) & (((((bound("p107")) <= (3))) & (((bound("p253")) <= (1))))))) & (((bound("p180")) <= (1))))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((((((((bound("p119")) <= (2))) & (((bound("p267")) <= (1))))) & (((((((((bound("p138")) <= (3))) & (((bound("p267")) <= (2))))) & (((bound("p135")) <= (2))))) & (((((((bound("p175")) <= (2))) & (((bound("p37")) <= (2))))) & (((((bound("p244")) <= (3))) & (((bound("p309")) <= (2))))))))))) & (((((bound("p86")) <= (2))) & (((((bound("p263")) <= (2))) & (((((((bound("p49")) <= (2))) & (((bound("p293")) <= (3))))) & (((((bound("p23")) <= (1))) & (((bound("p85")) <= (2))))))))))))) & (((bound("p295")) <= (1))))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("p161")) <= (1))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((bound("p275")) <= (2))) & (((bound("p231")) <= (2))))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((bound("p300")) <= (3))) & (((((bound("p257")) <= (2))) & (((((((((bound("p3")) <= (2))) & (((bound("p273")) <= (1))))) & (((bound("p59")) <= (2))))) & (((((bound("p216")) <= (3))) & (((bound("p10")) <= (3))))))))))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((((bound("p139")) <= (2))) & (((bound("p111")) <= (3))))) & (((((((bound("p227")) <= (1))) & (((((((((bound("p62")) <= (1))) & (((bound("p114")) <= (3))))) & (((((bound("p165")) <= (2))) & (((bound("p287")) <= (2))))))) & (((bound("p115")) <= (1))))))) & (((((bound("p171")) <= (2))) & (((bound("p23")) <= (3))))))))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((bound("p103")) <= (2))) & (((((((bound("p314")) <= (1))) & (((((bound("p262")) <= (3))) & (((((bound("p314")) <= (2))) & (((((bound("p207")) <= (3))) & (((bound("p264")) <= (2))))))))))) & (((bound("p243")) <= (1))))))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((bound("p95")) <= (1))) & (((bound("p243")) <= (3))))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("p113")) <= (1))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("p175")) <= (3))
+  end.
+Property RwMutex-PT-r0100w0010-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((bound("p311")) <= (2))) & (((bound("p206")) <= (1))))
+  end.

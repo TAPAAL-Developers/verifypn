@@ -1,0 +1,80 @@
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "division2_mutate_1_9_B_2_9"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "division2_mutate_8_6_B_9_7"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "division2_mutate_3_10_B_2_9"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "division2_mutate_2_5_B_3_4"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "division2_mutate_7_2_A_7_1"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "division1_replicate_4_5_A"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "division2_mutate_3_9_B_2_8"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "division2_replicate_1_5_B_2_5"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "division2_replicate_5_6_A_6_5"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "division2_mutate_2_9_B_1_8"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "division2_replicate_9_3_A_8_4"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "division2_mutate_9_1_B_10_2"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "division2_replicate_7_3_A_8_2"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "division2_replicate_8_2_B_7_1"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "division2_replicate_8_8_A_9_8"?
+  end.
+Property PhaseVariation-PT-D10CS010-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "division2_mutate_4_8_A_5_9"?
+  end.

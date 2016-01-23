@@ -1,0 +1,80 @@
+Property PhaseVariation-PT-D10CS100-LTLFireability-0
+  "Automatically generated"
+  is:
+    A ((F F X "division2_replicate_8_4_B_7_3"?) U (F G F "division2_mutate_6_5_B_5_5"?))
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-1
+  "Automatically generated"
+  is:
+    A X "division2_mutate_8_4_B_9_5"?
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-2
+  "Automatically generated"
+  is:
+    A G "division2_mutate_10_5_A_10_6"?
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-3
+  "Automatically generated"
+  is:
+    A G (("division2_mutate_5_9_B_6_9"?) U (X "division2_mutate_1_6_B_2_6"?))
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-4
+  "Automatically generated"
+  is:
+    A G F X X "division2_mutate_8_5_A_8_6"?
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-5
+  "Automatically generated"
+  is:
+    A G X G (("division2_mutate_4_8_A_4_7"?) U ("division2_replicate_9_1_B_8_2"?))
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-6
+  "Automatically generated"
+  is:
+    A X "division2_replicate_2_2_A_1_2"?
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-7
+  "Automatically generated"
+  is:
+    A G F F "division2_replicate_10_4_A_9_5"?
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-8
+  "Automatically generated"
+  is:
+    A F F "division2_replicate_9_1_B_10_2"?
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-9
+  "Automatically generated"
+  is:
+    A G "division2_mutate_1_6_A_2_7"?
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-10
+  "Automatically generated"
+  is:
+    A "division2_replicate_10_5_A_9_5"?
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-11
+  "Automatically generated"
+  is:
+    A F ((F "division2_replicate_9_3_A_8_2"?) U (X G "division2_mutate_7_7_A_8_8"?))
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-12
+  "Automatically generated"
+  is:
+    A (((("division1_mutate_2_6_B"?) U (F "division2_mutate_10_4_B_9_5"?))) U ((("division1_replicate_4_4_A"?) U ("division2_replicate_6_9_A_5_10"?))))
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-13
+  "Automatically generated"
+  is:
+    A G "division1_mutate_10_2_A"?
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-14
+  "Automatically generated"
+  is:
+    A ((G G G "division2_mutate_4_5_A_5_5"?) U (((F "division2_replicate_4_10_B_4_9"?) U ("division2_replicate_1_4_A_2_3"?))))
+  end.
+Property PhaseVariation-PT-D10CS100-LTLFireability-15
+  "Automatically generated"
+  is:
+    A G F F "division2_mutate_7_7_A_6_6"?
+  end.

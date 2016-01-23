@@ -1,0 +1,80 @@
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F ("serve_3", "serve_2", "serve_5", "serve_4", "serve_1", "serve_7", "serve_6", "serve_8")?
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A X ("addOption_2", "addOption_1")?
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A G ("elaborate2_1_1_5_1", "elaborate2_1_1_6_1", "elaborate2_2_2_5_1", "elaborate2_1_2_5_1", "elaborate2_2_1_5_1", "elaborate2_2_1_5_2", "elaborate2_1_2_5_2", "elaborate2_2_2_5_2", "elaborate2_1_1_6_2", "elaborate2_2_1_6_1", "elaborate2_1_2_6_1", "elaborate2_2_2_6_1", "elaborate2_1_1_5_2", "elaborate2_2_1_6_2", "elaborate2_1_2_6_2", "elaborate2_2_2_6_2")?
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A X ("addOption_2", "addOption_1")?
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A ((("elaborate1_2_3_1", "elaborate1_1_4_1", "elaborate1_2_4_1", "elaborate1_1_3_2", "elaborate1_1_3_1", "elaborate1_1_4_2", "elaborate1_2_3_2", "elaborate1_2_4_2")?) U (("elaborate3_1_1_7_1_1", "elaborate3_1_2_7_1_1", "elaborate3_2_1_7_1_1", "elaborate3_1_1_8_1_1", "elaborate3_2_2_7_1_1", "elaborate3_2_2_8_1_1", "elaborate3_1_1_7_2_1", "elaborate3_2_1_8_1_1", "elaborate3_1_2_8_1_1", "elaborate3_2_2_7_2_1", "elaborate3_1_1_8_2_1", "elaborate3_2_1_7_2_1", "elaborate3_1_2_7_2_1", "elaborate3_2_2_8_2_1", "elaborate3_1_1_7_1_2", "elaborate3_2_1_8_2_1", "elaborate3_1_2_8_2_1", "elaborate3_2_2_7_1_2", "elaborate3_1_1_8_1_2", "elaborate3_2_1_7_1_2", "elaborate3_1_2_7_1_2", "elaborate3_1_1_7_2_2", "elaborate3_2_2_8_1_2", "elaborate3_1_2_8_1_2", "elaborate3_2_1_8_1_2", "elaborate3_1_1_8_2_2", "elaborate3_2_2_7_2_2", "elaborate3_1_2_7_2_2", "elaborate3_2_1_7_2_2", "elaborate3_2_2_8_2_2", "elaborate3_1_2_8_2_2", "elaborate3_2_1_8_2_2")?))
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F ("addProduct_1", "addProduct_2")?
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A ((("addProduct_1", "addProduct_2")?) U (("elaborate3_1_1_7_1_1", "elaborate3_1_2_7_1_1", "elaborate3_2_1_7_1_1", "elaborate3_1_1_8_1_1", "elaborate3_2_2_7_1_1", "elaborate3_2_2_8_1_1", "elaborate3_1_1_7_2_1", "elaborate3_2_1_8_1_1", "elaborate3_1_2_8_1_1", "elaborate3_2_2_7_2_1", "elaborate3_1_1_8_2_1", "elaborate3_2_1_7_2_1", "elaborate3_1_2_7_2_1", "elaborate3_2_2_8_2_1", "elaborate3_1_1_7_1_2", "elaborate3_2_1_8_2_1", "elaborate3_1_2_8_2_1", "elaborate3_2_2_7_1_2", "elaborate3_1_1_8_1_2", "elaborate3_2_1_7_1_2", "elaborate3_1_2_7_1_2", "elaborate3_1_1_7_2_2", "elaborate3_2_2_8_1_2", "elaborate3_1_2_8_1_2", "elaborate3_2_1_8_1_2", "elaborate3_1_1_8_2_2", "elaborate3_2_2_7_2_2", "elaborate3_1_2_7_2_2", "elaborate3_2_1_7_2_2", "elaborate3_2_2_8_2_2", "elaborate3_1_2_8_2_2", "elaborate3_2_1_8_2_2")?))
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A X ("addOption_2", "addOption_1")?
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F ("elaborate3_1_1_7_1_1", "elaborate3_1_2_7_1_1", "elaborate3_2_1_7_1_1", "elaborate3_1_1_8_1_1", "elaborate3_2_2_7_1_1", "elaborate3_2_2_8_1_1", "elaborate3_1_1_7_2_1", "elaborate3_2_1_8_1_1", "elaborate3_1_2_8_1_1", "elaborate3_2_2_7_2_1", "elaborate3_1_1_8_2_1", "elaborate3_2_1_7_2_1", "elaborate3_1_2_7_2_1", "elaborate3_2_2_8_2_1", "elaborate3_1_1_7_1_2", "elaborate3_2_1_8_2_1", "elaborate3_1_2_8_2_1", "elaborate3_2_2_7_1_2", "elaborate3_1_1_8_1_2", "elaborate3_2_1_7_1_2", "elaborate3_1_2_7_1_2", "elaborate3_1_1_7_2_2", "elaborate3_2_2_8_1_2", "elaborate3_1_2_8_1_2", "elaborate3_2_1_8_1_2", "elaborate3_1_1_8_2_2", "elaborate3_2_2_7_2_2", "elaborate3_1_2_7_2_2", "elaborate3_2_1_7_2_2", "elaborate3_2_2_8_2_2", "elaborate3_1_2_8_2_2", "elaborate3_2_1_8_2_2")?
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A G ("elaborate3_1_1_7_1_1", "elaborate3_1_2_7_1_1", "elaborate3_2_1_7_1_1", "elaborate3_1_1_8_1_1", "elaborate3_2_2_7_1_1", "elaborate3_2_2_8_1_1", "elaborate3_1_1_7_2_1", "elaborate3_2_1_8_1_1", "elaborate3_1_2_8_1_1", "elaborate3_2_2_7_2_1", "elaborate3_1_1_8_2_1", "elaborate3_2_1_7_2_1", "elaborate3_1_2_7_2_1", "elaborate3_2_2_8_2_1", "elaborate3_1_1_7_1_2", "elaborate3_2_1_8_2_1", "elaborate3_1_2_8_2_1", "elaborate3_2_2_7_1_2", "elaborate3_1_1_8_1_2", "elaborate3_2_1_7_1_2", "elaborate3_1_2_7_1_2", "elaborate3_1_1_7_2_2", "elaborate3_2_2_8_1_2", "elaborate3_1_2_8_1_2", "elaborate3_2_1_8_1_2", "elaborate3_1_1_8_2_2", "elaborate3_2_2_7_2_2", "elaborate3_1_2_7_2_2", "elaborate3_2_1_7_2_2", "elaborate3_2_2_8_2_2", "elaborate3_1_2_8_2_2", "elaborate3_2_1_8_2_2")?
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A X ("addProduct_1", "addProduct_2")?
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F ("elaborate2_1_1_5_1", "elaborate2_1_1_6_1", "elaborate2_2_2_5_1", "elaborate2_1_2_5_1", "elaborate2_2_1_5_1", "elaborate2_2_1_5_2", "elaborate2_1_2_5_2", "elaborate2_2_2_5_2", "elaborate2_1_1_6_2", "elaborate2_2_1_6_1", "elaborate2_1_2_6_1", "elaborate2_2_2_6_1", "elaborate2_1_1_5_2", "elaborate2_2_1_6_2", "elaborate2_1_2_6_2", "elaborate2_2_2_6_2")?
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A X ("elaborate3_1_1_7_1_1", "elaborate3_1_2_7_1_1", "elaborate3_2_1_7_1_1", "elaborate3_1_1_8_1_1", "elaborate3_2_2_7_1_1", "elaborate3_2_2_8_1_1", "elaborate3_1_1_7_2_1", "elaborate3_2_1_8_1_1", "elaborate3_1_2_8_1_1", "elaborate3_2_2_7_2_1", "elaborate3_1_1_8_2_1", "elaborate3_2_1_7_2_1", "elaborate3_1_2_7_2_1", "elaborate3_2_2_8_2_1", "elaborate3_1_1_7_1_2", "elaborate3_2_1_8_2_1", "elaborate3_1_2_8_2_1", "elaborate3_2_2_7_1_2", "elaborate3_1_1_8_1_2", "elaborate3_2_1_7_1_2", "elaborate3_1_2_7_1_2", "elaborate3_1_1_7_2_2", "elaborate3_2_2_8_1_2", "elaborate3_1_2_8_1_2", "elaborate3_2_1_8_1_2", "elaborate3_1_1_8_2_2", "elaborate3_2_2_7_2_2", "elaborate3_1_2_7_2_2", "elaborate3_2_1_7_2_2", "elaborate3_2_2_8_2_2", "elaborate3_1_2_8_2_2", "elaborate3_2_1_8_2_2")?
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A G ("serve_3", "serve_2", "serve_5", "serve_4", "serve_1", "serve_7", "serve_6", "serve_8")?
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F ("serve_3", "serve_2", "serve_5", "serve_4", "serve_1", "serve_7", "serve_6", "serve_8")?
+  end.
+Property DrinkVendingMachine-COL-02-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A X ("serve_3", "serve_2", "serve_5", "serve_4", "serve_1", "serve_7", "serve_6", "serve_8")?
+  end.

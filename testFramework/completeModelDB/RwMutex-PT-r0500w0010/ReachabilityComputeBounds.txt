@@ -1,0 +1,80 @@
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("p1415")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("p734")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("p58")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("p819")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("p464")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("p108")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("p382")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("p710")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("p432")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("p223")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("p1341")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("p800")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("p1009")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("p1052")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("p621")
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("p480")
+  end.

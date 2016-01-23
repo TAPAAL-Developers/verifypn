@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Cpt1_1</place>
+        <place>Cpt1_2</place>
+        <place>Cpt1_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>msgl_1</place>
+        <place>msgl_2</place>
+        <place>msgl_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>MSG_1</place>
+        <place>MSG_2</place>
+        <place>MSG_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>wait_cable_1</place>
+        <place>wait_cable_2</place>
+        <place>wait_cable_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>listen_1</place>
+        <place>listen_2</place>
+        <place>listen_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>ACK</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>cable_free</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>ACK</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Cpt1_1</place>
+        <place>Cpt1_2</place>
+        <place>Cpt1_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>ACK</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>loop_em_1</place>
+        <place>loop_em_2</place>
+        <place>loop_em_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>RMC_1</place>
+        <place>RMC_2</place>
+        <place>RMC_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>loop_em_1</place>
+        <place>loop_em_2</place>
+        <place>loop_em_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Cpt2_1</place>
+        <place>Cpt2_2</place>
+        <place>Cpt2_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>wait_cable_1</place>
+        <place>wait_cable_2</place>
+        <place>wait_cable_3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SafeBus-COL-03-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Cpt2_1</place>
+        <place>Cpt2_2</place>
+        <place>Cpt2_3</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

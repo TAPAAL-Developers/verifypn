@@ -1,0 +1,80 @@
+Property IBM5964-PT-none-CTLFireability-0
+  "Automatically generated"
+  is:
+    A F A G (("callToProcess.s00002411.outputCriterion.s00000939"?) & (! "callToTask.s00002189.outputCriterion.s00000939"?))
+  end.
+Property IBM5964-PT-none-CTLFireability-1
+  "Automatically generated"
+  is:
+    ! ! A ((! "callToTask.s00001746.inputCriterion.s00000937"?) U ((("callToTask.s00002190.inputCriterion.s00000937"?) | ("callToTask.s00005967.outputCriterion.s00000939"?))))
+  end.
+Property IBM5964-PT-none-CTLFireability-2
+  "Automatically generated"
+  is:
+    ((A F "decision.s00001615.fire.s00000991"?) | (! ! (((((("callToTask.s00005969.outputCriterion.s00000939"?) | ("callToProcess.s00004075.outputCriterion.s00000939"?))) & ("merge.s00001369.activate.s00000946"?))) | ((((("callToTask.s00002186.outputCriterion.s00000939"?) & ("merge.s00001292.fire.s00000953"?))) & ((("decision.s00001288.fire.s00000995"?) | ("decision.s00001616.fire.s00000993"?))))))))
+  end.
+Property IBM5964-PT-none-CTLFireability-3
+  "Automatically generated"
+  is:
+    A G E F "merge.s00001066.fire.s00000953"?
+  end.
+Property IBM5964-PT-none-CTLFireability-4
+  "Automatically generated"
+  is:
+    E ((! "callToTask.s00005965.inputCriterion.s00000937"?) U (A X "fork.s00001537.fire.s00000991"?))
+  end.
+Property IBM5964-PT-none-CTLFireability-5
+  "Automatically generated"
+  is:
+    A F A X "merge.s00001291.fire.s00000953"?
+  end.
+Property IBM5964-PT-none-CTLFireability-6
+  "Automatically generated"
+  is:
+    ! A (((((("fork.s00001067.activate.s00000990"?) & ("callToProcess.s00001273.outputCriterion.s00000939"?))) & ("decision.s00001289.fire.s00000993"?))) U (A F "callToProcess.s00001273.inputCriterion.s00000937"?))
+  end.
+Property IBM5964-PT-none-CTLFireability-7
+  "Automatically generated"
+  is:
+    ((A G ((A F "callToTask.s00005849.outputCriterion.s00000939"?) & ((((("join.s00001294.activate.s00000948"?) & ("fork.s00001537.activate.s00000990"?))) | ((("decision.s00001615.activate.s00000990"?) | ("fork.s00001067.activate.s00000990"?))))))) | (E ((! (("callToTask.s00005965.outputCriterion.s00000939"?) & ("callToTask.s00005849.outputCriterion.s00000939"?))) U ("callToTask.s00002186.inputCriterion.s00000937"?))))
+  end.
+Property IBM5964-PT-none-CTLFireability-8
+  "Automatically generated"
+  is:
+    A F A (("callToProcess.s00002411.outputCriterion.s00000939"?) U ((("merge.s00001369.activate.s00000948"?) & ("fork.s00001537.fire.s00000993"?))))
+  end.
+Property IBM5964-PT-none-CTLFireability-9
+  "Automatically generated"
+  is:
+    E G ((A F ! "callToProcess.s00002411.inputCriterion.s00000937"?) | ((((((("decision.s00000989.fire.s00000993"?) & ("process.s00000383##s00005964.inputCriterion.s00000937"?))) | ((("callToTask.s00002427.outputCriterion.s00000939"?) & ("fork.s00001536.activate.s00000990"?))))) | ((((("decision.s00001615.fire.s00000995"?) | ("decision.s00001288.fire.s00000995"?))) | ((("join.s00001295.activate.s00000946"?) & ("decision.s00001287.fire.s00000993"?))))))))
+  end.
+Property IBM5964-PT-none-CTLFireability-10
+  "Automatically generated"
+  is:
+    ! A (((("decision.s00001287.fire.s00000993"?) | (! "callToProcess.s00002316.inputCriterion.s00000937"?))) U (E X "callToTask.s00005897.outputCriterion.s00000939"?))
+  end.
+Property IBM5964-PT-none-CTLFireability-11
+  "Automatically generated"
+  is:
+    (("callToTask.s00002526.inputCriterion.s00000937"?) | (A G ! A G "callToProcess.s00001273.outputCriterion.s00000939"?))
+  end.
+Property IBM5964-PT-none-CTLFireability-12
+  "Automatically generated"
+  is:
+    E F ((A F (("callToProcess.s00004075.inputCriterion.s00000937"?) | ("callToProcess.s00004075.inputCriterion.s00000937"?))) & (A G (("callToTask.s00005968.inputCriterion.s00000937"?) | ("decision.s00001618.fire.s00000991"?))))
+  end.
+Property IBM5964-PT-none-CTLFireability-13
+  "Automatically generated"
+  is:
+    E ((! A F "callToTask.s00001305.inputCriterion.s00000937"?) U (E X "callToProcess.s00002316.outputCriterion.s00000939"?))
+  end.
+Property IBM5964-PT-none-CTLFireability-14
+  "Automatically generated"
+  is:
+    A F "callToTask.s00002190.inputCriterion.s00000937"?
+  end.
+Property IBM5964-PT-none-CTLFireability-15
+  "Automatically generated"
+  is:
+    A F ((A (("decision.s00000999.fire.s00000993"?) U ("merge.s00001291.activate.s00000946"?))) & (((((! "decision.s00000989.fire.s00000993"?) | (! "callToTask.s00005971.inputCriterion.s00000937"?))) & (E X "callToTask.s00001632.outputCriterion.s00000939"?))))
+  end.

@@ -1,0 +1,80 @@
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F "merge.s00001162.activate.s00001062"?
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F "decision.s00002762.fire.s00001073"?
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F (("decision.s00001841.fire.s00001073"?) & (((! (("decision.s00001157.fire.s00001073"?) | ("callToTask.s00003964.inputCriterion.s00001053"?))) | ("fork.s00002500.activate.s00001072"?))))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F "callToTask.s00001360.outputCriterion.s00001055"?
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    A G ((! ! ! "callToProcess.s00003884.outputCriterion.s00001055"?) & (((((! "merge.s00002238.activate.s00001064"?) | (! "fork.s00001403.fire.s00001078"?))) | (! (("callToTask.s00003968.inputCriterion.s00001053"?) & ("callToTask.s00003974.outputCriterion.s00001055"?))))))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G ((! ! "callToTask.s00003975.outputCriterion.s00001055"?) | (! (((("decision.s00002760.fire.s00001075"?) & ("decision.s00001157.activate.s00001072"?))) & (! "callToTask.s00003962.outputCriterion.s00001055"?))))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F (("merge.s00001061.activate.s00001065"?) & (((! ! "callToProcess.s00001108.inputCriterion.s00001053"?) | (((! "decision.s00002056.fire.s00001078"?) & ((("merge.s00001162.activate.s00001260"?) & ("merge.s00001162.activate.s00001064"?))))))))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F (((("decision.s00002762.fire.s00001073"?) | ((((("merge.s00001162.activate.s00001062"?) & ("merge.s00001161.activate.s00001062"?))) & ((("callToProcess.s00003880.outputCriterion.s00001055"?) | ("decision.s00002760.fire.s00001073"?))))))) | ("merge.s00002240.activate.s00001065"?))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F "fork.s00001298.fire.s00001075"?
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G ! "callToTask.s00003980.inputCriterion.s00001053"?
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F "callToProcess.s00003876.outputCriterion.s00001055"?
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F (("merge.s00001162.activate.s00001067"?) & (((! "callToTask.s00003908.inputCriterion.s00001053"?) & (! ! "fork.s00002501.fire.s00001073"?))))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F "decision.s00002056.activate.s00001072"?
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F "merge.s00001160.activate.s00001065"?
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    A G ! ! ! (("fork.s00001403.fire.s00001073"?) & ("merge.s00001161.activate.s00001062"?))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    A G (((("merge.s00002240.activate.s00001065"?) | (((! "callToTask.s00003966.outputCriterion.s00001055"?) | ((("merge.s00001162.activate.s00001260"?) & ("join.s00001163.activate.s00001064"?))))))) | ("callToTask.s00001360.inputCriterion.s00001053"?))
+  end.

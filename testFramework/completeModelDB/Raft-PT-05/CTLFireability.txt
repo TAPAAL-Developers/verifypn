@@ -1,0 +1,80 @@
+Property Raft-PT-05-CTLFireability-0
+  "Automatically generated"
+  is:
+    E X ! E F (("t86"?) & ("t235"?))
+  end.
+Property Raft-PT-05-CTLFireability-1
+  "Automatically generated"
+  is:
+    E F A G ! ! "t49"?
+  end.
+Property Raft-PT-05-CTLFireability-2
+  "Automatically generated"
+  is:
+    E F ((E G ! "t91"?) & ((((((("t159"?) | ("t179"?))) & ("t168"?))) & (E F "t85"?))))
+  end.
+Property Raft-PT-05-CTLFireability-3
+  "Automatically generated"
+  is:
+    ((((((! E X "t208"?) | (E G (("t110"?) | ("t106"?))))) | (A F E F "t38"?))) & (! E G "t7"?))
+  end.
+Property Raft-PT-05-CTLFireability-4
+  "Automatically generated"
+  is:
+    ! E F (((((("t201"?) | ("t223"?))) & (! "t206"?))) & (E X "t113"?))
+  end.
+Property Raft-PT-05-CTLFireability-5
+  "Automatically generated"
+  is:
+    E ((E F (("t231"?) | ("t91"?))) U (E G "t52"?))
+  end.
+Property Raft-PT-05-CTLFireability-6
+  "Automatically generated"
+  is:
+    ! E ((A F "t54"?) U (E F "t14"?))
+  end.
+Property Raft-PT-05-CTLFireability-7
+  "Automatically generated"
+  is:
+    A G ! "t32"?
+  end.
+Property Raft-PT-05-CTLFireability-8
+  "Automatically generated"
+  is:
+    A G ((! E G "t0"?) & ((("t147"?) | (A F "t169"?))))
+  end.
+Property Raft-PT-05-CTLFireability-9
+  "Automatically generated"
+  is:
+    ! A G E F (("t145"?) & ("t95"?))
+  end.
+Property Raft-PT-05-CTLFireability-10
+  "Automatically generated"
+  is:
+    E G ! E F "t41"?
+  end.
+Property Raft-PT-05-CTLFireability-11
+  "Automatically generated"
+  is:
+    E ((((A X "t208"?) | (E G "t125"?))) U (A F (("t147"?) & ("t142"?))))
+  end.
+Property Raft-PT-05-CTLFireability-12
+  "Automatically generated"
+  is:
+    ((A G A F ! "t88"?) | (! E G A F "t127"?))
+  end.
+Property Raft-PT-05-CTLFireability-13
+  "Automatically generated"
+  is:
+    A G E X (((("t33"?) | ("t126"?))) & (! "t87"?))
+  end.
+Property Raft-PT-05-CTLFireability-14
+  "Automatically generated"
+  is:
+    ((((((((E G "t7"?) & ("t20"?))) & ("t139"?))) & (A G "t40"?))) | (! E F E G "t143"?))
+  end.
+Property Raft-PT-05-CTLFireability-15
+  "Automatically generated"
+  is:
+    ((A X (((("t126"?) & ((("t197"?) | ("t62"?))))) & ("t78"?))) & (E X ! A F "t197"?))
+  end.

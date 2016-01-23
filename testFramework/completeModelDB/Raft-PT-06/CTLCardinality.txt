@@ -1,0 +1,80 @@
+Property Raft-PT-06-CTLCardinality-0
+  "Automatically generated"
+  is:
+    E ((! ((((#tokens("p142")) <= (#tokens("p53")))) & (((1) <= (#tokens("p29")))))) U (A G ((2) <= (#tokens("p95")))))
+  end.
+Property Raft-PT-06-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ((E F ((((((2) <= (#tokens("p164")))) & (((1) <= (#tokens("p62")))))) | (((((#tokens("p93")) <= (#tokens("p96")))) & (((1) <= (#tokens("p26")))))))) & (E X E F ((2) <= (#tokens("p120")))))
+  end.
+Property Raft-PT-06-CTLCardinality-2
+  "Automatically generated"
+  is:
+    E F ((((2) <= (#tokens("p121")))) & (A G ((#tokens("p28")) <= (#tokens("p26")))))
+  end.
+Property Raft-PT-06-CTLCardinality-3
+  "Automatically generated"
+  is:
+    E X E F ((2) <= (#tokens("p46")))
+  end.
+Property Raft-PT-06-CTLCardinality-4
+  "Automatically generated"
+  is:
+    ! E F ! ((((#tokens("p171")) <= (#tokens("p117")))) | (((1) <= (#tokens("p122")))))
+  end.
+Property Raft-PT-06-CTLCardinality-5
+  "Automatically generated"
+  is:
+    ((((! ((! ((#tokens("p49")) <= (#tokens("p47")))) & (! ((#tokens("p6")) <= (#tokens("p75")))))) & (E F ! ((#tokens("p159")) <= (#tokens("p159")))))) & (((((E G ((#tokens("p161")) <= (#tokens("p63")))) | (((((((1) <= (#tokens("p7")))) | (((1) <= (#tokens("p31")))))) & (((((1) <= (#tokens("p54")))) & (((3) <= (#tokens("p134")))))))))) | (((1) <= (#tokens("p26")))))))
+  end.
+Property Raft-PT-06-CTLCardinality-6
+  "Automatically generated"
+  is:
+    E G ((((((((1) <= (#tokens("p59")))) | (((#tokens("p131")) <= (#tokens("p78")))))) & (((((2) <= (#tokens("p182")))) & (((3) <= (#tokens("p19")))))))) | (E F ((3) <= (#tokens("p143")))))
+  end.
+Property Raft-PT-06-CTLCardinality-7
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("p30")))
+  end.
+Property Raft-PT-06-CTLCardinality-8
+  "Automatically generated"
+  is:
+    E F ((((((((3) <= (#tokens("p132")))) | (((#tokens("p183")) <= (#tokens("p53")))))) & (! ((#tokens("p66")) <= (#tokens("p108")))))) & (((((((#tokens("p70")) <= (#tokens("p128")))) & (((#tokens("p25")) <= (#tokens("p45")))))) & (((((#tokens("p97")) <= (#tokens("p75")))) & (((1) <= (#tokens("p158")))))))))
+  end.
+Property Raft-PT-06-CTLCardinality-9
+  "Automatically generated"
+  is:
+    ((((((((#tokens("p124")) <= (#tokens("p184")))) | (((((((2) <= (#tokens("p130")))) | (((#tokens("p63")) <= (#tokens("p88")))))) & (((((1) <= (#tokens("p140")))) & (((#tokens("p88")) <= (#tokens("p120")))))))))) & (! E F ((2) <= (#tokens("p183")))))) | (((((A X ((2) <= (#tokens("p141")))) | (A G ((2) <= (#tokens("p112")))))) & (((((#tokens("p153")) <= (#tokens("p114")))) | (! ((((2) <= (#tokens("p129")))) & (((1) <= (#tokens("p80")))))))))))
+  end.
+Property Raft-PT-06-CTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((A F ((#tokens("p97")) <= (#tokens("p95")))) U (E F ((2) <= (#tokens("p148")))))
+  end.
+Property Raft-PT-06-CTLCardinality-11
+  "Automatically generated"
+  is:
+    A G ((A F ((#tokens("p145")) <= (#tokens("p90")))) | (E G ((3) <= (#tokens("p141")))))
+  end.
+Property Raft-PT-06-CTLCardinality-12
+  "Automatically generated"
+  is:
+    ! E F A G ((#tokens("p124")) <= (#tokens("p14")))
+  end.
+Property Raft-PT-06-CTLCardinality-13
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("p92")) <= (#tokens("p68")))) & (((#tokens("p131")) <= (#tokens("p113")))))) | (! ((#tokens("p41")) <= (#tokens("p169")))))) & (((! ((2) <= (#tokens("p122")))) & (((((3) <= (#tokens("p121")))) & (((1) <= (#tokens("p57")))))))))
+  end.
+Property Raft-PT-06-CTLCardinality-14
+  "Automatically generated"
+  is:
+    E F ! ((#tokens("p163")) <= (#tokens("p66")))
+  end.
+Property Raft-PT-06-CTLCardinality-15
+  "Automatically generated"
+  is:
+    E X E F ((((2) <= (#tokens("p157")))) & (((#tokens("p88")) <= (#tokens("p77")))))
+  end.

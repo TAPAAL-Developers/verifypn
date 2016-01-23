@@ -1,0 +1,80 @@
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A X "t10"?
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A X "t59"?
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A G "t29"?
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E (("t14"?) U ("t36"?))
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t53"?
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t43"?
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t49"?
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "t37"?
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A (("t32"?) U ("t9"?))
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A X "t24"?
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A X "t45"?
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E G "t8"?
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t41"?
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E G "t26"?
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E (("t12"?) U ("t3"?))
+  end.
+Property RwMutex-PT-r0010w0020-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A (("t60"?) U ("t9"?))
+  end.

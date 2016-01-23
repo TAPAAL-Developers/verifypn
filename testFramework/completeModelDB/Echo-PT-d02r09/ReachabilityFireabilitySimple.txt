@@ -1,0 +1,80 @@
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t234"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t568"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t488"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t250"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t518"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t357"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t164"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t379"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t249"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t349"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t373"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t510"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t343"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t503"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t313"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t497"?
+  end.

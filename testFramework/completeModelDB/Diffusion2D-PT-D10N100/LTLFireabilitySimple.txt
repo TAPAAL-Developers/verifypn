@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A G "t1_9_8_10_8"?
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t1_3_2_2_2"?
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A G "t1_4_6_4_7"?
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t1_7_8_7_7"?
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A G "t1_5_8_4_8"?
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A G "t1_2_9_3_9"?
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A X "t1_7_6_7_7"?
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A (("t1_8_4_8_3"?) U ("t1_10_7_9_6"?))
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A G "t1_1_7_1_6"?
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A G "t1_10_10_9_10"?
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t1_7_6_6_6"?
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A (("t1_6_3_7_3"?) U ("t1_3_9_2_9"?))
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A G "t1_5_4_4_4"?
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A X "t1_2_5_3_5"?
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "t1_2_8_2_7"?
+  end.
+Property Diffusion2D-PT-D10N100-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "t1_3_5_4_4"?
+  end.

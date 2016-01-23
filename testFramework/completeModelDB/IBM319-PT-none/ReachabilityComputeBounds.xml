@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>decision_s00001123_activated</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>merge_s00002239_input_s00001068</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>merge_s00002238_activated</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00002962_input_s00001052</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>join_s00001164_input_s00001066</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00002961_input_s00001066</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00002954_output_s00001077</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>fork_s00001298_activated_s00001073</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToProcess_s00002882_output_s00001054</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00002869_inputCriterion_s00001053_used</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00002824_inputCriterion_s00001053_used</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00002932_output_s00001077</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00002869_input_s00001052</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00002953_input_s00001052</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToProcess_s00002499_input_s00001052</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM319-PT-none-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00002869_input_s00001066</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

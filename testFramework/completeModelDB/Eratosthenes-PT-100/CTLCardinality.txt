@@ -1,0 +1,80 @@
+Property Eratosthenes-PT-100-CTLCardinality-0
+  "Automatically generated"
+  is:
+    ((E F A X ((3) <= (#tokens("p76")))) | (! A F ((1) <= (#tokens("p14")))))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-1
+  "Automatically generated"
+  is:
+    E G ((E G ((3) <= (#tokens("p72")))) | (A F ((#tokens("p28")) <= (#tokens("p10")))))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-2
+  "Automatically generated"
+  is:
+    A G ! ! ! ((2) <= (#tokens("p75")))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-3
+  "Automatically generated"
+  is:
+    E X A G ((((2) <= (#tokens("p25")))) | (((1) <= (#tokens("p2")))))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-4
+  "Automatically generated"
+  is:
+    ! A F E G ((#tokens("p91")) <= (#tokens("p9")))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-5
+  "Automatically generated"
+  is:
+    A F ((A X ((#tokens("p45")) <= (#tokens("p63")))) | (((2) <= (#tokens("p17")))))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-6
+  "Automatically generated"
+  is:
+    E ((((((#tokens("p13")) <= (#tokens("p56")))) & (((((3) <= (#tokens("p57")))) | (((3) <= (#tokens("p75")))))))) U (E G ((#tokens("p13")) <= (#tokens("p75")))))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-7
+  "Automatically generated"
+  is:
+    ((((((((#tokens("p80")) <= (#tokens("p2")))) & (E X ((#tokens("p18")) <= (#tokens("p98")))))) | (((3) <= (#tokens("p36")))))) & (E F ((! ((#tokens("p78")) <= (#tokens("p78")))) & (((#tokens("p85")) <= (#tokens("p24")))))))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-8
+  "Automatically generated"
+  is:
+    E G E F ((((3) <= (#tokens("p67")))) | (((#tokens("p41")) <= (#tokens("p20")))))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-9
+  "Automatically generated"
+  is:
+    E ((! ! ((#tokens("p21")) <= (#tokens("p73")))) U (A X ((2) <= (#tokens("p95")))))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-10
+  "Automatically generated"
+  is:
+    A X A ((((#tokens("p88")) <= (#tokens("p88")))) U (((3) <= (#tokens("p85")))))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-11
+  "Automatically generated"
+  is:
+    E G ((((1) <= (#tokens("p10")))) | (((((((#tokens("p44")) <= (#tokens("p38")))) & (((3) <= (#tokens("p26")))))) & (((((#tokens("p15")) <= (#tokens("p96")))) & (((1) <= (#tokens("p21")))))))))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-12
+  "Automatically generated"
+  is:
+    A F ! ((((((2) <= (#tokens("p22")))) & (((1) <= (#tokens("p33")))))) | (((((#tokens("p92")) <= (#tokens("p51")))) & (((#tokens("p81")) <= (#tokens("p67")))))))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-13
+  "Automatically generated"
+  is:
+    ! A G E F ((1) <= (#tokens("p54")))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-14
+  "Automatically generated"
+  is:
+    ((E G ((#tokens("p75")) <= (#tokens("p67")))) | (((3) <= (#tokens("p38")))))
+  end.
+Property Eratosthenes-PT-100-CTLCardinality-15
+  "Automatically generated"
+  is:
+    E X A G ! ((#tokens("p88")) <= (#tokens("p10")))
+  end.

@@ -1,0 +1,80 @@
+Property Echo-PT-d03r07-CTLCardinality-0
+  "Automatically generated"
+  is:
+    E F ((#tokens("p4005")) <= (#tokens("p2045")))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-1
+  "Automatically generated"
+  is:
+    A G E G ((((#tokens("p495")) <= (#tokens("p2757")))) | (((3) <= (#tokens("p1361")))))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-2
+  "Automatically generated"
+  is:
+    ! A G ((#tokens("p3274")) <= (#tokens("p2988")))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-3
+  "Automatically generated"
+  is:
+    A X ((E G ((#tokens("p64")) <= (#tokens("p839")))) | (A X ((3) <= (#tokens("p3926")))))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-4
+  "Automatically generated"
+  is:
+    ((! A F ! ((#tokens("p2742")) <= (#tokens("p1773")))) | (((1) <= (#tokens("p2036")))))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-5
+  "Automatically generated"
+  is:
+    ((! ((3) <= (#tokens("p1728")))) & (A G E X ((#tokens("p3134")) <= (#tokens("p4052")))))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-6
+  "Automatically generated"
+  is:
+    ((E G A F ((2) <= (#tokens("p2497")))) | (((1) <= (#tokens("p1718")))))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-7
+  "Automatically generated"
+  is:
+    E ((A F ((2) <= (#tokens("p276")))) U (A F ((2) <= (#tokens("p2398")))))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-8
+  "Automatically generated"
+  is:
+    ! ((! A F ((1) <= (#tokens("p2438")))) & (((((((1) <= (#tokens("p1194")))) & (((((1) <= (#tokens("p513")))) & (((1) <= (#tokens("p3865")))))))) | (((#tokens("p721")) <= (#tokens("p1628")))))))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-9
+  "Automatically generated"
+  is:
+    ((! ((((((((#tokens("p1003")) <= (#tokens("p2679")))) | (((#tokens("p1829")) <= (#tokens("p3919")))))) & (((((#tokens("p181")) <= (#tokens("p2044")))) & (((1) <= (#tokens("p3212")))))))) | (((((3) <= (#tokens("p2590")))) & (((((#tokens("p2906")) <= (#tokens("p1512")))) & (((1) <= (#tokens("p863")))))))))) & (E G ((! ((#tokens("p3022")) <= (#tokens("p632")))) | (((((#tokens("p786")) <= (#tokens("p3822")))) | (((#tokens("p1133")) <= (#tokens("p3184")))))))))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-10
+  "Automatically generated"
+  is:
+    E G ((E X ((#tokens("p2357")) <= (#tokens("p421")))) | (((((#tokens("p652")) <= (#tokens("p3489")))) & (((((#tokens("p1653")) <= (#tokens("p3023")))) & (((2) <= (#tokens("p1366")))))))))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-11
+  "Automatically generated"
+  is:
+    A F A G ! ((#tokens("p1399")) <= (#tokens("p2370")))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-12
+  "Automatically generated"
+  is:
+    A F ((((((#tokens("p3138")) <= (#tokens("p4074")))) | (((1) <= (#tokens("p3587")))))) & (E G ((#tokens("p2566")) <= (#tokens("p4090")))))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-13
+  "Automatically generated"
+  is:
+    ((((A G ((((#tokens("p3296")) <= (#tokens("p863")))) & (((2) <= (#tokens("p2803")))))) & (((((#tokens("p3645")) <= (#tokens("p40")))) & (! ! ((#tokens("p3643")) <= (#tokens("p3581")))))))) | (((E G ((((3) <= (#tokens("p222")))) | (((#tokens("p149")) <= (#tokens("p482")))))) | (((((((((#tokens("p2203")) <= (#tokens("p5")))) & (((#tokens("p3013")) <= (#tokens("p1581")))))) | (((3) <= (#tokens("p1740")))))) & (((((((1) <= (#tokens("p1201")))) & (((#tokens("p4112")) <= (#tokens("p2903")))))) & (((#tokens("p1156")) <= (#tokens("p2862")))))))))))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-14
+  "Automatically generated"
+  is:
+    E ((((((((#tokens("p895")) <= (#tokens("p1009")))) | (((1) <= (#tokens("p1071")))))) | (((((#tokens("p3860")) <= (#tokens("p1889")))) & (((2) <= (#tokens("p3545")))))))) U (((((((3) <= (#tokens("p1950")))) & (((#tokens("p1619")) <= (#tokens("p3543")))))) & (((((#tokens("p487")) <= (#tokens("p681")))) | (((#tokens("p3347")) <= (#tokens("p3557")))))))))
+  end.
+Property Echo-PT-d03r07-CTLCardinality-15
+  "Automatically generated"
+  is:
+    E F ((((((((3) <= (#tokens("p2295")))) & (((3) <= (#tokens("p4083")))))) | (! ((#tokens("p1376")) <= (#tokens("p1709")))))) & (E X ((3) <= (#tokens("p1057")))))
+  end.

@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "t1_50_42_49_43"?
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A X "t1_23_28_23_27"?
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A (("t1_41_46_41_45"?) U ("t1_11_9_12_9"?))
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t1_43_44_42_43"?
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A G "t1_5_16_4_16"?
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A G "t1_6_37_7_38"?
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A (("t1_25_2_24_3"?) U ("t1_40_8_40_9"?))
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A (("t1_23_10_23_9"?) U ("t1_16_21_16_20"?))
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "t1_27_4_27_3"?
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A G "t1_38_41_39_42"?
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A (("t1_22_15_22_16"?) U ("t1_25_11_25_10"?))
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A G "t1_17_9_17_8"?
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A X "t1_41_28_42_27"?
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A G "t1_30_43_29_42"?
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A (("t1_21_14_20_13"?) U ("t1_43_15_44_15"?))
+  end.
+Property Diffusion2D-PT-D50N010-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A X "t1_26_11_25_10"?
+  end.

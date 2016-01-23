@@ -1,0 +1,80 @@
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ! ! ((((#tokens("decision.s00003021.activated")) <= (#tokens("callToTask.s00003973.input.s00001066")))) | (((2) <= (#tokens("merge.s00001160.input.s00001166")))))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ((#tokens("callToTask.s00003908.input.s00001066")) <= (#tokens("callToProcess.s00003884.input.s00001068")))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ((#tokens("callToProcess.s00003884.output.s00001054")) <= (#tokens("callToTask.s00003972.input.s00001052")))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("endNode.s00001402.input.default")) <= (#tokens("merge.s00001061.input.s00001127")))) | (((#tokens("callToProcess.s00003884.input.s00001068")) <= (#tokens("callToProcess.s00003876.input.s00001052")))))) & (((#tokens("callToProcess.s00003957.output.s00001077")) <= (#tokens("decision.s00001126.activated")))))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((((((#tokens("callToTask.s00003968.output.s00001054")) <= (#tokens("merge.s00001061.input.s00001165")))) & (((3) <= (#tokens("callToTask.s00003962.input.s00001068")))))) | (! ((((3) <= (#tokens("callToTask.s00003977.output.s00001054")))) | (((#tokens("callToTask.s00003963.inputCriterion.s00001053.used")) <= (#tokens("merge.s00001162.activated")))))))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("callToTask.s00003965.output.s00001077")) <= (#tokens("merge.s00001061.activated")))) | (((#tokens("fork.s00002500.input.s00001052")) <= (#tokens("callToTask.s00003973.inputCriterion.s00001053.used")))))) & (((((#tokens("join.s00002243.input.s00001167")) <= (#tokens("merge.s00001162.input.s00001166")))) & (((#tokens("callToTask.s00003980.input.s00001068")) <= (#tokens("callToProcess.s00003859.inputCriterion.s00001053.used")))))))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("merge.s00001161.input.s00001128")))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ! ! ((((#tokens("callToTask.s00003974.output.s00001077")) <= (#tokens("join.s00001163.input.s00001128")))) | (((3) <= (#tokens("callToTask.s00003971.output.s00001054")))))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((#tokens("callToTask.s00003963.output.s00001054")) <= (#tokens("callToTask.s00003908.inputCriterion.s00001053.used")))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ! ! ((#tokens("callToTask.s00003973.output.s00001077")) <= (#tokens("callToTask.s00003980.input.s00001127")))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("callToProcess.s00001108.output.s00001077")))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((((! ((2) <= (#tokens("merge.s00001061.input.s00001166")))) & (((((2) <= (#tokens("callToTask.s00003972.output.s00001077")))) | (((3) <= (#tokens("callToTask.s00003971.input.s00001066")))))))) | (((#tokens("callToTask.s00003970.output.s00001077")) <= (#tokens("merge.s00001161.input.s00001066")))))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("merge.s00001061.input.s00001127")) <= (#tokens("callToTask.s00003980.output.s00001054")))) | (((#tokens("callToProcess.s00003884.input.s00001066")) <= (#tokens("callToProcess.s00003876.input.s00001052")))))) & (! ((#tokens("callToProcess.s00003872.input.s00001066")) <= (#tokens("join.s00002243.input.s00001052")))))) | (! ! ((2) <= (#tokens("callToTask.s00003969.output.s00001080")))))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ! ! ! ((2) <= (#tokens("callToProcess.s00003884.input.s00001068")))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("join.s00002243.input.s00001127")))
+  end.
+Property IBMB2S565S3960-PT-none-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((((((((1) <= (#tokens("callToProcess.s00003872.input.s00001052")))) & (((#tokens("merge.s00001162.input.s00001127")) <= (#tokens("callToProcess.s00001108.input.s00001066")))))) | (((#tokens("callToTask.s00003968.output.s00001077")) <= (#tokens("decision.s00002948.activated")))))) | (((! ((1) <= (#tokens("callToProcess.s00003859.input.s00001066")))) | (((((3) <= (#tokens("callToTask.s00003961.output.s00001080")))) & (((#tokens("callToTask.s00003964.input.s00001066")) <= (#tokens("merge.s00001160.input.s00001068")))))))))
+  end.

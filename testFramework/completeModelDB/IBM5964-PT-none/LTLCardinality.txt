@@ -1,0 +1,80 @@
+Property IBM5964-PT-none-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A ((#tokens("callToTask.s00002741.output.s00000956")) <= (#tokens("callToTask.s00005972.input.s00000952")))
+  end.
+Property IBM5964-PT-none-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A F ((G ((#tokens("merge.s00001291.input.s00001009")) <= (#tokens("callToTask.s00001305.inputCriterion.s00000937.used")))) U (G ((#tokens("callToTask.s00001746.input.s00000952")) <= (#tokens("merge.s00001290.input.s00000952")))))
+  end.
+Property IBM5964-PT-none-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("callToProcess.s00005925.input.s00000952")))
+  end.
+Property IBM5964-PT-none-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((#tokens("callToTask.s00001632.inputCriterion.s00000937.used")) <= (#tokens("merge.s00000945.input.s00000986")))
+  end.
+Property IBM5964-PT-none-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((X ((#tokens("merge.s00001120.input.s00001010")) <= (#tokens("callToTask.s00001305.input.s00000950")))) U (F X ((1) <= (#tokens("callToTask.s00005970.input.s00000935")))))
+  end.
+Property IBM5964-PT-none-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A X X ((((3) <= (#tokens("callToProcess.s00001273.input.s00000950")))) U (((3) <= (#tokens("merge.s00000945.activated")))))
+  end.
+Property IBM5964-PT-none-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A G ((X ((3) <= (#tokens("callToTask.s00005965.output.s00000956")))) U (X ((#tokens("callToProcess.s00002316.output.s00000938")) <= (#tokens("fork.s00001536.activated.s00000991")))))
+  end.
+Property IBM5964-PT-none-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A G G X G ((#tokens("callToProcess.s00002538.input.s00000952")) <= (#tokens("fork.s00001067.input.s00000952")))
+  end.
+Property IBM5964-PT-none-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A F X ((#tokens("merge.s00001290.input.s00000950")) <= (#tokens("merge.s00001291.input.s00000986")))
+  end.
+Property IBM5964-PT-none-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((#tokens("callToTask.s00002186.input.s00000950")) <= (#tokens("callToTask.s00005969.input.s00000952")))
+  end.
+Property IBM5964-PT-none-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((((3) <= (#tokens("callToProcess.s00005925.inputCriterion.s00000937.used")))) U (X F ((2) <= (#tokens("alpha")))))
+  end.
+Property IBM5964-PT-none-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("merge.s00001292.input.s00000952")))
+  end.
+Property IBM5964-PT-none-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A X G X F ((2) <= (#tokens("alpha")))
+  end.
+Property IBM5964-PT-none-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A ((#tokens("callToTask.s00005897.output.s00000938")) <= (#tokens("callToTask.s00005969.input.s00000985")))
+  end.
+Property IBM5964-PT-none-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A F G G ((#tokens("merge.s00001291.input.s00000986")) <= (#tokens("merge.s00001369.activated")))
+  end.
+Property IBM5964-PT-none-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A G X ((((3) <= (#tokens("callToTask.s00001305.input.s00000935")))) U (((2) <= (#tokens("callToProcess.s00002411.input.s00000950")))))
+  end.

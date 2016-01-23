@@ -1,0 +1,80 @@
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "trans_511_1"?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "trans_534_1"?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F ("fo3_3_1", "fo3_12_1", "fo3_19_1", "fo3_20_1", "fo3_4_1", "fo3_18_1", "fo3_11_1", "fo3_5_1", "fo3_17_1", "fo3_6_1", "fo3_7_1", "fo3_0_1", "fo3_8_1", "fo3_16_1", "fo3_15_1", "fo3_9_1", "fo3_2_1", "fo3_10_1", "fo3_14_1", "fo3_1_1", "fo3_13_1")?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F ("WillPerformWork_14_1", "WillPerformWork_9_1", "WillPerformWork_0_1", "WillPerformWork_15_1", "WillPerformWork_8_1", "WillPerformWork_6_1", "WillPerformWork_1_1", "WillPerformWork_16_1", "WillPerformWork_17_1", "WillPerformWork_4_1", "WillPerformWork_18_1", "WillPerformWork_13_1", "WillPerformWork_7_1", "WillPerformWork_12_1", "WillPerformWork_19_1", "WillPerformWork_2_1", "WillPerformWork_20_1", "WillPerformWork_11_1", "WillPerformWork_5_1", "WillPerformWork_10_1", "WillPerformWork_3_1")?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "trans_508_1"?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "trans_685_1"?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "DummyOR1_1"?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F ("trans_486_1_4", "trans_486_1_5", "trans_486_1_1", "trans_486_1_2", "trans_486_1_3")?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F ("GoPerformWork_11_1_PerformWork", "GoPerformWork_0_1_PerformWork", "GoPerformWork_10_1_PerformWork", "GoPerformWork_5_1_PerformWork", "GoPerformWork_19_1_PerformWork", "GoPerformWork_2_1_PerformWork", "GoPerformWork_16_1_PerformWork", "GoPerformWork_4_1_PerformWork", "GoPerformWork_17_1_PerformWork", "GoPerformWork_7_1_PerformWork", "GoPerformWork_1_1_PerformWork", "GoPerformWork_6_1_PerformWork", "GoPerformWork_14_1_PerformWork", "GoPerformWork_15_1_PerformWork", "GoPerformWork_20_1_PerformWork", "GoPerformWork_12_1_PerformWork", "GoPerformWork_9_1_PerformWork", "GoPerformWork_13_1_PerformWork", "GoPerformWork_18_1_PerformWork", "GoPerformWork_3_1_PerformWork", "GoPerformWork_8_1_PerformWork")?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "NotifyEventEndOfCheckSources_1"?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F ("fo2_9_1", "fo2_17_1", "fo2_19_1", "fo2_8_1", "fo2_11_1", "fo2_4_1", "fo2_18_1", "fo2_10_1", "fo2_2_1", "fo2_5_1", "fo2_3_1", "fo2_12_1", "fo2_13_1", "fo2_0_1", "fo2_7_1", "fo2_14_1", "fo2_15_1", "fo2_1_1", "fo2_6_1", "fo2_20_1", "fo2_16_1")?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "trans_459_1"?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "trans_461_1"?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "DummyOR1_1"?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F ("GoPerformWork_11_1_PerformWork", "GoPerformWork_0_1_PerformWork", "GoPerformWork_10_1_PerformWork", "GoPerformWork_5_1_PerformWork", "GoPerformWork_19_1_PerformWork", "GoPerformWork_2_1_PerformWork", "GoPerformWork_16_1_PerformWork", "GoPerformWork_4_1_PerformWork", "GoPerformWork_17_1_PerformWork", "GoPerformWork_7_1_PerformWork", "GoPerformWork_1_1_PerformWork", "GoPerformWork_6_1_PerformWork", "GoPerformWork_14_1_PerformWork", "GoPerformWork_15_1_PerformWork", "GoPerformWork_20_1_PerformWork", "GoPerformWork_12_1_PerformWork", "GoPerformWork_9_1_PerformWork", "GoPerformWork_13_1_PerformWork", "GoPerformWork_18_1_PerformWork", "GoPerformWork_3_1_PerformWork", "GoPerformWork_8_1_PerformWork")?
+  end.
+Property PolyORBNT-COL-S05J20-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "trans_533_1"?
+  end.

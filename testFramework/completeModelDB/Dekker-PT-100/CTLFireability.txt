@@ -1,0 +1,80 @@
+Property Dekker-PT-100-CTLFireability-0
+  "Automatically generated"
+  is:
+    ((A F E (("withdraw/76/26"?) U ("withdraw/54/32"?))) | (((A F E X "withdraw/71/77"?) | (E G ! "withdraw/99/74"?))))
+  end.
+Property Dekker-PT-100-CTLFireability-1
+  "Automatically generated"
+  is:
+    E F "withdraw/34/27"?
+  end.
+Property Dekker-PT-100-CTLFireability-2
+  "Automatically generated"
+  is:
+    A F "withdraw/78/28"?
+  end.
+Property Dekker-PT-100-CTLFireability-3
+  "Automatically generated"
+  is:
+    A F E X E G "withdraw/43/19"?
+  end.
+Property Dekker-PT-100-CTLFireability-4
+  "Automatically generated"
+  is:
+    A X (("withdraw/53/98"?) | (E X ! "withdraw/77/53"?))
+  end.
+Property Dekker-PT-100-CTLFireability-5
+  "Automatically generated"
+  is:
+    ((((((E (("withdraw/55/63"?) U ("withdraw/94/59"?))) | (E X (("withdraw/30/32"?) & ("withdraw/77/61"?))))) | (! ((! ! "withdraw/51/67"?) | (A F "enter/26"?))))) & (A X ! (((("withdraw/16/71"?) | ("withdraw/32/88"?))) & (! "withdraw/46/51"?))))
+  end.
+Property Dekker-PT-100-CTLFireability-6
+  "Automatically generated"
+  is:
+    ! ((((((! ! "withdraw/21/88"?) | (A G "withdraw/48/34"?))) | ("withdraw/15/55"?))) | (A G (("withdraw/36/1"?) | (! "withdraw/80/91"?))))
+  end.
+Property Dekker-PT-100-CTLFireability-7
+  "Automatically generated"
+  is:
+    ! A F ((A F "withdraw/50/59"?) | ((((("withdraw/66/18"?) | ("withdraw/63/89"?))) | ((("withdraw/84/66"?) & ("withdraw/9/7"?))))))
+  end.
+Property Dekker-PT-100-CTLFireability-8
+  "Automatically generated"
+  is:
+    ((((((((A G "withdraw/65/85"?) & (E X "withdraw/23/3"?))) | ("withdraw/83/87"?))) & (A X ! ! "withdraw/56/89"?))) | (A G ((! ! "withdraw/14/83"?) | (A F "withdraw/67/71"?))))
+  end.
+Property Dekker-PT-100-CTLFireability-9
+  "Automatically generated"
+  is:
+    ((A X A (("withdraw/54/78"?) U ("withdraw/28/14"?))) | (! E G ((! "withdraw/10/48"?) | (! "withdraw/68/31"?))))
+  end.
+Property Dekker-PT-100-CTLFireability-10
+  "Automatically generated"
+  is:
+    E F E F E G "withdraw/14/95"?
+  end.
+Property Dekker-PT-100-CTLFireability-11
+  "Automatically generated"
+  is:
+    A F A G (((("withdraw/13/82"?) & ("withdraw/35/20"?))) & (! "withdraw/38/29"?))
+  end.
+Property Dekker-PT-100-CTLFireability-12
+  "Automatically generated"
+  is:
+    A F ((((((! "withdraw/44/7"?) | ("withdraw/77/61"?))) & ("withdraw/20/53"?))) & (((E G "withdraw/52/27"?) & (! "withdraw/67/9"?))))
+  end.
+Property Dekker-PT-100-CTLFireability-13
+  "Automatically generated"
+  is:
+    A G (((("withdraw/93/41"?) | (! (("withdraw/97/20"?) & ("try/89"?))))) | (! (("withdraw/95/50"?) & (! "withdraw/33/99"?))))
+  end.
+Property Dekker-PT-100-CTLFireability-14
+  "Automatically generated"
+  is:
+    E ((((A F "withdraw/48/15"?) & ((((("withdraw/58/78"?) & ("withdraw/65/50"?))) & (! "withdraw/53/85"?))))) U (! E F "withdraw/75/12"?))
+  end.
+Property Dekker-PT-100-CTLFireability-15
+  "Automatically generated"
+  is:
+    E G ! "withdraw/29/58"?
+  end.

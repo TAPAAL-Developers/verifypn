@@ -1,0 +1,80 @@
+Property Railroad-PT-050-CTLFireability-0
+  "Automatically generated"
+  is:
+    A (((((((("tr_T62_1858"?) | ("tr_T62_266"?))) | (! "tr_T62_2177"?))) & (! (("tr_T62_392"?) | ("tr_T62_2596"?))))) U (E F (("tr_T62_571"?) & ("tr_T62_960"?))))
+  end.
+Property Railroad-PT-050-CTLFireability-1
+  "Automatically generated"
+  is:
+    ((((E X A X "tr_T62_1361"?) | (E X "tr_T62_2051"?))) | (E ((! (("tr_T62_1110"?) | ("tr_T62_2358"?))) U (E X "tr_T62_1030"?))))
+  end.
+Property Railroad-PT-050-CTLFireability-2
+  "Automatically generated"
+  is:
+    ! ! E F E F "tr_T115_32"?
+  end.
+Property Railroad-PT-050-CTLFireability-3
+  "Automatically generated"
+  is:
+    A F E F (("tr_T62_324"?) | ((("tr_T62_1387"?) & ("tr_T62_2002"?))))
+  end.
+Property Railroad-PT-050-CTLFireability-4
+  "Automatically generated"
+  is:
+    A G E F E G "tr_T62_1810"?
+  end.
+Property Railroad-PT-050-CTLFireability-5
+  "Automatically generated"
+  is:
+    A F E G (("tr_T62_726"?) | ("tr_T62_1580"?))
+  end.
+Property Railroad-PT-050-CTLFireability-6
+  "Automatically generated"
+  is:
+    ! A F E X "tr_T62_2493"?
+  end.
+Property Railroad-PT-050-CTLFireability-7
+  "Automatically generated"
+  is:
+    ((A F ((((! "tr_T62_1121"?) & ((("tr_T62_1804"?) & ("tr_T62_1050"?))))) & ((("tr_T62_2468"?) & (! "tr_T62_992"?))))) | (((E F A G "tr_T62_1625"?) & ((("tr_T62_385"?) | (! A G "tr_T62_265"?))))))
+  end.
+Property Railroad-PT-050-CTLFireability-8
+  "Automatically generated"
+  is:
+    E G ! ! A F "tr_T62_850"?
+  end.
+Property Railroad-PT-050-CTLFireability-9
+  "Automatically generated"
+  is:
+    (("tr_T62_444"?) | (A F "tr_T62_2198"?))
+  end.
+Property Railroad-PT-050-CTLFireability-10
+  "Automatically generated"
+  is:
+    A F (((((((("tr_T62_1019"?) & ("tr_T62_191"?))) & ((("tr_T62_1865"?) & ("tr_T134_1"?))))) & (E F "tr_T62_1599"?))) | ((((((("tr_T62_2365"?) | ("tr_T62_1721"?))) & ((("tr_T62_2185"?) | ("tr_T62_652"?))))) & (A X "tr_T62_268"?))))
+  end.
+Property Railroad-PT-050-CTLFireability-11
+  "Automatically generated"
+  is:
+    A G A X ! (("tr_T62_1150"?) | ("tr_T62_919"?))
+  end.
+Property Railroad-PT-050-CTLFireability-12
+  "Automatically generated"
+  is:
+    E F E X "tr_T66_71"?
+  end.
+Property Railroad-PT-050-CTLFireability-13
+  "Automatically generated"
+  is:
+    A F A (("tr_T62_1152"?) U ("tr_T62_2442"?))
+  end.
+Property Railroad-PT-050-CTLFireability-14
+  "Automatically generated"
+  is:
+    E F "tr_T62_1304"?
+  end.
+Property Railroad-PT-050-CTLFireability-15
+  "Automatically generated"
+  is:
+    A G ! "tr_T62_1834"?
+  end.

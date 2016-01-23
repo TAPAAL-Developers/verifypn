@@ -1,0 +1,80 @@
+Property CircularTrains-PT-384-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A X F G G ((#tokens("F90")) <= (#tokens("Section_130")))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A F X G ((#tokens("F117")) <= (#tokens("Section_188")))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A G F G F ((#tokens("Section_57")) <= (#tokens("F206")))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A X ((2) <= (#tokens("Section_349")))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A X ((X ((#tokens("F130")) <= (#tokens("Section_182")))) U (G ((#tokens("F326")) <= (#tokens("Section_300")))))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A ((X X ((#tokens("F75")) <= (#tokens("F307")))) U (G G ((#tokens("Section_16")) <= (#tokens("F146")))))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((((((#tokens("Section_38")) <= (#tokens("Section_113")))) U (((1) <= (#tokens("Section_71")))))) U (((((1) <= (#tokens("Section_219")))) U (((1) <= (#tokens("Section_246")))))))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A X ((#tokens("Section_40")) <= (#tokens("Section_65")))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A X F X ((#tokens("F206")) <= (#tokens("Section_210")))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((G ((#tokens("F167")) <= (#tokens("Section_346")))) U (X G ((2) <= (#tokens("F232")))))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("F248")))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((2) <= (#tokens("F210")))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A G ((G ((#tokens("Section_336")) <= (#tokens("Section_239")))) U (G ((#tokens("F216")) <= (#tokens("F361")))))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A G ((3) <= (#tokens("F374")))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A X ((((#tokens("F160")) <= (#tokens("Section_124")))) U (F ((#tokens("Section_229")) <= (#tokens("F19")))))
+  end.
+Property CircularTrains-PT-384-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((F X ((#tokens("Section_71")) <= (#tokens("Section_346")))) U (X F ((1) <= (#tokens("Section_158")))))
+  end.

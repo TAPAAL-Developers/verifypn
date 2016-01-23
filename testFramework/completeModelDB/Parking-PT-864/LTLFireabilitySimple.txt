@@ -1,0 +1,80 @@
+Property Parking-PT-864-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "t564"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t1497"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "t1295"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t1533"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "t1259"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "t1660"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "t10"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "t1592"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "t1057"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "t373"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t342"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "t358"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "t8"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "t816"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "t1203"?
+  end.
+Property Parking-PT-864-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "t1316"?
+  end.

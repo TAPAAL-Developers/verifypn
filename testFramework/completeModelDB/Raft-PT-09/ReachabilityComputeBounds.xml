@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p255</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p61</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p366</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p355</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p129</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p334</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p30</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p121</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p54</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p398</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p251</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p79</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p133</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p268</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p206</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Raft-PT-09-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p190</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

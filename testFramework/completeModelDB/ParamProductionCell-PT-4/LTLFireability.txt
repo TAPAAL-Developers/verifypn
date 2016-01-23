@@ -1,0 +1,80 @@
+Property ParamProductionCell-PT-4-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G X X X X "CU_ungrasp"?
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-1
+  "Automatically generated"
+  is:
+    A "A2U_rot1_Pstart"?
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-2
+  "Automatically generated"
+  is:
+    A F ((G G "A2U_rot1_Pstop"?) U (G G "PU_lower_Pstop"?))
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-3
+  "Automatically generated"
+  is:
+    A F F G G "A2L_ext_Pstart"?
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X F G X "deposit_belt_lock_output_area"?
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-5
+  "Automatically generated"
+  is:
+    A G G ((G "DB_deliver_Cstop"?) U ("A2U_ext_Pstart"?))
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-6
+  "Automatically generated"
+  is:
+    A "deposit_belt_unlock_output_area"?
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X (("DB_trans_Cstop"?) U (G G "CU_lower_csc"?))
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-8
+  "Automatically generated"
+  is:
+    A X F F "arm2_lock_input_area"?
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-9
+  "Automatically generated"
+  is:
+    A ((G G G "TU_lift_Pstart"?) U (F F X "A1L_rot2_csc"?))
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-10
+  "Automatically generated"
+  is:
+    A G F X G X "table_unlock_input_area"?
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-11
+  "Automatically generated"
+  is:
+    A F "CU_lower_Pstop"?
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-12
+  "Automatically generated"
+  is:
+    A X G G F G "A2L_ext_Pstop"?
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-13
+  "Automatically generated"
+  is:
+    A G F "table_unlock_input_area"?
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-14
+  "Automatically generated"
+  is:
+    A G F (("DB_deliver_Pstop"?) U ("A2U_rot3_Cstop"?))
+  end.
+Property ParamProductionCell-PT-4-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X G X F G "CU_trans_csc"?
+  end.

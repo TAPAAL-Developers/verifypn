@@ -1,0 +1,80 @@
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ((((! ((2) <= (#tokens("T15")))) & (((3) <= (#tokens("F74")))))) & (((((((2) <= (#tokens("F47")))) & (((2) <= (#tokens("T52")))))) | (! ((2) <= (#tokens("F25")))))))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("F15")))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((! ! ((1) <= (#tokens("T25")))) & (((((((#tokens("T41")) <= (#tokens("T44")))) & (((3) <= (#tokens("T13")))))) & (((2) <= (#tokens("T14")))))))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ! ((1) <= (#tokens("counter")))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("F57")))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((((((((3) <= (#tokens("T23")))) & (((3) <= (#tokens("T57")))))) & (! ((#tokens("F57")) <= (#tokens("T37")))))) & (((((((#tokens("T54")) <= (#tokens("T53")))) & (((2) <= (#tokens("T47")))))) & (! ((#tokens("T65")) <= (#tokens("T44")))))))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("F37")))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ! ! ((2) <= (#tokens("counter")))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("F57")))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ((! ((((3) <= (#tokens("F15")))) & (((1) <= (#tokens("T56")))))) | (((#tokens("T43")) <= (#tokens("F75")))))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("F36")))) & (((! ((1) <= (#tokens("T55")))) & (((#tokens("T47")) <= (#tokens("F56")))))))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("F55")) <= (#tokens("T41")))) & (((#tokens("T15")) <= (#tokens("T55")))))) & (((((#tokens("F43")) <= (#tokens("F25")))) | (((#tokens("F44")) <= (#tokens("F55")))))))) | (((((((1) <= (#tokens("F46")))) | (((1) <= (#tokens("F47")))))) | (! ((2) <= (#tokens("T47")))))))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((((! ((3) <= (#tokens("T47")))) & (((2) <= (#tokens("F74")))))) | (! ((((3) <= (#tokens("T56")))) & (((#tokens("F32")) <= (#tokens("T25")))))))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((((! ((2) <= (#tokens("F65")))) & (((((#tokens("F54")) <= (#tokens("F54")))) & (((1) <= (#tokens("F26")))))))) | (((((((#tokens("T73")) <= (#tokens("T75")))) | (((#tokens("F63")) <= (#tokens("T34")))))) & (! ((3) <= (#tokens("T34")))))))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ((! ! ((1) <= (#tokens("T42")))) | (((! ((3) <= (#tokens("F73")))) | (((((2) <= (#tokens("F55")))) & (((#tokens("T62")) <= (#tokens("F54")))))))))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((! ((3) <= (#tokens("F32")))) | (! ((((1) <= (#tokens("T43")))) & (((3) <= (#tokens("T23")))))))
+  end.

@@ -1,0 +1,80 @@
+Property PolyORBLF-COL-S06J04T06-CTLFireability-0
+  "Automatically generated"
+  is:
+    ! E F A ((("T_2280_2_5", "T_2280_1_6", "T_2280_0_4", "T_2280_4_1", "T_2280_0_6", "T_2280_3_5", "T_2280_0_2", "T_2280_4_3", "T_2280_4_5", "T_2280_1_4", "T_2280_2_1", "T_2280_2_4", "T_2280_3_1", "T_2280_4_4", "T_2280_1_1", "T_2280_3_2", "T_2280_3_4", "T_2280_1_3", "T_2280_4_2", "T_2280_0_1", "T_2280_4_6", "T_2280_1_2", "T_2280_0_3", "T_2280_3_3", "T_2280_0_5", "T_2280_3_6", "T_2280_1_5", "T_2280_2_2", "T_2280_2_3", "T_2280_2_6")?) U (("T_1114_6", "T_1114_2", "T_1114_3", "T_1114_5", "T_1114_4", "T_1114_1")?))
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-1
+  "Automatically generated"
+  is:
+    ! A F ! A F ("Run_1", "Run_6", "Run_4", "Run_2", "Run_5", "Run_3")?
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-2
+  "Automatically generated"
+  is:
+    ! E ((((((("T_2280_2_5", "T_2280_1_6", "T_2280_0_4", "T_2280_4_1", "T_2280_0_6", "T_2280_3_5", "T_2280_0_2", "T_2280_4_3", "T_2280_4_5", "T_2280_1_4", "T_2280_2_1", "T_2280_2_4", "T_2280_3_1", "T_2280_4_4", "T_2280_1_1", "T_2280_3_2", "T_2280_3_4", "T_2280_1_3", "T_2280_4_2", "T_2280_0_1", "T_2280_4_6", "T_2280_1_2", "T_2280_0_3", "T_2280_3_3", "T_2280_0_5", "T_2280_3_6", "T_2280_1_5", "T_2280_2_2", "T_2280_2_3", "T_2280_2_6")?) | (("IsEvt_1_3", "IsEvt_4_2", "IsEvt_1_4", "IsEvt_3_2", "IsEvt_6_6", "IsEvt_6_3", "IsEvt_4_5", "IsEvt_5_5", "IsEvt_1_1", "IsEvt_2_2", "IsEvt_5_2", "IsEvt_1_5", "IsEvt_6_5", "IsEvt_2_1", "IsEvt_4_3", "IsEvt_6_4", "IsEvt_5_3", "IsEvt_3_1", "IsEvt_1_6", "IsEvt_5_1", "IsEvt_2_3", "IsEvt_4_1", "IsEvt_2_6", "IsEvt_3_3", "IsEvt_5_4", "IsEvt_3_6", "IsEvt_1_2", "IsEvt_2_5", "IsEvt_5_6", "IsEvt_4_4", "IsEvt_3_4", "IsEvt_6_2", "IsEvt_4_6", "IsEvt_3_5", "IsEvt_6_1", "IsEvt_2_4")?))) & (! ("T_2296_5", "T_2296_6", "T_2296_3", "T_2296_4", "T_2296_1", "T_2296_2")?))) U (A F ("NoCheck_4", "NoCheck_2", "NoCheck_5", "NoCheck_3", "NoCheck_1", "NoCheck_6")?))
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-3
+  "Automatically generated"
+  is:
+    ((A F ((("T_1146_3", "T_1146_5", "T_1146_2", "T_1146_1", "T_1146_6", "T_1146_4")?) | (A G ("WillPerformWork_1_2", "WillPerformWork_2_6", "WillPerformWork_1_3", "WillPerformWork_3_5", "WillPerformWork_0_1", "WillPerformWork_4_2", "WillPerformWork_1_6", "WillPerformWork_3_1", "WillPerformWork_4_3", "WillPerformWork_0_6", "WillPerformWork_2_2", "WillPerformWork_1_4", "WillPerformWork_3_3", "WillPerformWork_0_2", "WillPerformWork_0_5", "WillPerformWork_0_3", "WillPerformWork_1_1", "WillPerformWork_1_5", "WillPerformWork_4_4", "WillPerformWork_3_4", "WillPerformWork_4_6", "WillPerformWork_2_5", "WillPerformWork_0_4", "WillPerformWork_3_2", "WillPerformWork_4_1", "WillPerformWork_2_4", "WillPerformWork_3_6", "WillPerformWork_2_1", "WillPerformWork_4_5", "WillPerformWork_2_3")?))) | (("EnterCSPW_6", "EnterCSPW_1", "EnterCSPW_4", "EnterCSPW_5", "EnterCSPW_2", "EnterCSPW_3")?))
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-4
+  "Automatically generated"
+  is:
+    A X E F ("T_1148_3", "T_1148_5", "T_1148_2", "T_1148_4", "T_1148_6", "T_1148_1")?
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-5
+  "Automatically generated"
+  is:
+    A F A F ((((("Run_1", "Run_6", "Run_4", "Run_2", "Run_5", "Run_3")?) | (("IsAbort_2", "IsAbort_3", "IsAbort_1", "IsAbort_6", "IsAbort_4", "IsAbort_5")?))) & (! ("T_1114_6", "T_1114_2", "T_1114_3", "T_1114_5", "T_1114_4", "T_1114_1")?))
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-6
+  "Automatically generated"
+  is:
+    A F ("NotifyEventJobCompleted_6", "NotifyEventJobCompleted_2", "NotifyEventJobCompleted_1", "NotifyEventJobCompleted_4", "NotifyEventJobCompleted_3", "NotifyEventJobCompleted_5")?
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-7
+  "Automatically generated"
+  is:
+    A ((! ("T_1444_1", "T_1444_6", "T_1444_2", "T_1444_5", "T_1444_3", "T_1444_4")?) U (((((("IsEvt_1_3", "IsEvt_4_2", "IsEvt_1_4", "IsEvt_3_2", "IsEvt_6_6", "IsEvt_6_3", "IsEvt_4_5", "IsEvt_5_5", "IsEvt_1_1", "IsEvt_2_2", "IsEvt_5_2", "IsEvt_1_5", "IsEvt_6_5", "IsEvt_2_1", "IsEvt_4_3", "IsEvt_6_4", "IsEvt_5_3", "IsEvt_3_1", "IsEvt_1_6", "IsEvt_5_1", "IsEvt_2_3", "IsEvt_4_1", "IsEvt_2_6", "IsEvt_3_3", "IsEvt_5_4", "IsEvt_3_6", "IsEvt_1_2", "IsEvt_2_5", "IsEvt_5_6", "IsEvt_4_4", "IsEvt_3_4", "IsEvt_6_2", "IsEvt_4_6", "IsEvt_3_5", "IsEvt_6_1", "IsEvt_2_4")?) & (("T_1096_2", "T_1096_3", "T_1096_1", "T_1096_6", "T_1096_4", "T_1096_5")?))) | (("LeaveIdle_5_5", "LeaveIdle_6_6", "LeaveIdle_1_1", "LeaveIdle_3_3", "LeaveIdle_2_2", "LeaveIdle_4_4")?))))
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-8
+  "Automatically generated"
+  is:
+    A ((((A G ("T_2283_1", "T_2283_2", "T_2283_4", "T_2283_3", "T_2283_6", "T_2283_5")?) & (((((("NotifyEventJobCompleted_6", "NotifyEventJobCompleted_2", "NotifyEventJobCompleted_1", "NotifyEventJobCompleted_4", "NotifyEventJobCompleted_3", "NotifyEventJobCompleted_5")?) | (("T_1123_3_1", "T_1123_5_3", "T_1123_3_6", "T_1123_6_4", "T_1123_3_2", "T_1123_2_1", "T_1123_4_3", "T_1123_2_6", "T_1123_6_5", "T_1123_1_5", "T_1123_1_4", "T_1123_4_2", "T_1123_1_1", "T_1123_2_2", "T_1123_6_3", "T_1123_5_2", "T_1123_1_2", "T_1123_6_2", "T_1123_4_5", "T_1123_3_4", "T_1123_6_1", "T_1123_1_6", "T_1123_2_4", "T_1123_6_6", "T_1123_2_3", "T_1123_1_3", "T_1123_5_4", "T_1123_4_4", "T_1123_5_1", "T_1123_2_5", "T_1123_3_3", "T_1123_5_6", "T_1123_4_1", "T_1123_5_5", "T_1123_4_6", "T_1123_3_5")?))) & (! ("SetSigAbort_3", "SetSigAbort_5", "SetSigAbort_2", "SetSigAbort_4", "SetSigAbort_6", "SetSigAbort_1")?))))) U (E F ((("T_2311_6", "T_2311_4", "T_2311_5", "T_2311_2", "T_2311_3", "T_2311_1")?) & (("T_2280_2_5", "T_2280_1_6", "T_2280_0_4", "T_2280_4_1", "T_2280_0_6", "T_2280_3_5", "T_2280_0_2", "T_2280_4_3", "T_2280_4_5", "T_2280_1_4", "T_2280_2_1", "T_2280_2_4", "T_2280_3_1", "T_2280_4_4", "T_2280_1_1", "T_2280_3_2", "T_2280_3_4", "T_2280_1_3", "T_2280_4_2", "T_2280_0_1", "T_2280_4_6", "T_2280_1_2", "T_2280_0_3", "T_2280_3_3", "T_2280_0_5", "T_2280_3_6", "T_2280_1_5", "T_2280_2_2", "T_2280_2_3", "T_2280_2_6")?))))
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-9
+  "Automatically generated"
+  is:
+    A F ((E F ("DummyOR1_5", "DummyOR1_3", "DummyOR1_1", "DummyOR1_4", "DummyOR1_6", "DummyOR1_2")?) & (("T_2280_2_5", "T_2280_1_6", "T_2280_0_4", "T_2280_4_1", "T_2280_0_6", "T_2280_3_5", "T_2280_0_2", "T_2280_4_3", "T_2280_4_5", "T_2280_1_4", "T_2280_2_1", "T_2280_2_4", "T_2280_3_1", "T_2280_4_4", "T_2280_1_1", "T_2280_3_2", "T_2280_3_4", "T_2280_1_3", "T_2280_4_2", "T_2280_0_1", "T_2280_4_6", "T_2280_1_2", "T_2280_0_3", "T_2280_3_3", "T_2280_0_5", "T_2280_3_6", "T_2280_1_5", "T_2280_2_2", "T_2280_2_3", "T_2280_2_6")?))
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-10
+  "Automatically generated"
+  is:
+    E G A ((((("T_2280_2_5", "T_2280_1_6", "T_2280_0_4", "T_2280_4_1", "T_2280_0_6", "T_2280_3_5", "T_2280_0_2", "T_2280_4_3", "T_2280_4_5", "T_2280_1_4", "T_2280_2_1", "T_2280_2_4", "T_2280_3_1", "T_2280_4_4", "T_2280_1_1", "T_2280_3_2", "T_2280_3_4", "T_2280_1_3", "T_2280_4_2", "T_2280_0_1", "T_2280_4_6", "T_2280_1_2", "T_2280_0_3", "T_2280_3_3", "T_2280_0_5", "T_2280_3_6", "T_2280_1_5", "T_2280_2_2", "T_2280_2_3", "T_2280_2_6")?) | (("Run_1", "Run_6", "Run_4", "Run_2", "Run_5", "Run_3")?))) U (! ("NOPEP_4", "NOPEP_5", "NOPEP_2", "NOPEP_6", "NOPEP_3", "NOPEP_1")?))
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-11
+  "Automatically generated"
+  is:
+    A ((E F ! ("T_1170_2", "T_1170_3", "T_1170_5", "T_1170_4", "T_1170_6", "T_1170_1")?) U (("T_2317_4", "T_2317_5", "T_2317_1", "T_2317_2", "T_2317_6", "T_2317_3")?))
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-12
+  "Automatically generated"
+  is:
+    A F ((E ((("DummyOR1_5", "DummyOR1_3", "DummyOR1_1", "DummyOR1_4", "DummyOR1_6", "DummyOR1_2")?) U (("EnterCSPW_6", "EnterCSPW_1", "EnterCSPW_4", "EnterCSPW_5", "EnterCSPW_2", "EnterCSPW_3")?))) & (! A F ("NoCheck_4", "NoCheck_2", "NoCheck_5", "NoCheck_3", "NoCheck_1", "NoCheck_6")?))
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-13
+  "Automatically generated"
+  is:
+    ((A F ("T_2315_6", "T_2315_5", "T_2315_4", "T_2315_3", "T_2315_2", "T_2315_1")?) | (((((E ((("LeaveCSPW_2", "LeaveCSPW_3", "LeaveCSPW_5", "LeaveCSPW_4", "LeaveCSPW_6", "LeaveCSPW_1")?) U (("T_1098_5", "T_1098_4", "T_1098_3", "T_1098_2", "T_1098_1", "T_1098_6")?))) & (("T_1711_4_5", "T_1711_2_4", "T_1711_1_4", "T_1711_4_1", "T_1711_3_3", "T_1711_4_6", "T_1711_2_2", "T_1711_4_3", "T_1711_0_6", "T_1711_0_4", "T_1711_2_5", "T_1711_1_2", "T_1711_1_1", "T_1711_3_2", "T_1711_3_5", "T_1711_4_2", "T_1711_0_1", "T_1711_1_5", "T_1711_3_6", "T_1711_3_1", "T_1711_0_5", "T_1711_0_3", "T_1711_2_1", "T_1711_4_4", "T_1711_1_3", "T_1711_1_6", "T_1711_2_6", "T_1711_3_4", "T_1711_2_3", "T_1711_0_2")?))) & (A G ((("SetSigAbort_3", "SetSigAbort_5", "SetSigAbort_2", "SetSigAbort_4", "SetSigAbort_6", "SetSigAbort_1")?) & (((("T_2294_2", "T_2294_4", "T_2294_3", "T_2294_1", "T_2294_6", "T_2294_5")?) | (("NopAbort_2", "NopAbort_5", "NopAbort_4", "NopAbort_6", "NopAbort_1", "NopAbort_3")?))))))))
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-14
+  "Automatically generated"
+  is:
+    E F ((! ! ((("T_2280_2_5", "T_2280_1_6", "T_2280_0_4", "T_2280_4_1", "T_2280_0_6", "T_2280_3_5", "T_2280_0_2", "T_2280_4_3", "T_2280_4_5", "T_2280_1_4", "T_2280_2_1", "T_2280_2_4", "T_2280_3_1", "T_2280_4_4", "T_2280_1_1", "T_2280_3_2", "T_2280_3_4", "T_2280_1_3", "T_2280_4_2", "T_2280_0_1", "T_2280_4_6", "T_2280_1_2", "T_2280_0_3", "T_2280_3_3", "T_2280_0_5", "T_2280_3_6", "T_2280_1_5", "T_2280_2_2", "T_2280_2_3", "T_2280_2_6")?) & (("T_0376_6_6", "T_0376_3_3", "T_0376_2_2", "T_0376_1_1", "T_0376_4_4", "T_0376_5_5")?))) | (E ((("T_1096_2", "T_1096_3", "T_1096_1", "T_1096_6", "T_1096_4", "T_1096_5")?) U (("T_1145_5", "T_1145_3", "T_1145_1", "T_1145_6", "T_1145_4", "T_1145_2")?))))
+  end.
+Property PolyORBLF-COL-S06J04T06-CTLFireability-15
+  "Automatically generated"
+  is:
+    A F ! ((((((("T_2578_1_4", "T_2578_4_1", "T_2578_1_3", "T_2578_6_4", "T_2578_3_5", "T_2578_3_4", "T_2578_1_1", "T_2578_6_3", "T_2578_5_6", "T_2578_2_4", "T_2578_4_2", "T_2578_1_5", "T_2578_6_5", "T_2578_1_2", "T_2578_2_1", "T_2578_6_2", "T_2578_3_6", "T_2578_3_3", "T_2578_5_1", "T_2578_4_4", "T_2578_6_6", "T_2578_3_1", "T_2578_5_4", "T_2578_4_5", "T_2578_6_1", "T_2578_4_3", "T_2578_3_2", "T_2578_1_6", "T_2578_4_6", "T_2578_5_5", "T_2578_2_2", "T_2578_5_3", "T_2578_5_2", "T_2578_2_6", "T_2578_2_5", "T_2578_2_3")?) & (("T_1096_2", "T_1096_3", "T_1096_1", "T_1096_6", "T_1096_4", "T_1096_5")?))) | (! ("EnterCSIS_1_3", "EnterCSIS_4_5", "EnterCSIS_6_6", "EnterCSIS_2_4", "EnterCSIS_5_5", "EnterCSIS_5_4", "EnterCSIS_2_3", "EnterCSIS_5_6", "EnterCSIS_4_4", "EnterCSIS_4_1", "EnterCSIS_2_5", "EnterCSIS_5_1", "EnterCSIS_3_3", "EnterCSIS_4_6", "EnterCSIS_5_2", "EnterCSIS_1_5", "EnterCSIS_2_1", "EnterCSIS_4_3", "EnterCSIS_3_5", "EnterCSIS_5_3", "EnterCSIS_3_1", "EnterCSIS_6_4", "EnterCSIS_4_2", "EnterCSIS_3_6", "EnterCSIS_2_6", "EnterCSIS_6_5", "EnterCSIS_3_2", "EnterCSIS_1_4", "EnterCSIS_6_3", "EnterCSIS_1_6", "EnterCSIS_1_1", "EnterCSIS_2_2", "EnterCSIS_6_2", "EnterCSIS_1_2", "EnterCSIS_3_4", "EnterCSIS_6_1")?))) & (E F ("NoCheck_4", "NoCheck_2", "NoCheck_5", "NoCheck_3", "NoCheck_1", "NoCheck_6")?))
+  end.

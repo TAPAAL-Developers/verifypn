@@ -1,0 +1,80 @@
+Property CircadianClock-PT-001000-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F ((! (((("transl_r"?) | ("deg_ma"?))) & (! "deg_ma"?))) & (! (((("deg_mr"?) & ("deg_c"?))) | ((("transc_dr"?) | ("transc_dr_a"?))))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F ((((! ! "transc_da_a"?) & ((((("transc_dr"?) & ("transl_r"?))) & ((("deg_r"?) | ("transl_a"?))))))) & ("bind_a"?))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F ((! (((("transl_r"?) | ("bind_r"?))) | (! "deg_a"?))) & ((("deg_mr"?) | ("transl_r"?))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    A G ! ((((! "bind_r"?) & ((("transc_dr"?) & ("bind_a"?))))) & ("transl_r"?))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    A G (((("deactive"?) | ("rel_a"?))) | ("transc_da"?))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G ! (((((("deg_r"?) & ("transc_dr"?))) & ((("transc_da_a"?) | ("deg_r"?))))) & (! (("transl_a"?) | ("transc_dr"?))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F ! ((((! "bind_r"?) | (! "rel_r"?))) | (! "deg_mr"?))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G ((((! (("deg_a"?) | ("bind_r"?))) & ("deg_a"?))) | (((! (("transc_da"?) & ("transc_dr_a"?))) | ((((("transc_dr_a"?) | ("transc_da"?))) | ("bind_r"?))))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F ((! "deg_a"?) & ((((((("bind_r"?) & ("transl_r"?))) & ("transc_da_a"?))) & (((! "deg_mr"?) & (! "deg_r"?))))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F ((! ((! "transl_a"?) | (! "bind_a"?))) & (((! ! "bind_a"?) & ((((("transc_da_a"?) & ("deg_ma"?))) & ((("transc_da"?) | ("transc_da_a"?))))))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F ((((((! "deg_ma"?) & (! "deg_a"?))) & (((! "transl_a"?) | ((("deg_a"?) & ("transl_r"?))))))) & ((("deg_ma"?) & ((("deg_a"?) & (! "deg_r"?))))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    A G ((! "bind_r"?) | (! "transc_dr_a"?))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G (("deg_a"?) | (! ! ! "deactive"?))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F ! (("transl_r"?) | ((((("rel_r"?) | ("transl_a"?))) | (! "transc_dr_a"?))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    A G (("deg_c"?) | (! (("rel_r"?) & ((("deg_c"?) & ("transc_da"?))))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F ((! (("transl_r"?) | ((("deg_ma"?) | ("transc_dr_a"?))))) & ((((((("deg_c"?) | ("deg_r"?))) & ((("deg_r"?) & ("transl_a"?))))) & ("transc_dr"?))))
+  end.

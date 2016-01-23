@@ -1,0 +1,80 @@
+Property Dekker-PT-200-LTLFireability-0
+  "Automatically generated"
+  is:
+    A X X "withdraw/40/171"?
+  end.
+Property Dekker-PT-200-LTLFireability-1
+  "Automatically generated"
+  is:
+    A X F X (("withdraw/120/46"?) U ("withdraw/32/188"?))
+  end.
+Property Dekker-PT-200-LTLFireability-2
+  "Automatically generated"
+  is:
+    A G G G X X "withdraw/63/74"?
+  end.
+Property Dekker-PT-200-LTLFireability-3
+  "Automatically generated"
+  is:
+    A F G F (("withdraw/76/113"?) U ("withdraw/16/83"?))
+  end.
+Property Dekker-PT-200-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X ((G F "withdraw/25/62"?) U ((("withdraw/78/15"?) U ("withdraw/32/178"?))))
+  end.
+Property Dekker-PT-200-LTLFireability-5
+  "Automatically generated"
+  is:
+    A F X F F G "withdraw/31/37"?
+  end.
+Property Dekker-PT-200-LTLFireability-6
+  "Automatically generated"
+  is:
+    A ((((G "withdraw/176/56"?) U (X "withdraw/51/172"?))) U (G X F "withdraw/85/46"?))
+  end.
+Property Dekker-PT-200-LTLFireability-7
+  "Automatically generated"
+  is:
+    A "withdraw/93/104"?
+  end.
+Property Dekker-PT-200-LTLFireability-8
+  "Automatically generated"
+  is:
+    A F "withdraw/76/44"?
+  end.
+Property Dekker-PT-200-LTLFireability-9
+  "Automatically generated"
+  is:
+    A "withdraw/6/87"?
+  end.
+Property Dekker-PT-200-LTLFireability-10
+  "Automatically generated"
+  is:
+    A G X "withdraw/83/120"?
+  end.
+Property Dekker-PT-200-LTLFireability-11
+  "Automatically generated"
+  is:
+    A ((((X "withdraw/42/32"?) U ("withdraw/187/177"?))) U (G G F "withdraw/6/87"?))
+  end.
+Property Dekker-PT-200-LTLFireability-12
+  "Automatically generated"
+  is:
+    A F F G X F "withdraw/55/148"?
+  end.
+Property Dekker-PT-200-LTLFireability-13
+  "Automatically generated"
+  is:
+    A ((G G F "withdraw/104/96"?) U (G (("withdraw/188/169"?) U ("withdraw/113/168"?))))
+  end.
+Property Dekker-PT-200-LTLFireability-14
+  "Automatically generated"
+  is:
+    A "withdraw/128/156"?
+  end.
+Property Dekker-PT-200-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X F G X G "withdraw/188/75"?
+  end.

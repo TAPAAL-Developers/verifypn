@@ -1,0 +1,80 @@
+Property HouseConstruction-PT-020-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A F X G F ((#tokens("p12")) <= (#tokens("p17")))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A G ((#tokens("p2")) <= (#tokens("p27")))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A G X G ((#tokens("p7")) <= (#tokens("p17")))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A F ((3) <= (#tokens("p15")))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A X ((X ((#tokens("p19")) <= (#tokens("p9")))) U (((2) <= (#tokens("p10")))))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A F ((((#tokens("p26")) <= (#tokens("p6")))) U (X ((2) <= (#tokens("p11")))))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("p20")))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A G X F X ((#tokens("p27")) <= (#tokens("p8")))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A X X ((#tokens("p27")) <= (#tokens("p20")))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A X ((((1) <= (#tokens("p1")))) U (X ((3) <= (#tokens("p2")))))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((F G ((#tokens("p10")) <= (#tokens("p9")))) U (F F ((3) <= (#tokens("p15")))))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A G G X X ((#tokens("p6")) <= (#tokens("p5")))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((((#tokens("p19")) <= (#tokens("p22")))) U (((((1) <= (#tokens("p20")))) U (((#tokens("p23")) <= (#tokens("p7")))))))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A ((G F ((#tokens("p3")) <= (#tokens("p26")))) U (F ((#tokens("p23")) <= (#tokens("p26")))))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A F ((#tokens("p26")) <= (#tokens("p14")))
+  end.
+Property HouseConstruction-PT-020-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A G ((X ((#tokens("p6")) <= (#tokens("p15")))) U (F ((#tokens("p9")) <= (#tokens("p1")))))
+  end.

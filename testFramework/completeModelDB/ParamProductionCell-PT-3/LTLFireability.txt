@@ -1,0 +1,80 @@
+Property ParamProductionCell-PT-3-LTLFireability-0
+  "Automatically generated"
+  is:
+    A X F "A1L_grasp"?
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-1
+  "Automatically generated"
+  is:
+    A (((("arm1_lock_input_area"?) U ("crane_unlock_input_area"?))) U (((F "CL_lower_Pstart"?) U (G "A1L_ret_csc"?))))
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-2
+  "Automatically generated"
+  is:
+    A X "A2U_rot3_Pstart"?
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X "CL_grasp"?
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-4
+  "Automatically generated"
+  is:
+    A (("A2U_ret_Cstop"?) U ("A1U_ext_csc"?))
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-5
+  "Automatically generated"
+  is:
+    A X X G "A1L_rot1_Pstart"?
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-6
+  "Automatically generated"
+  is:
+    A G G G G X "CL_lower_Pstart"?
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X X (("A1L_ext_csc"?) U (X "crane_unlock_input_area"?))
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-8
+  "Automatically generated"
+  is:
+    A F G F "PL_lower_Cstop"?
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-9
+  "Automatically generated"
+  is:
+    A X ((F "table_lock_input_area"?) U (F F "A1U_c1"?))
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-10
+  "Automatically generated"
+  is:
+    A F G "A1U_ext_csc"?
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-11
+  "Automatically generated"
+  is:
+    A X ((F G "A1L_rot1_Cstop"?) U (F G "feed_belt_unlock_output_area"?))
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-12
+  "Automatically generated"
+  is:
+    A "forge_csc"?
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-13
+  "Automatically generated"
+  is:
+    A "A1U_rot3_csc"?
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-14
+  "Automatically generated"
+  is:
+    A ((G F G "arm1_lock_output_area"?) U (((X "A2L_rot1_Cstop"?) U ("A1L_rot2_Cstop"?))))
+  end.
+Property ParamProductionCell-PT-3-LTLFireability-15
+  "Automatically generated"
+  is:
+    A G G F "A2L_ret_Pstart"?
+  end.

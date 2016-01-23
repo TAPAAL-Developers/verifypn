@@ -1,0 +1,80 @@
+Property Echo-PT-d02r09-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F "t554"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F "t421"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F "t300"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    A G ! (((((("t319"?) | ("t329"?))) | ((("t252"?) & ("t258"?))))) | (! ! "t26"?))
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F "t55"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F "t263"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G ! ((! (("t466"?) | ("t494"?))) & (! ! "t229"?))
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G ((((! ! "t324"?) | (! (("t301"?) & ("t391"?))))) | (! "t15"?))
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F "t7"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G ! (("t319"?) & ((("t346"?) | (! "t488"?))))
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F (((((("t413"?) & ((("t103"?) | ("t59"?))))) & ((("t545"?) | ("t143"?))))) & ("t551"?))
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F ((! ! (("t408"?) & ("t460"?))) | (((! ! "t283"?) | (! ! "t268"?))))
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F ! ! "t18"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F "t506"?
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F (("t553"?) & ((((("t529"?) & ("t80"?))) & (! ! "t180"?))))
+  end.
+Property Echo-PT-d02r09-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F (((("t438"?) & (((! "t110"?) | ("t519"?))))) | (! ! (("t263"?) & ("t15"?))))
+  end.

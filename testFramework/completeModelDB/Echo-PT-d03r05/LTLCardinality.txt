@@ -1,0 +1,80 @@
+Property Echo-PT-d03r05-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A G F G F ((1) <= (#tokens("p277")))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A G G G X ((#tokens("p426")) <= (#tokens("p55")))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A X X X F ((2) <= (#tokens("p1356")))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((F F ((#tokens("p206")) <= (#tokens("p1002")))) U (((((3) <= (#tokens("p21")))) U (((#tokens("p1216")) <= (#tokens("p453")))))))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A F F ((((#tokens("p512")) <= (#tokens("p1011")))) U (((#tokens("p299")) <= (#tokens("p246")))))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A ((#tokens("p1075")) <= (#tokens("p293")))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A X ((((#tokens("p1123")) <= (#tokens("p101")))) U (G ((3) <= (#tokens("p1408")))))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A G ((#tokens("p1324")) <= (#tokens("p527")))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A F ((G ((#tokens("p954")) <= (#tokens("p81")))) U (((1) <= (#tokens("p1416")))))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("p1378")))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A G G ((((2) <= (#tokens("p1154")))) U (((3) <= (#tokens("p362")))))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("p352")))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((#tokens("p673")) <= (#tokens("p888")))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("p901")))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((((#tokens("p920")) <= (#tokens("p1008")))) U (X F ((2) <= (#tokens("p1212")))))
+  end.
+Property Echo-PT-d03r05-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A G G ((#tokens("p1121")) <= (#tokens("p1259")))
+  end.

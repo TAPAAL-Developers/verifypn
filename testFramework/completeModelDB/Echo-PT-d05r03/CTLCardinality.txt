@@ -1,0 +1,80 @@
+Property Echo-PT-d05r03-CTLCardinality-0
+  "Automatically generated"
+  is:
+    A G ((((3) <= (#tokens("p439")))) | (((((((#tokens("p3379")) <= (#tokens("p1928")))) | (((#tokens("p728")) <= (#tokens("p1904")))))) | (((((2) <= (#tokens("p3201")))) | (((#tokens("p787")) <= (#tokens("p697")))))))))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-1
+  "Automatically generated"
+  is:
+    A F ! E X ((#tokens("p3182")) <= (#tokens("p1863")))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-2
+  "Automatically generated"
+  is:
+    A F ! ((! ((3) <= (#tokens("p1224")))) | (((2) <= (#tokens("p494")))))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-3
+  "Automatically generated"
+  is:
+    E G ((#tokens("p2912")) <= (#tokens("p2395")))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-4
+  "Automatically generated"
+  is:
+    ((E F ! ((((#tokens("p1253")) <= (#tokens("p2657")))) | (((3) <= (#tokens("p2886")))))) & (A G A F ((1) <= (#tokens("p1392")))))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-5
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("p1801")) <= (#tokens("p3510")))) | (((#tokens("p2704")) <= (#tokens("p511")))))) & (((((2) <= (#tokens("p1481")))) & (((1) <= (#tokens("p975")))))))) & (A G ((2) <= (#tokens("p2008")))))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-6
+  "Automatically generated"
+  is:
+    ((((#tokens("p985")) <= (#tokens("p2267")))) & (E G ! ! ((#tokens("p884")) <= (#tokens("p3695")))))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-7
+  "Automatically generated"
+  is:
+    E F A X ! ((#tokens("p1718")) <= (#tokens("p774")))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-8
+  "Automatically generated"
+  is:
+    ((E F A G ((#tokens("p52")) <= (#tokens("p591")))) | (A G A X ((1) <= (#tokens("p1530")))))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((E F ((#tokens("p2544")) <= (#tokens("p810")))) U (((((((1) <= (#tokens("p516")))) | (((#tokens("p119")) <= (#tokens("p88")))))) & (((3) <= (#tokens("p3047")))))))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((((((((3) <= (#tokens("p643")))) & (((1) <= (#tokens("p533")))))) | (((((#tokens("p530")) <= (#tokens("p1764")))) | (((#tokens("p3317")) <= (#tokens("p2273")))))))) U (! ((((2) <= (#tokens("p760")))) | (((#tokens("p3177")) <= (#tokens("p2910")))))))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((E X ((#tokens("p651")) <= (#tokens("p1414")))) U (E G ((#tokens("p3602")) <= (#tokens("p2083")))))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-12
+  "Automatically generated"
+  is:
+    E G E F ! ((#tokens("p1277")) <= (#tokens("p540")))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-13
+  "Automatically generated"
+  is:
+    ! E F A X ((1) <= (#tokens("p1393")))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-14
+  "Automatically generated"
+  is:
+    ((E F A G ((1) <= (#tokens("p3542")))) & (((((A X ((#tokens("p1954")) <= (#tokens("p2896")))) & (A X ((#tokens("p1381")) <= (#tokens("p1027")))))) | (E X ! ((#tokens("p2221")) <= (#tokens("p3088")))))))
+  end.
+Property Echo-PT-d05r03-CTLCardinality-15
+  "Automatically generated"
+  is:
+    ((E G A X ((#tokens("p2618")) <= (#tokens("p187")))) & (((#tokens("p563")) <= (#tokens("p349")))))
+  end.

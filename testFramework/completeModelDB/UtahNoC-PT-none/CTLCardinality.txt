@@ -1,0 +1,80 @@
+Property UtahNoC-PT-none-CTLCardinality-0
+  "Automatically generated"
+  is:
+    E ((A X ((#tokens("p7")) <= (#tokens("p196")))) U (((2) <= (#tokens("p149")))))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ((((E F ((((#tokens("p166")) <= (#tokens("p29")))) & (((3) <= (#tokens("p3")))))) & (((2) <= (#tokens("p21")))))) | (((A G ! ((2) <= (#tokens("p161")))) | (((3) <= (#tokens("p133")))))))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-2
+  "Automatically generated"
+  is:
+    E ((A X ((#tokens("p207")) <= (#tokens("p212")))) U (((((((#tokens("p1")) <= (#tokens("p60")))) & (((3) <= (#tokens("p117")))))) & (((((2) <= (#tokens("p100")))) & (((#tokens("p122")) <= (#tokens("p16")))))))))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-3
+  "Automatically generated"
+  is:
+    ! ! ! A G ((#tokens("p82")) <= (#tokens("p209")))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-4
+  "Automatically generated"
+  is:
+    E G E F ! ((#tokens("p150")) <= (#tokens("p27")))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-5
+  "Automatically generated"
+  is:
+    ((! ((E F ((1) <= (#tokens("p171")))) & (((((((#tokens("p128")) <= (#tokens("p99")))) & (((#tokens("p214")) <= (#tokens("p43")))))) | (((1) <= (#tokens("p120")))))))) & (E ((((((#tokens("p8")) <= (#tokens("p186")))) | (((#tokens("p172")) <= (#tokens("p108")))))) U (! ((#tokens("p104")) <= (#tokens("p110")))))))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-6
+  "Automatically generated"
+  is:
+    A G E G ((#tokens("p117")) <= (#tokens("p146")))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-7
+  "Automatically generated"
+  is:
+    E F ((A X ((3) <= (#tokens("p108")))) & (A X ((#tokens("p62")) <= (#tokens("p68")))))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-8
+  "Automatically generated"
+  is:
+    E X E F ((3) <= (#tokens("p209")))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-9
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("p134")) <= (#tokens("p139")))) & (((#tokens("p143")) <= (#tokens("p179")))))) | (((((2) <= (#tokens("p154")))) | (((#tokens("p78")) <= (#tokens("p87")))))))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-10
+  "Automatically generated"
+  is:
+    A G ((#tokens("p140")) <= (#tokens("p114")))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-11
+  "Automatically generated"
+  is:
+    A G E F ((((#tokens("p41")) <= (#tokens("p145")))) | (((#tokens("p161")) <= (#tokens("p18")))))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-12
+  "Automatically generated"
+  is:
+    E F E F ((((1) <= (#tokens("p87")))) & (((#tokens("p73")) <= (#tokens("p92")))))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-13
+  "Automatically generated"
+  is:
+    A G A ((((#tokens("p209")) <= (#tokens("p77")))) U (((#tokens("p174")) <= (#tokens("p142")))))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-14
+  "Automatically generated"
+  is:
+    ! ((! E F ((1) <= (#tokens("p111")))) & (! ((((((3) <= (#tokens("p42")))) | (((2) <= (#tokens("p79")))))) & (! ((#tokens("p31")) <= (#tokens("p159")))))))
+  end.
+Property UtahNoC-PT-none-CTLCardinality-15
+  "Automatically generated"
+  is:
+    E F E G ((3) <= (#tokens("p203")))
+  end.

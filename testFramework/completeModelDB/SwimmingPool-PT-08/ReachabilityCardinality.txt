@@ -1,0 +1,80 @@
+Property SwimmingPool-PT-08-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((#tokens("Dress")) <= (#tokens("Cabins")))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((((((#tokens("Cabins")) <= (#tokens("WaitBag")))) & (((((#tokens("Entered")) <= (#tokens("InBath")))) & (((2) <= (#tokens("Undress")))))))) & (((((((3) <= (#tokens("Bags")))) & (((1) <= (#tokens("Entered")))))) & (! ((#tokens("Bags")) <= (#tokens("Undress")))))))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((! ((2) <= (#tokens("Out")))) & (! ! ((#tokens("Entered")) <= (#tokens("Bags")))))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ! ((! ((#tokens("InBath")) <= (#tokens("Dressed")))) | (((#tokens("InBath")) <= (#tokens("Bags")))))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("Entered")) <= (#tokens("Cabins")))) | (((2) <= (#tokens("InBath")))))) | (((((#tokens("Dressed")) <= (#tokens("Entered")))) | (((#tokens("Dressed")) <= (#tokens("Cabins")))))))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ((((((1) <= (#tokens("Entered")))) & (! ((#tokens("Dressed")) <= (#tokens("Bags")))))) | (((((((2) <= (#tokens("InBath")))) | (((2) <= (#tokens("Cabins")))))) | (! ((#tokens("Entered")) <= (#tokens("InBath")))))))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ((((((((2) <= (#tokens("Entered")))) | (((#tokens("Entered")) <= (#tokens("Dressed")))))) & (((3) <= (#tokens("WaitBag")))))) | (((#tokens("InBath")) <= (#tokens("Bags")))))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((1) <= (#tokens("Bags")))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ((((((((2) <= (#tokens("Entered")))) & (((#tokens("Out")) <= (#tokens("WaitBag")))))) & (((2) <= (#tokens("Entered")))))) & (((3) <= (#tokens("Entered")))))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("Undress")) <= (#tokens("Undress")))) & (((1) <= (#tokens("Cabins")))))) & (((((#tokens("Out")) <= (#tokens("Bags")))) | (((1) <= (#tokens("Cabins")))))))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((((#tokens("Dress")) <= (#tokens("Dress")))) & (((1) <= (#tokens("Bags")))))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((1) <= (#tokens("Bags")))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("Dressed")) <= (#tokens("Bags")))) & (((1) <= (#tokens("Bags")))))) & (((#tokens("Bags")) <= (#tokens("Dress")))))) & (! ((((#tokens("Cabins")) <= (#tokens("Entered")))) & (((3) <= (#tokens("Bags")))))))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ! ((((#tokens("Bags")) <= (#tokens("Bags")))) | (((((#tokens("Dressed")) <= (#tokens("InBath")))) & (((#tokens("Dress")) <= (#tokens("WaitBag")))))))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ((((1) <= (#tokens("Out")))) | (! ((((3) <= (#tokens("Cabins")))) | (((#tokens("Out")) <= (#tokens("Bags")))))))
+  end.
+Property SwimmingPool-PT-08-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((2) <= (#tokens("Bags")))
+  end.

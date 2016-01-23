@@ -1,0 +1,80 @@
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-0
+  "Automatically generated"
+  is:
+    A F F "ti.d2.n1.d3.n1.3.3.4"?
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-1
+  "Automatically generated"
+  is:
+    A "ti.d3.n2.d1.n1.4.4.1"?
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-2
+  "Automatically generated"
+  is:
+    A F G "ti.d1.n1.d2.n1.2.2.3"?
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-3
+  "Automatically generated"
+  is:
+    A "ti.d1.n2.d1.n1.1.1.1"?
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-4
+  "Automatically generated"
+  is:
+    A G "ti.d1.n2.d2.n2.1.1.4"?
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-5
+  "Automatically generated"
+  is:
+    A ((X G F "ti.d3.n1.d2.n1.4.1.2"?) U (F F G "ti.d1.n1.d2.n1.4.4.4"?))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-6
+  "Automatically generated"
+  is:
+    A (("ti.d1.n1.d3.n1.4.2.1"?) U (F (("tt.d3.n1.3.1.5"?) U ("to.d2.n2.1.4.1"?))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X X G X G "ti.d2.n2.d3.n1.3.1.4"?
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-8
+  "Automatically generated"
+  is:
+    A G F ((X "to.d2.n1.4.1.1"?) U (F "ti.d3.n1.d2.n2.1.1.2"?))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-9
+  "Automatically generated"
+  is:
+    A X F "ti.d3.n1.d1.n1.1.4.3"?
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-10
+  "Automatically generated"
+  is:
+    A G ((G X "ti.d2.n1.d1.n2.3.4.2"?) U (X G "ti.d2.n1.d3.n2.4.3.1"?))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-11
+  "Automatically generated"
+  is:
+    A "tt.d3.n1.3.2.1"?
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-12
+  "Automatically generated"
+  is:
+    A F F ((G "ti.d3.n2.d2.n1.4.2.4"?) U (X "ti.d3.n2.d1.n1.4.3.2"?))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-13
+  "Automatically generated"
+  is:
+    A ((((X "to.d2.n1.1.2.1"?) U ("ti.d3.n1.d2.n1.2.2.1"?))) U ("ti.d3.n1.d3.n2.4.4.2"?))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-14
+  "Automatically generated"
+  is:
+    A "ti.d3.n1.d1.n2.4.4.3"?
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X X F G G "ti.d1.n2.d3.n2.1.1.1"?
+  end.

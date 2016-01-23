@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "PutPaymentRequest.t3.7"?
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A G "PutPaidFor.t3.1"?
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A X "GetPaymentAmount.t3.5"?
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E G "CheckPaymentAmount.t3.6"?
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A G "GetOfferResponse.t1"?
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E G "PutBrandList.t4.2"?
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E (("PutBrandList.t4.2"?) U ("PutOfferRequest.t1"?))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E (("GetOfferRequest.t2"?) U ("CheckWhatDeliver.t7.1"?))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A (("GetPaymentAmount.t3.5"?) U ("PutPaymentRequest.t3.7"?))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "CheckRequest.t2"?
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A (("CheckOffer.t3"?) U ("PaymentResponse.t5.3"?))
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "GetDeliveryRequest.t8.0"?
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E X "PaymentResponse.t3.9"?
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E X "GetDeliveryResponse.t6.5"?
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "PutPaidFor.t3.1"?
+  end.
+Property IOTPpurchase-PT-C01M01P01D01-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E (("CheckPaymentAmount.t3.6"?) U ("CheckPaymentAmount.t3.6"?))
+  end.

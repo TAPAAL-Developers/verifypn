@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "t_6_3"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t_13_0"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E G "t_0_0"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t_1_1"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E G "t_9_3"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "t_13_1"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "t_15_0"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "t_13_1"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "t_8_1"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "t_12_3"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t_14_2"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E G "t_16_0"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t_8_3"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E G "t_6_0"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "t_0_1"?
+  end.
+Property ResAllocation-PT-R003C020-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "t_6_3"?
+  end.

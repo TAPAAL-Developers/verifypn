@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p25</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p338</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p952</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p840</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p860</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p439</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p433</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1195</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p595</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p238</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p838</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p153</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1108</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p98</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1085</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Echo-PT-d03r05-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p144</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

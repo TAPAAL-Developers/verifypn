@@ -1,0 +1,80 @@
+Property Planning-PT-none-CTLCardinality-0
+  "Automatically generated"
+  is:
+    E F A ((((#tokens("p96")) <= (#tokens("p123")))) U (((2) <= (#tokens("p63")))))
+  end.
+Property Planning-PT-none-CTLCardinality-1
+  "Automatically generated"
+  is:
+    E G A G ((((#tokens("p16")) <= (#tokens("p21")))) | (((#tokens("p51")) <= (#tokens("p28")))))
+  end.
+Property Planning-PT-none-CTLCardinality-2
+  "Automatically generated"
+  is:
+    ! A G ! ((((#tokens("p22")) <= (#tokens("p92")))) & (((3) <= (#tokens("p116")))))
+  end.
+Property Planning-PT-none-CTLCardinality-3
+  "Automatically generated"
+  is:
+    E F A G ((((1) <= (#tokens("p34")))) | (((#tokens("p52")) <= (#tokens("p2")))))
+  end.
+Property Planning-PT-none-CTLCardinality-4
+  "Automatically generated"
+  is:
+    ((A G ((#tokens("p107")) <= (#tokens("p65")))) | (A ((((#tokens("p73")) <= (#tokens("p42")))) U (((((1) <= (#tokens("p90")))) & (((2) <= (#tokens("p65")))))))))
+  end.
+Property Planning-PT-none-CTLCardinality-5
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("p42")) <= (#tokens("p103")))) | (((#tokens("p64")) <= (#tokens("p62")))))) & (! ((2) <= (#tokens("p37")))))) | (A F ((#tokens("p31")) <= (#tokens("p5")))))
+  end.
+Property Planning-PT-none-CTLCardinality-6
+  "Automatically generated"
+  is:
+    A G E X ((((#tokens("p72")) <= (#tokens("p38")))) | (((#tokens("p29")) <= (#tokens("p102")))))
+  end.
+Property Planning-PT-none-CTLCardinality-7
+  "Automatically generated"
+  is:
+    ! E F ! ! ((3) <= (#tokens("p49")))
+  end.
+Property Planning-PT-none-CTLCardinality-8
+  "Automatically generated"
+  is:
+    A G ((((((3) <= (#tokens("p87")))) | (((((1) <= (#tokens("p72")))) | (((2) <= (#tokens("p88")))))))) | (((#tokens("p8")) <= (#tokens("p112")))))
+  end.
+Property Planning-PT-none-CTLCardinality-9
+  "Automatically generated"
+  is:
+    A G ! ((((((2) <= (#tokens("p1")))) & (((#tokens("p67")) <= (#tokens("p46")))))) & (((((#tokens("p33")) <= (#tokens("p98")))) & (((#tokens("p79")) <= (#tokens("p30")))))))
+  end.
+Property Planning-PT-none-CTLCardinality-10
+  "Automatically generated"
+  is:
+    A G E X ((#tokens("p115")) <= (#tokens("p31")))
+  end.
+Property Planning-PT-none-CTLCardinality-11
+  "Automatically generated"
+  is:
+    A G ((#tokens("p79")) <= (#tokens("p47")))
+  end.
+Property Planning-PT-none-CTLCardinality-12
+  "Automatically generated"
+  is:
+    ((A G ! ((((1) <= (#tokens("p66")))) & (((2) <= (#tokens("p64")))))) & (E ((! ((3) <= (#tokens("p28")))) U (((2) <= (#tokens("p7")))))))
+  end.
+Property Planning-PT-none-CTLCardinality-13
+  "Automatically generated"
+  is:
+    A G ((E F ((#tokens("p87")) <= (#tokens("p80")))) | (E X ((#tokens("p18")) <= (#tokens("p25")))))
+  end.
+Property Planning-PT-none-CTLCardinality-14
+  "Automatically generated"
+  is:
+    A G ! ((! ((#tokens("p61")) <= (#tokens("p121")))) & (((((#tokens("p32")) <= (#tokens("p83")))) & (((#tokens("p107")) <= (#tokens("p67")))))))
+  end.
+Property Planning-PT-none-CTLCardinality-15
+  "Automatically generated"
+  is:
+    ((E X ! ((((#tokens("p10")) <= (#tokens("p7")))) & (((#tokens("p66")) <= (#tokens("p28")))))) & (E ((! ((2) <= (#tokens("p11")))) U (((((#tokens("p116")) <= (#tokens("p97")))) & (((1) <= (#tokens("p47")))))))))
+  end.

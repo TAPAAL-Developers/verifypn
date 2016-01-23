@@ -1,0 +1,80 @@
+Property Railroad-PT-010-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ((! ((1) <= (#tokens("pl_P20_3")))) & (((3) <= (#tokens("pl_P39_1")))))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ! ((((#tokens("pl_P43_1")) <= (#tokens("pl_P66_1")))) & (((((2) <= (#tokens("pl_P20_1")))) & (((#tokens("pl_P43_1")) <= (#tokens("pl_P24_1")))))))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ! ((((((#tokens("pl_P5_1")) <= (#tokens("pl_P34_1")))) & (((#tokens("pl_P31_1")) <= (#tokens("pl_P14_1")))))) & (((1) <= (#tokens("pl_P14_5")))))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ((((! ((1) <= (#tokens("pl_P31_1")))) | (((((3) <= (#tokens("pl_P60_1")))) | (((2) <= (#tokens("pl_P15_11")))))))) | (((((((#tokens("pl_P4_1")) <= (#tokens("pl_P15_4")))) | (((#tokens("pl_P0_1")) <= (#tokens("pl_P16_9")))))) | (! ((#tokens("pl_P20_9")) <= (#tokens("pl_P26_1")))))))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("pl_P15_8")))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((((#tokens("pl_P28_1")) <= (#tokens("pl_P31_1")))) & (! ! ((3) <= (#tokens("pl_P31_1")))))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ((! ((((1) <= (#tokens("pl_P37_7")))) & (((1) <= (#tokens("pl_P52_1")))))) & (((((((#tokens("pl_P15_5")) <= (#tokens("pl_P16_7")))) | (((#tokens("pl_P14_3")) <= (#tokens("pl_P40_1")))))) | (((((1) <= (#tokens("pl_P51_1")))) & (((1) <= (#tokens("pl_P37_9")))))))))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("pl_P16_7")) <= (#tokens("pl_P37_7")))) & (((3) <= (#tokens("pl_P37_8")))))) & (((2) <= (#tokens("pl_P25_1")))))) & (((! ((2) <= (#tokens("pl_P33_1")))) & (! ((2) <= (#tokens("pl_P37_2")))))))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("pl_P14_7")) <= (#tokens("pl_P65_1")))) & (((3) <= (#tokens("pl_P66_1")))))) | (((((#tokens("pl_P37_5")) <= (#tokens("pl_P15_1")))) & (((#tokens("pl_P37_4")) <= (#tokens("pl_P61_1")))))))) & (((! ((3) <= (#tokens("pl_P21_1")))) | (! ((2) <= (#tokens("pl_P20_5")))))))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("pl_P65_1")) <= (#tokens("pl_P3_1")))) | (((3) <= (#tokens("pl_P37_4")))))) | (((((#tokens("pl_P37_9")) <= (#tokens("pl_P37_6")))) | (((3) <= (#tokens("pl_P42_1")))))))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((! ! ((1) <= (#tokens("pl_P14_10")))) & (((#tokens("pl_P14_9")) <= (#tokens("pl_P67_1")))))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((! ! ((#tokens("pl_P37_6")) <= (#tokens("pl_P43_1")))) | (((1) <= (#tokens("pl_P2_1")))))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ((((! ((#tokens("pl_P32_1")) <= (#tokens("pl_P34_1")))) | (! ((#tokens("pl_P56_1")) <= (#tokens("pl_P37_4")))))) & (((3) <= (#tokens("pl_P37_8")))))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("pl_P57_1")))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ((! ! ((#tokens("pl_P12_1")) <= (#tokens("pl_P57_1")))) | (((! ((#tokens("pl_P27_1")) <= (#tokens("pl_P32_1")))) | (((((#tokens("pl_P15_6")) <= (#tokens("pl_P37_10")))) & (((#tokens("pl_P20_10")) <= (#tokens("pl_P28_1")))))))))
+  end.
+Property Railroad-PT-010-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((((((1) <= (#tokens("pl_P53_1")))) & (! ((#tokens("pl_P35_1")) <= (#tokens("pl_P62_1")))))) & (((! ((3) <= (#tokens("pl_P45_1")))) | (((2) <= (#tokens("pl_P32_1")))))))
+  end.

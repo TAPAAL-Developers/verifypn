@@ -1,0 +1,80 @@
+Property Railroad-PT-050-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "tr_T62_121"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "tr_T62_743"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "tr_T62_2079"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "tr_T62_990"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "tr_T137_1"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "tr_T62_775"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "tr_T62_433"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "tr_T62_1763"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "tr_T62_2069"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "tr_T62_1839"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "tr_T62_833"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "tr_T62_1998"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "tr_T62_1598"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "tr_T62_1067"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "tr_T62_1286"?
+  end.
+Property Railroad-PT-050-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "tr_T62_156"?
+  end.

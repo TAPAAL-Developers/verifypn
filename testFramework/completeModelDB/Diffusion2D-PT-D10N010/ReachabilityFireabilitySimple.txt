@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t1_7_2_8_2"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t1_3_2_2_3"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t1_10_10_9_9"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A G "t1_6_6_5_7"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t1_7_1_6_1"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t1_7_1_8_2"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t1_2_5_2_4"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t1_2_6_3_6"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t1_1_4_1_3"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t1_6_2_5_2"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t1_3_1_2_2"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t1_9_2_8_2"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t1_7_1_8_2"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t1_1_9_1_8"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t1_2_7_1_8"?
+  end.
+Property Diffusion2D-PT-D10N010-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t1_2_4_3_5"?
+  end.

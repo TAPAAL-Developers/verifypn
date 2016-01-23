@@ -1,0 +1,80 @@
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F ("yeqi_15_1", "yeqi_15_8", "yeqi_15_15", "yeqi_15_22", "yeqi_15_29", "yeqi_15_36")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F ("fordo_12_1", "fordo_12_2", "fordo_12_3", "fordo_12_4", "fordo_12_5", "fordo_12_6")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F ("await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5", "await_13_6", "await_13_7", "await_13_8", "await_13_9", "await_13_10", "await_13_11", "await_13_12", "await_13_13", "await_13_14", "await_13_15", "await_13_16", "await_13_17", "await_13_18", "await_13_19", "await_13_20", "await_13_21", "await_13_22", "await_13_23", "await_13_24", "await_13_25", "await_13_26", "await_13_27", "await_13_28", "await_13_29", "await_13_30", "await_13_31", "await_13_32", "await_13_33", "await_13_34", "await_13_35", "await_13_36")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F ("ynei_15_2", "ynei_15_3", "ynei_15_4", "ynei_15_5", "ynei_15_6", "ynei_15_7", "ynei_15_9", "ynei_15_10", "ynei_15_11", "ynei_15_12", "ynei_15_13", "ynei_15_14", "ynei_15_16", "ynei_15_17", "ynei_15_18", "ynei_15_19", "ynei_15_20", "ynei_15_21", "ynei_15_23", "ynei_15_24", "ynei_15_25", "ynei_15_26", "ynei_15_27", "ynei_15_28", "ynei_15_30", "ynei_15_31", "ynei_15_32", "ynei_15_33", "ynei_15_34", "ynei_15_35")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F ("await_13_1", "await_13_2", "await_13_3", "await_13_4", "await_13_5", "await_13_6", "await_13_7", "await_13_8", "await_13_9", "await_13_10", "await_13_11", "await_13_12", "await_13_13", "await_13_14", "await_13_15", "await_13_16", "await_13_17", "await_13_18", "await_13_19", "await_13_20", "await_13_21", "await_13_22", "await_13_23", "await_13_24", "await_13_25", "await_13_26", "await_13_27", "await_13_28", "await_13_29", "await_13_30", "await_13_31", "await_13_32", "await_13_33", "await_13_34", "await_13_35", "await_13_36")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F ("yeqi_15_1", "yeqi_15_8", "yeqi_15_15", "yeqi_15_22", "yeqi_15_29", "yeqi_15_36")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F ("awaity_1", "awaity_2", "awaity_3", "awaity_4", "awaity_5", "awaity_6")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F ("yeqi_15_1", "yeqi_15_8", "yeqi_15_15", "yeqi_15_22", "yeqi_15_29", "yeqi_15_36")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F ("awaity_1", "awaity_2", "awaity_3", "awaity_4", "awaity_5", "awaity_6")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F ("forod_13_1", "forod_13_2", "forod_13_3", "forod_13_4", "forod_13_5", "forod_13_6")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F ("fordo_12_1", "fordo_12_2", "fordo_12_3", "fordo_12_4", "fordo_12_5", "fordo_12_6")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F ("ynei_15_2", "ynei_15_3", "ynei_15_4", "ynei_15_5", "ynei_15_6", "ynei_15_7", "ynei_15_9", "ynei_15_10", "ynei_15_11", "ynei_15_12", "ynei_15_13", "ynei_15_14", "ynei_15_16", "ynei_15_17", "ynei_15_18", "ynei_15_19", "ynei_15_20", "ynei_15_21", "ynei_15_23", "ynei_15_24", "ynei_15_25", "ynei_15_26", "ynei_15_27", "ynei_15_28", "ynei_15_30", "ynei_15_31", "ynei_15_32", "ynei_15_33", "ynei_15_34", "ynei_15_35")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F ("ynei_15_2", "ynei_15_3", "ynei_15_4", "ynei_15_5", "ynei_15_6", "ynei_15_7", "ynei_15_9", "ynei_15_10", "ynei_15_11", "ynei_15_12", "ynei_15_13", "ynei_15_14", "ynei_15_16", "ynei_15_17", "ynei_15_18", "ynei_15_19", "ynei_15_20", "ynei_15_21", "ynei_15_23", "ynei_15_24", "ynei_15_25", "ynei_15_26", "ynei_15_27", "ynei_15_28", "ynei_15_30", "ynei_15_31", "ynei_15_32", "ynei_15_33", "ynei_15_34", "ynei_15_35")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F ("yeqi_15_1", "yeqi_15_8", "yeqi_15_15", "yeqi_15_22", "yeqi_15_29", "yeqi_15_36")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F ("forod_13_1", "forod_13_2", "forod_13_3", "forod_13_4", "forod_13_5", "forod_13_6")?
+  end.
+Property LamportFastMutEx-COL-5-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F ("awaity_1", "awaity_2", "awaity_3", "awaity_4", "awaity_5", "awaity_6")?
+  end.

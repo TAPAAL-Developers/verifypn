@@ -1,0 +1,80 @@
+Property Dekker-PT-020-LTLFireability-0
+  "Automatically generated"
+  is:
+    A X "withdraw/4/19"?
+  end.
+Property Dekker-PT-020-LTLFireability-1
+  "Automatically generated"
+  is:
+    A "try/4"?
+  end.
+Property Dekker-PT-020-LTLFireability-2
+  "Automatically generated"
+  is:
+    A F X F F G "withdraw/4/0"?
+  end.
+Property Dekker-PT-020-LTLFireability-3
+  "Automatically generated"
+  is:
+    A F "withdraw/3/4"?
+  end.
+Property Dekker-PT-020-LTLFireability-4
+  "Automatically generated"
+  is:
+    A G ((G F "withdraw/9/10"?) U (F F "withdraw/1/9"?))
+  end.
+Property Dekker-PT-020-LTLFireability-5
+  "Automatically generated"
+  is:
+    A F F G F X "withdraw/19/6"?
+  end.
+Property Dekker-PT-020-LTLFireability-6
+  "Automatically generated"
+  is:
+    A F "enter/8"?
+  end.
+Property Dekker-PT-020-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X F ((F "enter/11"?) U (X "withdraw/11/17"?))
+  end.
+Property Dekker-PT-020-LTLFireability-8
+  "Automatically generated"
+  is:
+    A "withdraw/10/17"?
+  end.
+Property Dekker-PT-020-LTLFireability-9
+  "Automatically generated"
+  is:
+    A X F X F G "withdraw/11/13"?
+  end.
+Property Dekker-PT-020-LTLFireability-10
+  "Automatically generated"
+  is:
+    A X "withdraw/16/6"?
+  end.
+Property Dekker-PT-020-LTLFireability-11
+  "Automatically generated"
+  is:
+    A G ((X G "withdraw/12/16"?) U (X G "withdraw/9/3"?))
+  end.
+Property Dekker-PT-020-LTLFireability-12
+  "Automatically generated"
+  is:
+    A F X X (("withdraw/15/18"?) U ("withdraw/1/13"?))
+  end.
+Property Dekker-PT-020-LTLFireability-13
+  "Automatically generated"
+  is:
+    A "withdraw/5/11"?
+  end.
+Property Dekker-PT-020-LTLFireability-14
+  "Automatically generated"
+  is:
+    A X (("withdraw/10/4"?) U ("withdraw/19/15"?))
+  end.
+Property Dekker-PT-020-LTLFireability-15
+  "Automatically generated"
+  is:
+    A "withdraw/7/13"?
+  end.

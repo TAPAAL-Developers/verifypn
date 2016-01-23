@@ -1,0 +1,80 @@
+Property IBM703-PT-none-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "task.s00000734.outputCriterion.s00000258"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "merge.s00000450.activate.s00000284"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "merge.s00000806.activate.s00000284"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "task.s00000728.outputCriterion.s00000258"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "merge.s00000320.fire.s00000287"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "task.s00000727.outputCriterion.s00000258"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "merge.s00000451.fire.s00000287"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "task.s00000719.inputCriterion.s00000257"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "task.s00000749.inputCriterion.s00000257"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "task.s00000753.outputCriterion.s00000258"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "decision.s00000780.activate.s00000271"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "task.s00000704.inputCriterion.s00000257"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "merge.s00000462.activate.s00000284"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "task.s00000757.inputCriterion.s00000257"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "decision.s00000783.fire.s00000274"?
+  end.
+Property IBM703-PT-none-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "callToProcess.s00000808.inputCriterion.s00000257"?
+  end.

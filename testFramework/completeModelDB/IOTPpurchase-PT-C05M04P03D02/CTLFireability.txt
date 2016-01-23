@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-0
+  "Automatically generated"
+  is:
+    A F E G E F "PutPaidFor.t3.1"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-1
+  "Automatically generated"
+  is:
+    E G ((! (((("PutDeliveryResponse.t8.2"?) | ("GetDeliveryRequest.t8.0"?))) & ("CheckDeliveryInfo.t6.3"?))) & (E F (("CheckPaymentRequest.t5.1"?) & ("TradeDecision.t3,0"?))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-2
+  "Automatically generated"
+  is:
+    ((((((! "PutOfferResponse.t2"?) | ("PutOfferResponse.t2"?))) & (A (("GetPaidFor.t4.0"?) U ((("CheckRequest.t2"?) & ("MakeChoice.t1"?))))))) | (E F ! ((! "PutDeliveryRequest.t6.4"?) | (! "CheckPaymentAmount.t3.6"?))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-3
+  "Automatically generated"
+  is:
+    ! E F (("PutHowDeliver.t7.2"?) & ((((("SelectBrand.t3.3"?) & ("PutPaymentRequest.t3.7"?))) | ((("t5.4"?) | ("GetDeliveryRequest.t8.0"?))))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-4
+  "Automatically generated"
+  is:
+    ((((E (((("PaymentResponse.t5.3"?) & ("GetWhatDeliver.t7.0"?))) U (! "t5.4"?))) | ((("GetBrandSelection.t4.3"?) & (! E F "PutPaymentAmount.t4.5"?))))) & (E F (((("GetWhatDeliver.t7.0"?) | (! "CheckPaymentReseitp.t3.10"?))) & (A F "CheckDeliveryRequest.t8.1"?))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-5
+  "Automatically generated"
+  is:
+    ((A ((E F "PutPaymentAmount.t4.5"?) U (A X "PutPaidFor.t3.1"?))) | (A X E (("t8.4"?) U ("CheckDeliveryRequest.t8.1"?))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-6
+  "Automatically generated"
+  is:
+    E ((((! (("CheckDeliveryRequest.t8.1"?) | ("GetBrandSelection.t4.3"?))) | ((((("CheckDeliveryInfo.t6.3"?) | ("SelectBrand.t3.3"?))) & ((("PutHowDeliver.t7.2"?) & ("GetOfferRequest.t2"?))))))) U (! E F "GetPaymentRequest.t5.0"?))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-7
+  "Automatically generated"
+  is:
+    A G ((! A F "PutDeliveryResponse.t8.2"?) | ("CheckPaymentReseitp.t3.10"?))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-8
+  "Automatically generated"
+  is:
+    E G A F A F "CheckDeliveryRequest.t8.1"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-9
+  "Automatically generated"
+  is:
+    ((((E G ! (("PutDeliveryRequest.t6.4"?) | ("BrandDecision.t4.1"?))) | ("CheckDeliveryRequest.t8.1"?))) & (E F ((A X "MakeChoice.t1"?) | (E G "GetOfferResponse.t1"?))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-10
+  "Automatically generated"
+  is:
+    ((E G ! "GetPaidFor.t4.0"?) | (! ! "PutDeliveryResponse.t8.2"?))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-11
+  "Automatically generated"
+  is:
+    ((((A F (((("PutBrandList.t4.2"?) & ("SelectBrand.t3.3"?))) & (! "PutDeliveryResponse.t8.2"?))) | ("GetOfferRequest.t2"?))) | ((("PaymentExchange.t3.8"?) | ((("CheckDeliveryRequest.t8.1"?) & (E F ! "GetPaymentRequest.t5.0"?))))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-12
+  "Automatically generated"
+  is:
+    ((((((! A G "PutPaymentAmount.t4.5"?) & (A (("CheckPaymentRequest.t5.1"?) U ("GetPaidFor.t4.0"?))))) | (! (("GetHowDeliver.t6.2"?) | (E F "t7.4"?))))) | (! ((! E X "PutPaymentAmount.t4.5"?) & (A G ! "WhatDeliverDecision.t6.0"?))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-13
+  "Automatically generated"
+  is:
+    ! E G ! E F "t6.7"?
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-14
+  "Automatically generated"
+  is:
+    ((E G ! (("WhatDeliverDecision.t6.0"?) | ((("BrandDecision.t4.1"?) & ("PutOfferResponse.t2"?))))) & ((((("CheckPaymentReseitp.t3.10"?) | ((("GetBrandList.t3.2"?) | ((((("PutPaymentRequest.t3.7"?) | ("PutPaymentRequest.t3.7"?))) | ((("WhatDeliverDecision.t6.0"?) | ("SelectBrand.t3.3"?))))))))) | ("PutDeliveryResponse.t8.2"?))))
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-CTLFireability-15
+  "Automatically generated"
+  is:
+    A F A (((("CheckRequest.t2"?) | ("SelectBrand.t3.3"?))) U ("t8.4"?))
+  end.

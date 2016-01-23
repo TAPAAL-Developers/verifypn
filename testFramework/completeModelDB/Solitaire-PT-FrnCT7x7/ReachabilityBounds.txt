@@ -1,0 +1,80 @@
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((bound("F62")) <= (3))) & (((bound("F45")) <= (1))))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((bound("F46")) <= (2))) & (((((((bound("T35")) <= (2))) & (((bound("F53")) <= (1))))) & (((bound("T75")) <= (1))))))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("F66")) <= (1))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("F34")) <= (1))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("F37")) <= (1))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("F45")) <= (1))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("T73")) <= (2))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("F43")) <= (3))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("T45")) <= (3))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((bound("F41")) <= (1))) & (((bound("F22")) <= (2))))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((bound("T14")) <= (1))) & (((bound("T41")) <= (3))))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("T26")) <= (3))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("F57")) <= (2))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("T37")) <= (3))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((bound("T43")) <= (2))) & (((((((bound("T13")) <= (1))) & (((bound("T15")) <= (2))))) & (((bound("F13")) <= (2))))))
+  end.
+Property Solitaire-PT-FrnCT7x7-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("T43")) <= (1))
+  end.

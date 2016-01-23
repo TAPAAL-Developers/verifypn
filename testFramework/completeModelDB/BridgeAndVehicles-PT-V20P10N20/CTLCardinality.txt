@@ -1,0 +1,80 @@
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-0
+  "Automatically generated"
+  is:
+    A G E ((((3) <= (#tokens("CONTROLEUR_1", "CONTROLEUR_2")))) U (((#tokens("NB_ATTENTE_A_0", "NB_ATTENTE_A_1", "NB_ATTENTE_A_2", "NB_ATTENTE_A_3", "NB_ATTENTE_A_4", "NB_ATTENTE_A_5", "NB_ATTENTE_A_6", "NB_ATTENTE_A_7", "NB_ATTENTE_A_8", "NB_ATTENTE_A_9", "NB_ATTENTE_A_10", "NB_ATTENTE_A_11", "NB_ATTENTE_A_12", "NB_ATTENTE_A_13", "NB_ATTENTE_A_14", "NB_ATTENTE_A_15", "NB_ATTENTE_A_16", "NB_ATTENTE_A_17", "NB_ATTENTE_A_18", "NB_ATTENTE_A_19", "NB_ATTENTE_A_20")) <= (#tokens("ROUTE_B")))))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ((((! E X ((2) <= (#tokens("SUR_PONT_B")))) & (A F ((((1) <= (#tokens("SUR_PONT_B")))) & (((#tokens("NB_ATTENTE_A_0", "NB_ATTENTE_A_1", "NB_ATTENTE_A_2", "NB_ATTENTE_A_3", "NB_ATTENTE_A_4", "NB_ATTENTE_A_5", "NB_ATTENTE_A_6", "NB_ATTENTE_A_7", "NB_ATTENTE_A_8", "NB_ATTENTE_A_9", "NB_ATTENTE_A_10", "NB_ATTENTE_A_11", "NB_ATTENTE_A_12", "NB_ATTENTE_A_13", "NB_ATTENTE_A_14", "NB_ATTENTE_A_15", "NB_ATTENTE_A_16", "NB_ATTENTE_A_17", "NB_ATTENTE_A_18", "NB_ATTENTE_A_19", "NB_ATTENTE_A_20")) <= (#tokens("CHOIX_1", "CHOIX_2")))))))) | (E X ((((((3) <= (#tokens("CHOIX_1", "CHOIX_2")))) | (((#tokens("ATTENTE_A")) <= (#tokens("CHOIX_1", "CHOIX_2")))))) & (((2) <= (#tokens("SUR_PONT_A")))))))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-2
+  "Automatically generated"
+  is:
+    E X A F ((((#tokens("COMPTEUR_0", "COMPTEUR_1", "COMPTEUR_2", "COMPTEUR_3", "COMPTEUR_4", "COMPTEUR_5", "COMPTEUR_6", "COMPTEUR_7", "COMPTEUR_8", "COMPTEUR_9", "COMPTEUR_10", "COMPTEUR_11", "COMPTEUR_12", "COMPTEUR_13", "COMPTEUR_14", "COMPTEUR_15", "COMPTEUR_16", "COMPTEUR_17", "COMPTEUR_18", "COMPTEUR_19", "COMPTEUR_20")) <= (#tokens("SUR_PONT_A")))) & (((2) <= (#tokens("CAPACITE")))))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-3
+  "Automatically generated"
+  is:
+    A G A X ((((#tokens("SUR_PONT_B")) <= (#tokens("CAPACITE")))) | (((1) <= (#tokens("VIDANGE_1", "VIDANGE_2")))))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-4
+  "Automatically generated"
+  is:
+    ((! E F ! ((2) <= (#tokens("NB_ATTENTE_B_0", "NB_ATTENTE_B_1", "NB_ATTENTE_B_2", "NB_ATTENTE_B_3", "NB_ATTENTE_B_4", "NB_ATTENTE_B_5", "NB_ATTENTE_B_6", "NB_ATTENTE_B_7", "NB_ATTENTE_B_8", "NB_ATTENTE_B_9", "NB_ATTENTE_B_10", "NB_ATTENTE_B_11", "NB_ATTENTE_B_12", "NB_ATTENTE_B_13", "NB_ATTENTE_B_14", "NB_ATTENTE_B_15", "NB_ATTENTE_B_16", "NB_ATTENTE_B_17", "NB_ATTENTE_B_18", "NB_ATTENTE_B_19", "NB_ATTENTE_B_20")))) | (A ((((3) <= (#tokens("ROUTE_B")))) U (((((#tokens("COMPTEUR_0", "COMPTEUR_1", "COMPTEUR_2", "COMPTEUR_3", "COMPTEUR_4", "COMPTEUR_5", "COMPTEUR_6", "COMPTEUR_7", "COMPTEUR_8", "COMPTEUR_9", "COMPTEUR_10", "COMPTEUR_11", "COMPTEUR_12", "COMPTEUR_13", "COMPTEUR_14", "COMPTEUR_15", "COMPTEUR_16", "COMPTEUR_17", "COMPTEUR_18", "COMPTEUR_19", "COMPTEUR_20")) <= (#tokens("SORTI_B")))) & (((2) <= (#tokens("ATTENTE_A")))))))))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-5
+  "Automatically generated"
+  is:
+    A X ((E G ((3) <= (#tokens("ROUTE_A")))) | (((((((1) <= (#tokens("SUR_PONT_B")))) | (((3) <= (#tokens("VIDANGE_1", "VIDANGE_2")))))) | (((1) <= (#tokens("SORTI_A")))))))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-6
+  "Automatically generated"
+  is:
+    E F ! E F ((#tokens("CAPACITE")) <= (#tokens("ATTENTE_A")))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-7
+  "Automatically generated"
+  is:
+    ((((E G ((((#tokens("CHOIX_1", "CHOIX_2")) <= (#tokens("VIDANGE_1", "VIDANGE_2")))) | (((#tokens("NB_ATTENTE_A_0", "NB_ATTENTE_A_1", "NB_ATTENTE_A_2", "NB_ATTENTE_A_3", "NB_ATTENTE_A_4", "NB_ATTENTE_A_5", "NB_ATTENTE_A_6", "NB_ATTENTE_A_7", "NB_ATTENTE_A_8", "NB_ATTENTE_A_9", "NB_ATTENTE_A_10", "NB_ATTENTE_A_11", "NB_ATTENTE_A_12", "NB_ATTENTE_A_13", "NB_ATTENTE_A_14", "NB_ATTENTE_A_15", "NB_ATTENTE_A_16", "NB_ATTENTE_A_17", "NB_ATTENTE_A_18", "NB_ATTENTE_A_19", "NB_ATTENTE_A_20")) <= (#tokens("ATTENTE_B")))))) & (E ((((2) <= (#tokens("COMPTEUR_0", "COMPTEUR_1", "COMPTEUR_2", "COMPTEUR_3", "COMPTEUR_4", "COMPTEUR_5", "COMPTEUR_6", "COMPTEUR_7", "COMPTEUR_8", "COMPTEUR_9", "COMPTEUR_10", "COMPTEUR_11", "COMPTEUR_12", "COMPTEUR_13", "COMPTEUR_14", "COMPTEUR_15", "COMPTEUR_16", "COMPTEUR_17", "COMPTEUR_18", "COMPTEUR_19", "COMPTEUR_20")))) U (((#tokens("SUR_PONT_A")) <= (#tokens("COMPTEUR_0", "COMPTEUR_1", "COMPTEUR_2", "COMPTEUR_3", "COMPTEUR_4", "COMPTEUR_5", "COMPTEUR_6", "COMPTEUR_7", "COMPTEUR_8", "COMPTEUR_9", "COMPTEUR_10", "COMPTEUR_11", "COMPTEUR_12", "COMPTEUR_13", "COMPTEUR_14", "COMPTEUR_15", "COMPTEUR_16", "COMPTEUR_17", "COMPTEUR_18", "COMPTEUR_19", "COMPTEUR_20")))))))) | (! ((A F ((3) <= (#tokens("CAPACITE")))) & (A F ((3) <= (#tokens("CONTROLEUR_1", "CONTROLEUR_2")))))))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-8
+  "Automatically generated"
+  is:
+    E X E G ((#tokens("CHOIX_1", "CHOIX_2")) <= (#tokens("NB_ATTENTE_A_0", "NB_ATTENTE_A_1", "NB_ATTENTE_A_2", "NB_ATTENTE_A_3", "NB_ATTENTE_A_4", "NB_ATTENTE_A_5", "NB_ATTENTE_A_6", "NB_ATTENTE_A_7", "NB_ATTENTE_A_8", "NB_ATTENTE_A_9", "NB_ATTENTE_A_10", "NB_ATTENTE_A_11", "NB_ATTENTE_A_12", "NB_ATTENTE_A_13", "NB_ATTENTE_A_14", "NB_ATTENTE_A_15", "NB_ATTENTE_A_16", "NB_ATTENTE_A_17", "NB_ATTENTE_A_18", "NB_ATTENTE_A_19", "NB_ATTENTE_A_20")))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-9
+  "Automatically generated"
+  is:
+    ((((((E G ((3) <= (#tokens("ROUTE_A")))) & (((((((1) <= (#tokens("ROUTE_A")))) | (((#tokens("NB_ATTENTE_B_0", "NB_ATTENTE_B_1", "NB_ATTENTE_B_2", "NB_ATTENTE_B_3", "NB_ATTENTE_B_4", "NB_ATTENTE_B_5", "NB_ATTENTE_B_6", "NB_ATTENTE_B_7", "NB_ATTENTE_B_8", "NB_ATTENTE_B_9", "NB_ATTENTE_B_10", "NB_ATTENTE_B_11", "NB_ATTENTE_B_12", "NB_ATTENTE_B_13", "NB_ATTENTE_B_14", "NB_ATTENTE_B_15", "NB_ATTENTE_B_16", "NB_ATTENTE_B_17", "NB_ATTENTE_B_18", "NB_ATTENTE_B_19", "NB_ATTENTE_B_20")) <= (#tokens("COMPTEUR_0", "COMPTEUR_1", "COMPTEUR_2", "COMPTEUR_3", "COMPTEUR_4", "COMPTEUR_5", "COMPTEUR_6", "COMPTEUR_7", "COMPTEUR_8", "COMPTEUR_9", "COMPTEUR_10", "COMPTEUR_11", "COMPTEUR_12", "COMPTEUR_13", "COMPTEUR_14", "COMPTEUR_15", "COMPTEUR_16", "COMPTEUR_17", "COMPTEUR_18", "COMPTEUR_19", "COMPTEUR_20")))))) | (((((3) <= (#tokens("SUR_PONT_A")))) & (((#tokens("SORTI_B")) <= (#tokens("ROUTE_A")))))))))) & (E F ((#tokens("SORTI_A")) <= (#tokens("NB_ATTENTE_B_0", "NB_ATTENTE_B_1", "NB_ATTENTE_B_2", "NB_ATTENTE_B_3", "NB_ATTENTE_B_4", "NB_ATTENTE_B_5", "NB_ATTENTE_B_6", "NB_ATTENTE_B_7", "NB_ATTENTE_B_8", "NB_ATTENTE_B_9", "NB_ATTENTE_B_10", "NB_ATTENTE_B_11", "NB_ATTENTE_B_12", "NB_ATTENTE_B_13", "NB_ATTENTE_B_14", "NB_ATTENTE_B_15", "NB_ATTENTE_B_16", "NB_ATTENTE_B_17", "NB_ATTENTE_B_18", "NB_ATTENTE_B_19", "NB_ATTENTE_B_20")))))) & (E X ! ((((2) <= (#tokens("CONTROLEUR_1", "CONTROLEUR_2")))) & (((#tokens("ATTENTE_A")) <= (#tokens("CHOIX_1", "CHOIX_2")))))))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-10
+  "Automatically generated"
+  is:
+    E ((E F ((3) <= (#tokens("NB_ATTENTE_B_0", "NB_ATTENTE_B_1", "NB_ATTENTE_B_2", "NB_ATTENTE_B_3", "NB_ATTENTE_B_4", "NB_ATTENTE_B_5", "NB_ATTENTE_B_6", "NB_ATTENTE_B_7", "NB_ATTENTE_B_8", "NB_ATTENTE_B_9", "NB_ATTENTE_B_10", "NB_ATTENTE_B_11", "NB_ATTENTE_B_12", "NB_ATTENTE_B_13", "NB_ATTENTE_B_14", "NB_ATTENTE_B_15", "NB_ATTENTE_B_16", "NB_ATTENTE_B_17", "NB_ATTENTE_B_18", "NB_ATTENTE_B_19", "NB_ATTENTE_B_20")))) U (((((((#tokens("ROUTE_A")) <= (#tokens("ROUTE_A")))) | (((#tokens("ROUTE_A")) <= (#tokens("CAPACITE")))))) & (((((#tokens("NB_ATTENTE_A_0", "NB_ATTENTE_A_1", "NB_ATTENTE_A_2", "NB_ATTENTE_A_3", "NB_ATTENTE_A_4", "NB_ATTENTE_A_5", "NB_ATTENTE_A_6", "NB_ATTENTE_A_7", "NB_ATTENTE_A_8", "NB_ATTENTE_A_9", "NB_ATTENTE_A_10", "NB_ATTENTE_A_11", "NB_ATTENTE_A_12", "NB_ATTENTE_A_13", "NB_ATTENTE_A_14", "NB_ATTENTE_A_15", "NB_ATTENTE_A_16", "NB_ATTENTE_A_17", "NB_ATTENTE_A_18", "NB_ATTENTE_A_19", "NB_ATTENTE_A_20")) <= (#tokens("VIDANGE_1", "VIDANGE_2")))) & (((#tokens("CONTROLEUR_1", "CONTROLEUR_2")) <= (#tokens("CHOIX_1", "CHOIX_2")))))))))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-11
+  "Automatically generated"
+  is:
+    ! A F ((3) <= (#tokens("ATTENTE_B")))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-12
+  "Automatically generated"
+  is:
+    ((A ((((#tokens("NB_ATTENTE_B_0", "NB_ATTENTE_B_1", "NB_ATTENTE_B_2", "NB_ATTENTE_B_3", "NB_ATTENTE_B_4", "NB_ATTENTE_B_5", "NB_ATTENTE_B_6", "NB_ATTENTE_B_7", "NB_ATTENTE_B_8", "NB_ATTENTE_B_9", "NB_ATTENTE_B_10", "NB_ATTENTE_B_11", "NB_ATTENTE_B_12", "NB_ATTENTE_B_13", "NB_ATTENTE_B_14", "NB_ATTENTE_B_15", "NB_ATTENTE_B_16", "NB_ATTENTE_B_17", "NB_ATTENTE_B_18", "NB_ATTENTE_B_19", "NB_ATTENTE_B_20")) <= (#tokens("ATTENTE_B")))) U (((2) <= (#tokens("ATTENTE_A")))))) | (E F ! ! ((2) <= (#tokens("COMPTEUR_0", "COMPTEUR_1", "COMPTEUR_2", "COMPTEUR_3", "COMPTEUR_4", "COMPTEUR_5", "COMPTEUR_6", "COMPTEUR_7", "COMPTEUR_8", "COMPTEUR_9", "COMPTEUR_10", "COMPTEUR_11", "COMPTEUR_12", "COMPTEUR_13", "COMPTEUR_14", "COMPTEUR_15", "COMPTEUR_16", "COMPTEUR_17", "COMPTEUR_18", "COMPTEUR_19", "COMPTEUR_20")))))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-13
+  "Automatically generated"
+  is:
+    E F A G ! ((3) <= (#tokens("SORTI_A")))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-14
+  "Automatically generated"
+  is:
+    A F A G ((((#tokens("CHOIX_1", "CHOIX_2")) <= (#tokens("CHOIX_1", "CHOIX_2")))) & (((#tokens("CAPACITE")) <= (#tokens("CAPACITE")))))
+  end.
+Property BridgeAndVehicles-COL-V20P10N20-CTLCardinality-15
+  "Automatically generated"
+  is:
+    E X E G ! ((2) <= (#tokens("SUR_PONT_B")))
+  end.

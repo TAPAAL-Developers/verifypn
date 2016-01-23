@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F7</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F7</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_85</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F20</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F13</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_56</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_80</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F27</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F64</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F26</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F67</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_94</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_71</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_40</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-096-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_39</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

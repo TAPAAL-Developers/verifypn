@@ -1,0 +1,80 @@
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ! ((((((#tokens("block")) <= (#tokens("Check_Sources_B_1")))) | (((2) <= (#tokens("Schedule_Task_B_1")))))) | (((((#tokens("NotifyEventEndOfCheckSourcesE_1")) <= (#tokens("Schedule_Task_E_1_PerformWork_18", "Schedule_Task_E_1_CheckSource_0", "Schedule_Task_E_1_PerformWork_16", "Schedule_Task_E_1_PerformWork_8", "Schedule_Task_E_1_PerformWork_0", "Schedule_Task_E_1_PerformWork_15", "Schedule_Task_E_1_PerformWork_2", "Schedule_Task_E_1_PerformWork_9", "Schedule_Task_E_1_PerformWork_1", "Schedule_Task_E_1_PerformWork_14", "Schedule_Task_E_1_PerformWork_13", "Schedule_Task_E_1_PerformWork_3", "Schedule_Task_E_1_PerformWork_12", "Schedule_Task_E_1_PerformWork_19", "Schedule_Task_E_1_PerformWork_4", "Schedule_Task_E_1_PerformWork_20", "Schedule_Task_E_1_PerformWork_11", "Schedule_Task_E_1_PerformWork_5", "Schedule_Task_E_1_PerformWork_17", "Schedule_Task_E_1_PerformWork_10", "Schedule_Task_E_1_PerformWork_7", "Schedule_Task_E_1_PerformWork_6")))) & (((#tokens("AvailableJobId_20", "AvailableJobId_6", "AvailableJobId_13", "AvailableJobId_0", "AvailableJobId_14", "AvailableJobId_1", "AvailableJobId_12", "AvailableJobId_19", "AvailableJobId_2", "AvailableJobId_11", "AvailableJobId_17", "AvailableJobId_3", "AvailableJobId_10", "AvailableJobId_9", "AvailableJobId_18", "AvailableJobId_15", "AvailableJobId_8", "AvailableJobId_4", "AvailableJobId_5", "AvailableJobId_7", "AvailableJobId_16")) <= (#tokens("cSources")))))))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ((#tokens("ModifiedSrc_3", "ModifiedSrc_10", "ModifiedSrc_9", "ModifiedSrc_8", "ModifiedSrc_7", "ModifiedSrc_6", "ModifiedSrc_1", "ModifiedSrc_5", "ModifiedSrc_4", "ModifiedSrc_2")) <= (#tokens("TheSour_1", "TheSour_2", "TheSour_7", "TheSour_8", "TheSour_5", "TheSour_6", "TheSour_10", "TheSour_3", "TheSour_4", "TheSour_9")))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((1) <= (#tokens("mi3")))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ((#tokens("ModifiedSrc_3", "ModifiedSrc_10", "ModifiedSrc_9", "ModifiedSrc_8", "ModifiedSrc_7", "ModifiedSrc_6", "ModifiedSrc_1", "ModifiedSrc_5", "ModifiedSrc_4", "ModifiedSrc_2")) <= (#tokens("DataOnSrc_2", "DataOnSrc_4", "DataOnSrc_3", "DataOnSrc_10", "DataOnSrc_9", "DataOnSrc_8", "DataOnSrc_7", "DataOnSrc_6", "DataOnSrc_5", "DataOnSrc_1")))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ! ! ((((#tokens("f2_16", "f2_2", "f2_10", "f2_11", "f2_15", "f2_1", "f2_18", "f2_8", "f2_0", "f2_17", "f2_9", "f2_13", "f2_5", "f2_19", "f2_12", "f2_7", "f2_6", "f2_20", "f2_4", "f2_3", "f2_14")) <= (#tokens("NotifyEventEndOfCheckSourcesB_1")))) | (((#tokens("NotifyEventEndOfCheckSourcesB_1")) <= (#tokens("place_456")))))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((((2) <= (#tokens("place_521_1")))) | (((((1) <= (#tokens("f1_19", "f1_0", "f1_15", "f1_1", "f1_8", "f1_2", "f1_16", "f1_3", "f1_7", "f1_6", "f1_13", "f1_4", "f1_5", "f1_14", "f1_12", "f1_11", "f1_17", "f1_10", "f1_18", "f1_9", "f1_20")))) & (! ((#tokens("place_520_1")) <= (#tokens("place_460")))))))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ((#tokens("mo3")) <= (#tokens("mo3")))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("FetchJobB_1")))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((((((((2) <= (#tokens("QueueJobE_1")))) | (((1) <= (#tokens("FetchJobE_1_16", "FetchJobE_1_4", "FetchJobE_1_17", "FetchJobE_1_11", "FetchJobE_1_18", "FetchJobE_1_5", "FetchJobE_1_10", "FetchJobE_1_19", "FetchJobE_1_2", "FetchJobE_1_12", "FetchJobE_1_3", "FetchJobE_1_0", "FetchJobE_1_7", "FetchJobE_1_1", "FetchJobE_1_13", "FetchJobE_1_20", "FetchJobE_1_6", "FetchJobE_1_14", "FetchJobE_1_9", "FetchJobE_1_15", "FetchJobE_1_8")))))) & (((((#tokens("NotifyEventEndOfCheckSourcesB_1")) <= (#tokens("ModifiedSrc_3", "ModifiedSrc_10", "ModifiedSrc_9", "ModifiedSrc_8", "ModifiedSrc_7", "ModifiedSrc_6", "ModifiedSrc_1", "ModifiedSrc_5", "ModifiedSrc_4", "ModifiedSrc_2")))) | (((2) <= (#tokens("place_460")))))))) | (((#tokens("NotifyEventJobQueuedB_1_14", "NotifyEventJobQueuedB_1_13", "NotifyEventJobQueuedB_1_0", "NotifyEventJobQueuedB_1_6", "NotifyEventJobQueuedB_1_7", "NotifyEventJobQueuedB_1_19", "NotifyEventJobQueuedB_1_8", "NotifyEventJobQueuedB_1_12", "NotifyEventJobQueuedB_1_11", "NotifyEventJobQueuedB_1_9", "NotifyEventJobQueuedB_1_2", "NotifyEventJobQueuedB_1_20", "NotifyEventJobQueuedB_1_1", "NotifyEventJobQueuedB_1_10", "NotifyEventJobQueuedB_1_17", "NotifyEventJobQueuedB_1_18", "NotifyEventJobQueuedB_1_16", "NotifyEventJobQueuedB_1_3", "NotifyEventJobQueuedB_1_4", "NotifyEventJobQueuedB_1_15", "NotifyEventJobQueuedB_1_5")) <= (#tokens("place_520_1")))))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((((! ((3) <= (#tokens("block")))) & (! ((2) <= (#tokens("Try_Check_Sources_B_1")))))) & (! ! ((3) <= (#tokens("Check_Sources_B_1")))))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ! ((! ((3) <= (#tokens("mi3")))) | (((2) <= (#tokens("Try_Check_Sources_B_1")))))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((((((((2) <= (#tokens("Try_Check_Sources_E_1")))) | (((#tokens("cJobCnt")) <= (#tokens("place_462")))))) & (((((1) <= (#tokens("cJobCnt")))) | (((#tokens("JobCnt")) <= (#tokens("place_458")))))))) & (((((((#tokens("FetchJobB_1")) <= (#tokens("FetchJobB_1")))) & (((1) <= (#tokens("place_523_1")))))) | (((2) <= (#tokens("NotifyEventEndOfCheckSourcesB_1")))))))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ((! ! ((3) <= (#tokens("mo2")))) & (! ((1) <= (#tokens("Try_Check_Sources_B_1")))))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((((#tokens("f1_19", "f1_0", "f1_15", "f1_1", "f1_8", "f1_2", "f1_16", "f1_3", "f1_7", "f1_6", "f1_13", "f1_4", "f1_5", "f1_14", "f1_12", "f1_11", "f1_17", "f1_10", "f1_18", "f1_9", "f1_20")) <= (#tokens("FetchJobE_1_16", "FetchJobE_1_4", "FetchJobE_1_17", "FetchJobE_1_11", "FetchJobE_1_18", "FetchJobE_1_5", "FetchJobE_1_10", "FetchJobE_1_19", "FetchJobE_1_2", "FetchJobE_1_12", "FetchJobE_1_3", "FetchJobE_1_0", "FetchJobE_1_7", "FetchJobE_1_1", "FetchJobE_1_13", "FetchJobE_1_20", "FetchJobE_1_6", "FetchJobE_1_14", "FetchJobE_1_9", "FetchJobE_1_15", "FetchJobE_1_8")))) & (((((((1) <= (#tokens("Try_Check_Sources_B_1")))) & (((1) <= (#tokens("place_520_1")))))) | (! ((#tokens("mo2")) <= (#tokens("f2_16", "f2_2", "f2_10", "f2_11", "f2_15", "f2_1", "f2_18", "f2_8", "f2_0", "f2_17", "f2_9", "f2_13", "f2_5", "f2_19", "f2_12", "f2_7", "f2_6", "f2_20", "f2_4", "f2_3", "f2_14")))))))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ((((((3) <= (#tokens("mi1")))) | (((((#tokens("mo2")) <= (#tokens("mi3")))) | (((3) <= (#tokens("FetchJobE_1_16", "FetchJobE_1_4", "FetchJobE_1_17", "FetchJobE_1_11", "FetchJobE_1_18", "FetchJobE_1_5", "FetchJobE_1_10", "FetchJobE_1_19", "FetchJobE_1_2", "FetchJobE_1_12", "FetchJobE_1_3", "FetchJobE_1_0", "FetchJobE_1_7", "FetchJobE_1_1", "FetchJobE_1_13", "FetchJobE_1_20", "FetchJobE_1_6", "FetchJobE_1_14", "FetchJobE_1_9", "FetchJobE_1_15", "FetchJobE_1_8")))))))) & (((((((#tokens("Check_Sources_B_1")) <= (#tokens("f3_4", "f3_13", "f3_0", "f3_14", "f3_7", "f3_6", "f3_1", "f3_15", "f3_20", "f3_19", "f3_9", "f3_18", "f3_8", "f3_17", "f3_10", "f3_3", "f3_16", "f3_2", "f3_11", "f3_5", "f3_12")))) | (((#tokens("Perform_Work_E_1")) <= (#tokens("f2_16", "f2_2", "f2_10", "f2_11", "f2_15", "f2_1", "f2_18", "f2_8", "f2_0", "f2_17", "f2_9", "f2_13", "f2_5", "f2_19", "f2_12", "f2_7", "f2_6", "f2_20", "f2_4", "f2_3", "f2_14")))))) | (! ((2) <= (#tokens("mo3")))))))
+  end.
+Property PolyORBNT-COL-S10J20-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((((((#tokens("block")) <= (#tokens("place_460")))) & (((#tokens("Schedule_Task_B_1")) <= (#tokens("place_456")))))) | (((! ((2) <= (#tokens("NotifyEventJobQueuedE_1")))) | (((((#tokens("Perform_Work_E_1")) <= (#tokens("place_518_1")))) & (((3) <= (#tokens("mi2")))))))))
+  end.

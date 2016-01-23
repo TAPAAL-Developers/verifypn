@@ -1,0 +1,80 @@
+Property Raft-PT-10-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("p330")))
+  end.
+Property Raft-PT-10-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A F F G F ((2) <= (#tokens("p462")))
+  end.
+Property Raft-PT-10-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A F X G F ((3) <= (#tokens("p389")))
+  end.
+Property Raft-PT-10-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((#tokens("p288")) <= (#tokens("p237")))
+  end.
+Property Raft-PT-10-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A X G ((3) <= (#tokens("p346")))
+  end.
+Property Raft-PT-10-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A G G F G ((1) <= (#tokens("p178")))
+  end.
+Property Raft-PT-10-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A G X ((1) <= (#tokens("p474")))
+  end.
+Property Raft-PT-10-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A ((((#tokens("p351")) <= (#tokens("p324")))) U (F ((#tokens("p399")) <= (#tokens("p120")))))
+  end.
+Property Raft-PT-10-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("p191")))
+  end.
+Property Raft-PT-10-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((G X ((#tokens("p37")) <= (#tokens("p267")))) U (((((3) <= (#tokens("p124")))) U (((#tokens("p304")) <= (#tokens("p450")))))))
+  end.
+Property Raft-PT-10-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((#tokens("p39")) <= (#tokens("p162")))
+  end.
+Property Raft-PT-10-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((X G ((2) <= (#tokens("p435")))) U (((3) <= (#tokens("p443")))))
+  end.
+Property Raft-PT-10-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A F F F F ((#tokens("p260")) <= (#tokens("p443")))
+  end.
+Property Raft-PT-10-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A X ((3) <= (#tokens("p117")))
+  end.
+Property Raft-PT-10-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A F F X F ((#tokens("p274")) <= (#tokens("p350")))
+  end.
+Property Raft-PT-10-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((#tokens("p269")) <= (#tokens("p165")))
+  end.

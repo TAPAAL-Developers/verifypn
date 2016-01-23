@@ -1,0 +1,80 @@
+Property Raft-PT-07-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t57"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t22"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t13"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t10"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t56"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t55"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t31"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t44"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t71"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t2"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t4"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t38"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t59"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t40"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t29"?
+  end.
+Property Raft-PT-07-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t439"?
+  end.

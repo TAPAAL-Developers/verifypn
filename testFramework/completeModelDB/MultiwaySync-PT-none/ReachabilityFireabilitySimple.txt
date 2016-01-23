@@ -1,0 +1,80 @@
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t34"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t413"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t5"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t39"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t141"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t241"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t425"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t390"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t139"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t167"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t378"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t145"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t462"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t137"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t33"?
+  end.
+Property MultiwaySync-PT-none-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t7"?
+  end.

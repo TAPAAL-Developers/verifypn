@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R050C002-CTLFireability-0
+  "Automatically generated"
+  is:
+    ! ((((E F ! "t_1_22"?) & (A F (("t_1_13"?) & ("t_1_20"?))))) | ((("t_1_33"?) & (A G ! "t_0_2"?))))
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-1
+  "Automatically generated"
+  is:
+    ! E F ((! (("t_1_26"?) & ("t_1_0"?))) & (A X "t_0_2"?))
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-2
+  "Automatically generated"
+  is:
+    E X A F (("t_1_32"?) & ("t_0_18"?))
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-3
+  "Automatically generated"
+  is:
+    E G "t_0_0"?
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-4
+  "Automatically generated"
+  is:
+    E F ((((! ! "t_0_23"?) | (E F "t_0_45"?))) | ((("t_1_9"?) | (E G "t_0_35"?))))
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-5
+  "Automatically generated"
+  is:
+    A G ((((! (("t_0_20"?) & ("t_0_39"?))) | (((! "t_1_27"?) | ("t_1_31"?))))) | (E F ! "t_1_19"?))
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-6
+  "Automatically generated"
+  is:
+    A F A X "t_1_42"?
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-7
+  "Automatically generated"
+  is:
+    A F "t_0_8"?
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-8
+  "Automatically generated"
+  is:
+    E G E F A F "t_0_21"?
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-9
+  "Automatically generated"
+  is:
+    A F E G E G "t_1_11"?
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-10
+  "Automatically generated"
+  is:
+    ((((E G (("t_0_48"?) | ("t_0_6"?))) | (((E G ! "t_1_40"?) & ((((((("t_0_50"?) & ("t_0_4"?))) | (! "t_1_38"?))) & (A F "t_0_41"?))))))) | (E X "t_1_10"?))
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-11
+  "Automatically generated"
+  is:
+    ! (("t_0_50"?) | (A F "t_0_25"?))
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-12
+  "Automatically generated"
+  is:
+    (((("t_1_47"?) | (E ((! "t_0_37"?) U ("t_1_17"?))))) | (A G ((E X "t_0_15"?) & (! "t_0_39"?))))
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-13
+  "Automatically generated"
+  is:
+    A F E X (((("t_0_21"?) | ("t_1_23"?))) & (! "t_0_7"?))
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-14
+  "Automatically generated"
+  is:
+    A F "t_0_27"?
+  end.
+Property ResAllocation-PT-R050C002-CTLFireability-15
+  "Automatically generated"
+  is:
+    A ((E G ! "t_1_1"?) U (((E G "t_1_37"?) & (A F "t_1_39"?))))
+  end.

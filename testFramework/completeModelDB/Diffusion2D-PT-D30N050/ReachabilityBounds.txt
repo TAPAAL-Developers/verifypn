@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((((((bound("cAMP__8_25_")) <= (2))) & (((((bound("cAMP__28_27_")) <= (2))) & (((((bound("cAMP__18_7_")) <= (3))) & (((bound("cAMP__15_25_")) <= (2))))))))) & (((bound("cAMP__14_22_")) <= (2))))) & (((bound("cAMP__1_29_")) <= (2))))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("cAMP__30_16_")) <= (1))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("cAMP__16_5_")) <= (2))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("cAMP__5_17_")) <= (1))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("cAMP__26_3_")) <= (2))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("cAMP__15_25_")) <= (2))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("cAMP__4_28_")) <= (3))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((((bound("cAMP__29_25_")) <= (2))) & (((((bound("cAMP__4_25_")) <= (3))) & (((bound("cAMP__4_9_")) <= (3))))))) & (((((bound("cAMP__3_28_")) <= (2))) & (((bound("cAMP__20_6_")) <= (2))))))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((bound("cAMP__4_11_")) <= (1))) & (((((bound("cAMP__16_15_")) <= (1))) & (((bound("cAMP__25_22_")) <= (3))))))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((((bound("cAMP__19_2_")) <= (3))) & (((((((bound("cAMP__10_12_")) <= (3))) & (((((bound("cAMP__29_19_")) <= (1))) & (((((bound("cAMP__11_24_")) <= (1))) & (((bound("cAMP__29_23_")) <= (1))))))))) & (((bound("cAMP__3_23_")) <= (1))))))) & (((((bound("cAMP__24_3_")) <= (2))) & (((bound("cAMP__24_17_")) <= (2))))))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((((((((((((bound("cAMP__7_10_")) <= (2))) & (((bound("cAMP__11_21_")) <= (2))))) & (((((bound("cAMP__11_4_")) <= (3))) & (((bound("cAMP__18_2_")) <= (1))))))) & (((((bound("cAMP__19_11_")) <= (2))) & (((((bound("cAMP__2_23_")) <= (3))) & (((bound("cAMP__17_27_")) <= (3))))))))) & (((bound("cAMP__15_28_")) <= (3))))) & (((((((bound("cAMP__9_10_")) <= (2))) & (((((bound("cAMP__6_13_")) <= (2))) & (((bound("cAMP__14_10_")) <= (3))))))) & (((((bound("cAMP__25_17_")) <= (3))) & (((bound("cAMP__20_5_")) <= (1))))))))) & (((bound("cAMP__23_13_")) <= (3))))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((((bound("cAMP__2_29_")) <= (2))) & (((bound("cAMP__3_3_")) <= (1))))) & (((bound("cAMP__15_10_")) <= (3))))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((bound("cAMP__6_12_")) <= (3))) & (((((bound("cAMP__10_1_")) <= (2))) & (((((bound("cAMP__25_9_")) <= (2))) & (((((((((bound("cAMP__8_14_")) <= (1))) & (((bound("cAMP__23_11_")) <= (3))))) & (((bound("cAMP__23_3_")) <= (2))))) & (((bound("cAMP__19_10_")) <= (1))))))))))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("cAMP__8_6_")) <= (1))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("cAMP__5_16_")) <= (3))
+  end.
+Property Diffusion2D-PT-D30N050-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("cAMP__9_4_")) <= (1))
+  end.

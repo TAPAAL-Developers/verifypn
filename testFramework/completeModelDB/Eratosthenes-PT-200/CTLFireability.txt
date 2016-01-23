@@ -1,0 +1,80 @@
+Property Eratosthenes-PT-200-CTLFireability-0
+  "Automatically generated"
+  is:
+    A X E (((("t72.2"?) | ("t198.2"?))) U (! "t85.17"?))
+  end.
+Property Eratosthenes-PT-200-CTLFireability-1
+  "Automatically generated"
+  is:
+    E G "t105.15"?
+  end.
+Property Eratosthenes-PT-200-CTLFireability-2
+  "Automatically generated"
+  is:
+    A X E X ((! "t168.28"?) | ((("t28.14"?) & ("t150.15"?))))
+  end.
+Property Eratosthenes-PT-200-CTLFireability-3
+  "Automatically generated"
+  is:
+    E G E X "t187.11"?
+  end.
+Property Eratosthenes-PT-200-CTLFireability-4
+  "Automatically generated"
+  is:
+    ((E G ((! "t87.3"?) | (E G "t112.28"?))) | (((! E (("t12.6"?) U ("t152.4"?))) & (((E F (("t108.36"?) | ("t32.2"?))) & (A G (("t50.25"?) & ("t128.4"?))))))))
+  end.
+Property Eratosthenes-PT-200-CTLFireability-5
+  "Automatically generated"
+  is:
+    A X (((("t180.10"?) & (E G "t90.15"?))) | (A X "t132.4"?))
+  end.
+Property Eratosthenes-PT-200-CTLFireability-6
+  "Automatically generated"
+  is:
+    E F E G "t136.17"?
+  end.
+Property Eratosthenes-PT-200-CTLFireability-7
+  "Automatically generated"
+  is:
+    E X ! ! A G "t148.74"?
+  end.
+Property Eratosthenes-PT-200-CTLFireability-8
+  "Automatically generated"
+  is:
+    E ((E G "t120.4"?) U (A F ! "t76.19"?))
+  end.
+Property Eratosthenes-PT-200-CTLFireability-9
+  "Automatically generated"
+  is:
+    ((E G E F "t99.9"?) & (A G E F "t174.58"?))
+  end.
+Property Eratosthenes-PT-200-CTLFireability-10
+  "Automatically generated"
+  is:
+    ! ((((((E G "t114.6"?) & ((("t144.4"?) | ("t70.7"?))))) | ("t198.66"?))) & (A G E X "t153.3"?))
+  end.
+Property Eratosthenes-PT-200-CTLFireability-11
+  "Automatically generated"
+  is:
+    E F E G "t72.4"?
+  end.
+Property Eratosthenes-PT-200-CTLFireability-12
+  "Automatically generated"
+  is:
+    E F ! ! E G "t154.11"?
+  end.
+Property Eratosthenes-PT-200-CTLFireability-13
+  "Automatically generated"
+  is:
+    ((((! E (("t82.41"?) U ("t96.6"?))) & (! E G (("t176.88"?) | ("t162.6"?))))) | (! ((((E G "t156.39"?) | (E G "t117.9"?))) & ("t111.37"?))))
+  end.
+Property Eratosthenes-PT-200-CTLFireability-14
+  "Automatically generated"
+  is:
+    ((E X ((((! "t56.4"?) & ("t140.10"?))) | ("t88.4"?))) & (E G E (("t27.9"?) U ("t84.2"?))))
+  end.
+Property Eratosthenes-PT-200-CTLFireability-15
+  "Automatically generated"
+  is:
+    A ((((A X "t120.4"?) & (A X "t62.2"?))) U (E G "t164.82"?))
+  end.

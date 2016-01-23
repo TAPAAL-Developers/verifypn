@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F118</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F323</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F310</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_504</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_413</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_735</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F19</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_300</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_412</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F381</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_272</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F525</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F621</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F457</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F586</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>CircularTrains-PT-768-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Section_687</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p166</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p2406</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p2542</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p165</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1446</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p490</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p5</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1678</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1340</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1672</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p2710</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p5</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1203</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p2655</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p514</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>RwMutex-PT-r1000w0010-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p2475</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

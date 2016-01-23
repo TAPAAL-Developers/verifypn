@@ -1,0 +1,80 @@
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t290_to_291"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t257_to_258"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t374_to_375"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t218_to_219"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t680_to_681"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t479_to_480"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t560_to_561"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t74_to_75"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t377_to_378"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t506_to_507"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t107_to_108"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t701_to_702"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t176_to_177"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t434_to_435"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t107_to_108"?
+  end.
+Property CircularTrains-PT-768-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t134_to_135"?
+  end.

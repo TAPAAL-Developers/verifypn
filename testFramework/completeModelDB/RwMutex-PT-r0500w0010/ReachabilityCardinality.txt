@@ -1,0 +1,80 @@
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((((! ((#tokens("p1174")) <= (#tokens("p555")))) | (! ((#tokens("p261")) <= (#tokens("p620")))))) | (! ((1) <= (#tokens("p1339")))))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ! ((((((3) <= (#tokens("p563")))) & (((#tokens("p1302")) <= (#tokens("p833")))))) | (((((2) <= (#tokens("p781")))) & (((1) <= (#tokens("p1144")))))))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((! ((#tokens("p406")) <= (#tokens("p388")))) & (((((((2) <= (#tokens("p12")))) & (((3) <= (#tokens("p255")))))) | (((2) <= (#tokens("p934")))))))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ((((3) <= (#tokens("p462")))) | (((((((#tokens("p1264")) <= (#tokens("p255")))) | (((#tokens("p163")) <= (#tokens("p1387")))))) | (((2) <= (#tokens("p846")))))))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((((((#tokens("p972")) <= (#tokens("p1195")))) & (((3) <= (#tokens("p1483")))))) & (((((#tokens("p923")) <= (#tokens("p737")))) & (! ((#tokens("p336")) <= (#tokens("p438")))))))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("p471")))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("p1321")) <= (#tokens("p1079")))) | (((2) <= (#tokens("p1478")))))) & (((#tokens("p1052")) <= (#tokens("p390")))))) | (((1) <= (#tokens("p1022")))))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    E F ! ((((((2) <= (#tokens("p1158")))) | (((2) <= (#tokens("p1251")))))) | (! ((2) <= (#tokens("p738")))))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ! ((#tokens("p534")) <= (#tokens("p1162")))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("p790")))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("p382")) <= (#tokens("p28")))) | (((2) <= (#tokens("p167")))))) | (((((#tokens("p240")) <= (#tokens("p980")))) | (((3) <= (#tokens("p1322")))))))) | (! ((((3) <= (#tokens("p1437")))) & (((#tokens("p636")) <= (#tokens("p1107")))))))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("p637")))) & (((#tokens("p448")) <= (#tokens("p303")))))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((((2) <= (#tokens("p1469")))) | (((! ((2) <= (#tokens("p107")))) | (((((2) <= (#tokens("p766")))) | (((2) <= (#tokens("p637")))))))))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("p720")))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ((((! ((2) <= (#tokens("p356")))) | (! ((#tokens("p1157")) <= (#tokens("p381")))))) | (((((((2) <= (#tokens("p432")))) & (((#tokens("p45")) <= (#tokens("p274")))))) | (! ((#tokens("p378")) <= (#tokens("p1274")))))))
+  end.
+Property RwMutex-PT-r0500w0010-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((((((((3) <= (#tokens("p1069")))) & (((#tokens("p352")) <= (#tokens("p1276")))))) | (! ((1) <= (#tokens("p1084")))))) | (! ((3) <= (#tokens("p532")))))
+  end.

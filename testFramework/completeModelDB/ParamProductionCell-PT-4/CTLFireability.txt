@@ -1,0 +1,80 @@
+Property ParamProductionCell-PT-4-CTLFireability-0
+  "Automatically generated"
+  is:
+    (((("PL_lower_Pstart"?) | (A F ! ! "A1L_rot2_Cstop"?))) | ((((((("CU_lower_csc"?) | ("A1L_ret_Pstop"?))) & (((A X "A1U_ext_Pstop"?) | ((((("A1U_ext_Cstop"?) & ("A2U_ext_csc"?))) | ((("A2L_ret_Pstop"?) & ("A1L_c1"?))))))))) & (A (((("TU_lift_Cstop"?) | ("A2U_rot2_csc"?))) U (! "A1L_rot3_csc"?))))))
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-1
+  "Automatically generated"
+  is:
+    ((A (((((("FB_trans_Cstop"?) | ("A1L_rot3_Pstop"?))) | ("A2L_rot3_Cstop"?))) U ((((("DB_deliver_Pstop"?) | ("DB_trans_Cstop"?))) | ("deposit_belt_unlock_output_area"?))))) | (! A X A F "A2L_c2"?))
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-2
+  "Automatically generated"
+  is:
+    E (("A1L_rot2_Pstop"?) U (A G ! "A2U_ret_Cstop"?))
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-3
+  "Automatically generated"
+  is:
+    ((((E G A F "A1U_ret_csc"?) | (E F ((! "A2L_rot1_csc"?) | ("A1L_c1"?))))) & (A G ! "A1U_rot1_Pstart"?))
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-4
+  "Automatically generated"
+  is:
+    A G ! E (("A1L_c1"?) U ("A1U_rot1_csc"?))
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-5
+  "Automatically generated"
+  is:
+    ((E G ((E F "CL_lift_Cstop"?) | (A F "A1U_ext_Pstart"?))) | (A F A (("A2U_rot3_Cstop"?) U ("arm2_lock_output_area"?))))
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-6
+  "Automatically generated"
+  is:
+    E F ((! E F "CL_lift_Cstop"?) & (E (("deposit_belt_unlock_input_area"?) U ("arm1_lock_output_area"?))))
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-7
+  "Automatically generated"
+  is:
+    ! ((E ((! "table_unlock_input_area"?) U ("DB_deliver_Cstop"?))) | (((A (("A1U_c1"?) U ("A1L_ret_Pstop"?))) & (E X ! "A2L_ext_csc"?))))
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-8
+  "Automatically generated"
+  is:
+    ! E F "arm1_unlock_swivel_1"?
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-9
+  "Automatically generated"
+  is:
+    A F A G ! "A1U_ret_csc"?
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-10
+  "Automatically generated"
+  is:
+    E F A ((! "TU_lift_Cstop"?) U ("CU_ungrasp"?))
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-11
+  "Automatically generated"
+  is:
+    ((A G "A1U_ret_Cstop"?) | (((A G E F "DB_trans_csc"?) | (((A F "table_lock_output_area"?) & ("A1U_rot2_Pstop"?))))))
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-12
+  "Automatically generated"
+  is:
+    ((E F (("A2U_rot1_csc"?) & (A F "DB_trans_Pstart"?))) | (A G ! E X "TL_lower_csc"?))
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-13
+  "Automatically generated"
+  is:
+    E F A X "A1U_ret_Cstop"?
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-14
+  "Automatically generated"
+  is:
+    ((E F A G (("crane_lock_input_area"?) | ("A2L_rot1_Cstop"?))) | ("CU_lower_Cstop"?))
+  end.
+Property ParamProductionCell-PT-4-CTLFireability-15
+  "Automatically generated"
+  is:
+    A X E X E F "CU_lower_Pstop"?
+  end.

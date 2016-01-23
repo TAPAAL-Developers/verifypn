@@ -1,0 +1,80 @@
+Property IBM703-PT-none-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("fork.s00000464.activated.s00000272")) <= (#tokens("merge.s00000457.input.s00000285")))) | (((3) <= (#tokens("task.s00000754.input.s00000263")))))) & (! ((#tokens("decision.s00000803.activated")) <= (#tokens("decision.s00000796.input.s00000263")))))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ! ((3) <= (#tokens("merge.s00000456.activated")))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("task.s00000745.inputCriterion.s00000257.used")) <= (#tokens("task.s00000722.output.s00000264")))) | (((#tokens("task.s00000742.inputCriterion.s00000257.used")) <= (#tokens("task.s00000706.input.s00000263")))))) | (((1) <= (#tokens("callToProcess.s00000807.input.s00000263")))))) & (((! ((2) <= (#tokens("task.s00000756.inputCriterion.s00000257.used")))) & (((((2) <= (#tokens("task.s00000708.inputCriterion.s00000257.used")))) & (((1) <= (#tokens("task.s00000756.output.s00000264")))))))))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("task.s00000731.inputCriterion.s00000257.used")))) & (! ((#tokens("task.s00000746.output.s00000264")) <= (#tokens("decision.s00000804.activated")))))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((((#tokens("task.s00000707.inputCriterion.s00000257.used")) <= (#tokens("task.s00000709.output.s00000264")))) & (((((2) <= (#tokens("callToProcess.s00000807.input.s00000263")))) & (((((#tokens("task.s00000753.output.s00000264")) <= (#tokens("task.s00000752.inputCriterion.s00000257.used")))) | (((1) <= (#tokens("task.s00000735.output.s00000264")))))))))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ((((((#tokens("decision.s00000792.activated")) <= (#tokens("task.s00000714.input.s00000263")))) & (((((#tokens("task.s00000736.inputCriterion.s00000257.used")) <= (#tokens("task.s00000731.inputCriterion.s00000257.used")))) | (((#tokens("merge.s00000446.activated")) <= (#tokens("decision.s00000774.activated")))))))) | (((#tokens("merge.s00000451.input.s00000285")) <= (#tokens("merge.s00000451.input.s00000285")))))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ! ((((((2) <= (#tokens("fork.s00000464.activated.s00000274")))) | (((3) <= (#tokens("task.s00000725.inputCriterion.s00000257.used")))))) & (! ((#tokens("task.s00000743.output.s00000264")) <= (#tokens("decision.s00000796.activated")))))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    E F ((((2) <= (#tokens("task.s00000717.inputCriterion.s00000257.used")))) & (((((#tokens("merge.s00000450.activated")) <= (#tokens("merge.s00000451.activated")))) & (((((#tokens("task.s00000708.output.s00000264")) <= (#tokens("task.s00000723.output.s00000264")))) & (((#tokens("decision.s00000802.activated")) <= (#tokens("decision.s00000805.activated")))))))))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("task.s00000751.inputCriterion.s00000257.used")))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((((! ((#tokens("task.s00000711.output.s00000264")) <= (#tokens("merge.s00000462.input.s00000285")))) | (! ((#tokens("fork.s00000463.activated.s00000274")) <= (#tokens("task.s00000712.output.s00000264")))))) & (((1) <= (#tokens("decision.s00000764.activated")))))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("task.s00000722.inputCriterion.s00000257.used")))) & (((((#tokens("task.s00000741.output.s00000264")) <= (#tokens("decision.s00000764.input.s00000263")))) | (((((3) <= (#tokens("merge.s00000457.activated")))) & (((1) <= (#tokens("task.s00000751.output.s00000264")))))))))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("task.s00000761.output.s00000264")))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((((((((2) <= (#tokens("task.s00000708.inputCriterion.s00000257.used")))) & (((3) <= (#tokens("callToProcess.s00000807.input.s00000263")))))) & (((((#tokens("task.s00000722.inputCriterion.s00000257.used")) <= (#tokens("task.s00000705.inputCriterion.s00000257.used")))) | (((#tokens("task.s00000711.output.s00000264")) <= (#tokens("task.s00000754.input.s00000263")))))))) | (((((((#tokens("decision.s00000787.activated")) <= (#tokens("decision.s00000775.activated")))) | (((2) <= (#tokens("task.s00000722.inputCriterion.s00000257.used")))))) | (((#tokens("task.s00000721.output.s00000264")) <= (#tokens("decision.s00000802.activated")))))))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((((#tokens("task.s00000731.inputCriterion.s00000257.used")) <= (#tokens("task.s00000735.inputCriterion.s00000257.used")))) | (((#tokens("task.s00000741.input.s00000263")) <= (#tokens("task.s00000725.input.s00000263")))))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ((((! ((#tokens("merge.s00000452.activated")) <= (#tokens("task.s00000722.inputCriterion.s00000257.used")))) & (((((1) <= (#tokens("task.s00000723.output.s00000264")))) | (((1) <= (#tokens("task.s00000754.inputCriterion.s00000257.used")))))))) | (((((((#tokens("task.s00000759.inputCriterion.s00000257.used")) <= (#tokens("merge.s00000446.input.s00000290")))) & (((#tokens("task.s00000713.output.s00000264")) <= (#tokens("task.s00000747.output.s00000264")))))) | (((((#tokens("task.s00000721.output.s00000264")) <= (#tokens("task.s00000706.inputCriterion.s00000257.used")))) | (((2) <= (#tokens("callToProcess.s00000807.input.s00000263")))))))))
+  end.
+Property IBM703-PT-none-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((((#tokens("task.s00000711.inputCriterion.s00000257.used")) <= (#tokens("decision.s00000796.input.s00000263")))) | (! ! ((#tokens("task.s00000720.inputCriterion.s00000257.used")) <= (#tokens("task.s00000733.output.s00000264")))))
+  end.

@@ -1,0 +1,80 @@
+Property Raft-PT-02-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("p12")) <= (3))
+  end.
+Property Raft-PT-02-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((((((((((((bound("p20")) <= (1))) & (((bound("p11")) <= (3))))) & (((bound("p18")) <= (3))))) & (((((((bound("p5")) <= (2))) & (((bound("p10")) <= (1))))) & (((bound("p27")) <= (1))))))) & (((bound("p11")) <= (2))))) & (((bound("p25")) <= (3))))) & (((bound("p18")) <= (2))))
+  end.
+Property Raft-PT-02-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("p12")) <= (3))
+  end.
+Property Raft-PT-02-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("p24")) <= (3))
+  end.
+Property Raft-PT-02-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("p11")) <= (3))
+  end.
+Property Raft-PT-02-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((bound("p14")) <= (1))) & (((((((((((((bound("p9")) <= (2))) & (((bound("p12")) <= (3))))) & (((bound("p22")) <= (3))))) & (((bound("p11")) <= (3))))) & (((((((bound("p2")) <= (2))) & (((((bound("p23")) <= (2))) & (((bound("p10")) <= (1))))))) & (((((bound("p4")) <= (2))) & (((bound("p17")) <= (1))))))))) & (((((((bound("p9")) <= (3))) & (((bound("p13")) <= (3))))) & (((((bound("p4")) <= (1))) & (((bound("p21")) <= (3))))))))))
+  end.
+Property Raft-PT-02-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("p7")) <= (3))
+  end.
+Property Raft-PT-02-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((bound("p3")) <= (3))) & (((((((bound("p12")) <= (2))) & (((((bound("p21")) <= (1))) & (((bound("p2")) <= (2))))))) & (((((((bound("p13")) <= (2))) & (((((bound("p9")) <= (2))) & (((((bound("p5")) <= (2))) & (((bound("p15")) <= (3))))))))) & (((((((bound("p6")) <= (1))) & (((((bound("p12")) <= (1))) & (((bound("p0")) <= (3))))))) & (((((((bound("p5")) <= (1))) & (((bound("p23")) <= (3))))) & (((((bound("p25")) <= (2))) & (((bound("p9")) <= (3))))))))))))))
+  end.
+Property Raft-PT-02-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((((bound("p15")) <= (3))) & (((((((bound("p12")) <= (3))) & (((bound("p20")) <= (2))))) & (((bound("p26")) <= (2))))))) & (((bound("p27")) <= (2))))
+  end.
+Property Raft-PT-02-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("p18")) <= (3))
+  end.
+Property Raft-PT-02-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("p10")) <= (3))
+  end.
+Property Raft-PT-02-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((((bound("p8")) <= (2))) & (((((((((((bound("p17")) <= (3))) & (((bound("p3")) <= (3))))) & (((bound("p17")) <= (3))))) & (((bound("p2")) <= (3))))) & (((((((bound("p7")) <= (3))) & (((((bound("p12")) <= (1))) & (((bound("p24")) <= (3))))))) & (((bound("p14")) <= (2))))))))) & (((bound("p12")) <= (1))))
+  end.
+Property Raft-PT-02-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((bound("p5")) <= (1))) & (((((bound("p6")) <= (3))) & (((bound("p17")) <= (3))))))
+  end.
+Property Raft-PT-02-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((bound("p7")) <= (3))) & (((((((((bound("p16")) <= (2))) & (((bound("p15")) <= (1))))) & (((((((((bound("p19")) <= (2))) & (((bound("p3")) <= (2))))) & (((bound("p26")) <= (2))))) & (((bound("p24")) <= (2))))))) & (((((((((((bound("p24")) <= (2))) & (((bound("p3")) <= (2))))) & (((bound("p16")) <= (2))))) & (((bound("p5")) <= (1))))) & (((((((bound("p22")) <= (1))) & (((bound("p23")) <= (1))))) & (((bound("p17")) <= (3))))))))))
+  end.
+Property Raft-PT-02-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("p22")) <= (2))
+  end.
+Property Raft-PT-02-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((bound("p17")) <= (1))) & (((bound("p1")) <= (2))))
+  end.

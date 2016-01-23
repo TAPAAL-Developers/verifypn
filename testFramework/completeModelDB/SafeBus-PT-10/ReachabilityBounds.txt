@@ -1,0 +1,80 @@
+Property SafeBus-COL-10-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((bound("MSG_1", "MSG_2", "MSG_3", "MSG_4", "MSG_5", "MSG_6", "MSG_7", "MSG_8", "MSG_9", "MSG_10")) <= (3))) & (((((bound("S_tout")) <= (2))) & (((bound("loop_em_1", "loop_em_2", "loop_em_3", "loop_em_4", "loop_em_5", "loop_em_6", "loop_em_7", "loop_em_8", "loop_em_9", "loop_em_10")) <= (1))))))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("wait_ack_2_1", "wait_ack_3_1", "wait_ack_4_1", "wait_ack_5_1", "wait_ack_6_1", "wait_ack_7_1", "wait_ack_8_1", "wait_ack_9_1", "wait_ack_10_1", "wait_ack_1_2", "wait_ack_3_2", "wait_ack_4_2", "wait_ack_5_2", "wait_ack_6_2", "wait_ack_7_2", "wait_ack_8_2", "wait_ack_9_2", "wait_ack_10_2", "wait_ack_1_3", "wait_ack_2_3", "wait_ack_4_3", "wait_ack_5_3", "wait_ack_6_3", "wait_ack_7_3", "wait_ack_8_3", "wait_ack_9_3", "wait_ack_10_3", "wait_ack_1_4", "wait_ack_2_4", "wait_ack_3_4", "wait_ack_5_4", "wait_ack_6_4", "wait_ack_7_4", "wait_ack_8_4", "wait_ack_9_4", "wait_ack_10_4", "wait_ack_1_5", "wait_ack_2_5", "wait_ack_3_5", "wait_ack_4_5", "wait_ack_6_5", "wait_ack_7_5", "wait_ack_8_5", "wait_ack_9_5", "wait_ack_10_5", "wait_ack_1_6", "wait_ack_2_6", "wait_ack_3_6", "wait_ack_4_6", "wait_ack_5_6", "wait_ack_7_6", "wait_ack_8_6", "wait_ack_9_6", "wait_ack_10_6", "wait_ack_1_7", "wait_ack_2_7", "wait_ack_3_7", "wait_ack_4_7", "wait_ack_5_7", "wait_ack_6_7", "wait_ack_8_7", "wait_ack_9_7", "wait_ack_10_7", "wait_ack_1_8", "wait_ack_2_8", "wait_ack_3_8", "wait_ack_4_8", "wait_ack_5_8", "wait_ack_6_8", "wait_ack_7_8", "wait_ack_9_8", "wait_ack_10_8", "wait_ack_1_9", "wait_ack_2_9", "wait_ack_3_9", "wait_ack_4_9", "wait_ack_5_9", "wait_ack_6_9", "wait_ack_7_9", "wait_ack_8_9", "wait_ack_10_9", "wait_ack_1_10", "wait_ack_2_10", "wait_ack_3_10", "wait_ack_4_10", "wait_ack_5_10", "wait_ack_6_10", "wait_ack_7_10", "wait_ack_8_10", "wait_ack_9_10")) <= (3))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("AMC_1_1", "AMC_2_1", "AMC_3_1", "AMC_4_1", "AMC_5_1", "AMC_6_1", "AMC_7_1", "AMC_8_1", "AMC_9_1", "AMC_10_1", "AMC_1_2", "AMC_2_2", "AMC_3_2", "AMC_4_2", "AMC_5_2", "AMC_6_2", "AMC_7_2", "AMC_8_2", "AMC_9_2", "AMC_10_2", "AMC_1_3", "AMC_2_3", "AMC_3_3", "AMC_4_3", "AMC_5_3", "AMC_6_3", "AMC_7_3", "AMC_8_3", "AMC_9_3", "AMC_10_3", "AMC_1_4", "AMC_2_4", "AMC_3_4", "AMC_4_4", "AMC_5_4", "AMC_6_4", "AMC_7_4", "AMC_8_4", "AMC_9_4", "AMC_10_4", "AMC_1_5", "AMC_2_5", "AMC_3_5", "AMC_4_5", "AMC_5_5", "AMC_6_5", "AMC_7_5", "AMC_8_5", "AMC_9_5", "AMC_10_5", "AMC_1_6", "AMC_2_6", "AMC_3_6", "AMC_4_6", "AMC_5_6", "AMC_6_6", "AMC_7_6", "AMC_8_6", "AMC_9_6", "AMC_10_6", "AMC_1_7", "AMC_2_7", "AMC_3_7", "AMC_4_7", "AMC_5_7", "AMC_6_7", "AMC_7_7", "AMC_8_7", "AMC_9_7", "AMC_10_7", "AMC_1_8", "AMC_2_8", "AMC_3_8", "AMC_4_8", "AMC_5_8", "AMC_6_8", "AMC_7_8", "AMC_8_8", "AMC_9_8", "AMC_10_8", "AMC_1_9", "AMC_2_9", "AMC_3_9", "AMC_4_9", "AMC_5_9", "AMC_6_9", "AMC_7_9", "AMC_8_9", "AMC_9_9", "AMC_10_9", "AMC_1_10", "AMC_2_10", "AMC_3_10", "AMC_4_10", "AMC_5_10", "AMC_6_10", "AMC_7_10", "AMC_8_10", "AMC_9_10", "AMC_10_10")) <= (1))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((((bound("cable_used_1", "cable_used_2", "cable_used_3", "cable_used_4", "cable_used_5", "cable_used_6", "cable_used_7", "cable_used_8", "cable_used_9", "cable_used_10")) <= (3))) & (((((((((bound("loop_em_1", "loop_em_2", "loop_em_3", "loop_em_4", "loop_em_5", "loop_em_6", "loop_em_7", "loop_em_8", "loop_em_9", "loop_em_10")) <= (3))) & (((bound("wait_cable_1", "wait_cable_2", "wait_cable_3", "wait_cable_4", "wait_cable_5", "wait_cable_6", "wait_cable_7", "wait_cable_8", "wait_cable_9", "wait_cable_10")) <= (2))))) & (((bound("ACK")) <= (1))))) & (((bound("wait_cable_1", "wait_cable_2", "wait_cable_3", "wait_cable_4", "wait_cable_5", "wait_cable_6", "wait_cable_7", "wait_cable_8", "wait_cable_9", "wait_cable_10")) <= (3))))))) & (((((((bound("PMC_1", "PMC_2", "PMC_3", "PMC_4", "PMC_5", "PMC_6", "PMC_7", "PMC_8", "PMC_9", "PMC_10")) <= (2))) & (((((bound("FMC_1", "FMC_2", "FMC_3", "FMC_4", "FMC_5", "FMC_6", "FMC_7", "FMC_8", "FMC_9", "FMC_10")) <= (3))) & (((bound("AMC_1_1", "AMC_2_1", "AMC_3_1", "AMC_4_1", "AMC_5_1", "AMC_6_1", "AMC_7_1", "AMC_8_1", "AMC_9_1", "AMC_10_1", "AMC_1_2", "AMC_2_2", "AMC_3_2", "AMC_4_2", "AMC_5_2", "AMC_6_2", "AMC_7_2", "AMC_8_2", "AMC_9_2", "AMC_10_2", "AMC_1_3", "AMC_2_3", "AMC_3_3", "AMC_4_3", "AMC_5_3", "AMC_6_3", "AMC_7_3", "AMC_8_3", "AMC_9_3", "AMC_10_3", "AMC_1_4", "AMC_2_4", "AMC_3_4", "AMC_4_4", "AMC_5_4", "AMC_6_4", "AMC_7_4", "AMC_8_4", "AMC_9_4", "AMC_10_4", "AMC_1_5", "AMC_2_5", "AMC_3_5", "AMC_4_5", "AMC_5_5", "AMC_6_5", "AMC_7_5", "AMC_8_5", "AMC_9_5", "AMC_10_5", "AMC_1_6", "AMC_2_6", "AMC_3_6", "AMC_4_6", "AMC_5_6", "AMC_6_6", "AMC_7_6", "AMC_8_6", "AMC_9_6", "AMC_10_6", "AMC_1_7", "AMC_2_7", "AMC_3_7", "AMC_4_7", "AMC_5_7", "AMC_6_7", "AMC_7_7", "AMC_8_7", "AMC_9_7", "AMC_10_7", "AMC_1_8", "AMC_2_8", "AMC_3_8", "AMC_4_8", "AMC_5_8", "AMC_6_8", "AMC_7_8", "AMC_8_8", "AMC_9_8", "AMC_10_8", "AMC_1_9", "AMC_2_9", "AMC_3_9", "AMC_4_9", "AMC_5_9", "AMC_6_9", "AMC_7_9", "AMC_8_9", "AMC_9_9", "AMC_10_9", "AMC_1_10", "AMC_2_10", "AMC_3_10", "AMC_4_10", "AMC_5_10", "AMC_6_10", "AMC_7_10", "AMC_8_10", "AMC_9_10", "AMC_10_10")) <= (3))))))) & (((bound("cable_free")) <= (1))))))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((((((((bound("PMC_1", "PMC_2", "PMC_3", "PMC_4", "PMC_5", "PMC_6", "PMC_7", "PMC_8", "PMC_9", "PMC_10")) <= (3))) & (((bound("wait_ack_2_1", "wait_ack_3_1", "wait_ack_4_1", "wait_ack_5_1", "wait_ack_6_1", "wait_ack_7_1", "wait_ack_8_1", "wait_ack_9_1", "wait_ack_10_1", "wait_ack_1_2", "wait_ack_3_2", "wait_ack_4_2", "wait_ack_5_2", "wait_ack_6_2", "wait_ack_7_2", "wait_ack_8_2", "wait_ack_9_2", "wait_ack_10_2", "wait_ack_1_3", "wait_ack_2_3", "wait_ack_4_3", "wait_ack_5_3", "wait_ack_6_3", "wait_ack_7_3", "wait_ack_8_3", "wait_ack_9_3", "wait_ack_10_3", "wait_ack_1_4", "wait_ack_2_4", "wait_ack_3_4", "wait_ack_5_4", "wait_ack_6_4", "wait_ack_7_4", "wait_ack_8_4", "wait_ack_9_4", "wait_ack_10_4", "wait_ack_1_5", "wait_ack_2_5", "wait_ack_3_5", "wait_ack_4_5", "wait_ack_6_5", "wait_ack_7_5", "wait_ack_8_5", "wait_ack_9_5", "wait_ack_10_5", "wait_ack_1_6", "wait_ack_2_6", "wait_ack_3_6", "wait_ack_4_6", "wait_ack_5_6", "wait_ack_7_6", "wait_ack_8_6", "wait_ack_9_6", "wait_ack_10_6", "wait_ack_1_7", "wait_ack_2_7", "wait_ack_3_7", "wait_ack_4_7", "wait_ack_5_7", "wait_ack_6_7", "wait_ack_8_7", "wait_ack_9_7", "wait_ack_10_7", "wait_ack_1_8", "wait_ack_2_8", "wait_ack_3_8", "wait_ack_4_8", "wait_ack_5_8", "wait_ack_6_8", "wait_ack_7_8", "wait_ack_9_8", "wait_ack_10_8", "wait_ack_1_9", "wait_ack_2_9", "wait_ack_3_9", "wait_ack_4_9", "wait_ack_5_9", "wait_ack_6_9", "wait_ack_7_9", "wait_ack_8_9", "wait_ack_10_9", "wait_ack_1_10", "wait_ack_2_10", "wait_ack_3_10", "wait_ack_4_10", "wait_ack_5_10", "wait_ack_6_10", "wait_ack_7_10", "wait_ack_8_10", "wait_ack_9_10")) <= (2))))) & (((bound("msgl_1", "msgl_2", "msgl_3", "msgl_4", "msgl_5", "msgl_6", "msgl_7", "msgl_8", "msgl_9", "msgl_10")) <= (2))))) & (((((bound("msgl_1", "msgl_2", "msgl_3", "msgl_4", "msgl_5", "msgl_6", "msgl_7", "msgl_8", "msgl_9", "msgl_10")) <= (1))) & (((((bound("T_out")) <= (2))) & (((bound("ACK")) <= (2))))))))) & (((((bound("msgl_1", "msgl_2", "msgl_3", "msgl_4", "msgl_5", "msgl_6", "msgl_7", "msgl_8", "msgl_9", "msgl_10")) <= (2))) & (((bound("msgl_1", "msgl_2", "msgl_3", "msgl_4", "msgl_5", "msgl_6", "msgl_7", "msgl_8", "msgl_9", "msgl_10")) <= (1))))))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((((bound("Cpt2_1", "Cpt2_2", "Cpt2_3", "Cpt2_4", "Cpt2_5", "Cpt2_6", "Cpt2_7", "Cpt2_8", "Cpt2_9", "Cpt2_10")) <= (3))) & (((((((bound("Cpt1_1", "Cpt1_2", "Cpt1_3", "Cpt1_4", "Cpt1_5", "Cpt1_6", "Cpt1_7", "Cpt1_8", "Cpt1_9", "Cpt1_10")) <= (1))) & (((bound("PMC_1", "PMC_2", "PMC_3", "PMC_4", "PMC_5", "PMC_6", "PMC_7", "PMC_8", "PMC_9", "PMC_10")) <= (1))))) & (((bound("T_out")) <= (1))))))) & (((((((bound("AMC_1_1", "AMC_2_1", "AMC_3_1", "AMC_4_1", "AMC_5_1", "AMC_6_1", "AMC_7_1", "AMC_8_1", "AMC_9_1", "AMC_10_1", "AMC_1_2", "AMC_2_2", "AMC_3_2", "AMC_4_2", "AMC_5_2", "AMC_6_2", "AMC_7_2", "AMC_8_2", "AMC_9_2", "AMC_10_2", "AMC_1_3", "AMC_2_3", "AMC_3_3", "AMC_4_3", "AMC_5_3", "AMC_6_3", "AMC_7_3", "AMC_8_3", "AMC_9_3", "AMC_10_3", "AMC_1_4", "AMC_2_4", "AMC_3_4", "AMC_4_4", "AMC_5_4", "AMC_6_4", "AMC_7_4", "AMC_8_4", "AMC_9_4", "AMC_10_4", "AMC_1_5", "AMC_2_5", "AMC_3_5", "AMC_4_5", "AMC_5_5", "AMC_6_5", "AMC_7_5", "AMC_8_5", "AMC_9_5", "AMC_10_5", "AMC_1_6", "AMC_2_6", "AMC_3_6", "AMC_4_6", "AMC_5_6", "AMC_6_6", "AMC_7_6", "AMC_8_6", "AMC_9_6", "AMC_10_6", "AMC_1_7", "AMC_2_7", "AMC_3_7", "AMC_4_7", "AMC_5_7", "AMC_6_7", "AMC_7_7", "AMC_8_7", "AMC_9_7", "AMC_10_7", "AMC_1_8", "AMC_2_8", "AMC_3_8", "AMC_4_8", "AMC_5_8", "AMC_6_8", "AMC_7_8", "AMC_8_8", "AMC_9_8", "AMC_10_8", "AMC_1_9", "AMC_2_9", "AMC_3_9", "AMC_4_9", "AMC_5_9", "AMC_6_9", "AMC_7_9", "AMC_8_9", "AMC_9_9", "AMC_10_9", "AMC_1_10", "AMC_2_10", "AMC_3_10", "AMC_4_10", "AMC_5_10", "AMC_6_10", "AMC_7_10", "AMC_8_10", "AMC_9_10", "AMC_10_10")) <= (1))) & (((bound("MSG_1", "MSG_2", "MSG_3", "MSG_4", "MSG_5", "MSG_6", "MSG_7", "MSG_8", "MSG_9", "MSG_10")) <= (1))))) & (((bound("FMCb")) <= (1))))))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("PMC_1", "PMC_2", "PMC_3", "PMC_4", "PMC_5", "PMC_6", "PMC_7", "PMC_8", "PMC_9", "PMC_10")) <= (1))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("Cpt1_1", "Cpt1_2", "Cpt1_3", "Cpt1_4", "Cpt1_5", "Cpt1_6", "Cpt1_7", "Cpt1_8", "Cpt1_9", "Cpt1_10")) <= (3))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((((((bound("msgl_1", "msgl_2", "msgl_3", "msgl_4", "msgl_5", "msgl_6", "msgl_7", "msgl_8", "msgl_9", "msgl_10")) <= (2))) & (((bound("T_out")) <= (1))))) & (((bound("S_tout")) <= (1))))) & (((((((((((((bound("listen_1", "listen_2", "listen_3", "listen_4", "listen_5", "listen_6", "listen_7", "listen_8", "listen_9", "listen_10")) <= (1))) & (((bound("T_out")) <= (2))))) & (((((bound("cable_used_1", "cable_used_2", "cable_used_3", "cable_used_4", "cable_used_5", "cable_used_6", "cable_used_7", "cable_used_8", "cable_used_9", "cable_used_10")) <= (2))) & (((bound("msgl_1", "msgl_2", "msgl_3", "msgl_4", "msgl_5", "msgl_6", "msgl_7", "msgl_8", "msgl_9", "msgl_10")) <= (3))))))) & (((bound("Cpt1_1", "Cpt1_2", "Cpt1_3", "Cpt1_4", "Cpt1_5", "Cpt1_6", "Cpt1_7", "Cpt1_8", "Cpt1_9", "Cpt1_10")) <= (3))))) & (((bound("AMC_1_1", "AMC_2_1", "AMC_3_1", "AMC_4_1", "AMC_5_1", "AMC_6_1", "AMC_7_1", "AMC_8_1", "AMC_9_1", "AMC_10_1", "AMC_1_2", "AMC_2_2", "AMC_3_2", "AMC_4_2", "AMC_5_2", "AMC_6_2", "AMC_7_2", "AMC_8_2", "AMC_9_2", "AMC_10_2", "AMC_1_3", "AMC_2_3", "AMC_3_3", "AMC_4_3", "AMC_5_3", "AMC_6_3", "AMC_7_3", "AMC_8_3", "AMC_9_3", "AMC_10_3", "AMC_1_4", "AMC_2_4", "AMC_3_4", "AMC_4_4", "AMC_5_4", "AMC_6_4", "AMC_7_4", "AMC_8_4", "AMC_9_4", "AMC_10_4", "AMC_1_5", "AMC_2_5", "AMC_3_5", "AMC_4_5", "AMC_5_5", "AMC_6_5", "AMC_7_5", "AMC_8_5", "AMC_9_5", "AMC_10_5", "AMC_1_6", "AMC_2_6", "AMC_3_6", "AMC_4_6", "AMC_5_6", "AMC_6_6", "AMC_7_6", "AMC_8_6", "AMC_9_6", "AMC_10_6", "AMC_1_7", "AMC_2_7", "AMC_3_7", "AMC_4_7", "AMC_5_7", "AMC_6_7", "AMC_7_7", "AMC_8_7", "AMC_9_7", "AMC_10_7", "AMC_1_8", "AMC_2_8", "AMC_3_8", "AMC_4_8", "AMC_5_8", "AMC_6_8", "AMC_7_8", "AMC_8_8", "AMC_9_8", "AMC_10_8", "AMC_1_9", "AMC_2_9", "AMC_3_9", "AMC_4_9", "AMC_5_9", "AMC_6_9", "AMC_7_9", "AMC_8_9", "AMC_9_9", "AMC_10_9", "AMC_1_10", "AMC_2_10", "AMC_3_10", "AMC_4_10", "AMC_5_10", "AMC_6_10", "AMC_7_10", "AMC_8_10", "AMC_9_10", "AMC_10_10")) <= (3))))) & (((((((((bound("MSG_1", "MSG_2", "MSG_3", "MSG_4", "MSG_5", "MSG_6", "MSG_7", "MSG_8", "MSG_9", "MSG_10")) <= (2))) & (((bound("RMC_1", "RMC_2", "RMC_3", "RMC_4", "RMC_5", "RMC_6", "RMC_7", "RMC_8", "RMC_9", "RMC_10")) <= (3))))) & (((((bound("listen_1", "listen_2", "listen_3", "listen_4", "listen_5", "listen_6", "listen_7", "listen_8", "listen_9", "listen_10")) <= (1))) & (((((bound("msgl_1", "msgl_2", "msgl_3", "msgl_4", "msgl_5", "msgl_6", "msgl_7", "msgl_8", "msgl_9", "msgl_10")) <= (1))) & (((bound("T_out")) <= (3))))))))) & (((bound("MSG_1", "MSG_2", "MSG_3", "MSG_4", "MSG_5", "MSG_6", "MSG_7", "MSG_8", "MSG_9", "MSG_10")) <= (1))))))))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("RMC_1", "RMC_2", "RMC_3", "RMC_4", "RMC_5", "RMC_6", "RMC_7", "RMC_8", "RMC_9", "RMC_10")) <= (2))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((((((bound("wait_msg_1", "wait_msg_2", "wait_msg_3", "wait_msg_4", "wait_msg_5", "wait_msg_6", "wait_msg_7", "wait_msg_8", "wait_msg_9", "wait_msg_10")) <= (2))) & (((((((bound("cable_used_1", "cable_used_2", "cable_used_3", "cable_used_4", "cable_used_5", "cable_used_6", "cable_used_7", "cable_used_8", "cable_used_9", "cable_used_10")) <= (2))) & (((bound("S_tout")) <= (2))))) & (((bound("T_out")) <= (2))))))) & (((bound("T_out")) <= (2))))) & (((bound("wait_msg_1", "wait_msg_2", "wait_msg_3", "wait_msg_4", "wait_msg_5", "wait_msg_6", "wait_msg_7", "wait_msg_8", "wait_msg_9", "wait_msg_10")) <= (1))))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((bound("cable_used_1", "cable_used_2", "cable_used_3", "cable_used_4", "cable_used_5", "cable_used_6", "cable_used_7", "cable_used_8", "cable_used_9", "cable_used_10")) <= (3))) & (((bound("Cpt2_1", "Cpt2_2", "Cpt2_3", "Cpt2_4", "Cpt2_5", "Cpt2_6", "Cpt2_7", "Cpt2_8", "Cpt2_9", "Cpt2_10")) <= (2))))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("MSG_1", "MSG_2", "MSG_3", "MSG_4", "MSG_5", "MSG_6", "MSG_7", "MSG_8", "MSG_9", "MSG_10")) <= (3))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("PMC_1", "PMC_2", "PMC_3", "PMC_4", "PMC_5", "PMC_6", "PMC_7", "PMC_8", "PMC_9", "PMC_10")) <= (3))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((((bound("ACK")) <= (2))) & (((bound("R_tout")) <= (1))))) & (((((bound("T_out")) <= (1))) & (((((bound("loop_em_1", "loop_em_2", "loop_em_3", "loop_em_4", "loop_em_5", "loop_em_6", "loop_em_7", "loop_em_8", "loop_em_9", "loop_em_10")) <= (1))) & (((((bound("msgl_1", "msgl_2", "msgl_3", "msgl_4", "msgl_5", "msgl_6", "msgl_7", "msgl_8", "msgl_9", "msgl_10")) <= (3))) & (((bound("Cpt1_1", "Cpt1_2", "Cpt1_3", "Cpt1_4", "Cpt1_5", "Cpt1_6", "Cpt1_7", "Cpt1_8", "Cpt1_9", "Cpt1_10")) <= (3))))))))))
+  end.
+Property SafeBus-COL-10-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("MSG_1", "MSG_2", "MSG_3", "MSG_4", "MSG_5", "MSG_6", "MSG_7", "MSG_8", "MSG_9", "MSG_10")) <= (1))
+  end.

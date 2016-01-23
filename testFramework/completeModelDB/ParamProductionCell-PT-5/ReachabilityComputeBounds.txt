@@ -1,0 +1,80 @@
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("deposit_belt_occupied")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("arm2_pick_up_ext")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("A1U_rot1_rs")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("A2U_rot1_in")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("A2U_ret_run")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("crane_stop_v")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("crane_storing")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("A1U_ext_run")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("A1L_rot2_run")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("arm1_pick_up_angle")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("CL_out")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("TU_rot_run")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("arm2_pick_up_ext")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("CL_lift_rs")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("ch_FT_full")
+  end.
+Property ParamProductionCell-PT-5-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("A1U_rotated")
+  end.

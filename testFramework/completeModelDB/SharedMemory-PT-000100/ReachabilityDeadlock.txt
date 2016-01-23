@@ -1,0 +1,5 @@
+Property SharedMemory-COL-000100-ReachabilityDeadlock-0
+  "Automatically generated"
+  is:
+    E F deadlock
+  end.

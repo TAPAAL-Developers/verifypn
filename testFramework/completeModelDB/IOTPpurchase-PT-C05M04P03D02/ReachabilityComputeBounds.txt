@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("Delivery.p22.4")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("Order.p20")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("p11.7")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("p2.2")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("DeliveryHandlerDelivery.p8.0")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("MerchantOffer.p2")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("p6.3")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("Organization.p20,7")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("Organization.p20.2")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("Payment.p20")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("p3.6")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("Order.p22.10")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("Organization.p20.2")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("p6.4")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("Order.p22.10")
+  end.
+Property IOTPpurchase-PT-C05M04P03D02-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("p11.4")
+  end.

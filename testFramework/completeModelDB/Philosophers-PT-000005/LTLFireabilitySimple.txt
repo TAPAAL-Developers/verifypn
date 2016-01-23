@@ -1,0 +1,80 @@
+Property Philosophers-COL-000005-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F ("End_4", "End_3", "End_2", "End_1", "End_5")?
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F ("End_4", "End_3", "End_2", "End_1", "End_5")?
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F ("End_4", "End_3", "End_2", "End_1", "End_5")?
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F ("End_4", "End_3", "End_2", "End_1", "End_5")?
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F ("End_4", "End_3", "End_2", "End_1", "End_5")?
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F ("End_4", "End_3", "End_2", "End_1", "End_5")?
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F ("End_4", "End_3", "End_2", "End_1", "End_5")?
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F ("End_4", "End_3", "End_2", "End_1", "End_5")?
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F ("End_4", "End_3", "End_2", "End_1", "End_5")?
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F ("End_4", "End_3", "End_2", "End_1", "End_5")?
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F ("End_4", "End_3", "End_2", "End_1", "End_5")?
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A ((("FF1b_2", "FF1b_3", "FF1b_1", "FF1b_4", "FF1b_5")?) U (("FF2b_1", "FF2b_4", "FF2b_5", "FF2b_2", "FF2b_3")?))
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F ("FF2b_1", "FF2b_4", "FF2b_5", "FF2b_2", "FF2b_3")?
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A X ("FF2b_1", "FF2b_4", "FF2b_5", "FF2b_2", "FF2b_3")?
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F ("FF2a_1", "FF2a_2", "FF2a_5", "FF2a_3", "FF2a_4")?
+  end.
+Property Philosophers-COL-000005-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A ((("End_4", "End_3", "End_2", "End_1", "End_5")?) U (("FF1b_2", "FF1b_3", "FF1b_1", "FF1b_4", "FF1b_5")?))
+  end.

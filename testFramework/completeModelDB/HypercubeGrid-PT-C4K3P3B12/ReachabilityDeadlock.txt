@@ -1,0 +1,5 @@
+Property HypercubeGrid-PT-C4K3P3B12-ReachabilityDeadlock-0
+  "Automatically generated"
+  is:
+    E F deadlock
+  end.

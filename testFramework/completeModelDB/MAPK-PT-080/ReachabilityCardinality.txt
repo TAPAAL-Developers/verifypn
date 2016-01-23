@@ -1,0 +1,80 @@
+Property MAPK-PT-080-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((((((((2) <= (#tokens("ERKP")))) | (((#tokens("ERK_MEKPP")) <= (#tokens("MEKPP")))))) | (((((#tokens("ERKP_MEKPP")) <= (#tokens("ERKPP_Phase3")))) & (((#tokens("ERKPP_Phase3")) <= (#tokens("ERKPP_Phase3")))))))) & (((! ((3) <= (#tokens("MEK")))) | (((#tokens("MEKP")) <= (#tokens("Phase1")))))))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ! ((((((1) <= (#tokens("MEKP")))) | (((#tokens("MEKP_Phase2")) <= (#tokens("ERKP_Phase3")))))) | (((((3) <= (#tokens("ERK")))) | (((#tokens("MEK_RafP")) <= (#tokens("ERKPP")))))))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((((((1) <= (#tokens("RasGTP")))) & (((((#tokens("ERK_MEKPP")) <= (#tokens("Phase2")))) & (((1) <= (#tokens("MEKPP")))))))) & (! ((((1) <= (#tokens("ERK_MEKPP")))) | (((#tokens("MEKP_Phase2")) <= (#tokens("Raf")))))))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((((2) <= (#tokens("ERKP_MEKPP")))) & (! ((((#tokens("MEK")) <= (#tokens("MEKPP")))) & (((3) <= (#tokens("Raf_RasGTP")))))))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ((3) <= (#tokens("ERK")))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("ERKP_Phase3")) <= (#tokens("ERKP")))) & (((#tokens("RasGTP")) <= (#tokens("MEKP_RafP")))))) & (! ((#tokens("MEKPP")) <= (#tokens("MEKP")))))) & (((3) <= (#tokens("MEKP_RafP")))))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((! ((#tokens("MEK")) <= (#tokens("Phase3")))) & (((3) <= (#tokens("ERKP_Phase3")))))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((((((2) <= (#tokens("MEK")))) | (! ((2) <= (#tokens("Phase2")))))) | (((((((#tokens("Raf_RasGTP")) <= (#tokens("ERKP")))) | (((2) <= (#tokens("ERK")))))) & (((((#tokens("ERK")) <= (#tokens("RasGTP")))) | (((#tokens("ERKP_Phase3")) <= (#tokens("MEK_RafP")))))))))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("ERKPP")))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ! ! ((((3) <= (#tokens("ERKP_Phase3")))) & (((1) <= (#tokens("ERKPP")))))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((((((3) <= (#tokens("MEKP_Phase2")))) | (((1) <= (#tokens("Raf_RasGTP")))))) | (((((((3) <= (#tokens("Phase1")))) | (((#tokens("Raf")) <= (#tokens("MEKPP_Phase2")))))) | (((((#tokens("ERKP_Phase3")) <= (#tokens("MEK_RafP")))) & (((1) <= (#tokens("RafP_Phase1")))))))))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("ERKP_MEKPP")) <= (#tokens("ERKPP_Phase3")))) & (((3) <= (#tokens("ERKPP")))))) & (((((#tokens("MEKP_Phase2")) <= (#tokens("ERKPP")))) & (((2) <= (#tokens("MEKP_RafP")))))))) | (((((((#tokens("RasGTP")) <= (#tokens("Phase1")))) & (((2) <= (#tokens("ERKP_Phase3")))))) | (((((3) <= (#tokens("ERKPP_Phase3")))) & (((#tokens("ERK_MEKPP")) <= (#tokens("MEK")))))))))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ! ! ((((#tokens("MEKP_RafP")) <= (#tokens("MEKPP_Phase2")))) & (((2) <= (#tokens("ERKP_Phase3")))))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((! ((#tokens("MEKP_RafP")) <= (#tokens("Raf")))) | (! ((((2) <= (#tokens("MEKPP")))) & (((#tokens("Phase1")) <= (#tokens("MEK_RafP")))))))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("ERK_MEKPP")))
+  end.
+Property MAPK-PT-080-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ! ((! ((3) <= (#tokens("RafP_Phase1")))) | (((((#tokens("ERKP_Phase3")) <= (#tokens("Phase2")))) | (((#tokens("Phase1")) <= (#tokens("RafP_Phase1")))))))
+  end.

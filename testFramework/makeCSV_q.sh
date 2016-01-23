@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Algorithm, Search strategy, query, time(ms, #configurations, #markings" >> result_q.csv
+echo "Algorithm, Search strategy, query, time(ms, #configurations, #markings, #cycles, #evil" >> result_q.csv
 
 for R in *.log; do
 
@@ -21,11 +21,15 @@ for R in *.log; do
 
     awk '/Markings:/{print $NF}' $R >>  meta.log
 
+    awk '/Detected:/{print $3}' $R >> meta.log
+
+    awk '/Evil Cycles:/{print $6}' $R >> meta.log
+
     LINE=$(wc -l < meta.log)
 
     
 
-    eval I=$[($LINE-2)/4]
+    eval I=$[($LINE-2)/6]
 
     while [ $I -gt 0 ]; do
         #LINE=$[$LINE-2]
@@ -38,17 +42,23 @@ for R in *.log; do
             read engine
             read search
             q=$(sed -n ' '$count' 'p meta.log)
-            count=$[$count + ( ($LINE-2) /4)]
+            count=$[$count + ( ($LINE-2) /6)]
                 
             tim=$(sed -n ' '$count' 'p meta.log)
-            count=$[$count + ( ($LINE-2) /4)]
+            count=$[$count + ( ($LINE-2) /6)]
                 
             conf=$(sed -n ' '$count' 'p meta.log)
-            count=$[$count + ( ($LINE-2) /4)]
+            count=$[$count + ( ($LINE-2) /6)]
                 
-            mark=$(sed -n ' '$count' 'p meta.log)   
+            mark=$(sed -n ' '$count' 'p meta.log)
+            count=$[$count + ( ($LINE-2) /6)]   
             
-            echo "$engine, $search, $q, $tim, $conf, $mark" >> result_q.csv
+            cycle=$(sed -n ' '$count' 'p meta.log)
+            count=$[$count + ( ($LINE-2) /6)]  
+            
+            evil=$(sed -n ' '$count' 'p meta.log)
+            
+            echo "$engine, $search, $q, $tim, $conf, $mark, $cycle, $evil" >> result_q.csv
         } < $P
         done
     

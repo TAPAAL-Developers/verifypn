@@ -1,0 +1,80 @@
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F ("T_1729_1_8", "T_1729_4_7", "T_1729_2_6", "T_1729_1_9", "T_1729_2_2", "T_1729_4_5", "T_1729_2_1", "T_1729_0_3", "T_1729_2_10", "T_1729_3_3", "T_1729_3_6", "T_1729_0_8", "T_1729_4_1", "T_1729_4_2", "T_1729_4_3", "T_1729_4_4", "T_1729_1_1", "T_1729_3_8", "T_1729_3_10", "T_1729_4_6", "T_1729_2_5", "T_1729_2_3", "T_1729_2_8", "T_1729_0_10", "T_1729_0_7", "T_1729_0_5", "T_1729_1_2", "T_1729_0_6", "T_1729_1_3", "T_1729_1_10", "T_1729_1_7", "T_1729_3_1", "T_1729_0_9", "T_1729_2_4", "T_1729_2_7", "T_1729_4_8", "T_1729_3_9", "T_1729_0_1", "T_1729_3_4", "T_1729_0_2", "T_1729_3_5", "T_1729_4_10", "T_1729_3_2", "T_1729_4_9", "T_1729_3_7", "T_1729_2_9", "T_1729_1_6", "T_1729_1_5", "T_1729_0_4", "T_1729_1_4")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F ("GoCheckSource_5", "GoCheckSource_2", "GoCheckSource_3", "GoCheckSource_8", "GoCheckSource_9", "GoCheckSource_6", "GoCheckSource_4", "GoCheckSource_7", "GoCheckSource_10", "GoCheckSource_1")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F ("T_1096_2", "T_1096_10", "T_1096_3", "T_1096_9", "T_1096_1", "T_1096_8", "T_1096_7", "T_1096_6", "T_1096_5", "T_1096_4")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F ("IsAbort_1", "IsAbort_6", "IsAbort_9", "IsAbort_7", "IsAbort_4", "IsAbort_10", "IsAbort_5", "IsAbort_2", "IsAbort_8", "IsAbort_3")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F ("NOPDP_1_6", "NOPDP_3_9", "NOPDP_3_2", "NOPDP_1_7", "NOPDP_4_3", "NOPDP_4_1", "NOPDP_4_8", "NOPDP_1_9", "NOPDP_4_6", "NOPDP_3_4", "NOPDP_2_4", "NOPDP_1_2", "NOPDP_1_3", "NOPDP_2_1", "NOPDP_3_6", "NOPDP_1_10", "NOPDP_2_8", "NOPDP_3_1", "NOPDP_4_4", "NOPDP_4_9", "NOPDP_2_6", "NOPDP_4_2", "NOPDP_3_3", "NOPDP_2_5", "NOPDP_3_8", "NOPDP_1_5", "NOPDP_3_10", "NOPDP_2_3", "NOPDP_4_7", "NOPDP_1_1", "NOPDP_3_5", "NOPDP_2_10", "NOPDP_1_8", "NOPDP_2_2", "NOPDP_2_9", "NOPDP_3_7", "NOPDP_4_5", "NOPDP_4_10", "NOPDP_1_4", "NOPDP_2_7")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F ("T_2317_4", "T_2317_7", "T_2317_5", "T_2317_2", "T_2317_3", "T_2317_1", "T_2317_8", "T_2317_9", "T_2317_10", "T_2317_6")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F ("DummyIS_7", "DummyIS_8", "DummyIS_9", "DummyIS_2", "DummyIS_1", "DummyIS_10", "DummyIS_3", "DummyIS_4", "DummyIS_5", "DummyIS_6")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F ("T_1145_9", "T_1145_6", "T_1145_7", "T_1145_8", "T_1145_1", "T_1145_4", "T_1145_3", "T_1145_5", "T_1145_2", "T_1145_10")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F ("GoCheckSource_5", "GoCheckSource_2", "GoCheckSource_3", "GoCheckSource_8", "GoCheckSource_9", "GoCheckSource_6", "GoCheckSource_4", "GoCheckSource_7", "GoCheckSource_10", "GoCheckSource_1")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F ("T_1096_2", "T_1096_10", "T_1096_3", "T_1096_9", "T_1096_1", "T_1096_8", "T_1096_7", "T_1096_6", "T_1096_5", "T_1096_4")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F ("EnterCSIS_1_1", "EnterCSIS_4_7", "EnterCSIS_1_3", "EnterCSIS_2_4", "EnterCSIS_3_6", "EnterCSIS_3_4", "EnterCSIS_1_10", "EnterCSIS_2_6", "EnterCSIS_1_8", "EnterCSIS_4_9", "EnterCSIS_1_6", "EnterCSIS_4_3", "EnterCSIS_2_8", "EnterCSIS_3_1", "EnterCSIS_1_4", "EnterCSIS_3_8", "EnterCSIS_4_5", "EnterCSIS_3_5", "EnterCSIS_2_1", "EnterCSIS_2_3", "EnterCSIS_1_9", "EnterCSIS_4_6", "EnterCSIS_3_3", "EnterCSIS_4_10", "EnterCSIS_2_5", "EnterCSIS_1_7", "EnterCSIS_4_8", "EnterCSIS_1_2", "EnterCSIS_2_7", "EnterCSIS_1_5", "EnterCSIS_3_2", "EnterCSIS_4_2", "EnterCSIS_2_10", "EnterCSIS_4_1", "EnterCSIS_4_4", "EnterCSIS_3_7", "EnterCSIS_2_2", "EnterCSIS_3_9", "EnterCSIS_2_9", "EnterCSIS_3_10")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F ("T_1145_9", "T_1145_6", "T_1145_7", "T_1145_8", "T_1145_1", "T_1145_4", "T_1145_3", "T_1145_5", "T_1145_2", "T_1145_10")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F ("DummyOR2_5", "DummyOR2_10", "DummyOR2_2", "DummyOR2_4", "DummyOR2_9", "DummyOR2_3", "DummyOR2_7", "DummyOR2_8", "DummyOR2_1", "DummyOR2_6")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F ("T_1729_1_8", "T_1729_4_7", "T_1729_2_6", "T_1729_1_9", "T_1729_2_2", "T_1729_4_5", "T_1729_2_1", "T_1729_0_3", "T_1729_2_10", "T_1729_3_3", "T_1729_3_6", "T_1729_0_8", "T_1729_4_1", "T_1729_4_2", "T_1729_4_3", "T_1729_4_4", "T_1729_1_1", "T_1729_3_8", "T_1729_3_10", "T_1729_4_6", "T_1729_2_5", "T_1729_2_3", "T_1729_2_8", "T_1729_0_10", "T_1729_0_7", "T_1729_0_5", "T_1729_1_2", "T_1729_0_6", "T_1729_1_3", "T_1729_1_10", "T_1729_1_7", "T_1729_3_1", "T_1729_0_9", "T_1729_2_4", "T_1729_2_7", "T_1729_4_8", "T_1729_3_9", "T_1729_0_1", "T_1729_3_4", "T_1729_0_2", "T_1729_3_5", "T_1729_4_10", "T_1729_3_2", "T_1729_4_9", "T_1729_3_7", "T_1729_2_9", "T_1729_1_6", "T_1729_1_5", "T_1729_0_4", "T_1729_1_4")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F ("T_1096_2", "T_1096_10", "T_1096_3", "T_1096_9", "T_1096_1", "T_1096_8", "T_1096_7", "T_1096_6", "T_1096_5", "T_1096_4")?
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F ("EnterCSIS_1_1", "EnterCSIS_4_7", "EnterCSIS_1_3", "EnterCSIS_2_4", "EnterCSIS_3_6", "EnterCSIS_3_4", "EnterCSIS_1_10", "EnterCSIS_2_6", "EnterCSIS_1_8", "EnterCSIS_4_9", "EnterCSIS_1_6", "EnterCSIS_4_3", "EnterCSIS_2_8", "EnterCSIS_3_1", "EnterCSIS_1_4", "EnterCSIS_3_8", "EnterCSIS_4_5", "EnterCSIS_3_5", "EnterCSIS_2_1", "EnterCSIS_2_3", "EnterCSIS_1_9", "EnterCSIS_4_6", "EnterCSIS_3_3", "EnterCSIS_4_10", "EnterCSIS_2_5", "EnterCSIS_1_7", "EnterCSIS_4_8", "EnterCSIS_1_2", "EnterCSIS_2_7", "EnterCSIS_1_5", "EnterCSIS_3_2", "EnterCSIS_4_2", "EnterCSIS_2_10", "EnterCSIS_4_1", "EnterCSIS_4_4", "EnterCSIS_3_7", "EnterCSIS_2_2", "EnterCSIS_3_9", "EnterCSIS_2_9", "EnterCSIS_3_10")?
+  end.

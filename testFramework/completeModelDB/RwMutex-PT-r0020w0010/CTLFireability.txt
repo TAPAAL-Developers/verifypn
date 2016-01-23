@@ -1,0 +1,80 @@
+Property RwMutex-PT-r0020w0010-CTLFireability-0
+  "Automatically generated"
+  is:
+    E G E F A X "t35"?
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-1
+  "Automatically generated"
+  is:
+    A G ((! A G "t30"?) | (((E F "t27"?) | (! "t16"?))))
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-2
+  "Automatically generated"
+  is:
+    ((A G ((E F "t59"?) | (E F "t1"?))) & (((((E G (("t51"?) | ("t49"?))) | (E X ! "t50"?))) | (! ((A F "t33"?) | (E X "t46"?))))))
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-3
+  "Automatically generated"
+  is:
+    A F ((E F (("t54"?) & ("t43"?))) | (E G ! "t20"?))
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-4
+  "Automatically generated"
+  is:
+    ! E (("t4"?) U ((("t58"?) & ((("t42"?) | ("t47"?))))))
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-5
+  "Automatically generated"
+  is:
+    ((! ((! ((! "t36"?) | ("t54"?))) & ("t20"?))) & (A G (((((("t4"?) | ("t5"?))) & ("t30"?))) | (! (("t25"?) & ("t19"?))))))
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-6
+  "Automatically generated"
+  is:
+    A G ((((A F "t16"?) | (E X "t33"?))) & (E F (("t60"?) | ("t39"?))))
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-7
+  "Automatically generated"
+  is:
+    ((A ((E X "t48"?) U ((("t60"?) | ("t23"?))))) & (((((E F (("t30"?) & ("t45"?))) & (E G (("t56"?) | ("t5"?))))) & (((((A F "t36"?) & (E F "t24"?))) | ((("t20"?) & (E F "t29"?))))))))
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-8
+  "Automatically generated"
+  is:
+    E F A X A G "t50"?
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-9
+  "Automatically generated"
+  is:
+    (("t26"?) & (A G ! E G "t29"?))
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-10
+  "Automatically generated"
+  is:
+    E F E G E G "t57"?
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-11
+  "Automatically generated"
+  is:
+    A G (("t7"?) | (((A G "t49"?) | (E F "t58"?))))
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-12
+  "Automatically generated"
+  is:
+    E F ((! E X "t34"?) & ("t37"?))
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-13
+  "Automatically generated"
+  is:
+    E F ((E X (("t23"?) | ("t37"?))) & ((((("t10"?) & (! "t33"?))) | (! ! "t21"?))))
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-14
+  "Automatically generated"
+  is:
+    E (("t21"?) U ("t18"?))
+  end.
+Property RwMutex-PT-r0020w0010-CTLFireability-15
+  "Automatically generated"
+  is:
+    "t1"?
+  end.

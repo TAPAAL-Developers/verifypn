@@ -1,0 +1,80 @@
+Property Kanban-PT-0100-CTLCardinality-0
+  "Automatically generated"
+  is:
+    ((((2) <= (#tokens("P1")))) & (E F A X ((3) <= (#tokens("Pout3")))))
+  end.
+Property Kanban-PT-0100-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ! A G E F ((#tokens("Pout1")) <= (#tokens("Pm1")))
+  end.
+Property Kanban-PT-0100-CTLCardinality-2
+  "Automatically generated"
+  is:
+    E X E F ((((#tokens("P1")) <= (#tokens("Pback3")))) & (((#tokens("P1")) <= (#tokens("Pback2")))))
+  end.
+Property Kanban-PT-0100-CTLCardinality-3
+  "Automatically generated"
+  is:
+    ! E F ((((((1) <= (#tokens("Pback2")))) | (((#tokens("Pout2")) <= (#tokens("Pm1")))))) & (((((#tokens("P2")) <= (#tokens("Pback1")))) & (((#tokens("Pback3")) <= (#tokens("Pm4")))))))
+  end.
+Property Kanban-PT-0100-CTLCardinality-4
+  "Automatically generated"
+  is:
+    E F ((E X ((#tokens("Pback2")) <= (#tokens("P2")))) & (((((#tokens("Pback3")) <= (#tokens("Pm1")))) & (! ((#tokens("Pback3")) <= (#tokens("Pm2")))))))
+  end.
+Property Kanban-PT-0100-CTLCardinality-5
+  "Automatically generated"
+  is:
+    ((A F ((! ((3) <= (#tokens("Pm3")))) | (((((#tokens("P2")) <= (#tokens("Pback2")))) & (((#tokens("Pm1")) <= (#tokens("Pout4")))))))) & (A G ((#tokens("Pout1")) <= (#tokens("P2")))))
+  end.
+Property Kanban-PT-0100-CTLCardinality-6
+  "Automatically generated"
+  is:
+    E X E F ((((2) <= (#tokens("Pout1")))) | (((#tokens("P1")) <= (#tokens("Pm4")))))
+  end.
+Property Kanban-PT-0100-CTLCardinality-7
+  "Automatically generated"
+  is:
+    ((((((((((((#tokens("Pout2")) <= (#tokens("P4")))) & (((2) <= (#tokens("P3")))))) & (! ((2) <= (#tokens("Pout3")))))) & (((((((#tokens("P4")) <= (#tokens("Pback2")))) | (((3) <= (#tokens("P1")))))) | (((((#tokens("Pout1")) <= (#tokens("Pback1")))) | (((#tokens("P3")) <= (#tokens("P2")))))))))) & (! E X ((#tokens("P4")) <= (#tokens("Pback2")))))) & (A G A G ((3) <= (#tokens("P2")))))
+  end.
+Property Kanban-PT-0100-CTLCardinality-8
+  "Automatically generated"
+  is:
+    A G ((A G ((#tokens("Pback4")) <= (#tokens("Pout3")))) | (((((((#tokens("P4")) <= (#tokens("Pback4")))) | (((#tokens("Pout4")) <= (#tokens("P3")))))) | (((((#tokens("Pout4")) <= (#tokens("Pout1")))) | (((#tokens("Pout3")) <= (#tokens("Pout3")))))))))
+  end.
+Property Kanban-PT-0100-CTLCardinality-9
+  "Automatically generated"
+  is:
+    E ((E F ((3) <= (#tokens("Pback3")))) U (A G ((#tokens("Pout1")) <= (#tokens("Pback1")))))
+  end.
+Property Kanban-PT-0100-CTLCardinality-10
+  "Automatically generated"
+  is:
+    ((! ((A F ((2) <= (#tokens("Pout2")))) | (((((((1) <= (#tokens("Pback3")))) & (((#tokens("Pout4")) <= (#tokens("P3")))))) & (((3) <= (#tokens("Pout4")))))))) & (((E F ((((3) <= (#tokens("Pout2")))) | (((#tokens("Pout3")) <= (#tokens("P3")))))) & (A G ((#tokens("Pout4")) <= (#tokens("P2")))))))
+  end.
+Property Kanban-PT-0100-CTLCardinality-11
+  "Automatically generated"
+  is:
+    A G ((1) <= (#tokens("P1")))
+  end.
+Property Kanban-PT-0100-CTLCardinality-12
+  "Automatically generated"
+  is:
+    ((E ((((#tokens("Pout2")) <= (#tokens("P2")))) U (! ((2) <= (#tokens("P4")))))) & (((#tokens("Pback1")) <= (#tokens("Pback4")))))
+  end.
+Property Kanban-PT-0100-CTLCardinality-13
+  "Automatically generated"
+  is:
+    ((A G E G ((#tokens("Pm1")) <= (#tokens("Pout2")))) | (((E X ! ((1) <= (#tokens("Pback4")))) & (E F ((#tokens("P4")) <= (#tokens("Pout4")))))))
+  end.
+Property Kanban-PT-0100-CTLCardinality-14
+  "Automatically generated"
+  is:
+    E F A G ((((#tokens("Pout2")) <= (#tokens("P4")))) | (((1) <= (#tokens("Pback1")))))
+  end.
+Property Kanban-PT-0100-CTLCardinality-15
+  "Automatically generated"
+  is:
+    E X ((E F ((#tokens("P3")) <= (#tokens("Pm1")))) & (A F ((#tokens("Pback4")) <= (#tokens("Pm4")))))
+  end.

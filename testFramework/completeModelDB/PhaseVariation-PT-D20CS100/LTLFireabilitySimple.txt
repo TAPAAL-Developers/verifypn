@@ -1,0 +1,80 @@
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "division2_mutate_10_12_B_11_11"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "division2_replicate_2_10_A_2_9"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "division1_mutate_10_2_B"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "division2_replicate_11_18_B_10_17"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "division2_replicate_20_8_A_20_9"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "division2_replicate_19_11_B_18_10"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "division2_replicate_17_9_B_16_10"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "division2_replicate_3_14_B_4_13"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "division2_replicate_7_11_A_6_10"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "division1_replicate_1_12_A"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "division2_replicate_18_9_B_19_10"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "division2_mutate_20_8_B_19_9"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "division1_mutate_18_10_A"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "division2_replicate_3_18_B_4_17"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "division2_replicate_2_9_A_2_8"?
+  end.
+Property PhaseVariation-PT-D20CS100-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "division2_mutate_8_10_A_7_11"?
+  end.

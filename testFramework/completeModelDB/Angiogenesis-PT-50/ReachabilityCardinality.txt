@@ -1,0 +1,80 @@
+Property Angiogenesis-PT-50-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ((! ((((2) <= (#tokens("PtP3P2")))) | (((#tokens("KdStarGStarPgStarP3")) <= (#tokens("AktStar")))))) & (((! ((#tokens("KdStarGStarP3kStar")) <= (#tokens("GStarP3kP3")))) | (((3) <= (#tokens("AktP3")))))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("KdStarGStarP3kStar")) <= (#tokens("GStarP3kP3")))) & (((#tokens("Pg")) <= (#tokens("KdStarGStarPg")))))) | (((2) <= (#tokens("Enz")))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("AktStar")) <= (#tokens("KdStarGP3")))) | (((#tokens("DAGE")) <= (#tokens("PtP2")))))) | (((((2) <= (#tokens("KdStarG")))) & (((#tokens("P3k")) <= (#tokens("PtP3")))))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ! ! ((((2) <= (#tokens("KdStarPgStarP2")))) | (((2) <= (#tokens("Pg")))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((((! ((#tokens("KdStarGStarP3k")) <= (#tokens("Pg")))) | (! ((#tokens("Pip2")) <= (#tokens("PtP3")))))) & (((((((#tokens("GStarP3")) <= (#tokens("KdStarGStarPgStarP3P2")))) & (((#tokens("Pip2")) <= (#tokens("PtP3P2")))))) & (((((3) <= (#tokens("Pip2")))) & (((#tokens("KdStarGStarP3k")) <= (#tokens("AktStar")))))))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ((((((#tokens("KdStarGStarP3kStarP3")) <= (#tokens("KdStarGStarP3kP3")))) | (((((#tokens("PtP3")) <= (#tokens("GStarPgP3")))) | (((#tokens("KdStarGStarP3kStar")) <= (#tokens("KdStarGStarPg")))))))) | (! ((#tokens("KdStarGStarPgStarP2")) <= (#tokens("KdStarGStarPgStarP2")))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((((! ((3) <= (#tokens("Pip3")))) & (((((2) <= (#tokens("Pten")))) & (((#tokens("PtP3P2")) <= (#tokens("KdStarGStarPgP3")))))))) & (((((((#tokens("KdStarGStarP3kStarP2")) <= (#tokens("Gab1")))) & (((3) <= (#tokens("GStarPgP3")))))) & (((((#tokens("Gab1")) <= (#tokens("GStarP3")))) | (((#tokens("P3k")) <= (#tokens("DAGE")))))))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ! ((! ((#tokens("KdStarGStarPg")) <= (#tokens("Pg")))) & (! ((3) <= (#tokens("KdStarGStarPgStarP3")))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((#tokens("KdStarGStarPgP3")) <= (#tokens("KdStarGStarPgP3")))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ! ((((2) <= (#tokens("KdStarGStarP3kStarP3P2")))) & (! ((3) <= (#tokens("KdStarGStarPgStarP2")))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((((#tokens("KdStarGStar")) <= (#tokens("Pip3")))) | (! ((((3) <= (#tokens("KdStarGStarP3k")))) & (((3) <= (#tokens("KdStarGStarP3k")))))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((1) <= (#tokens("P3k")))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ! ! ((((3) <= (#tokens("AktP3")))) & (((3) <= (#tokens("KdStarGStarPg")))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("KdStarGStarPgStar")))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((! ! ((2) <= (#tokens("KdStarGStarPgStarP3P2")))) & (((2) <= (#tokens("KdStarPgStarP2")))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("KdStarGStarPgStarP3P2")) <= (#tokens("DAG")))) | (((1) <= (#tokens("KdStarGStarPgStar")))))) & (((((#tokens("KdStarGStarPgStarP3")) <= (#tokens("GStarP3kP3")))) & (((#tokens("KdStarGStarP3kP3")) <= (#tokens("AktStar")))))))
+  end.

@@ -1,0 +1,80 @@
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("Check_Sources_B_4", "Check_Sources_B_3", "Check_Sources_B_6", "Check_Sources_B_1", "Check_Sources_B_5", "Check_Sources_B_2")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("IsMonitoring")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("ScheduleTaskE_Work_3_5", "ScheduleTaskE_Work_4_6", "ScheduleTaskE_Work_1_2", "ScheduleTaskE_Work_5_6", "ScheduleTaskE_Work_4_3", "ScheduleTaskE_Work_2_5", "ScheduleTaskE_Work_4_0", "ScheduleTaskE_Work_5_3", "ScheduleTaskE_Work_1_5", "ScheduleTaskE_Work_6_3", "ScheduleTaskE_Work_5_2", "ScheduleTaskE_Work_4_1", "ScheduleTaskE_Work_2_6", "ScheduleTaskE_Work_3_0", "ScheduleTaskE_Work_6_4", "ScheduleTaskE_Work_4_2", "ScheduleTaskE_Work_5_1", "ScheduleTaskE_Work_1_4", "ScheduleTaskE_Work_3_6", "ScheduleTaskE_Work_2_0", "ScheduleTaskE_Work_1_3", "ScheduleTaskE_Work_2_4", "ScheduleTaskE_Work_2_1", "ScheduleTaskE_Work_6_2", "ScheduleTaskE_Work_6_5", "ScheduleTaskE_Work_3_4", "ScheduleTaskE_Work_3_1", "ScheduleTaskE_Work_1_6", "ScheduleTaskE_Work_1_1", "ScheduleTaskE_Work_3_3", "ScheduleTaskE_Work_2_2", "ScheduleTaskE_Work_5_5", "ScheduleTaskE_Work_6_6", "ScheduleTaskE_Work_4_4", "ScheduleTaskE_Work_1_0", "ScheduleTaskE_Work_3_2", "ScheduleTaskE_Work_2_3", "ScheduleTaskE_Work_5_4", "ScheduleTaskE_Work_6_0", "ScheduleTaskE_Work_4_5", "ScheduleTaskE_Work_6_1", "ScheduleTaskE_Work_5_0")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("P_1159_5", "P_1159_4", "P_1159_6", "P_1159_1", "P_1159_3", "P_1159_2")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("P_1095")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("Check_Sources_E_2", "Check_Sources_E_1", "Check_Sources_E_6", "Check_Sources_E_5", "Check_Sources_E_4", "Check_Sources_E_3")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("Perform_Work_E_1", "Perform_Work_E_2", "Perform_Work_E_3", "Perform_Work_E_6", "Perform_Work_E_5", "Perform_Work_E_4")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("cSources")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("DisablePollingE_4_4", "DisablePollingE_4_3", "DisablePollingE_2_1", "DisablePollingE_5_4", "DisablePollingE_4_2", "DisablePollingE_6_4", "DisablePollingE_5_2", "DisablePollingE_3_3", "DisablePollingE_1_1", "DisablePollingE_6_3", "DisablePollingE_2_2", "DisablePollingE_5_3", "DisablePollingE_3_2", "DisablePollingE_1_3", "DisablePollingE_5_1", "DisablePollingE_1_4", "DisablePollingE_6_2", "DisablePollingE_1_2", "DisablePollingE_6_1", "DisablePollingE_2_4", "DisablePollingE_4_1", "DisablePollingE_3_4", "DisablePollingE_3_1", "DisablePollingE_2_3")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("IsMonitoring")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("Abort_Check_Sources_B_5", "Abort_Check_Sources_B_1", "Abort_Check_Sources_B_2", "Abort_Check_Sources_B_3", "Abort_Check_Sources_B_4", "Abort_Check_Sources_B_6")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("AvailableJobId_3", "AvailableJobId_4", "AvailableJobId_6", "AvailableJobId_0", "AvailableJobId_5", "AvailableJobId_2", "AvailableJobId_1")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("FetchJobE_4_4", "FetchJobE_2_6", "FetchJobE_4_0", "FetchJobE_1_0", "FetchJobE_4_1", "FetchJobE_5_4", "FetchJobE_1_4", "FetchJobE_6_2", "FetchJobE_5_1", "FetchJobE_2_5", "FetchJobE_2_4", "FetchJobE_3_6", "FetchJobE_4_6", "FetchJobE_6_1", "FetchJobE_1_2", "FetchJobE_1_5", "FetchJobE_3_0", "FetchJobE_6_0", "FetchJobE_5_2", "FetchJobE_4_5", "FetchJobE_5_6", "FetchJobE_5_0", "FetchJobE_5_3", "FetchJobE_4_2", "FetchJobE_2_2", "FetchJobE_3_5", "FetchJobE_6_6", "FetchJobE_6_3", "FetchJobE_3_2", "FetchJobE_1_1", "FetchJobE_3_3", "FetchJobE_4_3", "FetchJobE_5_5", "FetchJobE_6_5", "FetchJobE_2_1", "FetchJobE_6_4", "FetchJobE_3_1", "FetchJobE_2_3", "FetchJobE_1_6", "FetchJobE_3_4", "FetchJobE_2_0", "FetchJobE_1_3")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("nyo_1", "nyo_6", "nyo_5", "nyo_4", "nyo_3", "nyo_2")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("NotifyEventJobQueuedB_5_4", "NotifyEventJobQueuedB_1_5", "NotifyEventJobQueuedB_2_6", "NotifyEventJobQueuedB_6_3", "NotifyEventJobQueuedB_4_1", "NotifyEventJobQueuedB_5_2", "NotifyEventJobQueuedB_1_0", "NotifyEventJobQueuedB_2_5", "NotifyEventJobQueuedB_6_2", "NotifyEventJobQueuedB_3_0", "NotifyEventJobQueuedB_2_4", "NotifyEventJobQueuedB_3_5", "NotifyEventJobQueuedB_5_3", "NotifyEventJobQueuedB_4_2", "NotifyEventJobQueuedB_4_0", "NotifyEventJobQueuedB_1_4", "NotifyEventJobQueuedB_4_5", "NotifyEventJobQueuedB_3_2", "NotifyEventJobQueuedB_6_0", "NotifyEventJobQueuedB_5_0", "NotifyEventJobQueuedB_3_3", "NotifyEventJobQueuedB_4_4", "NotifyEventJobQueuedB_5_5", "NotifyEventJobQueuedB_6_6", "NotifyEventJobQueuedB_2_2", "NotifyEventJobQueuedB_1_1", "NotifyEventJobQueuedB_5_6", "NotifyEventJobQueuedB_4_3", "NotifyEventJobQueuedB_1_2", "NotifyEventJobQueuedB_4_6", "NotifyEventJobQueuedB_6_5", "NotifyEventJobQueuedB_3_4", "NotifyEventJobQueuedB_1_3", "NotifyEventJobQueuedB_1_6", "NotifyEventJobQueuedB_2_1", "NotifyEventJobQueuedB_6_1", "NotifyEventJobQueuedB_6_4", "NotifyEventJobQueuedB_2_3", "NotifyEventJobQueuedB_5_1", "NotifyEventJobQueuedB_3_1", "NotifyEventJobQueuedB_3_6", "NotifyEventJobQueuedB_2_0")
+  end.
+Property PolyORBLF-COL-S04J06T06-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("ProcessingEvt_6", "ProcessingEvt_5", "ProcessingEvt_4", "ProcessingEvt_3", "ProcessingEvt_2", "ProcessingEvt_1")
+  end.

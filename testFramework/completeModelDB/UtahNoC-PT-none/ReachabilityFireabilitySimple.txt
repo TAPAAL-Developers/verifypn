@@ -1,0 +1,80 @@
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t818"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t379"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t809"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t533"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t398"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t180"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t96"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t330"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t329"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t741"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t898"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t475"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t892"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t880"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t192"?
+  end.
+Property UtahNoC-PT-none-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t935"?
+  end.

@@ -1,0 +1,80 @@
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F (("t3863"?) & ("t3198"?))
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F (("t2184"?) & ((((("t170"?) & ("t2499"?))) & (! "t2546"?))))
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F ((! "t2535"?) & (((((! "t1509"?) & ((("t3157"?) & ("t951"?))))) | ("t4018"?))))
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F ((((((! "t2115"?) & ((("t65"?) & ("t3760"?))))) & (((! "t1902"?) | (! "t1905"?))))) & ("t267"?))
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F (("t2711"?) & (((! ! "t3792"?) & (! "t3314"?))))
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G (((("t397"?) | ((("t3897"?) & ((("t2413"?) & ("t301"?))))))) | (((((! "t1761"?) | ("t379"?))) | ((("t3178"?) | ((("t2267"?) & ("t2657"?))))))))
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F ((! "t864"?) & ((((((("t3873"?) & ("t534"?))) & ("t261"?))) | ("t2272"?))))
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F ! ((! ! "t2070"?) | ((("t632"?) | (! "t2333"?))))
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F (("t3666"?) & (((((! "t905"?) | ("t286"?))) & (! (("t1967"?) & ("t987"?))))))
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F (((((((("t366"?) & ("t3545"?))) & ((("t3182"?) & ("t2749"?))))) | (((! "t1972"?) & ((("t1317"?) | ("t1568"?))))))) & ((((("t2145"?) & ((("t2144"?) & ("t2339"?))))) & ((((("t3229"?) | ("t2344"?))) | ("t3577"?))))))
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F "t2142"?
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F ((! (((("t1268"?) & ("t1500"?))) | ((("t1468"?) | ("t587"?))))) & ((("t3875"?) | ("t1145"?))))
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G (((((("t2605"?) | ((("t3656"?) | ("t1005"?))))) | (((! "t3673"?) | ("t2971"?))))) | (! "t2742"?))
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F "t3726"?
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F "t2345"?
+  end.
+Property RwMutex-PT-r2000w0010-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F ((! ((! "t3933"?) | ((("t250"?) & ("t3160"?))))) & (! (((("t1950"?) & ("t3273"?))) | ("t1805"?))))
+  end.

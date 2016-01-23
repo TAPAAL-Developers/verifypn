@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>arm2_having_swivel_2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>TL_out</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>A2U_rot1_in</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>arm1_having_swivel_2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>A1_extended</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>A2U_ret_rs</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>DB_deliver_run</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>arm1_magnet_off</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>table_bottom_pos</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>A1U_ext_rs</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>CL_out</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>crane_mag_on</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>deposit_belt_occupied</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>A1U_ret_rs</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>A1L_ret_rs</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>ParamProductionCell-PT-3-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>table_ready_for_unloading</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

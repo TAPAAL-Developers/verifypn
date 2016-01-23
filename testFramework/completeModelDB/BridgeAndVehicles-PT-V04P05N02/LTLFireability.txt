@@ -1,0 +1,80 @@
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-0
+  "Automatically generated"
+  is:
+    A ("altern_cpt_2_1", "altern_cpt_2_2")?
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-1
+  "Automatically generated"
+  is:
+    A G X F F G ("autorisation_A_1_1", "autorisation_A_1_2", "autorisation_A_1_3", "autorisation_A_1_4")?
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-2
+  "Automatically generated"
+  is:
+    A G ("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-3
+  "Automatically generated"
+  is:
+    A G F ("basculement_1", "basculement_2")?
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X F G X ("timeout_A_0_1_0_1", "timeout_A_1_1_0_1", "timeout_A_2_1_0_1", "timeout_A_0_1_0_2", "timeout_A_1_1_0_2", "timeout_A_2_1_0_2", "timeout_A_0_1_0_3", "timeout_A_1_1_0_3", "timeout_A_2_1_0_3", "timeout_A_0_1_0_4", "timeout_A_1_1_0_4", "timeout_A_2_1_0_4")?
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-5
+  "Automatically generated"
+  is:
+    A G F F X F "liberation_B"?
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-6
+  "Automatically generated"
+  is:
+    A G X F ((("enregistrement_B_0", "enregistrement_B_1", "enregistrement_B_2", "enregistrement_B_3", "enregistrement_B_4")?) U (("timeout_A_0_1_0_1", "timeout_A_1_1_0_1", "timeout_A_2_1_0_1", "timeout_A_0_1_0_2", "timeout_A_1_1_0_2", "timeout_A_2_1_0_2", "timeout_A_0_1_0_3", "timeout_A_1_1_0_3", "timeout_A_2_1_0_3", "timeout_A_0_1_0_4", "timeout_A_1_1_0_4", "timeout_A_2_1_0_4")?))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-7
+  "Automatically generated"
+  is:
+    A "liberation_A"?
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-8
+  "Automatically generated"
+  is:
+    A ("basculement_1", "basculement_2")?
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-9
+  "Automatically generated"
+  is:
+    A G F ((F "liberation_A"?) U (X ("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-10
+  "Automatically generated"
+  is:
+    A ((F X F ("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?) U (F X "liberation_B"?))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-11
+  "Automatically generated"
+  is:
+    A ((X F G "liberation_B"?) U (G F G ("enregistrement_B_0", "enregistrement_B_1", "enregistrement_B_2", "enregistrement_B_3", "enregistrement_B_4")?))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-12
+  "Automatically generated"
+  is:
+    A ("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-13
+  "Automatically generated"
+  is:
+    A F F G G X ("autorisation_A_1_1", "autorisation_A_1_2", "autorisation_A_1_3", "autorisation_A_1_4")?
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-14
+  "Automatically generated"
+  is:
+    A ((("enregistrement_A_0", "enregistrement_A_1", "enregistrement_A_2", "enregistrement_A_3", "enregistrement_A_4")?) U (G G G ("enregistrement_B_0", "enregistrement_B_1", "enregistrement_B_2", "enregistrement_B_3", "enregistrement_B_4")?))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-LTLFireability-15
+  "Automatically generated"
+  is:
+    A G "liberation_B"?
+  end.

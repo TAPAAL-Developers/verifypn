@@ -1,0 +1,80 @@
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F ("SetSigAbort_3", "SetSigAbort_1", "SetSigAbort_4", "SetSigAbort_2")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F ("T_2283_1", "T_2283_4", "T_2283_2", "T_2283_3")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F ("NotifyEventJobCompleted_1", "NotifyEventJobCompleted_4", "NotifyEventJobCompleted_3", "NotifyEventJobCompleted_2")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F ("T_1711_2_3", "T_1711_4_4", "T_1711_1_1", "T_1711_1_3", "T_1711_2_1", "T_1711_3_1", "T_1711_0_3", "T_1711_2_4", "T_1711_3_4", "T_1711_4_2", "T_1711_4_1", "T_1711_0_2", "T_1711_3_2", "T_1711_0_4", "T_1711_2_2", "T_1711_1_2", "T_1711_1_4", "T_1711_4_3", "T_1711_3_3", "T_1711_0_1")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F ("T_1722_2_4", "T_1722_2_1", "T_1722_4_2", "T_1722_1_1", "T_1722_1_4", "T_1722_3_1", "T_1722_0_3", "T_1722_0_4", "T_1722_4_1", "T_1722_4_3", "T_1722_0_2", "T_1722_4_4", "T_1722_1_2", "T_1722_3_3", "T_1722_2_2", "T_1722_0_1", "T_1722_2_3", "T_1722_3_4", "T_1722_1_3", "T_1722_3_2")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F ("LeaveIdle_1_1", "LeaveIdle_4_4", "LeaveIdle_2_2", "LeaveIdle_3_3")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F ("NotifyEventJobCompleted_1", "NotifyEventJobCompleted_4", "NotifyEventJobCompleted_3", "NotifyEventJobCompleted_2")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F ("WillPerformWork_0_2", "WillPerformWork_3_3", "WillPerformWork_4_1", "WillPerformWork_4_3", "WillPerformWork_0_4", "WillPerformWork_3_1", "WillPerformWork_1_4", "WillPerformWork_4_2", "WillPerformWork_1_1", "WillPerformWork_4_4", "WillPerformWork_1_3", "WillPerformWork_0_1", "WillPerformWork_2_1", "WillPerformWork_3_2", "WillPerformWork_0_3", "WillPerformWork_2_4", "WillPerformWork_2_3", "WillPerformWork_2_2", "WillPerformWork_3_4", "WillPerformWork_1_2")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F ("T_2296_1", "T_2296_3", "T_2296_2", "T_2296_4")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F ("EnterCSPW_3", "EnterCSPW_2", "EnterCSPW_4", "EnterCSPW_1")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F ("T_0383_5_3", "T_0383_1_4", "T_0383_2_2", "T_0383_1_2", "T_0383_2_3", "T_0383_3_4", "T_0383_3_3", "T_0383_6_1", "T_0383_2_4", "T_0383_5_4", "T_0383_1_1", "T_0383_6_2", "T_0383_5_1", "T_0383_2_1", "T_0383_4_4", "T_0383_1_3", "T_0383_6_3", "T_0383_5_2", "T_0383_3_1", "T_0383_4_2", "T_0383_4_1", "T_0383_6_4", "T_0383_3_2", "T_0383_4_3")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F ("LeaveIdle_1_1", "LeaveIdle_4_4", "LeaveIdle_2_2", "LeaveIdle_3_3")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F ("DummyIS_3", "DummyIS_4", "DummyIS_1", "DummyIS_2")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F ("GoIdle_3", "GoIdle_4", "GoIdle_2", "GoIdle_1")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F ("EnterCSIS_6_4", "EnterCSIS_6_1", "EnterCSIS_1_3", "EnterCSIS_3_1", "EnterCSIS_5_1", "EnterCSIS_5_4", "EnterCSIS_2_3", "EnterCSIS_5_2", "EnterCSIS_4_1", "EnterCSIS_6_3", "EnterCSIS_6_2", "EnterCSIS_4_2", "EnterCSIS_5_3", "EnterCSIS_2_4", "EnterCSIS_3_2", "EnterCSIS_1_4", "EnterCSIS_3_3", "EnterCSIS_4_4", "EnterCSIS_2_2", "EnterCSIS_1_1", "EnterCSIS_4_3", "EnterCSIS_1_2", "EnterCSIS_2_1", "EnterCSIS_3_4")?
+  end.
+Property PolyORBLF-COL-S06J04T04-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F ("NOPDP_2_2", "NOPDP_6_3", "NOPDP_1_2", "NOPDP_3_4", "NOPDP_2_3", "NOPDP_1_1", "NOPDP_6_1", "NOPDP_2_4", "NOPDP_3_3", "NOPDP_6_2", "NOPDP_5_1", "NOPDP_5_4", "NOPDP_1_3", "NOPDP_4_1", "NOPDP_6_4", "NOPDP_4_4", "NOPDP_5_3", "NOPDP_4_2", "NOPDP_3_1", "NOPDP_4_3", "NOPDP_2_1", "NOPDP_5_2", "NOPDP_1_4", "NOPDP_3_2")?
+  end.

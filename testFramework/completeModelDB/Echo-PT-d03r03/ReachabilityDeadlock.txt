@@ -1,0 +1,5 @@
+Property Echo-PT-d03r03-ReachabilityDeadlock-0
+  "Automatically generated"
+  is:
+    E F deadlock
+  end.

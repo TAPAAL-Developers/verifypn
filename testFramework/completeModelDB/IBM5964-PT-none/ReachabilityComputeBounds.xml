@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00005897_output_s00000979</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00005969_output_s00000938</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>join_s00001295_activated_s00000948</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00005965_output_s00000956</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00005969_output_s00000938</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00002186_output_s00000962</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00002185_input_s00000950</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00005897_inputCriterion_s00000937_used</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToProcess_s00002411_output_s00000956</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00005849_input_s00000952</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00005970_inputCriterion_s00000937_used</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>merge_s00000945_input_s00000986</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00001632_output_s00000959</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00005970_inputCriterion_s00000937_used</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00005968_output_s00000956</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>IBM5964-PT-none-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>callToTask_s00001305_input_s00000935</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

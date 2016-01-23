@@ -1,0 +1,80 @@
+Property Parking-PT-832-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t865"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t835"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t370"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t214"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t319"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t252"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t665"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t758"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t23"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t214"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t804"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t306"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t372"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t144"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t325"?
+  end.
+Property Parking-PT-832-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t821"?
+  end.

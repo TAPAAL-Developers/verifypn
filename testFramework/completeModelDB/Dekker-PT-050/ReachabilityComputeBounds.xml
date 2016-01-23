@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>flag_1_26</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>flag_0_10</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>flag_1_33</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1_23</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>flag_1_16</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p3_12</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1_5</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>flag_0_36</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p0_12</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1_21</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>flag_1_25</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p3_25</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>flag_1_7</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1_40</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>flag_0_37</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Dekker-PT-050-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1_24</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

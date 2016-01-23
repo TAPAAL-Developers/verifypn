@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1il_6_7</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1ol_7_10</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1il_4_9</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1i_9_2</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pb1_8_10</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pb2_4_4</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pb3_1_10</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p4o_5_6</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p4o_10_10</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pb3_6_7</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p4il_3_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1il_7_7</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pb1_8_8</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pb3_1_8</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p1il_2_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SquareGrid-PT-100510-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p4o_4_7</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

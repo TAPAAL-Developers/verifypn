@@ -1,0 +1,80 @@
+Property ParamProductionCell-PT-0-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ! ((((((3) <= (#tokens("belt2_start")))) & (((3) <= (#tokens("arm2_waiting_for_swivel_2")))))) & (((#tokens("TL_lower_run")) <= (#tokens("deposit_belt_empty")))))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ! ((((((1) <= (#tokens("PU_lower_run")))) & (((#tokens("FB_deliver_rs")) <= (#tokens("A1L_rot2_in")))))) | (((((3) <= (#tokens("A2U_in")))) & (((#tokens("arm1_release_angle")) <= (#tokens("TL_lower_rs")))))))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ((((((1) <= (#tokens("belt1_light_barrier_false")))) | (! ((1) <= (#tokens("deposit_belt_occupied")))))) & (((! ((2) <= (#tokens("A2U_rot1_rs")))) & (((((#tokens("swivel")) <= (#tokens("FB_out")))) | (((#tokens("A2U_extended")) <= (#tokens("FB_deliver_rs")))))))))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ! ((! ((1) <= (#tokens("arm2_having_swivel_1")))) | (((((#tokens("A2L_ext_run")) <= (#tokens("belt1_start")))) & (((#tokens("DB_deliver_run")) <= (#tokens("c_p1")))))))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ! ((((((2) <= (#tokens("TU_lift_rs")))) & (((#tokens("ch_FT_full")) <= (#tokens("ch_A1P_free")))))) | (((2) <= (#tokens("deposit_belt_occupied")))))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ! ((((((3) <= (#tokens("TL_rot_rs")))) | (((#tokens("PL_in")) <= (#tokens("A1L_rot1_in")))))) & (((((#tokens("arm2_retract_ext")) <= (#tokens("A1L_loaded")))) & (((#tokens("press_ready_for_loading")) <= (#tokens("arm1_waiting_for_swivel_1")))))))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ((#tokens("A2U_rot3_run")) <= (#tokens("A1L_in")))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("A1U_unloadet")) <= (#tokens("A2L_extended")))) & (((2) <= (#tokens("belt1_stop")))))) | (((#tokens("press_at_middle_pos")) <= (#tokens("A1U_rot1_in")))))) & (((((((2) <= (#tokens("press_down")))) & (((1) <= (#tokens("arm2_release_ext")))))) | (((1) <= (#tokens("FB_deliver_rs")))))))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((#tokens("A2L_rot1_run")) <= (#tokens("arm2_waiting_for_swivel_1")))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("DB_deliver_rs")) <= (#tokens("ch_A2D_free")))) & (((#tokens("PL_in")) <= (#tokens("arm1_stop")))))) & (((((((#tokens("A1U_ret_rs")) <= (#tokens("A1L_out")))) & (((2) <= (#tokens("feed_belt_empty")))))) | (((1) <= (#tokens("A2U_rotated")))))))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((((! ((#tokens("arm1_forward")) <= (#tokens("A2U_rot1_run")))) | (((#tokens("robot_right")) <= (#tokens("PL_out")))))) | (((((((3) <= (#tokens("DB_trans_run")))) & (((#tokens("belt2_stop")) <= (#tokens("arm1_pick_up_angle")))))) | (((((#tokens("deposit_belt_empty")) <= (#tokens("press_ready_for_unloading")))) | (((#tokens("table_at_unload_angle")) <= (#tokens("A1L_rot2_rs")))))))))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((#tokens("belt2_light_barrier_true")) <= (#tokens("A2L_out")))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((((3) <= (#tokens("ch_A1P_full")))) | (((((((2) <= (#tokens("TL_rot_run")))) & (((#tokens("A2L_ext_run")) <= (#tokens("table_upward")))))) | (((#tokens("A1U_rotated")) <= (#tokens("press_at_middle_pos")))))))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("TU_lift_rs")) <= (#tokens("A1U_rot3_in")))) | (((#tokens("A1L_ret_rs")) <= (#tokens("A2L_rot2_rs")))))) & (((((1) <= (#tokens("c_p2")))) | (((2) <= (#tokens("A2U_in")))))))) | (((((((2) <= (#tokens("A1U_ext_run")))) | (((#tokens("table_stop_v")) <= (#tokens("press_upward")))))) | (((((#tokens("FB_trans_rs")) <= (#tokens("press_stop")))) & (((#tokens("A2L_rot1_in")) <= (#tokens("belt2_light_barrier_false")))))))))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("ch_PA2_free")))
+  end.
+Property ParamProductionCell-PT-0-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("DB_trans_rs")))) | (((((((2) <= (#tokens("arm1_backward")))) | (((2) <= (#tokens("belt1_stop")))))) | (((((1) <= (#tokens("A1L_rot1_run")))) & (((3) <= (#tokens("A1U_rot1_in")))))))))
+  end.

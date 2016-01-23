@@ -1,0 +1,80 @@
+Property RwMutex-PT-r0010w0500-CTLFireability-0
+  "Automatically generated"
+  is:
+    E X ((E F (("t52"?) & ("t786"?))) | ((("t750"?) & ("t800"?))))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-1
+  "Automatically generated"
+  is:
+    ! ((((A F ! "t180"?) | ("t277"?))) & (! E F (("t248"?) & ("t791"?))))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-2
+  "Automatically generated"
+  is:
+    A F E F E G "t874"?
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-3
+  "Automatically generated"
+  is:
+    E F A F ((! "t406"?) & ("t35"?))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-4
+  "Automatically generated"
+  is:
+    ((! A G ! (("t676"?) & ("t95"?))) & (E F "t524"?))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-5
+  "Automatically generated"
+  is:
+    ((((((((((! "t831"?) & ((("t972"?) & ("t219"?))))) | (E X "t686"?))) & (((! "t288"?) | ("t660"?))))) & ("t172"?))) | (A G ! E G "t653"?))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-6
+  "Automatically generated"
+  is:
+    E F A G (((("t279"?) | ("t440"?))) | ((("t20"?) | ("t633"?))))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-7
+  "Automatically generated"
+  is:
+    E F E G ! ! "t554"?
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-8
+  "Automatically generated"
+  is:
+    A G ((E F (("t867"?) | ("t186"?))) | (((A F "t701"?) & ((((("t423"?) | ("t852"?))) | (! "t408"?))))))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-9
+  "Automatically generated"
+  is:
+    E ((! E G "t244"?) U (A X (("t483"?) & ("t689"?))))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-10
+  "Automatically generated"
+  is:
+    E F E (((("t405"?) & ("t187"?))) U ((("t80"?) & ("t671"?))))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-11
+  "Automatically generated"
+  is:
+    ((((! ((A G "t151"?) | ("t748"?))) & (E F (("t574"?) & ((("t978"?) & ("t233"?))))))) | (A X ((A G "t796"?) | (A F "t181"?))))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-12
+  "Automatically generated"
+  is:
+    "t1002"?
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-13
+  "Automatically generated"
+  is:
+    A F A (("t897"?) U ((("t759"?) | ("t71"?))))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-14
+  "Automatically generated"
+  is:
+    A X E (((("t920"?) & ("t101"?))) U ((("t508"?) & ("t23"?))))
+  end.
+Property RwMutex-PT-r0010w0500-CTLFireability-15
+  "Automatically generated"
+  is:
+    "t1016"?
+  end.

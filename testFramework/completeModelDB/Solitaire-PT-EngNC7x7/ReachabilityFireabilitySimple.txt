@@ -1,0 +1,80 @@
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "left52"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A G "up44"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "down43"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A G "up64"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A G "up41"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "down64"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "left74"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "right33"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "up41"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "down64"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A G "up54"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A G "down34"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "left32"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "up33"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A G "down35"?
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A G "right36"?
+  end.

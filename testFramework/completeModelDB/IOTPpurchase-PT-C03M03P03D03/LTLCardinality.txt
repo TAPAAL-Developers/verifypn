@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A X ((G ((#tokens("p3.8")) <= (#tokens("Order.p20")))) U (F ((#tokens("p11.7")) <= (#tokens("p3.10")))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A X ((X ((#tokens("DeliveryHandlerDelivery.p8.0")) <= (#tokens("Delivery.p20")))) U (F ((3) <= (#tokens("p11.7")))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A X ((X ((#tokens("DeliveryResponse.p12.6")) <= (#tokens("Delivery.p20")))) U (G ((#tokens("p1.2")) <= (#tokens("MerchantDelivery.p4.6")))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A X ((#tokens("p12.7")) <= (#tokens("p7.1")))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((G G ((#tokens("DeliveryNote.p22.14")) <= (#tokens("p6.1")))) U (G ((2) <= (#tokens("Status.p21.11")))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A F ((((2) <= (#tokens("p2.1")))) U (F ((#tokens("p5.1")) <= (#tokens("p6.7")))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A G G G ((1) <= (#tokens("p8.1")))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A ((X G ((#tokens("PaySchemeData.p21.6")) <= (#tokens("Status.p22.7")))) U (F G ((#tokens("OfferResponce.p10")) <= (#tokens("PaymentHandlerPayment.p5.0")))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A X F F ((#tokens("p6.4")) <= (#tokens("DeliveryHandlerDelivery.p8.0")))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A X ((3) <= (#tokens("p4.2")))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A F ((#tokens("Organization.p22.5")) <= (#tokens("MerchantOffer.p2")))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A X G X F ((1) <= (#tokens("Order.p20")))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("p6.4")))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A F ((G ((1) <= (#tokens("p3.5")))) U (F ((1) <= (#tokens("p3.10")))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A G X F X ((#tokens("p11.8")) <= (#tokens("p12.3")))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((#tokens("MerchantPayment.p4.0")) <= (#tokens("Payment.p21.1")))
+  end.

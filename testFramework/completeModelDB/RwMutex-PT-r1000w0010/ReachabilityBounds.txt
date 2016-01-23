@@ -1,0 +1,80 @@
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((((bound("p1910")) <= (3))) & (((((bound("p2959")) <= (2))) & (((((bound("p22")) <= (1))) & (((bound("p1287")) <= (3))))))))) & (((bound("p526")) <= (1))))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((bound("p308")) <= (2))) & (((((bound("p2161")) <= (1))) & (((((((((((bound("p870")) <= (1))) & (((bound("p1218")) <= (2))))) & (((((bound("p2091")) <= (2))) & (((bound("p2305")) <= (3))))))) & (((bound("p2000")) <= (3))))) & (((((((((bound("p2447")) <= (2))) & (((bound("p649")) <= (2))))) & (((((bound("p8")) <= (2))) & (((bound("p849")) <= (3))))))) & (((((((bound("p1840")) <= (2))) & (((bound("p1511")) <= (1))))) & (((bound("p2550")) <= (1))))))))))))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("p1353")) <= (2))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("p1030")) <= (2))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("p2811")) <= (3))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("p353")) <= (1))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("p847")) <= (1))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((bound("p644")) <= (1))) & (((bound("p1472")) <= (2))))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((((((bound("p2593")) <= (3))) & (((((bound("p1265")) <= (2))) & (((bound("p2260")) <= (1))))))) & (((((bound("p1666")) <= (1))) & (((((bound("p773")) <= (3))) & (((((((bound("p458")) <= (2))) & (((bound("p138")) <= (2))))) & (((((bound("p1696")) <= (2))) & (((bound("p2917")) <= (1))))))))))))) & (((bound("p2977")) <= (1))))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((((bound("p616")) <= (3))) & (((bound("p2641")) <= (1))))) & (((((bound("p2862")) <= (3))) & (((((((bound("p1365")) <= (1))) & (((bound("p1778")) <= (1))))) & (((((bound("p2620")) <= (1))) & (((bound("p2575")) <= (2))))))))))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("p1312")) <= (2))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((((((bound("p1840")) <= (3))) & (((bound("p848")) <= (3))))) & (((bound("p2412")) <= (1))))) & (((((bound("p526")) <= (3))) & (((bound("p1666")) <= (3))))))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("p73")) <= (2))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((((bound("p142")) <= (1))) & (((bound("p362")) <= (2))))) & (((bound("p459")) <= (1))))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((((bound("p522")) <= (2))) & (((((((((((bound("p2380")) <= (1))) & (((bound("p1936")) <= (2))))) & (((((bound("p2195")) <= (1))) & (((bound("p1158")) <= (1))))))) & (((((bound("p1829")) <= (3))) & (((((bound("p2270")) <= (1))) & (((bound("p2922")) <= (2))))))))) & (((bound("p451")) <= (2))))))) & (((((bound("p1592")) <= (3))) & (((((bound("p1037")) <= (1))) & (((((((bound("p1409")) <= (2))) & (((bound("p2185")) <= (1))))) & (((((bound("p1529")) <= (2))) & (((((bound("p1344")) <= (1))) & (((bound("p1683")) <= (1))))))))))))))
+  end.
+Property RwMutex-PT-r1000w0010-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((((((bound("p85")) <= (3))) & (((((bound("p202")) <= (1))) & (((bound("p2691")) <= (1))))))) & (((((((((((bound("p820")) <= (3))) & (((bound("p611")) <= (3))))) & (((bound("p1395")) <= (1))))) & (((((((bound("p887")) <= (3))) & (((bound("p2435")) <= (2))))) & (((bound("p2559")) <= (1))))))) & (((((((bound("p2227")) <= (3))) & (((((bound("p2615")) <= (2))) & (((bound("p2884")) <= (2))))))) & (((((((bound("p1448")) <= (3))) & (((bound("p368")) <= (1))))) & (((((bound("p22")) <= (3))) & (((bound("p705")) <= (2))))))))))))) & (((bound("p1114")) <= (3))))
+  end.

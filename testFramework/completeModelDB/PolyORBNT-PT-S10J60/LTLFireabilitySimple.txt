@@ -1,0 +1,80 @@
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "NoJob_1"?
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "trans_534_1"?
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F ("trans_478_18_8_1", "trans_478_58_8_1", "trans_478_13_1_1", "trans_478_20_4_1", "trans_478_9_7_1", "trans_478_47_4_1", "trans_478_57_3_1", "trans_478_45_10_1", "trans_478_43_1_1", "trans_478_48_6_1", "trans_478_22_5_1", "trans_478_23_7_1", "trans_478_33_4_1", "trans_478_57_6_1", "trans_478_20_2_1", "trans_478_56_9_1", "trans_478_3_1_1", "trans_478_22_7_1", "trans_478_16_2_1", "trans_478_13_5_1", "trans_478_29_8_1", "trans_478_50_7_1", "trans_478_41_10_1", "trans_478_44_3_1", "trans_478_4_10_1", "trans_478_40_10_1", "trans_478_18_7_1", "trans_478_56_2_1", "trans_478_53_3_1", "trans_478_32_7_1", "trans_478_45_5_1", "trans_478_6_6_1", "trans_478_11_4_1", "trans_478_16_9_1", "trans_478_7_4_1", "trans_478_34_4_1", "trans_478_47_8_1", "trans_478_60_4_1", "trans_478_56_8_1", "trans_478_22_10_1", "trans_478_32_4_1", "trans_478_47_9_1", "trans_478_41_7_1", "trans_478_18_9_1", "trans_478_18_1_1", "trans_478_16_8_1", "trans_478_46_4_1", "trans_478_0_1_1", "trans_478_4_9_1", "trans_478_56_4_1", "trans_478_34_6_1", "trans_478_30_8_1", "trans_478_10_5_1", "trans_478_50_10_1", "trans_478_54_7_1", "trans_478_42_2_1", "trans_478_32_1_1", "trans_478_57_1_1", "trans_478_3_8_1", "trans_478_21_1_1", "trans_478_52_8_1", "trans_478_28_1_1", "trans_478_5_10_1", "trans_478_9_1_1", "trans_478_7_8_1", "trans_478_35_10_1", "trans_478_17_3_1", "trans_478_53_10_1", "trans_478_40_9_1", "trans_478_14_5_1", "trans_478_55_7_1", "trans_478_54_2_1", "trans_478_43_8_1", "trans_478_28_10_1", "trans_478_8_7_1", "trans_478_45_3_1", "trans_478_15_2_1", "trans_478_30_6_1", "trans_478_33_6_1", "trans_478_59_3_1", "trans_478_21_2_1", "trans_478_31_9_1", "trans_478_24_10_1", "trans_478_39_5_1", "trans_478_9_9_1", "trans_478_55_2_1", "trans_478_17_2_1", "trans_478_42_3_1", "trans_478_57_4_1", "trans_478_40_7_1", "trans_478_35_2_1", "trans_478_30_7_1", "trans_478_53_8_1", "trans_478_53_5_1", "trans_478_17_10_1", "trans_478_8_6_1", "trans_478_21_5_1", "trans_478_49_7_1", "trans_478_55_5_1", "trans_478_0_5_1", "trans_478_52_3_1", "trans_478_10_4_1", "trans_478_5_9_1", "trans_478_31_2_1", "trans_478_6_4_1", "trans_478_56_3_1", "trans_478_19_2_1", "trans_478_2_8_1", "trans_478_31_8_1", "trans_478_28_8_1", "trans_478_6_8_1", "trans_478_55_6_1", "trans_478_50_2_1", "trans_478_14_2_1", "trans_478_31_1_1", "trans_478_35_1_1", "trans_478_2_5_1", "trans_478_44_4_1", "trans_478_7_5_1", "trans_478_11_3_1", "trans_478_29_6_1", "trans_478_58_1_1", "trans_478_51_10_1", "trans_478_19_6_1", "trans_478_14_10_1", "trans_478_17_4_1", "trans_478_38_3_1", "trans_478_10_10_1", "trans_478_22_1_1", "trans_478_29_10_1", "trans_478_40_4_1", "trans_478_20_3_1", "trans_478_17_8_1", "trans_478_45_2_1", "trans_478_32_9_1", "trans_478_44_6_1", "trans_478_42_9_1", "trans_478_47_3_1", "trans_478_46_3_1", "trans_478_3_9_1", "trans_478_7_7_1", "trans_478_53_4_1", "trans_478_28_5_1", "trans_478_10_2_1", "trans_478_39_10_1", "trans_478_35_4_1", "trans_478_6_7_1", "trans_478_53_7_1", "trans_478_49_9_1", "trans_478_10_9_1", "trans_478_1_1_1", "trans_478_3_10_1", "trans_478_21_4_1", "trans_478_4_4_1", "trans_478_38_7_1", "trans_478_42_7_1", "trans_478_6_9_1", "trans_478_50_4_1", "trans_478_15_6_1", "trans_478_11_10_1", "trans_478_9_6_1", "trans_478_37_3_1", "trans_478_38_10_1", "trans_478_2_7_1", "trans_478_1_3_1", "trans_478_26_2_1", "trans_478_32_2_1", "trans_478_40_5_1", "trans_478_48_7_1", "trans_478_57_8_1", "trans_478_19_5_1", "trans_478_39_9_1", "trans_478_25_5_1", "trans_478_54_5_1", "trans_478_52_7_1", "trans_478_17_9_1", "trans_478_42_8_1", "trans_478_7_9_1", "trans_478_3_4_1", "trans_478_45_8_1", "trans_478_22_6_1", "trans_478_60_5_1", "trans_478_45_6_1", "trans_478_7_2_1", "trans_478_41_3_1", "trans_478_52_10_1", "trans_478_36_2_1", "trans_478_56_7_1", "trans_478_51_5_1", "trans_478_58_6_1", "trans_478_28_3_1", "trans_478_16_4_1", "trans_478_43_2_1", "trans_478_15_10_1", "trans_478_1_5_1", "trans_478_12_10_1", "trans_478_32_6_1", "trans_478_2_10_1", "trans_478_27_4_1", "trans_478_28_6_1", "trans_478_26_5_1", "trans_478_44_2_1", "trans_478_14_4_1", "trans_478_33_7_1", "trans_478_52_4_1", "trans_478_41_9_1", "trans_478_33_2_1", "trans_478_23_4_1", "trans_478_31_7_1", "trans_478_34_1_1", "trans_478_9_2_1", "trans_478_49_6_1", "trans_478_27_8_1", "trans_478_45_4_1", "trans_478_27_6_1", "trans_478_37_2_1", "trans_478_12_3_1", "trans_478_25_10_1", "trans_478_30_1_1", "trans_478_16_10_1", "trans_478_14_8_1", "trans_478_18_3_1", "trans_478_37_10_1", "trans_478_50_8_1", "trans_478_8_1_1", "trans_478_50_9_1", "trans_478_24_7_1", "trans_478_41_1_1", "trans_478_41_4_1", "trans_478_5_8_1", "trans_478_51_4_1", "trans_478_32_8_1", "trans_478_15_1_1", "trans_478_33_5_1", "trans_478_59_1_1", "trans_478_29_9_1", "trans_478_6_1_1", "trans_478_57_7_1", "trans_478_46_5_1", "trans_478_48_10_1", "trans_478_20_5_1", "trans_478_14_7_1", "trans_478_52_5_1", "trans_478_21_6_1", "trans_478_54_3_1", "trans_478_36_3_1", "trans_478_14_3_1", "trans_478_5_4_1", "trans_478_47_7_1", "trans_478_56_6_1", "trans_478_23_1_1", "trans_478_39_3_1", "trans_478_13_3_1", "trans_478_20_9_1", "trans_478_27_5_1", "trans_478_26_4_1", "trans_478_58_3_1", "trans_478_9_8_1", "trans_478_46_6_1", "trans_478_42_5_1", "trans_478_50_6_1", "trans_478_11_9_1", "trans_478_46_7_1", "trans_478_8_10_1", "trans_478_30_10_1", "trans_478_40_1_1", "trans_478_55_10_1", "trans_478_20_6_1", "trans_478_39_6_1", "trans_478_12_2_1", "trans_478_54_8_1", "trans_478_28_4_1", "trans_478_15_4_1", "trans_478_8_9_1", "trans_478_37_4_1", "trans_478_51_9_1", "trans_478_3_6_1", "trans_478_34_5_1", "trans_478_25_7_1", "trans_478_29_3_1", "trans_478_51_8_1", "trans_478_13_10_1", "trans_478_15_8_1", "trans_478_52_2_1", "trans_478_59_5_1", "trans_478_22_4_1", "trans_478_55_8_1", "trans_478_25_2_1", "trans_478_8_8_1", "trans_478_51_1_1", "trans_478_34_2_1", "trans_478_12_9_1", "trans_478_10_6_1", "trans_478_40_3_1", "trans_478_1_10_1", "trans_478_33_8_1", "trans_478_47_1_1", "trans_478_4_8_1", "trans_478_31_10_1", "trans_478_41_5_1", "trans_478_25_3_1", "trans_478_14_1_1", "trans_478_52_1_1", "trans_478_47_6_1", "trans_478_58_7_1", "trans_478_52_6_1", "trans_478_27_7_1", "trans_478_2_6_1", "trans_478_38_4_1", "trans_478_14_9_1", "trans_478_53_2_1", "trans_478_23_9_1", "trans_478_49_2_1", "trans_478_0_3_1", "trans_478_35_3_1", "trans_478_44_8_1", "trans_478_4_2_1", "trans_478_39_7_1", "trans_478_9_10_1", "trans_478_21_3_1", "trans_478_16_1_1", "trans_478_7_1_1", "trans_478_16_6_1", "trans_478_13_2_1", "trans_478_6_3_1", "trans_478_26_10_1", "trans_478_0_2_1", "trans_478_37_9_1", "trans_478_48_2_1", "trans_478_24_4_1", "trans_478_2_3_1", "trans_478_19_9_1", "trans_478_0_10_1", "trans_478_30_9_1", "trans_478_38_1_1", "trans_478_39_2_1", "trans_478_25_1_1", "trans_478_38_2_1", "trans_478_27_9_1", "trans_478_38_6_1", "trans_478_25_6_1", "trans_478_0_7_1", "trans_478_49_10_1", "trans_478_3_2_1", "trans_478_36_10_1", "trans_478_0_9_1", "trans_478_17_5_1", "trans_478_35_5_1", "trans_478_58_5_1", "trans_478_43_4_1", "trans_478_12_6_1", "trans_478_45_7_1", "trans_478_7_10_1", "trans_478_27_2_1", "trans_478_13_7_1", "trans_478_48_5_1", "trans_478_25_4_1", "trans_478_39_8_1", "trans_478_11_6_1", "trans_478_60_1_1", "trans_478_36_9_1", "trans_478_48_3_1", "trans_478_49_5_1", "trans_478_26_8_1", "trans_478_43_9_1", "trans_478_26_7_1", "trans_478_23_3_1", "trans_478_27_10_1", "trans_478_1_9_1", "trans_478_24_2_1", "trans_478_52_9_1", "trans_478_44_5_1", "trans_478_29_4_1", "trans_478_36_7_1", "trans_478_39_1_1", "trans_478_34_3_1", "trans_478_51_6_1", "trans_478_4_7_1", "trans_478_46_2_1", "trans_478_1_6_1", "trans_478_21_10_1", "trans_478_57_10_1", "trans_478_53_1_1", "trans_478_4_5_1", "trans_478_53_9_1", "trans_478_18_5_1", "trans_478_46_9_1", "trans_478_18_10_1", "trans_478_42_4_1", "trans_478_3_3_1", "trans_478_32_10_1", "trans_478_50_1_1", "trans_478_17_1_1", "trans_478_3_5_1", "trans_478_60_7_1", "trans_478_39_4_1", "trans_478_37_6_1", "trans_478_1_7_1", "trans_478_28_2_1", "trans_478_27_3_1", "trans_478_60_2_1", "trans_478_28_9_1", "trans_478_48_8_1", "trans_478_15_7_1", "trans_478_35_8_1", "trans_478_46_1_1", "trans_478_54_10_1", "trans_478_47_10_1", "trans_478_7_3_1", "trans_478_12_7_1", "trans_478_24_9_1", "trans_478_57_9_1", "trans_478_38_9_1", "trans_478_12_8_1", "trans_478_51_7_1", "trans_478_41_2_1", "trans_478_25_8_1", "trans_478_60_8_1", "trans_478_21_8_1", "trans_478_35_9_1", "trans_478_23_6_1", "trans_478_43_10_1", "trans_478_24_1_1", "trans_478_42_10_1", "trans_478_58_2_1", "trans_478_2_9_1", "trans_478_15_5_1", "trans_478_38_8_1", "trans_478_4_6_1", "trans_478_2_4_1", "trans_478_49_1_1", "trans_478_49_8_1", "trans_478_45_1_1", "trans_478_40_6_1", "trans_478_13_9_1", "trans_478_50_5_1", "trans_478_19_7_1", "trans_478_54_4_1", "trans_478_58_4_1", "trans_478_47_5_1", "trans_478_49_3_1", "trans_478_36_5_1", "trans_478_5_7_1", "trans_478_60_3_1", "trans_478_36_1_1", "trans_478_44_7_1", "trans_478_37_7_1", "trans_478_11_5_1", "trans_478_31_4_1", "trans_478_43_5_1", "trans_478_20_10_1", "trans_478_26_6_1", "trans_478_59_6_1", "trans_478_34_7_1", "trans_478_59_2_1", "trans_478_57_5_1", "trans_478_24_5_1", "trans_478_16_3_1", "trans_478_46_10_1", "trans_478_59_8_1", "trans_478_31_6_1", "trans_478_59_7_1", "trans_478_34_8_1", "trans_478_54_1_1", "trans_478_6_2_1", "trans_478_6_10_1", "trans_478_22_2_1", "trans_478_0_6_1", "trans_478_45_9_1", "trans_478_44_9_1", "trans_478_58_9_1", "trans_478_18_4_1", "trans_478_51_3_1", "trans_478_19_10_1", "trans_478_4_1_1", "trans_478_33_3_1", "trans_478_36_6_1", "trans_478_24_3_1", "trans_478_23_2_1", "trans_478_54_9_1", "trans_478_2_2_1", "trans_478_36_4_1", "trans_478_56_5_1", "trans_478_6_5_1", "trans_478_20_7_1", "trans_478_20_8_1", "trans_478_18_2_1", "trans_478_33_10_1", "trans_478_35_6_1", "trans_478_29_7_1", "trans_478_10_7_1", "trans_478_49_4_1", "trans_478_50_3_1", "trans_478_5_1_1", "trans_478_24_8_1", "trans_478_16_7_1", "trans_478_40_2_1", "trans_478_21_9_1", "trans_478_4_3_1", "trans_478_11_7_1", "trans_478_34_9_1", "trans_478_55_4_1", "trans_478_29_2_1", "trans_478_59_4_1", "trans_478_8_3_1", "trans_478_23_5_1", "trans_478_48_1_1", "trans_478_13_8_1", "trans_478_13_4_1", "trans_478_29_5_1", "trans_478_0_8_1", "trans_478_56_10_1", "trans_478_18_6_1", "trans_478_41_6_1", "trans_478_30_4_1", "trans_478_38_5_1", "trans_478_9_4_1", "trans_478_0_4_1", "trans_478_44_1_1", "trans_478_60_10_1", "trans_478_16_5_1", "trans_478_12_5_1", "trans_478_5_6_1", "trans_478_54_6_1", "trans_478_55_3_1", "trans_478_36_8_1", "trans_478_5_3_1", "trans_478_43_7_1", "trans_478_25_9_1", "trans_478_11_2_1", "trans_478_27_1_1", "trans_478_11_1_1", "trans_478_19_4_1", "trans_478_30_5_1", "trans_478_5_5_1", "trans_478_32_5_1", "trans_478_3_7_1", "trans_478_12_4_1", "trans_478_26_3_1", "trans_478_7_6_1", "trans_478_17_7_1", "trans_478_15_3_1", "trans_478_55_9_1", "trans_478_1_2_1", "trans_478_19_8_1", "trans_478_12_1_1", "trans_478_8_2_1", "trans_478_48_9_1", "trans_478_37_5_1", "trans_478_37_1_1", "trans_478_23_8_1", "trans_478_44_10_1", "trans_478_43_3_1", "trans_478_47_2_1", "trans_478_10_8_1", "trans_478_46_8_1", "trans_478_22_8_1", "trans_478_43_6_1", "trans_478_14_6_1", "trans_478_30_2_1", "trans_478_2_1_1", "trans_478_22_3_1", "trans_478_23_10_1", "trans_478_32_3_1", "trans_478_48_4_1", "trans_478_5_2_1", "trans_478_21_7_1", "trans_478_24_6_1", "trans_478_59_9_1", "trans_478_51_2_1", "trans_478_26_1_1", "trans_478_42_6_1", "trans_478_8_4_1", "trans_478_19_3_1", "trans_478_11_8_1", "trans_478_17_6_1", "trans_478_60_6_1", "trans_478_57_2_1", "trans_478_19_1_1", "trans_478_8_5_1", "trans_478_59_10_1", "trans_478_10_3_1", "trans_478_33_1_1", "trans_478_35_7_1", "trans_478_40_8_1", "trans_478_55_1_1", "trans_478_37_8_1", "trans_478_15_9_1", "trans_478_58_10_1", "trans_478_10_1_1", "trans_478_41_8_1", "trans_478_33_9_1", "trans_478_31_3_1", "trans_478_30_3_1", "trans_478_31_5_1", "trans_478_1_8_1", "trans_478_9_3_1", "trans_478_29_1_1", "trans_478_20_1_1", "trans_478_28_7_1", "trans_478_9_5_1", "trans_478_22_9_1", "trans_478_53_6_1", "trans_478_42_1_1", "trans_478_26_9_1", "trans_478_60_9_1", "trans_478_34_10_1", "trans_478_13_6_1", "trans_478_56_1_1", "trans_478_1_4_1")?
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "LeaveCSTCS_1"?
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "trans_508_1"?
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F ("fi1_24_1", "fi1_35_1", "fi1_7_1", "fi1_52_1", "fi1_45_1", "fi1_43_1", "fi1_48_1", "fi1_6_1", "fi1_29_1", "fi1_1_1", "fi1_34_1", "fi1_15_1", "fi1_20_1", "fi1_57_1", "fi1_26_1", "fi1_40_1", "fi1_12_1", "fi1_54_1", "fi1_51_1", "fi1_0_1", "fi1_41_1", "fi1_23_1", "fi1_18_1", "fi1_28_1", "fi1_13_1", "fi1_46_1", "fi1_3_1", "fi1_49_1", "fi1_56_1", "fi1_59_1", "fi1_21_1", "fi1_31_1", "fi1_2_1", "fi1_10_1", "fi1_38_1", "fi1_11_1", "fi1_25_1", "fi1_53_1", "fi1_16_1", "fi1_44_1", "fi1_39_1", "fi1_22_1", "fi1_58_1", "fi1_30_1", "fi1_8_1", "fi1_47_1", "fi1_50_1", "fi1_19_1", "fi1_33_1", "fi1_5_1", "fi1_36_1", "fi1_42_1", "fi1_32_1", "fi1_9_1", "fi1_14_1", "fi1_27_1", "fi1_60_1", "fi1_37_1", "fi1_17_1", "fi1_55_1", "fi1_4_1")?
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A ((("trans_376_7", "trans_376_10", "trans_376_1", "trans_376_2", "trans_376_9", "trans_376_8", "trans_376_3", "trans_376_4", "trans_376_5", "trans_376_6")?) U ("GoCheckSource_0_1_CheckSource"?))
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F ("IsEvt_1_1", "IsEvt_5_1", "IsEvt_4_1", "IsEvt_3_1", "IsEvt_10_1", "IsEvt_2_1", "IsEvt_9_1", "IsEvt_8_1", "IsEvt_6_1", "IsEvt_7_1")?
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "JobExist_1"?
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "EnterCSTCS_1"?
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "trans_457_1"?
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "trans_457_1"?
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "trans_461_1"?
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "trans_457_1"?
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "trans_463_1"?
+  end.
+Property PolyORBNT-COL-S10J60-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "JobExist_1"?
+  end.

@@ -1,0 +1,80 @@
+Property Echo-PT-d03r07-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((((#tokens("p1249")) <= (#tokens("p2738")))) & (! ((((#tokens("p3633")) <= (#tokens("p1520")))) & (((3) <= (#tokens("p721")))))))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("p1320")) <= (#tokens("p478")))) | (((1) <= (#tokens("p895")))))) | (((2) <= (#tokens("p2607")))))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("p915")) <= (#tokens("p1724")))) | (((#tokens("p2695")) <= (#tokens("p3009")))))) | (! ((1) <= (#tokens("p1412")))))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ((#tokens("p2856")) <= (#tokens("p57")))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((((1) <= (#tokens("p3428")))) & (((((#tokens("p4159")) <= (#tokens("p2319")))) | (((((3) <= (#tokens("p3120")))) & (((3) <= (#tokens("p2668")))))))))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ! ((2) <= (#tokens("p915")))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("p939")))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("p3025")) <= (#tokens("p3530")))) | (((1) <= (#tokens("p2817")))))) & (((((((1) <= (#tokens("p4111")))) & (((#tokens("p2747")) <= (#tokens("p822")))))) | (! ((#tokens("p170")) <= (#tokens("p2150")))))))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((#tokens("p127")) <= (#tokens("p1868")))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ! ((! ((2) <= (#tokens("p4080")))) & (((((1) <= (#tokens("p3971")))) | (((#tokens("p761")) <= (#tokens("p2837")))))))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((#tokens("p406")) <= (#tokens("p3645")))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((((((1) <= (#tokens("p136")))) | (! ((1) <= (#tokens("p186")))))) & (! ((#tokens("p3728")) <= (#tokens("p210")))))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ((((((((1) <= (#tokens("p3771")))) & (((#tokens("p3144")) <= (#tokens("p2431")))))) & (((((1) <= (#tokens("p3225")))) & (((#tokens("p2836")) <= (#tokens("p512")))))))) & (((((1) <= (#tokens("p2022")))) | (((#tokens("p202")) <= (#tokens("p3412")))))))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("p3312")))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((((1) <= (#tokens("p1853")))) & (((#tokens("p824")) <= (#tokens("p1737")))))
+  end.
+Property Echo-PT-d03r07-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("p1144")))
+  end.

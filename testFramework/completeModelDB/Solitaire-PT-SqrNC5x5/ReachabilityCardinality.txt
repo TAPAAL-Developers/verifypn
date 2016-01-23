@@ -1,0 +1,80 @@
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("F36")))) & (((((#tokens("F25")) <= (#tokens("T26")))) & (! ((#tokens("F35")) <= (#tokens("T63")))))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ! ((((#tokens("T32")) <= (#tokens("T43")))) | (((((#tokens("T34")) <= (#tokens("T34")))) | (((3) <= (#tokens("T26")))))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    E F ((((((((2) <= (#tokens("T62")))) | (((3) <= (#tokens("F66")))))) | (((((#tokens("T33")) <= (#tokens("T35")))) | (((#tokens("T64")) <= (#tokens("T54")))))))) & (((((#tokens("T52")) <= (#tokens("T54")))) & (((((3) <= (#tokens("T24")))) & (((3) <= (#tokens("T46")))))))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ((((! ((3) <= (#tokens("T36")))) | (! ((#tokens("F22")) <= (#tokens("F46")))))) | (((2) <= (#tokens("T25")))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((((((((2) <= (#tokens("F66")))) & (((2) <= (#tokens("T62")))))) & (((1) <= (#tokens("T46")))))) & (((#tokens("F32")) <= (#tokens("F66")))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((! ! ((2) <= (#tokens("T63")))) & (! ! ((#tokens("T66")) <= (#tokens("F62")))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ! ((3) <= (#tokens("F45")))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((((((((2) <= (#tokens("F65")))) | (((#tokens("F53")) <= (#tokens("T63")))))) | (((3) <= (#tokens("F66")))))) | (((! ((2) <= (#tokens("F54")))) | (((#tokens("T56")) <= (#tokens("T26")))))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    E F ! ! ((3) <= (#tokens("F63")))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ! ! ! ((2) <= (#tokens("T62")))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    A G ((! ((((2) <= (#tokens("T44")))) | (((3) <= (#tokens("T65")))))) | (! ((((3) <= (#tokens("F55")))) | (((#tokens("T43")) <= (#tokens("T52")))))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ! ((2) <= (#tokens("T55")))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ! ! ((((#tokens("F22")) <= (#tokens("F25")))) | (((#tokens("T53")) <= (#tokens("T66")))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((! ! ((#tokens("T22")) <= (#tokens("T33")))) | (! ! ((#tokens("F35")) <= (#tokens("F35")))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((! ((#tokens("T65")) <= (#tokens("T24")))) & (! ! ((2) <= (#tokens("T52")))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ! ((((3) <= (#tokens("F66")))) & (((3) <= (#tokens("F54")))))
+  end.

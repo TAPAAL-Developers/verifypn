@@ -1,0 +1,80 @@
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "A2L_rot2_Pstart"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "A2U_rot1_Cstop"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "press_unlock_input_area"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "A2L_rot3_Cstop"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "press_lock_input_area"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "A1L_rot1_Pstart"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "A2L_ret_Pstop"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "A2L_c3"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "A1U_rot3_csc"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "A2U_ret_Pstop"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "A1U_rot3_Pstop"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "PL_lower_Cstop"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "A2L_ext_Cstop"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "DB_deliver_Pstop"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "press_unlock_input_area"?
+  end.
+Property ParamProductionCell-PT-0-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "press_lock_output_area"?
+  end.

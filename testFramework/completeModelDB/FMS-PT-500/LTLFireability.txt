@@ -1,0 +1,80 @@
+Property FMS-PT-500-LTLFireability-0
+  "Automatically generated"
+  is:
+    A "tP3s"?
+  end.
+Property FMS-PT-500-LTLFireability-1
+  "Automatically generated"
+  is:
+    A F X "tP1j"?
+  end.
+Property FMS-PT-500-LTLFireability-2
+  "Automatically generated"
+  is:
+    A F G F F G "tP1M1"?
+  end.
+Property FMS-PT-500-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X F X G F "tP12"?
+  end.
+Property FMS-PT-500-LTLFireability-4
+  "Automatically generated"
+  is:
+    A F ((G G "tM1"?) U (G "tM3"?))
+  end.
+Property FMS-PT-500-LTLFireability-5
+  "Automatically generated"
+  is:
+    A G G G X X "tP2e"?
+  end.
+Property FMS-PT-500-LTLFireability-6
+  "Automatically generated"
+  is:
+    A F X X (("tP3M2"?) U ("tM1"?))
+  end.
+Property FMS-PT-500-LTLFireability-7
+  "Automatically generated"
+  is:
+    A ((X F G "tM1"?) U (F G G "tP1j"?))
+  end.
+Property FMS-PT-500-LTLFireability-8
+  "Automatically generated"
+  is:
+    A F F X F F "tP2"?
+  end.
+Property FMS-PT-500-LTLFireability-9
+  "Automatically generated"
+  is:
+    A "tM1"?
+  end.
+Property FMS-PT-500-LTLFireability-10
+  "Automatically generated"
+  is:
+    A F G X G X "tP2s"?
+  end.
+Property FMS-PT-500-LTLFireability-11
+  "Automatically generated"
+  is:
+    A "tP2j"?
+  end.
+Property FMS-PT-500-LTLFireability-12
+  "Automatically generated"
+  is:
+    A ((((X "tP2s"?) U (X "tP3"?))) U ("tM2"?))
+  end.
+Property FMS-PT-500-LTLFireability-13
+  "Automatically generated"
+  is:
+    A F F F F G "tP2e"?
+  end.
+Property FMS-PT-500-LTLFireability-14
+  "Automatically generated"
+  is:
+    A G (((("tP2s"?) U ("tP3M2"?))) U (X G "tP2"?))
+  end.
+Property FMS-PT-500-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X X X X "tP1M1"?
+  end.

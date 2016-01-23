@@ -1,0 +1,80 @@
+Property HouseConstruction-PT-050-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("p19")) <= (#tokens("p23")))) | (((2) <= (#tokens("p8")))))) | (((((#tokens("p11")) <= (#tokens("p2")))) | (((2) <= (#tokens("p15")))))))) | (! ((((1) <= (#tokens("p18")))) & (((#tokens("p11")) <= (#tokens("p17")))))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("p21")))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ((((((((3) <= (#tokens("p18")))) & (((#tokens("p17")) <= (#tokens("p1")))))) | (((1) <= (#tokens("p13")))))) | (((! ((2) <= (#tokens("p25")))) | (((((#tokens("p12")) <= (#tokens("p5")))) & (((#tokens("p23")) <= (#tokens("p4")))))))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((((#tokens("p1")) <= (#tokens("p25")))) & (((((#tokens("p22")) <= (#tokens("p5")))) & (! ((#tokens("p7")) <= (#tokens("p16")))))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("p14")))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ! ((#tokens("p26")) <= (#tokens("p7")))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ! ((((((2) <= (#tokens("p1")))) & (((#tokens("p19")) <= (#tokens("p27")))))) & (((((3) <= (#tokens("p10")))) & (((#tokens("p22")) <= (#tokens("p6")))))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ! ((! ((3) <= (#tokens("p19")))) & (! ((1) <= (#tokens("p1")))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((((! ((2) <= (#tokens("p4")))) | (((((#tokens("p17")) <= (#tokens("p27")))) & (((3) <= (#tokens("p6")))))))) | (((((((2) <= (#tokens("p15")))) & (((1) <= (#tokens("p1")))))) | (((((3) <= (#tokens("p8")))) | (((#tokens("p25")) <= (#tokens("p18")))))))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ! ! ((((1) <= (#tokens("p4")))) | (((#tokens("p23")) <= (#tokens("p12")))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((#tokens("p1")) <= (#tokens("p3")))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ! ! ((((3) <= (#tokens("p22")))) & (((1) <= (#tokens("p11")))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((((((1) <= (#tokens("p4")))) | (! ((3) <= (#tokens("p26")))))) | (((! ((1) <= (#tokens("p13")))) & (! ((1) <= (#tokens("p17")))))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("p26")))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((! ! ((#tokens("p1")) <= (#tokens("p5")))) & (((((((#tokens("p12")) <= (#tokens("p1")))) & (((1) <= (#tokens("p2")))))) | (! ((2) <= (#tokens("p7")))))))
+  end.
+Property HouseConstruction-PT-050-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((! ((((1) <= (#tokens("p21")))) | (((#tokens("p9")) <= (#tokens("p5")))))) & (((((3) <= (#tokens("p26")))) & (((((3) <= (#tokens("p12")))) & (((#tokens("p3")) <= (#tokens("p2")))))))))
+  end.

@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P232_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P104_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P168_50</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P242_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P112_44</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P226_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P70_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P127_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P233_14</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P99_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P69_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P261_13</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P112_32</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P16_41</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P226_1</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Railroad-PT-050-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>pl_P25_1</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

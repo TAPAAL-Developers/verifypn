@@ -1,0 +1,80 @@
+Property SquareGrid-PT-040204-CTLCardinality-0
+  "Automatically generated"
+  is:
+    ! E G ((((((#tokens("p4il.1.5")) <= (#tokens("p4i.1.1")))) | (((1) <= (#tokens("pb2.3.4")))))) & (! ((2) <= (#tokens("p1ol.5.4")))))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ((E F E G ((1) <= (#tokens("p4o.3.3")))) | (! ((! ((((3) <= (#tokens("p4i.1.5")))) & (((3) <= (#tokens("p4o.3.3")))))) | (((#tokens("pb2.1.1")) <= (#tokens("pb4.2.4")))))))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-2
+  "Automatically generated"
+  is:
+    A ((((#tokens("pb1.2.1")) <= (#tokens("p1il.5.2")))) U (E G ((1) <= (#tokens("p1il.5.1")))))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-3
+  "Automatically generated"
+  is:
+    A F ((2) <= (#tokens("p4i.3.1")))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-4
+  "Automatically generated"
+  is:
+    E ((((((((#tokens("p4i.3.3")) <= (#tokens("pb2.4.2")))) | (((#tokens("p4o.4.3")) <= (#tokens("pb4.1.4")))))) & (((((#tokens("pbl.3.3")) <= (#tokens("pb1.1.3")))) | (((#tokens("p1il.4.4")) <= (#tokens("pb1.2.4")))))))) U (E X ((#tokens("pbl.1.1")) <= (#tokens("pb1.3.4")))))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-5
+  "Automatically generated"
+  is:
+    E G ! A G ((#tokens("p4ol.3.1")) <= (#tokens("pbl.3.4")))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-6
+  "Automatically generated"
+  is:
+    ((E G ((((((#tokens("p1o.5.4")) <= (#tokens("pb1.4.2")))) & (((2) <= (#tokens("pb3.4.4")))))) | (((((2) <= (#tokens("pb1.3.4")))) & (((2) <= (#tokens("p1ol.1.2")))))))) | (((((#tokens("p4ol.1.2")) <= (#tokens("p4o.3.4")))) | (((E G ((#tokens("pb2.2.1")) <= (#tokens("p1o.4.4")))) | (((((((2) <= (#tokens("p1i.5.2")))) | (((1) <= (#tokens("p4ol.4.2")))))) & (((#tokens("pb3.2.3")) <= (#tokens("p4o.1.3")))))))))))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-7
+  "Automatically generated"
+  is:
+    ! A G E F ((#tokens("p1ol.1.2")) <= (#tokens("p1ol.4.1")))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-8
+  "Automatically generated"
+  is:
+    E G E X ! ((1) <= (#tokens("p1o.3.2")))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-9
+  "Automatically generated"
+  is:
+    E ((((((((#tokens("pb4.1.1")) <= (#tokens("pb4.2.2")))) & (((3) <= (#tokens("p4o.1.3")))))) | (((((2) <= (#tokens("pb4.1.2")))) | (((1) <= (#tokens("p4ol.3.1")))))))) U (! ((#tokens("p1ol.2.3")) <= (#tokens("pb1.2.3")))))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-10
+  "Automatically generated"
+  is:
+    A G A G ((((3) <= (#tokens("p4ol.2.3")))) | (((#tokens("p4o.2.5")) <= (#tokens("pb4.3.2")))))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-11
+  "Automatically generated"
+  is:
+    E G E F ((((#tokens("pbl.1.3")) <= (#tokens("pb2.1.4")))) & (((#tokens("p4i.3.5")) <= (#tokens("p4o.1.1")))))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((! ! ((#tokens("p1ol.4.3")) <= (#tokens("pbl.2.2")))) U (((! ((#tokens("p4ol.4.3")) <= (#tokens("pb3.1.1")))) & (((2) <= (#tokens("pb4.2.4")))))))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-13
+  "Automatically generated"
+  is:
+    ((E G ! ((((2) <= (#tokens("pb4.2.1")))) & (((2) <= (#tokens("p4i.3.1")))))) & (A G E X ((#tokens("pb1.2.3")) <= (#tokens("pbl.3.1")))))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-14
+  "Automatically generated"
+  is:
+    E X ((((! ((#tokens("p4il.1.4")) <= (#tokens("p1ol.1.3")))) | (((((2) <= (#tokens("pb3.2.1")))) | (((#tokens("p1o.3.4")) <= (#tokens("p4ol.4.2")))))))) & (A G ((#tokens("p4o.2.1")) <= (#tokens("pb3.2.4")))))
+  end.
+Property SquareGrid-PT-040204-CTLCardinality-15
+  "Automatically generated"
+  is:
+    E G A ((((#tokens("p4il.4.2")) <= (#tokens("p4il.4.2")))) U (((2) <= (#tokens("pb3.2.3")))))
+  end.

@@ -1,0 +1,80 @@
+Property CircularTrains-PT-048-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F (("t32_to_33"?) | ("t17_to_18"?))
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F (((("t30_to_31"?) & (! ! "t9_to_10"?))) & ((((((("t19_to_20"?) & ("t11_to_12"?))) & ("t29_to_30"?))) & ((((("t36_to_37"?) & ("t19_to_20"?))) | ((("t13_to_14"?) | ("t15_to_16"?))))))))
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F ((((! ! "t46_to_47"?) & ((("t23_to_24"?) & (! "t40_to_41"?))))) & (((((! "t18_to_19"?) & (! "t46_to_47"?))) | ((((("t23_to_24"?) | ("t29_to_30"?))) & ((("t18_to_19"?) | ("t7_to_8"?))))))))
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F ! ((! (("t27_to_28"?) & ("t19_to_20"?))) | (((! "t47_to_48"?) | ((("t17_to_18"?) | ("t26_to_27"?))))))
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F "t35_to_36"?
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F ((! ! "t32_to_33"?) & (! (("t37_to_38"?) | (! "t37_to_38"?))))
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G ((((! "t39_to_40"?) & ("t31_to_32"?))) | (((((! "t16_to_17"?) | ("t43_to_44"?))) | (! "t38_to_39"?))))
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F ! ! (((("t6_to_7"?) & ("t11_to_12"?))) & (! "t6_to_7"?))
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    A G (((("t8_to_9"?) | (((! "t23_to_24"?) | (! "t43_to_44"?))))) | (! ! (("t33_to_34"?) & ("t7_to_8"?))))
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F ! ! "t29_to_30"?
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F "t29_to_30"?
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F (((("t31_to_32"?) | ("t24_to_25"?))) & (! ((! "t20_to_21"?) | ((("t28_to_29"?) & ("t43_to_44"?))))))
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F "t8_to_9"?
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    A G ! (("t37_to_38"?) & ((((("t46_to_47"?) & ("t35_to_36"?))) & ((("t11_to_12"?) | ("t15_to_16"?))))))
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F ! ((! (("t36_to_37"?) & ("t36_to_37"?))) | (! (("t37_to_38"?) & ("t32_to_33"?))))
+  end.
+Property CircularTrains-PT-048-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F ((! ((! "t20_to_21"?) & (! "t47_to_48"?))) & ((("t20_to_21"?) | (((! "t5_to_6"?) & (! "t42_to_43"?))))))
+  end.

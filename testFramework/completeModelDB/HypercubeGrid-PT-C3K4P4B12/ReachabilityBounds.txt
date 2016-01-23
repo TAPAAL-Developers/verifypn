@@ -1,0 +1,80 @@
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("pb.d1.n2.4.4.4")) <= (2))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("pil.d3.n1.4.4.3")) <= (1))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((bound("pil.d2.n1.2.2.4")) <= (3))) & (((((((((bound("pi.d2.n1.1.5.4")) <= (2))) & (((((((bound("pb.d2.n1.3.4.3")) <= (3))) & (((bound("pb.d2.n1.4.3.3")) <= (1))))) & (((bound("pil.d2.n1.1.3.4")) <= (2))))))) & (((bound("pb.d3.n2.3.2.3")) <= (3))))) & (((((((((bound("pil.d2.n1.3.4.3")) <= (2))) & (((bound("po.d1.n1.4.3.4")) <= (2))))) & (((((((bound("pol.d2.n1.3.4.2")) <= (3))) & (((bound("pil.d2.n1.3.3.2")) <= (3))))) & (((bound("pi.d3.n1.2.1.1")) <= (2))))))) & (((bound("pil.d2.n1.4.1.4")) <= (2))))))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("pol.d3.n1.4.3.4")) <= (1))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((bound("pol.d1.n1.2.2.3")) <= (1))) & (((bound("pol.d2.n1.4.2.1")) <= (2))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((((((((((((bound("pb.d3.n1.2.2.3")) <= (3))) & (((bound("pil.d3.n1.3.3.1")) <= (2))))) & (((bound("pil.d2.n1.3.4.3")) <= (3))))) & (((bound("po.d1.n1.2.1.4")) <= (1))))) & (((bound("pil.d1.n1.5.3.1")) <= (3))))) & (((bound("pil.d2.n1.3.3.3")) <= (3))))) & (((bound("pb.d2.n2.1.1.3")) <= (2))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((((bound("pi.d3.n1.1.2.2")) <= (3))) & (((((bound("pil.d2.n1.2.4.2")) <= (1))) & (((bound("pi.d3.n1.2.4.4")) <= (2))))))) & (((((bound("pol.d1.n1.4.3.1")) <= (1))) & (((bound("pb.d2.n1.3.2.3")) <= (2))))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("pil.d1.n1.3.3.4")) <= (3))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((((bound("pb.d1.n2.1.1.2")) <= (2))) & (((bound("pol.d2.n1.4.2.4")) <= (2))))) & (((((bound("pb.d1.n2.1.3.4")) <= (1))) & (((bound("po.d1.n1.5.3.2")) <= (1))))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("po.d2.n1.4.4.1")) <= (3))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("po.d2.n1.4.4.2")) <= (3))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((bound("pol.d3.n1.1.1.4")) <= (1))) & (((((bound("pb.d3.n1.1.3.1")) <= (1))) & (((bound("pb.d1.n2.2.1.2")) <= (2))))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((bound("po.d2.n1.2.4.4")) <= (1))) & (((bound("po.d1.n1.1.2.1")) <= (2))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("po.d3.n1.1.1.2")) <= (1))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((((bound("pol.d2.n1.4.4.1")) <= (3))) & (((bound("pb.d3.n2.4.2.2")) <= (3))))) & (((bound("pi.d2.n1.2.4.3")) <= (2))))
+  end.
+Property HypercubeGrid-PT-C3K4P4B12-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("pol.d1.n1.5.3.2")) <= (3))
+  end.

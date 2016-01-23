@@ -1,0 +1,80 @@
+Property Raft-PT-10-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F "t41"?
+  end.
+Property Raft-PT-10-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F ((! (((("t666"?) | ("t136"?))) | (! "t35"?))) & ((((("t866"?) | ("t721"?))) | ((("t399"?) & ("t580"?))))))
+  end.
+Property Raft-PT-10-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F (((((((("t306"?) | ("t147"?))) & ((("t380"?) | ("t203"?))))) | ((((("t634"?) | ("t602"?))) & ("t314"?))))) & ((((((("t703"?) | ("t365"?))) & (! "t453"?))) & ("t582"?))))
+  end.
+Property Raft-PT-10-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    A G ((! ! "t510"?) | ((("t103"?) | (! "t395"?))))
+  end.
+Property Raft-PT-10-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F ((! "t10"?) & (((! "t379"?) & (((! "t275"?) & ("t565"?))))))
+  end.
+Property Raft-PT-10-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F (((((((("t854"?) & ("t530"?))) & ("t445"?))) & ((((("t349"?) | ("t623"?))) & ((("t350"?) | ("t334"?))))))) & ((((((("t41"?) | ("t3"?))) | ((("t498"?) | ("t239"?))))) & (! (("t450"?) | ("t76"?))))))
+  end.
+Property Raft-PT-10-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F (((((((("t22"?) | ("t180"?))) | ("t848"?))) | ("t134"?))) & (! (((("t577"?) & ("t252"?))) | ((("t20"?) | ("t122"?))))))
+  end.
+Property Raft-PT-10-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F (((((((("t632"?) & ("t431"?))) | ((("t720"?) | ("t397"?))))) | (! (("t340"?) | ("t181"?))))) & ((("t38"?) & (! ! "t657"?))))
+  end.
+Property Raft-PT-10-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F "t29"?
+  end.
+Property Raft-PT-10-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    A G (((((("t99"?) & ("t249"?))) & (! "t300"?))) | ((("t107"?) | (((! "t47"?) | ("t570"?))))))
+  end.
+Property Raft-PT-10-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F ! (("t364"?) | (! (("t42"?) & ("t584"?))))
+  end.
+Property Raft-PT-10-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    A G ((((! (("t716"?) & ("t23"?))) | (! "t590"?))) | ((((((("t659"?) & ("t349"?))) & ((("t324"?) | ("t831"?))))) & (((! "t346"?) | ((("t746"?) | ("t402"?))))))))
+  end.
+Property Raft-PT-10-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ((! (((("t246"?) & ("t671"?))) | (! "t832"?))) | (! (((("t810"?) | ("t360"?))) & ("t39"?))))
+  end.
+Property Raft-PT-10-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    A G ((! ! ! "t10"?) | (((! (("t414"?) & ("t496"?))) & ("t317"?))))
+  end.
+Property Raft-PT-10-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    A G ((((! (("t362"?) | ("t754"?))) & (((! "t657"?) & (! "t148"?))))) | (! (("t391"?) & ((("t333"?) & ("t165"?))))))
+  end.
+Property Raft-PT-10-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F (((("t494"?) & (! ! "t699"?))) & ((((((("t178"?) & ("t657"?))) & ((("t455"?) | ("t849"?))))) & ("t848"?))))
+  end.

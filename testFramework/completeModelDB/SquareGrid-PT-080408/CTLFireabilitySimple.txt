@@ -1,0 +1,80 @@
+Property SquareGrid-PT-080408-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E G "t4o.6.2"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t3i2.8.8"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "t4i2.1.1"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E G "t1o.2.5"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "t3i2.6.4"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "t2i1.5.2"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "t2i1.3.2"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "t1i4.1.3"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E G "t2o.1.7"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "t3i1.3.2"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t2i4.1.7"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "t3i4.8.7"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "t2i1.2.5"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "tf-u.4"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "t4i2.4.1"?
+  end.
+Property SquareGrid-PT-080408-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E G "t4o.1.4"?
+  end.

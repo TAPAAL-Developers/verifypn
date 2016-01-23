@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("Payment.p21.1")) <= (1))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((bound("Order.p22.6")) <= (2))) & (((bound("PaySchemeData.p21.6")) <= (3))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("MerchantDelivery.p4.6")) <= (1))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("Payment.p21.7")) <= (3))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((((bound("DeliveryHandlerDelivery.p8.0")) <= (1))) & (((bound("p3.2")) <= (2))))) & (((bound("WhatDeliver.p12.1")) <= (2))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("p4.2")) <= (3))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("MerchantPayment.p4.0")) <= (2))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((bound("Payment.p20")) <= (2))) & (((((bound("DeliveryNote.p22.12")) <= (1))) & (((((((bound("Delivery.p20")) <= (3))) & (((bound("WhatDeliver.p12.1")) <= (1))))) & (((bound("PaySchemeData.p11.10")) <= (2))))))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("OfferResponce.p10")) <= (1))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("p3.9")) <= (2))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("PayReceipt.p21.15")) <= (2))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("PaymentRequest.p11.9")) <= (1))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((((((bound("p11.0")) <= (3))) & (((bound("p4.4")) <= (3))))) & (((bound("WhatDeliver.p12.1")) <= (1))))) & (((bound("p3.7")) <= (3))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((((((bound("p6.5")) <= (3))) & (((((((((bound("PaymentNote.p21.13")) <= (3))) & (((bound("p4.3")) <= (1))))) & (((bound("p4.4")) <= (2))))) & (((bound("DeliveryRequest.p12.5")) <= (1))))))) & (((bound("p11.0")) <= (2))))) & (((bound("p10.2")) <= (1))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("DeliveryHandlerDelivery.p8.0")) <= (1))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("p1.3")) <= (1))
+  end.

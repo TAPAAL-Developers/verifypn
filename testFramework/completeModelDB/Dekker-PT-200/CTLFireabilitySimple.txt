@@ -1,0 +1,80 @@
+Property Dekker-PT-200-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "withdraw/63/123"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "withdraw/199/82"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "withdraw/77/61"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "withdraw/185/195"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "withdraw/11/18"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "withdraw/2/129"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "withdraw/4/25"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "withdraw/19/71"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "withdraw/133/65"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "enter/183"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "withdraw/64/95"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "withdraw/105/84"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "withdraw/100/76"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "withdraw/119/91"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "withdraw/160/19"?
+  end.
+Property Dekker-PT-200-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "withdraw/52/111"?
+  end.

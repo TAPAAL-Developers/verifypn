@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D30N050-CTLCardinality-0
+  "Automatically generated"
+  is:
+    E ((E X ((#tokens("cAMP__9_14_")) <= (#tokens("cAMP__9_30_")))) U (E X ((3) <= (#tokens("cAMP__18_13_")))))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ((((#tokens("cAMP__29_7_")) <= (#tokens("cAMP__20_24_")))) & (((E ((((#tokens("cAMP__16_12_")) <= (#tokens("cAMP__16_10_")))) U (((3) <= (#tokens("cAMP__2_15_")))))) | (((((3) <= (#tokens("cAMP__3_19_")))) & (((((((1) <= (#tokens("cAMP__23_18_")))) | (((3) <= (#tokens("cAMP__5_6_")))))) & (((#tokens("cAMP__6_1_")) <= (#tokens("cAMP__14_7_")))))))))))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-2
+  "Automatically generated"
+  is:
+    A G ! ((2) <= (#tokens("cAMP__10_8_")))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-3
+  "Automatically generated"
+  is:
+    A G ((! ((1) <= (#tokens("cAMP__10_13_")))) & (((#tokens("cAMP__25_25_")) <= (#tokens("cAMP__17_25_")))))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-4
+  "Automatically generated"
+  is:
+    E F ! ((((((#tokens("cAMP__6_23_")) <= (#tokens("cAMP__18_25_")))) & (((#tokens("cAMP__3_4_")) <= (#tokens("cAMP__11_7_")))))) | (((((2) <= (#tokens("cAMP__20_17_")))) & (((2) <= (#tokens("cAMP__5_13_")))))))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-5
+  "Automatically generated"
+  is:
+    ((((((3) <= (#tokens("cAMP__23_18_")))) | (A ((((#tokens("cAMP__16_11_")) <= (#tokens("cAMP__20_13_")))) U (((3) <= (#tokens("cAMP__24_9_")))))))) | (E F ((((2) <= (#tokens("cAMP__12_6_")))) & (! ((1) <= (#tokens("cAMP__2_5_")))))))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-6
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("cAMP__18_17_")))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-7
+  "Automatically generated"
+  is:
+    E ((((#tokens("cAMP__8_29_")) <= (#tokens("cAMP__6_21_")))) U (! ((#tokens("cAMP__24_27_")) <= (#tokens("cAMP__4_20_")))))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-8
+  "Automatically generated"
+  is:
+    ((! E F ((1) <= (#tokens("cAMP__3_21_")))) | (((((A X ((2) <= (#tokens("cAMP__17_30_")))) | (((((((1) <= (#tokens("cAMP__29_24_")))) | (((1) <= (#tokens("cAMP__28_4_")))))) & (! ((#tokens("cAMP__14_30_")) <= (#tokens("cAMP__29_14_")))))))) | (((((#tokens("cAMP__29_5_")) <= (#tokens("cAMP__1_20_")))) & (! ((#tokens("cAMP__23_19_")) <= (#tokens("cAMP__6_6_")))))))))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-9
+  "Automatically generated"
+  is:
+    E ((((#tokens("cAMP__17_5_")) <= (#tokens("cAMP__9_5_")))) U (E G ((2) <= (#tokens("cAMP__24_21_")))))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-10
+  "Automatically generated"
+  is:
+    E F ((((((2) <= (#tokens("cAMP__26_29_")))) | (((((3) <= (#tokens("cAMP__26_17_")))) | (((3) <= (#tokens("cAMP__24_29_")))))))) & (((((#tokens("cAMP__15_25_")) <= (#tokens("cAMP__9_30_")))) | (((((2) <= (#tokens("cAMP__20_5_")))) | (((2) <= (#tokens("cAMP__7_10_")))))))))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-11
+  "Automatically generated"
+  is:
+    A G ((! ! ((#tokens("cAMP__27_5_")) <= (#tokens("cAMP__16_2_")))) | (((((((#tokens("cAMP__3_30_")) <= (#tokens("cAMP__28_4_")))) | (((3) <= (#tokens("cAMP__23_30_")))))) & (! ((#tokens("cAMP__28_29_")) <= (#tokens("cAMP__24_23_")))))))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-12
+  "Automatically generated"
+  is:
+    E F ((! ! ((2) <= (#tokens("cAMP__9_27_")))) & (! ((((#tokens("cAMP__24_14_")) <= (#tokens("cAMP__17_8_")))) | (((1) <= (#tokens("cAMP__9_19_")))))))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-13
+  "Automatically generated"
+  is:
+    ! A G ! ! ((#tokens("cAMP__20_2_")) <= (#tokens("cAMP__19_2_")))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-14
+  "Automatically generated"
+  is:
+    ((E F A G ((3) <= (#tokens("cAMP__11_18_")))) | (((((1) <= (#tokens("cAMP__1_27_")))) | (! A X ((#tokens("cAMP__7_18_")) <= (#tokens("cAMP__7_22_")))))))
+  end.
+Property Diffusion2D-PT-D30N050-CTLCardinality-15
+  "Automatically generated"
+  is:
+    ((E F ((2) <= (#tokens("cAMP__27_26_")))) | (((E F ((#tokens("cAMP__23_30_")) <= (#tokens("cAMP__19_7_")))) & (((! ((((3) <= (#tokens("cAMP__20_29_")))) | (((2) <= (#tokens("cAMP__17_2_")))))) & (((((1) <= (#tokens("cAMP__1_14_")))) & (((#tokens("cAMP__16_25_")) <= (#tokens("cAMP__2_26_")))))))))))
+  end.

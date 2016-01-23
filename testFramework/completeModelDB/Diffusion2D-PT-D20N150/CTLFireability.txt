@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D20N150-CTLFireability-0
+  "Automatically generated"
+  is:
+    E F A X E F "t1_9_18_8_19"?
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-1
+  "Automatically generated"
+  is:
+    A G ! E (("t1_17_5_16_5"?) U ("t1_19_14_19_13"?))
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-2
+  "Automatically generated"
+  is:
+    A ((A G "t1_16_14_16_15"?) U (((! ! "t1_8_10_8_11"?) | (E F "t1_20_17_19_18"?))))
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-3
+  "Automatically generated"
+  is:
+    E F ((((A G "t1_11_7_10_7"?) & ((((("t1_6_13_5_14"?) & ("t1_12_3_13_2"?))) & ((("t1_17_20_17_19"?) | ("t1_13_3_12_2"?))))))) | (((E G "t1_11_1_12_1"?) | ((((("t1_1_18_1_19"?) & ("t1_2_17_1_16"?))) & (! "t1_5_2_4_3"?))))))
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-4
+  "Automatically generated"
+  is:
+    A G ! E (("t1_8_13_8_12"?) U ("t1_10_2_9_3"?))
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-5
+  "Automatically generated"
+  is:
+    E F ((((((! "t1_16_4_16_3"?) & ("t1_20_12_19_12"?))) & ("t1_20_6_19_6"?))) & (((! (("t1_14_8_15_8"?) & ("t1_1_17_2_16"?))) & ((("t1_6_5_5_6"?) | ("t1_10_19_9_20"?))))))
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-6
+  "Automatically generated"
+  is:
+    E ((! E G "t1_17_13_18_14"?) U ((("t1_17_8_18_8"?) & (! (("t1_10_5_9_4"?) | ("t1_3_4_3_5"?))))))
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-7
+  "Automatically generated"
+  is:
+    A G ((E F (("t1_6_20_5_19"?) & ("t1_9_1_10_2"?))) | ((((("t1_9_3_9_2"?) & ((("t1_13_3_14_3"?) | ("t1_13_4_13_3"?))))) | (E X "t1_7_14_6_15"?))))
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-8
+  "Automatically generated"
+  is:
+    ! ((E X "t1_16_2_17_1"?) | (! ((E F "t1_7_6_8_5"?) & (E F "t1_14_17_13_16"?))))
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-9
+  "Automatically generated"
+  is:
+    A G ! A (("t1_18_13_17_14"?) U ("t1_3_5_3_6"?))
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-10
+  "Automatically generated"
+  is:
+    A (("t1_1_2_1_1"?) U (E F (("t1_6_20_5_20"?) & ("t1_12_19_13_18"?))))
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-11
+  "Automatically generated"
+  is:
+    A G ! ((! (("t1_18_20_19_19"?) & ("t1_16_14_15_13"?))) & ((("t1_12_4_11_5"?) | ((("t1_18_14_19_15"?) & ("t1_6_20_7_20"?))))))
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-12
+  "Automatically generated"
+  is:
+    ((E F E G "t1_2_18_2_19"?) | ("t1_19_8_19_7"?))
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-13
+  "Automatically generated"
+  is:
+    E F A G E X "t1_7_16_8_15"?
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-14
+  "Automatically generated"
+  is:
+    ((A G A G ! "t1_18_14_17_14"?) & (((! ! (("t1_19_7_20_7"?) & ((("t1_3_13_2_14"?) & ("t1_15_5_15_4"?))))) | (! (("t1_6_5_5_4"?) | ((("t1_18_5_19_5"?) | ((("t1_11_12_12_12"?) & ("t1_7_14_6_15"?))))))))))
+  end.
+Property Diffusion2D-PT-D20N150-CTLFireability-15
+  "Automatically generated"
+  is:
+    E F A (((("t1_5_3_4_2"?) & ("t1_17_8_17_9"?))) U ((("t1_7_14_8_15"?) & ("t1_16_10_15_9"?))))
+  end.

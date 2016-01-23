@@ -1,0 +1,80 @@
+Property Parking-PT-104-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((bound("p7")) <= (3))) & (((((((((bound("p39")) <= (2))) & (((((((bound("p63")) <= (1))) & (((bound("p17")) <= (1))))) & (((bound("p39")) <= (3))))))) & (((((((bound("p2")) <= (1))) & (((bound("p53")) <= (1))))) & (((((bound("p54")) <= (2))) & (((((bound("p39")) <= (3))) & (((bound("p20")) <= (3))))))))))) & (((((bound("p46")) <= (1))) & (((((bound("p4")) <= (3))) & (((bound("p62")) <= (3))))))))))
+  end.
+Property Parking-PT-104-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("p44")) <= (1))
+  end.
+Property Parking-PT-104-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("p20")) <= (3))
+  end.
+Property Parking-PT-104-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("p58")) <= (1))
+  end.
+Property Parking-PT-104-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("p44")) <= (1))
+  end.
+Property Parking-PT-104-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((bound("p23")) <= (1))) & (((((((((((bound("p1")) <= (3))) & (((bound("p34")) <= (1))))) & (((((((bound("p26")) <= (3))) & (((bound("p15")) <= (3))))) & (((bound("p30")) <= (3))))))) & (((((bound("p58")) <= (2))) & (((((((bound("p44")) <= (2))) & (((bound("p34")) <= (2))))) & (((bound("p54")) <= (2))))))))) & (((bound("p19")) <= (1))))))
+  end.
+Property Parking-PT-104-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((((((((((bound("p18")) <= (1))) & (((((bound("p15")) <= (1))) & (((bound("p16")) <= (3))))))) & (((bound("p41")) <= (1))))) & (((bound("p39")) <= (2))))) & (((((bound("p29")) <= (1))) & (((bound("p38")) <= (1))))))) & (((bound("p36")) <= (1))))
+  end.
+Property Parking-PT-104-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("p56")) <= (2))
+  end.
+Property Parking-PT-104-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((bound("p24")) <= (1))) & (((((((bound("p16")) <= (1))) & (((((((((bound("p49")) <= (1))) & (((bound("p49")) <= (2))))) & (((bound("p44")) <= (1))))) & (((bound("p5")) <= (1))))))) & (((bound("p11")) <= (1))))))
+  end.
+Property Parking-PT-104-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((((((bound("p40")) <= (1))) & (((bound("p31")) <= (2))))) & (((((((bound("p54")) <= (1))) & (((((bound("p6")) <= (2))) & (((bound("p8")) <= (3))))))) & (((((bound("p9")) <= (1))) & (((bound("p20")) <= (3))))))))) & (((bound("p46")) <= (1))))
+  end.
+Property Parking-PT-104-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("p55")) <= (1))
+  end.
+Property Parking-PT-104-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((bound("p18")) <= (1))) & (((bound("p2")) <= (1))))
+  end.
+Property Parking-PT-104-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("p41")) <= (1))
+  end.
+Property Parking-PT-104-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("p44")) <= (1))
+  end.
+Property Parking-PT-104-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((((((((bound("p42")) <= (1))) & (((bound("p2")) <= (3))))) & (((((((bound("p17")) <= (3))) & (((bound("p16")) <= (1))))) & (((((((bound("p64")) <= (1))) & (((bound("p19")) <= (3))))) & (((bound("p64")) <= (1))))))))) & (((((bound("p53")) <= (1))) & (((bound("p17")) <= (3))))))) & (((bound("p16")) <= (2))))
+  end.
+Property Parking-PT-104-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("p25")) <= (3))
+  end.

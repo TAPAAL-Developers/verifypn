@@ -1,0 +1,80 @@
+Property Raft-PT-07-CTLFireability-0
+  "Automatically generated"
+  is:
+    A G E G E F "t390"?
+  end.
+Property Raft-PT-07-CTLFireability-1
+  "Automatically generated"
+  is:
+    ! (((("t410"?) & (E X "t187"?))) | (E F A X "t340"?))
+  end.
+Property Raft-PT-07-CTLFireability-2
+  "Automatically generated"
+  is:
+    E F E X A G "t108"?
+  end.
+Property Raft-PT-07-CTLFireability-3
+  "Automatically generated"
+  is:
+    E F ! A X ! "t5"?
+  end.
+Property Raft-PT-07-CTLFireability-4
+  "Automatically generated"
+  is:
+    E (((((("t98"?) & (! "t352"?))) | (A F "t271"?))) U (((((! "t340"?) & ((("t91"?) & ("t13"?))))) | (A X "t159"?))))
+  end.
+Property Raft-PT-07-CTLFireability-5
+  "Automatically generated"
+  is:
+    E F E G A G "t366"?
+  end.
+Property Raft-PT-07-CTLFireability-6
+  "Automatically generated"
+  is:
+    E F E G ! ! "t326"?
+  end.
+Property Raft-PT-07-CTLFireability-7
+  "Automatically generated"
+  is:
+    A G E F ! ! "t219"?
+  end.
+Property Raft-PT-07-CTLFireability-8
+  "Automatically generated"
+  is:
+    ((! ((E F (("t267"?) & ("t4"?))) | (((E G "t40"?) | (A G "t435"?))))) | ("t304"?))
+  end.
+Property Raft-PT-07-CTLFireability-9
+  "Automatically generated"
+  is:
+    E F (((("t92"?) & (E G "t142"?))) & ((((("t22"?) | ((("t253"?) & ("t218"?))))) | (A F "t216"?))))
+  end.
+Property Raft-PT-07-CTLFireability-10
+  "Automatically generated"
+  is:
+    ! E F E (("t83"?) U ("t35"?))
+  end.
+Property Raft-PT-07-CTLFireability-11
+  "Automatically generated"
+  is:
+    E ((E X "t241"?) U (E G "t219"?))
+  end.
+Property Raft-PT-07-CTLFireability-12
+  "Automatically generated"
+  is:
+    E F ! E F ! "t205"?
+  end.
+Property Raft-PT-07-CTLFireability-13
+  "Automatically generated"
+  is:
+    E F A G ((! "t270"?) & (! "t182"?))
+  end.
+Property Raft-PT-07-CTLFireability-14
+  "Automatically generated"
+  is:
+    E F ((A G (("t69"?) | ("t298"?))) & (((((! "t289"?) & ((("t13"?) | ("t102"?))))) & (E X "t312"?))))
+  end.
+Property Raft-PT-07-CTLFireability-15
+  "Automatically generated"
+  is:
+    A F ! E F (("t173"?) & ("t6"?))
+  end.

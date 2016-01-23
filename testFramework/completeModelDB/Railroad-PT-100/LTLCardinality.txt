@@ -1,0 +1,80 @@
+Property Railroad-PT-100-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A G F X X ((#tokens("pl_P446_1")) <= (#tokens("pl_P254_1")))
+  end.
+Property Railroad-PT-100-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A F ((#tokens("pl_P435_63")) <= (#tokens("pl_P29_7")))
+  end.
+Property Railroad-PT-100-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A X X ((((1) <= (#tokens("pl_P72_1")))) U (((3) <= (#tokens("pl_P502_1")))))
+  end.
+Property Railroad-PT-100-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A X G X G ((#tokens("pl_P435_70")) <= (#tokens("pl_P29_35")))
+  end.
+Property Railroad-PT-100-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A X ((#tokens("pl_P435_79")) <= (#tokens("pl_P435_8")))
+  end.
+Property Railroad-PT-100-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A G X ((((1) <= (#tokens("pl_P102_1")))) U (((#tokens("pl_P502_11")) <= (#tokens("pl_P51_1")))))
+  end.
+Property Railroad-PT-100-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A F X ((((#tokens("pl_P304_98")) <= (#tokens("pl_P45_1")))) U (((1) <= (#tokens("pl_P508_1")))))
+  end.
+Property Railroad-PT-100-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A ((((((#tokens("pl_P29_75")) <= (#tokens("pl_P421_1")))) U (((3) <= (#tokens("pl_P263_1")))))) U (X X ((#tokens("pl_P218_28")) <= (#tokens("pl_P72_1")))))
+  end.
+Property Railroad-PT-100-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A F ((X ((2) <= (#tokens("pl_P467_1")))) U (((2) <= (#tokens("pl_P321_1")))))
+  end.
+Property Railroad-PT-100-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A X F F F ((3) <= (#tokens("pl_P218_52")))
+  end.
+Property Railroad-PT-100-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A F X X F ((3) <= (#tokens("pl_P218_96")))
+  end.
+Property Railroad-PT-100-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A G F ((((3) <= (#tokens("pl_P66_1")))) U (((#tokens("pl_P304_16")) <= (#tokens("pl_P502_48")))))
+  end.
+Property Railroad-PT-100-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A F F ((#tokens("pl_P218_53")) <= (#tokens("pl_P392_1")))
+  end.
+Property Railroad-PT-100-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A X F ((((2) <= (#tokens("pl_P29_61")))) U (((2) <= (#tokens("pl_P174_1")))))
+  end.
+Property Railroad-PT-100-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A X ((((#tokens("pl_P242_1")) <= (#tokens("pl_P218_97")))) U (((2) <= (#tokens("pl_P29_77")))))
+  end.
+Property Railroad-PT-100-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((F F ((3) <= (#tokens("pl_P218_26")))) U (X X ((#tokens("pl_P218_29")) <= (#tokens("pl_P435_38")))))
+  end.

@@ -1,0 +1,80 @@
+Property Raft-PT-09-CTLFireability-0
+  "Automatically generated"
+  is:
+    ((((A G E F "t137"?) | (E ((! "t612"?) U ((("t214"?) & ("t563"?))))))) | (A ((((! "t69"?) | ("t92"?))) U (A G "t610"?))))
+  end.
+Property Raft-PT-09-CTLFireability-1
+  "Automatically generated"
+  is:
+    E ((((! "t508"?) & (! "t146"?))) U ((((((("t515"?) & ("t704"?))) | ((("t344"?) | ("t455"?))))) & (A G "t325"?))))
+  end.
+Property Raft-PT-09-CTLFireability-2
+  "Automatically generated"
+  is:
+    A G A F E F "t651"?
+  end.
+Property Raft-PT-09-CTLFireability-3
+  "Automatically generated"
+  is:
+    E (((((((("t430"?) & ("t310"?))) & (! "t353"?))) | (E X "t659"?))) U (((A X "t631"?) & (((! "t639"?) & ((("t572"?) | ("t466"?))))))))
+  end.
+Property Raft-PT-09-CTLFireability-4
+  "Automatically generated"
+  is:
+    A G ((((A X "t690"?) | (A F "t168"?))) | ((("t248"?) | (E X "t500"?))))
+  end.
+Property Raft-PT-09-CTLFireability-5
+  "Automatically generated"
+  is:
+    E (((("t678"?) | (E X "t546"?))) U (((! "t311"?) & (! ! "t513"?))))
+  end.
+Property Raft-PT-09-CTLFireability-6
+  "Automatically generated"
+  is:
+    ! ! E X E F "t55"?
+  end.
+Property Raft-PT-09-CTLFireability-7
+  "Automatically generated"
+  is:
+    E F A G ((! "t105"?) | (! "t340"?))
+  end.
+Property Raft-PT-09-CTLFireability-8
+  "Automatically generated"
+  is:
+    E F ((A G (("t101"?) & ("t249"?))) & (((((! "t186"?) & ((("t84"?) & ("t704"?))))) | (E X "t305"?))))
+  end.
+Property Raft-PT-09-CTLFireability-9
+  "Automatically generated"
+  is:
+    E ((((E G "t638"?) | ((((("t489"?) | ("t67"?))) | (! "t62"?))))) U (((! (("t127"?) | ("t254"?))) & (E G "t124"?))))
+  end.
+Property Raft-PT-09-CTLFireability-10
+  "Automatically generated"
+  is:
+    ((A X "t118"?) & (E ((((! "t335"?) | ((("t641"?) | ("t635"?))))) U ((("t149"?) & ((("t557"?) & ("t87"?))))))))
+  end.
+Property Raft-PT-09-CTLFireability-11
+  "Automatically generated"
+  is:
+    ((E ((E G "t204"?) U (E F "t48"?))) | (A F ((A X "t351"?) & (E X "t78"?))))
+  end.
+Property Raft-PT-09-CTLFireability-12
+  "Automatically generated"
+  is:
+    E F A (((("t106"?) | ("t70"?))) U ((("t288"?) & ("t640"?))))
+  end.
+Property Raft-PT-09-CTLFireability-13
+  "Automatically generated"
+  is:
+    ((A G ((((! "t279"?) & ("t457"?))) | (A X "t589"?))) | (! (((((("t652"?) | ((("t386"?) | ("t582"?))))) | ((((("t35"?) & ("t354"?))) & ((("t177"?) | ("t139"?))))))) | (! E G "t190"?))))
+  end.
+Property Raft-PT-09-CTLFireability-14
+  "Automatically generated"
+  is:
+    ((((((A (("t168"?) U ("t413"?))) | (A G ! "t75"?))) | ("t597"?))) & (E F (((((("t420"?) | ("t606"?))) | (! "t480"?))) | ("t313"?))))
+  end.
+Property Raft-PT-09-CTLFireability-15
+  "Automatically generated"
+  is:
+    E F A G "t680"?
+  end.

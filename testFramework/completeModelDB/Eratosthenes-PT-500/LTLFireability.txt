@@ -1,0 +1,80 @@
+Property Eratosthenes-PT-500-LTLFireability-0
+  "Automatically generated"
+  is:
+    A (((("t455.35"?) U ("t420.14"?))) U (((F "t456.3"?) U (G "t346.173"?))))
+  end.
+Property Eratosthenes-PT-500-LTLFireability-1
+  "Automatically generated"
+  is:
+    A "t36.2"?
+  end.
+Property Eratosthenes-PT-500-LTLFireability-2
+  "Automatically generated"
+  is:
+    A X ((G "t243.27"?) U (G "t370.2"?))
+  end.
+Property Eratosthenes-PT-500-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X "t429.39"?
+  end.
+Property Eratosthenes-PT-500-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X "t450.18"?
+  end.
+Property Eratosthenes-PT-500-LTLFireability-5
+  "Automatically generated"
+  is:
+    A "t272.8"?
+  end.
+Property Eratosthenes-PT-500-LTLFireability-6
+  "Automatically generated"
+  is:
+    A G "t410.41"?
+  end.
+Property Eratosthenes-PT-500-LTLFireability-7
+  "Automatically generated"
+  is:
+    A "t81.3"?
+  end.
+Property Eratosthenes-PT-500-LTLFireability-8
+  "Automatically generated"
+  is:
+    A F ((F G "t360.8"?) U (X G "t442.34"?))
+  end.
+Property Eratosthenes-PT-500-LTLFireability-9
+  "Automatically generated"
+  is:
+    A F F ((G "t144.9"?) U (X "t333.3"?))
+  end.
+Property Eratosthenes-PT-500-LTLFireability-10
+  "Automatically generated"
+  is:
+    A "t24.3"?
+  end.
+Property Eratosthenes-PT-500-LTLFireability-11
+  "Automatically generated"
+  is:
+    A F X "t490.14"?
+  end.
+Property Eratosthenes-PT-500-LTLFireability-12
+  "Automatically generated"
+  is:
+    A F G F X F "t235.5"?
+  end.
+Property Eratosthenes-PT-500-LTLFireability-13
+  "Automatically generated"
+  is:
+    A "t45.5"?
+  end.
+Property Eratosthenes-PT-500-LTLFireability-14
+  "Automatically generated"
+  is:
+    A G G X F "t208.52"?
+  end.
+Property Eratosthenes-PT-500-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X G X G X "t304.76"?
+  end.

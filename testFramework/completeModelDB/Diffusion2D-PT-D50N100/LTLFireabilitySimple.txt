@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A G "t1_27_38_28_38"?
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A X "t1_2_37_3_38"?
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A (("t1_13_27_12_26"?) U ("t1_5_9_5_8"?))
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A X "t1_45_31_44_31"?
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "t1_42_44_42_43"?
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "t1_50_26_49_27"?
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A G "t1_47_25_47_24"?
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "t1_24_47_25_47"?
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A X "t1_2_40_2_39"?
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A G "t1_14_3_13_3"?
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t1_12_50_12_49"?
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "t1_18_36_19_37"?
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A G "t1_35_14_36_14"?
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A (("t1_47_32_46_31"?) U ("t1_47_44_46_43"?))
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "t1_4_1_4_2"?
+  end.
+Property Diffusion2D-PT-D50N100-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A X "t1_34_17_34_18"?
+  end.

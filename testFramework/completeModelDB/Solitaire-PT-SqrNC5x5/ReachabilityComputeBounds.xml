@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F53</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F46</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F63</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F26</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F22</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F46</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F33</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F56</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F22</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>T54</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F32</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>T64</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>T22</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>T26</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F46</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Solitaire-PT-SqrNC5x5-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>F53</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

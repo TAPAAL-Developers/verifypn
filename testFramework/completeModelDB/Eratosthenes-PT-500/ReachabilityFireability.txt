@@ -1,0 +1,80 @@
+Property Eratosthenes-PT-500-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    A G (((("t80.2"?) & ((((("t440.8"?) & ("t351.27"?))) & ((("t126.21"?) | ("t232.2"?))))))) | ("t245.49"?))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    A G ((((((! "t174.2"?) | ((("t430.2"?) & ("t295.59"?))))) | ((("t224.112"?) | ("t219.3"?))))) & (((! (("t56.14"?) | ("t371.53"?))) | ((((("t294.7"?) | ("t380.2"?))) | ((("t416.16"?) | ("t495.45"?))))))))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    A G (((("t440.110"?) | ((("t376.4"?) & ("t460.115"?))))) & ((("t171.9"?) | ((((("t374.2"?) & ("t220.44"?))) & ((("t448.14"?) | ("t352.88"?))))))))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F ! (((("t132.3"?) | (! "t171.3"?))) | ((((("t319.11"?) & ("t48.2"?))) | ("t495.11"?))))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F ! (("t282.47"?) | ((((("t68.17"?) & ("t99.33"?))) & ("t161.7"?))))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G (("t114.19"?) | ((((((("t486.3"?) | ("t280.56"?))) | (! "t288.12"?))) & (((! "t216.108"?) | ((("t108.54"?) & ("t410.10"?))))))))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    A G ((! ! (("t364.7"?) | ("t156.4"?))) | ((("t200.5"?) & ((("t165.3"?) | ("t86.2"?))))))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G ((! (((("t360.2"?) | ("t426.71"?))) & ((("t38.2"?) & ("t192.32"?))))) | ((("t448.4"?) | ((((("t256.64"?) & ("t124.2"?))) | ("t438.6"?))))))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F ! ((! (("t64.8"?) & ("t64.8"?))) | ((((("t142.2"?) | ("t98.2"?))) | (! "t176.2"?))))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F (("t186.2"?) & ((((("t448.14"?) | ((("t288.12"?) & ("t48.12"?))))) & (! (("t480.60"?) | ("t300.3"?))))))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F (((("t246.2"?) | ("t301.7"?))) & ((((("t408.34"?) | ("t192.12"?))) & (((! "t230.5"?) & (! "t180.18"?))))))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    A G (("t116.29"?) | ((("t493.17"?) & ("t490.49"?))))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G (("t96.8"?) | ("t108.9"?))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F ((! ! ! "t213.3"?) & (((((! "t441.147"?) & ("t110.22"?))) & ("t244.122"?))))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F ! (((((("t405.27"?) | ("t329.47"?))) | ("t174.29"?))) | (! ! "t357.21"?))
+  end.
+Property Eratosthenes-PT-500-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F (("t420.2"?) & (! (((("t12.6"?) | ("t464.58"?))) | ("t152.76"?))))
+  end.

@@ -1,0 +1,80 @@
+Property Eratosthenes-PT-020-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((bound("p11")) <= (3))) & (((bound("p10")) <= (2))))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("p16")) <= (2))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((((bound("p12")) <= (2))) & (((((bound("p12")) <= (1))) & (((((((bound("p4")) <= (1))) & (((bound("p3")) <= (2))))) & (((((((bound("p7")) <= (2))) & (((bound("p12")) <= (2))))) & (((bound("p10")) <= (2))))))))))) & (((((bound("p6")) <= (3))) & (((((bound("p7")) <= (1))) & (((((((((bound("p8")) <= (2))) & (((bound("p13")) <= (2))))) & (((((bound("p5")) <= (2))) & (((bound("p10")) <= (2))))))) & (((bound("p14")) <= (2))))))))))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((bound("p4")) <= (1))) & (((((((((bound("p9")) <= (1))) & (((bound("p10")) <= (2))))) & (((((bound("p15")) <= (3))) & (((bound("p8")) <= (3))))))) & (((bound("p11")) <= (2))))))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("p2")) <= (2))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("p17")) <= (3))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("p9")) <= (2))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((bound("p10")) <= (3))) & (((((((((bound("p9")) <= (2))) & (((((((bound("p11")) <= (1))) & (((bound("p3")) <= (1))))) & (((bound("p19")) <= (2))))))) & (((((bound("p11")) <= (2))) & (((((((bound("p15")) <= (3))) & (((bound("p17")) <= (3))))) & (((((bound("p2")) <= (1))) & (((bound("p12")) <= (1))))))))))) & (((((bound("p10")) <= (3))) & (((bound("p7")) <= (1))))))))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((((bound("p14")) <= (1))) & (((((((((((bound("p20")) <= (1))) & (((bound("p15")) <= (2))))) & (((((bound("p19")) <= (3))) & (((bound("p19")) <= (2))))))) & (((((bound("p14")) <= (2))) & (((bound("p19")) <= (3))))))) & (((((((bound("p8")) <= (2))) & (((bound("p12")) <= (1))))) & (((((bound("p14")) <= (1))) & (((bound("p4")) <= (2))))))))))) & (((((((((bound("p3")) <= (3))) & (((bound("p5")) <= (1))))) & (((bound("p7")) <= (1))))) & (((((((bound("p7")) <= (3))) & (((bound("p7")) <= (2))))) & (((((((bound("p15")) <= (3))) & (((bound("p13")) <= (1))))) & (((bound("p5")) <= (1))))))))))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((((bound("p2")) <= (3))) & (((((bound("p9")) <= (2))) & (((((bound("p4")) <= (2))) & (((((((bound("p20")) <= (3))) & (((bound("p18")) <= (2))))) & (((((bound("p8")) <= (1))) & (((bound("p8")) <= (1))))))))))))) & (((bound("p17")) <= (2))))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("p17")) <= (3))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((bound("p14")) <= (1))) & (((bound("p3")) <= (3))))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((bound("p16")) <= (1))) & (((bound("p7")) <= (3))))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("p9")) <= (2))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("p15")) <= (3))
+  end.
+Property Eratosthenes-PT-020-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((((bound("p13")) <= (2))) & (((((bound("p18")) <= (3))) & (((bound("p16")) <= (2))))))) & (((((bound("p7")) <= (2))) & (((((bound("p16")) <= (3))) & (((bound("p13")) <= (2))))))))
+  end.

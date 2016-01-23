@@ -1,0 +1,80 @@
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-0
+  "Automatically generated"
+  is:
+    A G ((#tokens("EnablePollingB_10", "EnablePollingB_4", "EnablePollingB_3", "EnablePollingB_5", "EnablePollingB_6", "EnablePollingB_7", "EnablePollingB_8", "EnablePollingB_9", "EnablePollingB_2", "EnablePollingB_1")) <= (#tokens("NotifyEventJobQueuedE_6", "NotifyEventJobQueuedE_8", "NotifyEventJobQueuedE_5", "NotifyEventJobQueuedE_7", "NotifyEventJobQueuedE_3", "NotifyEventJobQueuedE_10", "NotifyEventJobQueuedE_4", "NotifyEventJobQueuedE_9", "NotifyEventJobQueuedE_1", "NotifyEventJobQueuedE_2")))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-1
+  "Automatically generated"
+  is:
+    ! E X E F ((#tokens("IsMonitoring")) <= (#tokens("TryAllocateOneTaskE_7", "TryAllocateOneTaskE_8", "TryAllocateOneTaskE_1", "TryAllocateOneTaskE_9", "TryAllocateOneTaskE_3", "TryAllocateOneTaskE_2", "TryAllocateOneTaskE_4", "TryAllocateOneTaskE_10", "TryAllocateOneTaskE_5", "TryAllocateOneTaskE_6")))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-2
+  "Automatically generated"
+  is:
+    A X ! A G ((#tokens("P_1159_1", "P_1159_8", "P_1159_9", "P_1159_6", "P_1159_7", "P_1159_4", "P_1159_5", "P_1159_3", "P_1159_10", "P_1159_2")) <= (#tokens("AbourtToModifySrc_3", "AbourtToModifySrc_2", "AbourtToModifySrc_4", "AbourtToModifySrc_1")))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-3
+  "Automatically generated"
+  is:
+    ((E F A G ((2) <= (#tokens("ORB_Lock")))) | (((2) <= (#tokens("Try_Check_Sources_E_2", "Try_Check_Sources_E_1", "Try_Check_Sources_E_8", "Try_Check_Sources_E_10", "Try_Check_Sources_E_9", "Try_Check_Sources_E_6", "Try_Check_Sources_E_7", "Try_Check_Sources_E_4", "Try_Check_Sources_E_5", "Try_Check_Sources_E_3")))))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-4
+  "Automatically generated"
+  is:
+    ! A ((((#tokens("NotifyEventJobQueuedE_6", "NotifyEventJobQueuedE_8", "NotifyEventJobQueuedE_5", "NotifyEventJobQueuedE_7", "NotifyEventJobQueuedE_3", "NotifyEventJobQueuedE_10", "NotifyEventJobQueuedE_4", "NotifyEventJobQueuedE_9", "NotifyEventJobQueuedE_1", "NotifyEventJobQueuedE_2")) <= (#tokens("IdleTasks_6", "IdleTasks_8", "IdleTasks_7", "IdleTasks_5", "IdleTasks_4", "IdleTasks_3", "IdleTasks_2", "IdleTasks_9", "IdleTasks_1", "IdleTasks_10")))) U (((((2) <= (#tokens("EnablePollingB_10", "EnablePollingB_4", "EnablePollingB_3", "EnablePollingB_5", "EnablePollingB_6", "EnablePollingB_7", "EnablePollingB_8", "EnablePollingB_9", "EnablePollingB_2", "EnablePollingB_1")))) | (((2) <= (#tokens("Insert_Source_E_7", "Insert_Source_E_8", "Insert_Source_E_1", "Insert_Source_E_9", "Insert_Source_E_10", "Insert_Source_E_3", "Insert_Source_E_2", "Insert_Source_E_5", "Insert_Source_E_4", "Insert_Source_E_6")))))))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-5
+  "Automatically generated"
+  is:
+    E F A X ! ((#tokens("P_1716")) <= (#tokens("NotifyEventEndOfCheckSourcesB_2", "NotifyEventEndOfCheckSourcesB_9", "NotifyEventEndOfCheckSourcesB_3", "NotifyEventEndOfCheckSourcesB_8", "NotifyEventEndOfCheckSourcesB_10", "NotifyEventEndOfCheckSourcesB_1", "NotifyEventEndOfCheckSourcesB_5", "NotifyEventEndOfCheckSourcesB_4", "NotifyEventEndOfCheckSourcesB_7", "NotifyEventEndOfCheckSourcesB_6")))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-6
+  "Automatically generated"
+  is:
+    E ((((((1) <= (#tokens("AvailableJobId_2", "AvailableJobId_3", "AvailableJobId_0", "AvailableJobId_1", "AvailableJobId_4")))) & (((((#tokens("nyo_3", "nyo_7", "nyo_6", "nyo_1", "nyo_9", "nyo_8", "nyo_4", "nyo_5", "nyo_10", "nyo_2")) <= (#tokens("ScheduleTaskE_Idle_6", "ScheduleTaskE_Idle_9", "ScheduleTaskE_Idle_7", "ScheduleTaskE_Idle_4", "ScheduleTaskE_Idle_5", "ScheduleTaskE_Idle_10", "ScheduleTaskE_Idle_2", "ScheduleTaskE_Idle_3", "ScheduleTaskE_Idle_1", "ScheduleTaskE_Idle_8")))) | (((3) <= (#tokens("nyo_3", "nyo_7", "nyo_6", "nyo_1", "nyo_9", "nyo_8", "nyo_4", "nyo_5", "nyo_10", "nyo_2")))))))) U (E G ((#tokens("QueueJobE_3", "QueueJobE_10", "QueueJobE_4", "QueueJobE_5", "QueueJobE_6", "QueueJobE_7", "QueueJobE_8", "QueueJobE_9", "QueueJobE_2", "QueueJobE_1")) <= (#tokens("DisablePollingB_7_4", "DisablePollingB_8_2", "DisablePollingB_3_4", "DisablePollingB_2_2", "DisablePollingB_9_2", "DisablePollingB_10_4", "DisablePollingB_6_3", "DisablePollingB_6_1", "DisablePollingB_10_2", "DisablePollingB_4_4", "DisablePollingB_7_1", "DisablePollingB_1_2", "DisablePollingB_9_4", "DisablePollingB_4_2", "DisablePollingB_1_3", "DisablePollingB_4_1", "DisablePollingB_5_3", "DisablePollingB_4_3", "DisablePollingB_1_4", "DisablePollingB_3_2", "DisablePollingB_2_3", "DisablePollingB_3_3", "DisablePollingB_2_4", "DisablePollingB_5_1", "DisablePollingB_9_1", "DisablePollingB_1_1", "DisablePollingB_5_2", "DisablePollingB_8_1", "DisablePollingB_3_1", "DisablePollingB_10_3", "DisablePollingB_9_3", "DisablePollingB_2_1", "DisablePollingB_6_2", "DisablePollingB_5_4", "DisablePollingB_8_3", "DisablePollingB_7_2", "DisablePollingB_6_4", "DisablePollingB_7_3", "DisablePollingB_10_1", "DisablePollingB_8_4")))))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-7
+  "Automatically generated"
+  is:
+    ((A G ((((((#tokens("AwakeTasks_4", "AwakeTasks_10", "AwakeTasks_2", "AwakeTasks_5", "AwakeTasks_3", "AwakeTasks_7", "AwakeTasks_1", "AwakeTasks_6", "AwakeTasks_9", "AwakeTasks_8")) <= (#tokens("QueueJobE_3", "QueueJobE_10", "QueueJobE_4", "QueueJobE_5", "QueueJobE_6", "QueueJobE_7", "QueueJobE_8", "QueueJobE_9", "QueueJobE_2", "QueueJobE_1")))) | (((1) <= (#tokens("JobCnt")))))) | (((((1) <= (#tokens("ProcessingEvt_4", "ProcessingEvt_10", "ProcessingEvt_3", "ProcessingEvt_2", "ProcessingEvt_1", "ProcessingEvt_8", "ProcessingEvt_9", "ProcessingEvt_6", "ProcessingEvt_7", "ProcessingEvt_5")))) & (((2) <= (#tokens("ScheduleTaskE_Check_6", "ScheduleTaskE_Check_5", "ScheduleTaskE_Check_4", "ScheduleTaskE_Check_10", "ScheduleTaskE_Check_3", "ScheduleTaskE_Check_9", "ScheduleTaskE_Check_1", "ScheduleTaskE_Check_8", "ScheduleTaskE_Check_2", "ScheduleTaskE_Check_7")))))))) | (E G ((! ((1) <= (#tokens("P_2579_5_1", "P_2579_3_4", "P_2579_9_1", "P_2579_7_4", "P_2579_6_2", "P_2579_4_4", "P_2579_8_1", "P_2579_7_2", "P_2579_6_4", "P_2579_7_3", "P_2579_6_1", "P_2579_6_3", "P_2579_5_4", "P_2579_8_3", "P_2579_4_2", "P_2579_1_3", "P_2579_7_1", "P_2579_5_2", "P_2579_9_3", "P_2579_2_1", "P_2579_1_1", "P_2579_10_3", "P_2579_3_3", "P_2579_1_4", "P_2579_3_2", "P_2579_10_2", "P_2579_2_3", "P_2579_2_2", "P_2579_10_4", "P_2579_3_1", "P_2579_8_2", "P_2579_5_3", "P_2579_1_2", "P_2579_9_4", "P_2579_2_4", "P_2579_4_1", "P_2579_4_3", "P_2579_8_4", "P_2579_9_2", "P_2579_10_1")))) & (! ((2) <= (#tokens("Insert_Source_E_7", "Insert_Source_E_8", "Insert_Source_E_1", "Insert_Source_E_9", "Insert_Source_E_10", "Insert_Source_E_3", "Insert_Source_E_2", "Insert_Source_E_5", "Insert_Source_E_4", "Insert_Source_E_6")))))))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-8
+  "Automatically generated"
+  is:
+    ((A F A F ((1) <= (#tokens("P_1712_0", "P_1712_4", "P_1712_3", "P_1712_2", "P_1712_1")))) | (((#tokens("cIdleTasks")) <= (#tokens("P_1160_7", "P_1160_2", "P_1160_9", "P_1160_10", "P_1160_1", "P_1160_4", "P_1160_3", "P_1160_6", "P_1160_5", "P_1160_8")))))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-9
+  "Automatically generated"
+  is:
+    E G ((#tokens("TryAllocateOneTaskB_8", "TryAllocateOneTaskB_4", "TryAllocateOneTaskB_10", "TryAllocateOneTaskB_5", "TryAllocateOneTaskB_2", "TryAllocateOneTaskB_3", "TryAllocateOneTaskB_7", "TryAllocateOneTaskB_6", "TryAllocateOneTaskB_1", "TryAllocateOneTaskB_9")) <= (#tokens("QueueJobE_3", "QueueJobE_10", "QueueJobE_4", "QueueJobE_5", "QueueJobE_6", "QueueJobE_7", "QueueJobE_8", "QueueJobE_9", "QueueJobE_2", "QueueJobE_1")))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((((! ((1) <= (#tokens("RunB_7", "RunB_8", "RunB_5", "RunB_6", "RunB_4", "RunB_3", "RunB_2", "RunB_9", "RunB_1", "RunB_10")))) & (! ((3) <= (#tokens("BlockedTasks")))))) U (((((#tokens("P_1095")) <= (#tokens("P_1726")))) & (((((2) <= (#tokens("DisablePollingE_2_3", "DisablePollingE_4_2", "DisablePollingE_3_2", "DisablePollingE_10_4", "DisablePollingE_6_1", "DisablePollingE_7_1", "DisablePollingE_1_4", "DisablePollingE_9_2", "DisablePollingE_6_3", "DisablePollingE_8_1", "DisablePollingE_3_4", "DisablePollingE_2_2", "DisablePollingE_1_2", "DisablePollingE_5_3", "DisablePollingE_4_4", "DisablePollingE_9_1", "DisablePollingE_8_3", "DisablePollingE_2_1", "DisablePollingE_10_2", "DisablePollingE_1_1", "DisablePollingE_10_1", "DisablePollingE_6_4", "DisablePollingE_7_2", "DisablePollingE_5_4", "DisablePollingE_7_3", "DisablePollingE_8_2", "DisablePollingE_7_4", "DisablePollingE_6_2", "DisablePollingE_3_3", "DisablePollingE_10_3", "DisablePollingE_3_1", "DisablePollingE_4_1", "DisablePollingE_5_2", "DisablePollingE_8_4", "DisablePollingE_4_3", "DisablePollingE_5_1", "DisablePollingE_9_3", "DisablePollingE_9_4", "DisablePollingE_2_4", "DisablePollingE_1_3")))) | (((2) <= (#tokens("NotifyEventEndOfCheckSourcesB_2", "NotifyEventEndOfCheckSourcesB_9", "NotifyEventEndOfCheckSourcesB_3", "NotifyEventEndOfCheckSourcesB_8", "NotifyEventEndOfCheckSourcesB_10", "NotifyEventEndOfCheckSourcesB_1", "NotifyEventEndOfCheckSourcesB_5", "NotifyEventEndOfCheckSourcesB_4", "NotifyEventEndOfCheckSourcesB_7", "NotifyEventEndOfCheckSourcesB_6")))))))))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-11
+  "Automatically generated"
+  is:
+    ! E X A G ((#tokens("DataOnSrc_1", "DataOnSrc_2", "DataOnSrc_3", "DataOnSrc_4")) <= (#tokens("Idle_6", "Idle_7", "Idle_8", "Idle_1", "Idle_9", "Idle_10", "Idle_3", "Idle_2", "Idle_5", "Idle_4")))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-12
+  "Automatically generated"
+  is:
+    ((A X ! ((((#tokens("DataOnSrc_1", "DataOnSrc_2", "DataOnSrc_3", "DataOnSrc_4")) <= (#tokens("JobCnt")))) & (((#tokens("NotifyEventSourceAddedE_4", "NotifyEventSourceAddedE_5", "NotifyEventSourceAddedE_6", "NotifyEventSourceAddedE_10", "NotifyEventSourceAddedE_9", "NotifyEventSourceAddedE_8", "NotifyEventSourceAddedE_1", "NotifyEventSourceAddedE_2", "NotifyEventSourceAddedE_7", "NotifyEventSourceAddedE_3")) <= (#tokens("AbourtToModifySrc_3", "AbourtToModifySrc_2", "AbourtToModifySrc_4", "AbourtToModifySrc_1")))))) & (! A ((((#tokens("Try_Check_Sources_E_2", "Try_Check_Sources_E_1", "Try_Check_Sources_E_8", "Try_Check_Sources_E_10", "Try_Check_Sources_E_9", "Try_Check_Sources_E_6", "Try_Check_Sources_E_7", "Try_Check_Sources_E_4", "Try_Check_Sources_E_5", "Try_Check_Sources_E_3")) <= (#tokens("nyo_3", "nyo_7", "nyo_6", "nyo_1", "nyo_9", "nyo_8", "nyo_4", "nyo_5", "nyo_10", "nyo_2")))) U (((3) <= (#tokens("CanInjectEvent")))))))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-13
+  "Automatically generated"
+  is:
+    A F A F ((((#tokens("cJobCnt")) <= (#tokens("P_1158_1", "P_1158_2", "P_1158_10", "P_1158_3", "P_1158_9", "P_1158_4", "P_1158_5", "P_1158_6", "P_1158_7", "P_1158_8")))) & (((#tokens("PlaceSources_2", "PlaceSources_1", "PlaceSources_4", "PlaceSources_3")) <= (#tokens("CanInjectEvent")))))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-14
+  "Automatically generated"
+  is:
+    E ((((((((3) <= (#tokens("AbourtToModifySrc_3", "AbourtToModifySrc_2", "AbourtToModifySrc_4", "AbourtToModifySrc_1")))) | (((#tokens("P_1727")) <= (#tokens("Abort_Check_Sources_E_7", "Abort_Check_Sources_E_8", "Abort_Check_Sources_E_6", "Abort_Check_Sources_E_5", "Abort_Check_Sources_E_4", "Abort_Check_Sources_E_3", "Abort_Check_Sources_E_9", "Abort_Check_Sources_E_2", "Abort_Check_Sources_E_10", "Abort_Check_Sources_E_1")))))) | (((1) <= (#tokens("DataOnSrc_1", "DataOnSrc_2", "DataOnSrc_3", "DataOnSrc_4")))))) U (((2) <= (#tokens("RunE_2", "RunE_9", "RunE_1", "RunE_10", "RunE_7", "RunE_8", "RunE_6", "RunE_5", "RunE_4", "RunE_3")))))
+  end.
+Property PolyORBLF-COL-S04J04T10-CTLCardinality-15
+  "Automatically generated"
+  is:
+    E X E F ((((3) <= (#tokens("NotifyEventSourceAddedE_4", "NotifyEventSourceAddedE_5", "NotifyEventSourceAddedE_6", "NotifyEventSourceAddedE_10", "NotifyEventSourceAddedE_9", "NotifyEventSourceAddedE_8", "NotifyEventSourceAddedE_1", "NotifyEventSourceAddedE_2", "NotifyEventSourceAddedE_7", "NotifyEventSourceAddedE_3")))) & (((2) <= (#tokens("cSources")))))
+  end.

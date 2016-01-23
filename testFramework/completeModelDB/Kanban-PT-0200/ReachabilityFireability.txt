@@ -1,0 +1,80 @@
+Property Kanban-PT-0200-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F (("tok1"?) & ((((((("tredo4"?) & ("tback1"?))) & (! "tsynch1_23"?))) | (((! "tback4"?) & ("tback1"?))))))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    A G ((! ((! "tout1"?) & ("tback4"?))) | (((((! "tout1"?) | ((("tredo4"?) | ("tback3"?))))) & (! (("tout1"?) & ("tok1"?))))))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    A G (("tback3"?) | ((((((("tin4"?) | ("tback3"?))) | (! "tsynch4_23"?))) | ((("tredo2"?) | (! "tout1"?))))))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    A G ! (((((("tin4"?) & ("tsynch1_23"?))) & ("tback4"?))) & ((("tout1"?) & ((("tsynch4_23"?) & ("tok3"?))))))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F ((((((! "tok3"?) & ("tsynch4_23"?))) & ("tsynch1_23"?))) & ("tback2"?))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F (((("tout1"?) & (! (("tback1"?) & ("tback4"?))))) & (! ! (("tsynch1_23"?) & ("tredo3"?))))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F (("tback1"?) & ("tout1"?))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F (((((((("tin4"?) | ("tin4"?))) & ((("tok4"?) & ("tok3"?))))) & ((((("tback1"?) & ("tout1"?))) & ((("tredo1"?) | ("tredo4"?))))))) & ((((("tback1"?) & (! "tsynch4_23"?))) & (! (("tin4"?) | ("tback3"?))))))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F ((! "tredo2"?) & (! (((("tok1"?) | ("tok1"?))) | (! "tback2"?))))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F (("tredo3"?) & (! (((("tout1"?) & ("tok4"?))) | ("tin4"?))))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F ((! "tok3"?) & ((("tredo3"?) & ("tsynch1_23"?))))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F ! ((! (("tback1"?) & ("tback3"?))) | (((! "tredo2"?) | (! "tout1"?))))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F (((((("tback1"?) & ((("tback2"?) & ("tredo1"?))))) & ((("tback4"?) | ((("tback3"?) & ("tredo2"?))))))) & (((! ! "tredo3"?) | (! (("tok1"?) & ("tback4"?))))))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    A G ((! "tback1"?) | (((((! "tback3"?) | ((("tback1"?) | ("tok3"?))))) | (((! "tredo2"?) | ((("tredo3"?) | ("tredo2"?))))))))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    A G ! (((((("tout1"?) & ("tback1"?))) & (! "tout1"?))) & (! ! "tredo3"?))
+  end.
+Property Kanban-PT-0200-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    A G ! (((((("tout1"?) & ("tredo4"?))) & (! "tok1"?))) & (((! "tredo2"?) & ((("tok3"?) | ("tredo3"?))))))
+  end.

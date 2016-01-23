@@ -1,0 +1,80 @@
+Property CircularTrains-PT-768-LTLFireability-0
+  "Automatically generated"
+  is:
+    A X X X G X "t40_to_41"?
+  end.
+Property CircularTrains-PT-768-LTLFireability-1
+  "Automatically generated"
+  is:
+    A G G G (("t216_to_217"?) U ("t692_to_693"?))
+  end.
+Property CircularTrains-PT-768-LTLFireability-2
+  "Automatically generated"
+  is:
+    A G G (("t713_to_714"?) U ("t432_to_433"?))
+  end.
+Property CircularTrains-PT-768-LTLFireability-3
+  "Automatically generated"
+  is:
+    A G (("t555_to_556"?) U (F "t713_to_714"?))
+  end.
+Property CircularTrains-PT-768-LTLFireability-4
+  "Automatically generated"
+  is:
+    A (((("t314_to_315"?) U ("t329_to_330"?))) U (G X "t329_to_330"?))
+  end.
+Property CircularTrains-PT-768-LTLFireability-5
+  "Automatically generated"
+  is:
+    A X X G F "t660_to_661"?
+  end.
+Property CircularTrains-PT-768-LTLFireability-6
+  "Automatically generated"
+  is:
+    A F "t418_to_419"?
+  end.
+Property CircularTrains-PT-768-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X ((G F "t523_to_524"?) U ((("t294_to_295"?) U ("t164_to_165"?))))
+  end.
+Property CircularTrains-PT-768-LTLFireability-8
+  "Automatically generated"
+  is:
+    A X X "t13_to_14"?
+  end.
+Property CircularTrains-PT-768-LTLFireability-9
+  "Automatically generated"
+  is:
+    A "t200_to_201"?
+  end.
+Property CircularTrains-PT-768-LTLFireability-10
+  "Automatically generated"
+  is:
+    A "t169_to_170"?
+  end.
+Property CircularTrains-PT-768-LTLFireability-11
+  "Automatically generated"
+  is:
+    A "t529_to_530"?
+  end.
+Property CircularTrains-PT-768-LTLFireability-12
+  "Automatically generated"
+  is:
+    A G (("t631_to_632"?) U (G "t4_to_5"?))
+  end.
+Property CircularTrains-PT-768-LTLFireability-13
+  "Automatically generated"
+  is:
+    A F G F F "t151_to_152"?
+  end.
+Property CircularTrains-PT-768-LTLFireability-14
+  "Automatically generated"
+  is:
+    A ((X "t359_to_360"?) U (((X "t607_to_608"?) U (G "t219_to_220"?))))
+  end.
+Property CircularTrains-PT-768-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X (("t751_to_752"?) U (X G "t405_to_406"?))
+  end.

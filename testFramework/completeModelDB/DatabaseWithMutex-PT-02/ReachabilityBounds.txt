@@ -1,0 +1,80 @@
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((((((((bound("all_passive_2", "all_passive_1")) <= (3))) & (((((bound("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")) <= (2))) & (((bound("MesBuffReply_2_1", "MesBuffReply_1_2", "MesBuffReply_2_2", "MesBuffReply_1_1")) <= (1))))))) & (((((((bound("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (3))) & (((bound("Modify_2_2", "Modify_2_1", "Modify_1_1", "Modify_1_2")) <= (2))))) & (((((bound("Modify_2_2", "Modify_2_1", "Modify_1_1", "Modify_1_2")) <= (1))) & (((((bound("updating_2_1", "updating_1_1", "updating_1_2", "updating_2_2")) <= (2))) & (((bound("Mutex_2", "Mutex_1")) <= (2))))))))))) & (((((bound("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")) <= (3))) & (((bound("Modify_2_2", "Modify_2_1", "Modify_1_1", "Modify_1_2")) <= (2))))))) & (((((bound("Modify_2_2", "Modify_2_1", "Modify_1_1", "Modify_1_2")) <= (1))) & (((((bound("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")) <= (2))) & (((bound("all_active_1", "all_active_2")) <= (3))))))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((((((bound("Mutex_2", "Mutex_1")) <= (2))) & (((((((bound("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")) <= (3))) & (((((bound("Modify_2_2", "Modify_2_1", "Modify_1_1", "Modify_1_2")) <= (1))) & (((bound("updating_2_1", "updating_1_1", "updating_1_2", "updating_2_2")) <= (2))))))) & (((bound("Active_1_2", "Active_2_2", "Active_1_1", "Active_2_1")) <= (2))))))) & (((bound("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (2))))) & (((bound("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (1))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((bound("updating_2_1", "updating_1_1", "updating_1_2", "updating_2_2")) <= (1))) & (((((((bound("Active_1_2", "Active_2_2", "Active_1_1", "Active_2_1")) <= (2))) & (((bound("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (2))))) & (((((bound("all_active_1", "all_active_2")) <= (2))) & (((((bound("MesBuffReply_2_1", "MesBuffReply_1_2", "MesBuffReply_2_2", "MesBuffReply_1_1")) <= (3))) & (((bound("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (1))))))))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")) <= (1))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("updating_2_1", "updating_1_1", "updating_1_2", "updating_2_2")) <= (1))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((((bound("Mutex_2", "Mutex_1")) <= (3))) & (((((bound("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (2))) & (((((bound("Active_1_2", "Active_2_2", "Active_1_1", "Active_2_1")) <= (3))) & (((((bound("all_active_1", "all_active_2")) <= (1))) & (((((bound("updating_2_1", "updating_1_1", "updating_1_2", "updating_2_2")) <= (1))) & (((bound("Modify_2_2", "Modify_2_1", "Modify_1_1", "Modify_1_2")) <= (2))))))))))))) & (((bound("Modify_2_2", "Modify_2_1", "Modify_1_1", "Modify_1_2")) <= (2))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((((((bound("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (2))) & (((((bound("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")) <= (3))) & (((((((bound("Mutex_2", "Mutex_1")) <= (3))) & (((bound("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")) <= (3))))) & (((((bound("all_passive_2", "all_passive_1")) <= (3))) & (((bound("all_passive_2", "all_passive_1")) <= (1))))))))))) & (((((bound("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (2))) & (((((bound("Mutex_2", "Mutex_1")) <= (2))) & (((bound("updating_2_1", "updating_1_1", "updating_1_2", "updating_2_2")) <= (2))))))))) & (((((((((((((bound("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")) <= (1))) & (((bound("updating_2_1", "updating_1_1", "updating_1_2", "updating_2_2")) <= (3))))) & (((((bound("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")) <= (1))) & (((bound("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")) <= (1))))))) & (((((bound("all_active_1", "all_active_2")) <= (1))) & (((((bound("Mutex_2", "Mutex_1")) <= (1))) & (((bound("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")) <= (2))))))))) & (((((((((bound("all_passive_2", "all_passive_1")) <= (2))) & (((bound("Modify_2_2", "Modify_2_1", "Modify_1_1", "Modify_1_2")) <= (1))))) & (((((bound("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")) <= (1))) & (((bound("MesBuffReply_2_1", "MesBuffReply_1_2", "MesBuffReply_2_2", "MesBuffReply_1_1")) <= (3))))))) & (((bound("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")) <= (2))))))) & (((((bound("all_passive_2", "all_passive_1")) <= (1))) & (((((bound("Active_1_2", "Active_2_2", "Active_1_1", "Active_2_1")) <= (2))) & (((bound("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")) <= (1))))))))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("updating_2_1", "updating_1_1", "updating_1_2", "updating_2_2")) <= (2))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")) <= (1))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((bound("Active_1_2", "Active_2_2", "Active_1_1", "Active_2_1")) <= (1))) & (((bound("Mutex_2", "Mutex_1")) <= (1))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((((bound("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (2))) & (((bound("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (2))))) & (((((bound("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")) <= (1))) & (((((((bound("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (2))) & (((((((bound("updating_2_1", "updating_1_1", "updating_1_2", "updating_2_2")) <= (3))) & (((bound("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")) <= (1))))) & (((bound("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")) <= (3))))))) & (((bound("MesBuffReply_2_1", "MesBuffReply_1_2", "MesBuffReply_2_2", "MesBuffReply_1_1")) <= (1))))))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("WaitMutex_1_1", "WaitMutex_2_2", "WaitMutex_1_2", "WaitMutex_2_1")) <= (2))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")) <= (3))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")) <= (1))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((((bound("Active_1_2", "Active_2_2", "Active_1_1", "Active_2_1")) <= (2))) & (((((bound("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")) <= (2))) & (((((bound("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (3))) & (((bound("Mutex_2", "Mutex_1")) <= (2))))))))) & (((((((bound("RecBuff_1_1", "RecBuff_2_1", "RecBuff_1_2", "RecBuff_2_2")) <= (1))) & (((bound("Modify_2_2", "Modify_2_1", "Modify_1_1", "Modify_1_2")) <= (1))))) & (((bound("Acknowledge_2_2", "Acknowledge_1_2", "Acknowledge_2_1", "Acknowledge_1_1")) <= (1))))))
+  end.
+Property DatabaseWithMutex-COL-02-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("Message_2_2", "Message_1_2", "Message_2_1", "Message_1_1")) <= (1))
+  end.

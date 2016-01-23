@@ -1,0 +1,80 @@
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F ((((((! "division2_replicate_20_7_A_19_6"?) & ("division2_replicate_1_16_A_2_16"?))) | ((("division2_replicate_16_18_B_15_17"?) & ("division2_replicate_3_11_A_2_11"?))))) & ("division2_replicate_5_12_A_5_13"?))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F "division2_replicate_10_3_B_9_2"?
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F (("division2_mutate_4_3_A_4_4"?) & (! "division2_replicate_16_17_B_15_16"?))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F "division2_mutate_19_10_A_19_11"?
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    A G ! (("division2_mutate_2_9_A_2_10"?) | ("division2_mutate_6_15_A_5_16"?))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F "division2_mutate_8_5_B_8_4"?
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F ((((! (("division2_mutate_4_7_A_3_7"?) & ("division2_replicate_18_13_A_18_12"?))) & ("division2_replicate_13_1_A_13_2"?))) & ("division2_mutate_15_2_A_14_3"?))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G ((((((! "division2_mutate_7_5_B_6_4"?) | ("division2_replicate_11_14_B_12_14"?))) | (((! "division2_replicate_7_15_B_8_16"?) | ((("division2_replicate_13_7_A_12_7"?) | ("division1_mutate_9_14_A"?))))))) & (! "division2_replicate_2_5_B_2_6"?))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F (((((("division2_mutate_11_13_B_11_12"?) & ((("division2_replicate_10_2_B_9_3"?) & ("division2_replicate_13_19_A_12_20"?))))) | (! ! "division2_replicate_13_3_B_14_2"?))) | ((("division1_replicate_12_3_B"?) & ("division2_replicate_18_16_A_19_17"?))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F "division2_replicate_10_19_A_10_20"?
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F (((((("division2_replicate_16_11_A_15_10"?) | ((("division2_replicate_10_2_A_9_1"?) & ("division2_replicate_13_12_B_14_11"?))))) & ((((("division2_replicate_5_3_B_6_3"?) | ("division2_replicate_16_15_B_16_14"?))) | (! "division2_mutate_4_13_B_5_13"?))))) | ((((("division2_mutate_4_1_B_5_2"?) & (! "division2_mutate_14_2_A_15_3"?))) | ((("division2_replicate_12_3_B_11_3"?) | ((("division2_replicate_20_20_B_19_20"?) | ("division2_mutate_14_19_A_13_18"?))))))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F (("division1_replicate_1_2_A"?) & ((("division2_mutate_11_16_A_11_15"?) & ((((("division2_replicate_15_15_B_16_14"?) | ("division2_mutate_15_7_A_15_6"?))) | ("division2_mutate_15_20_B_16_19"?))))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ((((! ! "division2_mutate_4_12_A_3_11"?) & ((("division2_replicate_10_1_B_11_2"?) & ((("division2_replicate_9_11_B_9_12"?) | ("division2_replicate_9_7_B_9_6"?))))))) | (! ((! "division2_mutate_15_14_B_16_14"?) & ((("division2_mutate_18_13_B_17_14"?) & ("division2_mutate_18_14_B_19_13"?))))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F ((((! "division2_mutate_7_11_B_6_10"?) | (! ! "division2_replicate_16_15_B_15_16"?))) & (((((! "division1_replicate_19_12_B"?) & ((("division2_replicate_14_16_B_14_17"?) & ("division2_mutate_17_15_B_18_15"?))))) & ("division2_mutate_1_16_A_1_15"?))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F (((((((("division2_replicate_10_6_B_10_5"?) & ("division2_mutate_20_16_A_19_17"?))) & (! "division2_mutate_5_3_B_4_2"?))) & ("division2_replicate_7_18_A_6_18"?))) & ((((((("division2_replicate_19_12_A_19_13"?) & ("division2_mutate_14_8_A_15_8"?))) & ("division2_replicate_15_7_A_15_8"?))) | ((((("division2_replicate_14_5_B_13_6"?) | ("division2_mutate_11_11_B_10_12"?))) & ((("division2_mutate_14_13_B_13_12"?) & ("division2_replicate_12_16_B_11_15"?))))))))
+  end.
+Property PhaseVariation-PT-D20CS010-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    A G ! ! ! (("division2_mutate_1_10_B_1_9"?) & ("division2_mutate_20_15_B_20_16"?))
+  end.

@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ! ((((((3) <= (#tokens("cAMP__4_1_")))) | (((1) <= (#tokens("cAMP__2_4_")))))) | (((#tokens("cAMP__3_1_")) <= (#tokens("cAMP__3_3_")))))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ((((#tokens("cAMP__3_5_")) <= (#tokens("cAMP__5_3_")))) | (((((#tokens("cAMP__4_2_")) <= (#tokens("cAMP__1_2_")))) | (((((2) <= (#tokens("cAMP__1_2_")))) | (((#tokens("cAMP__1_3_")) <= (#tokens("cAMP__2_5_")))))))))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ! ((3) <= (#tokens("cAMP__1_3_")))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ((((((3) <= (#tokens("cAMP__3_4_")))) | (((1) <= (#tokens("cAMP__3_3_")))))) | (((3) <= (#tokens("cAMP__3_4_")))))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ! ((((3) <= (#tokens("cAMP__3_3_")))) & (((((#tokens("cAMP__4_4_")) <= (#tokens("cAMP__4_1_")))) & (((3) <= (#tokens("cAMP__4_1_")))))))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("cAMP__1_2_")))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("cAMP__1_1_")))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("cAMP__5_2_")) <= (#tokens("cAMP__1_1_")))) & (((#tokens("cAMP__3_2_")) <= (#tokens("cAMP__2_2_")))))) | (((((3) <= (#tokens("cAMP__3_2_")))) & (((3) <= (#tokens("cAMP__4_5_")))))))) & (((3) <= (#tokens("cAMP__3_2_")))))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((! ((((#tokens("cAMP__1_4_")) <= (#tokens("cAMP__2_5_")))) | (((3) <= (#tokens("cAMP__4_2_")))))) | (((! ((3) <= (#tokens("cAMP__4_2_")))) | (((((#tokens("cAMP__4_5_")) <= (#tokens("cAMP__1_4_")))) | (((#tokens("cAMP__5_1_")) <= (#tokens("cAMP__5_2_")))))))))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ! ((! ((2) <= (#tokens("cAMP__3_3_")))) & (((1) <= (#tokens("cAMP__3_3_")))))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ! ((((((3) <= (#tokens("cAMP__3_2_")))) | (((#tokens("cAMP__1_2_")) <= (#tokens("cAMP__5_3_")))))) | (! ((2) <= (#tokens("cAMP__2_5_")))))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((! ((3) <= (#tokens("cAMP__5_1_")))) | (((((((#tokens("cAMP__1_3_")) <= (#tokens("cAMP__1_2_")))) & (((3) <= (#tokens("cAMP__5_4_")))))) | (((#tokens("cAMP__1_4_")) <= (#tokens("cAMP__1_1_")))))))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ((((((((3) <= (#tokens("cAMP__4_2_")))) | (((1) <= (#tokens("cAMP__5_1_")))))) & (((((#tokens("cAMP__2_4_")) <= (#tokens("cAMP__4_3_")))) | (((2) <= (#tokens("cAMP__2_3_")))))))) & (! ! ((3) <= (#tokens("cAMP__3_4_")))))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    A G ((#tokens("cAMP__5_3_")) <= (#tokens("cAMP__5_3_")))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ((((((((3) <= (#tokens("cAMP__2_3_")))) | (((#tokens("cAMP__4_4_")) <= (#tokens("cAMP__1_2_")))))) & (! ((3) <= (#tokens("cAMP__2_2_")))))) | (((((3) <= (#tokens("cAMP__4_4_")))) | (! ((3) <= (#tokens("cAMP__2_4_")))))))
+  end.
+Property Diffusion2D-PT-D05N350-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((((((((1) <= (#tokens("cAMP__4_1_")))) & (((1) <= (#tokens("cAMP__5_1_")))))) | (((#tokens("cAMP__5_2_")) <= (#tokens("cAMP__5_1_")))))) | (((((2) <= (#tokens("cAMP__5_1_")))) | (((1) <= (#tokens("cAMP__3_3_")))))))
+  end.

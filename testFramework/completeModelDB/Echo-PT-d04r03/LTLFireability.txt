@@ -1,0 +1,80 @@
+Property Echo-PT-d04r03-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G (((("t650"?) U ("t666"?))) U (G F "t320"?))
+  end.
+Property Echo-PT-d04r03-LTLFireability-1
+  "Automatically generated"
+  is:
+    A G G X F G "t579"?
+  end.
+Property Echo-PT-d04r03-LTLFireability-2
+  "Automatically generated"
+  is:
+    A G G F X G "t346"?
+  end.
+Property Echo-PT-d04r03-LTLFireability-3
+  "Automatically generated"
+  is:
+    A ((G X F "t19"?) U (X (("t264"?) U ("t80"?))))
+  end.
+Property Echo-PT-d04r03-LTLFireability-4
+  "Automatically generated"
+  is:
+    A ((F "t303"?) U (X G X "t173"?))
+  end.
+Property Echo-PT-d04r03-LTLFireability-5
+  "Automatically generated"
+  is:
+    A ((X "t183"?) U (G F F "t513"?))
+  end.
+Property Echo-PT-d04r03-LTLFireability-6
+  "Automatically generated"
+  is:
+    A F (((("t392"?) U ("t431"?))) U (F F "t538"?))
+  end.
+Property Echo-PT-d04r03-LTLFireability-7
+  "Automatically generated"
+  is:
+    A F X F (("t80"?) U ("t356"?))
+  end.
+Property Echo-PT-d04r03-LTLFireability-8
+  "Automatically generated"
+  is:
+    A "t1"?
+  end.
+Property Echo-PT-d04r03-LTLFireability-9
+  "Automatically generated"
+  is:
+    A G (((("t62"?) U ("t356"?))) U (X G "t256"?))
+  end.
+Property Echo-PT-d04r03-LTLFireability-10
+  "Automatically generated"
+  is:
+    A X X G F X "t27"?
+  end.
+Property Echo-PT-d04r03-LTLFireability-11
+  "Automatically generated"
+  is:
+    A G X X (("t265"?) U ("t55"?))
+  end.
+Property Echo-PT-d04r03-LTLFireability-12
+  "Automatically generated"
+  is:
+    A ((G (("t664"?) U ("t649"?))) U ("t679"?))
+  end.
+Property Echo-PT-d04r03-LTLFireability-13
+  "Automatically generated"
+  is:
+    A G F ((G "t673"?) U ("t602"?))
+  end.
+Property Echo-PT-d04r03-LTLFireability-14
+  "Automatically generated"
+  is:
+    A F X "t262"?
+  end.
+Property Echo-PT-d04r03-LTLFireability-15
+  "Automatically generated"
+  is:
+    A ((F "t440"?) U (X X G "t9"?))
+  end.

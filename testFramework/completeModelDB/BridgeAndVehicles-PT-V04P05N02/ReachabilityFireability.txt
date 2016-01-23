@@ -1,0 +1,80 @@
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F ((((((((("decision_0_1", "decision_1_1", "decision_0_2", "decision_1_2")?) & ("liberation_B"?))) & (((("basculement_1", "basculement_2")?) & (("timeout_A_0_1_0_1", "timeout_A_1_1_0_1", "timeout_A_2_1_0_1", "timeout_A_0_1_0_2", "timeout_A_1_1_0_2", "timeout_A_2_1_0_2", "timeout_A_0_1_0_3", "timeout_A_1_1_0_3", "timeout_A_2_1_0_3", "timeout_A_0_1_0_4", "timeout_A_1_1_0_4", "timeout_A_2_1_0_4")?))))) & (("enregistrement_B_0", "enregistrement_B_1", "enregistrement_B_2", "enregistrement_B_3", "enregistrement_B_4")?))) & (! ! ((("timeout_B_0_2_1_0", "timeout_B_1_2_1_0", "timeout_B_2_2_1_0", "timeout_B_0_2_2_0", "timeout_B_1_2_2_0", "timeout_B_2_2_2_0", "timeout_B_0_2_3_0", "timeout_B_1_2_3_0", "timeout_B_2_2_3_0", "timeout_B_0_2_4_0", "timeout_B_1_2_4_0", "timeout_B_2_2_4_0")?) & (("timeout_A_0_1_0_1", "timeout_A_1_1_0_1", "timeout_A_2_1_0_1", "timeout_A_0_1_0_2", "timeout_A_1_1_0_2", "timeout_A_2_1_0_2", "timeout_A_0_1_0_3", "timeout_A_1_1_0_3", "timeout_A_2_1_0_3", "timeout_A_0_1_0_4", "timeout_A_1_1_0_4", "timeout_A_2_1_0_4")?))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F ((("decision_0_1", "decision_1_1", "decision_0_2", "decision_1_2")?) & ((("liberation_B"?) & (! ((("decision_0_1", "decision_1_1", "decision_0_2", "decision_1_2")?) | ("liberation_B"?))))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    A G ! ((((("timeout_B_0_2_1_0", "timeout_B_1_2_1_0", "timeout_B_2_2_1_0", "timeout_B_0_2_2_0", "timeout_B_1_2_2_0", "timeout_B_2_2_2_0", "timeout_B_0_2_3_0", "timeout_B_1_2_3_0", "timeout_B_2_2_3_0", "timeout_B_0_2_4_0", "timeout_B_1_2_4_0", "timeout_B_2_2_4_0")?) & (! ("timeout_A_0_1_0_1", "timeout_A_1_1_0_1", "timeout_A_2_1_0_1", "timeout_A_0_1_0_2", "timeout_A_1_1_0_2", "timeout_A_2_1_0_2", "timeout_A_0_1_0_3", "timeout_A_1_1_0_3", "timeout_A_2_1_0_3", "timeout_A_0_1_0_4", "timeout_A_1_1_0_4", "timeout_A_2_1_0_4")?))) & (("altern_cpt_2_1", "altern_cpt_2_2")?))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F ((((((("decision_0_1", "decision_1_1", "decision_0_2", "decision_1_2")?) | (! "liberation_A"?))) & (((("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?) | (((("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?) | ("liberation_A"?))))))) & (((((((("decision_0_1", "decision_1_1", "decision_0_2", "decision_1_2")?) | (("autorisation_A_1_1", "autorisation_A_1_2", "autorisation_A_1_3", "autorisation_A_1_4")?))) & (! "liberation_A"?))) & (! ((("autorisation_A_1_1", "autorisation_A_1_2", "autorisation_A_1_3", "autorisation_A_1_4")?) | (("enregistrement_B_0", "enregistrement_B_1", "enregistrement_B_2", "enregistrement_B_3", "enregistrement_B_4")?))))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    A G ! ! ! (("liberation_A"?) & ("liberation_B"?))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    A G ((("timeout_B_0_2_1_0", "timeout_B_1_2_1_0", "timeout_B_2_2_1_0", "timeout_B_0_2_2_0", "timeout_B_1_2_2_0", "timeout_B_2_2_2_0", "timeout_B_0_2_3_0", "timeout_B_1_2_3_0", "timeout_B_2_2_3_0", "timeout_B_0_2_4_0", "timeout_B_1_2_4_0", "timeout_B_2_2_4_0")?) | (((! ((("autorisation_A_1_1", "autorisation_A_1_2", "autorisation_A_1_3", "autorisation_A_1_4")?) & (("altern_cpt_2_1", "altern_cpt_2_2")?))) | (! ! ("timeout_A_0_1_0_1", "timeout_A_1_1_0_1", "timeout_A_2_1_0_1", "timeout_A_0_1_0_2", "timeout_A_1_1_0_2", "timeout_A_2_1_0_2", "timeout_A_0_1_0_3", "timeout_A_1_1_0_3", "timeout_A_2_1_0_3", "timeout_A_0_1_0_4", "timeout_A_1_1_0_4", "timeout_A_2_1_0_4")?))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F ((("timeout_A_0_1_0_1", "timeout_A_1_1_0_1", "timeout_A_2_1_0_1", "timeout_A_0_1_0_2", "timeout_A_1_1_0_2", "timeout_A_2_1_0_2", "timeout_A_0_1_0_3", "timeout_A_1_1_0_3", "timeout_A_2_1_0_3", "timeout_A_0_1_0_4", "timeout_A_1_1_0_4", "timeout_A_2_1_0_4")?) & (("timeout_B_0_2_1_0", "timeout_B_1_2_1_0", "timeout_B_2_2_1_0", "timeout_B_0_2_2_0", "timeout_B_1_2_2_0", "timeout_B_2_2_2_0", "timeout_B_0_2_3_0", "timeout_B_1_2_3_0", "timeout_B_2_2_3_0", "timeout_B_0_2_4_0", "timeout_B_1_2_4_0", "timeout_B_2_2_4_0")?))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F ((((! ("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?) & (((((("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?) | (("enregistrement_B_0", "enregistrement_B_1", "enregistrement_B_2", "enregistrement_B_3", "enregistrement_B_4")?))) & (((("altern_cpt_2_1", "altern_cpt_2_2")?) | (("timeout_A_0_1_0_1", "timeout_A_1_1_0_1", "timeout_A_2_1_0_1", "timeout_A_0_1_0_2", "timeout_A_1_1_0_2", "timeout_A_2_1_0_2", "timeout_A_0_1_0_3", "timeout_A_1_1_0_3", "timeout_A_2_1_0_3", "timeout_A_0_1_0_4", "timeout_A_1_1_0_4", "timeout_A_2_1_0_4")?))))))) & (("basculement_1", "basculement_2")?))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F ((! ! ("timeout_A_0_1_0_1", "timeout_A_1_1_0_1", "timeout_A_2_1_0_1", "timeout_A_0_1_0_2", "timeout_A_1_1_0_2", "timeout_A_2_1_0_2", "timeout_A_0_1_0_3", "timeout_A_1_1_0_3", "timeout_A_2_1_0_3", "timeout_A_0_1_0_4", "timeout_A_1_1_0_4", "timeout_A_2_1_0_4")?) & (("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F ! ! ((((("decision_0_1", "decision_1_1", "decision_0_2", "decision_1_2")?) & ("liberation_A"?))) & (((("basculement_1", "basculement_2")?) & (("decision_0_1", "decision_1_1", "decision_0_2", "decision_1_2")?))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    A G ! ((((((("basculement_1", "basculement_2")?) & (("basculement_1", "basculement_2")?))) & (((("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?) & (("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?))))) & (("autorisation_A_1_1", "autorisation_A_1_2", "autorisation_A_1_3", "autorisation_A_1_4")?))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F ! ((((! ("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?) | ("liberation_A"?))) | (! ((("basculement_1", "basculement_2")?) & (("timeout_B_0_2_1_0", "timeout_B_1_2_1_0", "timeout_B_2_2_1_0", "timeout_B_0_2_2_0", "timeout_B_1_2_2_0", "timeout_B_2_2_2_0", "timeout_B_0_2_3_0", "timeout_B_1_2_3_0", "timeout_B_2_2_3_0", "timeout_B_0_2_4_0", "timeout_B_1_2_4_0", "timeout_B_2_2_4_0")?))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ((("basculement_1", "basculement_2")?) | (! (((("liberation_A"?) | ("liberation_A"?))) & (((("timeout_A_0_1_0_1", "timeout_A_1_1_0_1", "timeout_A_2_1_0_1", "timeout_A_0_1_0_2", "timeout_A_1_1_0_2", "timeout_A_2_1_0_2", "timeout_A_0_1_0_3", "timeout_A_1_1_0_3", "timeout_A_2_1_0_3", "timeout_A_0_1_0_4", "timeout_A_1_1_0_4", "timeout_A_2_1_0_4")?) & ("liberation_B"?))))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    A G ! ! ((! ("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?) | (! ("altern_cpt_2_1", "altern_cpt_2_2")?))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F ((((("altern_cpt_2_1", "altern_cpt_2_2")?) & (((((("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?) | (("altern_cpt_2_1", "altern_cpt_2_2")?))) & ((("liberation_B"?) & (("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?))))))) & (! ((((("timeout_B_0_2_1_0", "timeout_B_1_2_1_0", "timeout_B_2_2_1_0", "timeout_B_0_2_2_0", "timeout_B_1_2_2_0", "timeout_B_2_2_2_0", "timeout_B_0_2_3_0", "timeout_B_1_2_3_0", "timeout_B_2_2_3_0", "timeout_B_0_2_4_0", "timeout_B_1_2_4_0", "timeout_B_2_2_4_0")?) | (("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?))) & (("timeout_B_0_2_1_0", "timeout_B_1_2_1_0", "timeout_B_2_2_1_0", "timeout_B_0_2_2_0", "timeout_B_1_2_2_0", "timeout_B_2_2_2_0", "timeout_B_0_2_3_0", "timeout_B_1_2_3_0", "timeout_B_2_2_3_0", "timeout_B_0_2_4_0", "timeout_B_1_2_4_0", "timeout_B_2_2_4_0")?))))
+  end.
+Property BridgeAndVehicles-COL-V04P05N02-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F ! ((! ((("decision_0_1", "decision_1_1", "decision_0_2", "decision_1_2")?) & (("timeout_B_0_2_1_0", "timeout_B_1_2_1_0", "timeout_B_2_2_1_0", "timeout_B_0_2_2_0", "timeout_B_1_2_2_0", "timeout_B_2_2_2_0", "timeout_B_0_2_3_0", "timeout_B_1_2_3_0", "timeout_B_2_2_3_0", "timeout_B_0_2_4_0", "timeout_B_1_2_4_0", "timeout_B_2_2_4_0")?))) | (((("enregistrement_B_0", "enregistrement_B_1", "enregistrement_B_2", "enregistrement_B_3", "enregistrement_B_4")?) & (("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4")?))))
+  end.

@@ -1,0 +1,80 @@
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t3i4.8.7"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t3i1.8.2"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t3i4.8.3"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t4i2.3.1"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t3i2.8.3"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t2i3.1.8"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t3i2.8.6"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t1i4.1.7"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t2i1.5.8"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t4i1.4.1"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t4i3.3.1"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t2i3.4.2"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A G "t3i1.7.1"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t3i2.5.4"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t1i2.2.7"?
+  end.
+Property SquareGrid-PT-080408-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A G "t1i4.7.7"?
+  end.

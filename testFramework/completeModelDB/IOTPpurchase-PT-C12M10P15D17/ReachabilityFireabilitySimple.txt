@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "CheckDeliveryNote.t6.6"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "CheckDeliveryNote.t6.6"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "PutDeliveryResponse.t8.2"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "PaymentResponse.t3.9"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "GetWhatDeliver.t7.0"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "CheckPaymentReseitp.t3.10"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "GetDeliveryRequest.t8.0"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "GetPaymentAmount.t3.5"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "GetDeliveryResponse.t6.5"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "CheckDeliveryInfo.t6.3"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "PutPaymentRequest.t3.7"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "CheckDeliveryInfo.t6.3"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "GetPaymentRequest.t5.0"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "CheckDeliveryNote.t6.6"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "CheckDeliveryNote.t6.6"?
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "PaymentResponse.t3.9"?
+  end.

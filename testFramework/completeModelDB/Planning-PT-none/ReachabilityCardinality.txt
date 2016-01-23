@@ -1,0 +1,80 @@
+Property Planning-PT-none-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ((! ((((#tokens("p103")) <= (#tokens("p3")))) | (((2) <= (#tokens("p8")))))) & (((((((1) <= (#tokens("p94")))) | (((#tokens("p27")) <= (#tokens("p91")))))) | (! ((#tokens("p42")) <= (#tokens("p31")))))))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("p126")))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ((! ((((3) <= (#tokens("p114")))) & (((1) <= (#tokens("p5")))))) | (! ((((#tokens("p126")) <= (#tokens("p28")))) | (((1) <= (#tokens("p42")))))))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((((((1) <= (#tokens("p55")))) | (((((1) <= (#tokens("p85")))) | (((#tokens("p106")) <= (#tokens("p34")))))))) & (((((((#tokens("p121")) <= (#tokens("p97")))) & (((3) <= (#tokens("p27")))))) & (((((2) <= (#tokens("p84")))) | (((3) <= (#tokens("p93")))))))))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((((((((2) <= (#tokens("p42")))) | (((1) <= (#tokens("p103")))))) & (((((2) <= (#tokens("p25")))) & (((#tokens("p89")) <= (#tokens("p101")))))))) & (((((((#tokens("p72")) <= (#tokens("p114")))) | (((3) <= (#tokens("p118")))))) | (((((3) <= (#tokens("p51")))) & (((#tokens("p61")) <= (#tokens("p69")))))))))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ! ((((2) <= (#tokens("p17")))) & (! ((3) <= (#tokens("p101")))))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("p19")))) & (((((1) <= (#tokens("p63")))) | (((((#tokens("p109")) <= (#tokens("p50")))) & (((3) <= (#tokens("p53")))))))))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((#tokens("p6")) <= (#tokens("p6")))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ! ((((((3) <= (#tokens("p122")))) | (((1) <= (#tokens("p79")))))) | (((3) <= (#tokens("p81")))))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ((1) <= (#tokens("p125")))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("p19")))) & (((((#tokens("p78")) <= (#tokens("p81")))) & (((((#tokens("p68")) <= (#tokens("p55")))) & (((#tokens("p19")) <= (#tokens("p64")))))))))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    A G ((! ((#tokens("p117")) <= (#tokens("p107")))) | (((1) <= (#tokens("p15")))))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    A G ((((((#tokens("p51")) <= (#tokens("p116")))) | (((((#tokens("p102")) <= (#tokens("p97")))) & (((2) <= (#tokens("p77")))))))) | (((#tokens("p76")) <= (#tokens("p30")))))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("p17")))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("p14")))
+  end.
+Property Planning-PT-none-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ! ((((1) <= (#tokens("p95")))) | (((((2) <= (#tokens("p45")))) | (((#tokens("p75")) <= (#tokens("p26")))))))
+  end.

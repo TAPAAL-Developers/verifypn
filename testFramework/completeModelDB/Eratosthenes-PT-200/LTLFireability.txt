@@ -1,0 +1,80 @@
+Property Eratosthenes-PT-200-LTLFireability-0
+  "Automatically generated"
+  is:
+    A "t12.3"?
+  end.
+Property Eratosthenes-PT-200-LTLFireability-1
+  "Automatically generated"
+  is:
+    A (("t119.7"?) U (X G X "t135.45"?))
+  end.
+Property Eratosthenes-PT-200-LTLFireability-2
+  "Automatically generated"
+  is:
+    A X G F X F "t126.18"?
+  end.
+Property Eratosthenes-PT-200-LTLFireability-3
+  "Automatically generated"
+  is:
+    A "t92.23"?
+  end.
+Property Eratosthenes-PT-200-LTLFireability-4
+  "Automatically generated"
+  is:
+    A ((X F F "t110.5"?) U (G F F "t77.11"?))
+  end.
+Property Eratosthenes-PT-200-LTLFireability-5
+  "Automatically generated"
+  is:
+    A "t52.26"?
+  end.
+Property Eratosthenes-PT-200-LTLFireability-6
+  "Automatically generated"
+  is:
+    A "t159.53"?
+  end.
+Property Eratosthenes-PT-200-LTLFireability-7
+  "Automatically generated"
+  is:
+    A ((F X G "t168.12"?) U ("t140.2"?))
+  end.
+Property Eratosthenes-PT-200-LTLFireability-8
+  "Automatically generated"
+  is:
+    A F X F X X "t183.61"?
+  end.
+Property Eratosthenes-PT-200-LTLFireability-9
+  "Automatically generated"
+  is:
+    A F "t46.2"?
+  end.
+Property Eratosthenes-PT-200-LTLFireability-10
+  "Automatically generated"
+  is:
+    A F G "t54.6"?
+  end.
+Property Eratosthenes-PT-200-LTLFireability-11
+  "Automatically generated"
+  is:
+    A ((X (("t128.4"?) U ("t141.47"?))) U (X (("t75.3"?) U ("t81.3"?))))
+  end.
+Property Eratosthenes-PT-200-LTLFireability-12
+  "Automatically generated"
+  is:
+    A "t170.17"?
+  end.
+Property Eratosthenes-PT-200-LTLFireability-13
+  "Automatically generated"
+  is:
+    A X G F (("t188.2"?) U ("t108.54"?))
+  end.
+Property Eratosthenes-PT-200-LTLFireability-14
+  "Automatically generated"
+  is:
+    A ((G F "t16.4"?) U (F (("t172.86"?) U ("t175.35"?))))
+  end.
+Property Eratosthenes-PT-200-LTLFireability-15
+  "Automatically generated"
+  is:
+    A G X G G "t200.5"?
+  end.

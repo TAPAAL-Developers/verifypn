@@ -1,0 +1,80 @@
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t3i1.13.13"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t2i1.7.13"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t3i1.13.10"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t1i4.1.13"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t2i3.12.13"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t4i2.13.1"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t1i3.1.13"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t4i3.9.1"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t2i3.7.13"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t3i1.13.4"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t1i2.1.1"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t1i3.1.4"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t4i3.1.1"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t1i3.1.5"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A G "t2i1.13.4"?
+  end.
+Property SquareGrid-PT-130613-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A G "tf-r.5"?
+  end.

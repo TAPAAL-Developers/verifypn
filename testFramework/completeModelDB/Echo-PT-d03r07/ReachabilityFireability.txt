@@ -1,0 +1,80 @@
+Property Echo-PT-d03r07-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    A G ! ((((! "t2292"?) | ((("t1904"?) | ("t699"?))))) & ("t418"?))
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    A G ((((! "t3434"?) & (! (("t2609"?) | ("t1241"?))))) | ("t1414"?))
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F "t1903"?
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F "t1880"?
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F "t1200"?
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F "t1295"?
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F "t372"?
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    A G ((((((! "t3384"?) | ((("t1152"?) | ("t3361"?))))) & ((("t1185"?) & (! "t2273"?))))) | ((((((("t3251"?) | ("t654"?))) | (! "t774"?))) | (((! "t444"?) & ("t1288"?))))))
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F (((((("t1795"?) & ((("t1538"?) | ("t2442"?))))) | ((((("t2120"?) | ("t3146"?))) | ((("t1154"?) & ("t1689"?))))))) & (! (((("t555"?) & ("t1590"?))) | ((("t1145"?) | ("t1177"?))))))
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F "t1669"?
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F ((! (("t1841"?) | (! "t2969"?))) | ((((((("t3061"?) & ("t2232"?))) | ("t16"?))) & ("t2070"?))))
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F "t877"?
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    A G ((! "t1557"?) | ((((((("t1505"?) & ("t2369"?))) | (! "t3457"?))) & (! ! "t3247"?))))
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F "t906"?
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F (((((((("t499"?) | ("t1246"?))) | ((("t2484"?) | ("t2337"?))))) | ((((("t1974"?) | ("t2924"?))) & ("t2821"?))))) | ((((("t2657"?) | ((("t1099"?) & ("t1960"?))))) & ((((("t436"?) | ("t1614"?))) & ((("t472"?) | ("t1169"?))))))))
+  end.
+Property Echo-PT-d03r07-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F (("t2730"?) & (((! (("t2149"?) & ("t1995"?))) | (! (("t2619"?) & ("t1122"?))))))
+  end.

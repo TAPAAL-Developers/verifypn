@@ -1,0 +1,80 @@
+Property LamportFastMutEx-COL-8-LTLFireability-0
+  "Automatically generated"
+  is:
+    A F G ("setx_3_1", "setx_3_2", "setx_3_3", "setx_3_4", "setx_3_5", "setx_3_6", "setx_3_7", "setx_3_8", "setx_3_9", "setx_3_10", "setx_3_11", "setx_3_12", "setx_3_13", "setx_3_14", "setx_3_15", "setx_3_16", "setx_3_17", "setx_3_18", "setx_3_19", "setx_3_20", "setx_3_21", "setx_3_22", "setx_3_23", "setx_3_24", "setx_3_25", "setx_3_26", "setx_3_27", "setx_3_28", "setx_3_29", "setx_3_30", "setx_3_31", "setx_3_32", "setx_3_33", "setx_3_34", "setx_3_35", "setx_3_36", "setx_3_37", "setx_3_38", "setx_3_39", "setx_3_40", "setx_3_41", "setx_3_42", "setx_3_43", "setx_3_44", "setx_3_45", "setx_3_46", "setx_3_47", "setx_3_48", "setx_3_49", "setx_3_50", "setx_3_51", "setx_3_52", "setx_3_53", "setx_3_54", "setx_3_55", "setx_3_56", "setx_3_57", "setx_3_58", "setx_3_59", "setx_3_60", "setx_3_61", "setx_3_62", "setx_3_63", "setx_3_64", "setx_3_65", "setx_3_66", "setx_3_67", "setx_3_68", "setx_3_69", "setx_3_70", "setx_3_71", "setx_3_72", "setx_3_73", "setx_3_74", "setx_3_75", "setx_3_76", "setx_3_77", "setx_3_78", "setx_3_79", "setx_3_80", "setx_3_81")?
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-1
+  "Automatically generated"
+  is:
+    A ("awaity_1", "awaity_2", "awaity_3", "awaity_4", "awaity_5", "awaity_6", "awaity_7", "awaity_8", "awaity_9")?
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-2
+  "Automatically generated"
+  is:
+    A ((("setbi_2_1", "setbi_2_2", "setbi_2_3", "setbi_2_4", "setbi_2_5", "setbi_2_6", "setbi_2_7", "setbi_2_8", "setbi_2_9", "setbi_2_10", "setbi_2_11", "setbi_2_12", "setbi_2_13", "setbi_2_14", "setbi_2_15", "setbi_2_16", "setbi_2_17", "setbi_2_18")?) U (X F X ("yeqi_15_1", "yeqi_15_11", "yeqi_15_21", "yeqi_15_31", "yeqi_15_41", "yeqi_15_51", "yeqi_15_61", "yeqi_15_71", "yeqi_15_81")?))
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-3
+  "Automatically generated"
+  is:
+    A ("yne0_4_2", "yne0_4_3", "yne0_4_4", "yne0_4_5", "yne0_4_6", "yne0_4_7", "yne0_4_8", "yne0_4_9", "yne0_4_11", "yne0_4_12", "yne0_4_13", "yne0_4_14", "yne0_4_15", "yne0_4_16", "yne0_4_17", "yne0_4_18", "yne0_4_20", "yne0_4_21", "yne0_4_22", "yne0_4_23", "yne0_4_24", "yne0_4_25", "yne0_4_26", "yne0_4_27", "yne0_4_29", "yne0_4_30", "yne0_4_31", "yne0_4_32", "yne0_4_33", "yne0_4_34", "yne0_4_35", "yne0_4_36", "yne0_4_38", "yne0_4_39", "yne0_4_40", "yne0_4_41", "yne0_4_42", "yne0_4_43", "yne0_4_44", "yne0_4_45", "yne0_4_47", "yne0_4_48", "yne0_4_49", "yne0_4_50", "yne0_4_51", "yne0_4_52", "yne0_4_53", "yne0_4_54", "yne0_4_56", "yne0_4_57", "yne0_4_58", "yne0_4_59", "yne0_4_60", "yne0_4_61", "yne0_4_62", "yne0_4_63", "yne0_4_65", "yne0_4_66", "yne0_4_67", "yne0_4_68", "yne0_4_69", "yne0_4_70", "yne0_4_71", "yne0_4_72", "yne0_4_74", "yne0_4_75", "yne0_4_76", "yne0_4_77", "yne0_4_78", "yne0_4_79", "yne0_4_80", "yne0_4_81")?
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X X ("ynei_15_2", "ynei_15_3", "ynei_15_4", "ynei_15_5", "ynei_15_6", "ynei_15_7", "ynei_15_8", "ynei_15_9", "ynei_15_10", "ynei_15_12", "ynei_15_13", "ynei_15_14", "ynei_15_15", "ynei_15_16", "ynei_15_17", "ynei_15_18", "ynei_15_19", "ynei_15_20", "ynei_15_22", "ynei_15_23", "ynei_15_24", "ynei_15_25", "ynei_15_26", "ynei_15_27", "ynei_15_28", "ynei_15_29", "ynei_15_30", "ynei_15_32", "ynei_15_33", "ynei_15_34", "ynei_15_35", "ynei_15_36", "ynei_15_37", "ynei_15_38", "ynei_15_39", "ynei_15_40", "ynei_15_42", "ynei_15_43", "ynei_15_44", "ynei_15_45", "ynei_15_46", "ynei_15_47", "ynei_15_48", "ynei_15_49", "ynei_15_50", "ynei_15_52", "ynei_15_53", "ynei_15_54", "ynei_15_55", "ynei_15_56", "ynei_15_57", "ynei_15_58", "ynei_15_59", "ynei_15_60", "ynei_15_62", "ynei_15_63", "ynei_15_64", "ynei_15_65", "ynei_15_66", "ynei_15_67", "ynei_15_68", "ynei_15_69", "ynei_15_70", "ynei_15_72", "ynei_15_73", "ynei_15_74", "ynei_15_75", "ynei_15_76", "ynei_15_77", "ynei_15_78", "ynei_15_79", "ynei_15_80")?
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-5
+  "Automatically generated"
+  is:
+    A ("fordo_12_1", "fordo_12_2", "fordo_12_3", "fordo_12_4", "fordo_12_5", "fordo_12_6", "fordo_12_7", "fordo_12_8", "fordo_12_9")?
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-6
+  "Automatically generated"
+  is:
+    A X F X G ("setbi_5_1", "setbi_5_2", "setbi_5_3", "setbi_5_4", "setbi_5_5", "setbi_5_6", "setbi_5_7", "setbi_5_8", "setbi_5_9", "setbi_5_10", "setbi_5_11", "setbi_5_12", "setbi_5_13", "setbi_5_14", "setbi_5_15", "setbi_5_16", "setbi_5_17", "setbi_5_18")?
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-7
+  "Automatically generated"
+  is:
+    A ("xnei_10_2", "xnei_10_3", "xnei_10_4", "xnei_10_5", "xnei_10_6", "xnei_10_7", "xnei_10_8", "xnei_10_9", "xnei_10_10", "xnei_10_12", "xnei_10_13", "xnei_10_14", "xnei_10_15", "xnei_10_16", "xnei_10_17", "xnei_10_18", "xnei_10_19", "xnei_10_20", "xnei_10_22", "xnei_10_23", "xnei_10_24", "xnei_10_25", "xnei_10_26", "xnei_10_27", "xnei_10_28", "xnei_10_29", "xnei_10_30", "xnei_10_32", "xnei_10_33", "xnei_10_34", "xnei_10_35", "xnei_10_36", "xnei_10_37", "xnei_10_38", "xnei_10_39", "xnei_10_40", "xnei_10_42", "xnei_10_43", "xnei_10_44", "xnei_10_45", "xnei_10_46", "xnei_10_47", "xnei_10_48", "xnei_10_49", "xnei_10_50", "xnei_10_52", "xnei_10_53", "xnei_10_54", "xnei_10_55", "xnei_10_56", "xnei_10_57", "xnei_10_58", "xnei_10_59", "xnei_10_60", "xnei_10_62", "xnei_10_63", "xnei_10_64", "xnei_10_65", "xnei_10_66", "xnei_10_67", "xnei_10_68", "xnei_10_69", "xnei_10_70", "xnei_10_72", "xnei_10_73", "xnei_10_74", "xnei_10_75", "xnei_10_76", "xnei_10_77", "xnei_10_78", "xnei_10_79", "xnei_10_80")?
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-8
+  "Automatically generated"
+  is:
+    A G G F ("sety0_23_1", "sety0_23_2", "sety0_23_3", "sety0_23_4", "sety0_23_5", "sety0_23_6", "sety0_23_7", "sety0_23_8", "sety0_23_9", "sety0_23_10", "sety0_23_11", "sety0_23_12", "sety0_23_13", "sety0_23_14", "sety0_23_15", "sety0_23_16", "sety0_23_17", "sety0_23_18", "sety0_23_19", "sety0_23_20", "sety0_23_21", "sety0_23_22", "sety0_23_23", "sety0_23_24", "sety0_23_25", "sety0_23_26", "sety0_23_27", "sety0_23_28", "sety0_23_29", "sety0_23_30", "sety0_23_31", "sety0_23_32", "sety0_23_33", "sety0_23_34", "sety0_23_35", "sety0_23_36", "sety0_23_37", "sety0_23_38", "sety0_23_39", "sety0_23_40", "sety0_23_41", "sety0_23_42", "sety0_23_43", "sety0_23_44", "sety0_23_45", "sety0_23_46", "sety0_23_47", "sety0_23_48", "sety0_23_49", "sety0_23_50", "sety0_23_51", "sety0_23_52", "sety0_23_53", "sety0_23_54", "sety0_23_55", "sety0_23_56", "sety0_23_57", "sety0_23_58", "sety0_23_59", "sety0_23_60", "sety0_23_61", "sety0_23_62", "sety0_23_63", "sety0_23_64", "sety0_23_65", "sety0_23_66", "sety0_23_67", "sety0_23_68", "sety0_23_69", "sety0_23_70", "sety0_23_71", "sety0_23_72", "sety0_23_73", "sety0_23_74", "sety0_23_75", "sety0_23_76", "sety0_23_77", "sety0_23_78", "sety0_23_79", "sety0_23_80", "sety0_23_81")?
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-9
+  "Automatically generated"
+  is:
+    A G X X F ("xnei_10_2", "xnei_10_3", "xnei_10_4", "xnei_10_5", "xnei_10_6", "xnei_10_7", "xnei_10_8", "xnei_10_9", "xnei_10_10", "xnei_10_12", "xnei_10_13", "xnei_10_14", "xnei_10_15", "xnei_10_16", "xnei_10_17", "xnei_10_18", "xnei_10_19", "xnei_10_20", "xnei_10_22", "xnei_10_23", "xnei_10_24", "xnei_10_25", "xnei_10_26", "xnei_10_27", "xnei_10_28", "xnei_10_29", "xnei_10_30", "xnei_10_32", "xnei_10_33", "xnei_10_34", "xnei_10_35", "xnei_10_36", "xnei_10_37", "xnei_10_38", "xnei_10_39", "xnei_10_40", "xnei_10_42", "xnei_10_43", "xnei_10_44", "xnei_10_45", "xnei_10_46", "xnei_10_47", "xnei_10_48", "xnei_10_49", "xnei_10_50", "xnei_10_52", "xnei_10_53", "xnei_10_54", "xnei_10_55", "xnei_10_56", "xnei_10_57", "xnei_10_58", "xnei_10_59", "xnei_10_60", "xnei_10_62", "xnei_10_63", "xnei_10_64", "xnei_10_65", "xnei_10_66", "xnei_10_67", "xnei_10_68", "xnei_10_69", "xnei_10_70", "xnei_10_72", "xnei_10_73", "xnei_10_74", "xnei_10_75", "xnei_10_76", "xnei_10_77", "xnei_10_78", "xnei_10_79", "xnei_10_80")?
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-10
+  "Automatically generated"
+  is:
+    A F ("yeq0_4_1", "yeq0_4_2", "yeq0_4_3", "yeq0_4_4", "yeq0_4_5", "yeq0_4_6", "yeq0_4_7", "yeq0_4_8", "yeq0_4_9")?
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-11
+  "Automatically generated"
+  is:
+    A F X F ("xnei_10_2", "xnei_10_3", "xnei_10_4", "xnei_10_5", "xnei_10_6", "xnei_10_7", "xnei_10_8", "xnei_10_9", "xnei_10_10", "xnei_10_12", "xnei_10_13", "xnei_10_14", "xnei_10_15", "xnei_10_16", "xnei_10_17", "xnei_10_18", "xnei_10_19", "xnei_10_20", "xnei_10_22", "xnei_10_23", "xnei_10_24", "xnei_10_25", "xnei_10_26", "xnei_10_27", "xnei_10_28", "xnei_10_29", "xnei_10_30", "xnei_10_32", "xnei_10_33", "xnei_10_34", "xnei_10_35", "xnei_10_36", "xnei_10_37", "xnei_10_38", "xnei_10_39", "xnei_10_40", "xnei_10_42", "xnei_10_43", "xnei_10_44", "xnei_10_45", "xnei_10_46", "xnei_10_47", "xnei_10_48", "xnei_10_49", "xnei_10_50", "xnei_10_52", "xnei_10_53", "xnei_10_54", "xnei_10_55", "xnei_10_56", "xnei_10_57", "xnei_10_58", "xnei_10_59", "xnei_10_60", "xnei_10_62", "xnei_10_63", "xnei_10_64", "xnei_10_65", "xnei_10_66", "xnei_10_67", "xnei_10_68", "xnei_10_69", "xnei_10_70", "xnei_10_72", "xnei_10_73", "xnei_10_74", "xnei_10_75", "xnei_10_76", "xnei_10_77", "xnei_10_78", "xnei_10_79", "xnei_10_80")?
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-12
+  "Automatically generated"
+  is:
+    A X X G F X ("setbi_24_1", "setbi_24_2", "setbi_24_3", "setbi_24_4", "setbi_24_5", "setbi_24_6", "setbi_24_7", "setbi_24_8", "setbi_24_9", "setbi_24_10", "setbi_24_11", "setbi_24_12", "setbi_24_13", "setbi_24_14", "setbi_24_15", "setbi_24_16", "setbi_24_17", "setbi_24_18")?
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-13
+  "Automatically generated"
+  is:
+    A X ("ynei_15_2", "ynei_15_3", "ynei_15_4", "ynei_15_5", "ynei_15_6", "ynei_15_7", "ynei_15_8", "ynei_15_9", "ynei_15_10", "ynei_15_12", "ynei_15_13", "ynei_15_14", "ynei_15_15", "ynei_15_16", "ynei_15_17", "ynei_15_18", "ynei_15_19", "ynei_15_20", "ynei_15_22", "ynei_15_23", "ynei_15_24", "ynei_15_25", "ynei_15_26", "ynei_15_27", "ynei_15_28", "ynei_15_29", "ynei_15_30", "ynei_15_32", "ynei_15_33", "ynei_15_34", "ynei_15_35", "ynei_15_36", "ynei_15_37", "ynei_15_38", "ynei_15_39", "ynei_15_40", "ynei_15_42", "ynei_15_43", "ynei_15_44", "ynei_15_45", "ynei_15_46", "ynei_15_47", "ynei_15_48", "ynei_15_49", "ynei_15_50", "ynei_15_52", "ynei_15_53", "ynei_15_54", "ynei_15_55", "ynei_15_56", "ynei_15_57", "ynei_15_58", "ynei_15_59", "ynei_15_60", "ynei_15_62", "ynei_15_63", "ynei_15_64", "ynei_15_65", "ynei_15_66", "ynei_15_67", "ynei_15_68", "ynei_15_69", "ynei_15_70", "ynei_15_72", "ynei_15_73", "ynei_15_74", "ynei_15_75", "ynei_15_76", "ynei_15_77", "ynei_15_78", "ynei_15_79", "ynei_15_80")?
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-14
+  "Automatically generated"
+  is:
+    A X ("xnei_10_2", "xnei_10_3", "xnei_10_4", "xnei_10_5", "xnei_10_6", "xnei_10_7", "xnei_10_8", "xnei_10_9", "xnei_10_10", "xnei_10_12", "xnei_10_13", "xnei_10_14", "xnei_10_15", "xnei_10_16", "xnei_10_17", "xnei_10_18", "xnei_10_19", "xnei_10_20", "xnei_10_22", "xnei_10_23", "xnei_10_24", "xnei_10_25", "xnei_10_26", "xnei_10_27", "xnei_10_28", "xnei_10_29", "xnei_10_30", "xnei_10_32", "xnei_10_33", "xnei_10_34", "xnei_10_35", "xnei_10_36", "xnei_10_37", "xnei_10_38", "xnei_10_39", "xnei_10_40", "xnei_10_42", "xnei_10_43", "xnei_10_44", "xnei_10_45", "xnei_10_46", "xnei_10_47", "xnei_10_48", "xnei_10_49", "xnei_10_50", "xnei_10_52", "xnei_10_53", "xnei_10_54", "xnei_10_55", "xnei_10_56", "xnei_10_57", "xnei_10_58", "xnei_10_59", "xnei_10_60", "xnei_10_62", "xnei_10_63", "xnei_10_64", "xnei_10_65", "xnei_10_66", "xnei_10_67", "xnei_10_68", "xnei_10_69", "xnei_10_70", "xnei_10_72", "xnei_10_73", "xnei_10_74", "xnei_10_75", "xnei_10_76", "xnei_10_77", "xnei_10_78", "xnei_10_79", "xnei_10_80")?
+  end.
+Property LamportFastMutEx-COL-8-LTLFireability-15
+  "Automatically generated"
+  is:
+    A ("xeqi_10_1", "xeqi_10_11", "xeqi_10_21", "xeqi_10_31", "xeqi_10_41", "xeqi_10_51", "xeqi_10_61", "xeqi_10_71", "xeqi_10_81")?
+  end.

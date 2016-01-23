@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R100C002-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("r_1_70")) <= (3))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("r_1_83")) <= (1))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((bound("p_1_38")) <= (2))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("r_0_58")) <= (2))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((bound("p_1_70")) <= (1))) & (((((bound("r_0_7")) <= (1))) & (((bound("p_1_63")) <= (2))))))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((bound("r_0_62")) <= (1))) & (((((((bound("r_0_98")) <= (3))) & (((((((bound("r_0_41")) <= (2))) & (((((bound("r_1_16")) <= (3))) & (((bound("r_0_57")) <= (1))))))) & (((bound("r_1_19")) <= (2))))))) & (((bound("r_1_27")) <= (3))))))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((((((bound("r_0_30")) <= (1))) & (((bound("r_1_33")) <= (2))))) & (((((((bound("r_1_7")) <= (3))) & (((bound("p_0_70")) <= (2))))) & (((((bound("p_1_74")) <= (3))) & (((bound("r_0_86")) <= (3))))))))) & (((bound("r_0_46")) <= (2))))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((((bound("p_1_71")) <= (2))) & (((((bound("r_0_6")) <= (2))) & (((bound("r_0_84")) <= (3))))))) & (((((bound("p_0_42")) <= (2))) & (((bound("r_0_71")) <= (3))))))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((((bound("p_1_11")) <= (1))) & (((bound("p_0_10")) <= (2))))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((((((bound("p_1_81")) <= (1))) & (((bound("r_1_16")) <= (1))))) & (((bound("r_0_98")) <= (2))))) & (((((bound("r_1_55")) <= (3))) & (((((((bound("r_0_0")) <= (3))) & (((bound("p_0_34")) <= (2))))) & (((bound("p_0_80")) <= (3))))))))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((bound("p_1_43")) <= (1))) & (((((((bound("p_0_60")) <= (2))) & (((bound("p_0_42")) <= (1))))) & (((bound("r_0_0")) <= (1))))))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("p_1_95")) <= (1))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("p_0_27")) <= (3))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("p_0_80")) <= (1))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("p_1_36")) <= (3))
+  end.
+Property ResAllocation-PT-R100C002-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("p_0_62")) <= (1))
+  end.

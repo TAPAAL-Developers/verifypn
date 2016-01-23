@@ -1,0 +1,80 @@
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t176_to_177"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t14_to_15"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t62_to_63"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t176_to_177"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t146_to_147"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t29_to_30"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t116_to_117"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t191_to_192"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t89_to_90"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t47_to_48"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t170_to_171"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t92_to_93"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t56_to_57"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t152_to_153"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t11_to_12"?
+  end.
+Property CircularTrains-PT-192-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t158_to_159"?
+  end.

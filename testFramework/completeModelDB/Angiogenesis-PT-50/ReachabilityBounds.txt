@@ -1,0 +1,80 @@
+Property Angiogenesis-PT-50-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("KdStarGStarP3kStar")) <= (3))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("Pip3")) <= (2))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((bound("DAGE")) <= (2))) & (((((bound("GP3")) <= (3))) & (((((bound("KdStarGStarPgStarP2")) <= (2))) & (((((((((bound("GStarP3")) <= (3))) & (((bound("KdStarGStarPgStarP3")) <= (2))))) & (((((bound("KdStarGStarP3k")) <= (1))) & (((bound("Pip3")) <= (1))))))) & (((((bound("KdStarGStarP3kStarP2")) <= (2))) & (((bound("KdStarGP3")) <= (2))))))))))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((((((((bound("Gab1")) <= (3))) & (((((bound("KdStarGStarP3k")) <= (3))) & (((((bound("AktStar")) <= (3))) & (((bound("KdStarPgStarP2")) <= (3))))))))) & (((((((((bound("AktP3")) <= (3))) & (((bound("KdStarGStarPgP3")) <= (3))))) & (((bound("PtP3")) <= (3))))) & (((bound("DAGE")) <= (3))))))) & (((bound("KdStarGStarPg")) <= (1))))) & (((((((((((((bound("KdStarGStarPgStar")) <= (1))) & (((bound("PtP2")) <= (3))))) & (((bound("KdStarGStarPgStar")) <= (1))))) & (((bound("KdStarGStarP3kStar")) <= (2))))) & (((bound("GP3")) <= (3))))) & (((bound("DAG")) <= (1))))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((bound("GStarPgP3")) <= (2))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("KdStarGStarPgStar")) <= (3))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("PtP3")) <= (2))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("Pip3")) <= (2))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("KdStarGStarP3kP3")) <= (1))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("KdStarGP3")) <= (3))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((bound("Akt")) <= (2))) & (((((bound("KdStarGStarP3kStar")) <= (1))) & (((bound("KdStarGStarPgStar")) <= (3))))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("KdStarGStarP3")) <= (3))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("Akt")) <= (1))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("KdStarGStarP3kStarP3")) <= (1))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((((bound("PtP2")) <= (3))) & (((bound("KdStarGStar")) <= (1))))) & (((bound("GStarP3kP3")) <= (1))))
+  end.
+Property Angiogenesis-PT-50-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((((((bound("KdStarGStarP3kStarP3")) <= (3))) & (((bound("AktP3")) <= (2))))) & (((((((((((bound("DAG")) <= (2))) & (((bound("GStarPgP3")) <= (2))))) & (((((bound("Pg")) <= (1))) & (((bound("Pg")) <= (3))))))) & (((bound("KdStar")) <= (3))))) & (((bound("KdStarGStarP3kStar")) <= (2))))))) & (((((bound("KdStar")) <= (3))) & (((((bound("Pg")) <= (3))) & (((((bound("KdStarGStarPgP3")) <= (1))) & (((((((bound("P3k")) <= (3))) & (((bound("Gab1")) <= (1))))) & (((bound("KdStarGStarPgStarP3")) <= (2))))))))))))
+  end.

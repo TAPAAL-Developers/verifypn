@@ -1,0 +1,80 @@
+Property Eratosthenes-PT-500-CTLFireability-0
+  "Automatically generated"
+  is:
+    E ((A F ! "t455.7"?) U (((((! "t190.95"?) | (! "t451.41"?))) | (! (("t390.6"?) & ("t418.22"?))))))
+  end.
+Property Eratosthenes-PT-500-CTLFireability-1
+  "Automatically generated"
+  is:
+    ! ((A G (((("t156.13"?) | ("t434.7"?))) | (! "t203.29"?))) & ("t270.45"?))
+  end.
+Property Eratosthenes-PT-500-CTLFireability-2
+  "Automatically generated"
+  is:
+    ! ! ((E G "t357.3"?) | (! E X "t364.91"?))
+  end.
+Property Eratosthenes-PT-500-CTLFireability-3
+  "Automatically generated"
+  is:
+    A X ((! "t452.4"?) | (E X ! "t344.86"?))
+  end.
+Property Eratosthenes-PT-500-CTLFireability-4
+  "Automatically generated"
+  is:
+    ! E G E X "t296.74"?
+  end.
+Property Eratosthenes-PT-500-CTLFireability-5
+  "Automatically generated"
+  is:
+    ((((A F (((("t432.54"?) | ("t390.65"?))) & (! "t258.86"?))) | ("t400.50"?))) & (E G "t495.55"?))
+  end.
+Property Eratosthenes-PT-500-CTLFireability-6
+  "Automatically generated"
+  is:
+    ((((! ((((! "t96.24"?) | ("t441.7"?))) & (! "t396.11"?))) & (A G "t390.15"?))) | (((E G E X "t400.2"?) & ((((("t490.5"?) & ((("t218.2"?) | (! "t320.5"?))))) | (((A G "t413.59"?) | ((("t110.10"?) | (! "t126.2"?))))))))))
+  end.
+Property Eratosthenes-PT-500-CTLFireability-7
+  "Automatically generated"
+  is:
+    A F A X ! (("t396.4"?) | ("t216.108"?))
+  end.
+Property Eratosthenes-PT-500-CTLFireability-8
+  "Automatically generated"
+  is:
+    ((E G ((! (("t450.3"?) | ("t145.29"?))) | ((("t430.5"?) & ((("t432.2"?) | ("t192.12"?))))))) & ("t369.123"?))
+  end.
+Property Eratosthenes-PT-500-CTLFireability-9
+  "Automatically generated"
+  is:
+    ! ! E G A F "t484.44"?
+  end.
+Property Eratosthenes-PT-500-CTLFireability-10
+  "Automatically generated"
+  is:
+    E F (("t62.2"?) & (E G (("t42.2"?) & ("t290.2"?))))
+  end.
+Property Eratosthenes-PT-500-CTLFireability-11
+  "Automatically generated"
+  is:
+    E ((! (((("t364.7"?) | ("t69.3"?))) & (! "t42.7"?))) U (A G "t261.87"?))
+  end.
+Property Eratosthenes-PT-500-CTLFireability-12
+  "Automatically generated"
+  is:
+    E G E ((! "t261.9"?) U ((("t360.120"?) & ("t360.24"?))))
+  end.
+Property Eratosthenes-PT-500-CTLFireability-13
+  "Automatically generated"
+  is:
+    A F ! ((! (("t225.15"?) & ("t256.8"?))) | ((((("t465.15"?) | ("t488.4"?))) | ((("t354.59"?) & ("t394.197"?))))))
+  end.
+Property Eratosthenes-PT-500-CTLFireability-14
+  "Automatically generated"
+  is:
+    ((E (("t141.3"?) U ((("t284.142"?) | ((("t495.45"?) | ("t476.119"?))))))) & (((A G A F "t490.5"?) & (((((((! "t462.154"?) & ((("t70.5"?) & ("t363.121"?))))) | ((("t416.26"?) | ((("t20.4"?) | ("t200.100"?))))))) | (A F (("t256.8"?) | ("t342.6"?))))))))
+  end.
+Property Eratosthenes-PT-500-CTLFireability-15
+  "Automatically generated"
+  is:
+    ! ((A F (((("t154.11"?) & ("t392.4"?))) & (! "t290.29"?))) & ("t114.38"?))
+  end.

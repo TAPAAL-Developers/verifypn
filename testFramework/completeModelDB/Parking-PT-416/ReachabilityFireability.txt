@@ -1,0 +1,80 @@
+Property Parking-PT-416-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F (("t33"?) & ("t65"?))
+  end.
+Property Parking-PT-416-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    A G (((((((("t178"?) | ("t126"?))) | (! "t335"?))) & ((("t319"?) & ("t291"?))))) | (! "t294"?))
+  end.
+Property Parking-PT-416-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F ((! (((("t212"?) | ("t144"?))) | (! "t206"?))) & (! (((("t274"?) & ("t176"?))) | ((("t45"?) | ("t367"?))))))
+  end.
+Property Parking-PT-416-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F ((((! (("t110"?) | ("t256"?))) & (! (("t414"?) & ("t375"?))))) & ((((("t123"?) | ("t247"?))) & ((((("t143"?) & ("t51"?))) & ((("t243"?) | ("t367"?))))))))
+  end.
+Property Parking-PT-416-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F (((("t73"?) & (! ! "t140"?))) & (! (("t412"?) & ((("t395"?) | ("t298"?))))))
+  end.
+Property Parking-PT-416-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F ! (((((("t86"?) & ("t426"?))) | (! "t283"?))) | (((! "t418"?) | ((("t178"?) & ("t165"?))))))
+  end.
+Property Parking-PT-416-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F "t25"?
+  end.
+Property Parking-PT-416-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F (("t292"?) | ((((((("t303"?) | ("t361"?))) | ((("t214"?) & ("t432"?))))) & ((((("t174"?) | ("t64"?))) | (! "t94"?))))))
+  end.
+Property Parking-PT-416-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F "t372"?
+  end.
+Property Parking-PT-416-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F "t420"?
+  end.
+Property Parking-PT-416-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    A G ! (((((("t412"?) | ("t351"?))) | ((("t129"?) & ("t233"?))))) | ((((("t40"?) & ("t245"?))) & (! "t38"?))))
+  end.
+Property Parking-PT-416-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F (("t286"?) & ((((((("t353"?) & ("t48"?))) | ("t330"?))) | ("t74"?))))
+  end.
+Property Parking-PT-416-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F (((("t77"?) | ((((("t390"?) | ("t242"?))) & ((("t364"?) | ("t336"?))))))) & ((("t179"?) | ((((("t412"?) | ("t367"?))) & (! "t153"?))))))
+  end.
+Property Parking-PT-416-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    A G (((((((("t255"?) | ("t382"?))) & ((("t265"?) & ("t203"?))))) | ((((("t372"?) & ("t314"?))) | (! "t8"?))))) | ("t93"?))
+  end.
+Property Parking-PT-416-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F (((((((("t325"?) & ("t300"?))) | ((("t182"?) | ("t124"?))))) & (((! "t77"?) & ((("t120"?) | ("t324"?))))))) | (((((! "t100"?) & ((("t131"?) & ("t209"?))))) & ("t117"?))))
+  end.
+Property Parking-PT-416-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F "t78"?
+  end.

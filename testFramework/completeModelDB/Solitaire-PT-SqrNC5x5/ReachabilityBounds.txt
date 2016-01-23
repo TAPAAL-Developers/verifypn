@@ -1,0 +1,80 @@
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((((((bound("F52")) <= (2))) & (((((bound("F55")) <= (2))) & (((bound("F64")) <= (1))))))) & (((bound("T64")) <= (3))))) & (((bound("F45")) <= (2))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((((bound("F44")) <= (2))) & (((bound("F65")) <= (1))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((bound("T22")) <= (3))) & (((bound("T26")) <= (3))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((((bound("T64")) <= (2))) & (((((bound("F52")) <= (3))) & (((bound("F26")) <= (1))))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((bound("T65")) <= (1))) & (((bound("T55")) <= (3))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((((((bound("F23")) <= (2))) & (((bound("T64")) <= (3))))) & (((((((((((((bound("F25")) <= (3))) & (((bound("T32")) <= (2))))) & (((((bound("F23")) <= (3))) & (((bound("F46")) <= (1))))))) & (((((((bound("T46")) <= (2))) & (((bound("T42")) <= (3))))) & (((bound("F34")) <= (1))))))) & (((((bound("F43")) <= (2))) & (((((bound("T45")) <= (3))) & (((((bound("T32")) <= (1))) & (((bound("T34")) <= (2))))))))))) & (((((bound("F43")) <= (3))) & (((bound("T23")) <= (1))))))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((bound("F33")) <= (2))) & (((bound("T44")) <= (1))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((((((bound("F25")) <= (1))) & (((bound("T42")) <= (1))))) & (((bound("T56")) <= (1))))) & (((bound("T46")) <= (2))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("T44")) <= (3))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((bound("F45")) <= (1))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((bound("T44")) <= (2))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((bound("T54")) <= (2))) & (((((bound("T56")) <= (3))) & (((((((((bound("F55")) <= (2))) & (((((bound("F23")) <= (3))) & (((bound("T66")) <= (2))))))) & (((((((bound("T52")) <= (1))) & (((bound("T62")) <= (1))))) & (((bound("F64")) <= (3))))))) & (((((bound("T53")) <= (3))) & (((((bound("T54")) <= (2))) & (((((bound("F66")) <= (3))) & (((bound("T65")) <= (1))))))))))))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("F34")) <= (1))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("F62")) <= (3))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((((((((bound("F63")) <= (2))) & (((((((bound("T45")) <= (3))) & (((bound("T26")) <= (3))))) & (((((bound("F45")) <= (1))) & (((bound("F25")) <= (2))))))))) & (((((((bound("F35")) <= (3))) & (((((bound("T55")) <= (1))) & (((bound("F24")) <= (3))))))) & (((((((bound("T25")) <= (2))) & (((bound("T22")) <= (2))))) & (((bound("T32")) <= (1))))))))) & (((((bound("F63")) <= (1))) & (((bound("T42")) <= (3))))))) & (((((bound("T22")) <= (1))) & (((((((bound("T33")) <= (3))) & (((((((bound("F23")) <= (1))) & (((bound("T44")) <= (2))))) & (((((bound("F32")) <= (1))) & (((bound("T32")) <= (3))))))))) & (((bound("T34")) <= (1))))))))
+  end.
+Property Solitaire-PT-SqrNC5x5-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((bound("F34")) <= (3))
+  end.

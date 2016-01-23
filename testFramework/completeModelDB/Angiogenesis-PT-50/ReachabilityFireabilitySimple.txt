@@ -1,0 +1,80 @@
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "k15"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A G "k0"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A G "k31"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "k8"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "k9"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "k43"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "k25"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "k22"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "k7"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "k6"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "k52"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "k51"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "k11"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "k8"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "k45"?
+  end.
+Property Angiogenesis-PT-50-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "k13"?
+  end.

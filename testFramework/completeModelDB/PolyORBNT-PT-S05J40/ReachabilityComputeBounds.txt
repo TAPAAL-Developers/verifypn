@@ -1,0 +1,80 @@
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("TheSour_2", "TheSour_1", "TheSour_4", "TheSour_3", "TheSour_5")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("place_522_1")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("TheSour_2", "TheSour_1", "TheSour_4", "TheSour_3", "TheSour_5")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("FetchJobB_1")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("mi3")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("Check_Sources_B_1")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("place_458")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("QueueJobB_1_8", "QueueJobB_1_18", "QueueJobB_1_27", "QueueJobB_1_36", "QueueJobB_1_16", "QueueJobB_1_2", "QueueJobB_1_23", "QueueJobB_1_9", "QueueJobB_1_37", "QueueJobB_1_30", "QueueJobB_1_15", "QueueJobB_1_29", "QueueJobB_1_1", "QueueJobB_1_24", "QueueJobB_1_14", "QueueJobB_1_38", "QueueJobB_1_21", "QueueJobB_1_3", "QueueJobB_1_22", "QueueJobB_1_4", "QueueJobB_1_32", "QueueJobB_1_31", "QueueJobB_1_13", "QueueJobB_1_40", "QueueJobB_1_33", "QueueJobB_1_5", "QueueJobB_1_12", "QueueJobB_1_26", "QueueJobB_1_6", "QueueJobB_1_19", "QueueJobB_1_39", "QueueJobB_1_25", "QueueJobB_1_11", "QueueJobB_1_34", "QueueJobB_1_20", "QueueJobB_1_17", "QueueJobB_1_10", "QueueJobB_1_28", "QueueJobB_1_35", "QueueJobB_1_7", "QueueJobB_1_0")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("mo3")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("place_456")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("Check_Sources_E_1")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("block")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("place_458")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("place_460")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("cJobCnt")
+  end.
+Property PolyORBNT-COL-S05J40-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("f1_1", "f1_24", "f1_31", "f1_3", "f1_10", "f1_38", "f1_17", "f1_4", "f1_32", "f1_18", "f1_5", "f1_16", "f1_26", "f1_23", "f1_6", "f1_25", "f1_33", "f1_15", "f1_21", "f1_34", "f1_0", "f1_7", "f1_28", "f1_14", "f1_13", "f1_40", "f1_35", "f1_22", "f1_27", "f1_19", "f1_12", "f1_8", "f1_36", "f1_9", "f1_2", "f1_37", "f1_30", "f1_39", "f1_29", "f1_11", "f1_20")
+  end.

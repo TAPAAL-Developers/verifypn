@@ -1,0 +1,80 @@
+Property SquareGrid-PT-100510-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G "t4o.10.4"?
+  end.
+Property SquareGrid-PT-100510-LTLFireability-1
+  "Automatically generated"
+  is:
+    A X G F (("t4i1.6.7"?) U ("t3i2.10.7"?))
+  end.
+Property SquareGrid-PT-100510-LTLFireability-2
+  "Automatically generated"
+  is:
+    A X "t1i2.2.4"?
+  end.
+Property SquareGrid-PT-100510-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X F F G X "t3o.2.4"?
+  end.
+Property SquareGrid-PT-100510-LTLFireability-4
+  "Automatically generated"
+  is:
+    A "t4i1.2.7"?
+  end.
+Property SquareGrid-PT-100510-LTLFireability-5
+  "Automatically generated"
+  is:
+    A F F "t1o.9.1"?
+  end.
+Property SquareGrid-PT-100510-LTLFireability-6
+  "Automatically generated"
+  is:
+    A X ((G X "t3i1.1.1"?) U (G "t2i4.5.5"?))
+  end.
+Property SquareGrid-PT-100510-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X ((F X "t3i2.8.7"?) U ("t4i3.2.5"?))
+  end.
+Property SquareGrid-PT-100510-LTLFireability-8
+  "Automatically generated"
+  is:
+    A G F F "t4o.5.5"?
+  end.
+Property SquareGrid-PT-100510-LTLFireability-9
+  "Automatically generated"
+  is:
+    A "t3o.4.8"?
+  end.
+Property SquareGrid-PT-100510-LTLFireability-10
+  "Automatically generated"
+  is:
+    A (((("t2o.1.10"?) U (F "t3o.7.9"?))) U (G G X "t2i1.1.4"?))
+  end.
+Property SquareGrid-PT-100510-LTLFireability-11
+  "Automatically generated"
+  is:
+    A X X "t4i3.5.9"?
+  end.
+Property SquareGrid-PT-100510-LTLFireability-12
+  "Automatically generated"
+  is:
+    A "t1i2.4.7"?
+  end.
+Property SquareGrid-PT-100510-LTLFireability-13
+  "Automatically generated"
+  is:
+    A "t1i3.3.3"?
+  end.
+Property SquareGrid-PT-100510-LTLFireability-14
+  "Automatically generated"
+  is:
+    A "t2i1.8.5"?
+  end.
+Property SquareGrid-PT-100510-LTLFireability-15
+  "Automatically generated"
+  is:
+    A G G X X G "t3i2.4.9"?
+  end.

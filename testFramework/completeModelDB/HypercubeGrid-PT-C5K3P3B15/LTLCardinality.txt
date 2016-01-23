@@ -1,0 +1,80 @@
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A G ((3) <= (#tokens("pi.d5.n1.3.2.3.1.3")))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A ((G ((1) <= (#tokens("pb.d1.n2.1.1.2.1.1")))) U (F ((2) <= (#tokens("pil.d3.n1.1.1.3.3.1")))))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A F X ((((3) <= (#tokens("pil.d5.n1.3.3.2.3.4")))) U (((#tokens("pil.d5.n1.3.1.2.1.1")) <= (#tokens("pil.d3.n1.3.2.1.1.1")))))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A X F ((2) <= (#tokens("pb.d3.n1.1.3.1.2.2")))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A ((G ((#tokens("pol.d4.n1.2.3.3.2.2")) <= (#tokens("pi.d4.n1.3.2.2.4.2")))) U (G X ((3) <= (#tokens("pi.d5.n1.1.3.3.2.2")))))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A ((X G ((#tokens("pi.d3.n1.3.3.4.3.1")) <= (#tokens("pil.d4.n1.3.3.2.1.3")))) U (X ((2) <= (#tokens("pil.d1.n1.3.3.3.3.2")))))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A ((X G ((#tokens("pb.d1.n1.3.2.2.3.3")) <= (#tokens("pb.d4.n1.2.3.3.2.2")))) U (((((#tokens("pil.d2.n1.3.2.3.3.1")) <= (#tokens("pi.d1.n1.1.1.2.2.1")))) U (((3) <= (#tokens("pb.d2.n1.2.2.3.1.3")))))))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A X X ((((#tokens("pil.d5.n1.1.2.2.3.4")) <= (#tokens("po.d2.n1.1.1.1.3.1")))) U (((#tokens("pil.d3.n1.1.1.4.2.1")) <= (#tokens("pil.d5.n1.1.1.2.3.1")))))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A F ((X ((#tokens("pb.d5.n1.1.3.1.3.2")) <= (#tokens("pil.d5.n1.3.1.3.3.3")))) U (G ((#tokens("pbl.1.2.2.1.3")) <= (#tokens("pil.d1.n1.3.1.2.1.3")))))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((#tokens("po.d2.n1.1.4.3.3.2")) <= (#tokens("pb.d2.n2.2.1.1.1.2")))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A F F ((#tokens("pb.d4.n2.2.3.1.2.2")) <= (#tokens("pil.d1.n1.2.1.1.1.2")))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A G ((#tokens("pol.d3.n1.2.1.3.2.2")) <= (#tokens("pi.d4.n1.1.1.3.3.2")))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A X F X ((#tokens("po.d4.n1.3.3.2.4.2")) <= (#tokens("pbl.2.1.3.2.3")))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A X X X ((1) <= (#tokens("pb.d2.n1.2.2.3.2.2")))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((((#tokens("pi.d2.n1.3.1.2.1.2")) <= (#tokens("pi.d3.n1.3.2.3.3.1")))) U (X X ((1) <= (#tokens("pi.d4.n1.3.3.1.4.2")))))
+  end.
+Property HypercubeGrid-PT-C5K3P3B15-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A F ((#tokens("pi.d2.n1.3.4.3.3.3")) <= (#tokens("pb.d1.n2.3.3.1.2.3")))
+  end.

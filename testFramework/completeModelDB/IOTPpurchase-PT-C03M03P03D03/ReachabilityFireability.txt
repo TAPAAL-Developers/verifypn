@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-0
+  "Automatically generated"
+  is:
+    E F ! ((! (("GetPaymentRequest.t5.0"?) | ("PutOfferResponse.t2"?))) | (((! "t6.7"?) | ((("t6.7"?) & ("GetBrandList.t3.2"?))))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-1
+  "Automatically generated"
+  is:
+    E F ((((((! "PutBrandList.t4.2"?) & ((("PutOfferResponse.t2"?) & ("GetOfferResponse.t1"?))))) & ((("SelectBrand.t3.3"?) & ((("t6.7"?) & ("CheckDeliveryNote.t6.6"?))))))) | ((("BrandDecision.t4.1"?) & ((((("PutBrandSelection.t3.4"?) & ("PutBrandList.t4.2"?))) & ("CheckRequest.t2"?))))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-2
+  "Automatically generated"
+  is:
+    E F "t8.4"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-3
+  "Automatically generated"
+  is:
+    E F (((((("PaymentExchange.t3.8"?) & ((("TradeDecision.t3,0"?) & ("PaymentResponse.t3.9"?))))) & ((((("CheckOffer.t3"?) | ("t8.4"?))) | ((("PaymentExchange.t3.8"?) & ("MakeChoice.t1"?))))))) & ((((((("PutHowDeliver.t7.2"?) | ("GetOfferResponse.t1"?))) & ("PutPaidFor.t3.1"?))) | ((("MakeChoice.t1"?) & ("CheckRequest.t2"?))))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-4
+  "Automatically generated"
+  is:
+    E F (((("PutHowDeliver.t7.2"?) & ((("CheckDeliveryInfo.t6.3"?) & ((("MakeChoice.t1"?) & ("CheckPaymentRequest.t5.1"?))))))) & (((! (("PaymentResponse.t3.9"?) & ("GetPaymentRequest.t5.0"?))) & ("CheckDeliveryNote.t6.6"?))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-5
+  "Automatically generated"
+  is:
+    E F (("CheckOffer.t3"?) & ((((("PutDeliveryRequest.t6.4"?) | ((("PutOfferRequest.t1"?) | ("t7.4"?))))) & ((("PutWhatDeliver.t6.1"?) & ((("GetHowDeliver.t6.2"?) | ("PutDeliveryRequest.t6.4"?))))))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-6
+  "Automatically generated"
+  is:
+    E F "PutHowDeliver.t7.2"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-7
+  "Automatically generated"
+  is:
+    E F (("GetOfferResponse.t1"?) & (! ! (("CheckPaymentReseitp.t3.10"?) & ("CheckPaymentReseitp.t3.10"?))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-8
+  "Automatically generated"
+  is:
+    E F (((((("t8.4"?) | ((("GetHowDeliver.t6.2"?) & ("PaymentResponse.t5.3"?))))) & (((! "WhatDeliverDecision.t6.0"?) & ((("PutHowDeliver.t7.2"?) | ("GetDeliveryRequest.t8.0"?))))))) & (((! (("PutBrandSelection.t3.4"?) & ("MakeChoice.t1"?))) | ((("CheckRequest.t2"?) & ((("PutDeliveryRequest.t6.4"?) & ("GetHowDeliver.t6.2"?))))))))
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-9
+  "Automatically generated"
+  is:
+    E F ! ! "t7.4"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-10
+  "Automatically generated"
+  is:
+    E F "CheckDeliveryNote.t6.6"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-11
+  "Automatically generated"
+  is:
+    E F ! ! "GetWhatDeliver.t7.0"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-12
+  "Automatically generated"
+  is:
+    E F "GetDeliveryResponse.t6.5"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-13
+  "Automatically generated"
+  is:
+    E F "GetHowDeliver.t6.2"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-14
+  "Automatically generated"
+  is:
+    E F "GetHowDeliver.t6.2"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-ReachabilityFireability-15
+  "Automatically generated"
+  is:
+    E F ((((((! "PaymentResponse.t3.9"?) | ((("CheckBrandSelection.t4.4"?) & ("GetHowDeliver.t6.2"?))))) | ((("CheckRequest.t2"?) & ("t8.4"?))))) & ("GetDeliveryRequest.t8.0"?))
+  end.

@@ -1,0 +1,80 @@
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.
+Property SwimmingPool-PT-08-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A G "Enter"?
+  end.

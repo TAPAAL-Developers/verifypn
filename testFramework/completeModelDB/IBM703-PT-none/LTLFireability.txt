@@ -1,0 +1,80 @@
+Property IBM703-PT-none-LTLFireability-0
+  "Automatically generated"
+  is:
+    A (("task.s00000704.outputCriterion.s00000258"?) U (((X "task.s00000745.outputCriterion.s00000258"?) U ("decision.s00000796.activate.s00000271"?))))
+  end.
+Property IBM703-PT-none-LTLFireability-1
+  "Automatically generated"
+  is:
+    A F "decision.s00000777.fire.s00000272"?
+  end.
+Property IBM703-PT-none-LTLFireability-2
+  "Automatically generated"
+  is:
+    A (("task.s00000708.outputCriterion.s00000258"?) U (G "merge.s00000446.activate.s00000289"?))
+  end.
+Property IBM703-PT-none-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X X X G G "decision.s00000801.activate.s00000271"?
+  end.
+Property IBM703-PT-none-LTLFireability-4
+  "Automatically generated"
+  is:
+    A F G "task.s00000723.outputCriterion.s00000258"?
+  end.
+Property IBM703-PT-none-LTLFireability-5
+  "Automatically generated"
+  is:
+    A X F X "decision.s00000784.activate.s00000271"?
+  end.
+Property IBM703-PT-none-LTLFireability-6
+  "Automatically generated"
+  is:
+    A "decision.s00000792.activate.s00000271"?
+  end.
+Property IBM703-PT-none-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X F X "decision.s00000792.fire.s00000274"?
+  end.
+Property IBM703-PT-none-LTLFireability-8
+  "Automatically generated"
+  is:
+    A G "merge.s00000320.activate.s00000284"?
+  end.
+Property IBM703-PT-none-LTLFireability-9
+  "Automatically generated"
+  is:
+    A G G ((X "decision.s00000805.fire.s00000274"?) U ("fork.s00000464.fire.s00000272"?))
+  end.
+Property IBM703-PT-none-LTLFireability-10
+  "Automatically generated"
+  is:
+    A (("merge.s00000456.fire.s00000287"?) U ("task.s00000732.inputCriterion.s00000257"?))
+  end.
+Property IBM703-PT-none-LTLFireability-11
+  "Automatically generated"
+  is:
+    A "task.s00000743.outputCriterion.s00000258"?
+  end.
+Property IBM703-PT-none-LTLFireability-12
+  "Automatically generated"
+  is:
+    A F G G F X "merge.s00000462.activate.s00000286"?
+  end.
+Property IBM703-PT-none-LTLFireability-13
+  "Automatically generated"
+  is:
+    A F ((G G "fork.s00000463.fire.s00000274"?) U (G "fork.s00000466.fire.s00000272"?))
+  end.
+Property IBM703-PT-none-LTLFireability-14
+  "Automatically generated"
+  is:
+    A (("decision.s00000787.fire.s00000272"?) U (X (("fork.s00000463.fire.s00000274"?) U ("decision.s00000778.activate.s00000271"?))))
+  end.
+Property IBM703-PT-none-LTLFireability-15
+  "Automatically generated"
+  is:
+    A F "task.s00000744.outputCriterion.s00000258"?
+  end.

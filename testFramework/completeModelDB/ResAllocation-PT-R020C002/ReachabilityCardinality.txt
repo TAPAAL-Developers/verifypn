@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    E F ((((((1) <= (#tokens("p_0_18")))) & (((3) <= (#tokens("r_0_0")))))) & (! ((2) <= (#tokens("p_0_9")))))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    A G ((((((((1) <= (#tokens("p_0_13")))) | (((#tokens("p_1_8")) <= (#tokens("r_0_12")))))) | (((((#tokens("p_0_15")) <= (#tokens("p_1_4")))) & (((#tokens("r_0_18")) <= (#tokens("r_1_8")))))))) | (((#tokens("p_0_5")) <= (#tokens("p_1_3")))))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ((((((1) <= (#tokens("r_0_14")))) | (((((2) <= (#tokens("p_1_18")))) | (((#tokens("p_0_11")) <= (#tokens("r_1_4")))))))) | (((#tokens("r_0_6")) <= (#tokens("p_0_7")))))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("r_1_1")))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((((3) <= (#tokens("p_1_18")))) & (! ((((3) <= (#tokens("p_0_1")))) | (((3) <= (#tokens("p_1_16")))))))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ((((! ((3) <= (#tokens("p_0_17")))) | (((2) <= (#tokens("p_1_15")))))) | (((! ((#tokens("p_1_5")) <= (#tokens("p_1_4")))) | (! ((#tokens("r_1_19")) <= (#tokens("p_0_5")))))))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("r_1_1")))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("r_0_19")))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ! ((3) <= (#tokens("p_1_15")))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ! ! ! ((2) <= (#tokens("p_0_18")))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((((2) <= (#tokens("r_1_10")))) & (! ! ((2) <= (#tokens("p_0_17")))))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ! ! ((((3) <= (#tokens("r_0_2")))) | (((1) <= (#tokens("p_1_2")))))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ((3) <= (#tokens("r_0_12")))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ! ((((#tokens("r_0_10")) <= (#tokens("r_1_0")))) | (((((#tokens("r_1_10")) <= (#tokens("r_0_19")))) & (((#tokens("r_1_11")) <= (#tokens("p_1_1")))))))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ! ((3) <= (#tokens("r_1_4")))
+  end.
+Property ResAllocation-PT-R020C002-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((((#tokens("r_1_0")) <= (#tokens("p_0_11")))) & (((3) <= (#tokens("p_1_16")))))
+  end.

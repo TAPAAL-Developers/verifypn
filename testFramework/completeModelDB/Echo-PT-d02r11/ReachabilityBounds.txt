@@ -1,0 +1,80 @@
+Property Echo-PT-d02r11-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((bound("p318")) <= (1))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("p199")) <= (1))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((((bound("p1012")) <= (1))) & (((bound("p876")) <= (1))))) & (((bound("p1049")) <= (1))))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("p1")) <= (2))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((((((((bound("p753")) <= (2))) & (((bound("p396")) <= (2))))) & (((bound("p964")) <= (2))))) & (((((((((((bound("p208")) <= (1))) & (((bound("p714")) <= (2))))) & (((((bound("p391")) <= (2))) & (((bound("p261")) <= (1))))))) & (((((bound("p535")) <= (2))) & (((bound("p418")) <= (3))))))) & (((((((bound("p270")) <= (3))) & (((((bound("p300")) <= (1))) & (((bound("p575")) <= (1))))))) & (((bound("p556")) <= (1))))))))) & (((bound("p639")) <= (2))))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("p910")) <= (2))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((((bound("p579")) <= (1))) & (((((bound("p101")) <= (1))) & (((bound("p449")) <= (1))))))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((bound("p126")) <= (2))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("p791")) <= (1))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((bound("p192")) <= (2))) & (((((((bound("p131")) <= (1))) & (((((bound("p529")) <= (1))) & (((((bound("p830")) <= (1))) & (((((bound("p941")) <= (1))) & (((bound("p545")) <= (1))))))))))) & (((((((bound("p545")) <= (2))) & (((bound("p171")) <= (3))))) & (((bound("p382")) <= (3))))))))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((((bound("p599")) <= (2))) & (((((bound("p576")) <= (2))) & (((((((bound("p549")) <= (3))) & (((((bound("p898")) <= (1))) & (((bound("p81")) <= (3))))))) & (((((bound("p736")) <= (1))) & (((((bound("p126")) <= (2))) & (((bound("p170")) <= (1))))))))))))) & (((bound("p843")) <= (2))))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((((((((bound("p175")) <= (3))) & (((((bound("p554")) <= (3))) & (((((((bound("p283")) <= (2))) & (((bound("p670")) <= (2))))) & (((((bound("p372")) <= (1))) & (((bound("p365")) <= (1))))))))))) & (((bound("p682")) <= (2))))) & (((((((bound("p720")) <= (1))) & (((bound("p624")) <= (2))))) & (((bound("p15")) <= (1))))))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((((((bound("p296")) <= (3))) & (((bound("p972")) <= (1))))) & (((((((((bound("p1072")) <= (3))) & (((((bound("p730")) <= (2))) & (((((bound("p86")) <= (2))) & (((bound("p382")) <= (3))))))))) & (((((bound("p262")) <= (1))) & (((((((bound("p65")) <= (2))) & (((bound("p672")) <= (1))))) & (((bound("p457")) <= (1))))))))) & (((((bound("p218")) <= (3))) & (((bound("p242")) <= (1))))))))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((bound("p194")) <= (3))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((((((((((bound("p408")) <= (3))) & (((bound("p695")) <= (3))))) & (((bound("p847")) <= (2))))) & (((((bound("p841")) <= (2))) & (((((bound("p625")) <= (1))) & (((((bound("p253")) <= (1))) & (((((bound("p736")) <= (1))) & (((bound("p1093")) <= (2))))))))))))) & (((bound("p31")) <= (1))))
+  end.
+Property Echo-PT-d02r11-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((bound("p640")) <= (3))) & (((bound("p972")) <= (2))))
+  end.

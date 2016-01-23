@@ -1,0 +1,80 @@
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t18"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t18"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t18"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t18"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t3"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t12"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A G "t17"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t7"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A G "t5"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A G "t3"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A G "t17"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t10"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A G "t10"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A G "t4"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A G "t12"?
+  end.
+Property HouseConstruction-PT-010-ReachabilityFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t13"?
+  end.

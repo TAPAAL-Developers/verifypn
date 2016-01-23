@@ -1,0 +1,80 @@
+Property ResAllocation-PT-R100C002-LTLFireability-0
+  "Automatically generated"
+  is:
+    A "t_0_38"?
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-1
+  "Automatically generated"
+  is:
+    A ((F (("t_0_70"?) U ("t_1_51"?))) U (F F X "t_0_70"?))
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-2
+  "Automatically generated"
+  is:
+    A F ((F "t_1_80"?) U ((("t_1_25"?) U ("t_1_75"?))))
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-3
+  "Automatically generated"
+  is:
+    A (((("t_1_59"?) U (F "t_0_51"?))) U (G X G "t_1_57"?))
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-4
+  "Automatically generated"
+  is:
+    A G ((G "t_0_29"?) U (G G "t_0_39"?))
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-5
+  "Automatically generated"
+  is:
+    A F "t_1_82"?
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-6
+  "Automatically generated"
+  is:
+    A (("t_1_40"?) U (((G "t_1_94"?) U (F "t_0_62"?))))
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X ((G X "t_0_77"?) U (G G "t_0_75"?))
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-8
+  "Automatically generated"
+  is:
+    A G F G "t_1_0"?
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-9
+  "Automatically generated"
+  is:
+    A X "t_0_7"?
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-10
+  "Automatically generated"
+  is:
+    A G X G (("t_1_84"?) U ("t_0_7"?))
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-11
+  "Automatically generated"
+  is:
+    A F F X (("t_0_18"?) U ("t_1_0"?))
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-12
+  "Automatically generated"
+  is:
+    A X "t_1_0"?
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-13
+  "Automatically generated"
+  is:
+    A ((((G "t_1_39"?) U (X "t_0_80"?))) U (F G X "t_1_28"?))
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-14
+  "Automatically generated"
+  is:
+    A X F ((X "t_0_43"?) U ("t_1_66"?))
+  end.
+Property ResAllocation-PT-R100C002-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X "t_1_7"?
+  end.

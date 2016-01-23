@@ -1,0 +1,80 @@
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-0
+  "Automatically generated"
+  is:
+    ((((bound("F52")) <= (3))) & (((bound("T43")) <= (3))))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-1
+  "Automatically generated"
+  is:
+    ((bound("F52")) <= (3))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-2
+  "Automatically generated"
+  is:
+    ((((((((((bound("T44")) <= (1))) & (((((bound("T63")) <= (2))) & (((bound("T63")) <= (2))))))) & (((((((((bound("F63")) <= (3))) & (((bound("F45")) <= (3))))) & (((((bound("F51")) <= (2))) & (((bound("T23")) <= (2))))))) & (((((bound("F14")) <= (1))) & (((bound("T33")) <= (3))))))))) & (((((((((((bound("T33")) <= (2))) & (((bound("F42")) <= (1))))) & (((((bound("F65")) <= (3))) & (((bound("F31")) <= (3))))))) & (((bound("F41")) <= (1))))) & (((((bound("T14")) <= (2))) & (((((((bound("F45")) <= (2))) & (((bound("F36")) <= (2))))) & (((bound("T35")) <= (1))))))))))) & (((((bound("T63")) <= (3))) & (((((bound("F33")) <= (3))) & (((bound("T25")) <= (2))))))))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-3
+  "Automatically generated"
+  is:
+    ((bound("T31")) <= (3))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-4
+  "Automatically generated"
+  is:
+    ((((((bound("F34")) <= (1))) & (((bound("T31")) <= (2))))) & (((((bound("T75")) <= (2))) & (((bound("T46")) <= (3))))))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-5
+  "Automatically generated"
+  is:
+    ((bound("F64")) <= (3))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-6
+  "Automatically generated"
+  is:
+    ((bound("T44")) <= (3))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-7
+  "Automatically generated"
+  is:
+    ((((((((((((((bound("T42")) <= (1))) & (((bound("T74")) <= (3))))) & (((bound("F32")) <= (1))))) & (((((bound("T45")) <= (3))) & (((bound("T75")) <= (1))))))) & (((((bound("F54")) <= (3))) & (((bound("F35")) <= (3))))))) & (((((((bound("T37")) <= (2))) & (((bound("F73")) <= (3))))) & (((bound("T15")) <= (2))))))) & (((((bound("F47")) <= (1))) & (((bound("F44")) <= (2))))))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-8
+  "Automatically generated"
+  is:
+    ((bound("F56")) <= (2))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-9
+  "Automatically generated"
+  is:
+    ((((((((((((((bound("T56")) <= (3))) & (((bound("F65")) <= (1))))) & (((bound("F51")) <= (2))))) & (((((bound("T31")) <= (1))) & (((bound("T46")) <= (2))))))) & (((((bound("F25")) <= (1))) & (((bound("T36")) <= (3))))))) & (((bound("T46")) <= (2))))) & (((bound("F33")) <= (2))))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-10
+  "Automatically generated"
+  is:
+    ((((((bound("T23")) <= (2))) & (((((((bound("F51")) <= (1))) & (((((bound("F64")) <= (3))) & (((bound("F42")) <= (1))))))) & (((bound("F74")) <= (1))))))) & (((bound("F42")) <= (3))))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-11
+  "Automatically generated"
+  is:
+    ((bound("T55")) <= (2))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-12
+  "Automatically generated"
+  is:
+    ((bound("F52")) <= (1))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-13
+  "Automatically generated"
+  is:
+    ((((((bound("F73")) <= (2))) & (((bound("F57")) <= (1))))) & (((bound("F36")) <= (2))))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-14
+  "Automatically generated"
+  is:
+    ((bound("T25")) <= (1))
+  end.
+Property Solitaire-PT-EngNC7x7-ReachabilityBounds-15
+  "Automatically generated"
+  is:
+    ((((bound("F51")) <= (2))) & (((((bound("F37")) <= (1))) & (((((bound("F63")) <= (3))) & (((bound("F31")) <= (2))))))))
+  end.

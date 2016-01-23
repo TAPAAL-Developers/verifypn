@@ -1,0 +1,80 @@
+Property SafeBus-COL-03-LTLFireability-0
+  "Automatically generated"
+  is:
+    A F X ((F ("I_free_2_1", "I_free_3_1", "I_free_1_2", "I_free_3_2", "I_free_1_3", "I_free_2_3")?) U (G ("I_ask1_1_1", "I_ask1_2_1", "I_ask1_3_1", "I_ask1_1_2", "I_ask1_2_2", "I_ask1_3_2", "I_ask1_1_3", "I_ask1_2_3", "I_ask1_3_3")?))
+  end.
+Property SafeBus-COL-03-LTLFireability-1
+  "Automatically generated"
+  is:
+    A F ("I_emit_2_2_1", "I_emit_3_3_1", "I_emit_1_1_2", "I_emit_3_3_2", "I_emit_1_1_3", "I_emit_2_2_3")?
+  end.
+Property SafeBus-COL-03-LTLFireability-2
+  "Automatically generated"
+  is:
+    A ("I_rec2_1_1", "I_rec2_2_2", "I_rec2_3_3")?
+  end.
+Property SafeBus-COL-03-LTLFireability-3
+  "Automatically generated"
+  is:
+    A F ("I_rec1_1_1", "I_rec1_2_2", "I_rec1_3_3")?
+  end.
+Property SafeBus-COL-03-LTLFireability-4
+  "Automatically generated"
+  is:
+    A X ("I_rec1_1_1", "I_rec1_2_2", "I_rec1_3_3")?
+  end.
+Property SafeBus-COL-03-LTLFireability-5
+  "Automatically generated"
+  is:
+    A "loss_a"?
+  end.
+Property SafeBus-COL-03-LTLFireability-6
+  "Automatically generated"
+  is:
+    A ("I_rec1_1_1", "I_rec1_2_2", "I_rec1_3_3")?
+  end.
+Property SafeBus-COL-03-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X X G G X ("I_refused_1_1", "I_refused_2_2", "I_refused_3_3")?
+  end.
+Property SafeBus-COL-03-LTLFireability-8
+  "Automatically generated"
+  is:
+    A F G ((X ("I_reemit_2_1", "I_reemit_3_1", "I_reemit_1_2", "I_reemit_3_2", "I_reemit_1_3", "I_reemit_2_3")?) U (F ("I_rec2_1_1", "I_rec2_2_2", "I_rec2_3_3")?))
+  end.
+Property SafeBus-COL-03-LTLFireability-9
+  "Automatically generated"
+  is:
+    A ((G ("I_emit_2_2_1", "I_emit_3_3_1", "I_emit_1_1_2", "I_emit_3_3_2", "I_emit_1_1_3", "I_emit_2_2_3")?) U (((("C_free_1_1", "C_free_2_2", "C_free_3_3")?) U (F "loss_a"?))))
+  end.
+Property SafeBus-COL-03-LTLFireability-10
+  "Automatically generated"
+  is:
+    A X G X X F ("C_free_1_1", "C_free_2_2", "C_free_3_3")?
+  end.
+Property SafeBus-COL-03-LTLFireability-11
+  "Automatically generated"
+  is:
+    A G F ("I_free_2_1", "I_free_3_1", "I_free_1_2", "I_free_3_2", "I_free_1_3", "I_free_2_3")?
+  end.
+Property SafeBus-COL-03-LTLFireability-12
+  "Automatically generated"
+  is:
+    A ((G X ("I_reemit_2_1", "I_reemit_3_1", "I_reemit_1_2", "I_reemit_3_2", "I_reemit_1_3", "I_reemit_2_3")?) U (F F ("I_refused_1_1", "I_refused_2_2", "I_refused_3_3")?))
+  end.
+Property SafeBus-COL-03-LTLFireability-13
+  "Automatically generated"
+  is:
+    A X ((("loss_m_1", "loss_m_2", "loss_m_3")?) U (G X "loss_a"?))
+  end.
+Property SafeBus-COL-03-LTLFireability-14
+  "Automatically generated"
+  is:
+    A ("I_free_2_1", "I_free_3_1", "I_free_1_2", "I_free_3_2", "I_free_1_3", "I_free_2_3")?
+  end.
+Property SafeBus-COL-03-LTLFireability-15
+  "Automatically generated"
+  is:
+    A X ("I_rec2_1_1", "I_rec2_2_2", "I_rec2_3_3")?
+  end.

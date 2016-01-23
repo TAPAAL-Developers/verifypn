@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "GetDeliveryResponse.t6.5"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "GetBrandList.t3.2"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "GetDeliveryRequest.t8.0"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "CheckWhatDeliver.t7.1"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "CheckPaymentRequest.t5.1"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "GetDeliveryResponse.t6.5"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "WhatDeliverDecision.t6.0"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t6.7"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "GetDeliveryRequest.t8.0"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "PutBrandSelection.t3.4"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "CheckDeliveryInfo.t6.3"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "PaymentResponse.t3.9"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "GetPaymentRequest.t5.0"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F "CheckPaymentAmount.t3.6"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "PaymentExchange.t3.8"?
+  end.
+Property IOTPpurchase-PT-C03M03P03D03-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "PutHowDeliver.t7.2"?
+  end.

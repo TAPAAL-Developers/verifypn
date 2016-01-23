@@ -1,0 +1,80 @@
+Property Solitaire-PT-FrnCT7x7-LTLFireability-0
+  "Automatically generated"
+  is:
+    A X F F X "right25"?
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-1
+  "Automatically generated"
+  is:
+    A X G "right64"?
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-2
+  "Automatically generated"
+  is:
+    A X G ((X "left34"?) U ("up46"?))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-3
+  "Automatically generated"
+  is:
+    A F G "up25"?
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-4
+  "Automatically generated"
+  is:
+    A G "up55"?
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-5
+  "Automatically generated"
+  is:
+    A "down43"?
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-6
+  "Automatically generated"
+  is:
+    A "left14"?
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-7
+  "Automatically generated"
+  is:
+    A G F X X G "up24"?
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-8
+  "Automatically generated"
+  is:
+    A "up25"?
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-9
+  "Automatically generated"
+  is:
+    A G "up32"?
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-10
+  "Automatically generated"
+  is:
+    A "up32"?
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-11
+  "Automatically generated"
+  is:
+    A ((F (("right14"?) U ("left53"?))) U (F X X "right52"?))
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-12
+  "Automatically generated"
+  is:
+    A X G F X X "left32"?
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-13
+  "Automatically generated"
+  is:
+    A X X G G F "down34"?
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-14
+  "Automatically generated"
+  is:
+    A F F F F X "up25"?
+  end.
+Property Solitaire-PT-FrnCT7x7-LTLFireability-15
+  "Automatically generated"
+  is:
+    A F "left53"?
+  end.

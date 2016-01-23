@@ -1,0 +1,80 @@
+Property CircadianClock-PT-001000-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((((2) <= (#tokens("mr_cap")))) | (((((((#tokens("dr")) <= (#tokens("da_a")))) | (((#tokens("dr")) <= (#tokens("a")))))) & (! ((3) <= (#tokens("dr_a")))))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((! ! ((2) <= (#tokens("da")))) & (((((((1) <= (#tokens("c")))) | (((#tokens("da")) <= (#tokens("r_cap")))))) & (((((3) <= (#tokens("dr_a")))) | (((1) <= (#tokens("r_cap")))))))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ! ! ((((#tokens("mr_cap")) <= (#tokens("c")))) | (((#tokens("mr")) <= (#tokens("mr")))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    A G ((! ((((1) <= (#tokens("mr_cap")))) | (((3) <= (#tokens("dr")))))) | (((#tokens("da_a")) <= (#tokens("da_a")))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    E F ((((! ((3) <= (#tokens("ma")))) | (((((3) <= (#tokens("dr")))) & (((1) <= (#tokens("c")))))))) & (((((((#tokens("dr_a")) <= (#tokens("mr_cap")))) | (((2) <= (#tokens("c_cap")))))) & (! ((#tokens("mr")) <= (#tokens("a_cap")))))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    A G ((! ((((#tokens("dr_a")) <= (#tokens("da")))) & (((1) <= (#tokens("dr_a")))))) | (((((#tokens("ma_cap")) <= (#tokens("r_cap")))) | (((((#tokens("dr")) <= (#tokens("da")))) & (((1) <= (#tokens("r_cap")))))))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    E F ((((((((3) <= (#tokens("dr_a")))) | (((3) <= (#tokens("dr")))))) | (((#tokens("a_cap")) <= (#tokens("ma")))))) & (((((((3) <= (#tokens("r")))) | (((#tokens("ma")) <= (#tokens("a_cap")))))) | (((((#tokens("c_cap")) <= (#tokens("da")))) | (((#tokens("c")) <= (#tokens("c_cap")))))))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("dr")))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((! ((((#tokens("c_cap")) <= (#tokens("da")))) & (((1) <= (#tokens("c")))))) & (((((((3) <= (#tokens("mr")))) | (((1) <= (#tokens("ma")))))) | (((((#tokens("r")) <= (#tokens("ma_cap")))) | (((#tokens("dr_a")) <= (#tokens("ma")))))))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    E F ((#tokens("r_cap")) <= (#tokens("ma")))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((#tokens("mr_cap")) <= (#tokens("a")))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((((((((2) <= (#tokens("dr_a")))) & (((2) <= (#tokens("ma")))))) | (! ((#tokens("a")) <= (#tokens("r_cap")))))) & (! ! ((3) <= (#tokens("mr_cap")))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ((((((((#tokens("mr")) <= (#tokens("dr")))) & (((#tokens("r")) <= (#tokens("r")))))) & (((#tokens("r_cap")) <= (#tokens("mr_cap")))))) & (((#tokens("ma_cap")) <= (#tokens("da_a")))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((2) <= (#tokens("da_a")))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ((((((2) <= (#tokens("da")))) & (! ((#tokens("ma")) <= (#tokens("mr")))))) | (((((((#tokens("ma_cap")) <= (#tokens("dr")))) | (((1) <= (#tokens("r_cap")))))) | (((((3) <= (#tokens("da")))) & (((#tokens("a")) <= (#tokens("mr")))))))))
+  end.
+Property CircadianClock-PT-001000-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    E F ((! ((((3) <= (#tokens("a_cap")))) & (((#tokens("a")) <= (#tokens("ma_cap")))))) & (! ((((3) <= (#tokens("r_cap")))) | (((#tokens("mr_cap")) <= (#tokens("a_cap")))))))
+  end.

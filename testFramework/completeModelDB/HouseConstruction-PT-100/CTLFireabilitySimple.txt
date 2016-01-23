@@ -1,0 +1,80 @@
+Property HouseConstruction-PT-100-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F "t5"?
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F "t5"?
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A G "t1"?
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F "t3"?
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F "t12"?
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A (("t1"?) U ("t17"?))
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F "t7"?
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "t6"?
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F "t3"?
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "t13"?
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F "t16"?
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "t10"?
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F "t14"?
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E G "t1"?
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F "t8"?
+  end.
+Property HouseConstruction-PT-100-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F "t12"?
+  end.

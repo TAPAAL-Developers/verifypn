@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p24</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p65</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p70</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p627</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p124</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p398</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p356</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p410</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p27</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p135</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p3</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p508</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p515</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p423</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p476</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>Parking-PT-832-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>p126</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>

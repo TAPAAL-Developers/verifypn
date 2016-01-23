@@ -1,0 +1,80 @@
+Property Raft-PT-07-LTLCardinality-0
+  "Automatically generated"
+  is:
+    A ((G X ((#tokens("p184")) <= (#tokens("p171")))) U (F X ((3) <= (#tokens("p48")))))
+  end.
+Property Raft-PT-07-LTLCardinality-1
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("p100")))
+  end.
+Property Raft-PT-07-LTLCardinality-2
+  "Automatically generated"
+  is:
+    A G F X F ((3) <= (#tokens("p6")))
+  end.
+Property Raft-PT-07-LTLCardinality-3
+  "Automatically generated"
+  is:
+    A ((G ((#tokens("p250")) <= (#tokens("p111")))) U (((((1) <= (#tokens("p108")))) U (((1) <= (#tokens("p33")))))))
+  end.
+Property Raft-PT-07-LTLCardinality-4
+  "Automatically generated"
+  is:
+    A F F ((3) <= (#tokens("p109")))
+  end.
+Property Raft-PT-07-LTLCardinality-5
+  "Automatically generated"
+  is:
+    A X X F X ((#tokens("p29")) <= (#tokens("p9")))
+  end.
+Property Raft-PT-07-LTLCardinality-6
+  "Automatically generated"
+  is:
+    A X X F X ((1) <= (#tokens("p114")))
+  end.
+Property Raft-PT-07-LTLCardinality-7
+  "Automatically generated"
+  is:
+    A F ((G ((#tokens("p214")) <= (#tokens("p18")))) U (G ((#tokens("p242")) <= (#tokens("p33")))))
+  end.
+Property Raft-PT-07-LTLCardinality-8
+  "Automatically generated"
+  is:
+    A ((X F ((3) <= (#tokens("p103")))) U (F F ((3) <= (#tokens("p102")))))
+  end.
+Property Raft-PT-07-LTLCardinality-9
+  "Automatically generated"
+  is:
+    A ((F G ((2) <= (#tokens("p191")))) U (X F ((#tokens("p89")) <= (#tokens("p40")))))
+  end.
+Property Raft-PT-07-LTLCardinality-10
+  "Automatically generated"
+  is:
+    A ((X F ((2) <= (#tokens("p82")))) U (X X ((3) <= (#tokens("p174")))))
+  end.
+Property Raft-PT-07-LTLCardinality-11
+  "Automatically generated"
+  is:
+    A ((2) <= (#tokens("p118")))
+  end.
+Property Raft-PT-07-LTLCardinality-12
+  "Automatically generated"
+  is:
+    A ((1) <= (#tokens("p138")))
+  end.
+Property Raft-PT-07-LTLCardinality-13
+  "Automatically generated"
+  is:
+    A ((#tokens("p228")) <= (#tokens("p83")))
+  end.
+Property Raft-PT-07-LTLCardinality-14
+  "Automatically generated"
+  is:
+    A ((3) <= (#tokens("p98")))
+  end.
+Property Raft-PT-07-LTLCardinality-15
+  "Automatically generated"
+  is:
+    A ((((#tokens("p63")) <= (#tokens("p73")))) U (X F ((#tokens("p105")) <= (#tokens("p144")))))
+  end.

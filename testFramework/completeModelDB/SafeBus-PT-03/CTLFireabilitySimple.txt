@@ -1,0 +1,80 @@
+Property SafeBus-COL-03-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F ("C_free_1_1", "C_free_2_2", "C_free_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F ("I_ask2_1_1", "I_ask2_2_1", "I_ask2_3_1", "I_ask2_1_2", "I_ask2_2_2", "I_ask2_3_2", "I_ask2_1_3", "I_ask2_2_3", "I_ask2_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F ("C_refuse_1_1_1_1", "C_refuse_2_1_1_1", "C_refuse_3_1_1_1", "C_refuse_1_2_1_1", "C_refuse_2_2_1_1", "C_refuse_3_2_1_1", "C_refuse_1_3_1_1", "C_refuse_2_3_1_1", "C_refuse_3_3_1_1", "C_refuse_1_1_2_2", "C_refuse_2_1_2_2", "C_refuse_3_1_2_2", "C_refuse_1_2_2_2", "C_refuse_2_2_2_2", "C_refuse_3_2_2_2", "C_refuse_1_3_2_2", "C_refuse_2_3_2_2", "C_refuse_3_3_2_2", "C_refuse_1_1_3_3", "C_refuse_2_1_3_3", "C_refuse_3_1_3_3", "C_refuse_1_2_3_3", "C_refuse_2_2_3_3", "C_refuse_3_2_3_3", "C_refuse_1_3_3_3", "C_refuse_2_3_3_3", "C_refuse_3_3_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F ("I_ask2_1_1", "I_ask2_2_1", "I_ask2_3_1", "I_ask2_1_2", "I_ask2_2_2", "I_ask2_3_2", "I_ask2_1_3", "I_ask2_2_3", "I_ask2_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F ("I_ask2_1_1", "I_ask2_2_1", "I_ask2_3_1", "I_ask2_1_2", "I_ask2_2_2", "I_ask2_3_2", "I_ask2_1_3", "I_ask2_2_3", "I_ask2_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F ("I_ask2_1_1", "I_ask2_2_1", "I_ask2_3_1", "I_ask2_1_2", "I_ask2_2_2", "I_ask2_3_2", "I_ask2_1_3", "I_ask2_2_3", "I_ask2_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F ("I_ask2_1_1", "I_ask2_2_1", "I_ask2_3_1", "I_ask2_1_2", "I_ask2_2_2", "I_ask2_3_2", "I_ask2_1_3", "I_ask2_2_3", "I_ask2_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F ("I_rec2_1_1", "I_rec2_2_2", "I_rec2_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F ("I_free_2_1", "I_free_3_1", "I_free_1_2", "I_free_3_2", "I_free_1_3", "I_free_2_3")?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F ("I_ask2_1_1", "I_ask2_2_1", "I_ask2_3_1", "I_ask2_1_2", "I_ask2_2_2", "I_ask2_3_2", "I_ask2_1_3", "I_ask2_2_3", "I_ask2_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F ("C_refuse_1_1_1_1", "C_refuse_2_1_1_1", "C_refuse_3_1_1_1", "C_refuse_1_2_1_1", "C_refuse_2_2_1_1", "C_refuse_3_2_1_1", "C_refuse_1_3_1_1", "C_refuse_2_3_1_1", "C_refuse_3_3_1_1", "C_refuse_1_1_2_2", "C_refuse_2_1_2_2", "C_refuse_3_1_2_2", "C_refuse_1_2_2_2", "C_refuse_2_2_2_2", "C_refuse_3_2_2_2", "C_refuse_1_3_2_2", "C_refuse_2_3_2_2", "C_refuse_3_3_2_2", "C_refuse_1_1_3_3", "C_refuse_2_1_3_3", "C_refuse_3_1_3_3", "C_refuse_1_2_3_3", "C_refuse_2_2_3_3", "C_refuse_3_2_3_3", "C_refuse_1_3_3_3", "C_refuse_2_3_3_3", "C_refuse_3_3_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F "loss_a"?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F ("C_free_1_1", "C_free_2_2", "C_free_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F ("Gto_1", "Gto_2", "Gto_3")?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F ("I_refused_1_1", "I_refused_2_2", "I_refused_3_3")?
+  end.
+Property SafeBus-COL-03-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F ("I_rec2_1_1", "I_rec2_2_2", "I_rec2_3_3")?
+  end.

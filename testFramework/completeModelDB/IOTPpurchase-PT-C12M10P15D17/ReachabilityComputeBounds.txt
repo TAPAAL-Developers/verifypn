@@ -1,0 +1,80 @@
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("p3.5")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("DeliveryNote.p22.14")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("p5.2")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("p6.7")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("p11.13")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("p6.5")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("Organization.p22.2")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("PaymentNote.p21.13")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("p10.0")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("Organization.p20,7")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("p2.1")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("p3.1")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("ConsumerDelivery.p6.0")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("p3.6")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("DeliveryResponse.p12.6")
+  end.
+Property IOTPpurchase-PT-C12M10P15D17-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("p4.5")
+  end.

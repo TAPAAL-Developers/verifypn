@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    E F "t1_14_2_14_1"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    E F "t1_15_2_16_3"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    E F "t1_9_19_8_18"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    E F "t1_18_14_18_15"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    E F "t1_7_10_8_9"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F "t1_16_18_17_18"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    E F "t1_14_4_13_5"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E F "t1_1_14_1_15"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E F "t1_1_17_2_17"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F "t1_19_17_18_18"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E F "t1_13_4_12_3"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    E F "t1_5_4_6_5"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F "t1_10_17_11_17"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E F "t1_15_2_14_3"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F "t1_7_16_8_17"?
+  end.
+Property Diffusion2D-PT-D20N010-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E F "t1_3_2_2_2"?
+  end.

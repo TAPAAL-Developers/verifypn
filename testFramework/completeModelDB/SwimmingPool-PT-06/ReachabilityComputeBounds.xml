@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<property-set xmlns="http://mcc.lip6.fr/">
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-0</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Bags</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-1</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Dressed</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-2</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Dressed</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-3</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Dress</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-4</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Out</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-5</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>WaitBag</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-6</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Bags</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-7</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Dress</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-8</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Undress</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-9</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Entered</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-10</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Undress</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-11</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>WaitBag</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-12</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Dressed</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-13</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Dressed</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-14</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Cabins</place>
+      </place-bound>
+    </formula>
+  </property>
+  <property>
+    <id>SwimmingPool-PT-06-ReachabilityComputeBounds-15</id>
+    <description>Automatically generated</description>
+    <formula>
+      <place-bound>
+        <place>Undress</place>
+      </place-bound>
+    </formula>
+  </property>
+</property-set>
