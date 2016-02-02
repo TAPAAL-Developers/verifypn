@@ -60,28 +60,19 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[])
         xml_node<> * id_node = property_node->first_node("id"); 
         queryList[i] = (CTLFormula*)malloc(sizeof(CTLFormula));
 
+        //Set competition information
         int size = id_node->value_size();
         queryList[i]->Name = strcpy((char*)calloc(size, sizeof(char)*size),
-                                  id_node->value());
-
+                                    id_node->value());
         queryList[i]->Result = false;
         queryList[i]->Techniques = new std::vector<std::string>();
-        
-      
-#ifdef Analysis
-        std::cout << "\nAnalysis:: Query: " << id_node->value() << std::endl;
-#endif
+
+        //Fill list with individual queries
         xml_node<> * formula_node = id_node->next_sibling("description")->next_sibling("formula");
         queryList[i]->Query = xmlToCTLquery(formula_node->first_node());
-        //printQuery(queryList[i]->Query);
-        //#ifdef PP
-        /*printQuery(queryList[i]->Query);
-        std::cout << "\n";*/
-        //#endif
 
-        #ifdef DEBUG
+        printQuery(queryList[i]->Query);
         std::cout << "\n";
-        #endif
 
         i++;
     }
@@ -92,7 +83,6 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     bool isE = false;
     CTLTree *query = (CTLTree*)malloc(sizeof(CTLTree));
     char *root_name = root->name();
-    //std::cout << "TEST:: Running xmlToCTLquery with " << root_name << " as root\n";
     char firstLetter = root_name[0];
     
     if (firstLetter == 'a') {
@@ -101,7 +91,9 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         query->path = setPathOperator(root->first_node(), isA, isE);
         isA = false;
         if(isAG){
-            CTLTree *query1 = (CTLTree*)malloc(sizeof(CTLTree));
+            createAGquery(root, query);
+            //------------ This has been moved ---------------------------
+            /*CTLTree *query1 = (CTLTree*)malloc(sizeof(CTLTree));
             CTLTree *query2 = (CTLTree*)malloc(sizeof(CTLTree));
 
             query->quantifier = NEG;
@@ -124,9 +116,8 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             query1->depth = (query2->depth + 1);
             query1->max_depth = (query2->max_depth + 1);
             query->depth = (query1->depth + 1);
-            query->max_depth = (query1->max_depth + 1);
-            
-            //std::cout<<"::: AG Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
+            query->max_depth = (query1->max_depth + 1);*/
+            //-----------------------------------------------------------
             
             return query;
         }
@@ -138,8 +129,9 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         query->path = setPathOperator(root->first_node(), isA, isE);
         isE = false;
         if(isEG){
-            
-            CTLTree *query1 = (CTLTree*)malloc(sizeof(CTLTree));
+            createEGquery(root, query);
+            //------------ This has been moved ---------------------------
+            /*CTLTree *query1 = (CTLTree*)malloc(sizeof(CTLTree));
             CTLTree *query2 = (CTLTree*)malloc(sizeof(CTLTree));
 
             query->quantifier = NEG;
@@ -160,9 +152,8 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             query1->depth = (query2->depth + 1);
             query1->max_depth = (query2->max_depth + 1);
             query->depth = (query1->depth + 1);
-            query->max_depth = (query1->max_depth + 1);
-            
-            //std::cout<<"::: EG Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
+            query->max_depth = (query1->max_depth + 1);*/
+            //-----------------------------------------------------------
             
             return query;
         }
@@ -186,8 +177,9 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         query->quantifier = EMPTY;
         query->depth = 0;
         query->max_depth = 0;
-        //std::cout << "TEST:: ATOM: " << root_name << "\n";
-        if (root_name[1] == 's' ) {
+        
+        //Construct atomic query
+        if (root_name[1] == 's' ) { // Check if Fireability query
             numberoftransitions = 0;
             int t_id= 0, i = 0, numberofdependencyplaces = 0;
             query->a.isFireable = true;
@@ -244,7 +236,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
             
             return query; 
         }
-        else if (root_name[1] == 'n') {
+        else if (root_name[1] == 'n') { // Check if Cardinality query
             xml_node<> * integerNode = root->first_node();
             query->a.isFireable = false;
             query->a.firesize = 0;
@@ -312,8 +304,6 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
                 //std::cout<< query->a.cardinality.intLarger << " - witch is an INTEGER-CONTANT ";
             }
             
-            //std::cout << "-----TEST:: Returning query set: " << query->a.set << "\n" << std::flush;
-            //std::cout<<"::: Atom Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
             return query; 
         }
         else {
@@ -353,6 +343,7 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     }
     //std::cout << "TEST:: Returning " << root_name << "\n";
     
+    //Update depth information
     if (query->quantifier == AND || query->quantifier == OR || query->path == U){
         int first_depth = query->first->depth, second_depth = query->second->depth;
         query->depth = (lowerDepth(first_depth, second_depth) + 1);
@@ -364,8 +355,6 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         query->depth = (query->first->depth + 1);
         query->max_depth = (query->first->max_depth + 1);
     }
-    
-    //std::cout<<"::: True Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
     
     return query;
 }
@@ -482,6 +471,72 @@ bool CTLParser::charEmpty(char *query) {
         return true;
     }
     return false;
+}
+
+void CTLParser::createAGquery(xml_node<> * root, CTLTree *query){
+    //Function for converting AG to !EF!
+    CTLTree *query1 = (CTLTree*)malloc(sizeof(CTLTree));
+    CTLTree *query2 = (CTLTree*)malloc(sizeof(CTLTree));
+
+    //Set the first operator to neg
+    query->quantifier = NEG;
+    query->a.fireset = NULL;
+    query->first = query1;
+
+    //Set the second operator to EF
+    query1->quantifier = E;
+    query1->path = F;
+    query1->a.fireset = NULL;
+    query1->first = query2;
+
+    ////Set the third operator to neg
+    query2->quantifier = NEG;
+    query2->a.fireset = NULL;
+    
+    //Recursively find successor query
+    query2->first = xmlToCTLquery(root->first_node()->first_node());
+
+    //Update depth information
+    isAG = false;
+    query2->max_depth = (query2->first->max_depth + 1);
+    query2->depth = (query2->first->depth + 1);
+    query1->depth = (query2->depth + 1);
+    query1->max_depth = (query2->max_depth + 1);
+    query->depth = (query1->depth + 1);
+    query->max_depth = (query1->max_depth + 1);
+}
+
+void CTLParser::createEGquery(xml_node<> * root, CTLTree *query){
+    //Function for converting EG to !AF!
+    CTLTree *query1 = (CTLTree*)malloc(sizeof(CTLTree));
+    CTLTree *query2 = (CTLTree*)malloc(sizeof(CTLTree));
+    
+    //Set the first operator to neg
+    query->quantifier = NEG;
+    query->a.fireset = NULL;
+    query->first = query1;
+
+    //Set the second operator to AF
+    query1->quantifier = A;
+    query1->path = F;
+    query1->a.fireset = NULL;
+    query1->first = query2;
+    
+    ////Set the third operator to neg
+    query2->quantifier = NEG;
+    query2->a.fireset = NULL;
+    
+    //Recursively find successor query
+    query2->first = xmlToCTLquery(root->first_node()->first_node());
+    
+    //Update depth information
+    isEG = false;
+    query2->depth = (query2->first->depth + 1);
+    query2->max_depth = (query2->first->max_depth + 1);
+    query1->depth = (query2->depth + 1);
+    query1->max_depth = (query2->max_depth + 1);
+    query->depth = (query1->depth + 1);
+    query->max_depth = (query1->max_depth + 1);
 }
 
 unsigned int CTLParser::lowerDepth(unsigned int a, unsigned int b){
