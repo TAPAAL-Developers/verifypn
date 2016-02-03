@@ -85,225 +85,55 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     char *root_name = root->name();
     char firstLetter = root_name[0];
     
+    //Parse query segment
     if (firstLetter == 'a') {
+        //Construct All (Transformed if AG)
         isA = true;
         query->quantifier = A;
         query->path = setPathOperator(root->first_node(), isA, isE);
         isA = false;
         if(isAG){
             createAGquery(root, query);
-            //------------ This has been moved ---------------------------
-            /*CTLTree *query1 = (CTLTree*)malloc(sizeof(CTLTree));
-            CTLTree *query2 = (CTLTree*)malloc(sizeof(CTLTree));
-
-            query->quantifier = NEG;
-            query->a.fireset = NULL;
-            query->first = query1;
-
-            query1->quantifier = E;
-            query1->path = F;
-            query1->a.fireset = NULL;
-            query1->first = query2;
-
-            query2->quantifier = NEG;
-            query2->a.fireset = NULL;
-            query2->first = xmlToCTLquery(root->first_node()->first_node());
-            
-            query2->max_depth = (query2->first->max_depth + 1);
-            query2->depth = (query2->first->depth + 1);
-
-            isAG = false;
-            query1->depth = (query2->depth + 1);
-            query1->max_depth = (query2->max_depth + 1);
-            query->depth = (query1->depth + 1);
-            query->max_depth = (query1->max_depth + 1);*/
-            //-----------------------------------------------------------
-            
             return query;
         }
         
     }
     else if (firstLetter == 'e' ) {
+        //Construct Exist (Transformed if EG)
     	isE = true;
         query->quantifier = E;
         query->path = setPathOperator(root->first_node(), isA, isE);
         isE = false;
         if(isEG){
             createEGquery(root, query);
-            //------------ This has been moved ---------------------------
-            /*CTLTree *query1 = (CTLTree*)malloc(sizeof(CTLTree));
-            CTLTree *query2 = (CTLTree*)malloc(sizeof(CTLTree));
-
-            query->quantifier = NEG;
-            query->a.fireset = NULL;
-            query->first = query1;
-
-            query1->quantifier = A;
-            query1->path = F;
-            query1->a.fireset = NULL;
-            query1->first = query2;
-
-            query2->quantifier = NEG;
-            query2->a.fireset = NULL;
-            query2->first = xmlToCTLquery(root->first_node()->first_node());
-            query2->depth = (query2->first->depth + 1);
-            query2->max_depth = (query2->first->max_depth + 1);
-            isEG = false;
-            query1->depth = (query2->depth + 1);
-            query1->max_depth = (query2->max_depth + 1);
-            query->depth = (query1->depth + 1);
-            query->max_depth = (query1->max_depth + 1);*/
-            //-----------------------------------------------------------
-            
             return query;
         }
         
     }
     else if (firstLetter == 'n' ) {
+        //Construct negation
         query->quantifier = NEG;
-        //std::cout << "TEST:: Q: " << root_name << "\n";
-        //query->path = setPathOperator(root->first_node());
         
     }
     else if (firstLetter == 'c' ) {
+        //Construct conjunction
         query->quantifier = AND;
-        //std::cout << "TEST:: Q: " << root_name << "\n";
     }
     else if (firstLetter == 'd' ) {
+        //Construct disjunction
         query->quantifier = OR;
-        //std::cout << "TEST:: Q: " << root_name << "\n";
     }
     else if (firstLetter == 'i' ) {
+        //Construct Atom
         query->quantifier = EMPTY;
         query->depth = 0;
         query->max_depth = 0;
-        
-        //Construct atomic query
         if (root_name[1] == 's' ) { // Check if Fireability query
-            numberoftransitions = 0;
-            int t_id= 0, i = 0, numberofdependencyplaces = 0;
-            query->a.isFireable = true;
-            //std::cout << "TEST:: Current set made" <<std::endl;
-            for (xml_node<> * transition_node = root->first_node(); transition_node; transition_node = transition_node->next_sibling()) {
-                numberoftransitions++;
-            }
-            //numberoftransitions++;
-            //std::cout << "TEST:: Number of transitions: "<<numberoftransitions <<std::endl;
-            query->a.firesize = numberoftransitions;
-            query->a.fireset = (Fireability*) calloc(numberoftransitions, sizeof(Fireability));
-            
-            
-            for (xml_node<> * transition_node = root->first_node(); transition_node; transition_node = transition_node->next_sibling()) {
-                int t_count = 0;
-                for (t_count = 0; t_count < _net->numberOfTransitions(); t_count++){
-                    if (strcmp( _net->transitionNames()[t_count].c_str(), transition_node->value()) == 0){
-                        int p_count = 0;
-                        for(p_count = 0; p_count < _net->numberOfPlaces(); p_count++){
-                            int arc_weight = _net->inArc(p_count, t_count);
-                            if (arc_weight > 0){
-                                numberofdependencyplaces++;
-                            }
-                        }
-                        
-                        query->a.fireset[i].denpencyplaces = (Dependency*) calloc(numberofdependencyplaces, sizeof(Dependency));
-                        query->a.fireset[i].sizeofdenpencyplaces = numberofdependencyplaces;
-                        
-                        
-                    }
-                }
-                for (t_count = 0; t_count < _net->numberOfTransitions(); t_count++){
-                    if (strcmp( _net->transitionNames()[t_count].c_str(), transition_node->value()) == 0){
-                        int p_count = 0;
-                        int dependent_count = 0;
-                        for(p_count = 0; p_count < _net->numberOfPlaces(); p_count++){
-                            int arc_weight = _net->inArc(p_count, t_count);
-                            if (arc_weight > 0){
-                                query->a.fireset[i].denpencyplaces[dependent_count].intSmaller = arc_weight;
-                                query->a.fireset[i].denpencyplaces[dependent_count].placeLarger = p_count;
-                                dependent_count++;
-                            }
-                        }
-                        if (dependent_count > numberofdependencyplaces){
-                            std::cout << "-----TEST:: WE HAVE A PROBLEM!!\n" << std::flush;
-                        }
-                    }
-                }
-                
-                i++;
-            }
-            
-            //std::cout<<"::: Atom Return - Min: "<<query->depth<<" - Max:"<<query->max_depth<<std::endl;
-            
+            constructFireAtom(query, root);
             return query; 
         }
         else if (root_name[1] == 'n') { // Check if Cardinality query
-            xml_node<> * integerNode = root->first_node();
-            query->a.isFireable = false;
-            query->a.firesize = 0;
-            //std::cout<< "\n\n ---------------> Found integer-le - First attribute:\n ::Name: "<<integerNode->name()<<"\n ::Value: "<<integerNode->value()<<"\n"<<std::flush;
-            if (integerNode->name()[0] == 't') {
-                int smallPlacecount = 0, numberofplaces = 0;
-                for (xml_node<> * place_node = integerNode->first_node(); place_node; place_node = place_node->next_sibling()) {
-                    numberofplaces++;
-                }
-                //std::cout<<"Number of places: "<<numberofplaces<<std::flush;
-                
-                query->a.cardinality.placeSmaller.cardinality = (int*) calloc(numberofplaces, sizeof(int));
-                query->a.cardinality.placeSmaller.sizeoftokencount = numberofplaces;
-                
-                for (xml_node<> * place_node = integerNode->first_node(); place_node; place_node = place_node->next_sibling()) {
-                    int p_index = 0;
-                    for (p_index = 0; p_index < _net->numberOfPlaces(); p_index++){
-                        if(strcmp(_net->placeNames()[p_index].c_str(),place_node->value()) == 0){
-                            query->a.cardinality.placeSmaller.cardinality[smallPlacecount] = p_index;
-                            smallPlacecount++;
-                            break;
-                        }
-                    }
-                }
-                query->a.cardinality.intSmaller = -1;
-               // std::cout<< query->a.tokenCount.placeSmaller << " should be a smaller PLACE than ";
-            }
-            else if (integerNode->name()[0] == 'i') {
-                char *temp;
-                temp = integerNode->value();
-                query->a.cardinality.intSmaller = atoi(temp);
-                query->a.cardinality.placeSmaller.sizeoftokencount = 0;         
-                //std::cout<< query->a.cardinality.intSmaller << " should be a smaller INTEGER-CONTANT than ";
-            }
-            
-            //std::cout<<"LESS THAN";
-            integerNode = integerNode->next_sibling();
-            
-            if (integerNode->name()[0] == 't') {
-                int largePlacecount = 0, numberofplaces = 0;
-                for (xml_node<> * place_node = integerNode->first_node(); place_node; place_node = place_node->next_sibling()) {
-                    numberofplaces++;
-                }
-                //std::cout<<"Number of places: "<<numberofplaces<<std::endl;
-                query->a.cardinality.placeLarger.cardinality = (int*) calloc(numberofplaces, sizeof(int));
-                query->a.cardinality.placeLarger.sizeoftokencount = numberofplaces;
-                for (xml_node<> * place_node = integerNode->first_node(); place_node; place_node = place_node->next_sibling()) {
-                    int p_index = 0;
-                    for (p_index = 0; p_index < _net->numberOfPlaces(); p_index++){
-                        if(strcmp(_net->placeNames()[p_index].c_str(),place_node->first_node()->value()) == 0){
-                            query->a.cardinality.placeLarger.cardinality[largePlacecount] = p_index;
-                            largePlacecount++;
-                            break;
-                        }
-                    }
-                }
-                query->a.cardinality.intLarger = -1;
-            }
-                
-            else if (integerNode->name()[0] == 'i') {
-                char *temp;
-                temp = integerNode->value();
-                query->a.cardinality.intLarger = atoi(temp);
-                query->a.cardinality.placeLarger.sizeoftokencount = 0;
-                //std::cout<< query->a.cardinality.intLarger << " - witch is an INTEGER-CONTANT ";
-            }
-            
+            constructCardinalityAtom(query, root);
             return query; 
         }
         else {
@@ -318,6 +148,8 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
         #endif
     }
     
+    
+    //Create query children
     if (query->path == pError) {
         #ifdef DEBUG
         std::cout << "ERROR in xmlToCTLquery: !!Exiting - parse error!!\n";
@@ -341,9 +173,9 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     else {
         query->first = xmlToCTLquery(root->first_node()->first_node());
     }
-    //std::cout << "TEST:: Returning " << root_name << "\n";
     
-    //Update depth information
+    
+    //Update query depth information
     if (query->quantifier == AND || query->quantifier == OR || query->path == U){
         int first_depth = query->first->depth, second_depth = query->second->depth;
         query->depth = (lowerDepth(first_depth, second_depth) + 1);
@@ -466,11 +298,144 @@ void CTLParser::printPath(CTLTree *query) {
 }
 
 bool CTLParser::charEmpty(char *query) {
-
     if (query == NULL) {
         return true;
     }
     return false;
+}
+
+void CTLParser::constructCardinalityAtom(CTLTree *query, xml_node<> *root){
+    xml_node<> * integerNode = root->first_node();
+    query->a.isFireable = false;
+    query->a.firesize = 0;
+    
+    constructPreOperator(integerNode, query);
+    
+    integerNode = integerNode->next_sibling();
+    
+    constructPostOperator(integerNode, query);
+}
+
+void CTLParser::constructPreOperator(xml_node<> * integerNode, CTLTree *query){
+    if (integerNode->name()[0] == 't') {
+        int smallPlacecount = 0, numberofplaces = 0;
+        for (xml_node<> * place_node = integerNode->first_node(); place_node; place_node = place_node->next_sibling()) {
+            numberofplaces++;
+        }
+        //std::cout<<"Number of places: "<<numberofplaces<<std::flush;
+
+        query->a.cardinality.placeSmaller.cardinality = (int*) calloc(numberofplaces, sizeof(int));
+        query->a.cardinality.placeSmaller.sizeoftokencount = numberofplaces;
+
+        for (xml_node<> * place_node = integerNode->first_node(); place_node; place_node = place_node->next_sibling()) {
+            int p_index = 0;
+            for (p_index = 0; p_index < _net->numberOfPlaces(); p_index++){
+                if(strcmp(_net->placeNames()[p_index].c_str(),place_node->value()) == 0){
+                    query->a.cardinality.placeSmaller.cardinality[smallPlacecount] = p_index;
+                    smallPlacecount++;
+                    break;
+                }
+            }
+        }
+        query->a.cardinality.intSmaller = -1;
+       // std::cout<< query->a.tokenCount.placeSmaller << " should be a smaller PLACE than ";
+    }
+    else if (integerNode->name()[0] == 'i') {
+        char *temp;
+        temp = integerNode->value();
+        query->a.cardinality.intSmaller = atoi(temp);
+        query->a.cardinality.placeSmaller.sizeoftokencount = 0;         
+        //std::cout<< query->a.cardinality.intSmaller << " should be a smaller INTEGER-CONTANT than ";
+    }
+}
+
+void CTLParser::constructPostOperator(xml_node<> * integerNode, CTLTree *query){
+    if (integerNode->name()[0] == 't') {
+        int largePlacecount = 0, numberofplaces = 0;
+        for (xml_node<> * place_node = integerNode->first_node(); place_node; place_node = place_node->next_sibling()) {
+            numberofplaces++;
+        }
+        //std::cout<<"Number of places: "<<numberofplaces<<std::endl;
+        query->a.cardinality.placeLarger.cardinality = (int*) calloc(numberofplaces, sizeof(int));
+        query->a.cardinality.placeLarger.sizeoftokencount = numberofplaces;
+        for (xml_node<> * place_node = integerNode->first_node(); place_node; place_node = place_node->next_sibling()) {
+            int p_index = 0;
+            for (p_index = 0; p_index < _net->numberOfPlaces(); p_index++){
+                if(strcmp(_net->placeNames()[p_index].c_str(),place_node->first_node()->value()) == 0){
+                    query->a.cardinality.placeLarger.cardinality[largePlacecount] = p_index;
+                    largePlacecount++;
+                    break;
+                }
+            }
+        }
+        query->a.cardinality.intLarger = -1;
+    }
+
+    else if (integerNode->name()[0] == 'i') {
+        char *temp;
+        temp = integerNode->value();
+        query->a.cardinality.intLarger = atoi(temp);
+        query->a.cardinality.placeLarger.sizeoftokencount = 0;
+        //std::cout<< query->a.cardinality.intLarger << " - witch is an INTEGER-CONTANT ";
+    }
+}
+
+void CTLParser::constructFireAtom(CTLTree *query, xml_node<> *root){
+    numberoftransitions = 0;
+    int i = 0, numberofdependencyplaces = 0;
+    query->a.isFireable = true;
+    //std::cout << "TEST:: Current set made" <<std::endl;
+    for (xml_node<> * transition_node = root->first_node(); transition_node; transition_node = transition_node->next_sibling()) {
+        numberoftransitions++;
+    }
+    //numberoftransitions++;
+    //std::cout << "TEST:: Number of transitions: "<<numberoftransitions <<std::endl;
+    query->a.firesize = numberoftransitions;
+    query->a.fireset = (Fireability*) calloc(numberoftransitions, sizeof(Fireability));
+
+
+    for (xml_node<> * transition_node = root->first_node(); transition_node; transition_node = transition_node->next_sibling()) {
+        int t_count = 0;
+        for (t_count = 0; t_count < _net->numberOfTransitions(); t_count++){
+            if (strcmp( _net->transitionNames()[t_count].c_str(), transition_node->value()) == 0){
+                numberofdependencyplaces = countNumberofDependencies(t_count);
+                query->a.fireset[i].denpencyplaces = (Dependency*) calloc(numberofdependencyplaces, sizeof(Dependency));
+                query->a.fireset[i].sizeofdenpencyplaces = numberofdependencyplaces;
+            }
+        }
+        for (t_count = 0; t_count < _net->numberOfTransitions(); t_count++){
+            if (strcmp( _net->transitionNames()[t_count].c_str(), transition_node->value()) == 0){
+                convertToCardinality(i, query, t_count);
+            }
+        }
+
+        i++;
+    }
+}
+
+void CTLParser::convertToCardinality(int i, CTLTree *query, int t_index){
+    int p_count = 0;
+    int dependent_count = 0;
+    for(p_count = 0; p_count < _net->numberOfPlaces(); p_count++){
+        int arc_weight = _net->inArc(p_count, t_index);
+        if (arc_weight > 0){
+            query->a.fireset[i].denpencyplaces[dependent_count].intSmaller = arc_weight;
+            query->a.fireset[i].denpencyplaces[dependent_count].placeLarger = p_count;
+            dependent_count++;
+        }
+    }
+}
+
+int CTLParser::countNumberofDependencies(int t_index){
+    //Returns how many places the transition is dependent on
+    int p_count = 0, res = 0;
+    for(p_count = 0; p_count < _net->numberOfPlaces(); p_count++){
+        int arc_weight = _net->inArc(p_count, t_index);
+        if (arc_weight > 0){
+            res++;
+        }
+    }
+    return res;
 }
 
 void CTLParser::createAGquery(xml_node<> * root, CTLTree *query){
