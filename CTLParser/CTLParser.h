@@ -108,6 +108,14 @@ private:
     unsigned int higherDepth(unsigned int a, unsigned int b);
     CTLTree* xmlToCTLquery(rapidxml::xml_node<> * root);
     Path setPathOperator(rapidxml::xml_node<> * root, bool isA, bool isE);
+    void createAGquery(rapidxml::xml_node<> * root, CTLTree *query);
+    void createEGquery(rapidxml::xml_node<> * root, CTLTree *query);
+    void constructFireAtom(CTLTree *query, rapidxml::xml_node<> *root);
+    void constructCardinalityAtom(CTLTree *query, rapidxml::xml_node<> *root);
+    int countNumberofDependencies(int t_index);
+    void convertToCardinality(int i, CTLTree *query, int t_index);
+    void constructPreOperator(rapidxml::xml_node<> * integerNode, CTLTree *query);
+    void constructPostOperator(rapidxml::xml_node<> * integerNode, CTLTree *query);
     
     bool charEmpty(char *query);
     void printPath(CTLTree *query);
