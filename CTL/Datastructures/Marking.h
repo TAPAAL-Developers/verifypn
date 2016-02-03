@@ -6,9 +6,7 @@
 class Marking
 {
 public:
-    Marking(int t_length = -1) : length(t_length){
-
-    }
+    Marking(){}
 
     PetriEngine::MarkVal *marking;
     int length;
