@@ -3,6 +3,8 @@
 
 #include "../../PetriEngine/PetriNet.h"
 
+namespace ctl {
+
 class Marking
 {
 public:
@@ -11,5 +13,5 @@ public:
     PetriEngine::MarkVal *marking;
     int length;
 };
-
+}
 #endif // MARKING_H

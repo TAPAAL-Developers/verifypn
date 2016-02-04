@@ -1,5 +1,5 @@
-#ifndef CONFIGURATION_H
-#define CONFIGURATION_H
+#ifndef BASECONFIGURATION_H
+#define BASECONFIGURATION_H
 
 #include <list>
 #include "HyperEdge.h"
@@ -17,9 +17,9 @@ public:
     virtual ~BaseConfiguration();
 
     void remove_successor(HyperEdge *t_successor);
+    void config_printer() =0;
 
     Assignment assignment = UNKNOWN;
-    bool negated = false;
 
     std::list<HyperEdge*> dependencies;
     std::list<HyperEdge*> successors;

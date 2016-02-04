@@ -18,6 +18,7 @@ public:
     BaseConfiguration *source;
     std::list<BaseConfiguration*> targets;
 
+    bool negated = false;
     bool deleted = false;
     bool processed = false;
 
