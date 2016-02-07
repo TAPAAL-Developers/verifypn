@@ -13,8 +13,8 @@ public:
     virtual void push_dependency(Edge *e) =0;
     virtual Edge *pop() =0;
     virtual bool remove(Edge *e) =0;
-    virtual inline size_t size() =0;
-    virtual inline bool empty() =0;
+    virtual size_t size() =0;
+    virtual bool empty() =0;
 };
 
 }

@@ -1,30 +1,31 @@
-#ifndef FP_ALGORITHM_H
-#define FP_ALGORITHM_H
+#ifndef ONTHEFLYDG_H
+#define ONTHEFLYDG_H
 
+#include "DependencyGraph.h"
 #include "marking.h"
 #include "configuration.h"
 #include "edge.h"
-#include "SearchStrategies/AbstractSearchStrategy.h"
-#include "../CTLParser/CTLParser.h"
 
 #include <unordered_set>
 #include <list>
 
-namespace ctl{
+namespace ctl {
 
-class FP_Algorithm
+class OnTheFlyDG : public DependencyGraph
 {
 public:
-    virtual bool search(CTLTree *t_query, AbstractSearchStrategy *t_W) =0;
-    void clear(bool t_clear_all = false);
-    inline bool querySatisfied(){return _querySatisfied; }
-    inline int configuration_count(){return Configurations.size();}
-    inline int marking_count() {return Markings.size();}
-    volatile int evilCycles = 0;
-    volatile int cycles = 0;
+    OnTheFlyDG(PetriEngine::PetriNet *t_net,
+               PetriEngine::MarkVal *t_initial)
+        : DependencyGraph(t_net, t_initial){}
+
+    // DependencyGraph interface
+    std::list<Edge *> successors(Configuration &v);
+    Configuration &initialConfiguration();
+    void clear(bool t_clear_all);
+    int configuration_count() { return Configurations.size();}
+    int marking_count() { return Markings.size(); }
 
 protected:
-    std::list<Edge *> successors(Configuration &v);
     bool evaluateQuery(Configuration &t_config);
     int indexOfPlace(char *t_place);
     std::list<Marking *> nextState(Marking &t_marking);
@@ -32,8 +33,10 @@ protected:
     Configuration *createConfiguration(Marking &t_marking, CTLTree &t_query);
     Marking *createMarking(const Marking &t_marking, int t_transition);
 
+    CTLTree *_query;
     PetriEngine::PetriNet *_net;
     PetriEngine::MarkVal *_m0;
+
     int _nplaces;
     int _ntransitions;
     bool _querySatisfied;
@@ -45,7 +48,6 @@ protected:
     std::unordered_set< Configuration*,
                         std::hash<Configuration*>,
                         Configuration::Configuration_Equal_To> Configurations;
-
 };
-}//ctl
-#endif // FP_ALGORITHM_H
+}
+#endif // ONTHEFLYDG_H

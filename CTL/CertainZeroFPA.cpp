@@ -1,34 +1,15 @@
-#include "local_fp_algorithm.h"
+#include "CertainZeroFPA.h"
 
-namespace ctl {
+namespace ctl{
 
-Local_FP_Algorithm::Local_FP_Algorithm(PetriEngine::PetriNet *net, PetriEngine::MarkVal *initialmarking)
-{
-    _net = net;
-    _m0 = initialmarking;
-    _nplaces = net->numberOfPlaces();
-    _ntransitions = net->numberOfTransitions();
-}
-
-bool Local_FP_Algorithm::search(CTLTree *t_query, AbstractSearchStrategy *t_W)
-{
-    std::cout << _net->numberOfTransitions() << std::endl << std::flush;
-    Marking *m0 = new Marking(_m0, _nplaces);
-    Configuration *c0 = createConfiguration(*m0, *t_query);
-    _querySatisfied = local_fp_algorithm(*c0, *t_W);
-
-    //Clean up
-    delete t_W;
-
-    return _querySatisfied;
-}
-
-bool Local_FP_Algorithm::local_fp_algorithm(Configuration &v, AbstractSearchStrategy &W)
+bool CertainZeroFPA::search(DependencyGraph &t_graph, AbstractSearchStrategy &W)
 {
     PriorityQueue N;
 
+    Configuration &v = t_graph.initialConfiguration();
+
     v.assignment = ZERO;
-    for(Edge *e : successors(v)){
+    for(Edge *e : t_graph.successors(v)){
         W.push(e);
         if(e->source->IsNegated)
             N.push(e);
@@ -39,14 +20,10 @@ bool Local_FP_Algorithm::local_fp_algorithm(Configuration &v, AbstractSearchStra
 
         if(!W.empty()) {
             e = W.pop();
-            //std::cout << "Popped negation edge from N: \n" << std::flush;
-           // e->edgePrinter();
         }
         else if (!N.empty()) {
             e = N.top();
             N.pop();
-            //std::cout << "Popped negation edge from N: \n" << std::flush;
-            //e->edgePrinter();
         }
 
         /*****************************************************************/
@@ -54,6 +31,7 @@ bool Local_FP_Algorithm::local_fp_algorithm(Configuration &v, AbstractSearchStra
         int targetONEassignments = 0;
         int targetZEROassignments = 0;
         int targetUKNOWNassignments = 0;
+        bool czero = false;
 
         for(auto c : e->targets){
             if (c->assignment == ONE) {
@@ -62,6 +40,10 @@ bool Local_FP_Algorithm::local_fp_algorithm(Configuration &v, AbstractSearchStra
             else if (c->assignment == ZERO) {
                 targetZEROassignments++;
             }
+            else if (c->assignment == CZERO){
+                czero = true;
+                break;
+            }
             else if(c-> assignment == UNKNOWN){
                 targetUKNOWNassignments++;
             }
@@ -69,14 +51,29 @@ bool Local_FP_Algorithm::local_fp_algorithm(Configuration &v, AbstractSearchStra
         }
         /*****************************************************************/
 
-        if(e->source->assignment == ONE){
+        if(e->isDeleted || e->source->assignment == ONE || e->source->assignment == CZERO){
             //std::cout << "== Ignored ==\n" << std::flush;
         }
+        /*****************************************************************/
+
         else if(e->targets.size() == targetONEassignments){
+
             if(e->source->IsNegated){
-                e->source->assignment = ZERO;
+                e->source->assignment = CZERO;
+                e->source->removeSuccessor(e);
             }
             else{
+                e->source->assignment = ONE;
+            }
+            if(e->source == &v) break;
+
+            for(Edge *de : e->source->DependencySet){
+                W.push_dependency(de);
+            }
+            e->source->DependencySet.clear();
+        }
+        else if(czero){
+            if(e->source->IsNegated){
                 e->source->assignment = ONE;
                 if(e->source == &v) break;
 
@@ -85,19 +82,29 @@ bool Local_FP_Algorithm::local_fp_algorithm(Configuration &v, AbstractSearchStra
                 }
                 e->source->DependencySet.clear();
             }
+            else{
+                if(e->source->Successors.size() <= 1){
+                    e->source->assignment == CZERO;
+                    if(e->source == &v) break;
+
+                    for(Edge *de : e->source->DependencySet){
+                        W.push_dependency(de);
+                    }
+                    e->source->DependencySet.clear();
+                }
+            }
+            e->source->removeSuccessor(e);
         }
         else if(targetZEROassignments > 0){
             if(e->source->IsNegated && e->processed){
                 e->source->assignment = ONE;
-                //std::cout << "== Assigned ONE to NEG Edge ==\n" << std::flush;
                 if(e->source == &v) break;
-
                 for(Edge *de : e->source->DependencySet){
                     W.push_dependency(de);
                 }
                 e->source->DependencySet.clear();
             }
-            else{
+            else {
                 for(auto c : e->targets){
                     if(c->assignment == ZERO) {
                         c->DependencySet.push_back(e);
@@ -110,11 +117,18 @@ bool Local_FP_Algorithm::local_fp_algorithm(Configuration &v, AbstractSearchStra
                 if(tc->assignment == UNKNOWN){
                     tc->assignment = ZERO;
                     tc->DependencySet.push_back(e);
+                    t_graph.successors(*tc);
 
-                    for(Edge *succ : successors(*tc)){
-                        W.push(succ);
-                        if(succ->source->IsNegated){
-                            N.push(succ);
+                    if(tc->Successors.empty()){
+                        tc->assignment = CZERO;
+                    //    W.push_dependency(e);
+                    }
+                    else {
+                        for(Edge *succ : tc->Successors){
+                            W.push(succ);
+                            if(succ->source->IsNegated){
+                                N.push(succ);
+                            }
                         }
                     }
                 }
@@ -123,7 +137,13 @@ bool Local_FP_Algorithm::local_fp_algorithm(Configuration &v, AbstractSearchStra
         e->processed = true;
     }
 
-    return v.assignment == ONE ? true : false;
+    //std::cout << "Final Assignment: " << v.assignment << " " << ((v.assignment == ONE) ? true : false) << std::endl;
+    return (v.assignment == ONE) ? true : false;
 }
 
-}//ctl
+bool CertainZeroFPA::czero_fp_algorithm(Configuration &v, AbstractSearchStrategy &W)
+{
+
+}
+
+}

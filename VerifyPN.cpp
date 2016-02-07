@@ -52,13 +52,10 @@
 #include "PetriParse/QueryXMLParser.h"
 #include "CTLParser/CTLParser.h"
 
-#include "CTL/dgengine.h"
-#include "CTL/edgepicker.h"
 #include "CTL/fp_algorithm.h"
 #include "CTL/local_fp_algorithm.h"
 #include "CTL/czero_fp_algorithm.h"
-#include "CTL/global_fp_algorithm.h"
-
+#include "CTL/SearchStrategies/DepthFirstSearch.h"
 
 using namespace std;
 using namespace PetriEngine;
@@ -80,95 +77,17 @@ enum SearchStrategies{
 	DFS,			//LinearOverAprox + DepthFirstReachabilitySearch
 	RDFS,			//LinearOverAprox + RandomDFS
     OverApprox,		//LinearOverApprx
-    CDFS,           //DFS + circle detection(dgengine only)
-    FBFS,           //Foward BFS(dgengine only)
-    BBFS,           //Backward BFS(dgengine only)
-    BDFS            //Backward DFS(dgengine only)
+};
+
+enum CtlAlgorithm {
+    LOCAL = 0,
+    CZERO =1
 };
 
 double diffclock(clock_t clock1, clock_t clock2){
     double diffticks = clock1 - clock2;
     double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
     return diffms;
-}
-
-void testsuit(){
-    
-    
-    //Setup Test model
-    string modelfile_str = "testFramework/ModelDB/ERK-PT-000001/model.pnml";
-    const char* modelfile = modelfile_str.c_str();
-    PetriNet* net = NULL;
-    MarkVal* m0 = NULL;
-    {
-        ifstream mfile(modelfile, ifstream::in);
-        stringstream buffer;
-        buffer << mfile.rdbuf();
-
-        //Parse and build the petri net
-        PetriNetBuilder builder(false);
-        PNMLParser parser;
-
-        parser.parse(buffer.str(), &builder);
-        parser.makePetriNet();
-        net = builder.makePetriNet();
-        m0 = builder.makeInitialMarking();
-        mfile.close();
-    }
-    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
-    cout<<":::::::::::::::: Model Information ::::::::::::::"<<endl;
-    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
-    cout<<"::::::::::: Number of places parsed: "<<net->numberOfPlaces()<<endl;
-    cout<<"::::::::::: Number of transitions parsed: "<<net->numberOfTransitions()<<endl;
-    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
-    cout<<"::::::::: Places:"<<endl;
-    int i = 0;
-    for(i = 0; i< net->numberOfPlaces(); i++){
-        cout<<  "::::::::::::: "<< i+1 << ". " << net->placeNames()[i] <<endl;
-    }
-    cout<<"::::::::: Transitions:"<<endl;
-    for(i = 0; i< net->numberOfTransitions(); i++){
-        cout<<  "::::::::::::: "<< i+1 << ". " << net->transitionNames()[i] <<endl;
-    }
-    cout<<"::::::::: Arcs:"<<endl;
-    for(i = 0; i< net->numberOfTransitions(); i++){
-        int j = 0;
-        for(j = 0; j< net->numberOfPlaces(); j++){
-            if (net->outArc(i,j) > 0)
-                cout<<"::::::::::::: From "<<net->transitionNames()[i]<<" to "<< net->placeNames()[j] << " Weight: "<<net->outArc(i,j) <<endl;
-        }
-    }
-    for(i = 0; i< net->numberOfPlaces(); i++){
-        int j = 0;
-        for(j = 0; j< net->numberOfTransitions(); j++){
-            if (net->inArc(i,j) > 0)
-                cout<<"::::::::::::: From "<<net->placeNames()[i]<<" to "<< net->transitionNames()[j] << " Weight: "<<net->inArc(i,j) <<endl;
-        }
-    }
-    cout<<"::::::::: Initial Marking:"<<endl;
-    for(i = 0; i< net->numberOfPlaces(); i++){
-        cout<<"::::::::::::: P"<<i<<": "<<m0[i] <<endl;
-    }
-    
-    
-    //Test the Parser
-    CTLParser *testParser = new CTLParser(net);
-    testParser->RunParserTest();
-    
-    //Test the Engine - without certainZero
-    //DGEngine (net, m0, certainZero);
-    ctl::DGEngine engine(net, m0);
-    engine.RunEgineTest();
-    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
-    cout<<"::::::::: Completed normal Engine Test ::::::::::"<<endl;
-    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
-    
-    //Test the Engine - without certainZero
-    ctl::DGEngine cZEROengine(net, m0);
-    cZEROengine.RunEgineTest();
-    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
-    cout<<":::::::::: Completed CZERO Engine Test ::::::::::"<<endl;
-    cout<<":::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
 }
 
 void getQueryPlaces(vector<string> *QueryPlaces, CTLTree* current, PetriNet *net){
@@ -212,64 +131,47 @@ void search_ctl_query(PetriNet* net,
                       MarkVal* m0,
                       CTLFormula *queryList[],
                       int t_xmlquery,
-                      ReturnValues result[],
-                      ctl::ctl_algorithm t_algorithm,
-                      ctl::ctl_search_strategy t_strategy)
-{
-    ctl::FP_Algorithm *engine2;
-    ctl::ctl_search_strategy strategy = t_strategy;
+                      CtlAlgorithm t_algorithm,
+                      SearchStrategies t_strategy,
+                      ReturnValues result[]) {
 
-    if(t_algorithm == ctl::Local_i){
-        engine2 = new ctl::Local_FP_Algorithm(net, m0);
-        if(t_strategy == ctl::CTL_CDFS) {
-            strategy = ctl::CTL_DFS;
-        }
+    ctl::FP_Algorithm *algorithm;
+    ctl::AbstractSearchStrategy *strategy;
+
+    //Determine Fixed Point Algorithm
+    if(t_algorithm == LOCAL){
+        algorithm = new ctl::Local_FP_Algorithm(net, m0);
     }
-    else if(t_algorithm == ctl::CZero_i){
-        engine2 = new ctl::CZero_FP_Algorithm(net, m0);
-
-        if(t_strategy == ctl::CTL_CDFS) {
-            strategy = ctl::CTL_DFS;
-        }
+    else if(t_algorithm == CZERO){
+        algorithm = new ctl::CZero_FP_Algorithm(net, m0);
     }
-    else if(t_algorithm == ctl::Global_i){
-        engine2 = new ctl::Global_FP_Algorithm(net, m0);
-
-        if(t_strategy == ctl::CTL_CDFS) {
-            strategy = ctl::CTL_DFS;
-        }
+    else{
+        fprintf(stderr, "Error: unknown ctl algorithm");
+        exit(EXIT_FAILURE);
     }
 
-    ctl::DGEngine engine(net, m0);
+    //Determine Search Strategy
+    if(t_strategy == DFS){
+        strategy = new ctl::DepthFirstSearch();
+    }
+    else{
+        fprintf(stderr, "Error: unsupported ctl search strategy");
+        exit(EXIT_FAILURE);
+    }
+
     int configCount = 0, markingCount = 0;
     bool res;
 
     if(t_xmlquery > 0){
         clock_t individual_search_begin = clock();
-        if(t_algorithm == ctl::CZero_i || t_algorithm == ctl::Local_i || t_algorithm == ctl::Global_i){
-            if(t_strategy == ctl::CTL_CDFS){
-                engine2->search(queryList[t_xmlquery - 1]->Query, new ctl::EdgePicker(strategy), new ctl::CircleDetector());
-            }
-            else{
-                engine2->search(queryList[t_xmlquery - 1]->Query, new ctl::EdgePicker(strategy));
-            }
+        algorithm->search(queryList[t_xmlquery - 1]->Query, strategy);
 
-            configCount = engine2->configuration_count();
-            markingCount = engine2->marking_count();
-            queryList[t_xmlquery - 1]->Result = engine2->querySatisfied();
-            res = engine2->querySatisfied();
-        }
-        else{
-            engine.search(queryList[t_xmlquery - 1]->Query, t_algorithm, t_strategy);
-            configCount = engine.configuration_count();
-            markingCount = engine.marking_count();
-            queryList[t_xmlquery - 1]->Result = engine.querySatisfied();
-            res = engine.querySatisfied();
-        }
+        configCount = algorithm->configuration_count();
+        markingCount = algorithm->marking_count();
+        queryList[t_xmlquery - 1]->Result = algorithm->querySatisfied();
+        res = algorithm->querySatisfied();
+
         clock_t individual_search_end = clock();
-        if(t_strategy == ctl::CTL_CDFS && (t_algorithm == ctl::CZero_i || t_algorithm == ctl::Local_i || t_algorithm == ctl::Global_i)){
-            cout << ":::CYCLE:: Detected: " << engine2->cycles << " Evil Cycles: " << engine2->evilCycles << endl;
-        }
         cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery - 1 <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
         cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
 
@@ -278,53 +180,38 @@ void search_ctl_query(PetriNet* net,
         else if (!res)
             result[t_xmlquery - 1] = FailedCode;
         else result[t_xmlquery - 1] = ErrorCode;
+
         queryList[t_xmlquery - 1]->pResult();
     }
-    else{
-        for (int i = 0; i < 16 ; i++) {
-            clock_t individual_search_end, individual_search_begin;
+//    else{
+//        for (int i = 0; i < 16 ; i++) {
+//            clock_t individual_search_end, individual_search_begin;
 
-            if(t_algorithm == ctl::CZero_i || t_algorithm == ctl::Local_i || t_algorithm == ctl::Global_i){
-                individual_search_begin = clock();
-                if(t_strategy == ctl::CTL_CDFS){
-                    engine2->search(queryList[i]->Query, new ctl::EdgePicker(strategy), new ctl::CircleDetector());
-                }
-                else{
-                    engine2->search(queryList[i]->Query, new ctl::EdgePicker(strategy));
-                }
-                individual_search_end = clock();
+//            if(t_algorithm == ctl::CZero_i || t_algorithm == ctl::Local_i || t_algorithm == ctl::Global_i){
+//                individual_search_begin = clock();
+//                if(t_strategy == ctl::CTL_CDFS){
+//                    engine2->search(queryList[i]->Query, new ctl::EdgePicker(strategy));
+//                }
+//                individual_search_end = clock();
 
-                configCount = engine2->configuration_count();
-                markingCount = engine2->marking_count();
-                queryList[i]->Result = engine2->querySatisfied();
-                res = engine2->querySatisfied();
-                engine2->clear();
-            }
-            else{
-                individual_search_begin = clock();
-                engine.search(queryList[i]->Query, t_algorithm, t_strategy);
-                individual_search_end = clock();
-                configCount = engine.configuration_count();
-                markingCount = engine.marking_count();
-                queryList[i]->Result = engine.querySatisfied();
-                res = engine.querySatisfied();
-                engine.clear();
-            }
-            if(t_strategy == ctl::CTL_CDFS && (t_algorithm == ctl::CZero_i || t_algorithm == ctl::Local_i || t_algorithm == ctl::Global_i)){
-                cout << ":::CYCLE:: Detected: " << engine2->cycles << " Evil Cycles: " << engine2->evilCycles << endl;
-            }
-            cout<<":::TIME::: Search elapsed time for query "<< i <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
-            cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
+//                configCount = alg->configuration_count();
+//                markingCount = alg->marking_count();
+//                queryList[i]->Result = alg->querySatisfied();
+//                res = alg->querySatisfied();
+//                alg->clear();
+//            }
+//            cout<<":::TIME::: Search elapsed time for query "<< i <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+//            cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
 
-            if (res)
-                result[i] = SuccessCode;
-            else if (!res)
-                result[i] = FailedCode;
-            else result[i] = ErrorCode;
-            queryList[i]->pResult();
-            cout << endl;
-        }
-   }
+//            if (res)
+//                result[i] = SuccessCode;
+//            else if (!res)
+//                result[i] = FailedCode;
+//            else result[i] = ErrorCode;
+//            queryList[i]->pResult();
+//            cout << endl;
+//        }
+//   }
 }
 
 #define VERSION		"1.2.0"
@@ -347,11 +234,8 @@ int main(int argc, char* argv[]){
     //CTL variables
     //TODO Sort out when done
     bool isCTLlogic = false;
-    bool istest = false;
+    CtlAlgorithm ctl_algorithm;
     string query_string_ctl;
-    //bool certainZero = false;
-    ctl::ctl_search_strategy ctl_search_strategy = ctl::CTL_DFS;
-    ctl::ctl_algorithm ctl_algorithm;
 
         
 	//----------------------- Parse Arguments -----------------------//
@@ -378,31 +262,16 @@ int main(int argc, char* argv[]){
             else{
                 char *s = argv[++i];
                 if(strcmp(s, "local") == 0){
-                    ctl_algorithm = ctl::Local;
-                }
-                else if(strcmp(s, "global") == 0){
-                    ctl_algorithm = ctl::Global;
+                    ctl_algorithm = LOCAL;
                 }
                 else if(strcmp(s, "czero") == 0){
-                    ctl_algorithm = ctl::CZero;
-                }
-                else if(strcmp(s, "czero-i") == 0){
-                    ctl_algorithm = ctl::CZero_i;
-                }
-                else if(strcmp(s, "global-i") == 0){
-                    ctl_algorithm = ctl::Global_i;
-                }
-                else if(strcmp(s, "local-i") == 0){
-                    ctl_algorithm = ctl::Local_i;
+                    ctl_algorithm = CZERO;
                 }
                 else{
                     fprintf(stderr, "Argument Error: Unrecognized ctl algorithm \"%s\"\n", s);
                     return ErrorCode;
                 }
             }
-
-        }else if(strcmp(argv[i], "-test") == 0){
-                    istest = true;
         }else if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--search-strategy") == 0){
                 if (i==argc-1) {
                         fprintf(stderr, "Missing search strategy after \"%s\"\n\n", argv[i]);
@@ -419,14 +288,6 @@ int main(int argc, char* argv[]){
                         searchstrategy = RDFS;
                 else if(strcmp(s, "OverApprox") == 0)
                         searchstrategy = OverApprox;
-                else if(strcmp(s, "CDFS") == 0)
-                        searchstrategy = CDFS;
-                else if(strcmp(s, "BDFS") == 0)
-                        searchstrategy = BDFS;
-                else if(strcmp(s, "BBFS") == 0)
-                        searchstrategy = BBFS;
-                else if(strcmp(s, "FBFS") == 0)
-                        searchstrategy = FBFS;
                 else{
                         fprintf(stderr, "Argument Error: Unrecognized search strategy \"%s\"\n", s);
                         return ErrorCode;
@@ -536,10 +397,6 @@ int main(int argc, char* argv[]){
     bool timeInfo = true;
 
 	//----------------------- Validate Arguments -----------------------//
-        if(istest){
-            testsuit();
-            return 0;
-        }
 	//Check for model file
 	if(!modelfile){
 		fprintf(stderr, "Argument Error: No model-file provided\n");
@@ -601,7 +458,6 @@ int main(int argc, char* argv[]){
     CTLFormula *queryList[15];
     
     if(isCTLlogic){
-//#ifdef Analysis //Extract the name of the model used
         std::string modelname;
 
         ifstream mfile(modelfile, ifstream::in);
@@ -637,14 +493,11 @@ int main(int argc, char* argv[]){
         mfile.close();
         std::cout << "Analysis:: Modefile: " << modelfile << endl;
         std::cout << "Analysis:: Modelname: " << modelname << endl;
-//#endif
+
         ifstream xmlfile (queryfile);
         vector<char> buffer((istreambuf_iterator<char>(xmlfile)), istreambuf_iterator<char>());
         buffer.push_back('\0');
-        
-#ifdef DEBUG
-        fprintf(stdout, "Parsing queries");
-#endif
+
         CTLParser ctlParser = CTLParser(net);
         
         ctlParser.ParseXMLQuery(buffer, queryList);
@@ -866,11 +719,11 @@ int main(int argc, char* argv[]){
 	}
         
         
-        ReturnValues retval = ErrorCode;
-        if(!isCTLlogic){
-        //-------------------------------------------------------------------//
-	//----------------------- Reachability search -----------------------//
-        //-------------------------------------------------------------------//
+    ReturnValues retval = ErrorCode;
+    if(!isCTLlogic){
+//-------------------------------------------------------------------//
+//----------------------- Reachability search -----------------------//
+//-------------------------------------------------------------------//
 	ReachabilityResult result = strategy->reachable(*net, m0, v0, query);
 
 	
@@ -987,47 +840,24 @@ int main(int argc, char* argv[]){
                     }
             }
             fprintf(stdout,"\n\n");
-	}
+    }
         }
         
-        //-------------------------------------------------------------------//
-	//---------------------------- CTL search ---------------------------//
-        //-------------------------------------------------------------------//
-	else {
-            if(searchstrategy == BFS){
-                ctl_search_strategy = ctl::CTL_BFS;
-            }
-            else if(searchstrategy == DFS){
-                ctl_search_strategy = ctl::CTL_DFS;
-            }
-            else if(searchstrategy == BestFS){
-                ctl_search_strategy = ctl::CTL_BestFS;
-            }
-            else if(searchstrategy == CDFS) {
-                ctl_search_strategy = ctl::CTL_CDFS;
-            }
-            else if(searchstrategy == BDFS) {
-                ctl_search_strategy = ctl::CTL_BDFS;
-            }
-            else if(searchstrategy == BBFS) {
-                ctl_search_strategy = ctl::CTL_BBFS;
-            }
-            else if(searchstrategy == FBFS) {
-                ctl_search_strategy = ctl::CTL_FBFS;
-            }
-
+//-------------------------------------------------------------------//
+//---------------------------- CTL search ---------------------------//
+//-------------------------------------------------------------------//
+        else {
             ReturnValues retval[16];
 
             clock_t total_search_begin = clock();
-            search_ctl_query(net, m0, queryList, xmlquery, retval, ctl_algorithm, ctl_search_strategy);
+            search_ctl_query(net, m0, queryList, xmlquery, ctl_algorithm, searchstrategy, retval);
             clock_t total_search_end = clock();
 
-            if(timeInfo)
+            if(timeInfo){
                 cout<<"\n:::TIME::: Total search elapsed time: "<<double(diffclock(total_search_end,total_search_begin))<<" ms\n"<<endl;
-
+            }
         }
-	//------------------------ Return the Output Value -------------------//
-	
-	return retval;
+//------------------------ Return the Output Value -------------------//
+        return retval;
 }
 
