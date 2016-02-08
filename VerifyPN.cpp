@@ -173,8 +173,8 @@ void search_ctl_query(PetriNet* net,
 
     if(t_xmlquery > 0){
         clock_t individual_search_begin = clock();
-        graph->initialize(*(queryList[t_xmlquery - 1]->Query));
 
+        graph->initialize(*(queryList[t_xmlquery - 1]->Query));
         res = algorithm->search(*graph, *strategy);
 
         configCount = graph->configuration_count();
@@ -193,35 +193,32 @@ void search_ctl_query(PetriNet* net,
 
         queryList[t_xmlquery - 1]->pResult();
     }
-//    else{
-//        for (int i = 0; i < 16 ; i++) {
-//            clock_t individual_search_end, individual_search_begin;
+    else{
+        for (int i = 0; i < 16 ; i++) {
+            clock_t individual_search_end, individual_search_begin;
+            individual_search_begin = clock();
 
-//            if(t_algorithm == ctl::CZero_i || t_algorithm == ctl::Local_i || t_algorithm == ctl::Global_i){
-//                individual_search_begin = clock();
-//                if(t_strategy == ctl::CTL_CDFS){
-//                    engine2->search(queryList[i]->Query, new ctl::EdgePicker(strategy));
-//                }
-//                individual_search_end = clock();
+            graph->initialize(*(queryList[i]->Query));
+            res = algorithm->search(*graph, *strategy);
 
-//                configCount = alg->configuration_count();
-//                markingCount = alg->marking_count();
-//                queryList[i]->Result = alg->querySatisfied();
-//                res = alg->querySatisfied();
-//                alg->clear();
-//            }
-//            cout<<":::TIME::: Search elapsed time for query "<< i <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
-//            cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
+            individual_search_end = clock();
 
-//            if (res)
-//                result[i] = SuccessCode;
-//            else if (!res)
-//                result[i] = FailedCode;
-//            else result[i] = ErrorCode;
-//            queryList[i]->pResult();
-//            cout << endl;
-//        }
-//   }
+            configCount = graph->configuration_count();
+            markingCount = graph->marking_count();
+            queryList[i]->Result = res;
+
+            cout<<":::TIME::: Search elapsed time for query "<< i <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+            cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
+
+            if (res)
+                result[i] = SuccessCode;
+            else if (!res)
+                result[i] = FailedCode;
+            else result[i] = ErrorCode;
+            queryList[i]->pResult();
+            cout << endl;
+        }
+   }
 }
 
 #define VERSION		"1.2.0"
