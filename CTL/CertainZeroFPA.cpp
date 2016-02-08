@@ -7,8 +7,8 @@ bool CertainZeroFPA::search(DependencyGraph &t_graph, AbstractSearchStrategy &W)
     PriorityQueue N;
 
     Configuration &v = t_graph.initialConfiguration();
-
     v.assignment = ZERO;
+
     for(Edge *e : t_graph.successors(v)){
         W.push(e);
         if(e->source->IsNegated)
@@ -139,11 +139,6 @@ bool CertainZeroFPA::search(DependencyGraph &t_graph, AbstractSearchStrategy &W)
 
     //std::cout << "Final Assignment: " << v.assignment << " " << ((v.assignment == ONE) ? true : false) << std::endl;
     return (v.assignment == ONE) ? true : false;
-}
-
-bool CertainZeroFPA::czero_fp_algorithm(Configuration &v, AbstractSearchStrategy &W)
-{
-
 }
 
 }

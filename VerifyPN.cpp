@@ -50,11 +50,19 @@
 
 #include "PetriEngine/Reducer.h"
 #include "PetriParse/QueryXMLParser.h"
+
+
+///CTL includes
 #include "CTLParser/CTLParser.h"
 
-#include "CTL/fp_algorithm.h"
-#include "CTL/local_fp_algorithm.h"
-#include "CTL/czero_fp_algorithm.h"
+#include "CTL/FixedPointAlgorithm.h"
+#include "CTL/CertainZeroFPA.h"
+#include "CTL/LocalFPA.h"
+
+#include "CTL/DependencyGraph.h"
+#include "CTL/OnTheFlyDG.h"
+
+#include "CTL/SearchStrategies/AbstractSearchStrategy.h"
 #include "CTL/SearchStrategies/DepthFirstSearch.h"
 
 using namespace std;
@@ -135,15 +143,16 @@ void search_ctl_query(PetriNet* net,
                       SearchStrategies t_strategy,
                       ReturnValues result[]) {
 
-    ctl::FP_Algorithm *algorithm;
+    ctl::FixedPointAlgorithm *algorithm;
     ctl::AbstractSearchStrategy *strategy;
+    ctl::DependencyGraph *graph = new ctl::OnTheFlyDG(net, m0);
 
     //Determine Fixed Point Algorithm
     if(t_algorithm == LOCAL){
-        algorithm = new ctl::Local_FP_Algorithm(net, m0);
+        algorithm = new ctl::LocalFPA();
     }
     else if(t_algorithm == CZERO){
-        algorithm = new ctl::CZero_FP_Algorithm(net, m0);
+        algorithm = new ctl::CertainZeroFPA();
     }
     else{
         fprintf(stderr, "Error: unknown ctl algorithm");
@@ -164,12 +173,13 @@ void search_ctl_query(PetriNet* net,
 
     if(t_xmlquery > 0){
         clock_t individual_search_begin = clock();
-        algorithm->search(queryList[t_xmlquery - 1]->Query, strategy);
+        graph->initialize(*(queryList[t_xmlquery - 1]->Query));
 
-        configCount = algorithm->configuration_count();
-        markingCount = algorithm->marking_count();
-        queryList[t_xmlquery - 1]->Result = algorithm->querySatisfied();
-        res = algorithm->querySatisfied();
+        res = algorithm->search(*graph, *strategy);
+
+        configCount = graph->configuration_count();
+        markingCount = graph->marking_count();
+        queryList[t_xmlquery - 1]->Result = res;
 
         clock_t individual_search_end = clock();
         cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery - 1 <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
@@ -235,7 +245,7 @@ int main(int argc, char* argv[]){
     //TODO Sort out when done
     bool isCTLlogic = false;
     CtlAlgorithm ctl_algorithm;
-    string query_string_ctl;
+//    string query_string_ctl;
 
         
 	//----------------------- Parse Arguments -----------------------//
@@ -493,6 +503,8 @@ int main(int argc, char* argv[]){
         mfile.close();
         std::cout << "Analysis:: Modefile: " << modelfile << endl;
         std::cout << "Analysis:: Modelname: " << modelname << endl;
+        std::cout << "Analysis:: Number of places: " << net->numberOfPlaces() << endl;
+        std::cout << "Analysis:: Number of transistions: " << net->numberOfTransitions() << endl;
 
         ifstream xmlfile (queryfile);
         vector<char> buffer((istreambuf_iterator<char>(xmlfile)), istreambuf_iterator<char>());

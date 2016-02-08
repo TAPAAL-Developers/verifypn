@@ -15,8 +15,7 @@ class OnTheFlyDG : public DependencyGraph
 {
 public:
     OnTheFlyDG(PetriEngine::PetriNet *t_net,
-               PetriEngine::MarkVal *t_initial)
-        : DependencyGraph(t_net, t_initial){}
+               PetriEngine::MarkVal *t_initial);
 
     // DependencyGraph interface
     std::list<Edge *> successors(Configuration &v);
@@ -32,14 +31,6 @@ protected:
     std::list<int> calculateFireableTransistions(Marking &t_marking);
     Configuration *createConfiguration(Marking &t_marking, CTLTree &t_query);
     Marking *createMarking(const Marking &t_marking, int t_transition);
-
-    CTLTree *_query;
-    PetriEngine::PetriNet *_net;
-    PetriEngine::MarkVal *_m0;
-
-    int _nplaces;
-    int _ntransitions;
-    bool _querySatisfied;
 
     std::unordered_set< Marking*,
                         std::hash<Marking*>,

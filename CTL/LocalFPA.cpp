@@ -1,34 +1,13 @@
-#include "local_fp_algorithm.h"
+#include "LocalFPA.h"
 
-namespace ctl {
-
-Local_FP_Algorithm::Local_FP_Algorithm(PetriEngine::PetriNet *net, PetriEngine::MarkVal *initialmarking)
-{
-    _net = net;
-    _m0 = initialmarking;
-    _nplaces = net->numberOfPlaces();
-    _ntransitions = net->numberOfTransitions();
-}
-
-bool Local_FP_Algorithm::search(CTLTree *t_query, AbstractSearchStrategy *t_W)
-{
-    std::cout << _net->numberOfTransitions() << std::endl << std::flush;
-    Marking *m0 = new Marking(_m0, _nplaces);
-    Configuration *c0 = createConfiguration(*m0, *t_query);
-    _querySatisfied = local_fp_algorithm(*c0, *t_W);
-
-    //Clean up
-    delete t_W;
-
-    return _querySatisfied;
-}
-
-bool Local_FP_Algorithm::local_fp_algorithm(Configuration &v, AbstractSearchStrategy &W)
+bool ctl::LocalFPA::search(ctl::DependencyGraph &t_graph, ctl::AbstractSearchStrategy &W)
 {
     PriorityQueue N;
 
+    Configuration &v = t_graph.initialConfiguration();
     v.assignment = ZERO;
-    for(Edge *e : successors(v)){
+
+    for(Edge *e : t_graph.successors(v)){
         W.push(e);
         if(e->source->IsNegated)
             N.push(e);
@@ -111,7 +90,7 @@ bool Local_FP_Algorithm::local_fp_algorithm(Configuration &v, AbstractSearchStra
                     tc->assignment = ZERO;
                     tc->DependencySet.push_back(e);
 
-                    for(Edge *succ : successors(*tc)){
+                    for(Edge *succ : t_graph.successors(*tc)){
                         W.push(succ);
                         if(succ->source->IsNegated){
                             N.push(succ);
@@ -125,5 +104,3 @@ bool Local_FP_Algorithm::local_fp_algorithm(Configuration &v, AbstractSearchStra
 
     return v.assignment == ONE ? true : false;
 }
-
-}//ctl

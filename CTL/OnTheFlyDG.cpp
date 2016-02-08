@@ -4,6 +4,9 @@
 
 namespace ctl{
 
+OnTheFlyDG::OnTheFlyDG(PetriEngine::PetriNet *t_net, PetriEngine::MarkVal *t_initial):
+    DependencyGraph(t_net, t_initial){}
+
 std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
 {
     std::list<Edge*> succ;
@@ -256,7 +259,7 @@ bool OnTheFlyDG::evaluateQuery(Configuration &t_config){
 
 int OnTheFlyDG::indexOfPlace(char *t_place){
     for (int i = 0; i < _nplaces; i++) {
-        if (0 == (strcmp(t_place, _net->placeNames()[i].c_str()))){
+        if (0 == (strcmp(t_place, _petriNet->placeNames()[i].c_str()))){
                 //cout << "place " << query->a.tokenCount.placeLarger << " " << flush;
                 return i;
         }
@@ -289,7 +292,7 @@ std::list<int> OnTheFlyDG::calculateFireableTransistions(Marking &t_marking){
     for(int t = 0; t < _ntransitions; t++){
         bool transitionFound = true;
         for(int p = 0; p < _nplaces; p++){
-            if(t_marking[p] < _net->inArc(p,t))
+            if(t_marking[p] < _petriNet->inArc(p,t))
                 transitionFound = false;
         }
 
@@ -342,8 +345,8 @@ Marking *OnTheFlyDG::createMarking(const Marking& t_marking, int t_transition){
     new_marking->CopyMarking(t_marking);
 
     for(int p = 0; p < _nplaces; p++){
-        int place = (*new_marking)[p] - _net->inArc(p,t_transition);
-        (*new_marking)[p] = place + _net->outArc(t_transition,p);
+        int place = (*new_marking)[p] - _petriNet->inArc(p,t_transition);
+        (*new_marking)[p] = place + _petriNet->outArc(t_transition,p);
     }
 
     auto result = Markings.find(new_marking);

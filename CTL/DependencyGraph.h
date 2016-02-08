@@ -4,6 +4,7 @@
 #include "../PetriEngine/PetriNet.h"
 #include "../CTLParser/CTLParser.h"
 #include <list>
+#include <iostream>
 
 namespace ctl{
 
@@ -15,12 +16,7 @@ class DependencyGraph
 public:
 
     DependencyGraph(PetriEngine::PetriNet *t_net,
-                    PetriEngine::MarkVal *t_initial)
-        : _petriNet(t_net),
-          _initialMarking(t_initial),
-          _nplaces(t_net->numberOfPlaces()),
-          _ntransitions(t_net->numberOfTransitions())
-    {}
+                    PetriEngine::MarkVal *t_initial);
 
     virtual ~DependencyGraph(){};
 
@@ -30,16 +26,12 @@ public:
     virtual int configuration_count() =0;
     virtual int marking_count() =0;
 
-    DependencyGraph *initialize(CTLTree &t_query);
-
-    bool querySatisfied() const;
-    void setQuerySatisfied(bool querySatisfied);
+    void initialize(CTLTree &t_query);
 
 protected:
-    bool _querySatisfied;
-    CTLTree *_query = NULL;
-    PetriEngine::PetriNet *_petriNet = NULL;
-    PetriEngine::MarkVal *_initialMarking = NULL;
+    CTLTree *_query;
+    PetriEngine::PetriNet *_petriNet;
+    PetriEngine::MarkVal *_initialMarking;
     int _nplaces;
     int _ntransitions;
 };
