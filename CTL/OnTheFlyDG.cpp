@@ -1,10 +1,13 @@
-#include "fp_algorithm.h"
+#include "OnTheFlyDG.h"
 
 #include <string.h>
 
 namespace ctl{
 
-std::list<Edge *> FP_Algorithm::successors(Configuration &v)
+OnTheFlyDG::OnTheFlyDG(PetriEngine::PetriNet *t_net, PetriEngine::MarkVal *t_initial):
+    DependencyGraph(t_net, t_initial){}
+
+std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
 {
     std::list<Edge*> succ;
     //All
@@ -182,7 +185,13 @@ std::list<Edge *> FP_Algorithm::successors(Configuration &v)
     //std::cout << "-----------EDGES NOW : " << computedSucc << "\n" << std::flush;
 }
 
-bool FP_Algorithm::evaluateQuery(Configuration &t_config){
+Configuration &OnTheFlyDG::initialConfiguration()
+{
+    Marking *initial = new Marking(_initialMarking, _nplaces);
+    return *createConfiguration(*initial, *_query);
+}
+
+bool OnTheFlyDG::evaluateQuery(Configuration &t_config){
 
     CTLTree* query = t_config.query;
 
@@ -239,18 +248,18 @@ bool FP_Algorithm::evaluateQuery(Configuration &t_config){
   //          std::cout<<t_config.marking->Value()[index]<<" + ";
        //     std::cout<<"::::: greater: "<<greater<<std::endl;
         }
-        
+
     }
   //  std::cout<<" = "<<greater<<std::endl;
-    
+
     result = less <= greater;
    // std::cout<<"... evaluation Done"<<std::endl;
     return result;
 }
 
-int FP_Algorithm::indexOfPlace(char *t_place){
+int OnTheFlyDG::indexOfPlace(char *t_place){
     for (int i = 0; i < _nplaces; i++) {
-        if (0 == (strcmp(t_place, _net->placeNames()[i].c_str()))){
+        if (0 == (strcmp(t_place, _petriNet->placeNames()[i].c_str()))){
                 //cout << "place " << query->a.tokenCount.placeLarger << " " << flush;
                 return i;
         }
@@ -258,7 +267,7 @@ int FP_Algorithm::indexOfPlace(char *t_place){
     return -1;
 }
 
-std::list<Marking*> FP_Algorithm::nextState(Marking& t_marking){
+std::list<Marking*> OnTheFlyDG::nextState(Marking& t_marking){
 
     std::list<int> fireableTransistions = calculateFireableTransistions(t_marking);
     std::list<Marking*> nextStates;
@@ -276,14 +285,14 @@ std::list<Marking*> FP_Algorithm::nextState(Marking& t_marking){
     return nextStates;
 }
 
-std::list<int> FP_Algorithm::calculateFireableTransistions(Marking &t_marking){
+std::list<int> OnTheFlyDG::calculateFireableTransistions(Marking &t_marking){
 
     std::list<int> fireableTransistions;
 
     for(int t = 0; t < _ntransitions; t++){
         bool transitionFound = true;
         for(int p = 0; p < _nplaces; p++){
-            if(t_marking[p] < _net->inArc(p,t))
+            if(t_marking[p] < _petriNet->inArc(p,t))
                 transitionFound = false;
         }
 
@@ -294,7 +303,7 @@ std::list<int> FP_Algorithm::calculateFireableTransistions(Marking &t_marking){
 }
 
 
-void FP_Algorithm::clear(bool t_clear_all)
+void OnTheFlyDG::clear(bool t_clear_all)
 {
     for(auto c : Configurations){
         delete c;
@@ -309,7 +318,7 @@ void FP_Algorithm::clear(bool t_clear_all)
     }
 }
 
-Configuration *FP_Algorithm::createConfiguration(Marking &t_marking, CTLTree &t_query)
+Configuration *OnTheFlyDG::createConfiguration(Marking &t_marking, CTLTree &t_query)
 {
     Configuration* newConfig = new Configuration();
     newConfig->marking = &t_marking;
@@ -330,14 +339,14 @@ Configuration *FP_Algorithm::createConfiguration(Marking &t_marking, CTLTree &t_
 
 
 
-Marking *FP_Algorithm::createMarking(const Marking& t_marking, int t_transition){
+Marking *OnTheFlyDG::createMarking(const Marking& t_marking, int t_transition){
     Marking* new_marking = new Marking();
 
     new_marking->CopyMarking(t_marking);
 
     for(int p = 0; p < _nplaces; p++){
-        int place = (*new_marking)[p] - _net->inArc(p,t_transition);
-        (*new_marking)[p] = place + _net->outArc(t_transition,p);
+        int place = (*new_marking)[p] - _petriNet->inArc(p,t_transition);
+        (*new_marking)[p] = place + _petriNet->outArc(t_transition,p);
     }
 
     auto result = Markings.find(new_marking);
