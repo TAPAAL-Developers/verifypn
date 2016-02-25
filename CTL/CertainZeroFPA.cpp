@@ -84,7 +84,7 @@ bool CertainZeroFPA::search(DependencyGraph &t_graph, AbstractSearchStrategy &W)
             }
             else{
                 if(e->source->Successors.size() <= 1){
-                    e->source->assignment == CZERO;
+                    e->source->assignment = CZERO;
                     if(e->source == &v) break;
 
                     for(Edge *de : e->source->DependencySet){

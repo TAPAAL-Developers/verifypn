@@ -203,6 +203,7 @@ void search_ctl_query(PetriNet* net,
 
             individual_search_end = clock();
 
+            strategy->clear();
             configCount = graph->configuration_count();
             markingCount = graph->marking_count();
             queryList[i]->Result = res;

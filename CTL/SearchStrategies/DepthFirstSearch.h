@@ -18,6 +18,7 @@ public:
     bool remove(Edge *e);
     size_t size() {return W.size();}
     bool empty() {return W.empty();}
+    void clear(){ W.clear();}
 
 private:
     std::deque<Edge*> W; //Waiting list
