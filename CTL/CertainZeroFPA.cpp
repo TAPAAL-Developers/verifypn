@@ -121,7 +121,7 @@ bool CertainZeroFPA::search(DependencyGraph &t_graph, AbstractSearchStrategy &W)
 
                     if(tc->Successors.empty()){
                         tc->assignment = CZERO;
-                    //    W.push_dependency(e);
+                       W.push_dependency(e);
                     }
                     else {
                         for(Edge *succ : tc->Successors){
