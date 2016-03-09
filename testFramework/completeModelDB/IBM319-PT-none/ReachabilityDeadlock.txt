@@ -1,5 +1,0 @@
-Property IBM319-PT-none-ReachabilityDeadlock-0
-  "Automatically generated"
-  is:
-    E F deadlock
-  end.

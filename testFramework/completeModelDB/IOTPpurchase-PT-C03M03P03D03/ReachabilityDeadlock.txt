@@ -1,5 +1,0 @@
-Property IOTPpurchase-PT-C03M03P03D03-ReachabilityDeadlock-0
-  "Automatically generated"
-  is:
-    E F deadlock
-  end.

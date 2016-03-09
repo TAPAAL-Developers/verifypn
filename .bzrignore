@@ -22,3 +22,8 @@ testFramework/log.log
 cdfs_czero.log
 dfs_czero.log
 *.directory
+verifypn-ctl.config
+verifypn-ctl.creator
+verifypn-ctl.creator.user
+verifypn-ctl.files
+verifypn-ctl.includes
