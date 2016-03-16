@@ -222,7 +222,7 @@ void search_ctl_query(PetriNet* net,
    }
 }
 
-#define VERSION		"1.2.0"
+#define VERSION		"2.0.0"
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -379,10 +379,13 @@ int main(int argc, char* argv[]){
 			return 0;
 		}else if(strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--version") == 0){
 			printf("VerifyPN (untimed verification engine for TAPAAL) %s\n", VERSION);
-			printf("Copyright (C) 2011-2014 Jonas Finnemann Jensen <jopsen@gmail.com>,\n");
+			printf("Copyright (C) 2011-2016 Jonas Finnemann Jensen <jopsen@gmail.com>,\n");
 			printf("                        Thomas Søndersø Nielsen <primogens@gmail.com>,\n");
 			printf("                        Lars Kærlund Østergaard <larsko@gmail.com>,\n");
 			printf("                        Jiri Srba <srba.jiri@gmail.com>\n");
+			printf("CTL Engine (C) 2016	Isabella Kaufmann <ikaufm12@student.aau.dk>,\n");
+ 			printf("			Lasse Steen Jensen <lasjen12@student.aau.dk>,\n");
+ 			printf("			Søren Moss Nielsen <smni12@student.aau.dk>\n");
                         printf("GNU GPLv3 or later <http://gnu.org/licenses/gpl.html>\n");
 			return 0;
 		}else if(modelfile == NULL){
