@@ -19,7 +19,7 @@
 #ifndef SMARTSTATESET_H
 #define SMARTSTATESET_H
 
-#include <tr1/unordered_set>
+#include <unordered_set>
 
 #include "SmartState.h"
 
@@ -79,7 +79,7 @@ class SmartStateSet{
 	private:
 		SmartStateSet& _set;
 	};
-	typedef std::tr1::unordered_set<SmartState*, SmartStateSet::hash, SmartStateSet::equal_to> Set;
+    typedef std::unordered_set<SmartState*, SmartStateSet::hash, SmartStateSet::equal_to> Set;
 	typedef Set::iterator Iter;
 public:
 	SmartStateSet(const PetriNet& net) : _net(net), set(10, hash(*this), equal_to(*this)){

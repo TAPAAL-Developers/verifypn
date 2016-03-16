@@ -27,8 +27,8 @@
 
 using namespace PetriEngine::Structures;
 
-typedef std::tr1::unordered_set<size_t> HashSet;
-typedef std::tr1::unordered_set<size_t>::iterator HashSetIter;
+typedef std::unordered_set<size_t> HashSet;
+typedef std::unordered_set<size_t>::iterator HashSetIter;
 
 namespace PetriEngine { namespace Reachability {
 
