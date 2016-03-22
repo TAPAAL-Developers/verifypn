@@ -8,8 +8,8 @@ CC				= i686-w64-mingw32-g++
 CUT				= cut
 
 # Compiler and linker flags
-CFLAGS			= -flto -march=native -O3 -I.
-LDFLAGS			= -flto -march=native -static -static-libgcc -static-libstdc++ -O3 -L. -Wl,--enable-stdcall-fixup -Wl,-Bdynamic -llpsolve55 -Wl,-Bstatic -lpthread 
+CFLAGS			= -DWIN32 -O3 -I.
+LDFLAGS			= -DWIN32 -static -static-libgcc -static-libstdc++ -O3 -L. -Wl,--enable-stdcall-fixup -Wl,-Bdynamic -llpsolve55 -Wl,-Bstatic -lpthread 
 
 # Input files
 FLEX_SOURCES	= $(shell find * -name "*.l")
