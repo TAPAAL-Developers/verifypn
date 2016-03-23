@@ -1,5 +1,5 @@
 #ifndef DEPTHFIRSTSEARCH_H
-#define DEPTHFIRSTSEAR
+#define DEPTHFIRSTSEARCH_H
 
 #include <deque>
 #include "AbstractSearchStrategy.h"
