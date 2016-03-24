@@ -1,7 +1,8 @@
 #ifndef MARKING_H
 #define MARKING_H
 
-#include <vector> 
+#include <vector>
+#include <boost/functional/hash/hash.hpp>
 #include "../PetriEngine/PetriNet.h"
 
 namespace ctl {
@@ -48,28 +49,26 @@ private:
 };
 }
 
-namespace std{
-    // Specializations of hash functions.
-    // Normal
-    template<>
-    struct hash<ctl::Marking>{
-        size_t operator()(const ctl::Marking& t_marking ) const {
-            size_t seed = 0x9e3779b9;
+// Specializations of hash functions.
+// Normal
+template<>
+struct boost::hash<ctl::Marking>{
+    size_t operator()(const ctl::Marking& t_marking ) const {
+        size_t seed = 0x9e3779b9;
 
-            for(int i = 0; i < t_marking.Length(); i++){
-                seed ^= t_marking[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-            }
+        for(int i = 0; i < t_marking.Length(); i++){
+            seed ^= t_marking[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+        }
 
-            return seed;
-        }
-    };
-    // Pointer to Marking
-    template<>
-    struct hash<ctl::Marking*>{
-        size_t operator()(const ctl::Marking* t_marking ) const {
-            hash<ctl::Marking> hasher;
-            return hasher.operator ()(*t_marking);
-        }
-    };
-}
+        return seed;
+    }
+};
+// Pointer to Marking
+template<>
+struct boost::hash<ctl::Marking*>{
+    size_t operator()(const ctl::Marking* t_marking ) const {
+        hash<ctl::Marking> hasher;
+        return hasher.operator ()(*t_marking);
+    }
+};
 #endif // MARKING_H

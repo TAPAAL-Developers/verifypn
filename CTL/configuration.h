@@ -47,10 +47,9 @@ private:
 };
 }// end of ctl
 
-namespace std{
 //Hash specialization implementations
 template<>
-struct hash<ctl::Configuration>{
+struct boost::hash<ctl::Configuration>{
     size_t operator()(const ctl::Configuration& t_config) const {
         hash<ctl::Marking> hasher;
         size_t seed = (size_t)reinterpret_cast<uintptr_t>(t_config.query);
@@ -62,13 +61,11 @@ struct hash<ctl::Configuration>{
     }
 };
 template<>
-struct hash<ctl::Configuration*>{
+struct boost::hash<ctl::Configuration*>{
     size_t operator()(const ctl::Configuration* t_config) const {
         hash<ctl::Configuration> hasher;
         return hasher.operator ()(*t_config);
     }
 };
-
-}
 
 #endif // CONFIGURATION_H
