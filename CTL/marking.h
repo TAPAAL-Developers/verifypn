@@ -1,7 +1,8 @@
 #ifndef MARKING_H
 #define MARKING_H
 
-#include <vector> 
+#include <vector>
+#include <boost/functional/hash/hash.hpp>
 #include "../PetriEngine/PetriNet.h"
 
 namespace ctl {
@@ -48,7 +49,7 @@ private:
 };
 }
 
-namespace std{
+namespace boost {
     // Specializations of hash functions.
     // Normal
     template<>

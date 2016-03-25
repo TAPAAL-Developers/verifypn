@@ -47,28 +47,27 @@ private:
 };
 }// end of ctl
 
-namespace std{
-//Hash specialization implementations
-template<>
-struct hash<ctl::Configuration>{
-    size_t operator()(const ctl::Configuration& t_config) const {
-        hash<ctl::Marking> hasher;
-        size_t seed = (size_t)reinterpret_cast<uintptr_t>(t_config.query);
-        //Combine query ptr adr with marking hashing
-        size_t result = hasher.operator ()(*t_config.marking);
-        result ^= seed + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+namespace boost {
+    //Hash specialization implementations
+    template<>
+    struct hash<ctl::Configuration>{
+        size_t operator()(const ctl::Configuration& t_config) const {
+            hash<ctl::Marking> hasher;
+            size_t seed = (size_t)reinterpret_cast<uintptr_t>(t_config.query);
+            //Combine query ptr adr with marking hashing
+            size_t result = hasher.operator ()(*t_config.marking);
+            result ^= seed + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 
-        return result;
-    }
-};
-template<>
-struct hash<ctl::Configuration*>{
-    size_t operator()(const ctl::Configuration* t_config) const {
-        hash<ctl::Configuration> hasher;
-        return hasher.operator ()(*t_config);
-    }
-};
-
+            return result;
+        }
+    };
+    template<>
+    struct hash<ctl::Configuration*>{
+        size_t operator()(const ctl::Configuration* t_config) const {
+            hash<ctl::Configuration> hasher;
+            return hasher.operator ()(*t_config);
+        }
+    };
 }
 
 #endif // CONFIGURATION_H
