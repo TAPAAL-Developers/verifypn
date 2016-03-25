@@ -8,7 +8,7 @@ CC				= gcc
 CUT				= cut
 
 # Compiler and linker flags
-CFLAGS			= -flto -std=c++11 -mmacosx-version-min=10.6 -m64 -O3 -I.
+CFLAGS			= -flto -std=c++11 -mmacosx-version-min=10.6 -m64 -O3 -I. -I/usr/local/include -I/opt/local/include
 LDFLAGS			= -flto -std=c++11 -mmacosx-version-min=10.6 -m64 -O3 lpsolve/liblpsolve55-osx64.a -lstdc++ 
 
 # Input files
