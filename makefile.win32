@@ -8,7 +8,7 @@ CC				= i686-w64-mingw32-g++
 CUT				= cut
 
 # Compiler and linker flags
-CFLAGS			= -DWIN32 -O3 -I. -I ${HOME}/dev/iaw32/include 
+CFLAGS			= -DWIN32 -O3 -std=c++11 -I. -I ${HOME}/dev/iaw32/include 
 LDFLAGS			= -DWIN32 -static -static-libgcc -static-libstdc++ -O3 -L. -Wl,--enable-stdcall-fixup -Wl,-Bdynamic -llpsolve55 -Wl,-Bstatic -lpthread 
 
 # Input files
