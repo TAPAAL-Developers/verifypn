@@ -26,11 +26,30 @@ namespace ctl {
             m_marking[i] = t_marking[i];
         }
     }
+    
+    void Marking::CompressMarking(){
+        int max_bound = 0;
+        for(int i = 0; i < m_length; i++){
+            if (max_bound < this->m_marking[i])
+                max_bound = this->m_marking[i];
+        }
+        if (max_bound == 1)
+            this->onesafeCompress();
+    }
+    void Marking::DecompressMarking(){
+        
+    }
+
 
     void Marking::print() const {
         for(int i = 0; i < m_length; i++){
             std::cout << m_marking[i] <<std::flush;
         }
+    }
+    
+    
+    void Marking::onesafeCompress(){
+        
     }
 }
 

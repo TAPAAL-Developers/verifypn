@@ -33,6 +33,8 @@ class Marking
     virtual ~Marking(){ free(m_marking); }
 
     void CopyMarking(const Marking& t_marking);
+    void CompressMarking();
+    void DecompressMarking();
 
     bool operator==(const Marking& rhs) const;
 
@@ -46,6 +48,7 @@ class Marking
 private:
     PetriEngine::MarkVal* m_marking;
     size_t m_length;
+    void onesafeCompress();
 };
 }
 

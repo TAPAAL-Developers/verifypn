@@ -5,7 +5,7 @@
 namespace ctl{
 
 OnTheFlyDG::OnTheFlyDG(PetriEngine::PetriNet *t_net, PetriEngine::MarkVal *t_initial):
-    DependencyGraph(t_net, t_initial){}
+    DependencyGraph(t_net, t_initial){_compressoption = false;}
 
 std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
 {
@@ -362,5 +362,8 @@ Marking *OnTheFlyDG::createMarking(const Marking& t_marking, int t_transition){
 
 
     return *result;
+}
+void OnTheFlyDG::initCompressOption(){
+    _compressoption = true;
 }
 }//ctl
