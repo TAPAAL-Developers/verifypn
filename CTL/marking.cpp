@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "../PetriEngine/PetriNet.h"
+#include "Memory/Encoder.h"
 
 #include "marking.h"
 
@@ -28,13 +29,14 @@ namespace ctl {
     }
     
     void Marking::CompressMarking(){
+        Encoder encoder = Encoder();
         int max_bound = 0;
         for(int i = 0; i < m_length; i++){
             if (max_bound < this->m_marking[i])
                 max_bound = this->m_marking[i];
         }
         if (max_bound == 1)
-            this->onesafeCompress();
+            encoder.EncodeOneSafeMarking(this);
     }
     void Marking::DecompressMarking(){
         
@@ -47,9 +49,5 @@ namespace ctl {
         }
     }
     
-    
-    void Marking::onesafeCompress(){
-        
-    }
 }
 
