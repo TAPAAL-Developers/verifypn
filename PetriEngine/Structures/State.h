@@ -26,6 +26,7 @@
 #include <string.h>
 #include <algorithm>
 #include <vector>
+#include <inttypes.h>
 
 namespace PetriEngine { namespace Structures {
 
@@ -93,13 +94,33 @@ public:
 	class hash : public std::unary_function<State*, size_t>{
 	public:
 		size_t operator()(const State* state) const{
-			//TODO: Rotate bits during hashing
-			size_t hash = 0;
-			for(unsigned int i = 0; i < nPlaces; i++)
-				hash ^=	(state->_marking[i] << (i*4 % (sizeof(MarkVal)*8))) | (state->_marking[i] >> (32 - (i*4 % (sizeof(MarkVal)*8))));
-			for(unsigned int i = 0; i < nVariables; i++)
-				hash ^= (state->_valuation[i] << (i*4 % (sizeof(VarVal)*8))) | (state->_valuation[i] >> (32 - (i*4 % (sizeof(VarVal)*8))));
-			return hash;
+                    size_t hash = 0;
+                
+                    uint32_t& h1 = ((uint32_t*)&hash)[0];
+                    uint32_t& h2 = ((uint32_t*)&hash)[1];
+                    uint32_t cnt = 0;
+                    uint32_t val = 0;
+                    bool allsame = true;
+                    
+                    for (uint32_t i = 0; i < nPlaces; i++)
+                    {
+                        uint32_t old = val;
+                        if(state->marking()[i] != 0)
+                        {
+                            if(allsame)
+                            {
+                                hash ^= (1 << (i % 64));
+                            }
+                            else
+                            {
+                                h1 ^= (1 << (i % 32));
+                                h2 ^= (state->marking()[i] << (cnt % 32));
+                            }
+                            ++cnt;
+                            if(old != 0 && state->marking()[i] != old) allsame = false;
+                        }
+                    }
+                    return hash;
 		}
 		hash(unsigned int places, unsigned int variables)
 			: nPlaces(places), nVariables(variables){}
