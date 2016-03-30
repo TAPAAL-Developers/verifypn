@@ -363,7 +363,5 @@ Marking *OnTheFlyDG::createMarking(const Marking& t_marking, int t_transition){
 
     return *result;
 }
-void OnTheFlyDG::initCompressOption(){
-    _compressoption = true;
-}
+
 }//ctl

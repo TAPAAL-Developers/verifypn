@@ -329,6 +329,10 @@ int main(int argc, char* argv[]){
 					fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
 					return ErrorCode;
 				}
+                                if (isCTLlogic) {
+					fprintf(stderr, "Structural reductions may not be used with CTL logic \n\n");
+					return ErrorCode;
+				}
 				if (sscanf(argv[++i], "%d", &enablereduction) != 1 || enablereduction < 0 || enablereduction > 2) {
 					fprintf(stderr, "Argument Error: Invalid reduction argument \"%s\"\n", argv[i]);
 					return ErrorCode;
@@ -362,10 +366,9 @@ int main(int argc, char* argv[]){
 					"  -n, --no-statistics                Do not display any statistics (default is to display it)\n"
 					"  -h, --help                         Display this help message\n"
 					"  -v, --version                      Display version information\n"
-                                        "  -ctl <algorithm>                   CTL query verification in VerifyPN-CTL:\n"
-                                        "                                     czero-i   Certain zero early termination algorithm\n"
-                                        "                                     local-i   Local algorithm\n"
-                                        "                                     gobal-i   Global algorithm (very memory expensive)\n"
+                                        "  -ctl <algorithm>                   CTL query verification in VerifyPN-CTL (algorithm must be specified):\n"
+                                        "                                     - czero       Certain zero early termination algorithm \n"
+                                        "                                     - local       Local algorithm\n"
 					"\n"
 					"Return Values:\n"
 					"  0   Successful, query satisfiable\n"
@@ -529,7 +532,7 @@ int main(int argc, char* argv[]){
 	//Read query file, begin scope to release memory
 	if (!isCTLlogic) {
 		string querystring; // excluding EF and AG
-		if (!statespaceexploration || !isCTLlogic) {
+		if (!statespaceexploration) {
 			//Open query file
 			ifstream qfile(queryfile, ifstream::in);
 			if (!qfile) {
@@ -625,7 +628,7 @@ int main(int argc, char* argv[]){
 	
     //--------------------- Apply Net Reduction ---------------//
     Reducer reducer = Reducer(net); // reduced is needed also in trace generation (hence the extended scope)
-	if (enablereduction == 1 or enablereduction == 2) {
+	if ((enablereduction == 1 or enablereduction == 2) && !isCTLlogic) {
 		// Compute how many times each place appears in the query
 		MarkVal* placeInQuery = new MarkVal[net->numberOfPlaces()];
 		for (size_t i = 0; i < net->numberOfPlaces(); i++) {
