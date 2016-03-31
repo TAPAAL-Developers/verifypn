@@ -78,7 +78,7 @@ struct CTLFormula {
         std::cout << "FORMULA "
                   << Name
                   << boolToString()
-                  << "TECHNIQUES EXPLICIT SEQUENTIAL";
+                  << "TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT";
 
         for(std::vector<std::string>::const_iterator iter = Techniques->begin();
             iter != Techniques->end();
