@@ -12,6 +12,9 @@ using namespace std;
 
 namespace PetriEngine{ namespace Reachability {
 
+
+
+
 ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId, bool isPlaceBound, bool isReachBound){
     FILE * stream;
     int max_buffer = 256;
@@ -34,9 +37,12 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
     int maxTokens = 0;
     int maxTokensRecords = 0;
     int satRecords = 0;
+    
+    string hashtable = string("Error: hash table full!");
 
     stream = popen(cmd.c_str(), "r");
     while (!exitLTSmin){
+        printf("AM I HERE???\n");
         if (fgets(buffer, max_buffer, stream) != NULL){
             size_t found;
             data = "";
@@ -89,6 +95,9 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
                     exitLTSmin = 1;
                     break;
                 }
+                if((found = data.find(hashtable)) != std::string::npos){
+                    exit(0);
+                }
             }
             else if(isReachBound){
                 string searchUnknown = string("#Query ") + number + " unable to decide.";
@@ -114,6 +123,10 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
                         continue;
                     }
                 }
+
+                if((found = data.find(hashtable)) != std::string::npos){
+                    exit(0);
+                }
             }
             else{
                 searchSat = string("#Query ") + number + " is satisfied.";
@@ -129,9 +142,14 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
                     pclose(stream);
                     return ReachabilityResult(ReachabilityResult::NotSatisfied);
                 }
+                if((found = data.find(hashtable)) != std::string::npos){
+                    exit(0);
+                }
             }
             // exit messages
-
+            if((found = data.find(hashtable)) != std::string::npos){
+                exit(0);
+            }
             if((found = data.find(searchExit)) != std::string::npos){
                 exitLTSmin = 1;
                 break;
@@ -150,5 +168,4 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
     return ReachabilityResult(ReachabilityResult::NotSatisfied);
 
 }
-
 }} // Namespaces

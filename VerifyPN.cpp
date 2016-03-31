@@ -327,6 +327,8 @@ int main(int argc, char* argv[]){
 	}
 	else cmd += " dfs";
 
+            string hashtable = string("Error: hash table full!");
+
 
 	//----------------------- Validate Arguments -----------------------//
 
@@ -799,6 +801,10 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                         exitLTSmin = 1;
                         break;
                     }
+		if((found = data.find(hashtable)) != std::string::npos){
+                                    fprintf(stdout, "CANNOT_COMPUTE\n");
+			return 0;
+		}
                 }
             }
 
@@ -830,6 +836,11 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                     size_t found;
                     data = "";
                     data.append(buffer);
+
+                    if((found = data.find(hashtable)) != std::string::npos){
+                        fprintf(stdout, "CANNOT_COMPUTE\n");
+                        return 0;
+                    }
 
                     if ((found = data.find(searchS))!=std::string::npos) {
                         size_t startPos = found;
@@ -1143,6 +1154,9 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 	        }
 
      		}
+		if((found = data.find(hashtable)) != std::string::npos){
+		      exit(0);
+		}
             }
 	}
     }
@@ -1175,19 +1189,6 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                                 maxTokensRecords[q] = 0;
                                 satRecords[q] = 0;
                         }
-
-        if(false){
-        	sec_cmd:
-        	AltSS++;
-        	size_t found1;
-        	if ((found1 = cmd.find("dfs"))!=std::string::npos) {
-                size_t AltssLenght = 3;
-                cmd.replace(found1, AltssLenght, "bfs");
-                if (debugging) printf("New command for second attempt %s\n", cmd.c_str());
-            }
-        }
-
-
 
 		if(debugging) printf("%s\n", startMessage.c_str());
 		stream = popen(cmd.c_str(), "r");
@@ -1256,6 +1257,10 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                                                     maxTokensRecords[q]++;
                                                 }
                                             }
+                                            if((found = data.find(hashtable)) != std::string::npos){
+                                                return 0;
+                                            }
+
                                             // exit if all answers are received
                                             if(cores > 0){
                                                 for(int q = 0; q < numberOfQueries; q++){
@@ -1285,6 +1290,9 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                                                     solved[q] = 1;
                                                     ltsminVerified[q] = 1;
                                                 }
+                                            }
+                                            if((found = data.find(hashtable)) != std::string::npos){
+                                                return(0);
                                             }
 
                                             else if((found = data.find(searchUnknown)) != std::string::npos){
@@ -1327,15 +1335,11 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                                                 solved[q] = 1;
 	                                    ltsminVerified[q] = 1;
 	                                }
-	                                else if((found = data.find(hashtable)) != std::string::npos && AltSS == 0){
-                                             goto sec_cmd;
-	                                } else if((found = data.find(hashtable)) != std::string::npos && AltSS != 0){
-                                             goto end;
+	                                if((found = data.find(hashtable)) != std::string::npos){
+                                             	return 0;
 	                                }
                                         }
                                     }
-
-
 
 	                        // exit messages
                         	if((found = data.find(searchExit)) != std::string::npos){
@@ -1393,7 +1397,6 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
 	                if(debugging) printf("%s\n", exitMessage.c_str());
 
 	  }
-	  end:
             clock_t LTSmin_end = clock();
             if(debugging) cout<<"------------LTSmin Verification time elapsed: "<<double(diffclock(LTSmin_end,LTSmin_begin))<<" ms-----------\n"<<endl;
 
