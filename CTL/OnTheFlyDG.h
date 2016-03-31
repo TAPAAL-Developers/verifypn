@@ -15,7 +15,8 @@ class OnTheFlyDG : public DependencyGraph
 {
 public:
     OnTheFlyDG(PetriEngine::PetriNet *t_net,
-               PetriEngine::MarkVal *t_initial);
+               PetriEngine::MarkVal *t_initial,
+               PNMLParser::InhibitorArcList inhibitorArcs);
 
     // DependencyGraph interface
     std::list<Edge *> successors(Configuration &v);

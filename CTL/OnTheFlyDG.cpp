@@ -4,8 +4,8 @@
 
 namespace ctl{
 
-OnTheFlyDG::OnTheFlyDG(PetriEngine::PetriNet *t_net, PetriEngine::MarkVal *t_initial):
-    DependencyGraph(t_net, t_initial){_compressoption = false;}
+OnTheFlyDG::OnTheFlyDG(PetriEngine::PetriNet *t_net, PetriEngine::MarkVal *t_initial, PNMLParser::InhibitorArcList inhibitorArcs):
+    DependencyGraph(t_net, t_initial, inhibitorArcs){_compressoption = false;}
 
 std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
 {
@@ -118,7 +118,8 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
             Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
             Edge* e = new Edge(&v);
             e->targets.push_back(c);
-            
+             succ.push_back(e);
+
             auto targets = nextState(*(v.marking));
 
             if(!targets.empty()){
@@ -129,7 +130,6 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
                     succ.push_back(e);
                 }
             }
-            succ.push_back(e);
 
         }//Exists Finally end
     } //Exists end
@@ -288,7 +288,7 @@ std::list<Marking*> OnTheFlyDG::nextState(Marking& t_marking){
 std::list<int> OnTheFlyDG::calculateFireableTransistions(Marking &t_marking){
 
     std::list<int> fireableTransistions;
-
+    
     for(int t = 0; t < _ntransitions; t++){
         bool transitionFound = true;
         for(int p = 0; p < _nplaces; p++){
@@ -296,9 +296,21 @@ std::list<int> OnTheFlyDG::calculateFireableTransistions(Marking &t_marking){
                 transitionFound = false;
         }
 
+        if(transitionFound){ //Inhibitor check
+            for(auto inhibitor : _inhibitorArcs){
+                if(inhibitor.weight > 0 && _petriNet->transitionNames()[t].compare(inhibitor.target) == 0 ){
+                    for(int p = 0; p < _nplaces; p++){
+                        if(_petriNet->placeNames()[p].compare(inhibitor.source) == 0 && t_marking[p] > inhibitor.weight)
+                            transitionFound = false;
+                    }   
+                }
+            }
+        }
+
         if(transitionFound)
             fireableTransistions.push_back(t);
     }
+    
     return fireableTransistions;
 }
 
@@ -363,5 +375,7 @@ Marking *OnTheFlyDG::createMarking(const Marking& t_marking, int t_transition){
 
     return *result;
 }
-
+void OnTheFlyDG::initCompressOption(){
+    _compressoption = true;
+}
 }//ctl

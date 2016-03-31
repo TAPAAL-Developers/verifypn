@@ -141,11 +141,12 @@ void search_ctl_query(PetriNet* net,
                       int t_xmlquery,
                       CtlAlgorithm t_algorithm,
                       SearchStrategies t_strategy,
-                      ReturnValues result[]) {
+                      ReturnValues result[], 
+                      PNMLParser::InhibitorArcList inhibitorarcs) {
 
     ctl::FixedPointAlgorithm *algorithm;
     ctl::AbstractSearchStrategy *strategy;
-    ctl::DependencyGraph *graph = new ctl::OnTheFlyDG(net, m0);
+    ctl::DependencyGraph *graph = new ctl::OnTheFlyDG(net, m0, inhibitorarcs);
 
     //Determine Fixed Point Algorithm
     if(t_algorithm == LOCAL){
@@ -866,7 +867,7 @@ int main(int argc, char* argv[]){
             ReturnValues retval[16];
 
             clock_t total_search_begin = clock();
-            search_ctl_query(net, m0, queryList, xmlquery, ctl_algorithm, searchstrategy, retval);
+            search_ctl_query(net, m0, queryList, xmlquery, ctl_algorithm, searchstrategy, retval, inhibarcs);
             clock_t total_search_end = clock();
 
             if(timeInfo){
