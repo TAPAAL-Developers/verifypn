@@ -42,7 +42,6 @@ ReachabilityResult LTSmin::reachable(string cmd, int queryIndex, string queryId,
 
     stream = popen(cmd.c_str(), "r");
     while (!exitLTSmin){
-        printf("AM I HERE???\n");
         if (fgets(buffer, max_buffer, stream) != NULL){
             size_t found;
             data = "";
