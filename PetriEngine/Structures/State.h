@@ -95,29 +95,16 @@ public:
 	public:
 		size_t operator()(const State* state) const{
                     size_t hash = 0;
-                
                     uint32_t& h1 = ((uint32_t*)&hash)[0];
                     uint32_t& h2 = ((uint32_t*)&hash)[1];
                     uint32_t cnt = 0;
-                    uint32_t val = 0;
-                    bool allsame = true;
-                    
-                    for (uint32_t i = 0; i < nPlaces; i++)
+                    for (size_t i = 0; i < nPlaces; i++)
                     {
-                        uint32_t old = val;
-                        if(state->marking()[i] != 0)
+                        if(state->marking()[i])
                         {
-                            if(allsame)
-                            {
-                                hash ^= (1 << (i % 64));
-                            }
-                            else
-                            {
-                                h1 ^= (1 << (i % 32));
-                                h2 ^= (state->marking()[i] << (cnt % 32));
-                            }
+                            h1 ^= 1 << (i % 32);
+                            h2 ^= state->marking()[i] << (cnt % 32);
                             ++cnt;
-                            if(old != 0 && state->marking()[i] != old) allsame = false;
                         }
                     }
                     return hash;
