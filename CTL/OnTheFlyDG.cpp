@@ -292,16 +292,20 @@ std::list<int> OnTheFlyDG::calculateFireableTransistions(Marking &t_marking){
     for(int t = 0; t < _ntransitions; t++){
         bool transitionFound = true;
         for(int p = 0; p < _nplaces; p++){
-            if(t_marking[p] < _petriNet->inArc(p,t))
+            if(t_marking[p] < _petriNet->inArc(p,t)){
                 transitionFound = false;
+                break;
+            }
         }
 
         if(transitionFound){ //Inhibitor check
             for(auto inhibitor : _inhibitorArcs){
                 if(inhibitor.weight > 0 && _petriNet->transitionNames()[t].compare(inhibitor.target) == 0 ){
                     for(int p = 0; p < _nplaces; p++){
-                        if(_petriNet->placeNames()[p].compare(inhibitor.source) == 0 && t_marking[p] > inhibitor.weight)
+                        if(_petriNet->placeNames()[p].compare(inhibitor.source) == 0 && t_marking[p] > inhibitor.weight){
                             transitionFound = false;
+                            break;
+                        }
                     }   
                 }
             }
