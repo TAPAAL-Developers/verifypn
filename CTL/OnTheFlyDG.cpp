@@ -308,6 +308,8 @@ std::list<int> OnTheFlyDG::calculateFireableTransistions(Marking &t_marking){
                         }
                     }   
                 }
+                if(!transitionFound)
+                    break;
             }
         }
 
