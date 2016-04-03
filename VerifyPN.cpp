@@ -511,10 +511,12 @@ int main(int argc, char* argv[]){
         }
 
         mfile.close();
-        std::cout << "Analysis:: Modefile: " << modelfile << endl;
-        std::cout << "Analysis:: Modelname: " << modelname << endl;
-        std::cout << "Analysis:: Number of places: " << net->numberOfPlaces() << endl;
-        std::cout << "Analysis:: Number of transistions: " << net->numberOfTransitions() << endl;
+        if (printstatistics) {
+        	std::cout << "Analysis:: Modefile: " << modelfile << endl;
+        	std::cout << "Analysis:: Modelname: " << modelname << endl;
+        	std::cout << "Analysis:: Number of places: " << net->numberOfPlaces() << endl;
+        	std::cout << "Analysis:: Number of transistions: " << net->numberOfTransitions() << endl;
+	}
 
         ifstream xmlfile (queryfile);
         vector<char> buffer((istreambuf_iterator<char>(xmlfile)), istreambuf_iterator<char>());
