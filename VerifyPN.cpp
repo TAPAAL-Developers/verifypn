@@ -92,6 +92,8 @@ enum CtlAlgorithm {
     CZERO =1
 };
 
+bool printstatistics;
+
 double diffclock(clock_t clock1, clock_t clock2){
     double diffticks = clock1 - clock2;
     double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
@@ -183,9 +185,10 @@ void search_ctl_query(PetriNet* net,
         queryList[t_xmlquery - 1]->Result = res;
 
         clock_t individual_search_end = clock();
-        cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery - 1 <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
-        cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
-
+        if (printstatistics) {
+        	cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery - 1 <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+        	cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
+	}
         if (res)
             result[t_xmlquery - 1] = SuccessCode;
         else if (!res)
@@ -209,8 +212,10 @@ void search_ctl_query(PetriNet* net,
             markingCount = graph->marking_count();
             queryList[i]->Result = res;
 
-            cout<<":::TIME::: Search elapsed time for query "<< i <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
-            cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
+            if (printstatistics) { 
+	    	cout<<":::TIME::: Search elapsed time for query "<< i <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+            	cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
+	    }
 
             if (res)
                 result[i] = SuccessCode;
@@ -409,7 +414,6 @@ int main(int argc, char* argv[]){
 		outputtrace = false;
 		searchstrategy = BFS;
 	}
-    bool timeInfo = true;
 
 	//----------------------- Validate Arguments -----------------------//
 	//Check for model file
@@ -466,8 +470,9 @@ int main(int argc, char* argv[]){
 		mfile.close();
 	}
     clock_t parse_model_end = clock();
-    if(timeInfo)
+    if(printstatistics) {
         cout<<":::TIME::: Parse model elapsed time: "<<double(diffclock(parse_model_end,parse_model_begin))<<" ms"<<endl;
+    }
     //----------------------- Parse CTL Query -----------------------//
     clock_t parse_ctl_query_begin = clock();
     CTLFormula *queryList[15];
@@ -520,7 +525,7 @@ int main(int argc, char* argv[]){
         ctlParser.ParseXMLQuery(buffer, queryList);
         
         clock_t parse_ctl_query_end = clock();
-        if(timeInfo)
+        if(printstatistics)
             cout<<":::TIME::: Parse of CTL query elapsed time: "<<double(diffclock(parse_ctl_query_end,parse_ctl_query_begin))<<" ms\n"<<endl;
     }
     
@@ -572,11 +577,6 @@ int main(int argc, char* argv[]){
 				querystring = querystr.substr(2);
 				isInvariant = XMLparser.queries[xmlquery - 1].negateResult;
                 
-                if (xmlquery>0) {
-                    fprintf(stdout, "FORMULA %s ", XMLparser.queries[xmlquery-1].id.c_str());
-                    fflush(stdout);
-                }
-
 			} else { // standard textual query
 				fprintf(stdout, "Query:  %s \n", querystr.c_str());
 				//Validate query type
@@ -601,7 +601,9 @@ int main(int argc, char* argv[]){
 	
 		//Parse query
 		query = ParseQuery(querystring);
-                cout<<":::::::::::::::::::\n"<<querystring<<endl;
+		if (printstatistics) {
+                	cout<<":::::::::::::::::::\n"<<querystring<<endl;
+		}
 		if(!query){
 			fprintf(stderr, "Error: Failed to parse query \"%s\"\n", querystring.c_str()); //querystr.substr(2).c_str());
 			return ErrorCode;
@@ -757,12 +759,11 @@ int main(int argc, char* argv[]){
 		for(size_t p = 0; p < result.maxPlaceBound().size(); p++) { 
 			placeBound = std::max<unsigned int>(placeBound,result.maxPlaceBound()[p]);
 		}
-		// fprintf(stdout,"STATE_SPACE %lli -1 %d %d TECHNIQUES EXPLICIT\n", result.exploredStates(), result.maxTokens(), placeBound);
 		fprintf(stdout,"STATE_SPACE STATES %lli TECHNIQUES EXPLICIT\n", result.exploredStates());
-        fprintf(stdout,"STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT\n");
-        fprintf(stdout,"STATE_SPACE MAX_TOKEN_PER_MARKING %d TECHNIQUES EXPLICIT\n", result.maxTokens());
-        fprintf(stdout,"STATE_SPACE MAX_TOKEN_IN_PLACE %d TECHNIQUES EXPLICIT\n", placeBound);               
-        return retval;
+        	fprintf(stdout,"STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT\n");
+        	fprintf(stdout,"STATE_SPACE MAX_TOKEN_PER_MARKING %d TECHNIQUES EXPLICIT\n", result.maxTokens());
+        	fprintf(stdout,"STATE_SPACE MAX_TOKEN_IN_PLACE %d TECHNIQUES EXPLICIT\n", placeBound);               
+        	return retval;
 	}
 	
 	//Find result code
@@ -778,7 +779,7 @@ int main(int argc, char* argv[]){
 		fprintf(stdout, "\nUnable to decide if query is satisfied.\n\n");
 	else if(retval == SuccessCode) {
 		if (xmlquery>0) {
-			fprintf(stdout, "TRUE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
+			fprintf(stdout, "FORMULA %s TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", XMLparser.queries[xmlquery-1].id.c_str());
 		}
         fprintf(stdout, "\nQuery is satisfied.\n\n");
 	} else if(retval == FailedCode) {
@@ -786,7 +787,7 @@ int main(int argc, char* argv[]){
 			// find index of the place for reporting place bound
 			for(size_t p = 0; p < result.maxPlaceBound().size(); p++) { 
 				if (pnames[p]==XMLparser.queries[xmlquery-1].placeNameForBound) {
-					fprintf(stdout, "%d TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n", result.maxPlaceBound()[p]);
+					fprintf(stdout, "FORMULA %s %d TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", XMLparser.queries[xmlquery-1].id.c_str(), result.maxPlaceBound()[p]);
 					fprintf(stdout, "\nMaximum number of tokens in place %s: %d\n\n",XMLparser.queries[xmlquery-1].placeNameForBound.c_str(),result.maxPlaceBound()[p]);
                     retval = UnknownCode;
                     			break;
@@ -794,7 +795,7 @@ int main(int argc, char* argv[]){
 			}
 		} else {
 			if (xmlquery>0) {
-				fprintf(stdout, "FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
+				fprintf(stdout, "FORMULA %s FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", XMLparser.queries[xmlquery-1].id.c_str());
 			}
             fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
 		}
@@ -870,7 +871,7 @@ int main(int argc, char* argv[]){
             search_ctl_query(net, m0, queryList, xmlquery, ctl_algorithm, searchstrategy, retval, inhibarcs);
             clock_t total_search_end = clock();
 
-            if(timeInfo){
+            if(printstatistics){
                 cout<<"\n:::TIME::: Total search elapsed time: "<<double(diffclock(total_search_end,total_search_begin))<<" ms\n"<<endl;
             }
         }
