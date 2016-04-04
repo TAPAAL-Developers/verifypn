@@ -335,10 +335,7 @@ int main(int argc, char* argv[]){
 					fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
 					return ErrorCode;
 				}
-                                if (isCTLlogic) {
-					fprintf(stderr, "Structural reductions may not be used with CTL logic \n\n");
-					return ErrorCode;
-				}
+
 				if (sscanf(argv[++i], "%d", &enablereduction) != 1 || enablereduction < 0 || enablereduction > 2) {
 					fprintf(stderr, "Argument Error: Invalid reduction argument \"%s\"\n", argv[i]);
 					return ErrorCode;
@@ -414,6 +411,11 @@ int main(int argc, char* argv[]){
 		outputtrace = false;
 		searchstrategy = BFS;
 	}
+        if (isCTLlogic && enablereduction!=0) {
+		// for CTL logic using reductions is unsafe		
+                fprintf(stderr, "Structural reductions may not be used with CTL logic.\n\n");
+                return ErrorCode;
+        }
 
 	//----------------------- Validate Arguments -----------------------//
 	//Check for model file
