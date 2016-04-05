@@ -269,6 +269,7 @@ int main(int argc, char* argv[]){
 			outputtrace = true;
         }else if(strcmp(argv[i], "-ctl") == 0){
             isCTLlogic = true;
+            searchstrategy = DFS;
             if(i == argc-1){
                 fprintf(stderr, "Missing ctl Algorithm after \"%s\"\n\n", argv[i]);
                 return ErrorCode;
@@ -349,14 +350,12 @@ int main(int argc, char* argv[]){
 					"  -k, --k-bound <number of tokens>   Token bound, 0 to ignore (default)\n"
 					"  -t, --trace                        Provide XML-trace to stderr\n"
 					"  -s, --search-strategy <strategy>   Search strategy:\n"
-					"                                     - BestFS       Heuristic search (default) (also works for CTL)\n"
-					"                                     - BFS          Breadth first search (also works for CTL)\n"
+					"                                     - BestFS       Heuristic search (default)\n"
+					"                                     - BFS          Breadth first search \n"
 					"                                     - DFS          Depth first search (also works for CTL)\n"
 					"                                     - RDFS         Random depth first search\n"
 					"                                     - OverApprox   Linear Over Approx\n"
-                                        "                                     - BDFS           Can only be used with the -ctl flag\n"
-                                        "                                     - BBFS           Can only be used with the -ctl flag\n"
-                                        "                                     - CDFS           Can only be used with the -ctl flag and the czero-i algorithm\n"
+                                      
 					"  -m, --memory-limit <megabyte>      Memory limit for the state space search in MB,\n"
 					"                                     0 for unlimited (default)\n"
 					"  -e, --state-space-exploration      State-space exploration only (query-file is irrelevant)\n"
