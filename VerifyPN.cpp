@@ -94,8 +94,8 @@ enum CtlAlgorithm {
 
 bool printstatistics;
 
-std::vector<std::string>* placelistbound = NULL; // for multiple list bounds;
-std::vector<size_t>* placelistboundindex = NULL;
+std::vector<std::string>* placelistbound = NULL; // for multiple place bounds
+std::vector<size_t>* placelistboundindex = NULL; // list of place indexes in multiple place bounds
 unsigned int maxplacesbound = 0;
 
 double diffclock(clock_t clock1, clock_t clock2){
