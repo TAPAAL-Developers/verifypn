@@ -34,12 +34,12 @@ QueryXMLParser::QueryXMLParser(const PNMLParser::TransitionEnablednessMap &trans
 // QueryXMLParser::~QueryXMLParser() { };
 
 
-bool QueryXMLParser::parse(const std::string& xml){
+bool QueryXMLParser::parse(const std::string& xml, int query){
 	//Parse the xml
 	DOMElement* root = DOMElement::loadXML(xml);
 	bool parsingOK;
 	if (root) {
-		parsingOK = parsePropertySet(root);
+		parsingOK = parsePropertySet(root, query);
 	} else {
 		parsingOK=false;
 	}
@@ -50,17 +50,30 @@ bool QueryXMLParser::parse(const std::string& xml){
 }
 
 
-bool QueryXMLParser::parsePropertySet(DOMElement* element){
+bool QueryXMLParser::parsePropertySet(DOMElement* element, int query){
 	if (element->getElementName()!="property-set") {
 		fprintf(stderr,"ERROR missing property-set\n");
 		return false; // missing property-set element
 	}
 	DOMElements elements = element->getChilds();
 	DOMElements::iterator it;
+        int count=1;
 	for(it = elements.begin(); it != elements.end(); it++){
+            if (count == query) {
 		if (!parseProperty(*it)) {
 			return false;
 		};
+            } else {
+                QueryItem queryItem;
+                queryItem.id = "";
+                queryItem.queryText = "";
+                queryItem.negateResult = false;
+                queryItem.isPlaceBound = false;
+                queryItem.placeNameForBound = "X";
+                queryItem.parsingResult = QueryItem::UNSUPPORTED_QUERY;
+                queries.push_back(queryItem);
+            }
+            count++;
 	}
 	return true;
 }
@@ -73,7 +86,7 @@ bool QueryXMLParser::parseProperty(DOMElement* element){
 	string id;
 	string queryText;
 	bool negateResult=false;
-    bool isPlaceBound=false;
+        bool isPlaceBound=false;
 	string placeNameForBound;
 	bool tagsOK=true;
 	
@@ -199,20 +212,42 @@ bool QueryXMLParser::parseFormula(DOMElement* element, string &queryText, bool &
     } else if (elementName == "place-bound") {
         queryText = "EF ";
         DOMElements children = booleanFormula->getChilds();
-        if (children.size() != 1) {
-            return false; // we support only place-bound for one place
+        if (children.size() == 0) {
+            return false; 
         }
-        if (children[0]->getElementName() != "place") {
-            return false;
+        
+        if (children.size() == 1) {
+            if (children[0]->getElementName() != "place") {
+                return false;
+            }
+            placeNameForBound = parsePlace(children[0]);
+            if (placeNameForBound == "") {
+                return false; // invalid place name
+            }
+            queryText += "\"" + placeNameForBound + "\"" + " < 0";
+            negateResult = false;
+            isPlaceBound = true;
+            placelistbound = NULL;
+            return true;
+        } else {
+            placelistbound = new std::vector<std::string>;
+            for (int i = 0; i < children.size(); i++) {
+                if (children[i]->getElementName() != "place") {
+                    return false;
+                }
+                placeNameForBound = parsePlace(children[i]);
+                if (placeNameForBound == "") {
+                    return false; // invalid place name
+                }
+                queryText += "(\"" + placeNameForBound + "\"" + " < 0)";
+                if (i<children.size()-1) queryText += " and ";
+                placelistbound->push_back(placeNameForBound);
+            }
+            placeNameForBound = "Multiple Place Bound";
+            negateResult = false;
+            isPlaceBound = true;
+            return true;
         }
-        placeNameForBound = parsePlace(children[0]);
-		if (placeNameForBound=="") {
-			return false; // invalid place name
-		}
-        queryText += "\""+placeNameForBound+"\""+" < 0";
-        negateResult = false;
-        isPlaceBound = true;
-        return true;
     } else {
             return false;
 	}

@@ -23,6 +23,9 @@
 #include <iostream>
 #include "State.h"
 
+extern unsigned int maxplacesbound;
+extern std::vector<size_t>* placelistboundindex;
+
 namespace PetriEngine { namespace Structures {
 
 // Big int used for state space statistics
@@ -70,8 +73,17 @@ public:
 		std::pair<iter, bool> result = this->insert(state);
                 // update the max token bound for each place in the net (only for newly discovered markings)
                 if (result.second) {
-                    for(size_t i = 0; i < _places; i++) {
-                    _maxPlaceBound[i] = std::max<unsigned int>(state->marking()[i],_maxPlaceBound[i]);
+                    
+                     if (placelistboundindex == NULL) { // single places in the place bound check
+                        for (size_t i = 0; i < _places; i++) {
+                            _maxPlaceBound[i] = std::max<unsigned int>(state->marking()[i], _maxPlaceBound[i]);
+                        }
+                    } else { // multiple places in the place bound check
+                        unsigned int sum = 0;
+                        for (int i=0; i < (*placelistboundindex).size(); i++) {
+                            sum += state->marking()[(*placelistboundindex)[i]];
+                        }
+                        maxplacesbound = std::max<unsigned int>(sum, maxplacesbound);
                     }
                 }
 		return result.second;
