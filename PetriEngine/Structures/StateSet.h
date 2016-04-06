@@ -19,7 +19,7 @@
 #ifndef STATESET_H
 #define STATESET_H
 
-#include <tr1/unordered_set>
+#include <boost/unordered_set.hpp>
 #include <iostream>
 #include "State.h"
 
@@ -28,10 +28,10 @@ namespace PetriEngine { namespace Structures {
 // Big int used for state space statistics
 typedef unsigned long long int BigInt;
 
-class StateSet : std::tr1::unordered_set<State*, State::hash, State::equal_to>{
+class StateSet : boost::unordered_set<State*, State::hash, State::equal_to>{
 public:
 	StateSet(const PetriNet& net, int kbound = 0)
-		: std::tr1::unordered_set<State*, State::hash, State::equal_to>
+        : boost::unordered_set<State*, State::hash, State::equal_to>
 			(8, State::hash(net.numberOfPlaces(), net.numberOfVariables()),
 			 State::equal_to(net.numberOfPlaces(),net.numberOfVariables())){
 		_discovered = 0;
@@ -42,7 +42,7 @@ public:
                 _maxPlaceBound = std::vector<unsigned int>(_places,0);
 	}
 	StateSet(unsigned int places, unsigned int variables, int kbound = 0)
-		: std::tr1::unordered_set<State*, State::hash, State::equal_to>
+        : boost::unordered_set<State*, State::hash, State::equal_to>
 			(8, State::hash(places, variables),
 			 State::equal_to(places, variables)){
 		_discovered = 0;
@@ -92,8 +92,8 @@ public:
         }
         
 private:
-	typedef std::tr1::unordered_set<State*, State::hash, State::equal_to>::const_iterator const_iter;
-	typedef std::tr1::unordered_set<State*, State::hash, State::equal_to>::iterator iter;
+    typedef boost::unordered_set<State*, State::hash, State::equal_to>::const_iterator const_iter;
+    typedef boost::unordered_set<State*, State::hash, State::equal_to>::iterator iter;
 	BigInt _discovered;
 	int _kbound;
 	int _maxTokens;
