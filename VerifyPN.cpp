@@ -246,10 +246,8 @@ int main(int argc, char* argv[]){
 	bool printstatistics = true;
         
     //CTL variables
-    //TODO Sort out when done
     bool isCTLlogic = false;
     CtlAlgorithm ctl_algorithm;
-//    string query_string_ctl;
 
         
 	//----------------------- Parse Arguments -----------------------//
@@ -487,42 +485,8 @@ int main(int argc, char* argv[]){
     CTLFormula *queryList[15];
     
     if(isCTLlogic){
-        std::string modelname;
-
-        ifstream mfile(modelfile, ifstream::in);
-        stringstream buf;
-        buf << mfile.rdbuf();
-        std::string str = buf.str();
-        mfile.close();
-
-        //Gets the name of the petrinet being passed
-        for(auto iter = str.begin(); iter != str.end(); iter++){
-            if((*iter) == 'i'){
-                iter++;
-                if((*iter) == 'd'){
-                    iter++;
-                    if((*iter) == '='){
-                        iter++;
-                        if((*iter) == '"'){
-                            while(true){
-                                iter++;
-                                if((*iter) != '"'){
-                                    modelname.push_back(*iter);
-                                }
-                                else
-                                    break;
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        mfile.close();
         if (printstatistics) {
         	std::cout << "Analysis:: Modefile: " << modelfile << endl;
-        	std::cout << "Analysis:: Modelname: " << modelname << endl;
         	std::cout << "Analysis:: Number of places: " << net->numberOfPlaces() << endl;
         	std::cout << "Analysis:: Number of transistions: " << net->numberOfTransitions() << endl;
 	}
