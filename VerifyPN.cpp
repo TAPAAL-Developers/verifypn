@@ -269,7 +269,6 @@ int main(int argc, char* argv[]){
 			outputtrace = true;
         }else if(strcmp(argv[i], "-ctl") == 0){
             isCTLlogic = true;
-            searchstrategy = DFS;
             if(i == argc-1){
                 fprintf(stderr, "Missing ctl Algorithm after \"%s\"\n\n", argv[i]);
                 return ErrorCode;
@@ -415,6 +414,15 @@ int main(int argc, char* argv[]){
                 fprintf(stderr, "Structural reductions may not be used with CTL logic.\n\n");
                 return ErrorCode;
         }
+        if (isCTLlogic && searchstrategy == BestFS) {
+		// the default search strategy for CTL logic is DFS
+		searchstrategy = DFS;
+	}
+        if (isCTLlogic && searchstrategy != DFS) {
+		// for CTL logic only DFS strategy is supported		
+                fprintf(stderr, "Only DFS search strategy may be used with CTL logic.\n\n");
+                return ErrorCode;
+	}
 
 	//----------------------- Validate Arguments -----------------------//
 	//Check for model file
