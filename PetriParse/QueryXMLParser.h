@@ -29,6 +29,8 @@
 
 using namespace std;
 
+extern std::vector<std::string>* placelistbound;
+
 class QueryXMLParser {
 public:    
 	QueryXMLParser(const PNMLParser::TransitionEnablednessMap &transitionEnabledness);
@@ -50,12 +52,12 @@ public:
         typedef Queries::iterator QueriesIterator;
         Queries queries;
 
-	bool parse(const string& xml);
+	bool parse(const string& xml, int query);
         void printQueries();
         void printQueries(int i);
         
 private:
-        bool parsePropertySet(XMLSP::DOMElement* element);
+        bool parsePropertySet(XMLSP::DOMElement* element, int query);
         bool parseProperty(XMLSP::DOMElement* element);
         bool parseTags(XMLSP::DOMElement* element);
         bool parseFormula(XMLSP::DOMElement* element, string &queryText, bool &negateResult, bool &isPlaceBound, string &placeNameForBound);

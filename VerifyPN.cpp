@@ -94,6 +94,10 @@ enum CtlAlgorithm {
 
 bool printstatistics;
 
+std::vector<std::string>* placelistbound = NULL; // for multiple list bounds;
+std::vector<size_t>* placelistboundindex = NULL;
+unsigned int maxplacesbound = 0;
+
 double diffclock(clock_t clock1, clock_t clock2){
     double diffticks = clock1 - clock2;
     double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
@@ -465,7 +469,7 @@ int main(int argc, char* argv[]){
 		parser.parse(buffer.str(), &builder);
 		parser.makePetriNet();
                 
-        inhibarcs = parser.getInhibitorArcs(); // Remember inhibitor arcs
+                inhibarcs = parser.getInhibitorArcs(); // Remember inhibitor arcs
 		transitionEnabledness = parser.getTransitionEnabledness(); // Remember conditions for transitions
 				
 		//Build the petri net
@@ -528,7 +532,7 @@ int main(int argc, char* argv[]){
 			string querystr = buffer.str(); // including EF and AG
 			//Parse XML the queries and querystr let be the index of xmlquery 		
 			if (xmlquery > 0) {
-				if (!XMLparser.parse(querystr)) {
+				if (!XMLparser.parse(querystr, xmlquery)) {
 					fprintf(stderr, "Error: Failed parsing XML query file\n");
 					fprintf(stdout, "DO_NOT_COMPETE\n");
 					return ErrorCode;
@@ -666,16 +670,26 @@ int main(int argc, char* argv[]){
 //-------------------------------------------------------------------//
 //----------------------- Reachability search -----------------------//
 //-------------------------------------------------------------------//
+        
+        const std::vector<std::string>& tnames = net->transitionNames();
+        const std::vector<std::string>& pnames = net->placeNames();
+
+        if (placelistbound != NULL) {
+            placelistboundindex = new std::vector<size_t>;
+            for (int i = 0; i < placelistbound->size(); i++) {
+                for (size_t j = 0; j < pnames.size(); j++) {
+                    if (((*placelistbound)[i]) == pnames[j]) {
+                        placelistboundindex->push_back(j);
+                    }
+                }
+            }
+        }
+        
 	ReachabilityResult result = strategy->reachable(*net, m0, v0, query);
 
 	
 	//----------------------- Output Result -----------------------//
 	
-	const std::vector<std::string>& tnames = net->transitionNames();
-	const std::vector<std::string>& pnames = net->placeNames();
-
-	
-
 	if (statespaceexploration) {
 		retval = UnknownCode;
 		unsigned int placeBound = 0;
@@ -707,15 +721,27 @@ int main(int argc, char* argv[]){
         fprintf(stdout, "\nQuery is satisfied.\n\n");
 	} else if(retval == FailedCode) {
 		if (xmlquery>0 && XMLparser.queries[xmlquery-1].isPlaceBound) {
+                    if (placelistbound == NULL) {
 			// find index of the place for reporting place bound
 			for(size_t p = 0; p < result.maxPlaceBound().size(); p++) { 
 				if (pnames[p]==XMLparser.queries[xmlquery-1].placeNameForBound) {
 					fprintf(stdout, "FORMULA %s %d TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", XMLparser.queries[xmlquery-1].id.c_str(), result.maxPlaceBound()[p]);
 					fprintf(stdout, "\nMaximum number of tokens in place %s: %d\n\n",XMLparser.queries[xmlquery-1].placeNameForBound.c_str(),result.maxPlaceBound()[p]);
-                    retval = UnknownCode;
+                                        retval = UnknownCode;
                     			break;
 				}
 			}
+                    } else {
+                        fprintf(stdout, "FORMULA %s %d  TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", XMLparser.queries[xmlquery-1].id.c_str(), maxplacesbound);
+                        fprintf(stdout, "\nMaximum number of tokens in places");
+                        for (int i = 0; i < placelistboundindex->size(); i++) {
+                            size_t index = (*placelistboundindex)[i];
+                            fprintf(stdout, " %s", pnames[index].c_str());
+                            if (i < placelistboundindex->size() - 2) fprintf(stdout, ",");
+                            if (i == placelistboundindex->size() - 2) fprintf(stdout, " and");
+                        }
+                        fprintf(stdout, ": %d\n\n", maxplacesbound);
+                    }
 		} else {
 			if (xmlquery>0) {
 				fprintf(stdout, "FORMULA %s FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", XMLparser.queries[xmlquery-1].id.c_str());
