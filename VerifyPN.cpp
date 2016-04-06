@@ -639,82 +639,30 @@ int main(int argc, char* argv[]){
 		}
 	}
 
-	
-    //--------------------- Apply Net Reduction ---------------//
+ //--------------------- Apply Net Reduction ---------------//
+
     Reducer reducer = Reducer(net); // reduced is needed also in trace generation (hence the extended scope)
-	if ((enablereduction == 1 or enablereduction == 2) && !isCTLlogic) {
-		// Compute how many times each place appears in the query
-		MarkVal* placeInQuery = new MarkVal[net->numberOfPlaces()];
-		for (size_t i = 0; i < net->numberOfPlaces(); i++) {
-			placeInQuery[i] = 0;
-		}
+        if ((enablereduction == 1 or enablereduction == 2) && !isCTLlogic) {
+                // Compute how many times each place appears in the query
+                MarkVal* placeInQuery = new MarkVal[net->numberOfPlaces()];
+                for (size_t i = 0; i < net->numberOfPlaces(); i++) {
+                        placeInQuery[i] = 0;
+                }
                 QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
-                //Translate from CTL
-                if(isCTLlogic){
-                    string reductionquerystr;
-                    reductionquerystr += "(";
-                    bool firstAccurance = true;
-                    int i = 0;
-                    vector<string> AllQeuryPlaces;
-                    CTLTree* current = queryList[xmlquery-1]->Query;
-                    vector<string> *QueryPlaces = new vector<string>();
-                    getQueryPlaces(QueryPlaces, current, net);
-                    AllQeuryPlaces.reserve(AllQeuryPlaces.size() + QueryPlaces->size());
-                    AllQeuryPlaces.insert(AllQeuryPlaces.end(), QueryPlaces->begin(), QueryPlaces->end());
+                query->analyze(placecontext);
 
-                    vector<string> UniqueAllQeuryPlaces;
-                    for(auto a : AllQeuryPlaces){
-                        bool isUnique = true;
-                        string newplace = "0 <= \"" + a + "\"";
-                        if(UniqueAllQeuryPlaces.empty()){
+                // Compute the places and transitions that connect to inhibitor arcs
+                MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
+                MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
 
-                            UniqueAllQeuryPlaces.insert(UniqueAllQeuryPlaces.end(), newplace);
-                            isUnique = false;
-                        }
-                        else {
-                            for(auto u : UniqueAllQeuryPlaces){
-                                if (newplace.compare(u) == 0){
-                                    isUnique = false;
-                                }
-                            }
-                        }
-                        if (isUnique){
-                            UniqueAllQeuryPlaces.insert(UniqueAllQeuryPlaces.end(), newplace);
-                        }
-                    }
-                    for(auto a : UniqueAllQeuryPlaces){
-                        if(!firstAccurance)
-                            reductionquerystr += ") and (";
-                        reductionquerystr += a;
-                        firstAccurance = false;
-                    }
-                    reductionquerystr += ")";
+                // CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
+                reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
 
+                //reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
+                reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
+                //reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
+        }
 
-
-                    Condition* reductionquery;
-
-                    if(!firstAccurance) {
-                        reductionquery = ParseQuery(reductionquerystr);
-                        reductionquery->analyze(placecontext);
-                    }
-                }
-                else {
-                    query->analyze(placecontext);
-                }
-                
-		// Compute the places and transitions that connect to inhibitor arcs
-		MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
-		MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
-
-		// CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
-		reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
-
-		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib); 
-		reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
-		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
-	}
-    
 	//----------------------- Reachability -----------------------//
 
 	//Create reachability search strategy
