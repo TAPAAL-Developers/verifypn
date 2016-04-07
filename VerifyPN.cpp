@@ -424,9 +424,9 @@ int main(int argc, char* argv[]){
 		// the default search strategy for CTL logic is DFS
 		searchstrategy = DFS;
 	}
-        if (isCTLlogic && searchstrategy != DFS) {
-		// for CTL logic only DFS strategy is supported		
-                fprintf(stderr, "Only DFS search strategy may be used with CTL logic.\n\n");
+        if (isCTLlogic && (searchstrategy != DFS && searchstrategy != BFS)) {
+		// for CTL logic only DFS and BFS strategy is supported		
+                fprintf(stderr, "Only DFS and BFS search strategy may be used with CTL logic.\n\n");
                 return ErrorCode;
 	}
 
