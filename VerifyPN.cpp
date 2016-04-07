@@ -64,6 +64,7 @@
 
 #include "CTL/SearchStrategies/AbstractSearchStrategy.h"
 #include "CTL/SearchStrategies/DepthFirstSearch.h"
+#include "CTL/SearchStrategies/BreadthFirstSearch.h"
 
 using namespace std;
 using namespace PetriEngine;
@@ -169,6 +170,9 @@ void search_ctl_query(PetriNet* net,
     //Determine Search Strategy
     if(t_strategy == DFS){
         strategy = new ctl::DepthFirstSearch();
+    }
+    else if (t_strategy == BFS){
+        strategy = new ctl::BreadthFirstSearch();
     }
     else{
         fprintf(stderr, "Error: unsupported ctl search strategy");
