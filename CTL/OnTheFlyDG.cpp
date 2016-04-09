@@ -117,8 +117,7 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
         else if(v.query->path == F){
             Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
             Edge* e = new Edge(&v);
-            e->targets.push_back(c);
-             succ.push_back(e);
+            e->targets.push_back(c);             
 
             auto targets = nextState(*(v.marking));
 
@@ -130,6 +129,8 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
                     succ.push_back(e);
                 }
             }
+
+            succ.push_back(e);
 
         }//Exists Finally end
     } //Exists end
