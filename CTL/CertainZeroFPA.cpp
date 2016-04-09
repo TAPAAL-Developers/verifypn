@@ -30,7 +30,7 @@ bool CertainZeroFPA::search(DependencyGraph &t_graph, AbstractSearchStrategy &W)
         /*Data handling*/
         int targetONEassignments = 0;
         int targetZEROassignments = 0;
-        int targetUKNOWNassignments = 0;
+        Configuration * lastUnknown = NULL;
         bool czero = false;
 
         for(auto c : e->targets){
@@ -45,7 +45,7 @@ bool CertainZeroFPA::search(DependencyGraph &t_graph, AbstractSearchStrategy &W)
                 break;
             }
             else if(c-> assignment == UNKNOWN){
-                targetUKNOWNassignments++;
+                lastUnknown = c;
             }
 
         }
@@ -112,24 +112,21 @@ bool CertainZeroFPA::search(DependencyGraph &t_graph, AbstractSearchStrategy &W)
                 }
             }
         }
-        else if(targetUKNOWNassignments > 0){
-            for(Configuration *tc : e->targets){
-                if(tc->assignment == UNKNOWN){
-                    tc->assignment = ZERO;
-                    tc->DependencySet.push_back(e);
-                    t_graph.successors(*tc);
+        else if(lastUnknown != NULL){
+            Configuration *tc = lastUnknown;
+            tc->assignment = ZERO;
+            tc->DependencySet.push_back(e);
+            t_graph.successors(*tc);
 
-                    if(tc->Successors.empty()){
-                        tc->assignment = CZERO;
-                       W.push_dependency(e);
-                    }
-                    else {
-                        for(Edge *succ : tc->Successors){
-                            W.push(succ);
-                            if(succ->source->IsNegated){
-                                N.push(succ);
-                            }
-                        }
+            if(tc->Successors.empty()){
+                tc->assignment = CZERO;
+               W.push_dependency(e);
+            }
+            else {
+                for(Edge *succ : tc->Successors){
+                    W.push(succ);
+                    if(succ->source->IsNegated){
+                        N.push(succ);
                     }
                 }
             }
