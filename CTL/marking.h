@@ -54,15 +54,33 @@ namespace boost {
     // Normal
     template<>
     struct hash<ctl::Marking>{
-        size_t operator()(const ctl::Marking& t_marking ) const {
-            size_t seed = 0x9e3779b9;
-
-            for(int i = 0; i < t_marking.Length(); i++){
-                seed ^= t_marking[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+        size_t operator()(const ctl::Marking& t_marking) const{
+            size_t hash = 0;
+            uint32_t& h1 = ((uint32_t*)&hash)[0];
+            uint32_t& h2 = ((uint32_t*)&hash)[1];
+            uint32_t cnt = 0;
+            for (size_t i = 0; i < t_marking.Length(); i++)
+            {
+                if(t_marking[i])
+                {
+                    h1 ^= 1 << (i % 32);
+                    h2 ^= t_marking[i] << (cnt % 32);
+                    ++cnt;
+                }
             }
-
-            return seed;
+            return hash;
         }
+
+        ///Old Hash Function
+//        size_t operator()(const ctl::Marking& t_marking ) const {
+//            size_t seed = 0x9e3779b9;
+
+//            for(int i = 0; i < t_marking.Length(); i++){
+//                seed ^= t_marking[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+//            }
+
+//            return seed;
+//        }
     };
     // Pointer to Marking
     template<>
