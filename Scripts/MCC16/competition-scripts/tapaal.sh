@@ -9,16 +9,16 @@
 # BK_EXAMINATION: it is a string that identifies your "examination"
 
 export PATH="$PATH:/home/mcc/BenchKit/bin/"
-#VERIFYPN=$HOME/BenchKit/bin/verifypn
+VERIFYPN=$HOME/BenchKit/bin/verifypn-linux64
 #VERIFYPN=/Users/srba/dev/MCC-16/engines/verifypnCTL/verifypn-osx64
-VERIFYPN=/Users/srba/dev/verifypnCTL/verifypn-osx64
+#VERIFYPN=/Users/srba/dev/verifypnCTL/verifypn-osx64
 
 #timeout for heuristic search
-TIMEOUT1=10
+TIMEOUT1=40
 #timeout for BFS search
-TIMEOUT2=10
+TIMEOUT2=30
 #timeout for DFS search
-TIMEOUT3=10
+TIMEOUT3=600
 
 STRATEGY1=""
 STRATEGY2="-s BFS"
@@ -29,7 +29,7 @@ MEM="14500000"
 ulimit -v $MEM
 
 #STATISTICS="/usr/bin/time -f \"###%e,%M###\""
-STATISTICS="/usr/local/bin/gtime -f \"###%e,%M###\""
+#STATISTICS="/usr/local/bin/gtime -f \"###%e,%M###\""
 
 if [ ! -f iscolored ]; then
     	echo "File 'iscolored' not found!"
@@ -56,8 +56,8 @@ function verify {
         for (( QUERY=1; QUERY<=$NUMBER; QUERY++ ))
 	do
 		echo
-		echo "verifypn" $1 "-x" $QUERY $STRATEGY1 "model.pnml" $2
-		gtimeout $TIMEOUT1 $STATISTICS $VERIFYPN "-x" $QUERY $1 $STRATEGY1 model.pnml $2
+		            echo "verifypn" $STRATEGY1 $1 "-x" $QUERY "model.pnml" $2
+		timeout $TIMEOUT1 $VERIFYPN $STRATEGY1 $1 "-x" $QUERY model.pnml $2
 		RETVAL=$?
 		if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || \
                    [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
@@ -67,8 +67,8 @@ function verify {
         RQR=""
 	for QUERY in $RQ ; do
   		echo
-                echo "verifypn" $1 "-x" $QUERY $STRATEGY2 "model.pnml" $2
-                gtimeout $TIMEOUT2 $STATISTICS $VERIFYPN -s BFS "-x" $QUERY $1 $STRATEGY2 model.pnml $2
+                            echo "verifypn" $STRATEGY2 $1 "-x" $QUERY "model.pnml" $2
+                timeout $TIMEOUT2 $VERIFYPN $STRATEGY2 $1 "-x" $QUERY model.pnml $2
                 RETVAL=$?
                 if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || \
                    [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
@@ -77,8 +77,8 @@ function verify {
         done
 	for QUERY in $RQR ; do
   		echo
-                echo "verifypn" $1 "-x" $QUERY $STRATEGY3 "model.pnml" $2
-                gtimeout $TIMEOUT3 $STATISTICS $VERIFYPN -s DFS "-x" $QUERY $STRATEGY3 $1 model.pnml $2
+                            echo "verifypn" $STRATEGY3 $1 "-x" $QUERY "model.pnml" $2
+                timeout $TIMEOUT3 $VERIFYPN $STRATEGY3 $1 "-x" $QUERY model.pnml $2
                 #RETVAL=$?
                 #if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || \
                 #   [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
@@ -91,50 +91,53 @@ case "$BK_EXAMINATION" in
 
 	StateSpace)
 		echo		
-		echo "*************************************************"
-		echo "*  TAPAAL CLASSIC performing StateSpace search  *"
-		echo "*************************************************"
+		echo "****************************************************"
+		echo "*  TAPAAL Sequential performing StateSpace search  *"
+		echo "****************************************************"
 		$VERIFYPN -n -d -e model.pnml 
 		;;
 
 	UpperBounds)	
 		echo		
-		echo "*****************************************"
-		echo "*  TAPAAL CLASSIC verifying UpperBounds *"
-		echo "*****************************************"
+		echo "********************************************"
+		echo "*  TAPAAL Sequential verifying UpperBounds *"
+		echo "********************************************"
                 STRATEGY1="-s DFS"
                 STRATEGY2="-s BFS"
                 STRATEGY3=""
-		TIMEOUT1=3600
-		TIMEOUT2=3600
-		TIMEOUT3=3600
+		TIMEOUT1=7200
+		TIMEOUT2=7200
+		TIMEOUT3=7200
 		verify "-n -r 1" "UpperBounds.xml"
 		;;
 
 	ReachabilityDeadlock)
 		echo		
-		echo "******************************************************"
-		echo "*  TAPAAL CLASSIC checking for ReachabilityDeadlock  *"
-		echo "******************************************************"
-		TIMEOUT1=10
-		TIMEOUT2=10
-		TIMEOUT3=10
+		echo "*********************************************************"
+		echo "*  TAPAAL Sequential checking for ReachabilityDeadlock  *"
+		echo "*********************************************************"
+                STRATEGY1="-s BFS"
+                STRATEGY2=""
+                STRATEGY3="-s DFS"
+		TIMEOUT1=60
+		TIMEOUT2=60
+		TIMEOUT3=7200
 		verify "-n -r 1" "ReachabilityDeadlock.xml"
 		;;
 
 	ReachabilityCardinality)
 		echo		
-		echo "******************************************************"
-		echo "*  TAPAAL CLASSIC verifying ReachabilityCardinality  *"
-		echo "******************************************************"
+		echo "*********************************************************"
+		echo "*  TAPAAL Sequential verifying ReachabilityCardinality  *"
+		echo "*********************************************************"
 		verify "-n -r 1" "ReachabilityCardinality.xml"
 		;;
 
 	ReachabilityFireability)
 		echo		
-		echo "******************************************************"
-		echo "*  TAPAAL CLASSIC verifying ReachabilityFireability  *"
-		echo "******************************************************"
+		echo "*********************************************************"
+		echo "*  TAPAAL Sequential verifying ReachabilityFireability  *"
+		echo "*********************************************************"
 		verify "-n -r 1" "ReachabilityFireability.xml"
 		;;
 
@@ -146,9 +149,9 @@ case "$BK_EXAMINATION" in
                 STRATEGY1="-s DFS"
                 STRATEGY2="-s DFS"
                 STRATEGY3="-s DFS"
-		TIMEOUT1=1
-		TIMEOUT2=1
-		TIMEOUT3=5
+		TIMEOUT1=40
+		TIMEOUT2=7200
+		TIMEOUT3=7200
 		verify "-ctl czero -n" "CTLCardinality.xml"
 		;;
 
@@ -160,9 +163,9 @@ case "$BK_EXAMINATION" in
                 STRATEGY1="-s DFS"
                 STRATEGY2="-s DFS"
                 STRATEGY3="-s DFS"
-		TIMEOUT1=1
-		TIMEOUT2=1
-		TIMEOUT3=5
+		TIMEOUT1=40
+		TIMEOUT2=7200
+		TIMEOUT3=7200
 		verify "-ctl czero -n" "CTLFireability.xml"
 		;;
 

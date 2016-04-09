@@ -1,32 +1,22 @@
 #!/bin/bash
 
 # This is the initialization script for the participation of TAPAAL
-# untimed engine verifypn in the Petri net competition 2014.
+# untimed sequntial engine verifypn in the Petri net competition 2016.
 
 # BK_EXAMINATION: it is a string that identifies your "examination"
 # BK_TOOL: it is the name of the TAPAAL tool variant to be invoked
+# export PATH="$PATH:/home/mcc/BenchKit/bin/"
 
-PREFIX=/Users/srba/dev/MCC-16/
+PREFIX=$HOME/BenchKit
 
 case "$BK_TOOL" in
 	tapaal)
-		echo "---> " $BK_TOOL " --- TAPAAL Classic"
+		echo "---> " $BK_TOOL " --- TAPAAL Sequential"
 		$PREFIX/tapaal.sh
                 ;;
-	tapaalSEQ)
-		echo "---> " $BK_TOOL " --- TAPAAL Classic Sequential"
-		$PREFIX/tapaalSEQ.sh
-		;;
-	tapaalEXP)
-		echo "---> " $BK_TOOL " --- TAPAAL Classic Experimential"
-		$PREFIX/tapaalEXP.sh
-		;;
-	tapaalEXP2)
-		echo "---> " $BK_TOOL " --- TAPAAL Classic Experimential2"
-		$PREFIX/tapaalEXP2.sh
-                ;;
+
 	*)
-		echo "---> Wrong TAPAAL tool variant name"	
+		echo "---> Error: Unrecognized BK_TOOL name !!!"  
 		exit 0
 		;;
 esac
