@@ -150,7 +150,7 @@ case "$BK_EXAMINATION" in
                 STRATEGY2="-s BFS"
                 STRATEGY3="-s DFS"
 		TIMEOUT1=20
-		TIMEOUT2=30
+		TIMEOUT2=20
 		TIMEOUT3=300
 		verify "-ctl czero -n" "CTLCardinality.xml"
 		;;
@@ -164,7 +164,7 @@ case "$BK_EXAMINATION" in
                 STRATEGY2="-s BFS"
                 STRATEGY3="-s DFS"
 		TIMEOUT1=20
-		TIMEOUT2=30
+		TIMEOUT2=20
 		TIMEOUT3=300
 		verify "-ctl czero -n" "CTLFireability.xml"
 		;;
