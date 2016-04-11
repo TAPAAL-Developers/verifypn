@@ -356,8 +356,8 @@ int main(int argc, char* argv[]){
 					"  -t, --trace                        Provide XML-trace to stderr\n"
 					"  -s, --search-strategy <strategy>   Search strategy:\n"
 					"                                     - BestFS       Heuristic search (default)\n"
-					"                                     - BFS          Breadth first search \n"
-					"                                     - DFS          Depth first search (also works for CTL)\n"
+					"                                     - BFS          Breadth first search\n"
+					"                                     - DFS          Depth first search\n"
 					"                                     - RDFS         Random depth first search\n"
 					"                                     - OverApprox   Linear Over Approx\n"
                                       
