@@ -10,7 +10,7 @@
 PREFIX=$HOME/BenchKit
 
 case "$BK_TOOL" in
-	tapaal)
+	tapaal-seq)
 		echo "---> " $BK_TOOL " --- TAPAAL Sequential"
 		$PREFIX/tapaal.sh
                 ;;

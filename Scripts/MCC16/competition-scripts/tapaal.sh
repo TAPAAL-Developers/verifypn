@@ -147,11 +147,11 @@ case "$BK_EXAMINATION" in
 		echo "*  TAPAAL CLASSIC verifying CTLCardinality  *"
 		echo "*********************************************"
                 STRATEGY1="-s DFS"
-                STRATEGY2="-s DFS"
+                STRATEGY2="-s BFS"
                 STRATEGY3="-s DFS"
-		TIMEOUT1=40
-		TIMEOUT2=300
-		TIMEOUT3=7200
+		TIMEOUT1=20
+		TIMEOUT2=30
+		TIMEOUT3=300
 		verify "-ctl czero -n" "CTLCardinality.xml"
 		;;
 
@@ -161,11 +161,11 @@ case "$BK_EXAMINATION" in
 		echo "*  TAPAAL CLASSIC verifying CTLFireability  *"
 		echo "*********************************************"
                 STRATEGY1="-s DFS"
-                STRATEGY2="-s DFS"
+                STRATEGY2="-s BFS"
                 STRATEGY3="-s DFS"
-		TIMEOUT1=40
-		TIMEOUT2=300
-		TIMEOUT3=7200
+		TIMEOUT1=20
+		TIMEOUT2=30
+		TIMEOUT3=300
 		verify "-ctl czero -n" "CTLFireability.xml"
 		;;
 
