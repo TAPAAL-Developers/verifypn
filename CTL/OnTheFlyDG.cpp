@@ -151,7 +151,7 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
         //Exists Untill start
         if(v.query->path == U){
             Edge *right = NULL;
-            if (true/*v.query->second->isTemporal*/) {
+            if (v.query->second->isTemporal) {
                 Configuration* c = createConfiguration(*(v.marking), *(v.query->second));
                 right = new Edge(&v);
                 right->targets.push_back(c);
