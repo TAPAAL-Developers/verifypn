@@ -151,7 +151,7 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
         //Exists Untill start
         if(v.query->path == U){
             Edge *right = NULL;
-            if (v.query->second->isTemporal) {
+            if (true/*v.query->second->isTemporal*/) {
                 Configuration* c = createConfiguration(*(v.marking), *(v.query->second));
                 right = new Edge(&v);
                 right->targets.push_back(c);
@@ -167,7 +167,7 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
             auto targets = nextState(*(v.marking));
 
             if(!targets.empty()){
-                Configuration *left;
+                Configuration *left = NULL;
                 bool valid = false;
                 if (v.query->first->isTemporal) {
                     left = createConfiguration(*(v.marking), *(v.query->first));
