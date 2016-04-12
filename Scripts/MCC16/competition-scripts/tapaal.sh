@@ -21,8 +21,8 @@ TIMEOUT2=30
 TIMEOUT3=600
 
 STRATEGY1=""
-STRATEGY2="-s BFS"
-STRATEGY3="-s DFS"
+STRATEGY2="-d -s BFS"
+STRATEGY3="-d -s DFS"
 
 #Allowed memory in kB
 MEM="14500000"
@@ -102,13 +102,13 @@ case "$BK_EXAMINATION" in
 		echo "********************************************"
 		echo "*  TAPAAL Sequential verifying UpperBounds *"
 		echo "********************************************"
-                STRATEGY1="-s DFS"
-                STRATEGY2="-s BFS"
+                STRATEGY1="-s BFS"
+                STRATEGY2="-s DFS"
                 STRATEGY3=""
 		TIMEOUT1=7200
 		TIMEOUT2=7200
 		TIMEOUT3=7200
-		verify "-n -r 1" "UpperBounds.xml"
+		verify "-n -d -r 1" "UpperBounds.xml"
 		;;
 
 	ReachabilityDeadlock)
@@ -117,8 +117,8 @@ case "$BK_EXAMINATION" in
 		echo "*  TAPAAL Sequential checking for ReachabilityDeadlock  *"
 		echo "*********************************************************"
                 STRATEGY1="-s BFS"
-                STRATEGY2=""
-                STRATEGY3="-s DFS"
+                STRATEGY2="-d "
+                STRATEGY3="-d -s DFS"
 		TIMEOUT1=60
 		TIMEOUT2=60
 		TIMEOUT3=7200
