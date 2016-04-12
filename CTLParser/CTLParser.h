@@ -56,6 +56,7 @@ struct CTLTree {
   Atom a;
   unsigned int depth;
   unsigned int max_depth;
+  bool isTemporal;
 } ;
 
 struct CTLFormula {

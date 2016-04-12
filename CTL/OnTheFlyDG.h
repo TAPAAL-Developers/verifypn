@@ -36,13 +36,15 @@ public:
     bool isCompressing() {return _compressoption;};
                         
 protected:
-    bool evaluateQuery(Configuration &t_config);
+    bool evaluateQuery(CTLTree &query, Marking &marking);
     bool _compressoption;
     int indexOfPlace(char *t_place);
     std::list<Marking *> nextState(Marking &t_marking);
     std::list<int> calculateFireableTransistions(Marking &t_marking);
     Configuration *createConfiguration(Marking &t_marking, CTLTree &t_query);
     Marking *createMarking(const Marking &t_marking, int t_transition);
+    bool fastEval(CTLTree &query, Marking &marking);
+
     void initCompressOption();
 
 };
