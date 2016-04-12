@@ -52,13 +52,15 @@ namespace boost {
     template<>
     struct hash<ctl::Configuration>{
         size_t operator()(const ctl::Configuration& t_config) const {
-            hash<ctl::Marking> hasher;
+            /*hash<ctl::Marking> hasher;
             size_t seed = (size_t)reinterpret_cast<uintptr_t>(t_config.query);
             //Combine query ptr adr with marking hashing
             size_t result = hasher.operator ()(*t_config.marking);
             result ^= seed + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 
-            return result;
+            return result;*/
+            long xorHash = ((long) t_config.query) ^ ((long) t_config.marking);
+            return (size_t) (xorHash ^ (xorHash >> 32));
         }
     };
     template<>
