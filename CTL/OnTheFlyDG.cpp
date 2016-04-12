@@ -83,31 +83,28 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
         //All Next begin
         else if(v.query->path == X){
             auto targets = nextState(*v.marking);
-            if(!targets.empty())
-            {
-                if (v.query->first->isTemporal) {   //regular check
-                    Edge* e = new Edge(&v);
-                    for (auto m : targets){
-                        Configuration* c = createConfiguration(*m, *(v.query->first));
-                        e->targets.push_back(c);
+            if (v.query->first->isTemporal) {   //regular check
+                Edge* e = new Edge(&v);
+                for (auto m : targets){
+                    Configuration* c = createConfiguration(*m, *(v.query->first));
+                    e->targets.push_back(c);
+                }
+                succ.push_back(e);
+            } else {
+                bool allValid = true;
+                for (auto m : targets) {
+                    bool valid = fastEval(*(v.query->first), *m);
+                    if (!valid) {
+                        allValid = false;
+                        break;
                     }
-                    succ.push_back(e);
-                } else {
-                    bool allValid = true;
-                    for (auto m : targets) {
-                        bool valid = fastEval(*(v.query->first), *m);
-                        if (!valid) {
-                            allValid = false;
-                            break;
-                        }
-                    }
-                    if (allValid) {
-                        succ.push_back(new Edge(&v));
-                        v.Successors = succ;
-                        return succ;
-                    }
-                }             
-            }
+                }
+                if (allValid) {
+                    succ.push_back(new Edge(&v));
+                    v.Successors = succ;
+                    return succ;
+                }
+            }             
         } //All Next End
 
         //All Finally start
