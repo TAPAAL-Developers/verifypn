@@ -252,24 +252,68 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
 
     //And start
     else if (v.query->quantifier == AND){
-        Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
-        Configuration* c1 = createConfiguration(*(v.marking), *(v.query->second));
-        Edge* e = new Edge(&v);
-        e->targets.push_back(c);
-        e->targets.push_back(c1);
+
+        //Check if left is false
+        if(!v.query->first->isTemporal){
+            if(!fastEval(*(v.query->first), *v.marking))
+                //query cannot be satisfied, return empty succ set
+                return succ;
+        }
+
+        //check if right is false
+        if(!v.query->second->isTemporal){
+            if(!fastEval(*(v.query->second), *v.marking))
+                return succ;
+        }
+
+        Edge *e = new Edge(&v);
+
+        //If we get here, then either both propositions are true(should not be possible)
+        //Or a temporal operator and a true proposition
+        //Or both are temporal
+        if(v.query->first->isTemporal){
+            e->targets.push_back(createConfiguration(*v.marking, *(v.query->first)));
+        }
+        if(v.query->second->isTemporal){
+            e->targets.push_back(createConfiguration(*v.marking, *(v.query->second)));
+        }
         succ.push_back(e);
     } //And end
 
     //Or start
     else if (v.query->quantifier == OR){
-        Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
-        Configuration* c1 = createConfiguration(*(v.marking), *(v.query->second));
-        Edge* e = new Edge(&v);
-        Edge* e1 = new Edge(&v);
-        e->targets.push_back(c);
-        e1->targets.push_back(c1);
-        succ.push_back(e);
-        succ.push_back(e1);
+
+        //Check if left is true
+        if(!v.query->first->isTemporal){
+            if(fastEval(*(v.query->first), *v.marking)){
+                //query is satisfied, return
+                succ.push_back(new Edge(&v));
+                v.Successors = succ;
+                return succ;
+            }
+        }
+
+        if(!v.query->second->isTemporal){
+            if(fastEval(*(v.query->second), *v.marking)){
+                succ.push_back(new Edge(&v));
+                v.Successors = succ;
+                return succ;
+            }
+        }
+
+        //If we get here, either both propositions are false
+        //Or one is false and one is temporal
+        //Or both temporal
+        if(v.query->first->isTemporal){
+            Edge *e = new Edge(&v);
+            e->targets.push_back(createConfiguration(*v.marking, *(v.query->first)));
+            succ.push_back(e);
+        }
+        if(v.query->second->isTemporal){
+            Edge *e = new Edge(&v);
+            e->targets.push_back(createConfiguration(*v.marking, *(v.query->second)));
+            succ.push_back(e);
+        }
     } //Or end
 
     //Negate start
@@ -282,17 +326,12 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
 
     //Evaluate Query Begin
     else {
-        //Edge* e = new Edge(&v);
-        //e->targets.push_back(&v);
-       // v.configPrinter();
+        //We should never get here anymore.
+        v.configPrinter();
+        assert(false);
         if (evaluateQuery(*v.query, *v.marking)){
-            //assignConfiguration(&v, ONE);
             succ.push_back(new Edge(&v));
-        } else {
-            //assignConfiguration(&v, CZERO);
         }
-        //succ.push_back(e);
-
     }
 
     v.Successors = succ;
