@@ -327,8 +327,8 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
     //Evaluate Query Begin
     else {
         //We should never get here anymore.
-        v.configPrinter();
-        assert(false);
+        //v.configPrinter();
+        //assert(false);
         if (evaluateQuery(*v.query, *v.marking)){
             succ.push_back(new Edge(&v));
         }
