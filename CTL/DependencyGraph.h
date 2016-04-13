@@ -31,7 +31,7 @@ public:
     void initialize(CTLTree &t_query);
 
 protected:
-    CTLTree *_query;
+    CTLTree *_query = nullptr;
     PetriEngine::PetriNet *_petriNet;
     PetriEngine::MarkVal *_initialMarking;
     PNMLParser::InhibitorArcList _inhibitorArcs;

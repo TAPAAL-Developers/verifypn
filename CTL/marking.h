@@ -15,8 +15,11 @@ namespace ctl {
 //inline functions to make the class
 //act/look/feel like an array.
 
+class Configuration;
+
 class Marking
 {
+    typedef std::vector<Configuration*> succ_container_type;
     public:
     // Equality checker for containers
     // with pointers to markings
@@ -28,7 +31,7 @@ class Marking
 
     Marking(){}
     Marking(PetriEngine::MarkVal* t_marking, size_t t_length)
-        : m_marking(t_marking), m_length(t_length){}
+        : m_marking(t_marking), m_length(t_length){ }
 
     virtual ~Marking(){ free(m_marking); }
 
@@ -43,6 +46,7 @@ class Marking
     inline PetriEngine::MarkVal* Value() const {return m_marking;}
     void print() const;
     inline size_t Length() const {return m_length;}
+    succ_container_type successors;
 private:
     PetriEngine::MarkVal* m_marking;
     size_t m_length;
