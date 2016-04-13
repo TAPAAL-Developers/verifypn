@@ -5,7 +5,10 @@
 namespace ctl{
 
 OnTheFlyDG::OnTheFlyDG(PetriEngine::PetriNet *t_net, PetriEngine::MarkVal *t_initial, PNMLParser::InhibitorArcList inhibitorArcs):
-    DependencyGraph(t_net, t_initial, inhibitorArcs){_compressoption = false;}
+    DependencyGraph(t_net, t_initial, inhibitorArcs)
+{
+    _compressoption = false;
+}
 
 
 bool OnTheFlyDG::fastEval(CTLTree &query, Marking &marking) {
@@ -342,8 +345,9 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
 
 Configuration &OnTheFlyDG::initialConfiguration()
 {
-    Marking *initial = new Marking(_initialMarking, _nplaces);
-    return *createConfiguration(*initial, *_query);
+    Markings.insert(&initial_marking);
+    Configuration* initial = createConfiguration(initial_marking, *_query);
+    return *initial;
 }
 
 bool OnTheFlyDG::evaluateQuery(CTLTree &query, Marking &marking){
@@ -476,10 +480,28 @@ std::list<int> OnTheFlyDG::calculateFireableTransistions(Marking &t_marking){
 
 void OnTheFlyDG::clear(bool t_clear_all)
 {
-    for(auto c : Configurations){
-        delete c;
+//    int i = 0;
+//    int max_i = Markings.size();
+    for(Marking *m : Markings){
+//        printf("Cleaning up marking %d of %d: ", ++i, max_i);
+//        m->print();
+//        printf("\n");
+
+//        if(m == &initial_marking)
+//            printf("Successor count: %d\n",(int) m->successors.size());
+        for(Configuration *c : m->successors){
+//            c->configPrinter();
+            delete c;
+        }
+
+        m->successors.resize(0);
     }
-    Configurations.clear();
+//    printf("Done Cleaning Configurations\n");
+
+//    for(Configuration *c : Configurations){
+//        delete c;
+//    }
+//    Configurations.clear();
 
     if(t_clear_all){
         for(auto m : Markings){
@@ -491,6 +513,11 @@ void OnTheFlyDG::clear(bool t_clear_all)
 
 Configuration *OnTheFlyDG::createConfiguration(Marking &t_marking, CTLTree &t_query)
 {
+    for(Configuration* c : t_marking.successors){
+        if(c->query == &t_query)
+            return c;
+    }
+
     Configuration* newConfig = new Configuration();
     newConfig->marking = &t_marking;
     newConfig->query = &t_query;
@@ -499,13 +526,17 @@ Configuration *OnTheFlyDG::createConfiguration(Marking &t_marking, CTLTree &t_qu
     if(t_query.quantifier == NEG){
         newConfig->IsNegated = true;
     }
-    auto pair = Configurations.insert(newConfig);
 
-    if(!pair.second) {
-        delete newConfig;
-    }
+    t_marking.successors.push_back(newConfig);
+    return newConfig;
 
-    return *(pair.first);
+    //auto pair = Configurations.insert(newConfig);
+
+//    if(!pair.second) {
+//        delete newConfig;
+//    }
+
+//    return *(pair.first);
 }
 
 
