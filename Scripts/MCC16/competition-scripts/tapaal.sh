@@ -1,28 +1,13 @@
 #!/bin/bash
 
 # This is the initialization script for the participation of TAPAAL
-# untimed engine verifypn in the Petri net competition 2016.
-# It uses a single core, processes first using heuristic search for
-# a short time on all queries, then tries BFS and finally uses DFS
-# on the not yet solved queries until we run out of time
+# untimed sequential single core engine verifypn in the Petri net 
+# competition 2016 (MCC16).
 
 # BK_EXAMINATION: it is a string that identifies your "examination"
 
 export PATH="$PATH:/home/mcc/BenchKit/bin/"
 VERIFYPN=$HOME/BenchKit/bin/verifypn-linux64
-#VERIFYPN=/Users/srba/dev/MCC-16/engines/verifypnCTL/verifypn-osx64
-#VERIFYPN=/Users/srba/dev/verifypnCTL/verifypn-osx64
-
-#timeout for heuristic search
-TIMEOUT1=40
-#timeout for BFS search
-TIMEOUT2=30
-#timeout for DFS search
-TIMEOUT3=600
-
-STRATEGY1=""
-STRATEGY2="-d -s BFS"
-STRATEGY3="-d -s DFS"
 
 #Allowed memory in kB
 MEM="14500000"
@@ -46,127 +31,121 @@ if [ ! -f model.pnml ]; then
 	exit 1
 fi
 
+
 function verify {
-	if [ ! -f $2 ]; then
-    		echo "File '$2' not found!" 
-		exit 1 
-	fi
-	local NUMBER=`cat $2 | grep "<property>" | wc -l`
+        if [[ $2 == "" ]] ; then
+            echo "No more queries"
+            exit 1
+        fi
         RQ=""
-        for (( QUERY=1; QUERY<=$NUMBER; QUERY++ ))
-	do
-		echo
-		            echo "verifypn" $STRATEGY1 $1 "-x" $QUERY "model.pnml" $2
-		timeout $TIMEOUT1 $VERIFYPN $STRATEGY1 $1 "-x" $QUERY model.pnml $2
-		RETVAL=$?
-		if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || \
-                   [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
-			RQ="$RQ $QUERY"
-		fi
-	done
-        RQR=""
-	for QUERY in $RQ ; do
+        QS=$(echo $2)
+	for QUERY in $QS ; do
   		echo
-                            echo "verifypn" $STRATEGY2 $1 "-x" $QUERY "model.pnml" $2
-                timeout $TIMEOUT2 $VERIFYPN $STRATEGY2 $1 "-x" $QUERY model.pnml $2
+                echo "timeout" $1 "verifypn" $3 "-x" "$QUERY" "model.pnml" $4
+                       timeout $1 $VERIFYPN $3 "-x" $QUERY model.pnml $4
                 RETVAL=$?
                 if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || \
                    [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
-                        RQR="$RQR $QUERY"
+                        RQ="$RQ $QUERY"
                 fi	 
+
         done
-	for QUERY in $RQR ; do
-  		echo
-                            echo "verifypn" $STRATEGY3 $1 "-x" $QUERY "model.pnml" $2
-                timeout $TIMEOUT3 $VERIFYPN $STRATEGY3 $1 "-x" $QUERY model.pnml $2
-                #RETVAL=$?
-                #if [ $RETVAL = 124 ] || [ $RETVAL =  125 ] || [ $RETVAL =  126 ] || \
-                #   [ $RETVAL =  127 ] || [ $RETVAL =  137 ] ; then
-		# echo -ne "CANNOT_COMPUTE\n"
-                #fi	 
-        done
+        LIST="$RQ"
 } 
+
+function getlist
+{
+    NUMBER=`cat $1 | grep "<property>" | wc -l`
+
+    QS=""
+    for (( QUERY=1; QUERY<=$NUMBER; QUERY++ )) ;
+    do
+        QS="$QS $QUERY"
+    done
+    echo $QS
+}
 
 case "$BK_EXAMINATION" in
 
 	StateSpace)
 		echo		
-		echo "****************************************************"
-		echo "*  TAPAAL Sequential performing StateSpace search  *"
-		echo "****************************************************"
+		echo "**************************************************"
+		echo "* TAPAAL Sequential performing StateSpace search *"
+		echo "**************************************************"
 		$VERIFYPN -n -d -e model.pnml 
+                exit 0 
 		;;
 
 	UpperBounds)	
 		echo		
-		echo "********************************************"
-		echo "*  TAPAAL Sequential verifying UpperBounds *"
-		echo "********************************************"
-                STRATEGY1="-s BFS"
-                STRATEGY2="-s DFS"
-                STRATEGY3=""
-		TIMEOUT1=7200
-		TIMEOUT2=7200
-		TIMEOUT3=7200
-		verify "-n -d -r 1" "UpperBounds.xml"
+		echo "******************************************"
+		echo "* TAPAAL Sequential verifying UpperBounds*"
+		echo "******************************************"
+                LIST=$(getlist "UpperBounds.xml")
+                verify 7200 "$LIST" "-n -d -r 1 -s BFS" "UpperBounds.xml"
+                exit 0 
 		;;
 
 	ReachabilityDeadlock)
 		echo		
-		echo "*********************************************************"
-		echo "*  TAPAAL Sequential checking for ReachabilityDeadlock  *"
-		echo "*********************************************************"
-                STRATEGY1="-s BFS"
-                STRATEGY2="-d "
-                STRATEGY3="-d -s DFS"
-		TIMEOUT1=60
-		TIMEOUT2=60
-		TIMEOUT3=7200
-		verify "-n -r 1" "ReachabilityDeadlock.xml"
+		echo "*******************************************************"
+		echo "* TAPAAL Sequential checking for ReachabilityDeadlock *"
+		echo "*******************************************************"
+                LIST=$(getlist "ReachabilityDeadlock.xml")
+                verify 60 "$LIST" "-n -d -r 1 -s BFS" "ReachabilityDeadlock.xml"
+                verify 60 "$LIST" "-n -d -r 1" "ReachabilityDeadlock.xml"
+                verify 7200 "$LIST" "-n -d -r 1 -s DFS" "ReachabilityDeadlock.xml"
+                exit 0 
 		;;
 
 	ReachabilityCardinality)
 		echo		
-		echo "*********************************************************"
-		echo "*  TAPAAL Sequential verifying ReachabilityCardinality  *"
-		echo "*********************************************************"
-		verify "-n -r 1" "ReachabilityCardinality.xml"
+		echo "*******************************************************"
+		echo "* TAPAAL Sequential verifying ReachabilityCardinality *"
+		echo "*******************************************************"
+                LIST=$(getlist "ReachabilityCardinality.xml")
+                verify 7 "$LIST" "-n -s OverApprox" "ReachabilityCardinality.xml"
+                verify 40 "$LIST" "-n -d -r 1" "ReachabilityCardinality.xml"
+                verify 30 "$LIST" "-n -d -r 1 -s BFS" "ReachabilityCardinality.xml"
+                verify 500 "$LIST" "-n -d -r 1 -s DFS" "ReachabilityCardinality.xml"
+                exit 0 
 		;;
 
 	ReachabilityFireability)
 		echo		
-		echo "*********************************************************"
-		echo "*  TAPAAL Sequential verifying ReachabilityFireability  *"
-		echo "*********************************************************"
-		verify "-n -r 1" "ReachabilityFireability.xml"
+		echo "*******************************************************"
+		echo "* TAPAAL Sequential verifying ReachabilityFireability *"
+		echo "*******************************************************"
+                LIST=$(getlist "ReachabilityFireability.xml")
+                verify 5 "$LIST" "-n -s OverApprox" "ReachabilityFireability.xml"
+                verify 40 "$LIST" "-n -d -r 1" "ReachabilityFireability.xml"
+                verify 30 "$LIST" "-n -d -r 1 -s BFS" "ReachabilityFireability.xml"
+                verify 500 "$LIST" "-n -d -r 1 -s DFS" "ReachabilityFireability.xml"
+                exit 0    
 		;;
 
 	CTLCardinality)
 		echo		
-		echo "*********************************************"
-		echo "*  TAPAAL CLASSIC verifying CTLCardinality  *"
-		echo "*********************************************"
-                STRATEGY1="-s DFS"
-                STRATEGY2="-s BFS"
-                STRATEGY3="-s DFS"
-		TIMEOUT1=20
-		TIMEOUT2=20
-		TIMEOUT3=300
-		verify "-ctl czero -n" "CTLCardinality.xml"
+		echo "**********************************************"
+		echo "* TAPAAL Sequential verifying CTLCardinality *"
+		echo "**********************************************"
+                LIST=$(getlist "CTLCardinality.xml")
+                verify 20 "$LIST" "-n -d -ctl czero -s DFS" "CTLCardinality.xml"
+                verify 20 "$LIST" "-n -d -ctl czero -s BFS" "CTLCardinality.xml"
+                verify 200 "$LIST" "-n -d -ctl czero -s DFS" "CTLCardinality.xml"
+                exit 0    
 		;;
 
 	CTLFireability)
 		echo		
-		echo "*********************************************"
-		echo "*  TAPAAL CLASSIC verifying CTLFireability  *"
-		echo "*********************************************"
-                STRATEGY1="-s DFS"
-                STRATEGY2="-s BFS"
-                STRATEGY3="-s DFS"
-		TIMEOUT1=20
-		TIMEOUT2=20
-		TIMEOUT3=300
-		verify "-ctl czero -n" "CTLFireability.xml"
+		echo "**********************************************"
+		echo "* TAPAAL Sequential verifying CTLFireability *"
+		echo "**********************************************"
+                LIST=$(getlist "CTLFireability.xml")
+                verify 20 "$LIST" "-n -d -ctl czero -s DFS" "CTLFireability.xml"
+                verify 20 "$LIST" "-n -d -ctl czero -s BFS" "CTLFireability.xml"
+                verify 200 "$LIST" "-n -d -ctl czero -s DFS" "CTLFireability.xml"
+                exit 0    
 		;;
 
 	*)
