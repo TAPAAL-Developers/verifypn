@@ -133,7 +133,7 @@ case "$BK_EXAMINATION" in
                 LIST=$(getlist "CTLCardinality.xml")
                 verify 20 "$LIST" "-n -d -ctl czero -s DFS" "CTLCardinality.xml"
                 verify 20 "$LIST" "-n -d -ctl czero -s BFS" "CTLCardinality.xml"
-                verify 200 "$LIST" "-n -d -ctl czero -s DFS" "CTLCardinality.xml"
+                verify 500 "$LIST" "-n -d -ctl czero -s DFS" "CTLCardinality.xml"
                 exit 0    
 		;;
 
@@ -145,7 +145,7 @@ case "$BK_EXAMINATION" in
                 LIST=$(getlist "CTLFireability.xml")
                 verify 20 "$LIST" "-n -d -ctl czero -s DFS" "CTLFireability.xml"
                 verify 20 "$LIST" "-n -d -ctl czero -s BFS" "CTLFireability.xml"
-                verify 200 "$LIST" "-n -d -ctl czero -s DFS" "CTLFireability.xml"
+                verify 500 "$LIST" "-n -d -ctl czero -s DFS" "CTLFireability.xml"
                 exit 0    
 		;;
 
