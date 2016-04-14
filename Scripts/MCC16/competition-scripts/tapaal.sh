@@ -105,10 +105,11 @@ case "$BK_EXAMINATION" in
 		echo "* TAPAAL Sequential verifying ReachabilityCardinality *"
 		echo "*******************************************************"
                 LIST=$(getlist "ReachabilityCardinality.xml")
-                verify 7 "$LIST" "-n -s OverApprox" "ReachabilityCardinality.xml"
+                verify 5 "$LIST" "-n -s OverApprox" "ReachabilityCardinality.xml"
                 verify 40 "$LIST" "-n -d -r 1" "ReachabilityCardinality.xml"
                 verify 30 "$LIST" "-n -d -r 1 -s BFS" "ReachabilityCardinality.xml"
-                verify 500 "$LIST" "-n -d -r 1 -s DFS" "ReachabilityCardinality.xml"
+                verify 300 "$LIST" "-n -d -r 1 -s DFS" "ReachabilityCardinality.xml"
+                verify 7200 "$LIST" "-n -d -r 1 -s DFS" "ReachabilityCardinality.xml"
                 exit 0 
 		;;
 
@@ -121,7 +122,8 @@ case "$BK_EXAMINATION" in
                 verify 5 "$LIST" "-n -s OverApprox" "ReachabilityFireability.xml"
                 verify 40 "$LIST" "-n -d -r 1" "ReachabilityFireability.xml"
                 verify 30 "$LIST" "-n -d -r 1 -s BFS" "ReachabilityFireability.xml"
-                verify 500 "$LIST" "-n -d -r 1 -s DFS" "ReachabilityFireability.xml"
+                verify 300 "$LIST" "-n -d -r 1 -s DFS" "ReachabilityFireability.xml"
+                verify 7200 "$LIST" "-n -d -r 1 -s DFS" "ReachabilityFireability.xml"
                 exit 0    
 		;;
 
@@ -131,9 +133,10 @@ case "$BK_EXAMINATION" in
 		echo "* TAPAAL Sequential verifying CTLCardinality *"
 		echo "**********************************************"
                 LIST=$(getlist "CTLCardinality.xml")
-                verify 20 "$LIST" "-n -d -ctl czero -s DFS" "CTLCardinality.xml"
-                verify 20 "$LIST" "-n -d -ctl czero -s BFS" "CTLCardinality.xml"
-                verify 500 "$LIST" "-n -d -ctl czero -s DFS" "CTLCardinality.xml"
+                verify 25 "$LIST" "-n -d -ctl czero -s DFS" "CTLCardinality.xml"
+                verify 10 "$LIST" "-n -d -ctl czero -s BFS" "CTLCardinality.xml"
+                verify 300 "$LIST" "-n -d -ctl czero -s DFS" "CTLCardinality.xml"
+                verify 7200 "$LIST" "-n -d -ctl czero -s DFS" "CTLCardinality.xml"
                 exit 0    
 		;;
 
@@ -143,9 +146,10 @@ case "$BK_EXAMINATION" in
 		echo "* TAPAAL Sequential verifying CTLFireability *"
 		echo "**********************************************"
                 LIST=$(getlist "CTLFireability.xml")
-                verify 20 "$LIST" "-n -d -ctl czero -s DFS" "CTLFireability.xml"
-                verify 20 "$LIST" "-n -d -ctl czero -s BFS" "CTLFireability.xml"
-                verify 500 "$LIST" "-n -d -ctl czero -s DFS" "CTLFireability.xml"
+                verify 25 "$LIST" "-n -d -ctl czero -s DFS" "CTLFireability.xml"
+                verify 10 "$LIST" "-n -d -ctl czero -s BFS" "CTLFireability.xml"
+                verify 300 "$LIST" "-n -d -ctl czero -s DFS" "CTLFireability.xml"
+                verify 7200 "$LIST" "-n -d -ctl czero -s DFS" "CTLFireability.xml"
                 exit 0    
 		;;
 
