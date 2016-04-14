@@ -36,10 +36,13 @@ public:
     bool isCompressing() {return _compressoption;}
                         
 protected:
+    Marking *cached_marking = nullptr;
+    std::vector<Marking*> cached_successors;
+
     bool evaluateQuery(CTLTree &query, Marking &marking);
     bool _compressoption;
     int indexOfPlace(char *t_place);
-    std::list<Marking *> nextState(Marking &t_marking);
+    std::vector<Marking *> nextState(Marking &t_marking);
     std::list<int> calculateFireableTransistions(Marking &t_marking);
     Configuration *createConfiguration(Marking &t_marking, CTLTree &t_query);
     Marking *createMarking(const Marking &t_marking, int t_transition);
