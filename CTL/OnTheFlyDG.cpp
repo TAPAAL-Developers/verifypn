@@ -8,6 +8,7 @@ OnTheFlyDG::OnTheFlyDG(PetriEngine::PetriNet *t_net, PetriEngine::MarkVal *t_ini
     DependencyGraph(t_net, t_initial, inhibitorArcs)
 {
     _compressoption = false;
+    cached_successors.resize(t_net->numberOfTransitions());
 }
 
 
@@ -424,29 +425,32 @@ int OnTheFlyDG::indexOfPlace(char *t_place){
     return -1;
 }
 
-std::list<Marking*> OnTheFlyDG::nextState(Marking& t_marking){
+std::vector<Marking*> OnTheFlyDG::nextState(Marking& t_marking){
 
-    if(cached_marking == &t_marking)
-        return std::list<Marking*>(cached_successors, cached_successors_end);
-    else{
-        cached_marking = &t_marking;
-        cached_successors_end = cached_successors;
+    if(cached_marking == &t_marking){
+        return cached_successors;
     }
 
-    std::list<int> fireableTransistions = calculateFireableTransistions(t_marking);
+    auto fireable = calculateFireableTransistions(t_marking);
+    std::vector<Marking*> nextStates;
 
-    auto iter = fireableTransistions.begin();
-    auto iterEnd = fireableTransistions.end();
+//    if(fireable.empty())
+//        return nextStates;
 
-    //Create new markings for each fireable transistion
-    for(; iter != iterEnd; iter++){
-        *cached_successors_end = createMarking(t_marking, *iter);
-        *cached_successors_end++;
+    //Update cache
+    size_t old_size = cached_successors.capacity();
+    cached_marking = &t_marking;
+    cached_successors.clear();
+
+    assert(old_size == cached_successors.capacity());
+
+    for(int t : fireable){
+        Marking *m2 = createMarking(t_marking, t);
+        nextStates.push_back(m2);
+        cached_successors.push_back(m2);
     }
 
-    //return the set of reachable markings
-    auto begin = cached_successors;
-    return std::list<Marking*>(begin, cached_successors_end);
+    return nextStates;
 }
 
 std::list<int> OnTheFlyDG::calculateFireableTransistions(Marking &t_marking){
