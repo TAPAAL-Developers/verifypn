@@ -134,7 +134,7 @@ case "$BK_EXAMINATION" in
 		echo "**********************************************"
                 LIST=$(getlist "CTLCardinality.xml")
                 verify 25 "$LIST" "-n -d -ctl czero -s DFS" "CTLCardinality.xml"
-                verify 10 "$LIST" "-n -d -ctl czero -s BFS" "CTLCardinality.xml"
+                verify 45 "$LIST" "-n -d -ctl czero -s BFS" "CTLCardinality.xml"
                 verify 300 "$LIST" "-n -d -ctl czero -s DFS" "CTLCardinality.xml"
                 verify 7200 "$LIST" "-n -d -ctl czero -s DFS" "CTLCardinality.xml"
                 exit 0    
@@ -147,7 +147,7 @@ case "$BK_EXAMINATION" in
 		echo "**********************************************"
                 LIST=$(getlist "CTLFireability.xml")
                 verify 25 "$LIST" "-n -d -ctl czero -s DFS" "CTLFireability.xml"
-                verify 10 "$LIST" "-n -d -ctl czero -s BFS" "CTLFireability.xml"
+                verify 45 "$LIST" "-n -d -ctl czero -s BFS" "CTLFireability.xml"
                 verify 300 "$LIST" "-n -d -ctl czero -s DFS" "CTLFireability.xml"
                 verify 7200 "$LIST" "-n -d -ctl czero -s DFS" "CTLFireability.xml"
                 exit 0    
