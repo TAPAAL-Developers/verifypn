@@ -426,20 +426,27 @@ int OnTheFlyDG::indexOfPlace(char *t_place){
 
 std::list<Marking*> OnTheFlyDG::nextState(Marking& t_marking){
 
+    if(cached_marking == &t_marking)
+        return std::list<Marking*>(cached_successors, cached_successors_end);
+    else{
+        cached_marking = &t_marking;
+        cached_successors_end = cached_successors;
+    }
+
     std::list<int> fireableTransistions = calculateFireableTransistions(t_marking);
-    std::list<Marking*> nextStates;
 
     auto iter = fireableTransistions.begin();
     auto iterEnd = fireableTransistions.end();
 
     //Create new markings for each fireable transistion
     for(; iter != iterEnd; iter++){
-        nextStates.push_back(createMarking(t_marking, *iter));
+        *cached_successors_end = createMarking(t_marking, *iter);
+        *cached_successors_end++;
     }
 
     //return the set of reachable markings
-
-    return nextStates;
+    auto begin = cached_successors;
+    return std::list<Marking*>(begin, cached_successors_end);
 }
 
 std::list<int> OnTheFlyDG::calculateFireableTransistions(Marking &t_marking){

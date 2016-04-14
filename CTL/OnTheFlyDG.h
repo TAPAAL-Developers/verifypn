@@ -36,6 +36,10 @@ public:
     bool isCompressing() {return _compressoption;}
                         
 protected:
+    Marking *cached_marking = nullptr;
+    Marking **cached_successors = (Marking**)malloc(sizeof(Marking*) * _nplaces);
+    Marking **cached_successors_end;
+
     bool evaluateQuery(CTLTree &query, Marking &marking);
     bool _compressoption;
     int indexOfPlace(char *t_place);
