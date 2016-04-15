@@ -83,6 +83,7 @@ case "$BK_EXAMINATION" in
 		echo "* TAPAAL Sequential verifying UpperBounds *"
 		echo "*******************************************"
                 LIST=$(getlist "UpperBounds.xml")
+                verify 60 "$LIST" "-n -d -r 1 -s DFS" "UpperBounds.xml"
                 verify 7200 "$LIST" "-n -d -r 1 -s BFS" "UpperBounds.xml"
                 exit 0 
 		;;
