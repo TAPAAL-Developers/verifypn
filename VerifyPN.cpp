@@ -65,6 +65,7 @@
 #include "CTL/SearchStrategies/AbstractSearchStrategy.h"
 #include "CTL/SearchStrategies/DepthFirstSearch.h"
 #include "CTL/SearchStrategies/BreadthFirstSearch.h"
+#include "CTLParser/CTLParser_v2.h"
 
 using namespace std;
 using namespace PetriEngine;
@@ -502,14 +503,23 @@ int main(int argc, char* argv[]){
         ifstream xmlfile (queryfile);
         vector<char> buffer((istreambuf_iterator<char>(xmlfile)), istreambuf_iterator<char>());
         buffer.push_back('\0');
-
-        CTLParser ctlParser = CTLParser(net);
         
-        ctlParser.ParseXMLQuery(buffer, queryList);
+        CTLParser_v2 parser = CTLParser_v2();
+        CTLQuery * ctlquery = parser.ParseXMLQuery(buffer, xmlquery);
+        parser.FormatQuery(ctlquery);
+        //parser.FormatQuery(ctlquery);
+        cout<<parser.QueryToString(ctlquery)<<endl;
+
+        //CTLParser ctlParser = CTLParser(net);
+        
+        //ctlParser.ParseXMLQuery(buffer, queryList);
+        
+        
         
         clock_t parse_ctl_query_end = clock();
         if(printstatistics)
             cout<<":::TIME::: Parse of CTL query elapsed time: "<<double(diffclock(parse_ctl_query_end,parse_ctl_query_begin))<<" ms\n"<<endl;
+        assert(false);
     }
     
 	//----------------------- Parse Reachability Query -----------------------//
