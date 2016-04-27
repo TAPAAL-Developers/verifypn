@@ -808,8 +808,8 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                 }
             }
 
-            fprintf(stdout, "STATE_SPACE MAX_TOKENS_PER_MARKING %s TECHNIQUES PARALLEL_PROCESSING EXPLICIT\n", maxTokInMark.c_str());
-            fprintf(stdout, "STATE_SPACE MAX_TOKENS_IN_PLACE %s TECHNIQUES PARALLEL_PROCESSING EXPLICIT\n", tokInOnePlace.c_str());
+            fprintf(stdout, "STATE_SPACE MAX_TOKEN_PER_MARKING %s TECHNIQUES PARALLEL_PROCESSING EXPLICIT\n", maxTokInMark.c_str());
+            fprintf(stdout, "STATE_SPACE MAX_TOKEN_IN_PLACE %s TECHNIQUES PARALLEL_PROCESSING EXPLICIT\n", tokInOnePlace.c_str());
 
             pclose(stream);
             return 0; // We're done. No need to continue from here.
@@ -890,7 +890,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                             ssresult = data.substr(startPos + 1, nameLen - 2);
 
 	                        if(tool == TSEQ){
-                            fprintf(stdout, "STATE_SPACE MAX_TOKENS_PER_MARKING %s TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT\n", ssresult.c_str());
+                            fprintf(stdout, "STATE_SPACE MAX_TOKEN_PER_MARKING %s TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT\n", ssresult.c_str());
 	                    	}
                             results++;
                         }
@@ -906,7 +906,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                             size_t nameLen = (end_quote - startPos) + 1;
                             ssresult = data.substr(startPos + 1, nameLen - 2);
                             if(tool == TSEQ){
-                            fprintf(stdout, "STATE_SPACE MAX_TOKENS_IN_PLACE %s TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT\n", ssresult.c_str());
+                            fprintf(stdout, "STATE_SPACE MAX_TOKEN_IN_PLACE %s TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT\n", ssresult.c_str());
 	                    	}
                             results++;
                         }
@@ -1415,7 +1415,7 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                         fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
                     	}
                     	else if(tool == TPAR){
-                    		  fprintf(stdout, "FALSE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n");
+                    	std::cout<<"FALSE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n";
                         fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
                     	}
 
@@ -1431,14 +1431,14 @@ if (debugging) printf("executing with the command %s\n", cmd.c_str());
                     	}
                     	else if(tool == TPAR){
 
-                        fprintf(stdout, "TRUE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n");
+                        std::cout<<"TRUE TECHNIQUES PARALLEL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n";
                         fprintf(stdout, "\nQuery is satisfied.\n\n");
                     	}
 
                     }
 
                     else
-                        fprintf(stdout, "\nUnable to decide if query is satisfied\n\n");
+                        fprintf(stdout, "\nCANNOT_COMPUTE\n\n");
                 }
 
             return solution;
