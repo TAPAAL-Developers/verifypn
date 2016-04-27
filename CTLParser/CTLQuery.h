@@ -37,6 +37,7 @@ public:
     Quantifier GetQuantifier();
     Path GetPath();
     std::string GetAtom();
+    std::string CreateEvaluateableProposition(std::string a);
     
 private:
     bool _hasQuantifier;

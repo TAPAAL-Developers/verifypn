@@ -14,6 +14,7 @@
 #include "rapidxml-1.13/rapidxml.hpp"
 #include "CTLParser_v2.h"
 #include "CTLQuery.h"
+#include "EvaluateableProposition.h"
 
 
 using namespace rapidxml;
@@ -51,23 +52,19 @@ std::string CTLParser_v2::QueryToString(CTLQuery* query){
     }
 }
 
-void CTLParser_v2::FormatQuery(CTLQuery* query){
+void CTLParser_v2::FormatQuery(CTLQuery* query, PetriEngine::PetriNet *net){
     CTLType query_type = query->GetQueryType();
     if(query_type == EVAL){
+        EvaluateableProposition *proposition = new EvaluateableProposition(query->GetAtom(), net);
         return;
     }
     else if(query_type == LOPERATOR){
-        if(query->GetQuantifier() == NEG){
-            if(query->GetFirstChild()->GetQueryType() == LOPERATOR && query->GetFirstChild()->GetQuantifier() == NEG){
-                query = query->GetFirstChild()->GetFirstChild();
-            }
-            std::cout<<QueryToString(query)<<std::endl;
-            FormatQuery(query->GetFirstChild());
-        }
+        //FormatQuery(query->GetFirstChild());
+        return;
     }
     else if(query_type == PATHQEURY){
-        assert(false);
         if(query->GetQuantifier() == A && query->GetPath() == G){
+            assert(false);
             CTLQuery *neg_two = new CTLQuery(NEG, pError, false, "");
             neg_two->SetFirstChild(query->GetFirstChild());
             CTLQuery *ef_q = new CTLQuery(E, F, false, "");
@@ -77,7 +74,6 @@ void CTLParser_v2::FormatQuery(CTLQuery* query){
             query = neg_one;
         }
         else if(query->GetQuantifier() == E && query->GetPath() == G){
-            assert(false);
             CTLQuery *neg_two = new CTLQuery(NEG, pError, false, "");
             neg_two->SetFirstChild(query->GetFirstChild());
             CTLQuery *ef_q = new CTLQuery(A, F, false, "");
@@ -87,9 +83,9 @@ void CTLParser_v2::FormatQuery(CTLQuery* query){
             query = neg_one;
             assert(false);
         }
-        FormatQuery(query->GetFirstChild());
+        //FormatQuery(query->GetFirstChild());
+        return;
     }
-    else assert(false);
 }
 
 CTLQuery * CTLParser_v2::ParseXMLQuery(std::vector<char> buffer, int query_number) {
@@ -163,9 +159,11 @@ CTLQuery* CTLParser_v2::xmlToCTLquery(xml_node<> * root) {
         if (root_name[1] == 's' ){
             //Fireability Query File
             atom_str = root->name();
-            atom_str = atom_str + "(";
-            for (xml_node<> * transition_node = root->first_node(); transition_node; transition_node = transition_node->next_sibling()) {
-                atom_str = atom_str + " " + transition_node->value();
+            atom_str = atom_str + "is-Fireable(";
+            root = root->first_node();
+            atom_str = atom_str + root->value();
+            for (xml_node<> * transition_node = root->next_sibling(); transition_node; transition_node = transition_node->next_sibling()) {
+                atom_str = atom_str + ", " + transition_node->value();
             }
             atom_str = atom_str + ")";
         }
@@ -270,6 +268,7 @@ CTLQuery * CTLParser_v2::CopyQuery(CTLQuery *source){
         else {
             dest->SetFirstChild(CopyQuery(source->GetFirstChild()));
         }
+        return dest;
     }
     else if(source->GetQueryType() == PATHQEURY){
         CTLQuery *dest = new CTLQuery(source->GetQuantifier(), source->GetPath(), false, "");
@@ -280,6 +279,7 @@ CTLQuery * CTLParser_v2::CopyQuery(CTLQuery *source){
         else{
             dest->SetFirstChild(CopyQuery(source->GetFirstChild()));
         }
+        return dest;
     }
     else assert(false && "ERROR::: Copying query failed");
 }

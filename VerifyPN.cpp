@@ -506,7 +506,7 @@ int main(int argc, char* argv[]){
         
         CTLParser_v2 parser = CTLParser_v2();
         CTLQuery * ctlquery = parser.ParseXMLQuery(buffer, xmlquery);
-        parser.FormatQuery(ctlquery);
+        parser.FormatQuery(ctlquery, net);
         //parser.FormatQuery(ctlquery);
         cout<<parser.QueryToString(ctlquery)<<endl;
 

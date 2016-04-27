@@ -26,7 +26,7 @@ public:
     CTLParser_v2(const CTLParser_v2& orig);
     virtual ~CTLParser_v2();
     CTLQuery * ParseXMLQuery(std::vector<char> buffer, int query_number);
-    void FormatQuery(CTLQuery* query);
+    void FormatQuery(CTLQuery* query, PetriEngine::PetriNet *net);
     std::string QueryToString(CTLQuery* query);
 private:
     CTLQuery* xmlToCTLquery(rapidxml::xml_node<> * root);
