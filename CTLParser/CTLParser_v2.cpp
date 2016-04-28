@@ -52,19 +52,63 @@ std::string CTLParser_v2::QueryToString(CTLQuery* query){
     }
 }
 
-void CTLParser_v2::FormatQuery(CTLQuery* query, PetriEngine::PetriNet *net){
+CTLQuery* CTLParser_v2::FormatQuery(CTLQuery* query, PetriEngine::PetriNet *net){
+    FillAtom(query,net);
+    query = ConvertAG(query);
+    query = ConvertEG(query);
+    return query;
+}
+
+void CTLParser_v2::FillAtom(CTLQuery* query, PetriEngine::PetriNet *net) {
     CTLType query_type = query->GetQueryType();
     if(query_type == EVAL){
         EvaluateableProposition *proposition = new EvaluateableProposition(query->GetAtom(), net);
-        return;
+        query->SetProposition(proposition);
     }
-    else if(query_type == LOPERATOR){
-        //FormatQuery(query->GetFirstChild());
-        return;
+    else if (query_type == LOPERATOR){
+        Quantifier quan = query->GetQuantifier();
+        if(quan != NEG){
+            FillAtom(query->GetFirstChild(),net);
+            FillAtom(query->GetSecondChild(),net);
+        }
+        else{
+            FillAtom(query->GetFirstChild(),net);
+        }
     }
-    else if(query_type == PATHQEURY){
-        if(query->GetQuantifier() == A && query->GetPath() == G){
-            assert(false);
+    else if (query_type == PATHQEURY){
+        if (query->GetPath() == U){
+            FillAtom(query->GetFirstChild(),net);
+            FillAtom(query->GetSecondChild(),net);
+        }
+        else{
+            FillAtom(query->GetFirstChild(),net);
+        }
+    }
+}
+
+CTLQuery* CTLParser_v2::ConvertAG(CTLQuery* query) {
+    CTLType query_type = query->GetQueryType();
+    if(query_type == EVAL){
+        return query;
+    }
+    else if (query_type == LOPERATOR){
+        Quantifier quan = query->GetQuantifier();
+        if(quan != NEG){
+            query->SetFirstChild(ConvertAG(query->GetFirstChild()));
+            query->SetSecondChild(ConvertAG(query->GetSecondChild()));
+        }
+        else{
+            query->SetFirstChild(ConvertAG(query->GetFirstChild()));
+        }
+        return query;
+    }
+    else if (query_type == PATHQEURY){
+        if (query->GetPath() == U){
+            query->SetFirstChild(ConvertAG(query->GetFirstChild()));
+            query->SetSecondChild(ConvertAG(query->GetSecondChild()));
+        }
+        else if (query->GetQuantifier() == A && query->GetPath() == G){
+            
             CTLQuery *neg_two = new CTLQuery(NEG, pError, false, "");
             neg_two->SetFirstChild(query->GetFirstChild());
             CTLQuery *ef_q = new CTLQuery(E, F, false, "");
@@ -72,8 +116,40 @@ void CTLParser_v2::FormatQuery(CTLQuery* query, PetriEngine::PetriNet *net){
             CTLQuery *neg_one = new CTLQuery(NEG, pError, false, "");
             neg_one->SetFirstChild(ef_q);
             query = neg_one;
+            
+            query->SetFirstChild(ConvertAG(query->GetFirstChild()));
         }
-        else if(query->GetQuantifier() == E && query->GetPath() == G){
+        else{
+            query->SetFirstChild(ConvertAG(query->GetFirstChild()));
+        }
+        return query;
+    }
+    else assert(false);
+}
+
+CTLQuery* CTLParser_v2::ConvertEG(CTLQuery* query) {
+    CTLType query_type = query->GetQueryType();
+    if(query_type == EVAL){
+        return query;
+    }
+    else if (query_type == LOPERATOR){
+        Quantifier quan = query->GetQuantifier();
+        if(quan != NEG){
+            query->SetFirstChild(ConvertEG(query->GetFirstChild()));
+            query->SetSecondChild(ConvertEG(query->GetSecondChild()));
+        }
+        else{
+            query->SetFirstChild(ConvertEG(query->GetFirstChild()));
+        }
+        return query;
+    }
+    else if (query_type == PATHQEURY){
+        if (query->GetPath() == U){
+            query->SetFirstChild(ConvertEG(query->GetFirstChild()));
+            query->SetSecondChild(ConvertEG(query->GetSecondChild()));
+        }
+        else if (query->GetQuantifier() == E && query->GetPath() == G){
+            
             CTLQuery *neg_two = new CTLQuery(NEG, pError, false, "");
             neg_two->SetFirstChild(query->GetFirstChild());
             CTLQuery *ef_q = new CTLQuery(A, F, false, "");
@@ -81,12 +157,17 @@ void CTLParser_v2::FormatQuery(CTLQuery* query, PetriEngine::PetriNet *net){
             CTLQuery *neg_one = new CTLQuery(NEG, pError, false, "");
             neg_one->SetFirstChild(ef_q);
             query = neg_one;
-            assert(false);
+            
+            query->SetFirstChild(ConvertEG(query->GetFirstChild()));
         }
-        //FormatQuery(query->GetFirstChild());
-        return;
+        else{
+            query->SetFirstChild(ConvertEG(query->GetFirstChild()));
+        }
+        return query;
     }
+    else assert(false);
 }
+
 
 CTLQuery * CTLParser_v2::ParseXMLQuery(std::vector<char> buffer, int query_number) {
     #ifdef DEBUG
@@ -116,7 +197,6 @@ CTLQuery * CTLParser_v2::ParseXMLQuery(std::vector<char> buffer, int query_numbe
             xml_node<> * id_node = property_node->first_node("id");
             xml_node<> * formula_node = id_node->next_sibling("description")->next_sibling("formula");
             CTLQuery * query = xmlToCTLquery(formula_node->first_node());
-            std::cout<<QueryToString(query)<<std::endl;
             return query;
         }
         i++;
@@ -159,7 +239,7 @@ CTLQuery* CTLParser_v2::xmlToCTLquery(xml_node<> * root) {
         if (root_name[1] == 's' ){
             //Fireability Query File
             atom_str = root->name();
-            atom_str = atom_str + "is-Fireable(";
+            atom_str = atom_str + "(";
             root = root->first_node();
             atom_str = atom_str + root->value();
             for (xml_node<> * transition_node = root->next_sibling(); transition_node; transition_node = transition_node->next_sibling()) {

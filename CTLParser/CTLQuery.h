@@ -14,6 +14,7 @@
 #ifndef CTLQUERY_H
 #define CTLQUERY_H
 #include "CTLParser.h"
+#include "EvaluateableProposition.h"
 
 enum CTLType {PATHQEURY = 1, LOPERATOR = 2, EVAL = 3, TYPE_ERROR = -1};
 
@@ -21,7 +22,6 @@ class CTLQuery {
     
 public:
     CTLQuery(Quantifier q, Path p, bool isAtom, std::string atom_str);
-    CTLQuery(const CTLQuery& orig);
     virtual ~CTLQuery();
     
     int Id;
@@ -37,9 +37,14 @@ public:
     Quantifier GetQuantifier();
     Path GetPath();
     std::string GetAtom();
-    std::string CreateEvaluateableProposition(std::string a);
+    
+    EvaluateableProposition* GetProposition();
+    void SetProposition(EvaluateableProposition *p);
+    
     
 private:
+    std::string CreateEvaluateableProposition(std::string a);
+    
     bool _hasQuantifier;
     bool _hasPath;
     bool _hasAtom;
@@ -49,6 +54,8 @@ private:
     
     CTLQuery* _firstchild;
     CTLQuery* _secondchild;
+    
+    EvaluateableProposition* _proposition;
     
 
 };

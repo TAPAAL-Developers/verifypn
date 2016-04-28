@@ -26,7 +26,7 @@ public:
     CTLParser_v2(const CTLParser_v2& orig);
     virtual ~CTLParser_v2();
     CTLQuery * ParseXMLQuery(std::vector<char> buffer, int query_number);
-    void FormatQuery(CTLQuery* query, PetriEngine::PetriNet *net);
+    CTLQuery* FormatQuery(CTLQuery* query, PetriEngine::PetriNet *net);
     std::string QueryToString(CTLQuery* query);
 private:
     CTLQuery* xmlToCTLquery(rapidxml::xml_node<> * root);
@@ -35,6 +35,11 @@ private:
     int max_depth(int a, int b);
     std::string loperator_sym(std::string loperator);
     CTLQuery * CopyQuery(CTLQuery *source);
+    
+    void FillAtom(CTLQuery* query, PetriEngine::PetriNet *net);
+    CTLQuery* ConvertAG(CTLQuery* query);
+    CTLQuery* ConvertEG(CTLQuery* query);
+    
 
 };
 

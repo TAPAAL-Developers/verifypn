@@ -66,6 +66,7 @@
 #include "CTL/SearchStrategies/DepthFirstSearch.h"
 #include "CTL/SearchStrategies/BreadthFirstSearch.h"
 #include "CTLParser/CTLParser_v2.h"
+#include "CTLParser/CTLOptimizer.h"
 
 using namespace std;
 using namespace PetriEngine;
@@ -506,9 +507,10 @@ int main(int argc, char* argv[]){
         
         CTLParser_v2 parser = CTLParser_v2();
         CTLQuery * ctlquery = parser.ParseXMLQuery(buffer, xmlquery);
-        parser.FormatQuery(ctlquery, net);
-        //parser.FormatQuery(ctlquery);
-        cout<<parser.QueryToString(ctlquery)<<endl;
+        ctlquery = parser.FormatQuery(ctlquery, net);
+        
+        CTLOptimizer *optimizer = new CTLOptimizer();
+        optimizer->Optimize(ctlquery);
 
         //CTLParser ctlParser = CTLParser(net);
         

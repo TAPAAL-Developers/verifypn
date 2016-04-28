@@ -51,9 +51,6 @@ CTLQuery::CTLQuery(Quantifier q, Path p, bool isAtom, std::string atom_str) {
     
 }
 
-CTLQuery::CTLQuery(const CTLQuery& orig) {
-}
-
 CTLQuery::~CTLQuery() {
 }
 
@@ -97,6 +94,16 @@ Path CTLQuery::GetPath(){
 
 std::string CTLQuery::GetAtom(){
     return _a;
+}
+
+EvaluateableProposition* CTLQuery::GetProposition(){
+    assert(_hasAtom);
+    return _proposition;
+}
+
+void CTLQuery::SetProposition(EvaluateableProposition *p){
+    assert(_hasAtom);
+    _proposition = p;
 }
 
 std::string CTLQuery::ToSTring(){
