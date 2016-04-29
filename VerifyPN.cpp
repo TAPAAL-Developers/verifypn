@@ -519,15 +519,23 @@ int main(int argc, char* argv[]){
         meta_d = parser.GetQueryMetaData(buffer);
         if(xmlquery <= 0){
             for(int i = 0; i < meta_d->numberof_queries; i++){
+                cout<<"=================================="<<endl;
+                cout<<"=========== Query-"<<i<<" ==========="<<endl;
+                cout<<"=================================="<<endl;
                 CTLQuery * ctlquery = parser.ParseXMLQuery(buffer, i + 1);
+                cout<<"Query: "<<parser.QueryToString(ctlquery)<<endl;
                 ctlquery = parser.FormatQuery(ctlquery, net);
-                
-                optimizer->Optimize(ctlquery);
+                cout<<"Format: "<<parser.QueryToString(ctlquery)<<endl;
+                //optimizer->Optimize(ctlquery);
+                cout<<"Optimized: "<<parser.QueryToString(ctlquery)<<endl;
                 queryList.push_back(ctlquery);
+                cout<<"=================================="<<endl;
+                cout<<endl;
             }
         }
         else{
             CTLQuery * ctlquery = parser.ParseXMLQuery(buffer, xmlquery);
+            cout<<"Query: "<<parser.QueryToString(ctlquery)<<endl;
             ctlquery = parser.FormatQuery(ctlquery, net);
             optimizer->Optimize(ctlquery);
             queryList.push_back(ctlquery);

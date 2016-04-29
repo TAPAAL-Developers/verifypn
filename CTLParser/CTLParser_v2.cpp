@@ -58,6 +58,7 @@ CTLQuery* CTLParser_v2::FormatQuery(CTLQuery* query, PetriEngine::PetriNet *net)
     query = ConvertAG(query);
     query = ConvertEG(query);
     query = TemporalSetting(query);
+    //assert(false);
     return query;
 }
 
@@ -71,7 +72,7 @@ CTLQuery* CTLParser_v2::TemporalSetting(CTLQuery* query) {
         Quantifier quan = query->GetQuantifier();
         if(quan != NEG){
             query->SetFirstChild(TemporalSetting(query->GetFirstChild()));
-            query->SetSecondChild(TemporalSetting(query->GetFirstChild()));
+            query->SetSecondChild(TemporalSetting(query->GetSecondChild()));
             query->IsTemporal = (query->GetFirstChild()->IsTemporal || query->GetSecondChild()->IsTemporal);
         }
         else{
@@ -84,7 +85,7 @@ CTLQuery* CTLParser_v2::TemporalSetting(CTLQuery* query) {
         assert(query->IsTemporal);
         if (query->GetPath() == U){
             query->SetFirstChild(TemporalSetting(query->GetFirstChild()));
-            query->SetSecondChild(TemporalSetting(query->GetFirstChild()));
+            query->SetSecondChild(TemporalSetting(query->GetSecondChild()));
         }
         else{
             query->SetFirstChild(TemporalSetting(query->GetFirstChild()));
@@ -341,9 +342,12 @@ CTLQuery* CTLParser_v2::xmlToCTLquery(xml_node<> * root) {
     else if (query->GetPath() == pError){
         assert(false && "Failed setting Path operator");
     }
-    else {
+    else if (query->GetQueryType() == PATHQEURY) {
         query->SetFirstChild(xmlToCTLquery(root->first_node()->first_node()));
         query->Depth = query->GetFirstChild()->Depth + 1;
+    }
+    else{
+        assert(false && "Attemting to give atom children - ERROR");
     }
     
     return query;

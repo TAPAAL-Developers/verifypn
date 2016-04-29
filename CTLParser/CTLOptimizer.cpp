@@ -40,8 +40,28 @@ CTLQuery* CTLOptimizer::OptimizeNegation(CTLQuery *query) {
         else {//Negation
             if(query->GetFirstChild()->GetQueryType() == LOPERATOR && query->GetFirstChild()->GetQuantifier() == NEG){
                 query = query->GetFirstChild()->GetFirstChild();
+                if(query->GetQueryType() == EVAL){
+                    return query;
+                }
+                else if(query->GetQueryType() == LOPERATOR){
+                    if(query->GetQuantifier() != NEG){
+                        query->SetFirstChild(OptimizeNegation(query->GetFirstChild()));
+                        query->SetSecondChild(OptimizeNegation(query->GetSecondChild()));
+                    }
+                    else{
+                        query->SetFirstChild(OptimizeNegation(query->GetFirstChild()));
+                    }
+                }
+                else if (query->GetQueryType() == PATHQEURY){
+                    if (query->GetPath() == U){
+                        query->SetFirstChild(OptimizeNegation(query->GetFirstChild()));
+                        query->SetSecondChild(OptimizeNegation(query->GetSecondChild()));
+                    }
+                    else{
+                        query->SetFirstChild(OptimizeNegation(query->GetFirstChild()));
+                    }
+                }
             }
-            query->SetFirstChild(OptimizeNegation(query->GetFirstChild()));
         }
     }
     else if (query_type == PATHQEURY){

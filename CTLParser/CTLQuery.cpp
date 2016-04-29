@@ -68,7 +68,10 @@ CTLType CTLQuery::GetQueryType(){
 }
 
 CTLQuery* CTLQuery::GetFirstChild(){
-    assert(!_hasAtom && "Query does not have child");
+    if(_hasAtom){
+        std::cout<<"Query " << ToSTring() << " does not have child"<<std::endl;
+        throw 20;
+    }
     return _firstchild;
 }
 
