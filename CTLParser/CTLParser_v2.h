@@ -20,6 +20,12 @@
 #include <stdio.h>
 #include "CTLQuery.h"
 
+struct QueryMeta{
+    int numberof_queries;
+    std::string *model_name;
+    
+};
+
 class CTLParser_v2 {
 public:
     CTLParser_v2();
@@ -28,6 +34,7 @@ public:
     CTLQuery * ParseXMLQuery(std::vector<char> buffer, int query_number);
     CTLQuery* FormatQuery(CTLQuery* query, PetriEngine::PetriNet *net);
     std::string QueryToString(CTLQuery* query);
+    QueryMeta * GetQueryMetaData(std::vector<char> buffer);
 private:
     CTLQuery* xmlToCTLquery(rapidxml::xml_node<> * root);
     std::string parsePar(rapidxml::xml_node<> * parameter);
@@ -39,6 +46,7 @@ private:
     void FillAtom(CTLQuery* query, PetriEngine::PetriNet *net);
     CTLQuery* ConvertAG(CTLQuery* query);
     CTLQuery* ConvertEG(CTLQuery* query);
+    CTLQuery* TemporalSetting(CTLQuery* query);
     
 
 };

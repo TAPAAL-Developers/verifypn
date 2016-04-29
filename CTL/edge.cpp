@@ -34,7 +34,7 @@ void Edge::rateEdge(){
     int beta = 1;
     int gamma = 1;
 
-    int dist = source->query->depth;
+    int dist = source->query->Depth;
     int breath = 0;
     int succ = source->Successors.size();
 

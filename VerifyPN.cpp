@@ -146,7 +146,7 @@ void getQueryPlaces(vector<string> *QueryPlaces, CTLTree* current, PetriNet *net
 
 void search_ctl_query(PetriNet* net,
                       MarkVal* m0,
-                      CTLFormula *queryList[],
+                      vector<CTLQuery*> queryList,
                       int t_xmlquery,
                       CtlAlgorithm t_algorithm,
                       SearchStrategies t_strategy,
@@ -187,12 +187,12 @@ void search_ctl_query(PetriNet* net,
     if(t_xmlquery > 0){
         clock_t individual_search_begin = clock();
 
-        graph->initialize(*(queryList[t_xmlquery - 1]->Query));
+        graph->initialize(*queryList.front());
         res = algorithm->search(*graph, *strategy);
 
         configCount = graph->configuration_count();
         markingCount = graph->marking_count();
-        queryList[t_xmlquery - 1]->Result = res;
+        //queryList[t_xmlquery - 1]->Result = res;
 
         clock_t individual_search_end = clock();
         if (printstatistics) {
@@ -204,15 +204,16 @@ void search_ctl_query(PetriNet* net,
         else if (!res)
             result[t_xmlquery - 1] = FailedCode;
         else result[t_xmlquery - 1] = ErrorCode;
-
-        queryList[t_xmlquery - 1]->pResult();
+        
+        //queryList[t_xmlquery - 1]->pResult();
     }
     else{
-        for (int i = 0; i < 16 ; i++) {
+        int q_number = 0;
+        for (auto q : queryList) {
             clock_t individual_search_end, individual_search_begin;
             individual_search_begin = clock();
 
-            graph->initialize(*(queryList[i]->Query));
+            graph->initialize(*q);
             res = algorithm->search(*graph, *strategy);
 
             individual_search_end = clock();
@@ -220,19 +221,21 @@ void search_ctl_query(PetriNet* net,
             strategy->clear();
             configCount = graph->configuration_count();
             markingCount = graph->marking_count();
-            queryList[i]->Result = res;
+            //queryList[i]->Result = res;
 
             if (printstatistics) { 
-	    	cout<<":::TIME::: Search elapsed time for query "<< i <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+	    	cout<<":::TIME::: Search elapsed time for query "<< q_number <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
             	cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
 	    }
 
             if (res)
-                result[i] = SuccessCode;
+                result[q_number] = SuccessCode;
             else if (!res)
-                result[i] = FailedCode;
-            else result[i] = ErrorCode;
-            queryList[i]->pResult();
+                result[q_number] = FailedCode;
+            else result[q_number] = ErrorCode;
+            
+            q_number++;
+            //queryList[i]->pResult();
             cout << endl;
         }
    }
@@ -258,6 +261,7 @@ int main(int argc, char* argv[]){
     //CTL variables
     bool isCTLlogic = false;
     CtlAlgorithm ctl_algorithm;
+    bool isParserTest = false;
 
         
 	//----------------------- Parse Arguments -----------------------//
@@ -329,6 +333,8 @@ int main(int argc, char* argv[]){
 			statespaceexploration = true;
 		} else if (strcmp(argv[i], "-n") == 0 || strcmp(argv[i], "--no-statistics") == 0) {
 			printstatistics = false;
+                } else if (strcmp(argv[i], "-test") == 0) {
+			isParserTest = true;
 		} else if (strcmp(argv[i], "-x") == 0 || strcmp(argv[i], "--xml-queries") == 0) {
 			if (i == argc - 1) {
 				fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
@@ -492,8 +498,9 @@ int main(int argc, char* argv[]){
     }
     //----------------------- Parse CTL Query -----------------------//
     clock_t parse_ctl_query_begin = clock();
-    CTLFormula *queryList[15];
-    
+   // CTLFormula *queryList[15];
+    vector<CTLQuery*> queryList;
+    QueryMeta* meta_d;
     if(isCTLlogic){
         if (printstatistics) {
         	std::cout << "Analysis:: Modefile: " << modelfile << endl;
@@ -505,12 +512,34 @@ int main(int argc, char* argv[]){
         vector<char> buffer((istreambuf_iterator<char>(xmlfile)), istreambuf_iterator<char>());
         buffer.push_back('\0');
         
-        CTLParser_v2 parser = CTLParser_v2();
-        CTLQuery * ctlquery = parser.ParseXMLQuery(buffer, xmlquery);
-        ctlquery = parser.FormatQuery(ctlquery, net);
         
+        
+        CTLParser_v2 parser = CTLParser_v2();
         CTLOptimizer *optimizer = new CTLOptimizer();
-        optimizer->Optimize(ctlquery);
+        meta_d = parser.GetQueryMetaData(buffer);
+        if(xmlquery <= 0){
+            for(int i = 0; i < meta_d->numberof_queries; i++){
+                CTLQuery * ctlquery = parser.ParseXMLQuery(buffer, i + 1);
+                ctlquery = parser.FormatQuery(ctlquery, net);
+                
+                optimizer->Optimize(ctlquery);
+                queryList.push_back(ctlquery);
+            }
+        }
+        else{
+            CTLQuery * ctlquery = parser.ParseXMLQuery(buffer, xmlquery);
+            ctlquery = parser.FormatQuery(ctlquery, net);
+            optimizer->Optimize(ctlquery);
+            queryList.push_back(ctlquery);
+        }
+        
+        
+        if(isParserTest){
+            for(auto q : queryList){
+                cout<<parser.QueryToString(q)<<endl;
+            }
+            assert(false && "Test Successful");
+        }
 
         //CTLParser ctlParser = CTLParser(net);
         
@@ -521,7 +550,7 @@ int main(int argc, char* argv[]){
         clock_t parse_ctl_query_end = clock();
         if(printstatistics)
             cout<<":::TIME::: Parse of CTL query elapsed time: "<<double(diffclock(parse_ctl_query_end,parse_ctl_query_begin))<<" ms\n"<<endl;
-        assert(false);
+        
     }
     
 	//----------------------- Parse Reachability Query -----------------------//
@@ -831,10 +860,25 @@ int main(int argc, char* argv[]){
 //-------------------------------------------------------------------//
         else {
             ReturnValues retval[16];
-
+            string model_name(modelfile);
+            model_name = model_name.substr(0, model_name.find("/model.pnml"));
+            model_name = model_name.substr(model_name.find("/") + 1, string::npos);
+            model_name = model_name.substr(model_name.find("/") + 1, string::npos);
+            model_name = model_name.substr(model_name.find("/") + 1, string::npos);
+            model_name = model_name.substr(model_name.find("/") + 1, string::npos);
             clock_t total_search_begin = clock();
             search_ctl_query(net, m0, queryList, xmlquery, ctl_algorithm, searchstrategy, retval, inhibarcs);
             clock_t total_search_end = clock();
+            if(xmlquery > 0){
+                string pRes = (retval[0])?"TRUE":"FALSE";
+                cout<<"FORMULA "<<model_name<<"-"<<(xmlquery - 1)<<" "<<pRes<<endl;
+            }
+            else{
+                for(int i = 0; i < 16; i++){
+                    string pRes = (retval[i])?"TRUE":"FALSE";
+                    cout<<"FORMULA "<<model_name<<"-"<<i<<" "<<pRes<<endl;
+                }
+            }
 
             if(printstatistics){
                 cout<<"\n:::TIME::: Total search elapsed time: "<<double(diffclock(total_search_end,total_search_begin))<<" ms\n"<<endl;
@@ -844,3 +888,7 @@ int main(int argc, char* argv[]){
         return retval;
 }
 
+/*string pRes = (res)?"TRUE":"FALSE";
+        cout<<"FORMULA "<<(t_xmlquery - 1)<<" "<<pRes<<endl;
+ string pRes = (res)?"TRUE":"FALSE";
+            cout<<"FORMULA "<<q_number<<" "<<pRes<<endl;*/

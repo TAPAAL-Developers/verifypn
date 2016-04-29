@@ -4,6 +4,7 @@
 #include "../PetriEngine/PetriNet.h"
 #include "../PetriParse/PNMLParser.h"
 #include "../CTLParser/CTLParser.h"
+#include "../CTLParser/CTLQuery.h"
 #include <list>
 #include <iostream>
 
@@ -28,10 +29,10 @@ public:
     virtual int configuration_count() =0;
     virtual int marking_count() =0;
 
-    void initialize(CTLTree &t_query);
+    void initialize(CTLQuery &t_query);
 
 protected:
-    CTLTree *_query = nullptr;
+    CTLQuery *_query = nullptr;
     PetriEngine::PetriNet *_petriNet;
     PetriEngine::MarkVal *_initialMarking;
     PNMLParser::InhibitorArcList _inhibitorArcs;

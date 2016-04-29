@@ -1,6 +1,7 @@
 #include "OnTheFlyDG.h"
 
 #include <string.h>
+#include <algorithm>
 
 namespace ctl{
 
@@ -12,14 +13,14 @@ OnTheFlyDG::OnTheFlyDG(PetriEngine::PetriNet *t_net, PetriEngine::MarkVal *t_ini
 }
 
 
-bool OnTheFlyDG::fastEval(CTLTree &query, Marking &marking) {
-    assert(!query.isTemporal);
-    if (query.quantifier == AND){
-        return fastEval(*query.first, marking) && fastEval(*query.second, marking);        
-    } else if (query.quantifier == OR){
-        return fastEval(*query.first, marking) || fastEval(*query.second, marking);
-    } else if (query.quantifier == NEG){
-        return !fastEval(*query.first, marking);
+bool OnTheFlyDG::fastEval(CTLQuery &query, Marking &marking) {
+    assert(!query.IsTemporal);
+    if (query.GetQuantifier() == AND){
+        return fastEval(*query.GetFirstChild(), marking) && fastEval(*query.GetSecondChild(), marking);        
+    } else if (query.GetQuantifier() == OR){
+        return fastEval(*query.GetFirstChild(), marking) || fastEval(*query.GetSecondChild(), marking);
+    } else if (query.GetQuantifier() == NEG){
+        return !fastEval(*query.GetFirstChild(), marking);
     } else {        
         return evaluateQuery(query, marking);
     }
@@ -28,320 +29,304 @@ bool OnTheFlyDG::fastEval(CTLTree &query, Marking &marking) {
 std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
 {
     std::list<Edge*> succ;
-    //All
-    if(v.query->quantifier == A){
-        //All Until
-        if(v.query->path == U){
-            //first deal with the right side
-            Edge *right = NULL;
-            if (!v.query->second->isTemporal) {
-                //right side is not temporal, eval it right now!
-                bool valid = fastEval(*(v.query->second), *(v.marking));
-                if (valid) {    //satisfied, no need to go through successors
-                    succ.push_back(new Edge(&v));
-                    v.Successors = succ;
-                    return succ;
-                } //else: It's not valid, no need to add any edge, just add successors
-            } else {
-                //right side is temporal, we need to evaluate it as normal
-                Configuration* c = createConfiguration(*(v.marking), *(v.query->second));
-                right = new Edge(&v);
-                right->targets.push_back(c);
-            }
-            
-            //if we got here, either right side is temporal or it is not satisfied   
-            bool valid = false;
-            Configuration *left = NULL;
-            if (!v.query->first->isTemporal) {
-                //left side is not temporal, eval it right now!
-                valid = fastEval(*(v.query->first), *(v.marking));
-            } else {
-                //left side is temporal, include it in the edge
-                left = createConfiguration(*(v.marking), *(v.query->first));
-            }         
-
-            if (valid || left != NULL) {    //if left side is guaranteed to be not satisfied, skip successor generation
-                auto targets = nextState (*(v.marking));
-
-                if(!targets.empty()){   
-                    Edge* leftEdge = new Edge(&v);
-
-                    for(auto m : targets){
-                        Configuration* c = createConfiguration(*m, *(v.query));
-                        leftEdge->targets.push_back(c);                     
-                    }
-                    if (left != NULL) {
-                        leftEdge->targets.push_back(left);
-                    }                    
-                    succ.push_back(leftEdge);
-                }
-            } //else: Left side is not temporal and it's false, no way to succeed there...            
-
-            if (right != NULL) {
-                succ.push_back(right);
-            }
-
-
-        } //All Until end
-
-        //All Next begin
-        else if(v.query->path == X){
-            auto targets = nextState(*v.marking);
-            if (v.query->first->isTemporal) {   //regular check
-                Edge* e = new Edge(&v);
-                for (auto m : targets){
-                    Configuration* c = createConfiguration(*m, *(v.query->first));
-                    e->targets.push_back(c);
-                }
-                succ.push_back(e);
-            } else {
-                bool allValid = true;
-                for (auto m : targets) {
-                    bool valid = fastEval(*(v.query->first), *m);
-                    if (!valid) {
-                        allValid = false;
-                        break;
-                    }
-                }
-                if (allValid) {
-                    succ.push_back(new Edge(&v));
-                    v.Successors = succ;
-                    return succ;
-                }
-            }             
-        } //All Next End
-
-        //All Finally start
-        else if(v.query->path == F){
-            Edge *subquery = NULL;
-            if (!v.query->first->isTemporal) {
-                bool valid = fastEval(*(v.query->first), *(v.marking));
-                if (valid) {
-                    succ.push_back(new Edge(&v));
-                    v.Successors = succ;
-                    return succ;
-                }
-            } else {
-                subquery = new Edge(&v);
-                Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
-                subquery->targets.push_back(c);
-            }
-            
-            auto targets = nextState(*(v.marking));
-
-            if(!targets.empty()){
-                Edge* e1 = new Edge(&v);
-
-                for(auto m : targets){
-                    Configuration* c = createConfiguration(*m, *(v.query));
-                    e1->targets.push_back(c);
-                }
-                succ.push_back(e1);
-            }
-
-            if (subquery != NULL) {
-                succ.push_back(subquery);
-            }            
-
-        }//All Finally end
-    } //All end
-
-    //Exists start
-    else if (v.query->quantifier == E){
-
-        //Exists Untill start
-        if(v.query->path == U){
-            Edge *right = NULL;
-            if (v.query->second->isTemporal) {
-                Configuration* c = createConfiguration(*(v.marking), *(v.query->second));
-                right = new Edge(&v);
-                right->targets.push_back(c);
-            } else {
-                bool valid = fastEval(*(v.query->second), *(v.marking));
-                if (valid) {
-                    succ.push_back(new Edge(&v));
-                    v.Successors = succ;
-                    return succ;
-                }   // else: right condition is not satisfied, no need to add an edge
-            }            
-
-            auto targets = nextState(*(v.marking));
-
-            if(!targets.empty()){
-                Configuration *left = NULL;
-                bool valid = false;
-                if (v.query->first->isTemporal) {
-                    left = createConfiguration(*(v.marking), *(v.query->first));
-                } else {
-                    valid = fastEval(*(v.query->first), *(v.marking));
-                }
-                if (left != NULL || valid) {
-                    for(auto m : targets) {
-                        Edge* e = new Edge(&v);
-                        Configuration* c1 = createConfiguration(*m, *(v.query));
-                        e->targets.push_back(c1);
-                        if (left != NULL) {
-                            e->targets.push_back(left);
-                        }                        
-                        succ.push_back(e);
-                    }
-                }
-            }
-            
-            if (right != NULL) {
-                succ.push_back(right);
-            }
-            
-        } //Exists Until end
-
-        //Exists Next start
-        else if(v.query->path == X){
-            auto targets = nextState(*(v.marking));
-            CTLTree* query = v.query->first;
-
-            if(!targets.empty())
-            {
-                if (query->isTemporal) {    //have to check, no way to skip that
-                    for(auto m : targets){                    
-                        Edge* e = new Edge(&v);
-                        Configuration* c = createConfiguration(*m, *query);
-                        e->targets.push_back(c);
-                        succ.push_back(e);
-                    } 
-                } else {
-                    for(auto m : targets) {
-                        bool valid = fastEval(*query, *m);
-                        if (valid) {
-                            succ.push_back(new Edge(&v));
-                            v.Successors = succ;
-                            return succ;
-                        }   //else: It can't hold there, no need to create an edge
-                    }
-                }
-            }
-        }//Exists Next end
-
-        //Exists Finally start
-        else if(v.query->path == F){            
-            Edge *subquery = NULL;
-            if (!v.query->first->isTemporal) {
-                bool valid = fastEval(*(v.query->first), *(v.marking));                
-                if (valid) {
-                    succ.push_back(new Edge(&v));
-                    v.Successors = succ;
-                    return succ;
-                }
-            } else {
-                Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
-                subquery = new Edge(&v);
-                subquery->targets.push_back(c);                
-            }
-        
-            auto targets = nextState(*(v.marking));
-
-            if(!targets.empty()){
-                for(auto m : targets){
-                    Edge* e = new Edge(&v);
-                    Configuration* c = createConfiguration(*m, *(v.query));
-                    e->targets.push_back(c);
-                    succ.push_back(e);
-                }
-            }
-
-            if (subquery != NULL) {
-                succ.push_back(subquery);
-            }            
-        }//Exists Finally end
-    } //Exists end
-
-    //And start
-    else if (v.query->quantifier == AND){
-
-        //Check if left is false
-        if(!v.query->first->isTemporal){
-            if(!fastEval(*(v.query->first), *v.marking))
-                //query cannot be satisfied, return empty succ set
-                return succ;
-        }
-
-        //check if right is false
-        if(!v.query->second->isTemporal){
-            if(!fastEval(*(v.query->second), *v.marking))
-                return succ;
-        }
-
-        Edge *e = new Edge(&v);
-
-        //If we get here, then either both propositions are true(should not be possible)
-        //Or a temporal operator and a true proposition
-        //Or both are temporal
-        if(v.query->first->isTemporal){
-            e->targets.push_back(createConfiguration(*v.marking, *(v.query->first)));
-        }
-        if(v.query->second->isTemporal){
-            e->targets.push_back(createConfiguration(*v.marking, *(v.query->second)));
-        }
-        succ.push_back(e);
-    } //And end
-
-    //Or start
-    else if (v.query->quantifier == OR){
-
-        //Check if left is true
-        if(!v.query->first->isTemporal){
-            if(fastEval(*(v.query->first), *v.marking)){
-                //query is satisfied, return
-                succ.push_back(new Edge(&v));
-                v.Successors = succ;
-                return succ;
-            }
-        }
-
-        if(!v.query->second->isTemporal){
-            if(fastEval(*(v.query->second), *v.marking)){
-                succ.push_back(new Edge(&v));
-                v.Successors = succ;
-                return succ;
-            }
-        }
-
-        //If we get here, either both propositions are false
-        //Or one is false and one is temporal
-        //Or both temporal
-        if(v.query->first->isTemporal){
-            Edge *e = new Edge(&v);
-            e->targets.push_back(createConfiguration(*v.marking, *(v.query->first)));
-            succ.push_back(e);
-        }
-        if(v.query->second->isTemporal){
-            Edge *e = new Edge(&v);
-            e->targets.push_back(createConfiguration(*v.marking, *(v.query->second)));
-            succ.push_back(e);
-        }
-    } //Or end
-
-    //Negate start
-    else if (v.query->quantifier == NEG){
-            Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
-            Edge* e = new Edge(&v);
-            e->targets.push_back(c);
-            succ.push_back(e);
-    } //Negate end
-
-    //Evaluate Query Begin
-    else {
-        //We should never get here anymore.
-        //v.configPrinter();
-        //assert(false);
+    CTLType query_type = v.query->GetQueryType();
+    if(query_type == EVAL){
+        //assert(false && "Someone told me, this was a bad place to be.");
         if (evaluateQuery(*v.query, *v.marking)){
             succ.push_back(new Edge(&v));
         }
     }
+    else if (query_type == LOPERATOR){
+        if(v.query->GetQuantifier() == NEG){
+            Configuration* c = createConfiguration(*(v.marking), *(v.query->GetFirstChild()));
+            Edge* e = new Edge(&v);
+            e->targets.push_back(c);
+            succ.push_back(e);
+        }
+        else if(v.query->GetQuantifier() == AND){
+            //Check if left is false
+            if(!v.query->GetFirstChild()->IsTemporal){
+                if(!fastEval(*(v.query->GetFirstChild()), *v.marking))
+                    //query cannot be satisfied, return empty succ set
+                    return succ;
+            }
 
+            //check if right is false
+            if(!v.query->GetSecondChild()->IsTemporal){
+                if(!fastEval(*(v.query->GetSecondChild()), *v.marking))
+                    return succ;
+            }
+
+            Edge *e = new Edge(&v);
+
+            //If we get here, then either both propositions are true(should not be possible)
+            //Or a temporal operator and a true proposition
+            //Or both are temporal
+            if(v.query->GetFirstChild()->IsTemporal){
+                e->targets.push_back(createConfiguration(*v.marking, *(v.query->GetFirstChild())));
+            }
+            if(v.query->GetSecondChild()->IsTemporal){
+                e->targets.push_back(createConfiguration(*v.marking, *(v.query->GetSecondChild())));
+            }
+            succ.push_back(e);
+        }
+        else if(v.query->GetQuantifier() == OR){
+            //Check if left is true
+            if(!v.query->GetFirstChild()->IsTemporal){
+                if(fastEval(*(v.query->GetFirstChild()), *v.marking)){
+                    //query is satisfied, return
+                    succ.push_back(new Edge(&v));
+                    v.Successors = succ;
+                    return succ;
+                }
+            }
+
+            if(!v.query->GetSecondChild()->IsTemporal){
+                if(fastEval(*(v.query->GetSecondChild()), *v.marking)){
+                    succ.push_back(new Edge(&v));
+                    v.Successors = succ;
+                    return succ;
+                }
+            }
+
+            //If we get here, either both propositions are false
+            //Or one is false and one is temporal
+            //Or both temporal
+            if(v.query->GetFirstChild()->IsTemporal){
+                Edge *e = new Edge(&v);
+                e->targets.push_back(createConfiguration(*v.marking, *(v.query->GetFirstChild())));
+                succ.push_back(e);
+            }
+            if(v.query->GetSecondChild()->IsTemporal){
+                Edge *e = new Edge(&v);
+                e->targets.push_back(createConfiguration(*v.marking, *(v.query->GetSecondChild())));
+                succ.push_back(e);
+            }
+        }
+        else{
+            assert(false && "An unknown error occoured in the successor generator");
+        }
+    }
+    else if (query_type == PATHQEURY){
+        if(v.query->GetQuantifier() == A){
+            if (v.query->GetPath() == U){
+                Edge *right = NULL;
+                if (!v.query->GetSecondChild()->IsTemporal){
+                    //right side is not temporal, eval it right now!
+                    bool valid = fastEval(*(v.query->GetSecondChild()), *(v.marking));
+                    if (valid) {    //satisfied, no need to go through successors
+                        succ.push_back(new Edge(&v));
+                        v.Successors = succ;
+                        return succ;
+                    }//else: It's not valid, no need to add any edge, just add successors
+                }
+                else {
+                    //right side is temporal, we need to evaluate it as normal
+                    Configuration* c = createConfiguration(*(v.marking), *(v.query->GetSecondChild()));
+                    right = new Edge(&v);
+                    right->targets.push_back(c);
+                }
+                bool valid = false;
+                Configuration *left = NULL;
+                if (!v.query->GetFirstChild()->IsTemporal) {
+                    //left side is not temporal, eval it right now!
+                    valid = fastEval(*(v.query->GetFirstChild()), *(v.marking));
+                } else {
+                    //left side is temporal, include it in the edge
+                    left = createConfiguration(*(v.marking), *(v.query->GetFirstChild()));
+                } 
+                if (valid || left != NULL) {    //if left side is guaranteed to be not satisfied, skip successor generation
+                    auto targets = nextState (*(v.marking));
+
+                    if(!targets.empty()){   
+                        Edge* leftEdge = new Edge(&v);
+
+                        for(auto m : targets){
+                            Configuration* c = createConfiguration(*m, *(v.query));
+                            leftEdge->targets.push_back(c);                     
+                        }
+                        if (left != NULL) {
+                            leftEdge->targets.push_back(left);
+                        }                    
+                        succ.push_back(leftEdge);
+                    }
+                } //else: Left side is not temporal and it's false, no way to succeed there...            
+
+                if (right != NULL) {
+                    succ.push_back(right);
+                }
+            }
+            else if(v.query->GetPath() == F){
+                Edge *subquery = NULL;
+                if (!v.query->GetFirstChild()->IsTemporal) {
+                    bool valid = fastEval(*(v.query->GetFirstChild()), *(v.marking));
+                    if (valid) {
+                        succ.push_back(new Edge(&v));
+                        v.Successors = succ;
+                        return succ;
+                    }
+                } else {
+                    subquery = new Edge(&v);
+                    Configuration* c = createConfiguration(*(v.marking), *(v.query->GetFirstChild()));
+                    subquery->targets.push_back(c);
+                }
+
+                auto targets = nextState(*(v.marking));
+
+                if(!targets.empty()){
+                    Edge* e1 = new Edge(&v);
+
+                    for(auto m : targets){
+                        Configuration* c = createConfiguration(*m, *(v.query));
+                        e1->targets.push_back(c);
+                    }
+                    succ.push_back(e1);
+                }
+
+                if (subquery != NULL) {
+                    succ.push_back(subquery);
+                } 
+            }
+            else if(v.query->GetPath() == X){
+                auto targets = nextState(*v.marking);
+                if (v.query->GetFirstChild()->IsTemporal) {   //regular check
+                    Edge* e = new Edge(&v);
+                    for (auto m : targets){
+                        Configuration* c = createConfiguration(*m, *(v.query->GetFirstChild()));
+                        e->targets.push_back(c);
+                    }
+                    succ.push_back(e);
+                } else {
+                    bool allValid = true;
+                    for (auto m : targets) {
+                        bool valid = fastEval(*(v.query->GetFirstChild()), *m);
+                        if (!valid) {
+                            allValid = false;
+                            break;
+                        }
+                    }
+                    if (allValid) {
+                        succ.push_back(new Edge(&v));
+                        v.Successors = succ;
+                        return succ;
+                    }
+                }
+            }
+            else if(v.query->GetPath() == G ){
+                assert(false && "Path operator G had not been translated - Parse error detected in succ()");
+            }
+            else
+                assert(false && "An unknown error occoured in the successor generator");
+        }
+        else if(v.query->GetQuantifier() == E){
+            if (v.query->GetPath() == U){
+                Edge *right = NULL;
+                if (v.query->GetSecondChild()->IsTemporal) {
+                    Configuration* c = createConfiguration(*(v.marking), *(v.query->GetSecondChild()));
+                    right = new Edge(&v);
+                    right->targets.push_back(c);
+                } else {
+                    bool valid = fastEval(*(v.query->GetSecondChild()), *(v.marking));
+                    if (valid) {
+                        succ.push_back(new Edge(&v));
+                        v.Successors = succ;
+                        return succ;
+                    }   // else: right condition is not satisfied, no need to add an edge
+                }            
+
+                auto targets = nextState(*(v.marking));
+
+                if(!targets.empty()){
+                    Configuration *left = NULL;
+                    bool valid = false;
+                    if (v.query->GetFirstChild()->IsTemporal) {
+                        left = createConfiguration(*(v.marking), *(v.query->GetFirstChild()));
+                    } else {
+                        valid = fastEval(*(v.query->GetFirstChild()), *(v.marking));
+                    }
+                    if (left != NULL || valid) {
+                        for(auto m : targets) {
+                            Edge* e = new Edge(&v);
+                            Configuration* c1 = createConfiguration(*m, *(v.query));
+                            e->targets.push_back(c1);
+                            if (left != NULL) {
+                                e->targets.push_back(left);
+                            }                        
+                            succ.push_back(e);
+                        }
+                    }
+                }
+
+                if (right != NULL) {
+                    succ.push_back(right);
+                }
+            }
+            else if(v.query->GetPath() == F){
+                Edge *subquery = NULL;
+                if (!v.query->GetFirstChild()->IsTemporal) {
+                    bool valid = fastEval(*(v.query->GetFirstChild()), *(v.marking));                
+                    if (valid) {
+                        succ.push_back(new Edge(&v));
+                        v.Successors = succ;
+                        return succ;
+                    }
+                } else {
+                    Configuration* c = createConfiguration(*(v.marking), *(v.query->GetFirstChild()));
+                    subquery = new Edge(&v);
+                    subquery->targets.push_back(c);                
+                }
+
+                auto targets = nextState(*(v.marking));
+
+                if(!targets.empty()){
+                    for(auto m : targets){
+                        Edge* e = new Edge(&v);
+                        Configuration* c = createConfiguration(*m, *(v.query));
+                        e->targets.push_back(c);
+                        succ.push_back(e);
+                    }
+                }
+
+                if (subquery != NULL) {
+                    succ.push_back(subquery);
+                }
+            }
+            else if(v.query->GetPath() == X){
+                auto targets = nextState(*(v.marking));
+                CTLQuery* query = v.query->GetFirstChild();
+
+                if(!targets.empty())
+                {
+                    if (query->IsTemporal) {    //have to check, no way to skip that
+                        for(auto m : targets){                    
+                            Edge* e = new Edge(&v);
+                            Configuration* c = createConfiguration(*m, *query);
+                            e->targets.push_back(c);
+                            succ.push_back(e);
+                        } 
+                    } else {
+                        for(auto m : targets) {
+                            bool valid = fastEval(*query, *m);
+                            if (valid) {
+                                succ.push_back(new Edge(&v));
+                                v.Successors = succ;
+                                return succ;
+                            }   //else: It can't hold there, no need to create an edge
+                        }
+                    }
+                }
+            }
+            else if(v.query->GetPath() == G ){
+                assert(false && "Path operator G had not been translated - Parse error detected in succ()");
+            }
+            else
+                assert(false && "An unknown error occoured in the successor generator");
+        }
+        
+    }
+    
     v.Successors = succ;
     return succ;
-    //computedSucc += succ.size();
-    //std::cout << "-----------EDGES NOW : " << computedSucc << "\n" << std::flush;
 }
 
 Configuration &OnTheFlyDG::initialConfiguration()
@@ -351,69 +336,55 @@ Configuration &OnTheFlyDG::initialConfiguration()
     return *initial;
 }
 
-bool OnTheFlyDG::evaluateQuery(CTLTree &query, Marking &marking){
+bool OnTheFlyDG::evaluateQuery(CTLQuery &query, Marking &marking){
+    assert(query.GetQueryType() == EVAL);
+    EvaluateableProposition *proposition = query.GetProposition();
 
-    bool result = false;
-
-    if (query.a.isFireable) {
+    if (proposition->GetPropositionType() == FIREABILITY) {
         std::list<int> transistions = calculateFireableTransistions(marking);
-
-        for (auto t : transistions) {
-            int fs_transition = 0;
-            for(fs_transition = 0; fs_transition < query.a.firesize; fs_transition++){
-                int dpc_place = 0;
-                int truedependencyplaces = 0;
-                for (dpc_place = 0; dpc_place < query.a.fireset[fs_transition].sizeofdenpencyplaces; dpc_place++){
-
-                    if((query.a.fireset[fs_transition].denpencyplaces[dpc_place].intSmaller - 1) < marking[query.a.fireset[fs_transition].denpencyplaces[dpc_place].placeLarger]){
-                        //std::cout<<_net->placeNames()[query->a.fireset[fs_transition].denpencyplaces[dpc_place].placeLarger]<<" is true"<<std::endl;
-                        truedependencyplaces++;
-                    }
-                }
-                if (truedependencyplaces == query.a.fireset[fs_transition].sizeofdenpencyplaces){
-                    result = true;
-                }
+        std::list<int>::iterator it;
+        transistions.sort();
+        for(auto f : proposition->GetFireset()){
+            it = std::find(transistions.begin(), transistions.end(), f);
+            if(it != transistions.end()){
+                return true;
             }
         }
-        return result;
+        return false;
     }
-
-    ///std::cout<<"Evaluating cardinality... "<<std::endl;
- //   t_config.configPrinter();
- //   std::cout<<"Less: ";
-    int less = query.a.cardinality.intSmaller;
-    int greater= query.a.cardinality.intLarger;
-    if( less == -1 ){
-        int i = 0;
-        less = 0;
-        for (i = 0; i < query.a.cardinality.placeSmaller.sizeoftokencount; i++){
-            int index = query.a.cardinality.placeSmaller.cardinality[i];
-            less += marking[index];
- //           std::cout<<t_config.marking->Value()[index]<<" + ";
-        }
+    else if (proposition->GetPropositionType() == CARDINALITY){
+        int first_param = GetParamValue(proposition->GetFirstParameter(), marking);
+        int second_param = GetParamValue(proposition->GetSecondParameter(), marking);
+        return EvalCardianlity(first_param, proposition->GetLoperator(), second_param);
     }
-//    std::cout<<" = "<<less<<std::endl;
-//    std::cout<<"Greater: ";
-    if (greater == -1){
-        int i = 0;
-        greater = 0;
-       // std::cout<<"::: Number of places: "<<query->a.cardinality.placeLarger.sizeoftokencount<<std::endl;
-        for (i = 0; i < query.a.cardinality.placeLarger.sizeoftokencount; i++){
-            //std::cout<<"::::: i: "<<i<<std::endl;
-            int index = query.a.cardinality.placeLarger.cardinality[i];
-            //std::cout<<"::::: Index: "<<index<<" - Value: "<<t_config.marking->Value()[index]<<std::endl;
-            greater += marking[index];
-  //          std::cout<<t_config.marking->Value()[index]<<" + ";
-       //     std::cout<<"::::: greater: "<<greater<<std::endl;
-        }
+    else
+        assert(false && "Incorrect query proposition type was attempted evaluated");
 
-    }
-  //  std::cout<<" = "<<greater<<std::endl;
-
-    result = less <= greater;
-   // std::cout<<"... evaluation Done"<<std::endl;
-    return result;
 }
+
+int OnTheFlyDG::GetParamValue(CardinalityParameter *param, Marking& marking) {
+    if(param->isPlace){
+        return marking[param->value];
+    }
+    else
+        return param->value;
+    }
+
+bool OnTheFlyDG::EvalCardianlity(int a, LoperatorType lop, int b) {
+    if(lop == EQ)
+        return a == b;
+    else if (lop == LE)
+        return a < b;
+    else if (lop == LEQ)
+        return a <= b;
+    else if (lop == GR)
+        return a > b;
+    else if (lop == GRQ)
+        return a >= b;
+    assert(false && "Unsupported LOperator attemped evaluated");
+}
+
+
 
 int OnTheFlyDG::indexOfPlace(char *t_place){
     for (int i = 0; i < _nplaces; i++) {
@@ -522,7 +493,7 @@ void OnTheFlyDG::clear(bool t_clear_all)
     }
 }
 
-Configuration *OnTheFlyDG::createConfiguration(Marking &t_marking, CTLTree &t_query)
+Configuration *OnTheFlyDG::createConfiguration(Marking &t_marking, CTLQuery &t_query)
 {
     for(Configuration* c : t_marking.successors){
         if(c->query == &t_query)
@@ -534,7 +505,7 @@ Configuration *OnTheFlyDG::createConfiguration(Marking &t_marking, CTLTree &t_qu
     newConfig->query = &t_query;
 
     //Default value is false
-    if(t_query.quantifier == NEG){
+    if(t_query.GetQueryType() == LOPERATOR && t_query.GetQuantifier() == NEG){
         newConfig->IsNegated = true;
     }
 

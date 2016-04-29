@@ -39,7 +39,7 @@ EvaluateableProposition::EvaluateableProposition(std::string a, PetriEngine::Pet
         SetFireset(fireset_str, net->transitionNames(), net->numberOfTransitions());
     }
     else{
-        assert(false);
+        assert(false && "Atomic string proposed for proposition could not be parsed");
     }
 }
 
@@ -51,12 +51,12 @@ PropositionType EvaluateableProposition::GetPropositionType(){
 }
 
 LoperatorType EvaluateableProposition::GetLoperator(){
-    assert(_type == CARDINALITY);
+    assert(_type == CARDINALITY && "Proposition is not a cardinality proposition");
     return _loperator;
 }
 
 std::vector<int> EvaluateableProposition::GetFireset() {
-    assert(_type == FIREABILITY);
+    assert(_type == FIREABILITY && "Proposition is not a fireability proposition");
     return _fireset;
 }
 
@@ -131,5 +131,15 @@ std::string EvaluateableProposition::ToString() {
         return cardi_str + ")";
     }
     else
-        assert(false);
+        assert(false && "Proposition had no type");
+}
+
+CardinalityParameter* EvaluateableProposition::GetFirstParameter() {
+    assert(_type == CARDINALITY);
+    return _firstParameter;
+}
+
+CardinalityParameter* EvaluateableProposition::GetSecondParameter() {
+    assert(_type == CARDINALITY);
+    return _secondParameter;
 }

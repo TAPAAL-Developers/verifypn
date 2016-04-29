@@ -19,7 +19,7 @@ public:
 private:
     struct edge_prioritizer{
         bool operator()(const Edge *lhs, const Edge *rhs) const {
-            return (lhs->source->query->max_depth > rhs->source->query->max_depth);
+            return (lhs->source->query->Depth > rhs->source->query->Depth); //Changed to depth - was max depth
         }
     };
     typedef std::priority_queue<Edge*, std::vector<Edge*>, ctl::CertainZeroFPA::edge_prioritizer> PriorityQueue;

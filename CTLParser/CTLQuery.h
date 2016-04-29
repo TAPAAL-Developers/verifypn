@@ -41,6 +41,8 @@ public:
     EvaluateableProposition* GetProposition();
     void SetProposition(EvaluateableProposition *p);
     
+    bool IsTemporal;
+    
     
 private:
     std::string CreateEvaluateableProposition(std::string a);

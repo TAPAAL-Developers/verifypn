@@ -40,7 +40,7 @@ std::string CTLParser_v2::QueryToString(CTLQuery* query){
         else if (q == AND || q == OR){
             return QueryToString(query->GetFirstChild()) + query->ToSTring() + QueryToString(query->GetSecondChild());
         }
-        else assert(false);
+        else assert(false && "Could not print unknown logical query operator");
     }
     else if(query->GetQuantifier() == A || query->GetQuantifier() == E){
         if(query->GetPath() == U){
@@ -50,14 +50,49 @@ std::string CTLParser_v2::QueryToString(CTLQuery* query){
             return query->ToSTring() + QueryToString(query->GetFirstChild());
         }
     }
+    else assert(false && "Could not print unknown query type");
 }
 
 CTLQuery* CTLParser_v2::FormatQuery(CTLQuery* query, PetriEngine::PetriNet *net){
     FillAtom(query,net);
     query = ConvertAG(query);
     query = ConvertEG(query);
+    query = TemporalSetting(query);
     return query;
 }
+
+CTLQuery* CTLParser_v2::TemporalSetting(CTLQuery* query) {
+    CTLType query_type = query->GetQueryType();
+    if(query_type == EVAL){
+        assert(!query->IsTemporal);
+        return query;
+    }
+    else if (query_type == LOPERATOR){
+        Quantifier quan = query->GetQuantifier();
+        if(quan != NEG){
+            query->SetFirstChild(TemporalSetting(query->GetFirstChild()));
+            query->SetSecondChild(TemporalSetting(query->GetFirstChild()));
+            query->IsTemporal = (query->GetFirstChild()->IsTemporal || query->GetSecondChild()->IsTemporal);
+        }
+        else{
+            query->SetFirstChild(TemporalSetting(query->GetFirstChild()));
+            query->IsTemporal = (query->GetFirstChild()->IsTemporal);
+        }
+        return query;
+    }
+    else if (query_type == PATHQEURY){
+        assert(query->IsTemporal);
+        if (query->GetPath() == U){
+            query->SetFirstChild(TemporalSetting(query->GetFirstChild()));
+            query->SetSecondChild(TemporalSetting(query->GetFirstChild()));
+        }
+        else{
+            query->SetFirstChild(TemporalSetting(query->GetFirstChild()));
+        }
+        return query;
+    }
+}
+
 
 void CTLParser_v2::FillAtom(CTLQuery* query, PetriEngine::PetriNet *net) {
     CTLType query_type = query->GetQueryType();
@@ -84,6 +119,7 @@ void CTLParser_v2::FillAtom(CTLQuery* query, PetriEngine::PetriNet *net) {
             FillAtom(query->GetFirstChild(),net);
         }
     }
+    else assert(false && "Could not traverse unknown query type");
 }
 
 CTLQuery* CTLParser_v2::ConvertAG(CTLQuery* query) {
@@ -124,7 +160,7 @@ CTLQuery* CTLParser_v2::ConvertAG(CTLQuery* query) {
         }
         return query;
     }
-    else assert(false);
+    else assert(false && "Could not traverse unknown query type");
 }
 
 CTLQuery* CTLParser_v2::ConvertEG(CTLQuery* query) {
@@ -165,7 +201,7 @@ CTLQuery* CTLParser_v2::ConvertEG(CTLQuery* query) {
         }
         return query;
     }
-    else assert(false);
+    else assert(false && "Could not traverse unknown query type");
 }
 
 
@@ -201,8 +237,23 @@ CTLQuery * CTLParser_v2::ParseXMLQuery(std::vector<char> buffer, int query_numbe
         }
         i++;
     }
-    assert(false);
+    assert(false && "Query number did not match a property in the provided .xml file.");
 }
+
+QueryMeta* CTLParser_v2::GetQueryMetaData(std::vector<char> buffer) {
+    xml_document<> doc;
+    xml_node<> * root_node;
+    doc.parse<0>(&buffer[0]);
+    root_node = doc.first_node();
+    QueryMeta *meta_d = new QueryMeta();
+    int i = 0;
+    for (xml_node<> * property_node = root_node->first_node("property"); property_node; property_node = property_node->next_sibling()) {
+        i++;
+    }
+    meta_d->numberof_queries = i;
+    return meta_d;
+}
+
 
 CTLQuery* CTLParser_v2::xmlToCTLquery(xml_node<> * root) {
     char *root_name = root->name();
@@ -211,27 +262,27 @@ CTLQuery* CTLParser_v2::xmlToCTLquery(xml_node<> * root) {
     if (firstLetter == 'a') {
         //Construct all-paths
         query = new CTLQuery(A, getPathOperator(root), false, "");
-        assert(query->GetQuantifier() == A);
+        assert(query->GetQuantifier() == A && "Failed setting quantifier");
     }
     else if (firstLetter == 'e' ) {
         //Construct exists-path
         query = new CTLQuery(E, getPathOperator(root), false, "");
-        assert(query->GetQuantifier() == E);
+        assert(query->GetQuantifier() == E && "Failed setting path operator");
     }
     else if (firstLetter == 'n' ) {
         //Construct negation
         query = new CTLQuery(NEG, pError, false, "");
-        assert(query->GetQuantifier() == NEG);
+        assert(query->GetQuantifier() == NEG && "Failed setting negation operator");
     }
     else if (firstLetter == 'c' ) {
         //Construct conjunction
         query = new CTLQuery(AND, pError, false, "");
-        assert(query->GetQuantifier() == AND);
+        assert(query->GetQuantifier() == AND && "Failed setting and operator");
     }
     else if (firstLetter == 'd' ) {
         //Construct disjunction
         query = new CTLQuery(OR, pError, false, "");
-        assert(query->GetQuantifier() == OR);
+        assert(query->GetQuantifier() == OR && "Failed setting or operator");
     }
     else if (firstLetter == 'i' ) {
         //Construct Atom
@@ -260,12 +311,12 @@ CTLQuery* CTLParser_v2::xmlToCTLquery(xml_node<> * root) {
             atom_str = first + loperator + second;
             
         }
-        else assert(false);
+        else assert(false && "Incorrectly format of .xml file provided");
         query = new CTLQuery(EMPTY, pError, true, atom_str);
         query->Depth = 0;
         return query;
     }
-    else assert(false);
+    else assert(false && "Failed parsing .xml file provided. Incorrect format.");
     
     if (query->GetPath() == U) {
         xml_node<> * child_node = root->first_node()->first_node();
@@ -287,8 +338,8 @@ CTLQuery* CTLParser_v2::xmlToCTLquery(xml_node<> * root) {
         query->SetFirstChild(xmlToCTLquery(root->first_node()));
         query->Depth = query->GetFirstChild()->Depth + 1;
     }
-    else if (query->GetPath() == pError) {
-        assert(false);
+    else if (query->GetPath() == pError){
+        assert(false && "Failed setting Path operator");
     }
     else {
         query->SetFirstChild(xmlToCTLquery(root->first_node()->first_node()));
@@ -308,7 +359,7 @@ Path CTLParser_v2::getPathOperator(xml_node<> * quantifyer_node){
         return X;
     else if (path_firstLetter == 'u')
         return U;
-    else assert(false);
+    else assert(false && "Failed parsing path operator. Incorrect format.");
 }
 
 std::string CTLParser_v2::parsePar(xml_node<> * parameter){
@@ -320,7 +371,7 @@ std::string CTLParser_v2::parsePar(xml_node<> * parameter){
     else if(parameter->name()[0] == 'i'){
         parameter_str = parameter_str + parameter->value() + ")";
     }
-    else assert(false);
+    else assert(false && "Failed parsing cardinality parameter. Incorrect format.");
     return parameter_str;
 }
 

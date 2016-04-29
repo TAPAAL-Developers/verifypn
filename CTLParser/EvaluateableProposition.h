@@ -33,6 +33,8 @@ public:
     LoperatorType GetLoperator();
     std::vector<int> GetFireset();
     std::string ToString();
+    CardinalityParameter* GetFirstParameter();
+    CardinalityParameter* GetSecondParameter();
 private:
     void SetFireset(std::string fireset_str, std::vector<std::string> t_names, unsigned int numberof_t);
     CardinalityParameter* CreateParameter(std::string parameter_str, std::vector<std::string> p_names, unsigned int numberof_p);

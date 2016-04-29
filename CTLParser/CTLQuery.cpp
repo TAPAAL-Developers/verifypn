@@ -28,6 +28,7 @@ CTLQuery::CTLQuery(Quantifier q, Path p, bool isAtom, std::string atom_str) {
         _q = q;
         _path = p;
         _a = atom_str;
+        IsTemporal = false;
     }
     else if(q == AND || q == OR || q == NEG){
         assert(p == pError);
@@ -37,6 +38,7 @@ CTLQuery::CTLQuery(Quantifier q, Path p, bool isAtom, std::string atom_str) {
         _q = q;
         _path = p;
         _a = "";
+        IsTemporal = false;
     }
     else{
         assert(q != EMPTY);
@@ -47,6 +49,7 @@ CTLQuery::CTLQuery(Quantifier q, Path p, bool isAtom, std::string atom_str) {
         _q = q;
         _path = p;
         _a = "";
+        IsTemporal = true;
     }
     
 }
@@ -65,14 +68,14 @@ CTLType CTLQuery::GetQueryType(){
 }
 
 CTLQuery* CTLQuery::GetFirstChild(){
-    assert(!_hasAtom);
+    assert(!_hasAtom && "Query does not have child");
     return _firstchild;
 }
 
 CTLQuery* CTLQuery::GetSecondChild(){
-    assert(!_hasAtom);
-    assert(!(_path == F || _path == G || _path == X));
-    assert(!(_q == NEG));
+    assert(!_hasAtom && "Query does not have children");
+    assert(!(_path == F || _path == G || _path == X) && "Query does not have second child");
+    assert(!(_q == NEG) && "Query does not have second child");
     return _secondchild;
 }
 
@@ -97,12 +100,12 @@ std::string CTLQuery::GetAtom(){
 }
 
 EvaluateableProposition* CTLQuery::GetProposition(){
-    assert(_hasAtom);
+    assert(_hasAtom && "Query does not have proposition");
     return _proposition;
 }
 
 void CTLQuery::SetProposition(EvaluateableProposition *p){
-    assert(_hasAtom);
+    assert(_hasAtom && "Query does not have proposition");
     _proposition = p;
 }
 

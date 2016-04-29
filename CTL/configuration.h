@@ -2,6 +2,7 @@
 #define CONFIGURATION_H
 
 #include "../CTLParser/CTLParser.h"
+#include "../CTLParser/CTLQuery.h"
 #include "marking.h"
 #include "edge.h"
 #include <list>
@@ -26,7 +27,7 @@ public:
     };
 
     Configuration(){}
-    Configuration(Marking* t_marking, CTLTree* t_query);
+    Configuration(Marking* t_marking, CTLQuery* t_query);
     virtual ~Configuration();
 
     void removeSuccessor(Edge *t_successor);
@@ -36,7 +37,7 @@ public:
     bool operator!=(const Configuration &rhs) const {return !(*this == rhs);}
 
     Marking* marking;
-    CTLTree* query;
+    CTLQuery* query;
     std::list<Edge*> Successors;
     std::list<Edge*> DependencySet;
     bool IsNegated = false;

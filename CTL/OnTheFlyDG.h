@@ -34,19 +34,22 @@ public:
 //                        boost::hash<Configuration*>,
 //                        Configuration::Configuration_Equal_To> Configurations;
     bool isCompressing() {return _compressoption;}
+private:
+    int GetParamValue(CardinalityParameter *param, Marking &marking);
+    bool EvalCardianlity(int a, LoperatorType lop, int b);
                         
 protected:
     Marking *cached_marking = nullptr;
     std::vector<Marking*> cached_successors;
 
-    bool evaluateQuery(CTLTree &query, Marking &marking);
+    bool evaluateQuery(CTLQuery &query, Marking &marking);
     bool _compressoption;
     int indexOfPlace(char *t_place);
     std::vector<Marking *> nextState(Marking &t_marking);
     std::list<int> calculateFireableTransistions(Marking &t_marking);
-    Configuration *createConfiguration(Marking &t_marking, CTLTree &t_query);
+    Configuration *createConfiguration(Marking &t_marking, CTLQuery &t_query);
     Marking *createMarking(const Marking &t_marking, int t_transition);
-    bool fastEval(CTLTree &query, Marking &marking);
+    bool fastEval(CTLQuery &query, Marking &marking);
 
     void initCompressOption();
 

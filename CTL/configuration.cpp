@@ -1,8 +1,9 @@
 #include "configuration.h"
+#include "../CTLParser/CTLParser_v2.h"
 
 namespace ctl{
 
-Configuration::Configuration(Marking * t_marking, CTLTree * t_query){
+Configuration::Configuration(Marking * t_marking, CTLQuery * t_query){
     marking = t_marking;
     query = t_query;
 }
@@ -36,13 +37,13 @@ void Configuration::removeSuccessor(Edge *t_successor){
 
 
 void Configuration::configPrinter(){
-    CTLParser ctlParser = CTLParser();
+    CTLParser_v2 ctlParser = CTLParser_v2();
     int i = 0;
     std::cout << "Marking: ";
     marking->print();
     std::cout << " Q: " << std::flush;
-    ctlParser.printQuery(query);
-    std::cout << " D: "<<query->depth  << std::flush;
+    std::cout << ctlParser.QueryToString(query)<<std::flush;
+    std::cout << " D: "<<query->Depth  << std::flush;
     std::cout << " Assign: " << assignment << std::flush;
 
     std::cout << " NEG: " << IsNegated << "\n" << std::flush;
