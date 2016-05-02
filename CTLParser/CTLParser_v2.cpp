@@ -35,19 +35,19 @@ std::string CTLParser_v2::QueryToString(CTLQuery* query){
     else if (query->GetPath() == pError){
         Quantifier q = query->GetQuantifier();
         if (q == NEG){
-            return query->ToSTring() + QueryToString(query->GetFirstChild());
+            return query->ToString() + QueryToString(query->GetFirstChild());
         }
         else if (q == AND || q == OR){
-            return QueryToString(query->GetFirstChild()) + query->ToSTring() + QueryToString(query->GetSecondChild());
+            return QueryToString(query->GetFirstChild()) + query->ToString() + QueryToString(query->GetSecondChild());
         }
         else assert(false && "Could not print unknown logical query operator");
     }
     else if(query->GetQuantifier() == A || query->GetQuantifier() == E){
         if(query->GetPath() == U){
-            return query->ToSTring() + "(" + QueryToString(query->GetFirstChild()) + ")(" + QueryToString(query->GetSecondChild()) + ")";
+            return query->ToString() + "(" + QueryToString(query->GetFirstChild()) + ")(" + QueryToString(query->GetSecondChild()) + ")";
         }
         else{
-            return query->ToSTring() + QueryToString(query->GetFirstChild());
+            return query->ToString() + QueryToString(query->GetFirstChild());
         }
     }
     else assert(false && "Could not print unknown query type");

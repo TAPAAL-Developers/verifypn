@@ -32,7 +32,7 @@ public:
     CTLQuery* GetSecondChild();
     void SetFirstChild(CTLQuery *q);
     void SetSecondChild(CTLQuery *q);
-    std::string ToSTring();
+    std::string ToString();
     
     Quantifier GetQuantifier();
     Path GetPath();

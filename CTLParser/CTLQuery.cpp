@@ -69,7 +69,7 @@ CTLType CTLQuery::GetQueryType(){
 
 CTLQuery* CTLQuery::GetFirstChild(){
     if(_hasAtom){
-        std::cout<<"Query " << ToSTring() << " does not have child"<<std::endl;
+        std::cout<<"Query " << ToString() << " does not have child"<<std::endl;
         throw 20;
     }
     return _firstchild;
@@ -112,7 +112,7 @@ void CTLQuery::SetProposition(EvaluateableProposition *p){
     _proposition = p;
 }
 
-std::string CTLQuery::ToSTring(){
+std::string CTLQuery::ToString(){
     if(_hasAtom){
         return _a;
     }

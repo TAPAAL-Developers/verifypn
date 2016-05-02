@@ -21,8 +21,13 @@ bool OnTheFlyDG::fastEval(CTLQuery &query, Marking &marking) {
         return fastEval(*query.GetFirstChild(), marking) || fastEval(*query.GetSecondChild(), marking);
     } else if (query.GetQuantifier() == NEG){
         return !fastEval(*query.GetFirstChild(), marking);
-    } else {        
-        return evaluateQuery(query, marking);
+    } else {   
+        bool res = evaluateQuery(query, marking);
+        if(res)
+            std::cout<<" TRUE"<<std::endl;
+        else
+            std::cout<<" FALSE"<<std::endl;
+        return res;
     }
 }
 
@@ -38,7 +43,9 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
     }
     else if (query_type == LOPERATOR){
         if(v.query->GetQuantifier() == NEG){
+            std::cout<<"Found NEG query"<<std::endl;
             Configuration* c = createConfiguration(*(v.marking), *(v.query->GetFirstChild()));
+            std::cout<<"IsNegated: "<< std::boolalpha << c->IsNegated << std::endl;
             Edge* e = new Edge(&v);
             e->targets.push_back(c);
             succ.push_back(e);
@@ -104,7 +111,7 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
             }
         }
         else{
-            assert(false && "An unknown error occoured in the successor generator");
+            assert(false && "An unknown error occoured in the loperator-part of the successor generator");
         }
     }
     else if (query_type == PATHQEURY){
@@ -355,6 +362,7 @@ bool OnTheFlyDG::evaluateQuery(CTLQuery &query, Marking &marking){
     else if (proposition->GetPropositionType() == CARDINALITY){
         int first_param = GetParamValue(proposition->GetFirstParameter(), marking);
         int second_param = GetParamValue(proposition->GetSecondParameter(), marking);
+        std::cout<<"Eval: "<<first_param<<" ? "<<second_param;
         return EvalCardianlity(first_param, proposition->GetLoperator(), second_param);
     }
     else
@@ -368,7 +376,7 @@ int OnTheFlyDG::GetParamValue(CardinalityParameter *param, Marking& marking) {
     }
     else
         return param->value;
-    }
+}
 
 bool OnTheFlyDG::EvalCardianlity(int a, LoperatorType lop, int b) {
     if(lop == EQ)
@@ -506,6 +514,7 @@ Configuration *OnTheFlyDG::createConfiguration(Marking &t_marking, CTLQuery &t_q
 
     //Default value is false
     if(t_query.GetQueryType() == LOPERATOR && t_query.GetQuantifier() == NEG){
+        std::cout<<"HAH! I detected it"<<std::endl;
         newConfig->IsNegated = true;
     }
 
