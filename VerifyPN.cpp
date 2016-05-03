@@ -202,11 +202,11 @@ void search_ctl_query(PetriNet* net,
             cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
         }
         if (res){
-            std::cout << "Answer to " << t_xmlquery << " is " << SuccessCode << res << std::endl;
+            std::cout << "Answer to " << t_xmlquery << " is SuccessCode" << std::endl;
             result[t_xmlquery - 1] = SuccessCode;
         }
         else if (!res){
-            std::cout << "Answer to " << t_xmlquery << " is " << FailedCode << res << std::endl;
+            std::cout << "Answer to " << t_xmlquery << " is FailedCode" << std::endl;
             result[t_xmlquery - 1] = FailedCode;
         }
         else result[t_xmlquery - 1] = ErrorCode;
@@ -887,7 +887,7 @@ int main(int argc, char* argv[]){
             search_ctl_query(net, m0, queryList, xmlquery, ctl_algorithm, searchstrategy, retval, inhibarcs);
             clock_t total_search_end = clock();
             if(xmlquery > 0){
-                string pRes = (retval[0])?"FALSE" : "TRUE";
+                string pRes = (retval[xmlquery - 1])?"FALSE" : "TRUE";
                 cout<<"FORMULA "<<model_name<<"-"<<(xmlquery - 1)<<" "<<pRes<<endl;
             }
             else{

@@ -18,13 +18,21 @@
 #include "CTLParser.h"
 
 EvaluateableProposition::EvaluateableProposition(std::string a, PetriEngine::PetriNet *net) {
+    std::cout << "ATOM " << a << std::endl;
+
     if(a.substr(0,2).compare("in") == 0 || a.substr(0,2).compare("to") == 0){
         _type = CARDINALITY;
         _loperator = SetLoperator(a);
         assert(_loperator != NOT_CARDINALITY);
-        std::string first_parameter_str = a.substr(a.find('(') + 1, a.find(')') - 1);
+
+        size_t begin = a.find('(') + 1;
+        size_t end = a.find(')') - begin;
+        std::string first_parameter_str = a.substr(begin, end);
         a = a.substr(a.find(')') + 1);
-        std::string second_parameter_str = a.substr(a.find('(') + 1, a.find(')') - 1);
+
+        begin = a.find('(') + 1;
+        end = a.find(')') - begin;
+        std::string second_parameter_str = a.substr(begin, end);
         _firstParameter = CreateParameter(first_parameter_str, net->placeNames(), net->numberOfPlaces());
         _secondParameter = CreateParameter(second_parameter_str, net->placeNames(), net->numberOfPlaces());
     }
@@ -41,6 +49,7 @@ EvaluateableProposition::EvaluateableProposition(std::string a, PetriEngine::Pet
     else{
         assert(false && "Atomic string proposed for proposition could not be parsed");
     }
+    std::cout << ToString() << std::endl;
 }
 
 EvaluateableProposition::~EvaluateableProposition() {
