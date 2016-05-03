@@ -2,6 +2,7 @@
 #define DEPENDENCYGRAPH_H
 
 #include "../PetriEngine/PetriNet.h"
+#include "../PetriParse/PNMLParser.h"
 #include "../CTLParser/CTLParser.h"
 #include <list>
 #include <iostream>
@@ -16,7 +17,8 @@ class DependencyGraph
 public:
 
     DependencyGraph(PetriEngine::PetriNet *t_net,
-                    PetriEngine::MarkVal *t_initial);
+                    PetriEngine::MarkVal *t_initial,
+                    PNMLParser::InhibitorArcList inhibitorArcs);
 
     virtual ~DependencyGraph(){};
 
@@ -29,9 +31,10 @@ public:
     void initialize(CTLTree &t_query);
 
 protected:
-    CTLTree *_query;
+    CTLTree *_query = nullptr;
     PetriEngine::PetriNet *_petriNet;
     PetriEngine::MarkVal *_initialMarking;
+    PNMLParser::InhibitorArcList _inhibitorArcs;
     int _nplaces;
     int _ntransitions;
 };

@@ -1,7 +1,8 @@
 #ifndef MARKING_H
 #define MARKING_H
 
-#include <vector> 
+#include <vector>
+#include <boost/functional/hash/hash.hpp>
 #include "../PetriEngine/PetriNet.h"
 
 namespace ctl {
@@ -14,8 +15,11 @@ namespace ctl {
 //inline functions to make the class
 //act/look/feel like an array.
 
+class Configuration;
+
 class Marking
 {
+    typedef std::vector<Configuration*> succ_container_type;
     public:
     // Equality checker for containers
     // with pointers to markings
@@ -27,7 +31,7 @@ class Marking
 
     Marking(){}
     Marking(PetriEngine::MarkVal* t_marking, size_t t_length)
-        : m_marking(t_marking), m_length(t_length){}
+        : m_marking(t_marking), m_length(t_length){ }
 
     virtual ~Marking(){ free(m_marking); }
 
@@ -42,26 +46,45 @@ class Marking
     inline PetriEngine::MarkVal* Value() const {return m_marking;}
     void print() const;
     inline size_t Length() const {return m_length;}
+    succ_container_type successors;
 private:
     PetriEngine::MarkVal* m_marking;
     size_t m_length;
 };
 }
 
-namespace std{
+namespace boost {
     // Specializations of hash functions.
     // Normal
     template<>
     struct hash<ctl::Marking>{
-        size_t operator()(const ctl::Marking& t_marking ) const {
-            size_t seed = 0x9e3779b9;
-
-            for(int i = 0; i < t_marking.Length(); i++){
-                seed ^= t_marking[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+        size_t operator()(const ctl::Marking& t_marking) const{
+            size_t hash = 0;
+            uint32_t& h1 = ((uint32_t*)&hash)[0];
+            uint32_t& h2 = ((uint32_t*)&hash)[1];
+            uint32_t cnt = 0;
+            for (size_t i = 0; i < t_marking.Length(); i++)
+            {
+                if(t_marking[i])
+                {
+                    h1 ^= 1 << (i % 32);
+                    h2 ^= t_marking[i] << (cnt % 32);
+                    ++cnt;
+                }
             }
-
-            return seed;
+            return hash;
         }
+
+        ///Old Hash Function
+//        size_t operator()(const ctl::Marking& t_marking ) const {
+//            size_t seed = 0x9e3779b9;
+
+//            for(int i = 0; i < t_marking.Length(); i++){
+//                seed ^= t_marking[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+//            }
+
+//            return seed;
+//        }
     };
     // Pointer to Marking
     template<>

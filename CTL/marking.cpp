@@ -27,10 +27,12 @@ namespace ctl {
         }
     }
 
+
     void Marking::print() const {
         for(int i = 0; i < m_length; i++){
             std::cout << m_marking[i] <<std::flush;
         }
     }
+    
 }
 
