@@ -18,8 +18,6 @@
 #include "CTLParser.h"
 
 EvaluateableProposition::EvaluateableProposition(std::string a, PetriEngine::PetriNet *net) {
-    std::cout << "ATOM " << a << std::endl;
-
     if(a.substr(0,2).compare("in") == 0 || a.substr(0,2).compare("to") == 0){
         _type = CARDINALITY;
         _loperator = SetLoperator(a);
@@ -49,7 +47,6 @@ EvaluateableProposition::EvaluateableProposition(std::string a, PetriEngine::Pet
     else{
         assert(false && "Atomic string proposed for proposition could not be parsed");
     }
-    std::cout << ToString() << std::endl;
 }
 
 EvaluateableProposition::~EvaluateableProposition() {

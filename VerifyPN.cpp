@@ -202,11 +202,9 @@ void search_ctl_query(PetriNet* net,
             cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
         }
         if (res){
-            std::cout << "Answer to " << t_xmlquery << " is SuccessCode" << std::endl;
             result[t_xmlquery - 1] = SuccessCode;
         }
         else if (!res){
-            std::cout << "Answer to " << t_xmlquery << " is FailedCode" << std::endl;
             result[t_xmlquery - 1] = FailedCode;
         }
         else result[t_xmlquery - 1] = ErrorCode;
@@ -234,11 +232,9 @@ void search_ctl_query(PetriNet* net,
                 cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
             }
             if (res){
-                std::cout << "Answer to " << t_xmlquery << " is " << SuccessCode << res << std::endl;
                 result[q_number] = SuccessCode;
             }
             else if (!res){
-                std::cout << "Answer to " << t_xmlquery << " is " << FailedCode << res << std::endl;
                 result[q_number] = FailedCode;
             }
             else result[q_number] = ErrorCode;

@@ -21,14 +21,9 @@ bool OnTheFlyDG::fastEval(CTLQuery &query, Marking &marking) {
         return fastEval(*query.GetFirstChild(), marking) || fastEval(*query.GetSecondChild(), marking);
     } else if (query.GetQuantifier() == NEG){
         bool result = fastEval(*query.GetFirstChild(), marking);
-        std::cout << "fastevaled to: " << std::boolalpha << result << " negating to " << !result << std::endl;
         return !result;
     } else {   
         bool res = evaluateQuery(query, marking);
-        if(res)
-            std::cout<<" TRUE"<<std::endl;
-        else
-            std::cout<<" FALSE"<<std::endl;
         return res;
     }
 }
@@ -45,9 +40,7 @@ std::list<Edge *> OnTheFlyDG::successors(Configuration &v)
     }
     else if (query_type == LOPERATOR){
         if(v.query->GetQuantifier() == NEG){
-            std::cout<<"Found NEG query"<<std::endl;
             Configuration* c = createConfiguration(*(v.marking), *(v.query->GetFirstChild()));
-            std::cout<<"IsNegated: "<< std::boolalpha << c->IsNegated << std::endl;
             Edge* e = new Edge(&v);
             e->targets.push_back(c);
             succ.push_back(e);
@@ -349,8 +342,6 @@ bool OnTheFlyDG::evaluateQuery(CTLQuery &query, Marking &marking){
     assert(query.GetQueryType() == EVAL);
     EvaluateableProposition *proposition = query.GetProposition();
 
-    std::cout << "proposition type: " << (proposition->GetPropositionType() == FIREABILITY ? "Fireability" : "Cardinality") << std::endl;
-
     if (proposition->GetPropositionType() == FIREABILITY) {
         std::list<int> transistions = calculateFireableTransistions(marking);
         std::list<int>::iterator it;
@@ -367,7 +358,6 @@ bool OnTheFlyDG::evaluateQuery(CTLQuery &query, Marking &marking){
     else if (proposition->GetPropositionType() == CARDINALITY){
         int first_param = GetParamValue(proposition->GetFirstParameter(), marking);
         int second_param = GetParamValue(proposition->GetSecondParameter(), marking);
-        std::cout<<"Eval: "<<first_param<<" ? "<<second_param;
         return EvalCardianlity(first_param, proposition->GetLoperator(), second_param);
     }
     else
@@ -376,8 +366,6 @@ bool OnTheFlyDG::evaluateQuery(CTLQuery &query, Marking &marking){
 }
 
 int OnTheFlyDG::GetParamValue(CardinalityParameter *param, Marking& marking) {
-
-    std::cout << "CarParam - isPlace: " << std::boolalpha << param->isPlace << " value: " << param->value << std::endl;
 
     if(param->isPlace){
         return marking[param->value];
@@ -522,7 +510,6 @@ Configuration *OnTheFlyDG::createConfiguration(Marking &t_marking, CTLQuery &t_q
 
     //Default value is false
     if(t_query.GetQueryType() == LOPERATOR && t_query.GetQuantifier() == NEG){
-        std::cout<<"HAH! I detected it"<<std::endl;
         newConfig->IsNegated = true;
     }
 
