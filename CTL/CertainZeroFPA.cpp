@@ -26,6 +26,8 @@ bool CertainZeroFPA::search(DependencyGraph &t_graph, AbstractSearchStrategy &W)
             N.pop();
         }
 
+        e->edgePrinter();
+
         /*****************************************************************/
         /*Data handling*/
         int targetONEassignments = 0;
@@ -134,7 +136,7 @@ bool CertainZeroFPA::search(DependencyGraph &t_graph, AbstractSearchStrategy &W)
         e->processed = true;
     }
 
-    //std::cout << "Final Assignment: " << v.assignment << " " << ((v.assignment == ONE) ? true : false) << std::endl;
+    std::cout << "Final Assignment: " << v.assignment << " " << ((v.assignment == ONE) ? true : false) << std::endl;
     return (v.assignment == ONE) ? true : false;
 }
 

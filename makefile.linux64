@@ -7,7 +7,7 @@ CUT				= cut
 # Compiler and linker flags
 #Possibly add -ljemalloc for faster malloc
 CFLAGS			= -flto -march=native -std=c++11 -m64 -O3 -I.
-LDFLAGS			= -flto -march=native -std=c++11 -static -m64 -O3 lpsolve/liblpsolve55-linux64.a -ldl \
+LDFLAGS			= -flto=8 -march=native -std=c++11 -static -m64 -O3 lpsolve/liblpsolve55-linux64.a -ldl \
               -static-libgcc -static-libstdc++ 
 
 # Input files

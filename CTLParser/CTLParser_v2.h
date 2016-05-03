@@ -43,7 +43,7 @@ private:
     std::string loperator_sym(std::string loperator);
     CTLQuery * CopyQuery(CTLQuery *source);
     
-    void FillAtom(CTLQuery* query, PetriEngine::PetriNet *net);
+    CTLQuery* FillAtom(CTLQuery* query, PetriEngine::PetriNet *net);
     CTLQuery* ConvertAG(CTLQuery* query);
     CTLQuery* ConvertEG(CTLQuery* query);
     CTLQuery* TemporalSetting(CTLQuery* query);

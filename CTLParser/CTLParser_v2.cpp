@@ -54,7 +54,7 @@ std::string CTLParser_v2::QueryToString(CTLQuery* query){
 }
 
 CTLQuery* CTLParser_v2::FormatQuery(CTLQuery* query, PetriEngine::PetriNet *net){
-    FillAtom(query,net);
+    query = FillAtom(query,net);
     query = ConvertAG(query);
     query = ConvertEG(query);
     query = TemporalSetting(query);
@@ -95,11 +95,12 @@ CTLQuery* CTLParser_v2::TemporalSetting(CTLQuery* query) {
 }
 
 
-void CTLParser_v2::FillAtom(CTLQuery* query, PetriEngine::PetriNet *net) {
+CTLQuery* CTLParser_v2::FillAtom(CTLQuery* query, PetriEngine::PetriNet *net) {
     CTLType query_type = query->GetQueryType();
     if(query_type == EVAL){
         EvaluateableProposition *proposition = new EvaluateableProposition(query->GetAtom(), net);
         query->SetProposition(proposition);
+        return query;
     }
     else if (query_type == LOPERATOR){
         Quantifier quan = query->GetQuantifier();
@@ -110,6 +111,7 @@ void CTLParser_v2::FillAtom(CTLQuery* query, PetriEngine::PetriNet *net) {
         else{
             FillAtom(query->GetFirstChild(),net);
         }
+        return query;
     }
     else if (query_type == PATHQEURY){
         if (query->GetPath() == U){
@@ -119,6 +121,7 @@ void CTLParser_v2::FillAtom(CTLQuery* query, PetriEngine::PetriNet *net) {
         else{
             FillAtom(query->GetFirstChild(),net);
         }
+        return query;
     }
     else assert(false && "Could not traverse unknown query type");
 }

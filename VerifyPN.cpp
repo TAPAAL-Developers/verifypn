@@ -150,7 +150,7 @@ void search_ctl_query(PetriNet* net,
                       int t_xmlquery,
                       CtlAlgorithm t_algorithm,
                       SearchStrategies t_strategy,
-                      ReturnValues result[], 
+                      ReturnValues result[],
                       PNMLParser::InhibitorArcList inhibitorarcs) {
 
     ctl::FixedPointAlgorithm *algorithm;
@@ -190,19 +190,25 @@ void search_ctl_query(PetriNet* net,
         graph->initialize(*queryList.front());
         res = algorithm->search(*graph, *strategy);
 
+        std::cout << std::boolalpha << "answer is " << res << std::endl;
+
         configCount = graph->configuration_count();
         markingCount = graph->marking_count();
         //queryList[t_xmlquery - 1]->Result = res;
 
         clock_t individual_search_end = clock();
         if (printstatistics) {
-        	cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery - 1 <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
-        	cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
-	}
-        if (res)
+            cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery - 1 <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+            cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
+        }
+        if (res){
+            std::cout << "Answer to " << t_xmlquery << " is " << SuccessCode << res << std::endl;
             result[t_xmlquery - 1] = SuccessCode;
-        else if (!res)
+        }
+        else if (!res){
+            std::cout << "Answer to " << t_xmlquery << " is " << FailedCode << res << std::endl;
             result[t_xmlquery - 1] = FailedCode;
+        }
         else result[t_xmlquery - 1] = ErrorCode;
         
         //queryList[t_xmlquery - 1]->pResult();
@@ -223,22 +229,25 @@ void search_ctl_query(PetriNet* net,
             markingCount = graph->marking_count();
             //queryList[i]->Result = res;
 
-            if (printstatistics) { 
-	    	cout<<":::TIME::: Search elapsed time for query "<< q_number <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
-            	cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
-	    }
-
-            if (res)
+            if (printstatistics) {
+                cout<<":::TIME::: Search elapsed time for query "<< q_number <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+                cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
+            }
+            if (res){
+                std::cout << "Answer to " << t_xmlquery << " is " << SuccessCode << res << std::endl;
                 result[q_number] = SuccessCode;
-            else if (!res)
+            }
+            else if (!res){
+                std::cout << "Answer to " << t_xmlquery << " is " << FailedCode << res << std::endl;
                 result[q_number] = FailedCode;
+            }
             else result[q_number] = ErrorCode;
             
             q_number++;
             //queryList[i]->pResult();
             cout << endl;
         }
-   }
+    }
 }
 
 #define VERSION		"2.0.0"
@@ -537,7 +546,7 @@ int main(int argc, char* argv[]){
             CTLQuery * ctlquery = parser.ParseXMLQuery(buffer, xmlquery);
             cout<<"Query: "<<parser.QueryToString(ctlquery)<<endl;
             ctlquery = parser.FormatQuery(ctlquery, net);
-            optimizer->Optimize(ctlquery);
+//            optimizer->Optimize(ctlquery);
             queryList.push_back(ctlquery);
         }
         
@@ -878,12 +887,12 @@ int main(int argc, char* argv[]){
             search_ctl_query(net, m0, queryList, xmlquery, ctl_algorithm, searchstrategy, retval, inhibarcs);
             clock_t total_search_end = clock();
             if(xmlquery > 0){
-                string pRes = (retval[0])?"TRUE":"FALSE";
+                string pRes = (retval[0])?"FALSE" : "TRUE";
                 cout<<"FORMULA "<<model_name<<"-"<<(xmlquery - 1)<<" "<<pRes<<endl;
             }
             else{
                 for(int i = 0; i < 16; i++){
-                    string pRes = (retval[i])?"TRUE":"FALSE";
+                    string pRes = (retval[i])?"FALSE" : "TRUE";
                     cout<<"FORMULA "<<model_name<<"-"<<i<<" "<<pRes<<endl;
                 }
             }

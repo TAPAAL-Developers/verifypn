@@ -20,7 +20,9 @@ bool OnTheFlyDG::fastEval(CTLQuery &query, Marking &marking) {
     } else if (query.GetQuantifier() == OR){
         return fastEval(*query.GetFirstChild(), marking) || fastEval(*query.GetSecondChild(), marking);
     } else if (query.GetQuantifier() == NEG){
-        return !fastEval(*query.GetFirstChild(), marking);
+        bool result = fastEval(*query.GetFirstChild(), marking);
+        std::cout << "fastevaled to: " << std::boolalpha << result << " negating to " << !result << std::endl;
+        return !result;
     } else {   
         bool res = evaluateQuery(query, marking);
         if(res)
@@ -347,11 +349,14 @@ bool OnTheFlyDG::evaluateQuery(CTLQuery &query, Marking &marking){
     assert(query.GetQueryType() == EVAL);
     EvaluateableProposition *proposition = query.GetProposition();
 
+    std::cout << "proposition type: " << (proposition->GetPropositionType() == FIREABILITY ? "Fireability" : "Cardinality") << std::endl;
+
     if (proposition->GetPropositionType() == FIREABILITY) {
         std::list<int> transistions = calculateFireableTransistions(marking);
         std::list<int>::iterator it;
         transistions.sort();
-        for(auto f : proposition->GetFireset()){
+
+        for(const auto f : proposition->GetFireset()){
             it = std::find(transistions.begin(), transistions.end(), f);
             if(it != transistions.end()){
                 return true;
@@ -371,6 +376,9 @@ bool OnTheFlyDG::evaluateQuery(CTLQuery &query, Marking &marking){
 }
 
 int OnTheFlyDG::GetParamValue(CardinalityParameter *param, Marking& marking) {
+
+    std::cout << "CarParam - isPlace: " << std::boolalpha << param->isPlace << " value: " << param->value << std::endl;
+
     if(param->isPlace){
         return marking[param->value];
     }
