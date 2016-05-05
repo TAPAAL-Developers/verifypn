@@ -1,6 +1,8 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
+#include "Edge.h"
+
 #include <string>
 #include <cstdio>
 #include <vector>
@@ -13,24 +15,13 @@ enum Assignment {
     ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2
 };
 
-std::string assignmentToStr(Assignment a){
-    if(a == ONE)
-        return std::string("ONE");
-    else if(a == UNKNOWN)
-        return std::string("UNKNOWN");
-    else if(a == ZERO)
-        return std::string("ZERO");
-    else
-        return std::string("CZERO");
-}
-
 class Configuration
 {
 public:
     typedef std::vector<Edge*> container_type;
 
     Configuration() {}
-    ~Configuration() {
+    virtual ~Configuration() {
         for(Edge *e : successors)
             delete e;
         for(Edge *e : deleted_successors)
@@ -64,6 +55,18 @@ public:
                     is_negated ? "True" : "False" );
         std::printf("=======================================================\n");
     }
+
+    std::string assignmentToStr(Assignment a){
+        if(a == ONE)
+            return std::string("ONE");
+        else if(a == UNKNOWN)
+            return std::string("UNKNOWN");
+        else if(a == ZERO)
+            return std::string("ZERO");
+        else
+            return std::string("CZERO");
+    }
+
 
     bool isDone() { return assignment == ONE || assignment == CZERO; }
 

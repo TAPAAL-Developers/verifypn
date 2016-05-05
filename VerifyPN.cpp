@@ -55,16 +55,16 @@
 ///CTL includes
 #include "CTLParser/CTLParser.h"
 
-#include "CTL/FixedPointAlgorithm.h"
-#include "CTL/CertainZeroFPA.h"
-#include "CTL/LocalFPA.h"
+#include "CTL/Algorithm/FixedPointAlgorithm.h"
+#include "CTL/Algorithm/CertainZeroFPA.h"
+//#include "CTL/LocalFPA.h"
 
-#include "CTL/DependencyGraph.h"
-#include "CTL/OnTheFlyDG.h"
+#include "CTL/DependencyGraph/AbstractDependencyGraphs.h"
+#include "CTL/PetriNets/OnTheFlyDG.h"
 
-#include "CTL/SearchStrategies/AbstractSearchStrategy.h"
-#include "CTL/SearchStrategies/DepthFirstSearch.h"
-#include "CTL/SearchStrategies/BreadthFirstSearch.h"
+#include "CTL/SearchStrategy/AbstractSearchStrategy.h"
+#include "CTL/SearchStrategy/DFSSearch.h"
+//#include "CTL/SearchStrategy/BreadthFirstSearch.h"
 
 using namespace std;
 using namespace PetriEngine;
@@ -151,12 +151,12 @@ void search_ctl_query(PetriNet* net,
                       ReturnValues result[], 
                       PNMLParser::InhibitorArcList inhibitorarcs) {
 
-    ctl::FixedPointAlgorithm *algorithm;
-    ctl::AbstractSearchStrategy *strategy;
-    ctl::DependencyGraph *graph = new ctl::OnTheFlyDG(net, m0, inhibitorarcs);
+    Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::CertainZeroFPA();
+    SearchStrategy::AbstractSearchStrategy *strategy = new SearchStrategy::DFSSearch();
+    PetriNets::OnTheFlyDG *graph = new PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
 
     //Determine Fixed Point Algorithm
-    if(t_algorithm == LOCAL){
+    /*if(t_algorithm == LOCAL){
         algorithm = new ctl::LocalFPA();
     }
     else if(t_algorithm == CZERO){
@@ -165,10 +165,10 @@ void search_ctl_query(PetriNet* net,
     else{
         fprintf(stderr, "Error: unknown ctl algorithm");
         exit(EXIT_FAILURE);
-    }
+    }*/
 
     //Determine Search Strategy
-    if(t_strategy == DFS){
+    /*if(t_strategy == DFS){
         strategy = new ctl::DepthFirstSearch();
     }
     else if (t_strategy == BFS){
@@ -177,7 +177,7 @@ void search_ctl_query(PetriNet* net,
     else{
         fprintf(stderr, "Error: unsupported ctl search strategy");
         exit(EXIT_FAILURE);
-    }
+    }*/
 
     int configCount = 0, markingCount = 0;
     bool res;
@@ -185,11 +185,11 @@ void search_ctl_query(PetriNet* net,
     if(t_xmlquery > 0){
         clock_t individual_search_begin = clock();
 
-        graph->initialize(*(queryList[t_xmlquery - 1]->Query));
+        graph->setQuery(queryList[t_xmlquery - 1]->Query);
         res = algorithm->search(*graph, *strategy);
 
-        configCount = graph->configuration_count();
-        markingCount = graph->marking_count();
+        configCount = 0;//graph->configuration_count();
+        markingCount = 0;//graph->marking_count();
         queryList[t_xmlquery - 1]->Result = res;
 
         clock_t individual_search_end = clock();
@@ -210,14 +210,14 @@ void search_ctl_query(PetriNet* net,
             clock_t individual_search_end, individual_search_begin;
             individual_search_begin = clock();
 
-            graph->initialize(*(queryList[i]->Query));
+            graph->setQuery(queryList[i]->Query);
             res = algorithm->search(*graph, *strategy);
 
             individual_search_end = clock();
 
-            strategy->clear();
-            configCount = graph->configuration_count();
-            markingCount = graph->marking_count();
+            //strategy->cleanUp();
+            configCount = 0;//graph->configuration_count();
+            markingCount = 0;//graph->marking_count();
             queryList[i]->Result = res;
 
             if (printstatistics) { 

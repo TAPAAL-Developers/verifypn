@@ -10,7 +10,7 @@ class Configuration;
 
 class BasicDependencyGraph {
 public:
-    virtual void successors(Configuration &c) =0;
+    virtual void successors(Configuration *c) =0;
     virtual Configuration *initialConfiguration() =0;
     virtual void cleanUp() =0;
 };

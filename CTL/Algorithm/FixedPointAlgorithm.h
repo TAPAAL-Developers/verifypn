@@ -8,6 +8,7 @@
 namespace Algorithm {
 
 class FixedPointAlgorithm {
+public:
     virtual bool search(DependencyGraph::BasicDependencyGraph &graph,
                         SearchStrategy::AbstractSearchStrategy &strategy) =0;
 };

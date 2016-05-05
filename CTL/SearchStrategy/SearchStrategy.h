@@ -13,13 +13,13 @@ struct Message {
 class AbstractSearchStrategy
 {
 public:
-    virtual void pushEdge(const DependencyGraph::Edge *edge) =0;
-    virtual void pushNegationEdge(const DependencyGraph::Edge *edge) =0;
-    virtual void pushMessage(const Message &message);
+    virtual void pushEdge(DependencyGraph::Edge *edge) =0;
+    virtual void pushNegationEdge(DependencyGraph::Edge *edge) =0;
+    virtual void pushMessage(Message &message) =0;
 
-    virtual int pickTask(DependencyGraph::Edge &edge,
-                         DependencyGraph::Edge &negationEdge,
-                         Message &message,
+    virtual int pickTask(DependencyGraph::Edge*& edge,
+                         DependencyGraph::Edge*& negationEdge,
+                         Message*& message,
                          int distance) =0;
 };
 
