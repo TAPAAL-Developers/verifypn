@@ -13,7 +13,7 @@ enum Assignment {
     ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2
 };
 
-std::string assignment_to_str(Assignment a){
+std::string assignmentToStr(Assignment a){
     if(a == ONE)
         return std::string("ONE");
     else if(a == UNKNOWN)
@@ -33,7 +33,7 @@ public:
     ~Configuration() {
         for(Edge *e : successors)
             delete e;
-        for(Edge *e : deletedSuccessors)
+        for(Edge *e : deleted_successors)
             delete e;
     }
 
@@ -45,10 +45,10 @@ public:
 
         while(iter != end){
             if(*iter == t_successor){
-                deletedSuccessors.insert(deletedSuccessors.end(), *iter);
+                deleted_successors.insert(deleted_successors.end(), *iter);
                 successors.erase(iter);
                 successors.shrink_to_fit();
-                deletedSuccessors.shrink_to_fit();
+                deleted_successors.shrink_to_fit();
                 break;
             }
             else
@@ -60,16 +60,18 @@ public:
         std::printf("==================== Configuration ====================\n");
         std::printf("Addr: %ld, Assignment: %s, IsNegated: %s\n",
                     (unsigned long int)this,
-                    assignment_to_str(assignment).c_str(),
-                    IsNegated ? "True" : "False" );
+                    assignmentToStr(assignment).c_str(),
+                    is_negated ? "True" : "False" );
         std::printf("=======================================================\n");
     }
 
+    bool isDone() { return assignment == ONE || assignment == CZERO; }
+
     Assignment assignment = UNKNOWN;
     container_type successors = container_type(0);
-    container_type deletedSuccessors = container_type(0);
-    container_type DependencySet = container_type(0);
-    bool IsNegated = false;
+    container_type deleted_successors = container_type(0);
+    container_type dependency_set = container_type(0);
+    bool is_negated = false;
 };
 
 }

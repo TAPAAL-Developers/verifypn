@@ -3,6 +3,8 @@
 
 #include <cstddef>
 
+namespace Algorithm {
+
 struct message {
 public:
     message(int *t_start = nullptr, int *t_end = nullptr) : start(t_start), end(t_end){}
@@ -12,8 +14,10 @@ public:
 };
 
 class AbstractCommunicator {
-    void send(message &msg) =0;
-    message* receive() =0;
+    virtual void send(message &msg) =0;
+    virtual message* receive() =0;
 };
 
+
+}
 #endif // COMMUNICATOR_H

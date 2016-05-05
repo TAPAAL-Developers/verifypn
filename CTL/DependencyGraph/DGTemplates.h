@@ -47,34 +47,34 @@ protected:
 public:
     std::unordered_set<config_type, Tconfig_hash, TConfig_equal_to, alloc> configurations;
 
-    T* get_T(Configuration &c){
+    T* getT(Configuration &c){
         return &(static_cast<config_pointer>(&c)->t);
     }
 
-    std::pair<config_pointer, bool> get_configuration(T &t){
+    std::pair<config_pointer, bool> getConfiguration(T &t){
         auto pair = configurations.emplace(t);
         config_pointer tc = const_cast<config_type*>(&*pair.first);
         return std::make_pair(tc, pair.second);
     }
 
-    Edge* make_successor(T &t){
-        Configuration *c = get_configuration(t).first;
+    Edge* makeSuccessor(T &t){
+        Configuration *c = getConfiguration(t).first;
         Edge *e = new Edge(*c);
         c->successors.push_back(e);
         return e;
     }
 
-    void add_successor(T &&t, Edge &e){
-        Configuration *c = get_configuration(t).first;
+    void addSuccessor(T &&t, Edge &e){
+        Configuration *c = getConfiguration(t).first;
         c->successors.push_back(&e);
     }
 
-    void add_target(Edge &e, T &t){
-        Configuration *c = get_configuration(t).first;
+    void addTarget(Edge &e, T &t){
+        Configuration *c = getConfiguration(t).first;
         e.targets.push_back(c);
     }
 };
-
+/*
 template<class T,
          class lockable,
          class hash = std::hash<T>,
@@ -89,11 +89,11 @@ public:
     typedef typename DependencyGraphTemplate<T, hash, pred, alloc>::config_pointer config_pointer;
 
     //override get_configuration, as to lock before altering configurations
-    std::pair<config_pointer, bool> get_configuration(T &t){
+    std::pair<config_pointer, bool> getConfiguration(T &t){
         lockable(config_mtx);
-        return get_configuration(t);
+        return getConfiguration(t);
     }
-};
+};*/
 }
 
 #endif // PARTIAL_H

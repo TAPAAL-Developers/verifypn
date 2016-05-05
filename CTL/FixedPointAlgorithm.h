@@ -2,7 +2,7 @@
 #define FIXEDPOINTALGORITHM_H
 
 #include "DependencyGraph.h"
-#include "SearchStrategies/AbstractSearchStrategy.h"
+#include "SearchStrategy/AbstractSearchStrategy.h"
 
 namespace ctl{
 
