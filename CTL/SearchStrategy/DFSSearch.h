@@ -3,22 +3,29 @@
 
 #include "SearchStrategy.h"
 
+#include <stack>
+
 namespace SearchStrategy {
-/*
+
 class DFSSearch : public AbstractSearchStrategy
 {
 public:
-    DFSSearch();
+    DFSSearch() {}
 
-    virtual bool done();
-    virtual bool push(Edge *e);
-    virtual DependencyGraph::Edge *pickTask();
+    virtual void pushEdge(DependencyGraph::Edge *edge) override;
+    virtual void pushNegationEdge(DependencyGraph::Edge *edge) override;
+    virtual void pushMessage(Message &message) override;
+
+    virtual int pickTask(DependencyGraph::Edge*& edge,
+                         DependencyGraph::Edge*& negationEdge,
+                         Message*& message,
+                         int distance) override;
 
 protected:
 
-    std::stack<Edge*> W;
+    std::stack<DependencyGraph::Edge*> W;
 
-};*/
+};
 
 }   // end SearchStrategy
 

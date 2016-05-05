@@ -4,7 +4,7 @@
 
 using namespace DependencyGraph;
 
-namespace PetriNet {
+namespace PetriNets {
 
 OnTheFlyDG::OnTheFlyDG(
         PetriEngine::PetriNet *t_net,
@@ -26,50 +26,54 @@ OnTheFlyDG::~OnTheFlyDG()
     delete initial_marking;
 }
 
-void OnTheFlyDG::successors(DependencyGraph::Configuration &c)
-{
-    PetriConfig v = *static_cast<PetriConfig*>(&c);
+void OnTheFlyDG::successors(DependencyGraph::Configuration *c)
+{    
+    c->printConfiguration();
+    PetriConfig *v = static_cast<PetriConfig*>(c);
+    v->printConfiguration();
+    CTLParser p;
+    p.printQuery(v->query);
     std::vector<Edge*> succ;
     //All
-    if(v.query->quantifier == A){
+    if(v->query->quantifier == A){
         //All Until
-        if(v.query->path == U){
+        if(v->query->path == U){
             //first deal with the right side
             Edge *right = NULL;
-            if (!v.query->second->isTemporal) {
+            if (!v->query->second->isTemporal) {
                 //right side is not temporal, eval it right now!
-                bool valid = fastEval(*(v.query->second), *(v.marking));
+                bool valid = fastEval(*(v->query->second), *(v->marking));
                 if (valid) {    //satisfied, no need to go through successors
-                    succ.push_back(new Edge(v));
-                    v.successors = succ;
+                    succ.push_back(new Edge(*v));
+                    v->successors = succ;
                     return;
                 } //else: It's not valid, no need to add any edge, just add successors
             } else {
                 //right side is temporal, we need to evaluate it as normal
-                Configuration* c = createConfiguration(*(v.marking), *(v.query->second));
-                right = new Edge(v);
+                Configuration* c = createConfiguration(*(v->marking), *(v->query->second));
+                right = new Edge(*v);
                 right->targets.push_back(c);
             }
 
             //if we got here, either right side is temporal or it is not satisfied
             bool valid = false;
             Configuration *left = NULL;
-            if (!v.query->first->isTemporal) {
+            if (!v->query->first->isTemporal) {
                 //left side is not temporal, eval it right now!
-                valid = fastEval(*(v.query->first), *(v.marking));
+                valid = fastEval(*(v->query->first), *(v->marking));
             } else {
                 //left side is temporal, include it in the edge
-                left = createConfiguration(*(v.marking), *(v.query->first));
+                left = createConfiguration(*(v->marking), *(v->query->first));
             }
 
             if (valid || left != NULL) {    //if left side is guaranteed to be not satisfied, skip successor generation
-                auto targets = nextState (*(v.marking));
+                auto targets = nextState (*(v->marking));
 
                 if(!targets.empty()){
-                    Edge* leftEdge = new Edge(v);
+                    Edge* leftEdge = new Edge(*v);
 
                     for(auto m : targets){
-                        Configuration* c = createConfiguration(*m, *(v.query));
+                        Configuration* c = createConfiguration(*m, *(v->query));
                         leftEdge->targets.push_back(c);
                     }
                     if (left != NULL) {
@@ -87,55 +91,58 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration &c)
         } //All Until end
 
         //All Next begin
-        else if(v.query->path == X){
-            auto targets = nextState(*v.marking);
-            if (v.query->first->isTemporal) {   //regular check
-                Edge* e = new Edge(v);
+        else if(v->query->path == X){
+            auto targets = nextState(*v->marking);
+            if (v->query->first->isTemporal) {   //regular check
+                Edge* e = new Edge(*v);
                 for (auto m : targets){
-                    Configuration* c = createConfiguration(*m, *(v.query->first));
+                    Configuration* c = createConfiguration(*m, *(v->query->first));
                     e->targets.push_back(c);
                 }
                 succ.push_back(e);
             } else {
                 bool allValid = true;
                 for (auto m : targets) {
-                    bool valid = fastEval(*(v.query->first), *m);
+                    bool valid = fastEval(*(v->query->first), *m);
                     if (!valid) {
                         allValid = false;
                         break;
                     }
                 }
                 if (allValid) {
-                    succ.push_back(new Edge(v));
-                    v.successors = succ;
+                    succ.push_back(new Edge(*v));
+                    v->successors = succ;
                     return;
                 }
             }
         } //All Next End
 
         //All Finally start
-        else if(v.query->path == F){
+        else if(v->query->path == F){
+            std::cout << "do AF" << std::endl;
             Edge *subquery = NULL;
-            if (!v.query->first->isTemporal) {
-                bool valid = fastEval(*(v.query->first), *(v.marking));
+            if (!v->query->first->isTemporal) {
+                bool valid = fastEval(*(v->query->first), *(v->marking));
                 if (valid) {
-                    succ.push_back(new Edge(v));
-                    v.successors = succ;
+                    succ.push_back(new Edge(*v));
+                    v->successors = succ;
                     return;
                 }
             } else {
-                subquery = new Edge(v);
-                Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
+                subquery = new Edge(*v);
+                Configuration* c = createConfiguration(*(v->marking), *(v->query->first));
                 subquery->targets.push_back(c);
             }
 
-            auto targets = nextState(*(v.marking));
+            auto targets = nextState(*(v->marking));
 
+            std::cout << "Next state" << targets.empty() << std::endl;
             if(!targets.empty()){
-                Edge* e1 = new Edge(v);
+                Edge* e1 = new Edge(*v);
 
                 for(auto m : targets){
-                    Configuration* c = createConfiguration(*m, *(v.query));
+                    Configuration* c = createConfiguration(*m, *(v->query));
+                    std::cout << "Push back" << c << std::endl;
                     e1->targets.push_back(c);
                 }
                 succ.push_back(e1);
@@ -145,42 +152,44 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration &c)
                 succ.push_back(subquery);
             }
 
+            std::cout << "Succ size " << succ.size() << std::endl;
+
         }//All Finally end
     } //All end
 
     //Exists start
-    else if (v.query->quantifier == E){
+    else if (v->query->quantifier == E){
 
         //Exists Untill start
-        if(v.query->path == U){
+        if(v->query->path == U){
             Edge *right = NULL;
-            if (v.query->second->isTemporal) {
-                Configuration* c = createConfiguration(*(v.marking), *(v.query->second));
-                right = new Edge(v);
+            if (v->query->second->isTemporal) {
+                Configuration* c = createConfiguration(*(v->marking), *(v->query->second));
+                right = new Edge(*v);
                 right->targets.push_back(c);
             } else {
-                bool valid = fastEval(*(v.query->second), *(v.marking));
+                bool valid = fastEval(*(v->query->second), *(v->marking));
                 if (valid) {
-                    succ.push_back(new Edge(v));
-                    v.successors = succ;
+                    succ.push_back(new Edge(*v));
+                    v->successors = succ;
                     return;
                 }   // else: right condition is not satisfied, no need to add an edge
             }
 
-            auto targets = nextState(*(v.marking));
+            auto targets = nextState(*(v->marking));
 
             if(!targets.empty()){
                 Configuration *left = NULL;
                 bool valid = false;
-                if (v.query->first->isTemporal) {
-                    left = createConfiguration(*(v.marking), *(v.query->first));
+                if (v->query->first->isTemporal) {
+                    left = createConfiguration(*(v->marking), *(v->query->first));
                 } else {
-                    valid = fastEval(*(v.query->first), *(v.marking));
+                    valid = fastEval(*(v->query->first), *(v->marking));
                 }
                 if (left != NULL || valid) {
                     for(auto m : targets) {
-                        Edge* e = new Edge(v);
-                        Configuration* c1 = createConfiguration(*m, *(v.query));
+                        Edge* e = new Edge(*v);
+                        Configuration* c1 = createConfiguration(*m, *(v->query));
                         e->targets.push_back(c1);
                         if (left != NULL) {
                             e->targets.push_back(left);
@@ -197,15 +206,15 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration &c)
         } //Exists Until end
 
         //Exists Next start
-        else if(v.query->path == X){
-            auto targets = nextState(*(v.marking));
-            CTLTree* query = v.query->first;
+        else if(v->query->path == X){
+            auto targets = nextState(*(v->marking));
+            CTLTree* query = v->query->first;
 
             if(!targets.empty())
             {
                 if (query->isTemporal) {    //have to check, no way to skip that
                     for(auto m : targets){
-                        Edge* e = new Edge(v);
+                        Edge* e = new Edge(*v);
                         Configuration* c = createConfiguration(*m, *query);
                         e->targets.push_back(c);
                         succ.push_back(e);
@@ -214,8 +223,8 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration &c)
                     for(auto m : targets) {
                         bool valid = fastEval(*query, *m);
                         if (valid) {
-                            succ.push_back(new Edge(v));
-                            v.successors = succ;
+                            succ.push_back(new Edge(*v));
+                            v->successors = succ;
                             return;
                         }   //else: It can't hold there, no need to create an edge
                     }
@@ -224,27 +233,27 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration &c)
         }//Exists Next end
 
         //Exists Finally start
-        else if(v.query->path == F){
+        else if(v->query->path == F){
             Edge *subquery = NULL;
-            if (!v.query->first->isTemporal) {
-                bool valid = fastEval(*(v.query->first), *(v.marking));
+            if (!v->query->first->isTemporal) {
+                bool valid = fastEval(*(v->query->first), *(v->marking));
                 if (valid) {
-                    succ.push_back(new Edge(v));
-                    v.successors = succ;
+                    succ.push_back(new Edge(*v));
+                    v->successors = succ;
                     return;
                 }
             } else {
-                Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
-                subquery = new Edge(v);
+                Configuration* c = createConfiguration(*(v->marking), *(v->query->first));
+                subquery = new Edge(*v);
                 subquery->targets.push_back(c);
             }
 
-            auto targets = nextState(*(v.marking));
+            auto targets = nextState(*(v->marking));
 
             if(!targets.empty()){
                 for(auto m : targets){
-                    Edge* e = new Edge(v);
-                    Configuration* c = createConfiguration(*m, *(v.query));
+                    Edge* e = new Edge(*v);
+                    Configuration* c = createConfiguration(*m, *(v->query));
                     e->targets.push_back(c);
                     succ.push_back(e);
                 }
@@ -257,52 +266,52 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration &c)
     } //Exists end
 
     //And start
-    else if (v.query->quantifier == AND){
+    else if (v->query->quantifier == AND){
 
         //Check if left is false
-        if(!v.query->first->isTemporal){
-            if(!fastEval(*(v.query->first), *v.marking))
+        if(!v->query->first->isTemporal){
+            if(!fastEval(*(v->query->first), *v->marking))
                 //query cannot be satisfied, return empty succ set
                 return;
         }
 
         //check if right is false
-        if(!v.query->second->isTemporal){
-            if(!fastEval(*(v.query->second), *v.marking))
+        if(!v->query->second->isTemporal){
+            if(!fastEval(*(v->query->second), *v->marking))
                 return;
         }
 
-        Edge *e = new Edge(v);
+        Edge *e = new Edge(*v);
 
         //If we get here, then either both propositions are true(should not be possible)
         //Or a temporal operator and a true proposition
         //Or both are temporal
-        if(v.query->first->isTemporal){
-            e->targets.push_back(createConfiguration(*v.marking, *(v.query->first)));
+        if(v->query->first->isTemporal){
+            e->targets.push_back(createConfiguration(*v->marking, *(v->query->first)));
         }
-        if(v.query->second->isTemporal){
-            e->targets.push_back(createConfiguration(*v.marking, *(v.query->second)));
+        if(v->query->second->isTemporal){
+            e->targets.push_back(createConfiguration(*v->marking, *(v->query->second)));
         }
         succ.push_back(e);
     } //And end
 
     //Or start
-    else if (v.query->quantifier == OR){
+    else if (v->query->quantifier == OR){
 
         //Check if left is true
-        if(!v.query->first->isTemporal){
-            if(fastEval(*(v.query->first), *v.marking)){
+        if(!v->query->first->isTemporal){
+            if(fastEval(*(v->query->first), *v->marking)){
                 //query is satisfied, return
-                succ.push_back(new Edge(v));
-                v.successors = succ;
+                succ.push_back(new Edge(*v));
+                v->successors = succ;
                 return;
             }
         }
 
-        if(!v.query->second->isTemporal){
-            if(fastEval(*(v.query->second), *v.marking)){
-                succ.push_back(new Edge(v));
-                v.successors = succ;
+        if(!v->query->second->isTemporal){
+            if(fastEval(*(v->query->second), *v->marking)){
+                succ.push_back(new Edge(*v));
+                v->successors = succ;
                 return;
             }
         }
@@ -310,22 +319,22 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration &c)
         //If we get here, either both propositions are false
         //Or one is false and one is temporal
         //Or both temporal
-        if(v.query->first->isTemporal){
-            Edge *e = new Edge(v);
-            e->targets.push_back(createConfiguration(*v.marking, *(v.query->first)));
+        if(v->query->first->isTemporal){
+            Edge *e = new Edge(*v);
+            e->targets.push_back(createConfiguration(*v->marking, *(v->query->first)));
             succ.push_back(e);
         }
-        if(v.query->second->isTemporal){
-            Edge *e = new Edge(v);
-            e->targets.push_back(createConfiguration(*v.marking, *(v.query->second)));
+        if(v->query->second->isTemporal){
+            Edge *e = new Edge(*v);
+            e->targets.push_back(createConfiguration(*v->marking, *(v->query->second)));
             succ.push_back(e);
         }
     } //Or end
 
     //Negate start
-    else if (v.query->quantifier == NEG){
-            Configuration* c = createConfiguration(*(v.marking), *(v.query->first));
-            Edge* e = new Edge(v);
+    else if (v->query->quantifier == NEG){
+            Configuration* c = createConfiguration(*(v->marking), *(v->query->first));
+            Edge* e = new Edge(*v);
             e->targets.push_back(c);
             succ.push_back(e);
     } //Negate end
@@ -333,14 +342,14 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration &c)
     //Evaluate Query Begin
     else {
         //We should never get here anymore.
-        //v.configPrinter();
+        //v->configPrinter();
         //assert(false);
-        if (evaluateQuery(*v.query, *v.marking)){
-            succ.push_back(new Edge(v));
+        if (evaluateQuery(*v->query, *v->marking)){
+            succ.push_back(new Edge(*v));
         }
     }
 
-    v.successors = succ;
+    v->successors = succ;
 }
 
 bool OnTheFlyDG::evaluateQuery(CTLTree &query, Marking &marking)
@@ -497,6 +506,11 @@ void OnTheFlyDG::cleanUp()
     }
     markings.clear();
     markings.insert(initial_marking);
+}
+
+void OnTheFlyDG::setQuery(CTLTree *query)
+{
+    this->query = query;
 }
 
 Configuration *OnTheFlyDG::createConfiguration(Marking &t_marking, CTLTree &t_query)

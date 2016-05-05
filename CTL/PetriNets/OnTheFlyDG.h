@@ -12,7 +12,7 @@
 #include <boost/unordered_set.hpp>
 #include <list>
 
-namespace PetriNet {
+namespace PetriNets {
 
 class OnTheFlyDG : public DependencyGraph::BasicDependencyGraph
 {
@@ -23,7 +23,7 @@ public:
 
     virtual ~OnTheFlyDG();
 
-    virtual void successors(DependencyGraph::Configuration &c) override;
+    virtual void successors(DependencyGraph::Configuration *c) override;
     virtual DependencyGraph::Configuration *initialConfiguration() override;
     virtual void cleanUp() override;
 

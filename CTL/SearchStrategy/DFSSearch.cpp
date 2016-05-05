@@ -1,25 +1,34 @@
+
+#include <iostream>
+#include "assert.h"
 #include "DFSSearch.h"
-/*
-DFSSearch::DFSSearch()
-{
 
+void SearchStrategy::DFSSearch::pushEdge(DependencyGraph::Edge *edge)
+{
+    W.push(edge);
 }
 
-bool SearchStrategy::DFSSearch::done()
+void SearchStrategy::DFSSearch::pushNegationEdge(DependencyGraph::Edge *edge)
 {
-    return W.empty();
+    W.push(edge);
 }
 
-bool SearchStrategy::DFSSearch::push(SearchStrategy::Edge *e)
+void SearchStrategy::DFSSearch::pushMessage(SearchStrategy::Message &message)
 {
-    W.push(e);
+    std::cerr << "Basic DFS search strategy can't handle communication" << std::endl;
+    assert(false);
 }
 
-SearchStrategy::Edge *SearchStrategy::DFSSearch::pickTask()
+int SearchStrategy::DFSSearch::pickTask(DependencyGraph::Edge*& edge, DependencyGraph::Edge*& negationEdge, SearchStrategy::Message*& message, int distance)
 {
-    assert(!W.empty());
-    Edge *e = W.top();
+    if (W.empty()) return -1;
+    DependencyGraph::Edge *e = W.top();
     W.pop();
-    return e;
+    if (e->source->is_negated) {
+        negationEdge = e;
+        return 1;
+    } else {
+        edge = e;
+        return 0;
+    }
 }
-*/

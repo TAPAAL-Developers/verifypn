@@ -5,7 +5,7 @@
 
 using namespace PetriEngine;
 
-namespace PetriNet {
+namespace PetriNets {
 
     bool Marking::operator ==(const Marking& rhs) const {
         for(int i = 0; i < this->length(); i++){

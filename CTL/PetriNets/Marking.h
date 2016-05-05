@@ -5,7 +5,7 @@
 
 #include <vector>
 
-namespace PetriNet {
+namespace PetriNets {
 
 class PetriConfig;
 
@@ -59,8 +59,8 @@ namespace std{
     // Specializations of hash functions.
     // Normal
     template<>
-    struct hash<PetriNet::Marking>{
-        size_t operator()(const PetriNet::Marking& t_marking ) const {
+    struct hash<PetriNets::Marking>{
+        size_t operator()(const PetriNets::Marking& t_marking ) const {
             size_t hash = 0;
             uint32_t& h1 = ((uint32_t*)&hash)[0];
             uint32_t& h2 = ((uint32_t*)&hash)[1];
@@ -79,9 +79,9 @@ namespace std{
     };
     // Pointer to Marking
     template<>
-    struct hash<PetriNet::Marking*>{
-        size_t operator()(const PetriNet::Marking* t_marking ) const {
-            hash<PetriNet::Marking> hasher;
+    struct hash<PetriNets::Marking*>{
+        size_t operator()(const PetriNets::Marking* t_marking ) const {
+            hash<PetriNets::Marking> hasher;
             return hasher.operator ()(*t_marking);
         }
     };

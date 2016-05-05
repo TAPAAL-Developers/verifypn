@@ -9,20 +9,11 @@
 
 namespace DependencyGraph {
 
+class Edge;
+
 enum Assignment {
     ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2
 };
-
-std::string assignmentToStr(Assignment a){
-    if(a == ONE)
-        return std::string("ONE");
-    else if(a == UNKNOWN)
-        return std::string("UNKNOWN");
-    else if(a == ZERO)
-        return std::string("ZERO");
-    else
-        return std::string("CZERO");
-}
 
 class Configuration
 {
@@ -64,6 +55,18 @@ public:
                     is_negated ? "True" : "False" );
         std::printf("=======================================================\n");
     }
+
+    std::string assignmentToStr(Assignment a){
+        if(a == ONE)
+            return std::string("ONE");
+        else if(a == UNKNOWN)
+            return std::string("UNKNOWN");
+        else if(a == ZERO)
+            return std::string("ZERO");
+        else
+            return std::string("CZERO");
+    }
+
 
     bool isDone() { return assignment == ONE || assignment == CZERO; }
 

@@ -3,10 +3,9 @@
 
 #include <cstdio>
 #include <vector>
+#include "Configuration.h"
 
 namespace DependencyGraph {
-
-class Configuration;
 
 class Edge {
     typedef std::vector<Configuration*> container;

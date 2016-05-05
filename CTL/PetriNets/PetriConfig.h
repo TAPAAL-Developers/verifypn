@@ -5,7 +5,7 @@
 #include "../../CTLParser/CTLParser.h"
 #include "Marking.h"
 
-namespace PetriNet {
+namespace PetriNets {
 
 class PetriConfig : public DependencyGraph::Configuration {
 
