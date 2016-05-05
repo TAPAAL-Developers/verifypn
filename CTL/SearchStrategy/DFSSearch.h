@@ -4,7 +4,7 @@
 #include "SearchStrategy.h"
 
 namespace SearchStrategy {
-
+/*
 class DFSSearch : public AbstractSearchStrategy
 {
 public:
@@ -12,13 +12,13 @@ public:
 
     virtual bool done();
     virtual bool push(Edge *e);
-    virtual Edge *pickTask();
+    virtual DependencyGraph::Edge *pickTask();
 
 protected:
 
     std::stack<Edge*> W;
 
-};
+};*/
 
 }   // end SearchStrategy
 

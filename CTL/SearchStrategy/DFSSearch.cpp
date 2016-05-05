@@ -1,5 +1,5 @@
 #include "DFSSearch.h"
-
+/*
 DFSSearch::DFSSearch()
 {
 
@@ -22,3 +22,4 @@ SearchStrategy::Edge *SearchStrategy::DFSSearch::pickTask()
     W.pop();
     return e;
 }
+*/

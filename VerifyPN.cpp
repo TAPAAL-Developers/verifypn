@@ -62,9 +62,9 @@
 #include "CTL/DependencyGraph.h"
 #include "CTL/OnTheFlyDG.h"
 
-#include "CTL/SearchStrategies/AbstractSearchStrategy.h"
-#include "CTL/SearchStrategies/DepthFirstSearch.h"
-#include "CTL/SearchStrategies/BreadthFirstSearch.h"
+#include "CTL/SearchStrategy/AbstractSearchStrategy.h"
+#include "CTL/SearchStrategy/DepthFirstSearch.h"
+//#include "CTL/SearchStrategy/BreadthFirstSearch.h"
 
 using namespace std;
 using namespace PetriEngine;

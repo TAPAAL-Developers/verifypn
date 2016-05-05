@@ -7,7 +7,7 @@ bool Algorithm::CertainZeroFPA::search(
         DependencyGraph::BasicDependencyGraph &t_graph,
         SearchStrategy::AbstractSearchStrategy &t_strategy
 ) {
-
+/*
     graph = &t_graph;
     strategy = &t_strategy;
 
@@ -75,24 +75,24 @@ bool Algorithm::CertainZeroFPA::search(
             }
         }
     }
-
-    return (v->assignment == ONE) ? true : false;
+*/
+    return false;//(v->assignment == ONE) ? true : false;
 }
 
 void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)
 {
-    assert(a == ONE || a == CZERO);
+    /*assert(a == ONE || a == CZERO);
 
     c->assignment = a;
     for (DependencyGraph::Edge *e : c->dependency_set) {
         strategy->push(e);
     }
-    c->dependency_set.clear();
+    c->dependency_set.clear();*/
 }
 
 void Algorithm::CertainZeroFPA::explore(Configuration *c)
 {
-    c->assignment = ZERO;
+   /* c->assignment = ZERO;
     graph->successors(*c);
 
     if (c->successors.empty()) {
@@ -101,5 +101,5 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c)
         for (Edge *succ : c->successors) {
             strategy->push(succ);
         }
-    }
+    }*/
 }

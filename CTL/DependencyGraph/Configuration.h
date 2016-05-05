@@ -1,13 +1,13 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
+#include "Edge.h"
+
 #include <string>
 #include <cstdio>
 #include <vector>
 
 namespace DependencyGraph {
-
-class Edge;
 
 enum Assignment {
     ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2
@@ -30,7 +30,7 @@ public:
     typedef std::vector<Edge*> container_type;
 
     Configuration() {}
-    ~Configuration() {
+    virtual ~Configuration() {
         for(Edge *e : successors)
             delete e;
         for(Edge *e : deleted_successors)
