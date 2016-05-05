@@ -56,6 +56,7 @@ struct CTLTree {
   Atom a;
   unsigned int depth;
   unsigned int max_depth;
+  bool isTemporal;
 } ;
 
 struct CTLFormula {
@@ -66,9 +67,9 @@ struct CTLFormula {
 
     std::string boolToString(){
         if(Result)
-            return " T ";
+            return " TRUE ";
         else if (!Result)
-            return " F ";
+            return " FALSE ";
         else
             return " ERROR ";
     }
@@ -78,7 +79,7 @@ struct CTLFormula {
         std::cout << "FORMULA "
                   << Name
                   << boolToString()
-                  << "TECHNIQUES ";
+                  << "TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT";
 
         for(std::vector<std::string>::const_iterator iter = Techniques->begin();
             iter != Techniques->end();

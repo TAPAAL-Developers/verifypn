@@ -1,5 +1,0 @@
-Property SwimmingPool-PT-06-ReachabilityDeadlock-0
-  "Automatically generated"
-  is:
-    E F deadlock
-  end.

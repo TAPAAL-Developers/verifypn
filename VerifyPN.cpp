@@ -64,6 +64,7 @@
 
 #include "CTL/SearchStrategies/AbstractSearchStrategy.h"
 #include "CTL/SearchStrategies/DepthFirstSearch.h"
+#include "CTL/SearchStrategies/BreadthFirstSearch.h"
 
 using namespace std;
 using namespace PetriEngine;
@@ -91,6 +92,12 @@ enum CtlAlgorithm {
     LOCAL = 0,
     CZERO =1
 };
+
+bool printstatistics;
+
+std::vector<std::string>* placelistbound = NULL; // for multiple place bounds
+std::vector<size_t>* placelistboundindex = NULL; // list of place indexes in multiple place bounds
+unsigned int maxplacesbound = 0;
 
 double diffclock(clock_t clock1, clock_t clock2){
     double diffticks = clock1 - clock2;
@@ -141,11 +148,12 @@ void search_ctl_query(PetriNet* net,
                       int t_xmlquery,
                       CtlAlgorithm t_algorithm,
                       SearchStrategies t_strategy,
-                      ReturnValues result[]) {
+                      ReturnValues result[], 
+                      PNMLParser::InhibitorArcList inhibitorarcs) {
 
     ctl::FixedPointAlgorithm *algorithm;
     ctl::AbstractSearchStrategy *strategy;
-    ctl::DependencyGraph *graph = new ctl::OnTheFlyDG(net, m0);
+    ctl::DependencyGraph *graph = new ctl::OnTheFlyDG(net, m0, inhibitorarcs);
 
     //Determine Fixed Point Algorithm
     if(t_algorithm == LOCAL){
@@ -162,6 +170,9 @@ void search_ctl_query(PetriNet* net,
     //Determine Search Strategy
     if(t_strategy == DFS){
         strategy = new ctl::DepthFirstSearch();
+    }
+    else if (t_strategy == BFS){
+        strategy = new ctl::BreadthFirstSearch();
     }
     else{
         fprintf(stderr, "Error: unsupported ctl search strategy");
@@ -182,9 +193,10 @@ void search_ctl_query(PetriNet* net,
         queryList[t_xmlquery - 1]->Result = res;
 
         clock_t individual_search_end = clock();
-        cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery - 1 <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
-        cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
-
+        if (printstatistics) {
+        	cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery - 1 <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+        	cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
+	}
         if (res)
             result[t_xmlquery - 1] = SuccessCode;
         else if (!res)
@@ -208,8 +220,10 @@ void search_ctl_query(PetriNet* net,
             markingCount = graph->marking_count();
             queryList[i]->Result = res;
 
-            cout<<":::TIME::: Search elapsed time for query "<< i <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
-            cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
+            if (printstatistics) { 
+	    	cout<<":::TIME::: Search elapsed time for query "<< i <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
+            	cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
+	    }
 
             if (res)
                 result[i] = SuccessCode;
@@ -222,7 +236,7 @@ void search_ctl_query(PetriNet* net,
    }
 }
 
-#define VERSION		"1.2.0"
+#define VERSION		"2.0.0"
 
 int main(int argc, char* argv[]){
 	// Commandline arguments
@@ -240,10 +254,8 @@ int main(int argc, char* argv[]){
 	bool printstatistics = true;
         
     //CTL variables
-    //TODO Sort out when done
     bool isCTLlogic = false;
     CtlAlgorithm ctl_algorithm;
-//    string query_string_ctl;
 
         
 	//----------------------- Parse Arguments -----------------------//
@@ -329,6 +341,7 @@ int main(int argc, char* argv[]){
 					fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
 					return ErrorCode;
 				}
+
 				if (sscanf(argv[++i], "%d", &enablereduction) != 1 || enablereduction < 0 || enablereduction > 2) {
 					fprintf(stderr, "Argument Error: Invalid reduction argument \"%s\"\n", argv[i]);
 					return ErrorCode;
@@ -342,14 +355,12 @@ int main(int argc, char* argv[]){
 					"  -k, --k-bound <number of tokens>   Token bound, 0 to ignore (default)\n"
 					"  -t, --trace                        Provide XML-trace to stderr\n"
 					"  -s, --search-strategy <strategy>   Search strategy:\n"
-					"                                     - BestFS       Heuristic search (default) (also works for CTL)\n"
-					"                                     - BFS          Breadth first search (also works for CTL)\n"
-					"                                     - DFS          Depth first search (also works for CTL)\n"
+					"                                     - BestFS       Heuristic search (default)\n"
+					"                                     - BFS          Breadth first search\n"
+					"                                     - DFS          Depth first search\n"
 					"                                     - RDFS         Random depth first search\n"
 					"                                     - OverApprox   Linear Over Approx\n"
-                                        "                                     - BDFS           Can only be used with the -ctl flag\n"
-                                        "                                     - BBFS           Can only be used with the -ctl flag\n"
-                                        "                                     - CDFS           Can only be used with the -ctl flag and the czero-i algorithm\n"
+                                      
 					"  -m, --memory-limit <megabyte>      Memory limit for the state space search in MB,\n"
 					"                                     0 for unlimited (default)\n"
 					"  -e, --state-space-exploration      State-space exploration only (query-file is irrelevant)\n"
@@ -362,10 +373,9 @@ int main(int argc, char* argv[]){
 					"  -n, --no-statistics                Do not display any statistics (default is to display it)\n"
 					"  -h, --help                         Display this help message\n"
 					"  -v, --version                      Display version information\n"
-                                        "  -ctl <algorithm>                   CTL query verification in VerifyPN-CTL:\n"
-                                        "                                     czero-i   Certain zero early termination algorithm\n"
-                                        "                                     local-i   Local algorithm\n"
-                                        "                                     gobal-i   Global algorithm (very memory expensive)\n"
+                                        "  -ctl <algorithm>                   CTL query verification in VerifyPN-CTL (algorithm must be specified):\n"
+                                        "                                     - czero       Certain zero early termination algorithm \n"
+                                        "                                     - local       Local algorithm\n"
 					"\n"
 					"Return Values:\n"
 					"  0   Successful, query satisfiable\n"
@@ -379,10 +389,13 @@ int main(int argc, char* argv[]){
 			return 0;
 		}else if(strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--version") == 0){
 			printf("VerifyPN (untimed verification engine for TAPAAL) %s\n", VERSION);
-			printf("Copyright (C) 2011-2014 Jonas Finnemann Jensen <jopsen@gmail.com>,\n");
+			printf("Copyright (C) 2011-2016 Jonas Finnemann Jensen <jopsen@gmail.com>,\n");
 			printf("                        Thomas Søndersø Nielsen <primogens@gmail.com>,\n");
 			printf("                        Lars Kærlund Østergaard <larsko@gmail.com>,\n");
 			printf("                        Jiri Srba <srba.jiri@gmail.com>\n");
+			printf("CTL Engine (C) 2016	Isabella Kaufmann <ikaufm12@student.aau.dk>,\n");
+ 			printf("			Lasse Steen Jensen <lasjen12@student.aau.dk>,\n");
+ 			printf("			Søren Moss Nielsen <smni12@student.aau.dk>\n");
                         printf("GNU GPLv3 or later <http://gnu.org/licenses/gpl.html>\n");
 			return 0;
 		}else if(modelfile == NULL){
@@ -402,7 +415,20 @@ int main(int argc, char* argv[]){
 		outputtrace = false;
 		searchstrategy = BFS;
 	}
-    bool timeInfo = true;
+        if (isCTLlogic && enablereduction!=0) {
+		// for CTL logic using reductions is unsafe		
+                fprintf(stderr, "Structural reductions may not be used with CTL logic.\n\n");
+                return ErrorCode;
+        }
+        if (isCTLlogic && searchstrategy == BestFS) {
+		// the default search strategy for CTL logic is DFS
+		searchstrategy = DFS;
+	}
+        if (isCTLlogic && (searchstrategy != DFS && searchstrategy != BFS)) {
+		// for CTL logic only DFS and BFS strategy is supported		
+                fprintf(stderr, "Only DFS and BFS search strategy may be used with CTL logic.\n\n");
+                return ErrorCode;
+	}
 
 	//----------------------- Validate Arguments -----------------------//
 	//Check for model file
@@ -447,7 +473,7 @@ int main(int argc, char* argv[]){
 		parser.parse(buffer.str(), &builder);
 		parser.makePetriNet();
                 
-        inhibarcs = parser.getInhibitorArcs(); // Remember inhibitor arcs
+                inhibarcs = parser.getInhibitorArcs(); // Remember inhibitor arcs
 		transitionEnabledness = parser.getTransitionEnabledness(); // Remember conditions for transitions
 				
 		//Build the petri net
@@ -459,50 +485,19 @@ int main(int argc, char* argv[]){
 		mfile.close();
 	}
     clock_t parse_model_end = clock();
-    if(timeInfo)
+    if(printstatistics) {
         cout<<":::TIME::: Parse model elapsed time: "<<double(diffclock(parse_model_end,parse_model_begin))<<" ms"<<endl;
+    }
     //----------------------- Parse CTL Query -----------------------//
     clock_t parse_ctl_query_begin = clock();
     CTLFormula *queryList[15];
     
     if(isCTLlogic){
-        std::string modelname;
-
-        ifstream mfile(modelfile, ifstream::in);
-        stringstream buf;
-        buf << mfile.rdbuf();
-        std::string str = buf.str();
-        mfile.close();
-
-        //Gets the name of the petrinet being passed
-        for(auto iter = str.begin(); iter != str.end(); iter++){
-            if((*iter) == 'i'){
-                iter++;
-                if((*iter) == 'd'){
-                    iter++;
-                    if((*iter) == '='){
-                        iter++;
-                        if((*iter) == '"'){
-                            while(true){
-                                iter++;
-                                if((*iter) != '"'){
-                                    modelname.push_back(*iter);
-                                }
-                                else
-                                    break;
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        mfile.close();
-        std::cout << "Analysis:: Modefile: " << modelfile << endl;
-        std::cout << "Analysis:: Modelname: " << modelname << endl;
-        std::cout << "Analysis:: Number of places: " << net->numberOfPlaces() << endl;
-        std::cout << "Analysis:: Number of transistions: " << net->numberOfTransitions() << endl;
+        if (printstatistics) {
+        	std::cout << "Analysis:: Modefile: " << modelfile << endl;
+        	std::cout << "Analysis:: Number of places: " << net->numberOfPlaces() << endl;
+        	std::cout << "Analysis:: Number of transistions: " << net->numberOfTransitions() << endl;
+	}
 
         ifstream xmlfile (queryfile);
         vector<char> buffer((istreambuf_iterator<char>(xmlfile)), istreambuf_iterator<char>());
@@ -513,7 +508,7 @@ int main(int argc, char* argv[]){
         ctlParser.ParseXMLQuery(buffer, queryList);
         
         clock_t parse_ctl_query_end = clock();
-        if(timeInfo)
+        if(printstatistics)
             cout<<":::TIME::: Parse of CTL query elapsed time: "<<double(diffclock(parse_ctl_query_end,parse_ctl_query_begin))<<" ms\n"<<endl;
     }
     
@@ -526,7 +521,7 @@ int main(int argc, char* argv[]){
 	//Read query file, begin scope to release memory
 	if (!isCTLlogic) {
 		string querystring; // excluding EF and AG
-		if (!statespaceexploration || !isCTLlogic) {
+		if (!statespaceexploration) {
 			//Open query file
 			ifstream qfile(queryfile, ifstream::in);
 			if (!qfile) {
@@ -541,7 +536,7 @@ int main(int argc, char* argv[]){
 			string querystr = buffer.str(); // including EF and AG
 			//Parse XML the queries and querystr let be the index of xmlquery 		
 			if (xmlquery > 0) {
-				if (!XMLparser.parse(querystr)) {
+				if (!XMLparser.parse(querystr, xmlquery)) {
 					fprintf(stderr, "Error: Failed parsing XML query file\n");
 					fprintf(stdout, "DO_NOT_COMPETE\n");
 					return ErrorCode;
@@ -565,11 +560,6 @@ int main(int argc, char* argv[]){
 				querystring = querystr.substr(2);
 				isInvariant = XMLparser.queries[xmlquery - 1].negateResult;
                 
-                if (xmlquery>0) {
-                    fprintf(stdout, "FORMULA %s ", XMLparser.queries[xmlquery-1].id.c_str());
-                    fflush(stdout);
-                }
-
 			} else { // standard textual query
 				fprintf(stdout, "Query:  %s \n", querystr.c_str());
 				//Validate query type
@@ -594,7 +584,9 @@ int main(int argc, char* argv[]){
 	
 		//Parse query
 		query = ParseQuery(querystring);
-                cout<<":::::::::::::::::::\n"<<querystring<<endl;
+		if (printstatistics) {
+                	cout<<":::::::::::::::::::\n"<<querystring<<endl;
+		}
 		if(!query){
 			fprintf(stderr, "Error: Failed to parse query \"%s\"\n", querystring.c_str()); //querystr.substr(2).c_str());
 			return ErrorCode;
@@ -619,82 +611,30 @@ int main(int argc, char* argv[]){
 		}
 	}
 
-	
-    //--------------------- Apply Net Reduction ---------------//
+ //--------------------- Apply Net Reduction ---------------//
+
     Reducer reducer = Reducer(net); // reduced is needed also in trace generation (hence the extended scope)
-	if (enablereduction == 1 or enablereduction == 2) {
-		// Compute how many times each place appears in the query
-		MarkVal* placeInQuery = new MarkVal[net->numberOfPlaces()];
-		for (size_t i = 0; i < net->numberOfPlaces(); i++) {
-			placeInQuery[i] = 0;
-		}
+        if ((enablereduction == 1 or enablereduction == 2) && !isCTLlogic) {
+                // Compute how many times each place appears in the query
+                MarkVal* placeInQuery = new MarkVal[net->numberOfPlaces()];
+                for (size_t i = 0; i < net->numberOfPlaces(); i++) {
+                        placeInQuery[i] = 0;
+                }
                 QueryPlaceAnalysisContext placecontext(*net, placeInQuery);
-                //Translate from CTL
-                if(isCTLlogic){
-                    string reductionquerystr;
-                    reductionquerystr += "(";
-                    bool firstAccurance = true;
-                    int i = 0;
-                    vector<string> AllQeuryPlaces;
-                    CTLTree* current = queryList[xmlquery-1]->Query;
-                    vector<string> *QueryPlaces = new vector<string>();
-                    getQueryPlaces(QueryPlaces, current, net);
-                    AllQeuryPlaces.reserve(AllQeuryPlaces.size() + QueryPlaces->size());
-                    AllQeuryPlaces.insert(AllQeuryPlaces.end(), QueryPlaces->begin(), QueryPlaces->end());
+                query->analyze(placecontext);
 
-                    vector<string> UniqueAllQeuryPlaces;
-                    for(auto a : AllQeuryPlaces){
-                        bool isUnique = true;
-                        string newplace = "0 <= \"" + a + "\"";
-                        if(UniqueAllQeuryPlaces.empty()){
+                // Compute the places and transitions that connect to inhibitor arcs
+                MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
+                MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
 
-                            UniqueAllQeuryPlaces.insert(UniqueAllQeuryPlaces.end(), newplace);
-                            isUnique = false;
-                        }
-                        else {
-                            for(auto u : UniqueAllQeuryPlaces){
-                                if (newplace.compare(u) == 0){
-                                    isUnique = false;
-                                }
-                            }
-                        }
-                        if (isUnique){
-                            UniqueAllQeuryPlaces.insert(UniqueAllQeuryPlaces.end(), newplace);
-                        }
-                    }
-                    for(auto a : UniqueAllQeuryPlaces){
-                        if(!firstAccurance)
-                            reductionquerystr += ") and (";
-                        reductionquerystr += a;
-                        firstAccurance = false;
-                    }
-                    reductionquerystr += ")";
+                // CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
+                reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
 
+                //reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
+                reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
+                //reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
+        }
 
-
-                    Condition* reductionquery;
-
-                    if(!firstAccurance) {
-                        reductionquery = ParseQuery(reductionquerystr);
-                        reductionquery->analyze(placecontext);
-                    }
-                }
-                else {
-                    query->analyze(placecontext);
-                }
-                
-		// Compute the places and transitions that connect to inhibitor arcs
-		MarkVal* placeInInhib = new MarkVal[net->numberOfPlaces()];
-		MarkVal* transitionInInhib = new MarkVal[net->numberOfTransitions()];
-
-		// CreateInhibitorPlacesAndTransitions translates inhibitor place/transitions names to indexes
-		reducer.CreateInhibitorPlacesAndTransitions(net, inhibarcs, placeInInhib, transitionInInhib);
-
-		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib); 
-		reducer.Reduce(net, m0, placeInQuery, placeInInhib, transitionInInhib, enablereduction); // reduce the net
-		//reducer.Print(net, m0, placeInQuery, placeInInhib, transitionInInhib);
-	}
-    
 	//----------------------- Reachability -----------------------//
 
 	//Create reachability search strategy
@@ -734,28 +674,37 @@ int main(int argc, char* argv[]){
 //-------------------------------------------------------------------//
 //----------------------- Reachability search -----------------------//
 //-------------------------------------------------------------------//
+        
+        const std::vector<std::string>& tnames = net->transitionNames();
+        const std::vector<std::string>& pnames = net->placeNames();
+
+        if (placelistbound != NULL) {
+            placelistboundindex = new std::vector<size_t>;
+            for (int i = 0; i < placelistbound->size(); i++) {
+                for (size_t j = 0; j < pnames.size(); j++) {
+                    if (((*placelistbound)[i]) == pnames[j]) {
+                        placelistboundindex->push_back(j);
+                    }
+                }
+            }
+        }
+        
 	ReachabilityResult result = strategy->reachable(*net, m0, v0, query);
 
 	
 	//----------------------- Output Result -----------------------//
 	
-	const std::vector<std::string>& tnames = net->transitionNames();
-	const std::vector<std::string>& pnames = net->placeNames();
-
-	
-
 	if (statespaceexploration) {
 		retval = UnknownCode;
 		unsigned int placeBound = 0;
 		for(size_t p = 0; p < result.maxPlaceBound().size(); p++) { 
 			placeBound = std::max<unsigned int>(placeBound,result.maxPlaceBound()[p]);
 		}
-		// fprintf(stdout,"STATE_SPACE %lli -1 %d %d TECHNIQUES EXPLICIT\n", result.exploredStates(), result.maxTokens(), placeBound);
 		fprintf(stdout,"STATE_SPACE STATES %lli TECHNIQUES EXPLICIT\n", result.exploredStates());
-        fprintf(stdout,"STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT\n");
-        fprintf(stdout,"STATE_SPACE MAX_TOKEN_PER_MARKING %d TECHNIQUES EXPLICIT\n", result.maxTokens());
-        fprintf(stdout,"STATE_SPACE MAX_TOKEN_IN_PLACE %d TECHNIQUES EXPLICIT\n", placeBound);               
-        return retval;
+        	fprintf(stdout,"STATE_SPACE TRANSITIONS -1 TECHNIQUES EXPLICIT\n");
+        	fprintf(stdout,"STATE_SPACE MAX_TOKEN_PER_MARKING %d TECHNIQUES EXPLICIT\n", result.maxTokens());
+        	fprintf(stdout,"STATE_SPACE MAX_TOKEN_IN_PLACE %d TECHNIQUES EXPLICIT\n", placeBound);               
+        	return retval;
 	}
 	
 	//Find result code
@@ -771,23 +720,35 @@ int main(int argc, char* argv[]){
 		fprintf(stdout, "\nUnable to decide if query is satisfied.\n\n");
 	else if(retval == SuccessCode) {
 		if (xmlquery>0) {
-			fprintf(stdout, "TRUE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
+			fprintf(stdout, "FORMULA %s TRUE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", XMLparser.queries[xmlquery-1].id.c_str());
 		}
         fprintf(stdout, "\nQuery is satisfied.\n\n");
 	} else if(retval == FailedCode) {
 		if (xmlquery>0 && XMLparser.queries[xmlquery-1].isPlaceBound) {
+                    if (placelistbound == NULL) {
 			// find index of the place for reporting place bound
 			for(size_t p = 0; p < result.maxPlaceBound().size(); p++) { 
 				if (pnames[p]==XMLparser.queries[xmlquery-1].placeNameForBound) {
-					fprintf(stdout, "%d TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n", result.maxPlaceBound()[p]);
+					fprintf(stdout, "FORMULA %s %d TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", XMLparser.queries[xmlquery-1].id.c_str(), result.maxPlaceBound()[p]);
 					fprintf(stdout, "\nMaximum number of tokens in place %s: %d\n\n",XMLparser.queries[xmlquery-1].placeNameForBound.c_str(),result.maxPlaceBound()[p]);
-                    retval = UnknownCode;
+                                        retval = UnknownCode;
                     			break;
 				}
 			}
+                    } else {
+                        fprintf(stdout, "FORMULA %s %d  TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", XMLparser.queries[xmlquery-1].id.c_str(), maxplacesbound);
+                        fprintf(stdout, "\nMaximum number of tokens in places");
+                        for (int i = 0; i < placelistboundindex->size(); i++) {
+                            size_t index = (*placelistboundindex)[i];
+                            fprintf(stdout, " %s", pnames[index].c_str());
+                            if (i < placelistboundindex->size() - 2) fprintf(stdout, ",");
+                            if (i == placelistboundindex->size() - 2) fprintf(stdout, " and");
+                        }
+                        fprintf(stdout, ": %d\n\n", maxplacesbound);
+                    }
 		} else {
 			if (xmlquery>0) {
-				fprintf(stdout, "FALSE TECHNIQUES EXPLICIT STRUCTURAL_REDUCTION\n");
+				fprintf(stdout, "FORMULA %s FALSE TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT STRUCTURAL_REDUCTION\n", XMLparser.queries[xmlquery-1].id.c_str());
 			}
             fprintf(stdout, "\nQuery is NOT satisfied.\n\n");
 		}
@@ -860,10 +821,10 @@ int main(int argc, char* argv[]){
             ReturnValues retval[16];
 
             clock_t total_search_begin = clock();
-            search_ctl_query(net, m0, queryList, xmlquery, ctl_algorithm, searchstrategy, retval);
+            search_ctl_query(net, m0, queryList, xmlquery, ctl_algorithm, searchstrategy, retval, inhibarcs);
             clock_t total_search_end = clock();
 
-            if(timeInfo){
+            if(printstatistics){
                 cout<<"\n:::TIME::: Total search elapsed time: "<<double(diffclock(total_search_end,total_search_begin))<<" ms\n"<<endl;
             }
         }

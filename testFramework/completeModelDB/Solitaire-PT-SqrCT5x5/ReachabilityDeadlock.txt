@@ -1,5 +1,0 @@
-Property Solitaire-PT-SqrCT5x5-ReachabilityDeadlock-0
-  "Automatically generated"
-  is:
-    E F deadlock
-  end.

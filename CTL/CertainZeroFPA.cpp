@@ -2,12 +2,34 @@
 
 namespace ctl{
 
+bool preprocessQuery(CTLTree *f) {
+    
+    bool isTemporal = f->quantifier == A || f->quantifier == E;
+    if (f->quantifier == AND ||
+            f->quantifier == OR ||
+            (f->quantifier == A && f->path == U) ||
+            (f->quantifier == E && f->path == U)) {
+        //operand order guarantees subquery will be preprocessed
+        isTemporal = preprocessQuery(f->second) || isTemporal;
+        isTemporal = preprocessQuery(f->first) || isTemporal;
+    }
+    if (f->quantifier == NEG ||
+            (f->path == G && (f->quantifier == A || f->quantifier == E)) ||
+            (f->path == X && (f->quantifier == A || f->quantifier == E)) ||
+            (f->path == F && (f->quantifier == A || f->quantifier == E))) {
+        isTemporal = preprocessQuery(f->first) || isTemporal;
+    }
+    f->isTemporal = isTemporal;
+    return isTemporal;
+}
+
 bool CertainZeroFPA::search(DependencyGraph &t_graph, AbstractSearchStrategy &W)
 {
     PriorityQueue N;
 
     Configuration &v = t_graph.initialConfiguration();
     v.assignment = ZERO;
+    preprocessQuery(v.query);
 
     for(Edge *e : t_graph.successors(v)){
         W.push(e);
@@ -30,7 +52,7 @@ bool CertainZeroFPA::search(DependencyGraph &t_graph, AbstractSearchStrategy &W)
         /*Data handling*/
         int targetONEassignments = 0;
         int targetZEROassignments = 0;
-        int targetUKNOWNassignments = 0;
+        Configuration * lastUnknown = NULL;
         bool czero = false;
 
         for(auto c : e->targets){
@@ -45,7 +67,7 @@ bool CertainZeroFPA::search(DependencyGraph &t_graph, AbstractSearchStrategy &W)
                 break;
             }
             else if(c-> assignment == UNKNOWN){
-                targetUKNOWNassignments++;
+                lastUnknown = c;
             }
 
         }
@@ -112,24 +134,21 @@ bool CertainZeroFPA::search(DependencyGraph &t_graph, AbstractSearchStrategy &W)
                 }
             }
         }
-        else if(targetUKNOWNassignments > 0){
-            for(Configuration *tc : e->targets){
-                if(tc->assignment == UNKNOWN){
-                    tc->assignment = ZERO;
-                    tc->DependencySet.push_back(e);
-                    t_graph.successors(*tc);
+        else if(lastUnknown != NULL){
+            Configuration *tc = lastUnknown;
+            tc->assignment = ZERO;
+            tc->DependencySet.push_back(e);
+            t_graph.successors(*tc);
 
-                    if(tc->Successors.empty()){
-                        tc->assignment = CZERO;
-                       W.push_dependency(e);
-                    }
-                    else {
-                        for(Edge *succ : tc->Successors){
-                            W.push(succ);
-                            if(succ->source->IsNegated){
-                                N.push(succ);
-                            }
-                        }
+            if(tc->Successors.empty()){
+                tc->assignment = CZERO;
+               W.push_dependency(e);
+            }
+            else {
+                for(Edge *succ : tc->Successors){
+                    W.push(succ);
+                    if(succ->source->IsNegated){
+                        N.push(succ);
                     }
                 }
             }

@@ -1,5 +1,0 @@
-Property Solitaire-PT-FrnCT7x7-ReachabilityDeadlock-0
-  "Automatically generated"
-  is:
-    E F deadlock
-  end.

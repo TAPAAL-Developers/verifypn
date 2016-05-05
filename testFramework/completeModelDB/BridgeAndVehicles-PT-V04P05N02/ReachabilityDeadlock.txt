@@ -1,5 +1,0 @@
-Property BridgeAndVehicles-COL-V04P05N02-ReachabilityDeadlock-0
-  "Automatically generated"
-  is:
-    E F deadlock
-  end.
