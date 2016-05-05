@@ -44,6 +44,12 @@ EvaluateableProposition::EvaluateableProposition(std::string a, PetriEngine::Pet
         std::string fireset_str = a.substr(s_pos, fire_str_length);
         SetFireset(fireset_str, net->transitionNames(), net->numberOfTransitions());
     }
+    else if(a.substr(0,2).compare("tr") == 0){
+        
+    }
+    else if(a.substr(0,2).compare("fa") == 0){
+        
+    }
     else{
         assert(false && "Atomic string proposed for proposition could not be parsed");
     }
@@ -108,9 +114,13 @@ CardinalityParameter* EvaluateableProposition::CreateParameter(std::string param
 LoperatorType EvaluateableProposition::SetLoperator(std::string atom_str){
     std::string loperator_str = atom_str.substr(atom_str.find(')'));
     loperator_str = loperator_str.substr(0, loperator_str.find('('));
-    
-    /*Implement parser for logical operator*/
+    if(loperator_str.compare(" le "))
             return LEQ;
+    else if (loperator_str.compare(" ge "))
+        return GRQ;
+    else if (loperator_str.compare(" eq "))
+        return EQ;
+    else assert(false && "Could not parse the given logical operator");
 }
 
 std::string EvaluateableProposition::ToString() {

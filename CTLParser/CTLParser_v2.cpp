@@ -320,6 +320,18 @@ CTLQuery* CTLParser_v2::xmlToCTLquery(xml_node<> * root) {
         query->Depth = 0;
         return query;
     }
+    else if (firstLetter == 't' ){
+        std::string atom_str = "integer-constant(0) le integer-constant(0)";
+        query = new CTLQuery(EMPTY, pError, true, atom_str);
+        query->Depth = 0;
+        return query;
+    }
+    else if (firstLetter == 'f' ){
+        std::string atom_str = "integer-constant(2) le integer-constant(0)";
+        query = new CTLQuery(EMPTY, pError, true, atom_str);
+        query->Depth = 0;
+        return query;
+    }
     else assert(false && "Failed parsing .xml file provided. Incorrect format.");
     
     if (query->GetPath() == U) {
@@ -389,6 +401,12 @@ int CTLParser_v2::max_depth(int a, int b){
 std::string CTLParser_v2::loperator_sym(std::string loperator){
     if(loperator.compare("integer-le") == 0){
         return " le ";
+    }
+    else if(loperator.compare("integer-ge")){
+        return " ge ";
+    }
+    else if(loperator.compare("integer-eq")){
+        return " eq ";
     }
     else return " " + loperator + " ";
 }
