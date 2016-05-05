@@ -1,22 +1,28 @@
 #ifndef SEARCHSTRATEGY_H
 #define SEARCHSTRATEGY_H
 
-#include <cstdio>
-#include <stack>
-#include <queue>
-
 #include "../DependencyGraph/Edge.h"
 
 namespace SearchStrategy {
 
+struct Message {
+    enum type {HALT = 0, REQUEST = 1, ANSWER = 2};
+    DependencyGraph::Configuration *configuration;
+};
+
 class AbstractSearchStrategy
 {
 public:
-    virtual bool done() =0;
-    virtual bool push(DependencyGraph::Edge *e) =0;
-    virtual DependencyGraph::Edge *pickTask() =0;
-    //virtual std::vector<Configuration*> pickTargets(Edge *e) =0;
+    virtual void pushEdge(const DependencyGraph::Edge *edge) =0;
+    virtual void pushNegationEdge(const DependencyGraph::Edge *edge) =0;
+    virtual void pushMessage(const Message &message);
+
+    virtual int pickTask(DependencyGraph::Edge &edge,
+                         DependencyGraph::Edge &negationEdge,
+                         Message &message,
+                         int distance) =0;
 };
+
 /*
 class DistributedSearchStrategy : public AbstractSearchStrategy
 {
