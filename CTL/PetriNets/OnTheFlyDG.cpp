@@ -14,7 +14,7 @@ OnTheFlyDG::OnTheFlyDG(
     net(t_net), inhibitorArcs(t_inhibitorArcs), n_transitions(t_net->numberOfTransitions()),
     n_places(t_net->numberOfPlaces())
 {    
-    initial_marking = new Marking(t_initial, n_transitions);
+    initial_marking = new Marking(t_initial, n_places);
     markings.insert(initial_marking);
     cached_successors.resize(t_net->numberOfTransitions());
 }
@@ -27,12 +27,8 @@ OnTheFlyDG::~OnTheFlyDG()
 }
 
 void OnTheFlyDG::successors(DependencyGraph::Configuration *c)
-{    
-    c->printConfiguration();
+{
     PetriConfig *v = static_cast<PetriConfig*>(c);
-    v->printConfiguration();
-    CTLParser p;
-    p.printQuery(v->query);
     std::vector<Edge*> succ;
     //All
     if(v->query->quantifier == A){
@@ -119,7 +115,7 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration *c)
 
         //All Finally start
         else if(v->query->path == F){
-            std::cout << "do AF" << std::endl;
+           // std::cout << "do AF" << std::endl;
             Edge *subquery = NULL;
             if (!v->query->first->isTemporal) {
                 bool valid = fastEval(*(v->query->first), *(v->marking));
@@ -134,25 +130,27 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration *c)
                 subquery->targets.push_back(c);
             }
 
+           // std::cout << "Succ for: " << std::endl;
+//            v->printConfiguration();
             auto targets = nextState(*(v->marking));
 
-            std::cout << "Next state" << targets.empty() << std::endl;
             if(!targets.empty()){
                 Edge* e1 = new Edge(*v);
 
+                //std::cout << "Targets: " << std::endl;
                 for(auto m : targets){
                     Configuration* c = createConfiguration(*m, *(v->query));
-                    std::cout << "Push back" << c << std::endl;
+                    //c->printConfiguration();
                     e1->targets.push_back(c);
                 }
                 succ.push_back(e1);
+            } else {
+                //std::cout << "Empty" << std::endl;
             }
 
             if (subquery != NULL) {
                 succ.push_back(subquery);
             }
-
-            std::cout << "Succ size " << succ.size() << std::endl;
 
         }//All Finally end
     } //All end
@@ -242,10 +240,10 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration *c)
                     v->successors = succ;
                     return;
                 }
-            } else {
+            } else {                
                 Configuration* c = createConfiguration(*(v->marking), *(v->query->first));
                 subquery = new Edge(*v);
-                subquery->targets.push_back(c);
+                subquery->targets.push_back(c);                
             }
 
             auto targets = nextState(*(v->marking));
@@ -262,6 +260,7 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration *c)
             if (subquery != NULL) {
                 succ.push_back(subquery);
             }
+
         }//Exists Finally end
     } //Exists end
 
@@ -514,9 +513,15 @@ void OnTheFlyDG::setQuery(CTLTree *query)
 }
 
 Configuration *OnTheFlyDG::createConfiguration(Marking &t_marking, CTLTree &t_query)
-{
+{    /*
+    std::cout << "Already has configs:" << std::endl;
+    t_marking.print();
+    CTLParser p;
+    p.printQuery(&t_query);*/
     for(PetriConfig* c : t_marking.successors){
+        //c->printConfiguration();
         if(c->query == &t_query)
+            //std::cout << "Return this one!" << std::endl;
             return c;
     }
 
@@ -551,7 +556,6 @@ Marking *OnTheFlyDG::createMarking(const Marking& t_marking, int t_transition){
     else{
         delete new_marking;
     }
-
 
     return *result;
 }

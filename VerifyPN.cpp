@@ -64,8 +64,9 @@
 
 #include "CTL/SearchStrategy/AbstractSearchStrategy.h"
 #include "CTL/SearchStrategy/DFSSearch.h"
-#include "CTL/SearchStrategy/WaitingList.h"
 #include "CTL/SearchStrategy/SearchStrategy.h"
+#include "CTL/SearchStrategy/WaitingList.h"
+#include "CTL/SearchStrategy/BasicSearchStrategy.h"
 //#include "CTL/SearchStrategy/BreadthFirstSearch.h"
 
 using namespace std;
@@ -105,6 +106,27 @@ double diffclock(clock_t clock1, clock_t clock2){
     double diffticks = clock1 - clock2;
     double diffms = (diffticks*1000)/CLOCKS_PER_SEC;
     return diffms;
+}
+
+bool preprocessQuery(CTLTree *f) {
+
+    bool isTemporal = f->quantifier == A || f->quantifier == E;
+    if (f->quantifier == AND ||
+            f->quantifier == OR ||
+            (f->quantifier == A && f->path == U) ||
+            (f->quantifier == E && f->path == U)) {
+        //operand order guarantees subquery will be preprocessed
+        isTemporal = preprocessQuery(f->second) || isTemporal;
+        isTemporal = preprocessQuery(f->first) || isTemporal;
+    }
+    if (f->quantifier == NEG ||
+            (f->path == G && (f->quantifier == A || f->quantifier == E)) ||
+            (f->path == X && (f->quantifier == A || f->quantifier == E)) ||
+            (f->path == F && (f->quantifier == A || f->quantifier == E))) {
+        isTemporal = preprocessQuery(f->first) || isTemporal;
+    }
+    f->isTemporal = isTemporal;
+    return isTemporal;
 }
 
 void getQueryPlaces(vector<string> *QueryPlaces, CTLTree* current, PetriNet *net){
@@ -188,6 +210,7 @@ void search_ctl_query(PetriNet* net,
     if(t_xmlquery > 0){
         clock_t individual_search_begin = clock();
 
+        preprocessQuery(queryList[t_xmlquery - 1]->Query);
         graph->setQuery(queryList[t_xmlquery - 1]->Query);
         res = algorithm->search(*graph, *strategy);
 
@@ -213,6 +236,7 @@ void search_ctl_query(PetriNet* net,
             clock_t individual_search_end, individual_search_begin;
             individual_search_begin = clock();
 
+            preprocessQuery(queryList[i]->Query);
             graph->setQuery(queryList[i]->Query);
             res = algorithm->search(*graph, *strategy);
 

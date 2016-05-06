@@ -7,13 +7,12 @@ using namespace DependencyGraph;
 bool Algorithm::CertainZeroFPA::search(
         DependencyGraph::BasicDependencyGraph &t_graph,
         SearchStrategy::AbstractSearchStrategy &t_strategy
-) {
-
-    std::cout << "Hello there!" << std::endl;
+) {    
     graph = &t_graph;
     strategy = &t_strategy;
 
     Configuration *v = graph->initialConfiguration();
+
     explore(v);
 
     Edge *e;
@@ -22,7 +21,7 @@ bool Algorithm::CertainZeroFPA::search(
     int r = strategy->pickTask(e, e, m, 0);
 
     while (r >= 0) {
-        std::cout << "process edge " << e << std::endl;
+        //std::cout << "process edge " << e << std::endl;
         assert(r == 0 || r == 1);   //no messages
 
         if (v->isDone()) {
@@ -46,7 +45,7 @@ bool Algorithm::CertainZeroFPA::search(
                 lastUndecided = c;
             }
         }
-        std::cout << "last: " << lastUndecided << std::endl;
+        //std::cout << "all one " << allOne << " has czero " << hasCZero << "last: " << lastUndecided << std::endl;
 
         if (e->source->is_negated) {
             //Process negation edge
@@ -106,15 +105,16 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, D
 
 void Algorithm::CertainZeroFPA::explore(Configuration *c)
 {
+    //std::cout << "Exploring " << c << std::endl;
+    //c->printConfiguration();
     c->assignment = ZERO;
     graph->successors(c);
 
-    std::cout << "Exploring " << c << std::endl;
     if (c->successors.empty()) {
         finalAssign(c, CZERO);
     } else {
         for (Edge *succ : c->successors) {
-            std::cout << "push " << succ << std::endl;
+            //std::cout << "push edge " << succ << std::endl;
             if (succ->source->is_negated) {
                 strategy->pushNegationEdge(succ);
             } else {
