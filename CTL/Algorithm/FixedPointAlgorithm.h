@@ -3,7 +3,6 @@
 
 #include "../DependencyGraph/AbstractDependencyGraphs.h"
 #include "../SearchStrategy/SearchStrategy.h"
-#include "Communicator.h"
 
 namespace Algorithm {
 

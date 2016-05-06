@@ -1,5 +1,6 @@
-#ifndef MARKING_H
-#define MARKING_H
+#ifndef MARKING_H1
+#define MARKING_H1
+//TODO: Fix guard
 
 #include "../../PetriEngine/PetriNet.h"
 

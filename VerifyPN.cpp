@@ -64,6 +64,8 @@
 
 #include "CTL/SearchStrategy/AbstractSearchStrategy.h"
 #include "CTL/SearchStrategy/DFSSearch.h"
+#include "CTL/SearchStrategy/WaitingList.h"
+#include "CTL/SearchStrategy/SearchStrategy.h"
 //#include "CTL/SearchStrategy/BreadthFirstSearch.h"
 
 using namespace std;
@@ -154,6 +156,7 @@ void search_ctl_query(PetriNet* net,
     Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::CertainZeroFPA();
     SearchStrategy::AbstractSearchStrategy *strategy = new SearchStrategy::DFSSearch();
     PetriNets::OnTheFlyDG *graph = new PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
+    auto wl = SearchStrategy::EdgeWaitingList<std::queue<DependencyGraph::Edge*, std::list<DependencyGraph::Edge*>>>();
 
     //Determine Fixed Point Algorithm
     /*if(t_algorithm == LOCAL){

@@ -1,5 +1,6 @@
-#ifndef CONFIGURATION_H
-#define CONFIGURATION_H
+#ifndef CONFIGURATION_H1
+#define CONFIGURATION_H1
+//TODO FIX GUARD
 
 #include "Edge.h"
 
@@ -20,6 +21,9 @@ class Configuration
     unsigned int distance;
 public:
     typedef std::vector<Edge*> container_type;
+
+    unsigned int getDistance() const { return distance; }
+    void setDistance(unsigned int value) { distance = value; }
 
     Configuration() {}
     virtual ~Configuration() {
@@ -76,19 +80,8 @@ public:
     container_type deleted_successors = container_type(0);
     container_type dependency_set = container_type(0);
     bool is_negated = false;
-    unsigned int getDistance() const;
-    void setDistance(unsigned int value);
 };
 
-unsigned int Configuration::getDistance() const
-{
-    return distance;
-}
-
-void Configuration::setDistance(unsigned int value)
-{
-    distance = value;
-}
 
 }
 #endif // CONFIGURATION_H

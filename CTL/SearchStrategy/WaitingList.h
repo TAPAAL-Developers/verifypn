@@ -25,11 +25,11 @@ public:
 };
 
 template<class T>
-class WaitingList<std::queue<T>> {
+class WaitingList<T, std::queue<T>> {
     using queue = typename std::queue<T>;
     queue c;
 public:
-    WaitingList<queue>(queue S = queue()) : c(S){}
+    WaitingList<T, queue>(queue S = queue()) : c(S){}
 
     void pop() { c.pop(); }
     T top() { return c.front(); }

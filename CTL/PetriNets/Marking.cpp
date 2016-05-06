@@ -1,7 +1,7 @@
 #include <string.h>
 #include <iostream>
 
-#include "marking.h"
+#include "Marking.h"
 
 using namespace PetriEngine;
 
