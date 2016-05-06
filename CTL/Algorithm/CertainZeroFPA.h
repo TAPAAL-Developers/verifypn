@@ -15,14 +15,14 @@ class CertainZeroFPA : public FixedPointAlgorithm
 {
 public:
     virtual bool search(DependencyGraph::BasicDependencyGraph &t_graph,
-                        SearchStrategy::AbstractSearchStrategy &t_strategy);
+                        SearchStrategy::AbstractSearchStrategy &t_strategy){};
 protected:
 
     DependencyGraph::BasicDependencyGraph *graph;
     SearchStrategy::AbstractSearchStrategy *strategy;
 
-    void finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
-    void explore(DependencyGraph::Configuration *c);
+    void finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a){};
+    void explore(DependencyGraph::Configuration *c){};
 };
 }
 #endif // CERTAINZEROFPA_H

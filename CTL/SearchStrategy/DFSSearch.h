@@ -12,19 +12,16 @@ class DFSSearch : public AbstractSearchStrategy
 public:
     DFSSearch() {}
     virtual bool empty();
+    virtual unsigned int maxDistance();
     virtual void pushEdge(DependencyGraph::Edge *edge) override;
-    virtual void pushNegationEdge(DependencyGraph::Edge *edge) override;
     virtual void pushMessage(Message &message) override;
 
-    virtual int pickTask(DependencyGraph::Edge*& edge,
-                         DependencyGraph::Edge*& negationEdge,
-                         Message*& message,
-                         int distance) override;
+    virtual TaskType pickTask(DependencyGraph::Edge*& edge,
+                         Message*& message) override;
 
 protected:
 
     std::stack<DependencyGraph::Edge*> W;
-
 };
 
 }   // end SearchStrategy
