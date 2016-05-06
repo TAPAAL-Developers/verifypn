@@ -29,9 +29,6 @@ OnTheFlyDG::~OnTheFlyDG()
 void OnTheFlyDG::successors(DependencyGraph::Configuration *c)
 {
     PetriConfig *v = static_cast<PetriConfig*>(c);
-    //v->printConfiguration();
-    //CTLParser p;
-    //p.printQuery(v->query);
     std::vector<Edge*> succ;
     //All
     if(v->query->quantifier == A){
@@ -243,10 +240,10 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration *c)
                     v->successors = succ;
                     return;
                 }
-            } else {
+            } else {                
                 Configuration* c = createConfiguration(*(v->marking), *(v->query->first));
                 subquery = new Edge(*v);
-                subquery->targets.push_back(c);
+                subquery->targets.push_back(c);                
             }
 
             auto targets = nextState(*(v->marking));
@@ -263,6 +260,7 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration *c)
             if (subquery != NULL) {
                 succ.push_back(subquery);
             }
+
         }//Exists Finally end
     } //Exists end
 

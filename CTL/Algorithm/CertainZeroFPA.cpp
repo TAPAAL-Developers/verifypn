@@ -7,12 +7,12 @@ using namespace DependencyGraph;
 bool Algorithm::CertainZeroFPA::search(
         DependencyGraph::BasicDependencyGraph &t_graph,
         SearchStrategy::AbstractSearchStrategy &t_strategy
-) {
-
+) {    
     graph = &t_graph;
     strategy = &t_strategy;
 
     Configuration *v = graph->initialConfiguration();
+
     explore(v);
 
     Edge *e;
