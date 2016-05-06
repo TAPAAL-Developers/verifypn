@@ -43,8 +43,7 @@ template<class edge_container = std::stack<DependencyGraph::Edge*>>
 class EdgeWaitingList : public WaitingList<DependencyGraph::Edge*, edge_container> {
 };
 
-template<class message_container = std::queue<Message>>
-class MessageWaitingList : public WaitingList<Message, message_container> {
+class MessageWaitingList : public WaitingList<Message, std::queue<Message>> {
 };
 }
 #endif // WAITINGLIST_H

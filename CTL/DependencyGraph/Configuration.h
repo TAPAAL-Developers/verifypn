@@ -17,6 +17,7 @@ enum Assignment {
 
 class Configuration
 {
+    unsigned int distance;
 public:
     typedef std::vector<Edge*> container_type;
 
@@ -75,7 +76,19 @@ public:
     container_type deleted_successors = container_type(0);
     container_type dependency_set = container_type(0);
     bool is_negated = false;
+    unsigned int getDistance() const;
+    void setDistance(unsigned int value);
 };
+
+unsigned int Configuration::getDistance() const
+{
+    return distance;
+}
+
+void Configuration::setDistance(unsigned int value)
+{
+    distance = value;
+}
 
 }
 #endif // CONFIGURATION_H

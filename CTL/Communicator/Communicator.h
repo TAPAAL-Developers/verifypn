@@ -1,12 +1,9 @@
 #ifndef COMMUNICATOR_H
 #define COMMUNICATOR_H
 
-#include <boost/mpi.hpp>
-
 class Communicator
 {
 public:
-    boost::mpi::communicator comm;
     //Rank
     virtual int rank() =0;
 
