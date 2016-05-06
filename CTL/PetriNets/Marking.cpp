@@ -1,7 +1,7 @@
 #include <string.h>
 #include <iostream>
 
-#include "marking.h"
+#include "Marking.h"
 
 using namespace PetriEngine;
 
@@ -12,7 +12,8 @@ namespace PetriNets {
             if(!(this->value()[i] == rhs.value()[i])){
                 return false;
             }
-        } return true;
+        }
+        return true;
     }
 
     void Marking::copyMarking(const Marking& t_marking){

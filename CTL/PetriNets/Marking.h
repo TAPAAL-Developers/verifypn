@@ -2,6 +2,7 @@
 #define MARKING_H
 
 #include "../../PetriEngine/PetriNet.h"
+#include "assert.h"
 
 #include <vector>
 
@@ -55,7 +56,7 @@ private:
 };
 }
 
-namespace std{
+namespace std {
     // Specializations of hash functions.
     // Normal
     template<>

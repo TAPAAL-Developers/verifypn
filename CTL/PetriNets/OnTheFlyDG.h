@@ -9,7 +9,7 @@
 #include "Marking.h"
 #include "../../PetriParse/PNMLParser.h"
 
-#include <boost/unordered_set.hpp>
+#include <unordered_set>
 #include <list>
 
 namespace PetriNets {
@@ -52,8 +52,8 @@ protected:
     DependencyGraph::Configuration *createConfiguration(Marking &marking, CTLTree &query);
     Marking *createMarking(const Marking &marking, int t_transition);
 
-    boost::unordered_set< Marking*,
-                        boost::hash<Marking*>,
+    std::unordered_set< Marking*,
+                        std::hash<Marking*>,
                         Marking::Marking_Equal_To> markings;
 
 };

@@ -17,6 +17,18 @@ public:
     Marking *marking;
     CTLTree *query;
 
+    virtual void printConfiguration() override {
+        DependencyGraph::Configuration::printConfiguration();
+        std::printf("Marking: ");
+        marking->print();
+        std::printf(" (%ld) ", (unsigned long int) marking);
+        std::printf(" Query: ");
+        CTLParser p;
+        p.printQuery(query);
+        std::printf(" (%ld) ", (unsigned long int) query);
+        std::printf("\n=======================================================\n");
+    }
+
 };
 
 }

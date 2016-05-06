@@ -21,6 +21,7 @@ public:
                          DependencyGraph::Edge*& negationEdge,
                          Message*& message,
                          int distance) =0;
+
 };
 
 /*
