@@ -15,7 +15,7 @@ class CertainZeroFPA : public FixedPointAlgorithm
 {
 public:
     virtual bool search(DependencyGraph::BasicDependencyGraph &t_graph,
-                        SearchStrategy::AbstractSearchStrategy &t_strategy);
+                        SearchStrategy::AbstractSearchStrategy &t_strategy) override;
 protected:
 
     DependencyGraph::BasicDependencyGraph *graph;
