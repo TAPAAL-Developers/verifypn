@@ -29,9 +29,8 @@ class BasicSearchStrategy : public AbstractSearchStrategy {
 
     // AbstractSearchStrategy interface
 public:
-    enum TaskType {UNAVAILABLE = 0, HYPEREDGE = 1, NEGATIONEDGE = 2, MESSAGE = 3};
 
-    virtual bool empty() { return false; }
+    virtual bool empty() { return W.empty() && N.empty() && M.empty(); }
 
     virtual void pushEdge(DependencyGraph::Edge *edge) { W.push(edge);}
     virtual void pushNegationEdge(DependencyGraph::Edge *edge) { N.push(edge);}
@@ -41,7 +40,7 @@ public:
                          DependencyGraph::Edge *&negationEdge,
                          Message *&message,
                          int distance) {
-        int result = UNAVAILABLE;
+        int result = M.empty() && N.empty() && W.empty() ? EMPTY : UNAVAILABLE;;
 
         std::cout << "Distance: " << distance << std::endl;
 

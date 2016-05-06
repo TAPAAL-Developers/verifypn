@@ -176,7 +176,7 @@ void search_ctl_query(PetriNet* net,
                       PNMLParser::InhibitorArcList inhibitorarcs) {
 
     Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::CertainZeroFPA();
-    SearchStrategy::AbstractSearchStrategy *strategy = new SearchStrategy::DFSSearch();
+    SearchStrategy::AbstractSearchStrategy *strategy = new SearchStrategy::BasicSearchStrategy();
     PetriNets::OnTheFlyDG *graph = new PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
     auto wl = SearchStrategy::EdgeWaitingList<std::queue<DependencyGraph::Edge*, std::list<DependencyGraph::Edge*>>>();
 

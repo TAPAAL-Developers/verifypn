@@ -21,8 +21,9 @@ bool Algorithm::CertainZeroFPA::search(
     int r = strategy->pickTask(e, e, m, 0);
 
     while (r >= 0) {
+        assert(strategy->empty());
         //std::cout << "process edge " << e << std::endl;
-        assert(r == 0 || r == 1);   //no messages
+//        assert(r == 0 || r == 1);   //no messages
 
         if (v->isDone()) {
             break;
