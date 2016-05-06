@@ -20,7 +20,9 @@ bool Algorithm::CertainZeroFPA::search(
 
     int r = strategy->pickTask(e, e, m, 0);
 
+    int processed = 0;
     while (r >= 0) {
+        processed += 1;
         //std::cout << "process edge " << e << std::endl;
         assert(r == 0 || r == 1);   //no messages
 
@@ -28,7 +30,10 @@ bool Algorithm::CertainZeroFPA::search(
             break;
         }
 
-        //if (e->source->isDone() || e->is_deleted) continue;
+        if (e->source->isDone() || e->is_deleted) {
+            r = strategy->pickTask(e, e, m, 0);
+            continue;
+        }
 
         bool allOne = true;
         bool hasCZero = false;
@@ -84,6 +89,8 @@ bool Algorithm::CertainZeroFPA::search(
         }
         r = strategy->pickTask(e, e, m, 0);
     }
+
+    std::cout << "processed: " << processed << std::endl;
 
     return (v->assignment == ONE) ? true : false;
 }
