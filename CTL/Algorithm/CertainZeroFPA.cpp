@@ -22,8 +22,6 @@ bool Algorithm::CertainZeroFPA::search(
 
     int processed = 0;
     while (r >= 0) {
-        processed += 1;
-        //std::cout << "process edge " << e << std::endl;
         assert(r == 0 || r == 1);   //no messages
 
         if (v->isDone()) {

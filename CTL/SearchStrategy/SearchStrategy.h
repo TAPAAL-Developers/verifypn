@@ -22,7 +22,7 @@ struct Message {
 class AbstractSearchStrategy
 {
 public:
-    enum TaskType {UNAVAILABLE = 0, HYPEREDGE = 1, NEGATIONEDGE = 2, MESSAGE = 3};
+    enum TaskType {EMPTY = -1, UNAVAILABLE = 0, HYPEREDGE = 1, NEGATIONEDGE = 2, MESSAGE = 3};
 
     virtual bool empty() =0;
 
