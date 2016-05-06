@@ -1,5 +1,6 @@
-#ifndef CONFIGURATION_H
-#define CONFIGURATION_H
+#ifndef CONFIGURATION_H1
+#define CONFIGURATION_H1
+//TODO FIX GUARD
 
 #include "Edge.h"
 
@@ -17,8 +18,12 @@ enum Assignment {
 
 class Configuration
 {
+    unsigned int distance;
 public:
     typedef std::vector<Edge*> container_type;
+
+    unsigned int getDistance() const { return distance; }
+    void setDistance(unsigned int value) { distance = value; }
 
     Configuration() {}
     virtual ~Configuration() {
@@ -76,6 +81,7 @@ public:
     container_type dependency_set = container_type(0);
     bool is_negated = false;
 };
+
 
 }
 #endif // CONFIGURATION_H

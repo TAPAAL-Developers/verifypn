@@ -11,7 +11,7 @@ class DFSSearch : public AbstractSearchStrategy
 {
 public:
     DFSSearch() {}
-
+    virtual bool empty() override;
     virtual void pushEdge(DependencyGraph::Edge *edge) override;
     virtual void pushNegationEdge(DependencyGraph::Edge *edge) override;
     virtual void pushMessage(Message &message) override;

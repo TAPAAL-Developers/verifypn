@@ -3,6 +3,11 @@
 #include "assert.h"
 #include "DFSSearch.h"
 
+bool SearchStrategy::DFSSearch::empty()
+{
+    return W.empty();
+}
+
 void SearchStrategy::DFSSearch::pushEdge(DependencyGraph::Edge *edge)
 {
     W.push(edge);
