@@ -31,40 +31,39 @@ class BasicSearchStrategy : public AbstractSearchStrategy {
 public:
 
     virtual bool empty() { return W.empty() && N.empty() && M.empty(); }
-
+    virtual unsigned int maxDistance() { return N.empty() ? 0 : N.top()->source->getDistance();}
     virtual void pushEdge(DependencyGraph::Edge *edge) { W.push(edge);}
     virtual void pushNegationEdge(DependencyGraph::Edge *edge) { N.push(edge);}
     virtual void pushMessage(Message &message) {M.push(message);}
 
-    virtual int pickTask(DependencyGraph::Edge *&edge,
-                         DependencyGraph::Edge *&negationEdge,
-                         Message *&message,
-                         int distance) {
-        int result = M.empty() && N.empty() && W.empty() ? EMPTY : UNAVAILABLE;;
+    virtual TaskType pickTask(DependencyGraph::Edge *&edge,
+                         Message *&message) {}
+//    {
+//        int result = M.empty() && N.empty() && W.empty() ? EMPTY : UNAVAILABLE;;
 
-        std::cout << "Distance: " << distance << std::endl;
+//        std::cout << "Distance: " << distance << std::endl;
 
-        if(distance > 0 && !N.empty()){
-            negationEdge = N.top();
-            negationEdge->source->printConfiguration();
-            N.pop();
-            result = NEGATIONEDGE;
-        }
-        else if(!M.empty()){
-            *message = M.top();
-            std::cout << message->ToString() << std::endl;
-            M.pop();
-            result = MESSAGE;
-        }
-        else if(!W.empty()) {
-            edge = W.top();
-            edge->source->printConfiguration();
-            W.pop();
-            result = HYPEREDGE;
-        }
+//        if(!N.empty() && distance <= N.top()->source->getDistance()){
+//            negationEdge = N.top();
+//            negationEdge->source->printConfiguration();
+//            N.pop();
+//            result = NEGATIONEDGE;
+//        }
+//        else if(!M.empty()){
+//            *message = M.top();
+//            std::cout << message->ToString() << std::endl;
+//            M.pop();
+//            result = MESSAGE;
+//        }
+//        else if(!W.empty()) {
+//            edge = W.top();
+//            edge->source->printConfiguration();
+//            W.pop();
+//            result = HYPEREDGE;
+//        }
 
-        return result;
-    }
+//        return result;
+//    }
 };
 }
 #endif // BASICSEARCHSTRATEGY_H

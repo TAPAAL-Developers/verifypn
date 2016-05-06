@@ -1,11 +1,13 @@
-#ifndef EDGE_H
-#define EDGE_H
+#ifndef EDGE_H1
+#define EDGE_H1
+//TODO: Fix Guard
 
 #include <cstdio>
 #include <vector>
-#include "Configuration.h"
 
 namespace DependencyGraph {
+
+class Configuration;
 
 class Edge {
     typedef std::vector<Configuration*> container;
@@ -18,7 +20,7 @@ public:
 
     bool processed = false;
     bool is_deleted = false;
-    int rating = -1;
+    bool is_negated = false;
 };
 }
 #endif // EDGE_H

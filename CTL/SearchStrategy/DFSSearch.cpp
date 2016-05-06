@@ -8,12 +8,12 @@ bool SearchStrategy::DFSSearch::empty()
     return W.empty();
 }
 
-void SearchStrategy::DFSSearch::pushEdge(DependencyGraph::Edge *edge)
+unsigned int SearchStrategy::DFSSearch::maxDistance()
 {
-    W.push(edge);
+    return 0;
 }
 
-void SearchStrategy::DFSSearch::pushNegationEdge(DependencyGraph::Edge *edge)
+void SearchStrategy::DFSSearch::pushEdge(DependencyGraph::Edge *edge)
 {
     W.push(edge);
 }
@@ -24,16 +24,10 @@ void SearchStrategy::DFSSearch::pushMessage(SearchStrategy::Message &message)
     assert(false);
 }
 
-int SearchStrategy::DFSSearch::pickTask(DependencyGraph::Edge*& edge, DependencyGraph::Edge*& negationEdge, SearchStrategy::Message*& message, int distance)
+SearchStrategy::AbstractSearchStrategy::TaskType SearchStrategy::DFSSearch::pickTask(DependencyGraph::Edge*& edge, SearchStrategy::Message*& message)
 {
-    if (W.empty()) return -1;
-    DependencyGraph::Edge *e = W.top();
+    if (W.empty()) return EMPTY;
+    edge = W.top();
     W.pop();
-    if (e->source->is_negated) {
-        negationEdge = e;
-        return 1;
-    } else {
-        edge = e;
-        return 0;
-    }
+    return EDGE;
 }

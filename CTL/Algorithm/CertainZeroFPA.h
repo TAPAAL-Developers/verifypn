@@ -21,8 +21,8 @@ protected:
     DependencyGraph::BasicDependencyGraph *graph;
     SearchStrategy::AbstractSearchStrategy *strategy;
 
-    void finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
-    void explore(DependencyGraph::Configuration *c);
+    void finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a){};
+    void explore(DependencyGraph::Configuration *c){};
 };
 }
 #endif // CERTAINZEROFPA_H
