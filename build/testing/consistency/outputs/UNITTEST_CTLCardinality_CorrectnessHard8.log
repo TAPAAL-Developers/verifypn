@@ -1,0 +1,100 @@
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessHard/model.pnml
+[Model Parsing Start Time] 6.619
+[Model Parsing End Time] 7.336
+[No. Places] 4
+[No. Transitions] 5
+[Model Parsing Time] 0.717
+ 
+[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessHard/CTLCardinality.xml
+[Query Parsing Start Time] 7.365
+[Query Parsing End Time] 7.6
+[Query Parsing Time] 0.235
+ 
+[Total Evaluation Start Time] 7.628
+ 
+[Query Evaluation Start Time] 7.646
+[Formula] CorrectnessHard-EF-8
+[Query Result] TRUE 
+[Query Evaluation End Time] 7.699
+[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
+[No. Configurations] 0
+[No. Markings] 4
+[Query Evaluation Time] 0.053
+ 
+[Total Evaluation End Time] 7.721
+[Total Evaluation Time] 0.093
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessHard/model.pnml
+[Model Parsing Start Time] 6.087
+[Model Parsing End Time] 6.832
+[No. Places] 4
+[No. Transitions] 5
+[Model Parsing Time] 0.745
+ 
+[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessHard/CTLCardinality.xml
+[Query Parsing Start Time] 6.861
+[Query Parsing End Time] 7.114
+[Query Parsing Time] 0.253
+ 
+[Total Evaluation Start Time] 7.144
+ 
+[Query Evaluation Start Time] 7.162
+[Formula] CorrectnessHard-EF-8
+[Query Result] TRUE 
+[Query Evaluation End Time] 7.215
+[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
+[No. Configurations] 0
+[No. Markings] 4
+[Query Evaluation Time] 0.053
+ 
+[Total Evaluation End Time] 7.237
+[Total Evaluation Time] 0.093
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessHard/model.pnml
+[Model Parsing Start Time] 6.071
+[Model Parsing End Time] 6.784
+[No. Places] 4
+[No. Transitions] 5
+[Model Parsing Time] 0.713
+ 
+[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessHard/CTLCardinality.xml
+[Query Parsing Start Time] 6.813
+[Query Parsing End Time] 7.048
+[Query Parsing Time] 0.235
+ 
+[Total Evaluation Start Time] 7.078
+ 
+[Query Evaluation Start Time] 7.096
+[Formula] CorrectnessHard-EF-8
+[Query Result] TRUE 
+[Query Evaluation End Time] 7.148
+[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
+[No. Configurations] 0
+[No. Markings] 4
+[Query Evaluation Time] 0.052
+ 
+[Total Evaluation End Time] 7.169
+[Total Evaluation Time] 0.091
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessHard/model.pnml
+[Model Parsing Start Time] 5.676
+[Model Parsing End Time] 6.388
+[No. Places] 4
+[No. Transitions] 5
+[Model Parsing Time] 0.712
+ 
+[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessHard/CTLCardinality.xml
+[Query Parsing Start Time] 6.416
+[Query Parsing End Time] 6.636
+[Query Parsing Time] 0.22
+ 
+[Total Evaluation Start Time] 6.667
+ 
+[Query Evaluation Start Time] 6.686
+[Formula] CorrectnessHard-EF-8
+[Query Result] TRUE 
+[Query Evaluation End Time] 6.736
+[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
+[No. Configurations] 0
+[No. Markings] 4
+[Query Evaluation Time] 0.05
+ 
+[Total Evaluation End Time] 6.761
+[Total Evaluation Time] 0.094

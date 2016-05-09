@@ -1,0 +1,86 @@
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/model.pnml
+[Model Parsing Start Time] 6
+[Model Parsing End Time] 6.48
+[No. Places] 1
+[No. Transitions] 1
+[Model Parsing Time] 0.48
+ 
+[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/CTLCardinality.xml
+[Query Parsing Start Time] 6.506
+[Query Parsing End Time] 6.709
+[Query Parsing Time] 0.203
+ 
+[Total Evaluation Start Time] 6.737
+ 
+[Query Evaluation Start Time] 6.766
+[Formula] CorrectnessNet-EF-5
+[Query Result] FALSE 
+[Query Evaluation End Time] 6.817
+[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
+[No. Configurations] 0
+[No. Markings] 3
+[Query Evaluation Time] 0.051
+ 
+[Total Evaluation End Time] 6.839
+[Total Evaluation Time] 0.102
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/model.pnml
+[Model Parsing Start Time] 5.451
+[Model Parsing End Time] 5.895
+[No. Places] 1
+[No. Transitions] 1
+[Model Parsing Time] 0.444
+ 
+[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/CTLCardinality.xml
+[Query Parsing Start Time] 5.921
+[Query Parsing End Time] 6.12
+[Query Parsing Time] 0.199
+ 
+[Total Evaluation Start Time] 6.147
+ 
+[Query Evaluation Start Time] 6.172
+[Formula] CorrectnessNet-EF-5
+[Query Result] FALSE 
+[Query Evaluation End Time] 6.221
+[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
+[No. Configurations] 0
+[No. Markings] 3
+[Query Evaluation Time] 0.049
+ 
+[Total Evaluation End Time] 6.243
+[Total Evaluation Time] 0.096
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/model.pnml
+[Model Parsing Start Time] 5.988
+[Model Parsing End Time] 6.491
+[No. Places] 1
+[No. Transitions] 1
+[Model Parsing Time] 0.503
+ 
+[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/CTLCardinality.xml
+[Query Parsing Start Time] 6.517
+[Query Parsing End Time] 6.711
+[Query Parsing Time] 0.194
+ 
+[Total Evaluation Start Time] 6.738
+ 
+[Query Evaluation Start Time] 6.766
+[Formula] CorrectnessNet-EF-5
+[Query Result] FALSE 
+[Query Evaluation End Time] 6.82
+[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
+[No. Configurations] 0
+[No. Markings] 3
+[Query Evaluation Time] 0.054
+ 
+[Total Evaluation End Time] 6.843
+[Total Evaluation Time] 0.105
+-------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code.. Per user-direction, the job has been aborted.
+-------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[47105,1],2]
+  Exit code:    1
+--------------------------------------------------------------------------

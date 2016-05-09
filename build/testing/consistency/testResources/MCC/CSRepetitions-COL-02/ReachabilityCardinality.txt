@@ -1,0 +1,80 @@
+Property CSRepetitions-COL-02-ReachabilityCardinality-0
+  "Automatically generated"
+  is:
+    A G ((((((((#tokens("Server_Anwering_3_2", "Server_Anwering_1_2", "Server_Anwering_4_1", "Server_Anwering_3_1", "Server_Anwering_2_1", "Server_Anwering_1_1", "Server_Anwering_4_2", "Server_Anwering_2_2")) <= (#tokens("Server_Waiting_2", "Server_Waiting_1")))) & (((3) <= (#tokens("RequestBufferSlots")))))) | (((((#tokens("Server_Anwering_3_2", "Server_Anwering_1_2", "Server_Anwering_4_1", "Server_Anwering_3_1", "Server_Anwering_2_1", "Server_Anwering_1_1", "Server_Anwering_4_2", "Server_Anwering_2_2")) <= (#tokens("RequestBufferSlots")))) | (((1) <= (#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")))))))) | (((#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")) <= (#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")))))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-1
+  "Automatically generated"
+  is:
+    E F ((! ((((2) <= (#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")))) | (((1) <= (#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")))))) & (((! ((#tokens("RequestBufferSlots")) <= (#tokens("Client_Waiting_4", "Client_Waiting_3", "Client_Waiting_2", "Client_Waiting_1")))) & (((3) <= (#tokens("RequestBufferSlots")))))))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-2
+  "Automatically generated"
+  is:
+    A G ((((3) <= (#tokens("Server_Waiting_2", "Server_Waiting_1")))) | (((((((2) <= (#tokens("Client_Waiting_4", "Client_Waiting_3", "Client_Waiting_2", "Client_Waiting_1")))) & (((1) <= (#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")))))) | (((#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")) <= (#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")))))))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-3
+  "Automatically generated"
+  is:
+    E F ((((((((1) <= (#tokens("Server_Anwering_3_2", "Server_Anwering_1_2", "Server_Anwering_4_1", "Server_Anwering_3_1", "Server_Anwering_2_1", "Server_Anwering_1_1", "Server_Anwering_4_2", "Server_Anwering_2_2")))) & (((3) <= (#tokens("Client_Waiting_4", "Client_Waiting_3", "Client_Waiting_2", "Client_Waiting_1")))))) & (! ((#tokens("RequestBufferSlots")) <= (#tokens("RequestBufferSlots")))))) & (((3) <= (#tokens("RequestBufferSlots")))))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-4
+  "Automatically generated"
+  is:
+    A G ((#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")) <= (#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-5
+  "Automatically generated"
+  is:
+    E F ((((((#tokens("Server_Waiting_2", "Server_Waiting_1")) <= (#tokens("Server_Waiting_2", "Server_Waiting_1")))) & (! ((#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")) <= (#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")))))) & (((! ((#tokens("Client_Waiting_4", "Client_Waiting_3", "Client_Waiting_2", "Client_Waiting_1")) <= (#tokens("Server_Waiting_2", "Server_Waiting_1")))) & (! ((#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")) <= (#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")))))))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-6
+  "Automatically generated"
+  is:
+    A G ! ((3) <= (#tokens("Server_Waiting_2", "Server_Waiting_1")))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-7
+  "Automatically generated"
+  is:
+    A G ((#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")) <= (#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-8
+  "Automatically generated"
+  is:
+    A G ((((1) <= (#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")))) | (! ((((1) <= (#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")))) & (((2) <= (#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")))))))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-9
+  "Automatically generated"
+  is:
+    A G ! ! ! ((3) <= (#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-10
+  "Automatically generated"
+  is:
+    E F ((((#tokens("Server_Anwering_3_2", "Server_Anwering_1_2", "Server_Anwering_4_1", "Server_Anwering_3_1", "Server_Anwering_2_1", "Server_Anwering_1_1", "Server_Anwering_4_2", "Server_Anwering_2_2")) <= (#tokens("Server_Anwering_3_2", "Server_Anwering_1_2", "Server_Anwering_4_1", "Server_Anwering_3_1", "Server_Anwering_2_1", "Server_Anwering_1_1", "Server_Anwering_4_2", "Server_Anwering_2_2")))) & (((! ((#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")) <= (#tokens("RequestBufferSlots")))) & (((((3) <= (#tokens("RequestBufferSlots")))) & (((#tokens("RequestBufferSlots")) <= (#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")))))))))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-11
+  "Automatically generated"
+  is:
+    E F ((((((((3) <= (#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")))) | (((#tokens("RequestBufferSlots")) <= (#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")))))) & (((((1) <= (#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")))) | (((#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")) <= (#tokens("Server_Anwering_3_2", "Server_Anwering_1_2", "Server_Anwering_4_1", "Server_Anwering_3_1", "Server_Anwering_2_1", "Server_Anwering_1_1", "Server_Anwering_4_2", "Server_Anwering_2_2")))))))) & (! ((((#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")) <= (#tokens("Client_Waiting_4", "Client_Waiting_3", "Client_Waiting_2", "Client_Waiting_1")))) | (((#tokens("Server_Waiting_2", "Server_Waiting_1")) <= (#tokens("Server_Waiting_2", "Server_Waiting_1")))))))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-12
+  "Automatically generated"
+  is:
+    E F ((((((((3) <= (#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")))) | (((#tokens("Server_Waiting_2", "Server_Waiting_1")) <= (#tokens("Server_Waiting_2", "Server_Waiting_1")))))) & (((#tokens("Client_Waiting_4", "Client_Waiting_3", "Client_Waiting_2", "Client_Waiting_1")) <= (#tokens("Server_Anwering_3_2", "Server_Anwering_1_2", "Server_Anwering_4_1", "Server_Anwering_3_1", "Server_Anwering_2_1", "Server_Anwering_1_1", "Server_Anwering_4_2", "Server_Anwering_2_2")))))) & (((((3) <= (#tokens("Server_Waiting_2", "Server_Waiting_1")))) & (! ((#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")) <= (#tokens("Client_Waiting_4", "Client_Waiting_3", "Client_Waiting_2", "Client_Waiting_1")))))))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-13
+  "Automatically generated"
+  is:
+    E F ((! ! ((3) <= (#tokens("Server_Anwering_3_2", "Server_Anwering_1_2", "Server_Anwering_4_1", "Server_Anwering_3_1", "Server_Anwering_2_1", "Server_Anwering_1_1", "Server_Anwering_4_2", "Server_Anwering_2_2")))) & (! ((2) <= (#tokens("RequestBuffer_1", "RequestBuffer_2", "RequestBuffer_4", "RequestBuffer_3")))))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-14
+  "Automatically generated"
+  is:
+    A G ! ((((((3) <= (#tokens("Server_Waiting_2", "Server_Waiting_1")))) & (((#tokens("Server_Anwering_3_2", "Server_Anwering_1_2", "Server_Anwering_4_1", "Server_Anwering_3_1", "Server_Anwering_2_1", "Server_Anwering_1_1", "Server_Anwering_4_2", "Server_Anwering_2_2")) <= (#tokens("Client_Waiting_4", "Client_Waiting_3", "Client_Waiting_2", "Client_Waiting_1")))))) & (((((#tokens("RequestBufferSlots")) <= (#tokens("RequestBufferSlots")))) | (((3) <= (#tokens("Client_Sending_1", "Client_Sending_2", "Client_Sending_3", "Client_Sending_4")))))))
+  end.
+Property CSRepetitions-COL-02-ReachabilityCardinality-15
+  "Automatically generated"
+  is:
+    A G ((#tokens("Server_Anwering_3_2", "Server_Anwering_1_2", "Server_Anwering_4_1", "Server_Anwering_3_1", "Server_Anwering_2_1", "Server_Anwering_1_1", "Server_Anwering_4_2", "Server_Anwering_2_2")) <= (#tokens("Server_Anwering_3_2", "Server_Anwering_1_2", "Server_Anwering_4_1", "Server_Anwering_3_1", "Server_Anwering_2_1", "Server_Anwering_1_1", "Server_Anwering_4_2", "Server_Anwering_2_2")))
+  end.

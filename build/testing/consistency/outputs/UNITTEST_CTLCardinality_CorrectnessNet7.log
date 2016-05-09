@@ -1,0 +1,88 @@
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/model.pnml
+[Model Parsing Start Time] 5.975
+[Model Parsing End Time] 6.484
+[No. Places] 1
+[No. Transitions] 1
+[Model Parsing Time] 0.509
+ 
+[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/CTLCardinality.xml
+[Query Parsing Start Time] 6.513
+[Query Parsing End Time] 6.723
+[Query Parsing Time] 0.21
+ 
+[Total Evaluation Start Time] 6.751
+ 
+[Query Evaluation Start Time] 6.78
+[Formula] CorrectnessNet-AF-7
+[Query Result] FALSE 
+[Query Evaluation End Time] 6.831
+[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
+[No. Configurations] 0
+[No. Markings] 3
+[Query Evaluation Time] 0.051
+ 
+[Total Evaluation End Time] 6.853
+[Total Evaluation Time] 0.102
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/model.pnml
+[Model Parsing Start Time] 5.607
+[Model Parsing End Time] 6.061
+[No. Places] 1
+[No. Transitions] 1
+[Model Parsing Time] 0.454
+ 
+[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/CTLCardinality.xml
+[Query Parsing Start Time] 6.086
+[Query Parsing End Time] 6.295
+[Query Parsing Time] 0.209
+ 
+[Total Evaluation Start Time] 6.322
+ 
+[Query Evaluation Start Time] 6.348
+[Formula] CorrectnessNet-AF-7
+[Query Result] FALSE 
+[Query Evaluation End Time] 6.396
+[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
+[No. Configurations] 0
+[No. Markings] 3
+[Query Evaluation Time] 0.048
+ 
+[Total Evaluation End Time] 6.418
+[Total Evaluation Time] 0.096
+-------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code.. Per user-direction, the job has been aborted.
+-------------------------------------------------------
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/model.pnml
+[Model Parsing Start Time] 5.932
+[Model Parsing End Time] 6.402
+[No. Places] 1
+[No. Transitions] 1
+[Model Parsing Time] 0.47
+ 
+[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/CTLCardinality.xml
+[Query Parsing Start Time] 6.429
+[Query Parsing End Time] 6.644
+[Query Parsing Time] 0.215
+ 
+[Total Evaluation Start Time] 6.674
+ 
+[Query Evaluation Start Time] 6.702
+[Formula] CorrectnessNet-AF-7
+[Query Result] FALSE 
+[Query Evaluation End Time] 6.753
+[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
+[No. Configurations] 0
+[No. Markings] 3
+[Query Evaluation Time] 0.051
+ 
+[Total Evaluation End Time] 6.776
+[Total Evaluation Time] 0.102
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/model.pnml
+[Model Parsing Start Time] 5.519
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[47123,1],1]
+  Exit code:    1
+--------------------------------------------------------------------------

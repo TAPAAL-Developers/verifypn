@@ -1,0 +1,100 @@
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessSimple/model.pnml
+[Model Parsing Start Time] 6.425
+[Model Parsing End Time] 7.033
+[No. Places] 2
+[No. Transitions] 2
+[Model Parsing Time] 0.608
+ 
+[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessSimple/CTLCardinality.xml
+[Query Parsing Start Time] 7.059
+[Query Parsing End Time] 7.303
+[Query Parsing Time] 0.244
+ 
+[Total Evaluation Start Time] 7.331
+ 
+[Query Evaluation Start Time] 7.349
+[Formula] CorrectnessSimple-EX-3
+[Query Result] TRUE 
+[Query Evaluation End Time] 7.397
+[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
+[No. Configurations] 0
+[No. Markings] 2
+[Query Evaluation Time] 0.048
+ 
+[Total Evaluation End Time] 7.42
+[Total Evaluation Time] 0.089
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessSimple/model.pnml
+[Model Parsing Start Time] 5.626
+[Model Parsing End Time] 6.193
+[No. Places] 2
+[No. Transitions] 2
+[Model Parsing Time] 0.567
+ 
+[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessSimple/CTLCardinality.xml
+[Query Parsing Start Time] 6.22
+[Query Parsing End Time] 6.458
+[Query Parsing Time] 0.238
+ 
+[Total Evaluation Start Time] 6.487
+ 
+[Query Evaluation Start Time] 6.504
+[Formula] CorrectnessSimple-EX-3
+[Query Result] TRUE 
+[Query Evaluation End Time] 6.554
+[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
+[No. Configurations] 0
+[No. Markings] 2
+[Query Evaluation Time] 0.05
+ 
+[Total Evaluation End Time] 6.577
+[Total Evaluation Time] 0.09
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessSimple/model.pnml
+[Model Parsing Start Time] 6.101
+[Model Parsing End Time] 6.663
+[No. Places] 2
+[No. Transitions] 2
+[Model Parsing Time] 0.562
+ 
+[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessSimple/CTLCardinality.xml
+[Query Parsing Start Time] 6.69
+[Query Parsing End Time] 6.93
+[Query Parsing Time] 0.24
+ 
+[Total Evaluation Start Time] 6.958
+ 
+[Query Evaluation Start Time] 6.974
+[Formula] CorrectnessSimple-EX-3
+[Query Result] TRUE 
+[Query Evaluation End Time] 7.024
+[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
+[No. Configurations] 0
+[No. Markings] 2
+[Query Evaluation Time] 0.05
+ 
+[Total Evaluation End Time] 7.046
+[Total Evaluation Time] 0.088
+[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessSimple/model.pnml
+[Model Parsing Start Time] 5.692
+[Model Parsing End Time] 6.264
+[No. Places] 2
+[No. Transitions] 2
+[Model Parsing Time] 0.572
+ 
+[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessSimple/CTLCardinality.xml
+[Query Parsing Start Time] 6.293
+[Query Parsing End Time] 6.56
+[Query Parsing Time] 0.267
+ 
+[Total Evaluation Start Time] 6.591
+ 
+[Query Evaluation Start Time] 6.608
+[Formula] CorrectnessSimple-EX-3
+[Query Result] TRUE 
+[Query Evaluation End Time] 6.655
+[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
+[No. Configurations] 0
+[No. Markings] 2
+[Query Evaluation Time] 0.047
+ 
+[Total Evaluation End Time] 6.683
+[Total Evaluation Time] 0.092

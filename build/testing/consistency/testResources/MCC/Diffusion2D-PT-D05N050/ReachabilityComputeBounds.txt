@@ -1,0 +1,80 @@
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-0
+  "Automatically generated"
+  is:
+    bound("cAMP__2_3_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-1
+  "Automatically generated"
+  is:
+    bound("cAMP__3_4_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-2
+  "Automatically generated"
+  is:
+    bound("cAMP__4_1_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-3
+  "Automatically generated"
+  is:
+    bound("cAMP__1_1_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-4
+  "Automatically generated"
+  is:
+    bound("cAMP__3_1_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-5
+  "Automatically generated"
+  is:
+    bound("cAMP__3_3_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-6
+  "Automatically generated"
+  is:
+    bound("cAMP__5_5_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-7
+  "Automatically generated"
+  is:
+    bound("cAMP__2_2_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-8
+  "Automatically generated"
+  is:
+    bound("cAMP__5_1_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-9
+  "Automatically generated"
+  is:
+    bound("cAMP__1_5_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-10
+  "Automatically generated"
+  is:
+    bound("cAMP__1_2_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-11
+  "Automatically generated"
+  is:
+    bound("cAMP__2_4_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-12
+  "Automatically generated"
+  is:
+    bound("cAMP__1_1_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-13
+  "Automatically generated"
+  is:
+    bound("cAMP__3_1_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-14
+  "Automatically generated"
+  is:
+    bound("cAMP__5_1_")
+  end.
+Property Diffusion2D-PT-D05N050-ReachabilityComputeBounds-15
+  "Automatically generated"
+  is:
+    bound("cAMP__4_3_")
+  end.
