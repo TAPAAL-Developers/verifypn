@@ -12,9 +12,8 @@ OUTPUTFILE=$9
 
 MPIRUN=""
 
-if [ "$ALG" == "dist" ];
-then
-    $MPIRUN = "mpirun -np 4"
+if [ "$ALG" == "dist" ]; then 
+    MPIRUN="mpirun -np 4"
 fi
 
 { $TIMEOUTTOOL $TIMEOUT $MPIRUN $REPOSITORY/$EXECUTABLE $RESOURCESFOLDER/$MODEL/model.pnml $RESOURCESFOLDER/$MODEL/CTLCardinality.xml -ctl $ALG -s DFS -x $i -p test; } >> $OUTPUTFILE 2>&1
