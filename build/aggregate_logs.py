@@ -1,6 +1,6 @@
 import sys
-from output_parsing import parse                      # NEW paser 
-#from analysis.csv.log_file_parsing import parse      # OLD paser
+#from output_parsing import parse                      # NEW paser 
+from analysis.csv.log_file_parsing import parse      # OLD paser
 import csv
 import os
 

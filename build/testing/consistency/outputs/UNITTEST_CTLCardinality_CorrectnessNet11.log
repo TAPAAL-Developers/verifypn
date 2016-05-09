@@ -1,111 +1,25 @@
 [Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/model.pnml
-[Model Parsing Start Time] 6.098
-[Model Parsing End Time] 6.584
+[Model Parsing Start Time] 5.78
+[Model Parsing End Time] 6.242
 [No. Places] 1
 [No. Transitions] 1
-[Model Parsing Time] 0.486
+[Model Parsing Time] 0.462
  
 [Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/CTLCardinality.xml
-[Query Parsing Start Time] 6.609
-[Query Parsing End Time] 6.826
-[Query Parsing Time] 0.217
+[Query Parsing Start Time] 6.255
+[Query Parsing End Time] 6.452
+[Query Parsing Time] 0.197
  
-[Total Evaluation Start Time] 6.854
+[Total Evaluation Start Time] 6.474
  
-[Query Evaluation Start Time] 6.881
+[Query Evaluation Start Time] 6.497
 [Formula] CorrectnessNet-EU-11
 [Query Result] FALSE 
-[Query Evaluation End Time] 6.934
+[Query Evaluation End Time] 6.588
 [Techniques] SEQUENTIAL_PROCESSING EXPLICIT
 [No. Configurations] 0
 [No. Markings] 3
-[Query Evaluation Time] 0.053
+[Query Evaluation Time] 0.091
  
-[Total Evaluation End Time] 6.956
-[Total Evaluation Time] 0.102
-[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/model.pnml
-[Model Parsing Start Time] 5.554
-[Model Parsing End Time] 5.967
-[No. Places] 1
-[No. Transitions] 1
-[Model Parsing Time] 0.413
- 
-[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/CTLCardinality.xml
-[Query Parsing Start Time] 5.99
-[Query Parsing End Time] 6.189
-[Query Parsing Time] 0.199
- 
-[Total Evaluation Start Time] 6.216
- 
-[Query Evaluation Start Time] 6.242
-[Formula] CorrectnessNet-EU-11
-[Query Result] FALSE 
-[Query Evaluation End Time] 6.287
-[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
-[No. Configurations] 0
-[No. Markings] 3
-[Query Evaluation Time] 0.045
- 
-[Total Evaluation End Time] 6.309
-[Total Evaluation Time] 0.093
-[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/model.pnml
-[Model Parsing Start Time] 5.949
-[Model Parsing End Time] 6.426
-[No. Places] 1
-[No. Transitions] 1
-[Model Parsing Time] 0.477
- 
-[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/CTLCardinality.xml
-[Query Parsing Start Time] 6.452
-[Query Parsing End Time] 6.659
-[Query Parsing Time] 0.207
- 
-[Total Evaluation Start Time] 6.687
- 
-[Query Evaluation Start Time] 6.716
-[Formula] CorrectnessNet-EU-11
-[Query Result] FALSE 
-[Query Evaluation End Time] 6.768
-[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
-[No. Configurations] 0
-[No. Markings] 3
-[Query Evaluation Time] 0.052
- 
-[Total Evaluation End Time] 6.79
-[Total Evaluation Time] 0.103
-[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/model.pnml
-[Model Parsing Start Time] 5.454
-[Model Parsing End Time] 5.889
-[No. Places] 1
-[No. Transitions] 1
-[Model Parsing Time] 0.435
- 
-[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessNet/CTLCardinality.xml
-[Query Parsing Start Time] 5.914
-[Query Parsing End Time] 6.113
-[Query Parsing Time] 0.199
- 
-[Total Evaluation Start Time] 6.139
- 
-[Query Evaluation Start Time] 6.168
-[Formula] CorrectnessNet-EU-11
-[Query Result] FALSE 
-[Query Evaluation End Time] 6.215
-[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
-[No. Configurations] 0
-[No. Markings] 3
--------------------------------------------------------
-Primary job  terminated normally, but 1 process returned
-a non-zero exit code.. Per user-direction, the job has been aborted.
--------------------------------------------------------
-[Query Evaluation Time] 0.047
- 
-[Total Evaluation End Time] 6.238
-[Total Evaluation Time] 0.099
---------------------------------------------------------------------------
-mpirun detected that one or more processes exited with non-zero status, thus causing
-the job to be terminated. The first process to do so was:
-
-  Process name: [[47223,1],2]
-  Exit code:    1
---------------------------------------------------------------------------
+[Total Evaluation End Time] 6.605
+[Total Evaluation Time] 0.131

@@ -1,61 +1,25 @@
 [Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessHard/model.pnml
-[Model Parsing Start Time] 6.074
-[Model Parsing End Time] 6.794
+[Model Parsing Start Time] 5.91
+[Model Parsing End Time] 6.736
 [No. Places] 4
 [No. Transitions] 5
-[Model Parsing Time] 0.72
+[Model Parsing Time] 0.826
  
 [Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessHard/CTLCardinality.xml
-[Query Parsing Start Time] 6.822
-[Query Parsing End Time] 7.066
-[Query Parsing Time] 0.244
+[Query Parsing Start Time] 6.755
+[Query Parsing End Time] 7.01
+[Query Parsing Time] 0.255
  
-[Total Evaluation Start Time] 7.095
+[Total Evaluation Start Time] 7.037
  
-[Query Evaluation Start Time] 7.114
+[Query Evaluation Start Time] 7.051
 [Formula] CorrectnessHard-AU-11
 [Query Result] FALSE 
-[Query Evaluation End Time] 7.172
+[Query Evaluation End Time] 7.168
 [Techniques] SEQUENTIAL_PROCESSING EXPLICIT
 [No. Configurations] 0
 [No. Markings] 3
-[Query Evaluation Time] 0.058
+[Query Evaluation Time] 0.117
  
-[Total Evaluation End Time] 7.194
-[Total Evaluation Time] 0.099
-[Path To Model] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessHard/model.pnml
-[Model Parsing Start Time] 5.512
-[Model Parsing End Time] 6.228
-[No. Places] 4
-[No. Transitions] 5
-[Model Parsing Time] 0.716
- 
-[Path To Query] ../../../build/testing/consistency/testResources/CTLUnitTest/CorrectnessHard/CTLCardinality.xml
-[Query Parsing Start Time] 6.254
-[Query Parsing End Time] 6.519
-[Query Parsing Time] 0.265
- 
-[Total Evaluation Start Time] 6.547
- 
-[Query Evaluation Start Time] 6.564
-[Formula] CorrectnessHard-AU-11
-[Query Result] FALSE 
-[Query Evaluation End Time] 6.618
-[Techniques] SEQUENTIAL_PROCESSING EXPLICIT
-[No. Configurations] 0
-[No. Markings] 3
-[Query Evaluation Time] 0.054
- 
-[Total Evaluation End Time] 6.641
-[Total Evaluation Time] 0.094
--------------------------------------------------------
-Primary job  terminated normally, but 1 process returned
-a non-zero exit code.. Per user-direction, the job has been aborted.
--------------------------------------------------------
---------------------------------------------------------------------------
-mpirun detected that one or more processes exited with non-zero status, thus causing
-the job to be terminated. The first process to do so was:
-
-  Process name: [[47561,1],1]
-  Exit code:    1
---------------------------------------------------------------------------
+[Total Evaluation End Time] 7.187
+[Total Evaluation Time] 0.15

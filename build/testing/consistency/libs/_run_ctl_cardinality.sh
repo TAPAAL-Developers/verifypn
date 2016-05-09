@@ -10,5 +10,11 @@ RESOURCESFOLDER=$7
 i=$8
 OUTPUTFILE=$9
 
+MPIRUN=""
 
-{ $TIMEOUTTOOL $TIMEOUT mpirun -np 4 $REPOSITORY/$EXECUTABLE $RESOURCESFOLDER/$MODEL/model.pnml $RESOURCESFOLDER/$MODEL/CTLCardinality.xml -ctl $ALG -s DFS -x $i -p test; } >> $OUTPUTFILE 2>&1
+if [ "$ALG" == "dist" ];
+then
+    $MPIRUN = "mpirun -np 4"
+fi
+
+{ $TIMEOUTTOOL $TIMEOUT $MPIRUN $REPOSITORY/$EXECUTABLE $RESOURCESFOLDER/$MODEL/model.pnml $RESOURCESFOLDER/$MODEL/CTLCardinality.xml -ctl $ALG -s DFS -x $i -p test; } >> $OUTPUTFILE 2>&1
