@@ -1,6 +1,9 @@
 #ifndef COMMUNICATOR_H
 #define COMMUNICATOR_H
 
+#include "../SearchStrategy/SearchStrategy.h"
+#include "token.h"
+
 class Communicator
 {
 public:
@@ -11,17 +14,22 @@ public:
     virtual int size() =0;
 
     //Send methods
-    virtual void sendMessage(int receiver, int *message, int messageSize) =0;
-    virtual void sendToken(int receiver, int *token, int tokenSize);
-    virtual void sendDistance(int receiver, int distance);
+    virtual void sendMessage(int receiver, SearchStrategy::Message &m) =0;
+    virtual void sendToken(int receiver, Token &t) =0;
+    virtual void sendDistance(int receiver, int distance) =0;
 
     //Receive methods
-    virtual bool recvMessage(int &sender, int *message, int &messageSize) =0;
-    virtual bool recvToken(int &sender, int *token, int &tokenSize) =0;
-    virtual bool recvDistance(int &sender, int &distance);
+    //first element of the pair is always a sender id. If the id is negative, the opration
+    //was not successful
+    virtual std::pair<int, SearchStrategy::Message*> recvMessage() =0;
+    virtual std::pair<int, Token> recvToken(int source) =0;
+    virtual std::pair<int, int> recvDistance() =0;
 
     //Broadcast
-    virtual void broadcastDistance(int sender, int *message) =0;
+    //blocking broadcast - when this method returns, distance
+    //variable on wevery worker contains the value which was
+    //originally on the sender node.
+    virtual void broadcastDistance(int sender, int &distance) =0;
 };
 
 #endif // COMMUNICATOR_H

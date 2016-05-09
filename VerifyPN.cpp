@@ -62,7 +62,6 @@
 #include "CTL/DependencyGraph/AbstractDependencyGraphs.h"
 #include "CTL/PetriNets/OnTheFlyDG.h"
 
-#include "CTL/SearchStrategy/AbstractSearchStrategy.h"
 #include "CTL/SearchStrategy/DFSSearch.h"
 #include "CTL/SearchStrategy/SearchStrategy.h"
 #include "CTL/SearchStrategy/WaitingList.h"

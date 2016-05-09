@@ -8,11 +8,6 @@ bool SearchStrategy::DFSSearch::empty()
     return W.empty();
 }
 
-unsigned int SearchStrategy::DFSSearch::maxDistance()
-{
-    return 0;
-}
-
 void SearchStrategy::DFSSearch::pushEdge(DependencyGraph::Edge *edge)
 {
     W.push(edge);
