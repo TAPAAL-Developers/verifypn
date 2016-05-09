@@ -12,10 +12,22 @@
  */
 
 #include <string>
-#include <stdexcept>
+#include <stdexcept> 
+#include <sstream>
 
 #include "EvaluateableProposition.h"
 #include "CTLParser.h"
+
+namespace patch
+{
+    //A replacement for the standard to string function, which we cannot use because old OS X does not have c++11
+    template < typename T > std::string to_string( const T& n )
+    {
+        std::ostringstream stm ;
+        stm << n ;
+        return stm.str() ;
+    }
+}
 
 EvaluateableProposition::EvaluateableProposition(std::string a, PetriEngine::PetriNet *net) {
     if(a.substr(0,2).compare("in") == 0 || a.substr(0,2).compare("to") == 0){
@@ -94,12 +106,10 @@ void EvaluateableProposition::SetFireset(std::string fireset_str, std::vector<st
 
 CardinalityParameter* EvaluateableProposition::CreateParameter(std::string parameter_str, std::vector<std::string> p_names, unsigned int numberof_p){
     CardinalityParameter *param = new CardinalityParameter();
-    std::string::size_type sz;
-    try{
-        param->value = std::stoi(parameter_str,&sz);
+    std::string::size_type sz;    
+    if(sscanf(parameter_str.c_str(), "%d", &param->value) != EOF) {
         param->isPlace = false;
-    }
-    catch (const std::invalid_argument& e) {
+    } else {    //error
         param->isPlace = true;
         for(int i = 0; i < numberof_p; i++){
             if(parameter_str.compare(p_names[i]) == 0){
@@ -127,23 +137,23 @@ std::string EvaluateableProposition::ToString() {
     if (_type == FIREABILITY) {
         std::string fire_str = "Fireset(";
         for(auto f : _fireset){
-            fire_str = fire_str + " " + std::to_string(f);
+            fire_str = fire_str + " " + patch::to_string(f);
         }
         return fire_str + ")";
     }
     else if (_type == CARDINALITY){
         std::string cardi_str = "(";
         if(_firstParameter->isPlace)
-            cardi_str = cardi_str + "place(" + std::to_string(_firstParameter->value) + ")";
+            cardi_str = cardi_str + "place(" + patch::to_string(_firstParameter->value) + ")";
         else
-            cardi_str = cardi_str = std::to_string(_firstParameter->value);
+            cardi_str = cardi_str = patch::to_string(_firstParameter->value);
         
         cardi_str = cardi_str + " le ";
         
         if(_secondParameter->isPlace)
-            cardi_str = cardi_str + "place(" + std::to_string(_secondParameter->value) + ")";
+            cardi_str = cardi_str + "place(" + patch::to_string(_secondParameter->value) + ")";
         else
-            cardi_str = cardi_str = std::to_string(_secondParameter->value);
+            cardi_str = cardi_str = patch::to_string(_secondParameter->value);
         return cardi_str + ")";
     }
     else

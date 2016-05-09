@@ -91,6 +91,9 @@ CTLQuery* CTLParser_v2::TemporalSetting(CTLQuery* query) {
             query->SetFirstChild(TemporalSetting(query->GetFirstChild()));
         }
         return query;
+    } else {
+        //this should not happen
+        assert(false);
     }
 }
 
