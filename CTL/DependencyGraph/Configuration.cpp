@@ -52,12 +52,12 @@ void DependencyGraph::Configuration::updateInterest(int worker, long id)
         if (interested[i].first == worker) {
             found = true;
             if (abs(interested[i].second) < abs(id)) {
-                interested[i] = std::pair(worker, id);
+                interested[i] = std::pair<int, long>(worker, id);
             }
         }
     }
     if (!found) {
-        interested.push_back(std::pair(worker, id));
+        interested.push_back(std::pair<int, long>(worker, id));
     }
 }
 

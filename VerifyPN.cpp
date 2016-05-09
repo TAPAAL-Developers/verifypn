@@ -228,7 +228,7 @@ void search_ctl_query(PetriNet* net,
             result[t_xmlquery - 1] = FailedCode;
         else result[t_xmlquery - 1] = ErrorCode;
 
-        queryList[t_xmlquery - 1]->pResult();
+        queryList[t_xmlquery - 1]->Result;
     }
     else{
         for (int i = 0; i < 16 ; i++) {
@@ -256,7 +256,7 @@ void search_ctl_query(PetriNet* net,
             else if (!res)
                 result[i] = FailedCode;
             else result[i] = ErrorCode;
-            queryList[i]->pResult();
+            queryList[i]->Result;
             cout << endl;
         }
    }

@@ -49,46 +49,21 @@ struct Atom {
 };
 
 struct CTLTree {
-  Quantifier quantifier;
-  Path path;
-  CTLTree *first;
-  CTLTree *second;
+  Quantifier quantifier = EMPTY;
+  Path path = pError;
+  CTLTree *first = nullptr;
+  CTLTree *second = nullptr;
   Atom a;
   unsigned int depth;
   unsigned int max_depth;
+  unsigned int id;
   bool isTemporal;
 } ;
 
 struct CTLFormula {
     char* Name;
     bool Result;
-    std::vector<std::string>* Techniques;
     CTLTree* Query;
-
-    std::string boolToString(){
-        if(Result)
-            return " TRUE ";
-        else if (!Result)
-            return " FALSE ";
-        else
-            return " ERROR ";
-    }
-
-    //MCC2015 result printer
-    void pResult(){
-        std::cout << "FORMULA "
-                  << Name
-                  << boolToString()
-                  << "TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT";
-
-        for(std::vector<std::string>::const_iterator iter = Techniques->begin();
-            iter != Techniques->end();
-            iter++ )
-        {
-            std::cout << *iter << " ";
-        }
-        std::cout << std::endl;
-    }
 };
 
 class CTLParser {
@@ -104,6 +79,7 @@ private:
     PetriEngine::PetriNet* _net;
     bool isAG = false;
     bool isEG = false;
+    unsigned int _id_sequence;
     int numberoftransitions;
     unsigned int lowerDepth(unsigned int a, unsigned int b);
     unsigned int higherDepth(unsigned int a, unsigned int b);

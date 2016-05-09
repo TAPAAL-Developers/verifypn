@@ -7,16 +7,17 @@
 namespace SearchStrategy {
 
 struct Message {    
+    int sender;
     enum Type {HALT = 0, REQUEST = 1, ANSWER_ONE = 2, ANSWER_ZERO = 3} type;
     unsigned long id;
     DependencyGraph::Configuration *configuration;
 
-    Message(Type type, unsigned long id, DependencyGraph::Configuration *configuration) :
-           type(type), id(id), configuration(configuration) {}
+    Message(int sender, Type type, unsigned long id, DependencyGraph::Configuration *configuration) :
+           sender(sender), type(type), id(id), configuration(configuration) {}
 
     std::string ToString() {
         std::stringstream ss;
-        ss << "Message: ";
+        ss << "Message from " << sender << ": ";
         ss << (type == HALT ? "Halt" : type == REQUEST ? "Request" : type == ANSWER_ONE ? "Answer 1" : "Answer 0");
         ss << configuration << "\n";
         return ss.str();

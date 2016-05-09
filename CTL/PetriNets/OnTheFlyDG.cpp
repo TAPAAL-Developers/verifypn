@@ -507,6 +507,61 @@ void OnTheFlyDG::cleanUp()
     markings.insert(initial_marking);
 }
 
+std::pair<int, int *> OnTheFlyDG::serialize(SearchStrategy::Message &m)
+{
+    //message structure: sender | type | id | query_id | configuration;
+    PetriConfig *v = static_cast<PetriConfig*>(m.configuration);
+    int size = v->marking->length() + 4;
+    int *buffer = (int*) malloc(sizeof(int) * size);
+    buffer[0] = m.sender;
+    buffer[1] = m.type;
+    buffer[2] = m.id;
+    buffer[3] = v->query->id;
+    for (int i=0; i<v->marking->length(); i++) {
+        buffer[i+4] = v->marking->value()[i];
+    }
+    return std::pair<int, int*>(size, buffer);
+}
+
+SearchStrategy::Message OnTheFlyDG::deserialize(int *message, int messageSize)
+{
+    int *markingStart = message + 4;
+    Marking *marking = new Marking((PetriEngine::MarkVal*) markingStart, messageSize - 4);
+
+    auto result = markings.find(marking);
+
+    if(result == markings.end()){
+        marking = *(markings.insert(marking).first);
+    }
+    else{
+        delete marking;
+    }
+
+    CTLTree *query = findQueryById(message[3], this->query);
+    assert(query != nullptr);
+
+    Configuration *c = createConfiguration(*marking, *query);
+
+    SearchStrategy::Message m(message[0], (SearchStrategy::Message::Type) message[1], message[2], c);
+    return m;
+}
+
+CTLTree *OnTheFlyDG::findQueryById(int id, CTLTree *root)
+{
+    CTLTree * result = nullptr;
+    if (root->id == id) {
+        result = root;
+    } else if (root->quantifier != EMPTY) {
+        if (root->first != nullptr) {
+            result = findQueryById(id, root->first);
+        }
+        if (root->second != nullptr && result == nullptr) {
+            result = findQueryById(id, root->second);
+        }
+    }
+    return result;
+}
+
 void OnTheFlyDG::setQuery(CTLTree *query)
 {
     this->query = query;

@@ -19,10 +19,12 @@
 using namespace rapidxml;
 
 CTLParser::CTLParser() {
+    _id_sequence = 0;
 }
 
 CTLParser::CTLParser(PetriEngine::PetriNet* net) {
     _net = net;
+    _id_sequence = 0;
 }
 
 CTLParser::CTLParser(const CTLParser& orig) {
@@ -65,7 +67,6 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[])
         queryList[i]->Name = strcpy((char*)calloc(size, sizeof(char)*size),
                                     id_node->value());
         queryList[i]->Result = false;
-        queryList[i]->Techniques = new std::vector<std::string>();
 
         //Fill list with individual queries
         xml_node<> * formula_node = id_node->next_sibling("description")->next_sibling("formula");
@@ -82,6 +83,9 @@ CTLTree* CTLParser::xmlToCTLquery(xml_node<> * root) {
     bool isA = false;
     bool isE = false;
     CTLTree *query = (CTLTree*)malloc(sizeof(CTLTree));
+    memset(query, 0, sizeof(CTLTree));
+    query->id = _id_sequence;
+    _id_sequence++;
     char *root_name = root->name();
     char firstLetter = root_name[0];
     
@@ -441,7 +445,13 @@ int CTLParser::countNumberofDependencies(int t_index){
 void CTLParser::createAGquery(xml_node<> * root, CTLTree *query){
     //Function for converting AG to !EF!
     CTLTree *query1 = (CTLTree*)malloc(sizeof(CTLTree));
+    memset(query1, 0, sizeof(CTLTree));
+    query1->id = _id_sequence;
+    _id_sequence++;
     CTLTree *query2 = (CTLTree*)malloc(sizeof(CTLTree));
+    memset(query2, 0, sizeof(CTLTree));
+    query2->id = _id_sequence;
+    _id_sequence++;
 
     //Set the first operator to neg
     query->quantifier = NEG;
@@ -474,7 +484,13 @@ void CTLParser::createAGquery(xml_node<> * root, CTLTree *query){
 void CTLParser::createEGquery(xml_node<> * root, CTLTree *query){
     //Function for converting EG to !AF!
     CTLTree *query1 = (CTLTree*)malloc(sizeof(CTLTree));
+    memset(query1, 0, sizeof(CTLTree));
+    query1->id = _id_sequence;
+    _id_sequence++;
     CTLTree *query2 = (CTLTree*)malloc(sizeof(CTLTree));
+    memset(query2, 0, sizeof(CTLTree));
+    query2->id = _id_sequence;
+    _id_sequence++;
     
     //Set the first operator to neg
     query->quantifier = NEG;

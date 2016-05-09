@@ -4,6 +4,7 @@
 #include "../DependencyGraph/AbstractDependencyGraphs.h"
 #include "../DependencyGraph/Configuration.h"
 #include "../DependencyGraph/Edge.h"
+#include "../Communicator/Serializer.h"
 #include "../../CTLParser/CTLParser.h"
 #include "PetriConfig.h"
 #include "Marking.h"
@@ -14,7 +15,7 @@
 
 namespace PetriNets {
 
-class OnTheFlyDG : public DependencyGraph::BasicDependencyGraph
+class OnTheFlyDG : public DependencyGraph::BasicDependencyGraph, public Serializer
 {
 public:
     OnTheFlyDG(PetriEngine::PetriNet *t_net,
@@ -23,9 +24,14 @@ public:
 
     virtual ~OnTheFlyDG();
 
+    //Dependency graph interface
     virtual void successors(DependencyGraph::Configuration *c) override;
     virtual DependencyGraph::Configuration *initialConfiguration() override;
     virtual void cleanUp() override;
+
+    //Serializer interface
+    virtual std::pair<int, int*> serialize(SearchStrategy::Message &m) override;
+    virtual SearchStrategy::Message deserialize(int* message, int messageSize) override;
 
     void setQuery(CTLTree* query);
 
@@ -51,6 +57,8 @@ protected:
     std::list<int> calculateFireableTransistions(Marking &marking);
     DependencyGraph::Configuration *createConfiguration(Marking &marking, CTLTree &query);
     Marking *createMarking(const Marking &marking, int t_transition);
+
+    CTLTree *findQueryById(int id, CTLTree *root);
 
     std::unordered_set< Marking*,
                         std::hash<Marking*>,

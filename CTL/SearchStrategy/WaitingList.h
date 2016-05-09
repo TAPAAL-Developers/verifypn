@@ -4,8 +4,6 @@
 #include <stack>
 #include <queue>
 
-class DependencyGraph::Edge;
-
 namespace SearchStrategy {
 
 struct Message;

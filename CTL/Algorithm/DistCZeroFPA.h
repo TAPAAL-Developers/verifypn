@@ -28,10 +28,10 @@ protected:
     //Negation priority queue
     struct edge_prioritizer{
         bool operator()(const DependencyGraph::Edge *lhs, const DependencyGraph::Edge *rhs) const {
-            return (lhs->source->distance > rhs->source->distance);
+            return (lhs->source->getDistance() > rhs->source->getDistance());
         }
     };
-    typedef std::priority_queue<Edge*, std::vector<Edge*>, Algorithm::DistCZeroFPA::edge_prioritizer> PriorityQueue;
+    typedef std::priority_queue<DependencyGraph::Edge*, std::vector<DependencyGraph::Edge*>, Algorithm::DistCZeroFPA::edge_prioritizer> PriorityQueue;
 
     DependencyGraph::BasicDependencyGraph *graph = nullptr;
     DependencyGraph::Configuration *v = nullptr;
@@ -50,7 +50,7 @@ protected:
     void finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment value);
     void explore(DependencyGraph::Configuration *c);   
     void halt(DependencyGraph::Configuration *c);
-    void processMessage(int sender, SearchStrategy::Message *m);
+    void processMessage(SearchStrategy::Message *m);
     void processHyperEdge(DependencyGraph::Edge *e);
     void processNegationEdge(DependencyGraph::Edge *e);
     bool terminationDetection();

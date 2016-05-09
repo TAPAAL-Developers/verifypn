@@ -536,6 +536,7 @@ std::string DistCZeroFPA::to_string(T head, Ts... tail)
 
 
 #include "DistCZeroFPA.h"
+#include "assert.h"
 
 using namespace SearchStrategy;
 using namespace DependencyGraph;
@@ -548,7 +549,7 @@ void Algorithm::DistCZeroFPA::finalAssign(Configuration *c, Assignment value)
         //Notify everyone else that v is done, bypassing termination
         for (int i = 0; i < comm->size(); i++){
             if (i != comm->rank()) {
-                Message m(type, nextMessageId(), c);
+                Message m(comm->rank(), type, nextMessageId(), c);
                 comm->sendMessage(i, m);
             }
         }
@@ -556,7 +557,8 @@ void Algorithm::DistCZeroFPA::finalAssign(Configuration *c, Assignment value)
 
     for (std::pair<int, long> interest : c->interested) {
         if (interest.second > 0) {
-            comm->sendMessage(interest.first, Message(type, nextMessageId(), c));
+            Message m(comm->rank(), type, nextMessageId(), c);
+            comm->sendMessage(interest.first, m);
         }
     }
     for(Edge *d : c->dependency_set) {
@@ -576,7 +578,7 @@ void Algorithm::DistCZeroFPA::explore(Configuration *c)
         c->assignment = ZERO;
         if (partition->ownerId(c) == comm->rank()) {
             if (c->successors.empty()) {
-                graph->successors(*c);
+                graph->successors(c);
             }
             if (c->successors.empty()) {
                 finalAssign(c, CZERO);
@@ -585,7 +587,8 @@ void Algorithm::DistCZeroFPA::explore(Configuration *c)
                 strategy->pushEdge(s);
             }
         } else {
-            comm->sendMessage(partition->ownerId(c), Message(Message::REQUEST, nextMessageId(), c));
+            Message m(comm->rank(), Message::REQUEST, nextMessageId(), c);
+            comm->sendMessage(partition->ownerId(c), m);
         }
     }
 }
@@ -599,12 +602,14 @@ void Algorithm::DistCZeroFPA::halt(Configuration *c)
                 strategy->pushEdge(s);
             }
         } else {
-            comm->sendMessage(partition->ownerId(c), Message(Message::HALT, nextMessageId(), c));
+            Message m(comm->rank(),Message::HALT, nextMessageId(), c);
+            comm->sendMessage(partition->ownerId(c), m);
         }
     }
 }
 
-void Algorithm::DistCZeroFPA::processMessage(int sender, Message *m)
+
+void Algorithm::DistCZeroFPA::processMessage(Message *m)
 {
     Configuration *c = m->configuration;
 
@@ -615,15 +620,16 @@ void Algorithm::DistCZeroFPA::processMessage(int sender, Message *m)
     } else if (m->type == Message::REQUEST) {
         if (c->isDone()) {
             Message::Type t = c->assignment == ONE ? Message::ANSWER_ONE : Message::ANSWER_ZERO;
-            comm->sendMessage(sender, Message(t, nextMessageId(), c));
+            Message out(comm->rank(), t, nextMessageId(), c);
+            comm->sendMessage(m->sender, out);
         } else {
-            c->updateInterest(sender, m->id);
+            c->updateInterest(m->sender, m->id);
             if (c->hasActiveDependencies() && c->assignment == UNKNOWN) {
                 explore(c);
             }
         }
     } else if (m->type == Message::HALT) {
-        m->configuration->updateInterest(sender, -1 * m->id);
+        m->configuration->updateInterest(m->sender, -1 * m->id);
         halt(c);
     } else assert(false);
 }
@@ -695,12 +701,7 @@ void Algorithm::DistCZeroFPA::processNegationEdge(Edge *e)
             e->requested = target;
             target->dependency_set.push_back(e);
             explore(target);
-        }
-        if (e->isDeleted){}
-        else if(e->targets.size() == targetONEassignments){
-            finalAssign(*e->source, CZERO);
-            e->source->removeSuccessor(e);
-        }
+        }        
     } else if (e->requested != nullptr) {
         halt(e->requested);
         e->requested = nullptr;
@@ -716,14 +717,16 @@ bool Algorithm::DistCZeroFPA::terminationDetection()
         Token token = t.second;
         if (comm->rank() == 0) {
             if (token.flag == FLAG_CLEAN && token.messages == 0) {
-                if (receiver != 0) comm->sendToken(receiver, Token(FLAG_TERMINATE, 0));
+                Token t(FLAG_TERMINATE, 0);
+                if (receiver != 0) comm->sendToken(receiver, t);
                 //this will initialize the next round
                 waiting_for_token = false;
                 termination_flag = FLAG_DIRTY;
                 return true;
             } else {
                 waiting_for_token = true;
-                comm->sendToken(receiver, Token(termination_flag, message_counter));
+                Token t(termination_flag, message_counter);
+                comm->sendToken(receiver, t);
                 termination_flag = FLAG_CLEAN;
             }
         } else {
@@ -733,17 +736,16 @@ bool Algorithm::DistCZeroFPA::terminationDetection()
                 termination_flag = FLAG_DIRTY;
                 return true;
             } else {
-                comm->sendToken(receiver, Token(
-                                    token.flag == FLAG_DIRTY ? FLAG_DIRTY : termination_flag,
-                                    token.messages + message_counter
-                ));
+                Token t(token.flag == FLAG_DIRTY ? FLAG_DIRTY : termination_flag, token.messages + message_counter);
+                comm->sendToken(receiver, t);
                 termination_flag = FLAG_CLEAN;
             }
         }
     } else if (comm->rank() == 0 && !waiting_for_token) {
         //init first round
         waiting_for_token = true;
-        comm->sendToken(receiver, Token(termination_flag, message_counter));
+        Token t(termination_flag, message_counter);
+        comm->sendToken(receiver, t);
         termination_flag = FLAG_CLEAN;
     }
     return false;
@@ -756,8 +758,8 @@ Algorithm::DistCZeroFPA::DistCZeroFPA(Algorithm::PartitionFunction *partition, C
 
 bool Algorithm::DistCZeroFPA::search(BasicDependencyGraph &t_graph, AbstractSearchStrategy &t_strategy)
 {
-    this->graph = t_graph;
-    this->strategy = t_strategy;
+    this->graph = &t_graph;
+    this->strategy = &t_strategy;
     this->v = graph->initialConfiguration();
 
     termination_flag = FLAG_DIRTY;
@@ -767,11 +769,15 @@ bool Algorithm::DistCZeroFPA::search(BasicDependencyGraph &t_graph, AbstractSear
 
     int canPick = 0;
 
-    int processed = 0;
-    bool allNegationDone = false;
-
-    while (canPick <= v->distance) {
+    while (canPick <= v->getDistance()) {
         while (!(strategy->empty() && terminationDetection())) {
+
+            std::pair<int, Message> message = comm->recvMessage();
+            while (message.first >= 0) {
+                strategy->pushMessage(message.second);
+                message = comm->recvMessage();
+            }
+
             Edge *e;
             Message *m;
             AbstractSearchStrategy::TaskType type = strategy->pickTask(e, m);
@@ -794,9 +800,9 @@ bool Algorithm::DistCZeroFPA::search(BasicDependencyGraph &t_graph, AbstractSear
 
         if (v->isDone()) break;
 
-        int candidate = v->distance + 1;
+        int candidate = v->getDistance() + 1;
         if (!unsafe_N.empty()) {
-            candidate = unsafe_N.top()->distance;
+            candidate = unsafe_N.top()->source->getDistance();
         }
 
         //if we are not master, send proposal
@@ -806,6 +812,9 @@ bool Algorithm::DistCZeroFPA::search(BasicDependencyGraph &t_graph, AbstractSear
             //if we are master, collect proposals and compute minimum
             for (int i=1; i<comm->size(); i++) {
                 std::pair<int, int> proposal = comm->recvDistance();
+                while (proposal.first < 0) {
+                    proposal = comm->recvDistance();
+                }
                 if (proposal.second < candidate) {
                     candidate = proposal.second;
                 }
@@ -817,7 +826,7 @@ bool Algorithm::DistCZeroFPA::search(BasicDependencyGraph &t_graph, AbstractSear
         comm->broadcastDistance(0, winner);
 
         //copy safe edges into strategy
-        while (!unsafe_N.empty() && unsafe_N.top()->source->distance <= winner) {
+        while (!unsafe_N.empty() && unsafe_N.top()->source->getDistance() <= winner) {
             strategy->pushEdge(unsafe_N.top());
             unsafe_N.pop();
         }

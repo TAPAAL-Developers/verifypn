@@ -21,7 +21,7 @@ public:
     //Receive methods
     //first element of the pair is always a sender id. If the id is negative, the opration
     //was not successful
-    virtual std::pair<int, SearchStrategy::Message*> recvMessage() =0;
+    virtual std::pair<int, SearchStrategy::Message> recvMessage() =0;
     virtual std::pair<int, Token> recvToken(int source) =0;
     virtual std::pair<int, int> recvDistance() =0;
 

@@ -6,11 +6,9 @@
 class Serializer
 {
 public:
-    Serializer();
+    virtual std::pair<int, int*> serialize(SearchStrategy::Message &m) =0;
 
-    std::pair<int, int*> serialize(SearchStrategy::Message &m);
-
-    SearchStrategy::Message* deserialize(int* message, int messageSize);
+    virtual SearchStrategy::Message deserialize(int* message, int messageSize) =0;
 
 };
 
