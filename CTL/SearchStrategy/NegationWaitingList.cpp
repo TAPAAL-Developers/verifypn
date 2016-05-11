@@ -2,6 +2,21 @@
 #include <assert.h>
 #include <iostream>
 
+unsigned int SearchStrategy::NegationWaitingList::computeMaxDistance() const
+{
+    auto maxDist = unsafe_edges.size() - 1;
+
+    while(maxDist != 0){
+        if(!unsafe_edges[maxDist].empty()){
+            break;
+        }
+
+        maxDist--;
+    }
+
+    return maxDist;
+}
+
 bool SearchStrategy::NegationWaitingList::empty() const
 {
     return size() == 0 ? true : false;
@@ -50,11 +65,11 @@ void SearchStrategy::NegationWaitingList::releaseNegationEdges(unsigned int dist
     std::cout << "Dist: " << dist << " size: " << unsafe_edges.size() << std::endl;
 
     //We have edges that can be released
-    if(_size > 0 && dist <= _maxDistance){
+    if(!empty() && dist <= _maxDistance){
         int i = _maxDistance;
 
         std::cout << "i: " << i << " dist: " << dist << std::endl;
-        for(; i >= dist; i--){
+        for(; i >= (int)dist; --i){
             std::cout << "Releasing edges with degree: " << i << std::endl;
             auto &edges = unsafe_edges[i];
 
@@ -64,6 +79,10 @@ void SearchStrategy::NegationWaitingList::releaseNegationEdges(unsigned int dist
                 edges.clear();
             }
         }
+
+        _maxDistance = computeMaxDistance();
+
+        std::cout << "New max distance: " << _maxDistance << std::endl;
     }
 
     std::cout << "Done releasing edges" << std::endl;
