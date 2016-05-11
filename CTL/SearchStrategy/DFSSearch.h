@@ -1,22 +1,21 @@
 #ifndef DFSSEARCH_H
 #define DFSSEARCH_H
 
-#include "SearchStrategy.h"
+#include "iSearchStrategy.h"
 
 #include <stack>
 
 namespace SearchStrategy {
 
-class DFSSearch : public AbstractSearchStrategy
+class DFSSearch : public iSequantialSearchStrategy, public iClearable
 {
 public:
     DFSSearch() {}
     virtual bool empty() override;
     virtual void pushEdge(DependencyGraph::Edge *edge) override;
     virtual void pushMessage(Message &message) override;
-
-    virtual TaskType pickTask(DependencyGraph::Edge*& edge,
-                         Message*& message) override;
+    virtual void clear() override;
+    virtual TaskType pickTask(DependencyGraph::Edge*& edge) override;
 
 protected:
 

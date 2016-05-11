@@ -13,7 +13,7 @@ public:
 
     PetriConfig(Marking *t_marking, CTLTree *t_query) :
         DependencyGraph::Configuration(), marking(t_marking), query(t_query) {
-        setDistance(query->depth);
+//        setDistance(query->depth);
     }
 
     Marking *marking;

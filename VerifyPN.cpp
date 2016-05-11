@@ -62,10 +62,9 @@
 #include "CTL/DependencyGraph/AbstractDependencyGraphs.h"
 #include "CTL/PetriNets/OnTheFlyDG.h"
 
-#include "CTL/SearchStrategy/AbstractSearchStrategy.h"
 #include "CTL/SearchStrategy/DFSSearch.h"
-#include "CTL/SearchStrategy/SearchStrategy.h"
-#include "CTL/SearchStrategy/WaitingList.h"
+#include "CTL/SearchStrategy/iSearchStrategy.h"
+#include "CTL/SearchStrategy/iWaitingList.h"
 #include "CTL/SearchStrategy/BasicSearchStrategy.h"
 //#include "CTL/SearchStrategy/BreadthFirstSearch.h"
 
@@ -176,9 +175,8 @@ void search_ctl_query(PetriNet* net,
                       PNMLParser::InhibitorArcList inhibitorarcs) {
 
     Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::CertainZeroFPA();
-    SearchStrategy::AbstractSearchStrategy *strategy = new SearchStrategy::DFSSearch();
+    SearchStrategy::iSequantialSearchStrategy *strategy = new SearchStrategy::DFSSearch();
     PetriNets::OnTheFlyDG *graph = new PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
-    auto wl = SearchStrategy::EdgeWaitingList<std::queue<DependencyGraph::Edge*, std::list<DependencyGraph::Edge*>>>();
 
     //Determine Fixed Point Algorithm
     /*if(t_algorithm == LOCAL){
@@ -214,8 +212,8 @@ void search_ctl_query(PetriNet* net,
         graph->setQuery(queryList[t_xmlquery - 1]->Query);
         res = algorithm->search(*graph, *strategy);
 
-        configCount = 0;//graph->configuration_count();
-        markingCount = 0;//graph->marking_count();
+        configCount = 0;
+        markingCount = 0;
         queryList[t_xmlquery - 1]->Result = res;
 
         clock_t individual_search_end = clock();
@@ -242,9 +240,11 @@ void search_ctl_query(PetriNet* net,
 
             individual_search_end = clock();
 
-            //strategy->cleanUp();
-            configCount = 0;//graph->configuration_count();
-            markingCount = 0;//graph->marking_count();
+//            strategy->clear();
+            graph->cleanUp();
+
+            configCount = 0;
+            markingCount = 0;
             queryList[i]->Result = res;
 
             if (printstatistics) { 

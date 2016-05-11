@@ -2,14 +2,14 @@
 #define FIXEDPOINTALGORITHM_H
 
 #include "../DependencyGraph/AbstractDependencyGraphs.h"
-#include "../SearchStrategy/SearchStrategy.h"
+#include "../SearchStrategy/iSearchStrategy.h"
 
 namespace Algorithm {
 
 class FixedPointAlgorithm {
 public:
     virtual bool search(DependencyGraph::BasicDependencyGraph &graph,
-                        SearchStrategy::AbstractSearchStrategy &strategy) =0;
+                        SearchStrategy::iSequantialSearchStrategy &strategy) =0;
 };
 /*
 class ParallelFixedPointAlgorithm {

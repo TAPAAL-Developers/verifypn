@@ -23,6 +23,8 @@ OnTheFlyDG::OnTheFlyDG(
 OnTheFlyDG::~OnTheFlyDG()
 {
     cleanUp();
+    for(Marking *m : markings)
+        delete m;
     delete initial_marking;
 }
 
@@ -334,6 +336,7 @@ void OnTheFlyDG::successors(DependencyGraph::Configuration *c)
     else if (v->query->quantifier == NEG){
             Configuration* c = createConfiguration(*(v->marking), *(v->query->first));
             Edge* e = new Edge(*v);
+            e->is_negated = true;
             e->targets.push_back(c);
             succ.push_back(e);
     } //Negate end
@@ -501,10 +504,10 @@ void OnTheFlyDG::cleanUp()
             delete c;
         }
         m->successors.resize(0);
-        delete m;
+        //delete m;
     }
-    markings.clear();
-    markings.insert(initial_marking);
+    //markings.clear();
+    //markings.insert(initial_marking);
 }
 
 void OnTheFlyDG::setQuery(CTLTree *query)

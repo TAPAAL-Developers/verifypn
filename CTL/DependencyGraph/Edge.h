@@ -1,6 +1,5 @@
-#ifndef EDGE_H1
-#define EDGE_H1
-//TODO: Fix Guard
+#ifndef EDGE_H
+#define EDGE_H
 
 #include <cstdio>
 #include <vector>

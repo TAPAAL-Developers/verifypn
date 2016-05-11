@@ -8,11 +8,6 @@ bool SearchStrategy::DFSSearch::empty()
     return W.empty();
 }
 
-unsigned int SearchStrategy::DFSSearch::maxDistance()
-{
-    return 0;
-}
-
 void SearchStrategy::DFSSearch::pushEdge(DependencyGraph::Edge *edge)
 {
     W.push(edge);
@@ -24,7 +19,13 @@ void SearchStrategy::DFSSearch::pushMessage(SearchStrategy::Message &message)
     assert(false);
 }
 
-SearchStrategy::AbstractSearchStrategy::TaskType SearchStrategy::DFSSearch::pickTask(DependencyGraph::Edge*& edge, SearchStrategy::Message*& message)
+void SearchStrategy::DFSSearch::clear()
+{
+    while(!W.empty())
+        W.pop();
+}
+
+SearchStrategy::TaskType SearchStrategy::DFSSearch::pickTask(DependencyGraph::Edge*& edge)
 {
     if (W.empty()) return EMPTY;
     edge = W.top();
