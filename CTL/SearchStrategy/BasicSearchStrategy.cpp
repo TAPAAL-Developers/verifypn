@@ -1,5 +1,6 @@
 #include "BasicSearchStrategy.h"
 #include <assert.h>
+#include <iostream>
 
 bool SearchStrategy::BasicSearchStrategy::empty() const
 {
@@ -19,7 +20,9 @@ void SearchStrategy::BasicSearchStrategy::pushEdge(SearchStrategy::BasicSearchSt
 
 SearchStrategy::TaskType SearchStrategy::BasicSearchStrategy::pickTask(SearchStrategy::BasicSearchStrategy::Edge *&edge)
 {
+    std::cout << "W is empty: " << std::boolalpha << W->empty() << std::endl;
     if(W->empty()){
+        std::cout << "Max Dist: " << N->maxDistance() << std::endl;
         N->releaseNegationEdges(N->maxDistance());
     }
 

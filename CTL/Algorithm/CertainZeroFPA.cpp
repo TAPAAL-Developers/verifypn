@@ -87,7 +87,9 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
                 }
             }
         }
+        std::cout << "Picking task" << std::endl;
         r = strategy->pickTask(e);
+        std::cout << "Picked" << std::endl;
     }
 
     std::cout << "Final Assignment " << std::boolalpha << (v->assignment == ONE ? true : false) << std::endl;
