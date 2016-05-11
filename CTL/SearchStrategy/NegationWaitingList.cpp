@@ -80,7 +80,7 @@ void SearchStrategy::NegationWaitingList::releaseNegationEdges(unsigned int dist
                 if(e->source->isDone()){
                     _size--;
 //                    std::cout << "Was done" << std::endl;
-                    e->source->printConfiguration();
+//                    e->source->printConfiguration();
                 }
                 //If this is true, that means a configuration changed dist
                 //that should not be possible for petrinets
