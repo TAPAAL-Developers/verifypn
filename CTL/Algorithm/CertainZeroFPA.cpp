@@ -2,27 +2,34 @@
 #include <assert.h>
 #include <iostream>
 #include <algorithm>
+#include <iostream>
 
 using namespace DependencyGraph;
 
 bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_graph,
-        SearchStrategy::iSequantialSearchStrategy &t_strategy
-) {
+        SearchStrategy::iSequantialSearchStrategy &t_strategy)
+{
+    std::cout << "Instantiating" << std::endl;
+
     using namespace SearchStrategy;
     using TaskType = SearchStrategy::TaskType;
 
     graph = &t_graph;
     strategy = &t_strategy;
 
+    std::cout << "Initial Configuration" << std::endl;
     Configuration *v = graph->initialConfiguration();
     explore(v);
 
+    std::cout << "Exploring" << std::endl;
     Edge *e;
     int r = strategy->pickTask(e);
 
     v->printConfiguration();
 
     while (r != TaskType::EMPTY) {
+
+        e->source->printConfiguration();
 
         if (v->isDone()) {
             break;
@@ -83,6 +90,7 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
         r = strategy->pickTask(e);
     }
 
+    std::cout << "Final Assignment " << std::boolalpha << (v->assignment == ONE ? true : false) << std::endl;
     return (v->assignment == ONE) ? true : false;
 }
 
@@ -99,7 +107,7 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, D
 
 void Algorithm::CertainZeroFPA::explore(Configuration *c)
 {
-    //std::cout << "Exploring " << c << std::endl;
+    std::cout << "Exploring " << c << std::endl;
     //c->printConfiguration();
     c->assignment = ZERO;
     graph->successors(c);
@@ -109,7 +117,7 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c)
     }
     else {
         for (Edge *succ : c->successors) {
-            //std::cout << "push edge " << succ << std::endl;
+            std::cout << "push edge " << succ << std::endl;
             strategy->pushEdge(succ);
 //            if (succ->source->is_negated) {
 //                strategy->pushEdge(succ);

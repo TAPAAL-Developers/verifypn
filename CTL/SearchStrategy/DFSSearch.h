@@ -11,9 +11,8 @@ class DFSSearch : public iSequantialSearchStrategy, public iClearable
 {
 public:
     DFSSearch() {}
-    virtual bool empty() override;
+    virtual bool empty() const override;
     virtual void pushEdge(DependencyGraph::Edge *edge) override;
-    virtual void pushMessage(Message &message) override;
     virtual void clear() override;
     virtual TaskType pickTask(DependencyGraph::Edge*& edge) override;
 

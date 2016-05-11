@@ -3,7 +3,7 @@
 #include "assert.h"
 #include "DFSSearch.h"
 
-bool SearchStrategy::DFSSearch::empty()
+bool SearchStrategy::DFSSearch::empty() const
 {
     return W.empty();
 }
@@ -11,12 +11,6 @@ bool SearchStrategy::DFSSearch::empty()
 void SearchStrategy::DFSSearch::pushEdge(DependencyGraph::Edge *edge)
 {
     W.push(edge);
-}
-
-void SearchStrategy::DFSSearch::pushMessage(SearchStrategy::Message &message)
-{
-    std::cerr << "Basic DFS search strategy can't handle communication" << std::endl;
-    assert(false);
 }
 
 void SearchStrategy::DFSSearch::clear()

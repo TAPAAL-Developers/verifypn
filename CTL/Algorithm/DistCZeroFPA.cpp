@@ -752,11 +752,10 @@ bool Algorithm::DistCZeroFPA::terminationDetection()
 }
 
 
-Algorithm::DistCZeroFPA::DistCZeroFPA(Algorithm::PartitionFunction *partition, Communicator *comm) :
-    FixedPointAlgorithm(), partition(partition), comm(comm)
+Algorithm::DistCZeroFPA::DistCZeroFPA(Algorithm::PartitionFunction *partition, Communicator *comm) : partition(partition), comm(comm)
 { }
 
-bool Algorithm::DistCZeroFPA::search(BasicDependencyGraph &t_graph, iSequantialSearchStrategy &t_strategy)
+bool Algorithm::DistCZeroFPA::search(BasicDependencyGraph &t_graph, iDistributedSearchStrategy &t_strategy)
 {
     this->graph = &t_graph;
     this->strategy = &t_strategy;
@@ -780,7 +779,7 @@ bool Algorithm::DistCZeroFPA::search(BasicDependencyGraph &t_graph, iSequantialS
 
             Edge *e;
             Message *m;
-            SearchStrategy::TaskType type = strategy->pickTask(e);
+            SearchStrategy::TaskType type = strategy->pickTask(e, m);
             if (type == TaskType::EDGE) {
                 termination_flag = FLAG_DIRTY;
                 if (e->is_negated) {

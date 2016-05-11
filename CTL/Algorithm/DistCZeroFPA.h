@@ -16,13 +16,13 @@
 
 namespace Algorithm {
 
-class DistCZeroFPA : public FixedPointAlgorithm
+class DistCZeroFPA
 {
 public:
     DistCZeroFPA(PartitionFunction *partition, Communicator *comm);
 
     virtual bool search(DependencyGraph::BasicDependencyGraph &t_graph,
-                        SearchStrategy::iSequantialSearchStrategy &t_strategy) override;
+                        SearchStrategy::iDistributedSearchStrategy &t_strategy);
 
 protected:
     //Negation priority queue
@@ -36,7 +36,7 @@ protected:
     DependencyGraph::BasicDependencyGraph *graph = nullptr;
     DependencyGraph::Configuration *v = nullptr;
 
-    SearchStrategy::iSequantialSearchStrategy *strategy = nullptr;
+    SearchStrategy::iDistributedSearchStrategy *strategy = nullptr;
 
     PartitionFunction *partition = nullptr;
     Communicator *comm = nullptr;

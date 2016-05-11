@@ -9,15 +9,17 @@ struct Message;
 
 template<class T>
 class iWaitingList {
-    virtual bool empty() =0;
-    virtual std::size_t size() =0;
+public:
+    virtual bool empty() const =0;
+    virtual std::size_t size() const =0;
     virtual bool pop(T& t) =0;
     virtual void push(T& t) =0;
 };
 
 class iNegationList : public iWaitingList<DependencyGraph::Edge*> {
 public:
-    virtual void releaseNegationEdges(int dist) =0;
+    virtual unsigned int maxDistance() const =0;
+    virtual void releaseNegationEdges(unsigned int dist) =0;
 };
 
 class iEdgeList : public iWaitingList<DependencyGraph::Edge*>{

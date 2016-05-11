@@ -177,7 +177,7 @@ void search_ctl_query(PetriNet* net,
                       PNMLParser::InhibitorArcList inhibitorarcs) {
 
     Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::CertainZeroFPA();
-    SearchStrategy::iSequantialSearchStrategy *strategy = new SearchStrategy::DFSSearch();
+    SearchStrategy::iSequantialSearchStrategy *strategy = new SearchStrategy::BasicSearchStrategy();
     PetriNets::OnTheFlyDG *graph = new PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
 
     //Determine Fixed Point Algorithm

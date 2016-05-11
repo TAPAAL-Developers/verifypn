@@ -33,18 +33,16 @@ class iClearable {
 
 class iSequantialSearchStrategy{
 public:
-    virtual bool empty() =0;
+    virtual bool empty() const =0;
     virtual void pushEdge(DependencyGraph::Edge *edge) =0;
-    virtual void pushMessage(Message &message) =0;
-
     virtual TaskType pickTask(DependencyGraph::Edge*& edge) =0;
 };
 
 class iDistributedSearchStrategy
 {
 public:
-    virtual bool empty() =0;
-    virtual unsigned int maxDistance() =0;
+    virtual bool empty() const =0;
+    virtual unsigned int maxDistance() const =0;
     virtual void pushEdge(DependencyGraph::Edge *edge) =0;
     virtual void pushMessage(Message &message) =0;
     virtual void releaseNegationEdges(int dist) =0;
