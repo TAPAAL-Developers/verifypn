@@ -5,7 +5,7 @@
 #include "../DependencyGraph/Configuration.h"
 #include "../DependencyGraph/Edge.h"
 #include "../Communicator/Serializer.h"
-#include "../../CTLParser/CTLParser.h"
+#include "../../CTLParser/CTLQuery.h"
 #include "PetriConfig.h"
 #include "Marking.h"
 #include "../../PetriParse/PNMLParser.h"
@@ -33,7 +33,7 @@ public:
     virtual std::pair<int, int*> serialize(SearchStrategy::Message &m) override;
     virtual SearchStrategy::Message deserialize(int* message, int messageSize) override;
 
-    void setQuery(CTLTree* query);
+    void setQuery(CTLQuery* query);
 
 protected:
 
@@ -48,17 +48,19 @@ protected:
     DependencyGraph::Configuration *initial = nullptr;
     std::vector<Marking*> cached_successors;
     Marking *cached_marking = nullptr;
-    CTLTree *query = nullptr;
+    CTLQuery *query = nullptr;
 
-    bool evaluateQuery(CTLTree &query, Marking &marking);
-    bool fastEval(CTLTree &query, Marking &marking);
+    bool evaluateQuery(CTLQuery &query, Marking &marking);
+    bool fastEval(CTLQuery &query, Marking &marking);
     std::vector<Marking*> nextState(Marking &marking);
     int indexOfPlace(char *t_place);
+    bool EvalCardianlity(int a, LoperatorType lop, int b);
+    int GetParamValue(CardinalityParameter *param, Marking& marking);
     std::list<int> calculateFireableTransistions(Marking &marking);
-    DependencyGraph::Configuration *createConfiguration(Marking &marking, CTLTree &query);
+    DependencyGraph::Configuration *createConfiguration(Marking &marking, CTLQuery &query);
     Marking *createMarking(const Marking &marking, int t_transition);
 
-    CTLTree *findQueryById(int id, CTLTree *root);
+    CTLQuery *findQueryById(int id, CTLQuery *root);
 
     std::unordered_set< Marking*,
                         std::hash<Marking*>,

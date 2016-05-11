@@ -37,7 +37,6 @@ void CTLParser::ParseXMLQuery(std::vector<char> buffer, CTLFormula *queryList[])
     #ifdef DEBUG
     std::cout << "Creating doc\n" << std::flush;
     #endif
-//    CTLquery ctlquery;
     xml_document<> doc;
     xml_node<> * root_node;
     

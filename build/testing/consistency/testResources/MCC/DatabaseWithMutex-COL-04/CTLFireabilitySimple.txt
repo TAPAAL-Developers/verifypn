@@ -1,0 +1,80 @@
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F ("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F ("SendMsg_3_4", "SendMsg_2_2", "SendMsg_1_1", "SendMsg_4_2", "SendMsg_1_3", "SendMsg_3_1", "SendMsg_3_3", "SendMsg_2_3", "SendMsg_2_1", "SendMsg_4_3", "SendMsg_1_2", "SendMsg_1_4", "SendMsg_4_1", "SendMsg_4_4", "SendMsg_2_4", "SendMsg_3_2")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F ("Update_3_1", "Update_2_3", "Update_1_3", "Update_4_2", "Update_3_4", "Update_3_2", "Update_4_4", "Update_2_2", "Update_1_4", "Update_1_2", "Update_2_4", "Update_4_1", "Update_1_1", "Update_3_3", "Update_4_3", "Update_2_1")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F ("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F ("Change_2_1", "Change_4_1", "Change_3_3", "Change_1_2", "Change_2_2", "Change_3_2", "Change_4_4", "Change_1_1", "Change_4_2", "Change_3_4", "Change_2_4", "Change_1_4", "Change_1_3", "Change_2_3", "Change_3_1", "Change_4_3")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    E F ("SendReply_1_4", "SendReply_2_2", "SendReply_3_2", "SendReply_3_4", "SendReply_4_3", "SendReply_1_2", "SendReply_2_4", "SendReply_4_1", "SendReply_2_3", "SendReply_3_1", "SendReply_3_3", "SendReply_2_1", "SendReply_4_4", "SendReply_4_2", "SendReply_1_1", "SendReply_1_3")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F ("SendReply_1_4", "SendReply_2_2", "SendReply_3_2", "SendReply_3_4", "SendReply_4_3", "SendReply_1_2", "SendReply_2_4", "SendReply_4_1", "SendReply_2_3", "SendReply_3_1", "SendReply_3_3", "SendReply_2_1", "SendReply_4_4", "SendReply_4_2", "SendReply_1_1", "SendReply_1_3")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F ("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F ("SendMsg_3_4", "SendMsg_2_2", "SendMsg_1_1", "SendMsg_4_2", "SendMsg_1_3", "SendMsg_3_1", "SendMsg_3_3", "SendMsg_2_3", "SendMsg_2_1", "SendMsg_4_3", "SendMsg_1_2", "SendMsg_1_4", "SendMsg_4_1", "SendMsg_4_4", "SendMsg_2_4", "SendMsg_3_2")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E F ("end_update_4_3", "end_update_1_2", "end_update_3_3", "end_update_3_1", "end_update_2_2", "end_update_1_4", "end_update_4_1", "end_update_2_4", "end_update_3_4", "end_update_4_2", "end_update_2_1", "end_update_3_2", "end_update_4_4", "end_update_2_3", "end_update_1_3", "end_update_1_1")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F ("Release_1_3", "Release_4_4", "Release_2_1", "Release_3_1", "Release_1_1", "Release_3_3", "Release_4_2", "Release_2_3", "Release_2_2", "Release_1_4", "Release_3_2", "Release_4_3", "Release_4_1", "Release_3_4", "Release_2_4", "Release_1_2")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F ("Update_3_1", "Update_2_3", "Update_1_3", "Update_4_2", "Update_3_4", "Update_3_2", "Update_4_4", "Update_2_2", "Update_1_4", "Update_1_2", "Update_2_4", "Update_4_1", "Update_1_1", "Update_3_3", "Update_4_3", "Update_2_1")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E F ("end_update_4_3", "end_update_1_2", "end_update_3_3", "end_update_3_1", "end_update_2_2", "end_update_1_4", "end_update_4_1", "end_update_2_4", "end_update_3_4", "end_update_4_2", "end_update_2_1", "end_update_3_2", "end_update_4_4", "end_update_2_3", "end_update_1_3", "end_update_1_1")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F ("end_update_4_3", "end_update_1_2", "end_update_3_3", "end_update_3_1", "end_update_2_2", "end_update_1_4", "end_update_4_1", "end_update_2_4", "end_update_3_4", "end_update_4_2", "end_update_2_1", "end_update_3_2", "end_update_4_4", "end_update_2_3", "end_update_1_3", "end_update_1_1")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E F ("SendReply_1_4", "SendReply_2_2", "SendReply_3_2", "SendReply_3_4", "SendReply_4_3", "SendReply_1_2", "SendReply_2_4", "SendReply_4_1", "SendReply_2_3", "SendReply_3_1", "SendReply_3_3", "SendReply_2_1", "SendReply_4_4", "SendReply_4_2", "SendReply_1_1", "SendReply_1_3")?
+  end.
+Property DatabaseWithMutex-COL-04-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F ("SendMsg_3_4", "SendMsg_2_2", "SendMsg_1_1", "SendMsg_4_2", "SendMsg_1_3", "SendMsg_3_1", "SendMsg_3_3", "SendMsg_2_3", "SendMsg_2_1", "SendMsg_4_3", "SendMsg_1_2", "SendMsg_1_4", "SendMsg_4_1", "SendMsg_4_4", "SendMsg_2_4", "SendMsg_3_2")?
+  end.

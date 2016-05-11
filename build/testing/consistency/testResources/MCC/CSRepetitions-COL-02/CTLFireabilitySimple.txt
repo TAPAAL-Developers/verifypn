@@ -1,0 +1,80 @@
+Property CSRepetitions-COL-02-CTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F ("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F ("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F ("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F ("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F ("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F ("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F ("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    E G ("Send_Request_2", "Send_Request_4", "Send_Request_1", "Send_Request_3")?
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    E G ("Lose_Request_4", "Lose_Request_2", "Lose_Request_3", "Lose_Request_1")?
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    E X ("Read_Request_4_2", "Read_Request_3_2", "Read_Request_1_1", "Read_Request_2_2", "Read_Request_1_2", "Read_Request_4_1", "Read_Request_3_1", "Read_Request_2_1")?
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    E X ("Read_Request_4_2", "Read_Request_3_2", "Read_Request_1_1", "Read_Request_2_2", "Read_Request_1_2", "Read_Request_4_1", "Read_Request_3_1", "Read_Request_2_1")?
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A ((("Send_Request_2", "Send_Request_4", "Send_Request_1", "Send_Request_3")?) U (("Read_Request_4_2", "Read_Request_3_2", "Read_Request_1_1", "Read_Request_2_2", "Read_Request_1_2", "Read_Request_4_1", "Read_Request_3_1", "Read_Request_2_1")?))
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    E G ("Prepare_Request_2", "Prepare_Request_3", "Prepare_Request_1", "Prepare_Request_4")?
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    E G ("Send_Request_2", "Send_Request_4", "Send_Request_1", "Send_Request_3")?
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    E G ("Lose_Request_4", "Lose_Request_2", "Lose_Request_3", "Lose_Request_1")?
+  end.
+Property CSRepetitions-COL-02-CTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    E G ("Prepare_Request_2", "Prepare_Request_3", "Prepare_Request_1", "Prepare_Request_4")?
+  end.
