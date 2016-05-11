@@ -12,25 +12,26 @@ void SearchStrategy::BasicSearchStrategy::pushEdge(SearchStrategy::BasicSearchSt
     if(edge->is_negated){
         N->push(edge);
     }
-    else
-    {
-        W->push(edge);
-    }
+    W->push(edge);
 }
 
 SearchStrategy::TaskType SearchStrategy::BasicSearchStrategy::pickTask(SearchStrategy::BasicSearchStrategy::Edge *&edge)
 {
-    std::cout << "W is empty: " << std::boolalpha << W->empty() << std::endl;
-    if(W->empty()){
-        std::cout << "Max Dist: " << N->maxDistance() << std::endl;
-        N->releaseNegationEdges(N->maxDistance());
-    }
+//    std::cout << "W is empty: " << std::boolalpha << W->empty() << std::endl;
 
-    if(N->pop(edge))
-        return TaskType::EDGE;
-    else if(W->pop(edge))
-        return TaskType::EDGE;
+    do {
+        if(N->pop(edge))
+            return TaskType::EDGE;
+        else if(W->pop(edge))
+            return TaskType::EDGE;
+        else {
+//            std::cout << "Max Dist: " << N->maxDistance() << std::endl;
+            N->releaseNegationEdges(N->maxDistance());
+        }
+    } while (!W->empty() || !N->empty());
 
+
+//    std::cout << "size of N: " << N->size() << std::endl;
     assert(W->empty() && N->empty());
     return TaskType::EMPTY;
 }

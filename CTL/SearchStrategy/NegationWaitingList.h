@@ -17,6 +17,7 @@ class NegationWaitingList : public iNegationList
     std::size_t _size = 0;
 
     unsigned int computeMaxDistance() const;
+    void _push(Edge *e);
     // iWaitingList interface
 public:
     virtual bool empty() const override;
