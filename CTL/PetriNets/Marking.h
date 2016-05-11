@@ -45,6 +45,7 @@ class Marking
         return m_marking[index];
     }    
     inline PetriEngine::MarkVal* value() const { return m_marking; }
+    std::__cxx11::string toString() const;
     void print() const;
     inline size_t length() const { return m_length; }
 

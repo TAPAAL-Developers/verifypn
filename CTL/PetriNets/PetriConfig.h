@@ -21,12 +21,9 @@ public:
 
     virtual void printConfiguration() override {
         DependencyGraph::Configuration::printConfiguration();
-        std::printf("Marking: ");
-        marking->print();
-        std::printf(" (%ld) ", (unsigned long int) marking);
+        std::printf("%s\n", marking->toString().c_str());
         CTLParser_v2 p;
-        std::printf(" Query: %s", p.QueryToString(query));
-        std::printf(" (%ld) ", (unsigned long int) query);
+        std::printf("Query (%ld): %s",(unsigned long int) query, p.QueryToString(query).c_str());
         std::printf("\n=======================================================\n");
     }
 

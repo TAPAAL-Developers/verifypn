@@ -1,4 +1,5 @@
 #include <string.h>
+#include <sstream>
 #include <iostream>
 
 #include "Marking.h"
@@ -25,10 +26,18 @@ namespace PetriNets {
         }
     }
 
+    std::string Marking::toString() const
+    {
+        std::stringstream ss;
+        ss << "Marking (" << this << "): ";
+        for(int i = 1; i < m_length; i++)
+            ss << m_marking[i];
+
+        return ss.str();
+    }
+
     void Marking::print() const {
-        for(int i = 0; i < m_length; i++){
-            std::cout << m_marking[i] <<std::flush;
-        }
+        std::cout << toString() << std::endl;
     }
 }
 

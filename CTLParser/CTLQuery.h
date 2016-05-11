@@ -58,8 +58,6 @@ private:
     CTLQuery* _secondchild;
     
     EvaluateableProposition* _proposition;
-    
-
 };
 
 #endif /* CTLQUERY_H */
