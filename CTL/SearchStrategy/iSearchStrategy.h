@@ -8,15 +8,20 @@ namespace SearchStrategy {
 
 enum TaskType {EMPTY = -1, UNAVAILABLE = 0, EDGE = 1, MESSAGE = 2};
 
-struct Message {
-    enum Type {HALT = 0, REQUEST = 1, ANSWER = 2} type;
+struct Message {    
+    int sender;
+    enum Type {HALT = 0, REQUEST = 1, ANSWER_ONE = 2, ANSWER_ZERO = 3} type;
     unsigned long id;
     DependencyGraph::Configuration *configuration;
 
+    Message() {}
+    Message(int sender, Type type, unsigned long id, DependencyGraph::Configuration *configuration) :
+           sender(sender), type(type), id(id), configuration(configuration) {}
+
     std::string ToString() {
         std::stringstream ss;
-        ss << "Message: ";
-        ss << (type == HALT ? "Halt" : type == REQUEST ? "Request" : "Answer");
+        ss << "Message from " << sender << ": ";
+        ss << (type == HALT ? "Halt" : type == REQUEST ? "Request" : type == ANSWER_ONE ? "Answer 1" : "Answer 0");
         ss << configuration << "\n";
         return ss.str();
     }

@@ -37,7 +37,13 @@ public:
     Assignment assignment = UNKNOWN;
     container_type successors = container_type(0);
     container_type deleted_successors = container_type(0);
-    container_type dependency_set = container_type(0);
+    container_type dependency_set = container_type(0);    
+    //first is an ID of a worker, second is latest message id
+    std::vector<std::pair<int, long>> interested;
+
+    void updateInterest(int worker, long id);
+    bool hasActiveDependencies();
+
     bool is_negated = false;
 };
 

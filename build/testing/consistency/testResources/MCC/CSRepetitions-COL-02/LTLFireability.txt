@@ -1,0 +1,80 @@
+Property CSRepetitions-COL-02-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G ((((("Send_Request_2", "Send_Request_4", "Send_Request_1", "Send_Request_3")?) U (("Prepare_Request_2", "Prepare_Request_3", "Prepare_Request_1", "Prepare_Request_4")?))) U (((("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?) U (("Read_Request_4_2", "Read_Request_3_2", "Read_Request_1_1", "Read_Request_2_2", "Read_Request_1_2", "Read_Request_4_1", "Read_Request_3_1", "Read_Request_2_1")?))))
+  end.
+Property CSRepetitions-COL-02-LTLFireability-1
+  "Automatically generated"
+  is:
+    A G ("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?
+  end.
+Property CSRepetitions-COL-02-LTLFireability-2
+  "Automatically generated"
+  is:
+    A F ((((("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?) U (("Read_Request_4_2", "Read_Request_3_2", "Read_Request_1_1", "Read_Request_2_2", "Read_Request_1_2", "Read_Request_4_1", "Read_Request_3_1", "Read_Request_2_1")?))) U (((("Lose_Request_4", "Lose_Request_2", "Lose_Request_3", "Lose_Request_1")?) U (("Send_Request_2", "Send_Request_4", "Send_Request_1", "Send_Request_3")?))))
+  end.
+Property CSRepetitions-COL-02-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X X F ((("Lose_Request_4", "Lose_Request_2", "Lose_Request_3", "Lose_Request_1")?) U (("Prepare_Request_2", "Prepare_Request_3", "Prepare_Request_1", "Prepare_Request_4")?))
+  end.
+Property CSRepetitions-COL-02-LTLFireability-4
+  "Automatically generated"
+  is:
+    A ((("Read_Request_4_2", "Read_Request_3_2", "Read_Request_1_1", "Read_Request_2_2", "Read_Request_1_2", "Read_Request_4_1", "Read_Request_3_1", "Read_Request_2_1")?) U (F F X ("Lose_Request_4", "Lose_Request_2", "Lose_Request_3", "Lose_Request_1")?))
+  end.
+Property CSRepetitions-COL-02-LTLFireability-5
+  "Automatically generated"
+  is:
+    A ((F X ("Read_Request_4_2", "Read_Request_3_2", "Read_Request_1_1", "Read_Request_2_2", "Read_Request_1_2", "Read_Request_4_1", "Read_Request_3_1", "Read_Request_2_1")?) U (((F ("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?) U (F ("Prepare_Request_2", "Prepare_Request_3", "Prepare_Request_1", "Prepare_Request_4")?))))
+  end.
+Property CSRepetitions-COL-02-LTLFireability-6
+  "Automatically generated"
+  is:
+    A F G ("Read_Request_4_2", "Read_Request_3_2", "Read_Request_1_1", "Read_Request_2_2", "Read_Request_1_2", "Read_Request_4_1", "Read_Request_3_1", "Read_Request_2_1")?
+  end.
+Property CSRepetitions-COL-02-LTLFireability-7
+  "Automatically generated"
+  is:
+    A ((F X F ("Prepare_Request_2", "Prepare_Request_3", "Prepare_Request_1", "Prepare_Request_4")?) U (X ((("Prepare_Request_2", "Prepare_Request_3", "Prepare_Request_1", "Prepare_Request_4")?) U (("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?))))
+  end.
+Property CSRepetitions-COL-02-LTLFireability-8
+  "Automatically generated"
+  is:
+    A F ("Prepare_Request_2", "Prepare_Request_3", "Prepare_Request_1", "Prepare_Request_4")?
+  end.
+Property CSRepetitions-COL-02-LTLFireability-9
+  "Automatically generated"
+  is:
+    A G ((X X ("Send_Request_2", "Send_Request_4", "Send_Request_1", "Send_Request_3")?) U (("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?))
+  end.
+Property CSRepetitions-COL-02-LTLFireability-10
+  "Automatically generated"
+  is:
+    A ((F G X ("Prepare_Request_2", "Prepare_Request_3", "Prepare_Request_1", "Prepare_Request_4")?) U (X ((("Prepare_Request_2", "Prepare_Request_3", "Prepare_Request_1", "Prepare_Request_4")?) U (("Send_Request_2", "Send_Request_4", "Send_Request_1", "Send_Request_3")?))))
+  end.
+Property CSRepetitions-COL-02-LTLFireability-11
+  "Automatically generated"
+  is:
+    A ((((("Prepare_Request_2", "Prepare_Request_3", "Prepare_Request_1", "Prepare_Request_4")?) U (G ("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?))) U (F X G ("Lose_Request_4", "Lose_Request_2", "Lose_Request_3", "Lose_Request_1")?))
+  end.
+Property CSRepetitions-COL-02-LTLFireability-12
+  "Automatically generated"
+  is:
+    A G F F ((("Send_Answer_3_2", "Send_Answer_4_2", "Send_Answer_1_1", "Send_Answer_3_1", "Send_Answer_2_1", "Send_Answer_4_1", "Send_Answer_1_2", "Send_Answer_2_2")?) U (("Send_Request_2", "Send_Request_4", "Send_Request_1", "Send_Request_3")?))
+  end.
+Property CSRepetitions-COL-02-LTLFireability-13
+  "Automatically generated"
+  is:
+    A G X ((G ("Prepare_Request_2", "Prepare_Request_3", "Prepare_Request_1", "Prepare_Request_4")?) U (("Prepare_Request_2", "Prepare_Request_3", "Prepare_Request_1", "Prepare_Request_4")?))
+  end.
+Property CSRepetitions-COL-02-LTLFireability-14
+  "Automatically generated"
+  is:
+    A ("Prepare_Request_2", "Prepare_Request_3", "Prepare_Request_1", "Prepare_Request_4")?
+  end.
+Property CSRepetitions-COL-02-LTLFireability-15
+  "Automatically generated"
+  is:
+    A F ("Lose_Request_4", "Lose_Request_2", "Lose_Request_3", "Lose_Request_1")?
+  end.

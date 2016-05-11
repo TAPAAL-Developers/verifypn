@@ -15,6 +15,7 @@ public:
     Edge(Configuration &t_source) : source(&t_source) {}
 
     Configuration* source;
+    Configuration* requested = nullptr;
     container targets;
 
     bool processed = false;

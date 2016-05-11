@@ -2,7 +2,6 @@
 #define IWAITINGLIST_H
 
 #include "../DependencyGraph/Edge.h"
-#include "Collection.h"
 
 namespace SearchStrategy {
 

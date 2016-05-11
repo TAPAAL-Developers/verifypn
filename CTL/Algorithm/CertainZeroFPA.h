@@ -4,6 +4,7 @@
 #include "FixedPointAlgorithm.h"
 #include "../DependencyGraph/Edge.h"
 #include "../DependencyGraph/Configuration.h"
+#include "../SearchStrategy/iSearchStrategy.h"
 
 #include <queue>
 

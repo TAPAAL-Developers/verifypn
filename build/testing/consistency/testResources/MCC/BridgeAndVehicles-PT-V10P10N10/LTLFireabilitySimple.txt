@@ -1,0 +1,80 @@
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-0
+  "Automatically generated"
+  is:
+    A F ("timeout_B_2_0_1_0", "timeout_B_2_1_1_0", "timeout_B_2_2_1_0", "timeout_B_2_3_1_0", "timeout_B_2_4_1_0", "timeout_B_2_5_1_0", "timeout_B_2_6_1_0", "timeout_B_2_7_1_0", "timeout_B_2_8_1_0", "timeout_B_2_9_1_0", "timeout_B_2_10_1_0", "timeout_B_2_0_2_0", "timeout_B_2_1_2_0", "timeout_B_2_2_2_0", "timeout_B_2_3_2_0", "timeout_B_2_4_2_0", "timeout_B_2_5_2_0", "timeout_B_2_6_2_0", "timeout_B_2_7_2_0", "timeout_B_2_8_2_0", "timeout_B_2_9_2_0", "timeout_B_2_10_2_0", "timeout_B_2_0_3_0", "timeout_B_2_1_3_0", "timeout_B_2_2_3_0", "timeout_B_2_3_3_0", "timeout_B_2_4_3_0", "timeout_B_2_5_3_0", "timeout_B_2_6_3_0", "timeout_B_2_7_3_0", "timeout_B_2_8_3_0", "timeout_B_2_9_3_0", "timeout_B_2_10_3_0", "timeout_B_2_0_4_0", "timeout_B_2_1_4_0", "timeout_B_2_2_4_0", "timeout_B_2_3_4_0", "timeout_B_2_4_4_0", "timeout_B_2_5_4_0", "timeout_B_2_6_4_0", "timeout_B_2_7_4_0", "timeout_B_2_8_4_0", "timeout_B_2_9_4_0", "timeout_B_2_10_4_0", "timeout_B_2_0_5_0", "timeout_B_2_1_5_0", "timeout_B_2_2_5_0", "timeout_B_2_3_5_0", "timeout_B_2_4_5_0", "timeout_B_2_5_5_0", "timeout_B_2_6_5_0", "timeout_B_2_7_5_0", "timeout_B_2_8_5_0", "timeout_B_2_9_5_0", "timeout_B_2_10_5_0", "timeout_B_2_0_6_0", "timeout_B_2_1_6_0", "timeout_B_2_2_6_0", "timeout_B_2_3_6_0", "timeout_B_2_4_6_0", "timeout_B_2_5_6_0", "timeout_B_2_6_6_0", "timeout_B_2_7_6_0", "timeout_B_2_8_6_0", "timeout_B_2_9_6_0", "timeout_B_2_10_6_0", "timeout_B_2_0_7_0", "timeout_B_2_1_7_0", "timeout_B_2_2_7_0", "timeout_B_2_3_7_0", "timeout_B_2_4_7_0", "timeout_B_2_5_7_0", "timeout_B_2_6_7_0", "timeout_B_2_7_7_0", "timeout_B_2_8_7_0", "timeout_B_2_9_7_0", "timeout_B_2_10_7_0", "timeout_B_2_0_8_0", "timeout_B_2_1_8_0", "timeout_B_2_2_8_0", "timeout_B_2_3_8_0", "timeout_B_2_4_8_0", "timeout_B_2_5_8_0", "timeout_B_2_6_8_0", "timeout_B_2_7_8_0", "timeout_B_2_8_8_0", "timeout_B_2_9_8_0", "timeout_B_2_10_8_0", "timeout_B_2_0_9_0", "timeout_B_2_1_9_0", "timeout_B_2_2_9_0", "timeout_B_2_3_9_0", "timeout_B_2_4_9_0", "timeout_B_2_5_9_0", "timeout_B_2_6_9_0", "timeout_B_2_7_9_0", "timeout_B_2_8_9_0", "timeout_B_2_9_9_0", "timeout_B_2_10_9_0", "timeout_B_2_0_10_0", "timeout_B_2_1_10_0", "timeout_B_2_2_10_0", "timeout_B_2_3_10_0", "timeout_B_2_4_10_0", "timeout_B_2_5_10_0", "timeout_B_2_6_10_0", "timeout_B_2_7_10_0", "timeout_B_2_8_10_0", "timeout_B_2_9_10_0", "timeout_B_2_10_10_0")?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-1
+  "Automatically generated"
+  is:
+    A F ("timeout_B_2_0_1_0", "timeout_B_2_1_1_0", "timeout_B_2_2_1_0", "timeout_B_2_3_1_0", "timeout_B_2_4_1_0", "timeout_B_2_5_1_0", "timeout_B_2_6_1_0", "timeout_B_2_7_1_0", "timeout_B_2_8_1_0", "timeout_B_2_9_1_0", "timeout_B_2_10_1_0", "timeout_B_2_0_2_0", "timeout_B_2_1_2_0", "timeout_B_2_2_2_0", "timeout_B_2_3_2_0", "timeout_B_2_4_2_0", "timeout_B_2_5_2_0", "timeout_B_2_6_2_0", "timeout_B_2_7_2_0", "timeout_B_2_8_2_0", "timeout_B_2_9_2_0", "timeout_B_2_10_2_0", "timeout_B_2_0_3_0", "timeout_B_2_1_3_0", "timeout_B_2_2_3_0", "timeout_B_2_3_3_0", "timeout_B_2_4_3_0", "timeout_B_2_5_3_0", "timeout_B_2_6_3_0", "timeout_B_2_7_3_0", "timeout_B_2_8_3_0", "timeout_B_2_9_3_0", "timeout_B_2_10_3_0", "timeout_B_2_0_4_0", "timeout_B_2_1_4_0", "timeout_B_2_2_4_0", "timeout_B_2_3_4_0", "timeout_B_2_4_4_0", "timeout_B_2_5_4_0", "timeout_B_2_6_4_0", "timeout_B_2_7_4_0", "timeout_B_2_8_4_0", "timeout_B_2_9_4_0", "timeout_B_2_10_4_0", "timeout_B_2_0_5_0", "timeout_B_2_1_5_0", "timeout_B_2_2_5_0", "timeout_B_2_3_5_0", "timeout_B_2_4_5_0", "timeout_B_2_5_5_0", "timeout_B_2_6_5_0", "timeout_B_2_7_5_0", "timeout_B_2_8_5_0", "timeout_B_2_9_5_0", "timeout_B_2_10_5_0", "timeout_B_2_0_6_0", "timeout_B_2_1_6_0", "timeout_B_2_2_6_0", "timeout_B_2_3_6_0", "timeout_B_2_4_6_0", "timeout_B_2_5_6_0", "timeout_B_2_6_6_0", "timeout_B_2_7_6_0", "timeout_B_2_8_6_0", "timeout_B_2_9_6_0", "timeout_B_2_10_6_0", "timeout_B_2_0_7_0", "timeout_B_2_1_7_0", "timeout_B_2_2_7_0", "timeout_B_2_3_7_0", "timeout_B_2_4_7_0", "timeout_B_2_5_7_0", "timeout_B_2_6_7_0", "timeout_B_2_7_7_0", "timeout_B_2_8_7_0", "timeout_B_2_9_7_0", "timeout_B_2_10_7_0", "timeout_B_2_0_8_0", "timeout_B_2_1_8_0", "timeout_B_2_2_8_0", "timeout_B_2_3_8_0", "timeout_B_2_4_8_0", "timeout_B_2_5_8_0", "timeout_B_2_6_8_0", "timeout_B_2_7_8_0", "timeout_B_2_8_8_0", "timeout_B_2_9_8_0", "timeout_B_2_10_8_0", "timeout_B_2_0_9_0", "timeout_B_2_1_9_0", "timeout_B_2_2_9_0", "timeout_B_2_3_9_0", "timeout_B_2_4_9_0", "timeout_B_2_5_9_0", "timeout_B_2_6_9_0", "timeout_B_2_7_9_0", "timeout_B_2_8_9_0", "timeout_B_2_9_9_0", "timeout_B_2_10_9_0", "timeout_B_2_0_10_0", "timeout_B_2_1_10_0", "timeout_B_2_2_10_0", "timeout_B_2_3_10_0", "timeout_B_2_4_10_0", "timeout_B_2_5_10_0", "timeout_B_2_6_10_0", "timeout_B_2_7_10_0", "timeout_B_2_8_10_0", "timeout_B_2_9_10_0", "timeout_B_2_10_10_0")?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-2
+  "Automatically generated"
+  is:
+    A F "liberation_A"?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-3
+  "Automatically generated"
+  is:
+    A F ("autorisation_A_1_1", "autorisation_A_1_2", "autorisation_A_1_3", "autorisation_A_1_4", "autorisation_A_1_5", "autorisation_A_1_6", "autorisation_A_1_7", "autorisation_A_1_8", "autorisation_A_1_9", "autorisation_A_1_10")?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-4
+  "Automatically generated"
+  is:
+    A F ("autorisation_B_2_1", "autorisation_B_2_2", "autorisation_B_2_3", "autorisation_B_2_4", "autorisation_B_2_5", "autorisation_B_2_6", "autorisation_B_2_7", "autorisation_B_2_8", "autorisation_B_2_9", "autorisation_B_2_10")?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-5
+  "Automatically generated"
+  is:
+    A F "liberation_B"?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-6
+  "Automatically generated"
+  is:
+    A F ("basculement_1", "basculement_2")?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-7
+  "Automatically generated"
+  is:
+    A F "liberation_B"?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-8
+  "Automatically generated"
+  is:
+    A F ("timeout_B_2_0_1_0", "timeout_B_2_1_1_0", "timeout_B_2_2_1_0", "timeout_B_2_3_1_0", "timeout_B_2_4_1_0", "timeout_B_2_5_1_0", "timeout_B_2_6_1_0", "timeout_B_2_7_1_0", "timeout_B_2_8_1_0", "timeout_B_2_9_1_0", "timeout_B_2_10_1_0", "timeout_B_2_0_2_0", "timeout_B_2_1_2_0", "timeout_B_2_2_2_0", "timeout_B_2_3_2_0", "timeout_B_2_4_2_0", "timeout_B_2_5_2_0", "timeout_B_2_6_2_0", "timeout_B_2_7_2_0", "timeout_B_2_8_2_0", "timeout_B_2_9_2_0", "timeout_B_2_10_2_0", "timeout_B_2_0_3_0", "timeout_B_2_1_3_0", "timeout_B_2_2_3_0", "timeout_B_2_3_3_0", "timeout_B_2_4_3_0", "timeout_B_2_5_3_0", "timeout_B_2_6_3_0", "timeout_B_2_7_3_0", "timeout_B_2_8_3_0", "timeout_B_2_9_3_0", "timeout_B_2_10_3_0", "timeout_B_2_0_4_0", "timeout_B_2_1_4_0", "timeout_B_2_2_4_0", "timeout_B_2_3_4_0", "timeout_B_2_4_4_0", "timeout_B_2_5_4_0", "timeout_B_2_6_4_0", "timeout_B_2_7_4_0", "timeout_B_2_8_4_0", "timeout_B_2_9_4_0", "timeout_B_2_10_4_0", "timeout_B_2_0_5_0", "timeout_B_2_1_5_0", "timeout_B_2_2_5_0", "timeout_B_2_3_5_0", "timeout_B_2_4_5_0", "timeout_B_2_5_5_0", "timeout_B_2_6_5_0", "timeout_B_2_7_5_0", "timeout_B_2_8_5_0", "timeout_B_2_9_5_0", "timeout_B_2_10_5_0", "timeout_B_2_0_6_0", "timeout_B_2_1_6_0", "timeout_B_2_2_6_0", "timeout_B_2_3_6_0", "timeout_B_2_4_6_0", "timeout_B_2_5_6_0", "timeout_B_2_6_6_0", "timeout_B_2_7_6_0", "timeout_B_2_8_6_0", "timeout_B_2_9_6_0", "timeout_B_2_10_6_0", "timeout_B_2_0_7_0", "timeout_B_2_1_7_0", "timeout_B_2_2_7_0", "timeout_B_2_3_7_0", "timeout_B_2_4_7_0", "timeout_B_2_5_7_0", "timeout_B_2_6_7_0", "timeout_B_2_7_7_0", "timeout_B_2_8_7_0", "timeout_B_2_9_7_0", "timeout_B_2_10_7_0", "timeout_B_2_0_8_0", "timeout_B_2_1_8_0", "timeout_B_2_2_8_0", "timeout_B_2_3_8_0", "timeout_B_2_4_8_0", "timeout_B_2_5_8_0", "timeout_B_2_6_8_0", "timeout_B_2_7_8_0", "timeout_B_2_8_8_0", "timeout_B_2_9_8_0", "timeout_B_2_10_8_0", "timeout_B_2_0_9_0", "timeout_B_2_1_9_0", "timeout_B_2_2_9_0", "timeout_B_2_3_9_0", "timeout_B_2_4_9_0", "timeout_B_2_5_9_0", "timeout_B_2_6_9_0", "timeout_B_2_7_9_0", "timeout_B_2_8_9_0", "timeout_B_2_9_9_0", "timeout_B_2_10_9_0", "timeout_B_2_0_10_0", "timeout_B_2_1_10_0", "timeout_B_2_2_10_0", "timeout_B_2_3_10_0", "timeout_B_2_4_10_0", "timeout_B_2_5_10_0", "timeout_B_2_6_10_0", "timeout_B_2_7_10_0", "timeout_B_2_8_10_0", "timeout_B_2_9_10_0", "timeout_B_2_10_10_0")?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-9
+  "Automatically generated"
+  is:
+    A F "liberation_A"?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-10
+  "Automatically generated"
+  is:
+    A F ("basculement_1", "basculement_2")?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-11
+  "Automatically generated"
+  is:
+    A F ("timeout_A_1_0_0_1", "timeout_A_1_1_0_1", "timeout_A_1_2_0_1", "timeout_A_1_3_0_1", "timeout_A_1_4_0_1", "timeout_A_1_5_0_1", "timeout_A_1_6_0_1", "timeout_A_1_7_0_1", "timeout_A_1_8_0_1", "timeout_A_1_9_0_1", "timeout_A_1_10_0_1", "timeout_A_1_0_0_2", "timeout_A_1_1_0_2", "timeout_A_1_2_0_2", "timeout_A_1_3_0_2", "timeout_A_1_4_0_2", "timeout_A_1_5_0_2", "timeout_A_1_6_0_2", "timeout_A_1_7_0_2", "timeout_A_1_8_0_2", "timeout_A_1_9_0_2", "timeout_A_1_10_0_2", "timeout_A_1_0_0_3", "timeout_A_1_1_0_3", "timeout_A_1_2_0_3", "timeout_A_1_3_0_3", "timeout_A_1_4_0_3", "timeout_A_1_5_0_3", "timeout_A_1_6_0_3", "timeout_A_1_7_0_3", "timeout_A_1_8_0_3", "timeout_A_1_9_0_3", "timeout_A_1_10_0_3", "timeout_A_1_0_0_4", "timeout_A_1_1_0_4", "timeout_A_1_2_0_4", "timeout_A_1_3_0_4", "timeout_A_1_4_0_4", "timeout_A_1_5_0_4", "timeout_A_1_6_0_4", "timeout_A_1_7_0_4", "timeout_A_1_8_0_4", "timeout_A_1_9_0_4", "timeout_A_1_10_0_4", "timeout_A_1_0_0_5", "timeout_A_1_1_0_5", "timeout_A_1_2_0_5", "timeout_A_1_3_0_5", "timeout_A_1_4_0_5", "timeout_A_1_5_0_5", "timeout_A_1_6_0_5", "timeout_A_1_7_0_5", "timeout_A_1_8_0_5", "timeout_A_1_9_0_5", "timeout_A_1_10_0_5", "timeout_A_1_0_0_6", "timeout_A_1_1_0_6", "timeout_A_1_2_0_6", "timeout_A_1_3_0_6", "timeout_A_1_4_0_6", "timeout_A_1_5_0_6", "timeout_A_1_6_0_6", "timeout_A_1_7_0_6", "timeout_A_1_8_0_6", "timeout_A_1_9_0_6", "timeout_A_1_10_0_6", "timeout_A_1_0_0_7", "timeout_A_1_1_0_7", "timeout_A_1_2_0_7", "timeout_A_1_3_0_7", "timeout_A_1_4_0_7", "timeout_A_1_5_0_7", "timeout_A_1_6_0_7", "timeout_A_1_7_0_7", "timeout_A_1_8_0_7", "timeout_A_1_9_0_7", "timeout_A_1_10_0_7", "timeout_A_1_0_0_8", "timeout_A_1_1_0_8", "timeout_A_1_2_0_8", "timeout_A_1_3_0_8", "timeout_A_1_4_0_8", "timeout_A_1_5_0_8", "timeout_A_1_6_0_8", "timeout_A_1_7_0_8", "timeout_A_1_8_0_8", "timeout_A_1_9_0_8", "timeout_A_1_10_0_8", "timeout_A_1_0_0_9", "timeout_A_1_1_0_9", "timeout_A_1_2_0_9", "timeout_A_1_3_0_9", "timeout_A_1_4_0_9", "timeout_A_1_5_0_9", "timeout_A_1_6_0_9", "timeout_A_1_7_0_9", "timeout_A_1_8_0_9", "timeout_A_1_9_0_9", "timeout_A_1_10_0_9", "timeout_A_1_0_0_10", "timeout_A_1_1_0_10", "timeout_A_1_2_0_10", "timeout_A_1_3_0_10", "timeout_A_1_4_0_10", "timeout_A_1_5_0_10", "timeout_A_1_6_0_10", "timeout_A_1_7_0_10", "timeout_A_1_8_0_10", "timeout_A_1_9_0_10", "timeout_A_1_10_0_10")?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-12
+  "Automatically generated"
+  is:
+    A F ("autorisation_A_1_1", "autorisation_A_1_2", "autorisation_A_1_3", "autorisation_A_1_4", "autorisation_A_1_5", "autorisation_A_1_6", "autorisation_A_1_7", "autorisation_A_1_8", "autorisation_A_1_9", "autorisation_A_1_10")?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-13
+  "Automatically generated"
+  is:
+    A F ("basculement_1", "basculement_2")?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-14
+  "Automatically generated"
+  is:
+    A F ("timeout_B_2_0_1_0", "timeout_B_2_1_1_0", "timeout_B_2_2_1_0", "timeout_B_2_3_1_0", "timeout_B_2_4_1_0", "timeout_B_2_5_1_0", "timeout_B_2_6_1_0", "timeout_B_2_7_1_0", "timeout_B_2_8_1_0", "timeout_B_2_9_1_0", "timeout_B_2_10_1_0", "timeout_B_2_0_2_0", "timeout_B_2_1_2_0", "timeout_B_2_2_2_0", "timeout_B_2_3_2_0", "timeout_B_2_4_2_0", "timeout_B_2_5_2_0", "timeout_B_2_6_2_0", "timeout_B_2_7_2_0", "timeout_B_2_8_2_0", "timeout_B_2_9_2_0", "timeout_B_2_10_2_0", "timeout_B_2_0_3_0", "timeout_B_2_1_3_0", "timeout_B_2_2_3_0", "timeout_B_2_3_3_0", "timeout_B_2_4_3_0", "timeout_B_2_5_3_0", "timeout_B_2_6_3_0", "timeout_B_2_7_3_0", "timeout_B_2_8_3_0", "timeout_B_2_9_3_0", "timeout_B_2_10_3_0", "timeout_B_2_0_4_0", "timeout_B_2_1_4_0", "timeout_B_2_2_4_0", "timeout_B_2_3_4_0", "timeout_B_2_4_4_0", "timeout_B_2_5_4_0", "timeout_B_2_6_4_0", "timeout_B_2_7_4_0", "timeout_B_2_8_4_0", "timeout_B_2_9_4_0", "timeout_B_2_10_4_0", "timeout_B_2_0_5_0", "timeout_B_2_1_5_0", "timeout_B_2_2_5_0", "timeout_B_2_3_5_0", "timeout_B_2_4_5_0", "timeout_B_2_5_5_0", "timeout_B_2_6_5_0", "timeout_B_2_7_5_0", "timeout_B_2_8_5_0", "timeout_B_2_9_5_0", "timeout_B_2_10_5_0", "timeout_B_2_0_6_0", "timeout_B_2_1_6_0", "timeout_B_2_2_6_0", "timeout_B_2_3_6_0", "timeout_B_2_4_6_0", "timeout_B_2_5_6_0", "timeout_B_2_6_6_0", "timeout_B_2_7_6_0", "timeout_B_2_8_6_0", "timeout_B_2_9_6_0", "timeout_B_2_10_6_0", "timeout_B_2_0_7_0", "timeout_B_2_1_7_0", "timeout_B_2_2_7_0", "timeout_B_2_3_7_0", "timeout_B_2_4_7_0", "timeout_B_2_5_7_0", "timeout_B_2_6_7_0", "timeout_B_2_7_7_0", "timeout_B_2_8_7_0", "timeout_B_2_9_7_0", "timeout_B_2_10_7_0", "timeout_B_2_0_8_0", "timeout_B_2_1_8_0", "timeout_B_2_2_8_0", "timeout_B_2_3_8_0", "timeout_B_2_4_8_0", "timeout_B_2_5_8_0", "timeout_B_2_6_8_0", "timeout_B_2_7_8_0", "timeout_B_2_8_8_0", "timeout_B_2_9_8_0", "timeout_B_2_10_8_0", "timeout_B_2_0_9_0", "timeout_B_2_1_9_0", "timeout_B_2_2_9_0", "timeout_B_2_3_9_0", "timeout_B_2_4_9_0", "timeout_B_2_5_9_0", "timeout_B_2_6_9_0", "timeout_B_2_7_9_0", "timeout_B_2_8_9_0", "timeout_B_2_9_9_0", "timeout_B_2_10_9_0", "timeout_B_2_0_10_0", "timeout_B_2_1_10_0", "timeout_B_2_2_10_0", "timeout_B_2_3_10_0", "timeout_B_2_4_10_0", "timeout_B_2_5_10_0", "timeout_B_2_6_10_0", "timeout_B_2_7_10_0", "timeout_B_2_8_10_0", "timeout_B_2_9_10_0", "timeout_B_2_10_10_0")?
+  end.
+Property BridgeAndVehicles-COL-V10P10N10-LTLFireabilitySimple-15
+  "Automatically generated"
+  is:
+    A F ("basculement_1", "basculement_2")?
+  end.
