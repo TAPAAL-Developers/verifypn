@@ -20,8 +20,9 @@ void SearchStrategy::DFSSearch::pushDependency(DependencyGraph::Edge *edge)
 
 SearchStrategy::TaskType SearchStrategy::DFSSearch::pickTask(DependencyGraph::Edge*& edge)
 {
-    if (W.empty())
+    if (W.empty()) {
         return EMPTY;
+    }
 
     edge = W.back();
 

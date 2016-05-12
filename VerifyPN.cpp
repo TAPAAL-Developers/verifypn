@@ -62,7 +62,7 @@
 #include "CTL/Algorithm/PartitionFunction.h"
 #include "CTL/Algorithm/LocalFPA.h"
 
-#include "CTL/DependencyGraph/AbstractDependencyGraphs.h"
+#include "CTL/DependencyGraph/BaiscDependencyGraph.h"
 #include "CTL/PetriNets/OnTheFlyDG.h"
 #include "CTL/PetriNets/HashPartitionFunction.h"
 
@@ -191,7 +191,7 @@ void search_ctl_query(PetriNet* net,
     PetriNets::OnTheFlyDG *graph = new PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
     Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::CertainZeroFPA();
     iSequantialSearchStrategy *strategy
-            = new UniversalSearchStrategy<>();
+            = new DFSSearch(); //new UniversalSearchStrategy<>();
 
     /*
      * This is how to run the dist. algorithm    
