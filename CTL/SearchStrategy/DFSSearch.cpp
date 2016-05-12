@@ -10,19 +10,32 @@ bool SearchStrategy::DFSSearch::empty() const
 
 void SearchStrategy::DFSSearch::pushEdge(DependencyGraph::Edge *edge)
 {
-    W.push(edge);
+    W.push_back(edge);
 }
 
 void SearchStrategy::DFSSearch::clear()
 {
-    while(!W.empty())
-        W.pop();
+    W.clear();
 }
 
 SearchStrategy::TaskType SearchStrategy::DFSSearch::pickTask(DependencyGraph::Edge*& edge)
 {
-    if (W.empty()) return EMPTY;
-    edge = W.top();
-    W.pop();
+//    std::cout << "Size of W: " << W.size() << std::endl;
+    if (W.empty())
+        return EMPTY;
+
+    edge = W.back();
+
+    if(edge->is_negated){
+//        std::cout << "Negation edge - " << std::boolalpha << edge->processed << std::endl;
+        if(edge->processed){
+            W.pop_back();
+        }
+    }
+    else {
+//        std::cout << "Hyper edge - " << std::boolalpha << edge->processed << std::endl;
+        W.pop_back();
+    }
+
     return EDGE;
 }

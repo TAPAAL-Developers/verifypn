@@ -57,7 +57,7 @@
 
 #include "CTL/Algorithm/FixedPointAlgorithm.h"
 #include "CTL/Algorithm/CertainZeroFPA.h"
-//#include "CTL/LocalFPA.h"
+#include "CTL/Algorithm/LocalFPA.h"
 
 #include "CTL/DependencyGraph/AbstractDependencyGraphs.h"
 #include "CTL/PetriNets/OnTheFlyDG.h"
@@ -176,7 +176,7 @@ void search_ctl_query(PetriNet* net,
                       ReturnValues result[],
                       PNMLParser::InhibitorArcList inhibitorarcs) {
 
-    Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::CertainZeroFPA();
+    Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::LocalFPA();
     SearchStrategy::iSequantialSearchStrategy *strategy = new SearchStrategy::BasicSearchStrategy();
     PetriNets::OnTheFlyDG *graph = new PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
 

@@ -3,7 +3,7 @@
 
 #include "iSearchStrategy.h"
 
-#include <stack>
+#include <vector>
 
 namespace SearchStrategy {
 
@@ -18,7 +18,7 @@ public:
 
 protected:
 
-    std::stack<DependencyGraph::Edge*> W;
+    std::vector<DependencyGraph::Edge*> W;
 };
 
 }   // end SearchStrategy

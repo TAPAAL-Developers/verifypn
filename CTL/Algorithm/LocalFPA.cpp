@@ -3,6 +3,7 @@
 #include "../DependencyGraph/Edge.h"
 
 #include <assert.h>
+#include <iostream>
 
 bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph,
                                  SearchStrategy::iSequantialSearchStrategy &t_strategy)
@@ -13,11 +14,11 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph,
     graph = &t_graph;
     strategy = &t_strategy;
 
-//    std::cout << "Initial Configuration" << std::endl;
+    std::cout << "Initial Configuration" << std::endl;
     Configuration *v = graph->initialConfiguration();
     explore(v);
 
-//    std::cout << "Exploring" << std::endl;
+    std::cout << "Exploring" << std::endl;
     Edge *e;
     int r = strategy->pickTask(e);
 
@@ -40,7 +41,7 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph,
         Configuration *lastUndecided = nullptr;
 
         for (DependencyGraph::Configuration *c : e->targets) {
-            if (c->assignment != ONE) {
+            if (c->assignment != DependencyGraph::ONE) {
                 allOne = false;
                 lastUndecided = c;
             }
@@ -49,38 +50,35 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph,
 
         if (e->is_negated) {
             //Process negation edge
-            if (allOne) {
-                e->source->removeSuccessor(e);
-                if (e->source->successors.empty()) {
-                    finalAssign(e->source, CZERO);
-                }
-            } else {
-                assert(lastUndecided != nullptr);
-                if (lastUndecided->assignment == ZERO) {
-                    finalAssign(e->source, ONE);
-                } else {
-                    strategy->pushEdge(e);
-                    addDependency(e, lastUndecided);
+            if(allOne) {}
+            else if(!e->processed){
+                addDependency(e, lastUndecided);
+                if(lastUndecided->assignment == UNKNOWN){
                     explore(lastUndecided);
                 }
             }
+            else{
+                finalAssign(e->source, ONE);
+            }
+
         } else {
             //Process hyper edge
             if (allOne) {
                 finalAssign(e->source, ONE);
-            } else if (lastUndecided != nullptr) {
+            } else {
                 addDependency(e, lastUndecided);
                 if (lastUndecided->assignment == UNKNOWN) {
                     explore(lastUndecided);
                 }
             }
         }
+        e->processed = true;
 //        std::cout << "Picking task" << std::endl;
         r = strategy->pickTask(e);
 //        std::cout << "Picked" << std::endl;
     }
 
-//    std::cout << "Final Assignment " << std::boolalpha << (v->assignment == ONE ? true : false) << std::endl;
+    std::cout << "Final Assignment " << v->assignmentToStr(v->assignment) << std::endl;
     return (v->assignment == ONE) ? true : false;
 }
 
@@ -98,16 +96,20 @@ void Algorithm::LocalFPA::finalAssign(DependencyGraph::Configuration *c, Depende
 
 void Algorithm::LocalFPA::explore(DependencyGraph::Configuration *c)
 {
+    assert(c->assignment == DependencyGraph::UNKNOWN);
     c->assignment = DependencyGraph::ZERO;
     graph->successors(c);
 
     for (DependencyGraph::Edge *succ : c->successors) {
-//            std::cout << "push edge " << succ << std::endl;
         strategy->pushEdge(succ);
-//            if (succ->source->is_negated) {
-//                strategy->pushEdge(succ);
-//            } else {
-//                strategy->pushEdge(succ);
-//            }
     }
+}
+
+void Algorithm::LocalFPA::addDependency(DependencyGraph::Edge *e, DependencyGraph::Configuration *target)
+{
+    unsigned int sDist = e->is_negated ? e->source->getDistance() + 1 : e->source->getDistance();
+    unsigned int tDist = target->getDistance();
+
+    target->setDistance(std::max(sDist, tDist));
+    target->dependency_set.push_back(e);
 }
