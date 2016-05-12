@@ -10,10 +10,10 @@ RESOURCESFOLDER=$7
 i=$8
 OUTPUTFILE=$9
 
-MPIRUN=""
 
-if [ "$ALG" == "dist" ]; then 
+MPIRUN=""
+if [ "$ALG" = "dist" ]; then 
     MPIRUN="mpirun -np 4"
 fi
-
+export MAXMEM_KB=16000000
 { $TIMEOUTTOOL $TIMEOUT $MPIRUN $REPOSITORY/$EXECUTABLE $RESOURCESFOLDER/$MODEL/model.pnml $RESOURCESFOLDER/$MODEL/CTLCardinality.xml -ctl $ALG -s DFS -x $i -p test; } >> $OUTPUTFILE 2>&1
