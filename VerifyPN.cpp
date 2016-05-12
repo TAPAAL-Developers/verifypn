@@ -30,6 +30,7 @@
 #include <PetriEngine/PQL/PQL.h>
 #include <string>
 #include <vector>
+#include <stack>
 #include <string.h>
 #include <iostream>
 #include <fstream>
@@ -57,33 +58,33 @@
 
 #include "CTL/Algorithm/FixedPointAlgorithm.h"
 #include "CTL/Algorithm/CertainZeroFPA.h"
-<<<<<<< TREE
 #include "CTL/Algorithm/DistCZeroFPA.h"
 #include "CTL/Algorithm/PartitionFunction.h"
-=======
-        #include "CTL/Algorithm/LocalFPA.h"
-        >>>>>>> MERGE-SOURCE
+#include "CTL/Algorithm/LocalFPA.h"
 
-          #include "CTL/DependencyGraph/AbstractDependencyGraphs.h"
-          #include "CTL/PetriNets/OnTheFlyDG.h"
-          #include "CTL/PetriNets/HashPartitionFunction.h"
+#include "CTL/DependencyGraph/AbstractDependencyGraphs.h"
+#include "CTL/PetriNets/OnTheFlyDG.h"
+#include "CTL/PetriNets/HashPartitionFunction.h"
 
-          #include "CTL/SearchStrategy/DFSSearch.h"
-          #include "CTL/SearchStrategy/iSearchStrategy.h"
-          #include "CTL/SearchStrategy/iWaitingList.h"
-          #include "CTL/SearchStrategy/BasicSearchStrategy.h"
-          #include "CTL/SearchStrategy/BasicDistStrategy.h"
+#include "CTL/SearchStrategy/DFSSearch.h"
+#include "CTL/SearchStrategy/iSearchStrategy.h"
+#include "CTL/SearchStrategy/UniversalSearchStrategy.h"
+#include "CTL/SearchStrategy/WaitingList.h"
+#include "CTL/SearchStrategy/NegationWaitingList.h"
 
-          #include "CTL/Communicator/Communicator.h"
-          #include "CTL/Communicator/MPICommunicator.h"
+#include "CTL/Communicator/Communicator.h"
+#include "CTL/Communicator/MPICommunicator.h"
 
-          #include "CTLParser/CTLParser_v2.h"
-          #include "CTLParser/CTLOptimizer.h"
+#include "CTL/DependencyGraph/Edge.h"
 
-          using namespace std;
+#include "CTLParser/CTLParser_v2.h"
+#include "CTLParser/CTLOptimizer.h"
+
+using namespace std;
 using namespace PetriEngine;
 using namespace PetriEngine::PQL;
 using namespace PetriEngine::Reachability;
+using namespace SearchStrategy;
 
 /** Enumeration of return values from VerifyPN */
 enum ReturnValues{
@@ -187,12 +188,13 @@ void search_ctl_query(PetriNet* net,
                       ReturnValues result[],
                       PNMLParser::InhibitorArcList inhibitorarcs) {
 
-    Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::LocalFPA();
-    SearchStrategy::iSequantialSearchStrategy *strategy = new SearchStrategy::BasicSearchStrategy();
+    PetriNets::OnTheFlyDG *graph = new PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
+    Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::CertainZeroFPA();
+    iSequantialSearchStrategy *strategy
+            = new UniversalSearchStrategy<>();
 
     /*
-     * This is how to run the dist. algorithm
-    PetriNets::OnTheFlyDG *graph = new PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
+     * This is how to run the dist. algorithm    
     Communicator *comm = new MPICommunicator(graph);
     Algorithm::PartitionFunction *partition = new PetriNets::HashPartitionFunction(comm->size());
     Algorithm::DistCZeroFPA *algorithm = new Algorithm::DistCZeroFPA(partition, comm);

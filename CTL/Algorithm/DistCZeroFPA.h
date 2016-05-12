@@ -16,13 +16,15 @@
 
 namespace Algorithm {
 
-class DistCZeroFPA
+class DistCZeroFPA : public DistributedFixedPointAlgorithm
 {
 public:
-    DistCZeroFPA(PartitionFunction *partition, Communicator *comm);
+    DistCZeroFPA();
 
-    virtual bool search(DependencyGraph::BasicDependencyGraph &t_graph,
-                        SearchStrategy::iDistributedSearchStrategy &t_strategy);
+    virtual bool search(DependencyGraph::BasicDependencyGraph &graph,
+                        SearchStrategy::iDistributedSearchStrategy &strategy,
+                        Communicator &communicator,
+                        PartitionFunction &partition_function) override;
 
 protected:
 
@@ -54,17 +56,7 @@ protected:
     int nextMessageId() {
         messageId += 1;
         return messageId;
-    }
-
-    ///Debugging functions and variables
-
-
-    std::fstream ostream;
-    template<class ...args>
-    void output(args ...arguments);
-    std::string to_string();
-    template<class T, class ...Ts>
-    std::string to_string(T head, Ts... tail);
+    }    
 };
 }
 #endif // DISTCZEROFPA_H

@@ -6,9 +6,7 @@
 using namespace SearchStrategy;
 using namespace DependencyGraph;
 
-Algorithm::DistCZeroFPA::DistCZeroFPA(Algorithm::PartitionFunction *partition, Communicator *comm) :
-    partition(partition), comm(comm)
-{ }
+Algorithm::DistCZeroFPA::DistCZeroFPA() { }
 
 void Algorithm::DistCZeroFPA::finalAssign(Configuration *c, Assignment value)
 {
@@ -265,8 +263,13 @@ void Algorithm::DistCZeroFPA::addDependency(Edge *e, Configuration *target)
     target->dependency_set.push_back(e);
 }
 
-bool Algorithm::DistCZeroFPA::search(BasicDependencyGraph &t_graph, iDistributedSearchStrategy &t_strategy)
-{
+
+bool Algorithm::DistCZeroFPA::search(
+        BasicDependencyGraph &t_graph, iDistributedSearchStrategy &t_strategy,
+        Communicator &communicator, Algorithm::PartitionFunction &partition_function
+) {
+    this->partition = &partition_function;
+    this->comm = &communicator;
     this->graph = &t_graph;
     this->strategy = &t_strategy;
     this->v = graph->initialConfiguration();

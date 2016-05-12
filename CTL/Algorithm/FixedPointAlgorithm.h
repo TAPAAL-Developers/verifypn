@@ -3,6 +3,8 @@
 
 #include "../DependencyGraph/AbstractDependencyGraphs.h"
 #include "../SearchStrategy/iSearchStrategy.h"
+#include "../Communicator/Communicator.h"
+#include "PartitionFunction.h"
 
 namespace Algorithm {
 
@@ -11,12 +13,13 @@ public:
     virtual bool search(DependencyGraph::BasicDependencyGraph &graph,
                         SearchStrategy::iSequantialSearchStrategy &strategy) =0;
 };
-/*
+
 class DistributedFixedPointAlgorithm {
     virtual bool search(DependencyGraph::BasicDependencyGraph &graph,
                         SearchStrategy::iDistributedSearchStrategy &strategy,
-                        AbstractCommunicator &channel) =0;
+                        Communicator &communicator,
+                        PartitionFunction &partition_function) =0;
 };
-*/
+
 }
 #endif // FIXEDPOINTALGORITHM_H

@@ -73,7 +73,6 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
                 if (lastUndecided->assignment == ZERO) {
                     finalAssign(e->source, ONE);
                 } else {
-                    strategy->pushEdge(e);
                     addDependency(e, lastUndecided);
                     explore(lastUndecided);
                 }
