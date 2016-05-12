@@ -3,6 +3,7 @@
 
 #include <cstdio>
 #include <vector>
+#include <string>
 
 namespace DependencyGraph {
 
@@ -21,6 +22,8 @@ public:
     bool processed = false;
     bool is_deleted = false;
     bool is_negated = false;
+
+    std::string toString();
 };
 }
 #endif // EDGE_H

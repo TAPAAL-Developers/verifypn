@@ -19,12 +19,20 @@ public:
     Marking *marking;
     CTLQuery *query;
 
-    virtual void printConfiguration() override {
-        DependencyGraph::Configuration::printConfiguration();
-        std::printf("%s\n", marking->toString().c_str());
-        CTLParser_v2 p;
-        std::printf("Query (%ld): %s",(unsigned long int) query, p.QueryToString(query).c_str());
-        std::printf("\n=======================================================\n");
+    virtual std::string toString() const override
+    {
+        std::stringstream ss;
+        ss << "==================== Configuration ====================" << std::endl
+           << attrToString() << " IsTemporal: " << (query->IsTemporal ? "TRUE" : "FALSE") << std::endl
+           << marking->toString() << std::endl
+           << query->ToString() << std::endl
+           << "=======================================================" << std::endl;
+
+        return ss.str();
+    }
+
+    virtual void printConfiguration() const override {
+        std::cout << toString();
     }
 
 };

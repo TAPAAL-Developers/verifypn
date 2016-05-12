@@ -1,17 +1,13 @@
-#include "CertainZeroFPA.h"
+#include "LocalFPA.h"
+#include "../DependencyGraph/Configuration.h"
+#include "../DependencyGraph/Edge.h"
+
 #include <assert.h>
-#include <iostream>
-#include <algorithm>
-#include <iostream>
 
-using namespace DependencyGraph;
-
-bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_graph,
-        SearchStrategy::iSequantialSearchStrategy &t_strategy)
+bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph,
+                                 SearchStrategy::iSequantialSearchStrategy &t_strategy)
 {
-//    std::cout << "Instantiating" << std::endl;
-
-    using namespace SearchStrategy;
+    using namespace DependencyGraph;
     using TaskType = SearchStrategy::TaskType;
 
     graph = &t_graph;
@@ -36,24 +32,16 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
 //        }
 //        std::cout << std::endl;
 
-
-
-        if (v->isDone()) {
+        if (v->assignment == DependencyGraph::ONE) {
             break;
         }
 
         bool allOne = true;
-        bool hasCZero = false;
         Configuration *lastUndecided = nullptr;
 
         for (DependencyGraph::Configuration *c : e->targets) {
-            if (c->assignment == CZERO) {
-                hasCZero = true;
-            }
             if (c->assignment != ONE) {
                 allOne = false;
-            }
-            if (!c->isDone()) {
                 lastUndecided = c;
             }
         }
@@ -66,8 +54,6 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
                 if (e->source->successors.empty()) {
                     finalAssign(e->source, CZERO);
                 }
-            } else if (hasCZero) {
-                finalAssign(e->source, ONE);
             } else {
                 assert(lastUndecided != nullptr);
                 if (lastUndecided->assignment == ZERO) {
@@ -82,11 +68,6 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
             //Process hyper edge
             if (allOne) {
                 finalAssign(e->source, ONE);
-            } else if (hasCZero) {
-                e->source->removeSuccessor(e);
-                if (e->source->successors.empty()) {
-                    finalAssign(e->source, CZERO);
-                }
             } else if (lastUndecided != nullptr) {
                 addDependency(e, lastUndecided);
                 if (lastUndecided->assignment == UNKNOWN) {
@@ -103,45 +84,30 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
     return (v->assignment == ONE) ? true : false;
 }
 
-void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)
+void Algorithm::LocalFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)
 {
-    assert(a == ONE || a == CZERO);
-
+    assert(a == DependencyGraph::ONE);
     c->assignment = a;
-    for (DependencyGraph::Edge *e : c->dependency_set) {
+
+    for(DependencyGraph::Edge *e : c->dependency_set){
         strategy->pushEdge(e);
     }
+
     c->dependency_set.clear();
 }
 
-void Algorithm::CertainZeroFPA::explore(Configuration *c)
+void Algorithm::LocalFPA::explore(DependencyGraph::Configuration *c)
 {
-//    std::cout << "Exploring " << c << std::endl;
-    //c->printConfiguration();
-    c->assignment = ZERO;
+    c->assignment = DependencyGraph::ZERO;
     graph->successors(c);
 
-    if (c->successors.empty()) {
-        finalAssign(c, CZERO);
-    }
-    else {
-        for (Edge *succ : c->successors) {
+    for (DependencyGraph::Edge *succ : c->successors) {
 //            std::cout << "push edge " << succ << std::endl;
-            strategy->pushEdge(succ);
+        strategy->pushEdge(succ);
 //            if (succ->source->is_negated) {
 //                strategy->pushEdge(succ);
 //            } else {
 //                strategy->pushEdge(succ);
 //            }
-        }
     }
-}
-
-void Algorithm::CertainZeroFPA::addDependency(Edge *e, Configuration *target)
-{
-    unsigned int sDist = e->is_negated ? e->source->getDistance() + 1 : e->source->getDistance();
-    unsigned int tDist = target->getDistance();
-
-    target->setDistance(std::max(sDist, tDist));
-    target->dependency_set.push_back(e);
 }

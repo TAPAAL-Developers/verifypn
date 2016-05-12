@@ -1,5 +1,7 @@
 #include "Configuration.h"
 #include <stdlib.h> //abs
+#include <iostream>
+#include <sstream>
 
 DependencyGraph::Configuration::~Configuration() {
     for(Edge *e : successors)
@@ -25,13 +27,26 @@ void DependencyGraph::Configuration::removeSuccessor(DependencyGraph::Edge *t_su
     }
 }
 
-void DependencyGraph::Configuration::printConfiguration(){
-    std::printf("==================== Configuration ====================\n");
-    std::printf("Addr: %ld, Assignment: %s, IsNegated: %s\n",
-                (unsigned long int)this,
-                assignmentToStr(assignment).c_str(),
-                is_negated ? "True" : "False" );
-    std::printf("=======================================================\n");
+std::string DependencyGraph::Configuration::toString() const
+{
+    std::stringstream ss;
+    ss << "==================== Configuration ====================" << std::endl
+       << attrToString()
+       << "=======================================================" << std::endl;
+
+    return ss.str();
+}
+
+std::string DependencyGraph::Configuration::attrToString() const{
+    std::stringstream ss;
+
+    ss << "Addr: " << this << " Assignment: " << assignmentToStr(assignment) << " Negated: " << "<void>";
+
+    return ss.str();
+}
+
+void DependencyGraph::Configuration::printConfiguration() const{
+    std::cout << toString();
 }
 
 std::__cxx11::string DependencyGraph::Configuration::assignmentToStr(DependencyGraph::Assignment a){

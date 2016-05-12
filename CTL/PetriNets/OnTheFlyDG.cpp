@@ -379,10 +379,13 @@ bool OnTheFlyDG::evaluateQuery(CTLQuery &query, Marking &marking)
 int OnTheFlyDG::GetParamValue(CardinalityParameter *param, Marking& marking) {
 
     if(param->isPlace){
+//        std::cout << "Place[" << param->value << "]: " << (marking[param->value]) << std::endl;
         return marking[param->value];
     }
-    else
+    else{
+//        std::cout << "Value: " << param->value << std::endl;
         return param->value;
+    }
 }
 
 bool OnTheFlyDG::EvalCardianlity(int a, LoperatorType lop, int b) {

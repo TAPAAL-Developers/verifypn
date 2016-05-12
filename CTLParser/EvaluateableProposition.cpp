@@ -106,8 +106,9 @@ void EvaluateableProposition::SetFireset(std::string fireset_str, std::vector<st
 
 CardinalityParameter* EvaluateableProposition::CreateParameter(std::string parameter_str, std::vector<std::string> p_names, unsigned int numberof_p){
     CardinalityParameter *param = new CardinalityParameter();
-    std::string::size_type sz;    
-    if(sscanf(parameter_str.c_str(), "%d", &param->value) != EOF) {
+    std::string::size_type sz;
+    char c;
+    if(sscanf(parameter_str.c_str(), "%d%c", &param->value, &c) == 1) {
         param->isPlace = false;
     } else {    //error
         param->isPlace = true;

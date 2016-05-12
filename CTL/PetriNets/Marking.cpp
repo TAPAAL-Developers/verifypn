@@ -30,7 +30,7 @@ namespace PetriNets {
     {
         std::stringstream ss;
         ss << "Marking (" << this << "): ";
-        for(int i = 1; i < m_length; i++)
+        for(int i = 0; i < m_length; i++)
             ss << m_marking[i];
 
         return ss.str();

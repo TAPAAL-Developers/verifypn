@@ -30,8 +30,12 @@ public:
     //Removes a single instance of a successor
     //Should not have multiple equal successors
     void removeSuccessor(Edge *t_successor);
-    virtual void printConfiguration();
-    std::string assignmentToStr(Assignment a);
+
+    virtual std::string toString() const;
+    std::string attrToString() const;
+    static std::string assignmentToStr(Assignment a);
+    virtual void printConfiguration() const;
+
     bool isDone() const { return assignment == ONE || assignment == CZERO; }
 
     Assignment assignment = UNKNOWN;
