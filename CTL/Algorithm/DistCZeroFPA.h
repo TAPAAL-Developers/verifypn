@@ -14,11 +14,14 @@
 #define FLAG_DIRTY 1
 #define FLAG_TERMINATE 2
 
+#include "FixedPointAlgorithm.h"
+
 namespace Algorithm {
 
-class DistCZeroFPA
+class DistCZeroFPA : public FixedPointAlgorithm
 {
 public:
+    DistCZeroFPA() {}
     DistCZeroFPA(PartitionFunction *partition, Communicator *comm);
 
     virtual bool search(DependencyGraph::BasicDependencyGraph &t_graph,

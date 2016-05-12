@@ -11,12 +11,12 @@ public:
     virtual bool search(DependencyGraph::BasicDependencyGraph &graph,
                         SearchStrategy::iSequantialSearchStrategy &strategy) =0;
 };
-/*
+
 class DistributedFixedPointAlgorithm {
     virtual bool search(DependencyGraph::BasicDependencyGraph &graph,
                         SearchStrategy::iDistributedSearchStrategy &strategy,
                         AbstractCommunicator &channel) =0;
 };
-*/
+
 }
 #endif // FIXEDPOINTALGORITHM_H

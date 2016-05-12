@@ -57,8 +57,18 @@ void SearchStrategy::DFSSearch::releaseNegationEdges(int dist)
 
 SearchStrategy::TaskType SearchStrategy::DFSSearch::pickTask(DependencyGraph::Edge *&edge, SearchStrategy::Message &message)
 {
-    if (W.empty()) return EMPTY;
-    edge = W.top();
-    W.pop();
+    if (W.empty())
+        return EMPTY;
+
+    edge = W.back();
+
+    if(edge->is_negated){
+        if(edge->processed)
+            W.pop_back();
+    }
+    else{
+        W.pop_back();
+    }
+
     return EDGE;
 }
