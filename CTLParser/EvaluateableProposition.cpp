@@ -108,7 +108,7 @@ CardinalityParameter* EvaluateableProposition::CreateParameter(std::string param
     CardinalityParameter *param = new CardinalityParameter();
     std::string::size_type sz;    
     char c;
-    if(sscanf(parameter_str.c_str(), "%d%c", &param->value, &c) != 1) {
+    if(sscanf(parameter_str.c_str(), "%d%c", &param->value, &c) == 1) {
         //If string is identifier starting with a number, you will read two items.
         //If it's an identifier starting with a character, you will read zero items.
         //The only time when you read just one item if the whole string is just numbers.
