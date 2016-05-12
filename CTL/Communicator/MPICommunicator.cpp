@@ -62,7 +62,7 @@ void MPICommunicator::sendDistance(int receiver, int distance)
     buf[0] = distance;
     send_requests[slot].buffer = buf;
 
-    MPI_Isend(buf, 1, MPI_INT, receiver, MPI_TOKEN_TAG, MPI_COMM_WORLD, &send_requests[slot].mpiRequest);
+    MPI_Isend(buf, 1, MPI_INT, receiver, MPI_DISTANCE_TAG, MPI_COMM_WORLD, &send_requests[slot].mpiRequest);
 }
 
 std::pair<int, SearchStrategy::Message> MPICommunicator::recvMessage()
@@ -79,7 +79,7 @@ std::pair<int, SearchStrategy::Message> MPICommunicator::recvMessage()
         delete buffer;
         return std::pair<int, SearchStrategy::Message>(status.MPI_SOURCE, m);
     } else {
-        SearchStrategy::Message m(-1, SearchStrategy::Message::HALT, 0, nullptr);
+        SearchStrategy::Message m(-1, 0, SearchStrategy::Message::HALT, 0, nullptr);
         return std::pair<int, SearchStrategy::Message>(-1, m);
     }
 }

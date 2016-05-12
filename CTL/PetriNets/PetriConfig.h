@@ -1,6 +1,7 @@
 #ifndef PETRICONFIG_H
 #define PETRICONFIG_H
 
+#include <sstream>
 #include "../DependencyGraph/Configuration.h"
 #include "../../CTLParser/CTLQuery.h"
 #include "../../CTLParser/CTLParser_v2.h"

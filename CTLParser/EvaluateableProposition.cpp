@@ -106,9 +106,11 @@ void EvaluateableProposition::SetFireset(std::string fireset_str, std::vector<st
 
 CardinalityParameter* EvaluateableProposition::CreateParameter(std::string parameter_str, std::vector<std::string> p_names, unsigned int numberof_p){
     CardinalityParameter *param = new CardinalityParameter();
-    std::string::size_type sz;
     char c;
     if(sscanf(parameter_str.c_str(), "%d%c", &param->value, &c) == 1) {
+        //If string is identifier starting with a number, you will read two items.
+        //If it's an identifier starting with a character, you will read zero items.
+        //The only time when you read just one item if the whole string is just numbers.
         param->isPlace = false;
     } else {    //error
         param->isPlace = true;

@@ -57,6 +57,7 @@ CTLQuery* CTLParser_v2::FormatQuery(CTLQuery* query, PetriEngine::PetriNet *net)
     query = FillAtom(query,net);
     query = ConvertAG(query);
     query = ConvertEG(query);
+    IdSetting(query, 0);
     query = TemporalSetting(query);
     //assert(false);
     return query;
@@ -91,6 +92,44 @@ CTLQuery* CTLParser_v2::TemporalSetting(CTLQuery* query) {
             query->SetFirstChild(TemporalSetting(query->GetFirstChild()));
         }
         return query;
+    } else {
+        //this should not happen
+        assert(false);
+    }
+}
+
+//returns next available id
+int CTLParser_v2::IdSetting(CTLQuery *query, int id)
+{
+    query->Id = id;
+    CTLType query_type = query->GetQueryType();
+    if(query_type == EVAL){
+        assert(!query->IsTemporal);
+        return id + 1;
+    }
+    else if (query_type == LOPERATOR){
+        Quantifier quan = query->GetQuantifier();
+        if(quan != NEG){
+            int afterFirst = IdSetting(query->GetFirstChild(), id + 1);
+            int afterSecond = IdSetting(query->GetSecondChild(), afterFirst);
+            return afterSecond;
+        }
+        else{
+            int afterFirst = IdSetting(query->GetFirstChild(), id + 1);
+            return afterFirst;
+        }
+    }
+    else if (query_type == PATHQEURY){
+        assert(query->IsTemporal);
+        if (query->GetPath() == U){
+            int afterFirst = IdSetting(query->GetFirstChild(), id + 1);
+            int afterSecond = IdSetting(query->GetSecondChild(), afterFirst);
+            return afterSecond;
+        }
+        else{
+            int afterFirst = IdSetting(query->GetFirstChild(), id + 1);
+            return afterFirst;
+        }
     } else {
         //this should not happen
         assert(false);

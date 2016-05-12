@@ -57,15 +57,25 @@
 
 #include "CTL/Algorithm/FixedPointAlgorithm.h"
 #include "CTL/Algorithm/CertainZeroFPA.h"
+<<<<<<< TREE
+#include "CTL/Algorithm/DistCZeroFPA.h"
+#include "CTL/Algorithm/PartitionFunction.h"
+=======
 #include "CTL/Algorithm/LocalFPA.h"
+>>>>>>> MERGE-SOURCE
 
 #include "CTL/DependencyGraph/AbstractDependencyGraphs.h"
 #include "CTL/PetriNets/OnTheFlyDG.h"
+#include "CTL/PetriNets/HashPartitionFunction.h"
 
 #include "CTL/SearchStrategy/DFSSearch.h"
 #include "CTL/SearchStrategy/iSearchStrategy.h"
 #include "CTL/SearchStrategy/iWaitingList.h"
 #include "CTL/SearchStrategy/BasicSearchStrategy.h"
+#include "CTL/SearchStrategy/BasicDistStrategy.h"
+
+#include "CTL/Communicator/Communicator.h"
+#include "CTL/Communicator/MPICommunicator.h"
 
 #include "CTLParser/CTLParser_v2.h"
 #include "CTLParser/CTLOptimizer.h"
@@ -178,7 +188,15 @@ void search_ctl_query(PetriNet* net,
 
     Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::LocalFPA();
     SearchStrategy::iSequantialSearchStrategy *strategy = new SearchStrategy::BasicSearchStrategy();
+
+    /*
+     * This is how to run the dist. algorithm
     PetriNets::OnTheFlyDG *graph = new PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
+    Communicator *comm = new MPICommunicator(graph);
+    Algorithm::PartitionFunction *partition = new PetriNets::HashPartitionFunction(comm->size());
+    Algorithm::DistCZeroFPA *algorithm = new Algorithm::DistCZeroFPA(partition, comm);
+    SearchStrategy::iDistributedSearchStrategy *strategy = new SearchStrategy::BasicDistStrategy();
+    */
 
     //Determine Fixed Point Algorithm
     /*if(t_algorithm == LOCAL){
@@ -565,7 +583,9 @@ int main(int argc, char* argv[]){
             CTLQuery * ctlquery = parser.ParseXMLQuery(buffer, xmlquery);
             cout<<"Query: "<<parser.QueryToString(ctlquery)<<endl;
             ctlquery = parser.FormatQuery(ctlquery, net);
-//            optimizer->Optimize(ctlquery);
+            cout<<"Format: "<<parser.QueryToString(ctlquery)<<endl;
+            //optimizer->Optimize(ctlquery);
+            cout<<"Optimized: "<<parser.QueryToString(ctlquery)<<endl;
             queryList.push_back(ctlquery);
         }
         

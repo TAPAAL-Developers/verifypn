@@ -10,13 +10,14 @@ enum TaskType {EMPTY = -1, UNAVAILABLE = 0, EDGE = 1, MESSAGE = 2};
 
 struct Message {    
     int sender;
+    unsigned int distance;
     enum Type {HALT = 0, REQUEST = 1, ANSWER_ONE = 2, ANSWER_ZERO = 3} type;
     unsigned long id;
     DependencyGraph::Configuration *configuration;
 
     Message() {}
-    Message(int sender, Type type, unsigned long id, DependencyGraph::Configuration *configuration) :
-           sender(sender), type(type), id(id), configuration(configuration) {}
+    Message(int sender, unsigned int distance, Type type, unsigned long id, DependencyGraph::Configuration *configuration) :
+           sender(sender), distance(distance), type(type), id(id), configuration(configuration) {}
 
     std::string ToString() {
         std::stringstream ss;
@@ -48,7 +49,7 @@ public:
     virtual void releaseNegationEdges(int dist) =0;
 
     virtual TaskType pickTask(DependencyGraph::Edge*& edge,
-                              Message*& message) =0;
+                              Message& message) =0;
 };
 
 }

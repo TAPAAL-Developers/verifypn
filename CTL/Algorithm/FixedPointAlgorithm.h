@@ -12,9 +12,9 @@ public:
                         SearchStrategy::iSequantialSearchStrategy &strategy) =0;
 };
 /*
-class ParallelFixedPointAlgorithm {
-    virtual bool search(DependencyGraph::SerializableDependencyGraph &graph,
-                        SearchStrategy::AbstractSearchStrategy &strategy,
+class DistributedFixedPointAlgorithm {
+    virtual bool search(DependencyGraph::BasicDependencyGraph &graph,
+                        SearchStrategy::iDistributedSearchStrategy &strategy,
                         AbstractCommunicator &channel) =0;
 };
 */

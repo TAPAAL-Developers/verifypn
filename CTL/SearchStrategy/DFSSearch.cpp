@@ -39,3 +39,26 @@ SearchStrategy::TaskType SearchStrategy::DFSSearch::pickTask(DependencyGraph::Ed
 
     return EDGE;
 }
+
+unsigned int SearchStrategy::DFSSearch::maxDistance() const
+{
+    return 0;
+}
+
+void SearchStrategy::DFSSearch::pushMessage(SearchStrategy::Message &message)
+{
+    assert(false && "DFSSearch can't be used with more than one worker");
+}
+
+void SearchStrategy::DFSSearch::releaseNegationEdges(int dist)
+{
+    //do nothing
+}
+
+SearchStrategy::TaskType SearchStrategy::DFSSearch::pickTask(DependencyGraph::Edge *&edge, SearchStrategy::Message &message)
+{
+    if (W.empty()) return EMPTY;
+    edge = W.top();
+    W.pop();
+    return EDGE;
+}

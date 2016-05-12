@@ -53,7 +53,6 @@ protected:
     bool evaluateQuery(CTLQuery &query, Marking &marking);
     bool fastEval(CTLQuery &query, Marking &marking);
     std::vector<Marking*> nextState(Marking &marking);
-    int indexOfPlace(char *t_place);
     bool EvalCardianlity(int a, LoperatorType lop, int b);
     int GetParamValue(CardinalityParameter *param, Marking& marking);
     std::list<int> calculateFireableTransistions(Marking &marking);

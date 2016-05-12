@@ -17,6 +17,15 @@ namespace PetriNets {
         return true;
     }
 
+    Marking::Marking(int *buffer, int size) : m_length(size)
+    {
+        this->m_marking = (MarkVal*) malloc(sizeof(MarkVal) * size);
+
+        for(int i = 0; i < m_length; i++){
+            m_marking[i] = buffer[i];
+        }
+    }
+
     void Marking::copyMarking(const Marking& t_marking){
         this->m_marking = (MarkVal*) malloc(sizeof(MarkVal) * t_marking.length());
         this->m_length = t_marking.length();

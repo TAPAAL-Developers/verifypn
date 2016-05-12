@@ -20,7 +20,7 @@ class PetriConfig;
 
 class Marking
 {
-    typedef std::vector<PetriConfig*> succ_container_type;
+    typedef std::vector<PetriConfig*> config_container_type;
 
     public:    
     // Equality checker for containers
@@ -32,6 +32,9 @@ class Marking
     };
 
     Marking(){}
+    //this constructor creates a copy of the buffer (used for deserialization)
+    Marking(int *buffer, int size);
+    //this constructor assumes ownership of t_marking
     Marking(PetriEngine::MarkVal* t_marking, size_t t_length)
         : m_marking(t_marking), m_length(t_length){}
 
@@ -45,12 +48,11 @@ class Marking
         return m_marking[index];
     }    
     inline PetriEngine::MarkVal* value() const { return m_marking; }
-    std::__cxx11::string toString() const;
+    std::string toString() const;
     void print() const;
     inline size_t length() const { return m_length; }
 
-    succ_container_type successors;
-    int partition = -1;
+    config_container_type configurations;
 private:
     PetriEngine::MarkVal* m_marking;
     size_t m_length;

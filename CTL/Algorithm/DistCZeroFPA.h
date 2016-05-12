@@ -25,13 +25,6 @@ public:
                         SearchStrategy::iDistributedSearchStrategy &t_strategy);
 
 protected:
-    //Negation priority queue
-    struct edge_prioritizer{
-        bool operator()(const DependencyGraph::Edge *lhs, const DependencyGraph::Edge *rhs) const {
-            return (lhs->source->getDistance() > rhs->source->getDistance());
-        }
-    };
-    typedef std::priority_queue<DependencyGraph::Edge*, std::vector<DependencyGraph::Edge*>, Algorithm::DistCZeroFPA::edge_prioritizer> PriorityQueue;
 
     DependencyGraph::BasicDependencyGraph *graph = nullptr;
     DependencyGraph::Configuration *v = nullptr;
@@ -40,8 +33,6 @@ protected:
 
     PartitionFunction *partition = nullptr;
     Communicator *comm = nullptr;
-
-    PriorityQueue unsafe_N;
 
     int termination_flag = FLAG_CLEAN;
     bool waiting_for_token = false;
@@ -54,6 +45,8 @@ protected:
     void processHyperEdge(DependencyGraph::Edge *e);
     void processNegationEdge(DependencyGraph::Edge *e);
     bool terminationDetection();
+    void sendMessage(int receiver, SearchStrategy::Message &m);
+    void addDependency(DependencyGraph::Edge *e, DependencyGraph::Configuration *target);
 
     //Timestamps
     int messageId = 0;

@@ -70,7 +70,7 @@ void SearchStrategy::NegationWaitingList::releaseNegationEdges(unsigned int dist
 //    std::cout << "Dist: " << dist << " maxDist " << _maxDistance << " size: " << _size << std::endl;
 
     //We have edges that can be released
-    assert(dist == _maxDistance);
+    //assert(dist == _maxDistance);
     if(_size > 0 && dist == _maxDistance){
 
         if(!unsafe_edges[dist].empty()){
@@ -100,15 +100,5 @@ void SearchStrategy::NegationWaitingList::releaseNegationEdges(unsigned int dist
 
         _maxDistance = computeMaxDistance();
     }
-
-//    int index = 0;
-//    for(std::vector<Edge*> v : unsafe_edges){
-//        std::cout << "Vector: " << index << " size " << v.size() << std::endl;
-//        index++;
-//    }
-
-//    std::cout << "New max distance: " << _maxDistance
-//              << " Size of safe: " << safe_edges.size()
-//              << " Size of N: " << _size
-//              << std::endl;
+    std::cout << "Done releasing edges" << std::endl;
 }
