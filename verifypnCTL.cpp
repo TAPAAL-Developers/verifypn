@@ -185,14 +185,16 @@ void verifypnCTL(PetriEngine::PetriNet *net,
     if(algorithm != DIST)
     {
         for(CTLResult result : ctlresults){
-            cout << __func__ << " " << __LINE__ << ": " << result.query << endl;
+            cout << __func__ << " " << __LINE__ << ": " << "Search commensing" << endl;
             graph.setQuery(result.query);
 
             iSequantialSearchStrategy *stg = get<iSequantialSearchStrategy>(strategy);
             assert(stg != nullptr);
 
             bool answer = FPA->search(graph, *stg);
+            cout << result.modelname << "-" << result.query_nbr - 1 << " " << boolalpha << answer << endl;
 
+            cout << __func__ << " " << __LINE__ << ": " << "Cleaning up" << endl;
             graph.cleanUp();
         }
     }
