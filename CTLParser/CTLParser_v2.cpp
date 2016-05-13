@@ -15,6 +15,7 @@
 #include "CTLParser_v2.h"
 #include "CTLQuery.h"
 #include "EvaluateableProposition.h"
+#include <algorithm>
 
 
 using namespace rapidxml;
@@ -105,6 +106,7 @@ int CTLParser_v2::IdSetting(CTLQuery *query, int id)
     CTLType query_type = query->GetQueryType();
     if(query_type == EVAL){
         assert(!query->IsTemporal);
+        query->Depth = 0;
         return id + 1;
     }
     else if (query_type == LOPERATOR){
@@ -112,10 +114,12 @@ int CTLParser_v2::IdSetting(CTLQuery *query, int id)
         if(quan != NEG){
             int afterFirst = IdSetting(query->GetFirstChild(), id + 1);
             int afterSecond = IdSetting(query->GetSecondChild(), afterFirst);
+            query->Depth = std::max(query->GetFirstChild()->Depth, query->GetSecondChild()->Depth) + 1;
             return afterSecond;
         }
         else{
             int afterFirst = IdSetting(query->GetFirstChild(), id + 1);
+            query->Depth = query->GetFirstChild()->Depth + 1;
             return afterFirst;
         }
     }
@@ -124,10 +128,12 @@ int CTLParser_v2::IdSetting(CTLQuery *query, int id)
         if (query->GetPath() == U){
             int afterFirst = IdSetting(query->GetFirstChild(), id + 1);
             int afterSecond = IdSetting(query->GetSecondChild(), afterFirst);
+            query->Depth = std::max(query->GetFirstChild()->Depth, query->GetSecondChild()->Depth) + 1; 
             return afterSecond;
         }
         else{
             int afterFirst = IdSetting(query->GetFirstChild(), id + 1);
+            query->Depth = query->GetFirstChild()->Depth + 1;
             return afterFirst;
         }
     } else {
