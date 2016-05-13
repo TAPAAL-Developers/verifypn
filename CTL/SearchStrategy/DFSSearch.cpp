@@ -51,5 +51,5 @@ void SearchStrategy::DFSSearch::releaseNegationEdges(int dist)
 
 SearchStrategy::TaskType SearchStrategy::DFSSearch::pickTask(DependencyGraph::Edge *&edge, SearchStrategy::Message &message)
 {
-    return pickTask((edge));
+    return pickTask(edge);
 }

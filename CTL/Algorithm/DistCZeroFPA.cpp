@@ -6,8 +6,6 @@
 using namespace SearchStrategy;
 using namespace DependencyGraph;
 
-Algorithm::DistCZeroFPA::DistCZeroFPA() { }
-
 void Algorithm::DistCZeroFPA::finalAssign(Configuration *c, Assignment value)
 {
     c->assignment = value;

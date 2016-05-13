@@ -1,7 +1,7 @@
 #ifndef FIXEDPOINTALGORITHM_H
 #define FIXEDPOINTALGORITHM_H
 
-#include "../DependencyGraph/BaiscDependencyGraph.h"
+#include "../DependencyGraph/BasicDependencyGraph.h"
 #include "../SearchStrategy/iSearchStrategy.h"
 #include "../Communicator/Communicator.h"
 #include "PartitionFunction.h"

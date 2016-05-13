@@ -65,11 +65,11 @@ public:
     virtual TaskType pickTask(DependencyGraph::Edge*& edge, Message& message) override {
         if (D.pop(edge)) {
             return EDGE;
+        } else if (N.pop(edge)) {
+            return EDGE;
         } else if (M.pop(message)) {
             return MESSAGE;
         } else if (W.pop(edge)) {
-            return EDGE;
-        } else if (N.pop(edge)) {
             return EDGE;
         } else if (!N.empty()) {
             return UNAVAILABLE;
