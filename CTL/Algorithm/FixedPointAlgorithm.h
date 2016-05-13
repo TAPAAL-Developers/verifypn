@@ -1,8 +1,10 @@
 #ifndef FIXEDPOINTALGORITHM_H
 #define FIXEDPOINTALGORITHM_H
 
-#include "../DependencyGraph/AbstractDependencyGraphs.h"
+#include "../DependencyGraph/BasicDependencyGraph.h"
 #include "../SearchStrategy/iSearchStrategy.h"
+#include "../Communicator/Communicator.h"
+#include "PartitionFunction.h"
 
 namespace Algorithm {
 
@@ -15,7 +17,8 @@ public:
 class DistributedFixedPointAlgorithm {
     virtual bool search(DependencyGraph::BasicDependencyGraph &graph,
                         SearchStrategy::iDistributedSearchStrategy &strategy,
-                        AbstractCommunicator &channel) =0;
+                        Communicator &communicator,
+                        PartitionFunction &partition_function) =0;
 };
 
 }

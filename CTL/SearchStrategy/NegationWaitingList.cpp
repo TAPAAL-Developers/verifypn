@@ -1,104 +1,47 @@
 #include "NegationWaitingList.h"
 #include <assert.h>
 #include <iostream>
-
-unsigned int SearchStrategy::NegationWaitingList::computeMaxDistance() const
-{
-    auto maxDist = unsafe_edges.size() - 1;
-
-    while(maxDist != 0){
-        if(!unsafe_edges[maxDist].empty()){
-            break;
-        }
-
-        maxDist--;
-    }
-
-    return maxDist;
-}
-
-void SearchStrategy::NegationWaitingList::_push(SearchStrategy::NegationWaitingList::Edge *e)
-{
-    auto distance = e->source->getDistance();
-
-    //Enlarge container if necessary
-    if(unsafe_edges.size() < distance + 1){
-        unsafe_edges.reserve(distance + 1); //Enlarge vector
-        unsafe_edges.resize(distance + 1);  //Fill vector with empty elements
-    }
-
-    unsafe_edges[distance].push_back(e);
-}
+#include <algorithm>
 
 bool SearchStrategy::NegationWaitingList::empty() const
 {
-    return _size == 0 ? true : false;
-}
-
-std::size_t SearchStrategy::NegationWaitingList::size() const
-{
-    return _size;
+    return safe_edges.empty() && unsafe_edges.empty();
 }
 
 bool SearchStrategy::NegationWaitingList::pop(DependencyGraph::Edge *&t)
 {
-    if(!safe_edges.empty()){
-        _size--;
+    if (!safe_edges.empty()) {
         t = safe_edges.front();
         safe_edges.pop_front();
-
         return true;
-    }
-    else
+    } else {
         return false;
+    }
 }
 
 void SearchStrategy::NegationWaitingList::push(DependencyGraph::Edge *&e)
 {
-    _size++;
-    _push(e);
-    _maxDistance = std::max(e->source->getDistance(), _maxDistance); //Update max distance
+    int dist = (int) e->source->getDistance();
+    while (unsafe_edges.size() <= dist) {
+        unsafe_edges.push_back(std::vector<Edge*>());
+    }
+    unsafe_edges[dist].push_back(e);
 }
 
 unsigned int SearchStrategy::NegationWaitingList::maxDistance() const
 {
-    return _maxDistance;
+    return (unsigned int) std::max((int) unsafe_edges.size() - 1, 0);
 }
 
 void SearchStrategy::NegationWaitingList::releaseNegationEdges(unsigned int dist)
 {
-//    std::cout << "Dist: " << dist << " maxDist " << _maxDistance << " size: " << _size << std::endl;
-
-    //We have edges that can be released
-    //assert(dist == _maxDistance);
-    if(_size > 0 && dist == _maxDistance){
-
-        if(!unsafe_edges[dist].empty()){
-
-            for(Edge *e : unsafe_edges[dist])
-            {
-                if(e->source->isDone()){
-                    _size--;
-//                    std::cout << "Was done" << std::endl;
-//                    e->source->printConfiguration();
-                }
-                //If this is true, that means a configuration changed dist
-                //that should not be possible for petrinets
-                else if(e->source->getDistance() != _maxDistance){
-                    assert(false && "This should not happen");
-                }
-                else {
-                    safe_edges.push_back(e);
-                }
-            }
-
-            unsafe_edges[dist].clear();
+    while (unsafe_edges.size() >= dist && unsafe_edges.size() > 0) {
+        while (!unsafe_edges.back().empty()) {
+            Edge *e = unsafe_edges.back().back();
+            unsafe_edges.back().pop_back();
+            assert(e->source->getDistance() == unsafe_edges.size() - 1);
+            safe_edges.push_back(e);
         }
-        else {
-//            std::cout << "Couldn't release any edges" << std::endl;
-        }
-
-        _maxDistance = computeMaxDistance();
+        unsafe_edges.pop_back();
     }
-    std::cout << "Done releasing edges" << std::endl;
 }

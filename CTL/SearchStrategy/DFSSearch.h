@@ -7,13 +7,17 @@
 
 namespace SearchStrategy {
 
-class DFSSearch : public iSequantialSearchStrategy, public iClearable, public iDistributedSearchStrategy
+// A custom search strategy that should ensure as little overhead as possible
+// while running sequential computation.
+
+class DFSSearch : public iSequantialSearchStrategy, public iDistributedSearchStrategy
 {
 public:
     DFSSearch() {}
+
     virtual bool empty() const override;
     virtual void pushEdge(DependencyGraph::Edge *edge) override;
-    virtual void clear() override;
+    virtual void pushDependency(DependencyGraph::Edge *edge) override;
     virtual TaskType pickTask(DependencyGraph::Edge*& edge) override;
 
     virtual unsigned int maxDistance() const override;
@@ -22,6 +26,8 @@ public:
 
     virtual TaskType pickTask(DependencyGraph::Edge*& edge,
                               Message& message) override;
+
+
 protected:
 
     std::vector<DependencyGraph::Edge*> W;

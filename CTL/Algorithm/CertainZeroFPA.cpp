@@ -73,7 +73,6 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
                 if (lastUndecided->assignment == ZERO) {
                     finalAssign(e->source, ONE);
                 } else {
-                    strategy->pushEdge(e);
                     addDependency(e, lastUndecided);
                     explore(lastUndecided);
                 }
@@ -94,6 +93,7 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
                 }
             }
         }
+        e->processed = true;
 //        std::cout << "Picking task" << std::endl;
         r = strategy->pickTask(e);
 //        std::cout << "Picked" << std::endl;

@@ -30,6 +30,7 @@
 #include <PetriEngine/PQL/PQL.h>
 #include <string>
 #include <vector>
+#include <stack>
 #include <string.h>
 #include <iostream>
 #include <fstream>
@@ -61,15 +62,12 @@
 #include "CTL/Algorithm/PartitionFunction.h"
 #include "CTL/Algorithm/LocalFPA.h"
 
-#include "CTL/DependencyGraph/AbstractDependencyGraphs.h"
+#include "CTL/DependencyGraph/BasicDependencyGraph.h"
 #include "CTL/PetriNets/OnTheFlyDG.h"
 #include "CTL/PetriNets/HashPartitionFunction.h"
 
 #include "CTL/SearchStrategy/DFSSearch.h"
 #include "CTL/SearchStrategy/iSearchStrategy.h"
-#include "CTL/SearchStrategy/iWaitingList.h"
-#include "CTL/SearchStrategy/BasicSearchStrategy.h"
-#include "CTL/SearchStrategy/BasicDistStrategy.h"
 
 #include "CTL/Communicator/Communicator.h"
 #include "CTL/Communicator/MPICommunicator.h"
@@ -79,10 +77,12 @@
 
 #include "verifypnCTL.h"
 
+
 using namespace std;
 using namespace PetriEngine;
 using namespace PetriEngine::PQL;
 using namespace PetriEngine::Reachability;
+using namespace SearchStrategy;
 
 /** Enumeration of return values from VerifyPN */
 enum ReturnValues{
@@ -165,9 +165,10 @@ void getQueryPlaces(vector<string> *QueryPlaces, CTLTree* current, PetriNet *net
 //                      ReturnValues result[],
 //                      PNMLParser::InhibitorArcList inhibitorarcs) {
 
-//    Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::LocalFPA();
-//    SearchStrategy::iSequantialSearchStrategy *strategy = new SearchStrategy::BasicSearchStrategy();
 //    PetriNets::OnTheFlyDG *graph = new PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
+//    Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::CertainZeroFPA();
+//    iSequantialSearchStrategy *strategy
+//            = new DFSSearch(); //new UniversalSearchStrategy<>();
 
 //    /*
 //     * This is how to run the dist. algorithm
@@ -908,7 +909,7 @@ int main(int argc, char* argv[]){
         model_name = model_name.substr(model_name.find("/") + 1, string::npos);
 
         clock_t total_search_begin = clock();
-        verifypnCTL(net, m0, queryList, xmlquery, ctl_algorithm, searchstrategy, retval, inhibarcs, printstatistics);
+        verifypnCTL(net, m0, model_name, queryList, xmlquery, ctl_algorithm, searchstrategy, inhibarcs, printstatistics);
         clock_t total_search_end = clock();
 
         if(xmlquery > 0){

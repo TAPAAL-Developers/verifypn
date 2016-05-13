@@ -1,7 +1,7 @@
 #ifndef ONTHEFLYDG_H
 #define ONTHEFLYDG_H
 
-#include "../DependencyGraph/AbstractDependencyGraphs.h"
+#include "../DependencyGraph/BasicDependencyGraph.h"
 #include "../DependencyGraph/Configuration.h"
 #include "../DependencyGraph/Edge.h"
 #include "../Communicator/Serializer.h"

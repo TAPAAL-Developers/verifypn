@@ -28,14 +28,11 @@ struct Message {
     }
 };
 
-class iClearable {
-    virtual void clear() =0;
-};
-
 class iSequantialSearchStrategy{
 public:
     virtual bool empty() const =0;
     virtual void pushEdge(DependencyGraph::Edge *edge) =0;
+    virtual void pushDependency(DependencyGraph::Edge *edge) =0;
     virtual TaskType pickTask(DependencyGraph::Edge*& edge) =0;
 };
 
@@ -45,6 +42,7 @@ public:
     virtual bool empty() const =0;
     virtual unsigned int maxDistance() const =0;
     virtual void pushEdge(DependencyGraph::Edge *edge) =0;
+    virtual void pushDependency(DependencyGraph::Edge *edge) =0;
     virtual void pushMessage(Message &message) =0;
     virtual void releaseNegationEdges(int dist) =0;
 
