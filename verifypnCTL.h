@@ -50,6 +50,7 @@ public:
     std::string modelname;
     int query_nbr = 0;
     CTLQuery *query = nullptr;
+    bool answer = false;
     int result = 2;             // UnknownCode (from verifypn)
 
     int statistics_level = 1;  // 0 = none, 1 = duration, 2 = gather everything
@@ -61,12 +62,11 @@ public:
 
 void verifypnCTL(PetriNet* net,
                  MarkVal* m0,
+                 PNMLParser::InhibitorArcList &inhibitorarcs,
                  std::string modelname,
-                 vector<CTLQuery*>& queries,
-                 int xmlquery,
+                 vector<CTLQuery*>& queries, int xmlquery,
                  int algorithm,
                  int strategy,
-                 PNMLParser::InhibitorArcList &inhibitorarcs,
                  bool print_statistics);
 
 

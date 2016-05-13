@@ -2,18 +2,27 @@
 
 //Ctl includes
 ///Algorithms
-#include "CTL/Algorithm/FixedPointAlgorithm.h"
+#include "CTL/Algorithm/FixedPointAlgorithm.h" //interface
 #include "CTL/Algorithm/CertainZeroFPA.h"
 #include "CTL/Algorithm/LocalFPA.h"
 #include "CTL/Algorithm/DistCZeroFPA.h"
 
 ///Strategies
+#include "CTL/SearchStrategy/iSearchStrategy.h" //interface
 #include "CTL/SearchStrategy/DFSSearch.h"
 #include "CTL/SearchStrategy/UniversalSearchStrategy.h"
 
 ///Strategy dependencies
 #include "CTL/SearchStrategy/WaitingList.h"
 #include "CTL/SearchStrategy/NegationWaitingList.h"
+
+///Commincators
+#include "CTL/Communicator/Communicator.h" //interface
+#include "CTL/Communicator/MPICommunicator.h"
+
+///Partioning
+#include "CTL/Algorithm/PartitionFunction.h"
+#include "CTL/PetriNets/HashPartitionFunction.h"
 
 ///Graphs
 #include "CTL/PetriNets/OnTheFlyDG.h"
@@ -45,6 +54,14 @@ enum CtlAlgorithm {
     LOCAL   = 0,
     CZERO   = 1,
     DIST    = 2
+};
+
+enum CommunicatorType {
+    MPI_COMM    = 0
+};
+
+enum Partioning {
+    HASH    = 0
 };
 
 enum CtlStatisticsLevel{
@@ -127,111 +144,89 @@ FixedPointAlgorithm *get<FixedPointAlgorithm>(int type){
 
 std::vector<CTLResult> makeResults(std::string &modelname,
                                    std::vector<CTLQuery*> &queries,
-                                   int index_start,
+                                   int start_index,
                                    int statistics_level)
 {
+    start_index = start_index > 0 ? start_index : 0;
     std::vector<CTLResult> ctlresults;
 
     auto qIter = queries.begin();
     for(int i = 0; i < queries.size(); i++){
         assert(qIter != queries.end());
-        ctlresults.emplace_back(modelname, *qIter, index_start + i, statistics_level);
+        ctlresults.emplace_back(modelname, *qIter, start_index + i, statistics_level);
         qIter++;
     }
 
     return ctlresults;
 }
 
-template<class Algorithm, class... Args>
-bool search(CTLResult &result, Algorithm &algorithm, Args&&... args){
+template<class Algorithm, class Graph, class... Args>
+void search(CTLResult &result,
+            Algorithm &algorithm,
+            Graph &graph,
+            Args&&... args){
     stopwatch timer;
     timer.start();
-
-    cout << __func__ << " " << __LINE__ << ": Running algorithm" << endl;
-    bool answer = algorithm->search(args...);
-
+    result.answer = algorithm.search(graph, args...);
     timer.stop();
-    result.duration = timer.duration();
 
-    return answer;
+    result.result = result.answer ? SuccessCode : FailedCode;
+
+    result.duration = timer.duration();
 }
 
 void verifypnCTL(PetriEngine::PetriNet *net,
                  PetriEngine::MarkVal *m0,
+                 PNMLParser::InhibitorArcList &inhibitorarcs,
                  string modelname,
                  vector<CTLQuery *> &queries,
                  int xmlquery,
                  int algorithm,
                  int strategy,
-                 PNMLParser::InhibitorArcList &inhibitorarcs,
                  bool print_statistics)
 {
-    std::vector<CTLResult> ctlresults = makeResults(modelname, queries, xmlquery, RUNNINGTIME);
+    //Initialization area
+    std::vector<CTLResult> ctlresults = makeResults(modelname, queries, xmlquery, print_statistics);
+
     PetriNets::OnTheFlyDG graph = PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
 
-    cout << "Looking for Algorithms" << endl;
     FixedPointAlgorithm *FPA = get<FixedPointAlgorithm>(algorithm);
-
-    cout << "Looking for DFPA" << endl;
     DistributedFixedPointAlgorithm *dFPA = get<DistributedFixedPointAlgorithm>(algorithm);
 
-    if(FPA)
-        cout << "found FPA" << endl;
-    if(dFPA)
-        cout << "found DFPA" << endl;
+    Communicator *comm = nullptr;
+    PartitionFunction *partition = nullptr;
 
+    //Main computation loop.
+    for(CTLResult result : ctlresults){
+        graph.setQuery(result.query);
 
-    //Begin:    Sequential call area
-    if(algorithm != DIST)
-    {
-        for(CTLResult result : ctlresults){
-            cout << __func__ << " " << __LINE__ << ": " << "Search commensing" << endl;
-            graph.setQuery(result.query);
-
+        if(FPA != nullptr){
             iSequantialSearchStrategy *stg = get<iSequantialSearchStrategy>(strategy);
             assert(stg != nullptr);
-
-            bool answer = FPA->search(graph, *stg);
-            cout << result.modelname << "-" << result.query_nbr - 1 << " " << boolalpha << answer << endl;
-
-            cout << __func__ << " " << __LINE__ << ": " << "Cleaning up" << endl;
-            graph.cleanUp();
+            search(result, *FPA, graph, *stg);
         }
+        else if(dFPA != nullptr){
+            iDistributedSearchStrategy *stg = get<iDistributedSearchStrategy>(strategy);
+
+            comm == nullptr ? comm = new MPICommunicator(&graph) : comm;
+            partition == nullptr ? partition = new HashPartitionFunction(comm->size()) : partition;
+
+            assert(stg != nullptr);
+            search(result, *dFPA, graph, *stg, *comm, *partition);
+        }
+
+        if(result.statistics_level > 0){
+            cout << "::TIME:: " << result.duration << endl;
+        }
+        if(result.statistics_level > 1){
+            //Add when supported
+        }
+        cout << "FORMULA " << result.modelname << "-" << result.query_nbr << " " << boolalpha << result.answer << endl;
     }
-    //End:      Sequential call area
 
-    //Begin:    Distributed call area
-    else {
+    //process answers
 
-    }
-    //End:      Distributed call area
-
-
-//    if(t_xmlquery > 0){
-//        clock_t individual_search_begin = clock();
-
-//        graph->setQuery(queryList.front());
-//        res = algorithm->search(*graph, *strategy);
-
-//        std::cout << std::boolalpha << "answer is " << res << std::endl;
-
-//        configCount = 0;//graph->configuration_count();
-//        markingCount = 0;//graph->marking_count();
-//        //queryList[t_xmlquery - 1]->Result = res;
-
-//        clock_t individual_search_end = clock();
-//        if (printstatistics) {
-//            cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery - 1 <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
-//            cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
-//        }
-//        if (res){
-//            results[t_xmlquery - 1] = SuccessCode;
-//        }
-//        else if (!res){
-//            results[t_xmlquery - 1] = FailedCode;
-//        }
-//        else results[t_xmlquery - 1] = ErrorCode;
-
-//        //queryList[t_xmlquery - 1]->pResult();
-//    }
+    //Finalize MPI
+    if(comm != nullptr)
+        delete comm;
 }

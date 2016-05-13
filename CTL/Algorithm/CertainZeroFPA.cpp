@@ -9,7 +9,7 @@ using namespace DependencyGraph;
 bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_graph,
         SearchStrategy::iSequantialSearchStrategy &t_strategy)
 {
-    std::cout << "Instantiating" << std::endl;
+//    std::cout << "Instantiating" << std::endl;
 
     using namespace SearchStrategy;
     using TaskType = SearchStrategy::TaskType;
@@ -17,24 +17,24 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
     graph = &t_graph;
     strategy = &t_strategy;
 
-    std::cout << "Initial Configuration" << std::endl;
+//    std::cout << "Initial Configuration" << std::endl;
     Configuration *v = graph->initialConfiguration();
     explore(v);
 
-    std::cout << "Exploring" << std::endl;
+//    std::cout << "Exploring" << std::endl;
     Edge *e;
     int r = strategy->pickTask(e);
 
-    v->printConfiguration();
+//    v->printConfiguration();
 
     while (r != TaskType::EMPTY) {
 
-        std::cout << std::endl;
-        e->source->printConfiguration();
-        for (Configuration *c : e->targets) {
-            c->printConfiguration();
-        }
-        std::cout << std::endl;
+//        std::cout << std::endl;
+//        e->source->printConfiguration();
+//        for (Configuration *c : e->targets) {
+//            c->printConfiguration();
+//        }
+//        std::cout << std::endl;
 
 
 
@@ -70,11 +70,13 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
                 finalAssign(e->source, ONE);
             } else {
                 assert(lastUndecided != nullptr);
-                if (lastUndecided->assignment == ZERO) {
+                if (lastUndecided->assignment == ZERO && e->processed) {
                     finalAssign(e->source, ONE);
                 } else {
                     addDependency(e, lastUndecided);
-                    explore(lastUndecided);
+                    if (lastUndecided->assignment == UNKNOWN) {
+                        explore(lastUndecided);
+                    }
                 }
             }
         } else {
@@ -109,7 +111,7 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, D
 
     c->assignment = a;
     for (DependencyGraph::Edge *e : c->dependency_set) {
-        strategy->pushEdge(e);
+        strategy->pushDependency(e);
     }
     c->dependency_set.clear();
 }
@@ -128,11 +130,6 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c)
         for (Edge *succ : c->successors) {
 //            std::cout << "push edge " << succ << std::endl;
             strategy->pushEdge(succ);
-//            if (succ->source->is_negated) {
-//                strategy->pushEdge(succ);
-//            } else {
-//                strategy->pushEdge(succ);
-//            }
         }
     }
 }

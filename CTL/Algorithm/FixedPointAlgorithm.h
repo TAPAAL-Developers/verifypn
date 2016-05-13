@@ -15,6 +15,7 @@ public:
 };
 
 class DistributedFixedPointAlgorithm {
+public:
     virtual bool search(DependencyGraph::BasicDependencyGraph &graph,
                         SearchStrategy::iDistributedSearchStrategy &strategy,
                         Communicator &communicator,

@@ -17,7 +17,7 @@
 class MPICommunicator : public Communicator
 {   
 public:
-    MPICommunicator(Serializer *serializer);
+    MPICommunicator(Serializer *serializer = nullptr);
     ~MPICommunicator();
 
     //Rank

@@ -156,117 +156,6 @@ void getQueryPlaces(vector<string> *QueryPlaces, CTLTree* current, PetriNet *net
     }
 }
 
-//void search_ctl_query(PetriNet* net,
-//                      MarkVal* m0,
-//                      vector<CTLQuery*> queryList,
-//                      int t_xmlquery,
-//                      CtlAlgorithm t_algorithm,
-//                      SearchStrategies t_strategy,
-//                      ReturnValues result[],
-//                      PNMLParser::InhibitorArcList inhibitorarcs) {
-
-//    PetriNets::OnTheFlyDG *graph = new PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
-//    Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::CertainZeroFPA();
-//    iSequantialSearchStrategy *strategy
-//            = new DFSSearch(); //new UniversalSearchStrategy<>();
-
-//    /*
-//     * This is how to run the dist. algorithm
-//    Communicator *comm = new MPICommunicator(graph);
-//    Algorithm::PartitionFunction *partition = new PetriNets::HashPartitionFunction(comm->size());
-//    Algorithm::DistCZeroFPA *algorithm = new Algorithm::DistCZeroFPA(partition, comm);
-//    SearchStrategy::iDistributedSearchStrategy *strategy = new SearchStrategy::BasicDistStrategy();
-//    */
-
-//    //Determine Fixed Point Algorithm
-//    /*if(t_algorithm == LOCAL){
-//        algorithm = new ctl::LocalFPA();
-//    }
-//    else if(t_algorithm == CZERO){
-//        algorithm = new ctl::CertainZeroFPA();
-//    }
-//    else{
-//        fprintf(stderr, "Error: unknown ctl algorithm");
-//        exit(EXIT_FAILURE);
-//    }*/
-
-//    //Determine Search Strategy
-//    /*if(t_strategy == DFS){
-//        strategy = new ctl::DepthFirstSearch();
-//    }
-//    else if (t_strategy == BFS){
-//        strategy = new ctl::BreadthFirstSearch();
-//    }
-//    else{
-//        fprintf(stderr, "Error: unsupported ctl search strategy");
-//        exit(EXIT_FAILURE);
-//    }*/
-
-//    int configCount = 0, markingCount = 0;
-//    bool res;
-
-//    if(t_xmlquery > 0){
-//        clock_t individual_search_begin = clock();
-
-//        graph->setQuery(queryList.front());
-//        res = algorithm->search(*graph, *strategy);
-
-//        std::cout << std::boolalpha << "answer is " << res << std::endl;
-
-//        configCount = 0;//graph->configuration_count();
-//        markingCount = 0;//graph->marking_count();
-//        //queryList[t_xmlquery - 1]->Result = res;
-
-//        clock_t individual_search_end = clock();
-//        if (printstatistics) {
-//            cout<<":::TIME::: Search elapsed time for query "<< t_xmlquery - 1 <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
-//            cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
-//        }
-//        if (res){
-//            result[t_xmlquery - 1] = SuccessCode;
-//        }
-//        else if (!res){
-//            result[t_xmlquery - 1] = FailedCode;
-//        }
-//        else result[t_xmlquery - 1] = ErrorCode;
-
-//        //queryList[t_xmlquery - 1]->pResult();
-//    }
-//    else{
-//        int q_number = 0;
-//        for (auto q : queryList) {
-//            clock_t individual_search_end, individual_search_begin;
-//            individual_search_begin = clock();
-
-//            graph->setQuery(q);
-//            res = algorithm->search(*graph, *strategy);
-
-//            individual_search_end = clock();
-
-//            //strategy->cleanUp();
-//            configCount = 0;//graph->configuration_count();
-//            markingCount = 0;//graph->marking_count();
-//            //queryList[i]->Result = res;
-
-//            if (printstatistics) {
-//                cout<<":::TIME::: Search elapsed time for query "<< q_number <<": "<<double(diffclock(individual_search_end,individual_search_begin))<<" ms"<<endl;
-//                cout<<":::DATA::: Configurations: " << configCount << " Markings: " << markingCount << endl;
-//            }
-//            if (res){
-//                result[q_number] = SuccessCode;
-//            }
-//            else if (!res){
-//                result[q_number] = FailedCode;
-//            }
-//            else result[q_number] = ErrorCode;
-
-//            q_number++;
-//            //queryList[i]->pResult();
-//            cout << endl;
-//        }
-//    }
-//}
-
 #define VERSION		"2.0.0"
 
 int main(int argc, char* argv[]){
@@ -319,7 +208,7 @@ int main(int argc, char* argv[]){
                 else if(strcmp(s, "czero") == 0){
                     ctl_algorithm = CZERO;
                 }
-                else if(strcmp(s, "czero") == 0){
+                else if(strcmp(s, "dist") == 0){
                     ctl_algorithm = DIST;
                 }
                 else{
@@ -898,9 +787,6 @@ int main(int argc, char* argv[]){
     //---------------------------- CTL search ---------------------------//
     //-------------------------------------------------------------------//
     else {
-        std::vector<int> retval;
-        retval.reserve(queryList.size()); //Make room for answers
-
         string model_name(modelfile);
         model_name = model_name.substr(0, model_name.find("/model.pnml"));
         model_name = model_name.substr(model_name.find("/") + 1, string::npos);
@@ -908,24 +794,15 @@ int main(int argc, char* argv[]){
         model_name = model_name.substr(model_name.find("/") + 1, string::npos);
         model_name = model_name.substr(model_name.find("/") + 1, string::npos);
 
-        clock_t total_search_begin = clock();
-        verifypnCTL(net, m0, model_name, queryList, xmlquery, ctl_algorithm, searchstrategy, inhibarcs, printstatistics);
-        clock_t total_search_end = clock();
-
-        if(xmlquery > 0){
-            string pRes = (retval[xmlquery - 1])?"FALSE" : "TRUE";
-            cout<<"FORMULA "<<model_name<<"-"<<(xmlquery - 1)<<" "<<pRes<<endl;
-        }
-        else{
-            for(int i = 0; i < 16; i++){
-                string pRes = (retval[i])?"FALSE" : "TRUE";
-                cout<<"FORMULA "<<model_name<<"-"<<i<<" "<<pRes<<endl;
-            }
-        }
-
-        if(printstatistics){
-            cout<<"\n:::TIME::: Total search elapsed time: "<<double(diffclock(total_search_end,total_search_begin))<<" ms\n"<<endl;
-        }
+        verifypnCTL(net,
+                    m0,
+                    inhibarcs,
+                    model_name,
+                    queryList,
+                    xmlquery,
+                    ctl_algorithm,
+                    searchstrategy,
+                    (printstatistics ? 0 : 1));
     }
     //------------------------ Return the Output Value -------------------//
     return retval;

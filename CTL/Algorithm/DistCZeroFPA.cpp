@@ -39,10 +39,7 @@ void Algorithm::DistCZeroFPA::finalAssign(Configuration *c, Assignment value)
 }
 
 void Algorithm::DistCZeroFPA::explore(Configuration *c)
-{   
-    if (comm->rank() == 1) {
-        c->printConfiguration();
-    }
+{
     if (c->assignment == UNKNOWN && (c->hasActiveDependencies() || c == v)) {
         c->assignment = ZERO;
         if (partition->ownerId(c) == comm->rank()) {
@@ -64,7 +61,6 @@ void Algorithm::DistCZeroFPA::explore(Configuration *c)
 
 void Algorithm::DistCZeroFPA::halt(Configuration *c)
 {
-    assert(false);
     if (!(c->hasActiveDependencies() || c == v || c->isDone())) {
         c->assignment = UNKNOWN;
         if (partition->ownerId(c) == comm->rank()) {
@@ -99,9 +95,6 @@ void Algorithm::DistCZeroFPA::processMessage(Message *m)
             c->setDistance(std::max(c->getDistance(), m->distance));
             c->updateInterest(m->sender, m->id);
             if (c->hasActiveDependencies() && c->assignment == UNKNOWN) {                
-                /*if (comm->rank() == 1) {
-                    std::cout << comm->rank() << " Explore from message " << std::endl;
-                }*/
                 explore(c);
             }
         }
@@ -136,9 +129,8 @@ void Algorithm::DistCZeroFPA::processHyperEdge(Edge *e)
         } else if (hasCZero) {
             e->source->removeSuccessor(e);
             if (e->requested != nullptr) {
-                //technically this shouldn't happen - maybe get rid of it?
-                //halt(e->requested);
-                //e->requested = nullptr;
+                halt(e->requested);
+                e->requested = nullptr;
             }
             if (e->source->successors.empty()) {
                 finalAssign(e->source, CZERO);
@@ -149,18 +141,17 @@ void Algorithm::DistCZeroFPA::processHyperEdge(Edge *e)
             addDependency(e, lastUndecided);
             explore(lastUndecided);
         }
+        e->processed = true;
     } else if (e->requested != nullptr) {   //halt!
-        //halt(e->requested);
-        //e->requested = nullptr;
+        e->processed = false;
+        halt(e->requested);
+        e->requested = nullptr;
     }
 }
 
 void Algorithm::DistCZeroFPA::processNegationEdge(Edge *e)
 {
     if(e->source->assignment == ZERO && !e->is_deleted){
-        /*if (comm->rank() == 1) {
-            std::cout << comm->rank() << " Process " << e << std::endl;
-        }*/
         assert(e->targets.size() == 1);
         Configuration *target = e->targets.front();
 
@@ -168,37 +159,24 @@ void Algorithm::DistCZeroFPA::processNegationEdge(Edge *e)
             e->source->removeSuccessor(e);
             if (e->requested != nullptr) {
                 //technically this shouldn't happen - maybe get rid of it?
-                //halt(e->requested);
-                //e->requested = nullptr;
+                halt(e->requested);
+                e->requested = nullptr;
             }
             if (e->source->successors.empty()) {
                 finalAssign(e->source, CZERO);
             }
-        } else if ((target->assignment == CZERO || target->assignment == ZERO) && e->processed) {
-            /*if (comm->rank() == 1) {
-                std::cout << comm->rank() << " Assign one " << e << std::endl;
-                target->printConfiguration();
-            }*/
+        } else if (target->assignment == CZERO || (target->assignment == ZERO && e->processed)) {
             finalAssign(e->source, ONE);
-        } else if (target->assignment == UNKNOWN) {
-            /*if (comm->rank() == 1) {
-                std::cout << comm->rank() << " Explore negation" << e << std::endl;
-            }*/
-            e->requested = target;
-            addDependency(e, target);
-            strategy->pushEdge(e);      //repush the negation edge
-            explore(target);
         } else {
-            //In case someone discovered the assignment before us (from other negation edge f.e.)
-            assert(target->assignment == ZERO);
             e->requested = target;
             addDependency(e, target);
-            strategy->pushEdge(e);
+            explore(target);
         }
         e->processed = true;
     } else if (e->requested != nullptr) {
-        //halt(e->requested);
-        //e->requested = nullptr;
+        e->processed = false;
+        halt(e->requested);
+        e->requested = nullptr;
     }
 }
 
@@ -256,7 +234,6 @@ void Algorithm::DistCZeroFPA::addDependency(Edge *e, Configuration *target)
     unsigned int sDist = e->is_negated ? e->source->getDistance() + 1 : e->source->getDistance();
     unsigned int tDist = target->getDistance();
 
-    //std::cout << "Update dist: " << sDist << tDist << std::endl;
     target->setDistance(std::max(sDist, tDist));
     target->dependency_set.push_back(e);
 }
@@ -273,9 +250,9 @@ bool Algorithm::DistCZeroFPA::search(
     this->v = graph->initialConfiguration();
 
     termination_flag = FLAG_DIRTY;
-    std::cout << "Initial partition: " << partition->ownerId(v) << std::endl;
+//    std::cout << "Initial partition: " << partition->ownerId(v) << std::endl;
     if (partition->ownerId(v) == comm->rank()) {
-        std::cout << "Exploring initial" << std::endl;
+//        std::cout << "Exploring initial" << std::endl;
         explore(v);
     }
 
@@ -299,7 +276,6 @@ bool Algorithm::DistCZeroFPA::search(
             if (type == TaskType::EDGE) {
                 termination_flag = FLAG_DIRTY;
                 if (e->is_negated) {
-                    //std::cout << "Process negation edge " << std::endl;
                     processed += 1;
                     processNegationEdge(e);
                 } else {
@@ -316,18 +292,15 @@ bool Algorithm::DistCZeroFPA::search(
             if (v->isDone()) break;
         } while (!((type == TaskType::EMPTY || type == TaskType::UNAVAILABLE) && terminationDetection()));
 
-        strategy->empty();
-
         if (v->isDone()) break;
 
         int candidate = -1;
         if (!strategy->empty()) {
-            candidate = strategy->maxDistance();
+            candidate = (int) strategy->maxDistance();
         }
 
         //if we are not master, send proposal
         if (comm->rank() != 0) {
-            std::cout << comm->rank() << "send distance" << std::endl;
             comm->sendDistance(0, candidate);
         } else {
             //if we are master, collect proposals and compute minimum
@@ -336,7 +309,6 @@ bool Algorithm::DistCZeroFPA::search(
                 while (proposal.first < 0) {
                     proposal = comm->recvDistance();
                 }
-                std::cout << "got distance" << std::endl;
                 if (proposal.second > candidate) {
                     candidate = proposal.second;
                 }
@@ -345,7 +317,6 @@ bool Algorithm::DistCZeroFPA::search(
 
         //broadcast results of vote to everyone
         canPick = candidate;
-        std::cout << comm->rank() << " send broadcast " << canPick << std::endl;
         comm->broadcastDistance(0, canPick);
 
         //notify search strategy
@@ -354,8 +325,8 @@ bool Algorithm::DistCZeroFPA::search(
         }
     }
 
-    std::cout << "Processed: " << processed << " " << strategy->empty() << std::endl;
-    std::cout << "Empty: " << strategy->empty() << std::endl;
+//    std::cout << "Processed: " << processed << " " << strategy->empty() << std::endl;
+//    std::cout << "Empty: " << strategy->empty() << std::endl;
 
     return (v->assignment == ONE) ? true : false;
 }
