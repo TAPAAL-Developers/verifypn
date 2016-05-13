@@ -109,7 +109,7 @@ iDistributedSearchStrategy *get<iDistributedSearchStrategy>(int type){
         return new UniversalSearchStrategy<>();
     }
     else if(type == BFS){
-        cerr << "ERROR: BFS not implemented yet" << std::endl;
+        return new UniversalSearchStrategy<WaitingList<Edge*, std::queue<Edge*>>>();
     }
     else {
 //        cerr << "ERROR: Unknown distributed search strategy." << std::endl;
@@ -220,7 +220,7 @@ void verifypnCTL(PetriEngine::PetriNet *net,
 
             print = comm->rank() == 0 ? true : false;
 
-            assert(stg != nullptr);
+            assert(stg != nullptr && comm != nullptr && partition != nullptr);
             search(result, *dFPA, graph, *stg, *comm, *partition);
         }
 
