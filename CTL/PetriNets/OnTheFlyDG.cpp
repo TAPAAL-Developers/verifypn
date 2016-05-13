@@ -16,7 +16,9 @@ OnTheFlyDG::OnTheFlyDG(
     net(t_net), inhibitorArcs(t_inhibitorArcs), n_transitions(t_net->numberOfTransitions()),
     n_places(t_net->numberOfPlaces())
 {    
-    initial_marking = new Marking(t_initial, n_places);
+    //this will use the deserialization constructor that actually creates a copy
+    //of the memory owned by the petri net
+    initial_marking = new Marking((int*) t_initial, (int) n_places);
     markings.insert(initial_marking);
     cached_successors.resize(t_net->numberOfTransitions());
 }
@@ -25,10 +27,11 @@ OnTheFlyDG::OnTheFlyDG(
 OnTheFlyDG::~OnTheFlyDG()
 {
     cleanUp();
+    //Note: initial marking is in the markings set, therefore it will be deleted by the for loop
+    initial_marking = nullptr;
     for(Marking *m : markings) {
         delete m;
     }
-    delete initial_marking;
 }
 
 bool OnTheFlyDG::fastEval(CTLQuery &query, Marking &marking)
