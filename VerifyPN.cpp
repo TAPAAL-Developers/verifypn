@@ -189,9 +189,11 @@ void search_ctl_query(PetriNet* net,
                       PNMLParser::InhibitorArcList inhibitorarcs) {
 
     PetriNets::OnTheFlyDG *graph = new PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
-    Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::CertainZeroFPA();
-    iSequantialSearchStrategy *strategy
-            = new DFSSearch(); //new UniversalSearchStrategy<>();
+    Communicator *comm = new MPICommunicator(graph);
+    Algorithm::PartitionFunction *partition = new PetriNets::HashPartitionFunction(comm->size());
+    Algorithm::FixedPointAlgorithm *algorithm = new Algorithm::CertainZeroFPA(); //new Algorithm::DistCZeroFPA();
+    iSequantialSearchStrategy *strategy = new DFSSearch();
+    //iSequantialSearchStrategy *strategy = new UniversalSearchStrategy<>();
 
     /*
      * This is how to run the dist. algorithm    
@@ -232,7 +234,7 @@ void search_ctl_query(PetriNet* net,
         clock_t individual_search_begin = clock();
 
         graph->setQuery(queryList.front());
-        res = algorithm->search(*graph, *strategy);
+        res = algorithm->search(*graph, *strategy);//, *comm, *partition);
 
         std::cout << std::boolalpha << "answer is " << res << std::endl;
 
@@ -262,7 +264,7 @@ void search_ctl_query(PetriNet* net,
             individual_search_begin = clock();
 
             graph->setQuery(q);
-            res = algorithm->search(*graph, *strategy);
+            res = algorithm->search(*graph, *strategy);//, *comm, *partition);
 
             individual_search_end = clock();
 
