@@ -122,9 +122,9 @@ CardinalityParameter* EvaluateableProposition::CreateParameter(std::string param
             }
         }
     }
-    
     return param;
 }
+
 LoperatorType EvaluateableProposition::SetLoperator(std::string atom_str){
     std::string loperator_str = atom_str.substr(atom_str.find(')'));
     loperator_str = loperator_str.substr(0, loperator_str.find('('));

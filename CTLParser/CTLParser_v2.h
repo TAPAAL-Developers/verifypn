@@ -47,7 +47,7 @@ private:
     CTLQuery* ConvertAG(CTLQuery* query);
     CTLQuery* ConvertEG(CTLQuery* query);
     CTLQuery* TemporalSetting(CTLQuery* query);
-    
+    int IdSetting(CTLQuery* query, int id);
 
 };
 
