@@ -545,6 +545,20 @@ void OnTheFlyDG::setQuery(CTLQuery *query)
     this->query = query;
 }
 
+int OnTheFlyDG::configurationCount() const
+{
+    int count = 0;
+    for (Marking *m : markings) {
+        count += m->configurations.size();
+    }
+    return count;
+}
+
+int OnTheFlyDG::markingCount() const
+{
+    return markings.size();
+}
+
 Configuration *OnTheFlyDG::createConfiguration(Marking &t_marking, CTLQuery &t_query)
 {
     for(PetriConfig* c : t_marking.configurations){

@@ -35,6 +35,10 @@ public:
 
     void setQuery(CTLQuery* query);
 
+    //stats
+    int configurationCount() const;
+    int markingCount() const;
+
 protected:
 
     //initialized from constructor
