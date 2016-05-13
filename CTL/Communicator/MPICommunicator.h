@@ -16,7 +16,7 @@
 class MPICommunicator : public Communicator
 {   
 public:
-    MPICommunicator(Serializer *serializer);
+    MPICommunicator(Serializer *serializer = nullptr);
     ~MPICommunicator();
 
     //Rank
@@ -24,6 +24,9 @@ public:
 
     //Size
     virtual int size() override;
+
+    //Reset
+    virtual void reset() override;
 
     //Send methods
     virtual void sendMessage(int receiver, SearchStrategy::Message &m) override;

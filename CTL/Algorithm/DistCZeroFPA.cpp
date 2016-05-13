@@ -250,9 +250,9 @@ bool Algorithm::DistCZeroFPA::search(
     this->v = graph->initialConfiguration();
 
     termination_flag = FLAG_DIRTY;
-    std::cout << "Initial partition: " << partition->ownerId(v) << std::endl;
+//    std::cout << "Initial partition: " << partition->ownerId(v) << std::endl;
     if (partition->ownerId(v) == comm->rank()) {
-        std::cout << "Exploring initial" << std::endl;
+//        std::cout << "Exploring initial" << std::endl;
         explore(v);
     }
 
@@ -309,9 +309,9 @@ bool Algorithm::DistCZeroFPA::search(
         }
     }
 
-    std::cout << "Processed: " << processed << " " << strategy->empty() << std::endl;
-    std::cout << "Empty: " << strategy->empty() << std::endl;
-    std::cout << "Messages: " << messages << std::endl;
+//    std::cout << "Processed: " << processed << " " << strategy->empty() << std::endl;
+//    std::cout << "Empty: " << strategy->empty() << std::endl;
+//    std::cout << "Messages: " << messages << std::endl;
 
     return (v->assignment == ONE) ? true : false;
 }

@@ -397,10 +397,7 @@ bool OnTheFlyDG::EvalCardianlity(int a, LoperatorType lop, int b) {
 Configuration* OnTheFlyDG::initialConfiguration()
 {
     //initial marking is inserted into the set in the constructor
-    assert(initial_marking != nullptr && query != nullptr);
-    std::cout << initial_marking << " " << query << std::endl;
     Configuration *v = createConfiguration(*initial_marking, *query);
-    v->printConfiguration();
     return v;
 }
 
@@ -542,6 +539,7 @@ CTLQuery *OnTheFlyDG::findQueryById(int id, CTLQuery *root)
 
 void OnTheFlyDG::setQuery(CTLQuery *query)
 {
+    cleanUp();
     this->query = query;
 }
 

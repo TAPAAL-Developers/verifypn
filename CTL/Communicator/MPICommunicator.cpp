@@ -23,6 +23,18 @@ int MPICommunicator::size()
     return _size;
 }
 
+void MPICommunicator::reset()
+{
+    std::pair<int, SearchStrategy::Message> p1;
+    do {
+        p1 = recvMessage();
+    } while (p1.first >= 0);
+    std::pair<int, Token> p2;
+    do {
+        p2 = recvToken(MPI_ANY_SOURCE);
+    } while (p2.first >= 0);
+}
+
 void MPICommunicator::sendMessage(int receiver, SearchStrategy::Message &m)
 {
     int slot = getMPISlot();
