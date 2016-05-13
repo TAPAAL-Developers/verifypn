@@ -101,6 +101,17 @@ iDistributedSearchStrategy *get<iDistributedSearchStrategy>(int type){
 }
 
 template<>
+DistributedFixedPointAlgorithm *get<DistributedFixedPointAlgorithm>(int type){
+    if(type == DIST){
+        return new DistCZeroFPA();
+    }
+    else {
+//        cerr << "ERROR: Unknown sequential fixed point algorithm" << std::endl;
+        return nullptr;
+    }
+}
+
+template<>
 FixedPointAlgorithm *get<FixedPointAlgorithm>(int type){
     if(type == LOCAL){
         return new LocalFPA();
@@ -114,16 +125,21 @@ FixedPointAlgorithm *get<FixedPointAlgorithm>(int type){
     }
 }
 
-std::vector<CTLResult> &&makeResults(std::string &modelname,
-                                     std::vector<CTLQuery*> queries,
-                                     int statistics_level)
+std::vector<CTLResult> makeResults(std::string &modelname,
+                                   std::vector<CTLQuery*> &queries,
+                                   int index_start,
+                                   int statistics_level)
 {
     std::vector<CTLResult> ctlresults;
-    ctlresults.reserve(queries.size());
 
-    for(int i; i < queries.size(); i++){
-        ctlresults[i] = CTLResult(modelname, queries[i], i, 1);
+    auto qIter = queries.begin();
+    for(int i = 0; i < queries.size(); i++){
+        assert(qIter != queries.end());
+        ctlresults.emplace_back(modelname, *qIter, index_start + i, statistics_level);
+        qIter++;
     }
+
+    return ctlresults;
 }
 
 template<class Algorithm, class... Args>
@@ -131,6 +147,7 @@ bool search(CTLResult &result, Algorithm &algorithm, Args&&... args){
     stopwatch timer;
     timer.start();
 
+    cout << __func__ << " " << __LINE__ << ": Running algorithm" << endl;
     bool answer = algorithm->search(args...);
 
     timer.stop();
@@ -146,32 +163,37 @@ void verifypnCTL(PetriEngine::PetriNet *net,
                  int xmlquery,
                  int algorithm,
                  int strategy,
-                 PNMLParser::InhibitorArcList inhibitorarcs,
+                 PNMLParser::InhibitorArcList &inhibitorarcs,
                  bool print_statistics)
 {
-    std::vector<CTLResult> ctlresults = makeResults(modelname, queries, RUNNINGTIME);
-
-    int firstQ = xmlquery > 0 ? xmlquery - 1 : 0;
-    int lastQ = xmlquery > 0 ? xmlquery : queries.size();
-
+    std::vector<CTLResult> ctlresults = makeResults(modelname, queries, xmlquery, RUNNINGTIME);
     PetriNets::OnTheFlyDG graph = PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
 
+    cout << "Looking for Algorithms" << endl;
     FixedPointAlgorithm *FPA = get<FixedPointAlgorithm>(algorithm);
+
+    cout << "Looking for DFPA" << endl;
     DistributedFixedPointAlgorithm *dFPA = get<DistributedFixedPointAlgorithm>(algorithm);
+
+    if(FPA)
+        cout << "found FPA" << endl;
+    if(dFPA)
+        cout << "found DFPA" << endl;
+
 
     //Begin:    Sequential call area
     if(algorithm != DIST)
     {
-        while(firstQ < lastQ){
-            CTLResult &result = ctlresults[firstQ++];
+        for(CTLResult result : ctlresults){
+            cout << __func__ << " " << __LINE__ << ": " << result.query << endl;
             graph.setQuery(result.query);
 
-            auto *stg = get<iSequantialSearchStrategy>(strategy);
-            bool answer = search(result, FPA, graph, *stg);
+            iSequantialSearchStrategy *stg = get<iSequantialSearchStrategy>(strategy);
+            assert(stg != nullptr);
 
-            if(firstQ < lastQ){
-                graph.cleanUp();
-            }
+            bool answer = FPA->search(graph, *stg);
+
+            graph.cleanUp();
         }
     }
     //End:      Sequential call area

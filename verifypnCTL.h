@@ -44,7 +44,7 @@ public:
 
 class CTLResult {
 public:
-    CTLResult(std::string &modelname, CTLQuery *q = nullptr, int qnbr = -1, int stat_level = 1) :
+    CTLResult(std::string modelname = std::string(""), CTLQuery *q = nullptr, int qnbr = -1, int stat_level = 1) :
         query(q), modelname(modelname), query_nbr(qnbr),statistics_level(stat_level){}
 
     std::string modelname;
@@ -60,13 +60,14 @@ public:
 };
 
 void verifypnCTL(PetriNet* net,
-                   MarkVal* m0,
-                   std::string modelname,
-                   vector<CTLQuery*>& queries,
-                   int xmlquery,
-                   int algorithm,
-                   int strategy,
-                   PNMLParser::InhibitorArcList inhibitorarcs, bool print_statistics);
+                 MarkVal* m0,
+                 std::string modelname,
+                 vector<CTLQuery*>& queries,
+                 int xmlquery,
+                 int algorithm,
+                 int strategy,
+                 PNMLParser::InhibitorArcList &inhibitorarcs,
+                 bool print_statistics);
 
 
 #endif // VERIFYPNCTL_H
