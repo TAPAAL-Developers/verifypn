@@ -43,15 +43,15 @@ def main(args):
     # Default values
     my_directory = os.path.dirname(os.path.abspath(__file__))
     engine = 'distczero'
-    repository = '/'.join(my_directory.split('/')[0:-1])
-    modeldb = '~/launchpad/modelDatabase/modelconfFiles/'
-    conf_file = modeldb + 'completemodelconf'
+    repository = '/'.join(my_directory.split('/')[0:-2])
+    modeldb = '/user/smni12/launchpad/modelDatabase/modelconfFiles/'
+    conf_file = 'modelDBconf'
     timeout = '60'
-    querytypes = 'CTLCardinality'
+    querytypes = ['CTLCardinality']
     nodes = '1'
     workers = '4'
-    strategy = 'dfs'
-    memlimit = 'unlimited'
+    strategy = 'DFS'
+    memlimit = '1024000000'
 
     if remainder:
         print(ARGUMENTS_NOT_UNDERSTOOD)
@@ -76,7 +76,8 @@ def main(args):
             options['--models'] = conf_file
         try:
             models = get_models(options['--models'], modeldb)
-        except Exception:
+        except Exception as ex:
+            print(ex)
             print(MODELS_NOT_FOUND)
 
         if '--timeout' in options:
@@ -86,8 +87,6 @@ def main(args):
 
         if '--querytypes' in options:
             querytypes = options['--querytypes'].split(',')
-        else:
-            options['--querytypes'] = querytypes.split(',')
 
         if '--nodes' in options:
             nodes = options['--nodes']
@@ -107,12 +106,13 @@ def main(args):
         if '--memlimit' in options:
             # Memory limit specified in kb
             memlimit = options['--memlimit']
-            if int(memlimit) < 10240:
-                raise Exception('Memory limit too low. Must exceed 10MB.')
+            if int(memlimit) < 10240 or int(memlimit) > 1024000000:
+                raise Exception('Memory limit out of bounds. Must exceed 10MB, but can be no higher than 800GB.')
         else:
             options['--memlimit'] = memlimit
 
         experiment = input('Supply a name for the experiment: ')
+
 
         helpers.repository = repository
 
@@ -123,10 +123,11 @@ def main(args):
         slurm_count = 0
         timestamp = str(datetime.now()).split(':')[:2]
         timestamp = ':'.join(timestamp).replace(' ','T')
+
         for model in models:
             for querytype in querytypes:
-                for i in range(1, 17):
-                    call_slurm(engine=engine,
+                for i in range(1, 16+1):
+                    call_slurm(engine=engine, repository=repository,
                                model=model, querytype=querytype,
                                timeout=timeout, nodes=nodes,
                                workers=workers, strategy=strategy,
