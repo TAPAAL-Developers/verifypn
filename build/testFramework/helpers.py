@@ -9,6 +9,7 @@ script_dir = os.path.dirname(os.path.realpath(__file__))
 
 repository = None
 
+
 def get_job_id(outstr):
     outstr = outstr.decode('utf-8')
     job_id = outstr.replace('Submitted batch job ', '')
@@ -16,22 +17,24 @@ def get_job_id(outstr):
     return job_id
 
 
-def get_models(models_file):
+def get_models(models_file, modeldb):
     """Get all absolute paths to model files."""
-    file = os.path.abspath(models_file)
+    file = modeldb + '/' + models_file
+
     with open(file, 'r') as f:
         model_names = f.readlines()
 
-    model_file_format = script_dir + '/completeModelDB/{0}/model.pnml'
+    model_file_format = '/user/smni12/launchpad/modelDatabase/allModels/{0}/model.pnml'
     models = []
 
     for name in model_names:
         model_file = model_file_format.format(name)
         models.append((name.replace('\n', ''), model_file.replace('\n', '')))
+        print(model_file.replace('\n', ''))
     return models
 
 
-def compile(engine, base='~/launchpad/'):
+def compile(engine, base='/user/smni12/launchpad/'):
     """Compile the engine using preset makefile."""
     if not repository:
         makefiles = {
@@ -45,7 +48,7 @@ def compile(engine, base='~/launchpad/'):
     else:
         makefiledir = repository
 
-    sbatch_command = 'sbatch compile.sh {0}'.format(makefiledir)
+    sbatch_command = 'sbatch {0}/build/testFramework/compile.sh {0}'.format(makefiledir)
     p = Popen(
         sbatch_command.split(' '),
         stdout=PIPE, stderr=PIPE)
@@ -116,7 +119,7 @@ def get_engine_path(engine, base='~/launchpad/'):
         }
         engine_path = engine_paths[engine]
     else:
-        engine_path = repository + '{0}'
+        engine_path = repository + '/{0}'
 
     return engine_path.format('verifypn-linux64')
 
@@ -129,7 +132,7 @@ def get_query_path(model_file, querytype):
 def call_slurm(engine, model, querytype, timeout,
                nodes, workers, strategy, query_number,
                compile_job_id, memlimit, timestamp, 
-               experiment, conf_file):
+               experiment, conf_file, repository):
     """
     Call Slurm to queue up a batch of runs on the models.
 
@@ -162,7 +165,9 @@ def call_slurm(engine, model, querytype, timeout,
         'MEMLIMIT': memlimit,
         'WORKERS': workers,
         'EXPERIMENT': experiment,
-        'MODELCONF': conf_file
+        'MODELCONF': conf_file,
+        'REPOSITORY': repository.split('/')[-1],
+	    'JOBDURATION': time.strftime('%H:%M:%S', time.gmtime(int(timeout) + 5))
     }
 
     slurm_conf = get_slurm_conf(

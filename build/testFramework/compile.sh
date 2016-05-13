@@ -2,6 +2,7 @@
 #SBATCH --nodes 1
 #SBATCH --partition=production
 #SBATCH -n 1
+#SBATCH --time=3
 
 make -C $1 clean
 make -C $1 -f makefile.linux64 -j 64
