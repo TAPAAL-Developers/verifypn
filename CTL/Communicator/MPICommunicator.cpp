@@ -25,6 +25,7 @@ int MPICommunicator::size()
 
 void MPICommunicator::reset()
 {
+    MPI_Barrier(MPI_COMM_WORLD);
     std::pair<int, SearchStrategy::Message> p1;
     do {
         p1 = recvMessage();
@@ -33,6 +34,7 @@ void MPICommunicator::reset()
     do {
         p2 = recvToken(MPI_ANY_SOURCE);
     } while (p2.first >= 0);
+    MPI_Barrier(MPI_COMM_WORLD);
 }
 
 void MPICommunicator::sendMessage(int receiver, SearchStrategy::Message &m)

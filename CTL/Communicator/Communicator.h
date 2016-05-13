@@ -7,6 +7,8 @@
 class Communicator
 {
 public:
+    virtual ~Communicator() {}
+
     //Rank
     virtual int rank() =0;
 

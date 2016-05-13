@@ -794,7 +794,7 @@ int main(int argc, char* argv[]){
         model_name = model_name.substr(model_name.find("/") + 1, string::npos);
         model_name = model_name.substr(model_name.find("/") + 1, string::npos);
 
-        verifypnCTL(net,
+        retval = (ReturnValues) verifypnCTL(net,
                     m0,
                     inhibarcs,
                     model_name,

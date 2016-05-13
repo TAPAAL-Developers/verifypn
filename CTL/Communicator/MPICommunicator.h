@@ -17,7 +17,7 @@ class MPICommunicator : public Communicator
 {   
 public:
     MPICommunicator(Serializer *serializer = nullptr);
-    ~MPICommunicator();
+    virtual ~MPICommunicator();
 
     //Rank
     virtual int rank() override;

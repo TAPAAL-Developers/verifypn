@@ -175,7 +175,7 @@ void search(CTLResult &result,
     result.duration = timer.duration();
 }
 
-void verifypnCTL(PetriEngine::PetriNet *net,
+int verifypnCTL(PetriEngine::PetriNet *net,
                  PetriEngine::MarkVal *m0,
                  PNMLParser::InhibitorArcList &inhibitorarcs,
                  string modelname,
@@ -209,11 +209,11 @@ void verifypnCTL(PetriEngine::PetriNet *net,
         else if(dFPA != nullptr){
             iDistributedSearchStrategy *stg = get<iDistributedSearchStrategy>(strategy);
 
-            if(comm != nullptr){
-
-            }
-            else
+            if(comm == nullptr) {
                 comm = new MPICommunicator(&graph);
+            } else {
+                comm->reset();
+            }
 
 
             partition == nullptr ? partition = new HashPartitionFunction(comm->size()) : partition;
@@ -239,4 +239,6 @@ void verifypnCTL(PetriEngine::PetriNet *net,
     //Finalize MPI
     if(comm != nullptr)
         delete comm;
+
+    return SuccessCode;
 }

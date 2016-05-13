@@ -60,7 +60,7 @@ public:
     int number_of_configurations = 0;
 };
 
-void verifypnCTL(PetriNet* net,
+int verifypnCTL(PetriNet* net,
                  MarkVal* m0,
                  PNMLParser::InhibitorArcList &inhibitorarcs,
                  std::string modelname,
