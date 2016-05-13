@@ -12,7 +12,6 @@
 
 #define MPI_MESSAGE_TAG 1
 #define MPI_TOKEN_TAG 2
-#define MPI_DISTANCE_TAG 3
 
 class MPICommunicator : public Communicator
 {   
@@ -29,20 +28,16 @@ public:
     //Send methods
     virtual void sendMessage(int receiver, SearchStrategy::Message &m) override;
     virtual void sendToken(int receiver, Token &t) override;
-    virtual void sendDistance(int receiver, int distance) override;
 
     //Receive methods
     //first element of the pair is always a sender id. If the id is negative, the opration
     //was not successful
     virtual std::pair<int, SearchStrategy::Message> recvMessage() override;
     virtual std::pair<int, Token> recvToken(int source) override;
-    virtual std::pair<int, int> recvDistance() override;
 
-    //Broadcast
-    //blocking broadcast - when this method returns, distance
-    //variable on wevery worker contains the value which was
-    //originally on the sender node.
-    virtual void broadcastDistance(int sender, int &distance) override;
+    //Blocking reduce operation
+    //Upon returning, the distance variable contains the maximum distance over all workers
+    virtual void computeMax(int &distance) override;
 
 protected:
     int _rank = 0;

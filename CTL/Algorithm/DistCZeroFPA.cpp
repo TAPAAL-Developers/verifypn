@@ -296,30 +296,12 @@ bool Algorithm::DistCZeroFPA::search(
 
         if (v->isDone()) break;
 
-        int candidate = -1;
+        canPick = -1;
         if (!strategy->empty()) {
-            candidate = (int) strategy->maxDistance();
+            canPick = (int) strategy->maxDistance();
         }
 
-        //if we are not master, send proposal
-        if (comm->rank() != 0) {
-            comm->sendDistance(0, candidate);
-        } else {
-            //if we are master, collect proposals and compute minimum
-            for (int i=1; i<comm->size(); i++) {
-                std::pair<int, int> proposal = comm->recvDistance();
-                while (proposal.first < 0) {
-                    proposal = comm->recvDistance();
-                }
-                if (proposal.second > candidate) {
-                    candidate = proposal.second;
-                }
-            }
-        }
-
-        //broadcast results of vote to everyone
-        canPick = candidate;
-        comm->broadcastDistance(0, canPick);
+        comm->computeMax(canPick);
 
         //notify search strategy
         if (canPick >= 0) {

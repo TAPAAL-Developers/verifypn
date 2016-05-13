@@ -51,20 +51,6 @@ void MPICommunicator::sendToken(int receiver, Token &t)
     MPI_Isend(tokenBuffer, 2, MPI_INT, receiver, MPI_TOKEN_TAG, MPI_COMM_WORLD, &send_requests[slot].mpiRequest);
 }
 
-void MPICommunicator::sendDistance(int receiver, int distance)
-{
-    int slot = getMPISlot();
-    while (slot == NO_SLOT) {
-        slot = getMPISlot();
-    }
-
-    int *buf = (int*) malloc(sizeof(int*) * 1);
-    buf[0] = distance;
-    send_requests[slot].buffer = buf;
-
-    MPI_Isend(buf, 1, MPI_INT, receiver, MPI_DISTANCE_TAG, MPI_COMM_WORLD, &send_requests[slot].mpiRequest);
-}
-
 std::pair<int, SearchStrategy::Message> MPICommunicator::recvMessage()
 {
     MPI_Status status;
@@ -88,7 +74,7 @@ std::pair<int, Token> MPICommunicator::recvToken(int source)
 {
     MPI_Status status;
     int has_message = 0;
-    MPI_Iprobe(MPI_ANY_SOURCE, MPI_TOKEN_TAG, MPI_COMM_WORLD, &has_message, &status);
+    MPI_Iprobe(source, MPI_TOKEN_TAG, MPI_COMM_WORLD, &has_message, &status);
     Token t(0, 0);
     if (has_message) {
         int buffer[2];
@@ -101,23 +87,11 @@ std::pair<int, Token> MPICommunicator::recvToken(int source)
     }
 }
 
-std::pair<int, int> MPICommunicator::recvDistance()
+void MPICommunicator::computeMax(int &distance)
 {
-    MPI_Status status;
-    int has_message = 0;
-    MPI_Iprobe(MPI_ANY_SOURCE, MPI_DISTANCE_TAG, MPI_COMM_WORLD, &has_message, &status);
-    if (has_message) {
-        int dist;
-        MPI_Recv(&dist, 1, MPI_INT, status.MPI_SOURCE, status.MPI_TAG, MPI_COMM_WORLD, &status);
-        return std::pair<int, int>(status.MPI_SOURCE, dist);
-    } else {
-        return std::pair<int, int>(-1, 0);
-    }
-}
-
-void MPICommunicator::broadcastDistance(int sender, int &distance)
-{
-    MPI_Bcast(&distance, 1, MPI_INT, sender, MPI_COMM_WORLD);
+    int winner = distance;
+    MPI_Allreduce(&distance, &winner, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
+    distance = winner;
 }
 
 int MPICommunicator::getMPISlot()
