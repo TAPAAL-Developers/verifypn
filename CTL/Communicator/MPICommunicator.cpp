@@ -23,6 +23,11 @@ int MPICommunicator::size()
     return _size;
 }
 
+void MPICommunicator::reset()
+{
+
+}
+
 void MPICommunicator::sendMessage(int receiver, SearchStrategy::Message &m)
 {
     int slot = getMPISlot();

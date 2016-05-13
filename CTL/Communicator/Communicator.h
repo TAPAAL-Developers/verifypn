@@ -13,6 +13,9 @@ public:
     //Size
     virtual int size() =0;
 
+    //Reset
+    virtual void reset() =0;
+
     //Send methods
     virtual void sendMessage(int receiver, SearchStrategy::Message &m) =0;
     virtual void sendToken(int receiver, Token &t) =0;

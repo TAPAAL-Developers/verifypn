@@ -26,6 +26,9 @@ public:
     //Size
     virtual int size() override;
 
+    //Reset
+    virtual void reset() override;
+
     //Send methods
     virtual void sendMessage(int receiver, SearchStrategy::Message &m) override;
     virtual void sendToken(int receiver, Token &t) override;

@@ -4,6 +4,7 @@
 #include "iSearchStrategy.h"
 #include "NegationWaitingList.h"
 #include "WaitingList.h"
+#include "TypeMessageList.h"
 
 #include <assert.h>
 
@@ -22,7 +23,7 @@ using Edge = DependencyGraph::Edge;
 template<
         class EdgeList = WaitingList<Edge*, std::stack<Edge*>>,
         class NegationList = NegationWaitingList,
-        class MessageList = WaitingList<Message, std::queue<Message>>,
+        class MessageList = TypeMessageList,  //WaitingList<Message, std::queue<Message>>
         class DependencyList = WaitingList<Edge*, std::stack<Edge*>>
 >
 class UniversalSearchStrategy : public iSequantialSearchStrategy, public iDistributedSearchStrategy {

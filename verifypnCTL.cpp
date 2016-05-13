@@ -195,6 +195,7 @@ void verifypnCTL(PetriEngine::PetriNet *net,
 
     Communicator *comm = nullptr;
     PartitionFunction *partition = nullptr;
+    bool print = true;
 
     //Main computation loop.
     for(CTLResult result : ctlresults){
@@ -208,8 +209,16 @@ void verifypnCTL(PetriEngine::PetriNet *net,
         else if(dFPA != nullptr){
             iDistributedSearchStrategy *stg = get<iDistributedSearchStrategy>(strategy);
 
-            comm == nullptr ? comm = new MPICommunicator(&graph) : comm;
+            if(comm != nullptr){
+
+            }
+            else
+                comm = new MPICommunicator(&graph);
+
+
             partition == nullptr ? partition = new HashPartitionFunction(comm->size()) : partition;
+
+            print = comm->rank() == 0 ? true : false;
 
             assert(stg != nullptr);
             search(result, *dFPA, graph, *stg, *comm, *partition);
@@ -221,7 +230,8 @@ void verifypnCTL(PetriEngine::PetriNet *net,
         if(result.statistics_level > 1){
             //Add when supported
         }
-        cout << "FORMULA " << result.modelname << "-" << result.query_nbr << " " << boolalpha << result.answer << endl;
+        if(print)
+            cout << "FORMULA " << result.modelname << "-" << result.query_nbr << " " << boolalpha << result.answer << endl;
     }
 
     //process answers

@@ -802,7 +802,7 @@ int main(int argc, char* argv[]){
                     xmlquery,
                     ctl_algorithm,
                     searchstrategy,
-                    (printstatistics ? 0 : 1));
+                    (printstatistics ? 1 : 0));
     }
     //------------------------ Return the Output Value -------------------//
     return retval;

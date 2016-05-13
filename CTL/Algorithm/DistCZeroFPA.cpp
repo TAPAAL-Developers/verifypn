@@ -28,7 +28,7 @@ void Algorithm::DistCZeroFPA::finalAssign(Configuration *c, Assignment value)
         }
     }
     for(Edge *d : c->dependency_set) {
-        strategy->pushEdge(d);
+        strategy->pushDependency(d);
     }
     c->dependency_set.clear();
 
@@ -259,6 +259,7 @@ bool Algorithm::DistCZeroFPA::search(
     int canPick = 0;
     int processed = 0;
 
+    int messages = 0;
     while (canPick >= 0) {
         SearchStrategy::TaskType type;
         do {
@@ -266,6 +267,7 @@ bool Algorithm::DistCZeroFPA::search(
 
             std::pair<int, Message> message = comm->recvMessage();
             while (message.first >= 0) {
+                messages += 1;
                 strategy->pushMessage(message.second);
                 message = comm->recvMessage();
             }
@@ -327,6 +329,7 @@ bool Algorithm::DistCZeroFPA::search(
 
 //    std::cout << "Processed: " << processed << " " << strategy->empty() << std::endl;
 //    std::cout << "Empty: " << strategy->empty() << std::endl;
+//    std::cout << "Messages: " << messages << std::endl;
 
     return (v->assignment == ONE) ? true : false;
 }
