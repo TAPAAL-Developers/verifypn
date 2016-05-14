@@ -53,6 +53,8 @@ bool OnTheFlyDG::fastEval(CTLQuery &query, Marking &marking)
 void OnTheFlyDG::successors(Configuration *c)
 {
     PetriConfig *v = static_cast<PetriConfig*>(c);
+    v->printConfiguration();
+
     CTLType query_type = v->query->GetQueryType();
     if(query_type == EVAL){
         //assert(false && "Someone told me, this was a bad place to be.");

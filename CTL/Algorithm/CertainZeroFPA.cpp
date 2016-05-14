@@ -28,7 +28,6 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
 //    v->printConfiguration();
 
     while (r != TaskType::EMPTY) {
-
 //        std::cout << std::endl;
 //        e->source->printConfiguration();
 //        for (Configuration *c : e->targets) {

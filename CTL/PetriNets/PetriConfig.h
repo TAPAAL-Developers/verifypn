@@ -24,7 +24,7 @@ public:
     {
         std::stringstream ss;
         ss << "==================== Configuration ====================" << std::endl
-           << attrToString() << " IsTemporal: " << (query->IsTemporal ? "TRUE" : "FALSE") << std::endl
+           << attrToString() << " Depth: " << query->Depth << " IsTemporal: " << (query->IsTemporal ? "TRUE" : "FALSE") << std::endl
            << marking->toString() << std::endl
            << query->ToString() << std::endl
            << "=======================================================" << std::endl;
