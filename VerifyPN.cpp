@@ -240,8 +240,6 @@ void search_ctl_query(PetriNet* net,
             else result[q_number] = ErrorCode;
             
             q_number++;
-            //queryList[i]->pResult();
-            cout << endl;
         }
     }
 }
@@ -523,41 +521,25 @@ int main(int argc, char* argv[]){
         CTLOptimizer *optimizer = new CTLOptimizer();
         meta_d = parser.GetQueryMetaData(buffer);
         if(xmlquery <= 0){
+            if(printstatistics)
+                cout<<":::Resulting queries after optimization:"<<endl;
             for(int i = 0; i < meta_d->numberof_queries; i++){
-                cout<<"=================================="<<endl;
-                cout<<"=========== Query-"<<i<<" ==========="<<endl;
-                cout<<"=================================="<<endl;
                 CTLQuery * ctlquery = parser.ParseXMLQuery(buffer, i + 1);
-                cout<<"Query: "<<parser.QueryToString(ctlquery)<<endl;
                 ctlquery = parser.FormatQuery(ctlquery, net);
-                cout<<"Format: "<<parser.QueryToString(ctlquery)<<endl;
                 //optimizer->Optimize(ctlquery);
-                cout<<"Optimized: "<<parser.QueryToString(ctlquery)<<endl;
+                if(printstatistics)
+                    cout<<i<<". "<<parser.QueryToString(ctlquery)<<endl;
                 queryList.push_back(ctlquery);
-                cout<<"=================================="<<endl;
-                cout<<endl;
             }
         }
         else{
             CTLQuery * ctlquery = parser.ParseXMLQuery(buffer, xmlquery);
-            cout<<"Query: "<<parser.QueryToString(ctlquery)<<endl;
             ctlquery = parser.FormatQuery(ctlquery, net);
 //            optimizer->Optimize(ctlquery);
+            if(printstatistics)
+                cout<<":::Resulting query after optimization:\n  "<<parser.QueryToString(ctlquery)<<endl;
             queryList.push_back(ctlquery);
         }
-        
-        
-        if(isParserTest){
-            for(auto q : queryList){
-                cout<<parser.QueryToString(q)<<endl;
-            }
-            assert(false && "Test Successful");
-        }
-
-        //CTLParser ctlParser = CTLParser(net);
-        
-        //ctlParser.ParseXMLQuery(buffer, queryList);
-        
         
         
         clock_t parse_ctl_query_end = clock();
@@ -872,24 +854,19 @@ int main(int argc, char* argv[]){
 //---------------------------- CTL search ---------------------------//
 //-------------------------------------------------------------------//
         else {
+            string technique_str = "TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT";
             ReturnValues retval[16];
-            string model_name(modelfile);
-            model_name = model_name.substr(0, model_name.find("/model.pnml"));
-            model_name = model_name.substr(model_name.find("/") + 1, string::npos);
-            model_name = model_name.substr(model_name.find("/") + 1, string::npos);
-            model_name = model_name.substr(model_name.find("/") + 1, string::npos);
-            model_name = model_name.substr(model_name.find("/") + 1, string::npos);
             clock_t total_search_begin = clock();
             search_ctl_query(net, m0, queryList, xmlquery, ctl_algorithm, searchstrategy, retval, inhibarcs);
             clock_t total_search_end = clock();
             if(xmlquery > 0){
                 string pRes = (retval[xmlquery - 1])?"FALSE" : "TRUE";
-                cout<<"FORMULA "<<model_name<<"-"<<(xmlquery - 1)<<" "<<pRes<<endl;
+                cout<<"FORMULA "<<meta_d->model_name<<"-"<<(xmlquery-1)<<" "<<pRes<<" "<<technique_str<<endl;
             }
             else{
                 for(int i = 0; i < 16; i++){
                     string pRes = (retval[i])?"FALSE" : "TRUE";
-                    cout<<"FORMULA "<<model_name<<"-"<<i<<" "<<pRes<<endl;
+                    cout<<"FORMULA "<<meta_d->model_name<<"-"<<i<<" "<<pRes<<" "<<technique_str<<endl;
                 }
             }
 

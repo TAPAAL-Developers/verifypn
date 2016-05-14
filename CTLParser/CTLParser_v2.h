@@ -21,8 +21,8 @@
 #include "CTLQuery.h"
 
 struct QueryMeta{
-    int numberof_queries;
-    std::string *model_name;
+    int numberof_queries = 0;
+    std::string model_name;
     
 };
 
@@ -48,6 +48,7 @@ private:
     CTLQuery* ConvertEG(CTLQuery* query);
     CTLQuery* TemporalSetting(CTLQuery* query);
     int IdSetting(CTLQuery* query, int id);
+    QueryMeta *_meta;
 
 };
 

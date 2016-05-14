@@ -298,11 +298,16 @@ QueryMeta* CTLParser_v2::GetQueryMetaData(std::vector<char> buffer) {
     doc.parse<0>(&buffer[0]);
     root_node = doc.first_node();
     QueryMeta *meta_d = new QueryMeta();
+    xml_node<> * first_property_node = root_node->first_node("property");
+    xml_node<> * id_node = first_property_node->first_node("id");
+    std::string model_name(id_node->value());
     int i = 0;
-    for (xml_node<> * property_node = root_node->first_node("property"); property_node; property_node = property_node->next_sibling()) {
+    for (xml_node<> * property_node = root_node->first_node("property"); property_node; property_node = property_node->next_sibling()) {    
         i++;
     }
     meta_d->numberof_queries = i;
+    std::size_t pos = model_name.find_last_of("-0") - 1;
+    meta_d->model_name = model_name.substr(0, pos);
     return meta_d;
 }
 
