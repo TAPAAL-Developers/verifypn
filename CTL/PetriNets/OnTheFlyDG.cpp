@@ -373,10 +373,14 @@ bool OnTheFlyDG::evaluateQuery(CTLQuery &query, Marking &marking)
 }
 
 int OnTheFlyDG::GetParamValue(CardinalityParameter *param, Marking& marking) {
-    if(param->isPlace){
-        return marking[param->value];
+if(param->isPlace){
+        int res = 0;
+        for(int place : param->places_i){
+            res = res + marking.value()[place];
+        }
+        return res;
     }
-    else {
+    else{
         return param->value;
     }
 }

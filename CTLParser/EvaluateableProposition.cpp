@@ -110,11 +110,25 @@ CardinalityParameter* EvaluateableProposition::CreateParameter(std::string param
         //The only time when you read just one item if the whole string is just numbers.
         param->isPlace = false;
     } else {    //error
+        
         param->isPlace = true;
+        std::vector<std::string> places_str;
+        std::size_t found = parameter_str.find(",");
+        
+        while(found != parameter_str.npos){
+            std::string temp = parameter_str.substr(0, found);
+            places_str.push_back(temp);
+            parameter_str = parameter_str.substr(found + 2);
+            found = parameter_str.find(",");
+        }
+        
+        places_str.push_back(parameter_str);
+        
         for(int i = 0; i < numberof_p; i++){
-            if(parameter_str.compare(p_names[i]) == 0){
-                param->value = i;
-                break;
+            for(std::string place : places_str){
+                if(p_names[i].compare(place) == 0){
+                    param->places_i.push_back(i);
+                }
             }
         }
     }

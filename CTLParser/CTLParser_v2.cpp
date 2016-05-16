@@ -437,15 +437,29 @@ Path CTLParser_v2::getPathOperator(xml_node<> * quantifyer_node){
 std::string CTLParser_v2::parsePar(xml_node<> * parameter){
     std::string parameter_str = parameter->name();
     parameter_str = parameter_str + "(";
+    
     if (parameter->name()[0] == 't'){
-        parameter_str = parameter_str + parameter->first_node()->value() + ")";
+        xml_node<> * place_node = parameter->first_node();
+        parameter_str = parameter_str + place_node->value();
+        for(place_node = place_node->next_sibling(); place_node; place_node = place_node->next_sibling()){
+            parameter_str = parameter_str + ", " + place_node->value();
+        }
+        parameter_str = parameter_str + ")";
     }
+    
     else if(parameter->name()[0] == 'i'){
         parameter_str = parameter_str + parameter->value() + ")";
     }
     else assert(false && "Failed parsing cardinality parameter. Incorrect format.");
     return parameter_str;
 }
+
+/*
+ for (xml_node<> * transition_node = root->next_sibling(); transition_node; transition_node = transition_node->next_sibling()) {
+                atom_str = atom_str + ", " + transition_node->value();
+            }
+            atom_str = atom_str + ")";
+ */
 
 int CTLParser_v2::max_depth(int a, int b){
     if(a < b) return b; return a;
