@@ -23,6 +23,7 @@ enum LoperatorType {NOT_CARDINALITY = -1, EQ = 0, LE = 1, LEQ = 2, GR = 3, GRQ =
 struct CardinalityParameter{
     bool isPlace;
     int value;
+    std::vector<int> places_i;
 };
 
 class EvaluateableProposition {
