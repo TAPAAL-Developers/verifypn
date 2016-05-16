@@ -147,7 +147,7 @@ std::vector<CTLResult> makeResults(std::string &modelname,
                                    int start_index,
                                    int statistics_level)
 {
-    start_index = start_index > 0 ? start_index : 0;
+    start_index = start_index > 0 ? start_index - 1 : 0;
     std::vector<CTLResult> ctlresults;
 
     auto qIter = queries.begin();
