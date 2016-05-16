@@ -197,6 +197,9 @@ int verifypnCTL(PetriEngine::PetriNet *net,
     PartitionFunction *partition = nullptr;
     bool print = true;
 
+    std::string seq_techniques("TECHNIQUES SEQUENTIAL_PROCESSING EXPLICIT");
+    std::string dist_techniques("TECHNIQUES PARALLEL_PROCESSING EXPLICIT");
+
     //Main computation loop.
     for(CTLResult result : ctlresults){
         graph.setQuery(result.query);
@@ -231,7 +234,12 @@ int verifypnCTL(PetriEngine::PetriNet *net,
             //Add when supported
         }
         if(print)
-            cout << "FORMULA " << result.modelname << "-" << result.query_nbr << " " << boolalpha << result.answer << endl;
+            cout << "FORMULA "
+                 << result.modelname << "-"
+                 << result.query_nbr << " "
+                 << (result.answer ? "TRUE" : "FALSE") << " "
+                 << (FPA != nullptr ? seq_techniques : dist_techniques)
+                 << endl;
     }
 
     //process answers

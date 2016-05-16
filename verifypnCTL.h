@@ -51,7 +51,7 @@ public:
     int query_nbr = 0;
     CTLQuery *query = nullptr;
     bool answer = false;
-    int result = 2;             // UnknownCode (from verifypn)
+    int result = 2;            // UnknownCode (from verifypn)
 
     int statistics_level = 1;  // 0 = none, 1 = duration, 2 = gather everything
 

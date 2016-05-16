@@ -15,6 +15,7 @@
 #include "CTLParser_v2.h"
 #include "CTLQuery.h"
 #include "EvaluateableProposition.h"
+#include <algorithm>
 
 
 using namespace rapidxml;
@@ -35,19 +36,19 @@ std::string CTLParser_v2::QueryToString(CTLQuery* query){
     else if (query->GetPath() == pError){
         Quantifier q = query->GetQuantifier();
         if (q == NEG){
-            return query->ToString() + QueryToString(query->GetFirstChild());
+            return query->ToString() + "(" + QueryToString(query->GetFirstChild()) + ")";
         }
         else if (q == AND || q == OR){
-            return QueryToString(query->GetFirstChild()) + query->ToString() + QueryToString(query->GetSecondChild());
+            return "(" + QueryToString(query->GetFirstChild()) + query->ToString() + QueryToString(query->GetSecondChild()) + ")";
         }
         else assert(false && "Could not print unknown logical query operator");
     }
     else if(query->GetQuantifier() == A || query->GetQuantifier() == E){
         if(query->GetPath() == U){
-            return query->ToString() + "(" + QueryToString(query->GetFirstChild()) + ")(" + QueryToString(query->GetSecondChild()) + ")";
+            return query->ToString() + "(" + QueryToString(query->GetFirstChild()) + ")Reach(" + QueryToString(query->GetSecondChild()) + ")";
         }
         else{
-            return query->ToString() + QueryToString(query->GetFirstChild());
+            return query->ToString() + "(" + QueryToString(query->GetFirstChild()) + ")";
         }
     }
     else assert(false && "Could not print unknown query type");
@@ -127,7 +128,7 @@ int CTLParser_v2::IdSetting(CTLQuery *query, int id)
         if (query->GetPath() == U){
             int afterFirst = IdSetting(query->GetFirstChild(), id + 1);
             int afterSecond = IdSetting(query->GetSecondChild(), afterFirst);
-            query->Depth = std::max(query->GetFirstChild()->Depth, query->GetSecondChild()->Depth) + 1;
+            query->Depth = std::max(query->GetFirstChild()->Depth, query->GetSecondChild()->Depth) + 1; 
             return afterSecond;
         }
         else{
@@ -297,11 +298,16 @@ QueryMeta* CTLParser_v2::GetQueryMetaData(std::vector<char> buffer) {
     doc.parse<0>(&buffer[0]);
     root_node = doc.first_node();
     QueryMeta *meta_d = new QueryMeta();
+    xml_node<> * first_property_node = root_node->first_node("property");
+    xml_node<> * id_node = first_property_node->first_node("id");
+    std::string model_name(id_node->value());
     int i = 0;
-    for (xml_node<> * property_node = root_node->first_node("property"); property_node; property_node = property_node->next_sibling()) {
+    for (xml_node<> * property_node = root_node->first_node("property"); property_node; property_node = property_node->next_sibling()) {    
         i++;
     }
     meta_d->numberof_queries = i;
+    std::size_t pos = model_name.find_last_of("-0") - 1;
+    meta_d->model_name = model_name.substr(0, pos);
     return meta_d;
 }
 

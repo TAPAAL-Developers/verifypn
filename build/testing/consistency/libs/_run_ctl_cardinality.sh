@@ -12,7 +12,7 @@ OUTPUTFILE=$9
 
 
 MPIRUN=""
-if [ "$ALG" = 'dist' ]; then 
+if [ "$ALG" = "dist" ]; then 
     MPIRUN="mpirun -np 4"
 fi
 export MAXMEM_KB=16000000

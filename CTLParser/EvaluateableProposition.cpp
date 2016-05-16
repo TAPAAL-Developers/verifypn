@@ -99,9 +99,6 @@ void EvaluateableProposition::SetFireset(std::string fireset_str, std::vector<st
         else
             restof_firestring = "";
     }
-    for ( auto f : _fireset){
-        std::cout<<f<<" is id of "<< t_names[f]<<std::endl;
-    }
 }
 
 CardinalityParameter* EvaluateableProposition::CreateParameter(std::string parameter_str, std::vector<std::string> p_names, unsigned int numberof_p){
@@ -121,9 +118,9 @@ CardinalityParameter* EvaluateableProposition::CreateParameter(std::string param
             }
         }
     }
-    
     return param;
 }
+
 LoperatorType EvaluateableProposition::SetLoperator(std::string atom_str){
     std::string loperator_str = atom_str.substr(atom_str.find(')'));
     loperator_str = loperator_str.substr(0, loperator_str.find('('));
