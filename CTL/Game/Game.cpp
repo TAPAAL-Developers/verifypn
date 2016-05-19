@@ -8,6 +8,8 @@ void Game::Play(GamePosition startPosition)
 {
     assert(attacker != nullptr);
     assert(defender != nullptr);
+    assert(startPosition.configuration != nullptr);
+    assert(startPosition.claim == 0 || startPosition.claim == 1);
 
     int round = 0;
     bool lastRound = false;

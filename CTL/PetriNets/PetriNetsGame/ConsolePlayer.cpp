@@ -3,11 +3,11 @@
 
 std::string PetriNets::ConsolePlayer::Rules() const
 {
-    return std::string( "These are the rules:\n "
-                        "- Rule 1. You can never win\n "
+    return std::string( "These are the rules:\n"
+                        "- Rule 1. You can never win\n"
                         "- Rule 2. You play as the attacker, and the game will defend the claim.\n"
                         "- Rule 3. The game will present you with your options,"
-                        "-         and you can then select any of these choices.\n "
+                        "-         and you can then select any of these choices.\n"
                         "-         Whatever you choose, you will still loose. \n"
                         "-         When you have lost, the trace will be displayed,"
                         "-         and this should convince you of your defeat. \n"
