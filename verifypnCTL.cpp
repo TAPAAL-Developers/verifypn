@@ -27,11 +27,6 @@
 ///Graphs
 #include "CTL/PetriNets/OnTheFlyDG.h"
 
-///CTL Game
-#include "CTL/Game/Game.h"
-#include "CTL/PetriNets/PetriNetsGame/ComputerPlayer.h"
-#include "CTL/PetriNets/PetriNetsGame/ConsolePlayer.h"
-
 //Std includes
 #include <iostream>
 #include <cstdlib>
@@ -138,7 +133,7 @@ FixedPointAlgorithm *get<FixedPointAlgorithm>(int type){
     if(type == LOCAL){
         return new LocalFPA();
     }
-    else if(type == CtlAlgorithm::CZERO){
+    else if(type == CZERO){
         return new CertainZeroFPA();
     }
     else {
@@ -187,7 +182,7 @@ int verifypnCTL(PetriEngine::PetriNet *net,
                  vector<CTLQuery *> &queries,
                  int xmlquery,
                  int algorithm,
-                 int strategy, bool PlayGame,
+                 int strategy,
                  bool print_statistics)
 {
     //Initialization area
@@ -245,24 +240,6 @@ int verifypnCTL(PetriEngine::PetriNet *net,
                  << (result.answer ? "TRUE" : "FALSE") << " "
                  << (FPA != nullptr ? seq_techniques : dist_techniques)
                  << endl;
-    }
-
-    if(PlayGame && queries.size() == 1){
-        cout << "Game Activated" << endl;
-        Game::Game game;
-        ConsolePlayer player;
-        ComputerPlayer hal;
-        Game::GamePosition startPos;
-        startPos.configuration = graph.initialConfiguration();
-        startPos.claim = startPos.configuration->assignment == ONE ? 1 : 0;
-
-        game.Attacker(&player);
-        game.Defender(&hal);
-
-        game.Play(startPos);
-    }
-    else if(PlayGame && queries.size() != 1){
-        cerr << "Error: unspecified query for dependency graph game" << std::endl;
     }
 
     //process answers

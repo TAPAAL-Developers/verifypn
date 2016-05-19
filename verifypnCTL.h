@@ -61,14 +61,13 @@ public:
 };
 
 int verifypnCTL(PetriNet* net,
-                MarkVal* m0,
-                PNMLParser::InhibitorArcList &inhibitorarcs,
-                std::string modelname,
-                vector<CTLQuery*>& queries, int xmlquery,
-                int algorithm,
-                int strategy,
-                bool PlayGame,
-                bool print_statistics);
+                 MarkVal* m0,
+                 PNMLParser::InhibitorArcList &inhibitorarcs,
+                 std::string modelname,
+                 vector<CTLQuery*>& queries, int xmlquery,
+                 int algorithm,
+                 int strategy,
+                 bool print_statistics);
 
 
 #endif // VERIFYPNCTL_H

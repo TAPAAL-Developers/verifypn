@@ -4,7 +4,6 @@
 #include "FixedPointAlgorithm.h"
 #include "PartitionFunction.h"
 #include "../Communicator/Communicator.h"
-#include "../DependencyGraph/Configuration.h"
 
 #include <stdlib.h>
 #include <queue>
@@ -14,6 +13,8 @@
 #define FLAG_CLEAN 0
 #define FLAG_DIRTY 1
 #define FLAG_TERMINATE 2
+
+#include "FixedPointAlgorithm.h"
 
 namespace Algorithm {
 

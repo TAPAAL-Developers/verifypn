@@ -18,7 +18,6 @@ enum Assignment {
 
 class Configuration
 {
-protected:
     unsigned int distance = 0;
 public:
     typedef std::vector<Edge*> container_type;
