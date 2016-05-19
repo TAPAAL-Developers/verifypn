@@ -91,7 +91,6 @@ T *get(int type){
 template<>
 iSequantialSearchStrategy *get<iSequantialSearchStrategy>(int type){
     if(type == DFS){
-//        cerr << "ERROR: DFS not implemented yet" << std::endl;
         return new DFSSearch();
     }
     else if(type == BFS){
@@ -188,7 +187,7 @@ int verifypnCTL(PetriEngine::PetriNet *net,
     //Initialization area
     std::vector<CTLResult> ctlresults = makeResults(modelname, queries, xmlquery, print_statistics);
 
-    PetriNets::OnTheFlyDG graph = PetriNets::OnTheFlyDG(net, m0, inhibitorarcs);
+    PetriNets::OnTheFlyDG graph = *(new PetriNets::OnTheFlyDG(net, m0, inhibitorarcs));
 
     FixedPointAlgorithm *FPA = get<FixedPointAlgorithm>(algorithm);
     DistributedFixedPointAlgorithm *dFPA = get<DistributedFixedPointAlgorithm>(algorithm);

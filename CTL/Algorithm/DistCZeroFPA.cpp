@@ -2,6 +2,9 @@
 #include "assert.h"
 #include <iostream>
 #include <algorithm>
+#include "../../stopwatch.h"
+
+#define STATS true
 
 using namespace SearchStrategy;
 using namespace DependencyGraph;
@@ -52,6 +55,13 @@ void Algorithm::DistCZeroFPA::explore(Configuration *c)
             for (Edge *s : c->successors) {
                 strategy->pushEdge(s);
             }
+            if (STATS) {
+                s_explored += 1;
+                s_total_succ += c->successors.size();
+                for (Edge *s : c->successors) {
+                    s_total_targets += s->targets.size();
+                }
+            }
         } else {
             Message m(comm->rank(), c->getDistance(), Message::REQUEST, nextMessageId(), c);
             sendMessage(partition->ownerId(c), m);
@@ -81,10 +91,13 @@ void Algorithm::DistCZeroFPA::processMessage(Message *m)
     Configuration *c = m->configuration;
 
     if (m->type == Message::ANSWER_ONE) {
+        if (STATS) s_answers += 1;
         finalAssign(c, ONE);
     } else if (m->type == Message::ANSWER_ZERO) {
+        if (STATS) s_answers += 1;
         finalAssign(c, CZERO);
     } else if (m->type == Message::REQUEST) {
+        if (STATS) s_requests += 1;
         assert(partition->ownerId(m->configuration) == comm->rank());
         if (c->isDone()) {
             Message::Type t = c->assignment == ONE ? Message::ANSWER_ONE : Message::ANSWER_ZERO;
@@ -99,6 +112,7 @@ void Algorithm::DistCZeroFPA::processMessage(Message *m)
             }
         }
     } else if (m->type == Message::HALT) {
+        if (STATS) s_halts += 1;
         m->configuration->updateInterest(m->sender, -1 * m->id);
         halt(c);
     } else assert(false);
@@ -106,6 +120,7 @@ void Algorithm::DistCZeroFPA::processMessage(Message *m)
 
 void Algorithm::DistCZeroFPA::processHyperEdge(Edge *e)
 {
+    if (STATS) s_edges += 1;
     if(e->source->assignment == ZERO && !e->is_deleted) {
 
         bool allOne = true;
@@ -151,6 +166,7 @@ void Algorithm::DistCZeroFPA::processHyperEdge(Edge *e)
 
 void Algorithm::DistCZeroFPA::processNegationEdge(Edge *e)
 {
+    if (STATS) s_negation_edges += 1;
     if(e->source->assignment == ZERO && !e->is_deleted){
         assert(e->targets.size() == 1);
         Configuration *target = e->targets.front();
@@ -186,6 +202,7 @@ bool Algorithm::DistCZeroFPA::terminationDetection()
     int source = (comm->rank() - 1 + comm->size()) % comm->size();
     std::pair<int, Token> t = comm->recvToken(source);
     if (t.first >= 0) { //we actually got a token
+        if (STATS) s_tokens += 1;
         Token token = t.second;
         if (comm->rank() == 0) {            
             if (token.flag == FLAG_CLEAN && token.messages == 0) {
@@ -250,14 +267,13 @@ bool Algorithm::DistCZeroFPA::search(
     this->v = graph->initialConfiguration();
 
     termination_flag = FLAG_DIRTY;
-//    std::cout << "Initial partition: " << partition->ownerId(v) << std::endl;
     if (partition->ownerId(v) == comm->rank()) {
-//        std::cout << "Exploring initial" << std::endl;
         explore(v);
     }
 
     int canPick = 0;
-    int processed = 0;
+
+    stopwatch watch;
 
     int messages = 0;
     while (canPick >= 0) {
@@ -265,23 +281,27 @@ bool Algorithm::DistCZeroFPA::search(
         do {
 
 
+            if (STATS) watch.start();
             std::pair<int, Message> message = comm->recvMessage();
             while (message.first >= 0) {
                 messages += 1;
                 strategy->pushMessage(message.second);
                 message = comm->recvMessage();
             }
+            if (STATS) {
+                watch.stop();
+                s_time_in_receive += watch.duration();
+            }
 
+            if (STATS) watch.start();
             Edge *e;
             Message m;
             type = strategy->pickTask(e, m);
             if (type == TaskType::EDGE) {
                 termination_flag = FLAG_DIRTY;
                 if (e->is_negated) {
-                    processed += 1;
                     processNegationEdge(e);
                 } else {
-                    processed += 1;
                     processHyperEdge(e);
                 }
             } else if (type == TaskType::MESSAGE) {
@@ -289,6 +309,11 @@ bool Algorithm::DistCZeroFPA::search(
                 processMessage(&m);
             } else {
                 //this is ok if we are waiting for termination detection
+            }
+
+            if (STATS) {
+                watch.stop();
+                s_time_in_processing += watch.duration();
             }
 
             if (v->isDone()) break;
@@ -301,6 +326,8 @@ bool Algorithm::DistCZeroFPA::search(
             canPick = (int) strategy->maxDistance();
         }
 
+        if (STATS) s_negation_pick_rounds += 1;
+
         comm->computeMax(canPick);
 
         //notify search strategy
@@ -309,9 +336,28 @@ bool Algorithm::DistCZeroFPA::search(
         }
     }
 
-//    std::cout << "Processed: " << processed << " " << strategy->empty() << std::endl;
-//    std::cout << "Empty: " << strategy->empty() << std::endl;
-//    std::cout << "Messages: " << messages << std::endl;
+    if (STATS) {
+        int printing = 0;
+        while (printing < comm->size()) {
+            if (printing == comm->rank()) {
+                std::cout << "==== Worker " << comm->rank() << " printing stats ====" << std::endl;
+                std::cout << "Processed edges: " << s_edges << std::endl;
+                std::cout << "Processed negation edges: " << s_negation_edges << std::endl;
+                std::cout << "Negation pick rounds: " << s_negation_pick_rounds << std::endl;
+                std::cout << "Requests received: " << s_requests << std::endl;
+                std::cout << "Answers received: " << s_answers << std::endl;
+                std::cout << "Halts received: " << s_halts << std::endl;
+                std::cout << "Tokens received: " << s_tokens << std::endl;
+                std::cout << "Configurations explored: " << s_explored << std::endl;
+                std::cout << "Avr. succ edges per configuration: " << (((double) s_total_succ) / ((double) s_total_targets)) << std::endl;
+                std::cout << "Avr. targets per edge: " << (((double) s_total_targets) / ((double) s_total_succ)) << std::endl;
+                std::cout << "Time spent receiving messages: " << s_time_in_receive << std::endl;
+                std::cout << "Time spent processing edges/messages: " << s_time_in_processing << std::endl;
+            }
+            printing += 1;
+            comm->computeMax(printing);
+        }
+    }
 
     return (v->assignment == ONE) ? true : false;
 }
