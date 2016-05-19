@@ -108,6 +108,7 @@ enum CtlAlgorithm {
 };
 
 bool printstatistics;
+bool PlayGame = false;
 
 std::vector<std::string>* placelistbound = NULL; // for multiple place bounds
 std::vector<size_t>* placelistboundindex = NULL; // list of place indexes in multiple place bounds
@@ -216,7 +217,10 @@ int main(int argc, char* argv[]){
                     return ErrorCode;
                 }
             }
-        }else if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--search-strategy") == 0){
+        }else if(strcmp(argv[i], "-game") == 0){
+            PlayGame = true;
+        }
+        else if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--search-strategy") == 0){
             if (i==argc-1) {
                 fprintf(stderr, "Missing search strategy after \"%s\"\n\n", argv[i]);
                 return ErrorCode;
@@ -790,6 +794,7 @@ int main(int argc, char* argv[]){
                                             xmlquery,
                                             ctl_algorithm,
                                             searchstrategy,
+                                            PlayGame,
                                             (printstatistics ? 1 : 0));
     }
     //------------------------ Return the Output Value -------------------//

@@ -1,7 +1,11 @@
 #ifndef PARTITIONFUNCTION_H
 #define PARTITIONFUNCTION_H
 
-#include "../DependencyGraph/Configuration.h"
+namespace DependencyGraph {
+
+class Configuration;
+
+}
 
 namespace Algorithm {
 
