@@ -1,0 +1,80 @@
+Property CircadianClock-PT-000010-LTLFireability-0
+  "Automatically generated"
+  is:
+    A G X "bind_a"?
+  end.
+Property CircadianClock-PT-000010-LTLFireability-1
+  "Automatically generated"
+  is:
+    A F "deactive"?
+  end.
+Property CircadianClock-PT-000010-LTLFireability-2
+  "Automatically generated"
+  is:
+    A G X F (("transc_da_a"?) U ("deg_a"?))
+  end.
+Property CircadianClock-PT-000010-LTLFireability-3
+  "Automatically generated"
+  is:
+    A X G ((G "transc_da"?) U (F "transc_da"?))
+  end.
+Property CircadianClock-PT-000010-LTLFireability-4
+  "Automatically generated"
+  is:
+    A F F "transc_da"?
+  end.
+Property CircadianClock-PT-000010-LTLFireability-5
+  "Automatically generated"
+  is:
+    A G (("rel_a"?) U (G F "transc_dr"?))
+  end.
+Property CircadianClock-PT-000010-LTLFireability-6
+  "Automatically generated"
+  is:
+    A F "transc_dr"?
+  end.
+Property CircadianClock-PT-000010-LTLFireability-7
+  "Automatically generated"
+  is:
+    A X (("deactive"?) U ("deg_c"?))
+  end.
+Property CircadianClock-PT-000010-LTLFireability-8
+  "Automatically generated"
+  is:
+    A F "deg_mr"?
+  end.
+Property CircadianClock-PT-000010-LTLFireability-9
+  "Automatically generated"
+  is:
+    A "transc_da_a"?
+  end.
+Property CircadianClock-PT-000010-LTLFireability-10
+  "Automatically generated"
+  is:
+    A X G G G "transl_r"?
+  end.
+Property CircadianClock-PT-000010-LTLFireability-11
+  "Automatically generated"
+  is:
+    A F F X (("transl_r"?) U ("deg_a"?))
+  end.
+Property CircadianClock-PT-000010-LTLFireability-12
+  "Automatically generated"
+  is:
+    A F ((X F "transc_da_a"?) U (X "deg_ma"?))
+  end.
+Property CircadianClock-PT-000010-LTLFireability-13
+  "Automatically generated"
+  is:
+    A X F (("rel_r"?) U (G "rel_a"?))
+  end.
+Property CircadianClock-PT-000010-LTLFireability-14
+  "Automatically generated"
+  is:
+    A X ((X F "deg_c"?) U ((("transc_da"?) U ("deactive"?))))
+  end.
+Property CircadianClock-PT-000010-LTLFireability-15
+  "Automatically generated"
+  is:
+    A ((F (("transc_dr_a"?) U ("deg_a"?))) U (F F "deg_ma"?))
+  end.
