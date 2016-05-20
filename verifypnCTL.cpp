@@ -30,6 +30,9 @@
 //Std includes
 #include <iostream>
 #include <cstdlib>
+#include <sys/time.h>
+#include <sys/resource.h>
+#define MEM_ENV_VAR "MAXMEM_KB"
 
 /* Enumeration of return values from VerifyPN */
 enum ReturnValues{
@@ -73,6 +76,31 @@ enum CtlStatisticsLevel{
 using namespace SearchStrategy;
 using namespace Algorithm;
 using namespace PetriNets;
+
+//helper function that is going to set a strict memory limit
+void setmemlimit()
+{
+    struct rlimit memlimit;
+    long bytes;
+
+    if(getenv(MEM_ENV_VAR)!=NULL)
+    {
+        std::cout << "Setting memory limit to " << (char*)getenv(MEM_ENV_VAR) << std::endl;
+        bytes = atol(getenv(MEM_ENV_VAR))*1024;
+        memlimit.rlim_cur = bytes;
+        memlimit.rlim_max = bytes;
+        setrlimit(RLIMIT_AS, &memlimit);
+    }
+    else {
+        /*
+        std::cout << "No memory limit set. Defaulting to 16000000" << endl;
+        bytes = atol("16000000")*1024;
+        memlimit.rlim_cur = bytes;
+        memlimit.rlim_max = bytes;
+        setrlimit(RLIMIT_AS, &memlimit);
+        */
+    }
+}
 
 //Invoking this template is cause for error
 template<class func, class line_nbr>
@@ -184,6 +212,8 @@ int verifypnCTL(PetriEngine::PetriNet *net,
                  int strategy,
                  bool print_statistics)
 {
+    //set memory limit (if env. variable is present)
+    setmemlimit();
     //Initialization area
     std::vector<CTLResult> ctlresults = makeResults(modelname, queries, xmlquery, print_statistics);
 
