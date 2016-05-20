@@ -15,7 +15,7 @@ WORKERS=$2
 TIMEOUT=$3
 ALG=$4
 RUN_NO=$5
-OUTPUTFILE="$MODEL"-EFFalse-W"$WORKERS"-T"$TIMEOUT"-R"$RUN_NO".log
+OUTPUTFILE="$MODEL"-EFFalse-ALG"$ALG"-T"$TIMEOUT"-R"$RUN_NO".log
 
 mkdir ~/results
 mkdir ~/results/master

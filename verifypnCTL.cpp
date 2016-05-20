@@ -233,6 +233,12 @@ int verifypnCTL(PetriEngine::PetriNet *net,
     for(CTLResult result : ctlresults){
         graph.setQuery(result.query);
 
+        if (print) {
+            //print formula first so that the test fw. can see it even if we dnf
+            cout << "[Formula] " << result.modelname << "-" << result.query_nbr << endl;
+            CTLParser_v2 p;
+            cout << "[Formula Print] " << p.QueryToString(result.query) << endl;
+        }
         if(FPA != nullptr){
             iSequantialSearchStrategy *stg = get<iSequantialSearchStrategy>(strategy);
             assert(stg != nullptr);
@@ -266,9 +272,6 @@ int verifypnCTL(PetriEngine::PetriNet *net,
             //TODO
         }
         if(print) {
-            cout << "[Formula] " << result.modelname << "-" << result.query_nbr << endl;
-            CTLParser_v2 p;
-            cout << "[Formula Print] " << p.QueryToString(result.query) << endl;
             cout << "[Query Result] " << (result.answer ? "TRUE" : "FALSE") << endl;
         }
             /*cout << "FORMULA "
