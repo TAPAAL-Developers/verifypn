@@ -7,13 +7,14 @@
 #SBATCH --exclusive
 #SBATCH --mail-type=ALL # Type of email notification- BEGIN,END,FAIL,ALL
 #SBATCH --mail-user={d803f16@cs.aau.dk}
-#SBATCH --time=4
+#SBATCH --time=00:04:05
 #SBATCH --nodelist=compute6
 
 MODEL=$1
 WORKERS=$2
 TIMEOUT=$3
-RUN_NO=$4
+ALG=$4
+RUN_NO=$5
 OUTPUTFILE="$MODEL"-EFFalse-W"$WORKERS"-T"$TIMEOUT"-R"$RUN_NO".log
 
 mkdir ~/results
@@ -25,7 +26,7 @@ ulimit -S -v 1024000000
 ulimit -l 1024000000
 
 export MAXMEM_KB=16000000
-{ timeout "$TIMEOUT" /user/smni12/launchpad/master/verifypn-linux64 /user/smni12/launchpad/modelDatabase/allModels/"$MODEL"/model.pnml /user/smni12/launchpad/master/build/testFramework/EF-False.xml -ctl czero -s DFS -x 1; } >> ~/results/master/EFFalse/W"$WORKERS"-R"$RUN_NO"/$OUTPUTFILE 2>&1
+{ timeout "$TIMEOUT" /user/smni12/launchpad/master/verifypn-linux64 /user/smni12/launchpad/modelDatabase/allModels/"$MODEL"/model.pnml /user/smni12/launchpad/master/build/testFramework/EF-False.xml -ctl "$ALG" -s DFS -x 1; } >> ~/results/master/EFFalse/W"$WORKERS"-R"$RUN_NO"/$OUTPUTFILE 2>&1
 
 ulimit -S -v unlimited
 
