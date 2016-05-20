@@ -49,7 +49,7 @@ void DependencyGraph::Configuration::printConfiguration() const{
     std::cout << toString();
 }
 
-std::__cxx11::string DependencyGraph::Configuration::assignmentToStr(DependencyGraph::Assignment a){
+std::string DependencyGraph::Configuration::assignmentToStr(DependencyGraph::Assignment a){
     if(a == ONE)
         return std::string("ONE");
     else if(a == UNKNOWN)
