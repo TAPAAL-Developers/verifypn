@@ -5,6 +5,7 @@
 #include "../../stopwatch.h"
 
 #define STATS true
+#define STATS_TIME false
 
 using namespace SearchStrategy;
 using namespace DependencyGraph;
@@ -47,7 +48,13 @@ void Algorithm::DistCZeroFPA::explore(Configuration *c)
         c->assignment = ZERO;
         if (partition->ownerId(c) == comm->rank()) {
             if (c->successors.empty()) {
+                stopwatch watch;
+                if (STATS_TIME) { watch.start(); }
                 graph->successors(c);
+                if (STATS_TIME) {
+                    watch.stop();
+                    s_time_generator += watch.duration();
+                }
             }
             if (c->successors.empty()) {
                 finalAssign(c, CZERO);
@@ -277,23 +284,30 @@ bool Algorithm::DistCZeroFPA::search(
 
     int messages = 0;
     while (canPick >= 0) {
+
+        if (STATS_TIME) watch.start();
+
         SearchStrategy::TaskType type;
         do {
 
+            if (STATS_TIME) {
+                watch.stop();
+                s_time_idle += watch.duration();
+            }
 
-            if (STATS) watch.start();
+            if (STATS_TIME) watch.start();
             std::pair<int, Message> message = comm->recvMessage();
             while (message.first >= 0) {
                 messages += 1;
                 strategy->pushMessage(message.second);
                 message = comm->recvMessage();
             }
-            if (STATS) {
+            if (STATS_TIME) {
                 watch.stop();
                 s_time_in_receive += watch.duration();
             }
 
-            if (STATS) watch.start();
+            if (STATS_TIME) watch.start();
             Edge *e;
             Message m;
             type = strategy->pickTask(e, m);
@@ -311,13 +325,21 @@ bool Algorithm::DistCZeroFPA::search(
                 //this is ok if we are waiting for termination detection
             }
 
-            if (STATS) {
+            if (STATS_TIME) {
                 watch.stop();
                 s_time_in_processing += watch.duration();
             }
 
+            if (STATS_TIME) {
+                watch.start();
+            }
             if (v->isDone()) break;
         } while (!((type == TaskType::EMPTY || type == TaskType::UNAVAILABLE) && terminationDetection()));
+
+        if (STATS_TIME) {
+            watch.stop();
+            s_time_idle += watch.duration();
+        }
 
         if (v->isDone()) break;
 
@@ -326,7 +348,7 @@ bool Algorithm::DistCZeroFPA::search(
             canPick = (int) strategy->maxDistance();
         }
 
-        if (STATS) s_negation_pick_rounds += 1;
+        if (STATS_TIME) s_negation_pick_rounds += 1;
 
         comm->computeMax(canPick);
 
@@ -353,6 +375,8 @@ bool Algorithm::DistCZeroFPA::search(
                 std::cout << "Avr. targets per edge: " << (((double) s_total_targets) / ((double) s_total_succ)) << std::endl;
                 std::cout << "Time spent receiving messages: " << s_time_in_receive << std::endl;
                 std::cout << "Time spent processing edges/messages: " << s_time_in_processing << std::endl;
+                std::cout << "Time idle: " << s_time_idle << std::endl;
+                std::cout << "Time spent in generator: " << s_time_generator << std::endl;
             }
             printing += 1;
             comm->computeMax(printing);
