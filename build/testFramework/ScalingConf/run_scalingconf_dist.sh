@@ -102,7 +102,7 @@ done
 
 # Compute 8
 # BridgeAndVehicles-PT-V20P20N10
-for model in Solitaire-PT-SqrNC5x5;
+for model in BridgeAndVehicles-PT-V20P20N10;
 do
     for worker_count in 1 2 4 8 16 32 48 64;
     do

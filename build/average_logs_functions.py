@@ -1,5 +1,5 @@
 
-from export_keys import FORMULA, TOTAL_EVALUATION_TIME, FORMULA_PRINT, PATH_TO_MODEL as FORMULA
+from export_keys import FORMULA, TOTAL_EVALUATION_TIME, FORMULA_PRINT
 from decimal import Decimal
 from os.path import isdir
 from os import listdir
