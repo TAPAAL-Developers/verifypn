@@ -258,11 +258,12 @@ int verifypnCTL(PetriEngine::PetriNet *net,
 
         if(result.statistics_level > 0){
             cout << "[Total Evaluation Time] " << result.duration << endl;
+            cout << "[No. Configurations] " << graph.configurationCount() << endl;
+            cout << "[No. Markings] " << graph.markingCount() << endl;
             //cout << "::TIME:: " << result.duration << endl;
         }
         if(result.statistics_level > 1){
-            cout << "[No. Configurations] " << graph.configurationCount() << endl;
-            cout << "[No. Markings] " << graph.markingCount() << endl;
+            //TODO
         }
         if(print) {
             cout << "[Formula] " << result.modelname << "-" << result.query_nbr << endl;
