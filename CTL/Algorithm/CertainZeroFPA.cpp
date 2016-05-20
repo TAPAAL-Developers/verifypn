@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <iostream>
 
+#define STATS true
+
 using namespace DependencyGraph;
 
 bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_graph,
@@ -59,6 +61,7 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
         //std::cout << "all one " << allOne << " has czero " << hasCZero << "last: " << lastUndecided << std::endl;
 
         if (e->is_negated) {
+            if (STATS) s_negation_edges += 1;
             //Process negation edge
             if (allOne) {
                 e->source->removeSuccessor(e);
@@ -79,6 +82,7 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
                 }
             }
         } else {
+            if (STATS) s_edges += 1;
             //Process hyper edge
             if (allOne) {
                 finalAssign(e->source, ONE);
@@ -100,7 +104,13 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
 //        std::cout << "Picked" << std::endl;
     }
 
-//    std::cout << "Final Assignment " << std::boolalpha << (v->assignment == ONE ? true : false) << std::endl;
+    if (STATS) {
+        std::cout << "Processed edges: " << s_edges << std::endl;
+        std::cout << "Processed negation edges: " << s_negation_edges << std::endl;
+        std::cout << "Configurations explored: " << s_explored << std::endl;
+        std::cout << "Avr. succ edges per configuration: " << (((double) s_total_succ) / ((double) s_total_targets)) << std::endl;
+        std::cout << "Avr. targets per edge: " << (((double) s_total_targets) / ((double) s_total_succ)) << std::endl;
+    }
     return (v->assignment == ONE) ? true : false;
 }
 
@@ -117,8 +127,6 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, D
 
 void Algorithm::CertainZeroFPA::explore(Configuration *c)
 {
-//    std::cout << "Exploring " << c << std::endl;
-    //c->printConfiguration();
     c->assignment = ZERO;
     graph->successors(c);
 
@@ -127,8 +135,14 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c)
     }
     else {
         for (Edge *succ : c->successors) {
-//            std::cout << "push edge " << succ << std::endl;
             strategy->pushEdge(succ);
+        }
+    }
+    if (STATS) {
+        s_explored += 1;
+        s_total_succ += c->successors.size();
+        for (Edge *s : c->successors) {
+            s_total_targets += s->targets.size();
         }
     }
 }

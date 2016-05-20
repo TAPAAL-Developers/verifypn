@@ -27,6 +27,7 @@ public:
 
     ostream &operator<<(ostream &os){
         os << duration() << " ms";
+        return os;
     }
 
     std::string toString(){

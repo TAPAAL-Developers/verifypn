@@ -75,8 +75,10 @@ protected:
     double s_time_in_processing = 0;
     //time spent receiving messages
     double s_time_in_receive = 0;
-
-    //TODO: Time in succ gen, etc.
+    //time spent idle
+    double s_time_idle = 0;
+    //time in succ generator
+    double s_time_generator = 0;
 
     //Timestamps
     int messageId = 0;
