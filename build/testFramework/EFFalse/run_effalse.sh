@@ -1,6 +1,7 @@
 #!/bin/bash
-RUN_NO=$1
-ALG=$2
+ALG=$1
+RUN_NO=$2
+
 max_timeout=240
 
 # DEKKER-PT-015 - Compute 1
