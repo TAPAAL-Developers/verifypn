@@ -5,6 +5,8 @@
 #include <assert.h>
 #include <iostream>
 
+#define STATS true
+
 bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph,
                                  SearchStrategy::iSequantialSearchStrategy &t_strategy)
 {
@@ -49,6 +51,7 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph,
         //std::cout << "all one " << allOne << " has czero " << hasCZero << "last: " << lastUndecided << std::endl;
 
         if (e->is_negated) {
+            if (STATS) s_negation_edges += 1;
             //Process negation edge
             if(allOne) {}
             else if(!e->processed){
@@ -62,6 +65,7 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph,
             }
 
         } else {
+            if (STATS) s_edges += 1;
             //Process hyper edge
             if (allOne) {
                 finalAssign(e->source, ONE);
@@ -78,7 +82,13 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph,
 //        std::cout << "Picked" << std::endl;
     }
 
-    std::cout << "Final Assignment " << v->assignmentToStr(v->assignment) << std::endl;
+    if (STATS) {
+        std::cout << "Processed edges: " << s_edges << std::endl;
+        std::cout << "Processed negation edges: " << s_negation_edges << std::endl;
+        std::cout << "Configurations explored: " << s_explored << std::endl;
+        std::cout << "Avr. succ edges per configuration: " << (((double) s_total_succ) / ((double) s_total_targets)) << std::endl;
+        std::cout << "Avr. targets per edge: " << (((double) s_total_targets) / ((double) s_total_succ)) << std::endl;
+    }
     return (v->assignment == ONE) ? true : false;
 }
 
@@ -102,6 +112,14 @@ void Algorithm::LocalFPA::explore(DependencyGraph::Configuration *c)
 
     for (DependencyGraph::Edge *succ : c->successors) {
         strategy->pushEdge(succ);
+    }
+
+    if (STATS) {
+        s_explored += 1;
+        s_total_succ += c->successors.size();
+        for (auto *s : c->successors) {
+            s_total_targets += s->targets.size();
+        }
     }
 }
 
