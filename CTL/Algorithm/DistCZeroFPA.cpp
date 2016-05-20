@@ -362,21 +362,21 @@ bool Algorithm::DistCZeroFPA::search(
         int printing = 0;
         while (printing < comm->size()) {
             if (printing == comm->rank()) {
-                std::cout << "==== Worker " << comm->rank() << " printing stats ====" << std::endl;
-                std::cout << "Processed edges: " << s_edges << std::endl;
-                std::cout << "Processed negation edges: " << s_negation_edges << std::endl;
-                std::cout << "Negation pick rounds: " << s_negation_pick_rounds << std::endl;
-                std::cout << "Requests received: " << s_requests << std::endl;
-                std::cout << "Answers received: " << s_answers << std::endl;
-                std::cout << "Halts received: " << s_halts << std::endl;
-                std::cout << "Tokens received: " << s_tokens << std::endl;
-                std::cout << "Configurations explored: " << s_explored << std::endl;
-                std::cout << "Avr. succ edges per configuration: " << (((double) s_total_succ) / ((double) s_total_targets)) << std::endl;
-                std::cout << "Avr. targets per edge: " << (((double) s_total_targets) / ((double) s_total_succ)) << std::endl;
-                std::cout << "Time spent receiving messages: " << s_time_in_receive << std::endl;
-                std::cout << "Time spent processing edges/messages: " << s_time_in_processing << std::endl;
-                std::cout << "Time idle: " << s_time_idle << std::endl;
-                std::cout << "Time spent in generator: " << s_time_generator << std::endl;
+                std::cout << "[Worker " << comm->rank() << " printing stats]" << std::endl;
+                std::cout << "[Processed edges] " << s_edges << std::endl;
+                std::cout << "[Processed negation edges] " << s_negation_edges << std::endl;
+                std::cout << "[Negation pick rounds] " << s_negation_pick_rounds << std::endl;
+                std::cout << "[Requests received] " << s_requests << std::endl;
+                std::cout << "[Answers received] " << s_answers << std::endl;
+                std::cout << "[Halts received] " << s_halts << std::endl;
+                std::cout << "[Tokens received] " << s_tokens << std::endl;
+                std::cout << "[Configurations explored] " << s_explored << std::endl;
+                std::cout << "[Avr. succ edges per configuration] " << (((double) s_total_succ) / ((double) s_total_targets)) << std::endl;
+                std::cout << "[Avr. targets per edge] " << (((double) s_total_targets) / ((double) s_total_succ)) << std::endl;
+                std::cout << "[Time spent receiving messages] " << s_time_in_receive << std::endl;
+                std::cout << "[Time spent processing edges/messages] " << s_time_in_processing << std::endl;
+                std::cout << "[Time idle] " << s_time_idle << std::endl;
+                std::cout << "[Time spent in generator] " << s_time_generator << std::endl;
             }
             printing += 1;
             comm->computeMax(printing);

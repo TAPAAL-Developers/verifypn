@@ -85,7 +85,7 @@ void setmemlimit()
 
     if(getenv(MEM_ENV_VAR)!=NULL)
     {
-        std::cout << "Setting memory limit to " << (char*)getenv(MEM_ENV_VAR) << std::endl;
+        std::cout << "[Memory limit] " << (char*)getenv(MEM_ENV_VAR) << std::endl;
         bytes = atol(getenv(MEM_ENV_VAR))*1024;
         memlimit.rlim_cur = bytes;
         memlimit.rlim_max = bytes;
@@ -257,18 +257,25 @@ int verifypnCTL(PetriEngine::PetriNet *net,
         }
 
         if(result.statistics_level > 0){
-            cout << "::TIME:: " << result.duration << endl;
+            cout << "[Total Evaluation Time] " << result.duration << endl;
+            //cout << "::TIME:: " << result.duration << endl;
         }
         if(result.statistics_level > 1){
-            //Add when supported
+            cout << "[No. Configurations] " << graph.configurationCount() << endl;
+            cout << "[No. Markings] " << graph.markingCount() << endl;
         }
-        if(print)
-            cout << "FORMULA "
+        if(print) {
+            cout << "[Formula] " << result.modelname << "-" << result.query_nbr << endl;
+            CTLParser_v2 p;
+            cout << "[Formula Print] " << p.QueryToString(result.query) << endl;
+            cout << "[Query Result] " << (result.answer ? "TRUE" : "FALSE") << endl;
+        }
+            /*cout << "FORMULA "
                  << result.modelname << "-"
                  << result.query_nbr << " "
                  << (result.answer ? "TRUE" : "FALSE") << " "
                  << (FPA != nullptr ? seq_techniques : dist_techniques)
-                 << endl;
+                 << endl;*/
     }
 
     //process answers
