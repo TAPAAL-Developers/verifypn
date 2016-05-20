@@ -8,8 +8,11 @@ for model in Kanban-PT-0005 ResAllocation-PT-R003C010 BridgeAndVehicles-PT-V20P1
 do
     for worker_count in 1 2 4 8 16 32 48 64;
     do
-        let timeout="$max_timeout"
-        sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute1.sh "$model" "$worker_count" "$timeout" "$RUN_NO"
+        for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
+        do
+            let timeout="$max_timeout"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute1.sh "$model" "$worker_count" "$timeout" "$i" "$RUN_NO"
+        done
     done
 done
 
@@ -19,8 +22,11 @@ for model in HouseConstruction-PT-005 ParamProductionCell-PT-4 ParamProductionCe
 do
     for worker_count in 1 2 4 8 16 32 48 64;
     do
-        let timeout="$max_timeout"
-        sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute2.sh "$model" "$worker_count" "$timeout" "$RUN_NO"
+        for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
+        do
+            let timeout="$max_timeout"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute2.sh "$model" "$worker_count" "$timeout" "$i" "$RUN_NO"
+        done
     done
 done
 
@@ -30,8 +36,11 @@ for model in NeoElection-PT-3 Peterson-PT-3;
 do
     for worker_count in 1 2 4 8 16 32 48 64;
     do
-        let timeout="$max_timeout"
-        sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute3.sh "$model" "$worker_count" "$timeout" "$RUN_NO"
+        for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
+        do
+            let timeout="$max_timeout"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute3.sh "$model" "$worker_count" "$timeout" "$i" "$RUN_NO"
+        done
     done
 done
 
@@ -41,8 +50,11 @@ for model in BridgeAndVehicles-PT-V20P20N20;
 do
     for worker_count in 1 2 4 8 16 32 48 64;
     do
-        let timeout="$max_timeout"
-        sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute4.sh "$model" "$worker_count" "$timeout" "$RUN_NO"
+        for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
+        do
+            let timeout="$max_timeout"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute4.sh "$model" "$worker_count" "$timeout" "$i" "$RUN_NO"
+        done
     done
 done
 
@@ -52,8 +64,11 @@ for model in SharedMemory-PT-000010;
 do
     for worker_count in 1 2 4 8 16 32 48 64;
     do
-        let timeout="$max_timeout"
-        sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute5.sh "$model" "$worker_count" "$timeout" "$RUN_NO"
+        for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
+        do
+            let timeout="$max_timeout"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute5.sh "$model" "$worker_count" "$timeout" "$i" "$RUN_NO"
+        done
     done
 done
 
@@ -63,8 +78,11 @@ for model in Philosophers-PT-002000;
 do
     for worker_count in 1 2 4 8 16 32 48 64;
     do
-        let timeout="$max_timeout"
-        sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute6.sh "$model" "$worker_count" "$timeout" "$RUN_NO"
+        for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
+        do
+            let timeout="$max_timeout"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute6.sh "$model" "$worker_count" "$timeout" "$i" "$RUN_NO"
+        done
     done
 done
 
@@ -74,8 +92,11 @@ for model in Solitaire-PT-SqrNC5x5;
 do
     for worker_count in 1 2 4 8 16 32 48 64;
     do
-        let timeout="$max_timeout"
-        sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute7.sh "$model" "$worker_count" "$timeout" "$RUN_NO"
+        for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
+        do
+            let timeout="$max_timeout"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute7.sh "$model" "$worker_count" "$timeout" "$i" "$RUN_NO"
+        done
     done
 done
 
@@ -85,8 +106,11 @@ for model in Solitaire-PT-SqrNC5x5;
 do
     for worker_count in 1 2 4 8 16 32 48 64;
     do
-        let timeout="$max_timeout"
-        sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute8.sh "$model" "$worker_count" "$timeout" "$RUN_NO"
+        for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
+        do
+            let timeout="$max_timeout"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute8.sh "$model" "$worker_count" "$timeout" "$i" "$RUN_NO"
+        done
     done
 done
 
@@ -96,7 +120,10 @@ for model in HypercubeGrid-PT-C4K3P3B12;
 do
     for worker_count in 1 2 4 8 16 32 48 64;
     do
-        let timeout="$max_timeout"
-        sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute9.sh "$model" "$worker_count" "$timeout" "$RUN_NO"
+        for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
+        do
+            let timeout="$max_timeout"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute9.sh "$model" "$worker_count" "$timeout" "$i" "$RUN_NO"
+        done
     done
 done

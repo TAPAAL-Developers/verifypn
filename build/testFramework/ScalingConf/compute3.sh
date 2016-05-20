@@ -13,7 +13,8 @@
 MODEL=$1
 WORKERS=$2
 TIMEOUT=$3
-RUN_NO=$4
+I=$4
+RUN_NO=$5
 OUTPUTFILE="$MODEL"-ScalingConf-W"$WORKERS"-T"$TIMEOUT"-R"$RUN_NO".log
 
 mkdir ~/results
@@ -25,7 +26,7 @@ ulimit -S -v 1024000000
 ulimit -l 1024000000
 
 export MAXMEM_KB=16000000
-{ timeout "$TIMEOUT" mpirun -np "$WORKERS" /user/smni12/launchpad/master/verifypn-linux64 /user/smni12/launchpad/modelDatabase/allModels/"$MODEL"/model.pnml /user/smni12/launchpad/modelDatabase/allModels/"$MODEL"/CTLCardinality.xml -ctl dist -s DFS -x 1; } >> ~/results/master/ScalingConf/W"$WORKERS"-R"$RUN_NO"/$OUTPUTFILE 2>&1
+{ timeout "$TIMEOUT" mpirun -np "$WORKERS" /user/smni12/launchpad/master/verifypn-linux64 /user/smni12/launchpad/modelDatabase/allModels/"$MODEL"/model.pnml /user/smni12/launchpad/modelDatabase/allModels/"$MODEL"/CTLCardinality.xml -ctl dist -s DFS -x "$I"; } >> ~/results/master/ScalingConf/W"$WORKERS"-R"$RUN_NO"/$OUTPUTFILE 2>&1
 
 ulimit -S -v unlimited
 
