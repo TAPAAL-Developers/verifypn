@@ -30,6 +30,9 @@
 //Std includes
 #include <iostream>
 #include <cstdlib>
+#include <sys/time.h>
+#include <sys/resource.h>
+#define MEM_ENV_VAR "MAXMEM_KB"
 
 /* Enumeration of return values from VerifyPN */
 enum ReturnValues{
@@ -73,6 +76,31 @@ enum CtlStatisticsLevel{
 using namespace SearchStrategy;
 using namespace Algorithm;
 using namespace PetriNets;
+
+//helper function that is going to set a strict memory limit
+void setmemlimit()
+{
+    struct rlimit memlimit;
+    long bytes;
+
+    if(getenv(MEM_ENV_VAR)!=NULL)
+    {
+        std::cout << "[Memory limit] " << (char*)getenv(MEM_ENV_VAR) << std::endl;
+        bytes = atol(getenv(MEM_ENV_VAR))*1024;
+        memlimit.rlim_cur = bytes;
+        memlimit.rlim_max = bytes;
+        setrlimit(RLIMIT_AS, &memlimit);
+    }
+    else {
+        /*
+        std::cout << "No memory limit set. Defaulting to 16000000" << endl;
+        bytes = atol("16000000")*1024;
+        memlimit.rlim_cur = bytes;
+        memlimit.rlim_max = bytes;
+        setrlimit(RLIMIT_AS, &memlimit);
+        */
+    }
+}
 
 //Invoking this template is cause for error
 template<class func, class line_nbr>
@@ -184,6 +212,8 @@ int verifypnCTL(PetriEngine::PetriNet *net,
                  int strategy,
                  bool print_statistics)
 {
+    //set memory limit (if env. variable is present)
+    setmemlimit();
     //Initialization area
     std::vector<CTLResult> ctlresults = makeResults(modelname, queries, xmlquery, print_statistics);
 
@@ -227,18 +257,26 @@ int verifypnCTL(PetriEngine::PetriNet *net,
         }
 
         if(result.statistics_level > 0){
-            cout << "::TIME:: " << result.duration << endl;
+            cout << "[Total Evaluation Time] " << result.duration << endl;
+            cout << "[No. Configurations] " << graph.configurationCount() << endl;
+            cout << "[No. Markings] " << graph.markingCount() << endl;
+            //cout << "::TIME:: " << result.duration << endl;
         }
         if(result.statistics_level > 1){
-            //Add when supported
+            //TODO
         }
-        if(print)
-            cout << "FORMULA "
+        if(print) {
+            cout << "[Formula] " << result.modelname << "-" << result.query_nbr << endl;
+            CTLParser_v2 p;
+            cout << "[Formula Print] " << p.QueryToString(result.query) << endl;
+            cout << "[Query Result] " << (result.answer ? "TRUE" : "FALSE") << endl;
+        }
+            /*cout << "FORMULA "
                  << result.modelname << "-"
                  << result.query_nbr << " "
                  << (result.answer ? "TRUE" : "FALSE") << " "
                  << (FPA != nullptr ? seq_techniques : dist_techniques)
-                 << endl;
+                 << endl;*/
     }
 
     //process answers

@@ -105,11 +105,11 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
     }
 
     if (STATS) {
-        std::cout << "Processed edges: " << s_edges << std::endl;
-        std::cout << "Processed negation edges: " << s_negation_edges << std::endl;
-        std::cout << "Configurations explored: " << s_explored << std::endl;
-        std::cout << "Avr. succ edges per configuration: " << (((double) s_total_succ) / ((double) s_total_targets)) << std::endl;
-        std::cout << "Avr. targets per edge: " << (((double) s_total_targets) / ((double) s_total_succ)) << std::endl;
+        std::cout << "[Processed edges] " << s_edges << std::endl;
+        std::cout << "[Processed negation edges] " << s_negation_edges << std::endl;
+        std::cout << "[Configurations explored] " << s_explored << std::endl;
+        std::cout << "[Avr. succ edges per configuration] " << (((double) s_total_succ) / ((double) s_total_targets)) << std::endl;
+        std::cout << "[Avr. targets per edge] " << (((double) s_total_targets) / ((double) s_total_succ)) << std::endl;
     }
     return (v->assignment == ONE) ? true : false;
 }

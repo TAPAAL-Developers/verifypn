@@ -412,7 +412,8 @@ int main(int argc, char* argv[]){
     }
     clock_t parse_model_end = clock();
     if(printstatistics) {
-        cout<<":::TIME::: Parse model elapsed time: "<<double(diffclock(parse_model_end,parse_model_begin))<<" ms"<<endl;
+        //cout<<":::TIME::: Parse model elapsed time: "<<double(diffclock(parse_model_end,parse_model_begin))<<" ms"<<endl;
+        cout << "[Model Parsing Time] " << double(diffclock(parse_model_end,parse_model_begin)) << endl;
     }
     //----------------------- Parse CTL Query -----------------------//
     clock_t parse_ctl_query_begin = clock();
@@ -421,9 +422,12 @@ int main(int argc, char* argv[]){
     QueryMeta* meta_d;
     if(isCTLlogic){
         if (printstatistics) {
-            std::cout << "Analysis:: Modefile: " << modelfile << endl;
-            std::cout << "Analysis:: Number of places: " << net->numberOfPlaces() << endl;
-            std::cout << "Analysis:: Number of transistions: " << net->numberOfTransitions() << endl;
+            //std::cout << "Analysis:: Modefile: " << modelfile << endl;
+            //std::cout << "Analysis:: Number of places: " << net->numberOfPlaces() << endl;
+            //std::cout << "Analysis:: Number of transistions: " << net->numberOfTransitions() << endl;
+            cout << "[Path To Model] " << modelfile << endl;
+            cout << "[No. Places] " << net->numberOfPlaces() << endl;
+            cout << "[No. Transitions] " << net->numberOfTransitions() << endl;
         }
 
         ifstream xmlfile (queryfile);
@@ -463,7 +467,8 @@ int main(int argc, char* argv[]){
         
         clock_t parse_ctl_query_end = clock();
         if(printstatistics)
-            cout<<":::TIME::: Parse of CTL query elapsed time: "<<double(diffclock(parse_ctl_query_end,parse_ctl_query_begin))<<" ms\n"<<endl;
+            cout << "[Query Parsing Time] " << double(diffclock(parse_ctl_query_end,parse_ctl_query_begin)) << endl;
+            //cout<<":::TIME::: Parse of CTL query elapsed time: "<<double(diffclock(parse_ctl_query_end,parse_ctl_query_begin))<<" ms\n"<<endl;
         
     }
     
@@ -779,8 +784,6 @@ int main(int argc, char* argv[]){
         model_name = model_name.substr(model_name.find("/") + 1, string::npos);
         model_name = model_name.substr(model_name.find("/") + 1, string::npos);
         model_name = model_name.substr(model_name.find("/") + 1, string::npos);
-
-
 
         retval = (ReturnValues) verifypnCTL(net,
                                             m0,
