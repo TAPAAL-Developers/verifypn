@@ -45,6 +45,10 @@ public:
         return N.maxDistance();
     }
 
+    virtual bool available() const override {
+        return !W.empty();
+    }
+
     virtual void pushEdge(DependencyGraph::Edge *edge) override {
         W.push(edge);
         if (edge->is_negated) {

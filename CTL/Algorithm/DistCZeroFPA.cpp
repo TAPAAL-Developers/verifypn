@@ -6,6 +6,8 @@
 
 #define STATS true
 #define STATS_TIME false
+#define HALT_ON false
+#define AF_FIX_ON true
 
 using namespace SearchStrategy;
 using namespace DependencyGraph;
@@ -78,6 +80,7 @@ void Algorithm::DistCZeroFPA::explore(Configuration *c)
 
 void Algorithm::DistCZeroFPA::halt(Configuration *c)
 {
+    if (!HALT_ON) assert(false);
     if (!(c->hasActiveDependencies() || c == v || c->isDone())) {
         c->assignment = UNKNOWN;
         if (partition->ownerId(c) == comm->rank()) {
@@ -150,21 +153,32 @@ void Algorithm::DistCZeroFPA::processHyperEdge(Edge *e)
             finalAssign(e->source, ONE);
         } else if (hasCZero) {
             e->source->removeSuccessor(e);
-            if (e->requested != nullptr) {
-                halt(e->requested);
-                e->requested = nullptr;
+            if (HALT_ON) {
+                if (e->requested != nullptr) {
+                    halt(e->requested);
+                    e->requested = nullptr;
+                }
             }
             if (e->source->successors.empty()) {
                 finalAssign(e->source, CZERO);
             }
         } else {
             assert(lastUndecided != nullptr);
-            e->requested = lastUndecided;
-            addDependency(e, lastUndecided);
-            explore(lastUndecided);
+            if (AF_FIX_ON && !strategy->available()) {
+                for (auto t : e->targets) {
+                    if (!t->isDone()) {
+                        addDependency(e, t);
+                        explore(t);
+                    }
+                }
+            } else {
+                e->requested = lastUndecided;
+                addDependency(e, lastUndecided);
+                explore(lastUndecided);
+            }
         }
         e->processed = true;
-    } else if (e->requested != nullptr) {   //halt!
+    } else if (HALT_ON && e->requested != nullptr) {   //halt!
         e->processed = false;
         halt(e->requested);
         e->requested = nullptr;
@@ -180,10 +194,12 @@ void Algorithm::DistCZeroFPA::processNegationEdge(Edge *e)
 
         if (target->assignment == ONE) {
             e->source->removeSuccessor(e);
-            if (e->requested != nullptr) {
-                //technically this shouldn't happen - maybe get rid of it?
-                halt(e->requested);
-                e->requested = nullptr;
+            if (HALT_ON) {
+                if (e->requested != nullptr) {
+                    //technically this shouldn't happen - maybe get rid of it?
+                    halt(e->requested);
+                    e->requested = nullptr;
+                }
             }
             if (e->source->successors.empty()) {
                 finalAssign(e->source, CZERO);
@@ -196,7 +212,7 @@ void Algorithm::DistCZeroFPA::processNegationEdge(Edge *e)
             explore(target);
         }
         e->processed = true;
-    } else if (e->requested != nullptr) {
+    } else if (HALT_ON && e->requested != nullptr) {
         e->processed = false;
         halt(e->requested);
         e->requested = nullptr;

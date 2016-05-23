@@ -15,7 +15,7 @@ public:
     //Size
     virtual int size() =0;
 
-    //Reset
+    //Reset (optional)
     virtual void reset() =0;
 
     //Send methods

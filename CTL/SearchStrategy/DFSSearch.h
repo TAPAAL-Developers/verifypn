@@ -21,6 +21,7 @@ public:
     virtual TaskType pickTask(DependencyGraph::Edge*& edge) override;
 
     virtual unsigned int maxDistance() const override;
+    virtual bool available() const override;
     virtual void pushMessage(Message &message) override;
     virtual void releaseNegationEdges(int dist) override;
 

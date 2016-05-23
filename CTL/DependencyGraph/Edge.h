@@ -17,6 +17,7 @@ public:
 
     Configuration* source;
     Configuration* requested = nullptr;
+    //container requested;
     container targets;
 
     bool processed = false;

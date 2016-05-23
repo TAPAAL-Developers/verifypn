@@ -40,6 +40,7 @@ class iDistributedSearchStrategy
 {
 public:
     virtual bool empty() const =0;
+    virtual bool available() const =0;  //true if there is something that can be picked without releasing
     virtual unsigned int maxDistance() const =0;
     virtual void pushEdge(DependencyGraph::Edge *edge) =0;
     virtual void pushDependency(DependencyGraph::Edge *edge) =0;

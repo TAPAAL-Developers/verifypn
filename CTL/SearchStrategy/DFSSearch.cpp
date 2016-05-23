@@ -39,6 +39,11 @@ unsigned int SearchStrategy::DFSSearch::maxDistance() const
     return 0;
 }
 
+bool SearchStrategy::DFSSearch::available() const
+{
+    return !W.empty();
+}
+
 void SearchStrategy::DFSSearch::pushMessage(SearchStrategy::Message &message)
 {
     assert(false && "DFSSearch can't be used with more than one worker");
