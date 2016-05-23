@@ -2,7 +2,7 @@
 # Compute [1,2,4,5,6,7,8,9]
 max_timeout=1800
 
-for RUN_NO in 1;
+for RUN_NO in 1 2 3 4 5;
 do
 	for model in Solitaire-PT-SqrNC5x5;
 	do

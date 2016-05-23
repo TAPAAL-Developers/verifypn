@@ -10,7 +10,7 @@ miscellaneous = []
 
 def parse_line(line):
 	"""Convert each line to a key, value pair for later dict conversion."""
-	if any([line.startswith(key) and key != '[Formula Print]' for key in ALL_KEYS]):
+	if any([line.startswith(key) for key in ALL_KEYS]):
 		for key in ALL_KEYS:
 			if line.startswith(key):
 				value = line.split(key)[1].strip()
