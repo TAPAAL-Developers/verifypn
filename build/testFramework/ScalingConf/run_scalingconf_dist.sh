@@ -1,6 +1,6 @@
 #!/bin/bash
 RUN_NO=$1
-max_timeout=1800
+max_timeout=1350
 
 # Compute 1
 # Kanban-PT-0005 ResAllocation-PT-R003C010 BridgeAndVehicles-PT-V20P10N10
