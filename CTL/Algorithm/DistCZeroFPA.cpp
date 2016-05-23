@@ -6,7 +6,7 @@
 
 #define STATS true
 #define STATS_TIME false
-#define HALT_ON false
+#define HALT_ON true
 #define AF_FIX_ON true
 
 using namespace SearchStrategy;
@@ -39,8 +39,10 @@ void Algorithm::DistCZeroFPA::finalAssign(Configuration *c, Assignment value)
     c->dependency_set.clear();
 
     //request edge halting
-    for (Edge *s : c->successors) {
-        strategy->pushEdge(s);
+    if (HALT_ON) {
+        for (Edge *s : c->successors) {
+            strategy->pushEdge(s);
+        }
     }
 }
 
@@ -154,10 +156,11 @@ void Algorithm::DistCZeroFPA::processHyperEdge(Edge *e)
         } else if (hasCZero) {
             e->source->removeSuccessor(e);
             if (HALT_ON) {
-                if (e->requested != nullptr) {
-                    halt(e->requested);
-                    e->requested = nullptr;
+                for (auto target : e->requested) {
+                    target->dependency_set.remove(e);
+                    halt(target);
                 }
+                e->requested.clear();
             }
             if (e->source->successors.empty()) {
                 finalAssign(e->source, CZERO);
@@ -167,21 +170,25 @@ void Algorithm::DistCZeroFPA::processHyperEdge(Edge *e)
             if (AF_FIX_ON && !strategy->available()) {
                 for (auto t : e->targets) {
                     if (!t->isDone()) {
+                        e->requested.push_back(t);
                         addDependency(e, t);
                         explore(t);
                     }
                 }
             } else {
-                e->requested = lastUndecided;
+                e->requested.push_back(lastUndecided);
                 addDependency(e, lastUndecided);
                 explore(lastUndecided);
             }
         }
         e->processed = true;
-    } else if (HALT_ON && e->requested != nullptr) {   //halt!
+    } else if (HALT_ON && !e->requested.empty()) {   //halt!
         e->processed = false;
-        halt(e->requested);
-        e->requested = nullptr;
+        for (auto target : e->requested) {
+            target->dependency_set.remove(e);
+            halt(target);
+        }
+        e->requested.clear();
     }
 }
 
@@ -195,11 +202,11 @@ void Algorithm::DistCZeroFPA::processNegationEdge(Edge *e)
         if (target->assignment == ONE) {
             e->source->removeSuccessor(e);
             if (HALT_ON) {
-                if (e->requested != nullptr) {
-                    //technically this shouldn't happen - maybe get rid of it?
-                    halt(e->requested);
-                    e->requested = nullptr;
+                for (auto target : e->requested) {
+                    target->dependency_set.remove(e);
+                    halt(target);
                 }
+                e->requested.clear();
             }
             if (e->source->successors.empty()) {
                 finalAssign(e->source, CZERO);
@@ -207,15 +214,18 @@ void Algorithm::DistCZeroFPA::processNegationEdge(Edge *e)
         } else if (target->assignment == CZERO || (target->assignment == ZERO && e->processed)) {
             finalAssign(e->source, ONE);
         } else {
-            e->requested = target;
+            e->requested.push_back(target);
             addDependency(e, target);
             explore(target);
         }
         e->processed = true;
-    } else if (HALT_ON && e->requested != nullptr) {
+    } else if (HALT_ON && !e->requested.empty()) {
         e->processed = false;
-        halt(e->requested);
-        e->requested = nullptr;
+        for (auto target : e->requested) {
+            target->dependency_set.remove(e);
+            halt(target);
+        }
+        e->requested.clear();
     }
 }
 
