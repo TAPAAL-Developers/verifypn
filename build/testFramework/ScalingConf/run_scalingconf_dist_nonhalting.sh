@@ -1,5 +1,5 @@
 #!/bin/bash
-RUN_NO=$1
+RUN_NO="NONHALT-$1"
 max_timeout=1350
 BINARY=verifypn-linux64-nonhalting
 
