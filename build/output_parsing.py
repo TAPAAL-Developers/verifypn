@@ -50,6 +50,5 @@ def parse(log_file):
     parsed_lines = [parse_line(line) for line in lines]
     parsed_lines.append((MISCELLANEOUS, ''.join(miscellaneous)))
     parsed_lines.append((export_key(NO_CONFIGURATIONS), _calculate_total_no_configurations(lines)))
-    parsed_lines.append()
 
     return dict(parsed_lines)
