@@ -22,7 +22,7 @@
 
 ///Partioning
 #include "CTL/Algorithm/PartitionFunction.h"
-#include "CTL/PetriNets/HashPartitionFunction.h"
+#include "CTL/PetriNets/RandomPartitionFunction.h"
 
 ///Graphs
 #include "CTL/PetriNets/OnTheFlyDG.h"
@@ -254,7 +254,7 @@ int verifypnCTL(PetriEngine::PetriNet *net,
             }
 
 
-            partition == nullptr ? partition = new HashPartitionFunction(comm->size()) : partition;
+            partition == nullptr ? partition = new RandomPartitionFunction(comm->size()) : partition;
 
             print = comm->rank() == 0 ? true : false;
 
