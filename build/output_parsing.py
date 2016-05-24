@@ -4,7 +4,7 @@ Outputted lines may or may not start with an output key.
 Lines not starting with an output key will be collected in
 the miscellaneous field. Such lines are often errors."""
 from output_keys import ALL_KEYS, NO_CONFIGURATIONS, PROCESSED_EDGES, PROCESSED_NEGATION_EDGES
-from export_keys import export_key, MISCELLANEOUS, MAXIMUM_DISTRIBUTION_POTENTIAL, DISTRIBUTION_VARIANCE
+from export_keys import export_key, MISCELLANEOUS, MAXIMUM_DISTRIBUTION_POTENTIAL, DISTRIBUTION_VARIANCE, NO_WORKERS_COMPUTING
 from decimal import Decimal
 import re
 import math
@@ -46,6 +46,13 @@ def _calculate_maximum_distribution_potential(lines):
     else:
         return Decimal('0')
 
+def _no_of_workers_computing(lines):
+    edges_processed_per_worker = _edges_processed_per_worker(lines)
+    return Decimal(str(len([
+        edges_processed_by_worker
+        for edges_processed_by_worker in edges_processed_per_worker
+        if edges_processed_by_worker != Decimal('0')
+        ])))
 
 def _calculate_distribution_variance(lines):
     edges_processed_per_worker = _edges_processed_per_worker(lines)
@@ -85,5 +92,6 @@ def parse(log_file):
     parsed_lines.append((export_key(NO_CONFIGURATIONS), _calculate_total_no_configurations(lines)))
     parsed_lines.append((MAXIMUM_DISTRIBUTION_POTENTIAL, _calculate_maximum_distribution_potential(lines)))
     parsed_lines.append((DISTRIBUTION_VARIANCE, _calculate_distribution_variance(lines)))
+    parsed_lines.append((NO_WORKERS_COMPUTING, _no_of_workers_computing(lines)))
 
     return dict(parsed_lines)
