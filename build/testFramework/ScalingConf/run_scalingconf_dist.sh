@@ -115,7 +115,6 @@ do
 done
 
 # Compute 9 - Load balancing for the longer duration models
-# HypercubeGrid-PT-C4K3P3B12
 for model in BridgeAndVehicles-PT-V20P20N20 Philosophers-PT-002000 BridgeAndVehicles-PT-V20P20N10 HypercubeGrid-PT-C4K3P3B12;
 do
     for worker_count in 1 2 4 8 16 32 48 64;

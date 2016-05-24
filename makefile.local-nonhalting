@@ -1,0 +1,24 @@
+# Programs for processing
+LEX				= flex
+YACC            = bison
+CC				= mpiCC
+CUT				= cut
+
+# Compiler and linker flags
+#Possibly add -ljemalloc for faster malloc
+CFLAGS			= -flto -march=native -std=c++11 -m64 -O3 -I.
+LDFLAGS			= -flto=8 -march=native -std=c++11 -m64 -O3 lpsolve/liblpsolve55-linux64.a -ldl \
+              -static-libgcc -static-libstdc++
+
+# Input files
+FLEX_SOURCES	= $(shell find * -name "*.l")
+BISON_SOURCES	= $(shell find * -name "*.y")
+SOURCES			= $(shell find * -name "*.cpp" | grep -v ".\\(parser\\|lexer\\).cpp")		\
+				  $(BISON_SOURCES:.y=.parser.cpp)											\
+				  $(FLEX_SOURCES:.l=.lexer.cpp)
+OBJECTS			= $(SOURCES:.cpp=.o)
+TARGET			= verifypn-linux64-nonhalting
+
+include rules.mk
+
+#-D DEBUG -D PP 
