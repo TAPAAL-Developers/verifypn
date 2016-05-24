@@ -1,7 +1,7 @@
 #!/bin/bash
 RUN_NO=$1
 max_timeout=1350
-BINARY=verifypn-linux64
+BINARY=verifypn-linux64-nonhalting
 
 # Compute 1
 # Kanban-PT-0005 ResAllocation-PT-R003C010 BridgeAndVehicles-PT-V20P10N10
