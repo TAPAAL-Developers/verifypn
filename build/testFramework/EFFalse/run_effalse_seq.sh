@@ -33,9 +33,9 @@ sbatch /user/smni12/launchpad/master/build/testFramework/EFFalse/compute6.sh "To
 let timeout="$max_timeout / $worker_count"
 sbatch /user/smni12/launchpad/master/build/testFramework/EFFalse/compute7.sh "ResAllocation-PT-R003C010" "$worker_count" "$timeout" "$ALG" "$RUN_NO"
 
-# ParamProductionCell-PT-3 - Compute 8
+# ParamProductionCell-PT-3 - Compute 6
 let timeout="$max_timeout / $worker_count"
-sbatch /user/smni12/launchpad/master/build/testFramework/EFFalse/compute8.sh "ParamProductionCell-PT-3" "$worker_count" "$timeout" "$ALG" "$RUN_NO"
+sbatch /user/smni12/launchpad/master/build/testFramework/EFFalse/compute6.sh "ParamProductionCell-PT-3" "$worker_count" "$timeout" "$ALG" "$RUN_NO"
 
 # SwimmingPool-PT-02 - Compute 9
 let timeout="$max_timeout / $worker_count"

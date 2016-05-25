@@ -51,11 +51,11 @@ let timeout="$max_timeout / $worker_count"
      sbatch /user/smni12/launchpad/master/build/testFramework/EFFalse/compute7_dist.sh "ResAllocation-PT-R003C010" "$worker_count" "$timeout" "$RUN_NO"
 done
 
-# ParamProductionCell-PT-3 - Compute 8
+# ParamProductionCell-PT-3 - Compute 6
 for worker_count in 1 2 4 8 16 32 48 64;
 do
 let timeout="$max_timeout / $worker_count"
-     sbatch /user/smni12/launchpad/master/build/testFramework/EFFalse/compute8_dist.sh "ParamProductionCell-PT-3" "$worker_count" "$timeout" "$RUN_NO"
+     sbatch /user/smni12/launchpad/master/build/testFramework/EFFalse/compute6_dist.sh "ParamProductionCell-PT-3" "$worker_count" "$timeout" "$RUN_NO"
 done
 
 # SwimmingPool-PT-02 - Compute 9
