@@ -69,7 +69,7 @@ def _calculate_distribution_variance(lines):
 
         return variance
     else:
-        return Decimal('0')
+        return Decimal('Infinity')
 
 
 def parse_line(line):
