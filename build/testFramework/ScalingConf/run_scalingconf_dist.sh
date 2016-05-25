@@ -1,6 +1,6 @@
 #!/bin/bash
 RUN_NO=$1
-max_timeout=1350
+max_timeout=1800
 BINARY=verifypn-linux64
 
 # Compute 1
