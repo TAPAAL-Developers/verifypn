@@ -20,13 +20,13 @@ OUTPUTFILE="$MODEL"-EFFalse-ALG"$ALG"-T"$TIMEOUT"-R"$RUN_NO".log
 mkdir ~/results
 mkdir ~/results/master
 mkdir ~/results/master/EFFalse
-mkdir ~/results/master/EFFalse/W"$WORKERS"-R"$RUN_NO"
+mkdir ~/results/master/EFFalse/ALG"$ALG"-R"$RUN_NO"
 
 ulimit -S -v 16000000
 ulimit -l 16000000
 
 export MAXMEM_KB=16000000
-{ timeout "$TIMEOUT" /user/smni12/launchpad/master/verifypn-linux64 /user/smni12/launchpad/modelDatabase/allModels/"$MODEL"/model.pnml /user/smni12/launchpad/master/build/testFramework/EF-False.xml -ctl "$ALG" -s DFS -x 1; } >> ~/results/master/EFFalse/W"$WORKERS"-R"$RUN_NO"/$OUTPUTFILE 2>&1
+{ timeout "$TIMEOUT" /user/smni12/launchpad/master/verifypn-linux64 /user/smni12/launchpad/modelDatabase/allModels/"$MODEL"/model.pnml /user/smni12/launchpad/master/build/testFramework/EF-False.xml -ctl "$ALG" -s DFS -x 1; } >> ~/results/master/EFFalse/ALG"$ALG"-R"$RUN_NO"/$OUTPUTFILE 2>&1
 
 ulimit -S -v unlimited
 

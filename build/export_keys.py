@@ -19,5 +19,5 @@ TOTAL_EVALUATION_TIME = export_key(TOTAL_EVALUATION_TIME)
 FORMULA_PRINT = export_key(FORMULA_PRINT)
 PATH_TO_MODEL = export_key(PATH_TO_MODEL)
 MAXIMUM_DISTRIBUTION_POTENTIAL = 'Maximum Distribution Potential'
-DISTRIBUTION_VARIANCE = 'Distribution Variance'
+DISTRIBUTION_VARIANCE = 'Distribution Standard Deviation'
 NO_WORKERS_COMPUTING = 'No. Workers Computing'

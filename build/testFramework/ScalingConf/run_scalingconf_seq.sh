@@ -11,7 +11,7 @@ do
         for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
         do
             let timeout="$max_timeout"
-            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute1.sh "$model" "$ALG" "$timeout" "$i" "$RUN_NO" "$BINARY"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute1_seq.sh "$model" "$ALG" "$timeout" "$i" "$RUN_NO" "$BINARY"
         done
 done
 
@@ -22,7 +22,7 @@ do
         for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
         do
             let timeout="$max_timeout"
-            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute2.sh "$model" "$ALG" "$timeout" "$i" "$RUN_NO" "$BINARY"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute2_seq.sh "$model" "$ALG" "$timeout" "$i" "$RUN_NO" "$BINARY"
         done
 done
 
@@ -33,7 +33,7 @@ do
         for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
         do
             let timeout="$max_timeout"
-            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute3.sh "$model" "$ALG" "$timeout" "$i" "$RUN_NO" "$BINARY"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute3_seq.sh "$model" "$ALG" "$timeout" "$i" "$RUN_NO" "$BINARY"
         done
 done
 
@@ -44,7 +44,7 @@ do
         for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
         do
             let timeout="$max_timeout"
-            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute4.sh "$model" "$ALG" "$timeout" "$i" "$RUN_NO" "$BINARY"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute4_seq.sh "$model" "$ALG" "$timeout" "$i" "$RUN_NO" "$BINARY"
         done
 done
 
@@ -55,7 +55,7 @@ do
         for i in 4 5 6 7 8 9 10 11 12 13 14 15 16;
         do
             let timeout="$max_timeout"
-            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute5.sh "$model" "$ALG" "$timeout" "$i" "$RUN_NO" "$BINARY"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute5_seq.sh "$model" "$ALG" "$timeout" "$i" "$RUN_NO" "$BINARY"
         done
 done
 
@@ -66,7 +66,7 @@ do
         for i in 4 5 6 7 8 9 10 11 12 13 14 15 16;
         do
             let timeout="$max_timeout"
-            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute7.sh "$model" "$ALG" "$timeout" "$i" "$RUN_NO" "$BINARY"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute7_seq.sh "$model" "$ALG" "$timeout" "$i" "$RUN_NO" "$BINARY"
         done
 done
 
@@ -77,6 +77,6 @@ do
         for i in 1 2 3;
         do
             let timeout="$max_timeout"
-            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute9.sh "$model" "$ALG" "$timeout" "$i" "$RUN_NO" "$BINARY"
+            sbatch /user/smni12/launchpad/master/build/testFramework/ScalingConf/compute9_seq.sh "$model" "$ALG" "$timeout" "$i" "$RUN_NO" "$BINARY"
         done
 done
