@@ -4,7 +4,7 @@ max_timeout=60
 BINARY=verifypn-linux64-nonhalting
 
 # Compute 1
-for binary in verifypn-linux64-nonhalting verifypn-linux64;
+for binary in verifypn-linux64;
 do
     for worker_count in 1 2 4 8 16 32 48 64;
     do
