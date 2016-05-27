@@ -10,6 +10,5 @@ do
     do
             let timeout="$max_timeout"
             sbatch /user/smni12/launchpad/master/build/testFramework/HaltingVsNonHalting/compute1.sh "$worker_count" "$timeout" "$BINARY"-"$RUN_NO" "$BINARY"
-        done
     done
 done
