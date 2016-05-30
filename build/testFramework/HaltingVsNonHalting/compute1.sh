@@ -25,7 +25,7 @@ ulimit -S -v 1024000000
 ulimit -l 1024000000
 
 export MAXMEM_KB=16000000
-{ timeout "$TIMEOUT" mpirun -np "$WORKERS" /user/smni12/launchpad/master/"$BINARY" /user/smni12/launchpad/modelDatabase/allModels/HouseConstruction-PT-010/model.pnml /user/smni12/launchpad/modelDatabase/allModels/HouseConstruction-PT-005/CTLCardinality.xml -ctl dist -s DFS -x 12; } >> ~/results/master/HaltingVsNonHalting/"$BINARY"W"$WORKERS"-R"$RUN_NO"/$OUTPUTFILE 2>&1
+{ timeout "$TIMEOUT" mpirun -np "$WORKERS" /user/smni12/launchpad/master/"$BINARY" /user/smni12/launchpad/modelDatabase/allModels/SharedMemory-PT-000010/model.pnml /user/smni12/launchpad/modelDatabase/allModels/SharedMemory-PT-000020/CTLCardinality.xml -ctl dist -s DFS -x 4; } >> ~/results/master/HaltingVsNonHalting/"$BINARY"W"$WORKERS"-R"$RUN_NO"/$OUTPUTFILE 2>&1
 
 ulimit -S -v unlimited
 
