@@ -1,6 +1,6 @@
 #!/bin/bash
 RUN_NO="$1"
-max_timeout=60
+max_timeout=300
 BINARY=verifypn-linux64-nonhalting
 
 # Compute 1
