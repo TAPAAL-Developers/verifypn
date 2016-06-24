@@ -4,7 +4,6 @@
 #SBATCH --nodes={NODES}
 #SBATCH --partition=production
 #SBATCH --ntasks={WORKERS}
-#SBATCH --exclusive
 #SBATCH --mail-type=ALL # Type of email notification- BEGIN,END,FAIL,ALL
 #SBATCH --mail-user={{d803f16@cs.aau.dk}}
 #SBATCH --time={JOBDURATION}
