@@ -118,8 +118,8 @@ def main(args):
 
         confirmed = confirm_settings(options, experiment, repository)
 
-        p, outstr, errstr = compile(engine)
-        compile_job_id = get_job_id(outstr)
+        # p, outstr, errstr = compile(engine)
+        compile_job_id = 1 # get_job_id(outstr)
         slurm_count = 0
         timestamp = str(datetime.now()).split(':')[:2]
         timestamp = ':'.join(timestamp).replace(' ','T')
@@ -135,9 +135,5 @@ def main(args):
                                compile_job_id=compile_job_id, experiment=experiment,
                                conf_file=conf_file)
                     slurm_count += 1
-                    if slurm_count >= 500:
-                        sleep(60)
-                        slurm_count = 0
-                    if slurm_count % 100 == 0 :
-                        sleep(20)
+                    sleep(1)
 

@@ -179,7 +179,7 @@ def call_slurm(engine, model, querytype, timeout,
 
     return Popen([
         'sbatch',
-        '--dependency=afterok:' + compile_job_id,
+        # '--dependency=afterok:' + compile_job_id,
         slurm_conf])
 
 
