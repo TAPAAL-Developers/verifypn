@@ -31,7 +31,7 @@ def main(args):
     options, remainder = (
         getopt(args, '-h',
                ['help',
-                'repository=', 'modeldb=',
+                'repository=', 'modeldb=', 'expname=',
                 'engine=', 'models=', 'timeout=', 'querytypes=',
                 'nodes=', 'workers=', 'strategy=', 'memlimit='
                 ]
@@ -111,12 +111,15 @@ def main(args):
         else:
             options['--memlimit'] = memlimit
 
-        experiment = input('Supply a name for the experiment: ')
+        if '--expname' in options:
+            experiment = options['--expname']
+        else:
+            experiment = input('Supply a name for the experiment: ')
 
 
         helpers.repository = repository
 
-        confirmed = confirm_settings(options, experiment, repository)
+        # confirmed = confirm_settings(options, experiment, repository)
 
         # p, outstr, errstr = compile(engine)
         compile_job_id = 1 # get_job_id(outstr)
