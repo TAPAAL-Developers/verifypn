@@ -135,6 +135,9 @@ def main(args):
                                compile_job_id=compile_job_id, experiment=experiment,
                                conf_file=conf_file)
                     slurm_count += 1
+                    if slurm_count >= 1000:
+                        sleep(60)
                     if slurm_count > 100:
                         sleep(5)
                         slurm_count = 0
+

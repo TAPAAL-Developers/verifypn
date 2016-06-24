@@ -89,9 +89,13 @@ def parse(log_file):
 
     parsed_lines = [parse_line(line) for line in lines]
     parsed_lines.append((MISCELLANEOUS, ''.join(miscellaneous)))
-    parsed_lines.append((export_key(NO_CONFIGURATIONS), _calculate_total_no_configurations(lines)))
-    parsed_lines.append((MAXIMUM_DISTRIBUTION_POTENTIAL, _calculate_maximum_distribution_potential(lines)))
-    parsed_lines.append((DISTRIBUTION_VARIANCE, _calculate_distribution_variance(lines)))
-    parsed_lines.append((NO_WORKERS_COMPUTING, _no_of_workers_computing(lines)))
+    try:
+        parsed_lines.append((export_key(NO_CONFIGURATIONS), _calculate_total_no_configurations(lines)))
+        parsed_lines.append((MAXIMUM_DISTRIBUTION_POTENTIAL, _calculate_maximum_distribution_potential(lines)))
+        parsed_lines.append((DISTRIBUTION_VARIANCE, _calculate_distribution_variance(lines)))
+        parsed_lines.append((NO_WORKERS_COMPUTING, _no_of_workers_computing(lines)))
+    except:
+        pass
+
 
     return dict(parsed_lines)
