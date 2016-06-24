@@ -137,7 +137,7 @@ def main(args):
                     slurm_count += 1
                     if slurm_count >= 1000:
                         sleep(60)
-                    if slurm_count > 100:
+                    if slurm_count > 20:
                         sleep(5)
                         slurm_count = 0
 
