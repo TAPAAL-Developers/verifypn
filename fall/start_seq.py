@@ -4,6 +4,7 @@
 # men 64 for den sekventielle
 
 import sys
+import time
 
 binary = sys.argv[1]
 alg = sys.argv[2]
@@ -17,11 +18,13 @@ model_file_template = model_database + "/{model_name}/model.pnml"
 query_file_template = model_database + "/{model_name}/CTLCardinality.xml"
 
 # Open modelconf
-with open(modelconf, 'r'):
-    model_names = modelconf.readlines()
+with open(modelconf, 'r') as modelconf_file:
+    model_names = [model_name.replace('\n', '')
+                   for model_name in modelconf_file.readlines()]
 
+print(model_names)
 run_query_template = (
-    "bash run-query.sh {model_file} {query_file} {query_number}"
+    "bash /user/smni12/launchpad/master/fall/run-query.sh {model_file} {query_file} {query_number} "
     "{binary} {alg} {output_file}"
 )
 
@@ -35,7 +38,7 @@ for model_name in model_names:
             'query_number': query_number,
             'binary': binary,
             'alg': alg,
-            'output_file': '-'.join([name, model_name, query_number])
+            'output_file': '-'.join([name, model_name, str(query_number), '.log'])
         }
         run_query_commands.append(
             run_query_template.format(**run_query_kwargs)
@@ -50,24 +53,30 @@ slurm_header = '\n'.join((
     "#SBATCH --ntasks=64",
     "#SBATCH --mail-type=ALL # Type of email notification- BEGIN,END,FAIL,ALL",
     "#SBATCH --mail-user={{d803f16@cs.aau.dk}}",
-    "#SBATCH --time={time_out}".format(time_out=time_out)
+    "#SBATCH --time={time_out}\n\n".format(
+         time_out=time.strftime('%H:%M:%S', time.gmtime(int(time_out))))
 ))
-
-queries_per_slurm_job = 64 if alg in ['local', 'czero'] else 1000000
+print(slurm_header)
+queries_per_slurm_job = 64 if alg in ['local', 'czero'] else 1
 
 file_number = 0
 remaining_commands = run_query_commands
 slurm_job_files = []
 
 while remaining_commands:
-    no_commands_in_file = 64 if len(remaining_commands) > 64 else len(remaining_commands)
-    commands_to_write_to_file = remaining_commands[:no_commands_in_file]
+    no_commands_in_file = (
+    queries_per_slurm_job if len(remaining_commands) > queries_per_slurm_job 
+    else len(remaining_commands)
+    )
 
-    slurm_job_file_name = name + '.slurmjob'
+    commands_to_write_to_file = remaining_commands[:no_commands_in_file]
+    print(commands_to_write_to_file)
+    slurm_job_file_name = ''.join([name, str(file_number), '.slurmjob'])
     with open(slurm_job_file_name, 'w') as slurm_job_file:
         slurm_job_file.write(slurm_header)
-        slurm_job_file.write('\n'.join(commands_to_write_to_file))
+        slurm_job_file.write('\n\n'.join(commands_to_write_to_file))
 
     slurm_job_files.append(slurm_job_file_name)
     file_number += 1
     remaining_commands = remaining_commands[no_commands_in_file:]
+print(slurm_job_files)

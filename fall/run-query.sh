@@ -16,20 +16,20 @@ then
 fi
 
 # <---- Print settings for debugging and verification ----> #
-echo "Binary: $BINARY"
-echo "Alg: $ALG Workers: $WORKERS MPI: $MPI_CALL"
-echo "Model: $MODEL_FILE Query: $QUERY_FILE Query number: $QUERY_NUMBER" 
-echo "Timeout: $TIMEOUT Memory limit (kb): $MAXMEM_KB" 
+#echo "Binary: $BINARY"
+#echo "Alg: $ALG Workers: $WORKERS MPI: $MPI_CALL"
+#echo "Model: $MODEL_FILE Query: $QUERY_FILE Query number: $QUERY_NUMBER" 
+#echo "Timeout: $TIMEOUT Memory limit (kb): $MAXMEM_KB" 
 
 # <---- Handle the calls to the binary ----> #
 if [ "$ALG" == "dist" ]
 then
-    "$MPI_CALL" "$BINARY" "$MODEL_FILE" "$QUERY_FILE" -ctl "$ALG" -s DFS -x "$QUERY_NUMBER" > "$OUTPUT_FILE" 2>&1
+    "$MPI_CALL" "$BINARY" "$MODEL_FILE" "$QUERY_FILE" -ctl "$ALG" -s DFS -x "$QUERY_NUMBER" > "$OUTPUT_FILE" 2>&1;
 fi
 
 if [ "$ALG" != "dist" ]
 then
-    "$TIMEOUT" "$BINARY" "$MODEL_FILE" "$QUERY_FILE" -ctl "$ALG" -s DFS -x "$QUERY_NUMBER" > "$OUTPUT_FILE" 2>&1
+    "$BINARY" "$MODEL_FILE" "$QUERY_FILE" -ctl "$ALG" -s DFS -x "$QUERY_NUMBER" > "$OUTPUT_FILE" 2>&1;
 fi
 
 # <---- Print result for debugging and verification ----> #
