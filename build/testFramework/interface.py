@@ -116,6 +116,8 @@ def main(args):
         else:
             experiment = input('Supply a name for the experiment: ')
 
+        if '--repository' in options:
+            repository = options['--repository']
 
         helpers.repository = repository
 
