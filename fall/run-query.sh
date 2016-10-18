@@ -16,10 +16,10 @@ then
 fi
 
 # <---- Print settings for debugging and verification ----> #
-#echo "Binary: $BINARY"
-#echo "Alg: $ALG Workers: $WORKERS MPI: $MPI_CALL"
-#echo "Model: $MODEL_FILE Query: $QUERY_FILE Query number: $QUERY_NUMBER" 
-#echo "Timeout: $TIMEOUT Memory limit (kb): $MAXMEM_KB" 
+echo "Binary: $BINARY"
+echo "Alg: $ALG MPI: $MPI_CALL"
+echo "Model: $MODEL_FILE Query: $QUERY_FILE Query number: $QUERY_NUMBER" 
+echo "Timeout: $TIMEOUT Memory limit (kb): $MAXMEM_KB" 
 
 # <---- Handle the calls to the binary ----> #
 if [ "$ALG" == "dist" ]

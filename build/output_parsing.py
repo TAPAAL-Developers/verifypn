@@ -84,7 +84,7 @@ def parse_line(line):
 		return (MISCELLANEOUS, miscellaneous)
 
 def parse(log_file):
-    with open(log_file, 'r') as lf:
+    with open(log_file, 'r', encoding='utf-8', errors='ignore') as lf:
         lines = lf.readlines()
 
     parsed_lines = [parse_line(line) for line in lines]

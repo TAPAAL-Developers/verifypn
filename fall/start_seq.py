@@ -5,6 +5,7 @@
 
 import sys
 import time
+import subprocesses
 
 binary = sys.argv[1]
 alg = sys.argv[2]
@@ -24,8 +25,7 @@ with open(modelconf, 'r') as modelconf_file:
 
 print(model_names)
 run_query_template = (
-    "bash /user/smni12/launchpad/master/fall/run-query.sh {model_file} {query_file} {query_number} "
-    "{binary} {alg} {output_file}"
+    "timeout {time_out} bash /user/smni12/launchpad/master/fall/run-query.sh {model_file} {query_file} {query_number} {binary} {alg} {output_file}"
 )
 
 run_query_commands = []
@@ -36,6 +36,7 @@ for model_name in model_names:
             'model_file': model_file_template.format(model_name=model_name),
             'query_file': query_file_template.format(model_name=model_name),
             'query_number': query_number,
+            'time_out': time_out,
             'binary': binary,
             'alg': alg,
             'output_file': '-'.join([name, model_name, str(query_number), '.log'])
@@ -62,6 +63,7 @@ queries_per_slurm_job = 64 if alg in ['local', 'czero'] else 1
 file_number = 0
 remaining_commands = run_query_commands
 slurm_job_files = []
+processes = []
 
 while remaining_commands:
     no_commands_in_file = (
@@ -72,10 +74,12 @@ while remaining_commands:
     commands_to_write_to_file = remaining_commands[:no_commands_in_file]
     print(commands_to_write_to_file)
     slurm_job_file_name = ''.join([name, str(file_number), '.slurmjob'])
-    with open(slurm_job_file_name, 'w') as slurm_job_file:
+    
+with open(slurm_job_file_name, 'w') as slurm_job_file:
         slurm_job_file.write(slurm_header)
         slurm_job_file.write('\n\n'.join(commands_to_write_to_file))
 
+    processes.append(subprocess.Popen(
     slurm_job_files.append(slurm_job_file_name)
     file_number += 1
     remaining_commands = remaining_commands[no_commands_in_file:]

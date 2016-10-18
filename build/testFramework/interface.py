@@ -120,8 +120,8 @@ def main(args):
             repository = options['--repository']
 
         helpers.repository = repository
-
-        # confirmed = confirm_settings(options, experiment, repository)
+        queries_to_run_per_model = 16
+        confirmed = confirm_settings(options, experiment, repository)
 
         # p, outstr, errstr = compile(engine)
         compile_job_id = 1 # get_job_id(outstr)
@@ -131,7 +131,7 @@ def main(args):
 
         for model in models:
             for querytype in querytypes:
-                for i in range(1, 16+1):
+                for i in range(1, queries_to_run_per_model+1):
                     call_slurm(engine=engine, repository=repository,
                                model=model, querytype=querytype,
                                timeout=timeout, nodes=nodes,

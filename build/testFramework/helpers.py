@@ -85,7 +85,6 @@ def get_slurm_conf(engine, output_file_params, slurm_call_params, experiment):
     template_params.update(output_file_params)
 
     conf_content = template.format(**template_params)
-
     conf_content_file = (
         slurm_conf_dir +
         '-'.join(output_file_params.values()) +
@@ -101,6 +100,7 @@ def get_slurm_conf(engine, output_file_params, slurm_call_params, experiment):
 def get_alg_flag(engine):
     alg_flags = {
         'czero': '-ctl czero',
+        'local': '-ctl local',
         'sharedczero': '-ctl par',
         'distczero': '-ctl dist',
         'classic': '',

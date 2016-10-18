@@ -1,4 +1,5 @@
 #!/bin/sh
+#SBATCH --exclusive
 #SBATCH --nodes {NODES}
 #SBATCH --partition=production
 #SBATCH -n 1
@@ -11,7 +12,7 @@ OUTPUTFILE={MODELNAME}-{QUERYCAT}-{QUERY_NUM}-{STRATEGY}-{TIMESTAMP}.log
 ulimit -S -v {MEMLIMIT}
 ulimit -l {MEMLIMIT}
 
-export MAXMEM_KB=16000000
+export MAXMEM_KB=15000000
 {{ timeout {TIMEOUT} mpirun -np {WORKERS} {ENGINEPATH} {MODELPATH} {QUERYPATH} {ALGFLAG} -s {STRATEGY} -x {QUERY_NUM}; }} >> $OUTPUTFILE 2>&1
 
 ulimit -S -v unlimited
