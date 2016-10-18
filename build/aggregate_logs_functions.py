@@ -1,5 +1,5 @@
 from output_parsing import parse                      # NEW parser 
-#from analysis.csv.log_file_parsing import parse      # OLD parser
+from analysis.csv.log_file_parsing import parse      # OLD parser
 import csv
 import os
 

@@ -46,7 +46,7 @@ def get_key_value(log_file_line):
             value = line_split[-2]
 
         elif 'total' in line_split[1].lower():
-            key = 'Total Search Time'
+            key = 'Total Evaluation Time'
             value = line_split[-2]
         else:
             raise Exception(("Unrecognized time field: " + str(line_split)))
