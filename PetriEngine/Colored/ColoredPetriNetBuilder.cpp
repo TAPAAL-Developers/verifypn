@@ -97,7 +97,13 @@ namespace PetriEngine {
     void ColoredPetriNetBuilder::addColorType(const std::string& id, Colored::ColorType* type) {
         _colors[id] = type;
     }
-
+    bool ColoredPetriNetBuilder::isGame() const {
+        for(size_t i = 1; i < _transitions.size(); ++i)
+            if(_transitions[i].player != _transitions[i-1].player)
+                return true;
+        return false;
+    }
+    
     void ColoredPetriNetBuilder::sort() {
 
     }

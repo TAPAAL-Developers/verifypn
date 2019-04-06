@@ -30,7 +30,6 @@ struct options_t {
 
     //CTL Specific options
     bool gamemode = false;
-    bool isctl = false;
     CTL::CTLAlgorithmType ctlalgorithm = CTL::CZero;
 #ifdef ENABLE_TAR
     bool tar = false;
@@ -44,8 +43,12 @@ struct options_t {
     //CPN Specific options
     bool cpnOverApprox = false;
     bool isCPN = false;
+    
+    // for random traces
     uint32_t seed_offset = 0;
 
+    // for game
+    bool isGame = false;
     void print() {
         if (!printstatistics) {
             return;

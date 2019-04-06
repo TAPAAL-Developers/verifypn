@@ -42,7 +42,7 @@ namespace PetriEngine {
         std::vector<Arc> post;
         bool skip = false;
         bool inhib = false;
-        uint32_t player;
+        uint32_t player = 0;
     };
 
     struct Place {

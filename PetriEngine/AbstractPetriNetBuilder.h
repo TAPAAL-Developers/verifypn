@@ -105,6 +105,8 @@ namespace PetriEngine {
         virtual bool isColored() const {
             return _isColored;
         }
+        
+        virtual bool isGame() const = 0;
 
         virtual void sort() = 0;
         

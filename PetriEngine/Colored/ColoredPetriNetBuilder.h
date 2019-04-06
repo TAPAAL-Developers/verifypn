@@ -61,6 +61,7 @@ namespace PetriEngine {
         void addColorType(const std::string& id,
                 Colored::ColorType* type) override;
 
+        bool isGame() const override;
 
         void sort() override;
 

@@ -532,6 +532,7 @@ ReturnValue parseModel(AbstractPetriNetBuilder& builder, options_t& options)
     PNMLParser parser;
     parser.parse(mfile, &builder);
     options.isCPN = builder.isColored();
+    options.isGame = builder.isGame();
 
     // Close the file
     mfile.close();
@@ -675,6 +676,29 @@ int main(int argc, char* argv[]) {
         std::cerr << "CPN OverApproximation is only usable on colored models" << std::endl;
         return UnknownCode;
     }
+    if(options.isGame)
+    {
+        if(options.cpnOverApprox)
+        {
+            std::cerr << "CPN OverApproximation is not available for synthesis" << std::endl;
+            return UnknownCode;        
+        }
+        if(options.enablereduction != 0)
+        {
+            std::cerr << "Reductions are not available for synthesis" << std::endl;
+            return UnknownCode;
+        }
+        if(options.queryReductionTimeout != 0)
+        {
+            std::cerr << "Query-simplification is not available for synthesis" << std::endl;
+            return UnknownCode;
+        }
+        if(options.tar != 0)
+        {
+            std::cerr << "The TAR method does not support synthesis" << std::endl;
+            return UnknownCode;
+        }
+    }
     if (options.printstatistics) {
         std::cout << "Finished parsing model" << std::endl;
     }
@@ -813,6 +837,11 @@ int main(int argc, char* argv[]) {
 
                     if (options.queryReductionTimeout > 0 && qt > 0)
                     {
+                        if(options.isGame)
+                        {
+                            std::cerr << "Query-simplification is not available for synthesis" << std::endl;
+                            exit(UnknownCode);
+                        }
                         SimplificationContext simplificationContext(qm0, qnet.get(), qt,
                                 options.lpsolveTimeout, &cache);
                         try {
@@ -958,6 +987,11 @@ int main(int argc, char* argv[]) {
         
     if (options.enablereduction == 1 || options.enablereduction == 2) {
         // Compute how many times each place appears in the query
+        if(options.isGame)
+        {
+            std::cerr << "Reductions are not available for synthesis" << std::endl;
+            return UnknownCode;
+        }
         builder.startTimer();
         builder.reduce(queries, results, options.enablereduction, options.trace, nullptr, options.reductionTimeout);
         printer.setReducer(builder.getReducer());        
@@ -987,7 +1021,12 @@ int main(int argc, char* argv[]) {
     }
     
     if (ctl_ids.size() > 0) {
-        options.isctl=true;
+        if(options.gamemode)
+        {
+            std::cerr << "Synthesis-engine does not support CTL" << std::endl;
+            return UnknownCode;                    
+        }
+
         PetriEngine::Reachability::Strategy reachabilityStrategy=options.strategy;
 
         // Assign indexes
@@ -1015,11 +1054,15 @@ int main(int argc, char* argv[]) {
         // go back to previous strategy if the program continues
         options.strategy=reachabilityStrategy;
     }
-    options.isctl=false;
     
     //----------------------- Siphon Trap ------------------------//
     
     if(options.siphontrapTimeout > 0){
+        if(options.isGame)
+        {
+            std::cerr << "Siphon trap analysis is not available for synthesis" << std::endl;
+            return UnknownCode;
+        }
         for (uint32_t i = 0; i < results.size(); i ++) {
             bool isDeadlockQuery = std::dynamic_pointer_cast<DeadlockCondition>(queries[i]) != nullptr;
  
@@ -1053,6 +1096,11 @@ int main(int argc, char* argv[]) {
 #ifdef ENABLE_TAR
     if(options.tar)
     {
+        if(options.isGame)
+        {
+            std::cerr << "The TAR method is not available for synthesis" << std::endl;
+            return UnknownCode;
+        }
         //Create reachability search strategy
         TARReachabilitySearch strategy(printer, *net, builder.getReducer(), options.kbound);
 
@@ -1064,9 +1112,14 @@ int main(int argc, char* argv[]) {
         strategy.reachable(queries, results, 
                 options.printstatistics,
                 options.trace);
+    } else
+#endif
+    if(options.isGame)
+    {
+        std::cerr << "Synthesis engine not yet implemented!" << std::endl;
+        exit(ErrorCode);
     }
     else
-#endif
     {
         ReachabilitySearch strategy(printer, *net, options.kbound);
 

@@ -50,6 +50,7 @@ namespace PetriEngine {
         void addOutputArc(const std::string& transition, const std::string& place, int weight) override;
 
         virtual void sort() override;
+        virtual bool isGame() const;
         /** Make the resulting petri net, you take ownership */
         PetriNet* makePetriNet(bool reorder = true);
         /** Make the resulting initial marking, you take ownership */
