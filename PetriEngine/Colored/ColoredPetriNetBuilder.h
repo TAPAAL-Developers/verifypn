@@ -37,9 +37,11 @@ namespace PetriEngine {
                 double x = 0,
                 double y = 0) override;
         void addTransition(const std::string& name,
+                const uint32_t player,
                 double x = 0,
                 double y = 0) override;
         void addTransition(const std::string& name,
+                const uint32_t player,
                 const Colored::GuardExpression_ptr& guard,
                 double x = 0,
                 double y = 0) override;

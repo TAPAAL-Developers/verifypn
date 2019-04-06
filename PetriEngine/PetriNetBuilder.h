@@ -40,6 +40,7 @@ namespace PetriEngine {
         PetriNetBuilder(const PetriNetBuilder& other);
         void addPlace(const std::string& name, int tokens, double x, double y) override;
         void addTransition(const std::string& name,
+                const uint32_t player,
                 double x,
                 double y) override;
         void addInputArc(const std::string& place,

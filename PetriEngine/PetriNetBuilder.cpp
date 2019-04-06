@@ -59,12 +59,13 @@ namespace PetriEngine {
         
     }
 
-    void PetriNetBuilder::addTransition(const string &name,
+    void PetriNetBuilder::addTransition(const string &name, const uint32_t player,
             double, double) {
         if(_transitionnames.count(name) == 0)
         {
             uint32_t next = _transitionnames.size();
             _transitions.emplace_back();
+            _transitions.back().player = player;
             _transitionnames[name] = next;
         }
     }
@@ -72,7 +73,8 @@ namespace PetriEngine {
     void PetriNetBuilder::addInputArc(const string &place, const string &transition, bool inhibitor, int weight) {
         if(_transitionnames.count(transition) == 0)
         {
-            addTransition(transition,0.0,0.0);
+            std::cerr << "Could not find " << transition << " exiting (it has to be defined prior to use in the XML)" << std::endl;
+            exit(ErrorCode);
         }
         if(_placenames.count(place) == 0)
         {
@@ -97,7 +99,8 @@ namespace PetriEngine {
     void PetriNetBuilder::addOutputArc(const string &transition, const string &place, int weight) {
         if(_transitionnames.count(transition) == 0)
         {
-            addTransition(transition,0,0);
+            std::cerr << "Could not find " << transition << " exiting (it has to be defined prior to use in the XML)" << std::endl;
+            exit(ErrorCode);
         }
         if(_placenames.count(place) == 0)
         {
