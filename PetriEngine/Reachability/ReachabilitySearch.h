@@ -31,18 +31,10 @@
 #include "../Structures/Queue.h"
 #include "../SuccessorGenerator.h"
 #include "../ReducingSuccessorGenerator.h"
+#include "Utils/SearhStrategies.h"
 
 namespace PetriEngine {
     namespace Reachability {
-
-        enum Strategy {
-            BFS,
-            DFS,
-            HEUR,
-            RDFS,
-            OverApprox,
-            DEFAULT
-        };
         
         /** Implements reachability check in a BFS manner using a hash table */
         class ReachabilitySearch {
@@ -65,7 +57,7 @@ namespace PetriEngine {
             void reachable(                    
                     std::vector<std::shared_ptr<PQL::Condition > >& queries,
                     std::vector<ResultPrinter::Result>& results,
-                    Strategy strategy,
+                    Utils::SearchStrategies::Strategy strategy,
                     bool usestubborn,
                     bool statespacesearch,
                     bool printstats,

@@ -1,12 +1,15 @@
 #include "FixedPointAlgorithm.h"
-#include "CTL/SearchStrategy/BFSSearch.h"
-#include "CTL/SearchStrategy/DFSSearch.h"
-#include "CTL/SearchStrategy/RDFSSearch.h"
-#include "CTL/SearchStrategy/HeuristicSearch.h"
+#include "SearchStrategy/BFSSearch.h"
+#include "SearchStrategy/DFSSearch.h"
+#include "SearchStrategy/RDFSSearch.h"
+#include "SearchStrategy/HeuristicSearch.h"
+#include "../errorcodes.h"
 
-namespace Algorithm {
-    FixedPointAlgorithm::FixedPointAlgorithm(PetriEngine::Reachability::Strategy type) {
-        using namespace PetriEngine::Reachability;
+#include <iostream>
+
+namespace DependencyGraph {
+    FixedPointAlgorithm::FixedPointAlgorithm(Utils::SearchStrategies::Strategy type) {
+        using namespace Utils::SearchStrategies;
         using namespace SearchStrategy;
         switch(type)
         {

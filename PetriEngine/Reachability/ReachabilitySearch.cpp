@@ -22,6 +22,7 @@
 #include "../PQL/Contexts.h"
 #include "../Structures/StateSet.h"
 #include "PetriEngine/SuccessorGenerator.h"
+#include "Utils/SearhStrategies.h"
 
 #include <list>
 #include <string.h>
@@ -117,7 +118,7 @@ namespace PetriEngine {
         void ReachabilitySearch::reachable(
                     std::vector<std::shared_ptr<PQL::Condition > >& queries,
                     std::vector<ResultPrinter::Result>& results,
-                    Strategy strategy,
+                    Utils::SearchStrategies::Strategy strategy,
                     bool stubbornreduction,
                     bool statespacesearch,
                     bool printstats,
@@ -126,20 +127,20 @@ namespace PetriEngine {
             bool usequeries = !statespacesearch;
 
             // if we are searching for bounds
-            if(!usequeries) strategy = BFS;
+            if(!usequeries) strategy = Utils::SearchStrategies::BFS;
             
             switch(strategy)
             {
-                case DFS:    
+                case Utils::SearchStrategies::DFS:    
                     TRYREACH(DFSQueue)                        
                     break;
-                case BFS:
+                case Utils::SearchStrategies::BFS:
                     TRYREACH(BFSQueue)
                     break;
-                case HEUR:
+                case Utils::SearchStrategies::HEUR:
                     TRYREACH(HeuristicQueue)
                     break;
-                case RDFS:
+                case Utils::SearchStrategies::RDFS:
                     TRYREACH(RDFSQueue)
                     break;
                 default:

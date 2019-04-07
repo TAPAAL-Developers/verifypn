@@ -1,7 +1,7 @@
 #ifndef CTLRESULT_H
 #define CTLRESULT_H
 
-#include "../PetriEngine/errorcodes.h"
+#include "Utils/errorcodes.h"
 #include "PetriEngine/PQL/PQL.h"
 
 #include <string>

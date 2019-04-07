@@ -49,28 +49,33 @@
 #include <iso646.h>
 #endif
 
-#include "PetriEngine/PQL/PQLParser.h"
-#include "PetriEngine/PQL/Contexts.h"
-#include "PetriEngine/Reachability/ReachabilitySearch.h"
-#ifdef ENABLE_TAR
-#include "PetriEngine/Reachability/TARReachability.h"
-#endif
-#include "PetriEngine/Reducer.h"
+#include "Utils/errorcodes.h"
+
 #include "PetriParse/QueryXMLParser.h"
 #include "PetriParse/QueryBinaryParser.h"
 #include "PetriParse/PNMLParser.h"
-#include "PetriEngine/PetriNetBuilder.h"
-#include "PetriEngine/PQL/PQL.h"
+
 #include "PetriEngine/options.h"
-#include "PetriEngine/errorcodes.h"
+
+#include "PetriEngine/PQL/PQL.h"
+#include "PetriEngine/PQL/PQLParser.h"
+#include "PetriEngine/PQL/Contexts.h"
+#include "PetriEngine/PQL/Expressions.h"
+
+#include "PetriEngine/Reducer.h"
+#include "PetriEngine/PetriNetBuilder.h"
+#include "PetriEngine/Colored/ColoredPetriNetBuilder.h"
+
 #include "PetriEngine/STSolver.h"
 #include "PetriEngine/Simplification/Member.h"
 #include "PetriEngine/Simplification/LinearPrograms.h"
 #include "PetriEngine/Simplification/Retval.h"
 
-#include "CTL/CTLEngine.h"
-#include "PetriEngine/PQL/Expressions.h"
-#include "PetriEngine/Colored/ColoredPetriNetBuilder.h"
+#include "PetriEngine/CTL/CTLEngine.h"
+#include "PetriEngine/Reachability/ReachabilitySearch.h"
+#ifdef ENABLE_TAR
+#include "PetriEngine/Reachability/TARReachability.h"
+#endif
 
 using namespace std;
 using namespace PetriEngine;
@@ -131,15 +136,15 @@ ReturnValue parseOptions(int argc, char* argv[], options_t& options)
             }
             char* s = argv[++i];
             if(strcmp(s, "BestFS") == 0)
-				options.strategy = HEUR;
+				options.strategy = Utils::SearchStrategies::HEUR;
 			else if(strcmp(s, "BFS") == 0)
-				options.strategy = BFS;
+				options.strategy = Utils::SearchStrategies::BFS;
 			else if(strcmp(s, "DFS") == 0)
-				options.strategy = DFS;
+				options.strategy = Utils::SearchStrategies::DFS;
 			else if(strcmp(s, "RDFS") == 0)
-				options.strategy = RDFS;
+				options.strategy = Utils::SearchStrategies::RDFS;
 			else if(strcmp(s, "OverApprox") == 0)
-				options.strategy = OverApprox;
+				options.strategy = Utils::SearchStrategies::OverApprox;
 			else{
 				fprintf(stderr, "Argument Error: Unrecognized search strategy \"%s\"\n", s);
 				return ErrorCode;
@@ -268,10 +273,10 @@ ReturnValue parseOptions(int argc, char* argv[], options_t& options)
         else if (strcmp(argv[i], "-ctl") == 0){
             if(argc > i + 1){
                 if(strcmp(argv[i + 1], "local") == 0){
-                    options.ctlalgorithm = CTL::Local;
+                    options.ctlalgorithm = DependencyGraph::Local;
                 }
                 else if(strcmp(argv[i + 1], "czero") == 0){
-                    options.ctlalgorithm = CTL::CZero;
+                    options.ctlalgorithm = DependencyGraph::CZero;
                 }
                 else
                 {
@@ -766,7 +771,7 @@ int main(int argc, char* argv[]) {
         return ErrorCode;
     }
 
-    if (options.strategy == PetriEngine::Reachability::OverApprox && options.queryReductionTimeout == 0)
+    if (options.strategy == Utils::SearchStrategies::OverApprox && options.queryReductionTimeout == 0)
     { 
         // Conflicting flags "-s OverApprox" and "-q 0"
         std::cerr << "Conflicting flags '-s OverApprox' and '-q 0'" << std::endl;
@@ -964,7 +969,7 @@ int main(int argc, char* argv[]) {
                 else if (options.printstatistics) {
                     std::cout << "Query solved by Query Simplification." << std::endl << std::endl;
                 }
-            } else if (options.strategy == PetriEngine::Reachability::OverApprox){
+            } else if (options.strategy == Utils::SearchStrategies::OverApprox){
                 results[i] = p2.printResult(i, queries[i].get(), ResultPrinter::Unknown);
                 if (options.printstatistics) {
                     std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
@@ -1027,7 +1032,7 @@ int main(int argc, char* argv[]) {
             return UnknownCode;                    
         }
 
-        PetriEngine::Reachability::Strategy reachabilityStrategy=options.strategy;
+        Utils::SearchStrategies::Strategy reachabilityStrategy = options.strategy;
 
         // Assign indexes
         if(queries.size() == 0 || contextAnalysis(cpnBuilder, builder, net.get(), queries) != ContinueCode)
@@ -1035,7 +1040,10 @@ int main(int argc, char* argv[]) {
             std::cerr << "An error occurred while assigning indexes" << std::endl;
             return ErrorCode;
         }
-        if(options.strategy == DEFAULT) options.strategy = PetriEngine::Reachability::DFS;
+        
+        if(options.strategy == Utils::SearchStrategies::DEFAULT) 
+            options.strategy = Utils::SearchStrategies::DFS;
+        
         v = CTLMain(net.get(),
             options.ctlalgorithm,
             options.strategy,
@@ -1091,7 +1099,8 @@ int main(int argc, char* argv[]) {
     contextAnalysis(cpnBuilder, builder, net.get(), queries);
 
     // Change default place-holder to default strategy
-    if(options.strategy == DEFAULT) options.strategy = PetriEngine::Reachability::HEUR;
+    if(options.strategy == Utils::SearchStrategies::DEFAULT) 
+        options.strategy = Utils::SearchStrategies::HEUR;
     
 #ifdef ENABLE_TAR
     if(options.tar)
@@ -1106,7 +1115,7 @@ int main(int argc, char* argv[]) {
 
         // Change default place-holder to default strategy
         fprintf(stdout, "Search strategy option was ignored as the TAR engine is called.\n");
-        options.strategy = PetriEngine::Reachability::DFS;
+        options.strategy = Utils::SearchStrategies::DFS;
 
         //Reachability search
         strategy.reachable(queries, results, 
@@ -1124,7 +1133,8 @@ int main(int argc, char* argv[]) {
         ReachabilitySearch strategy(printer, *net, options.kbound);
 
         // Change default place-holder to default strategy
-        if(options.strategy == DEFAULT) options.strategy = PetriEngine::Reachability::HEUR;
+        if(options.strategy == Utils::SearchStrategies::DEFAULT) 
+            options.strategy = Utils::SearchStrategies::HEUR;
 
         //Reachability search
         strategy.reachable(queries, results, 

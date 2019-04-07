@@ -19,7 +19,7 @@
 #ifndef GENERALSTATE_H
 #define GENERALSTATE_H
 
-#include "../PetriNet.h"
+#include "PetriEngine/PetriNet.h"
 
 #include <stdlib.h>
 #include <stdio.h>

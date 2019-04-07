@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <iostream>
 #include "assert.h"
-#include "CTL/DependencyGraph/Configuration.h"
+#include "../Configuration.h"
 #include "SearchStrategy.h"
 
 

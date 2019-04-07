@@ -1,11 +1,11 @@
 #include "LocalFPA.h"
-#include "../DependencyGraph/Configuration.h"
-#include "../DependencyGraph/Edge.h"
+#include "Configuration.h"
+#include "Edge.h"
 
 #include <assert.h>
 #include <iostream>
 
-bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
+bool DependencyGraph::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
 {
     using namespace DependencyGraph;
     graph = &t_graph;
@@ -70,7 +70,7 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
     return (v->assignment == ONE) ? true : false;
 }
 
-void Algorithm::LocalFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)
+void DependencyGraph::LocalFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)
 {
     assert(a == DependencyGraph::ONE);
     c->assignment = a;
@@ -91,7 +91,7 @@ void Algorithm::LocalFPA::finalAssign(DependencyGraph::Configuration *c, Depende
     c->dependency_set.clear();
 }
 
-void Algorithm::LocalFPA::explore(DependencyGraph::Configuration *c)
+void DependencyGraph::LocalFPA::explore(DependencyGraph::Configuration *c)
 {
     assert(c->assignment == DependencyGraph::UNKNOWN);
     c->assignment = DependencyGraph::ZERO;
@@ -107,7 +107,7 @@ void Algorithm::LocalFPA::explore(DependencyGraph::Configuration *c)
     _numberOfEdges += succs.size();
 }
 
-void Algorithm::LocalFPA::addDependency(DependencyGraph::Edge *e, DependencyGraph::Configuration *target)
+void DependencyGraph::LocalFPA::addDependency(DependencyGraph::Edge *e, DependencyGraph::Configuration *target)
 {
     unsigned int sDist = e->is_negated ? e->source->getDistance() + 1 : e->source->getDistance();
     unsigned int tDist = target->getDistance();

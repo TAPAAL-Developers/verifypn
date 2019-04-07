@@ -19,7 +19,7 @@
  */
 #include "Contexts.h"
 #include "Expressions.h"
-#include "PetriEngine/errorcodes.h"
+#include "Utils/errorcodes.h"
 
 #include <sstream>
 #include <assert.h>

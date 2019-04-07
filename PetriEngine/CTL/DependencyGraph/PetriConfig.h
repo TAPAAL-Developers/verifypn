@@ -2,7 +2,7 @@
 #define PETRICONFIG_H
 
 #include <sstream>
-#include "../DependencyGraph/Configuration.h"
+#include "Utils/DependencyGraph/Configuration.h"
 #include "PetriEngine/PQL/PQL.h"
 
 namespace PetriNets {

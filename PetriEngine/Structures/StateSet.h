@@ -19,11 +19,11 @@
 #include <unordered_map>
 #include <iostream>
 #include "State.h"
-#include "AlignedEncoder.h"
-#include "ptrie_stable.h"
-#include "ptrie_map.h"
-#include "binarywrapper.h"
-#include "../errorcodes.h"
+#include "Utils/Structures/AlignedEncoder.h"
+#include "Utils/Structures/ptrie_stable.h"
+#include "Utils/Structures/ptrie_map.h"
+#include "Utils/Structures/binarywrapper.h"
+#include "Utils/errorcodes.h"
 
 
 namespace PetriEngine {

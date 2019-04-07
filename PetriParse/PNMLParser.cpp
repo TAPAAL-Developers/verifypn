@@ -28,7 +28,7 @@
 
 
 #include "PNMLParser.h"
-#include "../PetriEngine/errorcodes.h"
+#include "Utils/errorcodes.h"
 #include "PetriEngine/PQL/Expressions.h"
 
 using namespace PetriEngine;

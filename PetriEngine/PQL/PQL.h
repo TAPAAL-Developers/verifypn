@@ -30,9 +30,9 @@
 #endif
 
 #include "../PetriNet.h"
-#include "../Structures/State.h"
-#include "../ReducingSuccessorGenerator.h"
-#include "../Simplification/LPCache.h"
+#include "PetriEngine/Structures/State.h"
+#include "PetriEngine/ReducingSuccessorGenerator.h"
+#include "PetriEngine/Simplification/LPCache.h"
 
 namespace PetriEngine {
     class ReducingSuccessorGenerator;

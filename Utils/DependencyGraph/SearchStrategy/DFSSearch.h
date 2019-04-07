@@ -1,36 +1,30 @@
-/* 
- * File:   Encoder.h
- * Author: Peter G. Jensen
- *
- * Created on March 7, 2018, 1:50 PM
- */
+#ifndef DFSSEARCH_H
+#define DFSSEARCH_H
 
-#ifndef BFSSEARCH_H
-#define BFSSEARCH_H
-#include <queue>
-#include "CTL/DependencyGraph/Edge.h"
+#include "../Edge.h"
 #include "SearchStrategy.h"
+
+#include <stack>
 
 namespace SearchStrategy {
 
 // A custom search strategy that should ensure as little overhead as possible
 // while running sequential computation.
 
-class BFSSearch : public SearchStrategy {
+class DFSSearch : public SearchStrategy {
 
 protected:
     size_t Wsize() const { return W.size(); };
     void pushToW(DependencyGraph::Edge* edge) { W.push(edge); };
     DependencyGraph::Edge* popFromW() 
     {
-        auto e = W.front();
+        auto e = W.top();
         W.pop();
         return e;
-    };    
-    std::queue<DependencyGraph::Edge*> W;
+    };
+    std::stack<DependencyGraph::Edge*> W;
 };
 
 }   // end SearchStrategy
 
-#endif /* BFSSEARCH_H */
-
+#endif // DFSSEARCH_H

@@ -1,18 +1,17 @@
 #ifndef CTLENGINE_H
 #define CTLENGINE_H
 
-#include "../PetriEngine/errorcodes.h"
-#include "../PetriEngine/PetriNet.h"
-#include "../PetriEngine/Reachability/ReachabilitySearch.h"
-
-#include "Algorithm/AlgorithmTypes.h"
+#include "PetriEngine/PetriNet.h"
 #include "PetriEngine/PQL/PQL.h"
+#include "PetriEngine/options.h"
 
-#include <set>
+#include "Utils/DependencyGraph/AlgorithmTypes.h"
+#include "Utils/SearhStrategies.h"
+#include "Utils/errorcodes.h"
 
 ReturnValue CTLMain(PetriEngine::PetriNet* net,
-                    CTL::CTLAlgorithmType algorithmtype,
-                    PetriEngine::Reachability::Strategy strategytype,
+                    DependencyGraph::AlgorithmType algorithmtype,
+                    Utils::SearchStrategies::Strategy strategytype,
                     bool gamemode,
                     bool printstatistics,
                     bool mccoutput,

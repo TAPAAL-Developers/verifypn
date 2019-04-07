@@ -2,18 +2,18 @@
 #define CERTAINZEROFPA_H
 
 #include "FixedPointAlgorithm.h"
-#include "CTL/DependencyGraph/Edge.h"
-#include "CTL/DependencyGraph/Configuration.h"
-#include "PetriEngine/Reachability/ReachabilitySearch.h"
-#include "CTL/SearchStrategy/SearchStrategy.h"
+#include "Edge.h"
+#include "Configuration.h"
+#include "../SearhStrategies.h"
+#include "SearchStrategy/SearchStrategy.h"
 
 
-namespace Algorithm {
+namespace DependencyGraph {
 
 class CertainZeroFPA : public FixedPointAlgorithm
 {
 public:
-    CertainZeroFPA(PetriEngine::Reachability::Strategy type) : FixedPointAlgorithm(type)
+    CertainZeroFPA(Utils::SearchStrategies::Strategy type) : FixedPointAlgorithm(type)
     {
     }
     virtual ~CertainZeroFPA()

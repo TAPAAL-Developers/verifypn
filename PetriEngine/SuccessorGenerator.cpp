@@ -13,7 +13,7 @@
 
 #include "SuccessorGenerator.h"
 #include "Structures/State.h"
-#include "PetriEngine/errorcodes.h"
+#include "Utils/errorcodes.h"
 
 #include <cassert>
 namespace PetriEngine {

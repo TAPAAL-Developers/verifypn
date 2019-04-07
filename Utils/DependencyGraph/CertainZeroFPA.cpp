@@ -7,7 +7,7 @@
 using namespace DependencyGraph;
 using namespace SearchStrategy;
 
-bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
+bool CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
 {
     graph = &t_graph;
 
@@ -46,7 +46,7 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
     return (vertex->assignment == ONE) ? true : false;    
 }
 
-void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
+void CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
 {
     if(e->handled) return;
     if(e->source->isDone())
@@ -139,7 +139,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
     if(e->refcnt == 0) graph->release(e);
 }
 
-void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)
+void CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)
 {
     assert(a == ONE || a == CZERO);
 
@@ -163,7 +163,7 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, D
     c->dependency_set.clear();
 }
 
-void Algorithm::CertainZeroFPA::explore(Configuration *c)
+void CertainZeroFPA::explore(Configuration *c)
 {
     
     c->assignment = ZERO;
@@ -218,7 +218,7 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c)
     strategy->flush();
 }
 
-void Algorithm::CertainZeroFPA::addDependency(Edge *e, Configuration *target)
+void CertainZeroFPA::addDependency(Edge *e, Configuration *target)
 {
     auto sDist = e->is_negated ? e->source->getDistance() + 1 : e->source->getDistance();
     auto tDist = target->getDistance();

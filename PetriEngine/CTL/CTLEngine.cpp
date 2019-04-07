@@ -1,19 +1,19 @@
 #include "CTLEngine.h"
 
-#include "PetriNets/OnTheFlyDG.h"
+#include "DependencyGraph/OnTheFlyDG.h"
 #include "CTLResult.h"
-#include "DependencyGraph/Edge.h"
+#include "Utils/DependencyGraph/Edge.h"
 
-#include "SearchStrategy/DFSSearch.h"
+#include "Utils/DependencyGraph/SearchStrategy/DFSSearch.h"
 
-#include "Algorithm/CertainZeroFPA.h"
-#include "Algorithm/LocalFPA.h"
+#include "Utils/DependencyGraph/CertainZeroFPA.h"
+#include "Utils/DependencyGraph/LocalFPA.h"
 
 #include "PetriEngine/PQL/PQL.h"
 
-#include "Stopwatch.h"
+#include "Utils/Stopwatch.h"
 #include "PetriEngine/options.h"
-#include "CTL/Algorithm/AlgorithmTypes.h"
+#include "Utils/DependencyGraph/AlgorithmTypes.h"
 
 #include <iostream>
 #include <iomanip>
@@ -25,16 +25,16 @@ using namespace std;
 using namespace PetriEngine::PQL;
 
 
-ReturnValue getAlgorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm>& algorithm,
-                         CTL::CTLAlgorithmType algorithmtype, PetriEngine::Reachability::Strategy search)
+ReturnValue getAlgorithm(std::shared_ptr<DependencyGraph::FixedPointAlgorithm>& algorithm,
+                         DependencyGraph::AlgorithmType algorithmtype, Utils::SearchStrategies::Strategy search)
 {
     switch(algorithmtype)
     {
-        case CTL::CTLAlgorithmType::Local:
-            algorithm = std::make_shared<Algorithm::LocalFPA>(search);
+        case DependencyGraph::Local:
+            algorithm = std::make_shared<DependencyGraph::LocalFPA>(search);
             break;
-        case CTL::CTLAlgorithmType::CZero:
-            algorithm = std::make_shared<Algorithm::CertainZeroFPA>(search);
+        case DependencyGraph::CZero:
+            algorithm = std::make_shared<DependencyGraph::CertainZeroFPA>(search);
             break;
         default:
             cerr << "Error: Unknown or unsupported algorithm" << endl;
@@ -55,8 +55,8 @@ void printResult(const std::string& qname, CTLResult& result, bool statisticslev
              << techniques
              << (options.isCPN ? "UNFOLDING_TO_PT " : "")
              << (options.stubbornreduction ? "STUBBORN_SETS " : "")
-             << (options.ctlalgorithm == CTL::CZero ? "CTL_CZERO " : "")
-             << (options.ctlalgorithm == CTL::Local ? "CTL_LOCAL " : "")
+             << (options.ctlalgorithm == DependencyGraph::CZero ? "CTL_CZERO " : "")
+             << (options.ctlalgorithm == DependencyGraph::Local ? "CTL_LOCAL " : "")
                 << endl << endl;
         std::cout << "Query index " << index << " was solved" << std::endl;
         cout << "Query is" << (result.result ? "" : " NOT") << " satisfied." << endl;
@@ -77,8 +77,8 @@ void printResult(const std::string& qname, CTLResult& result, bool statisticslev
 }
 
 ReturnValue CTLMain(PetriEngine::PetriNet* net,
-                    CTL::CTLAlgorithmType algorithmtype,
-                    PetriEngine::Reachability::Strategy strategytype,
+                    DependencyGraph::AlgorithmType algorithmtype,
+                    Utils::SearchStrategies::Strategy strategytype,
                     bool gamemode,
                     bool printstatistics,
                     bool mccoutput,
@@ -94,7 +94,7 @@ ReturnValue CTLMain(PetriEngine::PetriNet* net,
         CTLResult result(queries[qnum]);
         PetriNets::OnTheFlyDG graph(net, partial_order); 
         graph.setQuery(result.query);
-        std::shared_ptr<Algorithm::FixedPointAlgorithm> alg = nullptr;
+        std::shared_ptr<DependencyGraph::FixedPointAlgorithm> alg = nullptr;
         bool solved = false;
         switch(graph.initialEval())
         {

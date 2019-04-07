@@ -3,7 +3,7 @@
 
 #include "SuccessorGenerator.h"
 #include "Structures/State.h"
-#include "Structures/light_deque.h"
+#include "Utils/Structures/light_deque.h"
 #include "PQL/PQL.h"
 #include <memory>
 

@@ -2,14 +2,14 @@
  * File:   Encoder.h
  * Author: Peter G. Jensen
  *
- * Created on March 7, 2018, 1:52 PM
+ * Created on March 7, 2018, 1:51 PM
  */
 
-#ifndef RDFSSEARCH_H
-#define RDFSSEARCH_H
+#ifndef HEURISTICSEARCH_H
+#define HEURISTICSEARCH_H
 
-#include <deque>
-#include "CTL/DependencyGraph/Edge.h"
+#include <vector>
+#include "../Edge.h"
 #include "SearchStrategy.h"
 
 namespace SearchStrategy {
@@ -17,18 +17,16 @@ namespace SearchStrategy {
 // A custom search strategy that should ensure as little overhead as possible
 // while running sequential computation.
 
-class RDFSSearch : public SearchStrategy {
-public:
-    void flush();
+class HeuristicSearch : public SearchStrategy {
+
 protected:
     size_t Wsize() const;
     void pushToW(DependencyGraph::Edge* edge);
     DependencyGraph::Edge* popFromW();
     std::vector<DependencyGraph::Edge*> W;
-    size_t last_parent = 0;
 };
 
 }   // end SearchStrategy
 
-#endif /* RDFSSEARCH_H */
+#endif /* HEURISTICSEARCH_H */
 

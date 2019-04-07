@@ -1,7 +1,7 @@
 #ifndef ISEARCHSTRATEGY_H
 #define ISEARCHSTRATEGY_H
 
-#include "CTL/DependencyGraph/Edge.h"
+#include "../Edge.h"
 #include <sstream>
 
 namespace SearchStrategy {

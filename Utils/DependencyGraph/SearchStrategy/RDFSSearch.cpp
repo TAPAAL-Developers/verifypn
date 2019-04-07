@@ -6,7 +6,7 @@
  */
 
 #include "RDFSSearch.h"
-#include "CTL/DependencyGraph/Configuration.h"
+#include "../Configuration.h"
 
 namespace SearchStrategy {
 size_t RDFSSearch::Wsize() const {

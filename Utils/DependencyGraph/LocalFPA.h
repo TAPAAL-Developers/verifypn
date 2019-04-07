@@ -2,16 +2,16 @@
 #define LOCALFPA_H
 
 #include "FixedPointAlgorithm.h"
-#include "../DependencyGraph/Configuration.h"
+#include "Configuration.h"
 
-namespace Algorithm {
+namespace DependencyGraph {
 
 class LocalFPA : public FixedPointAlgorithm
 {
 
     // FixedPointAlgorithm interface
 public:
-    LocalFPA(PetriEngine::Reachability::Strategy type) : FixedPointAlgorithm(type)
+    LocalFPA(Utils::SearchStrategies::Strategy type) : FixedPointAlgorithm(type)
     {
     }
     virtual ~LocalFPA (){}

@@ -1,18 +1,18 @@
 #ifndef ONTHEFLYDG_H
 #define ONTHEFLYDG_H
 
-#include <functional>
-
-#include "CTL/DependencyGraph/BasicDependencyGraph.h"
-#include "CTL/DependencyGraph/Configuration.h"
-#include "CTL/DependencyGraph/Edge.h"
+#include "Utils/DependencyGraph/BasicDependencyGraph.h"
+#include "Utils/DependencyGraph/Configuration.h"
+#include "Utils/DependencyGraph/Edge.h"
 #include "PetriConfig.h"
 #include "PetriParse/PNMLParser.h"
 #include "PetriEngine/PQL/PQL.h"
-#include "PetriEngine/Structures/ptrie_map.h"
-#include "PetriEngine/Structures/AlignedEncoder.h"
-#include "PetriEngine/Structures/linked_bucket.h"
+#include "Utils/Structures/ptrie_map.h"
+#include "Utils/Structures/AlignedEncoder.h"
+#include "Utils/Structures/linked_bucket.h"
 #include "PetriEngine/ReducingSuccessorGenerator.h"
+
+#include <functional>
 
 namespace PetriNets {
 class OnTheFlyDG : public DependencyGraph::BasicDependencyGraph

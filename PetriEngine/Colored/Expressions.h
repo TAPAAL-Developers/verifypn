@@ -25,7 +25,7 @@
 
 #include "Colors.h"
 #include "Multiset.h"
-#include "PetriEngine/errorcodes.h"
+#include "Utils/errorcodes.h"
 
 namespace PetriEngine {
     class ColoredPetriNetBuilder;

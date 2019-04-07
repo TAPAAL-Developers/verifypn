@@ -15,7 +15,7 @@
 #define SUCCESSORGENERATOR_H
 
 #include "PetriNet.h"
-#include "Structures/State.h"
+#include "PetriEngine/Structures/State.h"
 #include <memory>
 
 namespace PetriEngine {

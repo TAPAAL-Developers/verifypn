@@ -6,9 +6,10 @@
  */
 
 #include "HeuristicSearch.h"
-#include "CTL/DependencyGraph/Edge.h"
 #include "SearchStrategy.h"
-#include "CTL/DependencyGraph/Configuration.h"
+
+#include "../Edge.h"
+#include "../Configuration.h"
 
 namespace SearchStrategy {
 

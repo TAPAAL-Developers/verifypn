@@ -8,7 +8,7 @@
 #include <string.h>
 
 #include "Reachability/ReachabilitySearch.h"
-#include "../CTL/Algorithm/AlgorithmTypes.h"
+#include "Utils/DependencyGraph/AlgorithmTypes.h"
 
 struct options_t {
 //    bool outputtrace = false;
@@ -21,7 +21,7 @@ struct options_t {
     bool statespaceexploration = false;
     bool printstatistics = true;
     std::set<size_t> querynumbers = std::set<size_t>();
-    PetriEngine::Reachability::Strategy strategy = PetriEngine::Reachability::DEFAULT;
+    Utils::SearchStrategies::Strategy strategy = Utils::SearchStrategies::DEFAULT;
     bool trace = false;
     int queryReductionTimeout = 30, lpsolveTimeout = 10;
     uint32_t siphontrapTimeout = 0;
@@ -30,7 +30,7 @@ struct options_t {
 
     //CTL Specific options
     bool gamemode = false;
-    CTL::CTLAlgorithmType ctlalgorithm = CTL::CZero;
+    DependencyGraph::AlgorithmType ctlalgorithm = DependencyGraph::CZero;
 #ifdef ENABLE_TAR
     bool tar = false;
 #endif
@@ -56,13 +56,13 @@ struct options_t {
         
         string optionsOut;
         
-        if (strategy == PetriEngine::Reachability::Strategy::BFS) {
+        if (strategy == Utils::SearchStrategies::BFS) {
             optionsOut = "\nSearch=BFS";
-        } else if (strategy == PetriEngine::Reachability::Strategy::DFS) {
+        } else if (strategy == Utils::SearchStrategies::DFS) {
             optionsOut = "\nSearch=DFS";
-        } else if (strategy == PetriEngine::Reachability::Strategy::HEUR) {
+        } else if (strategy == Utils::SearchStrategies::HEUR) {
             optionsOut = "\nSearch=HEUR";
-        } else if (strategy == PetriEngine::Reachability::Strategy::RDFS){
+        } else if (strategy == Utils::SearchStrategies::RDFS){
             optionsOut = "\nSearch=RDFS";
         } else {
             optionsOut = "\nSearch=OverApprox";
@@ -115,7 +115,7 @@ struct options_t {
         optionsOut += ",LPSolve_Timeout=" + std::to_string(lpsolveTimeout);
         
 
-        if (ctlalgorithm == CTL::CZero) {
+        if (ctlalgorithm == DependencyGraph::CZero) {
             optionsOut += ",CTLAlgorithm=CZERO";
         } else {
             optionsOut += ",CTLAlgorithm=LOCAL";
