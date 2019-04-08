@@ -24,7 +24,7 @@
 #include <vector>
 
 #include "../Structures/State.h"
-#include "ReachabilityResult.h"
+#include "../ResultPrinter.h"
 #include "../PQL/PQL.h"
 #include "../PetriNet.h"
 #include "../Structures/StateSet.h"

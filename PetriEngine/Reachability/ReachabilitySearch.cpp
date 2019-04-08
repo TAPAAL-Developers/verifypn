@@ -68,8 +68,7 @@ namespace PetriEngine {
                                                                 searchstate_t& ss, Structures::StateSetInterface* states)
         {
             return printer.printResult(i, query.get(), r,
-                            ss.expandedStates, ss.exploredStates, states->discovered(),
-                            ss.enabledTransitionsCount, states->maxTokens(), 
+                            ss.expandedStates, states->maxTokens(), 
                             states->maxPlaceBound(), states, _satisfyingMarking);  
         }
         

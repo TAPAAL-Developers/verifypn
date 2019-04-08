@@ -18,14 +18,15 @@ using namespace DependencyGraph;
 
 namespace PetriNets {
 
-OnTheFlyDG::OnTheFlyDG(PetriEngine::PetriNet *t_net, bool partial_order) : encoder(t_net->numberOfPlaces(), 0), 
-        edge_alloc(new linked_bucket_t<DependencyGraph::Edge,1024*10>(1)), 
-        conf_alloc(new linked_bucket_t<char[sizeof(PetriConfig)], 1024*1024>(1)),
-        _redgen(*t_net), _partial_order(partial_order) {
-    net = t_net;
-    n_places = t_net->numberOfPlaces();
-    n_transitions = t_net->numberOfTransitions();
-}
+OnTheFlyDG::OnTheFlyDG(PetriEngine::PetriNet& t_net, bool partial_order) 
+: 
+    net(t_net),
+    encoder(net.numberOfPlaces(), 0), 
+    n_places(net.numberOfPlaces()),
+    n_transitions(net.numberOfTransitions()),
+    edge_alloc(new linked_bucket_t<DependencyGraph::Edge,1024*10>(1)), 
+    conf_alloc(new linked_bucket_t<char[sizeof(PetriConfig)], 1024*1024>(1)),
+    _redgen(net), _partial_order(partial_order) {}
 
 
 OnTheFlyDG::~OnTheFlyDG()
@@ -45,20 +46,20 @@ OnTheFlyDG::~OnTheFlyDG()
 Condition::Result OnTheFlyDG::initialEval()
 {
     initialConfiguration();
-    EvaluationContext e(query_marking.marking(), net);
+    EvaluationContext e(query_marking.marking(), &net);
     return query->evaluate(e);
 }
 
 Condition::Result OnTheFlyDG::fastEval(Condition* query, Marking* unfolded)
 {
-    EvaluationContext e(unfolded->marking(), net);
+    EvaluationContext e(unfolded->marking(), &net);
     return query->evaluate(e);
 }
 
 
 std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
 {
-    PetriEngine::PQL::DistanceContext context(net, query_marking.marking());
+    PetriEngine::PQL::DistanceContext context(&net, query_marking.marking());
     PetriConfig *v = static_cast<PetriConfig*>(c);
     trie.unpack(v->marking, encoder.scratchpad().raw());
     encoder.decode(query_marking.marking(), encoder.scratchpad().raw());
@@ -470,8 +471,8 @@ Configuration* OnTheFlyDG::initialConfiguration()
 {
     if(working_marking.marking() == nullptr)
     {
-        working_marking.setMarking  (net->makeInitialMarking());
-        query_marking.setMarking    (net->makeInitialMarking());
+        working_marking.setMarking  (net.makeInitialMarking());
+        query_marking.setMarking    (net.makeInitialMarking());
         auto o = owner(working_marking, this->query);
         initial_config = createConfiguration(createMarking(working_marking), o, this->query);
     }
@@ -489,7 +490,7 @@ void OnTheFlyDG::nextStates(Marking& t_marking, Condition* ptr,
     auto qf = static_cast<QuantifierCondition*>(ptr);
     if(!_partial_order || ptr->getQuantifier() != E || ptr->getPath() != F || (*qf)[0]->isTemporal())
     {
-        PetriEngine::SuccessorGenerator PNGen(*net);
+        PetriEngine::SuccessorGenerator PNGen(net);
         dowork<PetriEngine::SuccessorGenerator>(PNGen, first, pre, foreach);
     }
     else

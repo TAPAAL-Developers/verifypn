@@ -23,7 +23,7 @@ namespace PetriEngine {
         delete[] col;
     }
     
-    STSolver::STSolver(Reachability::ResultPrinter& printer, const PetriNet& net, PQL::Condition * query, uint32_t depth) : printer(printer), _query(query), _net(net){
+    STSolver::STSolver(ResultPrinter& printer, const PetriNet& net, PQL::Condition * query, uint32_t depth) : printer(printer), _query(query), _net(net){
         if(depth == 0){
             _siphonDepth = _net._nplaces;
         } else {
@@ -293,11 +293,11 @@ namespace PetriEngine {
         return _ret;
     }
     
-    Reachability::ResultPrinter::Result STSolver::PrintResult(){
+    ResultPrinter::Result STSolver::PrintResult(){
         if(_ret == INFEASIBLE){
-            return printer.printResult(0, _query, Reachability::ResultPrinter::NotSatisfied);
+            return printer.printResult(0, _query, ResultPrinter::NotSatisfied);
         } else {
-            return Reachability::ResultPrinter::Unknown;
+            return ResultPrinter::Unknown;
         }
     }
     bool STSolver::timeout() const {

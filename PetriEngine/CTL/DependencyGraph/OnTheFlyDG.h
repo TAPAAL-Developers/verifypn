@@ -21,7 +21,7 @@ public:
     using Condition = PetriEngine::PQL::Condition;
     using Condition_ptr = PetriEngine::PQL::Condition_ptr;
     using Marking = PetriEngine::Structures::State;
-    OnTheFlyDG(PetriEngine::PetriNet *t_net, bool partial_order);
+    OnTheFlyDG(PetriEngine::PetriNet& t_net, bool partial_order);
 
     virtual ~OnTheFlyDG();
 
@@ -49,8 +49,8 @@ public:
 protected:
 
     //initialized from constructor
+    PetriEngine::PetriNet& net;
     AlignedEncoder encoder;
-    PetriEngine::PetriNet *net = nullptr;
     PetriConfig* initial_config;
     Marking working_marking;
     Marking query_marking;

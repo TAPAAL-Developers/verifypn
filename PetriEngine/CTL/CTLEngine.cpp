@@ -1,9 +1,9 @@
 #include "CTLEngine.h"
 
 #include "DependencyGraph/OnTheFlyDG.h"
-#include "CTLResult.h"
-#include "Utils/DependencyGraph/Edge.h"
+#include "../ResultPrinter.h"
 
+#include "Utils/DependencyGraph/Edge.h"
 #include "Utils/DependencyGraph/SearchStrategy/DFSSearch.h"
 
 #include "Utils/DependencyGraph/CertainZeroFPA.h"
@@ -22,6 +22,7 @@
 #include <vector>
 
 using namespace std;
+using namespace PetriEngine;
 using namespace PetriEngine::PQL;
 
 
@@ -43,67 +44,30 @@ ReturnValue getAlgorithm(std::shared_ptr<DependencyGraph::FixedPointAlgorithm>& 
     return ContinueCode;
 }
 
-void printResult(const std::string& qname, CTLResult& result, bool statisticslevel, bool mccouput, bool only_stats, size_t index, options_t& options){
-    const static string techniques = "TECHNIQUES COLLATERAL_PROCESSING EXPLICIT STATE_COMPRESSION SAT_SMT ";
-
-    if(!only_stats)
-    {
-        cout << endl;
-        cout << "FORMULA "
-             << qname
-             << " " << (result.result ? "TRUE" : "FALSE") << " "
-             << techniques
-             << (options.isCPN ? "UNFOLDING_TO_PT " : "")
-             << (options.stubbornreduction ? "STUBBORN_SETS " : "")
-             << (options.ctlalgorithm == DependencyGraph::CZero ? "CTL_CZERO " : "")
-             << (options.ctlalgorithm == DependencyGraph::Local ? "CTL_LOCAL " : "")
-                << endl << endl;
-        std::cout << "Query index " << index << " was solved" << std::endl;
-        cout << "Query is" << (result.result ? "" : " NOT") << " satisfied." << endl;
-
-        cout << endl;
-    }
-    if(statisticslevel){
-        cout << "STATS:" << endl;
-        cout << "	Time (seconds)    : " << setprecision(4) << result.duration / 1000 << endl;
-        cout << "	Configurations    : " << result.numberOfConfigurations << endl;
-        cout << "	Markings          : " << result.numberOfMarkings << endl;
-        cout << "	Edges             : " << result.numberOfEdges << endl;
-        cout << "	Processed Edges   : " << result.processedEdges << endl;
-        cout << "	Processed N. Edges: " << result.processedNegationEdges << endl;
-        cout << "	Explored Configs  : " << result.exploredConfigurations << endl;
-        std::cout << endl;
-    }
-}
-
-ReturnValue CTLMain(PetriEngine::PetriNet* net,
+ReturnValue CTLMain(PetriEngine::PetriNet& net,
                     DependencyGraph::AlgorithmType algorithmtype,
                     Utils::SearchStrategies::Strategy strategytype,
-                    bool gamemode,
-                    bool printstatistics,
-                    bool mccoutput,
                     bool partial_order,
-                    const std::vector<std::string>& querynames,
                     const std::vector<std::shared_ptr<Condition>>& queries,
                     const std::vector<size_t>& querynumbers,
-                    options_t& options
+                    PetriEngine::ResultPrinter& printer
         )
 {
 
     for(auto qnum : querynumbers){
-        CTLResult result(queries[qnum]);
+        ResultPrinter::DGResult result(qnum, queries[qnum].get());
         PetriNets::OnTheFlyDG graph(net, partial_order); 
-        graph.setQuery(result.query);
+        graph.setQuery(queries[qnum]);
         std::shared_ptr<DependencyGraph::FixedPointAlgorithm> alg = nullptr;
         bool solved = false;
         switch(graph.initialEval())
         {
             case Condition::Result::RFALSE:
-                result.result = false;
+                result.result = ResultPrinter::NotSatisfied;
                 solved = true;
                 break;
             case Condition::Result::RTRUE:
-                result.result = true;
+                result.result = ResultPrinter::Satisfied;
                 solved = true;
                 break;
             default:
@@ -119,7 +83,7 @@ ReturnValue CTLMain(PetriEngine::PetriNet* net,
 
             stopwatch timer;
             timer.start();
-            result.result = alg->search(graph);
+            result.result = alg->search(graph) ? ResultPrinter::Satisfied : ResultPrinter::NotSatisfied;
             timer.stop();
 
             result.duration = timer.duration();
@@ -130,7 +94,7 @@ ReturnValue CTLMain(PetriEngine::PetriNet* net,
         result.processedNegationEdges = alg ? alg->processedNegationEdges() : 0;
         result.exploredConfigurations = alg ? alg->exploredConfigurations() : 0;
         result.numberOfEdges = alg ? alg->numberOfEdges() : 0;
-        printResult(querynames[qnum], result, printstatistics, mccoutput, false, qnum, options);
+        printer.printResult(result);
     }
     return SuccessCode;
 }

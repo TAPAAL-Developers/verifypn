@@ -450,7 +450,7 @@ namespace PetriEngine {
     }
     
     void PetriNetBuilder::reduce(   std::vector<std::shared_ptr<PQL::Condition> >& queries,
-                                    std::vector<Reachability::ResultPrinter::Result>& results, 
+                                    std::vector<ResultPrinter::Result>& results, 
                                     int reductiontype, bool reconstructTrace, const PetriNet* net, int timeout)
     {
         QueryPlaceAnalysisContext placecontext(getPlaceNames(), getTransitionNames(), net);
@@ -459,11 +459,11 @@ namespace PetriEngine {
         bool contains_next = false;
         for(uint32_t i = 0; i < queries.size(); ++i)
         {
-            if(results[i] == Reachability::ResultPrinter::Unknown ||
-               results[i] == Reachability::ResultPrinter::CTL )
+            if(results[i] == ResultPrinter::Unknown ||
+               results[i] == ResultPrinter::CTL )
             {
                 queries[i]->analyze(placecontext);
-                all_reach &= (results[i] != Reachability::ResultPrinter::CTL);
+                all_reach &= (results[i] != ResultPrinter::CTL);
                 remove_loops &= !queries[i]->isLoopSensitive();
                 // There is a deadlock somewhere, if it is not alone, we cannot reduce.
                 // this has similar problems as nested next.                        

@@ -756,14 +756,14 @@ int main(int argc, char* argv[]) {
     printUnfoldingStats(cpnBuilder, options);
     builder.sort();
     std::vector<ResultPrinter::Result> results(queries.size(), ResultPrinter::Result::Unknown);
-    ResultPrinter printer(&builder, &options, querynames);
+    ResultPrinter printer(builder, options, querynames);
     
     //----------------------- Query Simplification -----------------------//
     bool alldone = options.queryReductionTimeout > 0;
     PetriNetBuilder b2(builder);
     std::unique_ptr<PetriNet> qnet(b2.makePetriNet(false));
     MarkVal* qm0 = qnet->makeInitialMarking();
-    ResultPrinter p2(&b2, &options, querynames);
+    ResultPrinter p2(b2, options, querynames);
 
     if(queries.size() == 0 || contextAnalysis(cpnBuilder, b2, qnet.get(), queries) != ContinueCode)
     {
@@ -1044,23 +1044,19 @@ int main(int argc, char* argv[]) {
         if(options.strategy == Utils::SearchStrategies::DEFAULT) 
             options.strategy = Utils::SearchStrategies::DFS;
         
-        v = CTLMain(net.get(),
+        v = CTLMain(*net.get(),
             options.ctlalgorithm,
             options.strategy,
-            options.gamemode,
-            options.printstatistics,
-            true,
             options.stubbornreduction,
-            querynames,
             queries,
             ctl_ids,
-            options);
+            printer);
 
         if (std::find(results.begin(), results.end(), ResultPrinter::Unknown) == results.end()) {
             return v;
         }
         // go back to previous strategy if the program continues
-        options.strategy=reachabilityStrategy;
+        options.strategy = reachabilityStrategy;
     }
     
     //----------------------- Siphon Trap ------------------------//
@@ -1078,7 +1074,7 @@ int main(int argc, char* argv[]) {
                 STSolver stSolver(printer, *net, queries[i].get(), options.siphonDepth);
                 stSolver.Solve(options.siphontrapTimeout);
                 results[i] = stSolver.PrintResult();
-                if (results[i] == Reachability::ResultPrinter::NotSatisfied && options.printstatistics) {
+                if (results[i] == ResultPrinter::NotSatisfied && options.printstatistics) {
                     std::cout << "Query solved by Siphon-Trap Analysis." << std::endl << std::endl;
                 }
                 if(options.printstatistics){

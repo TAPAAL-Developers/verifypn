@@ -91,11 +91,6 @@ namespace SearchStrategy{
         return m;
     }
 
-    bool SearchStrategy::available() const
-    {
-        return Wsize() > 0 || !D.empty();
-    }
-
     void SearchStrategy::releaseNegationEdges(uint32_t dist)
     {
         for(auto it = N.begin(); it != N.end(); ++it)

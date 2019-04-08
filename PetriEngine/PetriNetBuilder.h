@@ -28,7 +28,7 @@
 #include "PetriNet.h"
 #include "Reducer.h"
 #include "NetStructures.h"
-#include "Reachability/ReachabilityResult.h"
+#include "ResultPrinter.h"
 namespace PetriEngine {
     /** Builder for building engine representations of PetriNets */
     class PetriNetBuilder : public AbstractPetriNetBuilder {
@@ -81,7 +81,7 @@ namespace PetriEngine {
         }
 
         void reduce(std::vector<std::shared_ptr<PQL::Condition> >& query, 
-                    std::vector<Reachability::ResultPrinter::Result>& results, 
+                    std::vector<ResultPrinter::Result>& results, 
                     int reductiontype, bool reconstructTrace, const PetriNet* net, int timeout);
         
         size_t RemovedTransitions() const

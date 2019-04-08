@@ -271,7 +271,7 @@ namespace PetriEngine {
                 _inv = isInvariant;
             }
            
-            bool isInvariant()
+            bool isInvariant() const
             {
                 return _inv;
             }
