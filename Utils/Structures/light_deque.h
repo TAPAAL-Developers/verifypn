@@ -9,6 +9,7 @@
 #define LIGHT_DEQUE_H
 
 #include <memory>
+#include <cstring>
 
 using namespace std;
 
@@ -70,6 +71,13 @@ class light_deque
         void clear()
         {
             _front = _back = 0;
+        }
+        
+        void swap(light_deque& other) {
+            std::swap(_front, other._front);
+            std::swap(_back, other._back);
+            std::swap(_size, other._size);
+            std::swap(_data, other._data);
         }
 };
 

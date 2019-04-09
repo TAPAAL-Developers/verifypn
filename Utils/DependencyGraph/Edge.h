@@ -25,12 +25,11 @@ public:
     
     Configuration* source;
     container targets;
+    int32_t refcnt = 0;
     uint8_t status = 0;
     bool processed = false;
     bool is_negated = false;
-    int32_t refcnt = 0;
     bool handled = false;
-    uint32_t weight = 0;
 };
 }
 #endif // EDGE_H

@@ -321,7 +321,7 @@ namespace PetriEngine {
         }
 
         
-        std::pair<int,bool>  TARReachabilitySearch::isValidTrace(waiting_t& trace, z3::context& context, bool probe, Structures::State& initial, z3::expr& query, const std::vector<bool>& inq, z3::expr& param)
+        std::pair<int,bool>  TARReachabilitySearch::isValidTrace(waiting_t& trace, z3::context& context, bool probe, const MarkVal* initial, z3::expr& query, const std::vector<bool>& inq, z3::expr& param)
         {
             std::vector<z3::expr> encoded = {context.bool_val(true)};
             std::vector<uint32_t> uses(_net.numberOfPlaces(), 0);
@@ -414,7 +414,7 @@ namespace PetriEngine {
                 if(uses[i] > 0 || in_inhib[i] || inq[i])
                 {
                     string name = to_string(i) + "~i0";
-                    encoded[0] = encoded[0] && (context.int_const(name.c_str()) == context.int_val(initial.marking()[i]));
+                    encoded[0] = encoded[0] && (context.int_const(name.c_str()) == context.int_val(initial[i]));
                 }
             }
             const int to = encoded.size();
@@ -626,7 +626,7 @@ namespace PetriEngine {
         
         bool TARReachabilitySearch::tryReach(   const std::shared_ptr<PQL::Condition> & query, 
                                         std::vector<ResultPrinter::Result>& results,
-                                        bool printstats, bool printtrace, Structures::State& initial)
+                                        bool printstats, bool printtrace, const MarkVal* initial)
         {
             
             // Construct our constraints
@@ -791,7 +791,7 @@ namespace PetriEngine {
             std::cout << "INTERPOLANT AUTOMATAS : " << initial_interpols.size() << std::endl;
             if(auto upper = dynamic_cast<PQL::UnfoldedUpperBoundsCondition*>(query.get()))
             {
-                EvaluationContext eval(initial.marking(),&_net);
+                EvaluationContext eval(initial, &_net);
                 upper->evaluate(eval);
                 auto str = param.to_string();
                 size_t bound = 0;
@@ -1034,11 +1034,10 @@ namespace PetriEngine {
         {
 
             // set up working area
-            Structures::State state;
-            state.setMarking(_net.makeInitialMarking());
+            auto initial = _net.makeInitialMarking();
             
             // check initial marking
-            if(checkQueries(queries, results, state, true))
+            if(checkQueries(queries, results, initial.get(), true))
             {
                 if(printstats) printStats();
                     return;
@@ -1049,7 +1048,7 @@ namespace PetriEngine {
             {
                 if(results[i] == ResultPrinter::Unknown)
                 {
-                    bool res = tryReach(queries[i], results, printstats, printtrace, state);
+                    bool res = tryReach(queries[i], results, printstats, printtrace, initial.get());
                     if(res)
                         results[i] = ResultPrinter::Satisfied;
                     else
@@ -1064,7 +1063,7 @@ namespace PetriEngine {
 
         bool TARReachabilitySearch::checkQueries(  std::vector<std::shared_ptr<PQL::Condition > >& queries,
                                                 std::vector<ResultPrinter::Result>& results,
-                                                Structures::State& state, bool usequeries)
+                                                const MarkVal* state, bool usequeries)
         {
             if(!usequeries) return false;
             
@@ -1073,7 +1072,7 @@ namespace PetriEngine {
             {
                 if(results[i] == ResultPrinter::Unknown)
                 {
-                    EvaluationContext ec(state.marking(), &_net);
+                    EvaluationContext ec(state, &_net);
                     if(queries[i]->evaluate(ec) == Condition::RTRUE)
                         results[i] = printQuery(queries[i], i, ResultPrinter::Satisfied);
                     else

@@ -52,7 +52,7 @@ namespace PetriEngine {
         virtual void sort() override;
         virtual bool isGame() const;
         /** Make the resulting petri net, you take ownership */
-        PetriNet* makePetriNet(bool reorder = true);
+        std::unique_ptr<PetriNet> makePetriNet(bool reorder = true);
         /** Make the resulting initial marking, you take ownership */
 
         MarkVal const * initMarking()

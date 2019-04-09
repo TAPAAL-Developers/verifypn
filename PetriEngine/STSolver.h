@@ -1,7 +1,6 @@
 #ifndef STSOLVER_H
 #define STSOLVER_H
 
-#include "Structures/State.h"
 #include "ResultPrinter.h"
 
 #include "../lpsolve/lp_lib.h"

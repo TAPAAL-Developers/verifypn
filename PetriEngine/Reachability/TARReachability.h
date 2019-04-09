@@ -57,13 +57,13 @@ namespace PetriEngine {
             void printTrace(waiting_t& stack);
             bool tryReach(   const std::shared_ptr<PQL::Condition>& query, 
                                         std::vector<ResultPrinter::Result>& results,
-                                        bool printstats, bool printtrace, Structures::State& initial);
+                                        bool printstats, bool printtrace, const MarkVal* initial);
             size_t computeSimulation(size_t index, size_t sim_hint = 1, size_t simed_hint = 0);
             bool popDone(waiting_t& waiting, size_t& stepno);
             bool checkInclussion(state_t& state, std::vector<size_t>& nextinter, z3::context& ctx);
 
             void handleInvalidTrace(waiting_t& waiting, int nvalid);
-            std::pair<int,bool>  isValidTrace(waiting_t& trace, z3::context& context, bool probe, Structures::State& initial, z3::expr& query, const std::vector<bool>& inq, z3::expr& param);
+            std::pair<int,bool>  isValidTrace(waiting_t& trace, z3::context& context, bool probe, const MarkVal* initial, z3::expr& query, const std::vector<bool>& inq, z3::expr& param);
             bool findValidRange( int& from, 
                                             const int to, 
                                             z3::context& context, 
@@ -74,7 +74,7 @@ namespace PetriEngine {
             void printStats();
             bool checkQueries(  std::vector<std::shared_ptr<PQL::Condition > >&,
                                 std::vector<ResultPrinter::Result>&,
-                                Structures::State&, bool);
+                                const MarkVal*, bool);
             ResultPrinter::Result printQuery(std::shared_ptr<PQL::Condition>& query, size_t i, ResultPrinter::Result);
             
             int _kbound;

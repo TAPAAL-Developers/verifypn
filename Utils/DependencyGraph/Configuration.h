@@ -24,15 +24,14 @@ public:
     uint32_t getDistance() const { return distance; }
     void setDistance(uint32_t value) { distance = value; }
 
-    Configuration() {}
-    virtual ~Configuration();
+    Configuration() = default;
+    virtual ~Configuration() = default;
 
     bool isDone() const { return assignment == ONE || assignment == CZERO; }
 
-    Assignment assignment = UNKNOWN;
-    uint32_t owner = 0;
-    size_t nsuccs = 0;
+    uint32_t nsuccs = 0;
     std::vector<Edge*> dependency_set;
+    Assignment assignment = UNKNOWN;
 };
 
 

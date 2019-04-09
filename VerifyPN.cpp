@@ -370,9 +370,9 @@ ReturnValue parseOptions(int argc, char* argv[], options_t& options)
             printf("                        Lars Kærlund Østergaard <larsko@gmail.com>\n");
             printf("GNU GPLv3 or later <http://gnu.org/licenses/gpl.html>\n");
             return SuccessCode;
-        } else if (options.modelfile == NULL) {
+        } else if (options.modelfile == nullptr) {
             options.modelfile = argv[i];
-        } else if (options.queryfile == NULL) {
+        } else if (options.queryfile == nullptr) {
             options.queryfile = argv[i];
         } else {
 			fprintf(stderr, "Argument Error: Unrecognized option \"%s\"\n", options.modelfile);
@@ -669,7 +669,7 @@ int main(int argc, char* argv[]) {
     ReturnValue v = parseOptions(argc, argv, options);
     if(v != ContinueCode) return v;
     options.print();
-    srand (time(NULL) xor options.seed_offset);  
+    srand (time(nullptr) xor options.seed_offset);  
     ColoredPetriNetBuilder cpnBuilder;
     if(parseModel(cpnBuilder, options) != ContinueCode) 
     {
@@ -761,8 +761,8 @@ int main(int argc, char* argv[]) {
     //----------------------- Query Simplification -----------------------//
     bool alldone = options.queryReductionTimeout > 0;
     PetriNetBuilder b2(builder);
-    std::unique_ptr<PetriNet> qnet(b2.makePetriNet(false));
-    MarkVal* qm0 = qnet->makeInitialMarking();
+    auto qnet = b2.makePetriNet(false);
+    auto qm0 = qnet->makeInitialMarking();
     ResultPrinter p2(b2, options, querynames);
 
     if(queries.size() == 0 || contextAnalysis(cpnBuilder, b2, qnet.get(), queries) != ContinueCode)
@@ -815,7 +815,7 @@ int main(int argc, char* argv[]) {
                     if(!hadTo[i]) continue;
                     hadTo[i] = false;
                     negstat_t stats;            
-                    EvaluationContext context(qm0, qnet.get());
+                    EvaluationContext context(qm0.get(), qnet.get());
                     if(options.printstatistics && options.queryReductionTimeout > 0)
                     {
                         out << "\nQuery before reduction: ";
@@ -847,7 +847,7 @@ int main(int argc, char* argv[]) {
                             std::cerr << "Query-simplification is not available for synthesis" << std::endl;
                             exit(UnknownCode);
                         }
-                        SimplificationContext simplificationContext(qm0, qnet.get(), qt,
+                        SimplificationContext simplificationContext(qm0.get(), qnet.get(), qt,
                                 options.lpsolveTimeout, &cache);
                         try {
                             negstat_t stats;            
@@ -863,7 +863,7 @@ int main(int argc, char* argv[]) {
                             std::cerr << "Query reduction failed." << std::endl;
                             std::cerr << "Exception information: " << ba.what() << std::endl;
 
-                            delete[] qm0;
+                            qm0 = nullptr;
                             std::exit(ErrorCode);
                         }
 
@@ -946,7 +946,7 @@ int main(int argc, char* argv[]) {
     }
     
     qnet = nullptr;
-    delete[] qm0;
+    qm0 = nullptr;
 
     if (!options.statespaceexploration){
         for(size_t i = 0; i < queries.size(); ++i)
@@ -1004,7 +1004,7 @@ int main(int argc, char* argv[]) {
     
     printStats(builder, options);
     
-    auto net = std::unique_ptr<PetriNet>(builder.makePetriNet());
+    auto net = builder.makePetriNet();
     
     if(options.model_out_file.size() > 0)
     {

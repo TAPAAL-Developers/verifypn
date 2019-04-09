@@ -139,7 +139,7 @@ namespace PetriEngine {
         return cand;
     }
     
-    PetriNet* PetriNetBuilder::makePetriNet(bool reorder) {
+    std::unique_ptr<PetriNet> PetriNetBuilder::makePetriNet(bool reorder) {
         
         /*
          * The basic idea is to construct three arrays, the first array, 
@@ -187,7 +187,7 @@ namespace PetriEngine {
             trans_idmap[i] = std::numeric_limits<uint32_t>::max();
         }
         
-        PetriNet* net = new PetriNet(ntrans, invariants, nplaces);
+        auto net = std::unique_ptr<PetriNet>(new PetriNet(ntrans, invariants, nplaces));
         
         uint32_t next = nextPlaceId(place_cons_count, place_prod_count, place_idmap, reorder);
         uint32_t free = 0;
@@ -312,6 +312,7 @@ namespace PetriEngine {
                     --place_prod_count[post.place];
                     ++freeinv;
                 }
+                net->_players[freetrans] = (trans.player > 0) ? 2 : 1;
                 
                 trans_idmap[t] = freetrans;
                 

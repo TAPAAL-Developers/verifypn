@@ -23,7 +23,6 @@
 #include <memory>
 #include <vector>
 
-#include "../Structures/State.h"
 #include "../ResultPrinter.h"
 #include "../PQL/PQL.h"
 #include "../PetriNet.h"
@@ -80,7 +79,7 @@ namespace PetriEngine {
             void printStats(searchstate_t& s, Structures::StateSetInterface*);
             bool checkQueries(  std::vector<std::shared_ptr<PQL::Condition > >&,
                                 std::vector<ResultPrinter::Result>&,
-                                Structures::State&, searchstate_t&, Structures::StateSetInterface*);
+                                const MarkPtr&, searchstate_t&, Structures::StateSetInterface*);
             ResultPrinter::Result printQuery(std::shared_ptr<PQL::Condition>& query, size_t i, ResultPrinter::Result, searchstate_t&, Structures::StateSetInterface*);
             
             int _kbound;
@@ -103,15 +102,13 @@ namespace PetriEngine {
             ss.usequeries = usequeries;
 
             // set up working area
-            Structures::State state;
-            Structures::State working;
-            state.setMarking(_net.makeInitialMarking());
-            working.setMarking(_net.makeInitialMarking());
+            MarkPtr state = _net.makeInitialMarking();
+            MarkPtr working = _net.makeInitialMarking();
             
             W states(_net, _kbound);    // stateset
-            Q queue(&states);           // working queue
+            Q queue;                    // working queue
             G generator(_net, queries); // successor generator
-            auto r = states.add(state);
+            auto r = states.add(state.get());
             // this can fail due to reductions; we push tokens around and violate K
             if(r.first){ 
                 // add initial to states, check queries on initial state
@@ -127,21 +124,23 @@ namespace PetriEngine {
                 }
                 // add initial to queue
                 {
-                    PQL::DistanceContext dc(&_net, working.marking());
-                    queue.push(r.second, dc, queries[ss.heurquery]);
+                    PQL::DistanceContext dc(&_net, working.get());
+                    queue.push(r.second, &dc, queries[ss.heurquery].get());
                 }
 
                 // Search!
-                while (queue.pop(state)) {
-                    generator.prepare(&state);
+                size_t nid;
+                while (queue.pop(nid)) {
+                    states.decode(state.get(), nid);
+                    generator.prepare(state.get());
 
-                    while(generator.next(working)){
-                        ss.enabledTransitionsCount[generator.fired()]++;
-                        auto res = states.add(working);
+                    while(generator.next(working.get())){
+                        ++ss.enabledTransitionsCount[generator.fired()];
+                        auto res = states.add(working.get());
                         if (res.first) {
                             {
-                                PQL::DistanceContext dc(&_net, working.marking());
-                                queue.push(res.second, dc, queries[ss.heurquery]);
+                                PQL::DistanceContext dc(&_net, working.get());
+                                queue.push(res.second, &dc, queries[ss.heurquery].get());
                             }
                             states.setHistory(res.second, generator.fired());
                             _satisfyingMarking = res.second;
@@ -157,7 +156,7 @@ namespace PetriEngine {
             }
 
             // no more successors, print last results
-            for(size_t i= 0; i < queries.size(); ++i)
+            for(size_t i = 0; i < queries.size(); ++i)
             {
                 if(results[i] == ResultPrinter::Unknown)
                 {

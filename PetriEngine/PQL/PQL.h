@@ -30,7 +30,6 @@
 #endif
 
 #include "../PetriNet.h"
-#include "PetriEngine/Structures/State.h"
 #include "PetriEngine/ReducingSuccessorGenerator.h"
 #include "PetriEngine/Simplification/LPCache.h"
 

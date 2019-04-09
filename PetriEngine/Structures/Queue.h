@@ -25,28 +25,27 @@ namespace PetriEngine {
     namespace Structures {
         class Queue {
         public:
-            Queue(StateSetInterface* states);
-            virtual ~Queue();
-            virtual bool pop(Structures::State& state) = 0;
-            virtual void push(size_t id, PQL::DistanceContext&,
-                std::shared_ptr<PQL::Condition>& query) = 0;
+            Queue();
+            virtual ~Queue() = default;
+            virtual bool pop(size_t& id) = 0;
+            virtual void push(size_t id, PQL::DistanceContext* = nullptr,
+                PQL::Condition* query = nullptr) = 0;
             size_t lastPopped()
             {
                 return last;
             }
         protected:
-            StateSetInterface* _states;
             size_t last = 0;
         };
         
         class BFSQueue : public Queue {
         public:
-            BFSQueue(StateSetInterface* states);
-            virtual ~BFSQueue();
+            using Queue::Queue;
+            virtual ~BFSQueue() = default;
             
-            virtual bool pop(Structures::State& state);
-            virtual void push(size_t id, PQL::DistanceContext&,
-                std::shared_ptr<PQL::Condition>& query);
+            virtual bool pop(size_t& id);
+            virtual void push(size_t id, PQL::DistanceContext*,
+                PQL::Condition* query);
         private:
             size_t _cnt;
             size_t _nstates;
@@ -54,24 +53,24 @@ namespace PetriEngine {
         
         class DFSQueue : public Queue {
         public:
-            DFSQueue(StateSetInterface* states);
-            virtual ~DFSQueue();
+            using Queue::Queue;
+            virtual ~DFSQueue() = default;
             
-            virtual bool pop(Structures::State& state);
-            virtual void push(size_t id, PQL::DistanceContext&,
-                std::shared_ptr<PQL::Condition>& query);
+            virtual bool pop(size_t& id);
+            virtual void push(size_t id, PQL::DistanceContext*,
+                PQL::Condition* query);
         private:
             std::stack<uint32_t> _stack;
         };
         
         class RDFSQueue : public Queue {
         public:
-            RDFSQueue(StateSetInterface* states);
-            virtual ~RDFSQueue();
+            using Queue::Queue;
+            virtual ~RDFSQueue() = default;
             
-            virtual bool pop(Structures::State& state);
-            virtual void push(size_t id, PQL::DistanceContext&,
-                std::shared_ptr<PQL::Condition>& query);
+            virtual bool pop(size_t& id);
+            virtual void push(size_t id, PQL::DistanceContext*,
+                PQL::Condition* query);
         private:
             std::stack<uint32_t> _stack;
             std::vector<uint32_t> _cache;
@@ -89,13 +88,12 @@ namespace PetriEngine {
                     return weight > y.weight;
                 }
             };
-
-            HeuristicQueue(StateSetInterface* states);
-            virtual ~HeuristicQueue();
+            using Queue::Queue;
+            virtual ~HeuristicQueue() = default;
             
-            virtual bool pop(Structures::State& state);
-            virtual void push(size_t id, PQL::DistanceContext&,
-                std::shared_ptr<PQL::Condition>& query);
+            virtual bool pop(size_t& id);
+            virtual void push(size_t id, PQL::DistanceContext*,
+                PQL::Condition* query);
         private:
             std::priority_queue<weighted_t> _queue;
         };

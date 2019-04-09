@@ -36,7 +36,7 @@ namespace PetriEngine {
         
         bool ReachabilitySearch::checkQueries(  std::vector<std::shared_ptr<PQL::Condition > >& queries,
                                                 std::vector<ResultPrinter::Result>& results,
-                                                State& state,
+                                                const MarkPtr& state,
                                                 searchstate_t& ss, StateSetInterface* states)
         {
             if(!ss.usequeries) return false;
@@ -46,7 +46,7 @@ namespace PetriEngine {
             {
                 if(results[i] == ResultPrinter::Unknown)
                 {
-                    EvaluationContext ec(state.marking(), &_net);
+                    EvaluationContext ec(state.get(), &_net);
                     if(queries[i]->evaluate(ec) == Condition::RTRUE)
                     {
                         results[i] = printQuery(queries[i], i, ResultPrinter::Satisfied, ss, states);

@@ -1,6 +1,6 @@
 #include "CTLEngine.h"
 
-#include "DependencyGraph/OnTheFlyDG.h"
+#include "CTLDependencyGraph.h"
 #include "../ResultPrinter.h"
 
 #include "Utils/DependencyGraph/Edge.h"
@@ -10,9 +10,9 @@
 #include "Utils/DependencyGraph/LocalFPA.h"
 
 #include "PetriEngine/PQL/PQL.h"
+#include "PetriEngine/options.h"
 
 #include "Utils/Stopwatch.h"
-#include "PetriEngine/options.h"
 #include "Utils/DependencyGraph/AlgorithmTypes.h"
 
 #include <iostream>
@@ -21,47 +21,24 @@
 #include <sstream>
 #include <vector>
 
-using namespace std;
 using namespace PetriEngine;
 using namespace PetriEngine::PQL;
 
-
-ReturnValue getAlgorithm(std::shared_ptr<DependencyGraph::FixedPointAlgorithm>& algorithm,
-                         DependencyGraph::AlgorithmType algorithmtype, Utils::SearchStrategies::Strategy search)
-{
-    switch(algorithmtype)
-    {
-        case DependencyGraph::Local:
-            algorithm = std::make_shared<DependencyGraph::LocalFPA>(search);
-            break;
-        case DependencyGraph::CZero:
-            algorithm = std::make_shared<DependencyGraph::CertainZeroFPA>(search);
-            break;
-        default:
-            cerr << "Error: Unknown or unsupported algorithm" << endl;
-            return ErrorCode;
-    }
-    return ContinueCode;
-}
-
 ReturnValue CTLMain(PetriEngine::PetriNet& net,
-                    DependencyGraph::AlgorithmType algorithmtype,
-                    Utils::SearchStrategies::Strategy strategytype,
-                    bool partial_order,
-                    const std::vector<std::shared_ptr<Condition>>& queries,
-                    const std::vector<size_t>& querynumbers,
-                    PetriEngine::ResultPrinter& printer
-        )
-{
+        DependencyGraph::AlgorithmType algorithmtype,
+        Utils::SearchStrategies::Strategy strategytype,
+        bool partial_order,
+        const std::vector<std::shared_ptr<Condition>>&queries,
+        const std::vector<size_t>& querynumbers,
+        PetriEngine::ResultPrinter& printer
+        ) {
 
-    for(auto qnum : querynumbers){
+    for (auto qnum : querynumbers) {
         ResultPrinter::DGResult result(qnum, queries[qnum].get());
-        PetriNets::OnTheFlyDG graph(net, partial_order); 
-        graph.setQuery(queries[qnum]);
+        PetriEngine::CTLDependencyGraph graph(net, queries[qnum], partial_order);
         std::shared_ptr<DependencyGraph::FixedPointAlgorithm> alg = nullptr;
         bool solved = false;
-        switch(graph.initialEval())
-        {
+        switch (graph.initialEval()) {
             case Condition::Result::RFALSE:
                 result.result = ResultPrinter::NotSatisfied;
                 solved = true;
@@ -73,11 +50,9 @@ ReturnValue CTLMain(PetriEngine::PetriNet& net,
             default:
                 break;
         }
-        
-        if(!solved)
-        {            
-            if(getAlgorithm(alg, algorithmtype,  strategytype) == ErrorCode)
-            {
+
+        if (!solved) {
+            if (DependencyGraph::FixedPointAlgorithm::getAlgorithm(alg, algorithmtype, strategytype) == ErrorCode) {
                 return ErrorCode;
             }
 
@@ -85,7 +60,6 @@ ReturnValue CTLMain(PetriEngine::PetriNet& net,
             timer.start();
             result.result = alg->search(graph) ? ResultPrinter::Satisfied : ResultPrinter::NotSatisfied;
             timer.stop();
-
             result.duration = timer.duration();
         }
         result.numberOfConfigurations = graph.configurationCount();

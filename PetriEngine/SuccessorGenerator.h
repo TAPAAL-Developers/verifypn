@@ -15,24 +15,23 @@
 #define SUCCESSORGENERATOR_H
 
 #include "PetriNet.h"
-#include "PetriEngine/Structures/State.h"
 #include <memory>
 
 namespace PetriEngine {
 class SuccessorGenerator {
 public:
-    SuccessorGenerator(const PetriNet& net);
-    SuccessorGenerator(const PetriNet& net, std::vector<std::shared_ptr<PQL::Condition> >& queries);
+    SuccessorGenerator(const PetriNet& net, bool is_game = false);
+    SuccessorGenerator(const PetriNet& net, std::vector<std::shared_ptr<PQL::Condition> >& queries, bool is_game = false);
     virtual ~SuccessorGenerator();
-    void prepare(const Structures::State* state);
-    bool next(Structures::State& write);
+    void prepare(const MarkVal* state, PetriNet::player_t player = PetriNet::ANY);
+    bool next(MarkVal* write);
     uint32_t fired()
     {
         return _suc_tcounter -1;
     }
         
     const MarkVal* parent() const {
-        return _parent->marking();
+        return _parent;
     }
 
     void reset();
@@ -52,19 +51,21 @@ protected:
      * @param write, a marking to consume from
      * @param t, a transition to fire
      */
-    void consumePreset(Structures::State& write, uint32_t t);
+    void consumePreset(MarkVal* write, uint32_t t);
 
     /**
      * Produces tokens in write, given by t
      * @param write, a marking to produce to
      * @param t, a transition to fire
      */
-    void producePostset(Structures::State& write, uint32_t t);
-private:
+    void producePostset(MarkVal* write, uint32_t t);
+protected:
     const PetriNet& _net;
-    const Structures::State* _parent;
+    const MarkVal* _parent;
     uint32_t _suc_pcounter;
     uint32_t _suc_tcounter;
+    PetriNet::player_t _player;
+    bool _is_game = false;
 
     friend class ReducingSuccessorGenerator;
 };

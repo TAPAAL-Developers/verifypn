@@ -20,20 +20,13 @@
 
 namespace PetriEngine {
     namespace Structures {
-        Queue::Queue(StateSetInterface* states) : _states(states) {} 
+        Queue::Queue() {} 
 
-        Queue::~Queue() {
-        }
-        
-        
-        BFSQueue::BFSQueue(StateSetInterface* states) : Queue(states), _cnt(0), _nstates(0) {}
-        BFSQueue::~BFSQueue(){}
-                
-        bool BFSQueue::pop(Structures::State& state)
+        bool BFSQueue::pop(size_t& id)
         {
             if(_cnt < _nstates)
             {
-                _states->decode(state, _cnt);
+                id = _cnt;
                 ++_cnt;
                 return true;
             }
@@ -43,54 +36,45 @@ namespace PetriEngine {
             }
         }
         
-        void BFSQueue::push(size_t id, PQL::DistanceContext&,
-            std::shared_ptr<PQL::Condition>& query)
+        void BFSQueue::push(size_t id, PQL::DistanceContext*,
+                PQL::Condition* query)
         {
             ++_nstates;
             // nothing
         }
         
-        DFSQueue::DFSQueue(StateSetInterface* states) : Queue(states) {}
-        DFSQueue::~DFSQueue(){}
-                
-        bool DFSQueue::pop(Structures::State& state)
+        bool DFSQueue::pop(size_t& id)
         {
             if(_stack.empty()) return false;
-            uint32_t n = _stack.top();
+            id = _stack.top();
             _stack.pop();
-            _states->decode(state, n);
             return true;
         }
         
-        void DFSQueue::push(size_t id, PQL::DistanceContext&,
-            std::shared_ptr<PQL::Condition>& query)
+        void DFSQueue::push(size_t id, PQL::DistanceContext*,
+                PQL::Condition* query)
         {
             _stack.push(id);
         }
-        
-        RDFSQueue::RDFSQueue(StateSetInterface* states) : Queue(states) {}
-        RDFSQueue::~RDFSQueue(){}
         
 	size_t genrand(size_t i)
 	{
 		return std::rand() % i;
 	}
         
-        bool RDFSQueue::pop(Structures::State& state)
+        bool RDFSQueue::pop(size_t& id)
         {
             if(_cache.empty())
             {
                 if(_stack.empty()) return false;
-                uint32_t n = _stack.top();
+                id = _stack.top();
                 _stack.pop();
-                _states->decode(state, n);
                 return true;                
             }
             else
             {
                 std::random_shuffle ( _cache.begin(), _cache.end(), genrand );
-		uint32_t n = _cache.back();
-                _states->decode(state, n);
+		id = _cache.back();
                 for(size_t i = 0; i < (_cache.size() - 1); ++i)
                 {
                     _stack.push(_cache[i]);
@@ -100,29 +84,25 @@ namespace PetriEngine {
             }
         }
         
-        void RDFSQueue::push(size_t id, PQL::DistanceContext&,
-            std::shared_ptr<PQL::Condition>& query)
+        void RDFSQueue::push(size_t id, PQL::DistanceContext*,
+                PQL::Condition* query)
         {
             _cache.push_back(id);
         }
         
-        HeuristicQueue::HeuristicQueue(StateSetInterface* states) : Queue(states) {}
-        HeuristicQueue::~HeuristicQueue(){}
-                
-        bool HeuristicQueue::pop(Structures::State& state)
+        bool HeuristicQueue::pop(size_t& id)
         {
             if(_queue.empty()) return false;
-            uint32_t n = _queue.top().item;
+            id = _queue.top().item;
             _queue.pop();
-            _states->decode(state, n);
             return true;
         }
         
-        void HeuristicQueue::push(size_t id, PQL::DistanceContext& context,
-            std::shared_ptr<PQL::Condition>& query)
+        void HeuristicQueue::push(size_t id, PQL::DistanceContext* context,
+                PQL::Condition* query)
         {
             // invert result, highest numbers are on top!
-            uint32_t dist = query->distance(context);
+            uint32_t dist = query->distance(*context);
             _queue.emplace(dist, (uint32_t)id);
         }
 

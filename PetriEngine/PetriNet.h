@@ -25,15 +25,12 @@
 #include <climits>
 #include <limits>
 #include <iostream>
+#include <memory>
 
 namespace PetriEngine {
 
     namespace PQL {
         class Condition;
-    }
-
-    namespace Structures {
-        class State;
     }
 
     class PetriNetBuilder;
@@ -54,19 +51,23 @@ namespace PetriEngine {
     
     /** Type used for holding markings values */
     typedef uint32_t MarkVal;
+    typedef std::unique_ptr<MarkVal[]> MarkPtr;
 
     /** Efficient representation of PetriNet */
     class PetriNet {
         PetriNet(uint32_t transitions, uint32_t invariants, uint32_t places);
     public:
+        typedef uint8_t player_t;
+
         ~PetriNet();
         
-        MarkVal* makeInitialMarking();
+        MarkPtr makeInitialMarking();
         /** Fire transition if possible and store result in result */
         bool deadlocked(const MarkVal* marking) const;
         bool fireable(const MarkVal* marking, int transitionIndex);
         std::pair<const Invariant*, const Invariant*> preset(uint32_t id) const;
         std::pair<const Invariant*, const Invariant*> postset(uint32_t id) const;
+        bool ownedBy(uint32_t t, player_t p) const;
         uint32_t numberOfTransitions() const {
             return _ntransitions;
         }
@@ -102,7 +103,11 @@ namespace PetriEngine {
         void sort();
         
         void toXML(std::ostream& out);
-
+        
+        static constexpr player_t CTRL = 1;
+        static constexpr player_t ENV = 2;
+        static constexpr player_t ANY = 0xFF;
+        
     private:        
 
         /** Number of x variables
@@ -111,6 +116,8 @@ namespace PetriEngine {
          */
         uint32_t _ninvariants, _ntransitions, _nplaces;
 
+        // transitions to players. To avoid overhead during normal verification.
+        std::vector<uint8_t> _players; // bool for now (ctrl==1, unctrl=2)
         std::vector<TransPtr> _transitions;
         std::vector<Invariant> _invariants;
         std::vector<uint32_t> _placeToPtrs;
@@ -124,7 +131,6 @@ namespace PetriEngine {
         friend class SuccessorGenerator;
         friend class ReducingSuccessorGenerator;
         friend class STSolver;
-        friend class Filter;
     };
 
 } // PetriEngine

@@ -18,7 +18,6 @@
 #define STATESET_H
 #include <unordered_map>
 #include <iostream>
-#include "State.h"
 #include "Utils/Structures/AlignedEncoder.h"
 #include "Utils/Structures/ptrie_stable.h"
 #include "Utils/Structures/ptrie_map.h"
@@ -42,9 +41,9 @@ namespace PetriEngine {
                 _sp = binarywrapper_t(sizeof(uint32_t)*_net.numberOfPlaces()*8);
             }
             
-            virtual std::pair<bool, size_t> add(State& state) = 0;
+            virtual std::pair<bool, size_t> add(const MarkVal* state) = 0;
             
-            virtual void decode(State& state, size_t id) = 0;
+            virtual void decode(MarkVal* state, size_t id) = 0;
             
             const PetriNet& net() { return _net;}
             
@@ -64,18 +63,18 @@ namespace PetriEngine {
             std::vector<uint32_t*> _dbg;
 #endif
             template<typename T>
-            void _decode(State& state, size_t id, T& _trie)
+            void _decode(MarkVal* state, size_t id, T& _trie)
             {
                     _trie.unpack(id, _encoder.scratchpad().raw());
-                    _encoder.decode(state.marking(), _encoder.scratchpad().raw());
+                    _encoder.decode(state, _encoder.scratchpad().raw());
 
 #ifdef DEBUG
-                    assert(memcmp(state.marking(), _dbg[id], sizeof(uint32_t)*_net.numberOfPlaces()) == 0);
+                    assert(memcmp(state, _dbg[id], sizeof(uint32_t)*_net.numberOfPlaces()) == 0);
 #endif
             }             
             
             template<typename T>
-            std::pair<bool, size_t> _add(State& state, T& _trie) {
+            std::pair<bool, size_t> _add(const MarkVal* state, T& _trie) {
                 _discovered++;
                 
 #ifdef DEBUG
@@ -87,7 +86,7 @@ namespace PetriEngine {
                 uint32_t val = 0;
                 uint32_t active = 0;
                 uint32_t last = 0;
-                markingStats(state.marking(), sum, allsame, val, active, last);               
+                markingStats(state, sum, allsame, val, active, last);               
 
                 if (_maxTokens < sum)
                     _maxTokens = sum;
@@ -99,7 +98,7 @@ namespace PetriEngine {
                 unsigned char type = _encoder.getType(sum, active, allsame, val);
 
 
-                size_t length = _encoder.encode(state.marking(), type);
+                size_t length = _encoder.encode(state, type);
                 binarywrapper_t w = binarywrapper_t(_encoder.scratchpad().raw(), length*8);
                 auto tit = _trie.insert(w);
             
@@ -111,14 +110,14 @@ namespace PetriEngine {
                 
 #ifdef DEBUG
                 _dbg.push_back(new uint32_t[_net.numberOfPlaces()]);
-                memcpy(_dbg.back(), state.marking(), _net.numberOfPlaces()*sizeof(uint32_t));
+                memcpy(_dbg.back(), state, _net.numberOfPlaces()*sizeof(uint32_t));
                 decode(state, _trie.size() - 1);
 #endif
            
                 // update the max token bound for each place in the net (only for newly discovered markings)
                 for (uint32_t i = 0; i < _net.numberOfPlaces(); i++) 
                 {
-                    _maxPlaceBound[i] = std::max<MarkVal>( state.marking()[i],
+                    _maxPlaceBound[i] = std::max<MarkVal>( state[i],
                                                             _maxPlaceBound[i]);
                 }
 
@@ -172,12 +171,12 @@ namespace PetriEngine {
         public:
             using StateSetInterface::StateSetInterface;
              
-            virtual std::pair<bool, size_t> add(State& state) override
+            virtual std::pair<bool, size_t> add(const MarkVal* state) override
             {
                 return _add(state, _trie);
             }
             
-            virtual void decode(State& state, size_t id) override
+            virtual void decode(MarkVal* state, size_t id) override
             {
                 _decode(state, id, _trie);
             }
@@ -195,54 +194,73 @@ namespace PetriEngine {
             ptrie_t _trie;
         };
 
-        class TracableStateSet : public StateSetInterface
-        {
-        public:
-            struct traceable_t
-            {
-                ptrie::uint parent;
-                ptrie::uint transition;
-            };
-            
+        template<typename T>
+        class AnnotatedStateSet : public StateSetInterface {
         private:
-            using ptrie_t = ptrie::map<traceable_t>;
+            using wrapper_t = ptrie::binarywrapper_t;
+            using ptrie_t = ptrie::map<T>;
             
         public:
             using StateSetInterface::StateSetInterface;
-
-            virtual std::pair<bool, size_t> add(State& state) override
+             
+            virtual std::pair<bool, size_t> add(const MarkVal* state) override
             {
-#ifdef DEBUG
-                size_t tmppar = _parent; // we might change this while debugging.
-#endif
-                auto res = _add(state, _trie);
-#ifdef DEBUG
-                _parent = tmppar;
-#endif
-                return res;
+                return _add(state, _trie);
             }
             
-            virtual void decode(State& state, size_t id) override
+            virtual void decode(MarkVal* state, size_t id) override
+            {
+                _decode(state, id, _trie);
+            }
+            
+            T& get_data(size_t markingid){
+                return _trie.get_data(markingid);
+            }
+
+            virtual void setHistory(size_t id, size_t transition) override {}
+
+            virtual std::pair<size_t, size_t> getHistory(size_t markingid) override
+            { 
+                assert(false); 
+                return std::make_pair(0,0); 
+            }
+            
+        protected:               
+            ptrie_t _trie;
+        };  
+
+        struct traceable_t
+        {
+            ptrie::uint parent;
+            ptrie::uint transition;
+        };
+        
+        class TracableStateSet : public AnnotatedStateSet<traceable_t>
+        {            
+            
+        public:
+            using AnnotatedStateSet<traceable_t>::AnnotatedStateSet;
+
+            virtual void decode(MarkVal* state, size_t id) override
             {
                 _parent = id;
-                _decode(state, id, _trie);
+                AnnotatedStateSet<traceable_t>::decode(state, id);
             }
                        
             virtual void setHistory(size_t id, size_t transition) override 
             {
-                traceable_t& t = _trie.get_data(id);
+                traceable_t& t = get_data(id);
                 t.parent = _parent;
                 t.transition = transition;
             }
             
             virtual std::pair<size_t, size_t> getHistory(size_t markingid) override
             {
-                traceable_t& t = _trie.get_data(markingid);
+                traceable_t& t = get_data(markingid);
                 return std::pair<size_t, size_t>(t.parent, t.transition);
             }
             
         private:
-            ptrie_t _trie;
             size_t _parent = 0;
         };
         

@@ -2,7 +2,6 @@
 #define PETRIENGINE_REDUCINGSUCCESSORGENERATOR_H_
 
 #include "SuccessorGenerator.h"
-#include "Structures/State.h"
 #include "Utils/Structures/light_deque.h"
 #include "PQL/PQL.h"
 #include <memory>
@@ -25,11 +24,11 @@ public:
             return index < t.index;
         }
     };
-    ReducingSuccessorGenerator(const PetriNet& net);
-    ReducingSuccessorGenerator(const PetriNet& net, std::vector<std::shared_ptr<PQL::Condition> >& queries);
-    virtual ~ReducingSuccessorGenerator();
-    void prepare(const Structures::State* state);
-    bool next(Structures::State& write);
+    ReducingSuccessorGenerator(const PetriNet& net, bool is_game = false);
+    ReducingSuccessorGenerator(const PetriNet& net, std::vector<std::shared_ptr<PQL::Condition> >& queries, bool is_game = false);
+    virtual ~ReducingSuccessorGenerator() = default;
+    void prepare(const MarkVal* state, PetriNet::player_t player = PetriNet::ANY);
+    bool next(MarkVal* write);
     void presetOf(uint32_t place, bool make_closure = false);
     void postsetOf(uint32_t place, bool make_closure = false);
     void postPresetOf(uint32_t t, bool make_closure = false);
@@ -47,21 +46,23 @@ public:
 private:
     inline void addToStub(uint32_t t);
     void closure();
-    bool *_enabled, *_stubborn;
-    std::unique_ptr<uint8_t> _places_seen;
+    std::unique_ptr<uint8_t[]> _stub_enable;
+    std::unique_ptr<uint8_t[]> _places_seen;
     std::unique_ptr<place_t[]> _places;
     std::unique_ptr<trans_t[]> _transitions;
-    light_deque<uint32_t> _unprocessed, _ordering;
-    uint32_t *_dependency;
+    light_deque<uint32_t> _unprocessed, _ordering, _remaining;
+    std::unique_ptr<uint32_t[]> _dependency;
     uint32_t _current;
     bool _netContainsInhibitorArcs;
     std::vector<std::vector<uint32_t>> _inhibpost;
-    
     std::vector<PQL::Condition* > _queries;
     void constructEnabled();
     void constructPrePost();
     void constructDependency();
     void checkForInhibitor();
+    
+    static constexpr uint8_t ENABLED = 1;
+    static constexpr uint8_t STUBBORN = 2;
 };
 }
 

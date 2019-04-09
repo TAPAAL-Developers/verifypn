@@ -1,9 +1,13 @@
 #ifndef FIXEDPOINTALGORITHM_H
 #define FIXEDPOINTALGORITHM_H
 
-#include "BasicDependencyGraph.h"
 #include "SearchStrategy/SearchStrategy.h"
+
+#include "BasicDependencyGraph.h"
+#include "AlgorithmTypes.h"
+
 #include "../SearhStrategies.h"
+#include "../errorcodes.h"
 
 #include <memory>
 
@@ -19,6 +23,8 @@ public:
     size_t processedNegationEdges() const { return _processedNegationEdges; }
     size_t exploredConfigurations() const { return _exploredConfigurations; }
     size_t numberOfEdges() const { return _numberOfEdges; }
+    static ReturnValue getAlgorithm(std::shared_ptr<DependencyGraph::FixedPointAlgorithm>& algorithm,
+                         DependencyGraph::AlgorithmType algorithmtype, Utils::SearchStrategies::Strategy search);
 protected:
     std::shared_ptr<SearchStrategy::SearchStrategy> strategy;
     //total number of processed edges
