@@ -1,7 +1,10 @@
 #include "ReducingSuccessorGenerator.h"
 
-#include <assert.h>
 #include "PQL/Contexts.h"
+
+#include <assert.h>
+#include <stack>
+#include <unistd.h>
 
 namespace PetriEngine {
 
@@ -10,10 +13,12 @@ namespace PetriEngine {
         _stub_enable = std::make_unique<uint8_t[]>(net._ntransitions);
         _dependency = std::make_unique<uint32_t[]>(net._ntransitions);
         _places_seen = std::make_unique<uint8_t[]>(_net.numberOfPlaces());
+        _cycle_places = std::make_unique<bool[]>(_net.numberOfPlaces());
         reset();
         constructPrePost();
         constructDependency();
-        checkForInhibitor();      
+        checkForInhibitor();
+        computeCycles();
     }
 
     ReducingSuccessorGenerator::ReducingSuccessorGenerator(const PetriNet& net, std::vector<std::shared_ptr<PQL::Condition> >& queries, bool is_game) : ReducingSuccessorGenerator(net, is_game) {
@@ -21,6 +26,74 @@ namespace PetriEngine {
         for(auto& q : queries)
             _queries.push_back(q.get());
     }
+
+    void ReducingSuccessorGenerator::computeSCC(uint32_t v, uint32_t& index, tarjan_t* data, std::stack<uint32_t>& stack) {
+        // tarjans algorithm : https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm
+        // TODO: Make this iterative (we could exceed the stacksize here)
+        auto& vd = data[v];
+        vd.index = index;
+        vd.lowlink = index;
+        ++index;
+        stack.push(v);
+        vd.on_stack = true;
+        // we should make this iterative and not recursive
+        for(auto tp = _places[v].post; tp < _places[v+1].pre; ++tp)
+        {
+            auto t = _transitions[tp].index;
+            auto post = _net.postset(t);
+            auto it = post.first;
+            for(; it != post.second; ++it)
+            {
+                // only if we do not decrement (otherwise it would be finite)
+                if(it->inhibitor) continue;
+                if(it->place == v && it->direction >= 0)
+                {
+                    // selfloop, no need to continue SCC computation here
+                    assert(it->tokens > 0);
+                    _cycle_places[it->place] = true;
+                    continue;
+                }
+                if(it->place != v && it->direction > 0)
+                {   // only if we increment something in the post
+                    assert(it->tokens > 0);
+                    auto& wd = data[it->place];
+                    if(wd.index == 0)
+                    {
+                        computeSCC(it->place, index, data, stack);
+                        vd.lowlink = std::min(vd.lowlink, wd.lowlink);
+                    }
+                    else if(wd.on_stack)
+                    {
+                        // an SCC
+                        vd.lowlink = std::min(vd.lowlink, wd.index);
+                    }
+                }
+            }        
+        }
+        if(vd.lowlink == vd.index)
+        {
+            // everything in between is an SCC
+            uint32_t w;
+            do {
+                w = stack.top();
+                stack.pop();
+                data[w].on_stack = false;
+                _cycle_places[w] = true;
+            } while(w != v);
+        }
+    }
+
+    
+    void ReducingSuccessorGenerator::computeCycles() {
+        // standard DFS cycle detection
+        auto data = std::make_unique<tarjan_t[]>(_net._nplaces);
+        std::stack<uint32_t> stack;
+        uint32_t index = 1;
+        for(size_t p = 0; p < _net._nplaces; ++p)
+            if(data[p].index == 0)
+                computeSCC(p, index, data.get(), stack);
+    }
+
 
     
     void ReducingSuccessorGenerator::checkForInhibitor(){

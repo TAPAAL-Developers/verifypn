@@ -2,10 +2,11 @@
 #define PETRIENGINE_REDUCINGSUCCESSORGENERATOR_H_
 
 #include "SuccessorGenerator.h"
-#include "Utils/Structures/light_deque.h"
 #include "PQL/PQL.h"
-#include <memory>
+#include "Utils/Structures/light_deque.h"
 
+#include <memory>
+#include <stack>
 namespace PetriEngine {
 
 class ReducingSuccessorGenerator : public SuccessorGenerator {
@@ -48,6 +49,7 @@ private:
     void closure();
     std::unique_ptr<uint8_t[]> _stub_enable;
     std::unique_ptr<uint8_t[]> _places_seen;
+    std::unique_ptr<bool[]>    _cycle_places;
     std::unique_ptr<place_t[]> _places;
     std::unique_ptr<trans_t[]> _transitions;
     light_deque<uint32_t> _unprocessed, _ordering, _remaining;
@@ -60,6 +62,14 @@ private:
     void constructPrePost();
     void constructDependency();
     void checkForInhibitor();
+    
+    struct tarjan_t {
+        uint32_t index = 0;
+        uint32_t lowlink = 0;
+        bool on_stack = false;
+    };
+    void computeCycles();    
+    void computeSCC(uint32_t v, uint32_t& index, tarjan_t* data, std::stack<uint32_t>& stack);
     
     static constexpr uint8_t ENABLED = 1;
     static constexpr uint8_t STUBBORN = 2;
