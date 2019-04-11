@@ -44,7 +44,7 @@ public:
     {
         return _current;
     }
-    void setQuery(PQL::Condition* ptr) { _queries.clear(); _queries = {ptr};}
+    void setQuery(PQL::Condition* ptr, bool safety = false) { _queries.clear(); _queries = {ptr}; _is_safety = safety;}
     void reset();
 private:
     inline void addToStub(uint32_t t);

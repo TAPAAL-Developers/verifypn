@@ -36,6 +36,6 @@ namespace Utils {
             DEFAULT
         };
     }
-};
+}
 #endif /* SEARHSTRATEGIES_H */
 
