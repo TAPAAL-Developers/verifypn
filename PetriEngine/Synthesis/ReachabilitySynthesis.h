@@ -62,41 +62,25 @@ namespace PetriEngine {
                     bool permissive = false);
         private:
 
-            bool eval(PQL::Condition* cond, const MarkVal* marking) {
-                PQL::EvaluationContext ctx(marking, &_net);
-                return cond->evaluate(ctx) == PQL::Condition::RTRUE;
-            }
+            bool eval(PQL::Condition* cond, const MarkVal* marking);
 
-            bool check_bound(const MarkVal* marking) {
-                if (_kbound > 0) {
-                    size_t sum = 0;
-                    for (size_t p = 0; p < _net.numberOfPlaces(); ++p)
-                        sum += marking[p];
-                    if (_kbound < sum)
-                        return false;
-                }
-                return true;
-            }
+            bool check_bound(const MarkVal* marking);
 
             void dependers_to_waiting(SynthConfig* next, std::stack<SynthConfig*>& back, bool safety);
 
             template <typename GENERATOR, typename QUEUE>
             bool run(PQL::Condition* query, bool permissive) {
-                auto quant = dynamic_cast<PQL::QuantifierCondition*> (query);
-                if (quant == nullptr) {
-                    std::cerr << "Query is not a quantifier" << std::endl;
-                    exit(ErrorCode);
-                }
-                const bool is_safety = quant->isInvariant();
-                PQL::Condition* state_prop = (*quant)[0].get();
-                if (state_prop == nullptr) {
+                const bool is_safety = query->isInvariant();
+                if (query == nullptr) {
                     std::cerr << "Body of quantifier is null" << std::endl;
                     exit(ErrorCode);
                 }
-                if (state_prop->isTemporal()) {
+                if (query->isTemporal()) {
                     std::cerr << "Body of quantifier is temporal" << std::endl;
                     exit(ErrorCode);
                 }
+                if(is_safety)
+                    std::cerr << "SAFETY " << std::endl;
 
                 auto working = _net.makeInitialMarking();
                 auto parent = _net.makeInitialMarking();
@@ -106,25 +90,24 @@ namespace PetriEngine {
                 size_t cid;
                 size_t nid;
                 
-                auto& meta = get_config(stateset, working.get(), state_prop, is_safety, cid);
+                auto& meta = get_config(stateset, working.get(), query, is_safety, cid);
                 meta._waiting = 1;
 
                 QUEUE queue;
                 GENERATOR generator(_net, true, is_safety);
-                Structures::Queue* q = &queue;
                 std::stack<SynthConfig*> back;
+                queue.push(cid, nullptr, nullptr);
                 
                 // these could be preallocated; at most one successor pr transition
                 std::vector<std::pair<size_t, SynthConfig*>> env_buffer;
                 std::vector<std::pair<size_t, SynthConfig*>> ctrl_buffer;
                 
-                while (!meta.determined() && !permissive) {
+                while (!meta.determined() || permissive) {
                     while (!back.empty()) {
                         SynthConfig* next = back.top();
                         back.pop();
                         dependers_to_waiting(next, back, is_safety);
                     }
-
 
                     bool any = queue.pop(nid);
                     if (!any) break;
@@ -140,11 +123,13 @@ namespace PetriEngine {
                     stateset.decode(parent.get(), nid);
                     generator.prepare(parent.get());
                     // first try all environment choices (if one is losing, everything is lost)
+                    std::cerr << "ENV " << std::endl;
                     while (generator.next(working.get())) {
-                        auto& child = get_config(stateset, working.get(), state_prop, is_safety, cid);
+                        auto& child = get_config(stateset, working.get(), query, is_safety, cid);
                         if (child._state == SynthConfig::LOSING)
                         {
                             // Environment can force a lose
+                            std::cerr << "CHILD LOSE " << std::endl;
                             cconf._state = SynthConfig::LOSING;
                             break;
                         }
@@ -155,6 +140,7 @@ namespace PetriEngine {
                             if(is_safety) continue; // would make ctrl win
                             else 
                             {
+                                std::cerr << "SELFLOOP" << std::endl;
                                 cconf._state = SynthConfig::LOSING; // env wins surely
                                 break;                                
                             }
@@ -166,9 +152,10 @@ namespace PetriEngine {
                     if(!cconf.determined())
                     {
                         bool some = false;
+                        std::cerr << "CTRL " << std::endl;
                         while (generator.next(working.get())) {
                             some = true;
-                            auto& child = get_config(stateset, working.get(), state_prop, is_safety, cid);
+                            auto& child = get_config(stateset, working.get(), query, is_safety, cid);
                             if(&child == &cconf)
                             {
                                 if(is_safety)
@@ -227,7 +214,7 @@ namespace PetriEngine {
                         {
                             if(c.second->_waiting == 0)
                             {
-                                q->push(c.first);
+                                queue.push(c.first, nullptr, nullptr);
                                 c.second->_waiting = 1;
                             }
                             c.second->_dependers.emplace_front(true, &cconf);
@@ -237,7 +224,7 @@ namespace PetriEngine {
                         {
                             if(c.second->_waiting == 0)
                             {
-                                q->push(c.first);
+                                queue.push(c.first, nullptr, nullptr);
                                 c.second->_waiting = 1;
                             }
                             c.second->_dependers.emplace_front(false, &cconf);
@@ -249,30 +236,7 @@ namespace PetriEngine {
                 return meta._state == meta.LOSING;
             }
 
-            SynthConfig& get_config(Structures::AnnotatedStateSet<SynthConfig>& stateset, const MarkVal* marking, PQL::Condition* prop, bool is_safety, size_t& cid) {
-                auto res = stateset.add(marking);
-                SynthConfig& meta = stateset.get_data(res.second);
-                if (res.first) {
-                    meta = {SynthConfig::UNKNOWN, false, 0, 0, SynthConfig::depends_t()};
-                    if (!check_bound(marking))
-                        meta._state = SynthConfig::LOSING;
-                    else {
-                        auto res = eval(prop, marking);
-                        if (is_safety) {
-                            if (res == false)
-                                meta._state = SynthConfig::LOSING;
-                            else
-                                meta._state = SynthConfig::MAYBE;
-                        } else {
-                            if (res == false)
-                                meta._state = SynthConfig::MAYBE;
-                            else
-                                meta._state = SynthConfig::WINNING;
-                        }
-                    }
-                }
-                return meta;
-            }
+            SynthConfig& get_config(Structures::AnnotatedStateSet<SynthConfig>& stateset, const MarkVal* marking, PQL::Condition* prop, bool is_safety, size_t& cid);
 
             size_t _kbound;
             PetriNet& _net;

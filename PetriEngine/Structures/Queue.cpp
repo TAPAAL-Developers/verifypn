@@ -36,6 +36,10 @@ namespace PetriEngine {
             }
         }
         
+        bool BFSQueue::empty() const {
+            return _cnt >= _nstates;
+        }
+        
         void BFSQueue::push(size_t id, PQL::DistanceContext*,
                 PQL::Condition* query)
         {
@@ -56,6 +60,11 @@ namespace PetriEngine {
         {
             _stack.push(id);
         }
+
+        bool DFSQueue::empty() const {
+            return _stack.empty();
+        }
+
         
 	size_t genrand(size_t i)
 	{
@@ -83,7 +92,12 @@ namespace PetriEngine {
                 return true;
             }
         }
-        
+
+        bool RDFSQueue::empty() const {
+            return _cache.empty() && _stack.empty();
+        }
+
+
         void RDFSQueue::push(size_t id, PQL::DistanceContext*,
                 PQL::Condition* query)
         {
@@ -104,6 +118,10 @@ namespace PetriEngine {
             // invert result, highest numbers are on top!
             uint32_t dist = query->distance(*context);
             _queue.emplace(dist, (uint32_t)id);
+        }
+
+        bool HeuristicQueue::empty() const {
+            return _queue.empty();
         }
 
     }

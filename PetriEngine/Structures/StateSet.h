@@ -105,7 +105,7 @@ namespace PetriEngine {
                 
                 if(!tit.first)
                 {
-                    return std::pair<bool, size_t>(false, std::numeric_limits<size_t>::max());
+                    return tit;
                 }
                 
 #ifdef DEBUG
@@ -124,7 +124,7 @@ namespace PetriEngine {
 #ifdef DEBUG    
                 if(_trie.size() % 100000 == 0) std::cout << "Inserted " << _trie.size() << std::endl;
 #endif     
-                return std::pair<bool, size_t>(true, tit.second);
+                return tit;
             }
 
         public:

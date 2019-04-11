@@ -101,7 +101,7 @@ namespace PetriEngine {
         virtual void enableColors() {
             _isColored = true;
         }
-
+        
         virtual bool isColored() const {
             return _isColored;
         }

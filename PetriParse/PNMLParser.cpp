@@ -69,47 +69,46 @@ void PNMLParser::parse(ifstream& xml,
     parseElement(root);
 
     //Add all the transition
-    for (TransitionIter it = transitions.begin(); it != transitions.end(); ++it)
+    for (auto& t : transitions)
         if (!isColored) {
-            builder->addTransition(it->id, it->player, it->x, it->y);
+            builder->addTransition(t.id, t.player, t.x, t.y);
         } else {
-            builder->addTransition(it->id, it->player, it->expr, it->x, it->y);
+            builder->addTransition(t.id, t.player, t.expr, t.x, t.y);
         }
 
     //Add all the arcs
-    for (ArcIter it = arcs.begin(); it != arcs.end(); it++) {
-        auto a = *it;
+    for (auto& a : arcs) {
         
         //Check that source id exists
-        if (id2name.find(it->source) == id2name.end()) {
+        if (id2name.find(a.source) == id2name.end()) {
             fprintf(stderr,
                     "XML Parsing error: Arc source with id=\"%s\" wasn't found!\n",
-                    it->source.c_str());
+                    a.source.c_str());
             continue;
         }
         //Check that target id exists
-        if (id2name.find(it->target) == id2name.end()) {
+        if (id2name.find(a.target) == id2name.end()) {
             fprintf(stderr,
                     "XML Parsing error: Arc target with id=\"%s\" wasn't found!\n",
-                    it->target.c_str());
+                    a.target.c_str());
             continue;
         }
         //Find source and target
-        NodeName source = id2name[it->source];
-        NodeName target = id2name[it->target];
+        NodeName source = id2name[a.source];
+        NodeName target = id2name[a.target];
 
         if (source.isPlace && !target.isPlace) {
             if (!isColored) {
-                builder->addInputArc(source.id, target.id, false, it->weight);
+                builder->addInputArc(source.id, target.id, false, a.weight);
             } else {
-                builder->addInputArc(source.id, target.id, it->expr);
+                builder->addInputArc(source.id, target.id, a.expr);
             }
 
         } else if (!source.isPlace && target.isPlace) {
             if (!isColored) {
-                builder->addOutputArc(source.id, target.id, it->weight);
+                builder->addOutputArc(source.id, target.id, a.weight);
             } else {
-                builder->addOutputArc(source.id, target.id, it->expr);
+                builder->addOutputArc(source.id, target.id, a.expr);
             }
         } else {
             fprintf(stderr,
@@ -136,7 +135,7 @@ void PNMLParser::parse(ifstream& xml,
     }
     
     //Unset the builder
-    this->builder = NULL;
+    this->builder = nullptr;
 
     //Cleanup
     id2name.clear();
@@ -556,6 +555,7 @@ void PNMLParser::parseTransition(rapidxml::xml_node<>* element) {
     t.y = 0;
     t.id = element->first_attribute("id")->value();
     t.expr = nullptr;
+    t.player = 0;
 
 
     for (auto it = element->first_node(); it; it = it->next_sibling()) {
@@ -570,7 +570,8 @@ void PNMLParser::parseTransition(rapidxml::xml_node<>* element) {
         } else if (strcmp(it->name(), "assignments") == 0) {
             std::cerr << "assignments not supported" << std::endl;
             exit(ErrorCode);
-        } else if (strcmp(it->name(), "player") == 0)
+        } 
+        else if (strcmp(it->name(), "player") == 0)
         {
             string text;
             parseValue(it, text);

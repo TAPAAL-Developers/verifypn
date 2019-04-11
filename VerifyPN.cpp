@@ -533,13 +533,12 @@ ReturnValue parseModel(AbstractPetriNetBuilder& builder, options_t& options)
         return ErrorCode;
     }
 
-
     //Parse and build the petri net
     PNMLParser parser;
     parser.parse(mfile, &builder);
     options.isCPN = builder.isColored();
     options.isGame = builder.isGame();
-
+    
     // Close the file
     mfile.close();
     return ContinueCode;
@@ -1125,10 +1124,8 @@ int main(int argc, char* argv[]) {
         options.strategy = Utils::SearchStrategies::HEUR;
     if(options.isGame)
     {
-        std::cerr << "Synthesis engine not yet implemented!" << std::endl;
         Synthesis::ReachabilitySynthesis strategy(printer, *net, options.kbound);
         strategy.synthesize(queries, results, options.strategy, options.stubbornreduction, false);
-        exit(ErrorCode);
     }
     else
     {

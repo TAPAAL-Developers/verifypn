@@ -117,6 +117,67 @@ namespace PetriEngine {
             }
             next->_dependers.clear();
         }
+        
+        bool ReachabilitySynthesis::check_bound(const MarkVal* marking) {
+            if (_kbound > 0) {
+                size_t sum = 0;
+                for (size_t p = 0; p < _net.numberOfPlaces(); ++p)
+                    sum += marking[p];
+                if (_kbound < sum)
+                    return false;
+            }
+            return true;
+        }
+        
+        bool ReachabilitySynthesis::eval(PQL::Condition* cond, const MarkVal* marking) {
+            PQL::EvaluationContext ctx(marking, &_net);
+            return cond->evaluate(ctx) == PQL::Condition::RTRUE;
+        }
+        
+        SynthConfig& ReachabilitySynthesis::get_config(Structures::AnnotatedStateSet<SynthConfig>& stateset, const MarkVal* marking, PQL::Condition* prop, bool is_safety, size_t& cid) {
+            auto res = stateset.add(marking);
+            cid = res.second;
+            SynthConfig& meta = stateset.get_data(res.second);
+            if (res.first) {
+                _net.print(marking);
+                std::cerr << "NEW " << &meta << " ID " << res.second << std::endl; 
+                meta = {SynthConfig::UNKNOWN, false, 0, 0, SynthConfig::depends_t()};
+                if (!check_bound(marking))
+                {
+                    std::cerr << "BOUND " << std::endl;
+                    meta._state = SynthConfig::LOSING;
+                }
+                else {
+                    auto res = eval(prop, marking);
+                    if(!res)
+                        std::cerr << "not sat" << std::endl;
+                    if (is_safety) {
+                        if (res == false)
+                        {
+                            meta._state = SynthConfig::LOSING;
+                            std::cerr << "L" << std::endl;
+                        }
+                        else
+                        {
+                            meta._state = SynthConfig::MAYBE;
+                            std::cerr << "M" << std::endl;
+                        }
+                    } else {
+                        if (res == false)
+                        {
+                            meta._state = SynthConfig::MAYBE;
+                            std::cerr << "M" << std::endl;
+                        }
+                        else
+                        {
+                            meta._state = SynthConfig::WINNING;
+                            std::cerr << "W" << std::endl;
+                        }
+                    }
+                }
+            }
+            return meta;
+        }
 
     }
 }

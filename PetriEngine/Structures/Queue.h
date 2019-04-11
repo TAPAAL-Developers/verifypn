@@ -30,6 +30,7 @@ namespace PetriEngine {
             virtual bool pop(size_t& id) = 0;
             virtual void push(size_t id, PQL::DistanceContext* = nullptr,
                 PQL::Condition* query = nullptr) = 0;
+            virtual bool empty() const = 0;
             size_t lastPopped()
             {
                 return last;
@@ -46,6 +47,7 @@ namespace PetriEngine {
             virtual bool pop(size_t& id);
             virtual void push(size_t id, PQL::DistanceContext*,
                 PQL::Condition* query);
+            virtual bool empty() const;
         private:
             size_t _cnt;
             size_t _nstates;
@@ -59,6 +61,7 @@ namespace PetriEngine {
             virtual bool pop(size_t& id);
             virtual void push(size_t id, PQL::DistanceContext*,
                 PQL::Condition* query);
+            virtual bool empty() const;
         private:
             std::stack<uint32_t> _stack;
         };
@@ -71,6 +74,7 @@ namespace PetriEngine {
             virtual bool pop(size_t& id);
             virtual void push(size_t id, PQL::DistanceContext*,
                 PQL::Condition* query);
+            virtual bool empty() const;
         private:
             std::stack<uint32_t> _stack;
             std::vector<uint32_t> _cache;
@@ -94,6 +98,7 @@ namespace PetriEngine {
             virtual bool pop(size_t& id);
             virtual void push(size_t id, PQL::DistanceContext*,
                 PQL::Condition* query);
+            virtual bool empty() const;
         private:
             std::priority_queue<weighted_t> _queue;
         };
