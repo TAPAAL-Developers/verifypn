@@ -56,7 +56,6 @@ namespace PetriEngine {
             ReturnValue synthesize(
                     std::vector<std::shared_ptr<PQL::Condition > >& queries,
                     std::vector<ResultPrinter::Result>& results,
-                    DependencyGraph::AlgorithmType algorithmtype,
                     Utils::SearchStrategies::Strategy strategy,
                     bool use_stubborn = false,
                     bool keep_strategies = false,
@@ -111,7 +110,7 @@ namespace PetriEngine {
                 meta._waiting = 1;
 
                 QUEUE queue;
-                GENERATOR generator(_net);
+                GENERATOR generator(_net, true, is_safety);
                 Structures::Queue* q = &queue;
                 std::stack<SynthConfig*> back;
                 

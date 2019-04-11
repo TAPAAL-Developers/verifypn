@@ -3647,6 +3647,7 @@ namespace PetriEngine {
                 {
                     if(!c->isSatisfied())
                     {
+                        // we could technically retry here if we add something unsafe and we are in game mode
                         c->findInteresting(generator, negated);
                         break;
                     }
@@ -3664,6 +3665,7 @@ namespace PetriEngine {
                 {
                     if(c->isSatisfied())
                     {
+                        // we could technically retry here if we add something unsafe and we are in game mode
                         c->findInteresting(generator, negated);
                         break;
                     }

@@ -75,6 +75,7 @@
 #include "PetriEngine/Reachability/ReachabilitySearch.h"
 #ifdef ENABLE_TAR
 #include "PetriEngine/Reachability/TARReachability.h"
+#include "PetriEngine/Synthesis/ReachabilitySynthesis.h"
 #endif
 
 using namespace std;
@@ -1119,18 +1120,19 @@ int main(int argc, char* argv[]) {
                 options.trace);
     } else
 #endif
+    // Change default place-holder to default strategy
+    if(options.strategy == Utils::SearchStrategies::DEFAULT) 
+        options.strategy = Utils::SearchStrategies::HEUR;
     if(options.isGame)
     {
         std::cerr << "Synthesis engine not yet implemented!" << std::endl;
+        Synthesis::ReachabilitySynthesis strategy(printer, *net, options.kbound);
+        strategy.synthesize(queries, results, options.strategy, options.stubbornreduction, false);
         exit(ErrorCode);
     }
     else
     {
         ReachabilitySearch strategy(printer, *net, options.kbound);
-
-        // Change default place-holder to default strategy
-        if(options.strategy == Utils::SearchStrategies::DEFAULT) 
-            options.strategy = Utils::SearchStrategies::HEUR;
 
         //Reachability search
         strategy.reachable(queries, results, 

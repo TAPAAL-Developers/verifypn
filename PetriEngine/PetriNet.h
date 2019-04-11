@@ -68,6 +68,7 @@ namespace PetriEngine {
         std::pair<const Invariant*, const Invariant*> preset(uint32_t id) const;
         std::pair<const Invariant*, const Invariant*> postset(uint32_t id) const;
         bool ownedBy(uint32_t t, player_t p) const;
+        player_t owner(uint32_t t) const { return _players[t]; }
         uint32_t numberOfTransitions() const {
             return _ntransitions;
         }
@@ -103,10 +104,11 @@ namespace PetriEngine {
         void sort();
         
         void toXML(std::ostream& out);
-        
+    
+        static constexpr player_t NONE = 0;
         static constexpr player_t CTRL = 1;
         static constexpr player_t ENV = 2;
-        static constexpr player_t ANY = 0xFF;
+        static constexpr player_t ANY = CTRL | ENV;
         
     private:        
 

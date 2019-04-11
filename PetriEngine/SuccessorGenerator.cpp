@@ -18,11 +18,13 @@
 #include <cstring>
 namespace PetriEngine {
 
-    SuccessorGenerator::SuccessorGenerator(const PetriNet& net, bool is_game)
-    : _net(net), _parent(nullptr), _is_game(false) {
+    SuccessorGenerator::SuccessorGenerator(const PetriNet& net, bool is_game, bool is_safety)
+    : _net(net), _parent(nullptr), _is_game(false), _is_safety(is_safety) {
         reset();
     }
-    SuccessorGenerator::SuccessorGenerator(const PetriNet& net, std::vector<std::shared_ptr<PQL::Condition> >& queries, bool is_game) : SuccessorGenerator(net, is_game){}
+    
+    SuccessorGenerator::SuccessorGenerator(const PetriNet& net, std::vector<std::shared_ptr<PQL::Condition> >& queries, bool is_game, bool is_safety) 
+    : SuccessorGenerator(net, is_game, is_safety){}
 
     SuccessorGenerator::~SuccessorGenerator() {
     }

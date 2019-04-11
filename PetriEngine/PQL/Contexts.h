@@ -140,12 +140,10 @@ namespace PetriEngine {
 
             /** Create evaluation context, this doesn't take ownership */
             EvaluationContext(const MarkVal* marking,
-                    const PetriNet* net) {
-                _marking = marking;
-                _net = net;
-            }
+                    const PetriNet* net, bool is_game = false)
+            : _marking(marking), _net(net), _is_game(is_game) {}
             
-            EvaluationContext() {};
+            EvaluationContext() = default;
 
             const MarkVal* marking() const {
                 return _marking;
@@ -158,9 +156,13 @@ namespace PetriEngine {
             const PetriNet* net() const {
                 return _net;
             }
+            bool isGame() const {
+                return _is_game;
+            }
         private:
             const MarkVal* _marking = nullptr;
             const PetriNet* _net = nullptr;
+            const bool _is_game = false;
         };
 
         /** Context for distance computation */

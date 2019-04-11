@@ -47,7 +47,6 @@ namespace PetriEngine {
         ReturnValue ReachabilitySynthesis::synthesize(
                 std::vector<std::shared_ptr<PQL::Condition> >& queries,
                 std::vector<ResultPrinter::Result>& results,
-                DependencyGraph::AlgorithmType algorithmtype,
                 Utils::SearchStrategies::Strategy strategy,
                 bool use_stubborn,
                 bool keep_strategies,
