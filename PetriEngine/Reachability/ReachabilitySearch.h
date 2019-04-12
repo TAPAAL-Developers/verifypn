@@ -85,6 +85,7 @@ namespace PetriEngine {
             int _kbound;
             PetriNet& _net;
             size_t _satisfyingMarking = 0;
+            MarkPtr _initial;
         };
         
         template<typename Q, typename W, typename G>

@@ -13,7 +13,6 @@ namespace PetriEngine {
         _current = 0;
         _stub_enable = std::make_unique<uint8_t[]>(net._ntransitions);
         _places_seen = std::make_unique<uint8_t[]>(_net.numberOfPlaces());
-        _dependency = std::make_unique<uint32_t[]>(_net.numberOfTransitions());
         reset();
         constructPrePost();
         constructDependency();
@@ -304,7 +303,7 @@ namespace PetriEngine {
     }
 
     void ReducingSuccessorGenerator::constructDependency() {
-        memset(_dependency.get(), 0, sizeof(uint32_t)*_net._ntransitions);
+
         for (uint32_t t = 0; t < _net._ntransitions; t++) {
             uint32_t finv = _net._transitions[t].inputs;
             uint32_t linv = _net._transitions[t].outputs;
@@ -313,7 +312,7 @@ namespace PetriEngine {
                 const Invariant& inv = _net._invariants[finv];
                 uint32_t p = inv.place;
                 uint32_t ntrans = (_places[p + 1].pre - _places[p].post);
-                _dependency[t] += ntrans;
+                _transitions[t].dependency += ntrans;
             }
         }
     }
@@ -385,7 +384,7 @@ namespace PetriEngine {
             _unprocessed.push_back(t);
             if(_is_game)
             {
-                if( (_op_cand == std::numeric_limits<uint32_t>::max() || _dependency[t] < _dependency[_op_cand] )&& 
+                if( (_op_cand == std::numeric_limits<uint32_t>::max() || _transitions[t].dependency < _transitions[_op_cand].dependency )&& 
                    ((_stub_enable[t] & ENABLED) == ENABLED) &&
                    (    
                         (_is_safety && !_is_game) || 
@@ -641,7 +640,7 @@ namespace PetriEngine {
         uint32_t lval = std::numeric_limits<uint32_t>::max();
         for (uint32_t t = 0; t < _net._ntransitions; t++) {
             if ((_stub_enable[t] & ENABLED) == ENABLED) {
-                auto dep = _dependency[t];
+                auto dep = _transitions[t].dependency;
                 if (dep < lval) {
                     tLeast = t;
                     lval = dep;

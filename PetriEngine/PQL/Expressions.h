@@ -1195,9 +1195,17 @@ namespace PetriEngine {
             struct place_t {
                 std::string _name;
                 uint32_t _place = 0;
+                double _max = std::numeric_limits<double>::infinity();
+                bool _maxed_out = false;
                 place_t(const std::string& name)
                 {
                     _name = name;
+                }
+                place_t(const place_t& other, double max)
+                {
+                    _name = other._name;
+                    _place = other._place;
+                    _max = max;
                 }
                 bool operator<(const place_t& other) const{
                     return _place < other._place;
@@ -1208,13 +1216,14 @@ namespace PetriEngine {
             {
                 for(auto& s : places) _places.push_back(s);
             }
-            UnfoldedUpperBoundsCondition(const std::vector<place_t>& places, size_t max)
-                    : _places(places), _max(max) {
+            UnfoldedUpperBoundsCondition(const std::vector<place_t>& places, double max, double offset)
+                    : _places(places), _max(max), _offset(offset) {
             };
             int formulaSize() const override{
                 return _places.size();
             }
             void analyze(AnalysisContext& context) override;
+            size_t value(const MarkVal*);
             Result evaluate(const EvaluationContext& context) override;
             Result evalAndSet(const EvaluationContext& context) override;
             uint32_t distance(DistanceContext& context) const override;
@@ -1227,12 +1236,14 @@ namespace PetriEngine {
             Condition_ptr pushNegation(negstat_t&, const EvaluationContext& context, bool nested, bool negated, bool initrw) override;
             void toXML(std::ostream&, uint32_t tabs) const override;
             void findInteresting(ReducingSuccessorGenerator& generator, bool negated) const override;
-            Quantifier getQuantifier() const override { return Quantifier::EMPTY; }
+            Quantifier getQuantifier() const override { return Quantifier::UPPERBOUNDS; }
             Path getPath() const override { return Path::pError; }
             CTLType getQueryType() const override { return CTLType::EVAL; }
             bool containsNext() const override { return false; }
             bool nestedDeadlock() const override { return false; }
-            size_t bounds() const { return _bound; }
+            double bounds() const { 
+                return _offset + _bound; 
+            }
 #ifdef ENABLE_TAR
             virtual z3::expr encodeSat(const PetriNet& net, z3::context& context, std::vector<int32_t>& uses, std::vector<bool>& incremented) const;
 #endif
@@ -1243,8 +1254,8 @@ namespace PetriEngine {
         private:
             std::vector<place_t> _places;
             size_t _bound = 0;
-            size_t _max = std::numeric_limits<size_t>::max();
-
+            double _max = std::numeric_limits<double>::infinity();
+            double _offset = 0;
         };
 
     }

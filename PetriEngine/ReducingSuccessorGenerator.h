@@ -18,6 +18,7 @@ public:
     };
     struct trans_t {
         uint32_t index = 0;
+        uint32_t dependency = 0;
         int8_t direction = 0;
         bool safe = true;
         trans_t() = default;
@@ -53,7 +54,6 @@ private:
     std::unique_ptr<uint8_t[]> _places_seen;
     std::unique_ptr<place_t[]> _places;
     std::unique_ptr<trans_t[]> _transitions;
-    std::unique_ptr<uint32_t[]> _dependency;
     light_deque<uint32_t> _unprocessed, _ordering, _remaining;
     uint32_t _current;
     bool _netContainsInhibitorArcs;

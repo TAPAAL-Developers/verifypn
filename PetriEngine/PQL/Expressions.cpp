@@ -835,14 +835,21 @@ namespace PetriEngine {
             return RTRUE;
         }
         
-        Condition::Result UnfoldedUpperBoundsCondition::evaluate(const EvaluationContext& context) {
+        size_t UnfoldedUpperBoundsCondition::value(const MarkVal* marking)
+        {
             size_t tmp = 0;
             for(auto& p : _places)
             {
-                tmp += context.marking()[p._place];
+                auto val = marking[p._place];
+                p._maxed_out = (p._max <= val);
+                tmp += val;
             }
-            _bound = std::max(tmp, _bound);
-            return _bound < _max ? RUNKNOWN : RTRUE;
+            return tmp;
+        }
+        
+        Condition::Result UnfoldedUpperBoundsCondition::evaluate(const EvaluationContext& context) {
+            setUpperBound(value(context.marking()));
+            return _max <= _bound ? RTRUE : RUNKNOWN;
         }
         
         /******************** Evaluation - save result ********************/
@@ -1660,9 +1667,13 @@ namespace PetriEngine {
             out.write(reinterpret_cast<const char*>(&quant), sizeof(Quantifier));            
             uint32_t size = _places.size();
             out.write(reinterpret_cast<const char*>(&size), sizeof(uint32_t));                        
-            out.write(reinterpret_cast<const char*>(&_max), sizeof(size_t));     
+            out.write(reinterpret_cast<const char*>(&_max), sizeof(double));     
+            out.write(reinterpret_cast<const char*>(&_offset), sizeof(double));     
             for(auto& b : _places)
+            {
                 out.write(reinterpret_cast<const char*>(&b._place), sizeof(uint32_t));                        
+                out.write(reinterpret_cast<const char*>(&b._max), sizeof(double));
+            }
         }
         
         void NotCondition::toBinary(std::ostream& out) const
@@ -2795,82 +2806,25 @@ namespace PetriEngine {
         Retval UnfoldedUpperBoundsCondition::simplify(SimplificationContext& context) const 
         {
             std::vector<place_t> next;
+            std::vector<uint32_t> places;
             for(auto& p : _places)
+                places.push_back(p._place);
+            const auto nplaces = _places.size();
+            const auto bounds = LinearProgram::bounds(context, context.getLpTimeout(), places);
+            double offset = _offset;
+            for(size_t i = 0; i < nplaces; ++i)
             {
-                auto m2 = memberForPlace(p._place, context);
-                Member m1(1);
-                // test for trivial comparison
-                Trivial eval = m1 >= m2;
-                if(eval != Trivial::Indeterminate) {
-                    if(eval == Trivial::False)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        next.push_back(p);                        
-                    }
-                } else { // if no trivial case
-                    int constant = m2.constant() - m1.constant();
-                    m1 -= m2;
-                    auto nlp = SingleProgram(context.cache(), std::move(m1), constant, Simplification::OP_LE);
-                    if(nlp.satisfiable(context))
-                    {
-                        next.push_back(p);
-                    }
-               }
-            }            
-            
-            size_t tmin = 1;
-            size_t tmax = std::numeric_limits<int16_t>::max();
-            if(next.size() > 0)
-            {
-                // lets try to find an upper bound for the places so we can 
-                // terminate early if lucky.
-                auto m = memberForPlace(_places[0]._place, context);
-                for(size_t i = 1; i < _places.size(); ++i)
-                {
-                    m += memberForPlace(_places[i]._place, context);
-                }
-                while(!context.timeout() && tmin != _max)
-                {
-                    if(tmin > std::numeric_limits<uint8_t>::max() && tmax == std::numeric_limits<int16_t>::max()) 
-                    {
-                        tmax = std::numeric_limits<size_t>::max();
-                        break;
-                    }
-                    auto mid = (tmax / 2) + (tmin / 2); 
-                    Member c(mid);
-                    Trivial eval = c >= m;
-                    if(eval != Trivial::Indeterminate) {
-                        if(eval == Trivial::False)
-                        {
-                            tmax = mid;
-                        }
-                        else
-                        {
-                            tmin = mid;                     
-                        }
-                    } else { // if no trivial case
-                        int constant = m.constant() - c.constant();
-                        c -= m;
-                        auto nlp = SingleProgram(context.cache(), std::move(c), constant, Simplification::OP_GE);
-                        if(!nlp.satisfiable(context))
-                        {
-                            tmax = mid;
-                        }
-                        else
-                        {
-                            tmin = mid;
-                        }
-                    }
-                }
+                if(bounds[i].first != 0 && !bounds[i].second)
+                    next.emplace_back(_places[i], bounds[i].first);
+                if(bounds[i].second)
+                    offset += bounds[i].first;
             }
-            else
+            if(bounds[nplaces].second)
             {
-                tmax = 0;
+                next.clear();
+                return Retval(std::make_shared<UnfoldedUpperBoundsCondition>(next, 0, bounds[nplaces].first + _offset));
             }
-            return Retval(std::make_shared<UnfoldedUpperBoundsCondition>(next, tmax));
+            return Retval(std::make_shared<UnfoldedUpperBoundsCondition>(next, bounds[nplaces].first-offset, offset));
         }
         
         /******************** Check if query is a reachability query ********************/
@@ -3536,7 +3490,7 @@ namespace PetriEngine {
                 std::cerr << "UPPER BOUNDS CANNOT BE NEGATED!" << std::endl;
                 exit(ErrorCode);
             }
-            return std::make_shared<UnfoldedUpperBoundsCondition>(_places, _max);
+            return std::make_shared<UnfoldedUpperBoundsCondition>(_places, _max, _offset);
         }
 
         
@@ -3855,7 +3809,8 @@ namespace PetriEngine {
 
         void UnfoldedUpperBoundsCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {
             for(auto& p : _places)
-                generator.presetOf(p._place);
+                if(!p._maxed_out)
+                    generator.presetOf(p._place);
         }
         
         
