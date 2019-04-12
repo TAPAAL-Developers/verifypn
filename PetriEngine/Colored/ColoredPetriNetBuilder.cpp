@@ -100,7 +100,6 @@ namespace PetriEngine {
     bool ColoredPetriNetBuilder::isGame() const {
         for(size_t i = 1; i < _transitions.size(); ++i)
         {
-            std::cerr << "IGC " << i << " : " << _transitions[i].player << " == " << _transitions[i-1].player << std::endl;
             if(_transitions[i].player != _transitions[i-1].player)
                 return true;
         }
