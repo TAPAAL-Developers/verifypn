@@ -49,8 +49,8 @@ namespace PetriEngine {
                 PQL::Condition* query);
             virtual bool empty() const;
         private:
-            size_t _cnt;
-            size_t _nstates;
+            size_t _cnt = 0;
+            size_t _nstates = 0;
         };
         
         class DFSQueue : public Queue {

@@ -24,16 +24,10 @@ namespace PetriEngine {
 
         bool BFSQueue::pop(size_t& id)
         {
-            if(_cnt < _nstates)
-            {
-                id = _cnt;
-                ++_cnt;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            if(empty()) return false;
+            id = _cnt;
+            ++_cnt;
+            return true;
         }
         
         bool BFSQueue::empty() const {
@@ -49,7 +43,7 @@ namespace PetriEngine {
         
         bool DFSQueue::pop(size_t& id)
         {
-            if(_stack.empty()) return false;
+            if(empty()) return false;
             id = _stack.top();
             _stack.pop();
             return true;
