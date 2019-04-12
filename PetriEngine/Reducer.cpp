@@ -547,7 +547,10 @@ namespace PetriEngine {
                     {
                         while(j < place2.producers.size() && place2.producers[j] < place1.producers[i]) ++j;
                         if(j >= place2.producers.size())
+                        {
+                            ok = 2;
                             break;
+                        }
                         if(place1.producers[i] != place2.producers[j])
                         {
                             ok = 2;

@@ -30,8 +30,8 @@ namespace PetriEngine {
     }
 
     void SuccessorGenerator::prepare(const MarkVal* state, PetriNet::player_t player) {
-        std::cerr << "SuccessorGenerator prepare " << std::endl;
-        _net.print(state);
+//        std::cerr << "SuccessorGenerator prepare " << std::endl;
+        //_net.print(state);
         _parent = state;
         _player = player;
         reset();
@@ -105,8 +105,8 @@ namespace PetriEngine {
                     memcpy(write, _parent, _net._nplaces * sizeof (MarkVal));
                     consumePreset(write, _suc_tcounter);
                     producePostset(write, _suc_tcounter);
-                    std::cerr << "SuccessorGenerator next " << std::endl;
-                    _net.print(write);
+                    //std::cerr << "SuccessorGenerator next " << std::endl;
+                    //_net.print(write);
                     ++_suc_tcounter;
                     return true;
                 }
