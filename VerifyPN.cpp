@@ -75,8 +75,9 @@
 #include "PetriEngine/Reachability/ReachabilitySearch.h"
 #ifdef ENABLE_TAR
 #include "PetriEngine/Reachability/TARReachability.h"
-#include "PetriEngine/Synthesis/ReachabilitySynthesis.h"
 #endif
+
+#include "PetriEngine/Synthesis/ReachabilitySynthesis.h"
 
 using namespace std;
 using namespace PetriEngine;
@@ -717,11 +718,13 @@ int main(int argc, char* argv[]) {
             std::cerr << "Query-simplification is not available for synthesis" << std::endl;
             return UnknownCode;
         }
+#ifdef ENABLE_TAR
         if(options.tar != 0)
         {
             std::cerr << "The TAR method does not support synthesis" << std::endl;
             return UnknownCode;
         }
+#endif
     }
     if (options.printstatistics) {
         std::cout << "Finished parsing model" << std::endl;
