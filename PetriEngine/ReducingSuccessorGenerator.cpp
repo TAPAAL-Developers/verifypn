@@ -129,7 +129,7 @@ namespace PetriEngine {
                                 continue;
                             // has to be consuming
                             _transitions[id].safe = false;
-                            std::cerr << "UNSAFE " << _net._transitionnames[id] << std::endl;
+                            //std::cerr << "UNSAFE " << _net._transitionnames[id] << std::endl;
                             break;
                         }
                     }
@@ -146,7 +146,7 @@ namespace PetriEngine {
                             if(_net.ownedBy(id, PetriNet::ENV))
                                 continue;
                             _transitions[id].safe = false;
-                            std::cerr << "UNSAFE " << _net._transitionnames[id] << std::endl;
+                            //std::cerr << "UNSAFE " << _net._transitionnames[id] << std::endl;
                             break;
                         }
                     }
@@ -165,13 +165,13 @@ namespace PetriEngine {
             if(data[p].index == 0)
                 computeSCC(p, index, data.get());
         
-        std::cerr << "CYCLES PRE FIXPOINT" << std::endl;
+        /*std::cerr << "CYCLES PRE FIXPOINT" << std::endl;
         for(size_t p = 0; p < _net._nplaces; ++p)
         {
             if(_places[p].cycle)
                 std::cerr << _net._placenames[p] << ", ";
         }
-        std::cerr << std::endl;
+        std::cerr << std::endl;*/
         
         std::stack<uint32_t> stack;
         // fixpoint with pre-sets
@@ -219,13 +219,13 @@ namespace PetriEngine {
                 }
             }
         }
-        std::cerr << "CYCLES POST FIXPOINT" << std::endl;
+        /*std::cerr << "CYCLES POST FIXPOINT" << std::endl;
         for(size_t p = 0; p < _net._nplaces; ++p)
         {
             if(_places[p].cycle)
                 std::cerr << _net._placenames[p] << ", ";
         }
-        std::cerr << std::endl;
+        std::cerr << std::endl;*/
     }
 
     void ReducingSuccessorGenerator::computeSafetyOrphan() {
@@ -408,7 +408,7 @@ namespace PetriEngine {
         {
             _stub_enable[t] |= STUBBORN;
             _unprocessed.push_back(t);
-            std::cerr << "STUB " << _net._transitionnames[t] << std::endl;
+            //std::cerr << "STUB " << _net._transitionnames[t] << std::endl;
             if(_is_game)
             {
                 if( (_op_cand == std::numeric_limits<uint32_t>::max() || 
@@ -448,14 +448,13 @@ namespace PetriEngine {
             }
         }        
     }
-    
 
     void ReducingSuccessorGenerator::prepare(const MarkVal* state) {
         _parent = state;
         _skip = false;
         _op_cand = std::numeric_limits<uint32_t>::max();
         _added_unsafe = false;
-        _net.print(state);
+        // _net.print(state);
         reset();
         constructEnabled();
 
@@ -466,11 +465,11 @@ namespace PetriEngine {
             _skip = true;
             return;
         }
-        std::cerr << "PRE QUERY " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
+        /*std::cerr << "PRE QUERY " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
         for(size_t t = 0; t < _net._ntransitions; ++t)
             if((_stub_enable[t] & (ENABLED)) != 0)
                 std::cerr << _net._transitionnames[t] << ",";
-        std::cerr << std::endl;
+        std::cerr << std::endl;*/
         if(!_is_game) 
         {
             // we only need to preserve cycles in case of safety
@@ -488,11 +487,11 @@ namespace PetriEngine {
             else
                 for(auto t : _env_trans) _unprocessed.push_back(t);
         }
-        std::cerr << "PRE QUERY " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
+        /*std::cerr << "PRE QUERY " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
         for(size_t t = 0; t < _net._ntransitions; ++t)
             if((_stub_enable[t] & (STUBBORN)) != 0)
                 std::cerr << _net._transitionnames[t] << ",";
-        std::cerr << std::endl;
+        std::cerr << std::endl;*/
         if(_added_unsafe) { _skip = true; return; }
         for (auto &q : _queries) {
             q->evalAndSet(PQL::EvaluationContext(_parent, &_net, _is_game));
@@ -500,24 +499,24 @@ namespace PetriEngine {
             if(_added_unsafe) { _skip = true; return; }
         }
 
-        std::cerr << "PRE CLOSURE " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
+        /*std::cerr << "PRE CLOSURE " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
         for(size_t t = 0; t < _net._ntransitions; ++t)
             if((_stub_enable[t] & (STUBBORN)) != 0)
                 std::cerr << _net._transitionnames[t] << ",";
-        std::cerr << std::endl;
+        std::cerr << std::endl;*/
         closure();
-        std::cerr << "POST CLOSURE " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
+        /*std::cerr << "POST CLOSURE " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
         for(size_t t = 0; t < _net._ntransitions; ++t)
             if((_stub_enable[t] & (STUBBORN)) != 0)
                 std::cerr << _net._transitionnames[t] << ",";
-        std::cerr << std::endl;
+        std::cerr << std::endl;*/
         if(_added_unsafe) { _skip = true; return; }
         if(( _is_game && _is_safety == (_players_enabled == PetriNet::CTRL)) ||
            (!_is_game && _is_safety))
         {
             if(_op_cand == std::numeric_limits<uint32_t>::max())
             {
-                std::cerr << "OPCAND WAS NOT SET" << std::endl;
+                //std::cerr << "OPCAND WAS NOT SET" << std::endl;
                 _op_cand = leastDependentEnabled();
             }
             if(_op_cand != std::numeric_limits<uint32_t>::max())
@@ -525,11 +524,11 @@ namespace PetriEngine {
                 postPresetOf(_op_cand, true);
             }
         }
-        std::cerr << "POST OPCAND " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
+        /*std::cerr << "POST OPCAND " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
         for(size_t t = 0; t < _net._ntransitions; ++t)
             if((_stub_enable[t] & (STUBBORN)) != 0)
                 std::cerr << _net._transitionnames[t] << ",";
-        std::cerr << std::endl;
+        std::cerr << std::endl;*/
         if(_added_unsafe) { _skip = true; return; }
     }
 
@@ -611,7 +610,7 @@ namespace PetriEngine {
             if(_added_unsafe)
                 return;
             uint32_t tr = _unprocessed.front();
-            std::cerr << "CHECK " << _net._transitionnames[tr] << std::endl;
+            // std::cerr << "CHECK " << _net._transitionnames[tr] << std::endl;
             _unprocessed.pop_front();
             const TransPtr& ptr = _net._transitions[tr];
             uint32_t finv = ptr.inputs;

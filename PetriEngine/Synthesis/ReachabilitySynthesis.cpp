@@ -55,15 +55,16 @@ namespace PetriEngine {
             for (size_t qnum = 0; qnum < queries.size(); ++qnum) {
                 ResultPrinter::DGResult result(qnum, queries[qnum].get());
                 switch (strategy) {
+                    case Utils::SearchStrategies::HEUR:
+                        std::cout << "Using DFS instead of BestFS for synthesis" << std::endl;
+                        /*TRYSYNTH(HeuristicQueue, use_stubborn, result, permissive)
+                        break;*/
                     case Utils::SearchStrategies::DFS:
                         TRYSYNTH(DFSQueue, use_stubborn, result, permissive)
                         break;
                     case Utils::SearchStrategies::BFS:
                         TRYSYNTH(BFSQueue, use_stubborn, result, permissive)
-                        break;
-                    /*case Utils::SearchStrategies::HEUR:
-                        TRYSYNTH(HeuristicQueue, use_stubborn, result, permissive)
-                        break;*/
+                        break;                    
                     case Utils::SearchStrategies::RDFS:
                         TRYSYNTH(RDFSQueue, use_stubborn, result, permissive)
                         break;
@@ -82,13 +83,13 @@ namespace PetriEngine {
             size_t processed = 0;
             for (auto& dep : next->_dependers) {
                 ++processed;
-                std::cerr << "DEP OF " << next->_marking << " : " << dep.second->_marking << " FROM " << (dep.first ? "CTRL" : "ENV") << std::endl;
+                //std::cerr << "DEP OF " << next->_marking << " : " << dep.second->_marking << " FROM " << (dep.first ? "CTRL" : "ENV") << std::endl;
                 SynthConfig* ancestor = dep.second;
-                std::cerr << "AND WAIT " << (int)ancestor->_waiting << std::endl;
+                //std::cerr << "AND WAIT " << (int)ancestor->_waiting << std::endl;
                 if (ancestor->determined()) 
                     continue;
-                std::cerr << "PRE STATE " << (int) ancestor->_state << std::endl;
-                std::cerr << "CHILDREN " << ancestor->_ctrl_children << " : " << ancestor->_env_children << std::endl;
+                //std::cerr << "PRE STATE " << (int) ancestor->_state << std::endl;
+                //std::cerr << "CHILDREN " << ancestor->_ctrl_children << " : " << ancestor->_env_children << std::endl;
                 bool ctrl_child = dep.first;
                 if (ctrl_child) {
                     ancestor->_ctrl_children -= 1;
@@ -104,21 +105,21 @@ namespace PetriEngine {
                     if (ancestor->_ctrl_children == 0 && // no more tries, and no potential or certainty
                         (ancestor->_state & (SynthConfig::MAYBE | SynthConfig::WINNING)) == 0)
                         ancestor->_state = SynthConfig::LOSING;
-                    std::cerr << "CTRL MODE " << ancestor->_ctrl_children << std::endl;
-                    std::cerr << "STATE " << (int)ancestor->_state << std::endl;
+                    //std::cerr << "CTRL MODE " << ancestor->_ctrl_children << std::endl;
+                    //std::cerr << "STATE " << (int)ancestor->_state << std::endl;
                 } else {
                     ancestor->_env_children -= 1;
                     if (next->_state == SynthConfig::LOSING) 
                         ancestor->_state = SynthConfig::LOSING;
                     else if(next->_state == SynthConfig::WINNING)
                         ancestor->_state = SynthConfig::MAYBE;
-                    std::cerr << "ENV MODE " << ancestor->_env_children << std::endl;
-                    std::cerr << "STATE " << (int)ancestor->_state << std::endl;
+                    //std::cerr << "ENV MODE " << ancestor->_env_children << std::endl;
+                    //std::cerr << "STATE " << (int)ancestor->_state << std::endl;
                 }
 
                 if (ancestor->_env_children == 0 && ancestor->_ctrl_children == 0 && ancestor->_state == SynthConfig::MAYBE) {
                     ancestor->_state = SynthConfig::WINNING;
-                    std::cerr << "UP TO WIN" << std::endl;
+                    //std::cerr << "UP TO WIN" << std::endl;
                 }
 
                 if (ancestor->determined()) {
@@ -127,8 +128,8 @@ namespace PetriEngine {
                     ancestor->_waiting = 2;
                 }
             }
-            if(processed == 0)
-                std::cerr << "NO DEPS" << std::endl;
+            //if(processed == 0)
+            //    std::cerr << "NO DEPS" << std::endl;
             next->_dependers.clear();
             return processed;
         }
@@ -154,10 +155,10 @@ namespace PetriEngine {
             auto res = stateset.add(marking);
             cid = res.second;
             SynthConfig& meta = stateset.get_data(res.second);
-            std::cerr << "C " << res.second << std::endl;
+            //std::cerr << "C " << res.second << std::endl;
             if (res.first) {
-                std::cerr << "NEW ";
-                _net.print(marking);
+                //std::cerr << "NEW ";
+                //_net.print(marking);
                 meta = {SynthConfig::UNKNOWN, false, 0, 0, SynthConfig::depends_t(), res.second};
                 if (!check_bound(marking))
                 {
@@ -169,23 +170,23 @@ namespace PetriEngine {
                         if (res == false)
                         {
                             meta._state = SynthConfig::LOSING;
-                            std::cerr << "L" << std::endl;
+                            //std::cerr << "L" << std::endl;
                         }
                         else
                         {
                             meta._state = SynthConfig::MAYBE;
-                            std::cerr << "M" << std::endl;
+                            //std::cerr << "M" << std::endl;
                         }
                     } else {
                         if (res == false)
                         {
                             meta._state = SynthConfig::MAYBE;
-                            std::cerr << "M" << std::endl;
+                            //std::cerr << "M" << std::endl;
                         }
                         else
                         {
                             meta._state = SynthConfig::WINNING;
-                            std::cerr << "W" << std::endl;
+                            //std::cerr << "W" << std::endl;
                         }
                     }
                 }
