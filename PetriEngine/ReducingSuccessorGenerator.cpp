@@ -36,7 +36,7 @@ namespace PetriEngine {
             _queries.push_back(q.get());
     }
 
-    void ReducingSuccessorGenerator::computeSCC(uint32_t v, uint32_t& index, tarjan_t* data, std::stack<uint32_t>& stack) {
+    void ReducingSuccessorGenerator::computeSCC(uint32_t v, uint32_t& index, tarjan_t* data) {
         // tarjans algorithm : https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm
         // TODO: Make this iterative (we could exceed the stacksize here)
         if(!_is_game && !_is_safety) return;
@@ -44,9 +44,9 @@ namespace PetriEngine {
         vd.index = index;
         vd.lowlink = index;
         ++index;
-        stack.push(v);
         vd.on_stack = true;
         // we should make this iterative and not recursive
+        bool SCC = false;
         for(auto tp = _places[v].post; tp < _places[v+1].pre; ++tp)
         {
             auto t = _transitions[tp].index;
@@ -57,6 +57,9 @@ namespace PetriEngine {
                 if(!_is_safety && _net.ownedBy(t, PetriNet::CTRL))
                     continue;
             }
+            //std::cerr << "OWNER " << _net._transitionnames[t] << " OWNER " << (int) _net.owner(t) << std::endl;
+            //if(_is_game) 
+            //    std::cerr << "GOME " << std::endl;
             auto post = _net.postset(t);
             auto it = post.first;
             for(; it != post.second; ++it)
@@ -68,7 +71,8 @@ namespace PetriEngine {
                     // selfloop, no need to continue SCC computation here
                     // we could try to analyze the cycle-types (inc/dec/etc)
                     assert(it->tokens > 0);
-                    _places[it->place].cycle = true;
+                    _places[v].cycle = true;
+              //      std::cerr << _net._placenames[v] << " IS CYCLE " << std::endl;
                     continue;
                 }
                 if(it->place != v && it->direction > 0)
@@ -77,28 +81,27 @@ namespace PetriEngine {
                     auto& wd = data[it->place];
                     if(wd.index == 0)
                     {
-                        computeSCC(it->place, index, data, stack);
+                //        std::cerr << "COMP SCC " << v << " : " << it->place << std::endl;
+                //        std::cerr << vd.lowlink << " ID " << index << std::endl;
+                        computeSCC(it->place, index, data);
                         vd.lowlink = std::min(vd.lowlink, wd.lowlink);
+                        if(wd.lowlink <= vd.lowlink)
+                            _places[v].cycle = true;
+                //        std::cerr << "WD " << wd.lowlink << std::endl;
                     }
                     else if(wd.on_stack)
                     {
                         // an SCC
+                //        std::cerr << "ONSTACK " << v << " : " << it->place << std::endl;
+                        SCC = true;
+                        if(wd.index <= vd.index)
+                            _places[v].cycle = true;
                         vd.lowlink = std::min(vd.lowlink, wd.index);
                     }
                 }
             }        
         }
-        if(vd.lowlink == vd.index)
-        {
-            // everything in between is an SCC
-            uint32_t w;
-            do {
-                w = stack.top();
-                stack.pop();
-                data[w].on_stack = false;
-                _places[w].cycle = true;
-            } while(w != v);
-        }
+        vd.on_stack = false;
     }
 
     void ReducingSuccessorGenerator::computeSafe() {
@@ -157,13 +160,20 @@ namespace PetriEngine {
     void ReducingSuccessorGenerator::computeStaticCycles() {
         // standard DFS cycle detection
         auto data = std::make_unique<tarjan_t[]>(_net._nplaces);
-        std::stack<uint32_t> stack;
         uint32_t index = 1;
         for(size_t p = 0; p < _net._nplaces; ++p)
             if(data[p].index == 0)
-                computeSCC(p, index, data.get(), stack);
+                computeSCC(p, index, data.get());
         
-        assert(stack.empty());
+        std::cerr << "CYCLES PRE FIXPOINT" << std::endl;
+        for(size_t p = 0; p < _net._nplaces; ++p)
+        {
+            if(_places[p].cycle)
+                std::cerr << _net._placenames[p] << ", ";
+        }
+        std::cerr << std::endl;
+        
+        std::stack<uint32_t> stack;
         // fixpoint with pre-sets
         for(uint32_t p = 0; p < _net._nplaces; ++p)
             if(_places[p].cycle)
@@ -209,6 +219,13 @@ namespace PetriEngine {
                 }
             }
         }
+        std::cerr << "CYCLES POST FIXPOINT" << std::endl;
+        for(size_t p = 0; p < _net._nplaces; ++p)
+        {
+            if(_places[p].cycle)
+                std::cerr << _net._placenames[p] << ", ";
+        }
+        std::cerr << std::endl;
     }
 
     void ReducingSuccessorGenerator::computeSafetyOrphan() {
@@ -403,7 +420,8 @@ namespace PetriEngine {
                 {
                     _op_cand = t;
                 }
-                _added_unsafe |= !_transitions[t].safe;
+                if((_stub_enable[t] & ENABLED) == ENABLED && !_transitions[t].safe)
+                    _added_unsafe = true;
             }
         }
     }
@@ -434,6 +452,7 @@ namespace PetriEngine {
         _skip = false;
         _op_cand = std::numeric_limits<uint32_t>::max();
         _added_unsafe = false;
+        _net.print(state);
         reset();
         constructEnabled();
 
@@ -444,7 +463,11 @@ namespace PetriEngine {
             _skip = true;
             return;
         }
-        
+        std::cerr << "PRE QUERY " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
+        for(size_t t = 0; t < _net._ntransitions; ++t)
+            if((_stub_enable[t] & (ENABLED)) != 0)
+                std::cerr << _net._transitionnames[t] << ",";
+        std::cerr << std::endl;
         if(!_is_game) 
         {
             // we only need to preserve cycles in case of safety
@@ -462,14 +485,29 @@ namespace PetriEngine {
             else
                 for(auto t : _env_trans) _unprocessed.push_back(t);
         }
+        std::cerr << "PRE QUERY " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
+        for(size_t t = 0; t < _net._ntransitions; ++t)
+            if((_stub_enable[t] & (STUBBORN)) != 0)
+                std::cerr << _net._transitionnames[t] << ",";
+        std::cerr << std::endl;
         if(_added_unsafe) { _skip = true; return; }
         for (auto &q : _queries) {
             q->evalAndSet(PQL::EvaluationContext(_parent, &_net, _is_game));
             q->findInteresting(*this, false);
             if(_added_unsafe) { _skip = true; return; }
         }
-                
+
+        std::cerr << "PRE CLOSURE " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
+        for(size_t t = 0; t < _net._ntransitions; ++t)
+            if((_stub_enable[t] & (STUBBORN)) != 0)
+                std::cerr << _net._transitionnames[t] << ",";
+        std::cerr << std::endl;
         closure();
+        std::cerr << "POST CLOSURE " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
+        for(size_t t = 0; t < _net._ntransitions; ++t)
+            if((_stub_enable[t] & (STUBBORN)) != 0)
+                std::cerr << _net._transitionnames[t] << ",";
+        std::cerr << std::endl;
         if(_added_unsafe) { _skip = true; return; }
         if(( _is_game && _is_safety == (_players_enabled == PetriNet::CTRL)) ||
            (!_is_game && _is_safety))
@@ -483,6 +521,11 @@ namespace PetriEngine {
                 postPresetOf(_op_cand, true);
             }
         }
+        std::cerr << "POST OPCAND " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
+        for(size_t t = 0; t < _net._ntransitions; ++t)
+            if((_stub_enable[t] & (STUBBORN)) != 0)
+                std::cerr << _net._transitionnames[t] << ",";
+        std::cerr << std::endl;
         if(_added_unsafe) { _skip = true; return; }
     }
 
@@ -630,8 +673,10 @@ namespace PetriEngine {
             _current = _ordering.front();
             _ordering.pop_front();
             if ((_stub_enable[_current] & STUBBORN) == STUBBORN || _skip) {
+                //std::cerr << "ns " << (int) player << " " << _net._transitionnames[_current] << std::endl;
                 if(_is_game && !_net.ownedBy(_current, player))
                 {
+                    //std::cerr << "skip, other" << std::endl;
                     _remaining.push_back(_current);
                     continue;
                 }

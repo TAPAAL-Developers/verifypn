@@ -80,7 +80,7 @@ private:
     void computeSafe();
     void computeStaticCycles();
     void computeSafetyOrphan();
-    void computeSCC(uint32_t v, uint32_t& index, tarjan_t* data, std::stack<uint32_t>& stack);
+    void computeSCC(uint32_t v, uint32_t& index, tarjan_t* data);
     void preserveCycles();
     
     // for transitions

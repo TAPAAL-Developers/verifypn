@@ -41,8 +41,8 @@ namespace PetriEngine {
         ReachabilitySynthesis::~ReachabilitySynthesis() {
         }
 
-#define TRYSYNTH(X,S,Q,P)    if(S) solved = run<ReducingSuccessorGenerator,X>(Q, P); \
-                             else solved = run<SuccessorGenerator,X>(Q, P);
+#define TRYSYNTH(X,S,Q,P)    if(S) run<ReducingSuccessorGenerator,X>(Q, P); \
+                             else  run<SuccessorGenerator,X>(Q, P);
 
         ReturnValue ReachabilitySynthesis::synthesize(
                 std::vector<std::shared_ptr<PQL::Condition> >& queries,
@@ -54,78 +54,85 @@ namespace PetriEngine {
             using namespace Structures;
             for (size_t qnum = 0; qnum < queries.size(); ++qnum) {
                 ResultPrinter::DGResult result(qnum, queries[qnum].get());
-                bool solved;
-                stopwatch timer;
-                timer.start();
                 switch (strategy) {
                     case Utils::SearchStrategies::DFS:
-                        TRYSYNTH(DFSQueue, use_stubborn, queries[qnum].get(), permissive)
+                        TRYSYNTH(DFSQueue, use_stubborn, result, permissive)
                         break;
                     case Utils::SearchStrategies::BFS:
-                        TRYSYNTH(BFSQueue, use_stubborn, queries[qnum].get(), permissive)
+                        TRYSYNTH(BFSQueue, use_stubborn, result, permissive)
                         break;
                     /*case Utils::SearchStrategies::HEUR:
-                        TRYSYNTH(HeuristicQueue, use_stubborn, queries[qnum].get(), permissive)
+                        TRYSYNTH(HeuristicQueue, use_stubborn, result, permissive)
                         break;*/
                     case Utils::SearchStrategies::RDFS:
-                        TRYSYNTH(RDFSQueue, use_stubborn, queries[qnum].get(), permissive)
+                        TRYSYNTH(RDFSQueue, use_stubborn, result, permissive)
                         break;
                     default:
                         std::cerr << "Unsopported Search Strategy for Synthesis" << std::endl;
                         exit(ErrorCode);
                 }
-                timer.stop();
-                result.duration = timer.duration();
-                result.result = solved ? ResultPrinter::Satisfied : ResultPrinter::NotSatisfied;
+
 
                 printer.printResult(result);
             }
             return SuccessCode;
         }
 
-        void ReachabilitySynthesis::dependers_to_waiting(SynthConfig* next, std::stack<SynthConfig*>& back, bool safety) {
-            
+        size_t ReachabilitySynthesis::dependers_to_waiting(SynthConfig* next, std::stack<SynthConfig*>& back, bool safety) {
+            size_t processed = 0;
             bool any = false;
             for (auto& dep : next->_dependers) {
+                ++processed;
                 any = true;
-                std::cerr << "DEP OF " << next->_marking << " : " << dep.second->_marking << " FROM " << (dep.first ? "CTRL" : "ENV") << std::endl;
+                //std::cerr << "DEP OF " << next->_marking << " : " << dep.second->_marking << " FROM " << (dep.first ? "CTRL" : "ENV") << std::endl;
                 SynthConfig* ancestor = dep.second;
-                std::cerr << "AND WAIT " << (int)ancestor->_waiting << std::endl;
+                //std::cerr << "AND WAIT " << (int)ancestor->_waiting << std::endl;
                 if (ancestor->determined()) 
                     continue;
-                std::cerr << "PRE STATE " << (int) ancestor->_state << std::endl;
+                //std::cerr << "PRE STATE " << (int) ancestor->_state << std::endl;
+                //std::cerr << "CHILDREN " << ancestor->_ctrl_children << " : " << ancestor->_env_children << std::endl;
                 bool ctrl_child = dep.first;
                 if (ctrl_child) {
                     ancestor->_ctrl_children -= 1;
+                    //std::cerr << "NEXT " << (int)next->_state << std::endl;
                     if (next->_state == SynthConfig::WINNING) {
-                        ancestor->_state = SynthConfig::MAYBE;
+                        if(ancestor->_env_children == 0)
+                            ancestor->_state = SynthConfig::WINNING;
+                        else
+                            ancestor->_state = SynthConfig::MAYBE;
                     }
 
-                    if (ancestor->_ctrl_children == 0 && ancestor->_state != SynthConfig::MAYBE)
+                    
+                    if (ancestor->_ctrl_children == 0 && // no more tries, and no potential or certainty
+                        (ancestor->_state & (SynthConfig::MAYBE | SynthConfig::WINNING)) == 0)
                         ancestor->_state = SynthConfig::LOSING;
-                    std::cerr << "CTRL MODE " << ancestor->_ctrl_children << std::endl;
-                    std::cerr << "STATE " << (int)ancestor->_state << std::endl;
+                    //std::cerr << "CTRL MODE " << ancestor->_ctrl_children << std::endl;
+                    //std::cerr << "STATE " << (int)ancestor->_state << std::endl;
                 } else {
                     ancestor->_env_children -= 1;
                     if (next->_state == SynthConfig::LOSING) 
                         ancestor->_state = SynthConfig::LOSING;
-                    std::cerr << "ENV MODE " << ancestor->_env_children << std::endl;
-                    std::cerr << "STATE " << (int)ancestor->_state << std::endl;
+                    else if(next->_state == SynthConfig::WINNING)
+                        ancestor->_state = SynthConfig::MAYBE;
+                    //std::cerr << "ENV MODE " << ancestor->_env_children << std::endl;
+                    //std::cerr << "STATE " << (int)ancestor->_state << std::endl;
                 }
 
-                if (ancestor->_env_children == 0 && ancestor->_state == SynthConfig::MAYBE) {
+                if (ancestor->_env_children == 0 && ancestor->_ctrl_children == 0 && ancestor->_state == SynthConfig::MAYBE) {
                     ancestor->_state = SynthConfig::WINNING;
+                    //std::cerr << "UP TO WIN" << std::endl;
                 }
 
                 if (ancestor->determined()) {
-                    if (ancestor->_waiting >= 2) 
+                    if (ancestor->_waiting < 2) 
                         back.push(ancestor);
                     ancestor->_waiting = 2;
                 }
             }
-            if(!any)
-                std::cerr << "NO DEPS" << std::endl;
+//            if(!any)
+//                std::cerr << "NO DEPS" << std::endl;
             next->_dependers.clear();
+            return processed;
         }
         
         bool ReachabilitySynthesis::check_bound(const MarkVal* marking) {
@@ -145,43 +152,42 @@ namespace PetriEngine {
         }
         
         SynthConfig& ReachabilitySynthesis::get_config(Structures::AnnotatedStateSet<SynthConfig>& stateset, const MarkVal* marking, PQL::Condition* prop, bool is_safety, size_t& cid) {
+            // TODO, we don't actually have to store winning markings here (what is fastest, checking query or looking up marking?/memory)!
             auto res = stateset.add(marking);
             cid = res.second;
             SynthConfig& meta = stateset.get_data(res.second);
+            //std::cerr << "C " << res.second << std::endl;
             if (res.first) {
-                _net.print(marking);
-                std::cerr << "NEW " << &meta << " ID " << res.second << std::endl; 
+                //std::cerr << "NEW ";
+                //_net.print(marking);
                 meta = {SynthConfig::UNKNOWN, false, 0, 0, SynthConfig::depends_t(), res.second};
                 if (!check_bound(marking))
                 {
-                    std::cerr << "BOUND " << std::endl;
                     meta._state = SynthConfig::LOSING;
                 }
                 else {
                     auto res = eval(prop, marking);
-                    if(!res)
-                        std::cerr << "not sat" << std::endl;
                     if (is_safety) {
                         if (res == false)
                         {
                             meta._state = SynthConfig::LOSING;
-                            std::cerr << "L" << std::endl;
+                            //std::cerr << "L" << std::endl;
                         }
                         else
                         {
                             meta._state = SynthConfig::MAYBE;
-                            std::cerr << "M" << std::endl;
+                            //std::cerr << "M" << std::endl;
                         }
                     } else {
                         if (res == false)
                         {
                             meta._state = SynthConfig::MAYBE;
-                            std::cerr << "M" << std::endl;
+                            //std::cerr << "M" << std::endl;
                         }
                         else
                         {
                             meta._state = SynthConfig::WINNING;
-                            std::cerr << "W" << std::endl;
+                            //std::cerr << "W" << std::endl;
                         }
                     }
                 }
