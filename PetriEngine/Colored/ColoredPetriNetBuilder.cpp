@@ -98,9 +98,9 @@ namespace PetriEngine {
         _colors[id] = type;
     }
     bool ColoredPetriNetBuilder::isGame() const {
-        for(size_t i = 1; i < _transitions.size(); ++i)
+        for(size_t i = 0; i < _transitions.size(); ++i)
         {
-            if(_transitions[i].player != _transitions[i-1].player)
+            if(_transitions[i].player != 0)
                 return true;
         }
         return _ptBuilder.isGame();

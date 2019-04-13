@@ -62,7 +62,7 @@ private:
     std::vector<uint32_t> _safety_orphans;
     bool _skip;
     bool _added_unsafe;
-    bool _op_cand;
+    size_t _op_cand;
     PetriNet::player_t _players_enabled;
     std::vector<uint32_t> _env_trans;
     std::vector<uint32_t> _ctrl_trans;

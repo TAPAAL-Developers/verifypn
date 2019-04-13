@@ -109,7 +109,7 @@ namespace PetriEngine {
                     while (!back.empty()) {
                         SynthConfig* next = back.top();
                         back.pop();
-                        //std::cerr << "BACK " << next->_marking << std::endl;
+                        std::cerr << "BACK " << next->_marking << std::endl;
                         result.processedEdges += dependers_to_waiting(next, back, is_safety);
                     }
 
@@ -128,7 +128,7 @@ namespace PetriEngine {
                     stateset.decode(parent.get(), nid);
                     generator.prepare(parent.get());
                     // first try all environment choices (if one is losing, everything is lost)
-                    //std::cerr << "NEXT " << cconf._marking << std::endl;
+                    std::cerr << "NEXT " << cconf._marking << std::endl;
                     bool some_env = false;
                     while (generator.next(working.get(), PetriNet::ENV)) {
                         some_env = true;
@@ -159,7 +159,7 @@ namespace PetriEngine {
                     // if determined, no need to add more, just backprop (later)
                     bool some = false;
                     bool some_winning = false;
-                    //std::cerr << "CTRL " << std::endl;
+                    std::cerr << "CTRL " << std::endl;
                     if(!cconf.determined())
                     {
                         while (generator.next(working.get(), PetriNet::CTRL)) {
@@ -211,10 +211,10 @@ namespace PetriEngine {
                             cconf._state = SynthConfig::LOSING;
                     }
                     // if determined, no need to add to queue, just backprop
-                    //std::cerr << "FINISHED " << cconf._marking << " STATE " << (int)cconf._state << std::endl;
+                    std::cerr << "FINISHED " << cconf._marking << " STATE " << (int)cconf._state << std::endl;
                     if(cconf.determined())
                     {
-                        //std::cerr << "REDO " << cconf._marking << std::endl;
+                        std::cerr << "REDO " << cconf._marking << std::endl;
                         back.push(&cconf);
                     }
                     else

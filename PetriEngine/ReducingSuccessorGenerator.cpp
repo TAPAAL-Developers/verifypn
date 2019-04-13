@@ -108,7 +108,7 @@ namespace PetriEngine {
         if(!_is_game) return;
         for(uint32_t t = 0; t < _net._ntransitions; ++t)
         {
-            if(!_net.ownedBy(t, PetriNet::ENV))
+            if(_net.ownedBy(t, PetriNet::CTRL))
                 continue;
             // check if the (t+)* contains an unctrl or 
             // (t-)* has unctrl with inhib
@@ -408,9 +408,12 @@ namespace PetriEngine {
         {
             _stub_enable[t] |= STUBBORN;
             _unprocessed.push_back(t);
+            std::cerr << "STUB " << _net._transitionnames[t] << std::endl;
             if(_is_game)
             {
-                if( (_op_cand == std::numeric_limits<uint32_t>::max() || _transitions[t].dependency < _transitions[_op_cand].dependency )&& 
+                if( (_op_cand == std::numeric_limits<uint32_t>::max() || 
+                        _transitions[t].dependency < _transitions[_op_cand].dependency ||
+                        (_transitions[t].dependency == _transitions[_op_cand].dependency && t < _op_cand)) &&
                    ((_stub_enable[t] & ENABLED) == ENABLED) &&
                    (    
                         (_is_safety && !_is_game) || 
@@ -514,6 +517,7 @@ namespace PetriEngine {
         {
             if(_op_cand == std::numeric_limits<uint32_t>::max())
             {
+                std::cerr << "OPCAND WAS NOT SET" << std::endl;
                 _op_cand = leastDependentEnabled();
             }
             if(_op_cand != std::numeric_limits<uint32_t>::max())
@@ -607,6 +611,7 @@ namespace PetriEngine {
             if(_added_unsafe)
                 return;
             uint32_t tr = _unprocessed.front();
+            std::cerr << "CHECK " << _net._transitionnames[tr] << std::endl;
             _unprocessed.pop_front();
             const TransPtr& ptr = _net._transitions[tr];
             uint32_t finv = ptr.inputs;
@@ -632,7 +637,7 @@ namespace PetriEngine {
                 bool ok = false;
                 bool inhib = false;
                 uint32_t cand = std::numeric_limits<uint32_t>::max();
-               
+                uint32_t dep = std::numeric_limits<uint32_t>::max();
                 // Lets try to see if we havent already added sufficient pre/post 
                 // for this transition.
                 for (; finv < linv; ++finv) {
@@ -640,11 +645,21 @@ namespace PetriEngine {
                     if (_parent[inv.place] < inv.tokens && !inv.inhibitor) {
                         inhib = false;
                         ok = seenPre(inv.place);
-                        cand = inv.place;
+                        if(_transitions[inv.place].dependency < dep ||
+                           (inv.place < cand && dep == _transitions[inv.place].dependency == dep))
+                        {
+                            cand = inv.place;
+                            dep = _transitions[inv.place].dependency;
+                        }
                     } else if (_parent[inv.place] >= inv.tokens && inv.inhibitor) {
                         inhib = true;
                         ok = seenPost(inv.place);
-                        cand = inv.place;
+                        if(_transitions[inv.place].dependency < dep ||
+                           (inv.place < cand && dep == _transitions[inv.place].dependency == dep))
+                        {
+                           cand = inv.place;
+                           dep = _transitions[inv.place].dependency;
+                        }
                     }
                     if(ok) break;
 
