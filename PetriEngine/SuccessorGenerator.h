@@ -23,8 +23,8 @@ public:
     SuccessorGenerator(const PetriNet& net, bool is_game = false, bool is_safety = false);
     SuccessorGenerator(const PetriNet& net, std::vector<std::shared_ptr<PQL::Condition> >& queries, bool is_game = false, bool is_safety = false);
     virtual ~SuccessorGenerator();
-    void prepare(const MarkVal* state, PetriNet::player_t player = PetriNet::ANY);
-    bool next(MarkVal* write);
+    void prepare(const MarkVal* state);
+    bool next(MarkVal* write, PetriNet::player_t player = PetriNet::ANY);
     uint32_t fired()
     {
         return _suc_tcounter -1;
@@ -64,7 +64,6 @@ protected:
     const MarkVal* _parent;
     uint32_t _suc_pcounter;
     uint32_t _suc_tcounter;
-    PetriNet::player_t _player;
     bool _is_game = false;
     bool _is_safety = false;
 

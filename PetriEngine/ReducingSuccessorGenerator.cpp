@@ -19,6 +19,7 @@ namespace PetriEngine {
         checkForInhibitor();
         computeStaticCycles();
         computeSafetyOrphan();
+        computeSafe();
         for(uint32_t t = 0; t < _net.numberOfTransitions(); ++t)
         {
             if(_net.ownedBy(t, PetriNet::CTRL))
@@ -104,7 +105,7 @@ namespace PetriEngine {
         if(!_is_game) return;
         for(uint32_t t = 0; t < _net._ntransitions; ++t)
         {
-            if(!_net.ownedBy(t, PetriNet::CTRL))
+            if(!_net.ownedBy(t, PetriNet::ENV))
                 continue;
             // check if the (t+)* contains an unctrl or 
             // (t-)* has unctrl with inhib
@@ -120,8 +121,12 @@ namespace PetriEngine {
                     {
                         if(_transitions[it].direction < 0)
                         {
+                            auto id = _transitions[it].index;
+                            if(_net.ownedBy(id, PetriNet::ENV))
+                                continue;
                             // has to be consuming
-                            _transitions[t].safe = false;
+                            _transitions[id].safe = false;
+                            std::cerr << "UNSAFE " << _net._transitionnames[id] << std::endl;
                             break;
                         }
                     }
@@ -134,7 +139,11 @@ namespace PetriEngine {
                     {
                         if(_transitions[it].direction > 0)
                         {
-                            _transitions[t].safe = false;
+                            auto id = _transitions[it].index;
+                            if(_net.ownedBy(id, PetriNet::ENV))
+                                continue;
+                            _transitions[id].safe = false;
+                            std::cerr << "UNSAFE " << _net._transitionnames[id] << std::endl;
                             break;
                         }
                     }
@@ -420,9 +429,8 @@ namespace PetriEngine {
     }
     
 
-    void ReducingSuccessorGenerator::prepare(const MarkVal* state, PetriNet::player_t player) {
+    void ReducingSuccessorGenerator::prepare(const MarkVal* state) {
         _parent = state;
-        _player = player;
         _skip = false;
         _op_cand = std::numeric_limits<uint32_t>::max();
         _added_unsafe = false;
@@ -617,12 +625,12 @@ namespace PetriEngine {
         producePostset(write, _current);        
     }
 
-    bool ReducingSuccessorGenerator::next(MarkVal* write) {
+    bool ReducingSuccessorGenerator::next(MarkVal* write, PetriNet::player_t player) {
         while (!_ordering.empty()) {
             _current = _ordering.front();
             _ordering.pop_front();
             if ((_stub_enable[_current] & STUBBORN) == STUBBORN || _skip) {
-                if(_is_game && !_net.ownedBy(_current, _player))
+                if(_is_game && !_net.ownedBy(_current, player))
                 {
                     _remaining.push_back(_current);
                     continue;

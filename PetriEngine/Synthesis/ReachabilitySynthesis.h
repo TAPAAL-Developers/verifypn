@@ -106,6 +106,7 @@ namespace PetriEngine {
                     while (!back.empty()) {
                         SynthConfig* next = back.top();
                         back.pop();
+                        std::cerr << "BACK " << next->_marking << std::endl;
                         dependers_to_waiting(next, back, is_safety);
                     }
 
@@ -123,8 +124,11 @@ namespace PetriEngine {
                     stateset.decode(parent.get(), nid);
                     generator.prepare(parent.get());
                     // first try all environment choices (if one is losing, everything is lost)
+                    std::cerr << "NEXT " << cconf._marking << std::endl;
                     std::cerr << "ENV " << std::endl;
-                    while (generator.next(working.get())) {
+                    bool some_env = false;;
+                    while (generator.next(working.get(), PetriNet::ENV)) {
+                        some_env = true;
                         auto& child = get_config(stateset, working.get(), query, is_safety, cid);
                         if (child._state == SynthConfig::LOSING)
                         {
@@ -134,7 +138,10 @@ namespace PetriEngine {
                             break;
                         }
                         else if (child._state == SynthConfig::WINNING)
+                        {
+                            cconf._state = SynthConfig::MAYBE;
                             continue; // would never choose 
+                        }
                         if(&child == &cconf)
                         {
                             if(is_safety) continue; // would make ctrl win
@@ -149,11 +156,11 @@ namespace PetriEngine {
                     }
                     
                     // if determined, no need to add more, just backprop (later)
+                    bool some = false;
                     if(!cconf.determined())
                     {
-                        bool some = false;
                         std::cerr << "CTRL " << std::endl;
-                        while (generator.next(working.get())) {
+                        while (generator.next(working.get(), PetriNet::CTRL)) {
                             some = true;
                             auto& child = get_config(stateset, working.get(), query, is_safety, cid);
                             if(&child == &cconf)
@@ -178,6 +185,7 @@ namespace PetriEngine {
                                 continue; // would never choose
                             else if (child._state == SynthConfig::WINNING)
                             {
+                                std::cerr << "WIN CHILD " << std::endl;
                                 if(env_buffer.size() == 0) // env does not want to choose, so we can
                                 {
                                     cconf._state = SynthConfig::WINNING;
@@ -196,15 +204,19 @@ namespace PetriEngine {
                                 }
                             }
                             ctrl_buffer.emplace_back(cid, &child);
-                        }
-                        
-                        if(some && ctrl_buffer.empty()) // we had a choice but all of them were bad. Env. can force us.
-                            cconf._state = SynthConfig::LOSING;
+                        }                        
                     }
-                    
+                    if(some && ctrl_buffer.empty()) // we had a choice but all of them were bad. Env. can force us.
+                        cconf._state = SynthConfig::LOSING;
+                    else if(!some && (is_safety || some_env) && env_buffer.empty()) // only Env. actions. safety+deadlock = win, or all win of env = win
+                        cconf._state = SynthConfig::WINNING;
+                    else if(!is_safety && !some && !some_env) // deadlock, bad if reachability
+                        cconf._state = SynthConfig::LOSING;
                     // if determined, no need to add to queue, just backprop
+                    std::cerr << "FINISHED " << cconf._marking << " STATE " << (int)cconf._state << std::endl;
                     if(cconf.determined())
                     {
+                        std::cerr << "REDO " << cconf._marking << std::endl;
                         back.push(&cconf);
                     }
                     else
@@ -233,7 +245,8 @@ namespace PetriEngine {
                         cconf._env_children = env_buffer.size();
                     }
                 }
-                return meta._state == meta.LOSING;
+                if(!is_safety) return meta._state == SynthConfig::WINNING;
+                else           return meta._state != meta.LOSING;
             }
 
             SynthConfig& get_config(Structures::AnnotatedStateSet<SynthConfig>& stateset, const MarkVal* marking, PQL::Condition* prop, bool is_safety, size_t& cid);

@@ -31,8 +31,8 @@ public:
     ReducingSuccessorGenerator(const PetriNet& net, bool is_game = false, bool is_safety = false);
     ReducingSuccessorGenerator(const PetriNet& net, std::vector<std::shared_ptr<PQL::Condition> >& queries, bool is_game = false, bool is_safety = false);
     virtual ~ReducingSuccessorGenerator() = default;
-    void prepare(const MarkVal* state, PetriNet::player_t player = PetriNet::ANY);
-    bool next(MarkVal* write);
+    void prepare(const MarkVal* state);
+    bool next(MarkVal* write, PetriNet::player_t player = PetriNet::ANY);
     void presetOf(uint32_t place, bool make_closure = false);
     void postsetOf(uint32_t place, bool make_closure = false);
     void postPresetOf(uint32_t t, bool make_closure = false);
@@ -95,7 +95,6 @@ private:
     static constexpr uint8_t CYCLE = 8;
     static constexpr uint8_t FRESH = 16;
     static constexpr uint8_t MARKED = 32;
-    static constexpr uint8_t UNSAFE = 64;
 };
 }
 

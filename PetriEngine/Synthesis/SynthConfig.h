@@ -57,6 +57,7 @@ namespace PetriEngine {
             bool determined() const {
                 return (_state & (WINNING | LOSING)) != 0;
             }
+            size_t _marking;
         };
     }
 }

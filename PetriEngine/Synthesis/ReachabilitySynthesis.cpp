@@ -84,11 +84,16 @@ namespace PetriEngine {
         }
 
         void ReachabilitySynthesis::dependers_to_waiting(SynthConfig* next, std::stack<SynthConfig*>& back, bool safety) {
+            
+            bool any = false;
             for (auto& dep : next->_dependers) {
+                any = true;
+                std::cerr << "DEP OF " << next->_marking << " : " << dep.second->_marking << " FROM " << (dep.first ? "CTRL" : "ENV") << std::endl;
                 SynthConfig* ancestor = dep.second;
+                std::cerr << "AND WAIT " << (int)ancestor->_waiting << std::endl;
                 if (ancestor->determined()) 
                     continue;
-
+                std::cerr << "PRE STATE " << (int) ancestor->_state << std::endl;
                 bool ctrl_child = dep.first;
                 if (ctrl_child) {
                     ancestor->_ctrl_children -= 1;
@@ -98,11 +103,14 @@ namespace PetriEngine {
 
                     if (ancestor->_ctrl_children == 0 && ancestor->_state != SynthConfig::MAYBE)
                         ancestor->_state = SynthConfig::LOSING;
-
+                    std::cerr << "CTRL MODE " << ancestor->_ctrl_children << std::endl;
+                    std::cerr << "STATE " << (int)ancestor->_state << std::endl;
                 } else {
                     ancestor->_env_children -= 1;
                     if (next->_state == SynthConfig::LOSING) 
                         ancestor->_state = SynthConfig::LOSING;
+                    std::cerr << "ENV MODE " << ancestor->_env_children << std::endl;
+                    std::cerr << "STATE " << (int)ancestor->_state << std::endl;
                 }
 
                 if (ancestor->_env_children == 0 && ancestor->_state == SynthConfig::MAYBE) {
@@ -115,6 +123,8 @@ namespace PetriEngine {
                     ancestor->_waiting = 2;
                 }
             }
+            if(!any)
+                std::cerr << "NO DEPS" << std::endl;
             next->_dependers.clear();
         }
         
@@ -141,7 +151,7 @@ namespace PetriEngine {
             if (res.first) {
                 _net.print(marking);
                 std::cerr << "NEW " << &meta << " ID " << res.second << std::endl; 
-                meta = {SynthConfig::UNKNOWN, false, 0, 0, SynthConfig::depends_t()};
+                meta = {SynthConfig::UNKNOWN, false, 0, 0, SynthConfig::depends_t(), res.second};
                 if (!check_bound(marking))
                 {
                     std::cerr << "BOUND " << std::endl;
