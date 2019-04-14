@@ -16,6 +16,7 @@ public:
         uint32_t pre = 0, post = 0;
         uint32_t dependency = 0;
         bool cycle = false;
+        bool safe = true;
     };
     struct trans_t {
         uint32_t index = 0;
@@ -29,7 +30,7 @@ public:
     };
     struct strans_t {
         uint32_t dependency = 0;
-        bool safe = safe;
+        bool safe = true;
         bool finite = false;
     };
     ReducingSuccessorGenerator(const PetriNet& net, bool is_game = false, bool is_safety = false);
