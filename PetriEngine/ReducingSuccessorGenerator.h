@@ -14,19 +14,23 @@ class ReducingSuccessorGenerator : public SuccessorGenerator {
 public:
     struct place_t {
         uint32_t pre = 0, post = 0;
+        uint32_t dependency = 0;
         bool cycle = false;
     };
     struct trans_t {
         uint32_t index = 0;
-        uint32_t dependency = 0;
         int8_t direction = 0;
-        bool safe = true;
         trans_t() = default;
         trans_t(uint32_t id, int8_t dir) : index(id), direction(dir) {};
         bool operator<(const trans_t& t) const
         {
             return index < t.index;
         }
+    };
+    struct strans_t {
+        uint32_t dependency = 0;
+        bool safe = safe;
+        bool finite = false;
     };
     ReducingSuccessorGenerator(const PetriNet& net, bool is_game = false, bool is_safety = false);
     ReducingSuccessorGenerator(const PetriNet& net, std::vector<std::shared_ptr<PQL::Condition> >& queries, bool is_game = false, bool is_safety = false);
@@ -53,7 +57,8 @@ private:
     std::unique_ptr<uint8_t[]> _stub_enable;
     std::unique_ptr<uint8_t[]> _places_seen;
     std::unique_ptr<place_t[]> _places;
-    std::unique_ptr<trans_t[]> _transitions;
+    std::unique_ptr<trans_t[]> _arcs;
+    std::unique_ptr<strans_t[]> _transitions;
     light_deque<uint32_t> _unprocessed, _ordering, _remaining;
     uint32_t _current;
     bool _netContainsInhibitorArcs;
@@ -82,6 +87,7 @@ private:
     void computeSafetyOrphan();
     void computeSCC(uint32_t v, uint32_t& index, tarjan_t* data);
     void preserveCycles();
+    void computeFinite();
     
     // for transitions
     static constexpr uint8_t ENABLED = 1;
@@ -92,8 +98,6 @@ private:
     static constexpr uint8_t PRESET = 1;
     static constexpr uint8_t POSTSET = 2;
     static constexpr uint8_t INHIB = 4;
-    static constexpr uint8_t CYCLE = 8;
-    static constexpr uint8_t FRESH = 16;
     static constexpr uint8_t MARKED = 32;
 };
 }

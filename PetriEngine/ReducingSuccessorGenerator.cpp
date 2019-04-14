@@ -11,11 +11,13 @@ namespace PetriEngine {
     ReducingSuccessorGenerator::ReducingSuccessorGenerator(const PetriNet& net, bool is_game, bool is_safety) 
     : SuccessorGenerator(net, is_game, is_safety), _inhibpost(net._nplaces){
         _current = 0;
-        _stub_enable = std::make_unique<uint8_t[]>(net._ntransitions);
+        _stub_enable = std::make_unique<uint8_t[]>(_net._ntransitions);
         _places_seen = std::make_unique<uint8_t[]>(_net.numberOfPlaces());
+        _transitions = std::make_unique<strans_t[]>(_net.numberOfTransitions());
         reset();
         constructPrePost();
         constructDependency();
+        computeFinite();
         checkForInhibitor();
         computeStaticCycles();
         computeSafetyOrphan();
@@ -36,6 +38,72 @@ namespace PetriEngine {
             _queries.push_back(q.get());
     }
 
+    void ReducingSuccessorGenerator::computeFinite() {
+        std::stack<uint32_t> waiting;
+        auto in_cnt = std::make_unique<uint32_t[]>(_net._nplaces);
+        auto add_ppost_to_waiting = [&,this](auto p) {
+            //std::cerr << "HANDLE " << _net.placeNames()[p] << std::endl;
+            for(auto to = _places[p].post; to != _places[p+1].pre; ++to)
+            {
+                auto t = _arcs[to].index;
+                if(!_transitions[t].finite)
+                {
+                    // we only care about env transitions
+                    if(!_is_game || _net.ownedBy(t, _is_safety ? PetriNet::CTRL : PetriNet::ENV))
+                    {
+                        //std::cerr << "PUSH " << _net.transitionNames()[t] << " TO " << to << std::endl;
+                        waiting.push(t);
+                    }                    
+                    _transitions[t].finite = true;
+                }
+                //if(_transitions[t].finite)
+                //    std::cerr << "NOW FIN " << to << std::endl;
+            }            
+        };
+        
+        // bootstrap
+        for(uint32_t p = 0; p < _net._nplaces; ++p)
+        {
+            in_cnt[p] = 0;
+            //std::cerr << "CHECKING " << _net._placenames[p] << std::endl;
+            for(auto ti = _places[p].pre; ti != _places[p].post; ++ti)
+            {
+                auto t = _arcs[ti].index;
+                //std::cerr << "\t" << _net._transitionnames[t] << " TI " << ti << std::endl;
+                if(_arcs[ti].direction >= 0 && // can maybe be refined if we set self-loops to inf?
+                    (!_is_game || _net.ownedBy(t, _is_safety ? PetriNet::CTRL : PetriNet::ENV)))
+                {
+                    //std::cerr << "P " << _net.placeNames()[p] << " " << _net.transitionNames()[t] << std::endl;
+                    ++in_cnt[p];
+                }
+            }
+        }
+        
+        // build waiting
+        for(uint32_t p = 0; p < _net._nplaces; ++p)
+            if(in_cnt[p] == 0)
+                add_ppost_to_waiting(p);
+        
+        while(!waiting.empty())
+        {
+            auto t = waiting.top();
+            //std::cerr << "POP " << t << std::endl;
+            waiting.pop();
+            for(auto it = _net.postset(t); it.first != it.second; ++it.first)
+            {
+                if(it.first->direction >= 0 && !it.first->inhibitor)
+                {
+                    //std::cerr << "B " << _net.placeNames()[it.first->place] << " " << _net.transitionNames()[t] << std::endl;
+                    assert(in_cnt[it.first->place] > 0);
+                    --in_cnt[it.first->place];
+                    if(in_cnt[it.first->place] == 0)
+                        add_ppost_to_waiting(it.first->place);
+                }                
+            }
+        }
+    }
+
+
     void ReducingSuccessorGenerator::computeSCC(uint32_t v, uint32_t& index, tarjan_t* data) {
         // tarjans algorithm : https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm
         // TODO: Make this iterative (we could exceed the stacksize here)
@@ -49,13 +117,18 @@ namespace PetriEngine {
         bool SCC = false;
         for(auto tp = _places[v].post; tp < _places[v+1].pre; ++tp)
         {
-            auto t = _transitions[tp].index;
+            auto t = _arcs[tp].index;
             if(_is_game)
             {
                 if(_is_safety && _net.ownedBy(t, PetriNet::ENV))
                     continue;
                 if(!_is_safety && _net.ownedBy(t, PetriNet::CTRL))
                     continue;
+            }
+            if(_transitions[t].finite)
+            {
+                //std::cerr << "FINITE " << _net.transitionNames()[t] << std::endl;
+                continue;
             }
             //std::cerr << "OWNER " << _net._transitionnames[t] << " OWNER " << (int) _net.owner(t) << std::endl;
             //if(_is_game) 
@@ -122,9 +195,9 @@ namespace PetriEngine {
                     auto end = _places[pre.first->place+1].pre;
                     for(; it != end; ++it)
                     {
-                        if(_transitions[it].direction < 0)
+                        if(_arcs[it].direction < 0)
                         {
-                            auto id = _transitions[it].index;
+                            auto id = _arcs[it].index;
                             if(_net.ownedBy(id, PetriNet::ENV))
                                 continue;
                             // has to be consuming
@@ -140,9 +213,9 @@ namespace PetriEngine {
                     auto end = _places[pre.first->place].post;
                     for(; it != end; ++it)
                     {
-                        if(_transitions[it].direction > 0)
+                        if(_arcs[it].direction > 0)
                         {
-                            auto id = _transitions[it].index;
+                            auto id = _arcs[it].index;
                             if(_net.ownedBy(id, PetriNet::ENV))
                                 continue;
                             _transitions[id].safe = false;
@@ -185,7 +258,9 @@ namespace PetriEngine {
             place_t& pl = _places[p];
             for(auto it = pl.pre; it != pl.post; ++it)
             {
-                auto t = _transitions[it].index;
+                auto t = _arcs[it].index;
+                if(_transitions[t].finite) 
+                    continue;
                 if(_is_game)
                 {
                     if(_is_safety && _net.ownedBy(t, PetriNet::ENV))
@@ -297,7 +372,7 @@ namespace PetriEngine {
         for (auto& p : tmp_places) {
             ntrans += p.first.size() + p.second.size();
         }
-        _transitions = std::make_unique<trans_t[]>(ntrans);
+        _arcs = std::make_unique<trans_t[]>(ntrans);
 
         _places = std::make_unique<place_t[]>(_net._nplaces + 1);
         uint32_t offset = 0;
@@ -315,11 +390,11 @@ namespace PetriEngine {
             _places[p].post = offset;
             offset += post.size();
             for (size_t tn = 0; tn < pre.size(); ++tn) {
-                _transitions[tn + _places[p].pre] = pre[tn];
+                _arcs[tn + _places[p].pre] = pre[tn];
             }
 
             for (size_t tn = 0; tn < post.size(); ++tn) {
-                _transitions[tn + _places[p].post] = post[tn];
+                _arcs[tn + _places[p].post] = post[tn];
             }
 
         }
@@ -334,11 +409,17 @@ namespace PetriEngine {
             uint32_t finv = _net._transitions[t].inputs;
             uint32_t linv = _net._transitions[t].outputs;
 
+            size_t dep = 0;
             for (; finv < linv; finv++) {
                 const Invariant& inv = _net._invariants[finv];
                 uint32_t p = inv.place;
                 uint32_t ntrans = (_places[p + 1].pre - _places[p].post);
-                _transitions[t].dependency += ntrans;
+                dep += ntrans;
+            }
+            _transitions[t].dependency = dep;
+            for(auto post = _net.postset(t); post.first != post.second; ++post.first)
+            {
+                _places[post.first->place].dependency += dep;
             }
         }
     }
@@ -385,7 +466,7 @@ namespace PetriEngine {
         _places_seen[place] |= PRESET;
         for (uint32_t t = _places[place].pre; t < _places[place].post; t++)
         {
-            auto& tr = _transitions[t];
+            auto& tr = _arcs[t];
             addToStub(tr.index);
         }
         if(make_closure) closure();            
@@ -395,7 +476,7 @@ namespace PetriEngine {
         if(seenPost(place)) return;
         _places_seen[place] |= POSTSET;
         for (uint32_t t = _places[place].post; t < _places[place + 1].pre; t++) {
-            auto tr = _transitions[t];
+            auto tr = _arcs[t];
             if(tr.direction < 0)
                 addToStub(tr.index);
         }
@@ -559,7 +640,7 @@ namespace PetriEngine {
             for(; it != stop; ++it)
             {
                 // check if any transitions pre is in marked places
-                uint32_t t = _transitions[it].index;
+                uint32_t t = _arcs[it].index;
                 if(_is_game && _net.ownedBy(t, (_is_safety ? PetriNet::ENV : PetriNet::CTRL)))
                     continue;
                 if((_stub_enable[t] & (ADDED_POST | STUBBORN)) == 0)
@@ -621,7 +702,7 @@ namespace PetriEngine {
                     {
                         auto place = _net._invariants[finv].place;
                         for (uint32_t t = _places[place].post; t < _places[place + 1].pre; t++) 
-                            addToStub(_transitions[t].index);
+                            addToStub(_arcs[t].index);
                     }
                 }
                 if(_netContainsInhibitorArcs){
@@ -644,20 +725,20 @@ namespace PetriEngine {
                     if (_parent[inv.place] < inv.tokens && !inv.inhibitor) {
                         inhib = false;
                         ok = seenPre(inv.place);
-                        if(_transitions[inv.place].dependency < dep ||
-                           (inv.place < cand && dep == _transitions[inv.place].dependency == dep))
+                        if(_places[inv.place].dependency < dep ||
+                           (inv.place < cand && dep == _places[inv.place].dependency == dep))
                         {
                             cand = inv.place;
-                            dep = _transitions[inv.place].dependency;
+                            dep = _places[inv.place].dependency;
                         }
                     } else if (_parent[inv.place] >= inv.tokens && inv.inhibitor) {
                         inhib = true;
                         ok = seenPost(inv.place);
-                        if(_transitions[inv.place].dependency < dep ||
-                           (inv.place < cand && dep == _transitions[inv.place].dependency == dep))
+                        if(_places[inv.place].dependency < dep ||
+                           (inv.place < cand && dep == _places[inv.place].dependency == dep))
                         {
                            cand = inv.place;
-                           dep = _transitions[inv.place].dependency;
+                           dep = _places[inv.place].dependency;
                         }
                     }
                     if(ok) break;
