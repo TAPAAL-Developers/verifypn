@@ -14,7 +14,6 @@ class ReducingSuccessorGenerator : public SuccessorGenerator {
 public:
     struct place_t {
         uint32_t pre = 0, post = 0;
-        uint32_t dependency = 0;
         bool cycle = false;
         bool safe = true;
     };
@@ -68,6 +67,7 @@ private:
     std::vector<uint32_t> _safety_orphans;
     bool _skip;
     bool _added_unsafe;
+    bool _added_enabled;
     size_t _op_cand;
     PetriNet::player_t _players_enabled;
     std::vector<uint32_t> _env_trans;

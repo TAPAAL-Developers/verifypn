@@ -83,6 +83,7 @@ namespace PetriEngine {
             size_t processed = 0;
             for (auto& dep : next->_dependers) {
                 ++processed;
+
                 //std::cerr << "DEP OF " << next->_marking << " : " << dep.second->_marking << " FROM " << (dep.first ? "CTRL" : "ENV") << std::endl;
                 SynthConfig* ancestor = dep.second;
                 //std::cerr << "AND WAIT " << (int)ancestor->_waiting << std::endl;
@@ -193,6 +194,11 @@ namespace PetriEngine {
             }
             return meta;
         }
-
+        
+        template<>
+        void ReachabilitySynthesis::setQuery<ReducingSuccessorGenerator>(ReducingSuccessorGenerator& generator, PQL::Condition* query, bool is_safety)
+        {
+            generator.setQuery(query, is_safety);
+        }
     }
 }

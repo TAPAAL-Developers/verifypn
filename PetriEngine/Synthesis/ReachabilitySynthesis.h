@@ -68,6 +68,11 @@ namespace PetriEngine {
             bool check_bound(const MarkVal* marking);
 
             size_t dependers_to_waiting(SynthConfig* next, std::stack<SynthConfig*>& back, bool safety);
+            
+            template<typename GENERATOR>
+            void setQuery(GENERATOR&, PQL::Condition* query, bool is_safety)
+            {                
+            }
 
             template <typename GENERATOR, typename QUEUE>
             void run(ResultPrinter::DGResult& result, bool permissive) {
@@ -98,6 +103,7 @@ namespace PetriEngine {
 
                 QUEUE queue;
                 GENERATOR generator(_net, true, is_safety);
+                setQuery<GENERATOR>(generator, query, is_safety);
                 std::stack<SynthConfig*> back;
                 queue.push(cid, nullptr, nullptr);
                 
@@ -119,7 +125,6 @@ namespace PetriEngine {
                     if (cconf.determined())
                         continue; // handled already
                     ++result.exploredConfigurations;
-
                     env_buffer.clear();
                     ctrl_buffer.clear();
                     
