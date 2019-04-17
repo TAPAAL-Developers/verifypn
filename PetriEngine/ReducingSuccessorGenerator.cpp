@@ -453,14 +453,44 @@ namespace PetriEngine {
         }
     }
 
-    bool ReducingSuccessorGenerator::seenPre(uint32_t place) const
+    bool ReducingSuccessorGenerator::seenPre(uint32_t place, const bool check) const
     {
-        return (_places_seen[place] & PRESET) != 0;
+        bool ok = (_places_seen[place] & PRESET) != 0;
+        if(!ok && check)
+        {
+            ok = true;
+            for (uint32_t t = _places[place].pre; 
+                 ok && t < _places[place].post; t++)
+            {
+                auto& tr = _arcs[t];
+                if(tr.direction > 0)
+                    if((_stub_enable[tr.index] & STUBBORN) == 0)
+                        ok = false;
+            }            
+            if(ok)
+                _places_seen[place] |= PRESET;
+        }
+        return ok;
     }
     
-    bool ReducingSuccessorGenerator::seenPost(uint32_t place) const
+    bool ReducingSuccessorGenerator::seenPost(uint32_t place, const bool check) const
     {
-        return (_places_seen[place] & POSTSET) != 0;
+        bool ok = (_places_seen[place] & POSTSET) != 0;
+        if(!ok && check)
+        {
+            ok = true;
+            for (uint32_t t = _places[place].post; 
+                 ok && t < _places[place + 1].pre; t++) 
+            {
+                auto& tr = _arcs[t];
+                if(tr.direction < 0)
+                    if((_stub_enable[tr.index] & STUBBORN) == 0)
+                        ok = false;
+            }
+            if(ok)
+                _places_seen[place] |= POSTSET;
+        }
+        return ok;
     }
 
     bool ReducingSuccessorGenerator::seenInhib(uint32_t place) const
@@ -554,7 +584,12 @@ namespace PetriEngine {
         _added_enabled = false;
         reset();
         constructEnabled();
-
+        /*std::cerr << std::endl;
+        std::cerr << "ENABLED " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
+        for(size_t t = 0; t < _net._ntransitions; ++t)
+            if((_stub_enable[t] & (ENABLED)) != 0)
+                std::cerr << _net._transitionnames[t] << ",";
+        std::cerr << std::endl;*/
         if(_ordering.size() == 0) return;
         if(_ordering.size() == 1)
         {
@@ -568,7 +603,11 @@ namespace PetriEngine {
             if(_added_unsafe) { _skip = true; return; }
         }
         closure();
-        
+        /*std::cerr << "POST Q " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
+        for(size_t t = 0; t < _net._ntransitions; ++t)
+            if((_stub_enable[t] & (STUBBORN)) != 0)
+                std::cerr << _net._transitionnames[t] << ",";
+        std::cerr << std::endl;        */
         if(!_added_enabled)
             return;
         
@@ -604,7 +643,11 @@ namespace PetriEngine {
         if(_added_unsafe) { _skip = true; return; }
         closure();
         if(_added_unsafe) { _skip = true; return; }
-        
+        /*std::cerr << "POST CYCLES " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
+        for(size_t t = 0; t < _net._ntransitions; ++t)
+            if((_stub_enable[t] & (STUBBORN)) != 0)
+                std::cerr << _net._transitionnames[t] << ",";
+        std::cerr << std::endl;                */
         if(( _is_game && _is_safety == (_players_enabled == PetriNet::CTRL)) ||
            (!_is_game && _is_safety))
         {
@@ -620,7 +663,12 @@ namespace PetriEngine {
         }
         /*std::cerr << "POST OPCAND " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
         for(size_t t = 0; t < _net._ntransitions; ++t)
-            if((_stub_enable[t] & (ENABLED)) != 0 && (_stub_enable[t] & STUBBORN) == 0)
+            if((_stub_enable[t] & (STUBBORN)) != 0)
+                std::cerr << _net._transitionnames[t] << ",";
+        std::cerr << std::endl;        
+        std::cerr << "POST ALL" << (_added_unsafe ? "UNSAFE" : "") << std::endl;
+        for(size_t t = 0; t < _net._ntransitions; ++t)
+            if((_stub_enable[t] & (ENABLED)) != 0 && (_stub_enable[t] & STUBBORN) != 0)
                 std::cerr << _net._transitionnames[t] << ",";
         std::cerr << std::endl;*/
         if(_added_unsafe) { _skip = true; return; }
@@ -729,14 +777,14 @@ namespace PetriEngine {
                 bool ok = false;
                 bool inhib = false;
                 uint32_t cand = std::numeric_limits<uint32_t>::max();
-                uint32_t dep = std::numeric_limits<uint32_t>::max();
+                int32_t dep = std::numeric_limits<int32_t>::max();
                 // Lets try to see if we havent already added sufficient pre/post 
                 // for this transition.
                 // TODO: We can skip the unsafe guys here!
                 for (; finv < linv; ++finv) {
                     const Invariant& inv = _net._invariants[finv];
                     bool change = true;
-                    uint32_t d2 = std::numeric_limits<uint32_t>::max();
+                    int32_t d2;
                     if(cand != std::numeric_limits<uint32_t>::max())
                     {
                         change = false;
@@ -746,10 +794,12 @@ namespace PetriEngine {
                         }
                         else if(_places[inv.place].safe == _places[cand].safe)
                         {
-                            if(inv.inhibitor)
-                                d2 = _places[inv.place+1].pre - _places[inv.place].post;
+                            auto post_size = _places[inv.place+1].pre - _places[inv.place].post;
+                            auto pre_size = _places[inv.place].post - _places[inv.place].pre;
+                            if(!inv.inhibitor)
+                                d2 = pre_size;
                             else
-                                d2 = _places[inv.place].post - _places[inv.place].pre;
+                                d2 = post_size;
                             if(d2 <= dep)
                             {
                                 if(d2 != dep || inv.place < cand)
@@ -758,7 +808,7 @@ namespace PetriEngine {
                         }
                     }
                     if (_parent[inv.place] < inv.tokens && !inv.inhibitor) {
-                        ok = seenPre(inv.place);
+                        ok = seenPre(inv.place, true);
                         if(change)
                         {
                             inhib = false;
@@ -766,7 +816,7 @@ namespace PetriEngine {
                             dep = d2;
                         }
                     } else if (_parent[inv.place] >= inv.tokens && inv.inhibitor) {
-                        ok = seenPost(inv.place);
+                        ok = seenPost(inv.place, true);
                         if(change){
                             inhib = true;
                             cand = inv.place;

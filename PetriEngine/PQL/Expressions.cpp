@@ -3686,9 +3686,9 @@ namespace PetriEngine {
                 }
                 if(cand != std::numeric_limits<int32_t>::max())
                 {
-                    if(pre && generator.seenPre(cand))
+                    if(pre && generator.seenPre(cand, true))
                         return;
-                    else if(!pre && generator.seenPost(cand))
+                    else if(!pre && generator.seenPost(cand, true))
                         return;
                 }
             }

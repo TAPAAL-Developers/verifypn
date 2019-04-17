@@ -41,8 +41,8 @@ public:
     void postsetOf(uint32_t place, bool make_closure = false);
     void postPresetOf(uint32_t t, bool make_closure = false);
     void inhibitorPostsetOf(uint32_t place);
-    bool seenPre(uint32_t place) const;
-    bool seenPost(uint32_t place) const;
+    bool seenPre(uint32_t place, const bool check = false) const;
+    bool seenPost(uint32_t place, const bool check = false) const;
     bool seenInhib(uint32_t place) const;
     uint32_t leastDependentEnabled();
     uint32_t fired()
