@@ -24,22 +24,25 @@
 #include <string>
 #include <vector>
 #include <list>
-#include <map>
+#include <unordered_map>
 #include <chrono>
 
 #include "../PetriNet.h"
-#include "PetriEngine/Simplification/LPCache.h"
-#include "PQL.h"
 #include "../NetStructures.h"
+#include "ExprError.h"
 
 namespace PetriEngine {
+    namespace Simplification
+    {
+        class LPCache;
+    }
     namespace PQL {
 
         /** Context provided for context analysis */
         class AnalysisContext {
         protected:
-            const unordered_map<std::string, uint32_t>& _placeNames;
-            const unordered_map<std::string, uint32_t>& _transitionNames;
+            const std::unordered_map<std::string, uint32_t>& _placeNames;
+            const std::unordered_map<std::string, uint32_t>& _transitionNames;
             const PetriNet* _net;
             std::vector<ExprError> _errors;
         public:
@@ -159,10 +162,19 @@ namespace PetriEngine {
             bool isGame() const {
                 return _is_game;
             }
+            const uint8_t* placeChange() const
+            {
+                return _place_change;
+            }
+            void setPlaceChange(const uint8_t* stats)
+            {
+                _place_change = stats;
+            }
         private:
             const MarkVal* _marking = nullptr;
             const PetriNet* _net = nullptr;
             const bool _is_game = false;
+            const uint8_t* _place_change = nullptr;
         };
 
         /** Context for distance computation */
@@ -200,7 +212,7 @@ namespace PetriEngine {
 
             SimplificationContext(const MarkVal* marking,
                     const PetriNet* net, uint32_t queryTimeout, uint32_t lpTimeout,
-                    LPCache* cache)
+                    Simplification::LPCache* cache)
                     : _queryTimeout(queryTimeout), _lpTimeout(lpTimeout) {
                 _negated = false;
                 _marking = marking;
@@ -245,7 +257,7 @@ namespace PetriEngine {
                 return _lpTimeout;
             }
             
-            LPCache* cache() const
+            Simplification::LPCache* cache() const
             {
                 return _cache;
             }
@@ -256,7 +268,7 @@ namespace PetriEngine {
             const PetriNet* _net;
             uint32_t _queryTimeout, _lpTimeout;
             std::chrono::high_resolution_clock::time_point _start;
-            LPCache* _cache;
+            Simplification::LPCache* _cache;
         };
 
     } // PQL

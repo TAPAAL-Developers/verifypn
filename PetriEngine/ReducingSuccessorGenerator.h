@@ -3,6 +3,7 @@
 
 #include "SuccessorGenerator.h"
 #include "PQL/PQL.h"
+#include "PQL/Contexts.h"
 #include "Utils/Structures/light_deque.h"
 
 #include <memory>
@@ -16,6 +17,8 @@ public:
         uint32_t pre = 0, post = 0;
         bool cycle = false;
         bool safe = true;
+        bool inhibiting = false;
+        bool in_query = false;
     };
     struct trans_t {
         uint32_t index = 0;
@@ -49,9 +52,10 @@ public:
     {
         return _current;
     }
-    void setQuery(PQL::Condition* ptr, bool safety = false) { _queries.clear(); _queries = {ptr}; _is_safety = safety;}
+    void setQuery(PQL::Condition* ptr, bool safety = false);
     void reset();
 private:
+    void updatePlaceSensitivity();
     inline void addToStub(uint32_t t);
     void closure();
     std::unique_ptr<uint8_t[]> _stub_enable;
@@ -89,17 +93,24 @@ private:
     void computeSCC(uint32_t v, uint32_t& index, tarjan_t* data);
     void preserveCycles();
     void computeFinite();
+    bool computeBounds(PQL::EvaluationContext& context);
     
     // for transitions
     static constexpr uint8_t ENABLED = 1;
     static constexpr uint8_t STUBBORN = 2;
     static constexpr uint8_t ADDED_POST = 4;
-    
+public:
+    static constexpr uint8_t FUTURE_ENABLED = 8;
+private:
     // for places seen
     static constexpr uint8_t PRESET = 1;
     static constexpr uint8_t POSTSET = 2;
     static constexpr uint8_t INHIB = 4;
-    static constexpr uint8_t MARKED = 32;
+    static constexpr uint8_t MARKED = 8;
+public:
+    static constexpr uint8_t INCR = 16;
+    static constexpr uint8_t DECR = 32;
+
 };
 }
 

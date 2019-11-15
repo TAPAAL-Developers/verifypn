@@ -28,7 +28,7 @@ namespace PetriEngine {
 
         QueryPlaceAnalysisContext(const std::unordered_map<std::string, uint32_t>& pnames, const std::unordered_map<std::string, uint32_t>& tnames, const PetriNet* net) 
         : PQL::AnalysisContext(pnames, tnames, net) {
-            _placeInQuery.resize(_placeNames.size(), 0);
+            _placeInQuery.resize(_net ? _net->numberOfPlaces() : _placeNames.size(), 0);
             _deadlock = false;
         };
         

@@ -1,6 +1,7 @@
 #include "ReducingSuccessorGenerator.h"
 
 #include "PQL/Contexts.h"
+#include "Reducer.h"
 
 #include <assert.h>
 #include <stack>
@@ -36,7 +37,32 @@ namespace PetriEngine {
         _queries.reserve(queries.size());
         for(auto& q : queries)
             _queries.push_back(q.get());
+        updatePlaceSensitivity();
     }
+    
+    void ReducingSuccessorGenerator::setQuery(PQL::Condition* ptr, bool safety)
+    {
+        _queries.clear();
+        _queries = {ptr};
+        _is_safety = safety;
+        updatePlaceSensitivity();
+    }
+
+    
+    void ReducingSuccessorGenerator::updatePlaceSensitivity()
+    {
+        std::unordered_map<std::string, uint32_t> pnames;
+        std::unordered_map<std::string, uint32_t> tnames;
+        for(size_t i = 0; i < _net.placeNames().size(); ++i)
+            pnames[_net.placeNames()[i]] = i;
+        for(size_t i = 0; i < _net.transitionNames().size(); ++i)
+            tnames[_net.transitionNames()[i]] = i;
+
+        QueryPlaceAnalysisContext ctx(pnames, tnames, nullptr);
+        for(auto& q : _queries)
+            q->analyze(ctx);
+    }
+
 
     void ReducingSuccessorGenerator::computeFinite() {
         std::stack<uint32_t> waiting;
@@ -357,7 +383,7 @@ namespace PetriEngine {
 
     void ReducingSuccessorGenerator::constructPrePost() {
         std::vector<std::pair<std::vector<trans_t>, std::vector < trans_t>>> tmp_places(_net._nplaces);
-                
+        _places = std::make_unique<place_t[]>(_net._nplaces + 1);                
         for (uint32_t t = 0; t < _net._ntransitions; ++t) {
             const TransPtr& ptr = _net._transitions[t];
             uint32_t finv = ptr.inputs;
@@ -366,6 +392,7 @@ namespace PetriEngine {
                 if (_net._invariants[finv].inhibitor) {
                     _inhibpost[_net._invariants[finv].place].push_back(t);
                     _netContainsInhibitorArcs = true;
+                    _places[_net._invariants[finv].place].inhibiting = true;
                 } else {
                     tmp_places[_net._invariants[finv].place].second.emplace_back(t, _net._invariants[finv].direction);
                 }
@@ -385,7 +412,6 @@ namespace PetriEngine {
         }
         _arcs = std::make_unique<trans_t[]>(ntrans);
 
-        _places = std::make_unique<place_t[]>(_net._nplaces + 1);
         uint32_t offset = 0;
         uint32_t p = 0;
         for (; p < _net._nplaces; ++p) {
@@ -529,6 +555,11 @@ namespace PetriEngine {
     {
         if((_stub_enable[t] & STUBBORN) == 0)
         {
+            if((_stub_enable[t] & FUTURE_ENABLED) == 0 &&
+               (!_is_game || _players_enabled == PetriNet::ANY))
+            {
+                return;
+            }
             _stub_enable[t] |= STUBBORN;
             _unprocessed.push_back(t);
             //std::cerr << "\t\ts " << _net.transitionNames()[t] << std::endl;
@@ -576,6 +607,111 @@ namespace PetriEngine {
             }
         }        
     }
+
+    bool ReducingSuccessorGenerator::computeBounds(PQL::EvaluationContext& context)
+    {
+        std::stack<uint32_t> waiting;
+        
+        auto color_transition = [this,&waiting](auto t)
+        {
+            _stub_enable[t] |= FUTURE_ENABLED;
+            if(_netContainsInhibitorArcs)
+            {
+                // check for decrementors
+                uint32_t finv = _net._transitions[t].inputs;
+                uint32_t linv = _net._transitions[t].outputs;
+
+                for (; finv < linv; finv++) {
+                    auto& inv = _net._invariants[finv];
+                    if(inv.direction < 0 && _places[inv.place].inhibiting)
+                    {
+                        if((_places_seen[inv.place] & DECR) == 0)
+                            waiting.push(inv.place);
+                        _places_seen[inv.place] |= DECR;
+                    }
+                }
+            }
+            {
+                // color incrementors
+                uint32_t finv = _net._transitions[t].outputs;
+                uint32_t linv = _net._transitions[t+1].inputs;
+
+                for (; finv < linv; finv++) {
+                    auto& inv = _net._invariants[finv];
+                    if(inv.direction > 0)
+                    {
+                        if((_places_seen[inv.place] & INCR) ==  0)
+                            waiting.push(inv.place);
+                        _places_seen[inv.place] |= INCR;
+                    }
+                }
+            }
+        };
+        
+        // bootstrap
+        for(auto t : (_players_enabled == PetriNet::CTRL) ? _ctrl_trans : _env_trans)
+        {
+            if((_stub_enable[t] & ENABLED) != 0)
+            {
+                color_transition(t);
+            }
+        }
+        
+        // saturate
+        bool seen_from_query = false;
+        while(!waiting.empty())
+        {
+            auto p = waiting.top();
+            waiting.pop();
+            if(_places[p].in_query)
+            {
+                seen_from_query = true;
+            }
+            if((_places_seen[p] & INCR) != 0 ||
+               (_places[p].inhibiting && (_places_seen[p] & DECR) != 0))
+            {
+                auto pf = _places[p].post;
+                auto pl = _places[p+1].pre;
+                for(; pf < pl; ++pf)
+                {
+                    if((_stub_enable[_arcs[pf].index] & FUTURE_ENABLED) == 0 &&
+                       _net.ownedBy(_arcs[pf].index, _players_enabled))
+                    {
+                        auto t = _arcs[pf].index;
+                        uint32_t finv = _net._transitions[t].inputs;
+                        uint32_t linv = _net._transitions[t].outputs;
+                        bool ok = true;
+                        // check color of preset
+                        for (; finv < linv; finv++) {
+                            if(!_net._invariants[finv].inhibitor &&
+                               (_places_seen[_net._invariants[finv].place] & INCR) == 0 &&
+                               _parent[_net._invariants[finv].place] < _net._invariants[finv].tokens)
+                            {
+                                // no proof of enabelable yet
+                                ok = false;
+                                break;
+                            }
+                            if(_net._invariants[finv].inhibitor &&
+                               (_places_seen[_net._invariants[finv].place] & DECR) == 0 &&
+                               _parent[_net._invariants[finv].place] >= _net._invariants[finv].tokens)
+                            {
+                                // no proof of uninhib yet
+                                ok = false;
+                                break;
+                            }
+                        }
+                        if(ok)
+                        {
+                            color_transition(t);
+                        }
+                    }
+                }
+            }
+        }
+        return seen_from_query;
+    }
+
+    
     void ReducingSuccessorGenerator::prepare(const MarkVal* state) {
         _parent = state;
         _skip = false;
@@ -584,23 +720,39 @@ namespace PetriEngine {
         _added_enabled = false;
         reset();
         constructEnabled();
-        /*std::cerr << std::endl;
-        std::cerr << "ENABLED " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
-        for(size_t t = 0; t < _net._ntransitions; ++t)
-            if((_stub_enable[t] & (ENABLED)) != 0)
-                std::cerr << _net._transitionnames[t] << ",";
-        std::cerr << std::endl;*/
         if(_ordering.size() == 0) return;
-        if(_ordering.size() == 1)
+        if(_ordering.size() == 1 ||
+           _players_enabled == PetriNet::ANY)
         {
             _skip = true;
             return;
         }
+        
+        {
+            PQL::EvaluationContext context(_parent, &_net, _is_game);
+            if(_is_game && (_players_enabled == PetriNet::ENV) != _is_safety ){
+                assert(!_is_safety);
+                bool touches_queries = computeBounds(context);
+                if(touches_queries)
+                {
+/*                    std::cerr << "TOUCHED " << std::endl;
+                    for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
+                    {
+                        if(_places[p].in_query && 
+                          ( _places_seen[p] & (INCR | DECR)) != 0)
+                            std::cerr << "\t" << _net.placeNames()[p] << std::endl;
+                    }*/
+                    _skip = true; 
+                    return;
+                }
+//                context.setPlaceChange(_places.get());
+            }
 
-        for (auto &q : _queries) {
-            q->evalAndSet(PQL::EvaluationContext(_parent, &_net, _is_game));
-            q->findInteresting(*this, _is_safety);
-            if(_added_unsafe) { _skip = true; return; }
+            for (auto &q : _queries) {
+                q->evalAndSet(context);
+                q->findInteresting(*this, _is_safety);
+                if(_added_unsafe) { _skip = true; return; }
+            }
         }
         closure();
         /*std::cerr << "POST Q " << (_added_unsafe ? "UNSAFE" : "") << std::endl;
@@ -611,12 +763,6 @@ namespace PetriEngine {
         if(!_added_enabled)
             return;
         
-        if(_players_enabled == PetriNet::ANY)
-        {
-            _skip = true;
-            return;
-        }
-
         if(!_is_game) 
         {
             // we only need to preserve cycles in case of safety

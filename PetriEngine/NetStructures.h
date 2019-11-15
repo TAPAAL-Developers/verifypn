@@ -10,6 +10,7 @@
 
 #include <limits>
 #include <vector>
+#include <cassert>
 
 namespace PetriEngine {
 
