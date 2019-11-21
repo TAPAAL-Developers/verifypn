@@ -875,10 +875,10 @@ namespace PetriEngine {
             }
             
             for (auto &q : _queries) {
-                auto org = q->evalAndSet(context);
-                auto res = q->findInteresting(*this, _is_safety);
-                if(res != org && _is_game && (_players_enabled == PetriNet::ENV) != _is_safety)
+                auto res = q->evalAndSet(context);
+                if(!res.second && _is_game && (_players_enabled == PetriNet::ENV) != _is_safety)
                 { _skip = true; return; } // we can change result for some query for the safety player
+                q->findInteresting(*this, _is_safety);
                 if(_added_unsafe) { _skip = true; return; }
             }
         }

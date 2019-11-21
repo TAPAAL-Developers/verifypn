@@ -53,7 +53,35 @@ namespace PetriEngine {
         class DistanceContext;
         class TAPAALConditionExportContext;
         class SimplificationContext;
+        enum Result {RUNKNOWN=-1,RFALSE=0,RTRUE=1};
+        using StableResult = std::pair<Result,bool>;
+        struct bounds_t {
+            explicit bounds_t(int64_t v)
+            {
+                value = lower = upper = v;
+            }
+            bounds_t(int64_t v, int64_t l, int64_t u)
+            {
+                value = v;
+                lower = l;
+                upper = u;
+            }
+            bounds_t operator+(const bounds_t& other) const;
+            bounds_t operator*(const bounds_t& other) const;
+            bounds_t operator-(const bounds_t& other) const;
+            
+            StableResult operator==(const bounds_t& other) const;
+            StableResult operator!=(const bounds_t& other) const;
+            StableResult operator<=(const bounds_t& other) const;
+            StableResult operator>=(const bounds_t& other) const;
+            StableResult operator<(const bounds_t& other) const;
+            StableResult operator>(const bounds_t& other) const;
 
+            
+            int64_t value;
+            int64_t lower;
+            int64_t upper;
+        };
         /** Representation of an expression */
         class Expr {
             int _eval = 0;
@@ -79,7 +107,7 @@ namespace PetriEngine {
             /** Perform context analysis */
             virtual void analyze(AnalysisContext& context) = 0;
             /** Evaluate the expression given marking and assignment */
-            virtual int evaluate(const EvaluationContext& context) = 0;
+            virtual bounds_t evaluate(const EvaluationContext& context) = 0;
             int evalAndSet(const EvaluationContext& context);
 #ifdef ENABLE_TAR
             virtual z3::expr encodeSat(const PetriNet& net, z3::context& context, std::vector<int32_t>& uses, std::vector<bool>& incremented) const = 0;
@@ -168,11 +196,9 @@ namespace PetriEngine {
         
         /** Base condition */
         class Condition {
-        public:
-            enum Result {RUNKNOWN=-1,RFALSE=0,RTRUE=1};
         private:
+            StableResult _eval = StableResult(RUNKNOWN,false);
             bool _inv = false;
-            Result _eval = RUNKNOWN;
         protected:
             bool _loop_sensitive = false;            
         public:
@@ -181,8 +207,8 @@ namespace PetriEngine {
             /** Perform context analysis  */
             virtual void analyze(AnalysisContext& context) = 0;
             /** Evaluate condition */
-            virtual Result evaluate(const EvaluationContext& context) = 0;
-            virtual Result evalAndSet(const EvaluationContext& context) = 0;
+            virtual StableResult evaluate(const EvaluationContext& context) = 0;
+            virtual StableResult evalAndSet(const EvaluationContext& context) = 0;
             
 #ifdef ENABLE_TAR
             virtual z3::expr encodeSat(const PetriNet& net, z3::context& context, std::vector<int32_t>& uses, std::vector<bool>& incremented) const = 0;
@@ -221,15 +247,15 @@ namespace PetriEngine {
 
             bool isSatisfied() const
             {
-                return _eval == RTRUE;
+                return _eval.first == RTRUE;
             }
             
-            void setSatisfied(bool isSatisfied)
-            {
-                _eval = isSatisfied ? RTRUE : RFALSE;
+            StableResult getEval() const
+            { 
+                return _eval;
             }
             
-            void setSatisfied(Result isSatisfied)
+            void setSatisfied(StableResult isSatisfied)
             {
                 _eval = isSatisfied;
             }

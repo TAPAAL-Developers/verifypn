@@ -47,11 +47,12 @@ namespace PetriEngine {
                 if(results[i] == ResultPrinter::Unknown)
                 {
                     EvaluationContext ec(state.get(), &_net);
-                    if(queries[i]->evaluate(ec) == Condition::RTRUE)
+                    auto res = queries[i]->evaluate(ec);
+                    if(res.first == PQL::RTRUE || res.second)
                     {
-                        results[i] = printQuery(queries[i], i, ResultPrinter::Satisfied, ss, states);
-//                        std::cout << queries[i]->toString() << std::endl;
-//                        state.print(_net);
+                        results[i] = printQuery(queries[i], i, 
+                                                res.first == PQL::RTRUE ? ResultPrinter::Satisfied : ResultPrinter::NotSatisfied, 
+                                                ss, states);
                     }
                     else
                     {

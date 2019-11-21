@@ -51,8 +51,8 @@ namespace PetriEngine {
             auto res = func();
             if(!nested && initrw)
             {
-                auto e = res->evaluate(context);
-                if(e != Condition::RUNKNOWN) 
+                auto e = res->evaluate(context).first;
+                if(e != RUNKNOWN) 
                 {
                     if(res->getQuantifier() == E && res->getPath() == F)
                     {
@@ -68,6 +68,60 @@ namespace PetriEngine {
             return res;            
         }
 
+        bounds_t bounds_t::operator*(const bounds_t& other) const
+        {
+            return bounds_t(value*other.value, lower*other.lower, upper*other.upper);
+        }
+        
+        bounds_t bounds_t::operator +(const bounds_t& other) const {
+            return bounds_t(value+other.value, lower+other.lower, upper+other.upper);
+        }
+        
+        bounds_t bounds_t::operator -(const bounds_t& other) const {
+            return bounds_t(value-other.value, lower-other.lower, upper-other.upper);
+        }
 
+        StableResult bounds_t::operator==(const bounds_t& other) const
+        {
+            auto rr = value == other.value;
+            if(rr)
+                return std::make_pair(RTRUE, other.lower == other.upper && lower == upper);
+            else
+                return std::make_pair(RFALSE, other.upper < lower || upper < other.lower);
+        }
+        
+        StableResult bounds_t::operator!=(const bounds_t& other) const
+        {
+            auto res = *this == other;
+            res.first = res.first != RTRUE ? RTRUE : RFALSE;
+            return res;
+        }
+
+        StableResult bounds_t::operator<(const bounds_t& other) const
+        {
+            auto rr = value < other.value;
+            if(rr)
+                return std::make_pair(rr ? RTRUE : RFALSE, upper < other.lower);
+            else
+                return std::make_pair(rr ? RTRUE : RFALSE, lower >= other.upper);
+        }
+
+        StableResult bounds_t::operator<=(const bounds_t& other) const
+        {
+            auto res = other < *this;
+            res.first = res.first != RTRUE  ? RTRUE : RFALSE;
+            return res;
+        }
+
+        StableResult bounds_t::operator>(const bounds_t& other) const
+        {
+            return other < *this;
+        }
+
+        StableResult bounds_t::operator>=(const bounds_t& other) const
+        {
+            return other <= *this;
+        }
+        
     } // PQL
 } // PetriEngine

@@ -49,7 +49,7 @@ namespace PetriEngine {
             NaryExpr(std::vector<Expr_ptr>&& exprs) : _exprs(std::move(exprs)) {
             }
             virtual void analyze(AnalysisContext& context) override;
-            int evaluate(const EvaluationContext& context) override;
+            bounds_t evaluate(const EvaluationContext& context) override;
             int formulaSize() const override{
                 size_t sum = 0;
                 for(auto& e : _exprs) sum += e->formulaSize();
@@ -59,10 +59,10 @@ namespace PetriEngine {
             bool placeFree() const override;
 
         protected:
-            virtual int apply(int v1, int v2) const = 0;
+            virtual bounds_t apply(bounds_t v1, bounds_t v2) const = 0;
             virtual std::string op() const = 0;
             std::vector<Expr_ptr> _exprs;
-            virtual int32_t preOp(const EvaluationContext& context) const;
+            virtual bounds_t preOp(const EvaluationContext& context) const;
         };
         
         class PlusExpr;
@@ -73,7 +73,7 @@ namespace PetriEngine {
         public:
             friend CompareCondition;
             virtual void analyze(AnalysisContext& context) override;
-            int evaluate(const EvaluationContext& context) override;
+            bounds_t evaluate(const EvaluationContext& context) override;
             void toBinary(std::ostream&) const override;
             int formulaSize() const override{
                 size_t sum = _ids.size();
@@ -85,7 +85,7 @@ namespace PetriEngine {
         protected:
             CommutativeExpr(int constant): _constant(constant) {};
             void init(std::vector<Expr_ptr>&& exprs);
-            virtual int32_t preOp(const EvaluationContext& context) const override;
+            virtual bounds_t preOp(const EvaluationContext& context) const override;
             int32_t _constant;
             std::vector<std::pair<uint32_t,std::string>> _ids;
             Member commutativeCons(int constant, SimplificationContext& context, std::function<void(Member& a, Member b)> op) const;
@@ -107,7 +107,7 @@ namespace PetriEngine {
             virtual z3::expr encodeSat(const PetriNet& net, z3::context& context, std::vector<int32_t>& uses, std::vector<bool>& incremented) const;
 #endif
         protected:
-            int apply(int v1, int v2) const override;
+            bounds_t apply(bounds_t v1, bounds_t v2) const override;
             //int binaryOp() const;
             std::string op() const override;
         };
@@ -130,7 +130,7 @@ namespace PetriEngine {
             void toBinary(std::ostream&) const override;
 
         protected:
-            int apply(int v1, int v2) const override;
+            bounds_t apply(bounds_t v1, bounds_t v2) const override;
             //int binaryOp() const;
             std::string op() const override;
         };
@@ -149,7 +149,7 @@ namespace PetriEngine {
             virtual z3::expr encodeSat(const PetriNet& net, z3::context& context, std::vector<int32_t>& uses, std::vector<bool>& incremented) const;
 #endif
         protected:
-            int apply(int v1, int v2) const override;
+            bounds_t apply(bounds_t v1, bounds_t v2) const override;
             //int binaryOp() const;
             std::string op() const override;
         };
@@ -162,7 +162,7 @@ namespace PetriEngine {
                 _expr = expr;
             }
             void analyze(AnalysisContext& context) override;
-            int evaluate(const EvaluationContext& context) override;
+            bounds_t evaluate(const EvaluationContext& context) override;
             void toString(std::ostream&) const override;
             Expr::Types type() const override;
             Member constraint(SimplificationContext& context) const override;
@@ -188,7 +188,7 @@ namespace PetriEngine {
             LiteralExpr(int value) : _value(value) {
             }
             void analyze(AnalysisContext& context) override;
-            int evaluate(const EvaluationContext& context) override;
+            bounds_t evaluate(const EvaluationContext& context) override;
             void toString(std::ostream&) const override;
             Expr::Types type() const override;
             void toXML(std::ostream&, uint32_t tabs, bool tokencount = false) const override;
@@ -215,7 +215,7 @@ namespace PetriEngine {
         public:
             IdentifierExpr(const std::string& name) : _name(name) {}
             void analyze(AnalysisContext& context) override;
-            int evaluate(const EvaluationContext& context) override {
+            bounds_t evaluate(const EvaluationContext& context) override {
                 return _compiled->evaluate(context);
             }
             void toString(std::ostream& os) const override {
@@ -276,7 +276,7 @@ namespace PetriEngine {
             }
             
             void analyze(AnalysisContext& context) override;
-            int evaluate(const EvaluationContext& context) override;
+            bounds_t evaluate(const EvaluationContext& context) override;
             void toString(std::ostream&) const override;
             Expr::Types type() const override;
             void toXML(std::ostream&, uint32_t tabs, bool tokencount = false) const override;
@@ -319,8 +319,8 @@ namespace PetriEngine {
                 return _cond->formulaSize() + 1;
             }
             void analyze(AnalysisContext& context) override;
-            Result evaluate(const EvaluationContext& context) override;
-            Result evalAndSet(const EvaluationContext& context) override;
+            StableResult evaluate(const EvaluationContext& context) override;
+            StableResult evalAndSet(const EvaluationContext& context) override;
             uint32_t distance(DistanceContext& context) const override;
             void toString(std::ostream&) const override;
             void toTAPAALQuery(std::ostream&,TAPAALConditionExportContext& context) const override;
@@ -368,8 +368,8 @@ namespace PetriEngine {
             }
             
             void analyze(AnalysisContext& context) override;
-            Result evaluate(const EvaluationContext& context) override;
-            Result evalAndSet(const EvaluationContext& context) override;
+            StableResult evaluate(const EvaluationContext& context) override;
+            StableResult evalAndSet(const EvaluationContext& context) override;
             void toString(std::ostream&) const override;
             void toTAPAALQuery(std::ostream&,TAPAALConditionExportContext& context) const override;
             void toBinary(std::ostream& out) const override;
@@ -419,8 +419,8 @@ namespace PetriEngine {
             Quantifier getQuantifier() const override { return Quantifier::E; }
             Path getPath() const override             { return Path::G; }            
             uint32_t distance(DistanceContext& context) const override;
-            Result evaluate(const EvaluationContext& context) override;
-            Result evalAndSet(const EvaluationContext& context) override;
+            StableResult evaluate(const EvaluationContext& context) override;
+            StableResult evalAndSet(const EvaluationContext& context) override;
             virtual bool isLoopSensitive() const override { return true; }
         private:
             std::string op() const override;
@@ -438,8 +438,8 @@ namespace PetriEngine {
             Quantifier getQuantifier() const override { return Quantifier::E; }
             Path getPath() const override             { return Path::F; }            
             uint32_t distance(DistanceContext& context) const override;
-            Result evaluate(const EvaluationContext& context) override;
-            Result evalAndSet(const EvaluationContext& context) override;
+            StableResult evaluate(const EvaluationContext& context) override;
+            StableResult evalAndSet(const EvaluationContext& context) override;
         private:
             std::string op() const override;
         };
@@ -472,8 +472,8 @@ namespace PetriEngine {
             Quantifier getQuantifier() const override { return Quantifier::A; }
             Path getPath() const override             { return Path::G; } 
             uint32_t distance(DistanceContext& context) const override;
-            Result evaluate(const EvaluationContext& context) override;
-            Result evalAndSet(const EvaluationContext& context) override;
+            StableResult evaluate(const EvaluationContext& context) override;
+            StableResult evalAndSet(const EvaluationContext& context) override;
         private:
             std::string op() const override;
         };
@@ -489,8 +489,8 @@ namespace PetriEngine {
             Quantifier getQuantifier() const override { return Quantifier::A; }
             Path getPath() const override             { return Path::F; }            
             uint32_t distance(DistanceContext& context) const override;
-            Result evaluate(const EvaluationContext& context) override;
-            Result evalAndSet(const EvaluationContext& context) override;
+            StableResult evaluate(const EvaluationContext& context) override;
+            StableResult evalAndSet(const EvaluationContext& context) override;
             virtual bool isLoopSensitive() const override { return true; }
         private:
             std::string op() const override;
@@ -508,7 +508,7 @@ namespace PetriEngine {
             }
             
             void analyze(AnalysisContext& context) override;
-            Result evaluate(const EvaluationContext& context) override;
+            StableResult evaluate(const EvaluationContext& context) override;
 #ifdef ENABLE_TAR
             virtual z3::expr encodeSat(const PetriNet& net, z3::context& context, std::vector<int32_t>& uses, std::vector<bool>& incremented) const
             {
@@ -521,7 +521,7 @@ namespace PetriEngine {
             bool isReachability(uint32_t depth) const override;
             Condition_ptr prepareForReachability(bool negated) const override;
             void findInteresting(ReducingSuccessorGenerator& generator, bool negated) const override;
-            Result evalAndSet(const EvaluationContext& context) override;
+            StableResult evalAndSet(const EvaluationContext& context) override;
             virtual const Condition_ptr& operator[] (size_t i) const override
             { if(i == 0) return _cond1; return _cond2;}
             Path getPath() const override             
@@ -568,9 +568,9 @@ namespace PetriEngine {
         class ExpandableCondition : public Condition {
         public:
             ExpandableCondition(const std::string& tname) : _name(tname) {};
-            Result evaluate(const EvaluationContext& context) override
+            StableResult evaluate(const EvaluationContext& context) override
             { return _compiled->evaluate(context); }
-            Result evalAndSet(const EvaluationContext& context) override
+            StableResult evalAndSet(const EvaluationContext& context) override
             { return _compiled->evalAndSet(context); }
             uint32_t distance(DistanceContext& context) const override
             { return _compiled->distance(context); }
@@ -736,8 +736,8 @@ namespace PetriEngine {
             AndCondition(Condition_ptr left, Condition_ptr right);
             
             Retval simplify(SimplificationContext& context) const override;
-            Result evaluate(const EvaluationContext& context) override;
-            Result evalAndSet(const EvaluationContext& context) override;
+            StableResult evaluate(const EvaluationContext& context) override;
+            StableResult evalAndSet(const EvaluationContext& context) override;
 
             void toXML(std::ostream&, uint32_t tabs) const override;
             void findInteresting(ReducingSuccessorGenerator& generator, bool negated) const override;
@@ -763,8 +763,8 @@ namespace PetriEngine {
             OrCondition(Condition_ptr left, Condition_ptr right);
             
             Retval simplify(SimplificationContext& context) const override;
-            Result evaluate(const EvaluationContext& context) override;
-            Result evalAndSet(const EvaluationContext& context) override;
+            StableResult evaluate(const EvaluationContext& context) override;
+            StableResult evalAndSet(const EvaluationContext& context) override;
 
             void toXML(std::ostream&, uint32_t tabs) const override;
             void findInteresting(ReducingSuccessorGenerator& generator, bool negated) const override;   
@@ -859,8 +859,8 @@ namespace PetriEngine {
             Path getPath() const override         { return Path::pError; }            
             virtual void toXML(std::ostream& stream, uint32_t tabs) const override;
             Retval simplify(SimplificationContext& context) const override;
-            Result evaluate(const EvaluationContext& context) override;
-            Result evalAndSet(const EvaluationContext& context) override;
+            StableResult evaluate(const EvaluationContext& context) override;
+            StableResult evalAndSet(const EvaluationContext& context) override;
             void findInteresting(ReducingSuccessorGenerator& generator, bool negated) const override;   
             Quantifier getQuantifier() const override { return _negated ? Quantifier::OR : Quantifier::AND; }
             Condition_ptr pushNegation(negstat_t&, const EvaluationContext& context, bool nested, bool negated, bool initrw) override;
@@ -894,8 +894,8 @@ namespace PetriEngine {
                 return _expr1->formulaSize() + _expr2->formulaSize() + 1;
             }
             void analyze(AnalysisContext& context) override;
-            Result evaluate(const EvaluationContext& context) override;
-            Result evalAndSet(const EvaluationContext& context) override;
+            StableResult evaluate(const EvaluationContext& context) override;
+            StableResult evalAndSet(const EvaluationContext& context) override;
             void toString(std::ostream&) const override;
             void toTAPAALQuery(std::ostream&,TAPAALConditionExportContext& context) const override;
             void toBinary(std::ostream& out) const override;
@@ -916,10 +916,10 @@ namespace PetriEngine {
             uint32_t _distance(DistanceContext& c, 
                     std::function<uint32_t(uint32_t, uint32_t, bool)> d) const
             {
-                return d(_expr1->evaluate(c), _expr2->evaluate(c), c.negated());
+                return d(_expr1->evaluate(c).value, _expr2->evaluate(c).value, c.negated());
             }
         private:
-            virtual bool apply(int v1, int v2) const = 0;
+            virtual StableResult apply(bounds_t v1, bounds_t v2) const = 0;
             virtual std::string op() const = 0;
             /** Operator when exported to TAPAAL */
             virtual std::string opTAPAAL() const = 0;
@@ -949,7 +949,7 @@ namespace PetriEngine {
             virtual z3::expr encodeSat(const PetriNet& net, z3::context& context, std::vector<int32_t>& uses, std::vector<bool>& incremented) const;
 #endif
         private:
-            bool apply(int v1, int v2) const override;
+            StableResult apply(bounds_t v1, bounds_t v2) const override;
             std::string op() const override;
             std::string opTAPAAL() const override;
             std::string sopTAPAAL() const override;
@@ -970,7 +970,7 @@ namespace PetriEngine {
             virtual z3::expr encodeSat(const PetriNet& net, z3::context& context, std::vector<int32_t>& uses, std::vector<bool>& incremented) const;
 #endif
         private:
-            bool apply(int v1, int v2) const override;
+            StableResult apply(bounds_t v1, bounds_t v2) const override;
             std::string op() const override;
             std::string opTAPAAL() const override;
             std::string sopTAPAAL() const override;
@@ -990,7 +990,7 @@ namespace PetriEngine {
             virtual z3::expr encodeSat(const PetriNet& net, z3::context& context, std::vector<int32_t>& uses, std::vector<bool>& incremented) const;
 #endif
         private:
-            bool apply(int v1, int v2) const override;
+            StableResult apply(bounds_t v1, bounds_t v2) const override;
             std::string op() const override;
             std::string opTAPAAL() const override;
             std::string sopTAPAAL() const override;
@@ -1010,7 +1010,7 @@ namespace PetriEngine {
             virtual z3::expr encodeSat(const PetriNet& net, z3::context& context, std::vector<int32_t>& uses, std::vector<bool>& incremented) const;
 #endif
         private:
-            bool apply(int v1, int v2) const override;
+            StableResult apply(bounds_t v1, bounds_t v2) const override;
             std::string op() const override;
             std::string opTAPAAL() const override;
             std::string sopTAPAAL() const override;
@@ -1030,7 +1030,7 @@ namespace PetriEngine {
             virtual z3::expr encodeSat(const PetriNet& net, z3::context& context, std::vector<int32_t>& uses, std::vector<bool>& incremented) const;
 #endif
         private:
-            bool apply(int v1, int v2) const override;
+            StableResult apply(bounds_t v1, bounds_t v2) const override;
             std::string op() const override;
             std::string opTAPAAL() const override;
             std::string sopTAPAAL() const override;
@@ -1049,7 +1049,7 @@ namespace PetriEngine {
             virtual z3::expr encodeSat(const PetriNet& net, z3::context& context, std::vector<int32_t>& uses, std::vector<bool>& incremented) const;
 #endif
         private:
-            bool apply(int v1, int v2) const override;
+            StableResult apply(bounds_t v1, bounds_t v2) const override;
             std::string op() const override;
             std::string opTAPAAL() const override;
             std::string sopTAPAAL() const override;
@@ -1070,8 +1070,8 @@ namespace PetriEngine {
                 return 0;
             }
             void analyze(AnalysisContext& context) override;
-            Result evaluate(const EvaluationContext& context) override;
-            Result evalAndSet(const EvaluationContext& context) override;
+            StableResult evaluate(const EvaluationContext& context) override;
+            StableResult evalAndSet(const EvaluationContext& context) override;
             uint32_t distance(DistanceContext& context) const override;
             static Condition_ptr TRUE_CONSTANT;
             static Condition_ptr FALSE_CONSTANT;
@@ -1111,8 +1111,8 @@ namespace PetriEngine {
                 return 1;
             }
             void analyze(AnalysisContext& context) override;
-            Result evaluate(const EvaluationContext& context) override;
-            Result evalAndSet(const EvaluationContext& context) override;
+            StableResult evaluate(const EvaluationContext& context) override;
+            StableResult evalAndSet(const EvaluationContext& context) override;
             uint32_t distance(DistanceContext& context) const override;
             void toString(std::ostream&) const override;
             void toTAPAALQuery(std::ostream&,TAPAALConditionExportContext& context) const override;
@@ -1146,9 +1146,9 @@ namespace PetriEngine {
                 return _places.size();
             }
             void analyze(AnalysisContext& context) override;
-            Result evaluate(const EvaluationContext& context) override
+            StableResult evaluate(const EvaluationContext& context) override
             { return _compiled->evaluate(context); }
-            Result evalAndSet(const EvaluationContext& context) override
+            StableResult evalAndSet(const EvaluationContext& context) override
             { return _compiled->evalAndSet(context); }
             uint32_t distance(DistanceContext& context) const override
             { return _compiled->distance(context); }
@@ -1224,8 +1224,8 @@ namespace PetriEngine {
             }
             void analyze(AnalysisContext& context) override;
             size_t value(const MarkVal*);
-            Result evaluate(const EvaluationContext& context) override;
-            Result evalAndSet(const EvaluationContext& context) override;
+            StableResult evaluate(const EvaluationContext& context) override;
+            StableResult evalAndSet(const EvaluationContext& context) override;
             uint32_t distance(DistanceContext& context) const override;
             void toString(std::ostream&) const override;
             void toTAPAALQuery(std::ostream&,TAPAALConditionExportContext& context) const override;

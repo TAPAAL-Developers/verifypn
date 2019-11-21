@@ -19,11 +19,10 @@
 #include <functional>
 
 namespace PetriEngine {
+using namespace PetriEngine::PQL;
 class CTLDependencyGraph : public DependencyGraph::BasicDependencyGraph
 {
 public:
-    using Condition = PetriEngine::PQL::Condition;
-    using Condition_ptr = PetriEngine::PQL::Condition_ptr;
     CTLDependencyGraph(PetriEngine::PetriNet& t_net, const Condition_ptr& query, bool partial_order);
 
     virtual ~CTLDependencyGraph();
@@ -40,7 +39,7 @@ public:
     size_t configurationCount() const;
     size_t markingCount() const;
     
-    Condition::Result initialEval();
+    PetriEngine::PQL::Result initialEval();
 
 protected:
 
@@ -57,8 +56,8 @@ protected:
     //used after query is set
     Condition_ptr query = nullptr;
 
-    Condition::Result fastEval(Condition* query, const MarkVal* unfolded);
-    Condition::Result fastEval(const Condition_ptr& query, const MarkVal* unfolded)
+    PetriEngine::PQL::Result fastEval(Condition* query, const MarkVal* unfolded);
+    PetriEngine::PQL::Result fastEval(const Condition_ptr& query, const MarkVal* unfolded)
     {
         return fastEval(query.get(), unfolded);
     }

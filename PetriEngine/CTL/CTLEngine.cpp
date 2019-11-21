@@ -39,11 +39,11 @@ ReturnValue CTLMain(PetriEngine::PetriNet& net,
         std::shared_ptr<DependencyGraph::FixedPointAlgorithm> alg = nullptr;
         bool solved = false;
         switch (graph.initialEval()) {
-            case Condition::Result::RFALSE:
+            case Result::RFALSE:
                 result.result = ResultPrinter::NotSatisfied;
                 solved = true;
                 break;
-            case Condition::Result::RTRUE:
+            case Result::RTRUE:
                 result.result = ResultPrinter::Satisfied;
                 solved = true;
                 break;

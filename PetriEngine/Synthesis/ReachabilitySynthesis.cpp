@@ -148,7 +148,8 @@ namespace PetriEngine {
         
         bool ReachabilitySynthesis::eval(PQL::Condition* cond, const MarkVal* marking) {
             PQL::EvaluationContext ctx(marking, &_net);
-            return cond->evaluate(ctx) == PQL::Condition::RTRUE;
+            return cond->evaluate(ctx).first == PQL::RTRUE; 
+            // TODO, we can use the stability in the fixpoint computation to prun the Dep-graph
         }
         
         SynthConfig& ReachabilitySynthesis::get_config(Structures::AnnotatedStateSet<SynthConfig>& stateset, const MarkVal* marking, PQL::Condition* prop, bool is_safety, size_t& cid) {

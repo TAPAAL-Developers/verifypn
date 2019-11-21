@@ -699,8 +699,8 @@ namespace PetriEngine {
 
         /******************** Evaluation ********************/
 
-        int NaryExpr::evaluate(const EvaluationContext& context) {
-            int32_t r = preOp(context);
+        bounds_t NaryExpr::evaluate(const EvaluationContext& context) {
+            bounds_t r(preOp(context));
             for(size_t i = 1; i < _exprs.size(); ++i)
             {
                 r = apply(r, _exprs[i]->evaluate(context));
@@ -708,131 +708,172 @@ namespace PetriEngine {
             return r;
         }
         
-        int32_t NaryExpr::preOp(const EvaluationContext& context) const {
+        bounds_t NaryExpr::preOp(const EvaluationContext& context) const {
             return _exprs[0]->evaluate(context);
         }
 
-        int32_t CommutativeExpr::preOp(const EvaluationContext& context) const {
-            int32_t res = _constant;
-            for(auto& i : _ids) res = this->apply(res, context.marking()[i.first]);
-            if(_exprs.size() > 0) res = this->apply(res, _exprs[0]->evaluate(context));
+        bounds_t CommutativeExpr::preOp(const EvaluationContext& context) const {
+            bounds_t res(_constant);
+            for(auto& i : _ids) res = this->apply(res, bounds_t(context.marking()[i.first]));
+            if(_exprs.size() > 0) res = this->apply(res, bounds_t(_exprs[0]->evaluate(context)));
             return res;
         }
 
-        int CommutativeExpr::evaluate(const EvaluationContext& context) {
+        bounds_t CommutativeExpr::evaluate(const EvaluationContext& context) {
             if(_exprs.size() == 0) return preOp(context);
             return NaryExpr::evaluate(context);
         }
         
-        int MinusExpr::evaluate(const EvaluationContext& context) {
-            return -(_expr->evaluate(context));
+        bounds_t MinusExpr::evaluate(const EvaluationContext& context) {
+            return bounds_t(0)-(_expr->evaluate(context));
         }
 
-        int LiteralExpr::evaluate(const EvaluationContext&) {
-            return _value;
+        bounds_t LiteralExpr::evaluate(const EvaluationContext&) {
+            return bounds_t(_value);
         }
 
-        int UnfoldedIdentifierExpr::evaluate(const EvaluationContext& context) {
+        bounds_t UnfoldedIdentifierExpr::evaluate(const EvaluationContext& context) {
             assert(_offsetInMarking != -1);
-            return context.marking()[_offsetInMarking];
+            return bounds_t(context.value(_offsetInMarking), context.lower(_offsetInMarking), context.upper(_offsetInMarking));
         }
 
-        Condition::Result SimpleQuantifierCondition::evaluate(const EvaluationContext& context) {
-	    return RUNKNOWN;
+        StableResult SimpleQuantifierCondition::evaluate(const EvaluationContext& context) {
+    	    return StableResult(RUNKNOWN, false);
         }
 
-        Condition::Result EGCondition::evaluate(const EvaluationContext& context) {
-            if(_cond->evaluate(context) == RFALSE) return RFALSE;
-            return RUNKNOWN;
-        }
-
-        Condition::Result AGCondition::evaluate(const EvaluationContext& context) 
+        template<Result D>
+        StableResult evalCTLCondition(const Condition_ptr& cond, const EvaluationContext& context)
         {
-            if(_cond->evaluate(context) == RFALSE) return RFALSE;
-            return RUNKNOWN;
+            auto r = cond->evaluate(context);
+            if(r.first == D) return std::make_pair(D, true);
+            return StableResult(r.second ? r.first : RUNKNOWN, r.second);            
+        }
+        
+        StableResult EGCondition::evaluate(const EvaluationContext& context) {
+            return evalCTLCondition<RFALSE>(_cond, context);
         }
 
-        Condition::Result EFCondition::evaluate(const EvaluationContext& context) {
-            if(_cond->evaluate(context) == RTRUE) return RTRUE;
-            return RUNKNOWN;
+        StableResult AGCondition::evaluate(const EvaluationContext& context) 
+        {
+            return evalCTLCondition<RFALSE>(_cond, context);
         }
 
-        Condition::Result AFCondition::evaluate(const EvaluationContext& context) {
-            if(_cond->evaluate(context) == RTRUE) return RTRUE;
-            return RUNKNOWN;
+        StableResult EFCondition::evaluate(const EvaluationContext& context) {
+            return evalCTLCondition<RTRUE>(_cond, context);
+        }
+
+        StableResult AFCondition::evaluate(const EvaluationContext& context) {
+            return evalCTLCondition<RTRUE>(_cond, context);
         }
 
         
-        Condition::Result UntilCondition::evaluate(const EvaluationContext& context) {
-            auto r2 = _cond2->evaluate(context);
-            if(r2 != RFALSE) return r2;
-            auto r1 = _cond1->evaluate(context);
-            if(r1 == RFALSE)
+        StableResult UntilCondition::evaluate(const EvaluationContext& context) {
+            auto r2 = evalCTLCondition<RTRUE>(_cond2, context);
+            if(r2.second) return r2;
+            auto r1 = evalCTLCondition<RFALSE>(_cond1, context);
+            if(r1.first == RFALSE)
             {
-                return RFALSE;
+                assert(r2.first != RTRUE);
+                return r1;
             }
-            return RUNKNOWN;
+            return StableResult(RUNKNOWN,false);
         }
         
 
         
-        Condition::Result AndCondition::evaluate(const EvaluationContext& context) {
+        StableResult AndCondition::evaluate(const EvaluationContext& context) {
             auto res = RTRUE;            
+            bool stable = true;
             for(auto& c : _conds)
             {
                 auto r = c->evaluate(context);
-                if(r == RFALSE) return RFALSE;
-                else if(r == RUNKNOWN) res = RUNKNOWN;
+                if(r.first == RFALSE)
+                {
+                    return r;
+                }
+                else if(r.first == RUNKNOWN)
+                {
+                    stable = false;
+                    res = RUNKNOWN;
+                }
+                else
+                {
+                    stable &= r.second;
+                }
             }
-            return res;
+            return StableResult(res, stable);
         }
 
-        Condition::Result OrCondition::evaluate(const EvaluationContext& context) {
-            auto res = RFALSE;            
+        StableResult OrCondition::evaluate(const EvaluationContext& context) {
+            auto res = RFALSE;
+            bool stable = false;
             for(auto& c : _conds)
             {
                 auto r = c->evaluate(context);
-                if(r == RTRUE) return RTRUE;
-                else if(r == RUNKNOWN) res = RUNKNOWN;
+                if(r.first == RTRUE) return r;
+                else if(r.first == RUNKNOWN)
+                {
+                    res = RUNKNOWN;
+                    stable = false;
+                }
+                else
+                {
+                    stable &= r.second;
+                }
             }
-            return res;
+            return StableResult(res, stable);
         }
         
-        Condition::Result CompareConjunction::evaluate(const EvaluationContext& context){
+        StableResult CompareConjunction::evaluate(const EvaluationContext& context){
 //            auto rres = _org->evaluate(context);
             bool res = true;
+            bool stable = true;
             for(auto& c : _constraints)
             {
-                res = res && context.marking()[c._place] <= c._upper &&
-                             context.marking()[c._place] >= c._lower;
-                if(!res) break;
+                res = res && context.value(c._place) <= c._upper &&
+                             context.value(c._place) >= c._lower;
+                bool lstable = true;
+                if(!(context.lower(c._place) >  c._upper ||
+                     c._lower > context.upper(c._place)))
+                {
+                    lstable = c._lower <= context.lower(c._place) && 
+                              context.upper(c._place) <= c._upper;
+                }
+                // else never intersection
+                if(!res)
+                {
+                    stable = lstable;
+                    break;
+                }
+                stable &= lstable;
             }
-            return (_negated xor res) ? RTRUE : RFALSE;
+            return StableResult((_negated xor res) ? RTRUE : RFALSE, stable);
         }
         
-        Condition::Result CompareCondition::evaluate(const EvaluationContext& context) {
-            int v1 = _expr1->evaluate(context);
-            int v2 = _expr2->evaluate(context);
-            return apply(v1, v2) ? RTRUE : RFALSE;
+        StableResult CompareCondition::evaluate(const EvaluationContext& context) {
+            auto v1 = _expr1->evaluate(context);
+            auto v2 = _expr2->evaluate(context);
+            return apply(v1, v2);
         }
 
-        Condition::Result NotCondition::evaluate(const EvaluationContext& context) {
+        StableResult NotCondition::evaluate(const EvaluationContext& context) {
             auto res = _cond->evaluate(context);
-            if(res != RUNKNOWN) return res == RFALSE ? RTRUE : RFALSE;
-            return RUNKNOWN;
+            if(res.second != RUNKNOWN) 
+                return StableResult(res.first == RFALSE ? RTRUE : RFALSE, res.second);
+            return StableResult(RUNKNOWN, false);
         }
 
-        Condition::Result BooleanCondition::evaluate(const EvaluationContext&) {
-            return _value ? RTRUE : RFALSE;
+        StableResult BooleanCondition::evaluate(const EvaluationContext&) {
+            return StableResult(_value ? RTRUE : RFALSE, true);
         }
 
-        Condition::Result DeadlockCondition::evaluate(const EvaluationContext& context) {
+        StableResult DeadlockCondition::evaluate(const EvaluationContext& context) {
             if (!context.net())
-                return RFALSE;
+                return StableResult(RFALSE, false);
             if (!context.net()->deadlocked(context.marking())) {
-                return RFALSE;
+                return StableResult(RFALSE, false);
             }
-            return RTRUE;
+            return StableResult(RTRUE, false);
         }
         
         size_t UnfoldedUpperBoundsCondition::value(const MarkVal* marking)
@@ -847,131 +888,143 @@ namespace PetriEngine {
             return tmp;
         }
         
-        Condition::Result UnfoldedUpperBoundsCondition::evaluate(const EvaluationContext& context) {
+        StableResult UnfoldedUpperBoundsCondition::evaluate(const EvaluationContext& context) {
             setUpperBound(value(context.marking()));
-            return _max <= _bound ? RTRUE : RUNKNOWN;
+            return _max <= _bound ? StableResult(RTRUE,true) : StableResult(RUNKNOWN,false);
         }
         
         /******************** Evaluation - save result ********************/
-        Condition::Result SimpleQuantifierCondition::evalAndSet(const EvaluationContext& context) {
-	    return RUNKNOWN;
+        template<Result D>
+        StableResult evalAndSetCTLCondition(const Condition_ptr& cond, const EvaluationContext& context)
+        {
+            auto r = cond->evalAndSet(context);
+            if(r.first == D) return std::make_pair(D, true);
+            return StableResult(r.second ? r.first : RUNKNOWN, r.second);            
         }
 
-        Condition::Result EGCondition::evalAndSet(const EvaluationContext& context) {
-            auto res = _cond->evalAndSet(context);
-            if(res != RFALSE) res = RUNKNOWN;
-            setSatisfied(res);
-            return res;
+        StableResult SimpleQuantifierCondition::evalAndSet(const EvaluationContext& context) {
+            return StableResult(RUNKNOWN,false);
         }
 
-        Condition::Result AGCondition::evalAndSet(const EvaluationContext& context) {
-            auto res = _cond->evalAndSet(context);
-            if(res != RFALSE) res = RUNKNOWN;
-            setSatisfied(res);
-            return res;
+        StableResult EGCondition::evalAndSet(const EvaluationContext& context) {
+            setSatisfied(evalAndSetCTLCondition<RFALSE>(_cond, context));
+            return getEval();
         }
 
-        Condition::Result EFCondition::evalAndSet(const EvaluationContext& context) {
-            auto res = _cond->evalAndSet(context);
-            if(res != RTRUE) res = RUNKNOWN;
-            setSatisfied(res);
-            return res;
+        StableResult AGCondition::evalAndSet(const EvaluationContext& context) {
+            setSatisfied(evalAndSetCTLCondition<RFALSE>(_cond, context));
+            return getEval();
         }
 
-        Condition::Result AFCondition::evalAndSet(const EvaluationContext& context) {
-            auto res = _cond->evalAndSet(context);
-            if(res != RTRUE) res = RUNKNOWN;
-            setSatisfied(res);
-            return res;
+        StableResult EFCondition::evalAndSet(const EvaluationContext& context) {
+            setSatisfied(evalAndSetCTLCondition<RTRUE>(_cond, context));
+            return getEval();
+        }
+
+        StableResult AFCondition::evalAndSet(const EvaluationContext& context) {
+            setSatisfied(evalAndSetCTLCondition<RTRUE>(_cond, context));
+            return getEval();
         }
         
-        Condition::Result UntilCondition::evalAndSet(const EvaluationContext& context) {
-            auto r2 = _cond2->evalAndSet(context);
-            if(r2 != RFALSE) return r2;
-            auto r1 = _cond1->evalAndSet(context);
-            if(r1 == RFALSE) return RFALSE;
-            return RUNKNOWN;
+        StableResult UntilCondition::evalAndSet(const EvaluationContext& context) {
+            auto r2 = evalAndSetCTLCondition<RTRUE>(_cond2, context);
+            if(r2.second) { setSatisfied(r2); return getEval(); }
+            auto r1 = evalAndSetCTLCondition<RFALSE>(_cond1, context);
+            if(r1.first == RFALSE) { setSatisfied(r1); return getEval(); }
+            return StableResult(RUNKNOWN, false);
         }        
 
         int Expr::evalAndSet(const EvaluationContext& context) {
-            int r = evaluate(context);
+            int r = evaluate(context).value;
             setEval(r);
             return r;
         }
 
-        Condition::Result AndCondition::evalAndSet(const EvaluationContext& context) {
+        StableResult AndCondition::evalAndSet(const EvaluationContext& context) {
             Result res = RTRUE;
+            bool stable = true;
             for(auto& c : _conds)
             {
                 auto r = c->evalAndSet(context);
-                if(r == RFALSE)
+                if(r.first == RFALSE)
                 {
-                    res = RFALSE;
-                    break;
+                    setSatisfied(r);
+                    return getEval();
                 }
-                else if(r == RUNKNOWN)
+                else if(r.first == RUNKNOWN)
                 {
                     res = RUNKNOWN;
+                    stable = false;
+                }
+                else
+                {
+                    stable &= r.second;
                 }
             }
-            setSatisfied(res);
-            return res;
+            setSatisfied(StableResult(res, stable));
+            return getEval();
         }
 
-        Condition::Result OrCondition::evalAndSet(const EvaluationContext& context) {
+        StableResult OrCondition::evalAndSet(const EvaluationContext& context) {
             Result res = RFALSE;
+            bool stable = true;
             for(auto& c : _conds)
             {
                 auto r = c->evalAndSet(context);
-                if(r == RTRUE)
+                if(r.second == RTRUE)
                 {
-                    res = RTRUE;
-                    break;
+                    setSatisfied(r);
+                    return getEval();
                 }
-                else if(r == RUNKNOWN)
+                else if(r.first == RUNKNOWN)
                 {
                     res = RUNKNOWN;
+                    stable = false;
+                }
+                else
+                {
+                    stable &= r.second;
                 }
             }
-            setSatisfied(res);
-            return res;
+            setSatisfied(StableResult(res, stable));
+            return getEval();
         }
 
-        Condition::Result CompareConjunction::evalAndSet(const EvaluationContext& context)
+        StableResult CompareConjunction::evalAndSet(const EvaluationContext& context)
         {
             auto res = evaluate(context);
             setSatisfied(res);
             return res;
         }
         
-        Condition::Result CompareCondition::evalAndSet(const EvaluationContext& context) {
+        StableResult CompareCondition::evalAndSet(const EvaluationContext& context) {
             int v1 = _expr1->evalAndSet(context);
             int v2 = _expr2->evalAndSet(context);
-            bool res = apply(v1, v2);
+            auto res = apply(bounds_t(v1), bounds_t(v2));
             setSatisfied(res);
-            return res ? RTRUE : RFALSE;
+            return getEval();
         }
 
-        Condition::Result NotCondition::evalAndSet(const EvaluationContext& context) {
+        StableResult NotCondition::evalAndSet(const EvaluationContext& context) {
             auto res = _cond->evalAndSet(context);
-            if(res != RUNKNOWN) res = res == RFALSE ? RTRUE : RFALSE;
+            res.first = res.first == RFALSE ? RTRUE : RFALSE;
             setSatisfied(res);
-            return res;
+            return getEval();
         }
 
-        Condition::Result BooleanCondition::evalAndSet(const EvaluationContext&) {
-            setSatisfied(_value);
-            return _value ? RTRUE : RFALSE;
+        StableResult BooleanCondition::evalAndSet(const EvaluationContext&) {
+            setSatisfied(StableResult(_value ? RTRUE : RFALSE, true));
+            return getEval();
         }
 
-        Condition::Result DeadlockCondition::evalAndSet(const EvaluationContext& context) {
+        StableResult DeadlockCondition::evalAndSet(const EvaluationContext& context) {
             if (!context.net())
-                return RFALSE;
-            setSatisfied(context.net()->deadlocked(context.marking()));
-            return isSatisfied() ? RTRUE : RFALSE;
+                return StableResult(RFALSE, false);
+            setSatisfied(evaluate(context));
+            return getEval();
         }
         
-        Condition::Result UnfoldedUpperBoundsCondition::evalAndSet(const EvaluationContext& context)
+        StableResult UnfoldedUpperBoundsCondition::evalAndSet(const EvaluationContext& context)
         {
             auto res = evaluate(context);
             setSatisfied(res);
@@ -1162,41 +1215,41 @@ namespace PetriEngine {
 
         /******************** Apply (BinaryExpr subclasses) ********************/
 
-        int PlusExpr::apply(int v1, int v2) const {
+        bounds_t PlusExpr::apply(bounds_t v1, bounds_t v2) const {
             return v1 + v2;
         }
 
-        int SubtractExpr::apply(int v1, int v2) const {
+        bounds_t SubtractExpr::apply(bounds_t v1, bounds_t v2) const {
             return v1 - v2;
         }
 
-        int MultiplyExpr::apply(int v1, int v2) const {
+        bounds_t MultiplyExpr::apply(bounds_t v1, bounds_t v2) const {
             return v1 * v2;
         }
         
         /******************** Apply (CompareCondition subclasses) ********************/
 
-        bool EqualCondition::apply(int v1, int v2) const {
+        StableResult EqualCondition::apply(bounds_t v1, bounds_t v2) const {
             return v1 == v2;
         }
 
-        bool NotEqualCondition::apply(int v1, int v2) const {
+        StableResult NotEqualCondition::apply(bounds_t v1, bounds_t v2) const {
             return v1 != v2;
         }
 
-        bool LessThanCondition::apply(int v1, int v2) const {
+        StableResult LessThanCondition::apply(bounds_t v1, bounds_t v2) const {
             return v1 < v2;
         }
 
-        bool LessThanOrEqualCondition::apply(int v1, int v2) const {
+        StableResult LessThanOrEqualCondition::apply(bounds_t v1, bounds_t v2) const {
             return v1 <= v2;
         }
 
-        bool GreaterThanCondition::apply(int v1, int v2) const {
+        StableResult GreaterThanCondition::apply(bounds_t v1, bounds_t v2) const {
             return v1 > v2;
         }
 
-        bool GreaterThanOrEqualCondition::apply(int v1, int v2) const {
+        StableResult GreaterThanOrEqualCondition::apply(bounds_t v1, bounds_t v2) const {
             return v1 >= v2;
         }
 
@@ -3407,7 +3460,7 @@ namespace PetriEngine {
         
         Condition_ptr LessThanCondition::pushNegation(negstat_t& stats, const EvaluationContext& context, bool nested, bool negated, bool initrw) {
             return initialMarkingRW([&]() -> Condition_ptr {
-            if(isTrivial()) return BooleanCondition::getShared(evaluate(context) xor negated);                
+            if(isTrivial()) return BooleanCondition::getShared(evaluate(context).first xor negated);                
             if(negated) return std::make_shared<GreaterThanOrEqualCondition>(_expr1, _expr2);
             else        return std::make_shared<LessThanCondition>(_expr1, _expr2);
             }, stats, context, nested, negated, initrw);
@@ -3416,7 +3469,7 @@ namespace PetriEngine {
         
         Condition_ptr GreaterThanOrEqualCondition::pushNegation(negstat_t& stats, const EvaluationContext& context, bool nested, bool negated, bool initrw) {
             return initialMarkingRW([&]() -> Condition_ptr {
-            if(isTrivial()) return BooleanCondition::getShared(evaluate(context) xor negated);                
+            if(isTrivial()) return BooleanCondition::getShared(evaluate(context).first xor negated);                
             if(negated) return std::make_shared<LessThanCondition>(_expr1, _expr2);
             else        return std::make_shared<GreaterThanOrEqualCondition>(_expr1, _expr2);
             }, stats, context, nested, negated, initrw);
@@ -3425,7 +3478,7 @@ namespace PetriEngine {
         
         Condition_ptr LessThanOrEqualCondition::pushNegation(negstat_t& stats, const EvaluationContext& context, bool nested, bool negated, bool initrw) {
             return initialMarkingRW([&]() -> Condition_ptr {
-            if(isTrivial()) return BooleanCondition::getShared(evaluate(context) xor negated);                
+            if(isTrivial()) return BooleanCondition::getShared(evaluate(context).first xor negated);                
             if(negated) return std::make_shared<GreaterThanCondition>(_expr1, _expr2);
             else        return std::make_shared<LessThanOrEqualCondition>(_expr1, _expr2);
             }, stats, context, nested, negated, initrw);
@@ -3434,7 +3487,7 @@ namespace PetriEngine {
         
         Condition_ptr GreaterThanCondition::pushNegation(negstat_t& stats, const EvaluationContext& context, bool nested, bool negated, bool initrw) {
             return initialMarkingRW([&]() -> Condition_ptr {
-            if(isTrivial()) return BooleanCondition::getShared(evaluate(context) xor negated);
+            if(isTrivial()) return BooleanCondition::getShared(evaluate(context).first xor negated);
             if(negated) return std::make_shared<LessThanOrEqualCondition>(_expr1, _expr2);
             else        return std::make_shared<GreaterThanCondition>(_expr1, _expr2);
             }, stats, context, nested, negated, initrw);
@@ -3442,10 +3495,10 @@ namespace PetriEngine {
                 
         Condition_ptr pushEqual(CompareCondition* org, bool negated, bool noteq, const EvaluationContext& context)
         {
-            if(org->isTrivial()) return BooleanCondition::getShared(org->evaluate(context) xor negated);
+            if(org->isTrivial()) return BooleanCondition::getShared(org->evaluate(context).first xor negated);
             for(auto i : {0,1})
             {
-                if((*org)[i]->placeFree() && (*org)[i]->evaluate(context) == 0)
+                if((*org)[i]->placeFree() && (*org)[i]->evaluate(context).value == 0)
                 {
                     if(negated == noteq) return std::make_shared<LessThanOrEqualCondition>((*org)[(i + 1) % 2], std::make_shared<LiteralExpr>(0));
                     else                 return std::make_shared<GreaterThanOrEqualCondition>((*org)[(i + 1) % 2], std::make_shared<LiteralExpr>(1));
@@ -3925,12 +3978,12 @@ namespace PetriEngine {
                 if(!id)
                 {
                     id = dynamic_cast<UnfoldedIdentifierExpr*>((*cmp)[1].get());
-                    val = (*cmp)[0]->evaluate(context);
+                    val = (*cmp)[0]->evaluate(context).value;
                     inverted = true;
                 }
                 else
                 {
-                    val = (*cmp)[1]->evaluate(context);
+                    val = (*cmp)[1]->evaluate(context).value;
                 }
                 assert(id);
                 cons_t next;
@@ -3990,7 +4043,7 @@ namespace PetriEngine {
                 if (e->placeFree())
                 {
                     EvaluationContext c;
-                    _constant = apply(_constant, e->evaluate(c));
+                    _constant = apply(bounds_t(_constant), e->evaluate(c)).value;
                 }
                 else if (auto id = dynamic_pointer_cast<PQL::UnfoldedIdentifierExpr>(e)) {
                     _ids.emplace_back(id->offset(), id->name());
@@ -4000,7 +4053,7 @@ namespace PetriEngine {
                     // we should move up plus/multiply here when possible;
                     if(c->_ids.size() == 0 && c->_exprs.size() == 0)
                     {
-                        _constant = apply(_constant, c->_constant);
+                        _constant = apply(bounds_t(_constant), bounds_t(c->_constant)).value;
                     }
                     else
                     {

@@ -170,6 +170,23 @@ namespace PetriEngine {
             {
                 _place_change = stats;
             }
+            
+            MarkVal value(uint32_t p) const
+            {
+                assert(_marking);
+                return _marking[p];
+            }
+            
+            MarkVal upper(uint32_t p) const
+            {
+                return std::numeric_limits<MarkVal>::max();
+            }
+            
+            MarkVal lower(uint32_t p) const
+            {
+                return 0;
+            }
+            
         private:
             const MarkVal* _marking = nullptr;
             const PetriNet* _net = nullptr;

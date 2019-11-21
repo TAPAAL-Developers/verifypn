@@ -56,11 +56,11 @@ void CTLDependencyGraph::setQuery(const Condition_ptr& query)
     assert(this->query);
 }
 
-Condition::Result CTLDependencyGraph::initialEval()
+Result CTLDependencyGraph::initialEval()
 {
     initialConfiguration();
     EvaluationContext e(query_marking.get(), &net);
-    return query->evaluate(e);
+    return query->evaluate(e).first;
 }
 
 Configuration* CTLDependencyGraph::initialConfiguration()
@@ -74,10 +74,10 @@ Configuration* CTLDependencyGraph::initialConfiguration()
     return initial_config;
 }
 
-Condition::Result CTLDependencyGraph::fastEval(Condition* query, const MarkVal* unfolded)
+Result CTLDependencyGraph::fastEval(Condition* query, const MarkVal* unfolded)
 {
     EvaluationContext e(unfolded, &net);
-    return query->evaluate(e);
+    return query->evaluate(e).first;
 }
 
 
@@ -93,7 +93,7 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
     if(query_type == EVAL){
         assert(false);
         //assert(false && "Someone told me, this was a bad place to be.");
-        if (fastEval(query, query_marking.get()) == Condition::RTRUE){
+        if (fastEval(query, query_marking.get()) == RTRUE){
             succs.push_back(newEdge(*v, 0));///*v->query->distance(context))*/0);
         }
     }
@@ -114,11 +114,11 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
             for(auto& c : *cond)
             {
                 auto res = fastEval(c.get(), query_marking.get());
-                if(res == Condition::RFALSE)
+                if(res == RFALSE)
                 {
                     return succs;
                 }
-                if(res == Condition::RUNKNOWN)
+                if(res == RUNKNOWN)
                 {
                     conds.push_back(c.get());
                 }
@@ -143,12 +143,12 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
             for(auto& c : *cond)
             {
                 auto res = fastEval(c.get(), query_marking.get());
-                if(res == Condition::RTRUE)
+                if(res == RTRUE)
                 {
                     succs.push_back(newEdge(*v, 0));
                     return succs;
                 }
-                if(res == Condition::RUNKNOWN)
+                if(res == RUNKNOWN)
                 {
                     conds.push_back(c.get());
                 }
@@ -175,9 +175,9 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
                 auto cond = static_cast<AUCondition*>(v->query);
                 Edge *right = nullptr;       
                 auto r1 = fastEval((*cond)[1], query_marking.get());
-                if (r1 != Condition::RUNKNOWN){
+                if (r1 != RUNKNOWN){
                     //right side is not temporal, eval it right now!
-                    if (r1 == Condition::RTRUE) {    //satisfied, no need to go through successors
+                    if (r1 == RTRUE) {    //satisfied, no need to go through successors
                         succs.push_back(newEdge(*v, 0));
                         return succs;
                     }//else: It's not valid, no need to add any edge, just add successors
@@ -191,9 +191,9 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
                 bool valid = false;
                 Configuration *left = nullptr;
                 auto r0 = fastEval((*cond)[0], query_marking.get());
-                if (r0 != Condition::RUNKNOWN) {
+                if (r0 != RUNKNOWN) {
                     //left side is not temporal, eval it right now!
-                    valid = r0 == Condition::RTRUE;
+                    valid = r0 == RTRUE;
                 } else {
                     //left side is temporal, include it in the edge
                     left = createConfiguration(v->marking, (*cond)[0]);
@@ -205,8 +205,8 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
                                 [&](){ leftEdge = newEdge(*v, std::numeric_limits<uint32_t>::max());},
                                 [&](const MarkVal* mark){
                                     auto res = fastEval(cond, mark);
-                                    if(res == Condition::RTRUE) return true;
-                                    if(res == Condition::RFALSE)
+                                    if(res == RTRUE) return true;
+                                    if(res == RFALSE)
                                     {
                                         left = nullptr;
                                         leftEdge->targets.clear();
@@ -239,8 +239,8 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
                 auto cond = static_cast<AFCondition*>(v->query);
                 Edge *subquery = nullptr;
                 auto r = fastEval((*cond)[0], query_marking.get());
-                if (r != Condition::RUNKNOWN) {
-                    bool valid = r == Condition::RTRUE;
+                if (r != RUNKNOWN) {
+                    bool valid = r == RTRUE;
                     if (valid) {
                         succs.push_back(newEdge(*v, 0));
                         return succs;
@@ -256,8 +256,8 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
                         [&](const MarkVal* mark)
                         {
                             auto res = fastEval(cond, mark);
-                            if(res == Condition::RTRUE) return true;
-                            if(res == Condition::RFALSE)
+                            if(res == RTRUE) return true;
+                            if(res == RFALSE)
                             {
                                 if(subquery)
                                 {
@@ -286,21 +286,21 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
             else if(v->query->getPath() == X){
                 auto cond = static_cast<AXCondition*>(v->query);
                 Edge* e = newEdge(*v, std::numeric_limits<uint32_t>::max());
-                Condition::Result allValid = Condition::RTRUE;
+                Result allValid = RTRUE;
                 nextStates(query_marking.get(), cond,
                         [](){}, 
                         [&](const MarkVal* mark){
                             auto res = fastEval((*cond)[0], mark);
-                            if(res != Condition::RUNKNOWN)
+                            if(res != RUNKNOWN)
                             {
-                                if (res == Condition::RFALSE) {
-                                    allValid = Condition::RFALSE;
+                                if (res == RFALSE) {
+                                    allValid = RFALSE;
                                     return false;
                                 }
                             }
                             else
                             {
-                                allValid = Condition::RUNKNOWN;
+                                allValid = RUNKNOWN;
                                 //context.setMarking(mark);
                                 Configuration* c = createConfiguration(createMarking(mark), (*cond)[0]);
                                 e->addTarget(c);
@@ -309,11 +309,11 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
                         }, 
                         [](){}
                     );
-                    if(allValid == Condition::RUNKNOWN)
+                    if(allValid == RUNKNOWN)
                     {
                         succs.push_back(e);
                     }
-                    else if(allValid == Condition::RTRUE)
+                    else if(allValid == RTRUE)
                     {
                         e->targets.clear();
                         succs.push_back(e);
@@ -333,12 +333,12 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
                 auto cond = static_cast<EUCondition*>(v->query);
                 Edge *right = nullptr;
                 auto r1 = fastEval((*cond)[1], query_marking.get());
-                if (r1 == Condition::RUNKNOWN) {
+                if (r1 == RUNKNOWN) {
                     Configuration* c = createConfiguration(v->marking, (*cond)[1]);
                     right = newEdge(*v, /*(*cond)[1]->distance(context)*/0);
                     right->addTarget(c);
                 } else {
-                    bool valid = r1 == Condition::RTRUE;
+                    bool valid = r1 == RTRUE;
                     if (valid) {
                         succs.push_back(newEdge(*v, 0));
                         return succs;
@@ -351,17 +351,17 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
                 nextStates(query_marking.get(), cond,
                     [&](){
                         auto r0 = fastEval((*cond)[0], query_marking.get());
-                        if (r0 == Condition::RUNKNOWN) {
+                        if (r0 == RUNKNOWN) {
                             left = createConfiguration(v->marking, (*cond)[0]);
                         } else {
-                            valid = r0 == Condition::RTRUE;
+                            valid = r0 == RTRUE;
                         }                        
                     },
                     [&](const MarkVal* marking){
                         if(left == nullptr && !valid) return false;
                         auto res = fastEval(cond, marking);
-                        if(res == Condition::RFALSE) return true;
-                        if(res == Condition::RTRUE)
+                        if(res == RFALSE) return true;
+                        if(res == RTRUE)
                         {
                             for(auto s : succs){ --s->refcnt; release(s);};
                             succs.clear();
@@ -399,8 +399,8 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
                 auto cond = static_cast<EFCondition*>(v->query);
                 Edge *subquery = nullptr;
                 auto r = fastEval((*cond)[0], query_marking.get());
-                if (r != Condition::RUNKNOWN) {
-                    bool valid = r == Condition::RTRUE;
+                if (r != RUNKNOWN) {
+                    bool valid = r == RTRUE;
                     if (valid) {
                         succs.push_back(newEdge(*v, 0));
                         return succs;
@@ -415,8 +415,8 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
                             [](){},
                             [&](const MarkVal* mark){
                                 auto res = fastEval(cond, mark);
-                                if(res == Condition::RFALSE) return true;
-                                if(res == Condition::RTRUE)
+                                if(res == RFALSE) return true;
+                                if(res == RTRUE)
                                 {
                                     for(auto s : succs){ --s->refcnt; release(s);};
                                     succs.clear();
@@ -450,14 +450,14 @@ std::vector<DependencyGraph::Edge*> CTLDependencyGraph::successors(Configuration
                         [](){}, 
                         [&](const MarkVal* marking) {
                             auto res = fastEval(query, marking);
-                            if(res == Condition::RTRUE)
+                            if(res == RTRUE)
                             {
                                 for(auto s : succs){ --s->refcnt; release(s);};
                                 succs.clear();
                                 succs.push_back(newEdge(*v, 0));
                                 return false;
                             }   //else: It can't hold there, no need to create an edge
-                            else if(res == Condition::RUNKNOWN)
+                            else if(res == RUNKNOWN)
                             {
                                 //context.setMarking(marking.marking());
                                 Edge* e = newEdge(*v, /*(*cond)[0]->distance(context)*/0);
