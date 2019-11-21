@@ -60,6 +60,8 @@ private:
     void closure();
     std::unique_ptr<uint8_t[]> _stub_enable;
     std::unique_ptr<uint8_t[]> _places_seen;
+    std::unique_ptr<uint32_t[]> _fireing_bounds;
+    std::unique_ptr<std::pair<uint32_t,uint32_t>[]> _place_bounds;
     std::unique_ptr<place_t[]> _places;
     std::unique_ptr<trans_t[]> _arcs;
     std::unique_ptr<strans_t[]> _transitions;
@@ -93,7 +95,8 @@ private:
     void computeSCC(uint32_t v, uint32_t& index, tarjan_t* data);
     void preserveCycles();
     void computeFinite();
-    bool computeBounds(PQL::EvaluationContext& context);
+    bool approximateFuture(PetriNet::player_t player);
+    void computeBounds();
     
     // for transitions
     static constexpr uint8_t ENABLED = 1;
@@ -110,6 +113,8 @@ private:
 public:
     static constexpr uint8_t INCR = 16;
     static constexpr uint8_t DECR = 32;
+private:
+    static constexpr uint8_t WAITING = 64;
 
 };
 }

@@ -15,6 +15,8 @@ namespace PetriEngine {
         _stub_enable = std::make_unique<uint8_t[]>(_net._ntransitions);
         _places_seen = std::make_unique<uint8_t[]>(_net.numberOfPlaces());
         _transitions = std::make_unique<strans_t[]>(_net.numberOfTransitions());
+        _fireing_bounds = std::make_unique<uint32_t[]>(_net.numberOfTransitions());
+        _place_bounds = std::make_unique<std::pair<uint32_t,uint32_t>[]>(_net.numberOfPlaces());
         reset();
         constructPrePost();
         constructDependency();
@@ -608,7 +610,7 @@ namespace PetriEngine {
         }        
     }
 
-    bool ReducingSuccessorGenerator::computeBounds(PQL::EvaluationContext& context)
+    bool ReducingSuccessorGenerator::approximateFuture(PetriNet::player_t player)
     {
         std::stack<uint32_t> waiting;
         
@@ -649,7 +651,8 @@ namespace PetriEngine {
         };
         
         // bootstrap
-        for(auto t : (_players_enabled == PetriNet::CTRL) ? _ctrl_trans : _env_trans)
+        assert(player != PetriNet::ANY);
+        for(auto t : (player == PetriNet::CTRL) ? _ctrl_trans : _env_trans)
         {
             if((_stub_enable[t] & ENABLED) != 0)
             {
@@ -675,7 +678,7 @@ namespace PetriEngine {
                 for(; pf < pl; ++pf)
                 {
                     if((_stub_enable[_arcs[pf].index] & FUTURE_ENABLED) == 0 &&
-                       _net.ownedBy(_arcs[pf].index, _players_enabled))
+                       _net.ownedBy(_arcs[pf].index, player))
                     {
                         auto t = _arcs[pf].index;
                         uint32_t finv = _net._transitions[t].inputs;
@@ -711,6 +714,135 @@ namespace PetriEngine {
         return seen_from_query;
     }
 
+    void ReducingSuccessorGenerator::computeBounds()
+    {
+        std::vector<uint32_t> waiting;
+        auto handle_transition = [this,&waiting](size_t t){
+            if((_stub_enable[t] & FUTURE_ENABLED) == 0)
+                return;
+            auto mx = std::numeric_limits<uint32_t>::max();
+            uint32_t finv = _net._transitions[t].inputs;
+            uint32_t linv = _net._transitions[t].outputs;
+            uint32_t fout = linv;
+            uint32_t lout = _net._transitions[t+1].inputs;
+            for(;finv < linv; ++finv)
+            {
+                auto& inv = _net._invariants[finv];
+                if(inv.direction < 0 && !inv.inhibitor)
+                {
+                    if(_place_bounds[inv.place].second == std::numeric_limits<uint32_t>::max())
+                        continue;
+                    while(fout < lout && _net._invariants[fout].place < inv.place)
+                        ++fout;
+                    if(fout < lout && _net._invariants[fout].place == inv.place)
+                    {
+                        mx = _place_bounds[inv.place].second / (_net._invariants[fout].place - inv.tokens);
+                    }
+                    else
+                    {
+                        mx = _place_bounds[inv.place].second / inv.tokens;
+                    }
+                }
+            }
+            if(_fireing_bounds[t] != mx)
+            {
+                _fireing_bounds[t] = mx;
+                uint32_t fout = _net._transitions[t].outputs;
+                uint32_t lout = _net._transitions[t+1].inputs;
+                for(;fout < lout; ++fout)
+                {
+                    auto& inv = _net._invariants[fout];
+                    if(inv.direction > 0 && (_places_seen[inv.place] & WAITING) == 0)
+                    {
+                        _places_seen[inv.place] |= WAITING;
+                        waiting.push_back(inv.place);
+                    }
+                }
+            }
+        };
+        
+        auto handle_place = [this,&handle_transition](size_t p)
+        {
+            if(_place_bounds[p].second == 0)
+                return;
+            _places_seen[p] &= ~WAITING;
+            
+            // place loop
+            uint64_t sum = 0;
+            for(auto ti = _places[p].pre; ti != _places[p].post; ++ti)
+            {
+                trans_t& arc = _arcs[ti];
+                if(arc.direction <= 0 ||
+                   _fireing_bounds[arc.index] == 0)
+                    continue;
+                if(_fireing_bounds[arc.index] == std::numeric_limits<uint32_t>::max())
+                {
+                    assert(_place_bounds[p].second == std::numeric_limits<uint32_t>::max());                    
+                    return;
+                }
+                uint32_t finv = _net._transitions[arc.index].inputs;
+                uint32_t linv = _net._transitions[arc.index].outputs;
+                uint32_t fout = _net._transitions[arc.index].outputs;
+                uint32_t lout = _net._transitions[arc.index+1].inputs;
+                for(;fout < lout; ++fout)
+                {
+                    auto& out = _net._invariants[fout];
+                    if(out.place != p)
+                        continue;
+                    while(finv < linv && _net._invariants[finv].place < out.place) ++finv;
+                    auto& inv = _net._invariants[finv];
+                    auto take = 0;
+                    if(finv < linv && inv.place == p && !inv.inhibitor)
+                    {
+                        take = inv.tokens;
+                    }
+                    sum += (out.tokens - take)*_fireing_bounds[arc.index];
+                    break;
+                }                
+            }
+            assert(sum <= _place_bounds[p].second);
+            if(_place_bounds[p].second != sum)
+            {
+                _place_bounds[p].second = sum;
+                for(auto ti = _places[p].post; ti != _places[p+1].pre; ++ti)
+                {
+                    if(_arcs[ti].direction < 0)
+                        handle_transition(_arcs[ti].index);
+                }
+            }
+
+        };
+
+        // initialize places
+        for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
+        {
+            auto ub = _parent[p];
+            auto lb = _parent[p];
+            if(_places_seen[p] & DECR)
+                lb = 0;
+            if(_places_seen[p] & INCR)
+                ub = std::numeric_limits<uint32_t>::max();
+            _place_bounds[p] = std::make_pair(lb, ub);
+        }        
+        // initialize counters
+        for(size_t t = 0; t < _net.numberOfTransitions(); ++t)
+        {
+            if(_stub_enable[t] & FUTURE_ENABLED)
+            {
+                _fireing_bounds[t] = std::numeric_limits<uint32_t>::max();
+                handle_transition(t);
+            }
+            else
+                _fireing_bounds[t] = 0;
+        }
+        
+        while(!waiting.empty())
+        {
+            auto p = waiting.back();
+            waiting.pop_back();
+            handle_place(p);
+        }
+    }
     
     void ReducingSuccessorGenerator::prepare(const MarkVal* state) {
         _parent = state;
@@ -730,27 +862,23 @@ namespace PetriEngine {
         
         {
             PQL::EvaluationContext context(_parent, &_net, _is_game);
-            if(_is_game && (_players_enabled == PetriNet::ENV) != _is_safety ){
+            if(_is_game && (_players_enabled == PetriNet::ENV) != _is_safety){
                 assert(!_is_safety);
-                bool touches_queries = computeBounds(context);
+                bool touches_queries = approximateFuture(_players_enabled);
                 if(touches_queries)
                 {
-/*                    std::cerr << "TOUCHED " << std::endl;
-                    for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
-                    {
-                        if(_places[p].in_query && 
-                          ( _places_seen[p] & (INCR | DECR)) != 0)
-                            std::cerr << "\t" << _net.placeNames()[p] << std::endl;
-                    }*/
+                    computeBounds();
                     _skip = true; 
                     return;
                 }
 //                context.setPlaceChange(_places.get());
             }
-
+            
             for (auto &q : _queries) {
-                q->evalAndSet(context);
-                q->findInteresting(*this, _is_safety);
+                auto org = q->evalAndSet(context);
+                auto res = q->findInteresting(*this, _is_safety);
+                if(res != org && _is_game && (_players_enabled == PetriNet::ENV) != _is_safety)
+                { _skip = true; return; } // we can change result for some query for the safety player
                 if(_added_unsafe) { _skip = true; return; }
             }
         }
