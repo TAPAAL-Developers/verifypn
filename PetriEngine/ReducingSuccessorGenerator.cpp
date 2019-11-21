@@ -821,8 +821,6 @@ namespace PetriEngine {
             auto lb = _parent[p];
             if(_places_seen[p] & DECR)
                 lb = 0;
-            if(_places_seen[p] & INCR)
-                ub = std::numeric_limits<uint32_t>::max();
             _place_bounds[p] = std::make_pair(lb, ub);
         }        
         // initialize counters
@@ -842,6 +840,33 @@ namespace PetriEngine {
             auto p = waiting.back();
             waiting.pop_back();
             handle_place(p);
+        }
+        for(size_t t = 0; t < _net.numberOfTransitions(); ++t)
+        {
+            uint32_t finv = _net._transitions[t].inputs;
+            uint32_t linv = _net._transitions[t].outputs;
+            uint32_t fout = _net._transitions[t].outputs;
+            uint32_t lout = _net._transitions[t+1].inputs;
+            for(;finv < linv; ++finv)
+            {
+                auto& inv = _net._invariants[finv];
+                if(inv.direction >= 0 || inv.inhibitor) continue;
+                uint64_t take = inv.tokens;
+                if(_fireing_bounds[t] == std::numeric_limits<uint32_t>::max())
+                {
+                    _place_bounds[inv.place].first = 0;
+                    continue;
+                }
+                while(fout < lout && _net._invariants[fout].place < inv.place) ++fout;
+                if(fout < lout && _net._invariants[fout].place == inv.place)
+                    take -= _net._invariants[fout].tokens;
+                assert(take > 0);
+                take *= _fireing_bounds[t];
+                if(take >= _place_bounds[inv.place].first)
+                    _place_bounds[inv.place].first = 0;
+                else
+                    _place_bounds[inv.place].first -= take;
+            }
         }
     }
     
