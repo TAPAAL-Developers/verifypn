@@ -716,6 +716,7 @@ namespace PetriEngine {
 
     void ReducingSuccessorGenerator::computeBounds()
     {
+        std::cerr << "UPPER BOUNDS " << std::endl;
         std::vector<uint32_t> waiting;
         auto handle_transition = [this,&waiting](size_t t){
             if((_stub_enable[t] & FUTURE_ENABLED) == 0)
@@ -862,21 +863,20 @@ namespace PetriEngine {
         
         {
             PQL::EvaluationContext context(_parent, &_net, _is_game);
+            bool touches_queries = false;
             if(_is_game && (_players_enabled == PetriNet::ENV) != _is_safety){
                 assert(!_is_safety);
-                bool touches_queries = approximateFuture(_players_enabled);
+                touches_queries = approximateFuture(_players_enabled);
                 if(touches_queries)
                 {
                     computeBounds();
-                    _skip = true; 
-                    return;
+                    context.setPlaceChange(_place_bounds.get());
                 }
-//                context.setPlaceChange(_places.get());
             }
             
             for (auto &q : _queries) {
                 auto res = q->evalAndSet(context);
-                if(!res.second && _is_game && (_players_enabled == PetriNet::ENV) != _is_safety)
+                if(touches_queries && !res.second && _is_game && (_players_enabled == PetriNet::ENV) != _is_safety)
                 { _skip = true; return; } // we can change result for some query for the safety player
                 q->findInteresting(*this, _is_safety);
                 if(_added_unsafe) { _skip = true; return; }

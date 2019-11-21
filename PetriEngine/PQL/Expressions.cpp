@@ -858,7 +858,7 @@ namespace PetriEngine {
 
         StableResult NotCondition::evaluate(const EvaluationContext& context) {
             auto res = _cond->evaluate(context);
-            if(res.second != RUNKNOWN) 
+            if(res.first != RUNKNOWN) 
                 return StableResult(res.first == RFALSE ? RTRUE : RFALSE, res.second);
             return StableResult(RUNKNOWN, false);
         }
@@ -899,7 +899,7 @@ namespace PetriEngine {
         {
             auto r = cond->evalAndSet(context);
             if(r.first == D) return std::make_pair(D, true);
-            return StableResult(r.second ? r.first : RUNKNOWN, r.second);            
+            return StableResult(r.first ? r.first : RUNKNOWN, r.second);            
         }
 
         StableResult SimpleQuantifierCondition::evalAndSet(const EvaluationContext& context) {
@@ -934,10 +934,10 @@ namespace PetriEngine {
             return StableResult(RUNKNOWN, false);
         }        
 
-        int Expr::evalAndSet(const EvaluationContext& context) {
-            int r = evaluate(context).value;
+        bounds_t Expr::evalAndSet(const EvaluationContext& context) {
+            bounds_t r = evaluate(context);
             setEval(r);
-            return r;
+            return getEval();
         }
 
         StableResult AndCondition::evalAndSet(const EvaluationContext& context) {
@@ -998,9 +998,9 @@ namespace PetriEngine {
         }
         
         StableResult CompareCondition::evalAndSet(const EvaluationContext& context) {
-            int v1 = _expr1->evalAndSet(context);
-            int v2 = _expr2->evalAndSet(context);
-            auto res = apply(bounds_t(v1), bounds_t(v2));
+            auto v1 = _expr1->evalAndSet(context);
+            auto v2 = _expr2->evalAndSet(context);
+            auto res = apply(v1, v2);
             setSatisfied(res);
             return getEval();
         }
@@ -3629,11 +3629,11 @@ namespace PetriEngine {
         }
 
         void UnfoldedIdentifierExpr::incr(ReducingSuccessorGenerator& generator) const {
-            generator.presetOf(_offsetInMarking, true);
+            generator.presetOf(_offsetInMarking, true); // TODO, use bounds
         }
         
         void UnfoldedIdentifierExpr::decr(ReducingSuccessorGenerator& generator) const {
-             generator.postsetOf(_offsetInMarking, true);
+            generator.postsetOf(_offsetInMarking, true); // TODO, use bounds, also is this needed (not only incr) ?
         }
         
         void SimpleQuantifierCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const{
@@ -3757,91 +3757,64 @@ namespace PetriEngine {
                 }
             }
         }
-        
-        void EqualCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {
+        void findEqualInteresting(const Expr_ptr& expr1, const Expr_ptr& expr2, ReducingSuccessorGenerator& generator, bool negated)
+        {
+            auto e1 = expr1->getEval();
+            auto e2 = expr2->getEval();
             if(!negated){               // equal
-                if(_expr1->getEval() == _expr2->getEval()) { return; }
-                if(_expr1->getEval() > _expr2->getEval()){
-                    _expr1->decr(generator);
-                    _expr2->incr(generator);
+                if(e1.value == e2.value) { return; }
+                if(e1.value > e2.value){
+                    expr1->decr(generator);
+                    expr2->incr(generator);
                 } else {
-                    _expr1->incr(generator);
-                    _expr2->decr(generator);
+                    expr1->incr(generator);
+                    expr2->decr(generator);
                 }   
             } else {                    // not equal
-                if(_expr1->getEval() != _expr2->getEval()) { return; }
-                _expr1->incr(generator);
-                _expr1->decr(generator);
-                _expr2->incr(generator);
-                _expr2->decr(generator);
+                if(e1.value != e2.value) { return; }
+                expr1->incr(generator);
+                expr1->decr(generator);
+                expr2->incr(generator);
+                expr2->decr(generator);
             }
+        }
+        void EqualCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {
+            findEqualInteresting(_expr1, _expr2, generator, negated);
         }
         
         void NotEqualCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {
-            if(!negated){               // not equal
-                if(_expr1->getEval() != _expr2->getEval()) { return; }
-                _expr1->incr(generator);
-                _expr1->decr(generator);
-                _expr2->incr(generator);
-                _expr2->decr(generator);
-            } else {                    // equal
-                if(_expr1->getEval() == _expr2->getEval()) { return; }
-                if(_expr1->getEval() > _expr2->getEval()){
-                    _expr1->decr(generator);
-                    _expr2->incr(generator);
-                } else {
-                    _expr1->incr(generator);
-                    _expr2->decr(generator);
-                }   
+            findEqualInteresting(_expr1, _expr2, generator, !negated);
+        }
+        
+        void findLessThanInteresting(const Expr_ptr& expr1, const Expr_ptr& expr2, ReducingSuccessorGenerator& generator, bool negated)
+        {
+            auto e1 = expr1->getEval();
+            auto e2 = expr2->getEval();            
+            if(!negated){               // less than
+                if(e1.value < e2.value) { return; }
+                expr1->decr(generator);
+                expr2->incr(generator);
+            } else {                    // greater than or equal
+                if(e1.value >= e2.value) { return; }
+                expr1->incr(generator);
+                expr2->decr(generator);
             }
         }
         
         void LessThanCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {                
-            if(!negated){               // less than
-                if(_expr1->getEval() < _expr2->getEval()) { return; }
-                _expr1->decr(generator);
-                _expr2->incr(generator);
-            } else {                    // greater than or equal
-                if(_expr1->getEval() >= _expr2->getEval()) { return; }
-                _expr1->incr(generator);
-                _expr2->decr(generator);
-            }
+            findLessThanInteresting(_expr1, _expr2, generator, negated);
         }
         
         void LessThanOrEqualCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {
-            if(!negated){               // less than or equal
-                if(_expr1->getEval() <= _expr2->getEval()) { return; }
-                _expr1->decr(generator);
-                _expr2->incr(generator);
-            } else {                    // greater than
-                if(_expr1->getEval() > _expr2->getEval()) { return; }
-                _expr1->incr(generator);
-                _expr2->decr(generator);
-            }
+            findLessThanInteresting(_expr2, _expr1, generator, !negated);
         }
         
         void GreaterThanCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {
-            if(!negated){               // greater than
-                if(_expr1->getEval() > _expr2->getEval()) { return; }
-                _expr1->incr(generator);
-                _expr2->decr(generator);
-            } else {                    // less than or equal
-                if(_expr1->getEval() <= _expr2->getEval()) { return; }
-                _expr1->decr(generator);
-                _expr2->incr(generator);
-            }
+            findLessThanInteresting(_expr1, _expr2, generator, !negated);
         }
         
         void GreaterThanOrEqualCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {
-            if(!negated){               // greater than or equal
-                if(_expr1->getEval() >= _expr2->getEval()) { return; }
-                _expr1->incr(generator);
-                _expr2->decr(generator); 
-            } else {                    // less than
-                if(_expr1->getEval() < _expr2->getEval()) { return; }
-                _expr1->decr(generator);
-                _expr2->incr(generator);
-            }
+            findLessThanInteresting(_expr2, _expr1, generator, negated);
         }
         
         void NotCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {

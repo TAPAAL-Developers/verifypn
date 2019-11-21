@@ -66,6 +66,11 @@ namespace PetriEngine {
                 lower = l;
                 upper = u;
             }
+            
+            bool stable() const {
+                return lower == upper;
+            }
+            
             bounds_t operator+(const bounds_t& other) const;
             bounds_t operator*(const bounds_t& other) const;
             bounds_t operator-(const bounds_t& other) const;
@@ -84,7 +89,7 @@ namespace PetriEngine {
         };
         /** Representation of an expression */
         class Expr {
-            int _eval = 0;
+            bounds_t _eval = bounds_t(0);
         public:
             /** Types of expressions */
             enum Types {
@@ -108,7 +113,7 @@ namespace PetriEngine {
             virtual void analyze(AnalysisContext& context) = 0;
             /** Evaluate the expression given marking and assignment */
             virtual bounds_t evaluate(const EvaluationContext& context) = 0;
-            int evalAndSet(const EvaluationContext& context);
+            bounds_t evalAndSet(const EvaluationContext& context);
 #ifdef ENABLE_TAR
             virtual z3::expr encodeSat(const PetriNet& net, z3::context& context, std::vector<int32_t>& uses, std::vector<bool>& incremented) const = 0;
 #endif
@@ -131,11 +136,11 @@ namespace PetriEngine {
             
             virtual bool placeFree() const = 0;
             
-            void setEval(int eval) {
+            void setEval(bounds_t eval) {
                 _eval = eval;
             }
             
-            int getEval() {
+            bounds_t getEval() {
                 return _eval;
             }
         };

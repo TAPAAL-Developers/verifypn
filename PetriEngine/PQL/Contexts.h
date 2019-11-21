@@ -162,11 +162,8 @@ namespace PetriEngine {
             bool isGame() const {
                 return _is_game;
             }
-            const uint8_t* placeChange() const
-            {
-                return _place_change;
-            }
-            void setPlaceChange(const uint8_t* stats)
+
+            void setPlaceChange(const std::pair<uint32_t,uint32_t>* stats)
             {
                 _place_change = stats;
             }
@@ -179,19 +176,23 @@ namespace PetriEngine {
             
             MarkVal upper(uint32_t p) const
             {
-                return std::numeric_limits<MarkVal>::max();
+                return _place_change == nullptr ? 
+                        std::numeric_limits<MarkVal>::max() :
+                        _place_change[p].second;
             }
             
             MarkVal lower(uint32_t p) const
             {
-                return 0;
+                return _place_change == nullptr ? 
+                        0 :
+                        _place_change[p].first;
             }
             
         private:
             const MarkVal* _marking = nullptr;
             const PetriNet* _net = nullptr;
             const bool _is_game = false;
-            const uint8_t* _place_change = nullptr;
+            const std::pair<uint32_t, uint32_t>* _place_change = nullptr;
         };
 
         /** Context for distance computation */
