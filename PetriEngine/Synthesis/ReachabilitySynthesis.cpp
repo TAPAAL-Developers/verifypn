@@ -51,7 +51,6 @@ namespace PetriEngine {
                 bool use_stubborn,
                 bool keep_strategies,
                 bool permissive) {
-            permissive = true;
             using namespace Structures;
             for (size_t qnum = 0; qnum < queries.size(); ++qnum) {
                 ResultPrinter::DGResult result(qnum, queries[qnum].get());
