@@ -56,6 +56,8 @@ namespace PetriEngine {
             
             virtual std::pair<size_t, size_t> getHistory(size_t markingid) = 0;
             
+            virtual size_t size() = 0;
+            
         protected:
             size_t _discovered;
             uint32_t _kbound;
@@ -195,6 +197,12 @@ namespace PetriEngine {
                 return std::make_pair(0,0); 
             }
             
+            size_t size() override
+            {
+                return _trie.size();
+            }
+
+            
         private:               
             ptrie_t _trie;
         };
@@ -230,6 +238,12 @@ namespace PetriEngine {
                 return std::make_pair(0,0); 
             }
             
+            size_t size() override
+            {
+                return _trie.size();
+            }
+
+            
         protected:               
             ptrie_t _trie;
         };  
@@ -264,6 +278,12 @@ namespace PetriEngine {
                 traceable_t& t = get_data(markingid);
                 return std::pair<size_t, size_t>(t.parent, t.transition);
             }
+            
+            size_t size() override
+            {
+                return _trie.size();
+            }
+
             
         private:
             size_t _parent = 0;

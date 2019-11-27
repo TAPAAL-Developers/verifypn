@@ -63,6 +63,7 @@ namespace PetriEngine {
                     bool permissive = false);
         private:
 
+            
             bool eval(PQL::Condition* cond, const MarkVal* marking);
 
             bool check_bound(const MarkVal* marking);
@@ -74,6 +75,11 @@ namespace PetriEngine {
             {                
             }
 
+#ifndef NDEBUG
+            void print_id(size_t);
+            void validate(PQL::Condition*, Structures::AnnotatedStateSet<SynthConfig>&);
+#endif
+            
             template <typename GENERATOR, typename QUEUE>
             void run(ResultPrinter::DGResult& result, bool permissive) {
                 auto query = const_cast<PQL::Condition*>(result.query);
@@ -110,26 +116,30 @@ namespace PetriEngine {
                 // these could be preallocated; at most one successor pr transition
                 std::vector<std::pair<size_t, SynthConfig*>> env_buffer;
                 std::vector<std::pair<size_t, SynthConfig*>> ctrl_buffer;
-                
                 while (!meta.determined() || permissive) {
                     while (!back.empty()) {
                         SynthConfig* next = back.top();
                         back.pop();
-                        //std::cerr << "BACK " << next->_marking << std::endl;
                         result.processedEdges += dependers_to_waiting(next, back, is_safety);
                     }
 
                     bool any = queue.pop(nid);
-                    if (!any) break;
+                    if (!any) 
+                        break;
                     auto& cconf = stateset.get_data(nid);
                     if (cconf.determined())
+                    {
+                        if(permissive && !cconf._dependers.empty())
+                            back.push(&cconf);
                         continue; // handled already
+                    }
                     ++result.exploredConfigurations;
                     env_buffer.clear();
                     ctrl_buffer.clear();
                     
                     assert(cconf._waiting == 1);
                     cconf._state = SynthConfig::PROCESSED;
+                    assert(cconf._marking == nid);
                     stateset.decode(parent.get(), nid);
                     generator.prepare(parent.get());
                     // first try all environment choices (if one is losing, everything is lost)
@@ -138,6 +148,7 @@ namespace PetriEngine {
                     while (generator.next(working.get(), PetriNet::ENV)) {
                         some_env = true;
                         auto& child = get_config(stateset, working.get(), query, is_safety, cid);
+
                         if (child._state == SynthConfig::LOSING)
                         {
                             // Environment can force a lose
@@ -155,7 +166,7 @@ namespace PetriEngine {
                             else 
                             {
                                 cconf._state = SynthConfig::LOSING; // env wins surely
-                                break;                                
+                                break;
                             }
                         }
                         env_buffer.emplace_back(cid, &child);
@@ -189,7 +200,9 @@ namespace PetriEngine {
                                 }
                             }
                             else if (child._state == SynthConfig::LOSING)
+                            {
                                 continue; // would never choose
+                            }
                             else if (child._state == SynthConfig::WINNING)
                             {
                                 some_winning = true;
@@ -214,17 +227,20 @@ namespace PetriEngine {
                             cconf._state = SynthConfig::WINNING;
                         else if(!is_safety && !some && !some_env) // deadlock, bad if reachability
                             cconf._state = SynthConfig::LOSING;
+                        else if(!is_safety && env_buffer.empty() && some_winning) // reachability: env had not bad choice and ctrl had winning
+                            cconf._state = SynthConfig::WINNING;
                     }
                     // if determined, no need to add to queue, just backprop
                     //std::cerr << "FINISHED " << cconf._marking << " STATE " << (int)cconf._state << std::endl;
                     if(cconf.determined())
                     {
-                        //std::cerr << "REDO " << cconf._marking << std::endl;
                         back.push(&cconf);
                     }
-                    else
+                    if(!cconf.determined() || permissive)
                     {
+
                         // we want to explore the ctrl last (assuming DFS). (TODO: check if a queue-split would be good?)
+                        //std::cerr << "[" << nid << "]" << std::endl;
                         for(auto& c : ctrl_buffer)
                         {
                             if(c.second->_waiting == 0)
@@ -249,6 +265,7 @@ namespace PetriEngine {
                         result.numberOfEdges += cconf._ctrl_children + cconf._env_children;
                     }
                 }
+                assert(!permissive || queue.empty());
                 result.numberOfConfigurations = stateset.discovered();
                 result.numberOfMarkings = stateset.discovered();
                 timer.stop();
@@ -257,6 +274,13 @@ namespace PetriEngine {
                 if(!is_safety) res = meta._state == SynthConfig::WINNING;
                 else           res = meta._state != meta.LOSING;
                 result.result = res ? ResultPrinter::Satisfied : ResultPrinter::NotSatisfied;
+#ifdef NDEBUG
+                if(permissive)
+                {
+                    // can only check complete solution to dep graph.
+                    validate(query, stateset);
+                }
+#endif
             }
 
             SynthConfig& get_config(Structures::AnnotatedStateSet<SynthConfig>& stateset, const MarkVal* marking, PQL::Condition* prop, bool is_safety, size_t& cid);
