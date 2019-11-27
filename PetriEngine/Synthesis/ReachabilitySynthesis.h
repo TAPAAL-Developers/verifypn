@@ -116,7 +116,10 @@ namespace PetriEngine {
                 // these could be preallocated; at most one successor pr transition
                 std::vector<std::pair<size_t, SynthConfig*>> env_buffer;
                 std::vector<std::pair<size_t, SynthConfig*>> ctrl_buffer;
-                while (!meta.determined() || permissive) {
+#ifndef NDEBUG
+restart:
+#endif
+                while (!meta.determined() || permissive || true) {
                     while (!back.empty()) {
                         SynthConfig* next = back.top();
                         back.pop();
@@ -143,7 +146,6 @@ namespace PetriEngine {
                     stateset.decode(parent.get(), nid);
                     generator.prepare(parent.get());
                     // first try all environment choices (if one is losing, everything is lost)
-                    //std::cerr << "NEXT " << cconf._marking << std::endl;
                     bool some_env = false;
                     while (generator.next(working.get(), PetriNet::ENV)) {
                         some_env = true;
@@ -156,10 +158,7 @@ namespace PetriEngine {
                             break;
                         }
                         else if (child._state == SynthConfig::WINNING)
-                        {
-                            cconf._state = SynthConfig::MAYBE;
                             continue; // would never choose 
-                        }
                         if(&child == &cconf)
                         {
                             if(is_safety) continue; // would make ctrl win
@@ -190,7 +189,10 @@ namespace PetriEngine {
                                     {
                                         ctrl_buffer.clear();
                                         if(env_buffer.empty())
+                                        {
+                                            assert(cconf._state != SynthConfig::LOSING);
                                             cconf._state = SynthConfig::WINNING;
+                                        }
                                         break;
                                     }
                                 }
@@ -212,7 +214,10 @@ namespace PetriEngine {
                                 {
                                     ctrl_buffer.clear();
                                     if(env_buffer.empty())
+                                    {
+                                        assert(cconf._state != SynthConfig::LOSING);
                                         cconf._state = SynthConfig::WINNING;        
+                                    }
                                     break;
                                 }
                             }
@@ -222,13 +227,34 @@ namespace PetriEngine {
                     if(!cconf.determined())
                     {
                         if(some && !some_winning && ctrl_buffer.empty()) // we had a choice but all of them were bad. Env. can force us.
+                        {
+                            assert(cconf._state != SynthConfig::WINNING);
                             cconf._state = SynthConfig::LOSING;
-                        else if(!some && (is_safety || some_env) && env_buffer.empty()) // only Env. actions. safety+deadlock = win, or all win of env = win
+                        }
+                        else if(!some && !some_env) 
+                        {
+                            // deadlock, bad if reachability, good if safety
+                            assert(cconf._state != SynthConfig::WINNING);
+                            if(is_safety)
+                            {
+                                cconf._state = SynthConfig::WINNING;
+                            }
+                            else
+                            {
+                                cconf._state = SynthConfig::LOSING;                                   
+                            }
+                        }
+                        else if(env_buffer.empty() && some_winning) 
+                        {
+                            // reachability: env had not bad choice and ctrl had winning
+                            assert(cconf._state != SynthConfig::LOSING);
                             cconf._state = SynthConfig::WINNING;
-                        else if(!is_safety && !some && !some_env) // deadlock, bad if reachability
-                            cconf._state = SynthConfig::LOSING;
-                        else if(!is_safety && env_buffer.empty() && some_winning) // reachability: env had not bad choice and ctrl had winning
+                        }
+                        else if(!some && some_env && env_buffer.empty())
+                        {
+                            // env is forced to be good.
                             cconf._state = SynthConfig::WINNING;
+                        }
                     }
                     // if determined, no need to add to queue, just backprop
                     //std::cerr << "FINISHED " << cconf._marking << " STATE " << (int)cconf._state << std::endl;
@@ -265,6 +291,23 @@ namespace PetriEngine {
                         result.numberOfEdges += cconf._ctrl_children + cconf._env_children;
                     }
                 }
+#ifndef NDEBUG
+                permissive = true;
+                for(size_t i = 0; i < stateset.size(); ++i)
+                {
+                    auto& c = stateset.get_data(i);
+                    if(c.determined())
+                    {
+                        if(c._waiting == 0)
+                        {
+                            back.push(&c);
+                            c._waiting = 1;
+                        }
+                    }
+                }
+                if(back.size() > 0)
+                    goto restart;
+#endif
                 assert(!permissive || queue.empty());
                 result.numberOfConfigurations = stateset.discovered();
                 result.numberOfMarkings = stateset.discovered();
@@ -274,8 +317,7 @@ namespace PetriEngine {
                 if(!is_safety) res = meta._state == SynthConfig::WINNING;
                 else           res = meta._state != meta.LOSING;
                 result.result = res ? ResultPrinter::Satisfied : ResultPrinter::NotSatisfied;
-#ifdef NDEBUG
-                if(permissive)
+#ifndef NDEBUG
                 {
                     // can only check complete solution to dep graph.
                     validate(query, stateset);
