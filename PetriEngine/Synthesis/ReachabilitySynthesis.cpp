@@ -80,18 +80,22 @@ namespace PetriEngine {
 
         size_t ReachabilitySynthesis::dependers_to_waiting(SynthConfig* next, std::stack<SynthConfig*>& back, bool safety) {
             size_t processed = 0;
+            //std::cerr << "BACK[" << next->_marking << "]" << std::endl;
             for (auto& dep : next->_dependers) {
                 ++processed;
 
                 SynthConfig* ancestor = dep.second;
+                //std::cerr << "\tBK[" << ancestor->_marking << "] : " << (int) ancestor->_state << " (" << ancestor->_ctrl_children << "/" << ancestor->_env_children << ")" << std::endl;
                 if (ancestor->determined()) 
                     continue;
                 bool ctrl_child = dep.first;
                 if (ctrl_child) {
+                    //std::cerr << "\tCB[" << ancestor->_marking << "]" << std::endl;
                     ancestor->_ctrl_children -= 1;
                     if (next->_state == SynthConfig::WINNING) {
                         if(ancestor->_env_children == 0)
                         {
+                            //std::cerr << "WIN [" << ancestor->_marking << "]" << std::endl;
                             assert(ancestor->_state != SynthConfig::LOSING);
                             ancestor->_state = SynthConfig::WINNING;
                         }
@@ -109,6 +113,7 @@ namespace PetriEngine {
                         ancestor->_state = SynthConfig::LOSING;
                     }
                 } else {
+                    //std::cerr << "\tEB[" << ancestor->_marking << "]" << std::endl;
                     ancestor->_env_children -= 1;
                     if (next->_state == SynthConfig::LOSING) 
                     {
@@ -131,9 +136,13 @@ namespace PetriEngine {
                 }
 
                 if (ancestor->determined()) {
+                    //std::cerr << "BET [" << ancestor->_marking << "] : " << (int)ancestor->_state << std::endl;
                     if (ancestor->_waiting < 2) 
+                    {
                         back.push(ancestor);
+                    }
                     ancestor->_waiting = 2;
+
                 }
             }
             next->_dependers.clear();
@@ -191,12 +200,8 @@ namespace PetriEngine {
                     if (is_safety) {
                         if (res == false)
                             meta._state = SynthConfig::LOSING;
-                        else
-                            meta._state = SynthConfig::MAYBE;
                     } else {
-                        if (res == false)
-                            meta._state = SynthConfig::PROCESSED;
-                        else
+                        if (res != false)
                             meta._state = SynthConfig::WINNING;
                     }
                 }
@@ -224,7 +229,9 @@ namespace PetriEngine {
                 std::cerr << "VALIDATION " << id << std::endl;
                 auto& conf = stateset.get_data(id);
                 if(conf._state != SynthConfig::WINNING &&
-                   conf._state != SynthConfig::LOSING) 
+                   conf._state != SynthConfig::LOSING &&
+                   conf._state != SynthConfig::MAYBE &&
+                   conf._state != SynthConfig::PROCESSED)
                     continue;
                 PQL::EvaluationContext ctx(markings[id], &_net);
                 auto res = query->evaluate(ctx);
@@ -242,7 +249,6 @@ namespace PetriEngine {
                 std::vector<size_t> env_win;
                 while (generator.next(working, PetriNet::ENV)) {
                     auto res = stateset.add(working);
-                    assert(!res.first);
                     if(!res.first)
                     {
                         auto& c = stateset.get_data(res.second);
@@ -259,6 +265,7 @@ namespace PetriEngine {
                         }
                         else
                         {
+                            std::cerr << "[" << id << "] -E_W-> [" << res.second << "]\n";
                             env_win.push_back(res.second);
                         }
                     }
@@ -279,7 +286,6 @@ namespace PetriEngine {
                     while (generator.next(working, PetriNet::CTRL)) {
                         some = true;
                         auto res = stateset.add(working);
-                        assert(!res.first);
                         if(!res.first)
                         {
                             auto& c = stateset.get_data(res.second);

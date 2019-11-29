@@ -82,6 +82,11 @@ namespace PetriEngine {
             
             template <typename GENERATOR, typename QUEUE>
             void run(ResultPrinter::DGResult& result, bool permissive) {
+                // permissive == maximal in this case; there is a subtle difference
+                // in wether you terminate the search at losing states (permissive)
+                // or you saturate over the entire graph (maximal)
+                // the later includes potential 
+                // safety/reachability given "wrong choices" on both sides
                 auto query = const_cast<PQL::Condition*>(result.query);
                 const bool is_safety = query->isInvariant();
                 if (query == nullptr) {
@@ -92,8 +97,11 @@ namespace PetriEngine {
                     std::cerr << "Body of quantifier is temporal" << std::endl;
                     exit(ErrorCode);
                 }
-                //if(is_safety)
-                //    std::cerr << "SAFETY " << std::endl;
+                if(is_safety)
+                {
+                    std::cerr << "Safety synthesis is untested and unsupported" << std::endl;
+                    exit(ErrorCode);
+                }
                 stopwatch timer;
                 timer.start();
                 auto working = _net.makeInitialMarking();
@@ -136,6 +144,7 @@ restart:
                             back.push(&cconf);
                         continue; // handled already
                     }
+                    //std::cerr << "PROCESSING [" << cconf._marking << "]" << std::endl;
                     ++result.exploredConfigurations;
                     env_buffer.clear();
                     ctrl_buffer.clear();
@@ -150,7 +159,7 @@ restart:
                     while (generator.next(working.get(), PetriNet::ENV)) {
                         some_env = true;
                         auto& child = get_config(stateset, working.get(), query, is_safety, cid);
-
+                        //std::cerr << "ENV[" << cconf._marking << "] --> [" << child._marking << "]" << std::endl;
                         if (child._state == SynthConfig::LOSING)
                         {
                             // Environment can force a lose
@@ -180,6 +189,8 @@ restart:
                         while (generator.next(working.get(), PetriNet::CTRL)) {
                             some = true;
                             auto& child = get_config(stateset, working.get(), query, is_safety, cid);
+                            //std::cerr << "CTRL[" << cconf._marking << "] --> [" << child._marking << "]" << std::endl;
+
                             if(&child == &cconf)
                             {
                                 if(is_safety)
@@ -255,11 +266,16 @@ restart:
                             // env is forced to be good.
                             cconf._state = SynthConfig::WINNING;
                         }
+                        else if(!some && !env_buffer.empty())
+                        {
+                            cconf._state = SynthConfig::MAYBE;
+                        }
                     }
                     // if determined, no need to add to queue, just backprop
                     //std::cerr << "FINISHED " << cconf._marking << " STATE " << (int)cconf._state << std::endl;
                     if(cconf.determined())
                     {
+                        //std::cerr << "DET [" << cconf._marking << "] : " << (int)cconf._state << std::endl;
                         back.push(&cconf);
                     }
                     if(!cconf.determined() || permissive)
