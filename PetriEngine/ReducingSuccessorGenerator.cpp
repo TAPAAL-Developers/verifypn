@@ -1145,6 +1145,8 @@ namespace PetriEngine {
     }
 
     bool ReducingSuccessorGenerator::next(MarkVal* write, PetriNet::player_t player) {
+        if((player & _players_enabled) == 0)
+            return false;
         while (!_ordering.empty()) {
             _current = _ordering.front();
             _ordering.pop_front();

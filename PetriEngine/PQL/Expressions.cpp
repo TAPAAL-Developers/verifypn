@@ -3804,17 +3804,17 @@ namespace PetriEngine {
         void LessThanCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {                
             findLessThanInteresting(_expr1, _expr2, generator, negated);
         }
+
+        void GreaterThanCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {
+            findLessThanInteresting(_expr2, _expr1, generator, negated);
+        }
         
         void LessThanOrEqualCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {
             findLessThanInteresting(_expr2, _expr1, generator, !negated);
-        }
-        
-        void GreaterThanCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {
-            findLessThanInteresting(_expr1, _expr2, generator, !negated);
-        }
+        }        
         
         void GreaterThanOrEqualCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {
-            findLessThanInteresting(_expr2, _expr1, generator, negated);
+            findLessThanInteresting(_expr1, _expr2, generator, !negated);
         }
         
         void NotCondition::findInteresting(ReducingSuccessorGenerator& generator, bool negated) const {
