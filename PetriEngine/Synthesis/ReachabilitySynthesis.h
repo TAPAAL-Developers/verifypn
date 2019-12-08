@@ -127,7 +127,7 @@ namespace PetriEngine {
 #ifndef NDEBUG
 restart:
 #endif
-                while (!meta.determined() || permissive || true) {
+                while (!meta.determined() || permissive) {
                     while (!back.empty()) {
                         SynthConfig* next = back.top();
                         back.pop();
@@ -326,7 +326,7 @@ restart:
 #endif
                 assert(!permissive || queue.empty());
                 result.numberOfConfigurations = stateset.discovered();
-                result.numberOfMarkings = stateset.discovered();
+                result.numberOfMarkings = stateset.size();
                 timer.stop();
                 result.duration = timer.duration();
                 bool res;
