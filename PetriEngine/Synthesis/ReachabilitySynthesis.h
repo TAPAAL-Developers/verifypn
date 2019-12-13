@@ -325,7 +325,7 @@ restart:
                     goto restart;
 #endif
                 assert(!permissive || queue.empty());
-                result.numberOfConfigurations = stateset.discovered();
+                result.numberOfConfigurations = stateset.size();
                 result.numberOfMarkings = stateset.size();
                 timer.stop();
                 result.duration = timer.duration();
