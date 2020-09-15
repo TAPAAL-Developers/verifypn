@@ -924,9 +924,6 @@ namespace PetriEngine {
         }
         else
         {
-            // preserve cycles for the player winning by cycles
-            if(_is_safety == (_players_enabled == PetriNet::CTRL))
-                preserveCycles();
             if(_added_unsafe) { _skip = true; return; }
             if(_players_enabled == PetriNet::ENV)
             {
