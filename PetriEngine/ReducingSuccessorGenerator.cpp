@@ -1073,14 +1073,13 @@ namespace PetriEngine {
                 bool ok = false;
                 bool inhib = false;
                 uint32_t cand = std::numeric_limits<uint32_t>::max();
-                int32_t dep = std::numeric_limits<int32_t>::max();
+                uint32_t dep = std::numeric_limits<int32_t>::max();
                 // Lets try to see if we havent already added sufficient pre/post 
                 // for this transition.
                 // TODO: We can skip the unsafe guys here!
                 for (; finv < linv; ++finv) {
                     const Invariant& inv = _net._invariants[finv];
                     bool change = true;
-                    int32_t d2;
                     if(cand != std::numeric_limits<uint32_t>::max())
                     {
                         change = false;
@@ -1090,15 +1089,10 @@ namespace PetriEngine {
                         }
                         else if(_places[inv.place].safe == _places[cand].safe)
                         {
-                            auto post_size = _places[inv.place+1].pre - _places[inv.place].post;
-                            auto pre_size = _places[inv.place].post - _places[inv.place].pre;
-                            if(!inv.inhibitor)
-                                d2 = pre_size;
-                            else
-                                d2 = post_size;
+                            auto d2 = dependency(inv.place, inv.inhibitor);
                             if(d2 <= dep)
                             {
-                                if(d2 != dep || inv.place < cand)
+                                if(d2 < dep || inv.place < cand)
                                     change = true;
                             }
                         }
@@ -1109,14 +1103,14 @@ namespace PetriEngine {
                         {
                             inhib = false;
                             cand = inv.place;
-                            dep = d2;
+                            dep = dependency(inv.place, inv.inhibitor);
                         }
                     } else if (_parent[inv.place] >= inv.tokens && inv.inhibitor) {
                         ok = seenPost(inv.place, true);
                         if(change){
                             inhib = true;
                             cand = inv.place;
-                            dep = d2;
+                            dep = dependency(inv.place, inv.inhibitor);
                         }
                     }
                     if(ok) break;
@@ -1133,6 +1127,15 @@ namespace PetriEngine {
                 }
             }
         }        
+    }
+    
+    uint32_t ReducingSuccessorGenerator::dependency(uint32_t place, bool inhibitor) const {
+        uint32_t post_size = _places[place+1].pre - _places[place].post;
+        uint32_t pre_size = _places[place].post - _places[place].pre;
+        if(!inhibitor)
+            return pre_size;
+        else
+            return post_size;
     }
     
     void ReducingSuccessorGenerator::fireCurrent(MarkVal* write) {

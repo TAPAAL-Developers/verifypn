@@ -58,6 +58,7 @@ private:
     void updatePlaceSensitivity();
     inline void addToStub(uint32_t t);
     void closure();
+    uint32_t dependency(uint32_t p, bool inhibitor) const;
     std::unique_ptr<uint8_t[]> _stub_enable;
     std::unique_ptr<uint8_t[]> _places_seen;
     std::unique_ptr<uint32_t[]> _fireing_bounds;
