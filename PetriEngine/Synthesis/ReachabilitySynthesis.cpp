@@ -198,7 +198,7 @@ namespace PetriEngine {
                 else {
                     auto res = eval(prop, marking);
                     if (is_safety) {
-                        if (res == false)
+                        if (res == true) // flipped by reductions, so negate result here!
                             meta._state = SynthConfig::LOSING;
                     } else {
                         if (res != false)
@@ -307,7 +307,7 @@ namespace PetriEngine {
                     }
                     if(!some)
                     {
-                        assert((conf._state == SynthConfig::WINNING) != env_win.empty());
+                        assert((conf._state == SynthConfig::WINNING) != env_win.empty() || query->isInvariant());
                     }
                     else
                     {

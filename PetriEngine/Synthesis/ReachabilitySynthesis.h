@@ -97,11 +97,11 @@ namespace PetriEngine {
                     std::cerr << "Body of quantifier is temporal" << std::endl;
                     std::exit(ErrorCode);
                 }
-                if(is_safety)
+                /*if(is_safety)
                 {
                     std::cerr << "Safety synthesis is untested and unsupported" << std::endl;
                     std::exit(ErrorCode);
-                }
+                }*/
                 stopwatch timer;
                 timer.start();
                 auto working = _net.makeInitialMarking();
@@ -111,7 +111,9 @@ namespace PetriEngine {
                 
                 size_t cid;
                 size_t nid;
-                
+                _net.print(working.get());
+                query->toString(std::cerr);
+                std::cerr << std::endl;
                 auto& meta = get_config(stateset, working.get(), query, is_safety, cid);
                 meta._waiting = 1;
 
@@ -308,7 +310,7 @@ restart:
                     }
                 }
 #ifndef NDEBUG
-                permissive = true;
+                /*permissive = true;
                 for(size_t i = 0; i < stateset.size(); ++i)
                 {
                     auto& c = stateset.get_data(i);
@@ -322,7 +324,7 @@ restart:
                     }
                 }
                 if(back.size() > 0)
-                    goto restart;
+                    goto restart;*/
 #endif
                 assert(!permissive || queue.empty());
                 result.numberOfConfigurations = stateset.size();
@@ -332,7 +334,7 @@ restart:
                 bool res;
                 if(!is_safety) res = meta._state == SynthConfig::WINNING;
                 else           res = meta._state != meta.LOSING;
-                result.result = res ? ResultPrinter::Satisfied : ResultPrinter::NotSatisfied;
+                result.result = (res != is_safety) ? ResultPrinter::Satisfied : ResultPrinter::NotSatisfied;
 #ifndef NDEBUG
                 {
                     // can only check complete solution to dep graph.
