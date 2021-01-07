@@ -111,9 +111,7 @@ namespace PetriEngine {
                 
                 size_t cid;
                 size_t nid;
-                _net.print(working.get());
-                query->toString(std::cerr);
-                std::cerr << std::endl;
+
                 auto& meta = get_config(stateset, working.get(), query, is_safety, cid);
                 meta._waiting = 1;
 
@@ -146,6 +144,21 @@ restart:
                             back.push(&cconf);
                         continue; // handled already
                     }
+                    // check predecessors
+                    bool any_undet = false;
+                    for(auto& p : cconf._dependers)
+                    {
+                        SynthConfig* sc = p.second;
+                        if(sc->determined()) continue;
+                        any_undet = true;
+                    }
+                    if(!any_undet && &cconf != &meta)
+                    {
+                        cconf._waiting = false;
+                        cconf._dependers.clear();
+                        continue;
+                    }
+                    
                     //std::cerr << "PROCESSING [" << cconf._marking << "]" << std::endl;
                     ++result.exploredConfigurations;
                     env_buffer.clear();
