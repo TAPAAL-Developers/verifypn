@@ -31,7 +31,7 @@ namespace DependencyGraph {
             default:
                 std::cerr << "Search strategy is unsupported by the CTL-Engine" << std::endl;
                 assert(false);
-                exit(ErrorCode);
+                std::exit(ErrorCode);
         }
     }
 

@@ -97,7 +97,7 @@ private:
                     default:
                         std::cerr << "UNKNOWN NODE TYPE" << std::endl;
                         assert(false);
-                        exit(ErrorCode);
+                        std::exit(ErrorCode);
                         break;
                 }              
                                

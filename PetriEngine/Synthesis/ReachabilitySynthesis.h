@@ -91,16 +91,16 @@ namespace PetriEngine {
                 const bool is_safety = query->isInvariant();
                 if (query == nullptr) {
                     std::cerr << "Body of quantifier is null" << std::endl;
-                    exit(ErrorCode);
+                    std::exit(ErrorCode);
                 }
                 if (query->isTemporal()) {
                     std::cerr << "Body of quantifier is temporal" << std::endl;
-                    exit(ErrorCode);
+                    std::exit(ErrorCode);
                 }
                 if(is_safety)
                 {
                     std::cerr << "Safety synthesis is untested and unsupported" << std::endl;
-                    exit(ErrorCode);
+                    std::exit(ErrorCode);
                 }
                 stopwatch timer;
                 timer.start();

@@ -867,7 +867,7 @@ int main(int argc, char* argv[]) {
                         if(options.isGame)
                         {
                             std::cerr << "Query-simplification is not available for synthesis" << std::endl;
-                            exit(UnknownCode);
+                            std::exit(UnknownCode);
                         }
                         SimplificationContext simplificationContext(qm0.get(), qnet.get(), qt,
                                 options.lpsolveTimeout, &cache);

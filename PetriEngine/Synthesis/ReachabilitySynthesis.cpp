@@ -70,7 +70,7 @@ namespace PetriEngine {
                         break;
                     default:
                         std::cerr << "Unsopported Search Strategy for Synthesis" << std::endl;
-                        exit(ErrorCode);
+                        std::exit(ErrorCode);
                 }
 
                 printer.printResult(result);

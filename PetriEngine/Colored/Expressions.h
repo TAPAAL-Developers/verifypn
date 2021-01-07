@@ -46,7 +46,7 @@ namespace PetriEngine {
                         return col;
                 }
                 printf("Could not find color: %s\nCANNOT_COMPUTE\n", color.c_str());
-                exit(ErrorCode);
+                std::exit(ErrorCode);
             }
 
             ProductType* findProductColorType(const std::vector<const ColorType*>& types) const {

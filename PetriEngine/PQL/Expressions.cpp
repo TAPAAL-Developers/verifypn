@@ -3539,7 +3539,7 @@ namespace PetriEngine {
             if(negated)
             {
                 std::cerr << "UPPER BOUNDS CANNOT BE NEGATED!" << std::endl;
-                exit(ErrorCode);
+                std::exit(ErrorCode);
             }
             return std::make_shared<UnfoldedUpperBoundsCondition>(_places, _max, _offset);
         }
@@ -3906,7 +3906,7 @@ namespace PetriEngine {
             {
                 std::cerr << "MERGE OF CONJUNCT AND DISJUNCT NOT ALLOWED" << std::endl;
                 assert(false);
-                exit(ErrorCode);
+                std::exit(ErrorCode);
             }
             auto il = _constraints.begin();
             for(auto c : other._constraints)
@@ -3922,7 +3922,7 @@ namespace PetriEngine {
                 {
                     std::cerr << "MERGE OF CONJUNCT AND DISJUNCT NOT ALLOWED" << std::endl;
                     assert(false);
-                    exit(ErrorCode);
+                    std::exit(ErrorCode);
                 }
                 
                 il = std::lower_bound(_constraints.begin(), _constraints.end(), c);
@@ -3991,7 +3991,7 @@ namespace PetriEngine {
                 {
                     std::cerr << "UNKNOWN " << std::endl;
                     assert(false);
-                    exit(ErrorCode);
+                    std::exit(ErrorCode);
                 }
                 if(negated)
                     next.invert();

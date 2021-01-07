@@ -13,7 +13,7 @@ LDFLAGS			= -flto=4 -march=x86-64 -std=c++14 -m64 lpsolve/liblpsolve55-linux64.a
 # Input files
 FLEX_SOURCES	= $(shell find * -name "*.l")
 BISON_SOURCES	= $(shell find * -name "*.y")
-SOURCES			= $(shell find * -name "*.cpp" | grep -v ".\\(parser\\|lexer\\).cpp")		\
+SOURCES			= $(shell find * -name "*.cpp" | grep -v ".\\(parser\\|lexer\\|nbproject\\).cpp")		\
 				  $(BISON_SOURCES:.y=.parser.cpp)											\
 				  $(FLEX_SOURCES:.l=.lexer.cpp)
 OBJECTS			= $(SOURCES:.cpp=.o)

@@ -224,15 +224,15 @@ namespace PetriEngine {
         auto res = printResult(result.index, result.query, result.result);
         
         if (options.printstatistics) {
-            cout << "\nSTATS:" << endl;
-            cout << "	Time (seconds)    : " << std::setprecision(4) << result.duration / 1000 << endl;
-            cout << "	Configurations    : " << result.numberOfConfigurations << endl;
-            cout << "	Markings          : " << result.numberOfMarkings << endl;
-            cout << "	Edges             : " << result.numberOfEdges << endl;
-            cout << "	Processed Edges   : " << result.processedEdges << endl;
-            cout << "	Processed N. Edges: " << result.processedNegationEdges << endl;
-            cout << "	Explored Configs  : " << result.exploredConfigurations << endl;
-            std::cout << endl;
+            cout << "\nSTATS:" << std::endl;
+            cout << "	Time (seconds)    : " << std::setprecision(4) << result.duration / 1000 << std::endl;
+            cout << "	Configurations    : " << result.numberOfConfigurations << std::endl;
+            cout << "	Markings          : " << result.numberOfMarkings << std::endl;
+            cout << "	Edges             : " << result.numberOfEdges << std::endl;
+            cout << "	Processed Edges   : " << result.processedEdges << std::endl;
+            cout << "	Processed N. Edges: " << result.processedNegationEdges << std::endl;
+            cout << "	Explored Configs  : " << result.exploredConfigurations << std::endl;
+            std::cout << std::endl;
         }
         return res;
     }

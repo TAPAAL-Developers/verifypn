@@ -57,7 +57,7 @@ void PNMLParser::parse(ifstream& xml,
     if(strcmp(root->name(), "pnml") != 0)
     {
         std::cerr << "expecting <pnml> tag as root-node in xml tree." << std::endl;
-        exit(ErrorCode);
+        std::exit(ErrorCode);
     }
     
     auto declarations = root->first_node("net")->first_node("declaration");
@@ -362,15 +362,15 @@ void PNMLParser::parseElement(rapidxml::xml_node<>* element) {
             parseArc(it, true);
         } else if (strcmp(it->name(), "variable") == 0) {
             std::cerr << "variable not supported" << std::endl;
-            exit(ErrorCode);
+            std::exit(ErrorCode);
         } else if (strcmp(it->name(),"queries") == 0) {
             parseQueries(it);
         } else if (strcmp(it->name(), "k-bound") == 0) {
             std::cerr << "k-bound should be given as command line option -k" << std::endl;
-            exit(ErrorCode);
+            std::exit(ErrorCode);
         } else if (strcmp(it->name(),"query") == 0) {
             std::cerr << "query tag not supported, please use PQL or XML-style queries instead" << std::endl;
-            exit(ErrorCode);            
+            std::exit(ErrorCode);
         }
         else
         {
@@ -423,7 +423,7 @@ void PNMLParser::parsePlace(rapidxml::xml_node<>* element) {
     if(initialMarking > std::numeric_limits<int>::max())
     {
         std::cerr << "Number of tokens in " << id << " exceeded " << std::numeric_limits<int>::max() << std::endl;
-        exit(ErrorCode);
+        std::exit(ErrorCode);
     }
     //Create place
     if (!isColored) {
@@ -431,7 +431,7 @@ void PNMLParser::parsePlace(rapidxml::xml_node<>* element) {
     } else {
         if (!type) {
             std::cerr << "Place '" << id << "' is missing color type" << std::endl;
-            exit(ErrorCode);
+            std::exit(ErrorCode);
         }
         else
         {
@@ -453,7 +453,7 @@ void PNMLParser::parseArc(rapidxml::xml_node<>* element, bool inhibitor) {
     if(type && strcmp(type->value(), "timed") == 0)
     {
         std::cerr << "timed arcs are not supported" << std::endl;
-        exit(ErrorCode);
+        std::exit(ErrorCode);
     }
     else if(type && strcmp(type->value(), "inhibitor") == 0)
     {
@@ -469,13 +469,13 @@ void PNMLParser::parseArc(rapidxml::xml_node<>* element, bool inhibitor) {
         {
             if(weight == 0) weight = 1;
             std::cerr << "ERROR: Found non-integer-text in inscription-tag (weight) on arc from " << source << " to " << target << " with value \"" << text << "\". An integer was expected." << std::endl;
-            exit(ErrorCode);
+            std::exit(ErrorCode);
         }
         assert(weight > 0);
         if(!first)
         {
             std::cerr << "ERROR: Multiple inscription tags in xml of a arc from " << source << " to " << target << "." << std::endl;
-            exit(ErrorCode);
+            std::exit(ErrorCode);
         }
         first = false;
     }
@@ -487,7 +487,7 @@ void PNMLParser::parseArc(rapidxml::xml_node<>* element, bool inhibitor) {
         if(!first)
         {
             std::cerr << "ERROR: Multiple hlinscription tags in xml of a arc from " << source << " to " << target << "." << std::endl;
-            exit(ErrorCode);            
+            std::exit(ErrorCode);
         }
         first = false;
     }
@@ -503,7 +503,7 @@ void PNMLParser::parseArc(rapidxml::xml_node<>* element, bool inhibitor) {
     
     if (inhibitor && isColored) {
         std::cerr << "inhibitor arcs are not supported in colored Petri nets" << std::endl;
-        exit(ErrorCode);
+        std::exit(ErrorCode);
     }
     
     if(weight != 0)
@@ -520,7 +520,7 @@ void PNMLParser::parseArc(rapidxml::xml_node<>* element, bool inhibitor) {
     else
     {
         std::cerr << "ERROR: Arc from " << source << " to " << target << " has non-sensible weight 0." << std::endl;         
-        exit(ErrorCode);
+        std::exit(ErrorCode);
     }
 }
 
@@ -566,10 +566,10 @@ void PNMLParser::parseTransition(rapidxml::xml_node<>* element) {
             t.expr = parseGuardExpression(it->first_node("structure"));
         } else if (strcmp(it->name(), "conditions") == 0) {
             std::cerr << "conditions not supported" << std::endl;
-            exit(ErrorCode);
+            std::exit(ErrorCode);
         } else if (strcmp(it->name(), "assignments") == 0) {
             std::cerr << "assignments not supported" << std::endl;
-            exit(ErrorCode);
+            std::exit(ErrorCode);
         } 
         else if (strcmp(it->name(), "player") == 0)
         {
@@ -625,5 +625,5 @@ const PetriEngine::Colored::Color* PNMLParser::findColor(const char* name) const
             return col;
     }
     printf("Could not find color: %s\nCANNOT_COMPUTE\n", name);
-    exit(ErrorCode);
+    std::exit(ErrorCode);
 }

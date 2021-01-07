@@ -82,7 +82,7 @@ namespace PetriEngine {
             n += _net._invariants[finv].tokens;
             if (n >= std::numeric_limits<uint32_t>::max()) {
                 std::cerr << "Exceeded 2**32 limit of tokens in a single place ("  << n << ")" << std::endl;
-                exit(FailedCode);
+                std::exit(FailedCode);
             }
             write[_net._invariants[finv].place] = n;
         }

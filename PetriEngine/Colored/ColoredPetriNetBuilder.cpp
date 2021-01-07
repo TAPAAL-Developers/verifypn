@@ -194,7 +194,7 @@ namespace PetriEngine {
                         std::cerr << "Exception on arc: " << arcToString(arc) << std::endl;
                         std::cerr << "In expression: " << arc.expr->toString() << std::endl;
                         std::cerr << e.what() << std::endl;
-                        exit(ErrorCode);
+                        std::exit(ErrorCode);
                     }
                 }
             }

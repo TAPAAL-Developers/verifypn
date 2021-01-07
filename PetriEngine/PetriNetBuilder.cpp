@@ -74,7 +74,7 @@ namespace PetriEngine {
         if(_transitionnames.count(transition) == 0)
         {
             std::cerr << "Could not find " << transition << " exiting (it has to be defined prior to use in the XML)" << std::endl;
-            exit(ErrorCode);
+            std::exit(ErrorCode);
         }
         if(_placenames.count(place) == 0)
         {
@@ -100,7 +100,7 @@ namespace PetriEngine {
         if(_transitionnames.count(transition) == 0)
         {
             std::cerr << "Could not find " << transition << " exiting (it has to be defined prior to use in the XML)" << std::endl;
-            exit(ErrorCode);
+            std::exit(ErrorCode);
         }
         if(_placenames.count(place) == 0)
         {

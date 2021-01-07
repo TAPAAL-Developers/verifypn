@@ -47,7 +47,7 @@ namespace PetriEngine {
                 double y = 0)
         {
             std::cerr << "Colored places are not supported in standard P/T nets" << std::endl;
-            exit(ErrorCode);
+            std::exit(ErrorCode);
         }
         /** Add a new transition with a unique name */
         virtual void addTransition(
@@ -63,7 +63,7 @@ namespace PetriEngine {
                 double y = 0)
         {
             std::cerr << "Colored transitions are not supported in standard P/T nets" << std::endl;
-            exit(ErrorCode);
+            std::exit(ErrorCode);
         }
         /** Add input arc with given weight */
         virtual void addInputArc(const std::string& place,
@@ -76,7 +76,7 @@ namespace PetriEngine {
                 const Colored::ArcExpression_ptr& expr)
         {
             std::cerr << "Colored input arcs are not supported in standard P/T nets" << std::endl;
-            exit(ErrorCode);
+            std::exit(ErrorCode);
         }
         /** Add output arc with given weight */
         virtual void addOutputArc(const std::string& transition,
@@ -88,14 +88,14 @@ namespace PetriEngine {
                 const Colored::ArcExpression_ptr& expr)
         {
             std::cerr << "Colored output arcs are not supported in standard P/T nets" << std::endl;
-            exit(ErrorCode);
+            std::exit(ErrorCode);
         }
         /** Add color types with id */
         virtual void addColorType(const std::string& id,
                 Colored::ColorType* type)
         {
             std::cerr << "Color types are not supported in standard P/T nets" << std::endl;
-            exit(ErrorCode);
+            std::exit(ErrorCode);
         }
         
         virtual void enableColors() {

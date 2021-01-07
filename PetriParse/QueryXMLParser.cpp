@@ -456,7 +456,7 @@ Condition_ptr QueryXMLParser::parseBooleanFormula(rapidxml::xml_node<>*  element
     std::cerr << "An error occurred while parsing the query." << std::endl;
     std::cerr << elementName << std::endl;
     assert(false);
-    exit(ErrorCode);
+    std::exit(ErrorCode);
     return nullptr;
 }
 
@@ -524,7 +524,6 @@ Expr_ptr QueryXMLParser::parseIntegerExpression(rapidxml::xml_node<>*  element) 
         return  isMult ? 
                 std::dynamic_pointer_cast<Expr>(std::make_shared<MultiplyExpr>(std::move(els))) :
                 std::dynamic_pointer_cast<Expr>(std::make_shared<PlusExpr>(std::move(els)));
-;
     } else if (elementName == "integer-difference") {
         auto children = element->first_node();
         std::vector<Expr_ptr> els;
@@ -555,7 +554,7 @@ void QueryXMLParser::printQueries(size_t i) {
     QueryItem it = queries[i - 1];
     cout << it.id << ": " ;
     if (it.parsingResult == QueryItem::UNSUPPORTED_QUERY) {
-        cout << "\t---------- unsupported query ----------" << endl;
+        cout << "\t---------- unsupported query ----------" << std::endl;
     } else {
         cout << "\t";
         it.query->toString(cout);

@@ -145,7 +145,7 @@ namespace PetriEngine {
                     break;
                 default:
                     std::cerr << "UNSUPPORTED SEARCH STRATEGY" << std::endl;
-                    exit(ErrorCode);
+                    std::exit(ErrorCode);
             }
         }
     }
