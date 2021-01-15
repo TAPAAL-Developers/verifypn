@@ -41,8 +41,8 @@ namespace PetriEngine {
         ReachabilitySynthesis::~ReachabilitySynthesis() {
         }
 
-#define TRYSYNTH(X,S,Q,P)    if(S) run<ReducingSuccessorGenerator,X>(Q, P); \
-                             else  run<SuccessorGenerator,X>(Q, P);
+#define TRYSYNTH(X,S,Q,P)    if(S) run<ReducingSuccessorGenerator,X>(Q, P, strategy_out); \
+                             else  run<SuccessorGenerator,X>(Q, P, strategy_out);
 
         ReturnValue ReachabilitySynthesis::synthesize(
                 std::vector<std::shared_ptr<PQL::Condition> >& queries,
@@ -50,7 +50,8 @@ namespace PetriEngine {
                 Utils::SearchStrategies::Strategy strategy,
                 bool use_stubborn,
                 bool keep_strategies,
-                bool permissive) {
+                bool permissive,
+                std::ostream* strategy_out) {
             using namespace Structures;
             for (size_t qnum = 0; qnum < queries.size(); ++qnum) {
                 ResultPrinter::DGResult result(qnum, queries[qnum].get());
@@ -69,7 +70,7 @@ namespace PetriEngine {
                         TRYSYNTH(RDFSQueue, use_stubborn, result, permissive)
                         break;
                     default:
-                        std::cerr << "Unsopported Search Strategy for Synthesis" << std::endl;
+                        std::cerr << "Unsupported Search Strategy for Synthesis" << std::endl;
                         std::exit(ErrorCode);
                 }
 

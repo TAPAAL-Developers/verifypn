@@ -60,7 +60,8 @@ namespace PetriEngine {
                     Utils::SearchStrategies::Strategy strategy,
                     bool use_stubborn = false,
                     bool keep_strategies = false,
-                    bool permissive = false);
+                    bool permissive = false,
+                    std::ostream* strategy_out = nullptr);
         private:
 
             
@@ -74,6 +75,10 @@ namespace PetriEngine {
             void setQuery(GENERATOR&, PQL::Condition* query, bool is_safety)
             {                
             }
+            
+            void print_strategy(std::ostream& strategy_out, Structures::AnnotatedStateSet<SynthConfig>& stateset, SynthConfig& meta) {
+                
+            }
 
 #ifndef NDEBUG
             void print_id(size_t);
@@ -81,7 +86,7 @@ namespace PetriEngine {
 #endif
             
             template <typename GENERATOR, typename QUEUE>
-            void run(ResultPrinter::DGResult& result, bool permissive) {
+            void run(ResultPrinter::DGResult& result, bool permissive, std::ostream* strategy_out) {
                 // permissive == maximal in this case; there is a subtle difference
                 // in wether you terminate the search at losing states (permissive)
                 // or you saturate over the entire graph (maximal)
@@ -356,6 +361,10 @@ restart:
                     validate(query, stateset, is_safety);
                 }
 #endif
+                
+                if(strategy_out != nullptr && res) {
+                    print_strategy(*strategy_out, stateset, meta);
+                }
             }
 
             SynthConfig& get_config(Structures::AnnotatedStateSet<SynthConfig>& stateset, const MarkVal* marking, PQL::Condition* prop, bool is_safety, size_t& cid);

@@ -277,6 +277,10 @@ ReturnValue parseOptions(int argc, char* argv[], options_t& options)
         {
             options.model_out_file = std::string(argv[++i]);
         }
+        else if (strcmp(argv[i], "--strategy-output") == 0)
+        {
+            options.strategy_output = std::string(argv[++i]);
+        }
 #ifdef ENABLE_MC_SIMPLIFICATION
         else if (strcmp(argv[i], "-z") == 0)
         {
@@ -361,6 +365,8 @@ ReturnValue parseOptions(int argc, char* argv[], options_t& options)
                     "                                     - 1 Input is binary, output is XML\n"
                     "                                     - 2 Output is binary, input is XML\n"
                     "                                     - 3 Input and Output is binary\n"
+                    "  --strategy-output <filename>       Outputs the synthesized strategy (if a such exist) to <filename>\n."
+                    "                                     Use _ (underscore) for outputting to standard output.\n"
                     "\n"
                     "Return Values:\n"
                     "  0   Successful, query satisfiable\n"
@@ -1147,7 +1153,19 @@ int main(int argc, char* argv[]) {
     if(options.isGame)
     {
         Synthesis::ReachabilitySynthesis strategy(printer, *net, options.kbound);
-        strategy.synthesize(queries, results, options.strategy, options.stubbornreduction, false);
+
+        std::ostream* strategy_out = nullptr;
+        if(options.strategy_output == "_")
+            strategy_out = &std::cout;
+        else if(options.strategy_output.size() > 0)
+            strategy_out = new std::ofstream(options.strategy_output);
+
+        strategy.synthesize(queries, results, options.strategy, options.stubbornreduction, false, false, strategy_out);
+
+        if(strategy_out != nullptr && strategy_out != &std::cout)
+        {
+            delete strategy_out;
+        }
     }
     else
     {

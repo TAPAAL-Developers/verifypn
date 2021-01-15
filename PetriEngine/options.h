@@ -39,6 +39,7 @@ struct options_t {
     
     std::string query_out_file;
     std::string model_out_file;
+    std::string strategy_output;
 
     
     //CPN Specific options
