@@ -76,9 +76,7 @@ namespace PetriEngine {
             {                
             }
             
-            void print_strategy(std::ostream& strategy_out, Structures::AnnotatedStateSet<SynthConfig>& stateset, SynthConfig& meta) {
-                
-            }
+            void print_strategy(std::ostream& strategy_out, Structures::AnnotatedStateSet<SynthConfig>& stateset, SynthConfig& meta, bool is_safety);
 
 #ifndef NDEBUG
             void print_id(size_t);
@@ -363,7 +361,7 @@ restart:
 #endif
                 
                 if(strategy_out != nullptr && res) {
-                    print_strategy(*strategy_out, stateset, meta);
+                    print_strategy(*strategy_out, stateset, meta, is_safety);
                 }
             }
 

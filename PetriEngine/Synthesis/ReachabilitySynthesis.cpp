@@ -216,7 +216,7 @@ namespace PetriEngine {
         void ReachabilitySynthesis::print_id(size_t id)
         {
             std::cerr << "[" << id << "] : ";
-            _net.print(markings[id]); 
+            _net.print(markings[id], std::cerr);
         }
 
 
@@ -330,6 +330,102 @@ namespace PetriEngine {
         void ReachabilitySynthesis::setQuery<ReducingSuccessorGenerator>(ReducingSuccessorGenerator& generator, PQL::Condition* query, bool is_safety)
         {
             generator.setQuery(query, is_safety);
+        }
+
+        void ReachabilitySynthesis::print_strategy(std::ostream& out, Structures::AnnotatedStateSet<SynthConfig>& stateset, SynthConfig& meta, const bool is_safety)
+        {
+        std::stack<size_t> missing;
+        
+        auto parent = _net.makeInitialMarking();
+        auto working = _net.makeInitialMarking();
+        {
+            auto res = stateset.add(working.get());
+            missing.emplace(res.second);
+        }
+        if(&out == &std::cout) out << "\n##BEGIN STRATEGY##\n";
+        out << "{\n";
+        SuccessorGenerator generator(_net, true, is_safety);
+        bool first_marking = true;
+        while(!missing.empty())
+        {
+            auto nxt = missing.top();
+            missing.pop();
+            auto& meta = stateset.get_data(nxt);
+            if((meta._state & SynthConfig::WINNING) ||
+               (is_safety && (meta._state & (SynthConfig::UNKNOWN | SynthConfig::LOSING)) == 0))
+            {
+                stateset.decode(parent.get(), nxt);
+                generator.prepare(parent.get());
+                while (generator.next(working.get(), PetriNet::ENV)) {
+                    auto res = stateset.add(working.get());
+                    auto& state = stateset.get_data(res.second)._state;
+                    if((state & SynthConfig::PRINTED) == 0)
+                    {
+                        missing.emplace(res.second);
+                        state = state | SynthConfig::PRINTED;
+                    }
+                }
+
+                bool first = true;
+                std::vector<uint32_t> winning;
+                std::set<size_t> winning_succs;
+                bool seen_win = false;
+                bool some = false;
+                while (generator.next(working.get(), PetriNet::CTRL)) {
+                    some = true;
+                    auto res = stateset.add(working.get());
+                    auto state = stateset.get_data(res.second)._state;
+                    if((state & SynthConfig::LOSING)) continue;
+                    if(!is_safety && (state & SynthConfig::WINNING) == 0) continue;
+                    if((state & SynthConfig::WINNING) && !seen_win)
+                    {
+                        seen_win = true;
+                        winning.clear();
+                        winning_succs.clear();
+                    }
+                    winning.emplace_back(generator.fired());
+                    winning_succs.emplace(res.second);
+                }
+                assert((winning_succs.size() > 0) == some);
+                for(auto w : winning_succs)
+                {
+                    auto& state = stateset.get_data(w)._state;
+                    if((state & SynthConfig::PRINTED) == 0)
+                    {
+                        missing.emplace(w);
+                        state = state | SynthConfig::PRINTED;
+                    }
+                }
+
+                for(auto wt : winning)
+                {
+                    if(first) {
+                        if(!first_marking) out << ",\n";
+                        first_marking = false;
+                        out << "\t{\"marking\":{";
+                        bool fp = true;
+                        for(uint32_t p = 0; p < _net.numberOfPlaces(); ++p)
+                        {
+                            if(parent[p] > 0)
+                            {
+                                if(!fp) out << ",";
+                                fp = false;
+                                out << "\"" << _net.placeNames()[p] << "\":" << parent[p];
+                            }
+                        }
+                        out << "},\n\t \"transitions\":[";
+                    }
+                    if(!first)
+                        out << ",";
+                    first = false;
+                    out << "\"" << _net.transitionNames()[wt] << "\"";
+                }
+                if(!first) out << "]}";
+            }
+        }
+        out << "\n}\n";
+        if(&out == &std::cout)
+            out << "##END STRATEGY##\n";
         }
     }
 }

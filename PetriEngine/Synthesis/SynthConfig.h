@@ -41,6 +41,7 @@ namespace PetriEngine {
             static constexpr uint8_t MAYBE = 4; // If no env strategy, then winning
             static constexpr uint8_t LOSING = 8; // env wins
             static constexpr uint8_t WINNING = 32; // ctrl surely wins
+            static constexpr uint8_t PRINTED = 64; // has been printed
             
             uint8_t _state = UNKNOWN; // this should be at most one byte
             uint8_t _waiting = 0; // We only need on waiting once (0 = new, 1= processed/waiting, 2=back-queue)

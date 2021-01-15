@@ -90,13 +90,13 @@ namespace PetriEngine {
             return _placenames;
         }
                
-        void print(MarkVal const * const val) const
+        void print(MarkVal const * const val, std::ostream& out) const
         {
             for(size_t i = 0; i < _nplaces; ++i)
             {
                 if(val[i] != 0)
                 {
-                    std::cerr << _placenames[i] << ": " << val[i] << ",";
+                    out << _placenames[i] << ": " << val[i] << ",";
                 }
             }
         }
