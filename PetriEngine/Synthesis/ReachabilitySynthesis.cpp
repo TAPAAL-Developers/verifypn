@@ -402,7 +402,7 @@ namespace PetriEngine {
                     if(first) {
                         if(!first_marking) out << ",\n";
                         first_marking = false;
-                        out << "\t{\"marking\":{";
+                        out << "\"";
                         bool fp = true;
                         for(uint32_t p = 0; p < _net.numberOfPlaces(); ++p)
                         {
@@ -410,17 +410,17 @@ namespace PetriEngine {
                             {
                                 if(!fp) out << ",";
                                 fp = false;
-                                out << "\"" << _net.placeNames()[p] << "\":" << parent[p];
+                                out << _net.placeNames()[p] << ":" << parent[p];
                             }
                         }
-                        out << "},\n\t \"transitions\":[";
+                        out << "\":\n\t[";
                     }
                     if(!first)
                         out << ",";
                     first = false;
                     out << "\"" << _net.transitionNames()[wt] << "\"";
                 }
-                if(!first) out << "]}";
+                if(!first) out << "]";
             }
         }
         out << "\n}\n";
