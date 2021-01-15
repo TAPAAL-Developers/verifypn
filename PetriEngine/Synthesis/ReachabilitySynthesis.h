@@ -77,7 +77,7 @@ namespace PetriEngine {
 
 #ifndef NDEBUG
             void print_id(size_t);
-            void validate(PQL::Condition*, Structures::AnnotatedStateSet<SynthConfig>&);
+            void validate(PQL::Condition*, Structures::AnnotatedStateSet<SynthConfig>&, bool is_safety);
 #endif
             
             template <typename GENERATOR, typename QUEUE>
@@ -150,6 +150,8 @@ restart:
                     {
                         SynthConfig* sc = p.second;
                         if(sc->determined()) continue;
+                        if(sc->_state == SynthConfig::MAYBE && !p.first && !permissive)
+                            continue;
                         any_undet = true;
                     }
                     if(!any_undet && &cconf != &meta)
@@ -351,7 +353,7 @@ restart:
 #ifndef NDEBUG
                 {
                     // can only check complete solution to dep graph.
-                    validate(query, stateset);
+                    validate(query, stateset, is_safety);
                 }
 #endif
             }

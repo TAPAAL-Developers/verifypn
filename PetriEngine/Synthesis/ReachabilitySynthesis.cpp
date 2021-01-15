@@ -220,7 +220,7 @@ namespace PetriEngine {
 
 
         // validating the solution of the DEP graph (reachability-query is assumed)
-        void ReachabilitySynthesis::validate(PQL::Condition* query, Structures::AnnotatedStateSet<SynthConfig>& stateset)
+        void ReachabilitySynthesis::validate(PQL::Condition* query, Structures::AnnotatedStateSet<SynthConfig>& stateset, bool is_safety)
         {
             MarkVal* working = new MarkVal[_net.numberOfPlaces()];
             size_t old = markings.size();
@@ -236,8 +236,8 @@ namespace PetriEngine {
                 PQL::EvaluationContext ctx(markings[id], &_net);
                 auto res = query->evaluate(ctx);
                 if(conf._state != SynthConfig::WINNING)
-                    assert(res.first != RTRUE);
-                else if(res.first)
+                    assert((res.first != RTRUE) == is_safety);
+                else if(res.first != is_safety)
                 {
                     assert(conf._state == SynthConfig::WINNING);
                     continue;
