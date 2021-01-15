@@ -153,8 +153,8 @@ restart:
                     {
                         SynthConfig* sc = p.second;
                         if(sc->determined()) continue;
-                        if(sc->_state == SynthConfig::MAYBE && !p.first && !permissive)
-                            continue;
+                        //if(sc->_state == SynthConfig::MAYBE && !p.first && !permissive)
+                        //    continue;
                         any_undet = true;
                     }
                     if(!any_undet && &cconf != &meta)
