@@ -156,6 +156,7 @@ restart:
                         //if(sc->_state == SynthConfig::MAYBE && !p.first && !permissive)
                         //    continue;
                         any_undet = true;
+                        break;
                     }
                     if(!any_undet && &cconf != &meta)
                     {
