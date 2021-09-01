@@ -271,15 +271,15 @@ bool recursiveSolve(const Condition_ptr& query, PetriEngine::PetriNet* net,
 
 
 error_e CTLMain(PetriNet* net,
-    CTLAlgorithmType algorithmtype,
-    options_t::SearchStrategy strategytype,
-    bool printstatistics,
-    bool mccoutput,
-    bool partial_order,
-    const std::vector<std::string>& querynames,
-    const std::vector<std::shared_ptr<Condition>>&queries,
-    const std::vector<size_t>& querynumbers,
-    options_t& options
+        CTLAlgorithmType algorithmtype,
+        options_t::SearchStrategy strategytype,
+        bool printstatistics,
+        bool mccoutput,
+        bool partial_order,
+        const std::vector<std::string>& querynames,
+        const std::vector<std::shared_ptr<Condition>>&queries,
+        const std::vector<size_t>& querynumbers,
+        options_t& options
     )
 {
     for(auto qnum : querynumbers){

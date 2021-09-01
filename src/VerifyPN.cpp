@@ -214,7 +214,6 @@ int main(int argc, char* argv[]) {
 
     if(options.query_out_file.size() > 0) {
         outputQueries(builder, queries, querynames, options.query_out_file, options.binary_query_io);
-
     }
 
     qnet = nullptr;
