@@ -23,7 +23,7 @@
 #include "State.h"
 #include "AlignedEncoder.h"
 #include "binarywrapper.h"
-#include "../errorcodes.h"
+#include "errorcodes.h"
 
 
 namespace PetriEngine {
@@ -33,13 +33,13 @@ namespace PetriEngine {
         {
         public:
             StateSetInterface(const PetriNet& net, uint32_t kbound, int nplaces = -1) :
-            _nplaces(nplaces == -1 ? net.numberOfPlaces() : nplaces),
+            _nplaces(nplaces == -1 ? net.number_of_places() : nplaces),
             _encoder(_nplaces, kbound), _net(net)
             {
                 _discovered = 0;
                 _kbound = kbound;
                 _maxTokens = 0;
-                _maxPlaceBound = std::vector<uint32_t>(net.numberOfPlaces(), 0);
+                _maxPlaceBound = std::vector<uint32_t>(net.number_of_places(), 0);
                 _sp = binarywrapper_t(sizeof(uint32_t) * _nplaces * 8);
             }
             
@@ -56,9 +56,9 @@ namespace PetriEngine {
 
             const PetriNet& net() { return _net;}
             
-            virtual void setHistory(size_t id, size_t transition) = 0;
+            virtual void set_history(size_t id, size_t transition) = 0;
             
-            virtual std::pair<size_t, size_t> getHistory(size_t markingid) = 0;
+            virtual std::pair<size_t, size_t> get_history(size_t markingid) = 0;
 
         protected:
             size_t _discovered;
@@ -79,7 +79,7 @@ namespace PetriEngine {
                     _encoder.decode(state.marking(), _encoder.scratchpad().raw());
 
 #ifdef DEBUG
-                    assert(memcmp(state.marking(), _dbg[id], sizeof(uint32_t)*_net.numberOfPlaces()) == 0);
+                    assert(memcmp(state.marking(), _dbg[id], sizeof(uint32_t)*_net.number_of_places()) == 0);
 #endif
             }             
             
@@ -96,7 +96,7 @@ namespace PetriEngine {
                 uint32_t val = 0;
                 uint32_t active = 0;
                 uint32_t last = 0;
-                markingStats(state.marking(), sum, allsame, val, active, last);               
+                marking_stats(state.marking(), sum, allsame, val, active, last);               
 
                 if (_maxTokens < sum)
                     _maxTokens = sum;
@@ -105,7 +105,7 @@ namespace PetriEngine {
                 if (_kbound != 0 && sum > _kbound)
                     return std::pair<bool, size_t>(false, std::numeric_limits<size_t>::max());
                     
-                unsigned char type = _encoder.getType(sum, active, allsame, val);
+                unsigned char type = _encoder.get_type(sum, active, allsame, val);
 
 
                 size_t length = _encoder.encode(state.marking(), type);
@@ -124,13 +124,13 @@ namespace PetriEngine {
                 }
                 
 #ifdef DEBUG
-                _dbg.push_back(new uint32_t[_net.numberOfPlaces()]);
-                memcpy(_dbg.back(), state.marking(), _net.numberOfPlaces()*sizeof(uint32_t));
+                _dbg.push_back(new uint32_t[_net.number_of_places()]);
+                memcpy(_dbg.back(), state.marking(), _net.number_of_places()*sizeof(uint32_t));
                 decode(state, _trie.size() - 1);
 #endif
            
                 // update the max token bound for each place in the net (only for newly discovered markings)
-                for (uint32_t i = 0; i < _net.numberOfPlaces(); i++) 
+                for (uint32_t i = 0; i < _net.number_of_places(); i++) 
                 {
                     _maxPlaceBound[i] = std::max<MarkVal>( state.marking()[i],
                                                             _maxPlaceBound[i]);
@@ -149,9 +149,9 @@ namespace PetriEngine {
                 uint32_t val = 0;
                 uint32_t active = 0;
                 uint32_t last = 0;
-                markingStats(state.marking(), sum, allsame, val, active, last);
+                marking_stats(state.marking(), sum, allsame, val, active, last);
 
-                unsigned char type = _encoder.getType(sum, active, allsame, val);
+                unsigned char type = _encoder.get_type(sum, active, allsame, val);
 
                 size_t length = _encoder.encode(state.marking(), type);
                 binarywrapper_t w = binarywrapper_t(_encoder.scratchpad().raw(), length*8);
@@ -170,17 +170,17 @@ namespace PetriEngine {
                 return _discovered;
             }
 
-            uint32_t maxTokens() const {
+            uint32_t max_tokens() const {
                 return _maxTokens;
             }
             
-            const std::vector<MarkVal>& maxPlaceBound() const {
+            const std::vector<MarkVal>& max_place_bound() const {
                 return _maxPlaceBound;
             }
             
         protected:
             
-            void markingStats(const uint32_t* marking, MarkVal& sum, bool& allsame, uint32_t& val, uint32_t& active, uint32_t& last)
+            void marking_stats(const uint32_t* marking, MarkVal& sum, bool& allsame, uint32_t& val, uint32_t& active, uint32_t& last)
             {
                 uint32_t cnt = 0;
                 
@@ -224,9 +224,9 @@ namespace PetriEngine {
                 return _lookup(state, _trie);
             }
 
-            virtual void setHistory(size_t id, size_t transition) override {}
+            virtual void set_history(size_t id, size_t transition) override {}
 
-            virtual std::pair<size_t, size_t> getHistory(size_t markingid) override
+            virtual std::pair<size_t, size_t> get_history(size_t markingid) override
             { 
                 assert(false); 
                 return std::make_pair(0,0); 
@@ -275,14 +275,14 @@ namespace PetriEngine {
             }
 
 
-            virtual void setHistory(size_t id, size_t transition) override
+            virtual void set_history(size_t id, size_t transition) override
             {
                 traceable_t& t = _trie.get_data(id);
                 t.parent = _parent;
                 t.transition = transition;
             }
             
-            virtual std::pair<size_t, size_t> getHistory(size_t markingid) override
+            virtual std::pair<size_t, size_t> get_history(size_t markingid) override
             {
                 traceable_t& t = _trie.get_data(markingid);
                 return std::pair<size_t, size_t>(t.parent, t.transition);

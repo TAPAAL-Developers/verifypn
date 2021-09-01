@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   SuccessorGenerator.cpp
  * Author: Peter G. Jensen
- * 
+ *
  * Created on 30 March 2016, 19:50
  */
 
 #include "PetriEngine/SuccessorGenerator.h"
 #include "PetriEngine/Structures/State.h"
-#include "PetriEngine/errorcodes.h"
+#include "errorcodes.h"
 
 #include <cassert>
 namespace PetriEngine {
@@ -43,7 +43,7 @@ namespace PetriEngine {
         _suc_tcounter = std::numeric_limits<uint32_t>::max();
     }
 
-    void SuccessorGenerator::consumePreset(Structures::State& write, uint32_t t) {
+    void SuccessorGenerator::consume_preset(Structures::State& write, uint32_t t) {
 
         const TransPtr& ptr = _net._transitions[t];
         uint32_t finv = ptr.inputs;
@@ -56,7 +56,7 @@ namespace PetriEngine {
         }
     }
 
-    bool SuccessorGenerator::checkPreset(uint32_t t) {
+    bool SuccessorGenerator::check_preset(uint32_t t) {
         const TransPtr& ptr = _net._transitions[t];
         uint32_t finv = ptr.inputs;
         uint32_t linv = ptr.outputs;
@@ -76,7 +76,7 @@ namespace PetriEngine {
         return true;
     }
 
-    void SuccessorGenerator::producePostset(Structures::State& write, uint32_t t) {
+    void SuccessorGenerator::produce_postset(Structures::State& write, uint32_t t) {
         const TransPtr& ptr = _net._transitions[t];
         uint32_t finv = ptr.outputs;
         uint32_t linv = _net._transitions[t + 1].inputs;
@@ -85,8 +85,7 @@ namespace PetriEngine {
             size_t n = write.marking()[_net._invariants[finv].place];
             n += _net._invariants[finv].tokens;
             if (n >= std::numeric_limits<uint32_t>::max()) {
-                std::cerr << "Exceeded 2**32 limit of tokens in a single place ("  << n << ")" << std::endl;
-                exit(FailedCode);
+                throw base_error(FailedCode, "Exceeded 2**32 limit of tokens in a single place (", n, ")");
             }
             write.marking()[_net._invariants[finv].place] = n;
         }
@@ -102,10 +101,10 @@ namespace PetriEngine {
                 uint32_t last = _net._placeToPtrs[_suc_pcounter + 1];
                 for (; _suc_tcounter != last; ++_suc_tcounter) {
 
-                    if (!checkPreset(_suc_tcounter)) continue;
+                    if (!check_preset(_suc_tcounter)) continue;
                     memcpy(write.marking(), (*_parent).marking(), _net._nplaces * sizeof (MarkVal));
-                    consumePreset(write, _suc_tcounter);
-                    producePostset(write, _suc_tcounter);
+                    consume_preset(write, _suc_tcounter);
+                    produce_postset(write, _suc_tcounter);
 
                     ++_suc_tcounter;
                     return true;
@@ -129,7 +128,7 @@ namespace PetriEngine {
                 uint32_t last = _net._placeToPtrs[_suc_pcounter + 1];
                 for (; tindex != last; ++tindex) {
 
-                    if (!checkPreset(tindex)) continue;
+                    if (!check_preset(tindex)) continue;
                     _fire(write, tindex);
 
                     ++tindex;
@@ -143,10 +142,10 @@ namespace PetriEngine {
     }
 
     void SuccessorGenerator::_fire(Structures::State &write, uint32_t tid) {
-        assert(checkPreset(tid));
+        assert(check_preset(tid));
         memcpy(write.marking(), (*_parent).marking(), _net._nplaces * sizeof (MarkVal));
-        consumePreset(write, tid);
-        producePostset(write, tid);
+        consume_preset(write, tid);
+        produce_postset(write, tid);
     }
 
     SuccessorGenerator::SuccessorGenerator(const PetriNet &net, const std::shared_ptr<StubbornSet>&)

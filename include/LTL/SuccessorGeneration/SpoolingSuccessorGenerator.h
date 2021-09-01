@@ -1,16 +1,16 @@
 /* Copyright (C) 2021  Nikolaj J. Ulrik <nikolaj@njulrik.dk>,
  *                     Simon M. Virenfeldt <simon@simwir.dk>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,51 +29,53 @@ namespace LTL {
     class SpoolingSuccessorGenerator : public PetriEngine::SuccessorGenerator {
     public:
         SpoolingSuccessorGenerator(const PetriEngine::PetriNet *net, const PetriEngine::PQL::Condition_ptr &)
-                : SuccessorGenerator(*net), _transbuf(new uint32_t[net->numberOfTransitions()])
-        {
-            _statebuf.setMarking(new PetriEngine::MarkVal[net->numberOfPlaces() + 1], net->numberOfPlaces());
+                : SuccessorGenerator(*net), _transbuf(new uint32_t[net->number_of_transitions()])
+{
+            _statebuf.set_marking(new PetriEngine::MarkVal[net->number_of_places() + 1], net->number_of_places());
         }
 
         struct successor_info_t {
-            SuccessorQueue<> successors;
-            size_t buchi_state;
-            size_t last_state;
+            SuccessorQueue<> _successors;
+            size_t _buchi_state;
+            size_t _last_state;
             size_t _transition;
 
-            successor_info_t(size_t buchiState, size_t lastState) : buchi_state(buchiState), last_state(lastState) {}
+            successor_info_t(size_t buchiState, size_t lastState) : _buchi_state(buchiState), _last_state(lastState) {
+            }
 
-            [[nodiscard]] bool has_prev_state() const
-            {
-                return last_state != NoLastState;
+            [[nodiscard]] bool has_prev_state() const {
+                return _last_state != _NoLastState;
             }
-            
+
             size_t state() const {
-                return last_state;
+                return _last_state;
             }
-            
+
             size_t transition() const {
                 return _transition;
             }
 
-            [[nodiscard]] bool fresh() const { return buchi_state == NoBuchiState && last_state == NoLastState; }
+            [[nodiscard]] bool fresh() const {
+                return _buchi_state == _NoBuchiState && _last_state == _NoLastState;
+            }
 
-            static constexpr auto NoBuchiState = std::numeric_limits<size_t>::max();
-            static constexpr auto NoLastState = std::numeric_limits<size_t>::max();
+            static constexpr auto _NoBuchiState = std::numeric_limits<size_t>::max();
+            static constexpr auto _NoLastState = std::numeric_limits<size_t>::max();
         };
 
-        void setSpooler(SuccessorSpooler *const spooler)
+        void set_spooler(SuccessorSpooler *const spooler)
         {
             _spooler = spooler;
         }
 
-        void setHeuristic(Heuristic *const heuristic)
+        void set_heuristic(Heuristic *const heuristic)
         {
             _heuristic = heuristic;
         }
 
         [[nodiscard]] static successor_info_t initial_suc_info()
-        {
-            return successor_info_t{successor_info_t::NoBuchiState, successor_info_t::NoLastState};
+{
+            return successor_info_t{successor_info_t::_NoBuchiState, successor_info_t::_NoLastState};
         }
 
         bool prepare(const PetriEngine::Structures::State *state)
@@ -92,53 +94,57 @@ namespace LTL {
             assert(_spooler != nullptr);
 
             PetriEngine::SuccessorGenerator::prepare(state);
-            if (sucinfo.successors == nullptr) {
+            if (sucinfo._successors == nullptr) {
                 uint32_t tid;
-                bool res = _spooler->prepare(state);
+#ifndef NDEBUG
+                bool res =
+#endif
+                _spooler->prepare(state);
                 assert(!res || !_net.deadlocked(state->marking()));
                 if (!_heuristic || !_heuristic->has_heuristic(*state)) {
                     uint32_t nsuc = 0;
                     // generate list of transitions that generate a successor.
                     while ((tid = _spooler->next()) != SuccessorSpooler::NoTransition) {
-                        assert(tid <= _net.numberOfTransitions());
+                        assert(tid <= _net.number_of_transitions());
                         _transbuf[nsuc++] = tid;
-                        assert(nsuc <= _net.numberOfTransitions());
+                        assert(nsuc <= _net.number_of_transitions());
                     }
-                    sucinfo.successors = SuccessorQueue(_transbuf.get(), nsuc);
-                    assert((res && !sucinfo.successors.empty()) || !res);
+                    sucinfo._successors = SuccessorQueue(_transbuf.get(), nsuc);
+                    assert((res && !sucinfo._successors.empty()) || !res);
                 } else {
                     // list of (transition, weight)
                     _heuristic->prepare(*state);
                     std::vector<std::pair<uint32_t, uint32_t>> weighted_tids;
                     while ((tid = _spooler->next()) != SuccessorSpooler::NoTransition) {
-                        assert(tid <= _net.numberOfTransitions());
+                        assert(tid <= _net.number_of_transitions());
                         SuccessorGenerator::_fire(_statebuf, tid);
-                        _statebuf.setBuchiState(state->getBuchiState());
+                        _statebuf.set_buchi_state(state->get_buchi_state());
                         weighted_tids.emplace_back(tid, _heuristic->eval(_statebuf, tid));
                     }
                     // sort by least distance first.
                     std::sort(std::begin(weighted_tids), std::end(weighted_tids),
                               [](auto &l, auto &r) { return l.second < r.second; });
-                    sucinfo.successors = SuccessorQueue(weighted_tids, [](auto &p) { return p.first; });
+                    sucinfo._successors = SuccessorQueue(weighted_tids, [](auto &p) {
+                        return p.first; });
                 }
             }
         }
         bool next(Structures::ProductState &state, successor_info_t &sucinfo)
-        {
-            assert(sucinfo.successors != nullptr);
-            if (sucinfo.successors.empty()) {
+{
+            assert(sucinfo._successors != nullptr);
+            if (sucinfo._successors.empty()) {
 #ifndef NDEBUG
                 //std::cerr << "Not Firing: " << (sucinfo.successors.has_consumed() ? "deadlock" : "done") << std::endl;
 #endif
                 _last = std::numeric_limits<uint32_t>::max();
                 return false;
             }
-            _last = sucinfo.successors.front();
+            _last = sucinfo._successors.front();
             sucinfo._transition = _last;
 #ifndef NDEBUG
             //std::cerr << "Firing " << _net.transitionNames()[_last] << std::endl;
 #endif
-            sucinfo.successors.pop();
+            sucinfo._successors.pop();
             SuccessorGenerator::_fire(state, _last);
             return true;
         }
@@ -148,15 +154,15 @@ namespace LTL {
         void generate_all(LTL::Structures::ProductState *parent, successor_info_t &sucinfo)
         {
             assert(_spooler != nullptr);
-            assert(sucinfo.successors != nullptr);
-            if (!_spooler->generateAll(parent)) return;
+            assert(sucinfo._successors != nullptr);
+            if (!_spooler->generate_all(parent)) return;
             assert(dynamic_cast<VisibleLTLStubbornSet*>(_spooler) != nullptr);
 
             uint32_t tid;
             if (!_heuristic) {
                 uint32_t nsuc = 0;
                 // generate list of transitions that generate a successor.
-                auto [first, last] = sucinfo.successors.all_successors();
+                auto [first, last] = sucinfo._successors.all_successors();
                 for (; first < last; ++first) {
                     tid = *first;
                     // avoiding duplicates
@@ -165,23 +171,23 @@ namespace LTL {
                     }
                 }
                 while ((tid = _spooler->next()) != SuccessorSpooler::NoTransition) {
-                    assert(tid <= _net.numberOfTransitions());
+                    assert(tid <= _net.number_of_transitions());
                     _transbuf[nsuc++] = tid;
-                    assert(nsuc <= _net.numberOfTransitions());
+                    assert(nsuc <= _net.number_of_transitions());
                 }
-                sucinfo.successors.extend_to(_transbuf.get(), nsuc);
+                sucinfo._successors.extend_to(_transbuf.get(), nsuc);
 
             } else {
                 auto evaluate_heuristic = [&] (uint32_t tid) {
                     SuccessorGenerator::_fire(_statebuf, tid);
-                    _statebuf.setBuchiState(sucinfo.buchi_state);
+                    _statebuf.set_buchi_state(sucinfo._buchi_state);
                     return _heuristic->eval(_statebuf, tid);
                 };
 
                 // list of (transition, weight)
                 std::vector<std::pair<uint32_t, uint32_t>> weighted_tids;
                 // grab previous stubborn transitions
-                auto [first, last] = sucinfo.successors.all_successors();
+                auto [first, last] = sucinfo._successors.all_successors();
                 for (; first < last; ++first) {
                     tid = *first;
                     if (!static_cast<VisibleLTLStubbornSet*>(_spooler)->stubborn()[tid]) {
@@ -191,17 +197,17 @@ namespace LTL {
 
                 // add new stubborn transitions
                 while ((tid = _spooler->next()) != SuccessorSpooler::NoTransition) {
-                    assert(tid <= _net.numberOfTransitions());
+                    assert(tid <= _net.number_of_transitions());
                     weighted_tids.emplace_back(tid, evaluate_heuristic(tid));
                 }
                 // sort by least distance first.
                 std::sort(std::begin(weighted_tids), std::end(weighted_tids),
                           [](auto &l, auto &r) { return l.second < r.second; });
-                assert(weighted_tids.size() <= _net.numberOfTransitions());
+                assert(weighted_tids.size() <= _net.number_of_transitions());
                 std::transform(std::begin(weighted_tids), std::end(weighted_tids),
                                _transbuf.get(),
                                [](auto &p) { return p.first; });
-                sucinfo.successors.extend_to(_transbuf.get(), weighted_tids.size());
+                sucinfo._successors.extend_to(_transbuf.get(), weighted_tids.size());
             }
         }
 
@@ -212,8 +218,8 @@ namespace LTL {
         }
 
         void pop(const successor_info_t &sc) {
-            if (_heuristic && sc.successors.has_consumed())
-                _heuristic->pop(sc.successors.last_pop());
+            if (_heuristic && sc._successors.has_consumed())
+                _heuristic->pop(sc._successors.last_pop());
         }
 
     private:

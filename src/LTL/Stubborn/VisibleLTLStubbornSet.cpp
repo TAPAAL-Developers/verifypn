@@ -27,7 +27,7 @@ namespace LTL {
         reset();
         _parent = marking;
         PQL::EvaluationContext evaluationContext{_parent->marking(), &_net};
-        memset(_places_seen.get(), 0, _net.numberOfPlaces());
+        memset(_places_seen.get(), 0, _net.number_of_places());
         constructEnabled();
         if (_ordering.empty()) return false;
         if (_ordering.size() == 1) {
@@ -49,19 +49,19 @@ namespace LTL {
 
 
         if (!_has_enabled_stubborn) {
-            memset(_stubborn.get(), 1, _net.numberOfTransitions());
+            memset(_stubborn.get(), 1, _net.number_of_transitions());
         }
 #ifdef STUBBORN_STATISTICS
         float num_stubborn = 0;
         float num_enabled = 0;
         float num_enabled_stubborn = 0;
-        for (int i = 0; i < _net.numberOfTransitions(); ++i) {
+        for (int i = 0; i < _net.number_of_transitions(); ++i) {
             if (_stubborn[i]) ++num_stubborn;
             if (_fallback_spooler[i]) ++num_enabled;
             if (_stubborn[i] && _fallback_spooler[i]) ++num_enabled_stubborn;
         }
-        std::cerr << "Enabled: " << num_enabled << "/" << _net.numberOfTransitions() << " (" << num_enabled/_net.numberOfTransitions()*100.0 << "%),\t\t "
-                  << "Stubborn: " << num_stubborn << "/" << _net.numberOfTransitions() << " (" << num_stubborn/_net.numberOfTransitions()*100.0 << "%),\t\t "
+        std::cerr << "Enabled: " << num_enabled << "/" << _net.number_of_transitions() << " (" << num_enabled/_net.number_of_transitions()*100.0 << "%),\t\t "
+                  << "Stubborn: " << num_stubborn << "/" << _net.number_of_transitions() << " (" << num_stubborn/_net.number_of_transitions()*100.0 << "%),\t\t "
                   << "Enabled stubborn: " << num_enabled_stubborn << "/" << num_enabled << " (" << num_enabled_stubborn/num_enabled*100.0 << "%)" << std::endl;
 #endif
         return true;
@@ -87,7 +87,7 @@ namespace LTL {
         assert(!_ordering.empty());
         auto tkey = _ordering.front();
         if (_visible[tkey]) {
-            for (uint32_t tid = 0; tid < _net.numberOfTransitions(); ++tid) {
+            for (uint32_t tid = 0; tid < _net.number_of_transitions(); ++tid) {
                 if (_enabled[tid] && !_visible[tid]) {
                     tkey = tid;
                     break;
@@ -103,7 +103,7 @@ namespace LTL {
 
         for (; finv < linv; ++finv) {
             auto inv = invariants()[finv];
-            postsetOf(inv.place, true);
+            postset_of(inv.place, true);
         }
     }
 
@@ -114,19 +114,19 @@ namespace LTL {
         // Rule V' (implemented): If there is an enabled, visible transition
         // in the stubborn set, then T_s(s) = T.
         bool visibleStubborn = false;
-        for (uint32_t tid = 0; tid < _net.numberOfTransitions(); ++tid) {
+        for (uint32_t tid = 0; tid < _net.number_of_transitions(); ++tid) {
             if (_stubborn[tid] && _enabled[tid] && _visible[tid]) {
                 visibleStubborn = true; break;
             }
         }
         if (!visibleStubborn) return;
         else {
-            memset(_stubborn.get(), true, _net.numberOfTransitions());
+            memset(_stubborn.get(), true, _net.number_of_transitions());
         }
         // following block would implement rule V
         /*
         static_assert(!isRuleVPrime);
-        for (uint32_t tid = 0; tid < _net.numberOfTransitions(); ++tid) {
+        for (uint32_t tid = 0; tid < _net.number_of_transitions(); ++tid) {
             if (_visible[tid]) addToStub(tid);
         }
         closure();*/
@@ -142,10 +142,10 @@ namespace LTL {
         _has_enabled_stubborn = false;
     }
 
-    bool VisibleLTLStubbornSet::generateAll(const LTL::Structures::ProductState *parent) {
+    bool VisibleLTLStubbornSet::generate_all(const LTL::Structures::ProductState *parent) {
         prepare(parent);
         // Ensure rule L2, forcing all visible transitions into the stubborn set when closing cycle.
-        for (uint32_t i = 0; i < _net.numberOfTransitions(); ++i) {
+        for (uint32_t i = 0; i < _net.number_of_transitions(); ++i) {
             if (_visible[i]) {
                 addToStub(i);
             }
@@ -153,7 +153,7 @@ namespace LTL {
         // recompute entire set
         closure();
         if (!_has_enabled_stubborn) {
-            memset(_stubborn.get(), 1, _net.numberOfTransitions());
+            memset(_stubborn.get(), 1, _net.number_of_transitions());
         }
         return true;
         /*

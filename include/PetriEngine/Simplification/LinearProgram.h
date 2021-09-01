@@ -63,9 +63,9 @@ namespace PetriEngine {
                 return _equations;
             }
                        
-            bool knownImpossible() const { return _result == result_t::IMPOSSIBLE; }
-            bool knownPossible() const { return _result == result_t::POSSIBLE; }
-            bool isImpossible(const PQL::SimplificationContext& context, uint32_t solvetime);
+            bool known_impossible() const { return _result == result_t::IMPOSSIBLE; }
+            bool known_possible() const { return _result == result_t::POSSIBLE; }
+            bool is_impossible(const PQL::SimplificationContext& context, uint32_t solvetime);
 
             void make_union(const LinearProgram& other);
             

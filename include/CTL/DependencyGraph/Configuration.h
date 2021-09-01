@@ -16,20 +16,20 @@ class Edge;
 class Configuration
 {
 public:
-    std::forward_list<Edge*> dependency_set;   
-    uint32_t nsuccs = 0;
+    std::forward_list<Edge*> _dependency_set;
+    uint32_t _nsuccs = 0;
 private:
-    uint32_t distance = 0;
-    void setDistance(uint32_t value) { distance = value; }
+    uint32_t _distance = 0;
+    void set_distance(uint32_t value) { _distance = value; }
 public:
-    int8_t assignment = UNKNOWN;
+    int8_t _assignment = UNKNOWN;
     Configuration() {}
-    uint32_t getDistance() const { return distance; }
-    bool isDone() const { return assignment == ONE || assignment == CZERO; }
-    void addDependency(Edge* e);
-    void setOwner(uint32_t) { }
-    uint32_t getOwner() { return 0; }
-    
+    uint32_t get_distance() const { return _distance; }
+    bool is_done() const { return _assignment == ONE || _assignment == CZERO; }
+    void add_dependency(Edge* e);
+    void set_owner(uint32_t) { }
+    uint32_t get_owner() { return 0; }
+
 };
 
 

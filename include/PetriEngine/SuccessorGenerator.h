@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   SuccessorGenerator.h
  * Author: Peter G. Jensen
  *
@@ -35,7 +35,7 @@ public:
         return _suc_tcounter == std::numeric_limits<uint32_t>::max() ? std::numeric_limits<uint32_t>::max() : _suc_tcounter - 1;
     }
 
-    const MarkVal* getParent() const {
+    const MarkVal* get_parent() const {
         return _parent->marking();
     }
 
@@ -48,21 +48,21 @@ public:
      * @param write, marking to consume from (possibly NULL)
      * @return true if t is fireable, false otherwise
      */
-    bool checkPreset(uint32_t t);
+    bool check_preset(uint32_t t);
 
     /**
      * Consumes tokens in preset of t without from marking write checking
      * @param write, a marking to consume from
      * @param t, a transition to fire
      */
-    void consumePreset(Structures::State& write, uint32_t t);
+    void consume_preset(Structures::State& write, uint32_t t);
 
     /**
      * Produces tokens in write, given by t
      * @param write, a marking to produce to
      * @param t, a transition to fire
      */
-    void producePostset(Structures::State& write, uint32_t t);
+    void produce_postset(Structures::State& write, uint32_t t);
 
 protected:
     const PetriNet& _net;

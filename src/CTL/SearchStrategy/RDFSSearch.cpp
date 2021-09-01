@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   Encoder.h
  * Author: Peter G. Jensen
- * 
+ *
  * Created on March 7, 2018, 1:52 PM
  */
 
@@ -11,19 +11,19 @@
 #include <algorithm>
 #include <random>
 
-namespace SearchStrategy {
-size_t RDFSSearch::Wsize() const {
+namespace CTL::SearchStrategy {
+size_t RDFSSearch::waiting_size() const {
     return W.size();
 }
 
-DependencyGraph::Edge* RDFSSearch::popFromW() {
+DependencyGraph::Edge* RDFSSearch::pop_from_waiting() {
     auto e = W.back();
     W.pop_back();
     last_parent = W.size();
     return e;
 }
 
-void RDFSSearch::pushToW(DependencyGraph::Edge* edge) {
+void RDFSSearch::push_to_waiting(DependencyGraph::Edge* edge) {
     last_parent = std::min(W.size(), last_parent);
     W.push_back(edge);
 }

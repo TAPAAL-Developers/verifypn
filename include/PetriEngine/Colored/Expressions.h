@@ -35,7 +35,7 @@
 #include "EquivalenceVec.h"
 #include "ArcIntervals.h"
 #include "GuardRestrictor.h"
-#include "../errorcodes.h"
+#include "errorcodes.h"
 
 namespace PetriEngine {
     class ColoredPetriNetBuilder;
@@ -44,22 +44,21 @@ namespace PetriEngine {
         struct ExpressionContext {
             
 
-            const BindingMap& binding;
-            const ColorTypeMap& colorTypes;
-            const Colored::EquivalenceVec& placePartition;
+            const BindingMap& _binding;
+            const ColorTypeMap& _colorTypes;
+            const Colored::EquivalenceVec& _placePartition;
             
             const Color* findColor(const std::string& color) const {
-                for (auto& elem : colorTypes) {
+                for (auto& elem : _colorTypes) {
                     auto col = (*elem.second)[color];
                     if (col)
                         return col;
                 }
-                printf("Could not find color: %s\nCANNOT_COMPUTE\n", color.c_str());
-                exit(ErrorCode);
+                throw base_error(ErrorCode, "Could not find color: ", color, "\nCANNOT_COMPUTE\n");
             }
 
             const ProductType* findProductColorType(const std::vector<const ColorType*>& types) const {
-                for (auto& elem : colorTypes) {
+                for (auto& elem : _colorTypes) {
                     auto* pt = dynamic_cast<const ProductType*>(elem.second);
 
                     if (pt && pt->containsTypes(types)) {
@@ -195,7 +194,7 @@ namespace PetriEngine {
             
         public:
             const Color* eval(const ExpressionContext& context) const override {
-                return context.binding.find(_variable)->second;
+                return context._binding.find(_variable)->second;
             }
             
             void getVariables(std::set<const Colored::Variable*>& variables, PositionVariableMap& varPositions, VariableModifierMap& varModifierMap, bool includeSubtracts, uint32_t& index) const override {
@@ -271,13 +270,13 @@ namespace PetriEngine {
             
         public:
             const Color* eval(const ExpressionContext& context) const override {
-                if(context.placePartition.getEquivalenceClasses().empty()){
+                if(context._placePartition.getEquivalenceClasses().empty()){
                     return _userOperator;
                 } else {
                     std::vector<uint32_t> tupleIds;
                     _userOperator->getTupleId(tupleIds);
 
-                    context.placePartition.applyPartition(tupleIds);
+                    context._placePartition.applyPartition(tupleIds);
                     return _userOperator->getColorType()->getColor(tupleIds);
                 }
                 
@@ -1011,12 +1010,12 @@ namespace PetriEngine {
             std::vector<std::pair<const Color*,uint32_t>> eval(const ExpressionContext& context) const {
                 std::vector<std::pair<const Color*,uint32_t>> colors;
                 assert(_sort != nullptr);
-                if(context.placePartition.isDiagonal() || context.placePartition.getEquivalenceClasses().empty()){
+                if(context._placePartition.isDiagonal() || context._placePartition.getEquivalenceClasses().empty()){
                     for (size_t i = 0; i < _sort->size(); i++) {
                         colors.push_back(std::make_pair(&(*_sort)[i], 1));
                     }
                 } else {
-                    for (const auto& eq_class : context.placePartition.getEquivalenceClasses()){
+                    for (const auto& eq_class : context._placePartition.getEquivalenceClasses()){
                         colors.push_back(std::make_pair(_sort->getColor(eq_class.intervals().getLowerIds()),eq_class.size()));
                     }
                 }

@@ -33,10 +33,10 @@ namespace PetriEngine {
             const std::vector<bool>& in_query() const { return _inq; }
             Condition* query() const { return _query; }
         private:
-            int64_t findFailure(trace_t& trace, bool to_end);
-            interpolant_t findFree(trace_t& trace);
-            bool computeHoare(trace_t& trace, interpolant_t& ranges, int64_t fail);
-            bool computeTerminal(state_t& end, inter_t& last);
+            int64_t find_failure(trace_t& trace, bool to_end);
+            interpolant_t find_free(trace_t& trace);
+            bool compute_hoare(trace_t& trace, interpolant_t& ranges, int64_t fail);
+            bool compute_terminal(state_t& end, inter_t& last);
             PetriNet& _net;
             MarkVal* _initial;
             Condition* _query;

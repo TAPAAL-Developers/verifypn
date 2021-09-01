@@ -35,7 +35,7 @@ namespace PetriEngine {
             reset();
             return false;
         }
-        assert(checkPreset(_current));
+        assert(check_preset(_current));
         _fire(write, _current);
         return true;
     }

@@ -28,7 +28,7 @@ namespace PetriEngine {
             virtual ~Member(){}
             
             int constant() const    { return _constant; };
-            bool canAnalyze() const { return _canAnalyze; };
+            bool can_analyze() const { return _canAnalyze; };
             size_t size() const     { return _variables.size(); }
             std::vector<int>& variables() { return _variables; }
             const std::vector<int>& variables() const { return _variables; }
@@ -52,7 +52,7 @@ namespace PetriEngine {
             }
             
             Member& operator*=(const Member& m) { 
-                if(!isZero() && !m.isZero()){
+                if(!is_zero() && !m.is_zero()){
                     _canAnalyze = false;
                     _constant = 0;
                     _variables.clear();
@@ -66,7 +66,7 @@ namespace PetriEngine {
                 return *this;
             }            
 
-            bool substrationIsZero(const Member& m2) const
+            bool substration_is_zero(const Member& m2) const
             {
                 uint32_t min = std::min(_variables.size(), m2._variables.size());
                 uint32_t i = 0;
@@ -86,14 +86,14 @@ namespace PetriEngine {
                 return true;
             }
             
-            bool isZero() const {
+            bool is_zero() const {
                 for(const int& v : _variables){
                     if(v != 0) return false;
                 }
                 return true;
             }
             
-            MemberType getType() const {
+            MemberType get_type() const {
                 bool isConstant = true;
                 bool isInput = true;
                 bool isOutput = true;
@@ -174,11 +174,11 @@ namespace PetriEngine {
 
             void multiply(const Member& m2) {
 
-                if (isZero() != m2.isZero()){
-                    if (!isZero()){
+                if (is_zero() != m2.is_zero()){
+                    if (!is_zero()){
                         for(auto& v : _variables) v *= m2._constant;
                         return;
-                    } else if (!m2.isZero()){
+                    } else if (!m2.is_zero()){
                         _variables = m2._variables;
                         for(auto& v : _variables) v *= _constant;
                         return;
@@ -188,8 +188,8 @@ namespace PetriEngine {
             }
             
             Trivial trivialLessThan(const Member& m2, std::function<bool (int, int)> compare) const {
-                MemberType type1 = getType();
-                MemberType type2 = m2.getType();
+                MemberType type1 = get_type();
+                MemberType type2 = m2.get_type();
                 
                 // self comparison
                 if (*this == m2)

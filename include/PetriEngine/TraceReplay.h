@@ -19,7 +19,7 @@
 #define VERIFYPN_TRACEREPLAY_H
 
 #include "PetriEngine/PetriNet.h"
-#include "PetriEngine/options.h"
+#include "options.h"
 #include "PetriEngine/PQL/PQL.h"
 #include "PetriEngine/SuccessorGenerator.h"
 

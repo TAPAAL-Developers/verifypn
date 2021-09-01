@@ -34,25 +34,26 @@ namespace LTL {
     class BuchiSuccessorGenerator {
     public:
         explicit BuchiSuccessorGenerator(Structures::BuchiAutomaton automaton)
-                : aut(std::move(automaton)), self_loops(aut._buchi->num_states(), InvariantSelfLoop::UNKNOWN)
-        {
-            deleter = SuccIterDeleter{&aut};
+        : _aut(std::move(automaton)), _self_loops(_aut._buchi->num_states(), InvariantSelfLoop::UNKNOWN) {
+            _deleter = SuccIterDeleter{&_aut};
         }
 
         void prepare(size_t state)
-        {
-            auto curstate = aut._buchi->state_from_number(state);
-            succ = _succ_iter{aut._buchi->succ_iter(curstate), SuccIterDeleter{&aut}};
-            succ->first();
+{
+            auto curstate = _aut._buchi->state_from_number(state);
+            _succ = _succ_iter{_aut._buchi->succ_iter(curstate), SuccIterDeleter {
+                    &_aut
+                }};
+            _succ->first();
         }
 
         bool next(size_t &state, bdd &cond)
-        {
-            if (!succ->done()) {
-                auto dst = succ->dst();
-                state = aut._buchi->state_number(dst);
-                cond = succ->cond();
-                succ->next();
+{
+            if (!_succ->done()) {
+                auto dst = _succ->dst();
+                state = _aut._buchi->state_number(dst);
+                cond = _succ->cond();
+                _succ->next();
                 dst->destroy();
                 return true;
             }
@@ -60,66 +61,69 @@ namespace LTL {
         }
 
         [[nodiscard]] bool is_accepting(size_t state) const
-        {
-            return aut._buchi->state_is_accepting(state);
+{
+            return _aut._buchi->state_is_accepting(state);
         }
 
         [[nodiscard]] size_t initial_state_number() const
-        {
-            return aut._buchi->get_init_state_number();
+{
+            return _aut._buchi->get_init_state_number();
         }
 
-        [[nodiscard]] PetriEngine::PQL::Condition_ptr getExpression(size_t i) const
-        {
-            return aut.ap_info.at(i).expression;
+        [[nodiscard]] PetriEngine::PQL::Condition_ptr get_expression(size_t i) const {
+            return _aut._ap_info.at(i)._expression;
         }
 
         [[nodiscard]] bool is_weak() const
-        {
-            return (bool) aut._buchi->prop_weak();
+{
+            return (bool) _aut._buchi->prop_weak();
         }
-        size_t buchiStates() { return aut._buchi->num_states(); }
 
-        Structures::BuchiAutomaton aut;
+        size_t buchi_states() {
+            return _aut._buchi->num_states();
+        }
+
+        Structures::BuchiAutomaton _aut;
 
         struct SuccIterDeleter {
-            Structures::BuchiAutomaton *aut;
+            Structures::BuchiAutomaton *_aut;
 
             void operator()(spot::twa_succ_iterator *iter) const
-            {
-                aut->_buchi->release_iter(iter);
+{
+                _aut->_buchi->release_iter(iter);
             }
         };
 
 
         bool has_invariant_self_loop(size_t state) {
-            if (self_loops[state] != InvariantSelfLoop::UNKNOWN)
-                return self_loops[state] == InvariantSelfLoop::TRUE;
+            if (_self_loops[state] != InvariantSelfLoop::UNKNOWN)
+                return _self_loops[state] == InvariantSelfLoop::TRUE;
             auto it = std::unique_ptr<spot::twa_succ_iterator>{
-                    aut._buchi->succ_iter(aut._buchi->state_from_number(state))};
+                _aut._buchi->succ_iter(_aut._buchi->state_from_number(state))
+            };
             for (it->first(); !it->done(); it->next()) {
-                auto dest_id = aut._buchi->state_number(it->dst());
+                auto dest_id = _aut._buchi->state_number(it->dst());
                 bdd cond = it->cond();
                 if (state == dest_id && cond == bddtrue) {
-                    self_loops[state] = InvariantSelfLoop::TRUE;
+                    _self_loops[state] = InvariantSelfLoop::TRUE;
                     return true;
                 }
             }
-            self_loops[state] = InvariantSelfLoop::FALSE;
+            _self_loops[state] = InvariantSelfLoop::FALSE;
             return false;
         }
 
 
-        SuccIterDeleter deleter{};
+        SuccIterDeleter _deleter{};
 
         using _succ_iter = std::unique_ptr<spot::twa_succ_iterator, SuccIterDeleter>;
-        _succ_iter succ = nullptr;
+        _succ_iter _succ = nullptr;
     private:
 
         enum class InvariantSelfLoop {
             TRUE, FALSE, UNKNOWN
         };
-        std::vector<InvariantSelfLoop> self_loops;
+        std::vector<InvariantSelfLoop> _self_loops;
     };
 }
 #endif //VERIFYPN_BUCHISUCCESSORGENERATOR_H

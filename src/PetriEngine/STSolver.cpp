@@ -13,7 +13,7 @@ namespace PetriEngine {
         
         _m0 = _net._initialMarking;
         _analysisTime = 0;
-        _diff.resize(_net.numberOfTransitions());
+        _diff.resize(_net.number_of_transitions());
         constructPrePost(); // TODO: Refactor this out...
     }
 
@@ -21,12 +21,12 @@ namespace PetriEngine {
     }
 
     bool STSolver::solve(uint32_t timelimit){
-        if(_net.numberOfPlaces() == 0) return false;
+        if(_net.number_of_places() == 0) return false;
         _timelimit = timelimit;
         _start = std::chrono::high_resolution_clock::now();
         
         // check that constraints on net are valid
-        for(size_t t = 0; t < _net.numberOfTransitions(); ++t)
+        for(size_t t = 0; t < _net.number_of_transitions(); ++t)
         {
             // Check that net is un-weighted and non-inhibited
             auto pre = _net.preset(t);
@@ -47,8 +47,8 @@ namespace PetriEngine {
         }
         
         // construct the siphon starting at each place
-        std::vector<bool> has_st(_net.numberOfPlaces());
-        for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
+        std::vector<bool> has_st(_net.number_of_places());
+        for(size_t p = 0; p < _net.number_of_places(); ++p)
         {
             std::vector<size_t> siphon{p};
             std::set<size_t> preset, postset;

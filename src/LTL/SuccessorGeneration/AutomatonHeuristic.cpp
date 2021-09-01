@@ -61,14 +61,14 @@ namespace LTL {
 
     uint32_t AutomatonHeuristic::eval(const Structures::ProductState &state, uint32_t)
     {
-        assert(state.getBuchiState() < _state_guards.size());
-        const auto &guardInfo = _state_guards[state.getBuchiState()];
-        if (guardInfo.is_accepting)
+        assert(state.get_buchi_state() < _state_guards.size());
+        const auto &guardInfo = _state_guards[state.get_buchi_state()];
+        if (guardInfo._is_accepting)
             return 0;
         uint32_t min_dist = std::numeric_limits<uint32_t>::max();
         PetriEngine::PQL::DistanceContext context{_net, state.marking()};
-        for (const auto& guard : guardInfo.progressing) {
-            uint32_t dist = _bfs_dists[guard.dest] * guard.condition->distance(context);
+        for (const auto& guard : guardInfo._progressing) {
+            uint32_t dist = _bfs_dists[guard._dest] * guard._condition->distance(context);
             if (dist < min_dist)
                 min_dist = dist;
         }
@@ -77,8 +77,8 @@ namespace LTL {
 
     bool AutomatonHeuristic::has_heuristic(const Structures::ProductState &state)
     {
-        assert(state.getBuchiState() < _state_guards.size());
-        return !_state_guards[state.getBuchiState()].is_accepting;
+        assert(state.get_buchi_state() < _state_guards.size());
+        return !_state_guards[state.get_buchi_state()]._is_accepting;
     }
 } // namespace LTL
 

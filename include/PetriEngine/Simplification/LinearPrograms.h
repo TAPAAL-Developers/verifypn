@@ -15,7 +15,7 @@ namespace PetriEngine {
                 enum result_t { UNKNOWN, IMPOSSIBLE, POSSIBLE };
                 result_t _result = result_t::UNKNOWN;
                 
-                virtual void satisfiableImpl(const PQL::SimplificationContext& context, uint32_t solvetime) = 0;
+                virtual void satisfiable_impl(const PQL::SimplificationContext& context, uint32_t solvetime) = 0;
                 bool has_empty = false;
             public:
                 virtual ~AbstractProgramCollection() {};
@@ -32,7 +32,7 @@ namespace PetriEngine {
                             return _result == POSSIBLE;
                         }
                     }
-                    satisfiableImpl(context, solvetime);
+                    satisfiable_impl(context, solvetime);
                     assert(_result != UNKNOWN);
                     return _result == POSSIBLE;
                 }
@@ -56,7 +56,7 @@ namespace PetriEngine {
             size_t current = 0;
             size_t _size = 0;
             
-            virtual void satisfiableImpl(const PQL::SimplificationContext& context, uint32_t solvetime)
+            virtual void satisfiable_impl(const PQL::SimplificationContext& context, uint32_t solvetime)
             {
                 for(int i = lps.size() - 1; i >= 0; --i)
                 {
@@ -143,7 +143,7 @@ namespace PetriEngine {
             size_t curr = 0;
             size_t _size = 0;
 
-            virtual void satisfiableImpl(const PQL::SimplificationContext& context, uint32_t solvetime)
+            virtual void satisfiable_impl(const PQL::SimplificationContext& context, uint32_t solvetime)
             {
                 // this is where the magic needs to happen
                 bool hasmore = false;
@@ -160,7 +160,7 @@ namespace PetriEngine {
                     else
                     {
                         if( context.timeout() ||
-                            !prog.isImpossible(context, solvetime))
+                            !prog.is_impossible(context, solvetime))
                         {
                             _result = POSSIBLE;
                             break;
@@ -203,7 +203,7 @@ namespace PetriEngine {
 
             virtual bool merge(bool& has_empty, LinearProgram& program, bool dry_run = false)
             {               
-                if(program.knownImpossible()) return false;
+                if(program.known_impossible()) return false;
                 bool lempty = false;
                 bool more_left;
                 while(true)
@@ -225,7 +225,7 @@ namespace PetriEngine {
                     if(!more_left) merge_right = true;
                     if(curr >= nsat || !(more_left || more_right))
                     {
-                        if((!dry_run && prog.knownImpossible()) && (more_left || more_right))
+                        if((!dry_run && prog.known_impossible()) && (more_left || more_right))
                         {
                             continue;
                         }
@@ -250,10 +250,10 @@ namespace PetriEngine {
         private:
             LinearProgram program;
         protected:
-            virtual void satisfiableImpl(const PQL::SimplificationContext& context, uint32_t solvetime)
+            virtual void satisfiable_impl(const PQL::SimplificationContext& context, uint32_t solvetime)
             {
                 // this is where the magic needs to happen
-                if(!program.isImpossible(context, solvetime ))
+                if(!program.is_impossible(context, solvetime ))
                 {
                     _result = POSSIBLE;
                 }

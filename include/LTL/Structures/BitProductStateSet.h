@@ -31,19 +31,19 @@ namespace LTL::Structures {
         using stateid_t = size_t;
         using result_t = std::pair<bool, stateid_t>;
 
-        virtual size_t getBuchiState(stateid_t id) = 0;
+        virtual size_t get_buchi_state(stateid_t id) = 0;
 
-        virtual size_t getMarkingId(stateid_t id) = 0;
+        virtual size_t get_marking_id(stateid_t id) = 0;
 
-        virtual stateid_t getProductId(size_t markingId, size_t buchiState) = 0;
+        virtual stateid_t get_product_id(size_t markingId, size_t buchiState) = 0;
 
         virtual result_t add(const LTL::Structures::ProductState &state) = 0;
 
         virtual bool decode(LTL::Structures::ProductState &state, stateid_t id) = 0;
 
-        virtual void setHistory(stateid_t id, size_t transition) {}
+        virtual void set_history(stateid_t id, size_t transition) {}
 
-        virtual std::pair<size_t, size_t> getHistory(stateid_t stateid)
+        virtual std::pair<size_t, size_t> get_history(stateid_t stateid)
         {
             return std::make_pair(std::numeric_limits<size_t>::max(), std::numeric_limits<size_t>::max());
         }
@@ -65,7 +65,7 @@ namespace LTL::Structures {
     class BitProductStateSet : public ProductStateSetInterface {
     public:
         explicit BitProductStateSet(const PetriEngine::PetriNet *net, int kbound = 0, size_t nplaces = -1)
-                : markings(*net, kbound, net->numberOfPlaces())
+                : _markings(*net, kbound, net->number_of_places())
         {
         }
 
@@ -77,13 +77,13 @@ namespace LTL::Structures {
          * size_t stateID; if error it is UINT64_MAX.
          */
 
-        size_t getBuchiState(stateid_t id) override { return id >> buchiShift; }
+        size_t get_buchi_state(stateid_t id) override { return id >> _buchiShift; }
 
-        size_t getMarkingId(stateid_t id) override { return id & markingMask; }
+        size_t get_marking_id(stateid_t id) override { return id & _markingMask; }
 
-        stateid_t getProductId(size_t markingId, size_t buchiState) override
+        stateid_t get_product_id(size_t markingId, size_t buchiState) override
         {
-            return (buchiState << buchiShift) | (markingMask & markingId);
+            return (buchiState << _buchiShift) | (_markingMask & markingId);
         }
 
         /**
@@ -94,11 +94,11 @@ namespace LTL::Structures {
         result_t add(const LTL::Structures::ProductState &state) override
         {
             ++_discovered;
-            const auto[_, markingId] = markings.add(state);
-            const stateid_t product_id = getProductId(markingId, state.getBuchiState());
+            const auto[_, markingId] = _markings.add(state);
+            const stateid_t product_id = get_product_id(markingId, state.get_buchi_state());
 
-            const auto[iter, is_new] = states.insert(product_id);
-            assert(iter != std::end(states));
+            const auto[iter, is_new] = _states.insert(product_id);
+            assert(iter != std::end(_states));
             return std::make_pair(is_new, product_id);
         }
 
@@ -110,30 +110,30 @@ namespace LTL::Structures {
          */
         bool decode(LTL::Structures::ProductState &state, stateid_t id) override
         {
-            const auto it = states.find(id);
-            if (it == std::cend(states)) {
+            const auto it = _states.find(id);
+            if (it == std::cend(_states)) {
                 return false;
             }
-            auto marking_id = getMarkingId(*it);
-            auto buchi_state = getBuchiState(*it);
-            markings.decode(state, marking_id);
-            state.setBuchiState(buchi_state);
+            auto marking_id = get_marking_id(*it);
+            auto buchi_state = get_buchi_state(*it);
+            _markings.decode(state, marking_id);
+            state.set_buchi_state(buchi_state);
             return true;
         }
 
         //size_t size() { return states.size(); }
         size_t discovered() const override { return _discovered; }
 
-        size_t max_tokens() const override { return markings.maxTokens(); }
+        size_t max_tokens() const override { return _markings.max_tokens(); }
 
     protected:
-        static constexpr auto markingMask = (1LL << (64 - nbits)) - 1;
-        static constexpr auto buchiMask = std::numeric_limits<size_t>::max() ^markingMask;
-        static constexpr auto buchiShift = 64 - nbits;
+        static constexpr auto _markingMask = (1LL << (64 - nbits)) - 1;
+        static constexpr auto _buchiMask = std::numeric_limits<size_t>::max() ^_markingMask;
+        static constexpr auto _buchiShift = 64 - nbits;
 
-        PetriEngine::Structures::StateSet markings;
-        std::unordered_set<stateid_t> states;
-        static constexpr auto err_val = std::make_pair(false, std::numeric_limits<size_t>::max());
+        PetriEngine::Structures::StateSet _markings;
+        std::unordered_set<stateid_t> _states;
+        static constexpr auto _err_val = std::make_pair(false, std::numeric_limits<size_t>::max());
 
         size_t _discovered = 0;
     };
@@ -153,12 +153,12 @@ namespace LTL::Structures {
             return BitProductStateSet<nbytes>::decode(state, id);
         }
 
-        void setHistory(stateid_t id, size_t transition) override
+        void set_history(stateid_t id, size_t transition) override
         {
             _history[id] = {_parent, transition};
         }
 
-        std::pair<size_t, size_t> getHistory(stateid_t stateid) override
+        std::pair<size_t, size_t> get_history(stateid_t stateid) override
         {
             auto[parent, trans] = _history.at(stateid);
             return std::make_pair(parent, trans);
@@ -166,8 +166,8 @@ namespace LTL::Structures {
 
     private:
         struct history {
-            size_t parent;
-            size_t trans;
+            size_t _parent;
+            size_t _trans;
         };
         stateid_t _parent = 0;
         // product ID to parent ID

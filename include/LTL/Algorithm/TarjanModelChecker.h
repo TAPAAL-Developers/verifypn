@@ -60,11 +60,11 @@ namespace LTL {
             _chash.fill(std::numeric_limits<idx_t>::max());
         }
 
-        bool isSatisfied() override;
+        bool is_satisfied() override;
 
-        void printStats(std::ostream &os) override
+        void print_stats(std::ostream &os) override
         {
-            this->_printStats(os, _seen);
+            this->_print_stats(os, _seen);
         }
 
     private:
@@ -136,11 +136,11 @@ namespace LTL {
 
         void update(idx_t to);
 
-        bool nexttrans(State &state, State &parent, DEntry &delem);
+        bool next_trans(State &state, State &parent, DEntry &delem);
 
-        void popCStack();
+        void pop_C_stack();
 
-        void printTrace(std::stack<DEntry> &&dstack, std::ostream &os = std::cout);
+        void print_trace(std::stack<DEntry> &&dstack, std::ostream &os = std::cout);
 
     };
     extern template

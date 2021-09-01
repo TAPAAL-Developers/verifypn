@@ -19,22 +19,22 @@ class Edge {
     typedef std::forward_list<Configuration*> container;
 public:
     Edge(){}
-    Edge(Configuration &t_source) : source(&t_source) {}
+    Edge(Configuration &t_source) : _source(&t_source) {}
 
     void addTarget(Configuration* conf)
     {
         assert(conf);
-        targets.push_front(conf);
+        _targets.push_front(conf);
         //++children;
     }
     
-    container targets;    
-    Configuration* source;
-    uint8_t status = 0;
-    bool processed = false;
-    bool is_negated = false;
-    bool handled = false;
-    int32_t refcnt = 0;
+    container _targets;    
+    Configuration* _source;
+    uint8_t _status = 0;
+    bool _processed = false;
+    bool _is_negated = false;
+    bool _handled = false;
+    int32_t _refcnt = 0;
     /*size_t children;
     Assignment assignment;*/
 };

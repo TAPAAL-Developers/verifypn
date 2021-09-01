@@ -22,14 +22,14 @@ namespace PetriEngine::PQL {
     void IsCTLVisitor::_accept(const NotCondition *element) {
         (*element)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::BOOLEAN)
-            isCTL = false;
+            _is_CTL = false;
     }
 
     void IsCTLVisitor::_accept(const LogicalCondition *element) {
         for (size_t i = 0; i < element->operands(); i++){
             (*element)[i]->visit(*this);
             if (_cur_type != CTLSyntaxType::BOOLEAN){
-                isCTL = false;
+                _is_CTL = false;
                 break;
             }
         }
@@ -79,93 +79,93 @@ namespace PetriEngine::PQL {
     void IsCTLVisitor::_accept(const EFCondition *condition) {
         (*condition)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::BOOLEAN)
-            isCTL = false;
+            _is_CTL = false;
     }
 
     void IsCTLVisitor::_accept(const EGCondition *condition) {
         (*condition)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::BOOLEAN)
-            isCTL = false;
+            _is_CTL = false;
     }
 
     void IsCTLVisitor::_accept(const AGCondition *condition) {
         (*condition)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::BOOLEAN)
-            isCTL = false;
+            _is_CTL = false;
     }
 
     void IsCTLVisitor::_accept(const AFCondition *condition) {
         (*condition)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::BOOLEAN)
-            isCTL = false;
+            _is_CTL = false;
     }
 
     void IsCTLVisitor::_accept(const EXCondition *condition) {
         (*condition)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::BOOLEAN)
-            isCTL = false;
+            _is_CTL = false;
     }
 
     void IsCTLVisitor::_accept(const AXCondition *condition) {
         (*condition)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::BOOLEAN)
-            isCTL = false;
+            _is_CTL = false;
     }
 
     void IsCTLVisitor::_accept(const EUCondition *condition) {
         (*condition)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::BOOLEAN)
-            isCTL = false;
+            _is_CTL = false;
     }
 
     void IsCTLVisitor::_accept(const AUCondition *condition) {
         (*condition)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::BOOLEAN)
-            isCTL = false;
+            _is_CTL = false;
     }
 
     void IsCTLVisitor::_accept(const ACondition *condition) {
         (*condition)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::PATH)
-            isCTL = false;
+            _is_CTL = false;
         _cur_type = CTLSyntaxType::BOOLEAN;
     }
 
     void IsCTLVisitor::_accept(const ECondition *condition) {
         (*condition)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::PATH)
-            isCTL = false;
+            _is_CTL = false;
         _cur_type = CTLSyntaxType::BOOLEAN;
     }
 
     void IsCTLVisitor::_accept(const GCondition *condition) {
         (*condition)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::BOOLEAN)
-            isCTL = false;
+            _is_CTL = false;
         _cur_type = CTLSyntaxType::PATH;
     }
 
     void IsCTLVisitor::_accept(const FCondition *condition) {
         (*condition)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::BOOLEAN)
-            isCTL = false;
+            _is_CTL = false;
         _cur_type = CTLSyntaxType::PATH;
     }
 
     void IsCTLVisitor::_accept(const XCondition *condition) {
         (*condition)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::BOOLEAN)
-            isCTL = false;
+            _is_CTL = false;
         _cur_type = CTLSyntaxType::PATH;
     }
 
     void IsCTLVisitor::_accept(const UntilCondition *condition) {
         (*condition)[0]->visit(*this);
         if (_cur_type != CTLSyntaxType::BOOLEAN)
-            isCTL = false;
+            _is_CTL = false;
         (*condition)[1]->visit(*this);
         if (_cur_type != CTLSyntaxType::BOOLEAN)
-            isCTL = false;
+            _is_CTL = false;
         _cur_type = CTLSyntaxType::PATH;
     }
 
@@ -236,7 +236,7 @@ namespace PetriEngine::PQL {
     }
 
     template<typename T>
-    void AsCTL::_acceptNary(const T *element) {
+    void AsCTL::_accept_nary(const T *element) {
         std::vector<Condition_ptr> children;
         for (auto operand : *element){
             operand->visit(*this);
@@ -246,11 +246,11 @@ namespace PetriEngine::PQL {
     }
 
     void AsCTL::_accept(const AndCondition *element) {
-        AsCTL::_acceptNary(element);
+        AsCTL::_accept_nary(element);
     }
 
     void AsCTL::_accept(const OrCondition *element) {
-        AsCTL::_acceptNary(element);
+        AsCTL::_accept_nary(element);
     }
 
     template<typename T>

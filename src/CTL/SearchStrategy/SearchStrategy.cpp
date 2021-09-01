@@ -5,134 +5,129 @@
 #include <iostream>
 #include <cassert>
 
-namespace SearchStrategy{
+namespace CTL::SearchStrategy {
 
     bool SearchStrategy::empty() const
     {
-        return Wsize() == 0 && N.empty() && D.empty();
+        return waiting_size() == 0 && _negation.empty() && _dependencies.empty();
     }
 
-    void SearchStrategy::pushNegation(DependencyGraph::Edge* edge)
+    void SearchStrategy::push_negation(DependencyGraph::Edge* edge)
     {
-        edge->status = 3;
-        ++edge->refcnt;
+        edge->_status = 3;
+        ++edge->_refcnt;
         bool allOne = true;
         bool hasCZero = false;
 
-        for (DependencyGraph::Configuration *c : edge->targets) {
-            if (c->assignment == DependencyGraph::Assignment::CZERO) {
+        for (DependencyGraph::Configuration *c : edge->_targets) {
+            if (c->_assignment == DependencyGraph::Assignment::CZERO) {
                 hasCZero = true;
                 break;
             }
-            if (c->assignment != DependencyGraph::Assignment::ONE) {
+            if (c->_assignment != DependencyGraph::Assignment::ONE) {
                 allOne = false;
             }
         }
 
         if(allOne || hasCZero)
         {
-            D.push_back(edge);
+            _dependencies.push_back(edge);
         }
         else
         {
-            N.push_back(edge);
+            _negation.push_back(edge);
         }
     }
 
-    void SearchStrategy::pushEdge(DependencyGraph::Edge *edge)
+    void SearchStrategy::push_edge(DependencyGraph::Edge *edge)
     {
-        if(edge->status > 0 || edge->source->isDone()) return;
-        if(edge->processed && edge->is_negated)
+        if(edge->_status > 0 || edge->_source->is_done()) return;
+        if(edge->_processed && edge->_is_negated)
         {
-            pushNegation(edge);
+            push_negation(edge);
             return;
         }
-        edge->status = 1;
-        ++edge->refcnt;
-        pushToW(edge);
+        edge->_status = 1;
+        ++edge->_refcnt;
+        push_to_waiting(edge);
     }
 
-    void SearchStrategy::pushDependency(DependencyGraph::Edge* edge)
+    void SearchStrategy::push_dependency(DependencyGraph::Edge* edge)
     {
-        if(edge->source->isDone()) return;
-        edge->status = 2;
-        ++edge->refcnt;
-        D.push_back(edge);
+        if(edge->_source->is_done()) return;
+        edge->_status = 2;
+        ++edge->_refcnt;
+        _dependencies.push_back(edge);
     }
 
-    DependencyGraph::Edge* SearchStrategy::popEdge(bool saturate)
+    DependencyGraph::Edge* SearchStrategy::pop_edge(bool saturate)
     {
-        if(saturate && D.empty()) return nullptr;
+        if(saturate && _dependencies.empty()) return nullptr;
 
-        if (Wsize() == 0 && D.empty()) {
+        if (waiting_size() == 0 && _dependencies.empty()) {
             return nullptr;
         }
 
-        auto edge = D.empty() ? popFromW() : D.back();
+        auto edge = _dependencies.empty() ? pop_from_waiting() : _dependencies.back();
 
-        if(!D.empty())
-            D.pop_back();
+        if(!_dependencies.empty())
+            _dependencies.pop_back();
 
         assert(edge->refcnt >= 0);
-        --edge->refcnt;
-        edge->status = 0;
+        --edge->_refcnt;
+        edge->_status = 0;
         return edge;
     }
 
-    uint32_t SearchStrategy::maxDistance() const
+    uint32_t SearchStrategy::max_distance() const
     {
         uint32_t m = 0;
-        for(DependencyGraph::Edge* e : N)
+        for(DependencyGraph::Edge* e : _negation)
         {
-            if(!e->source->isDone())
-                m = std::max(m, e->source->getDistance());
+            if(!e->_source->is_done())
+                m = std::max(m, e->_source->get_distance());
         }
         return m;
     }
 
-    bool SearchStrategy::available() const
+    void SearchStrategy::release_negation_edges(uint32_t dist)
     {
-        return Wsize() > 0 || !D.empty();
-    }
-
-    void SearchStrategy::releaseNegationEdges(uint32_t dist)
-    {
-        for(auto it = N.begin(); it != N.end(); ++it)
+        for(auto it = _negation.begin(); it != _negation.end(); ++it)
         {
             assert(*it);
-            if((*it)->source->getDistance() >= dist || (*it)->source->isDone())
+            if((*it)->_source->get_distance() >= dist || (*it)->_source->is_done())
             {
-                pushToW(*it);
-                it = N.erase(it);
-                if(N.empty() || it == N.end()) break;
+                push_to_waiting(*it);
+                it = _negation.erase(it);
+                if(_negation.empty() || it == _negation.end()) break;
             }
         }
     }
 
-    bool SearchStrategy::trivialNegation()
+    bool SearchStrategy::trivial_negation()
     {
-        for(auto it = N.begin(); it != N.end(); ++it)
+        for(auto it = _negation.begin(); it != _negation.end(); ++it)
         {
             bool allOne = true;
             bool hasCZero = false;
             auto e = *it;
-            for (DependencyGraph::Configuration *c : e->targets) {
-                if (c->assignment == DependencyGraph::Assignment::CZERO) {
+            for (DependencyGraph::Configuration *c : e->_targets) {
+                if (c->_assignment == DependencyGraph::Assignment::CZERO) {
                     hasCZero = true;
                     break;
                 }
-                if (c->assignment != DependencyGraph::Assignment::ONE) {
+                if (c->_assignment != DependencyGraph::Assignment::ONE) {
                     allOne = false;
                 }
             }
 
             if(allOne || hasCZero)
             {
-                D.push_back(*it);
-                it = N.erase(it);
-                if(N.empty() || it == N.end()) break;
+                _dependencies.push_back(*it);
+                it = _negation.erase(it);
+                if(_negation.empty() || it == _negation.end()) break;
             }
         }
-        return !D.empty();
+        return !_dependencies.empty();
     }
 }

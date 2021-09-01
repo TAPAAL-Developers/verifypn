@@ -35,13 +35,13 @@ namespace PetriEngine {
     }
 
     NaiveBindingGenerator::Iterator& NaiveBindingGenerator::Iterator::operator++() {
-        _generator->nextBinding();
-        if (_generator->isInitial()) _generator = nullptr;
+        _generator->next_binding();
+        if (_generator->is_initial()) _generator = nullptr;
         return *this;
     }   
 
     const Colored::BindingMap& NaiveBindingGenerator::Iterator::operator*() const {
-        return _generator->currentBinding();
+        return _generator->current_binding();
     }
 
     NaiveBindingGenerator::NaiveBindingGenerator(const Colored::Transition& transition,
@@ -66,7 +66,7 @@ namespace PetriEngine {
         }
         
         if (!eval())
-            nextBinding();
+            next_binding();
     }
 
     bool NaiveBindingGenerator::eval() const {
@@ -78,7 +78,7 @@ namespace PetriEngine {
         return _expr->eval(context);
     }
 
-    const Colored::BindingMap& NaiveBindingGenerator::nextBinding() {
+    const Colored::BindingMap& NaiveBindingGenerator::next_binding() {
         bool test = false;
         while (!test) {
             for (auto& binding : _bindings) {
@@ -88,7 +88,7 @@ namespace PetriEngine {
                 }
             }
 
-            if (isInitial())
+            if (is_initial())
                 break;
 
             test = eval();
@@ -96,11 +96,11 @@ namespace PetriEngine {
         return _bindings;
     }
 
-    const Colored::BindingMap& NaiveBindingGenerator::currentBinding() const {
+    const Colored::BindingMap& NaiveBindingGenerator::current_binding() const {
         return _bindings;
     }
 
-    bool NaiveBindingGenerator::isInitial() const {
+    bool NaiveBindingGenerator::is_initial() const {
         for (auto& b : _bindings) {
             if (b.second->getId() != 0) return false;
         }
@@ -133,7 +133,7 @@ namespace PetriEngine {
         if (_generator->_isDone) {
             _generator = nullptr;
         } else {
-            _generator->nextBinding();
+            _generator->next_binding();
             if (_generator->_isDone) {
                 _generator = nullptr;
             }
@@ -142,7 +142,7 @@ namespace PetriEngine {
     }
 
     const Colored::BindingMap& FixpointBindingGenerator::Iterator::operator*() const {
-        return _generator->currentBinding();
+        return _generator->current_binding();
     }
 
     FixpointBindingGenerator::FixpointBindingGenerator(const Colored::Transition& transition,
@@ -169,7 +169,7 @@ namespace PetriEngine {
         for(const auto &varSet : symmetric_vars){
             std::vector<std::vector<uint32_t>> combinations;
             std::vector<uint32_t> temp;
-            generateCombinations(varSet.begin().operator*()->colorType->size()-1, varSet.size(), combinations, temp);
+            generate_combinations(varSet.begin().operator*()->colorType->size()-1, varSet.size(), combinations, temp);
             _symmetric_var_combinations.push_back(combinations);
         }       
         
@@ -182,13 +182,13 @@ namespace PetriEngine {
             auto color = var->colorType->getColor(_transition.variableMaps[_nextIndex].find(var)->second.front().getLowerIds());
             _bindings[var] = color;
         }
-        assignSymmetricVars();
+        assign_symmetric_vars();
         
         if (!_noValidBindings && !eval())
-            nextBinding();
+            next_binding();
     }
 
-    bool FixpointBindingGenerator::assignSymmetricVars(){
+    bool FixpointBindingGenerator::assign_symmetric_vars(){
         if(_currentOuterId < _symmetric_vars.size()){
             if(_currentInnerId >= _symmetric_var_combinations[_currentOuterId].size()){
                 _currentOuterId++;
@@ -224,12 +224,12 @@ namespace PetriEngine {
         return _expr->eval(context);
     }
 
-    const Colored::BindingMap& FixpointBindingGenerator::nextBinding() {
+    const Colored::BindingMap& FixpointBindingGenerator::next_binding() {
         bool test = false;
         while (!test) {
             bool next = true;
 
-            if(assignSymmetricVars()){
+            if(assign_symmetric_vars()){
                 next = false;
             } else {
                 for (auto& binding : _bindings) {
@@ -253,14 +253,14 @@ namespace PetriEngine {
                         binding.second = &binding.second->operator++();
                         _currentInnerId = 0;
                         _currentOuterId = 0;
-                        assignSymmetricVars();
+                        assign_symmetric_vars();
                         next = false;
                         break;                    
                     } else {
                         binding.second = binding.second->getColorType()->getColor(nextIntervalBinding.getLowerIds());
                         _currentInnerId = 0;
                         _currentOuterId = 0;
-                        assignSymmetricVars();
+                        assign_symmetric_vars();
                         if(!nextIntervalBinding.equals(varInterval.front())){
                             next = false;
                             
@@ -272,7 +272,7 @@ namespace PetriEngine {
 
             if(next){
                 _nextIndex++;
-                if(isInitial()){
+                if(is_initial()){
                     _isDone = true;
                     break;
                 }
@@ -286,7 +286,7 @@ namespace PetriEngine {
         return _bindings;
     }
 
-    void FixpointBindingGenerator::generateCombinations(
+    void FixpointBindingGenerator::generate_combinations(
             uint32_t options,
             uint32_t samples,
             std::vector<std::vector<uint32_t>> &result,
@@ -297,16 +297,16 @@ namespace PetriEngine {
         }
         for (uint32_t i = 0; i <= options; i++) {
             current.push_back(i);
-            generateCombinations(i, samples - 1, result, current);
+            generate_combinations(i, samples - 1, result, current);
             current.pop_back();
         }
     }
 
-    const Colored::BindingMap& FixpointBindingGenerator::currentBinding() const {
+    const Colored::BindingMap& FixpointBindingGenerator::current_binding() const {
         return _bindings;
     }
 
-    bool FixpointBindingGenerator::isInitial() const {
+    bool FixpointBindingGenerator::is_initial() const {
         return _nextIndex >= _transition.variableMaps.size();
     }
 

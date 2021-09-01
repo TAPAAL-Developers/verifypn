@@ -26,7 +26,7 @@
 #include "LTL/Structures/BitProductStateSet.h"
 #include "LTL/SuccessorGeneration/ReachStubProductSuccessorGenerator.h"
 #include "LTL/Structures/ProductStateFactory.h"
-#include "PetriEngine/options.h"
+#include "options.h"
 
 #include <iomanip>
 #include <algorithm>
@@ -40,88 +40,89 @@ namespace LTL {
                      const Structures::BuchiAutomaton &buchi,
                      SuccessorGen *successorGen,
                      std::unique_ptr<Spooler> &&...spooler)
-                : net(net), formula(condition), successorGenerator(
+        : _net(net), _formula(condition), _successor_generator(
                 std::make_unique<ProductSucGen<SuccessorGen, Spooler...>>(net, buchi, successorGen,
                                                                           std::move(spooler)...)),
-                  _factory(net, buchi, this->successorGenerator->initial_buchi_state())
-        {
-//            successorGenerator = std::make_unique<ProductSucGen<SuccessorGen, Spooler...>>(net, buchi, successorGen, std::move(spooler)...);
+        _factory(net, buchi, this->_successor_generator->initial_buchi_state()) {
         }
 
-        void setOptions(const options_t &options) {
-            traceLevel = options.trace;
-            shortcircuitweak = options.ltluseweak;
-            if (traceLevel != TraceLevel::None) {
-                maxTransName = 0;
-                for (const auto &transname : net->transitionNames()) {
-                    maxTransName = std::max(transname.size(), maxTransName);
+        void set_options(const options_t &options) {
+            _traceLevel = options.trace;
+            _shortcircuitweak = options.ltluseweak;
+            if (_traceLevel != options_t::TraceLevel::None) {
+                _maxTransName = 0;
+                for (const auto &transname : _net->transitionNames()) {
+                    _maxTransName = std::max(transname.size(), _maxTransName);
                 }
             }
         }
 
-        virtual bool isSatisfied() = 0;
+        virtual bool is_satisfied() = 0;
 
         virtual ~ModelChecker() = default;
 
-        virtual void printStats(std::ostream &os) = 0;
+        virtual void print_stats(std::ostream &os) = 0;
 
-        [[nodiscard]] bool isweak() const { return is_weak; }
+        [[nodiscard]] bool is_weak() const {
+            return _is_weak;
+        }
 
-        size_t get_explored() { return stats.explored; }
+        size_t get_explored() {
+            return _stats._explored;
+        }
 
     protected:
         struct stats_t {
-            size_t explored = 0, expanded = 0;
+            size_t _explored = 0, _expanded = 0;
         };
 
-        stats_t stats;
+        stats_t _stats;
 
-        virtual void _printStats(std::ostream &os, const LTL::Structures::ProductStateSetInterface &stateSet)
+        virtual void _print_stats(std::ostream &os, const LTL::Structures::ProductStateSetInterface &stateSet)
         {
             std::cout << "STATS:\n"
                       << "\tdiscovered states: " << stateSet.discovered() << std::endl
-                      << "\texplored states:   " << stats.explored << std::endl
-                      << "\texpanded states:   " << stats.expanded << std::endl
+                    << "\texplored states:   " << _stats._explored << std::endl
+                    << "\texpanded states:   " << _stats._expanded << std::endl
                       << "\tmax tokens:        " << stateSet.max_tokens() << std::endl;
         }
 
-        std::unique_ptr<ProductSucGen<SuccessorGen, Spooler...>> successorGenerator;
+        const PetriEngine::PetriNet *_net;
+        PetriEngine::PQL::Condition_ptr _formula;
+        std::unique_ptr<ProductSucGen<SuccessorGen, Spooler...>> _successor_generator;
 
-        const PetriEngine::PetriNet *net;
-        PetriEngine::PQL::Condition_ptr formula;
-        //const Structures::BuchiAutomaton *_aut;
-        TraceLevel traceLevel;
+        options_t::TraceLevel _traceLevel;
         LTL::Structures::ProductStateFactory _factory;
 
         size_t _discovered = 0;
-        bool shortcircuitweak;
-        bool weakskip = false;
-        bool is_weak = false;
-        size_t maxTransName;
+        bool _shortcircuitweak;
+        bool _weakskip = false;
+        bool _is_weak = false;
+        size_t _maxTransName;
 
-        static constexpr auto indent = "  ";
-        static constexpr auto tokenIndent = "    ";
+        static constexpr auto _indent = "  ";
+        static constexpr auto _tokenIndent = "    ";
 
-        void printLoop(std::ostream &os)
-        {
-            os << indent << "<loop/>\n";
+        void print_loop(std::ostream &os)
+{
+            os << _indent << "<loop/>\n";
         }
 
         std::ostream &
-        printTransition(size_t transition, LTL::Structures::ProductState &state, std::ostream &os)
+        print_transition(size_t transition, LTL::Structures::ProductState &state, std::ostream &os)
         {
             if (transition >= std::numeric_limits<ptrie::uint>::max() - 1) {
-                os << indent << "<deadlock/>";
+                os << _indent << "<deadlock/>";
                 return os;
             }
-                os << indent << "<transition id="
+            os << _indent << "<transition id="
                    // field width stuff obsolete without büchi state printing.
                    //<< std::setw(maxTransName + 2) << std::left
-                   << std::quoted(net->transitionNames()[transition]);
-            if (traceLevel == TraceLevel::Full) {
+                    << std::quoted(_net->transitionNames()[transition]);
+            if (_traceLevel == options_t::TraceLevel::Full) {
                 os << ">";
                 os << std::endl;
-                auto [fpre, lpre] = net->preset(transition);
+                auto [fpre, lpre] = _net->preset(transition);
                 for(; fpre < lpre; ++fpre) {
                     if (fpre->inhibitor) {
                         assert(state.marking()[fpre->place] < fpre->tokens);
@@ -129,15 +130,15 @@ namespace LTL {
                     }
                     for (size_t i = 0; i < fpre->tokens; ++i) {
                         assert(state.marking()[fpre->place] >= fpre->tokens);
-                        os << tokenIndent << R"(<token age="0" place=")" << net->placeNames()[fpre->place] << "\"/>\n";
+                        os << _tokenIndent << R"(<token age="0" place=")" << _net->placeNames()[fpre->place] << "\"/>\n";
                     }
                 }
-                /*for (size_t i = 0; i < net->numberOfPlaces(); ++i) {
+                /*for (size_t i = 0; i < net->number_of_places(); ++i) {
                     for (size_t j = 0; j < state.marking()[i]; ++j) {
                         os << tokenIndent << R"(<token age="0" place=")" << net->placeNames()[i] << "\"/>\n";
                     }
                 }*/
-                os << indent << "</transition>";
+                os << _indent << "</transition>";
             }
             else {
                 os << "/>";

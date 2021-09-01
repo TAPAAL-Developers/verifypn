@@ -30,13 +30,13 @@
 namespace LTL::Structures {
     struct BuchiAutomaton {
         BuchiAutomaton(spot::twa_graph_ptr buchi, std::unordered_map<int, AtomicProposition> apInfo)
-                : _buchi(std::move(buchi)), ap_info(std::move(apInfo)) {
-            dict = _buchi->get_dict();
+        : _buchi(std::move(buchi)), _ap_info(std::move(apInfo)) {
+            _dict = _buchi->get_dict();
         }
 
         spot::twa_graph_ptr _buchi;
-        const std::unordered_map<int, AtomicProposition> ap_info;
-        spot::bdd_dict_ptr dict;
+        const std::unordered_map<int, AtomicProposition> _ap_info;
+        spot::bdd_dict_ptr _dict;
 
 
         void output_buchi(const std::string& file, BuchiOutType type)
@@ -66,7 +66,7 @@ namespace LTL::Structures {
                 // find variable to test, and test it
                 size_t var = bdd_var(bdd);
                 using PetriEngine::PQL::Condition;
-                Condition::Result res = ap_info.at(var).expression->evaluate(ctx);
+                Condition::Result res = _ap_info.at(var)._expression->evaluate(ctx);
                 switch (res) {
                     case Condition::RUNKNOWN:
                         std::cerr << "Unexpected unknown answer from evaluating query!\n";

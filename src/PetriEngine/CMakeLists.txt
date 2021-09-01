@@ -9,12 +9,12 @@ add_subdirectory(PQL)
 add_subdirectory(TAR)
 
 add_library(PetriEngine ${HEADER_FILES} 
-PetriNet.cpp
-PetriNetBuilder.cpp
-Reducer.cpp
-ReducingSuccessorGenerator.cpp
-STSolver.cpp
-SuccessorGenerator.cpp
-        TraceReplay.cpp ../../include/PetriEngine/TraceReplay.h)
+    PetriNet.cpp
+    PetriNetBuilder.cpp
+    Reducer.cpp
+    ReducingSuccessorGenerator.cpp
+    STSolver.cpp
+    SuccessorGenerator.cpp
+    TraceReplay.cpp ../../include/PetriEngine/TraceReplay.h)
 
 target_link_libraries(PetriEngine PRIVATE Colored Structures Simplification Stubborn Reachability PQL TAR)

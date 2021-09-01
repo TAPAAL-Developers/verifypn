@@ -37,14 +37,14 @@ namespace LTL {
             case spot::op::ap: {
                 auto it = std::find_if(std::begin(apinfo), std::end(apinfo),
                                        [&](const AtomicProposition &info) {
-                                           auto ap = std::string_view(info.text);
+                                           auto ap = std::string_view(info._text);
                                            return ap == std::string_view(formula.ap_name());
                                        });
                 if (it == std::end(apinfo)) {
                     std::cerr << "Error: Expected to find " << formula.ap_name() << " in APInfo.\n";
                     exit(EXIT_FAILURE);
                 } else {
-                    return it->expression;
+                    return it->_expression;
                 }
 
             }

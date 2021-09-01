@@ -23,7 +23,7 @@
 namespace LTL {
     class FireCountHeuristic : public Heuristic {
     public:
-        explicit FireCountHeuristic(const PetriEngine::PetriNet *net) : _fireCount(net->numberOfTransitions()) {}
+        explicit FireCountHeuristic(const PetriEngine::PetriNet *net) : _fireCount(net->number_of_transitions()) {}
 
         uint32_t eval(const Structures::ProductState &state, uint32_t tid) override {
             assert(tid <= _fireCount.size());

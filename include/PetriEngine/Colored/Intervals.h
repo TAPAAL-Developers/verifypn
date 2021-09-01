@@ -50,7 +50,7 @@ namespace PetriEngine {
 
             bool isSound() const {
                 for(const auto& range: _ranges) {
-                    if(!range.isSound()){
+                    if(!range.is_sound()){
                         return false;
                     }
                 }

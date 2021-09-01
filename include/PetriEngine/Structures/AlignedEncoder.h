@@ -32,44 +32,44 @@ class AlignedEncoder
             return _scratchpad;
         }
         
-        unsigned char getType(uint32_t sum, uint32_t pwt, bool same, uint32_t val) const;
+        unsigned char get_type(uint32_t sum, uint32_t pwt, bool same, uint32_t val) const;
         
         size_t size(const uchar* data) const;
 private:
-        uint32_t tokenBytes(uint32_t ntokens) const;
+        uint32_t token_bytes(uint32_t ntokens) const;
     
-        uint32_t writeBitVector(size_t offset, const uint32_t* data);
+        uint32_t write_bit_vector(size_t offset, const uint32_t* data);
         
-        uint32_t writeTwoBitVector(size_t offset, const uint32_t* data);
-        
-        template<typename T>
-        uint32_t writeTokens(size_t offset, const uint32_t* data);
+        uint32_t write_two_bit_vector(size_t offset, const uint32_t* data);
         
         template<typename T>
-        uint32_t writeTokenCounts(size_t offset, const uint32_t* data);
+        uint32_t write_tokens(size_t offset, const uint32_t* data);
         
-        uint32_t writePlaces(size_t offset, const uint32_t* data);
+        template<typename T>
+        uint32_t write_token_counts(size_t offset, const uint32_t* data);
+        
+        uint32_t write_places(size_t offset, const uint32_t* data);
                 
-        uint32_t readBitVector(uint32_t* destination, const unsigned char* source, uint32_t offset, uint32_t value);
+        uint32_t read_bit_vector(uint32_t* destination, const unsigned char* source, uint32_t offset, uint32_t value);
 
-        uint32_t readTwoBitVector(uint32_t* destination, const unsigned char* source, uint32_t offset);
+        uint32_t read_two_bit_vector(uint32_t* destination, const unsigned char* source, uint32_t offset);
         
-        uint32_t readPlaces(uint32_t* destination, const unsigned char* source, uint32_t offset, uint32_t value);
+        uint32_t read_places(uint32_t* destination, const unsigned char* source, uint32_t offset, uint32_t value);
                 
         template<typename T>
-        uint32_t readTokens(uint32_t* destination, const unsigned char* source, uint32_t offset);
+        uint32_t read_tokens(uint32_t* destination, const unsigned char* source, uint32_t offset);
         
         template<typename T>
-        uint32_t readPlaceTokenCounts(uint32_t* destination, const unsigned char* source, uint32_t offset) const;
+        uint32_t read_place_token_counts(uint32_t* destination, const unsigned char* source, uint32_t offset) const;
 
         template<typename T>        
-        size_t placeTokenCountsSize(const unsigned char* source, uint32_t offset) const;
+        size_t place_token_counts_size(const unsigned char* source, uint32_t offset) const;
         
         template<typename T>
-        uint32_t readBitTokenCounts(uint32_t* destination, const unsigned char* source, uint32_t offset) const;
+        uint32_t read_bit_token_counts(uint32_t* destination, const unsigned char* source, uint32_t offset) const;
 
         template<typename T>        
-        size_t bitTokenCountsSize(const unsigned char* source, uint32_t offset) const;
+        size_t bit_token_counts_size(const unsigned char* source, uint32_t offset) const;
         
         uint32_t _places;
         

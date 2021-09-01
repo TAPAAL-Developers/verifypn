@@ -33,13 +33,13 @@ namespace PetriEngine {
         AnalysisContext::ResolutionResult AnalysisContext::resolve(const std::string& identifier, bool place)
         {
             ResolutionResult result;
-            result.offset = -1;
-            result.success = false;
+            result._offset = -1;
+            result._success = false;
             auto& map = place ? _placeNames : _transitionNames;
             auto it = map.find(identifier);
             if (it != map.end()) {
-                result.offset = (int) it->second;
-                result.success = true;
+                result._offset = (int) it->second;
+                result._success = true;
                 return result;
             }
             return result;
@@ -78,15 +78,15 @@ namespace PetriEngine {
             if (lp == nullptr)
                 return lp;
 
-            const uint32_t nCol = _net->numberOfTransitions();
-            const int nRow = _net->numberOfPlaces();
+            const uint32_t nCol = _net->number_of_transitions();
+            const int nRow = _net->number_of_places();
             std::vector<int32_t> indir(std::max<uint32_t>(nCol, nRow) + 1);
 
             glp_add_cols(lp, nCol + 1);
             glp_add_rows(lp, nRow + 1);
             {
                 std::vector<double> col = std::vector<double>(nRow + 1);
-                for (size_t t = 0; t < _net->numberOfTransitions(); ++t) {
+                for (size_t t = 0; t < _net->number_of_transitions(); ++t) {
                     auto pre = _net->preset(t);
                     auto post = _net->postset(t);
                     size_t l = 1;
@@ -126,7 +126,7 @@ namespace PetriEngine {
                 }
             }
             int rowno = 1;
-            for (size_t p = 0; p < _net->numberOfPlaces(); p++) {
+            for (size_t p = 0; p < _net->number_of_places(); p++) {
                 glp_set_row_bnds(lp, rowno, GLP_LO, (0.0 - (double) _marking[p]), infty);
                 ++rowno;
                 if (timeout()) {

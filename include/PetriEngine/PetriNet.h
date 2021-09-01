@@ -68,11 +68,11 @@ namespace PetriEngine {
         bool fireable(const MarkVal* marking, int transitionIndex);
         std::pair<const Invariant*, const Invariant*> preset(uint32_t id) const;
         std::pair<const Invariant*, const Invariant*> postset(uint32_t id) const;
-        uint32_t numberOfTransitions() const {
+        uint32_t number_of_transitions() const {
             return _ntransitions;
         }
 
-        uint32_t numberOfPlaces() const {
+        uint32_t number_of_places() const {
             return _nplaces;
         }
         int inArc(uint32_t place, uint32_t transition) const;

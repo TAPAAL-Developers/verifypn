@@ -20,7 +20,7 @@
 
 #include "PetriParse/QueryParser.h"
 #include "PetriEngine/PQL/QueryPrinter.h"
-#include "PetriEngine/options.h"
+#include "options.h"
 
 #include <iostream>
 #include <string>
@@ -28,15 +28,15 @@
 #include <spot/tl/formula.hh>
 namespace LTL {
     struct AtomicProposition {
-        PetriEngine::PQL::Condition_ptr expression;
-        std::string text;
+        PetriEngine::PQL::Condition_ptr _expression;
+        std::string _text;
     };
 
     using APInfo = std::vector<AtomicProposition>;
 
-    std::string toSpotFormat(const QueryItem &query);
+    std::string to_spot_format(const QueryItem &query);
 
-    void toSpotFormat(const QueryItem &query, std::ostream &os);
+    void to_spot_format(const QueryItem &query, std::ostream &os);
 
     std::pair<spot::formula, APInfo>
     to_spot_formula(const PetriEngine::PQL::Condition_ptr &query, const options_t &options);
@@ -46,12 +46,12 @@ namespace LTL {
         class BuchiAutomaton;
     }
 
-    Structures::BuchiAutomaton makeBuchiAutomaton(
+    Structures::BuchiAutomaton make_buchi_automaton(
             const PetriEngine::PQL::Condition_ptr &query,
             const options_t &options);
 
     BuchiSuccessorGenerator
-    makeBuchiSuccessorGenerator(const PetriEngine::PQL::Condition_ptr &query, const options_t &options);
+    make_buchi_successor_generator(const PetriEngine::PQL::Condition_ptr &query, const options_t &options);
 
     class FormulaToSpotSyntax : public PetriEngine::PQL::QueryPrinter {
     protected:
@@ -95,29 +95,30 @@ namespace LTL {
 
     public:
 
-        explicit FormulaToSpotSyntax(std::ostream &os = std::cout, APCompression compress_aps = APCompression::Choose)
-                : PetriEngine::PQL::QueryPrinter(os), compress(compress_aps) {}
+        explicit FormulaToSpotSyntax(std::ostream &os = std::cout,
+                options_t::APCompression compress_aps = options_t::APCompression::Choose)
+                : PetriEngine::PQL::QueryPrinter(os), _compress(compress_aps) {}
 
 
         auto begin() const
         {
-            return std::begin(ap_info);
+            return std::begin(_ap_info);
         }
 
         auto end() const
         {
-            return std::end(ap_info);
+            return std::end(_ap_info);
         }
 
-        const APInfo &apInfo() const
+        const APInfo &atomic_info() const
         {
-            return ap_info;
+            return _ap_info;
         }
 
     private:
-        APInfo ap_info;
-        bool is_quoted = false;
-        APCompression compress;
+        APInfo _ap_info;
+        bool _is_quoted = false;
+        options_t::APCompression _compress;
 
         void make_atomic_prop(const PetriEngine::PQL::Condition_constptr &element)
         {
@@ -125,20 +126,20 @@ namespace LTL {
                     const_cast<PetriEngine::PQL::Condition *>(element.get())->shared_from_this();
             std::stringstream ss;
             ss << "\"";
-            bool choice = compress == APCompression::Choose && element->formulaSize() > 250;
-            if (compress == APCompression::Full || choice) {
+            bool choice = _compress == options_t::APCompression::Choose && element->formulaSize() > 250;
+            if (_compress == options_t::APCompression::Full || choice) {
                 // FIXME Very naive; this completely removes APs being in multiple places in the query,
                 // leading to some query not being answered as is. The net gain is large in the firebaility category,
                 // but ideally it would be possible to make a smarter approach that looks at previously stored APs
                 // and efficiently checks for repeat APs such that we can reuse APs.
-                ss << ap_info.size();
+                ss << _ap_info.size();
             } else {
                 PetriEngine::PQL::QueryPrinter _printer{ss};
                 cond->visit(_printer);
             }
             ss << "\"";
             os << ss.str();
-            ap_info.push_back(AtomicProposition{cond, ss.str().substr(1, ss.str().size() - 2)});
+            _ap_info.push_back(AtomicProposition{cond, ss.str().substr(1, ss.str().size() - 2)});
         }
     };
 

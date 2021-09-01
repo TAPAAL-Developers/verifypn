@@ -209,7 +209,7 @@ namespace PetriEngine {
         uint64_t priority = 0;
         size_t cand = 0;
         bool dirty = false;
-        for (size_t t = 0; t < _net.numberOfTransitions(); ++t) {
+        for (size_t t = 0; t < _net.number_of_transitions(); ++t) {
             auto pre = _net.preset(t);
             bool ok = true;
             for (; pre.first != pre.second; ++pre.first) {

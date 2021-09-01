@@ -26,7 +26,7 @@ namespace LTL {
         EnabledSpooler(const PetriEngine::PetriNet *net, PetriEngine::SuccessorGenerator &sucGen)
                 : _successorGenerator(sucGen)
         {
-            _marking.setMarking(new PetriEngine::MarkVal[net->numberOfPlaces()]);
+            _marking.set_marking(new PetriEngine::MarkVal[net->number_of_places()]);
         }
 
         bool prepare(const LTL::Structures::ProductState *state) override

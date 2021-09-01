@@ -24,7 +24,7 @@ namespace PetriEngine {
 
         void reset();
 
-        void setQuery(PQL::Condition *ptr) { _stubSet->setQuery(ptr); }
+        void set_query(PQL::Condition *ptr) { _stubSet->setQuery(ptr); }
 
         bool prepare(const Structures::State *state) override;
 

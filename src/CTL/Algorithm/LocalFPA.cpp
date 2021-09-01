@@ -5,109 +5,113 @@
 #include <cassert>
 #include <iostream>
 
-bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
+namespace CTL::Algorithm {
+
+bool LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
 {
     using namespace DependencyGraph;
-    graph = &t_graph;
+    _graph = &t_graph;
 
-    Configuration *v = graph->initialConfiguration();
+    Configuration *v = _graph->initialConfiguration();
     explore(v);
 
-    while (!strategy->empty())
+        while (!_strategy->empty())
     {
-        while (auto e = strategy->popEdge()) {
+        while (auto e = _strategy->pop_edge()) {
 
-            if (v->assignment == DependencyGraph::ONE) {
+            if (v->_assignment == DependencyGraph::ONE) {
                 break;
             }
 
             bool allOne = true;
             Configuration *lastUndecided = nullptr;
 
-            for (DependencyGraph::Configuration *c : e->targets) {
-                if (c->assignment != DependencyGraph::ONE) {
+            for (DependencyGraph::Configuration *c : e->_targets) {
+                if (c->_assignment != DependencyGraph::ONE) {
                     allOne = false;
                     lastUndecided = c;
                 }
             }
 
-            if (e->is_negated) {
+            if (e->_is_negated) {
                 _processedNegationEdges += 1;
                 //Process negation edge
                 if(allOne) {}
-                else if(!e->processed){
-                    addDependency(e, lastUndecided);
-                    if(lastUndecided->assignment == UNKNOWN){
+                else if(!e->_processed){
+                    add_dependency(e, lastUndecided);
+                    if(lastUndecided->_assignment == UNKNOWN){
                         explore(lastUndecided);
                     }
-                    strategy->pushNegation(e);
+                    _strategy->push_negation(e);
                 }
                 else{
-                    finalAssign(e->source, ONE);
+                    final_assign(e->_source, ONE);
                 }
 
             } else {
                 _processedEdges += 1;
                 //Process hyper edge
                 if (allOne) {
-                    finalAssign(e->source, ONE);
+                    final_assign(e->_source, ONE);
                 } else {
-                    addDependency(e, lastUndecided);
-                    if (lastUndecided->assignment == UNKNOWN) {
+                    add_dependency(e, lastUndecided);
+                    if (lastUndecided->_assignment == UNKNOWN) {
                         explore(lastUndecided);
                     }
                 }
             }
-            e->processed = true;
-            if(e->refcnt == 0) graph->release(e);
+            e->_processed = true;
+            if(e->_refcnt == 0) _graph->release(e);
         }
-        if(!strategy->trivialNegation())
+        if(!_strategy->trivial_negation())
         {
-            strategy->releaseNegationEdges(strategy->maxDistance());
+            _strategy->release_negation_edges(_strategy->max_distance());
         }
     }
 
-    return v->assignment == ONE;
+    return v->_assignment == ONE;
 }
 
-void Algorithm::LocalFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)
+void LocalFPA::final_assign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)
 {
     assert(a == DependencyGraph::ONE);
-    c->assignment = a;
+    c->_assignment = a;
 
-    for(DependencyGraph::Edge *e : c->dependency_set){
-        if(e->is_negated)
-        {
-            strategy->pushNegation(e);
+    for(DependencyGraph::Edge *e : c->_dependency_set){
+        if(e->_is_negated)
+{
+                _strategy->push_negation(e);
         }
         else
-        {
-            strategy->pushDependency(e);
+{
+                _strategy->push_dependency(e);
         }
-        --e->refcnt;
-        if(e->refcnt == 0) graph->release(e);
+        --e->_refcnt;
+        if(e->_refcnt == 0) _graph->release(e);
     }
 
-    c->dependency_set.clear();
+    c->_dependency_set.clear();
 }
 
-void Algorithm::LocalFPA::explore(DependencyGraph::Configuration *c)
+void LocalFPA::explore(DependencyGraph::Configuration *c)
 {
-    assert(c->assignment == DependencyGraph::UNKNOWN);
-    c->assignment = DependencyGraph::ZERO;
-    auto succs = graph->successors(c);
+    assert(c->_assignment == DependencyGraph::UNKNOWN);
+    c->_assignment = DependencyGraph::ZERO;
+    auto succs = _graph->successors(c);
 
     for (DependencyGraph::Edge *succ : succs) {
-        strategy->pushEdge(succ);
-        --succ->refcnt;
-        if(succ->refcnt == 0) graph->release(succ);
+        _strategy->push_edge(succ);
+        --succ->_refcnt;
+        if(succ->_refcnt == 0) _graph->release(succ);
     }
 
     _exploredConfigurations += 1;
     _numberOfEdges += succs.size();
 }
 
-void Algorithm::LocalFPA::addDependency(DependencyGraph::Edge *e, DependencyGraph::Configuration *target)
+void LocalFPA::add_dependency(DependencyGraph::Edge *e, DependencyGraph::Configuration *target)
 {
-    target->addDependency(e);
+    target->add_dependency(e);
+}
+
 }

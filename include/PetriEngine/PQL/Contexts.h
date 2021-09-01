@@ -47,9 +47,9 @@ namespace PetriEngine {
             /** A resolution result */
             struct ResolutionResult {
                 /** Offset in relevant vector */
-                int offset;
+                int _offset;
                 /** True, if the resolution was successful */
-                bool success;
+                bool _success;
             };
 
             AnalysisContext(const std::unordered_map<std::string, uint32_t>& places, const std::unordered_map<std::string, uint32_t>& tnames, const PetriNet* net)
@@ -57,7 +57,7 @@ namespace PetriEngine {
 
             }
             
-            virtual void setHasDeadlock(){};
+            virtual void set_has_deadlock(){};
             
             const PetriNet* net() const
             {

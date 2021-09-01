@@ -19,34 +19,34 @@
 
 
 template<typename T, typename U>
-class AntiChain 
+class AntiChain
 {
     using set_t     = std::set<U>;
     using sset_t    = std::vector<U>;
     using smap_t    = std::vector<std::vector<sset_t>>;
-    
-    smap_t map;
-    
+
+    smap_t _map;
+
     struct node_t {
-        U key;
-        std::vector<node_t*> children;
+        U _key;
+        std::vector<node_t*> _children;
     };
-    
+
     public:
         AntiChain(){};
-        
+
         void clear()
-        {
-            map.clear();
+{
+        _map.clear();
         }
 
         template<typename S>
         bool subsumed(T& el, const S& set)
         {
             bool exists = false;
-            if(map.size() > (size_t)el)
-            {
-                for(auto& s : map[el])
+        if (_map.size() > (size_t) el)
+{
+            for (auto& s : _map[el])
                 {
                     if(std::includes(set.begin(), set.end(), s.begin(), s.end()))
                     {
@@ -60,18 +60,18 @@ class AntiChain
             }
             return exists;
         }
-        
+
         template<typename S>
         bool insert(T& el, const S& set)
         {
             bool inserted = false;
-            if(map.size() <= (size_t)el) map.resize(el + 1);
+        if (_map.size() <= (size_t) el) _map.resize(el + 1);
 /*            std::cout << "ANTI (" << (size_t)el << ") -> ";
             for(auto& e : set) std::cout << e << ",";
             std::cout << std::endl;*/
             if(!subsumed(el, set))
-            {
-                auto& chains = map[el];
+{
+            auto& chains = _map[el];
                 for(int i = chains.size() - 1; i >= 0; --i)
                 {
                     if(std::includes(chains[i].begin(), chains[i].end(), set.begin(), set.end()))
@@ -79,16 +79,16 @@ class AntiChain
                         chains.erase(chains.begin() + i);
                     }
                 }
-                chains.emplace_back(sset_t{set.begin(), set.end()});                
+                chains.emplace_back(sset_t{set.begin(), set.end()});
                 inserted = true;
             }
             else
             {
                 inserted = false;
             }
-            
+
             return inserted;
-        }  
+        }
 };
 
 

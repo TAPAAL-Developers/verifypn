@@ -21,6 +21,7 @@
 #include "PetriEngine/Structures/State.h"
 #include "PetriEngine/SuccessorGenerator.h"
 #include "LTL/LTLToBuchi.h"
+#include "errorcodes.h"
 
 #include <rapidxml.hpp>
 #include <vector>
@@ -57,32 +58,29 @@ namespace PetriEngine {
         if (root) {
             parseRoot(root);
         } else {
-            std::cerr << "Error getting root node." << std::endl;
             assert(false);
-            exit(1);
+            throw base_error(ErrorCode, "TraceReplay: Error getting root node.");
         }
 
     }
 
     void TraceReplay::parseRoot(const rapidxml::xml_node<> *pNode) {
         if (std::strcmp(pNode->name(), "trace") != 0) {
-            std::cerr << "Error: Expected trace node. Got: " << pNode->name() << std::endl;
             assert(false);
-            exit(1);
+            throw base_error(ErrorCode, "TraceReplay: Expected trace node. Got: ", pNode->name());
         }
         for (auto it = pNode->first_node(); it; it = it->next_sibling()) {
             if (std::strcmp(it->name(), "loop") == 0) loop_idx = trace.size();
             else if (std::strcmp(it->name(), "transition") == 0 || std::strcmp(it->name(), "deadlock") == 0) {
                 trace.push_back(parseTransition(it));
             } else {
-                std::cerr << "Error: Expected transition or loop node. Got: " << it->name() << std::endl;
                 assert(false);
-                exit(1);
+                throw base_error(ErrorCode, "TraceReplay: Expected transition or loop node. Got: ", it->name());
             }
         }
-        if (loop_idx == std::numeric_limits<size_t>::max() && options.logic == TemporalLogic::LTL) {
-            std::cerr << "Error: Missing <loop/> statement in trace\n";
-            exit(1);
+        if (loop_idx == std::numeric_limits<size_t>::max() && options.logic == options_t::TemporalLogic::LTL) {
+            assert(false);
+            throw base_error(ErrorCode, "TraceReplay: Missing <loop/> statement in trace\n");
         }
     }
 
@@ -102,9 +100,8 @@ namespace PetriEngine {
             id = DEADLOCK_TRANS;
         }
         if (id.empty()) {
-            std::cerr << "Error: Transition has no id attribute" << std::endl;
             assert(false);
-            exit(1);
+            throw base_error(ErrorCode, "TraceReplay: Transition has no id attribute");
         }
 
         Transition transition(id, buchi);
@@ -138,7 +135,7 @@ namespace PetriEngine {
     bool TraceReplay::replay(const PetriEngine::PetriNet *net, const PetriEngine::PQL::Condition_ptr &cond) {
         //spot::print_dot(std::cerr, buchiGenerator.aut._buchi);
         PetriEngine::Structures::State state;
-        state.setMarking(net->makeInitialMarking());
+        state.set_marking(net->makeInitialMarking());
         PetriEngine::SuccessorGenerator successorGenerator(*net);
 
         std::cout << "Playing back trace. Length: " << trace.size() << std::endl;
@@ -154,35 +151,34 @@ namespace PetriEngine {
         PetriEngine::Structures::State state;
         PetriEngine::Structures::State loopstate;
         bool looping = false;
-        state.setMarking(net->makeInitialMarking());
-        loopstate.setMarking(net->makeInitialMarking());
+        state.set_marking(net->makeInitialMarking());
+        loopstate.set_marking(net->makeInitialMarking());
         for (size_t i = 0; i < trace.size(); ++i) {
             const Transition &transition = trace[i];
             // looping part should end up at the state _before_ the <loop/> tag,
             // hence copy state from previous iteration.
             if (i == loop_idx) {
-                memcpy(loopstate.marking(), state.marking(), sizeof(uint32_t) * net->numberOfPlaces());
+                memcpy(loopstate.marking(), state.marking(), sizeof(uint32_t) * net->number_of_places());
                 looping = true;
             }
             successorGenerator.prepare(&state);
             auto it = transitions.find(transition.id);
             if (it == std::end(transitions)) {
-                std::cerr << "Unrecognized transition name " << transition.id << std::endl;
                 assert(false);
-                exit(1);
+                throw base_error(ErrorCode, "Unrecognized transition name ", transition.id);
             }
             int tid = it->second;
 
             if (tid != -1) {
                 // fire transition
-                if (!successorGenerator.checkPreset(tid)) {
+                if (!successorGenerator.check_preset(tid)) {
                     std::cerr
                             << "ERROR the provided trace cannot be replayed on the provided model. \nOffending transition: "
                             << transition.id << " at index: " << i << "\n";
                     return false;
                 }
-                successorGenerator.consumePreset(state, tid);
-                successorGenerator.producePostset(state, tid);
+                successorGenerator.consume_preset(state, tid);
+                successorGenerator.produce_postset(state, tid);
             } else {
                 // -1 is deadlock, assert deadlocked state.
                 // LTL deadlocks are unambiguously in the Petri net, since Büchi deadlocks won't generate any successor in the first place.
@@ -219,7 +215,7 @@ namespace PetriEngine {
 
         bool err = false;
         if (looping) {
-            for (size_t i = 0; i < net->numberOfPlaces(); ++i) {
+            for (size_t i = 0; i < net->number_of_places(); ++i) {
                 if (state.marking()[i] != loopstate.marking()[i]) {
                     if (!err) {
                         std::cerr << "ERROR end state not equal to expected loop state.\n";

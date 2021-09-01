@@ -34,12 +34,12 @@ namespace PetriEngine {
         
     public:
         /** Add a new place with a unique name */
-        virtual void addPlace(const std::string& name,
+        virtual void add_place(const std::string& name,
                 int tokens,
                 double x = 0,
                 double y = 0) = 0;
         /** Add a new colored place with a unique name */
-        virtual void addPlace(const std::string& name,
+        virtual void add_place(const std::string& name,
                 const Colored::ColorType* type,
                 Colored::Multiset&& tokens,
                 double x = 0,
@@ -49,11 +49,11 @@ namespace PetriEngine {
             exit(ErrorCode);
         }
         /** Add a new transition with a unique name */
-        virtual void addTransition(const std::string& name,
+        virtual void add_transition(const std::string& name,
                 double x = 0,
                 double y = 0) = 0;
         /** Add a new colored transition with a unique name */
-        virtual void addTransition(const std::string& name,
+        virtual void add_transition(const std::string& name,
                 const Colored::GuardExpression_ptr& guard,
                 double x = 0,
                 double y = 0)
@@ -62,12 +62,12 @@ namespace PetriEngine {
             exit(ErrorCode);
         }
         /** Add input arc with given weight */
-        virtual void addInputArc(const std::string& place,
+        virtual void add_input_arc(const std::string& place,
                 const std::string& transition,
                 bool inhibitor,
                 int) = 0;
         /** Add colored input arc with given arc expression */
-        virtual void addInputArc(const std::string& place,
+        virtual void add_input_arc(const std::string& place,
                 const std::string& transition,
                 const Colored::ArcExpression_ptr& expr, 
                 bool inhibitor, int weight)
@@ -76,11 +76,11 @@ namespace PetriEngine {
             exit(ErrorCode);
         }
         /** Add output arc with given weight */
-        virtual void addOutputArc(const std::string& transition,
+        virtual void add_output_arc(const std::string& transition,
                 const std::string& place,
                 int weight = 1) = 0;
         /** Add output arc with given arc expression */
-        virtual void addOutputArc(const std::string& transition,
+        virtual void add_output_arc(const std::string& transition,
                 const std::string& place,
                 const Colored::ArcExpression_ptr& expr)
         {
@@ -88,18 +88,18 @@ namespace PetriEngine {
             exit(ErrorCode);
         }
         /** Add color types with id */
-        virtual void addColorType(const std::string& id,
+        virtual void add_color_type(const std::string& id,
                 const Colored::ColorType* type)
         {
             std::cerr << "Color types are not supported in standard P/T nets" << std::endl;
             exit(ErrorCode);
         }
         
-        virtual void enableColors() {
+        virtual void enable_colors() {
             _isColored = true;
         }
 
-        virtual bool isColored() const {
+        virtual bool is_colored() const {
             return _isColored;
         }
 

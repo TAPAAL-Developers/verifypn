@@ -27,18 +27,18 @@ namespace PetriEngine {
     public:
         ReachabilityStubbornSet(const PetriNet &net, const std::vector<PQL::Condition_ptr> &queries, bool closure = true)
                 : StubbornSet(net, queries), _closure(closure) {
-            setInterestingVisitor<InterestingTransitionVisitor>();
+            set_interesting_visitor<InterestingTransitionVisitor>();
         }
 
         ReachabilityStubbornSet(const PetriNet &net, bool closure = true)
                 : StubbornSet(net) , _closure(closure) {
-            setInterestingVisitor<InterestingTransitionVisitor>();
+            set_interesting_visitor<InterestingTransitionVisitor>();
         }
 
         bool prepare(const Structures::State *state) override;
 
         template <typename TVisitor>
-        void setInterestingVisitor()
+        void set_interesting_visitor()
         {
             _interesting = std::make_unique<TVisitor>(*this, _closure);
         }

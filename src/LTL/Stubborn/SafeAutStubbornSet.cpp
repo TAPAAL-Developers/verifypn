@@ -25,7 +25,7 @@ namespace LTL {
     {
         reset();
         _parent = state;
-        memset(_places_seen.get(), 0, _net.numberOfPlaces());
+        memset(_places_seen.get(), 0, _net.number_of_places());
 
         constructEnabled();
         if (_ordering.empty()) {
@@ -54,9 +54,9 @@ namespace LTL {
 
         _unsafe.swap(_stubborn);
         _has_enabled_stubborn = false;
-        //memset(_stubborn.get(), false, sizeof(bool) * _net.numberOfTransitions());
+        //memset(_stubborn.get(), false, sizeof(bool) * _net.number_of_transitions());
         _unprocessed.clear();
-        memset(_places_seen.get(), 0, _net.numberOfPlaces());
+        memset(_places_seen.get(), 0, _net.number_of_places());
 
         assert(_unprocessed.empty());
 
@@ -79,7 +79,7 @@ namespace LTL {
             //return true;
             addToStub(_ordering.front());
             closure();
-/*            for (int i = 0; i < _net.numberOfPlaces(); ++i) {
+/*            for (int i = 0; i < _net.number_of_places(); ++i) {
                 if (_enabled[i]) {
                     addToStub(i);
                     closure();
@@ -99,13 +99,13 @@ namespace LTL {
         float num_stubborn = 0;
         float num_enabled = 0;
         float num_enabled_stubborn = 0;
-        for (int i = 0; i < _net.numberOfTransitions(); ++i) {
+        for (int i = 0; i < _net.number_of_transitions(); ++i) {
             if (_stubborn[i]) ++num_stubborn;
             if (_enabled[i]) ++num_enabled;
             if (_stubborn[i] && _enabled[i]) ++num_enabled_stubborn;
         }
-        std::cerr << "Enabled: " << num_enabled << "/" << _net.numberOfTransitions() << " (" << num_enabled/_net.numberOfTransitions()*100.0 << "%),\t\t "
-        << "Stubborn: " << num_stubborn << "/" << _net.numberOfTransitions() << " (" << num_stubborn/_net.numberOfTransitions()*100.0 << "%),\t\t "
+        std::cerr << "Enabled: " << num_enabled << "/" << _net.number_of_transitions() << " (" << num_enabled/_net.number_of_transitions()*100.0 << "%),\t\t "
+        << "Stubborn: " << num_stubborn << "/" << _net.number_of_transitions() << " (" << num_stubborn/_net.number_of_transitions()*100.0 << "%),\t\t "
         << "Enabled stubborn: " << num_enabled_stubborn << "/" << num_enabled << " (" << num_enabled_stubborn/num_enabled*100.0 << "%)" << std::endl;
 #endif
     }

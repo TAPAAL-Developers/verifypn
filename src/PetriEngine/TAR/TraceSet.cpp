@@ -2,10 +2,10 @@
  *  Copyright Peter G. Jensen, all rights reserved.
  */
 
-/* 
+/*
  * File:   TraceSet.cpp
  * Author: Peter G. Jensen <root@petergjoel.dk>
- * 
+ *
  * Created on April 2, 2020, 6:03 PM
  */
 
@@ -47,28 +47,28 @@ namespace PetriEngine
             prvector_t truerange;
             prvector_t falserange;
             {
-                for (size_t v = 0; v < _net.numberOfPlaces(); ++v)
+                for (size_t v = 0; v < _net.number_of_places(); ++v)
                     falserange.find_or_add(v) &= 0;
             }
-            assert(falserange.is_false(_net.numberOfPlaces()));
+            assert(falserange.is_false(_net.number_of_places()));
             assert(truerange.is_true());
             assert(!falserange.is_true());
-            assert(falserange.is_false(_net.numberOfPlaces()));
+            assert(falserange.is_false(_net.number_of_places()));
             assert(truerange.compare(falserange).first);
             assert(!truerange.compare(falserange).second);
             assert(falserange.compare(truerange).second);
             assert(!falserange.compare(truerange).first);
             _states.emplace_back(falserange); // false
             _states.emplace_back(truerange); // true
-            computeSimulation(0);
+            compute_simulation(0);
 
-            assert(_states[1].simulates.size() == 0);
-            assert(_states[1].simulators.size() == 1);
-            assert(_states[0].simulates.size() == 1);
-            assert(_states[0].simulators.size() == 0);
+            assert(_states[1]._simulates.size() == 0);
+            assert(_states[1]._simulators.size() == 1);
+            assert(_states[0]._simulates.size() == 1);
+            assert(_states[0]._simulators.size() == 0);
 
-            assert(_states[1].simulators[0] == 0);
-            assert(_states[0].simulates[0] == 1);
+            assert(_states[1]._simulators[0] == 0);
+            assert(_states[0]._simulates[0] == 1);
 
             _intmap.emplace(falserange, 0);
             _intmap.emplace(truerange, 1);
@@ -84,20 +84,20 @@ namespace PetriEngine
             init();
         }
 
-        
+
         std::set<size_t> TraceSet::minimize(const std::set<size_t>& org) const
         {
             std::set<size_t> minimal = org;
             for(size_t i : org)
-                for(auto e : _states[i].simulates)
+                for(auto e : _states[i]._simulates)
                     minimal.erase(e);
             return minimal;
         }
 
-        void TraceSet::copyNonChanged(const std::set<size_t>& from, const std::vector<int64_t>& modifiers, std::set<size_t>& to) const
+        void TraceSet::copy_non_changed(const std::set<size_t>& from, const std::vector<int64_t>& modifiers, std::set<size_t>& to) const
         {
             for (auto p : from)
-                if (!_states[p].interpolant.restricts(modifiers))
+                if (!_states[p]._interpolant.restricts(modifiers))
                     to.insert(p);
         }
 
@@ -105,19 +105,19 @@ namespace PetriEngine
         {
             auto maximal = org;
             maximal.insert(1);
-            for (size_t i : org) 
-                maximal.insert(_states[i].simulates.begin(), _states[i].simulates.end());
+            for (size_t i : org)
+                maximal.insert(_states[i]._simulates.begin(), _states[i]._simulates.end());
             return maximal;
         }
 
-        std::pair<bool, size_t> TraceSet::stateForPredicate(prvector_t& predicate)
+        std::pair<bool, size_t> TraceSet::state_for_predicate(prvector_t& predicate)
         {
             predicate.compress();
             assert(predicate.is_compact());
             if (predicate.is_true()) {
                 return std::make_pair(false, 1);
             }
-            else if (predicate.is_false(_net.numberOfPlaces())) {
+            else if (predicate.is_false(_net.number_of_places())) {
                 return std::make_pair(false, 0);
             }
 
@@ -125,22 +125,22 @@ namespace PetriEngine
             auto res = _intmap.emplace(predicate, astate);
             if (!res.second) {
 #ifndef NDEBUG
-                if (!(_states[res.first->second].interpolant == predicate)) {
-                    assert(!(_states[res.first->second].interpolant < predicate));
-                    assert(!(predicate < _states[res.first->second].interpolant));
+                if (!(_states[res.first->second]._interpolant == predicate)) {
+                    assert(!(_states[res.first->second]._interpolant < predicate));
+                    assert(!(predicate < _states[res.first->second]._interpolant));
                     assert(false);
                 }
                 for (auto& e : _intmap) {
-                    assert(e.first == _states[e.second].interpolant);
+                    assert(e.first == _states[e.second]._interpolant);
                 }
 #endif
                 return std::make_pair(false, res.first->second);
             }
             else {
                 _states.emplace_back(predicate);
-                computeSimulation(astate);
+                compute_simulation(astate);
                 res.first->second = astate;
-                assert(_states[astate].interpolant == predicate);
+                assert(_states[astate]._interpolant == predicate);
 #ifndef NDEBUG
                 for (auto& s : _states) {
                     if (s.interpolant == predicate) {
@@ -151,7 +151,7 @@ namespace PetriEngine
                     }
                 }
                 for (auto& e : _intmap) {
-                    assert(e.first == _states[e.second].interpolant);
+                    assert(e.first == _states[e.second]._interpolant);
                 }
 #endif
                 bool ok = true;
@@ -174,7 +174,7 @@ namespace PetriEngine
                     }
                 }
                 // check which edges actually change the predicate, add rest to automata
-                for(size_t t = 0; t < _net.numberOfTransitions(); ++t)
+                for(size_t t = 0; t < _net.number_of_transitions(); ++t)
                 {
                     auto pre = _net.preset(t);
                     bool ok = true;
@@ -205,7 +205,7 @@ namespace PetriEngine
                         }
                         if(!ok) break;
                     }
-                    
+
                     auto post = _net.postset(t);
                     for(; post.first != post.second; ++post.first)
                     {
@@ -230,45 +230,45 @@ namespace PetriEngine
                         }
                         if(!ok) break;
                     }
-                    
+
                     if(changes && ok)
                     {
                         _states[astate].add_edge(t+1, astate);
                     }
                 }
-                
-                
+
+
                 return std::make_pair(true, astate);
             }
         }
 
-        void TraceSet::computeSimulation(size_t index)
+        void TraceSet::compute_simulation(size_t index)
         {
             AutomataState& state = _states[index];
             assert(index == _states.size() - 1 || index == 0);
             for (size_t i = 0; i < _states.size(); ++i) {
                 if (i == index) continue;
                 AutomataState& other = _states[i];
-                std::pair<bool, bool> res = other.interpolant.compare(state.interpolant);
+                std::pair<bool, bool> res = other._interpolant.compare(state._interpolant);
                 assert(!res.first || !res.second);
                 if (res.first) {
-                    state.simulates.emplace_back(i);
-                    auto lb = std::lower_bound(other.simulators.begin(), other.simulators.end(), index);
-                    if (lb == std::end(other.simulators) || *lb != index)
-                        other.simulators.insert(lb, index);
-                    other.interpolant.compare(state.interpolant);
+                    state._simulates.emplace_back(i);
+                    auto lb = std::lower_bound(other._simulators.begin(), other._simulators.end(), index);
+                    if (lb == std::end(other._simulators) || *lb != index)
+                        other._simulators.insert(lb, index);
+                    other._interpolant.compare(state._interpolant);
                 }
                 if (res.second) {
-                    state.simulators.emplace_back(i);
-                    auto lb = std::lower_bound(other.simulates.begin(), other.simulates.end(), index);
-                    if (lb == std::end(other.simulates) || *lb != index)
-                        other.simulates.insert(lb, index);
-                    other.interpolant.compare(state.interpolant);
+                    state._simulators.emplace_back(i);
+                    auto lb = std::lower_bound(other._simulates.begin(), other._simulates.end(), index);
+                    if (lb == std::end(other._simulates) || *lb != index)
+                        other._simulates.insert(lb, index);
+                    other._interpolant.compare(state._interpolant);
                 }
             }
 
-            assert(_states[1].simulates.size() == 0);
-            assert(_states[0].simulators.size() == 0);
+            assert(_states[1]._simulates.size() == 0);
+            assert(_states[0]._simulators.size() == 0);
         }
 
         bool TraceSet::follow(const std::set<size_t>& from, std::set<size_t>& nextinter, size_t symbol)
@@ -288,21 +288,21 @@ namespace PetriEngine
                 auto it = as.first_edge(symbol);
 
                 while (it != as.get_edges().end()) {
-                    if (it->edge != symbol) {
+                    if (it->_edge != symbol) {
                         break;
                     }
                     auto& ae = *it;
                     ++it;
                     assert(ae.to.size() > 0);
-                    if (ae.to.front() == 0) 
+                    if (ae._to.front() == 0)
                         return true;
-                    nextinter.insert(ae.to.begin(), ae.to.end());
+                    nextinter.insert(ae._to.begin(), ae._to.end());
                 }
             }
             return false;
         }
 
-        void TraceSet::removeEdges(size_t edge)
+        void TraceSet::remove_edge(size_t edge)
         {
             for(auto& s : _states)
             {
@@ -310,15 +310,15 @@ namespace PetriEngine
             }
             // TODO back color here to remove non-accepting end-components.
         }
-        
-        bool TraceSet::addTrace(std::vector<std::pair<prvector_t, size_t>>& inter)
+
+        bool TraceSet::add_trace(std::vector<std::pair<prvector_t, size_t>>& inter)
         {
             assert(inter.size() > 0);
             bool some = false;
 
             size_t last = 1;
             {
-                auto res = stateForPredicate(inter[0].first);
+                auto res = state_for_predicate(inter[0].first);
                 some |= res.first;
                 last = res.second;
                 //inter[0].first.print(std::cerr) << std::endl;
@@ -331,7 +331,7 @@ namespace PetriEngine
 //                std::cerr << " >> T" << inter[i].second << " <<" << std::endl;
                 if (j == inter.size()) {
                     some |= _states[last].add_edge(inter[i].second, 0);
-#ifndef NDEBUG                    
+#ifndef NDEBUG
                     added_terminal = true;
 #endif
 //                    std::cerr << "FALSE" << std::endl;
@@ -341,7 +341,7 @@ namespace PetriEngine
                     /*if (!inter[i].second)
                         trace[j].add_interpolant(last);
                     else*/ {
-                        auto res = stateForPredicate(inter[j].first);
+                        auto res = state_for_predicate(inter[j].first);
                         some |= res.first;
 //                        assert(inter[i].second || res.second == last);
                         some |= _states[last].add_edge(inter[i].second, res.second);
@@ -359,14 +359,14 @@ namespace PetriEngine
             for (size_t i = 0; i < _states.size(); ++i) {
                 auto& s = _states[i];
                 out << "\tS" << i << " [label=\"";
-                if (s.interpolant.is_true()) {
+                if (s._interpolant.is_true()) {
                     out << "TRUE";
                 }
-                else if (s.interpolant.is_false(_net.numberOfPlaces())) {
+                else if (s._interpolant.is_false(_net.number_of_places())) {
                     out << "FALSE";
                 }
                 else {
-                    s.interpolant.print(out);
+                    s._interpolant.print(out);
                 }
                 out << "\",shape=";
                 auto lb = std::lower_bound(_initial.begin(), _initial.end(), i);
@@ -379,12 +379,12 @@ namespace PetriEngine
             for (size_t i = 0; i < _states.size(); ++i) {
                 auto& s = _states[i];
                 for (auto& e : s.get_edges()) {
-                    out << "\tS" << i << "_" << e.edge << " [label=\"" <<
-                            (e.edge == 0 ? "Q" : std::to_string(e.edge - 1))
+                    out << "\tS" << i << "_" << e._edge << " [label=\"" <<
+                        (e._edge == 0 ? "Q" : std::to_string(e._edge - 1))
                             << "\",shape=diamond,style=dashed];\n";
-                    out << "\tS" << i << " -> S" << i << "_" << e.edge << ";\n";
-                    for (auto& t : e.to) {
-                        out << "\tS" << i << "_" << e.edge << " -> S" << t << ";\n";
+                    out << "\tS" << i << " -> S" << i << "_" << e._edge << ";\n";
+                    for (auto& t : e._to) {
+                        out << "\tS" << i << "_" << e._edge << " -> S" << t << ";\n";
                     }
                 }
             }

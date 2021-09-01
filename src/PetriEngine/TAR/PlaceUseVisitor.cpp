@@ -67,7 +67,7 @@ namespace PQL {
             _in_use[e._place] = true;
     }
     
-    void PlaceUseVisitor::visitCommutativeExpr(const CommutativeExpr* element)
+    void PlaceUseVisitor::visit_commutative_expr(const CommutativeExpr* element)
     {
         for(auto& p : element->places())
             _in_use[p.first] = true;
@@ -77,7 +77,7 @@ namespace PQL {
     
     void PlaceUseVisitor::_accept(const PlusExpr* element)
     {
-        visitCommutativeExpr(element);
+        visit_commutative_expr(element);
     }
     
     void PlaceUseVisitor::_accept(const SubtractExpr* element)
@@ -88,7 +88,7 @@ namespace PQL {
 
     void PlaceUseVisitor::_accept(const MultiplyExpr* element)
     {
-        visitCommutativeExpr(element);
+        visit_commutative_expr(element);
     }
     
     void PlaceUseVisitor::_accept(const MinusExpr* element)

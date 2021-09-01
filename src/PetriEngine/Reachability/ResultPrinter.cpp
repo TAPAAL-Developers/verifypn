@@ -1,27 +1,28 @@
 
 #include "PetriEngine/Reachability/ReachabilityResult.h"
 #include "PetriEngine/PetriNetBuilder.h"
-#include "PetriEngine/options.h"
 #include "PetriEngine/PQL/Expressions.h"
+
+#include "options.h"
 
 namespace PetriEngine {
     namespace Reachability {
         std::pair<AbstractHandler::Result, bool> ResultPrinter::handle(
                 size_t index,
-                PQL::Condition* query, 
+                PQL::Condition* query,
                 Result result,
                 const std::vector<uint32_t>* maxPlaceBound,
                 size_t expandedStates,
                 size_t exploredStates,
                 size_t discoveredStates,
-                int maxTokens,                
+                int maxTokens,
                 Structures::StateSetInterface* stateset, size_t lastmarking, const MarkVal* initialMarking)
         {
             if(result == Unknown) return std::make_pair(Unknown,false);
 
             Result retval = result;
-            
-            if(options->cpnOverApprox)
+
+            if(_options->cpnOverApprox)
             {
                 if(query->getQuantifier() == PQL::Quantifier::UPPERBOUNDS)
                 {
@@ -33,21 +34,21 @@ namespace PetriEngine {
                 else if (result == Satisfied)
                     retval = query->isInvariant() ? Unknown : Unknown;
                 else if (result == NotSatisfied)
-                    retval = query->isInvariant() ? Satisfied : NotSatisfied;                
+                    retval = query->isInvariant() ? Satisfied : NotSatisfied;
                 if(retval == Unknown)
                 {
-                    std::cout << "\nUnable to decide if " << querynames[index] << " is satisfied.\n\n";
+                    std::cout << "\nUnable to decide if " << _querynames[index] << " is satisfied.\n\n";
                     std::cout << "Query is MAYBE satisfied.\n" << std::endl;
                     return std::make_pair(Ignore,false);
                 }
             }
-            std::cout << std::endl;    
-            
+            std::cout << std::endl;
+
             bool showTrace = (result == Satisfied);
-            
-            if(!options->statespaceexploration && retval != Unknown)
+
+            if(!_options->statespaceexploration && retval != Unknown)
             {
-                std::cout << "FORMULA " << querynames[index] << " ";
+                std::cout << "FORMULA " << _querynames[index] << " ";
             }
             else {
                 retval = Satisfied;
@@ -59,13 +60,13 @@ namespace PetriEngine {
                     }
                 }
                 // fprintf(stdout,"STATE_SPACE %lli -1 %d %d TECHNIQUES EXPLICIT\n", result.exploredStates(), result.maxTokens(), placeBound);
-                std::cout   << "STATE_SPACE STATES "<< exploredStates           << " " << techniquesStateSpace
+                std::cout   << "STATE_SPACE STATES "<< exploredStates           << " " << _techniquesStateSpace
                             << std::endl
-                            << "STATE_SPACE TRANSITIONS "<< -1                  << " " << techniquesStateSpace
+                            << "STATE_SPACE TRANSITIONS "<< -1                  << " " << _techniquesStateSpace
                             << std::endl
-                            << "STATE_SPACE MAX_TOKEN_PER_MARKING "<< maxTokens << " " << techniquesStateSpace
+                            << "STATE_SPACE MAX_TOKEN_PER_MARKING "<< maxTokens << " " << _techniquesStateSpace
                             << std::endl
-                            << "STATE_SPACE MAX_TOKEN_IN_PLACE "<< placeBound   << " " << techniquesStateSpace 
+                            << "STATE_SPACE MAX_TOKEN_IN_PLACE "<< placeBound   << " " << _techniquesStateSpace
                             << std::endl;
                 return std::make_pair(retval,false);
             }
@@ -73,7 +74,7 @@ namespace PetriEngine {
             if (result == Satisfied)
                 retval = query->isInvariant() ? NotSatisfied : Satisfied;
             else if (result == NotSatisfied)
-                retval = query->isInvariant() ? Satisfied : NotSatisfied;           
+                retval = query->isInvariant() ? Satisfied : NotSatisfied;
 
             //Print result
             auto bound = query;
@@ -82,34 +83,34 @@ namespace PetriEngine {
                 bound = (*ef)[0].get();
             }
             bound = dynamic_cast<PQL::UnfoldedUpperBoundsCondition*>(bound);
-            
+
             if (retval == Unknown)
             {
-                std::cout << "\nUnable to decide if " << querynames[index] << " is satisfied.";
+                std::cout << "\nUnable to decide if " << _querynames[index] << " is satisfied.";
             }
             else if(bound)
             {
-                std::cout << ((PQL::UnfoldedUpperBoundsCondition*)bound)->bounds() << " " << techniques << printTechniques() << std::endl;
+                std::cout << ((PQL::UnfoldedUpperBoundsCondition*)bound)->bounds() << " " << _techniques << print_techniques() << std::endl;
                 std::cout << "Query index " << index << " was solved" << std::endl;
             }
             else if (retval == Satisfied) {
-                if(!options->statespaceexploration)
+                if(!_options->statespaceexploration)
                 {
-                    std::cout << "TRUE " << techniques << printTechniques() << std::endl;
+                    std::cout << "TRUE " << _techniques << print_techniques() << std::endl;
                     std::cout << "Query index " << index << " was solved" << std::endl;
                 }
             } else if (retval == NotSatisfied) {
-                if(!options->statespaceexploration)
+                if(!_options->statespaceexploration)
                 {
-                    std::cout << "FALSE " << techniques << printTechniques() << std::endl;
+                    std::cout << "FALSE " << _techniques << print_techniques() << std::endl;
                     std::cout << "Query index " << index << " was solved" << std::endl;
                 }
             }
-            
+
             std::cout << std::endl;
 
             std::cout << "Query is ";
-            if(options->statespaceexploration)
+            if(_options->statespaceexploration)
             {
                 retval = Satisfied;
             }
@@ -128,11 +129,11 @@ namespace PetriEngine {
                 std::cout << "NOT ";
             }
             std::cout << "satisfied." << std::endl;
-            
-            if(options->cpnOverApprox)
+
+            if(_options->cpnOverApprox)
                 std::cout << "\nSolved using CPN Approximation\n" << std::endl;
-            
-            if(showTrace && options->trace != TraceLevel::None)
+
+            if (showTrace && _options->trace != options_t::TraceLevel::None)
             {
                 if(stateset == nullptr)
                 {
@@ -140,55 +141,55 @@ namespace PetriEngine {
                 }
                 else
                 {
-                    printTrace(stateset, lastmarking);                        
+                    print_trace(stateset, lastmarking);
                 }
             }
-            
+
             std::cout << std::endl;
             return std::make_pair(retval, false);
         }
-        
-        std::string ResultPrinter::printTechniques() {
+
+        std::string ResultPrinter::print_techniques() {
             std::string out;
-                        
-            if(options->queryReductionTimeout > 0)
+
+            if(_options->queryReductionTimeout > 0)
             {
                 out += "LP_APPROX ";
             }
 
-            if(options->cpnOverApprox)
+            if(_options->cpnOverApprox)
             {
                 out += "CPN_APPROX ";
             }
-            
-            if(options->isCPN && !options->cpnOverApprox)
+
+            if(_options->isCPN && !_options->cpnOverApprox)
             {
                 out += "UNFOLDING_TO_PT ";
             }
-            
-            if(options->queryReductionTimeout == 0 
-			    && !options->tar 
-			    && options->siphontrapTimeout == 0)
+
+            if(_options->queryReductionTimeout == 0
+			    && !_options->tar
+			    && _options->siphontrapTimeout == 0)
             {
                 out += "EXPLICIT STATE_COMPRESSION ";
-                if(options->stubbornreduction)
+                if(_options->stubbornreduction)
                 {
                     out += "STUBBORN_SETS ";
                 }
             }
-            if(options->tar)
+            if(_options->tar)
             {
                 out += "TRACE_ABSTRACTION_REFINEMENT ";
             }
-            if(options->siphontrapTimeout > 0)
+            if(_options->siphontrapTimeout > 0)
             {
                 out += "TOPOLOGICAL SIPHON_TRAP ";
             }
-            
+
             return out;
         }
-        
-        void ResultPrinter::printTrace(Structures::StateSetInterface* ss, size_t lastmarking)
+
+        void ResultPrinter::print_trace(Structures::StateSetInterface* ss, size_t lastmarking)
         {
             std::cerr << "Trace:\n<trace>\n";
             std::stack<size_t> transitions;
@@ -196,24 +197,24 @@ namespace PetriEngine {
             while(next != 0) // assume 0 is the index of the first marking.
             {
                 // (parent, transition)
-                std::pair<size_t, size_t> p = ss->getHistory(next);
+                std::pair<size_t, size_t> p = ss->get_history(next);
                 next = p.first;
                 transitions.push(p.second);
             }
-            
-            if(reducer != NULL)
-                reducer->initFire(std::cerr);
-            
+
+            if(_reducer != NULL)
+                _reducer->init_fire(std::cerr);
+
             while(transitions.size() > 0)
             {
                 size_t trans = transitions.top();
                 transitions.pop();
                 std::string tname = ss->net().transitionNames()[trans];
                 std::cerr << "\t<transition id=\"" << tname << "\" index=\"" << trans << "\">\n";
-                
+
                 // well, yeah, we are not really efficient in constructing the trace.
                 // feel free to improve
-                for(size_t p = 0; p < ss->net().numberOfPlaces(); ++p)
+                for(size_t p = 0; p < ss->net().number_of_places(); ++p)
                 {
                     size_t cnt = ss->net().inArc(p, trans);
                     for(size_t token = 0; token < cnt; ++token )
@@ -221,17 +222,17 @@ namespace PetriEngine {
                         std::cerr << "\t\t<token place=\"" << ss->net().placeNames()[p] << "\" age=\"0\"/>\n";
                     }
                 }
-                
-                if(reducer != NULL)
-                    reducer->extraConsume(std::cerr, tname);
-                
+
+                if(_reducer != NULL)
+                    _reducer->extra_consume(std::cerr, tname);
+
                 std::cerr << "\t</transition>\n";
-                
-                if(reducer != NULL)
-                    reducer->postFire(std::cerr, tname);
-                
+
+                if(_reducer != NULL)
+                    _reducer->post_fire(std::cerr, tname);
+
             }
-            
+
             std::cerr << "</trace>\n" << std::endl;
         }
 

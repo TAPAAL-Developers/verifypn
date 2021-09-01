@@ -28,7 +28,7 @@ namespace LTL {
     public:
         SafeAutStubbornSet(const PetriEngine::PetriNet &net,
                            const std::vector<PetriEngine::PQL::Condition_ptr> &queries)
-                : StubbornSet(net, queries), _unsafe(std::make_unique<bool[]>(net.numberOfTransitions())) {}
+                : StubbornSet(net, queries), _unsafe(std::make_unique<bool[]>(net.number_of_transitions())) {}
 
         bool prepare(const PetriEngine::Structures::State *marking) override
         {
@@ -46,7 +46,7 @@ namespace LTL {
 
         void reset() override {
             StubbornSet::reset();
-            memset(_unsafe.get(), false, sizeof(bool) * _net.numberOfTransitions());
+            memset(_unsafe.get(), false, sizeof(bool) * _net.number_of_transitions());
             _bad = false;
             _has_enabled_stubborn = false;
         }

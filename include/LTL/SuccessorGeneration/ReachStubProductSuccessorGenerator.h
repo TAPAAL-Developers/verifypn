@@ -1,16 +1,16 @@
 /* Copyright (C) 2021  Nikolaj J. Ulrik <nikolaj@njulrik.dk>,
  *                     Simon M. Virenfeldt <simon@simwir.dk>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -45,8 +45,8 @@ namespace LTL {
 
         void calc_safe_reach_states(const Structures::BuchiAutomaton &buchi) {
             assert(_reach_states.empty());
-            std::vector<AtomicProposition> aps(buchi.ap_info.size());
-            std::transform(std::begin(buchi.ap_info), std::end(buchi.ap_info), std::begin(aps),
+            std::vector<AtomicProposition> aps(buchi._ap_info.size());
+            std::transform(std::begin(buchi._ap_info), std::end(buchi._ap_info), std::begin(aps),
                            [](const std::pair<int, AtomicProposition> &pair) { return pair.second; });
             for (unsigned state = 0; state < buchi._buchi->num_states(); ++state) {
                 //if (buchi._buchi->state_is_accepting(state)) continue;
@@ -62,8 +62,8 @@ namespace LTL {
                     }
                 }
                 bdd sink_prop = bdd_not(retarding | progressing);
-                auto prog_cond = toPQL(spot::bdd_to_formula(progressing, buchi.dict), aps);
-                auto ret_cond = toPQL(spot::bdd_to_formula(retarding, buchi.dict), aps);
+                auto prog_cond = toPQL(spot::bdd_to_formula(progressing, buchi._dict), aps);
+                auto ret_cond = toPQL(spot::bdd_to_formula(retarding, buchi._dict), aps);
                 auto sink_cond = sink_prop == bdd_false()
                                  ? PetriEngine::PQL::BooleanCondition::FALSE_CONSTANT
                                  : std::make_shared<PetriEngine::PQL::NotCondition>(
@@ -80,13 +80,13 @@ namespace LTL {
 
         void prepare(const LTL::Structures::ProductState *state, typename S::successor_info_t &sucinfo) override
         {
-            auto suc = _reach_states.find(state->getBuchiState());
+            auto suc = _reach_states.find(state->get_buchi_state());
             // assert valid since all states are reducible when considering
             // the sink progressing formula and key transitions in accepting states.
             assert(suc != std::end(_reach_states));
-            if (suc != std::end(_reach_states) && !this->guard_valid(*state, suc->second.bddCond)) {
+            if (suc != std::end(_reach_states) && !this->guard_valid(*state, suc->second._bddCond)) {
                 //_reach->setQuery(suc->second.prog_cond.get());
-                _reach->set_buchi_conds(suc->second.ret_cond, suc->second.prog_cond, suc->second.pseudo_sink_cond);
+                _reach->set_buchi_conds(suc->second._ret_cond, suc->second._prog_cond, suc->second._pseudo_sink_cond);
                 set_spooler(_reach.get());
             }
             else {
@@ -99,7 +99,7 @@ namespace LTL {
         void set_spooler(SuccessorSpooler *spooler)
         {
             if constexpr (std::is_same_v<S, LTL::SpoolingSuccessorGenerator>)
-                this->_successor_generator->setSpooler(spooler);
+                this->_successor_generator->set_spooler(spooler);
             else {
                 assert(false);
                 std::cerr << "Fatal error\n"; exit(1);
@@ -107,10 +107,10 @@ namespace LTL {
         }
 
         struct BuchiEdge{
-            bdd bddCond;
-            PetriEngine::PQL::Condition_ptr ret_cond;
-            PetriEngine::PQL::Condition_ptr prog_cond;
-            PetriEngine::PQL::Condition_ptr pseudo_sink_cond;
+            bdd _bddCond;
+            PetriEngine::PQL::Condition_ptr _ret_cond;
+            PetriEngine::PQL::Condition_ptr _prog_cond;
+            PetriEngine::PQL::Condition_ptr _pseudo_sink_cond;
         };
 
         std::unique_ptr<Spooler> _fallback_spooler;

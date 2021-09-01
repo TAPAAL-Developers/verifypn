@@ -35,7 +35,7 @@ namespace PetriEngine {
     using namespace PQL;
     namespace Reachability {
 
-        void TARReachabilitySearch::handleInvalidTrace(trace_t& waiting, int nvalid)
+        void TARReachabilitySearch::handle_invalid_trace(trace_t& waiting, int nvalid)
         {
             //sanity(waiting);
             assert(waiting.size() >= (size_t)nvalid);
@@ -54,7 +54,7 @@ namespace PetriEngine {
                     }
                 }
                 if(brk) break;
-                if(doStep(waiting[i - 1], waiting[i].get_interpolants()))
+                if(do_step(waiting[i - 1], waiting[i].get_interpolants()))
                 {
                     if(i != 1) waiting.resize(i - 1);
                     break;
@@ -64,7 +64,7 @@ namespace PetriEngine {
         }
         
         
-        bool TARReachabilitySearch::popDone(trace_t& waiting, size_t& stepno)
+        bool TARReachabilitySearch::pop_done(trace_t& waiting, size_t& stepno)
         {
             bool popped = false;
             while(waiting.back().done(_net)) // we have tried all transitions for this state-pair!
@@ -82,7 +82,7 @@ namespace PetriEngine {
             return popped;
         }
 
-        void TARReachabilitySearch::nextEdge(AntiChain<uint32_t, size_t>& checked, state_t& state, trace_t& waiting, std::set<size_t>& nextinter)
+        void TARReachabilitySearch::next_edge(AntiChain<uint32_t, size_t>& checked, state_t& state, trace_t& waiting, std::set<size_t>& nextinter)
         {
             uint32_t dummy = state.get_edge_cnt() == 0 ? 0 : 0;
             bool res = checked.subsumed(dummy, nextinter);
@@ -101,7 +101,7 @@ namespace PetriEngine {
             }            
         }
         
-        std::pair<bool,bool> TARReachabilitySearch::runTAR( bool printtrace,
+        std::pair<bool,bool> TARReachabilitySearch::run_TAR( bool printtrace,
                                             Solver& solver, std::vector<bool>& use_trans)
         {
             stopwatch tt;
@@ -119,7 +119,7 @@ namespace PetriEngine {
             }
             while (!waiting.empty()) 
             {
-                if(popDone(waiting, _stepno)) 
+                if(pop_done(waiting, _stepno)) 
                     continue;  // we have reached the end of the edge-iterator for this part of the trace
 
                 ++_stepno;
@@ -136,7 +136,7 @@ namespace PetriEngine {
                 stopwatch ds;
                 ds.start();
 #endif
-                if(doStep(state, nextinter)) // Check if the next state makes the interpolant automata accept.
+                if(do_step(state, nextinter)) // Check if the next state makes the interpolant automata accept.
                 {
 #ifdef TAR_TIMING
                     stopwatch dsn;
@@ -170,7 +170,7 @@ namespace PetriEngine {
                     if(satisfied)
                     {
                         if(printtrace)
-                            printTrace(waiting);
+                            print_trace(waiting);
                         return std::make_pair(true, true);
                     }
                     else
@@ -184,13 +184,13 @@ namespace PetriEngine {
                 else
                 {
 #ifdef VERBOSETAR
-                    printStats();
+                    print_stats();
 #endif
 #ifdef TAR_TIMING
                     stopwatch ne;
                     ne.start();
 #endif
-                    nextEdge(checked, state, waiting, nextinter);
+                    next_edge(checked, state, waiting, nextinter);
 #ifdef TAR_TIMING
                     ne.stop();
                     _next_time += ne.duration();
@@ -200,17 +200,17 @@ namespace PetriEngine {
             return std::make_pair(all_covered, false);
         }
         
-        bool TARReachabilitySearch::tryReach(bool printtrace, Solver& solver)
+        bool TARReachabilitySearch::try_reach(bool printtrace, Solver& solver)
         {            
-            _traceset.removeEdges(0);
-            std::vector<bool> use_trans(_net.numberOfTransitions()+1);
+            _traceset.remove_edge(0);
+            std::vector<bool> use_trans(_net.number_of_transitions()+1);
             std::vector<bool> use_place = solver.in_query();
             use_trans[0] = true;
             auto update_use = [&use_trans, &use_place, this](bool any)
             {
                 auto np = use_place;
                 bool update = false;
-                for(size_t t = 0; t < _net.numberOfTransitions(); ++t)
+                for(size_t t = 0; t < _net.number_of_transitions(); ++t)
                 {
                     auto pre = _net.preset(t);
                     auto post = _net.postset(t);
@@ -247,14 +247,14 @@ namespace PetriEngine {
 #endif
             do
             {
-                auto [finished, satisfied] = runTAR(printtrace, solver, use_trans);
+                auto [finished, satisfied] = run_TAR(printtrace, solver, use_trans);
                 if(finished)
                 {
                     if(!satisfied)
                     {
                         if(update_use(false)) continue;
 #ifdef VERBOSETAR
-                        for(size_t t = 0; t < _net.numberOfTransitions(); ++t)
+                        for(size_t t = 0; t < _net.number_of_transitions(); ++t)
                         {
                             auto pre = _net.preset(t);
                             std::cerr << "T" << t << "\n";
@@ -268,7 +268,7 @@ namespace PetriEngine {
                                 std::cerr << "\tP" << post.first->place << " + " << post.first->tokens << std::endl;
                             }
                         }
-                        for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
+                        for(size_t p = 0; p < _net.number_of_places(); ++p)
                         {
                             if(_net.initial()[p] != 0)
                                 std::cerr << "P" << p << " (" << _net.initial()[p] << ")\n";
@@ -313,7 +313,7 @@ namespace PetriEngine {
             return false;            
         }
 
-        bool TARReachabilitySearch::doStep(state_t& state, std::set<size_t>& nextinter)
+        bool TARReachabilitySearch::do_step(state_t& state, std::set<size_t>& nextinter)
         {
             // if NFA accepts the trace after this instruction, abort.
 #ifdef TAR_TIMING
@@ -338,7 +338,7 @@ namespace PetriEngine {
             stopwatch nc;
             nc.start();
 #endif
-            addNonChanging(state, state.get_interpolants(), nextinter);
+            add_non_changing(state, state.get_interpolants(), nextinter);
 #ifdef TAR_TIMING
             nc.stop();
             _non_change_time += nc.duration();
@@ -369,7 +369,7 @@ namespace PetriEngine {
                 next.clear();
                 if(n == transitions.size()-1)
                     dummy = 0;
-                if(doStep(s, next))
+                if(do_step(s, next))
                 {
                     std::cerr << "RFAIL AT [" << n << "] = T" << transitions[n] << std::endl;
                     return false;
@@ -381,7 +381,7 @@ namespace PetriEngine {
                 }
             }
             s.set_edge(0);
-            if(doStep(s, next))
+            if(do_step(s, next))
             {
                 std::cerr << "FFAIL AT [" << n << "] = T" << transitions[n] << std::endl;
                 return false;
@@ -389,7 +389,7 @@ namespace PetriEngine {
             return true;
         }
         
-        void TARReachabilitySearch::addNonChanging(state_t& state, std::set<size_t>& maximal, std::set<size_t>& nextinter)
+        void TARReachabilitySearch::add_non_changing(state_t& state, std::set<size_t>& maximal, std::set<size_t>& nextinter)
         {
             
             std::vector<int64_t> changes;
@@ -407,15 +407,15 @@ namespace PetriEngine {
                 changes.push_back(post.first->place);
             }
             std::sort(changes.begin(), changes.end());
-            _traceset.copyNonChanged(maximal, changes, nextinter);
+            _traceset.copy_non_changed(maximal, changes, nextinter);
         }
         
-        void TARReachabilitySearch::printTrace(trace_t& stack)
+        void TARReachabilitySearch::print_trace(trace_t& stack)
         {
             std::cerr << "Trace:\n<trace>\n";
             
             if(_reducer != NULL)
-                _reducer->initFire(std::cerr);
+                _reducer->init_fire(std::cerr);
             
             for(auto& t : stack)
             {
@@ -435,12 +435,12 @@ namespace PetriEngine {
                 }
                 
                 if(_reducer != NULL)
-                    _reducer->extraConsume(std::cerr, tname);
+                    _reducer->extra_consume(std::cerr, tname);
                 
                 std::cerr << "\t</transition>\n";
                 
                 if(_reducer != NULL)
-                    _reducer->postFire(std::cerr, tname);
+                    _reducer->post_fire(std::cerr, tname);
                 
             }
             
@@ -452,7 +452,7 @@ namespace PetriEngine {
                                         bool printstats, bool printtrace)
         {
             // inhibitors are not supported yet
-            for(size_t t = 0; t < _net.numberOfTransitions(); ++t)
+            for(size_t t = 0; t < _net.number_of_transitions(); ++t)
             {
                 auto in = _net.preset(t);
                 for(; in.first != in.second; ++in.first)
@@ -467,13 +467,13 @@ namespace PetriEngine {
             
             // set up working area
             Structures::State state;
-            state.setMarking(_net.makeInitialMarking());
+            state.set_marking(_net.makeInitialMarking());
             
             // check initial marking
-            if(checkQueries(queries, results, state, true))
+            if(check_queries(queries, results, state, true))
             {
                 if(printstats) 
-                    printStats();
+                    print_stats();
                 return;
             }
             
@@ -483,18 +483,18 @@ namespace PetriEngine {
                 _traceset.clear();
                 if(results[i] == ResultPrinter::Unknown)
                 {
-                    PlaceUseVisitor visitor(_net.numberOfPlaces());
+                    PlaceUseVisitor visitor(_net.number_of_places());
                     queries[i]->visit(visitor);
                     ContainsVisitor<DeadlockCondition> dlvisitor;
                     queries[i]->visit(dlvisitor);
                     auto used = visitor.in_use();
                     if(dlvisitor.does_contain())
                     {
-                        for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
+                        for(size_t p = 0; p < _net.number_of_places(); ++p)
                             used[p] = true;
                     }
                     Solver solver(_net, state.marking(), queries[i].get(), used);
-                    bool res = tryReach(printtrace, solver);
+                    bool res = try_reach(printtrace, solver);
                     if(res)
                         results[i] = ResultPrinter::Satisfied;
                     else
@@ -507,11 +507,11 @@ namespace PetriEngine {
             }
 
             if(printstats) 
-                printStats();
+                print_stats();
         }
 
 
-        bool TARReachabilitySearch::checkQueries(  std::vector<std::shared_ptr<PQL::Condition > >& queries,
+        bool TARReachabilitySearch::check_queries(  std::vector<std::shared_ptr<PQL::Condition > >& queries,
                                                 std::vector<ResultPrinter::Result>& results,
                                                 Structures::State& state, bool usequeries)
         {
@@ -537,7 +537,7 @@ namespace PetriEngine {
             return alldone;
         }        
         
-        void TARReachabilitySearch::printStats()
+        void TARReachabilitySearch::print_stats()
         {
             std::cerr << "STEPS : " << _stepno << std::endl;
             std::cerr << "INTERPOLANT AUTOMATAS : " << _traceset.initial().size() << std::endl;

@@ -17,7 +17,7 @@
 
 #include "LTL/LTLToBuchi.h"
 #include "LTL/SuccessorGeneration/BuchiSuccessorGenerator.h"
-#include "PetriEngine/options.h"
+#include "options.h"
 
 #include <spot/twaalgos/translate.hh>
 #include <spot/tl/parse.hh>
@@ -81,44 +81,32 @@ namespace LTL {
 
     void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::LiteralExpr *element) {
         assert(false);
-        std::cerr << "LiteralExpr should not be visited by Spot serializer" << std::endl;
-        exit(1);
-        //make_atomic_prop(element->shared_from_this());
+        throw base_error(ErrorCode, "LiteralExpr should not be visited by Spot serializer");
     }
 
     void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::PlusExpr *element) {
         assert(false);
-        std::cerr << "PlusExpr should not be visited by Spot serializer" << std::endl;
-        exit(1);
-        //make_atomic_prop(element->shared_from_this());
+        throw base_error(ErrorCode, "PlusExpr should not be visited by Spot serializer");
     }
 
     void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::MultiplyExpr *element) {
         assert(false);
-        std::cerr << "MultiplyExpr should not be visited by Spot serializer" << std::endl;
-        exit(1);
-        //make_atomic_prop(element->shared_from_this());
+        throw base_error(ErrorCode, "MultiplyExpr should not be visited by Spot serializer");
     }
 
     void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::MinusExpr *element) {
         assert(false);
-        std::cerr << "MinusExpr should not be visited by Spot serializer" << std::endl;
-        exit(1);
-        //make_atomic_prop(element->shared_from_this());
+        throw base_error(ErrorCode, "MinusExpr should not be visited by Spot serializer");
     }
 
     void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::SubtractExpr *element) {
         assert(false);
-        std::cerr << "LiteralExpr should not be visited by Spot serializer" << std::endl;
-        exit(1);
-        //make_atomic_prop(element->shared_from_this());
+        throw base_error(ErrorCode, "LiteralExpr should not be visited by Spot serializer");
     }
 
     void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::IdentifierExpr *element) {
         assert(false);
-        std::cerr << "IdentifierExpr should not be visited by Spot serializer" << std::endl;
-        exit(1);
-        //make_atomic_prop(element->shared_from_this());
+        throw base_error(ErrorCode, "IdentifierExpr should not be visited by Spot serializer");
     }
 
     void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::ACondition *condition) {
@@ -139,10 +127,10 @@ namespace LTL {
             spotFormula = spotFormula.substr(2);
         }
         auto spot_formula = spot::parse_formula(spotFormula);
-        return std::make_pair(spot_formula, spotConverter.apInfo());
+        return std::make_pair(spot_formula, spotConverter.atomic_info());
     }
 
-    Structures::BuchiAutomaton makeBuchiAutomaton(const PetriEngine::PQL::Condition_ptr &query, const options_t &options) {
+    Structures::BuchiAutomaton make_buchi_automaton(const PetriEngine::PQL::Condition_ptr &query, const options_t &options) {
         auto [formula, apinfo] = to_spot_formula(query, options);
         formula = spot::formula::Not(formula);
         spot::translator translator;
@@ -151,13 +139,13 @@ namespace LTL {
         translator.set_type(spot::postprocessor::BA);
         spot::postprocessor::optimization_level level;
         switch(options.buchiOptimization) {
-            case BuchiOptimization::Low:
+            case options_t::BuchiOptimization::Low:
                 level = spot::postprocessor::Low;
                 break;
-            case BuchiOptimization::Medium:
+            case options_t::BuchiOptimization::Medium:
                 level = spot::postprocessor::Medium;
                 break;
-            case BuchiOptimization::High:
+            case options_t::BuchiOptimization::High:
                 level = spot::postprocessor::High;
                 break;
         }
@@ -167,15 +155,15 @@ namespace LTL {
         // bind PQL expressions to the atomic proposition IDs used by spot.
         // the resulting map can be indexed using variables mentioned on edges of the created Büchi automaton.
         for (const auto &info : apinfo) {
-            int varnum = automaton->register_ap(info.text);
+            int varnum = automaton->register_ap(info._text);
             ap_map[varnum] = info;
         }
 
         return Structures::BuchiAutomaton{automaton, ap_map};
     }
 
-    BuchiSuccessorGenerator makeBuchiSuccessorGenerator(const Condition_ptr &query, const options_t &options) {
-        return BuchiSuccessorGenerator{makeBuchiAutomaton(query, options)};
+    BuchiSuccessorGenerator make_buchi_successor_generator(const Condition_ptr &query, const options_t &options) {
+        return BuchiSuccessorGenerator{make_buchi_automaton(query, options)};
     }
 
 }

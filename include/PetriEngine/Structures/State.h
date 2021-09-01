@@ -43,7 +43,7 @@ namespace PetriEngine {
                 return _marking;
             }
 
-            void setMarking(MarkVal* m) {
+            void set_marking(MarkVal* m) {
                 _marking = m;
             }
             
@@ -80,15 +80,15 @@ namespace PetriEngine {
             }
             
             void print(const PetriNet& net, std::ostream &os = std::cout) {
-                for (uint32_t i = 0; i < net.numberOfPlaces(); i++) {
+                for (uint32_t i = 0; i < net.number_of_places(); i++) {
                     if(_marking[i])
                         os << net.placeNames()[i] << ": " << _marking[i] << std::endl;
                 }
                 os << std::endl;
             }
 
-            std::ostream &printShort(const PetriNet &net, std::ostream &os) {
-                for (uint32_t i = 0; i < net.numberOfPlaces(); i++) {
+            std::ostream &print_short(const PetriNet &net, std::ostream &os) {
+                for (uint32_t i = 0; i < net.number_of_places(); i++) {
                         os << _marking[i];
                 }
                 return os;

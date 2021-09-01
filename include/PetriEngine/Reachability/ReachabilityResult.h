@@ -63,19 +63,19 @@ namespace PetriEngine {
         
         class ResultPrinter : public AbstractHandler {
         protected:
-            PetriNetBuilder* builder;
-            options_t* options;
-            std::vector<std::string>& querynames;
-            Reducer* reducer;
+            PetriNetBuilder* _builder;
+            options_t* _options;
+            std::vector<std::string>& _querynames;
+            Reducer* _reducer;
         public:
-            const std::string techniques = "TECHNIQUES COLLATERAL_PROCESSING STRUCTURAL_REDUCTION QUERY_REDUCTION SAT_SMT ";
-            const std::string techniquesStateSpace = "TECHNIQUES EXPLICIT STATE_COMPRESSION";
+            const std::string _techniques = "TECHNIQUES COLLATERAL_PROCESSING STRUCTURAL_REDUCTION QUERY_REDUCTION SAT_SMT ";
+            const std::string _techniquesStateSpace = "TECHNIQUES EXPLICIT STATE_COMPRESSION";
             
             ResultPrinter(PetriNetBuilder* b, options_t* o, std::vector<std::string>& querynames) 
-            : builder(b), options(o), querynames(querynames), reducer(NULL)
+            : _builder(b), _options(o), _querynames(querynames), _reducer(NULL)
             {};
             
-            void setReducer(Reducer* r) { this->reducer = r; }
+            void set_reducer(Reducer* r) { this->_reducer = r; }
             
             std::pair<Result, bool> handle(
                 size_t index,
@@ -88,9 +88,9 @@ namespace PetriEngine {
                 int maxTokens = 0,                
                 Structures::StateSetInterface* stateset = nullptr, size_t lastmarking = 0, const MarkVal* initialMarking = nullptr) override;
             
-            std::string printTechniques();
+            std::string print_techniques();
             
-            void printTrace(Structures::StateSetInterface*, size_t lastmarking);
+            void print_trace(Structures::StateSetInterface*, size_t lastmarking);
             
         };
     } // Reachability

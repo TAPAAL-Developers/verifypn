@@ -56,7 +56,7 @@ namespace PetriEngine {
                 return no_lower() && no_upper();
             }
 
-            bool isSound() const {
+            bool is_sound() const {
                 return _lower <= _upper;
             }
 

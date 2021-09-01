@@ -4,25 +4,25 @@
 #include "FixedPointAlgorithm.h"
 #include "../DependencyGraph/Configuration.h"
 
-namespace Algorithm {
+namespace CTL::Algorithm {
 
 class LocalFPA : public FixedPointAlgorithm
 {
 
     // FixedPointAlgorithm interface
 public:
-    LocalFPA(PetriEngine::Reachability::Strategy type) : FixedPointAlgorithm(type)
+    LocalFPA(options_t::SearchStrategy type) : FixedPointAlgorithm(type)
     {
     }
     virtual ~LocalFPA (){}
     virtual bool search(DependencyGraph::BasicDependencyGraph &graph);
 
 protected:
-    DependencyGraph::BasicDependencyGraph *graph;
+    DependencyGraph::BasicDependencyGraph *_graph;
 
-    void finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
+    void final_assign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
     void explore(DependencyGraph::Configuration *c);
-    void addDependency(DependencyGraph::Edge *e,
+    void add_dependency(DependencyGraph::Edge *e,
                           DependencyGraph::Configuration *target);
 };
 }

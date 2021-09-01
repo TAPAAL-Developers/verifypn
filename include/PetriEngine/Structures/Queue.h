@@ -31,7 +31,7 @@ namespace PetriEngine {
             virtual bool pop(Structures::State& state) = 0;
             virtual void push(size_t id, PQL::DistanceContext&,
                 std::shared_ptr<PQL::Condition>& query) = 0;
-            size_t lastPopped()
+            size_t last_popped()
             {
                 return last;
             }

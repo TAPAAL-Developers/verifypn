@@ -50,9 +50,9 @@ namespace PetriEngine {
         NaiveBindingGenerator(const Colored::Transition& transition,
                 Colored::ColorTypeMap& colorTypes);
 
-        const Colored::BindingMap& nextBinding();
-        const Colored::BindingMap& currentBinding() const;
-        bool isInitial() const;
+        const Colored::BindingMap& next_binding();
+        const Colored::BindingMap& current_binding() const;
+        bool is_initial() const;
         Iterator begin();
         Iterator end();
     };
@@ -89,8 +89,8 @@ namespace PetriEngine {
         uint32_t _symmetric_vars_set = 0;
         
         bool eval() const;
-        bool assignSymmetricVars();
-        void generateCombinations(
+        bool assign_symmetric_vars();
+        void generate_combinations(
             uint32_t options,
             uint32_t samples,
             std::vector<std::vector<uint32_t>> &result,
@@ -104,9 +104,9 @@ namespace PetriEngine {
         
         FixpointBindingGenerator& operator= (const FixpointBindingGenerator& b) = default;
 
-        const Colored::BindingMap& nextBinding();
-        const Colored::BindingMap& currentBinding() const;
-        bool isInitial() const;
+        const Colored::BindingMap& next_binding();
+        const Colored::BindingMap& current_binding() const;
+        bool is_initial() const;
         Iterator begin();
         Iterator end();
     };    

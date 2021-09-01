@@ -35,7 +35,7 @@ namespace PetriEngine {
             _enabled = std::make_unique<bool[]>(net._ntransitions);
             _stubborn = std::make_unique<bool[]>(net._ntransitions);
             _dependency = std::make_unique<uint32_t[]>(net._ntransitions);
-            _places_seen = std::make_unique<uint8_t[]>(_net.numberOfPlaces());
+            _places_seen = std::make_unique<uint8_t[]>(_net.number_of_places());
             StubbornSet::reset();
             constructPrePost();
             constructDependency();
@@ -63,25 +63,25 @@ namespace PetriEngine {
 
         virtual void reset();
 
-        [[nodiscard]] const MarkVal *getParent() const {
+        [[nodiscard]] const MarkVal *get_parent() const {
             return _parent->marking();
         }
 
         uint32_t _current = 0;
 
-        void presetOf(uint32_t place, bool make_closure = false);
+        void preset_of(uint32_t place, bool make_closure = false);
 
-        void postsetOf(uint32_t place, bool make_closure = false);
+        void postset_of(uint32_t place, bool make_closure = false);
 
-        void postPresetOf(uint32_t t, bool make_closure = false);
+        void post_preset_of(uint32_t t, bool make_closure = false);
 
-        void inhibitorPostsetOf(uint32_t place);
+        void inhibitor_postset_of(uint32_t place);
 
-        bool seenPre(uint32_t place) const;
+        bool seen_pre(uint32_t place) const;
 
-        bool seenPost(uint32_t place) const;
+        bool seen_post(uint32_t place) const;
 
-        uint32_t leastDependentEnabled();
+        uint32_t least_dependent_enabled();
 
         uint32_t fired() {
             return _current;
@@ -162,7 +162,7 @@ namespace PetriEngine {
                         uint32_t next_finv = transitions()[tr + 1].inputs;
                         for (; linv < next_finv; linv++) {
                             if (invariants()[linv].direction > 0)
-                                inhibitorPostsetOf(invariants()[linv].place);
+                                inhibitor_postset_of(invariants()[linv].place);
                         }
                     }
                 } else {
@@ -191,8 +191,8 @@ namespace PetriEngine {
                     // in cand.
                     assert(cand != std::numeric_limits<uint32_t>::max());
                     if (!ok && cand != std::numeric_limits<uint32_t>::max()) {
-                        if (!inhib) presetOf(cand);
-                        else postsetOf(cand);
+                        if (!inhib) preset_of(cand);
+                        else postset_of(cand);
                     }
                 }
             }
@@ -219,7 +219,7 @@ namespace PetriEngine {
         void checkForInhibitor();
 
         void set_all_stubborn() {
-            memset(_stubborn.get(), true, _net.numberOfTransitions());
+            memset(_stubborn.get(), true, _net.number_of_transitions());
             _done = true;
         }
     };

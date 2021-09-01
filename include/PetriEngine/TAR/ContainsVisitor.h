@@ -111,7 +111,7 @@ namespace PetriEngine
         }
         
         template<typename K>
-        void handleNaryExpr(K element)
+        void handle_nary_expr(K element)
         {
             if(found_type(element)) return;
             for(auto& e : element->expressions())
@@ -123,12 +123,12 @@ namespace PetriEngine
         
         virtual void _accept(const PlusExpr* element) override
         { 
-            handleNaryExpr<decltype(element)>(element);
+            handle_nary_expr<decltype(element)>(element);
         }
 
         virtual void _accept(const MultiplyExpr* element) override
         { 
-            handleNaryExpr<decltype(element)>(element);
+            handle_nary_expr<decltype(element)>(element);
         }
         
         virtual void _accept(const MinusExpr* element) override
@@ -139,7 +139,7 @@ namespace PetriEngine
         
         virtual void _accept(const SubtractExpr* element) override
         { 
-            handleNaryExpr<decltype(element)>(element);
+            handle_nary_expr<decltype(element)>(element);
         }
 
         virtual void _accept(const DeadlockCondition* element) override

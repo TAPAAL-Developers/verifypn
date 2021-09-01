@@ -41,7 +41,7 @@ namespace LTL {
                 return;
             }
             _stubborn._track_changes = true;
-            memcpy(_stubborn._place_checkpoint.get(), _stubborn._places_seen.get(), _net.numberOfPlaces());
+            memcpy(_stubborn._place_checkpoint.get(), _stubborn._places_seen.get(), _net.number_of_places());
             _accept_conjunction(element);
             _stubborn._track_changes = false;
             assert(_stubborn._pending_stubborn.empty());
@@ -55,7 +55,7 @@ namespace LTL {
             assert(element->isNegated() == negated);
             std::vector<std::pair<uint32_t, bool>> cands; // Transition id, Preset
             for (auto &cons : *element) {
-                uint32_t tokens = _stubborn.getParent()[cons._place];
+                uint32_t tokens = _stubborn.get_parent()[cons._place];
 
                 if (cons._lower == cons._upper) {
                     //Compare is equality
@@ -92,7 +92,7 @@ namespace LTL {
                         continue;
                     }
                     // this constraint was a candidate previously, thus we are happy
-                    if ((pre && _stubborn.seenPre(cand)) || (!pre && _stubborn.seenPost(cand)))
+                    if ((pre && _stubborn.seen_pre(cand)) || (!pre && _stubborn.seen_post(cand)))
                         return;
                 }
             }
@@ -103,11 +103,11 @@ namespace LTL {
                 if (pre) {
                     //explore pre
                     assert(!(_stubborn._places_seen[cand] & PresetBad));
-                    _stubborn.presetOf(cand, false);
+                    _stubborn.preset_of(cand, false);
                 } else {
                     //explore post
                     assert(!(_stubborn._places_seen[cand] & PostsetBad));
-                    _stubborn.postsetOf(cand, false);
+                    _stubborn.postset_of(cand, false);
                 }
 
                 if (_stubborn._bad) {
@@ -146,7 +146,7 @@ namespace LTL {
         reset();
         _parent = state;
         _gen.prepare(state);
-        memset(_places_seen.get(), 0, sizeof(uint8_t) * _net.numberOfPlaces());
+        memset(_places_seen.get(), 0, sizeof(uint8_t) * _net.number_of_places());
         constructEnabled();
         if (_ordering.empty())
             return false;
@@ -159,12 +159,12 @@ namespace LTL {
         }
 
 
-        GuardInfo buchi_state = _state_guards[state->getBuchiState()];
+        GuardInfo buchi_state = _state_guards[state->get_buchi_state()];
 
         PQL::EvaluationContext evaluationContext{_parent->marking(), &_net};
 
         // Check if retarding is satisfied for condition 3.
-        _retarding_satisfied = _aut.guard_valid(evaluationContext, buchi_state.retarding.decision_diagram);
+        _retarding_satisfied = _aut.guard_valid(evaluationContext, buchi_state._retarding._decision_diagram);
         /*
         if (!_aut.guard_valid(evaluationContext, buchi_state.retarding.decision_diagram)) {
             set_all_stubborn();
@@ -173,7 +173,7 @@ namespace LTL {
         }*/
 
         // Calculate retarding subborn set to ensure S-INV.
-        auto negated_retarding = std::make_unique<NotCondition>(buchi_state.retarding.condition);
+        auto negated_retarding = std::make_unique<NotCondition>(buchi_state._retarding._condition);
         _retarding_stubborn_set.setQuery(negated_retarding.get());
         _retarding_stubborn_set.prepare(state);
 
@@ -181,8 +181,8 @@ namespace LTL {
         _nenabled = _ordering.size();
 
         // If a progressing formula satisfies the guard St=T is the only way to ensure NLG.
-        for (auto &q : buchi_state.progressing) {
-            if (_aut.guard_valid(evaluationContext, q.decision_diagram)) {
+        for (auto &q : buchi_state._progressing) {
+            if (_aut.guard_valid(evaluationContext, q._decision_diagram)) {
                 set_all_stubborn();
                 __print_debug();
                 return true;
@@ -190,12 +190,12 @@ namespace LTL {
         }
 
         //Interesting on each progressing formula gives NLG.
-        for (auto &q : buchi_state.progressing) {
+        for (auto &q : buchi_state._progressing) {
             EvalAndSetVisitor evalAndSetVisitor{evaluationContext};
-            q.condition->visit(evalAndSetVisitor);
+            q._condition->visit(evalAndSetVisitor);
 
             NondeterministicConjunctionVisitor interesting{*this};
-            q.condition->visit(interesting);
+            q._condition->visit(interesting);
             if (_done) return true;
             else {
                 assert(!_track_changes);
@@ -217,14 +217,14 @@ namespace LTL {
 
 
         /*//Check that S-INV is satisfied
-        if (has_shared_mark(_stubborn.get(), _retarding_stubborn_set.stubborn(), _net.numberOfTransitions())) {
-            memset(_stubborn.get(), true, sizeof(bool) * _net.numberOfTransitions());
+        if (has_shared_mark(_stubborn.get(), _retarding_stubborn_set.stubborn(), _net.number_of_transitions())) {
+            memset(_stubborn.get(), true, sizeof(bool) * _net.number_of_transitions());
             //return true;
         }*/
 
         // Ensure we have a key transition in accepting buchi states.
-        if (!_has_enabled_stubborn && buchi_state.is_accepting) {
-            for (uint32_t i = 0; i < _net.numberOfTransitions(); ++i) {
+        if (!_has_enabled_stubborn && buchi_state._is_accepting) {
+            for (uint32_t i = 0; i < _net.number_of_transitions(); ++i) {
                 if (!_stubborn[i] && _enabled[i]) {
                     addToStub(i);
                     _closure();
@@ -237,7 +237,7 @@ namespace LTL {
             }
         }
 
-        assert(!has_shared_mark(_stubborn.get(), _retarding_stubborn_set.stubborn(), _net.numberOfTransitions()));
+        assert(!has_shared_mark(_stubborn.get(), _retarding_stubborn_set.stubborn(), _net.number_of_transitions()));
 
         __print_debug();
 
@@ -263,13 +263,13 @@ namespace LTL {
 #ifndef NDEBUG
         return;
         std::cout << "Enabled: ";
-        for (int i = 0; i < _net.numberOfTransitions(); ++i) {
+        for (int i = 0; i < _net.number_of_transitions(); ++i) {
             if (_enabled[i]) {
                 std::cout << _net.transitionNames()[i] << ' ';
             }
         }
         std::cout << "\nStubborn: ";
-        for (int i = 0; i < _net.numberOfTransitions(); ++i) {
+        for (int i = 0; i < _net.number_of_transitions(); ++i) {
             if (_stubborn[i]) {
                 std::cout << _net.transitionNames()[i] << ' ';
             }
@@ -281,7 +281,7 @@ namespace LTL {
     void AutomatonStubbornSet::reset()
     {
         StubbornSet::reset();
-        memset(_place_checkpoint.get(), 0, _net.numberOfPlaces());
+        memset(_place_checkpoint.get(), 0, _net.number_of_places());
         _retarding_stubborn_set.reset();
         _has_enabled_stubborn = false;
         _bad = false;
@@ -313,13 +313,13 @@ namespace LTL {
         EvaluationContext ctx{_markbuf.marking(), &_net};
         if (_retarding_satisfied || !_enabled[t]) return true;
         else {
-            assert(_gen.checkPreset(t));
+            assert(_gen.check_preset(t));
             assert(dynamic_cast<const LTL::Structures::ProductState *>(_parent) != nullptr);
-            memcpy(_markbuf.marking(), (*_parent).marking(), _net.numberOfPlaces() * sizeof(MarkVal));
-            _gen.consumePreset(_markbuf, t);
-            _gen.producePostset(_markbuf, t);
+            memcpy(_markbuf.marking(), (*_parent).marking(), _net.number_of_places() * sizeof(MarkVal));
+            _gen.consume_preset(_markbuf, t);
+            _gen.produce_postset(_markbuf, t);
             return _aut.guard_valid(ctx,
-                                    _state_guards[static_cast<const LTL::Structures::ProductState *>(_parent)->getBuchiState()].retarding.decision_diagram);
+                                    _state_guards[static_cast<const LTL::Structures::ProductState *>(_parent)->get_buchi_state()]._retarding._decision_diagram);
         }
     }
 
@@ -328,7 +328,7 @@ namespace LTL {
         _bad = false;
         _pending_stubborn.clear();
         _unprocessed.clear();
-        memcpy(_places_seen.get(), _place_checkpoint.get(), _net.numberOfPlaces());
+        memcpy(_places_seen.get(), _place_checkpoint.get(), _net.number_of_places());
     }
 
     void AutomatonStubbornSet::_apply_pending()
@@ -343,7 +343,7 @@ namespace LTL {
 
     void AutomatonStubbornSet::set_all_stubborn()
     {
-        memset(_stubborn.get(), true, sizeof(bool) * _net.numberOfTransitions());
+        memset(_stubborn.get(), true, sizeof(bool) * _net.number_of_transitions());
         _done = true;
     }
 

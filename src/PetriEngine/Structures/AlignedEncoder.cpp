@@ -31,7 +31,7 @@ AlignedEncoder::~AlignedEncoder()
     _scratchpad.release();
 }
 
-uint32_t AlignedEncoder::tokenBytes(uint32_t ntokens) const
+uint32_t AlignedEncoder::token_bytes(uint32_t ntokens) const
 {
     uint32_t size = 0;
     if(ntokens < 256) size = 1;
@@ -40,7 +40,7 @@ uint32_t AlignedEncoder::tokenBytes(uint32_t ntokens) const
     return size;
 }
 
-uint32_t AlignedEncoder::writeBitVector(size_t offset, const uint32_t* data)
+uint32_t AlignedEncoder::write_bit_vector(size_t offset, const uint32_t* data)
 {
     for(size_t i = 0; i < _places; ++i)
     {
@@ -49,7 +49,7 @@ uint32_t AlignedEncoder::writeBitVector(size_t offset, const uint32_t* data)
     return offset + scratchpad_t::bytes(_places);
 }
 
-uint32_t AlignedEncoder::writeTwoBitVector(size_t offset, const uint32_t* data)
+uint32_t AlignedEncoder::write_two_bit_vector(size_t offset, const uint32_t* data)
 {
     for(size_t i = 0; i < _places; ++i)
     {
@@ -72,7 +72,7 @@ uint32_t AlignedEncoder::writeTwoBitVector(size_t offset, const uint32_t* data)
     return offset + scratchpad_t::bytes(_places*2);
 }
 
-uint32_t AlignedEncoder::readTwoBitVector(uint32_t* destination, const unsigned char* source, uint32_t offset)
+uint32_t AlignedEncoder::read_two_bit_vector(uint32_t* destination, const unsigned char* source, uint32_t offset)
 {
     scratchpad_t b = scratchpad_t((unsigned char*)&source[offset], _places*2);
     for(size_t i = 0; i < _places; ++i)
@@ -92,7 +92,7 @@ uint32_t AlignedEncoder::readTwoBitVector(uint32_t* destination, const unsigned 
 }
 
 template<typename T>
-uint32_t AlignedEncoder::writeTokens(size_t offset, const uint32_t* data)
+uint32_t AlignedEncoder::write_tokens(size_t offset, const uint32_t* data)
 {
     if(sizeof(T) == sizeof(uint32_t))
     {
@@ -110,7 +110,7 @@ uint32_t AlignedEncoder::writeTokens(size_t offset, const uint32_t* data)
 }
 
 template<typename T>
-uint32_t AlignedEncoder::readTokens(uint32_t* destination, const unsigned char* source, uint32_t offset)
+uint32_t AlignedEncoder::read_tokens(uint32_t* destination, const unsigned char* source, uint32_t offset)
 {
     for(size_t i = 0; i < _places; ++i)
     {
@@ -121,7 +121,7 @@ uint32_t AlignedEncoder::readTokens(uint32_t* destination, const unsigned char* 
 }
 
 template<typename T>
-uint32_t AlignedEncoder::writeTokenCounts(size_t offset, const uint32_t* data)
+uint32_t AlignedEncoder::write_token_counts(size_t offset, const uint32_t* data)
 {
     size_t cnt = 0;
 
@@ -138,7 +138,7 @@ uint32_t AlignedEncoder::writeTokenCounts(size_t offset, const uint32_t* data)
 }
 
 template<typename T>
-size_t AlignedEncoder::bitTokenCountsSize(const unsigned char* source, uint32_t offset) const
+size_t AlignedEncoder::bit_token_counts_size(const unsigned char* source, uint32_t offset) const
 {
     scratchpad_t b = scratchpad_t((unsigned char*)&source[offset], _places);
 
@@ -154,7 +154,7 @@ size_t AlignedEncoder::bitTokenCountsSize(const unsigned char* source, uint32_t 
 }
 
 template<typename T>
-uint32_t AlignedEncoder::readBitTokenCounts(uint32_t* destination, const unsigned char* source, uint32_t offset) const
+uint32_t AlignedEncoder::read_bit_token_counts(uint32_t* destination, const unsigned char* source, uint32_t offset) const
 {
     const unsigned char* ts = &source[offset + scratchpad_t::bytes(_places)];
     scratchpad_t b = scratchpad_t((unsigned char*)&source[offset], _places);
@@ -172,7 +172,7 @@ uint32_t AlignedEncoder::readBitTokenCounts(uint32_t* destination, const unsigne
 }
 
 template<typename T>
-size_t AlignedEncoder::placeTokenCountsSize(const unsigned char* source, uint32_t offset) const
+size_t AlignedEncoder::place_token_counts_size(const unsigned char* source, uint32_t offset) const
 {
     size_t size;
     switch(_psize)
@@ -195,7 +195,7 @@ size_t AlignedEncoder::placeTokenCountsSize(const unsigned char* source, uint32_
 }
 
 template<typename T>
-uint32_t AlignedEncoder::readPlaceTokenCounts(uint32_t* destination, const unsigned char* source, uint32_t offset) const
+uint32_t AlignedEncoder::read_place_token_counts(uint32_t* destination, const unsigned char* source, uint32_t offset) const
 {
     size_t size;
     switch(_psize)
@@ -240,7 +240,7 @@ uint32_t AlignedEncoder::readPlaceTokenCounts(uint32_t* destination, const unsig
     return offset + size;
 }
 
-uint32_t AlignedEncoder::writePlaces(size_t offset, const uint32_t* data)
+uint32_t AlignedEncoder::write_places(size_t offset, const uint32_t* data)
 {
     size_t cnt = 0;
     uint16_t* dest16 = (uint16_t*)(&_scratchpad.raw()[offset]);
@@ -285,7 +285,7 @@ uint32_t AlignedEncoder::writePlaces(size_t offset, const uint32_t* data)
     return offset + _psize + cnt*_psize; 
 }
 
-uint32_t AlignedEncoder::readPlaces(uint32_t* destination, const unsigned char* source, uint32_t offset, uint32_t value)
+uint32_t AlignedEncoder::read_places(uint32_t* destination, const unsigned char* source, uint32_t offset, uint32_t value)
 {
     size_t size;
     switch(_psize)
@@ -328,7 +328,7 @@ uint32_t AlignedEncoder::readPlaces(uint32_t* destination, const unsigned char* 
     return offset + _psize*size;
 }
 
-uint32_t AlignedEncoder::readBitVector(uint32_t* destination, const unsigned char* source, uint32_t offset, uint32_t value)
+uint32_t AlignedEncoder::read_bit_vector(uint32_t* destination, const unsigned char* source, uint32_t offset, uint32_t value)
 {
     scratchpad_t b = scratchpad_t((unsigned char*)&source[offset], _places);
     for(uint32_t i = 0; i < _places; ++i)
@@ -345,7 +345,7 @@ uint32_t AlignedEncoder::readBitVector(uint32_t* destination, const unsigned cha
     return offset + b.size();
 }
 
-unsigned char AlignedEncoder::getType(uint32_t sum, uint32_t pwt, bool same, uint32_t val) const
+unsigned char AlignedEncoder::get_type(uint32_t sum, uint32_t pwt, bool same, uint32_t val) const
 {
     if(pwt == 0) return 0;
     if(same && val <= SAMEBOUND)
@@ -364,7 +364,7 @@ unsigned char AlignedEncoder::getType(uint32_t sum, uint32_t pwt, bool same, uin
     }
     else
     {
-        size_t tsize = tokenBytes(val);
+        size_t tsize = token_bytes(val);
         size_t bvsize = scratchpad_t::bytes(_places*2);
         size_t indirect = _psize+pwt*(_psize+tsize);   
         size_t bvindirect = scratchpad_t::bytes(_places)+pwt*tsize;
@@ -465,17 +465,17 @@ size_t AlignedEncoder::size(const uchar* s) const
         case DBOUND+4:
             return 1 + (sizeof(uint32_t)*_places);
         case DBOUND+5:
-            return placeTokenCountsSize<unsigned char>((unsigned char*)s, 1); 
+            return place_token_counts_size<unsigned char>((unsigned char*)s, 1); 
         case DBOUND+6:
-            return placeTokenCountsSize<uint16_t>((unsigned char*)s, 1); 
+            return place_token_counts_size<uint16_t>((unsigned char*)s, 1); 
         case DBOUND+7:
-            return placeTokenCountsSize<uint32_t>((unsigned char*)s, 1); 
+            return place_token_counts_size<uint32_t>((unsigned char*)s, 1); 
         case DBOUND+8:
-            return bitTokenCountsSize<unsigned char>((unsigned char*)s, 1);
+            return bit_token_counts_size<unsigned char>((unsigned char*)s, 1);
         case DBOUND+9:
-            return bitTokenCountsSize<uint16_t>((unsigned char*)s, 1);
+            return bit_token_counts_size<uint16_t>((unsigned char*)s, 1);
         case DBOUND+10:
-            return bitTokenCountsSize<uint32_t>((unsigned char*)s, 1);
+            return bit_token_counts_size<uint32_t>((unsigned char*)s, 1);
         default:
             assert(false);
             return std::numeric_limits<size_t>::infinity();
@@ -488,52 +488,52 @@ size_t AlignedEncoder::encode(const uint32_t* d, unsigned char type)
     _scratchpad.raw()[0] = type;
     if(type <= SAMEBOUND)
     {
-        return writeBitVector(1, d);
+        return write_bit_vector(1, d);
     }
     if(type <= DBOUND)
     {
-        return writePlaces(1, d);
+        return write_places(1, d);
     }
     
     switch(type)
     {
         case DBOUND+1:
-            return writeTwoBitVector(1,d);
+            return write_two_bit_vector(1,d);
         case DBOUND+2:
-            return writeTokens<unsigned char>(1, d);           
+            return write_tokens<unsigned char>(1, d);           
         case DBOUND+3:
-            return writeTokens<uint16_t>(1, d);
+            return write_tokens<uint16_t>(1, d);
         case DBOUND+4:
-            return writeTokens<uint32_t>(1, d); 
+            return write_tokens<uint32_t>(1, d); 
         case DBOUND+5:
             {
-                size_t size = writePlaces(1, d);
-                return writeTokenCounts<unsigned char>(size, d);
+                size_t size = write_places(1, d);
+                return write_token_counts<unsigned char>(size, d);
             }
         case DBOUND+6:
             {
-                size_t size = writePlaces(1, d);
-                return writeTokenCounts<uint16_t>(size, d);
+                size_t size = write_places(1, d);
+                return write_token_counts<uint16_t>(size, d);
             }
         case DBOUND+7:
             {
-                size_t size = writePlaces(1, d);
-                return writeTokenCounts<uint32_t>(size, d);
+                size_t size = write_places(1, d);
+                return write_token_counts<uint32_t>(size, d);
             }           
         case DBOUND+8:
             {
-                size_t size = writeBitVector(1, d);
-                return writeTokenCounts<unsigned char>(size, d);
+                size_t size = write_bit_vector(1, d);
+                return write_token_counts<unsigned char>(size, d);
             }
         case DBOUND+9:
             {
-                size_t size = writeBitVector(1, d);
-                return writeTokenCounts<uint16_t>(size, d);
+                size_t size = write_bit_vector(1, d);
+                return write_token_counts<uint16_t>(size, d);
             }
         case DBOUND+10:
             {
-                size_t size = writeBitVector(1, d);
-                return writeTokenCounts<uint32_t>(size, d);
+                size_t size = write_bit_vector(1, d);
+                return write_token_counts<uint32_t>(size, d);
             }
         default:
             assert(false);
@@ -548,46 +548,46 @@ void AlignedEncoder::decode(uint32_t* d, const unsigned char* s)
     unsigned char type = s[0];
     if(type <= SAMEBOUND)
     {
-        readBitVector(d, s, 1, type);
+        read_bit_vector(d, s, 1, type);
         return;
     }
     if(type <= DBOUND)
     {
-        readPlaces(d, s, 1, type - SAMEBOUND);
+        read_places(d, s, 1, type - SAMEBOUND);
         return;
     }
     
     switch(type)
     {
         case DBOUND+1:
-            readTwoBitVector(d,s,1);
+            read_two_bit_vector(d,s,1);
             return;
         case DBOUND+2:
-            readTokens<unsigned char>(d,s,1);
+            read_tokens<unsigned char>(d,s,1);
             return;
         case DBOUND+3:
-            readTokens<uint16_t>(d,s,1);
+            read_tokens<uint16_t>(d,s,1);
             return;
         case DBOUND+4:
-            readTokens<uint32_t>(d,s,1);
+            read_tokens<uint32_t>(d,s,1);
             return;
         case DBOUND+5:
-            readPlaceTokenCounts<unsigned char>(d, s, 1); 
+            read_place_token_counts<unsigned char>(d, s, 1); 
             return;
         case DBOUND+6:
-            readPlaceTokenCounts<uint16_t>(d, s, 1); 
+            read_place_token_counts<uint16_t>(d, s, 1); 
             return;
         case DBOUND+7:
-            readPlaceTokenCounts<uint32_t>(d, s, 1); 
+            read_place_token_counts<uint32_t>(d, s, 1); 
             return;
         case DBOUND+8:
-            readBitTokenCounts<unsigned char>(d, s, 1);
+            read_bit_token_counts<unsigned char>(d, s, 1);
             return;
         case DBOUND+9:
-            readBitTokenCounts<uint16_t>(d, s, 1);
+            read_bit_token_counts<uint16_t>(d, s, 1);
             return;
         case DBOUND+10:
-            readBitTokenCounts<uint32_t>(d, s, 1);
+            read_bit_token_counts<uint32_t>(d, s, 1);
             return;
         default:
             assert(false);

@@ -33,11 +33,11 @@ namespace LTL {
         : PetriEngine::StubbornSet(net), _retarding_stubborn_set(net,false),
             _state_guards(std::move(GuardInfo::from_automaton(aut))),
             _aut(aut),
-            _place_checkpoint(new bool[net.numberOfPlaces()]),
+            _place_checkpoint(new bool[net.number_of_places()]),
             _gen(_net)
         {
-            _markbuf.setMarking(net.makeInitialMarking());
-            _retarding_stubborn_set.setInterestingVisitor<PetriEngine::AutomatonInterestingTransitionVisitor>();
+            _markbuf.set_marking(net.makeInitialMarking());
+            _retarding_stubborn_set.set_interesting_visitor<PetriEngine::AutomatonInterestingTransitionVisitor>();
         }
 
         bool prepare(const PetriEngine::Structures::State *marking) override {

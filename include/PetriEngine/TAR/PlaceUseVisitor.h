@@ -55,7 +55,7 @@ namespace PQL {
         virtual void _accept(const EUCondition* el);
         virtual void _accept(const AUCondition* el);
     private:
-        void visitCommutativeExpr(const CommutativeExpr* element);        
+        void visit_commutative_expr(const CommutativeExpr* element);        
     };
 }
 }

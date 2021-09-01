@@ -5,14 +5,10 @@ add_subdirectory(LTL)
 add_subdirectory(PetriParse)
 add_subdirectory(PetriEngine)
 
-add_executable(verifypn-${ARCH_TYPE} VerifyPN.cpp)
+add_executable(verifypn-${ARCH_TYPE} VerifyPN.cpp options.cpp utils.cpp)
 add_dependencies(verifypn-${ARCH_TYPE} glpk-ext spot-ext)
 
 target_link_libraries(verifypn-${ARCH_TYPE} PRIVATE CTL LTL PetriEngine PetriParse)
-
-# add_executable(parse-benchmark-asctl ParseOnly.cpp)
-
- #target_link_libraries(parse-benchmark-asctl PetriEngine PetriParse)
 
 if (VERIFYPN_MC_Simplification)
     target_link_libraries(verifypn-${ARCH_TYPE} PUBLIC pthread)

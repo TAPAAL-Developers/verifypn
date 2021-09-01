@@ -52,19 +52,19 @@ namespace PetriEngine {
                 bool printstats, bool printtrace);
         private:
 
-            void printTrace(trace_t& stack);
-            void nextEdge(AntiChain<uint32_t, size_t>& checked, state_t& state, trace_t& waiting, std::set<size_t>& nextinter);
-            bool tryReach(  bool printtrace, Solver& solver);
-            std::pair<bool,bool> runTAR(    bool printtrace, Solver& solver, std::vector<bool>& use_trans);
-            bool popDone(trace_t& waiting, size_t& stepno);
-            bool doStep(state_t& state, std::set<size_t>& nextinter);
-            void addNonChanging(state_t& state, std::set<size_t>& maximal, std::set<size_t>& nextinter);
+            void print_trace(trace_t& stack);
+            void next_edge(AntiChain<uint32_t, size_t>& checked, state_t& state, trace_t& waiting, std::set<size_t>& nextinter);
+            bool try_reach(  bool printtrace, Solver& solver);
+            std::pair<bool,bool> run_TAR(    bool printtrace, Solver& solver, std::vector<bool>& use_trans);
+            bool pop_done(trace_t& waiting, size_t& stepno);
+            bool do_step(state_t& state, std::set<size_t>& nextinter);
+            void add_non_changing(state_t& state, std::set<size_t>& maximal, std::set<size_t>& nextinter);
             bool validate(const std::vector<size_t>& transitions);
 
-            void handleInvalidTrace(trace_t& waiting, int nvalid);
-            std::pair<int,bool>  isValidTrace(trace_t& trace, Structures::State& initial, const std::vector<bool>&, PQL::Condition* query);
-            void printStats();
-            bool checkQueries(  std::vector<std::shared_ptr<PQL::Condition > >&,
+            void handle_invalid_trace(trace_t& waiting, int nvalid);
+            std::pair<int,bool>  is_valid_trace(trace_t& trace, Structures::State& initial, const std::vector<bool>&, PQL::Condition* query);
+            void print_stats();
+            bool check_queries(  std::vector<std::shared_ptr<PQL::Condition > >&,
                                 std::vector<ResultPrinter::Result>&,
                                 Structures::State&, bool);
             

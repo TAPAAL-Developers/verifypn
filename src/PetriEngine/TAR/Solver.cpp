@@ -28,26 +28,26 @@ namespace PetriEngine {
         , _gen(_net)
 #endif
         {
-            _dirty.resize(_net.numberOfPlaces());
-            _m = std::make_unique<int64_t[]>(_net.numberOfPlaces());
-            _failm = std::make_unique<int64_t[]>(_net.numberOfPlaces());
-            _mark = std::make_unique<MarkVal[]>(_net.numberOfPlaces());    
-            _use_count = std::make_unique<uint64_t[]>(_net.numberOfPlaces());
-            for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
+            _dirty.resize(_net.number_of_places());
+            _m = std::make_unique<int64_t[]>(_net.number_of_places());
+            _failm = std::make_unique<int64_t[]>(_net.number_of_places());
+            _mark = std::make_unique<MarkVal[]>(_net.number_of_places());    
+            _use_count = std::make_unique<uint64_t[]>(_net.number_of_places());
+            for(size_t p = 0; p < _net.number_of_places(); ++p)
                 if(inq[p])
                     ++_use_count[p];
-            for(size_t t = 0; t < _net.numberOfTransitions(); ++t)
+            for(size_t t = 0; t < _net.number_of_transitions(); ++t)
             {
                 auto [it, end] = _net.preset(t);
                 for(; it != end; ++it)
                 {
-                    _use_count[it->place] += _net.numberOfTransitions();
+                    _use_count[it->place] += _net.number_of_transitions();
                 }
             }
             
             // make total order
             /*uint64_t mn = std::numeric_limits<decltype(mn)>::max();
-            for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
+            for(size_t p = 0; p < _net.number_of_places(); ++p)
             {
                 mn = std::min(mn, _use_count[p]);
             }
@@ -57,7 +57,7 @@ namespace PetriEngine {
                 changed = false;
                 uint64_t next = std::numeric_limits<decltype(next)>::max();
                 bool found = false;
-                for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
+                for(size_t p = 0; p < _net.number_of_places(); ++p)
                 {
                     if(_use_count[p] > mn)
                     {
@@ -80,7 +80,7 @@ namespace PetriEngine {
             }*/
         }
 
-        Solver::interpolant_t Solver::findFree(trace_t& trace)
+        Solver::interpolant_t Solver::find_free(trace_t& trace)
         {
             assert(trace.back().get_edge_cnt() == 0);
             for(int64_t step = ((int64_t)trace.size())-2; step >= 1; --step)
@@ -130,7 +130,7 @@ namespace PetriEngine {
                             std::cerr << std::endl;
                             std::cerr << "AFTER QUERY" << std::endl;
                             inter.back().first.print(std::cerr) << std::endl;*/
-                            if(!ctx.satisfied() && !ctx.constraint().is_false(_net.numberOfPlaces()))
+                            if(!ctx.satisfied() && !ctx.constraint().is_false(_net.number_of_places()))
                             {
                                 
                                 /*std::cerr << "\n\nBETTER\n";
@@ -258,9 +258,9 @@ namespace PetriEngine {
             return {};
         }
         
-        int64_t Solver::findFailure(trace_t& trace, bool to_end)
+        int64_t Solver::find_failure(trace_t& trace, bool to_end)
         {
-            for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
+            for(size_t p = 0; p < _net.number_of_places(); ++p)
             {
                 _m[p] = _initial[p];
                 _mark[p] = _m[p];
@@ -278,7 +278,7 @@ namespace PetriEngine {
                     _query->toString(std::cerr);
                     std::cerr << std::endl;
 #endif
-                    for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
+                    for(size_t p = 0; p < _net.number_of_places(); ++p)
                     {
                         if(_m[p] < 0)
                         {
@@ -294,7 +294,7 @@ namespace PetriEngine {
 #ifndef NDEBUG 
                         if(first_fail == std::numeric_limits<decltype(first_fail)>::max())
                         {
-                            for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
+                            for(size_t p = 0; p < _net.number_of_places(); ++p)
                             {
                                 _mark[p] = _initial[p];
                             }
@@ -362,7 +362,7 @@ namespace PetriEngine {
                     --t;
                     auto pre = _net.preset(t);
 /*                    std::cerr << "F" << fail << " (T" << t << ") " << " : ";
-                    for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
+                    for(size_t p = 0; p < _net.number_of_places(); ++p)
                     {
                         if(_m[p])
                             std::cerr << "P" << p << "<" << _m[p] << ">,";
@@ -375,7 +375,7 @@ namespace PetriEngine {
                         {
                             if(fail < first_fail/* || _use_count[pre.first->place] > _use_count[old_place]*/)
                             {
-                                std::copy(_m.get(), _m.get() + _net.numberOfPlaces(), _failm.get());
+                                std::copy(_m.get(), _m.get() + _net.number_of_places(), _failm.get());
                                 first_fail = fail;
 //                                std::cerr << "FAIL " << fail << " : T" << t << std::endl;
                             }
@@ -402,7 +402,7 @@ namespace PetriEngine {
             return -1;
         }
         
-        bool Solver::computeTerminal(state_t& end, inter_t& last)
+        bool Solver::compute_terminal(state_t& end, inter_t& last)
         {
             last.second = end.get_edge_cnt();
             if(end.get_edge_cnt() == 0)
@@ -453,7 +453,7 @@ namespace PetriEngine {
             return true;
         }
 
-        bool Solver::computeHoare(trace_t& trace, interpolant_t& ranges, int64_t fail)
+        bool Solver::compute_hoare(trace_t& trace, interpolant_t& ranges, int64_t fail)
         {
             for(; fail >= 0; --fail)
             {
@@ -549,11 +549,11 @@ namespace PetriEngine {
         {
             std::fill(_dirty.begin(), _dirty.end(), false);
 //            std::cerr << "SOLVE! " << (++cnt) << std::endl;
-            auto back_inter = findFree(trace);
+            auto back_inter = find_free(trace);
             if(back_inter.size() > 0)
-                interpolants.addTrace(back_inter);
+                interpolants.add_trace(back_inter);
 
-            auto fail = findFailure(trace, true);
+            auto fail = find_failure(trace, true);
             interpolant_t ranges;
             if(fail == std::numeric_limits<decltype(fail)>::max())
             {
@@ -561,25 +561,25 @@ namespace PetriEngine {
                 return true;
             }
             ranges.resize(fail+1);
-            bool ok = computeTerminal(trace[fail], ranges.back());
+            bool ok = compute_terminal(trace[fail], ranges.back());
             if(ok)
             {
-                if(computeHoare(trace, ranges, fail-1))
-                    interpolants.addTrace(ranges);
+                if(compute_hoare(trace, ranges, fail-1))
+                    interpolants.add_trace(ranges);
             }
             do {
-                fail = findFailure(trace, true);
+                fail = find_failure(trace, true);
                 assert(fail != std::numeric_limits<decltype(fail)>::max());
                 ranges.clear();
                 ranges.resize(fail+1);
                 if(!ok)
                     break;
-                ok = computeTerminal(trace[fail], ranges.back());
+                ok = compute_terminal(trace[fail], ranges.back());
                 if(ok)
                 {
-                    if(computeHoare(trace, ranges, fail-1))
+                    if(compute_hoare(trace, ranges, fail-1))
                     {
-                        interpolants.addTrace(ranges);                        
+                        interpolants.add_trace(ranges);                        
                         if(fail != (int)(trace.size() - 1))
                             break;
                     }
@@ -595,13 +595,13 @@ namespace PetriEngine {
                 else
                 {
                     NXT:
-                    fail = findFailure(trace, false);
+                    fail = find_failure(trace, false);
                     ranges.clear();
                     ranges.resize(fail+1);
                     std::fill(_dirty.begin(), _dirty.end(), false);
-                    computeTerminal(trace[fail], ranges.back());
-                    computeHoare(trace, ranges, fail-1);
-                    interpolants.addTrace(ranges);
+                    compute_terminal(trace[fail], ranges.back());
+                    compute_hoare(trace, ranges, fail-1);
+                    interpolants.add_trace(ranges);
                     break;
                 }
             } while(true);

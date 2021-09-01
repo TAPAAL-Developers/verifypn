@@ -25,18 +25,18 @@
 namespace LTL {
     class RandomHeuristic : public Heuristic {
     public:
-        explicit RandomHeuristic(uint32_t seed = 0) : g(seed == 0 ? rd() : seed) {}
+        explicit RandomHeuristic(uint32_t seed = 0) : _g(seed == 0 ? _rd() : seed) {}
 
         uint32_t eval(const LTL::Structures::ProductState &, uint32_t) override {
-            return g();
+            return _g();
         }
 
         std::ostream &output(std::ostream &os) {
             return os << "RANDOM_HEUR";
         }
     private:
-        std::random_device rd;
-        std::mt19937 g;
+        std::random_device _rd;
+        std::mt19937 _g;
     };
 }
 

@@ -34,7 +34,7 @@ namespace LTL {
 
         }
 
-        virtual bool generateAll(const LTL::Structures::ProductState *parent)
+        virtual bool generate_all(const LTL::Structures::ProductState *parent)
         {
             return false;
         }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   TARAutomata.h
  * Author: petko
  *
@@ -29,12 +29,12 @@ namespace PetriEngine {
 
         struct AutomataEdge
         {
-            size_t edge;
-            std::vector<size_t> to;
+            size_t _edge;
+            std::vector<size_t> _to;
 
             bool operator == (const AutomataEdge& other) const
             {
-                return edge == other.edge;
+                return _edge == other._edge;
             }
 
             bool operator != (const AutomataEdge& other) const
@@ -45,89 +45,89 @@ namespace PetriEngine {
 
             bool operator < ( const AutomataEdge& other) const
             {
-                return edge < other.edge;
+                return _edge < other._edge;
             };
 
             AutomataEdge(size_t e)
-                : edge(e) {};
+                : _edge(e) {};
 
             AutomataEdge(const AutomataEdge& other) = default;
             AutomataEdge(AutomataEdge&&) = default;
             AutomataEdge& operator=(const AutomataEdge& other) = default;
             AutomataEdge& operator=(AutomataEdge&& other) = default;
-            
+
             bool has_to(size_t i)
             {
-                if(to.size() > 0 && to[0] == 0) return true;
-                auto lb = std::lower_bound(to.begin(), to.end(), i);
-                return lb != to.end() && *lb == i;
+                if(_to.size() > 0 && _to[0] == 0) return true;
+                auto lb = std::lower_bound(_to.begin(), _to.end(), i);
+                return lb != _to.end() && *lb == i;
             }
 
             bool add(size_t i)
             {
-                if(to.size() > 0 && to[0] == 0) return false;
-                if(i == 0) { to.clear(); to.push_back(0); return true; }
+                if(_to.size() > 0 && _to[0] == 0) return false;
+                if(i == 0) { _to.clear(); _to.push_back(0); return true; }
 
-                auto lb = std::lower_bound(to.begin(), to.end(), i);
-                if(lb != to.end() && *lb == i)
+                auto lb = std::lower_bound(_to.begin(), _to.end(), i);
+                if(lb != _to.end() && *lb == i)
                 {
                     return false;
                 }
                 else
                 {
-                    to.insert(lb, i);
+                    _to.insert(lb, i);
                     return true;
                 }
             }
 
             bool remove(size_t i)
             {
-                auto lb = std::lower_bound(to.begin(), to.end(), i);
-                if(lb == to.end() || *lb != i)
+                auto lb = std::lower_bound(_to.begin(), _to.end(), i);
+                if(lb == _to.end() || *lb != i)
                 {
                     return false;
                 }
                 else
                 {
-                    to.erase(lb);
+                    _to.erase(lb);
                     return true;
                 }
             }
-            
+
             std::ostream& operator<<(std::ostream& os) const
             {
-                os << edge << " ==> ";
-                for(size_t i : to) os << i << ", ";
+                os << _edge << " ==> ";
+                for(size_t i : _to) os << i << ", ";
                 return os;
             }
-        };        
+        };
         class TraceSet;
         struct AutomataState
         {
         private:
-            std::vector<AutomataEdge> edges;
-            bool accept = false;
-            std::vector<size_t> simulates;
-            std::vector<size_t> simulators;
+            std::vector<AutomataEdge> _edges;
+            bool _accept = false;
+            std::vector<size_t> _simulates;
+            std::vector<size_t> _simulators;
             friend class TraceSet;
         public:
-            prvector_t interpolant;
-            AutomataState(prvector_t interpol) : interpolant(interpol) {};
+            prvector_t _interpolant;
+            AutomataState(prvector_t interpol) : _interpolant(interpol) {};
             inline bool is_accepting() const
             {
-                return accept;
+                return _accept;
             }
 
             inline void set_accepting(bool val = true)
             {
-                accept = val;
+                _accept = val;
             }
 
             inline bool has_edge(const size_t& e, size_t to)
             {
                 AutomataEdge edge(e);
-                auto lb = std::lower_bound(edges.begin(), edges.end(), edge);
-                if(lb == edges.end() || *lb != edge)
+                auto lb = std::lower_bound(_edges.begin(), _edges.end(), edge);
+                if(lb == _edges.end() || *lb != edge)
                 {
                     return false;
                 }
@@ -137,67 +137,67 @@ namespace PetriEngine {
             inline bool has_any_edge(size_t prod, const size_t& e)
             {
                 AutomataEdge edge(e);
-                auto lb = std::lower_bound(edges.begin(), edges.end(), edge);
-                if(lb == edges.end() || *lb != edge)
+                auto lb = std::lower_bound(_edges.begin(), _edges.end(), edge);
+                if(lb == _edges.end() || *lb != edge)
                 {
                     return false;
                 }
-                return lb->to.size() > 0;
+                return lb->_to.size() > 0;
             }
 
             inline bool add_edge(const size_t& e, size_t to)
             {
                 AutomataEdge edge(e);
-                auto lb = std::lower_bound(edges.begin(), edges.end(), edge);
+                auto lb = std::lower_bound(_edges.begin(), _edges.end(), edge);
 #ifndef NDEBUG
                 bool isnew = false;
 #endif
-                if(lb == edges.end() || *lb != edge)
+                if(lb == _edges.end() || *lb != edge)
                 {
-                    assert(lb == edges.end() || *lb != edge);
-                    lb = edges.insert(lb, edge);
+                    assert(lb == _edges.end() || *lb != edge);
+                    lb = _edges.insert(lb, edge);
 #ifndef NDEBUG
                     isnew = true;
 #endif
                 }
                 assert(*lb == edge);
-                assert(is_sorted(edges.begin(), edges.end()));
+                assert(is_sorted(_edges.begin(), _edges.end()));
                 bool res = lb->add(to);
                 assert(!isnew || res);
-                assert(lb->to.size() >= 0);
+                assert(lb->_to.size() >= 0);
                 return res;
             }
 
             inline bool remove_edge(size_t e)
             {
                 AutomataEdge edge(e);
-                auto lb = std::lower_bound(edges.begin(), edges.end(), edge);
-                if(lb == edges.end() || *lb != edge)
+                auto lb = std::lower_bound(_edges.begin(), _edges.end(), edge);
+                if(lb == _edges.end() || *lb != edge)
                     return false;
-                edges.erase(lb);
+                _edges.erase(lb);
                 return true;
             }
-            
+
             inline bool remove_edge(size_t e, size_t to)
             {
                 AutomataEdge edge(e);
-                auto lb = std::lower_bound(edges.begin(), edges.end(), edge);
-                if(lb == edges.end() || *lb != edge)
+                auto lb = std::lower_bound(_edges.begin(), _edges.end(), edge);
+                if(lb == _edges.end() || *lb != edge)
                 {
-                    assert(lb == edges.end() || *lb != edge);
-                    assert(is_sorted(edges.begin(), edges.end()));
+                    assert(lb == _edges.end() || *lb != edge);
+                    assert(is_sorted(_edges.begin(), _edges.end()));
                     return false;
                 }
                 assert(*lb == edge);
-                assert(is_sorted(edges.begin(), edges.end()));
+                assert(is_sorted(_edges.begin(), _edges.end()));
                 bool removed = lb->remove(to);
-                if(removed && lb->to.size() == 0)
+                if(removed && lb->_to.size() == 0)
                 {
-                    edges.erase(lb);
+                    _edges.erase(lb);
                 }
                 else
                 {
-                    assert(lb->to.size() >= 0);
+                    assert(lb->_to.size() >= 0);
                 }
                 return removed;
             }
@@ -205,36 +205,36 @@ namespace PetriEngine {
             inline auto first_edge(size_t& e) const
             {
                 AutomataEdge edge(e);
-                auto lb = std::lower_bound(edges.begin(), edges.end(), edge);        
+                auto lb = std::lower_bound(_edges.begin(), _edges.end(), edge);
                 return lb;
             }
 
             inline auto last_edge() const
             {
-                return edges.end();
+                return _edges.end();
             }
 
             inline auto& get_edges() const
             {
-                return edges;
+                return _edges;
             }
-            
+
             std::ostream& print(std::ostream& os) const {
                 os << "\t PREDICATE\n";
-                interpolant.print(os);
+                _interpolant.print(os);
                 os << "\n";
                 os << "\tSIMS [ ";
-                for(auto s : simulates)
+                for(auto s : _simulates)
                     os << s << ", ";
                 os << "]\n\tSIMED [";
-                for(auto s : simulators)
+                for(auto s : _simulators)
                     os << s << ", ";
                 os << "]\n";
                 os << "\t EDGES\n";
-                for(auto& e : edges)
+                for(auto& e : _edges)
                 {
-                    os << "\t\t<" << (e.edge ? std::to_string(e.edge-1) : "Q") << "> --> [";
-                    for(auto t : e.to)
+                    os << "\t\t<" << (e._edge ? std::to_string(e._edge-1) : "Q") << "> --> [";
+                    for(auto t : e._to)
                         os << t << ", ";
                     os << "]\n";
                 }
@@ -243,21 +243,21 @@ namespace PetriEngine {
         };
 
 
-        struct state_t 
+        class state_t
         {
 
         private:
-            size_t offset = 0;
-            size_t size = std::numeric_limits<size_t>::max();
-            size_t edgecnt = 0; 
-            std::set<size_t> interpolant;
+            size_t _offset = 0;
+            size_t _size = std::numeric_limits<size_t>::max();
+            size_t _edgecnt = 0;
+            std::set<size_t> _interpolant;
         public:
             bool operator == (const state_t& other)
             {
 //                if((get_edge_cnt() == 0) != (other.get_edge_cnt() == 0)) return false;
-                if( interpolant.size() == other.interpolant.size() &&
-                    std::equal( interpolant.begin(),        interpolant.end(), 
-                                other.interpolant.begin(),  other.interpolant.end()))
+                if (_interpolant.size() == other._interpolant.size() &&
+                        std::equal(_interpolant.begin(), _interpolant.end(),
+                        other._interpolant.begin(), other._interpolant.end()))
                 {
                     return true;
                 }
@@ -272,9 +272,9 @@ namespace PetriEngine {
             bool operator <= (const state_t& other)
             {
 //                if((get_edge_cnt() == 0) != (other.get_edge_cnt() == 0)) return false;
-                if( interpolant.size() <= other.interpolant.size() &&
-                    std::includes(other.interpolant.begin(), other.interpolant.end(),
-                                  interpolant.begin(), interpolant.end()))
+                if (_interpolant.size() <= other._interpolant.size() &&
+                        std::includes(other._interpolant.begin(), other._interpolant.end(),
+                        _interpolant.begin(), _interpolant.end()))
                 {
                     return true;
                 }
@@ -282,53 +282,53 @@ namespace PetriEngine {
             }
 
             size_t get_edge_cnt()
-            {
-                if(edgecnt == 0)
+{
+                if (_edgecnt == 0)
                     return 0;
                 else
-                    return 1 + (((edgecnt-1) + offset) % size);
+                    return 1 + (((_edgecnt - 1) + _offset) % _size);
             }
 
             void set_edge(size_t edge)
-            {
-                edgecnt = edge;
-                offset = 0;
+{
+                _edgecnt = edge;
+                _offset = 0;
             }
-            
+
             bool next_edge(const PetriNet& net)
-            {
-                ++edgecnt;
+{
+                ++_edgecnt;
                 return done(net);
             }
-            
+
             bool done(const PetriNet& net) const {
-                return edgecnt > net.numberOfTransitions();
+                return _edgecnt > net.number_of_transitions();
             }
 
             bool reset_edges(const PetriNet& net)
-            {
-                size = net.numberOfTransitions();
-                edgecnt = 0;
-                offset = std::rand();// % (net.numberOfTransitions());
-                return edgecnt > net.numberOfTransitions();
+{
+                _size = net.number_of_transitions();
+                _edgecnt = 0;
+                _offset = std::rand(); // % (net.number_of_transitions());
+                return _edgecnt > net.number_of_transitions();
             }
 
             inline void add_interpolant(size_t ninter)
-            {
-                interpolant.insert(ninter);
+{
+                _interpolant.insert(ninter);
             }
 
             inline std::set<size_t>& get_interpolants()
-            {
-                return interpolant;
+{
+                return _interpolant;
             }
 
             inline void set_interpolants(const std::set<size_t>& interpolants)
-            {
-                interpolant = interpolants;
+{
+                _interpolant = interpolants;
             }
         };
-        
+
         typedef std::vector<state_t> trace_t;
     }
 }

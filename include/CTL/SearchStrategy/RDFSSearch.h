@@ -12,7 +12,7 @@
 #include "CTL/DependencyGraph/Edge.h"
 #include "SearchStrategy.h"
 
-namespace SearchStrategy {
+namespace CTL::SearchStrategy {
 
 // A custom search strategy that should ensure as little overhead as possible
 // while running sequential computation.
@@ -21,9 +21,9 @@ class RDFSSearch : public SearchStrategy {
 public:
     void flush();
 protected:
-    size_t Wsize() const;
-    void pushToW(DependencyGraph::Edge* edge);
-    DependencyGraph::Edge* popFromW();
+    size_t waiting_size() const;
+    void push_to_waiting(DependencyGraph::Edge* edge);
+    DependencyGraph::Edge* pop_from_waiting();
     std::vector<DependencyGraph::Edge*> W;
     size_t last_parent = 0;
 };

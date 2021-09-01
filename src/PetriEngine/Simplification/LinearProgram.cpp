@@ -46,7 +46,7 @@ namespace PetriEngine {
 
         constexpr auto infty = std::numeric_limits<REAL>::infinity();
         
-        bool LinearProgram::isImpossible(const PQL::SimplificationContext& context, uint32_t solvetime) {
+        bool LinearProgram::is_impossible(const PQL::SimplificationContext& context, uint32_t solvetime) {
             bool use_ilp = true;
             auto net = context.net();
 
@@ -61,8 +61,8 @@ namespace PetriEngine {
                 return false;
             }
 
-            const uint32_t nCol = net->numberOfTransitions();
-            const uint32_t nRow = net->numberOfPlaces() + _equations.size();
+            const uint32_t nCol = net->number_of_transitions();
+            const uint32_t nRow = net->number_of_places() + _equations.size();
 
             std::vector<REAL> row = std::vector<REAL>(nCol + 1);
             std::vector<int32_t> indir(std::max(nCol, nRow) + 1);
@@ -73,7 +73,7 @@ namespace PetriEngine {
             if(lp == nullptr)
                 return false;
             
-            int rowno = 1 + net->numberOfPlaces();
+            int rowno = 1 + net->number_of_places();
             glp_add_rows(lp, _equations.size());
             for(const auto& eq : _equations){
                 auto l = eq.row->write_indir(row, indir);
@@ -181,7 +181,7 @@ namespace PetriEngine {
             auto m0 = context.marking();
             auto timeout = std::min(solvetime, context.getLpTimeout());
 
-            const uint32_t nCol = net->numberOfTransitions();
+            const uint32_t nCol = net->number_of_transitions();
             std::vector<REAL> row = std::vector<REAL>(nCol + 1);
 
 
@@ -207,7 +207,7 @@ namespace PetriEngine {
                     return result;
                 }
                 // Create objective
-                memset(row.data(), 0, sizeof (REAL) * net->numberOfTransitions() + 1);
+                memset(row.data(), 0, sizeof (REAL) * net->number_of_transitions() + 1);
                 double p0 = 0;
                 bool all_le_zero = true;
                 bool all_zero = true;
@@ -215,7 +215,7 @@ namespace PetriEngine {
                 {
                     auto tp = places[pi];
                     p0 = m0[tp];
-                    for (size_t t = 0; t < net->numberOfTransitions(); ++t)
+                    for (size_t t = 0; t < net->number_of_transitions(); ++t)
                     {
                         row[1 + t] = net->outArc(t, tp) - net->inArc(tp, t);
                         all_le_zero &= row[1 + t] <= 0;
@@ -224,7 +224,7 @@ namespace PetriEngine {
                 }
                 else
                 {
-                    for (size_t t = 0; t < net->numberOfTransitions(); ++t)
+                    for (size_t t = 0; t < net->number_of_transitions(); ++t)
                     {
                         double cnt = 0;
                         for(auto tp : places)

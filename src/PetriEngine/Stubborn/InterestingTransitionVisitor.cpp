@@ -69,12 +69,12 @@ namespace PetriEngine {
         int32_t cand = std::numeric_limits<int32_t>::max();
         bool pre = false;
         for (auto &c : *element) {
-            auto val = _stubborn.getParent()[c._place];
+            auto val = _stubborn.get_parent()[c._place];
             if (c._lower == c._upper) {
                 if (neg) {
                     if (val != c._lower) continue;
-                    _stubborn.postsetOf(c._place, closure);
-                    _stubborn.presetOf(c._place, closure);
+                    _stubborn.postset_of(c._place, closure);
+                    _stubborn.preset_of(c._place, closure);
                 } else {
                     if (val == c._lower) continue;
                     if (val > c._lower) {
@@ -100,26 +100,26 @@ namespace PetriEngine {
                     }
                 } else {
                     if (val >= c._lower && c._lower != 0) {
-                        _stubborn.postsetOf(c._place, closure);
+                        _stubborn.postset_of(c._place, closure);
                     }
 
                     if (val <= c._upper && c._upper != std::numeric_limits<uint32_t>::max()) {
-                        _stubborn.presetOf(c._place, closure);
+                        _stubborn.preset_of(c._place, closure);
                     }
                 }
             }
             if (cand != std::numeric_limits<int32_t>::max()) {
-                if (pre && _stubborn.seenPre(cand))
+                if (pre && _stubborn.seen_pre(cand))
                     return;
-                else if (!pre && _stubborn.seenPost(cand))
+                else if (!pre && _stubborn.seen_post(cand))
                     return;
             }
         }
         if (cand != std::numeric_limits<int32_t>::max()) {
             if (pre) {
-                _stubborn.presetOf(cand, closure);
+                _stubborn.preset_of(cand, closure);
             } else if (!pre) {
-                _stubborn.postsetOf(cand, closure);
+                _stubborn.postset_of(cand, closure);
             }
         }
     }
@@ -205,7 +205,7 @@ namespace PetriEngine {
     void InterestingTransitionVisitor::_accept(const PQL::DeadlockCondition *element)
     {
         if (!element->isSatisfied()) {
-            _stubborn.postPresetOf(_stubborn.leastDependentEnabled(), closure);
+            _stubborn.post_preset_of(_stubborn.least_dependent_enabled(), closure);
         } // else add nothing
     }
 
@@ -214,7 +214,7 @@ namespace PetriEngine {
     {
         for (auto &p : element->places())
             if (!p._maxed_out)
-                _stubborn.presetOf(p._place);
+                _stubborn.preset_of(p._place);
     }
 
     void InterestingTransitionVisitor::_accept(const PQL::GCondition *element)
@@ -275,13 +275,13 @@ namespace PetriEngine {
 
     void InterestingTransitionVisitor::IncrVisitor::_accept(const PQL::PlusExpr *element)
     {
-        for (auto &i : element->places()) _stubborn.presetOf(i.first, closure);
+        for (auto &i : element->places()) _stubborn.preset_of(i.first, closure);
         for (auto &e : element->expressions()) e->visit(*this);
     }
 
     void InterestingTransitionVisitor::DecrVisitor::_accept(const PQL::PlusExpr *element)
     {
-        for (auto &i : element->places()) _stubborn.postsetOf(i.first, closure);
+        for (auto &i : element->places()) _stubborn.postset_of(i.first, closure);
         for (auto &e : element->expressions()) e->visit(*this);
     }
 
@@ -312,12 +312,12 @@ namespace PetriEngine {
     void InterestingTransitionVisitor::IncrVisitor::_accept(const PQL::MultiplyExpr *element)
     {
         if ((element->places().size() + element->expressions().size()) == 1) {
-            for (auto &i : element->places()) _stubborn.presetOf(i.first, closure);
+            for (auto &i : element->places()) _stubborn.preset_of(i.first, closure);
             for (auto &e : element->expressions()) e->visit(*this);
         } else {
             for (auto &i : element->places()) {
-                _stubborn.presetOf(i.first, closure);
-                _stubborn.postsetOf(i.first, closure);
+                _stubborn.preset_of(i.first, closure);
+                _stubborn.postset_of(i.first, closure);
             }
             for (auto &e : element->expressions()) {
                 e->visit(*this);
@@ -329,7 +329,7 @@ namespace PetriEngine {
     void InterestingTransitionVisitor::DecrVisitor::_accept(const PQL::MultiplyExpr *element)
     {
         if ((element->places().size() + element->expressions().size()) == 1) {
-            for (auto &i : element->places()) _stubborn.postsetOf(i.first, closure);
+            for (auto &i : element->places()) _stubborn.postset_of(i.first, closure);
             for (auto &e : element->expressions()) e->visit(*this);
         } else
             element->visit(*incr);
@@ -357,12 +357,12 @@ namespace PetriEngine {
 
     void InterestingTransitionVisitor::IncrVisitor::_accept(const PQL::UnfoldedIdentifierExpr *element)
     {
-        _stubborn.presetOf(element->offset(), closure);
+        _stubborn.preset_of(element->offset(), closure);
     }
 
     void InterestingTransitionVisitor::DecrVisitor::_accept(const PQL::UnfoldedIdentifierExpr *element)
     {
-        _stubborn.postsetOf(element->offset(), closure);
+        _stubborn.postset_of(element->offset(), closure);
     }
 
     void InterestingLTLTransitionVisitor::_accept(const PQL::LessThanCondition *element)
@@ -390,23 +390,23 @@ namespace PetriEngine {
         auto neg = negated != element->isNegated();
         for (auto &c : *element) {
             if (!neg) {
-                if (c._lower != 0 && !_stubborn.seenPre(c._place)) {
+                if (c._lower != 0 && !_stubborn.seen_pre(c._place)) {
                     // c < p becomes satisfied by preset of p.
-                    _stubborn.presetOf(c._place, closure);
+                    _stubborn.preset_of(c._place, closure);
                 }
-                if (c._upper != std::numeric_limits<uint32_t>::max() && !_stubborn.seenPost(c._place)) {
+                if (c._upper != std::numeric_limits<uint32_t>::max() && !_stubborn.seen_post(c._place)) {
                     // p < c becomes satisfied by postset of p.
-                    _stubborn.postsetOf(c._place, closure);
+                    _stubborn.postset_of(c._place, closure);
                 }
             }
             else {
-                if (c._lower != 0 && !_stubborn.seenPost(c._place)) {
+                if (c._lower != 0 && !_stubborn.seen_post(c._place)) {
                     // !(p < c) becomes satisfied by preset of p.
-                    _stubborn.postsetOf(c._place, closure);
+                    _stubborn.postset_of(c._place, closure);
                 }
-                if (c._upper != std::numeric_limits<uint32_t>::max() && !_stubborn.seenPre(c._place)) {
+                if (c._upper != std::numeric_limits<uint32_t>::max() && !_stubborn.seen_pre(c._place)) {
                     // !(c < p) becomes satisfied by postset of p.
-                    _stubborn.presetOf(c._place, closure);
+                    _stubborn.preset_of(c._place, closure);
                 }
             }
         }
@@ -431,12 +431,12 @@ namespace PetriEngine {
         for (auto &c : *element) {
             int32_t cand = std::numeric_limits<int32_t>::max();
             bool pre = false;
-            auto val = _stubborn.getParent()[c._place];
+            auto val = _stubborn.get_parent()[c._place];
             if (c._lower == c._upper) {
                 if (neg) {
                     if (val != c._lower) continue;
-                    _stubborn.postsetOf(c._place, closure);
-                    _stubborn.presetOf(c._place, closure);
+                    _stubborn.postset_of(c._place, closure);
+                    _stubborn.preset_of(c._place, closure);
                 } else {
                     if (val == c._lower) continue;
                     if (val > c._lower) {
@@ -462,19 +462,19 @@ namespace PetriEngine {
                     }
                 } else {
                     if (val >= c._lower && c._lower != 0) {
-                        _stubborn.postsetOf(c._place, closure);
+                        _stubborn.postset_of(c._place, closure);
                     }
 
                     if (val <= c._upper && c._upper != std::numeric_limits<uint32_t>::max()) {
-                        _stubborn.presetOf(c._place, closure);
+                        _stubborn.preset_of(c._place, closure);
                     }
                 }
             }
             if (cand != std::numeric_limits<int32_t>::max()) {
                 if (pre) {
-                    _stubborn.presetOf(cand, closure);
+                    _stubborn.preset_of(cand, closure);
                 } else if (!pre) {
-                    _stubborn.postsetOf(cand, closure);
+                    _stubborn.postset_of(cand, closure);
                 }
                 cand = std::numeric_limits<int32_t>::max();
             }

@@ -34,10 +34,10 @@ namespace LTL {
     public:
         VisibleLTLStubbornSet(const PetriEngine::PetriNet &net,
                               const std::vector<PetriEngine::PQL::Condition_ptr> &queries)
-                : StubbornSet(net, queries), _visible(new bool[net.numberOfTransitions()])
+                : StubbornSet(net, queries), _visible(new bool[net.number_of_transitions()])
         {
             assert(!_netContainsInhibitorArcs);
-            memset(_visible.get(), 0, sizeof(bool) * net.numberOfPlaces());
+            memset(_visible.get(), 0, sizeof(bool) * net.number_of_places());
             VisibleTransitionVisitor visible{_visible};
             for (auto &q : queries) {
                 q->visit(visible);
@@ -45,17 +45,17 @@ namespace LTL {
         }
 
         VisibleLTLStubbornSet(const PetriEngine::PetriNet &net, const PetriEngine::PQL::Condition_ptr &query)
-                : StubbornSet(net, query), _visible(new bool[net.numberOfTransitions()])
+                : StubbornSet(net, query), _visible(new bool[net.number_of_transitions()])
         {
             assert(!_netContainsInhibitorArcs);
-            auto places = std::make_unique<bool[]>(net.numberOfPlaces());
-            memset(places.get(), 0, sizeof(bool) * net.numberOfPlaces());
-            memset(_visible.get(), 0, sizeof(bool) * net.numberOfTransitions());
+            auto places = std::make_unique<bool[]>(net.number_of_places());
+            memset(places.get(), 0, sizeof(bool) * net.number_of_places());
+            memset(_visible.get(), 0, sizeof(bool) * net.number_of_transitions());
             VisibleTransitionVisitor visible{places};
             query->visit(visible);
 
-            memset(_places_seen.get(), 0, _net.numberOfPlaces());
-            for (uint32_t p = 0; p < net.numberOfPlaces(); ++p) {
+            memset(_places_seen.get(), 0, _net.number_of_places());
+            for (uint32_t p = 0; p < net.number_of_places(); ++p) {
                 if (places[p]) {
                     visTrans(p);
                 }
@@ -88,7 +88,7 @@ namespace LTL {
 
         void reset();
 
-        bool generateAll(const LTL::Structures::ProductState *parent);
+        bool generate_all(const LTL::Structures::ProductState *parent);
 
     protected:
         void addToStub(uint32_t t) override;

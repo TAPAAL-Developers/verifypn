@@ -7,13 +7,13 @@
 #include "PetriEngine/Reachability/ReachabilitySearch.h"
 #include "CTL/SearchStrategy/SearchStrategy.h"
 
-
+namespace CTL {
 namespace Algorithm {
 
 class CertainZeroFPA : public FixedPointAlgorithm
 {
 public:
-    CertainZeroFPA(PetriEngine::Reachability::Strategy type) : FixedPointAlgorithm(type)
+    CertainZeroFPA(options_t::SearchStrategy type) : FixedPointAlgorithm(type)
     {
     }
     virtual ~CertainZeroFPA()
@@ -22,14 +22,15 @@ public:
     virtual bool search(DependencyGraph::BasicDependencyGraph &t_graph) override;
 protected:
 
-    DependencyGraph::BasicDependencyGraph *graph;
-    DependencyGraph::Configuration* vertex;
+    DependencyGraph::BasicDependencyGraph *_graph;
+    DependencyGraph::Configuration* _vertex;
     
-    void checkEdge(DependencyGraph::Edge* e, bool only_assign = false);
-    void finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
-    void finalAssign(DependencyGraph::Edge *e, DependencyGraph::Assignment a);
+    void check_edge(DependencyGraph::Edge* e, bool only_assign = false);
+    void final_assign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
+    void final_assign(DependencyGraph::Edge *e, DependencyGraph::Assignment a);
     void explore(DependencyGraph::Configuration *c);
 
 };
+}
 }
 #endif // CERTAINZEROFPA_H

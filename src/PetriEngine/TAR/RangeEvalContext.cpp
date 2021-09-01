@@ -115,7 +115,7 @@ namespace PetriEngine
         {
             _bool_result = true;
             return;
-/*            for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
+/*            for(size_t p = 0; p < _net.number_of_places(); ++p)
                 _sufficient &= placerange_t(p, 0, 0);*/
         }
     }

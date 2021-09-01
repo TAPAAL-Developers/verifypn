@@ -9,7 +9,7 @@ namespace PetriEngine::PQL {
 
     class IsCTLVisitor : public Visitor {
     public:
-        bool isCTL = true;
+        bool _is_CTL = true;
 
     protected:
         void _accept(const NotCondition *element) override;
@@ -183,10 +183,10 @@ namespace PetriEngine::PQL {
         void _accept(const IdentifierExpr *element) override;
 
     private:
-        std::pair<Expr_ptr, Expr_ptr> compareCondition(const CompareCondition *element);
+        std::pair<Expr_ptr, Expr_ptr> compare_condition(const CompareCondition *element);
 
         template<typename T>
-        void _acceptNary(const T *element);
+        void _accept_nary(const T *element);
     
         template<typename T>
         Expr_ptr copy_narry_expr(const T* el);
