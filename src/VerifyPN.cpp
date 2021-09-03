@@ -299,6 +299,7 @@ int main(int argc, char* argv[]) {
 
         if (!ctl_ids.empty()) {
             options._used_ctl=true;
+
             auto reachabilityStrategy = options._strategy;
 
             // Assign indexes
@@ -309,6 +310,7 @@ int main(int argc, char* argv[]) {
             }
             if(options._strategy == options_t::search_strategy_e::DEFAULT)
                 options._strategy = options_t::search_strategy_e::DFS;
+
             v = CTLMain(net.get(),
                 options._ctlalgorithm,
                 options._strategy,
