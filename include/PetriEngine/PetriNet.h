@@ -62,7 +62,7 @@ namespace PetriEngine {
         ~PetriNet();
 
         uint32_t initial(size_t id) const;
-        MarkVal* makeInitialMarking() const;
+        MarkVal* make_initial_marking() const;
         /** Fire transition if possible and store result in result */
         bool deadlocked(const MarkVal* marking) const;
         bool fireable(const MarkVal* marking, int transitionIndex);
@@ -75,8 +75,8 @@ namespace PetriEngine {
         uint32_t number_of_places() const {
             return _nplaces;
         }
-        int inArc(uint32_t place, uint32_t transition) const;
-        int outArc(uint32_t transition, uint32_t place) const;
+        int in_arc(uint32_t place, uint32_t transition) const;
+        int out_arc(uint32_t transition, uint32_t place) const;
         
 
         const std::vector<std::string>& transitionNames() const

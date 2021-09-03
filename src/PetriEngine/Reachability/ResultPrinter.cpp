@@ -16,13 +16,13 @@ namespace PetriEngine {
                 size_t exploredStates,
                 size_t discoveredStates,
                 int maxTokens,
-                Structures::StateSetInterface* stateset, size_t lastmarking, const MarkVal* initialMarking)
+                Structures::StateSetInterface* stateset, size_t lastmarking, const MarkVal* initialMarking) const
         {
             if(result == Unknown) return std::make_pair(Unknown,false);
 
             Result retval = result;
 
-            if(_options->cpnOverApprox)
+            if(_options->_cpn_overapprox)
             {
                 if(query->getQuantifier() == PQL::Quantifier::UPPERBOUNDS)
                 {
@@ -46,7 +46,7 @@ namespace PetriEngine {
 
             bool showTrace = (result == Satisfied);
 
-            if(!_options->statespaceexploration && retval != Unknown)
+            if(!_options->_statespace_exploration && retval != Unknown)
             {
                 std::cout << "FORMULA " << _querynames[index] << " ";
             }
@@ -94,13 +94,13 @@ namespace PetriEngine {
                 std::cout << "Query index " << index << " was solved" << std::endl;
             }
             else if (retval == Satisfied) {
-                if(!_options->statespaceexploration)
+                if(!_options->_statespace_exploration)
                 {
                     std::cout << "TRUE " << _techniques << print_techniques() << std::endl;
                     std::cout << "Query index " << index << " was solved" << std::endl;
                 }
             } else if (retval == NotSatisfied) {
-                if(!_options->statespaceexploration)
+                if(!_options->_statespace_exploration)
                 {
                     std::cout << "FALSE " << _techniques << print_techniques() << std::endl;
                     std::cout << "Query index " << index << " was solved" << std::endl;
@@ -110,7 +110,7 @@ namespace PetriEngine {
             std::cout << std::endl;
 
             std::cout << "Query is ";
-            if(_options->statespaceexploration)
+            if(_options->_statespace_exploration)
             {
                 retval = Satisfied;
             }
@@ -130,10 +130,10 @@ namespace PetriEngine {
             }
             std::cout << "satisfied." << std::endl;
 
-            if(_options->cpnOverApprox)
+            if(_options->_cpn_overapprox)
                 std::cout << "\nSolved using CPN Approximation\n" << std::endl;
 
-            if (showTrace && _options->trace != options_t::TraceLevel::None)
+            if (showTrace && _options->_trace != options_t::trace_level_e::None)
             {
                 if(stateset == nullptr)
                 {
@@ -149,39 +149,39 @@ namespace PetriEngine {
             return std::make_pair(retval, false);
         }
 
-        std::string ResultPrinter::print_techniques() {
+        std::string ResultPrinter::print_techniques() const {
             std::string out;
 
-            if(_options->queryReductionTimeout > 0)
+            if(_options->_query_reduction_timeout > 0)
             {
                 out += "LP_APPROX ";
             }
 
-            if(_options->cpnOverApprox)
+            if(_options->_cpn_overapprox)
             {
                 out += "CPN_APPROX ";
             }
 
-            if(_options->isCPN && !_options->cpnOverApprox)
+            if(_options->_is_CPN && !_options->_cpn_overapprox)
             {
                 out += "UNFOLDING_TO_PT ";
             }
 
-            if(_options->queryReductionTimeout == 0
-			    && !_options->tar
-			    && _options->siphontrapTimeout == 0)
+            if(_options->_query_reduction_timeout == 0
+			    && !_options->_tar
+			    && _options->_siphontrap_timeout == 0)
             {
                 out += "EXPLICIT STATE_COMPRESSION ";
-                if(_options->stubbornreduction)
+                if(_options->_stubborn_reduction)
                 {
                     out += "STUBBORN_SETS ";
                 }
             }
-            if(_options->tar)
+            if(_options->_tar)
             {
                 out += "TRACE_ABSTRACTION_REFINEMENT ";
             }
-            if(_options->siphontrapTimeout > 0)
+            if(_options->_siphontrap_timeout > 0)
             {
                 out += "TOPOLOGICAL SIPHON_TRAP ";
             }
@@ -189,7 +189,7 @@ namespace PetriEngine {
             return out;
         }
 
-        void ResultPrinter::print_trace(Structures::StateSetInterface* ss, size_t lastmarking)
+        void ResultPrinter::print_trace(Structures::StateSetInterface* ss, size_t lastmarking) const
         {
             std::cerr << "Trace:\n<trace>\n";
             std::stack<size_t> transitions;
@@ -216,7 +216,7 @@ namespace PetriEngine {
                 // feel free to improve
                 for(size_t p = 0; p < ss->net().number_of_places(); ++p)
                 {
-                    size_t cnt = ss->net().inArc(p, trans);
+                    size_t cnt = ss->net().in_arc(p, trans);
                     for(size_t token = 0; token < cnt; ++token )
                     {
                         std::cerr << "\t\t<token place=\"" << ss->net().placeNames()[p] << "\" age=\"0\"/>\n";

@@ -81,7 +81,7 @@ namespace LTL {
 #ifdef DEBUG_EXPLORED_STATES
         result.explored_states = checker->get_explored();
 #endif
-        if (options.printstatistics) {
+        if (options._print_statistics) {
             checker->print_stats(std::cout);
         }
         return result;
@@ -91,13 +91,13 @@ namespace LTL {
                                               const Condition_ptr &negated_formula,
                                               const Structures::BuchiAutomaton& automaton,
                                               options_t &options) {
-        if (options.strategy == options_t::SearchStrategy::RDFS) {
+        if (options._strategy == options_t::search_strategy_e::RDFS) {
             return std::make_unique<RandomHeuristic>(options.seed());
         }
-        if (options.strategy != options_t::SearchStrategy::HEUR && options.strategy != options_t::SearchStrategy::DEFAULT) {
+        if (options._strategy != options_t::search_strategy_e::HEUR && options._strategy != options_t::search_strategy_e::DEFAULT) {
             return nullptr;
         }
-        auto heur = ParseHeuristic(net, automaton, negated_formula, options.ltlHeuristic);
+        auto heur = ParseHeuristic(net, automaton, negated_formula, options._ltl_heuristic);
         if (heur == nullptr) {
             std::cerr << "Invalid heuristic specification, terminating.\n";
             exit(1);
@@ -112,57 +112,57 @@ namespace LTL {
     {
 
         // force AP compress off for Büchi prints
-        options.ltl_compress_aps = options.buchi_out_file.empty() ? options.ltl_compress_aps : options_t::APCompression::None;
+        options._ltl_compress_aps = options._buchi_out_file.empty() ? options._ltl_compress_aps : options_t::atomic_compression_e::None;
 
         auto [negated_formula, negate_answer] = to_ltl(query);
 
         Structures::BuchiAutomaton automaton = make_buchi_automaton(negated_formula, options);
-        if (!options.buchi_out_file.empty()) {
-            automaton.output_buchi(options.buchi_out_file, options.buchi_out_type);
+        if (!options._buchi_out_file.empty()) {
+            automaton.output_buchi(options._buchi_out_file, options._buchi_out_type);
         }
 
-        bool is_visible_stub = options.stubbornreduction
-                               && (options.ltl_por == options_t::LTLPartialOrder::Visible ||
-                                   options.ltl_por == options_t::LTLPartialOrder::VisibleReach)
+        bool is_visible_stub = options._stubborn_reduction
+                               && (options._ltl_por == options_t::ltl_partial_order_e::Visible ||
+                                   options._ltl_por == options_t::ltl_partial_order_e::VisibleReach)
                                && !net->has_inhibitor()
                                && !negated_formula->containsNext();
-        bool is_autreach_stub = options.stubbornreduction
-                && (options.ltl_por == options_t::LTLPartialOrder::AutomatonReach ||
-                    options.ltl_por == options_t::LTLPartialOrder::VisibleReach)
+        bool is_autreach_stub = options._stubborn_reduction
+                && (options._ltl_por == options_t::ltl_partial_order_e::AutomatonReach ||
+                    options._ltl_por == options_t::ltl_partial_order_e::VisibleReach)
                 && !net->has_inhibitor();
-        bool is_buchi_stub = options.stubbornreduction
-                && options.ltl_por == options_t::LTLPartialOrder::FullAutomaton
+        bool is_buchi_stub = options._stubborn_reduction
+                && options._ltl_por == options_t::ltl_partial_order_e::FullAutomaton
                 && !net->has_inhibitor();
 
-        bool is_stubborn = options.ltl_por != options_t::LTLPartialOrder::None && (is_visible_stub || is_autreach_stub || is_buchi_stub);
+        bool is_stubborn = options._ltl_por != options_t::ltl_partial_order_e::None && (is_visible_stub || is_autreach_stub || is_buchi_stub);
 
         std::unique_ptr<SuccessorSpooler> spooler;
         std::unique_ptr<Heuristic> heuristic = make_heuristic(net, negated_formula, automaton, options);
 
         Result result;
-        switch (options.ltlalgorithm) {
+        switch (options._ltl_algorithm) {
             case Algorithm::NDFS:
-                if (options.strategy != options_t::SearchStrategy::DFS) {
+                if (options._strategy != options_t::search_strategy_e::DFS) {
                     SpoolingSuccessorGenerator gen{net, negated_formula};
                     spooler = std::make_unique<EnabledSpooler>(net, gen);
                     gen.set_spooler(spooler.get());
                     gen.set_heuristic(heuristic.get());
                     result = _verify(
                             std::make_unique<NestedDepthFirstSearch<SpoolingSuccessorGenerator>>(
-                                    net, negated_formula, automaton, &gen, options.trace != options_t::TraceLevel::None),
+                                    net, negated_formula, automaton, &gen, options._trace != options_t::trace_level_e::None),
                             options);
 
                 } else {
                     ResumingSuccessorGenerator gen{net};
                     result = _verify(
                             std::make_unique<NestedDepthFirstSearch<ResumingSuccessorGenerator>>(
-                                    net, negated_formula, automaton, &gen, options.trace != options_t::TraceLevel::None),
+                                    net, negated_formula, automaton, &gen, options._trace != options_t::trace_level_e::None),
                             options);
                 }
                 break;
 
             case Algorithm::Tarjan:
-                if (options.strategy != options_t::SearchStrategy::DFS || is_stubborn) {
+                if (options._strategy != options_t::search_strategy_e::DFS || is_stubborn) {
                     // Use spooling successor generator in case of different search strategy or stubborn set method.
                     // Running default, BestFS, or RDFS search strategy so use spooling successor generator to enable heuristics.
                     SpoolingSuccessorGenerator gen{net, negated_formula};
@@ -179,12 +179,12 @@ namespace LTL {
                     gen.set_spooler(spooler.get());
                     // if search strategy used, set heuristic, otherwise ignore it
                     // (default is null which is checked elsewhere)
-                    if (options.strategy != options_t::SearchStrategy::DFS) {
+                    if (options._strategy != options_t::search_strategy_e::DFS) {
                         assert(heuristic != nullptr);
                         gen.set_heuristic(heuristic.get());
                     }
 
-                    if (options.trace != options_t::TraceLevel::None) {
+                    if (options._trace != options_t::trace_level_e::None) {
                         if (is_autreach_stub && is_visible_stub) {
                             result = _verify(std::make_unique<TarjanModelChecker<ReachStubProductSuccessorGenerator, SpoolingSuccessorGenerator, true, VisibleLTLStubbornSet>>(
                                                      net,
@@ -243,7 +243,7 @@ namespace LTL {
                     ResumingSuccessorGenerator gen{net};
 
                     // no spooling needed, thus use resuming successor generation
-                    if (options.trace != options_t::TraceLevel::None) {
+                    if (options._trace != options_t::trace_level_e::None) {
                         result = _verify(std::make_unique<TarjanModelChecker<ProductSuccessorGenerator, ResumingSuccessorGenerator, true>>(
                                                  net,
                                                  negated_formula,
@@ -266,7 +266,7 @@ namespace LTL {
         }
         std::cout << "FORMULA " << queryName
                   << (result.satisfied ^ negate_answer ? " TRUE" : " FALSE") << " TECHNIQUES EXPLICIT "
-                  << LTL::to_string(options.ltlalgorithm)
+                  << LTL::to_string(options._ltl_algorithm)
                   << (result.is_weak ? " WEAK_SKIP" : "")
                   << (is_stubborn ? " STUBBORN" : "")
                   << (is_visible_stub ? " CLASSIC_STUB" : "")
@@ -276,7 +276,7 @@ namespace LTL {
             std::cout << " HEURISTIC ";
             heuristic->output(std::cout);
         }
-        std::cout << " OPTIM-" << static_cast<int>(options.buchiOptimization) << std::endl;
+        std::cout << " OPTIM-" << static_cast<int>(options._buchi_optimization) << std::endl;
 #ifdef DEBUG_EXPLORED_STATES
         std::cout << "FORMULA " << queryName << " STATS EXPLORED " << result.explored_states << std::endl;
 #endif

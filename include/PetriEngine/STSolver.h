@@ -9,35 +9,25 @@
 
 namespace PetriEngine {
     class STSolver {
-    using REAL = double;
-    struct STVariable {
-        STVariable(int c, REAL v){
-            colno=c;
-            value=v;
-        }
-        int colno;
-        REAL value;
-    };
-    
     struct place_t {
         uint32_t pre, post;
     };
-        
+
     public:
-        STSolver(Reachability::ResultPrinter& printer, const PetriNet& net, PQL::Condition * query, uint32_t depth);
+        STSolver(const Reachability::ResultPrinter& printer, const PetriNet& net, PQL::Condition * query, uint32_t depth);
         virtual ~STSolver();
         bool solve(uint32_t timeout);
-        Reachability::ResultPrinter::Result printResult();
-        
-    private:    
-        size_t computeTrap(std::vector<size_t>& siphon, const std::set<size_t>& pre, const std::set<size_t>& post, size_t marked_count);
-        bool siphonTrap(std::vector<size_t> siphon, const std::vector<bool>& has_st, const std::set<size_t>& pre, const std::set<size_t>& post);
+        Reachability::ResultPrinter::Result print_result();
+
+    private:
+        size_t _compute_trap(std::vector<size_t>& siphon, const std::set<size_t>& pre, const std::set<size_t>& post, size_t marked_count);
+        bool siphon_trap(std::vector<size_t> siphon, const std::vector<bool>& has_st, const std::set<size_t>& pre, const std::set<size_t>& post);
         uint32_t duration() const;
         bool timeout() const;
-        void constructPrePost();
+        void construct_pre_post();
         void extend(size_t place, std::set<size_t>& pre, std::set<size_t>& post);
         bool _siphonPropperty = false;
-        Reachability::ResultPrinter& printer;
+        const Reachability::ResultPrinter& printer;
         PQL::Condition * _query;
         std::unique_ptr<place_t[]> _places;
         std::unique_ptr<uint32_t[]> _transitions;

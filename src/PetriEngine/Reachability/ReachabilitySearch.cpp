@@ -124,7 +124,7 @@ namespace PetriEngine {
         bool ReachabilitySearch::reachable(
                     std::vector<std::shared_ptr<PQL::Condition > >& queries,
                     std::vector<ResultPrinter::Result>& results,
-                    options_t::SearchStrategy strategy,
+                    options_t::search_strategy_e strategy,
                     bool stubbornreduction,
                     bool statespacesearch,
                     bool printstats,
@@ -134,20 +134,20 @@ namespace PetriEngine {
             bool usequeries = !statespacesearch;
 
             // if we are searching for bounds
-            if(!usequeries) strategy = options_t::SearchStrategy::BFS;
+            if(!usequeries) strategy = options_t::search_strategy_e::BFS;
 
             switch(strategy)
 {
-                case options_t::SearchStrategy::DFS:
+                case options_t::search_strategy_e::DFS:
                     TRYREACH(DFSQueue)
                     break;
-                case options_t::SearchStrategy::BFS:
+                case options_t::search_strategy_e::BFS:
                     TRYREACH(BFSQueue)
                     break;
-                case options_t::SearchStrategy::HEUR:
+                case options_t::search_strategy_e::HEUR:
                     TRYREACH(HeuristicQueue)
                     break;
-                case options_t::SearchStrategy::RDFS:
+                case options_t::search_strategy_e::RDFS:
                     TRYREACH(RDFSQueue)
                     break;
                 default:

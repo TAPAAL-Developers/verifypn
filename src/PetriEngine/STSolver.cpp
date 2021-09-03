@@ -2,19 +2,19 @@
 
 #include <cassert>
 
-namespace PetriEngine {     
-    
-    STSolver::STSolver(Reachability::ResultPrinter& printer, const PetriNet& net, PQL::Condition * query, uint32_t depth) : printer(printer), _query(query), _net(net){
+namespace PetriEngine {
+
+    STSolver::STSolver(const Reachability::ResultPrinter& printer, const PetriNet& net, PQL::Condition * query, uint32_t depth) : printer(printer), _query(query), _net(net){
         if(depth == 0){
             _siphonDepth = _net._nplaces;
         } else {
             _siphonDepth = depth;
         }
-        
+
         _m0 = _net._initialMarking;
         _analysisTime = 0;
         _diff.resize(_net.number_of_transitions());
-        constructPrePost(); // TODO: Refactor this out...
+        construct_pre_post(); // TODO: Refactor this out...
     }
 
     STSolver::~STSolver() {
@@ -24,7 +24,7 @@ namespace PetriEngine {
         if(_net.number_of_places() == 0) return false;
         _timelimit = timelimit;
         _start = std::chrono::high_resolution_clock::now();
-        
+
         // check that constraints on net are valid
         for(size_t t = 0; t < _net.number_of_transitions(); ++t)
         {
@@ -45,7 +45,7 @@ namespace PetriEngine {
                 if(post.first->tokens != 1) return false;
             }
         }
-        
+
         // construct the siphon starting at each place
         std::vector<bool> has_st(_net.number_of_places());
         for(size_t p = 0; p < _net.number_of_places(); ++p)
@@ -53,7 +53,7 @@ namespace PetriEngine {
             std::vector<size_t> siphon{p};
             std::set<size_t> preset, postset;
             extend(p, preset, postset);
-            if(!siphonTrap(siphon, has_st, preset, postset))
+            if(!siphon_trap(siphon, has_st, preset, postset))
             {
                 if(timeout())
                 {
@@ -66,18 +66,18 @@ namespace PetriEngine {
         _siphonPropperty = true;
         return true;
     }
-    
-    size_t STSolver::computeTrap(std::vector<size_t>& trap, const std::set<size_t>& preset, const std::set<size_t>& postset, size_t marked_count)
+
+    size_t STSolver::_compute_trap(std::vector<size_t>& trap, const std::set<size_t>& preset, const std::set<size_t>& postset, size_t marked_count)
     {
         if(trap.empty()) return 0;
         // compute DIFF = T* \ *T
-        auto eit = std::set_difference( postset.begin(), postset.end(), 
+        auto eit = std::set_difference( postset.begin(), postset.end(),
                                         preset.begin(), preset.end(), _diff.begin());
         if(eit == _diff.begin())
         {
             // DIFF = empty
             if(marked_count > 0)
-            {                
+            {
                 auto it = trap.begin() + (std::rand() % trap.size());
                 size_t dummy = 0;
                 _antichain.insert(dummy, trap);
@@ -89,7 +89,7 @@ namespace PetriEngine {
                     std::set<size_t> npreset, npostset;
                     for(auto p : trap)
                         extend(p, npreset, npostset);
-                    computeTrap(trap, npreset, npostset, marked_count - rm);
+                    _compute_trap(trap, npreset, npostset, marked_count - rm);
                 }
             }
             return marked_count;
@@ -106,11 +106,11 @@ namespace PetriEngine {
                 for(; pre.first != pre.second; ++pre.first)
                 {
                     while(sit != std::end(trap) && *sit < pre.first->place) ++sit;
-                    if(sit == std::end(trap)) 
+                    if(sit == std::end(trap))
                         break;
                     if(*sit == pre.first->place)
                     {
-                        
+
                         sit = trap.erase(sit);
                         if(_m0[pre.first->place] != 0)
                         {
@@ -128,44 +128,44 @@ namespace PetriEngine {
                 assert(marked_count == 0);
                 return 0;
             }
-            else 
+            else
             {
                 // rebuild pre and postset, then try to compute new fixpoint
                 // i.e. build trap with smaller set.
                 std::set<size_t> npreset, npostset;
                 for(auto p : trap)
                     extend(p, npreset, npostset);
-                return computeTrap(trap, npreset, npostset, marked_count);
+                return _compute_trap(trap, npreset, npostset, marked_count);
             }
         }
     }
-    
+
     void STSolver::extend(size_t place, std::set<size_t>& pre, std::set<size_t>& post)
     {
         pre.insert(_transitions.get() + _places[place].pre, _transitions.get() + _places[place].post);
         post.insert(_transitions.get() + _places[place].post, _transitions.get() + _places[place+1].pre);
     }
-    
-    bool STSolver::siphonTrap(std::vector<size_t> siphon, const std::vector<bool>& has_st, const std::set<size_t>& preset, const std::set<size_t>& postset)
+
+    bool STSolver::siphon_trap(std::vector<size_t> siphon, const std::vector<bool>& has_st, const std::set<size_t>& preset, const std::set<size_t>& postset)
     {
         if(timeout())
             return false;
 
-        // we can use an inclussion-check to avoid recomputation 
+        // we can use an inclussion-check to avoid recomputation
         // (we abuse the antichain structure here)
         size_t dummy = 0;
         if(_antichain.subsumed(dummy, siphon))
             return true;
 
-        auto eit = std::set_difference(preset.begin(), preset.end(), 
-                                 postset.begin(), postset.end(), _diff.begin()); 
+        auto eit = std::set_difference(preset.begin(), preset.end(),
+                                 postset.begin(), postset.end(), _diff.begin());
         if(eit == _diff.begin())
         {
             size_t marked_count = 0;
             for(auto p : siphon)
                 if(_m0[p] != 0) ++marked_count;
             if(marked_count == 0) return false;
-            marked_count = computeTrap(siphon, preset, postset, marked_count);
+            marked_count = _compute_trap(siphon, preset, postset, marked_count);
             if(marked_count == 0) return false;
             else return true;
         }
@@ -191,19 +191,19 @@ namespace PetriEngine {
                 auto npre = preset;
                 auto npost = postset;
                 extend(pre.first->place, npre, npost);
-                if(!siphonTrap(siphon, has_st, npre, npost))
+                if(!siphon_trap(siphon, has_st, npre, npost))
                     return false;
                 else
                     sit = siphon.erase(sit);
             }
         }
-        
+
         // Any super-siphon has a marked trap, insert into antichain.
         _antichain.insert(dummy, siphon);
         return true;
     }
-    
-    Reachability::ResultPrinter::Result STSolver::printResult(){
+
+    Reachability::ResultPrinter::Result STSolver::print_result(){
         if(_siphonPropperty){
             return printer.handle(0, _query, Reachability::ResultPrinter::NotSatisfied).first;
         } else {
@@ -218,10 +218,10 @@ namespace PetriEngine {
         auto diff = std::chrono::duration_cast<std::chrono::seconds>(end - _start);
         return diff.count();
     }
-    
+
     // TODO: Refactor this out... Copy paste from ReducingSuccessorGenerator.cpp
     // Also, we dont need the preset here.
-    void STSolver::constructPrePost() {
+    void STSolver::construct_pre_post() {
         std::vector<std::pair<std::vector<uint32_t>, std::vector < uint32_t>>> tmp_places(_net._nplaces);
         for (uint32_t t = 0; t < _net._ntransitions; t++) {
             const TransPtr& ptr = _net._transitions[t];

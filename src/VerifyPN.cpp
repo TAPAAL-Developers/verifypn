@@ -105,19 +105,19 @@ int main(int argc, char* argv[]) {
     error_e v = options.parse(argc, argv);
     if(v != ContinueCode) return v;
     options.print();
-    options.seed_offset = (time(NULL) xor options.seed_offset);
+    options._seed_offset = (time(NULL) xor options._seed_offset);
     ColoredPetriNetBuilder cpnBuilder;
     if(parseModel(cpnBuilder, options) != ContinueCode)
     {
         std::cerr << "Error parsing the model" << std::endl;
         return ErrorCode;
     }
-    if(options.cpnOverApprox && !cpnBuilder.is_colored())
+    if(options._cpn_overapprox && !cpnBuilder.is_colored())
     {
         std::cerr << "CPN OverApproximation is only usable on colored models" << std::endl;
         return UnknownCode;
     }
-    if (options.printstatistics) {
+    if (options._print_statistics) {
         std::cout << "Finished parsing model" << std::endl;
     }
 
@@ -126,12 +126,12 @@ int main(int argc, char* argv[]) {
     std::vector<Condition_ptr> queries;
     {
         auto ctlStarQueries = readQueries(options, querynames);
-        queries = options.logic == options_t::TemporalLogic::CTL
+        queries = options._logic == options_t::temporal_logic_e::CTL
                 ? getCTLQueries(ctlStarQueries)
                 : getLTLQueries(ctlStarQueries);
     }
 
-    if(options.printstatistics && options.queryReductionTimeout > 0)
+    if(options._print_statistics && options._query_reduction_timeout > 0)
     {
         negstat_t stats;
         std::cout << "RWSTATS LEGEND:";
@@ -145,7 +145,7 @@ int main(int argc, char* argv[]) {
         EvaluationContext context(nullptr, nullptr);
         for (ssize_t qid = queries.size() - 1; qid >= 0; --qid) {
             queries[qid] = queries[qid]->pushNegation(stats, context, false, false, false);
-            if(options.printstatistics)
+            if(options._print_statistics)
             {
                 std::cout << "\nQuery before expansion and reduction: ";
                 queries[qid]->toString(std::cout);
@@ -158,7 +158,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    if (options.cpnOverApprox) {
+    if (options._cpn_overapprox) {
         for (ssize_t qid = queries.size() - 1; qid >= 0; --qid) {
             negstat_t stats;
             EvaluationContext context(nullptr, nullptr);
@@ -172,100 +172,94 @@ int main(int argc, char* argv[]) {
     }
 
 
-    if(options.computePartition){
-        cpnBuilder.compute_partition(options.partitionTimeout);
+    if(options._compute_partition){
+        cpnBuilder.compute_partition(options._partition_timeout);
     }
-    if(options.symmetricVariables){
+
+    if(options._symmetric_variables){
         cpnBuilder.compute_symmetric_variables();
         //cpnBuilder.printSymmetricVariables();
     }
-    if(options.computeCFP){
-        cpnBuilder.compute_place_color_fixpoint(options.max_intervals, options.max_intervals_reduced, options.intervalTimeout);
+    if(options._compute_CFP){
+        cpnBuilder.compute_place_color_fixpoint(options._max_intervals, options._max_intervals_reduced, options._interval_timeout);
     }
 
 
-    auto builder = options.cpnOverApprox ? cpnBuilder.strip_colors() : cpnBuilder.unfold();
+    auto builder = options._cpn_overapprox ? cpnBuilder.strip_colors() : cpnBuilder.unfold();
     printUnfoldingStats(cpnBuilder, options);
     builder.sort();
     std::vector<ResultPrinter::Result> results(queries.size(), ResultPrinter::Result::Unknown);
     ResultPrinter printer(&builder, &options, querynames);
 
-    if(options.unfolded_out_file.size() > 0) {
-        outputNet(builder, options.unfolded_out_file);
-    }
-
     //----------------------- Query Simplification -----------------------//
-    bool alldone = options.queryReductionTimeout > 0;
     PetriNetBuilder b2(builder);
-    std::unique_ptr<PetriNet> qnet(b2.make_petri_net(false));
-    std::unique_ptr<MarkVal[]> qm0(qnet->makeInitialMarking());
-    ResultPrinter p2(&b2, &options, querynames);
-
-    if(options.unfold_query_out_file.size() > 0) {
-        outputCompactQueries(builder, b2, qnet.get(), cpnBuilder, queries, querynames, options.unfold_query_out_file);
-    }
-
-
-    if(queries.size() == 0 || contextAnalysis(cpnBuilder, b2, qnet.get(), queries) != ContinueCode)
     {
-        std::cerr << "Could not analyze the queries" << std::endl;
-        return ErrorCode;
+        std::unique_ptr<PetriNet> qnet(b2.make_petri_net(false));
+        std::unique_ptr<MarkVal[]> qm0(qnet->make_initial_marking());
+
+        if(queries.size() == 0 || contextAnalysis(cpnBuilder, b2, *qnet.get(), queries) != ContinueCode)
+        {
+            std::cerr << "Could not analyze the queries" << std::endl;
+            return ErrorCode;
+        }
+
+        simplify_queries(*qnet, queries, options);
+
+        if(options._query_out_file.size() > 0) {
+            outputQueries(b2, queries, querynames, options._query_out_file, options._binary_query_io);
+        }
+
+        qnet = nullptr;
+        qm0 = nullptr;
     }
 
-    if(options.query_out_file.size() > 0) {
-        outputQueries(builder, queries, querynames, options.query_out_file, options.binary_query_io);
-    }
-
-    qnet = nullptr;
-    qm0 = nullptr;
-
-    if (!options.statespaceexploration){
+    ResultPrinter p2(&b2, &options, querynames);
+    if (!options._statespace_exploration){
         for(size_t i = 0; i < queries.size(); ++i)
         {
             if(queries[i]->isTriviallyTrue()){
                 results[i] = p2.handle(i, queries[i].get(), ResultPrinter::Satisfied).first;
-                if(results[i] == ResultPrinter::Ignore && options.printstatistics)
+                if(results[i] == ResultPrinter::Ignore && options._print_statistics)
                 {
                     std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
                 }
-                else if (options.printstatistics) {
+                else if (options._print_statistics) {
                     std::cout << "Query solved by Query Simplification." << std::endl << std::endl;
                 }
             } else if (queries[i]->isTriviallyFalse()) {
                 results[i] = p2.handle(i, queries[i].get(), ResultPrinter::NotSatisfied).first;
-                if(results[i] == ResultPrinter::Ignore &&  options.printstatistics)
+                if(results[i] == ResultPrinter::Ignore &&  options._print_statistics)
                 {
                     std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
                 }
-                else if (options.printstatistics) {
+                else if (options._print_statistics) {
                     std::cout << "Query solved by Query Simplification." << std::endl << std::endl;
                 }
-            } else if (options.strategy == options_t::SearchStrategy::OverApprox){
+            } else if (options._strategy == options_t::search_strategy_e::OverApprox){
                 results[i] = p2.handle(i, queries[i].get(), ResultPrinter::Unknown).first;
-                if (options.printstatistics) {
+                if (options._print_statistics) {
                     std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
                 }
-            } else if (options.noreach || !queries[i]->isReachability()) {
-                results[i] = options.logic == options_t::TemporalLogic::CTL ? ResultPrinter::CTL : ResultPrinter::LTL;
-                alldone = false;
+            } else if (options._noreach || !queries[i]->isReachability()) {
+                results[i] = options._logic == options_t::temporal_logic_e::CTL ? ResultPrinter::CTL : ResultPrinter::LTL;
             } else {
                 queries[i] = queries[i]->prepareForReachability();
-                alldone = false;
             }
         }
 
-        if(alldone && options.model_out_file.size() == 0) return SuccessCode;
+        if(all_done(results) && options._model_out_file.size() == 0)
+            return SuccessCode;
     }
 
-    options.queryReductionTimeout = 0;
+    options._query_reduction_timeout = 0;
 
     //--------------------- Apply Net Reduction ---------------//
 
-    if (options.enablereduction > 0) {
+    if (options._enable_reduction > 0) {
         // Compute how many times each place appears in the query
         builder.start_timer();
-        builder.reduce(queries, results, options.enablereduction,
-            options.trace != options_t::TraceLevel::None, nullptr, options.reductionTimeout, options.reductions);
+        builder.reduce(queries, results, options._enable_reduction,
+            options._trace != options_t::trace_level_e::None, nullptr, options._reduction_timeout, options._reductions);
         printer.set_reducer(builder.get_reducer());
     }
 
@@ -273,30 +267,21 @@ int main(int argc, char* argv[]) {
 
     auto net = std::unique_ptr<PetriNet>(builder.make_petri_net());
 
-    if(options.model_out_file.size() > 0)
+    if(options._model_out_file.size() > 0)
     {
         std::fstream file;
-        file.open(options.model_out_file, std::ios::out);
+        file.open(options._model_out_file, std::ios::out);
         net->toXML(file);
     }
 
-    if(alldone) return SuccessCode;
-
-    if (options.replay_trace) {
-        if (contextAnalysis(cpnBuilder, builder, net.get(), queries) != ContinueCode) {
-            std::cerr << "Fatal error assigning indexes" << std::endl;
-            exit(1);
-        }
-        std::ifstream replay_file(options.replay_file, std::ifstream::in);
-        PetriEngine::TraceReplay replay{replay_file, net.get(), options};
-        for (size_t i=0; i < queries.size(); ++i) {
-            if (results[i] == ResultPrinter::Unknown || results[i] == ResultPrinter::CTL || results[i] == ResultPrinter::LTL)
-                replay.replay(net.get(), queries[i]);
-        }
+    if(all_done(results))
         return SuccessCode;
+
+    if (options._replay_trace) {
+        return doReplay(cpnBuilder, builder, *net, queries, results, options);
     }
 
-    if(options.doVerification){
+    if(options._do_verification){
 
         //----------------------- Verify CTL queries -----------------------//
         std::vector<size_t> ctl_ids;
@@ -312,37 +297,24 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        if (options.replay_trace) {
-            if (contextAnalysis(cpnBuilder, builder, net.get(), queries) != ContinueCode) {
-                std::cerr << "Fatal error assigning indexes" << std::endl;
-                exit(1);
-            }
-            std::ifstream replay_file(options.replay_file, std::ifstream::in);
-            PetriEngine::TraceReplay replay{replay_file, net.get(), options};
-            for (int i : ltl_ids) {
-                replay.replay(net.get(), queries[i]);
-            }
-            return SuccessCode;
-        }
-
         if (!ctl_ids.empty()) {
-            options.usedctl=true;
-            auto reachabilityStrategy = options.strategy;
+            options._used_ctl=true;
+            auto reachabilityStrategy = options._strategy;
 
             // Assign indexes
-            if(queries.empty() || contextAnalysis(cpnBuilder, builder, net.get(), queries) != ContinueCode)
+            if(queries.empty() || contextAnalysis(cpnBuilder, builder, *net, queries) != ContinueCode)
             {
                 std::cerr << "An error occurred while assigning indexes" << std::endl;
                 return ErrorCode;
             }
-            if(options.strategy == options_t::SearchStrategy::DEFAULT)
-                options.strategy = options_t::SearchStrategy::DFS;
+            if(options._strategy == options_t::search_strategy_e::DEFAULT)
+                options._strategy = options_t::search_strategy_e::DFS;
             v = CTLMain(net.get(),
-                options.ctlalgorithm,
-                options.strategy,
-                options.printstatistics,
+                options._ctlalgorithm,
+                options._strategy,
+                options._print_statistics,
                 true,
-                options.stubbornreduction,
+                options._stubborn_reduction,
                 querynames,
                 queries,
                 ctl_ids,
@@ -352,15 +324,15 @@ int main(int argc, char* argv[]) {
                 return v;
             }
             // go back to previous strategy if the program continues
-            options.strategy = reachabilityStrategy;
+            options._strategy = reachabilityStrategy;
         }
-        options.usedctl = false;
+        options._used_ctl = false;
 
         //----------------------- Verify LTL queries -----------------------//
 
-        if (!ltl_ids.empty() && options.ltlalgorithm != LTL::Algorithm::None) {
-            options.usedltl = true;
-            if ((v = contextAnalysis(cpnBuilder, builder, net.get(), queries)) != ContinueCode) {
+        if (!ltl_ids.empty() && options._ltl_algorithm != LTL::Algorithm::None) {
+            options._used_ltl = true;
+            if ((v = contextAnalysis(cpnBuilder, builder, *net, queries)) != ContinueCode) {
                 std::cerr << "Error performing context analysis" << std::endl;
                 return v;
             }
@@ -371,67 +343,50 @@ int main(int argc, char* argv[]) {
                 std::cout << "Query is " << (res ? "" : "NOT ") << "satisfied." << std::endl;
 
             }
-            if (std::find(results.begin(), results.end(), ResultPrinter::Unknown) == results.end()) {
+            if (all_done(results))
                 return SuccessCode;
-            }
         }
 
         //----------------------- Siphon Trap ------------------------//
+        run_siphon_trap(*net, queries, results, printer, options);
+        if(all_done(results))
+            return error_e::SuccessCode;
 
-        if(options.siphontrapTimeout > 0){
-            for (uint32_t i = 0; i < results.size(); i ++) {
-                bool isDeadlockQuery = std::dynamic_pointer_cast<DeadlockCondition>(queries[i]) != nullptr;
-
-                if (results[i] == ResultPrinter::Unknown && isDeadlockQuery) {
-                    STSolver stSolver(printer, *net, queries[i].get(), options.siphonDepth);
-                    stSolver.solve(options.siphontrapTimeout);
-                    results[i] = stSolver.printResult();
-                    if (results[i] == Reachability::ResultPrinter::NotSatisfied && options.printstatistics) {
-                        std::cout << "Query solved by Siphon-Trap Analysis." << std::endl << std::endl;
-                    }
-                }
-            }
-
-            if (std::find(results.begin(), results.end(), ResultPrinter::Unknown) == results.end()) {
-                return SuccessCode;
-            }
-        }
-        options.siphontrapTimeout = 0;
 
         //----------------------- Reachability -----------------------//
 
         //Analyse context again to reindex query
-        contextAnalysis(cpnBuilder, builder, net.get(), queries);
+        contextAnalysis(cpnBuilder, builder, *net, queries);
 
-        // Change default place-holder to default strategy
-        if(options.strategy == options_t::SearchStrategy::DEFAULT)
-            options.strategy = options_t::SearchStrategy::HEUR;
-
-        if(options.tar && net->number_of_places() > 0)
+        if(options._tar && net->number_of_places() > 0)
         {
             //Create reachability search strategy
-            TARReachabilitySearch strategy(printer, *net, builder.get_reducer(), options.kbound);
+            TARReachabilitySearch strategy(printer, *net, builder.get_reducer(), options._kbound);
 
             // Change default place-holder to default strategy
             fprintf(stdout, "Search strategy option was ignored as the TAR engine is called.\n");
-            options.strategy = options_t::SearchStrategy::DFS;
+            options._strategy = options_t::search_strategy_e::DFS;
 
             //Reachability search
             strategy.reachable(queries, results,
-                    options.printstatistics,
-                    options.trace != options_t::TraceLevel::None);
+            options._print_statistics,
+            options._trace != options_t::trace_level_e::None);
         }
         else
         {
-            ReachabilitySearch strategy(*net, printer, options.kbound);
+            // Change default place-holder to default strategy
+            if(options._strategy == options_t::search_strategy_e::DEFAULT)
+                options._strategy = options_t::search_strategy_e::HEUR;
+
+            ReachabilitySearch strategy(*net, printer, options._kbound);
 
             //Reachability search
             strategy.reachable(queries, results,
-                            options.strategy,
-                            options.stubbornreduction,
-                            options.statespaceexploration,
-                            options.printstatistics,
-                            options.trace != options_t::TraceLevel::None,
+                            options._strategy,
+                            options._stubborn_reduction,
+                            options._statespace_exploration,
+                            options._print_statistics,
+                            options._trace != options_t::trace_level_e::None,
                             options.seed());
         }
     }

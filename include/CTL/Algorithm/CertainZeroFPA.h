@@ -13,7 +13,7 @@ namespace Algorithm {
 class CertainZeroFPA : public FixedPointAlgorithm
 {
 public:
-    CertainZeroFPA(options_t::SearchStrategy type) : FixedPointAlgorithm(type)
+    CertainZeroFPA(options_t::search_strategy_e type) : FixedPointAlgorithm(type)
     {
     }
     virtual ~CertainZeroFPA()

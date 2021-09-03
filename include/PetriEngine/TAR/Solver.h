@@ -2,7 +2,7 @@
  *  Copyright Peter G. Jensen, all rights reserved.
  */
 
-/* 
+/*
  * File:   Solver.h
  * Author: Peter G. Jensen <root@petergjoel.dk>
  *
@@ -28,7 +28,7 @@ namespace PetriEngine {
         public:
             using inter_t = std::pair<prvector_t, size_t>;
             using interpolant_t = std::vector<inter_t>;
-            Solver(PetriNet& net, MarkVal* initial, Condition* query, std::vector<bool>& inq);
+            Solver(const PetriNet& net, MarkVal* initial, Condition* query, std::vector<bool>& inq);
             bool check(trace_t& trace, TraceSet& interpolants);
             const std::vector<bool>& in_query() const { return _inq; }
             Condition* query() const { return _query; }
@@ -37,7 +37,7 @@ namespace PetriEngine {
             interpolant_t find_free(trace_t& trace);
             bool compute_hoare(trace_t& trace, interpolant_t& ranges, int64_t fail);
             bool compute_terminal(state_t& end, inter_t& last);
-            PetriNet& _net;
+            const PetriNet& _net;
             MarkVal* _initial;
             Condition* _query;
             std::vector<bool> _inq;

@@ -36,7 +36,7 @@ namespace LTL {
             _place_checkpoint(new bool[net.number_of_places()]),
             _gen(_net)
         {
-            _markbuf.set_marking(net.makeInitialMarking());
+            _markbuf.set_marking(net.make_initial_marking());
             _retarding_stubborn_set.set_interesting_visitor<PetriEngine::AutomatonInterestingTransitionVisitor>();
         }
 

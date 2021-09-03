@@ -2,10 +2,10 @@
  *  Copyright Peter G. Jensen, all rights reserved.
  */
 
-/* 
+/*
  * File:   Solver.cpp
  * Author: Peter G. Jensen <root@petergjoel.dk>
- * 
+ *
  * Created on April 3, 2020, 8:08 PM
  */
 
@@ -22,8 +22,8 @@
 namespace PetriEngine {
     namespace Reachability {
         using namespace PQL;
-        Solver::Solver(PetriNet& net, MarkVal* initial, Condition* query, std::vector<bool>& inq)
-        : _net(net), _initial(initial), _query(query), _inq(inq) 
+        Solver::Solver(const PetriNet& net, MarkVal* initial, Condition* query, std::vector<bool>& inq)
+        : _net(net), _initial(initial), _query(query), _inq(inq)
 #ifndef NDEBUG
         , _gen(_net)
 #endif
@@ -31,7 +31,7 @@ namespace PetriEngine {
             _dirty.resize(_net.number_of_places());
             _m = std::make_unique<int64_t[]>(_net.number_of_places());
             _failm = std::make_unique<int64_t[]>(_net.number_of_places());
-            _mark = std::make_unique<MarkVal[]>(_net.number_of_places());    
+            _mark = std::make_unique<MarkVal[]>(_net.number_of_places());
             _use_count = std::make_unique<uint64_t[]>(_net.number_of_places());
             for(size_t p = 0; p < _net.number_of_places(); ++p)
                 if(inq[p])
@@ -44,7 +44,7 @@ namespace PetriEngine {
                     _use_count[it->place] += _net.number_of_transitions();
                 }
             }
-            
+
             // make total order
             /*uint64_t mn = std::numeric_limits<decltype(mn)>::max();
             for(size_t p = 0; p < _net.number_of_places(); ++p)
@@ -132,10 +132,10 @@ namespace PetriEngine {
                             inter.back().first.print(std::cerr) << std::endl;*/
                             if(!ctx.satisfied() && !ctx.constraint().is_false(_net.number_of_places()))
                             {
-                                
+
                                 /*std::cerr << "\n\nBETTER\n";
                                 ctx.constraint().print(std::cerr) << std::endl;
-                                inter.back().first.print(std::cerr) << std::endl;                              
+                                inter.back().first.print(std::cerr) << std::endl;
                                 std::cerr << "\n IS INVALID IN " << std::endl;
                                 if(ctx.constraint().is_true()){
                                     RangeEvalContext ctx(inter.back().first, _net, _use_count.get());
@@ -237,7 +237,7 @@ namespace PetriEngine {
                                     }
                                 }
                             }
-                            
+
                             auto post = _net.postset(t);
                             for(; post.first != post.second; ++post.first)
                             {
@@ -257,7 +257,7 @@ namespace PetriEngine {
             }
             return {};
         }
-        
+
         int64_t Solver::find_failure(trace_t& trace, bool to_end)
         {
             for(size_t p = 0; p < _net.number_of_places(); ++p)
@@ -288,10 +288,10 @@ namespace PetriEngine {
                         else _mark[p] = _m[p];
                     }
                     if(_query->getQuantifier() != Quantifier::UPPERBOUNDS)
-                    {                        
+                    {
                         EvaluationContext ctx(_mark.get(), &_net);
                         auto r = _query->evalAndSet(ctx);
-#ifndef NDEBUG 
+#ifndef NDEBUG
                         if(first_fail == std::numeric_limits<decltype(first_fail)>::max())
                         {
                             for(size_t p = 0; p < _net.number_of_places(); ++p)
@@ -312,7 +312,7 @@ namespace PetriEngine {
                                 else if(_gen.checkPreset(t.get_edge_cnt()-1))
                                 {
                                     _gen.consumePreset(s, t.get_edge_cnt()-1);
-                                    
+
                                     _gen.producePostset(s, t.get_edge_cnt()-1);
                                 }
                                 else
@@ -368,7 +368,7 @@ namespace PetriEngine {
                             std::cerr << "P" << p << "<" << _m[p] << ">,";
                     }
                     std::cerr << std::endl;
-*/ 
+*/
                     for(; pre.first != pre.second; ++pre.first)
                     {
                         if(_m[pre.first->place] < pre.first->tokens)
@@ -401,7 +401,7 @@ namespace PetriEngine {
             assert(false);
             return -1;
         }
-        
+
         bool Solver::compute_terminal(state_t& end, inter_t& last)
         {
             last.second = end.get_edge_cnt();
@@ -422,7 +422,7 @@ namespace PetriEngine {
 #ifdef VERBOSETAR
                 std::cerr << "TERMINAL IS T" << (end.get_edge_cnt()-1) << std::endl;
 #endif
-                
+
 #ifndef NDEBUG
                 bool some = false;
 #endif
@@ -490,7 +490,7 @@ namespace PetriEngine {
                             _dirty[post.first->place] = true;
                             return false;
                         }
-                        r -= post.first->tokens;   
+                        r -= post.first->tokens;
                     }
                     else
                     {
@@ -579,7 +579,7 @@ namespace PetriEngine {
                 {
                     if(compute_hoare(trace, ranges, fail-1))
                     {
-                        interpolants.add_trace(ranges);                        
+                        interpolants.add_trace(ranges);
                         if(fail != (int)(trace.size() - 1))
                             break;
                     }

@@ -6,19 +6,19 @@
 
 namespace CTL {
 namespace Algorithm {
-    FixedPointAlgorithm::FixedPointAlgorithm(options_t::SearchStrategy type) {
+    FixedPointAlgorithm::FixedPointAlgorithm(options_t::search_strategy_e type) {
         switch(type)
         {
-            case options_t::SearchStrategy::DFS:
+            case options_t::search_strategy_e::DFS:
                 _strategy = std::make_shared<CTL::SearchStrategy::DFSSearch>();
                 break;
-            case options_t::SearchStrategy::RDFS:
+            case options_t::search_strategy_e::RDFS:
                 _strategy = std::make_shared<CTL::SearchStrategy::RDFSSearch>();
                 break;
-            case options_t::SearchStrategy::BFS:
+            case options_t::search_strategy_e::BFS:
                 _strategy = std::make_shared<CTL::SearchStrategy::BFSSearch>();
                 break;
-            case options_t::SearchStrategy::HEUR:
+            case options_t::search_strategy_e::HEUR:
                 _strategy = std::make_shared<CTL::SearchStrategy::HeuristicSearch>();
                 break;
             default:

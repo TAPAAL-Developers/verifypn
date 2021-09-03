@@ -13,7 +13,7 @@
 namespace CTL {
 error_e CTLMain(PetriEngine::PetriNet* net,
             CTL::CTLAlgorithmType algorithmtype,
-            options_t::SearchStrategy strategytype,
+            options_t::search_strategy_e strategytype,
             bool printstatistics,
             bool mccoutput,
             bool partial_order,

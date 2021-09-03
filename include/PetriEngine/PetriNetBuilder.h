@@ -94,8 +94,12 @@ namespace PetriEngine {
             _reducer.print_stats(out);
         }
 
-        Reducer* get_reducer() {
-            return &_reducer;
+        Reducer& get_reducer() {
+            return _reducer;
+        }
+
+        const Reducer& get_reducer() const {
+            return _reducer;
         }
 
         std::vector<std::pair<std::string, uint32_t>> orphan_places() const {

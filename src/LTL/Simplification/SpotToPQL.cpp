@@ -151,7 +151,7 @@ namespace LTL {
             return std::make_shared<ACondition>(simplify((*a)[0], options));
         }
         auto[f, apinfo] = LTL::to_spot_formula(formula, options);
-        spot::tl_simplifier simplifier{static_cast<int>(options.buchiOptimization)};
+        spot::tl_simplifier simplifier{static_cast<int>(options._buchi_optimization)};
         f = simplifier.simplify(f);
         // spot simplifies using unsupported operators R, W, and M, which we now remove.
         f = spot::unabbreviate(f, "RWM");

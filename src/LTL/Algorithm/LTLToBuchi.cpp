@@ -120,7 +120,7 @@ namespace LTL {
     std::pair<spot::formula, APInfo>
     to_spot_formula (const PetriEngine::PQL::Condition_ptr &query, const options_t &options) {
         std::stringstream ss;
-        FormulaToSpotSyntax spotConverter{ss, options.ltl_compress_aps};
+        FormulaToSpotSyntax spotConverter{ss, options._ltl_compress_aps};
         query->visit(spotConverter);
         std::string spotFormula = ss.str();
         if (spotFormula.at(0) == 'E' || spotFormula.at(0) == 'A') {
@@ -138,14 +138,14 @@ namespace LTL {
         // (default is high which causes many worst case BDD constructions i.e. exponential blow-up)
         translator.set_type(spot::postprocessor::BA);
         spot::postprocessor::optimization_level level;
-        switch(options.buchiOptimization) {
-            case options_t::BuchiOptimization::Low:
+        switch(options._buchi_optimization) {
+            case options_t::buchi_optimization_e::Low:
                 level = spot::postprocessor::Low;
                 break;
-            case options_t::BuchiOptimization::Medium:
+            case options_t::buchi_optimization_e::Medium:
                 level = spot::postprocessor::Medium;
                 break;
-            case options_t::BuchiOptimization::High:
+            case options_t::buchi_optimization_e::High:
                 level = spot::postprocessor::High;
                 break;
         }

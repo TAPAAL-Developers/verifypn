@@ -96,7 +96,7 @@ namespace LTL {
     public:
 
         explicit FormulaToSpotSyntax(std::ostream &os = std::cout,
-                options_t::APCompression compress_aps = options_t::APCompression::Choose)
+                options_t::atomic_compression_e compress_aps = options_t::atomic_compression_e::Choose)
                 : PetriEngine::PQL::QueryPrinter(os), _compress(compress_aps) {}
 
 
@@ -118,7 +118,7 @@ namespace LTL {
     private:
         APInfo _ap_info;
         bool _is_quoted = false;
-        options_t::APCompression _compress;
+        options_t::atomic_compression_e _compress;
 
         void make_atomic_prop(const PetriEngine::PQL::Condition_constptr &element)
         {
@@ -126,8 +126,8 @@ namespace LTL {
                     const_cast<PetriEngine::PQL::Condition *>(element.get())->shared_from_this();
             std::stringstream ss;
             ss << "\"";
-            bool choice = _compress == options_t::APCompression::Choose && element->formulaSize() > 250;
-            if (_compress == options_t::APCompression::Full || choice) {
+            bool choice = _compress == options_t::atomic_compression_e::Choose && element->formulaSize() > 250;
+            if (_compress == options_t::atomic_compression_e::Full || choice) {
                 // FIXME Very naive; this completely removes APs being in multiple places in the query,
                 // leading to some query not being answered as is. The net gain is large in the firebaility category,
                 // but ideally it would be possible to make a smarter approach that looks at previously stored APs

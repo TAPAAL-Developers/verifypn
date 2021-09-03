@@ -55,7 +55,7 @@ namespace PetriEngine {
             bool reachable(
                     std::vector<std::shared_ptr<PQL::Condition > >& queries,
                     std::vector<ResultPrinter::Result>& results,
-                    options_t::SearchStrategy strategy,
+                    options_t::search_strategy_e strategy,
                     bool usestubborn,
                     bool statespacesearch,
                     bool printstats,
@@ -118,9 +118,9 @@ namespace PetriEngine {
             // set up working area
             Structures::State state;
             Structures::State working;
-            _initial.set_marking(_net.makeInitialMarking());
-            state.set_marking(_net.makeInitialMarking());
-            working.set_marking(_net.makeInitialMarking());
+            _initial.set_marking(_net.make_initial_marking());
+            state.set_marking(_net.make_initial_marking());
+            working.set_marking(_net.make_initial_marking());
 
             W states(_net, _kbound);    // stateset
             Q queue(&states, seed);           // working queue

@@ -47,9 +47,9 @@ namespace LTL {
         }
 
         void set_options(const options_t &options) {
-            _traceLevel = options.trace;
-            _shortcircuitweak = options.ltluseweak;
-            if (_traceLevel != options_t::TraceLevel::None) {
+            _traceLevel = options._trace;
+            _shortcircuitweak = options._ltl_use_weak;
+            if (_traceLevel != options_t::trace_level_e::None) {
                 _maxTransName = 0;
                 for (const auto &transname : _net->transitionNames()) {
                     _maxTransName = std::max(transname.size(), _maxTransName);
@@ -91,7 +91,7 @@ namespace LTL {
         PetriEngine::PQL::Condition_ptr _formula;
         std::unique_ptr<ProductSucGen<SuccessorGen, Spooler...>> _successor_generator;
 
-        options_t::TraceLevel _traceLevel;
+        options_t::trace_level_e _traceLevel;
         LTL::Structures::ProductStateFactory _factory;
 
         size_t _discovered = 0;
@@ -119,7 +119,7 @@ namespace LTL {
                    // field width stuff obsolete without büchi state printing.
                    //<< std::setw(maxTransName + 2) << std::left
                     << std::quoted(_net->transitionNames()[transition]);
-            if (_traceLevel == options_t::TraceLevel::Full) {
+            if (_traceLevel == options_t::trace_level_e::Full) {
                 os << ">";
                 os << std::endl;
                 auto [fpre, lpre] = _net->preset(transition);

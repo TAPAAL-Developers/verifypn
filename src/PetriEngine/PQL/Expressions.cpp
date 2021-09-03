@@ -2585,7 +2585,7 @@ namespace PetriEngine {
             std::vector<int> row(context.net()->number_of_transitions(), 0);
             row.shrink_to_fit();
             for (size_t t = 0; t < context.net()->number_of_transitions(); t++) {
-                row[t] = context.net()->outArc(t, p) - context.net()->inArc(p, t);
+                row[t] = context.net()->out_arc(t, p) - context.net()->in_arc(p, t);
             }
             return Member(std::move(row), context.marking()[p]);
         }

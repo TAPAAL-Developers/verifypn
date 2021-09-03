@@ -11,7 +11,7 @@ class LocalFPA : public FixedPointAlgorithm
 
     // FixedPointAlgorithm interface
 public:
-    LocalFPA(options_t::SearchStrategy type) : FixedPointAlgorithm(type)
+    LocalFPA(options_t::search_strategy_e type) : FixedPointAlgorithm(type)
     {
     }
     virtual ~LocalFPA (){}

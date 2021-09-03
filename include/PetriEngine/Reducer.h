@@ -117,9 +117,9 @@ namespace PetriEngine {
                 << "Applications of rule K: " << _ruleK << std::endl;
         }
 
-        void post_fire(std::ostream&, const std::string& transition);
-        void extra_consume(std::ostream&, const std::string& transition);
-        void init_fire(std::ostream&);
+        void post_fire(std::ostream&, const std::string& transition) const;
+        void extra_consume(std::ostream&, const std::string& transition) const;
+        void init_fire(std::ostream&) const;
 
     private:
         size_t _removedTransitions = 0;

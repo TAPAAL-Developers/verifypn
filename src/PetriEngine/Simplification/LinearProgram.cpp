@@ -217,7 +217,7 @@ namespace PetriEngine {
                     p0 = m0[tp];
                     for (size_t t = 0; t < net->number_of_transitions(); ++t)
                     {
-                        row[1 + t] = net->outArc(t, tp) - net->inArc(tp, t);
+                        row[1 + t] = net->out_arc(t, tp) - net->in_arc(tp, t);
                         all_le_zero &= row[1 + t] <= 0;
                         all_zero &= row[1 + t] == 0;
                     }
@@ -228,7 +228,7 @@ namespace PetriEngine {
                     {
                         double cnt = 0;
                         for(auto tp : places)
-                            cnt += net->outArc(t, tp) - net->inArc(tp, t);
+                            cnt += net->out_arc(t, tp) - net->in_arc(tp, t);
                         row[1 + t] = cnt;
                         all_le_zero &= row[1 + t] <= 0;
                         all_zero &= row[1 + t] == 0;

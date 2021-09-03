@@ -468,8 +468,8 @@ Configuration* OnTheFlyDG::initialConfiguration()
 {
     if(working_marking.marking() == nullptr)
     {
-        working_marking.set_marking  (net->makeInitialMarking());
-        query_marking.set_marking    (net->makeInitialMarking());
+        working_marking.set_marking  (net->make_initial_marking());
+        query_marking.set_marking    (net->make_initial_marking());
         auto o = owner(working_marking, this->query);
         initial_config = createConfiguration(createMarking(working_marking), o, this->query);
     }
