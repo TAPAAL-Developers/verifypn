@@ -24,7 +24,7 @@ using namespace PetriEngine::Reachability;
 using namespace PetriNets;
 
 namespace CTL {
-error_e getAlgorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm>& algorithm,
+error_e get_algorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm>& algorithm,
     CTLAlgorithmType algorithmtype, options_t::search_strategy_e search)
 {
     switch(algorithmtype)
@@ -42,27 +42,25 @@ error_e getAlgorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm>& algorithm,
     return ContinueCode;
 }
 
-void printResult(const std::string& qname, CTLResult& result, bool statisticslevel, bool mccouput, bool only_stats, size_t index, options_t& options){
+void print_ctl_result(const std::string& qname, const CTLResult& result, size_t index, options_t& options) {
     const static string techniques = "TECHNIQUES COLLATERAL_PROCESSING EXPLICIT STATE_COMPRESSION SAT_SMT ";
 
-    if(!only_stats)
-    {
-        cout << endl;
-        cout << "FORMULA "
-             << qname
-            << " " << (result._result ? "TRUE" : "FALSE") << " "
-             << techniques
-             << (options._is_CPN ? "UNFOLDING_TO_PT " : "")
-             << (options._stubborn_reduction ? "STUBBORN_SETS " : "")
-             << (options._ctlalgorithm == CTL::CZero ? "CTL_CZERO " : "")
-             << (options._ctlalgorithm == CTL::Local ? "CTL_LOCAL " : "")
-                << endl << endl;
-        std::cout << "Query index " << index << " was solved" << std::endl;
-        cout << "Query is" << (result._result ? "" : " NOT") << " satisfied." << endl;
+    cout << endl;
+    cout << "FORMULA "
+         << qname
+        << " " << (result._result ? "TRUE" : "FALSE") << " "
+         << techniques
+         << (options._is_CPN ? "UNFOLDING_TO_PT " : "")
+         << (options._stubborn_reduction ? "STUBBORN_SETS " : "")
+         << (options._ctlalgorithm == CTL::CZero ? "CTL_CZERO " : "")
+         << (options._ctlalgorithm == CTL::Local ? "CTL_LOCAL " : "")
+            << endl << endl;
+    std::cout << "Query index " << index << " was solved" << std::endl;
+    cout << "Query is" << (result._result ? "" : " NOT") << " satisfied." << endl;
 
-        cout << endl;
-    }
-    if(statisticslevel){
+    cout << endl;
+
+    if(options._print_statistics){
         cout << "STATS:" << endl;
         cout << "	Time (seconds)    : " << setprecision(4) << result._duration / 1000 << endl;
         cout << "	Configurations    : " << result._numberOfConfigurations << endl;
@@ -75,14 +73,12 @@ void printResult(const std::string& qname, CTLResult& result, bool statisticslev
     }
 }
 
-bool singleSolve(const Condition_ptr& query, PetriNet* net,
-                 CTLAlgorithmType algorithmtype,
-    options_t::search_strategy_e strategytype, bool partial_order, CTLResult& result)
+bool single_solve(const Condition_ptr& query, const PetriNet& net, CTLResult& result, options_t& options)
 {
-    OnTheFlyDG graph(net, partial_order);
+    OnTheFlyDG graph(net, options._stubborn_reduction);
     graph.setQuery(query);
     std::shared_ptr<Algorithm::FixedPointAlgorithm> alg = nullptr;
-    if(getAlgorithm(alg, algorithmtype,  strategytype) == ErrorCode)
+    if(get_algorithm(alg, options._ctlalgorithm,  options._strategy) == ErrorCode)
     {
         assert(false);
         throw std::exception();
@@ -103,9 +99,7 @@ bool singleSolve(const Condition_ptr& query, PetriNet* net,
     return res;
 }
 
-bool recursiveSolve(const Condition_ptr& query, PetriNet* net,
-                    CTLAlgorithmType algorithmtype,
-    options_t::search_strategy_e strategytype, bool partial_order, CTLResult& result, options_t& options);
+bool recursive_solve(const Condition_ptr& query, const PetriNet& net, CTLResult& result, options_t& options);
 
 class ResultHandler : public AbstractHandler {
     private:
@@ -140,9 +134,8 @@ class ResultHandler : public AbstractHandler {
         }
 };
 
-bool solveLogicalCondition(LogicalCondition* query, bool is_conj, PetriNet* net,
-                           CTLAlgorithmType algorithmtype,
-    options_t::search_strategy_e strategytype, bool partial_order, CTLResult& result, options_t& options)
+bool solve_logical_condition(LogicalCondition* query, bool is_conj, const PetriNet& net,
+                           CTLResult& result, options_t& options)
 {
     std::vector<int8_t> state(query->size(), 0);
     std::vector<int8_t> lstate;
@@ -162,7 +155,7 @@ bool solveLogicalCondition(LogicalCondition* query, bool is_conj, PetriNet* net,
         std::vector<AbstractHandler::Result> res(queries.size(), AbstractHandler::Unknown);
         if(!options._tar)
         {
-            ReachabilitySearch strategy(*net, handler, options._kbound, true);
+            ReachabilitySearch strategy(net, handler, options._kbound, true);
             strategy.reachable(queries, res,
                                         options._strategy,
                                         options._stubborn_reduction,
@@ -173,7 +166,7 @@ bool solveLogicalCondition(LogicalCondition* query, bool is_conj, PetriNet* net,
         }
         else
         {
-            TARReachabilitySearch tar(handler, *net, nullptr, options._kbound);
+            TARReachabilitySearch tar(handler, net, nullptr, options._kbound);
             tar.reachable(queries, res, false, false);
         }
         size_t j = 0;
@@ -197,7 +190,7 @@ bool solveLogicalCondition(LogicalCondition* query, bool is_conj, PetriNet* net,
     for(size_t i = 0; i < query->size(); ++i) {
         if (state[i] == 0)
         {
-            if(recursiveSolve((*query)[i], net, algorithmtype, strategytype, partial_order, result, options) xor is_conj)
+            if(recursive_solve((*query)[i], net, result, options) xor is_conj)
             {
                 return !is_conj;
             }
@@ -223,21 +216,20 @@ public:
     }
 };
 
-bool recursiveSolve(const Condition_ptr& query, PetriEngine::PetriNet* net,
-    CTL::CTLAlgorithmType algorithmtype, options_t::search_strategy_e strategytype,
-    bool partial_order, CTLResult& result, options_t& options)
+bool recursive_solve(const Condition_ptr& query, const PetriEngine::PetriNet& net,
+    CTLResult& result, options_t& options)
 {
     if(auto q = dynamic_cast<NotCondition*>(query.get()))
     {
-        return ! recursiveSolve((*q)[0], net, algorithmtype, strategytype, partial_order, result, options);
+        return ! recursive_solve((*q)[0], net, result, options);
     }
     else if(auto q = dynamic_cast<AndCondition*>(query.get()))
     {
-        return solveLogicalCondition(q, true, net, algorithmtype, strategytype, partial_order, result, options);
+        return solve_logical_condition(q, true, net, result, options);
     }
     else if(auto q = dynamic_cast<OrCondition*>(query.get()))
     {
-        return solveLogicalCondition(q, false, net, algorithmtype, strategytype, partial_order, result, options);
+        return solve_logical_condition(q, false, net, result, options);
     }
     else if(query->isReachability())
     {
@@ -247,12 +239,12 @@ bool recursiveSolve(const Condition_ptr& query, PetriEngine::PetriNet* net,
         res.emplace_back(AbstractHandler::Unknown);
         if(options._tar)
         {
-            TARReachabilitySearch tar(handler, *net, nullptr, options._kbound);
+            TARReachabilitySearch tar(handler, net, nullptr, options._kbound);
             tar.reachable(queries, res, false, false);
         }
         else
         {
-            ReachabilitySearch strategy(*net, handler, options._kbound, true);
+            ReachabilitySearch strategy(net, handler, options._kbound, true);
             strategy.reachable(queries, res,
                            options._strategy,
                            options._stubborn_reduction,
@@ -265,57 +257,47 @@ bool recursiveSolve(const Condition_ptr& query, PetriEngine::PetriNet* net,
     }
     else
     {
-        return singleSolve(query, net, algorithmtype, strategytype, partial_order, result);
+        return single_solve(query, net, result, options);
     }
 }
 
 
-error_e CTLMain(PetriNet* net,
-        CTLAlgorithmType algorithmtype,
-        options_t::search_strategy_e strategytype,
-        bool printstatistics,
-        bool mccoutput,
-        bool partial_order,
-        const std::vector<std::string>& querynames,
-        const std::vector<std::shared_ptr<Condition>>&queries,
-        const std::vector<size_t>& querynumbers,
+CTLResult verify_ctl(const PetriNet& net,
+        Condition_ptr& query,
         options_t& options
     )
 {
-    for(auto qnum : querynumbers){
-        CTLResult result(queries[qnum]);
-        bool solved = false;
+    CTLResult result(query);
+    bool solved = false;
 
-        {
-            OnTheFlyDG graph(net, partial_order);
-            graph.setQuery(result._query);
-            switch (graph.initialEval()) {
-                case Condition::Result::RFALSE:
-                    result._result = false;
-                    solved = true;
-                    break;
-                case Condition::Result::RTRUE:
-                    result._result = true;
-                    solved = true;
-                    break;
-                default:
-                    break;
-            }
+    {
+        OnTheFlyDG graph(net, options._stubborn_reduction);
+        graph.setQuery(result._query);
+        switch (graph.initialEval()) {
+            case Condition::Result::RFALSE:
+                result._result = false;
+                solved = true;
+                break;
+            case Condition::Result::RTRUE:
+                result._result = true;
+                solved = true;
+                break;
+            default:
+                break;
         }
-        result._numberOfConfigurations = 0;
-        result._numberOfMarkings = 0;
-        result._processedEdges = 0;
-        result._processedNegationEdges = 0;
-        result._exploredConfigurations = 0;
-        result._numberOfEdges = 0;
-        result._duration = 0;
-        if(!solved)
-        {
-            result._result = recursiveSolve(result._query, net, algorithmtype, strategytype, partial_order, result, options);
-        }
-        printResult(querynames[qnum], result, printstatistics, mccoutput, false, qnum, options);
     }
-    return SuccessCode;
+    result._numberOfConfigurations = 0;
+    result._numberOfMarkings = 0;
+    result._processedEdges = 0;
+    result._processedNegationEdges = 0;
+    result._exploredConfigurations = 0;
+    result._numberOfEdges = 0;
+    result._duration = 0;
+    if(!solved)
+    {
+        result._result = recursive_solve(result._query, net, result, options);
+    }
+    return result;
 }
 }
 

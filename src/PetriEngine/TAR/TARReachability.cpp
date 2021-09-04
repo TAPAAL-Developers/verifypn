@@ -217,10 +217,10 @@ namespace PetriEngine {
                     if(use_trans[t+1]) continue;
                     {
                         for(;pre.first != pre.second; ++pre.first)
-                            if(use_place[pre.first->place])
+                            if(use_place[pre.first->_place])
                                 use_trans[t+1] = true;
                         for(;post.first != post.second; ++post.first)
-                            if(use_place[post.first->place])
+                            if(use_place[post.first->_place])
                                 use_trans[t+1] = true;
                     }
                     if(use_trans[t+1])
@@ -228,7 +228,7 @@ namespace PetriEngine {
                         update = true;
                         auto pre = _net.preset(t);
                         for(;pre.first != pre.second; ++pre.first)
-                            np[pre.first->place] = true;
+                            np[pre.first->_place] = true;
                         if(any)
                         {
                             std::swap(np, use_place);
@@ -398,13 +398,13 @@ namespace PetriEngine {
 
             for(; pre.first != pre.second; ++pre.first)
             {
-                if(pre.first->inhibitor) { assert(false); continue;}
-                changes.push_back(pre.first->place);
+                if(pre.first->_inhibitor) { assert(false); continue;}
+                changes.push_back(pre.first->_place);
             }
 
             for(; post.first != post.second; ++post.first)
             {
-                changes.push_back(post.first->place);
+                changes.push_back(post.first->_place);
             }
             std::sort(changes.begin(), changes.end());
             _traceset.copy_non_changed(maximal, changes, nextinter);
@@ -419,7 +419,7 @@ namespace PetriEngine {
             for(auto& t : stack)
             {
                 if(t.get_edge_cnt() == 0) break;
-                std::string tname = _net.transitionNames()[t.get_edge_cnt() - 1];
+                std::string tname = _net.transition_names()[t.get_edge_cnt() - 1];
                 std::cerr << "\t<transition id=\"" << tname << "\" index=\"" << (t.get_edge_cnt() - 1) <<  "\">\n";
 
                 // well, yeah, we are not really efficient in constructing the trace.
@@ -427,9 +427,9 @@ namespace PetriEngine {
                 auto pre = _net.preset(t.get_edge_cnt() - 1);
                 for(; pre.first != pre.second; ++pre.first)
                 {
-                    for(size_t token = 0; token < pre.first->tokens; ++token )
+                    for(size_t token = 0; token < pre.first->_tokens; ++token )
                     {
-                        std::cerr << "\t\t<token place=\"" << _net.placeNames()[pre.first->place] << "\" age=\"0\"/>\n";
+                        std::cerr << "\t\t<token place=\"" << _net.place_names()[pre.first->_place] << "\" age=\"0\"/>\n";
                     }
                 }
 
@@ -453,7 +453,7 @@ namespace PetriEngine {
                 auto in = _net.preset(t);
                 for(; in.first != in.second; ++in.first)
                 {
-                    if(in.first->inhibitor)
+                    if(in.first->_inhibitor)
                     {
                         std::cerr << "Trace Abstraction Refinement Error : Inhibitor Arcs are not yet supported by the TAR engine" << std::endl;
                         std::exit(ErrorCode);

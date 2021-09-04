@@ -52,10 +52,10 @@ heuristic : heurexp { heuristic = std::unique_ptr<Heuristic>($1); }
           | error   { YYABORT; }
           ;
 
-heurexp : AUT                       { $$ = new AutomatonHeuristic(net, aut); }
-        | DIST                      { $$ = new DistanceHeuristic(net, cond); }
-        | FIRECOUNT INT             { $$ = new LogFireCountHeuristic(net, atol($2->c_str())); delete $2; }
-        | FIRECOUNT                 { $$ = new LogFireCountHeuristic(net, 5000); }
+heurexp : AUT                       { $$ = new AutomatonHeuristic(*net, aut); }
+        | DIST                      { $$ = new DistanceHeuristic(*net, cond); }
+        | FIRECOUNT INT             { $$ = new LogFireCountHeuristic(*net, atol($2->c_str())); delete $2; }
+        | FIRECOUNT                 { $$ = new LogFireCountHeuristic(*net, 5000); }
         | LPAREN heurexp RPAREN     { $$ = $2; }
         | SUM opt_int[lweight] heurexp[left] opt_int[rweight] heurexp[right]
             { $$ = new WeightedComposedHeuristic(std::unique_ptr<Heuristic>($left),

@@ -35,7 +35,7 @@ namespace PetriEngine {
             set_interesting_visitor<InterestingTransitionVisitor>();
         }
 
-        bool prepare(const Structures::State *state) override;
+        bool prepare(const Structures::State& state) override;
 
         template <typename TVisitor>
         void set_interesting_visitor()

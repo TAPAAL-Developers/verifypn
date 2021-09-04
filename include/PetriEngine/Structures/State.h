@@ -82,7 +82,7 @@ namespace PetriEngine {
             void print(const PetriNet& net, std::ostream &os = std::cout) {
                 for (uint32_t i = 0; i < net.number_of_places(); i++) {
                     if(_marking[i])
-                        os << net.placeNames()[i] << ": " << _marking[i] << std::endl;
+                        os << net.place_names()[i] << ": " << _marking[i] << std::endl;
                 }
                 os << std::endl;
             }

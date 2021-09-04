@@ -1,16 +1,16 @@
 /* Copyright (C) 2021  Nikolaj J. Ulrik <nikolaj@njulrik.dk>,
  *                     Simon M. Virenfeldt <simon@simwir.dk>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -40,11 +40,11 @@ namespace LTL {
             _retarding_stubborn_set.set_interesting_visitor<PetriEngine::AutomatonInterestingTransitionVisitor>();
         }
 
-        bool prepare(const PetriEngine::Structures::State *marking) override {
-            return prepare(dynamic_cast<const LTL::Structures::ProductState*>(marking));
+        bool prepare(const PetriEngine::Structures::State& marking) override {
+            return prepare(dynamic_cast<const LTL::Structures::ProductState&>(marking));
         }
 
-        bool prepare(const LTL::Structures::ProductState *state) override;
+        bool prepare(const LTL::Structures::ProductState& state) override;
 
         uint32_t next() override;
 
@@ -60,7 +60,7 @@ namespace LTL {
         }
 
     protected:
-        void addToStub(uint32_t t) override;
+        void add_to_stub(uint32_t t) override;
 
     private:
 

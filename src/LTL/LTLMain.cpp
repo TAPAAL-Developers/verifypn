@@ -87,7 +87,7 @@ namespace LTL {
         return result;
     }
 
-    std::unique_ptr<Heuristic> make_heuristic(const PetriNet *net,
+    std::unique_ptr<Heuristic> make_heuristic(const PetriNet& net,
                                               const Condition_ptr &negated_formula,
                                               const Structures::BuchiAutomaton& automaton,
                                               options_t &options) {
@@ -97,7 +97,7 @@ namespace LTL {
         if (options._strategy != options_t::search_strategy_e::HEUR && options._strategy != options_t::search_strategy_e::DEFAULT) {
             return nullptr;
         }
-        auto heur = ParseHeuristic(net, automaton, negated_formula, options._ltl_heuristic);
+        auto heur = ParseHeuristic(&net, automaton, negated_formula, options._ltl_heuristic);
         if (heur == nullptr) {
             std::cerr << "Invalid heuristic specification, terminating.\n";
             exit(1);
@@ -105,7 +105,7 @@ namespace LTL {
         else return heur;
     }
 
-    bool LTLMain(const PetriNet *net,
+    bool verify_ltl(const PetriNet& net,
                         const Condition_ptr &query,
                         const std::string &queryName,
                         options_t &options)
@@ -124,15 +124,15 @@ namespace LTL {
         bool is_visible_stub = options._stubborn_reduction
                                && (options._ltl_por == options_t::ltl_partial_order_e::Visible ||
                                    options._ltl_por == options_t::ltl_partial_order_e::VisibleReach)
-                               && !net->has_inhibitor()
+                               && !net.has_inhibitor()
                                && !negated_formula->containsNext();
         bool is_autreach_stub = options._stubborn_reduction
                 && (options._ltl_por == options_t::ltl_partial_order_e::AutomatonReach ||
                     options._ltl_por == options_t::ltl_partial_order_e::VisibleReach)
-                && !net->has_inhibitor();
+                && !net.has_inhibitor();
         bool is_buchi_stub = options._stubborn_reduction
                 && options._ltl_por == options_t::ltl_partial_order_e::FullAutomaton
-                && !net->has_inhibitor();
+                && !net.has_inhibitor();
 
         bool is_stubborn = options._ltl_por != options_t::ltl_partial_order_e::None && (is_visible_stub || is_autreach_stub || is_buchi_stub);
 
@@ -167,9 +167,9 @@ namespace LTL {
                     // Running default, BestFS, or RDFS search strategy so use spooling successor generator to enable heuristics.
                     SpoolingSuccessorGenerator gen{net, negated_formula};
                     if (is_visible_stub) {
-                        spooler = std::make_unique<VisibleLTLStubbornSet>(*net, negated_formula);
+                        spooler = std::make_unique<VisibleLTLStubbornSet>(net, negated_formula);
                     } else if (is_buchi_stub) {
-                        spooler = std::make_unique<AutomatonStubbornSet>(*net, automaton);
+                        spooler = std::make_unique<AutomatonStubbornSet>(net, automaton);
                     }
                     else {
                         spooler = std::make_unique<EnabledSpooler>(net, gen);
@@ -191,7 +191,7 @@ namespace LTL {
                                                      negated_formula,
                                                      automaton,
                                                      &gen,
-                                                     std::make_unique<VisibleLTLStubbornSet>(*net, negated_formula)),
+                                                     std::make_unique<VisibleLTLStubbornSet>(net, negated_formula)),
                                              options);
                         }
                         else if (is_autreach_stub && !is_visible_stub) {
@@ -219,7 +219,7 @@ namespace LTL {
                                                      negated_formula,
                                                      automaton,
                                                      &gen,
-                                                     std::make_unique<VisibleLTLStubbornSet>(*net, negated_formula)),
+                                                     std::make_unique<VisibleLTLStubbornSet>(net, negated_formula)),
                                              options);
                         } else if (is_autreach_stub && !is_visible_stub) {
                             result = _verify(std::make_unique<TarjanModelChecker<ReachStubProductSuccessorGenerator, SpoolingSuccessorGenerator, false, EnabledSpooler>>(

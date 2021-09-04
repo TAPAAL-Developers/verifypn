@@ -3,17 +3,17 @@
  *                     Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                     Lars Kærlund Østergaard <larsko@gmail.com>,
  *                     Peter Gjøl Jensen <root@petergjoel.dk>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,7 +21,6 @@
 #define CONTEXTS_H
 
 #include "../PetriNet.h"
-#include "../Simplification/LPCache.h"
 #include "PQL.h"
 #include "../NetStructures.h"
 
@@ -56,19 +55,19 @@ namespace PetriEngine {
             : _placeNames(places), _transitionNames(tnames), _net(net) {
 
             }
-            
+
             virtual void set_has_deadlock(){};
-            
-            const PetriNet* net() const
+
+            const PetriNet& net() const
             {
-                return _net;
+                return *_net;
             }
-            
+
             /** Resolve an identifier */
             virtual ResolutionResult resolve(const std::string& identifier, bool place = true);
 
             /** Report error */
-            void reportError(const ExprError& error) {
+            void report_error(const ExprError& error) {
                 _errors.push_back(error);
             }
 
@@ -76,8 +75,8 @@ namespace PetriEngine {
             const std::vector<ExprError>& errors() const {
                 return _errors;
             }
-            auto& allPlaceNames() const { return _placeNames; }
-            auto& allTransitionNames() const { return _transitionNames; }
+            auto& all_place_names() const { return _placeNames; }
+            auto& all_transition_names() const { return _transitionNames; }
 
         };
 
@@ -91,25 +90,26 @@ namespace PetriEngine {
         public:
             ColoredAnalysisContext(const std::unordered_map<std::string, uint32_t>& places,
                                    const std::unordered_map<std::string, uint32_t>& tnames,
-                                   const PetriNet* net,
+                                   const PetriNet& net,
                                    const std::unordered_map<std::string, std::unordered_map<uint32_t , std::string>>& cplaces,
                                    const std::unordered_map<std::string, std::vector<std::string>>& ctnames,
                                    bool colored)
-                    : AnalysisContext(places, tnames, net),
+                    : AnalysisContext(places, tnames, &net),
                       _coloredPlaceNames(cplaces),
                       _coloredTransitionNames(ctnames),
                       _colored(colored)
             {}
 
-            bool resolvePlace(const std::string& place, std::unordered_map<uint32_t,std::string>& out);
+            bool resolve_place(const std::string& place, std::unordered_map<uint32_t,std::string>& out);
 
-            bool resolveTransition(const std::string& transition, std::vector<std::string>& out);
+            bool resolve_transition(const std::string& transition, std::vector<std::string>& out);
 
-            bool isColored() const {
+            bool is_colored() const {
                 return _colored;
             }
-            auto& allColoredPlaceNames() const { return _coloredPlaceNames; }
-            auto& allColoredTransitionNames() const { return _coloredTransitionNames; }
+
+            auto& all_colored_place_names() const { return _coloredPlaceNames; }
+            auto& all_colored_transition_names() const { return _coloredTransitionNames; }
         };
 
         /** Context provided for evalation */
@@ -118,18 +118,20 @@ namespace PetriEngine {
 
             /** Create evaluation context, this doesn't take ownership */
             EvaluationContext(const MarkVal* marking,
-                    const PetriNet* net) {
-                _marking = marking;
-                _net = net;
+                    const PetriNet* net) : _marking(marking), _net(net) {
             }
-            
+
+            EvaluationContext(const MarkVal* marking,
+                    const PetriNet& net) : _marking(marking), _net(&net) {
+            }
+
             EvaluationContext() {};
 
             const MarkVal* marking() const {
                 return _marking;
             }
-            
-            void setMarking(MarkVal* marking) {
+
+            void set_marking(MarkVal* marking) {
                 _marking = marking;
             }
 
@@ -138,16 +140,16 @@ namespace PetriEngine {
             }
         private:
             const MarkVal* _marking = nullptr;
-            const PetriNet* _net = nullptr;
+            const PetriNet* _net;
         };
 
         /** Context for distance computation */
         class DistanceContext : public EvaluationContext {
         public:
 
-            DistanceContext(const PetriNet* net,
+            DistanceContext(const PetriNet& net,
                     const MarkVal* marking)
-            : EvaluationContext(marking, net) {
+            : EvaluationContext(marking, &net) {
                 _negated = false;
             }
 
@@ -175,17 +177,12 @@ namespace PetriEngine {
         public:
 
             SimplificationContext(const MarkVal* marking,
-                    const PetriNet* net, uint32_t queryTimeout, uint32_t lpTimeout,
-                    Simplification::LPCache* cache)
-                    : _queryTimeout(queryTimeout), _lpTimeout(lpTimeout) {
-                _negated = false;
-                _marking = marking;
-                _net = net;
-                _base_lp = buildBase();
+                    const PetriNet& net, uint32_t queryTimeout, uint32_t lpTimeout)
+                    : _negated(false), _marking(marking), _net(net), _queryTimeout(queryTimeout), _lpTimeout(lpTimeout) {
+                _base_lp = build_base();
                 _start = std::chrono::high_resolution_clock::now();
-                _cache = cache;
             }
-                    
+
             virtual ~SimplificationContext() {
                 if(_base_lp != nullptr)
                     glp_delete_prob(_base_lp);
@@ -197,7 +194,7 @@ namespace PetriEngine {
                 return _marking;
             }
 
-            const PetriNet* net() const {
+            const PetriNet& net() const {
                 return _net;
             }
 
@@ -208,39 +205,32 @@ namespace PetriEngine {
             bool negated() const {
                 return _negated;
             }
-            
-            void setNegate(bool b){
+
+            void set_negate(bool b){
                 _negated = b;
             }
-            
-            double getReductionTime();
-            
+
+            double get_reduction_time();
+
             bool timeout() const {
                 auto end = std::chrono::high_resolution_clock::now();
                 auto diff = std::chrono::duration_cast<std::chrono::seconds>(end - _start);
                 return (diff.count() >= _queryTimeout);
             }
-            
-            uint32_t getLpTimeout() const;
 
-            Simplification::LPCache* cache() const
-            {
-                return _cache;
-            }
-            
-            
-            glp_prob* makeBaseLP() const;
+            uint32_t get_lp_timeout() const;
+
+            glp_prob* make_base_lp() const;
 
         private:
             bool _negated;
             const MarkVal* _marking;
-            const PetriNet* _net;
+            const PetriNet& _net;
             uint32_t _queryTimeout, _lpTimeout;
             std::chrono::high_resolution_clock::time_point _start;
-            Simplification::LPCache* _cache;
             mutable glp_prob* _base_lp = nullptr;
 
-            glp_prob* buildBase() const;
+            glp_prob* build_base() const;
 
         };
 

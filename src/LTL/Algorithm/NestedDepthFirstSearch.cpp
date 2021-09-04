@@ -66,7 +66,7 @@ namespace LTL {
         while (!todo.empty()) {
             auto &top = todo.back();
             _states.decode(curState, top._id);
-            this->_successor_generator->prepare(&curState, top._sucinfo);
+            this->_successor_generator->prepare(curState, top._sucinfo);
             if (top._sucinfo.has_prev_state()) {
                 _states.decode(working, top._sucinfo._last_state);
             }
@@ -104,7 +104,7 @@ namespace LTL {
         while (!nested_todo.empty()) {
             auto &top = nested_todo.back();
             _states.decode(curState, top._id);
-            this->_successor_generator->prepare(&curState, top._sucinfo);
+            this->_successor_generator->prepare(curState, top._sucinfo);
             if (top._sucinfo.has_prev_state()) {
                 _states.decode(working, top._sucinfo._last_state);
             }

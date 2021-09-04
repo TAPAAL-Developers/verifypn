@@ -40,11 +40,11 @@ namespace PetriEngine {
         _places.clear();
         _transitions.clear();
         // preallocate reverse lookup for transition and place names. Assume this is always called with the same Petri net.
-        for (size_t i = 0; i < net.placeNames().size(); ++i) {
-            _places[net.placeNames()[i]] = i;
+        for (size_t i = 0; i < net.place_names().size(); ++i) {
+            _places[net.place_names()[i]] = i;
         }
-        for (size_t i = 0; i < net.transitionNames().size(); ++i) {
-            _transitions[net.transitionNames()[i]] = i;
+        for (size_t i = 0; i < net.transition_names().size(); ++i) {
+            _transitions[net.transition_names()[i]] = i;
         }
         _transitions[_DEADLOCK_TRANS] = -1;
 
@@ -161,7 +161,7 @@ namespace PetriEngine {
                 memcpy(loopstate.marking(), state.marking(), sizeof(uint32_t) * net.number_of_places());
                 looping = true;
             }
-            successorGenerator.prepare(&state);
+            successorGenerator.prepare(state);
             auto it = _transitions.find(transition._id);
             if (it == std::end(_transitions)) {
                 assert(false);
@@ -193,18 +193,18 @@ namespace PetriEngine {
             if (!transition._tokens.empty()) {
                 auto[finv, linv] = net.preset(_transitions.at(transition._id));
                 for (; finv != linv; ++finv) {
-                     if (finv->inhibitor) {
+                     if (finv->_inhibitor) {
 
                     } else {
-                        auto it = transition._tokens.find(finv->place);
+                        auto it = transition._tokens.find(finv->_place);
                         if (it == std::end(transition._tokens)) {
-                            std::cerr << "ERROR: Pre-place " << net.placeNames()[finv->place] << " of transition "
+                            std::cerr << "ERROR: Pre-place " << net.place_names()[finv->_place] << " of transition "
                                       << transition._id << " was not mentioned in trace.\n";
                             return false;
                         }
-                        if (it->second != finv->tokens) {
-                            std::cerr << "ERROR: Pre-place " << net.placeNames()[finv->place] << " of transition "
-                                      << transition._id << "has arc weight " << finv->tokens << " but trace consumes "
+                        if (it->second != finv->_tokens) {
+                            std::cerr << "ERROR: Pre-place " << net.place_names()[finv->_place] << " of transition "
+                                      << transition._id << "has arc weight " << finv->_tokens << " but trace consumes "
                                       << it->second << " tokens.\n";
                             return false;
                         }
@@ -221,7 +221,7 @@ namespace PetriEngine {
                         std::cerr << "ERROR end state not equal to expected loop state.\n";
                         err = true;
                     }
-                    std::cerr << "  " << net.placeNames()[i] << ": expected" << loopstate.marking()[i] << ", actual "
+                    std::cerr << "  " << net.place_names()[i] << ": expected" << loopstate.marking()[i] << ", actual "
                               << state.marking()[i] << '\n';
                 }
             }

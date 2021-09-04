@@ -4,7 +4,6 @@
 #include <fstream>
 
 #include "PetriEngine/Simplification/LinearProgram.h"
-#include "PetriEngine/Simplification/LPCache.h"
 #include "PetriEngine/PQL/Contexts.h"
 
 namespace PetriEngine {
@@ -13,39 +12,37 @@ namespace PetriEngine {
         LinearProgram::~LinearProgram() {
         }
 
-        LinearProgram::LinearProgram(Vector* vec, int constant, op_t op, LPCache* factory){
+        LinearProgram::LinearProgram(const std::vector<int>& data, int constant, op_t op){
             // TODO fix memory-management here!
-            equation_t c;
+            equation_t c(data);
             switch(op)
             {
                 case Simplification::OP_LT:
-                    c.upper = constant - 1;
+                    c._upper = constant - 1;
                     break;
                 case Simplification::OP_GT:
-                    c.lower = constant + 1;
+                    c._lower = constant + 1;
                     break;
                 case Simplification::OP_LE:
-                    c.upper = constant;
+                    c._upper = constant;
                     break;
                 case Simplification::OP_GE:
-                    c.lower = constant;
+                    c._lower = constant;
                     break;
                 case Simplification::OP_EQ:
-                    c.lower = constant;
-                    c.upper = constant;
+                    c._lower = constant;
+                    c._upper = constant;
                     break;
                 default:
                     // We ignore this operator for now by not adding any equation.
                     // This is untested, however.
                     assert(false);
             }
-            c.row = vec;
-            vec->inc();
-            _equations.push_back(c);
+            _equations.emplace_back(c);
         }
 
         constexpr auto infty = std::numeric_limits<REAL>::infinity();
-        
+
         bool LinearProgram::is_impossible(const PQL::SimplificationContext& context, uint32_t solvetime) {
             bool use_ilp = true;
             auto net = context.net();
@@ -61,43 +58,43 @@ namespace PetriEngine {
                 return false;
             }
 
-            const uint32_t nCol = net->number_of_transitions();
-            const uint32_t nRow = net->number_of_places() + _equations.size();
+            const uint32_t nCol = net.number_of_transitions();
+            const uint32_t nRow = net.number_of_places() + _equations.size();
 
             std::vector<REAL> row = std::vector<REAL>(nCol + 1);
             std::vector<int32_t> indir(std::max(nCol, nRow) + 1);
             for(size_t i = 0; i <= nCol; ++i)
                 indir[i] = i;
 
-            auto lp = context.makeBaseLP();
+            auto lp = context.make_base_lp();
             if(lp == nullptr)
                 return false;
-            
-            int rowno = 1 + net->number_of_places();
+
+            int rowno = 1 + net.number_of_places();
             glp_add_rows(lp, _equations.size());
             for(const auto& eq : _equations){
-                auto l = eq.row->write_indir(row, indir);
-                assert(!(std::isinf(eq.upper) && std::isinf(eq.lower)));                
+                auto l = eq._row.write_indir(row, indir);
+                assert(!(std::isinf(eq._upper) && std::isinf(eq._lower)));
                 glp_set_mat_row(lp, rowno, l-1, indir.data(), row.data());
-                if(!std::isinf(eq.lower) && !std::isinf(eq.upper))
+                if(!std::isinf(eq._lower) && !std::isinf(eq._upper))
                 {
-                    if(eq.lower == eq.upper)
-                        glp_set_row_bnds(lp, rowno, GLP_FX, eq.lower, eq.upper);
+                    if(eq._lower == eq._upper)
+                        glp_set_row_bnds(lp, rowno, GLP_FX, eq._lower, eq._upper);
                     else
                     {
-                        if(eq.lower > eq.upper)
+                        if(eq._lower > eq._upper)
                         {
                             _result = result_t::IMPOSSIBLE;
                             glp_delete_prob(lp);
                             return true;
                         }
-                        glp_set_row_bnds(lp, rowno, GLP_DB, eq.lower, eq.upper);
+                        glp_set_row_bnds(lp, rowno, GLP_DB, eq._lower, eq._upper);
                     }
                 }
-                else if(std::isinf(eq.lower))
-                    glp_set_row_bnds(lp, rowno, GLP_UP, -infty, eq.upper);
+                else if(std::isinf(eq._lower))
+                    glp_set_row_bnds(lp, rowno, GLP_UP, -infty, eq._upper);
                 else
-                    glp_set_row_bnds(lp, rowno, GLP_LO, eq.lower, -infty);
+                    glp_set_row_bnds(lp, rowno, GLP_LO, eq._lower, -infty);
                 ++rowno;
 
                 if(context.timeout())
@@ -107,7 +104,7 @@ namespace PetriEngine {
                     return false;
                 }
             }
-            
+
             // Set objective, kind and bounds
             for(size_t i = 1; i <= nCol; i++) {
                 glp_set_obj_coef(lp, i, 0);
@@ -120,7 +117,7 @@ namespace PetriEngine {
             auto stime = glp_time();
             glp_smcp settings;
             glp_init_smcp(&settings);
-            auto timeout = std::min(solvetime, context.getLpTimeout())*1000;
+            auto timeout = std::min(solvetime, context.get_lp_timeout())*1000;
             settings.tm_lim = timeout;
             settings.presolve = GLP_OFF;
             settings.msg_lev = 0;
@@ -179,9 +176,9 @@ namespace PetriEngine {
             std::vector<std::pair<double,bool>> result(places.size() + 1, std::make_pair(std::numeric_limits<double>::infinity(), false));
             auto net = context.net();
             auto m0 = context.marking();
-            auto timeout = std::min(solvetime, context.getLpTimeout());
+            auto timeout = std::min(solvetime, context.get_lp_timeout());
 
-            const uint32_t nCol = net->number_of_transitions();
+            const uint32_t nCol = net.number_of_transitions();
             std::vector<REAL> row = std::vector<REAL>(nCol + 1);
 
 
@@ -207,7 +204,7 @@ namespace PetriEngine {
                     return result;
                 }
                 // Create objective
-                memset(row.data(), 0, sizeof (REAL) * net->number_of_transitions() + 1);
+                memset(row.data(), 0, sizeof (REAL) * net.number_of_transitions() + 1);
                 double p0 = 0;
                 bool all_le_zero = true;
                 bool all_zero = true;
@@ -215,20 +212,20 @@ namespace PetriEngine {
                 {
                     auto tp = places[pi];
                     p0 = m0[tp];
-                    for (size_t t = 0; t < net->number_of_transitions(); ++t)
+                    for (size_t t = 0; t < net.number_of_transitions(); ++t)
                     {
-                        row[1 + t] = net->out_arc(t, tp) - net->in_arc(tp, t);
+                        row[1 + t] = net.out_arc(t, tp) - net.in_arc(tp, t);
                         all_le_zero &= row[1 + t] <= 0;
                         all_zero &= row[1 + t] == 0;
                     }
                 }
                 else
                 {
-                    for (size_t t = 0; t < net->number_of_transitions(); ++t)
+                    for (size_t t = 0; t < net.number_of_transitions(); ++t)
                     {
                         double cnt = 0;
                         for(auto tp : places)
-                            cnt += net->out_arc(t, tp) - net->in_arc(tp, t);
+                            cnt += net.out_arc(t, tp) - net.in_arc(tp, t);
                         row[1 + t] = cnt;
                         all_le_zero &= row[1 + t] <= 0;
                         all_zero &= row[1 + t] == 0;
@@ -250,10 +247,10 @@ namespace PetriEngine {
 
                 // Set objective
 
-                auto tmp_lp = context.makeBaseLP();
+                auto tmp_lp = context.make_base_lp();
                 if(tmp_lp == nullptr)
                     return result;
-            
+
                 // Max the objective
                 glp_set_obj_dir(tmp_lp, GLP_MAX);
 
@@ -335,11 +332,12 @@ namespace PetriEngine {
 
             while(it1 != _equations.end() && it2 != other._equations.end())
             {
-                if(it1->row < it2->row)
+                auto cmp = it1->_row.compare(it2->_row);
+                if(cmp < 0)
                 {
                     ++it1;
                 }
-                else if(it2->row < it1->row)
+                else if(cmp > 0)
                 {
                     it1 = _equations.insert(it1, *it2);
                     ++it2;
@@ -348,8 +346,8 @@ namespace PetriEngine {
                 else
                 {
                     equation_t& n = *it1;
-                    n.lower = std::max(n.lower, it2->lower);
-                    n.upper = std::min(n.upper, it2->upper);
+                    n._lower = std::max(n._lower, it2->_lower);
+                    n._upper = std::min(n._upper, it2->_upper);
                     /*if(n.upper < n.lower)
                     {
                         _result = result_t::IMPOSSIBLE;

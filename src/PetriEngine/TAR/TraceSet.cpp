@@ -181,20 +181,20 @@ namespace PetriEngine
                     bool changes = false;
                     for(; pre.first != pre.second; ++pre.first)
                     {
-                        auto it = predicate[pre.first->place];
+                        auto it = predicate[pre.first->_place];
                         if(it)
                         {
                             changes = true;
                             auto post = _net.postset(t);
-                            int64_t change = pre.first->tokens;
-                            if(pre.first->tokens > it->_range._upper)
+                            int64_t change = pre.first->_tokens;
+                            if(pre.first->_tokens > it->_range._upper)
                                 _states[astate].add_edge(t+1, 0);
                             change *= -1;
                             for(; post.first != post.second; ++post.first)
                             {
-                                if(post.first->place == pre.first->place)
+                                if(post.first->_place == pre.first->_place)
                                 {
-                                    change += post.first->tokens;
+                                    change += post.first->_tokens;
                                     break;
                                 }
                             }
@@ -209,17 +209,17 @@ namespace PetriEngine
                     auto post = _net.postset(t);
                     for(; post.first != post.second; ++post.first)
                     {
-                        auto it = predicate[post.first->place];
+                        auto it = predicate[post.first->_place];
                         if(it)
                         {
                             changes = true;
                             auto pre = _net.preset(t);
-                            int64_t change = post.first->tokens;
+                            int64_t change = post.first->_tokens;
                             for(; pre.first != pre.second; ++pre.first)
                             {
-                                if(pre.first->place == post.first->place)
+                                if(pre.first->_place == post.first->_place)
                                 {
-                                    change -= pre.first->tokens;
+                                    change -= pre.first->_tokens;
                                     break;
                                 }
                             }

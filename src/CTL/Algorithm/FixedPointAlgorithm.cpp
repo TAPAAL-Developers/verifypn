@@ -9,6 +9,7 @@ namespace Algorithm {
     FixedPointAlgorithm::FixedPointAlgorithm(options_t::search_strategy_e type) {
         switch(type)
         {
+            case options_t::search_strategy_e::DEFAULT:
             case options_t::search_strategy_e::DFS:
                 _strategy = std::make_shared<CTL::SearchStrategy::DFSSearch>();
                 break;

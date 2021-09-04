@@ -40,9 +40,9 @@ namespace PetriEngine {
         return true;
     }
 
-    bool ReducingSuccessorGenerator::prepare(const Structures::State *state) {
+    bool ReducingSuccessorGenerator::prepare(const Structures::State& state) {
         _current = 0;
-        _parent = state;
+        _parent = &state;
         return _stubSet->prepare(state);
     }
 

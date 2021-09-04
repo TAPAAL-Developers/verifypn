@@ -31,8 +31,8 @@ namespace LTL {
                 _net(stubbornSet._net), _stubborn(stubbornSet){}
 
     protected:
-        static constexpr auto PresetBad = StubbornSet::PresetBad;
-        static constexpr auto PostsetBad = StubbornSet::PostsetBad;
+        static constexpr auto PresetBad = StubbornSet::_presetBad;
+        static constexpr auto PostsetBad = StubbornSet::_postsetBad;
 
         void _accept(const PQL::CompareConjunction *element) override
         {
@@ -53,7 +53,7 @@ namespace LTL {
             assert(_stubborn._track_changes);
             assert(_stubborn._pending_stubborn.empty());
             assert(element->isNegated() == negated);
-            std::vector<std::pair<uint32_t, bool>> cands; // Transition id, Preset
+            std::vector<std::pair<int32_t, bool>> cands; // Transition id, Preset
             for (auto &cons : *element) {
                 uint32_t tokens = _stubborn.get_parent()[cons._place];
 
@@ -141,27 +141,27 @@ namespace LTL {
 
     };
 
-    bool AutomatonStubbornSet::prepare(const LTL::Structures::ProductState *state)
+    bool AutomatonStubbornSet::prepare(const LTL::Structures::ProductState& state)
     {
         reset();
-        _parent = state;
+        _parent = &state;
         _gen.prepare(state);
         memset(_places_seen.get(), 0, sizeof(uint8_t) * _net.number_of_places());
-        constructEnabled();
+        construct_enabled();
         if (_ordering.empty())
             return false;
         if (_ordering.size() == 1) {
             _stubborn[_ordering.front()] = true;
 #ifndef NDEBUG
-            std::cerr << "Lone successor " << _net.transitionNames()[_ordering.front()] << std::endl;
+            std::cerr << "Lone successor " << _net.transition_names()[_ordering.front()] << std::endl;
 #endif
             return true;
         }
 
 
-        GuardInfo buchi_state = _state_guards[state->get_buchi_state()];
+        GuardInfo buchi_state = _state_guards[state.get_buchi_state()];
 
-        PQL::EvaluationContext evaluationContext{_parent->marking(), &_net};
+        PQL::EvaluationContext evaluationContext{_parent->marking(), _net};
 
         // Check if retarding is satisfied for condition 3.
         _retarding_satisfied = _aut.guard_valid(evaluationContext, buchi_state._retarding._decision_diagram);
@@ -174,7 +174,7 @@ namespace LTL {
 
         // Calculate retarding subborn set to ensure S-INV.
         auto negated_retarding = std::make_unique<NotCondition>(buchi_state._retarding._condition);
-        _retarding_stubborn_set.setQuery(negated_retarding.get());
+        _retarding_stubborn_set.set_query(negated_retarding.get());
         _retarding_stubborn_set.prepare(state);
 
 
@@ -226,7 +226,7 @@ namespace LTL {
         if (!_has_enabled_stubborn && buchi_state._is_accepting) {
             for (uint32_t i = 0; i < _net.number_of_transitions(); ++i) {
                 if (!_stubborn[i] && _enabled[i]) {
-                    addToStub(i);
+                    add_to_stub(i);
                     _closure();
                     if (_bad) {
                         set_all_stubborn();
@@ -265,13 +265,13 @@ namespace LTL {
         std::cout << "Enabled: ";
         for (int i = 0; i < _net.number_of_transitions(); ++i) {
             if (_enabled[i]) {
-                std::cout << _net.transitionNames()[i] << ' ';
+                std::cout << _net.transition_names()[i] << ' ';
             }
         }
         std::cout << "\nStubborn: ";
         for (int i = 0; i < _net.number_of_transitions(); ++i) {
             if (_stubborn[i]) {
-                std::cout << _net.transitionNames()[i] << ' ';
+                std::cout << _net.transition_names()[i] << ' ';
             }
         }
         std::cout << std::endl;
@@ -291,7 +291,7 @@ namespace LTL {
         _unprocessed.clear();
     }
 
-    void AutomatonStubbornSet::addToStub(uint32_t t)
+    void AutomatonStubbornSet::add_to_stub(uint32_t t)
     {
         if (_retarding_stubborn_set.stubborn()[t] || !_cond3_valid(t)) {
             _bad = true;
@@ -304,13 +304,13 @@ namespace LTL {
                 _unprocessed.push_back(t);
             }
         } else {
-            StubbornSet::addToStub(t);
+            StubbornSet::add_to_stub(t);
         }
     }
 
     bool AutomatonStubbornSet::_cond3_valid(uint32_t t)
     {
-        EvaluationContext ctx{_markbuf.marking(), &_net};
+        EvaluationContext ctx{_markbuf.marking(), _net};
         if (_retarding_satisfied || !_enabled[t]) return true;
         else {
             assert(_gen.check_preset(t));

@@ -105,7 +105,7 @@ namespace PetriEngine {
         std::vector<std::pair<std::string, uint32_t>> orphan_places() const {
             std::vector<std::pair<std::string, uint32_t>> res;
             for(uint32_t p = 0; p < _places.size(); p++) {
-                if(_places[p].consumers.size() == 0 && _places[p].producers.size() == 0) {
+                if(_places[p]._consumers.size() == 0 && _places[p]._producers.size() == 0) {
                     for(auto &n : _placenames) {
                         if(n.second == p) {
                             res.push_back(std::make_pair(n.first, _initial_marking[p]));

@@ -89,26 +89,26 @@ namespace PetriEngine {
 
             std::cout << "\nTRANSITION STATISTICS\n";
             for (size_t i = 0; i < _net.number_of_transitions(); ++i) {
-                std::cout << "<" << _net.transitionNames()[i] << ":"
+                std::cout << "<" << _net.transition_names()[i] << ":"
                     << ss._enabledTransitionsCount[i] << ">";
             }
             // report how many times transitions were enabled (? means that the transition was removed in net reduction)
-            for(size_t i = _net.number_of_transitions(); i < _net.transitionNames().size(); ++i)
+            for(size_t i = _net.number_of_transitions(); i < _net.transition_names().size(); ++i)
             {
-                std::cout << "<" << _net.transitionNames()[i] << ":?>";
+                std::cout << "<" << _net.transition_names()[i] << ":?>";
             }
 
 
             std::cout << "\n\nPLACE-BOUND STATISTICS\n";
             for (size_t i = 0; i < _net.number_of_places(); ++i)
             {
-                std::cout << "<" << _net.placeNames()[i] << ";" << states->max_place_bound()[i] << ">";
+                std::cout << "<" << _net.place_names()[i] << ";" << states->max_place_bound()[i] << ">";
             }
 
             // report maximum bounds for each place (? means that the place was removed in net reduction)
-            for(size_t i = _net.number_of_places(); i < _net.placeNames().size(); ++i)
+            for(size_t i = _net.number_of_places(); i < _net.place_names().size(); ++i)
             {
-                std::cout << "<" << _net.placeNames()[i] << ";?>";
+                std::cout << "<" << _net.place_names()[i] << ";?>";
             }
 
             std::cout << std::endl << std::endl;

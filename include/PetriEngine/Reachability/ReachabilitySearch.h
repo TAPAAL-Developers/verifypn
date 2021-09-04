@@ -43,7 +43,7 @@ namespace PetriEngine {
         class ReachabilitySearch {
         public:
 
-            ReachabilitySearch(PetriNet& net, AbstractHandler& callback, int kbound = 0, bool early = false)
+            ReachabilitySearch(const PetriNet& net, AbstractHandler& callback, int kbound = 0, bool early = false)
             : _net(net), _kbound(kbound), _callback(callback) {
             }
 
@@ -83,7 +83,7 @@ namespace PetriEngine {
                                     Structures::State&, searchstate_t&, Structures::StateSetInterface*);
             std::pair<ResultPrinter::Result,bool> do_callback(std::shared_ptr<PQL::Condition>& query, size_t i, ResultPrinter::Result r, searchstate_t &ss, Structures::StateSetInterface *states);
 
-            PetriNet& _net;
+            const PetriNet& _net;
             int _kbound;
             size_t _satisfyingMarking = 0;
             Structures::State _initial;
@@ -91,11 +91,11 @@ namespace PetriEngine {
         };
 
         template <typename G>
-        inline G _make_suc_gen(PetriNet &net, std::vector<PQL::Condition_ptr> &queries) {
+        inline G _make_suc_gen(const PetriNet &net, std::vector<PQL::Condition_ptr> &queries) {
             return G{net, queries};
         }
         template <>
-        inline ReducingSuccessorGenerator _make_suc_gen(PetriNet &net, std::vector<PQL::Condition_ptr> &queries) {
+        inline ReducingSuccessorGenerator _make_suc_gen(const PetriNet &net, std::vector<PQL::Condition_ptr> &queries) {
             auto stubset = std::make_shared<ReachabilityStubbornSet>(net, queries);
             stubset->set_interesting_visitor<InterestingTransitionVisitor>();
             return ReducingSuccessorGenerator{net, stubset};
@@ -141,20 +141,20 @@ namespace PetriEngine {
                 }
                 // add initial to queue
                 {
-                    PQL::DistanceContext dc(&_net, working.marking());
+                    PQL::DistanceContext dc(_net, working.marking());
                     queue.push(r.second, dc, queries[ss._heurquery]);
                 }
 
                 // Search!
                 while (queue.pop(state)) {
-                    generator.prepare(&state);
+                    generator.prepare(state);
 
                     while(generator.next(working)){
                         ss._enabledTransitionsCount[generator.fired()]++;
                         auto res = states.add(working);
                         if (res.first) {
                             {
-                                PQL::DistanceContext dc(&_net, working.marking());
+                                PQL::DistanceContext dc(_net, working.marking());
                                 queue.push(res.second, dc, queries[ss._heurquery]);
                             }
                             states.set_history(res.second, generator.fired());

@@ -66,32 +66,32 @@ namespace LTL {
         {
             if (_places_seen[place] > 0) return;
             _places_seen[place] = 1;
-            for (uint32_t t = _places[place].pre; t < _places[place].post; ++t) {
+            for (uint32_t t = _places[place]._pre; t < _places[place]._post; ++t) {
                 auto tr = _transitions[t];
-                _visible[tr.index] = true;
+                _visible[tr._index] = true;
             }
-            for (uint32_t t = _places.get()[place].post; t < _places.get()[place + 1].pre; t++) {
+            for (uint32_t t = _places[place]._post; t < _places[place + 1]._pre; t++) {
                 auto tr = _transitions[t];
-                if (tr.direction < 0)
-                    _visible[tr.index] = true;
+                if (tr._direction < 0)
+                    _visible[tr._index] = true;
             }
         }
 
-        bool prepare(const PetriEngine::Structures::State *marking) override;
+        bool prepare(const PetriEngine::Structures::State& marking) override;
 
-        bool prepare(const LTL::Structures::ProductState *marking) override
+        bool prepare(const LTL::Structures::ProductState& marking) override
         {
-            return prepare((const PetriEngine::Structures::State *) marking);
+            return prepare((const PetriEngine::Structures::State&) marking);
         }
 
         uint32_t next() override;
 
         void reset();
 
-        bool generate_all(const LTL::Structures::ProductState *parent);
+        bool generate_all(const LTL::Structures::ProductState& parent);
 
     protected:
-        void addToStub(uint32_t t) override;
+        void add_to_stub(uint32_t t) override;
 
     private:
         std::unique_ptr<bool[]> _visible;
@@ -99,11 +99,11 @@ namespace LTL {
         uint32_t _key;
         bool _has_enabled_stubborn;
 
-        void findKeyTransition();
+        void find_key_transition();
 
-        void ensureRuleV();
+        void ensure_rule_v();
 
-        void ensureRulesL();
+        void ensure_rules_l();
 
     };
 }

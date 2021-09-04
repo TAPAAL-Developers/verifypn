@@ -209,7 +209,7 @@ namespace PetriEngine {
             {
                 size_t trans = transitions.top();
                 transitions.pop();
-                std::string tname = ss->net().transitionNames()[trans];
+                std::string tname = ss->net().transition_names()[trans];
                 std::cerr << "\t<transition id=\"" << tname << "\" index=\"" << trans << "\">\n";
 
                 // well, yeah, we are not really efficient in constructing the trace.
@@ -219,7 +219,7 @@ namespace PetriEngine {
                     size_t cnt = ss->net().in_arc(p, trans);
                     for(size_t token = 0; token < cnt; ++token )
                     {
-                        std::cerr << "\t\t<token place=\"" << ss->net().placeNames()[p] << "\" age=\"0\"/>\n";
+                        std::cerr << "\t\t<token place=\"" << ss->net().place_names()[p] << "\" age=\"0\"/>\n";
                     }
                 }
 

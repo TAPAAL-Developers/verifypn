@@ -40,15 +40,15 @@ namespace PetriEngine {
     class SuccessorGenerator;
     
     struct TransPtr {
-        uint32_t inputs;
-        uint32_t outputs;
+        uint32_t _inputs;
+        uint32_t _outputs;
     };
     
     struct Invariant {
-        uint32_t place;
-        uint32_t tokens;
-        bool inhibitor;
-        int8_t direction;
+        uint32_t _place;
+        uint32_t _tokens;
+        bool _inhibitor;
+        int8_t _direction;
         // we can pack things here, but might give slowdown
     } /*__attribute__((packed))*/; 
     
@@ -79,12 +79,12 @@ namespace PetriEngine {
         int out_arc(uint32_t transition, uint32_t place) const;
         
 
-        const std::vector<std::string>& transitionNames() const
+        const std::vector<std::string>& transition_names() const
         {
             return _transitionnames;
         }
         
-        const std::vector<std::string>& placeNames() const
+        const std::vector<std::string>& place_names() const
         {
             return _placenames;
         }
@@ -110,7 +110,7 @@ namespace PetriEngine {
 
         bool has_inhibitor() const {
             for (Invariant i : _invariants) {
-                if (i.inhibitor)
+                if (i._inhibitor)
                     return true;
             }
             return false;

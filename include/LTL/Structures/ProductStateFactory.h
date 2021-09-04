@@ -25,21 +25,21 @@
 namespace LTL::Structures{
     class ProductStateFactory {
     public:
-        ProductStateFactory(const PetriEngine::PetriNet *net, const BuchiAutomaton& aut, size_t initial_buchi_state)
+        ProductStateFactory(const PetriEngine::PetriNet& net, const BuchiAutomaton& aut, size_t initial_buchi_state)
             : _net(net), _aut(aut), _buchi_init(initial_buchi_state) {}
 
         ProductState new_state() {
-            auto buf = new PetriEngine::MarkVal[_net->number_of_places()+1];
-            std::copy(_net->initial(), _net->initial() + _net->number_of_places(), buf);
-            buf[_net->number_of_places()] = 0;
+            auto buf = new PetriEngine::MarkVal[_net.number_of_places()+1];
+            std::copy(_net.initial(), _net.initial() + _net.number_of_places(), buf);
+            buf[_net.number_of_places()] = 0;
             ProductState state{&_aut};
-            state.set_marking(buf, _net->number_of_places());
+            state.set_marking(buf, _net.number_of_places());
             state.set_buchi_state(_buchi_init);
             return state;
         }
 
     private:
-        const PetriEngine::PetriNet *_net;
+        const PetriEngine::PetriNet& _net;
         const LTL::Structures::BuchiAutomaton _aut;
         const size_t _buchi_init;
     };

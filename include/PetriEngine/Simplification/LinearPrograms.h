@@ -3,28 +3,28 @@
 #include "LinearProgram.h"
 #include "../PQL/Contexts.h"
 #include "../PetriNet.h"
-        
+
 #include <set>
 
 namespace PetriEngine {
     namespace Simplification {
-        
+
         class AbstractProgramCollection
         {
             protected:
                 enum result_t { UNKNOWN, IMPOSSIBLE, POSSIBLE };
                 result_t _result = result_t::UNKNOWN;
-                
+
                 virtual void satisfiable_impl(const PQL::SimplificationContext& context, uint32_t solvetime) = 0;
-                bool has_empty = false;
+                bool _has_empty = false;
             public:
                 virtual ~AbstractProgramCollection() {};
-                bool empty() { return has_empty; }
-                
+                bool empty() { return _has_empty; }
+
                 virtual bool satisfiable(const PQL::SimplificationContext& context, uint32_t solvetime = std::numeric_limits<uint32_t>::max())
                 {
                     reset();
-                    if(context.timeout() || has_empty || solvetime == 0) return true;
+                    if(context.timeout() || _has_empty || solvetime == 0) return true;
                     if(_result != UNKNOWN)
                     {
                         if(_result == IMPOSSIBLE)
@@ -36,12 +36,12 @@ namespace PetriEngine {
                     assert(_result != UNKNOWN);
                     return _result == POSSIBLE;
                 }
-                
+
                 bool known_sat() { return _result == POSSIBLE; };
                 bool known_unsat() { return _result == IMPOSSIBLE; };
-                
+
                 virtual void clear() = 0;
-                
+
                 virtual bool merge(bool& has_empty, LinearProgram& program, bool dry_run = false) = 0;
                 virtual void reset() = 0;
                 virtual size_t size() const = 0;
@@ -52,22 +52,22 @@ namespace PetriEngine {
         class UnionCollection : public AbstractProgramCollection
         {
         protected:
-            std::vector<AbstractProgramCollection_ptr> lps;
-            size_t current = 0;
+            std::vector<AbstractProgramCollection_ptr> _lps;
+            size_t _current = 0;
             size_t _size = 0;
-            
+
             virtual void satisfiable_impl(const PQL::SimplificationContext& context, uint32_t solvetime)
             {
-                for(int i = lps.size() - 1; i >= 0; --i)
+                for(int i = _lps.size() - 1; i >= 0; --i)
                 {
-                    if(lps[i]->satisfiable(context, solvetime) || context.timeout())
+                    if(_lps[i]->satisfiable(context, solvetime) || context.timeout())
                     {
                         _result = POSSIBLE;
                         return;
                     }
                     else
                     {
-                        lps.erase(lps.begin() + i);
+                        _lps.erase(_lps.begin() + i);
                     }
                 }
                 if(_result != POSSIBLE)
@@ -76,51 +76,51 @@ namespace PetriEngine {
 
         public:
             UnionCollection(std::vector<AbstractProgramCollection_ptr>&& programs) :
-            AbstractProgramCollection(), lps(std::move(programs)) 
+            AbstractProgramCollection(), _lps(std::move(programs))
             {
-                for(auto& p : lps) _size += p->size();
+                for(auto& p : _lps) _size += p->size();
             }
-            
+
             UnionCollection(const AbstractProgramCollection_ptr& A, const AbstractProgramCollection_ptr& B) :
-            AbstractProgramCollection(), lps({A,B}) 
+            AbstractProgramCollection(), _lps({A,B})
             {
-                has_empty = false;
-                for(auto& lp : lps)
+                _has_empty = false;
+                for(auto& lp : _lps)
                 {
-                    has_empty = has_empty || lp->empty();
-                    if(lp->known_sat() || has_empty) _result = POSSIBLE;
+                    _has_empty = _has_empty || lp->empty();
+                    if(lp->known_sat() || _has_empty) _result = POSSIBLE;
                     if(_result == POSSIBLE) break;
                 }
-                for(auto& p : lps) _size += p->size();
+                for(auto& p : _lps) _size += p->size();
             };
 
             void clear()
             {
-                lps.clear();
-                current = 0;
+                _lps.clear();
+                _current = 0;
             };
-            
+
             virtual void reset()
             {
-                lps[0]->reset();
-                current = 0;
+                _lps[0]->reset();
+                _current = 0;
             }
 
             virtual bool merge(bool& has_empty, LinearProgram& program, bool dry_run = false)
             {
-                
-                if(current >= lps.size()) 
+
+                if(_current >= _lps.size())
                 {
-                    current = 0;
+                    _current = 0;
                 }
-                
-                if(!lps[current]->merge(has_empty, program, dry_run))
+
+                if(!_lps[_current]->merge(has_empty, program, dry_run))
                 {
-                    ++current;
-                    if(current < lps.size()) lps[current]->reset();
+                    ++_current;
+                    if(_current < _lps.size()) _lps[_current]->reset();
                 }
-                
-                return current < lps.size();
+
+                return _current < _lps.size();
             }
             virtual size_t size() const
             {
@@ -128,19 +128,19 @@ namespace PetriEngine {
             }
 
         };
-        
+
         class MergeCollection : public AbstractProgramCollection
         {
         protected:
-            AbstractProgramCollection_ptr left = nullptr;
-            AbstractProgramCollection_ptr right = nullptr;
+            AbstractProgramCollection_ptr _left = nullptr;
+            AbstractProgramCollection_ptr _right = nullptr;
 
-            LinearProgram tmp_prog;
-            bool merge_right = true;
-            bool more_right  = true;
-            bool rempty = false;
-            size_t nsat = 0;
-            size_t curr = 0;
+            LinearProgram _tmp_prog;
+            bool _merge_right = true;
+            bool _more_right = true;
+            bool _rempty = false;
+            size_t _nsat = 0;
+            size_t _curr = 0;
             size_t _size = 0;
 
             virtual void satisfiable_impl(const PQL::SimplificationContext& context, uint32_t solvetime)
@@ -152,7 +152,7 @@ namespace PetriEngine {
                     LinearProgram prog;
                     bool has_empty = false;
                     hasmore = merge(has_empty, prog);
-                    if(has_empty) 
+                    if(has_empty)
                     {
                         _result = POSSIBLE;
                         return;
@@ -166,7 +166,7 @@ namespace PetriEngine {
                             break;
                         }
                     }
-                    ++nsat;
+                    ++_nsat;
                 } while(hasmore);
                 if(_result != POSSIBLE)
                     _result = IMPOSSIBLE;
@@ -175,34 +175,34 @@ namespace PetriEngine {
 
         public:
             MergeCollection(const AbstractProgramCollection_ptr& A, const AbstractProgramCollection_ptr& B) :
-            AbstractProgramCollection(), left(A), right(B)
+            AbstractProgramCollection(), _left(A), _right(B)
             {
                 assert(A);
                 assert(B);
-                has_empty = left->empty() && right->empty();
-                _size = left->size() * right->size();
+                _has_empty = _left->empty() && _right->empty();
+                _size = _left->size() * _right->size();
             };
 
             virtual void reset()
             {
-                if(right)  right->reset();
-                
-                merge_right = true;
-                more_right  = true;
-                rempty = false;
-                
-                tmp_prog = LinearProgram();
-                curr = 0;
+                if(_right)  _right->reset();
+
+                _merge_right = true;
+                _more_right  = true;
+                _rempty = false;
+
+                _tmp_prog = LinearProgram();
+                _curr = 0;
             }
-            
+
             void clear()
             {
-                left = nullptr;
-                right = nullptr;
+                _left = nullptr;
+                _right = nullptr;
             };
 
             virtual bool merge(bool& has_empty, LinearProgram& program, bool dry_run = false)
-            {               
+            {
                 if(program.known_impossible()) return false;
                 bool lempty = false;
                 bool more_left;
@@ -210,22 +210,22 @@ namespace PetriEngine {
                 {
                     lempty = false;
                     LinearProgram prog = program;
-                    if(merge_right)
+                    if(_merge_right)
                     {
-                        assert(more_right);
-                        rempty = false;
-                        tmp_prog = LinearProgram();
-                        more_right = right->merge(rempty, tmp_prog, false);
-                        left->reset();
-                        merge_right = false;
+                        assert(_more_right);
+                        _rempty = false;
+                        _tmp_prog = LinearProgram();
+                        _more_right = _right->merge(_rempty, _tmp_prog, false);
+                        _left->reset();
+                        _merge_right = false;
                     }
-                    ++curr;
-                    assert(curr <= _size);
-                    more_left = left->merge(lempty, prog/*, dry_run || curr < nsat*/);
-                    if(!more_left) merge_right = true;
-                    if(curr >= nsat || !(more_left || more_right))
+                    ++_curr;
+                    assert(_curr <= _size);
+                    more_left = _left->merge(lempty, prog/*, dry_run || curr < nsat*/);
+                    if(!more_left) _merge_right = true;
+                    if(_curr >= _nsat || !(more_left || _more_right))
                     {
-                        if((!dry_run && prog.known_impossible()) && (more_left || more_right))
+                        if((!dry_run && prog.known_impossible()) && (more_left || _more_right))
                         {
                             continue;
                         }
@@ -233,31 +233,31 @@ namespace PetriEngine {
                         break;
                     }
                 }
-                if(!dry_run) program.make_union(tmp_prog);
-                has_empty = lempty && rempty;
-                return more_left || more_right;
+                if(!dry_run) program.make_union(_tmp_prog);
+                has_empty = lempty && _rempty;
+                return more_left || _more_right;
             }
 
             virtual size_t size() const
             {
-                return _size - nsat;
+                return _size - _nsat;
             }
 
-            
+
         };
-        
+
         class SingleProgram : public AbstractProgramCollection {
         private:
-            LinearProgram program;
+            LinearProgram _program;
         protected:
             virtual void satisfiable_impl(const PQL::SimplificationContext& context, uint32_t solvetime)
             {
                 // this is where the magic needs to happen
-                if(!program.is_impossible(context, solvetime ))
+                if(!_program.is_impossible(context, solvetime ))
                 {
                     _result = POSSIBLE;
                 }
-                else 
+                else
                 {
                     _result = IMPOSSIBLE;
                 }
@@ -268,40 +268,40 @@ namespace PetriEngine {
             SingleProgram()
             :AbstractProgramCollection()
             {
-                has_empty = true;
+                _has_empty = true;
             }
-            
-            SingleProgram(LPCache* factory, const Member& lh, int constant, op_t op)
+
+            SingleProgram(const Member& lh, int constant, op_t op)
             :   AbstractProgramCollection(),
-                program(factory->createAndCache(lh.variables()), constant, op, factory)
+                _program(lh.variables(), constant, op)
             {
-                has_empty = program.size() == 0;
-                assert(!has_empty);
+                _has_empty = _program.size() == 0;
+                assert(!_has_empty);
             }
-            
+
             virtual ~SingleProgram(){
             }
-            
+
             virtual void reset() {}
-            
+
             virtual bool merge(bool& has_empty, LinearProgram& program, bool dry_run = false)
             {
                 if(dry_run) return false;
-                program.make_union(this->program);
-                has_empty = this->program.equations().size() == 0;
-                assert(has_empty == this->has_empty);
+                program.make_union(this->_program);
+                has_empty = this->_program.equations().size() == 0;
+                assert(has_empty == this->_has_empty);
                 return false;
-            }            
-            
+            }
+
             void clear()
             {
             }
-            
+
             virtual size_t size() const
             {
                 return 1;
             }
-            
+
         };
     }
 }

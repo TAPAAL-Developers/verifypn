@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   NetStructures.h
  * Author: Peter G. Jensen
  *
@@ -10,80 +10,81 @@
 
 #include <limits>
 #include <vector>
+#include <cassert>
 
 namespace PetriEngine {
 
     struct Arc {
-        uint32_t place;
-        uint32_t weight;
-        bool skip = false;
-        bool inhib = false;
+        uint32_t _place;
+        uint32_t _weight;
+        bool _skip = false;
+        bool _inhib = false;
 
         Arc() :
-        place(std::numeric_limits<uint32_t>::max()),
-        weight(std::numeric_limits<uint32_t>::max()),
-        skip(false),
-        inhib(false) {
+        _place(std::numeric_limits<uint32_t>::max()),
+        _weight(std::numeric_limits<uint32_t>::max()),
+        _skip(false),
+        _inhib(false) {
         };
-        
+
         bool operator < (const Arc& other) const
         {
-            return place < other.place;
+            return _place < other._place;
         }
-        
+
         bool operator == (const Arc& other) const
         {
-            return place == other.place && weight == other.weight && inhib == other.inhib;
+            return _place == other._place && _weight == other._weight && _inhib == other._inhib;
         }
     };
 
     struct Transition {
-        std::vector<Arc> pre;
-        std::vector<Arc> post;
-        bool skip = false;
-        bool inhib = false;
-        
-        void addPreArc(const Arc& arc)
+        std::vector<Arc> _pre;
+        std::vector<Arc> _post;
+        bool _skip = false;
+        bool _inhib = false;
+
+        void add_pre_arc(const Arc& arc)
         {
-            auto lb = std::lower_bound(pre.begin(), pre.end(), arc);
-            if(lb != pre.end() && lb->place == arc.place)
-                lb->weight += arc.weight;
+            auto lb = std::lower_bound(_pre.begin(), _pre.end(), arc);
+            if(lb != _pre.end() && lb->_place == arc._place)
+                lb->_weight += arc._weight;
             else
-                lb = pre.insert(lb, arc);
-            assert(lb->weight > 0);
+                lb = _pre.insert(lb, arc);
+            assert(lb->_weight > 0);
         }
-        
-        void addPostArc(const Arc& arc)
+
+        void add_post_arc(const Arc& arc)
         {
-            auto lb = std::lower_bound(post.begin(), post.end(), arc);
-            if(lb != post.end() && lb->place == arc.place)
-                lb->weight += arc.weight;
+            auto lb = std::lower_bound(_post.begin(), _post.end(), arc);
+            if(lb != _post.end() && lb->_place == arc._place)
+                lb->_weight += arc._weight;
             else
-                lb = post.insert(lb, arc);
-            assert(lb->weight > 0);
-            
+                lb = _post.insert(lb, arc);
+            assert(lb->_weight > 0);
+
         }
     };
 
     struct Place {
-        std::vector<uint32_t> consumers; // things consuming
-        std::vector<uint32_t> producers; // things producing
-        bool skip = false;
-        bool inhib = false;
-        
+        std::vector<uint32_t> _consumers; // things consuming
+        std::vector<uint32_t> _producers; // things producing
+        bool _skip = false;
+        bool _inhib = false;
+
         // should be replaced using concepts in c++20
-        void addConsumer(uint32_t id)
+        void add_consumer(uint32_t id)
         {
-            auto lb = std::lower_bound(consumers.begin(), consumers.end(), id);
-            if(lb == consumers.end() || *lb != id)
-                consumers.insert(lb, id);
+            auto lb = std::lower_bound(_consumers.begin(), _consumers.end(), id);
+            if(lb == _consumers.end() || *lb != id)
+                _consumers.insert(lb, id);
         }
-        
-        void addProducer(uint32_t id)
+
+        void add_producer(uint32_t id)
         {
-            auto lb = std::lower_bound(producers.begin(), producers.end(), id);
-            if(lb == producers.end() || *lb != id)
-                producers.insert(lb, id);
+            auto lb = std::lower_bound(_producers.begin(), _producers.end(), id);
+            if(lb == _producers.end() || *lb != id)
+                _producers.insert(lb, id);
         }
     };
 }

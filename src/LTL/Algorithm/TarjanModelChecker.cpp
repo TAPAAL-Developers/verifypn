@@ -68,7 +68,7 @@ namespace LTL {
                 while (suc_pos != std::numeric_limits<idx_t>::max() && _cstack[suc_pos]._stateid != stateid) {
                     if constexpr (_is_spooling) {
                         if (_cstack[suc_pos]._dstack && _seen.get_marking_id(_cstack[suc_pos]._stateid) == marking) {
-                            this->_successor_generator->generate_all(&parent, dtop._sucinfo);
+                            this->_successor_generator->generate_all(parent, dtop._sucinfo);
                         }
                     }
                     suc_pos = _cstack[suc_pos]._next;
@@ -76,7 +76,7 @@ namespace LTL {
                 if (suc_pos != std::numeric_limits<idx_t>::max()) {
                     if constexpr (_is_spooling) {
                         if (_cstack[suc_pos]._dstack) {
-                            this->_successor_generator->generate_all(&parent, dtop._sucinfo);
+                            this->_successor_generator->generate_all(parent, dtop._sucinfo);
                         }
                     }
                     // we found the successor, i.e. there's a loop!
@@ -190,7 +190,7 @@ namespace LTL {
     bool TarjanModelChecker<S, G, SaveTrace, Spooler...>::next_trans(State &state, State &parent, TarjanModelChecker::DEntry &delem)
     {
         _seen.decode(parent, _cstack[delem._pos]._stateid);
-        this->_successor_generator->prepare(&parent, delem._sucinfo);
+        this->_successor_generator->prepare(parent, delem._sucinfo);
         // ensure that `state` buffer contains the correct state for Büchi successor generation.
         if (delem._sucinfo.has_prev_state()) {
             _seen.decode(state, delem._sucinfo._last_state);

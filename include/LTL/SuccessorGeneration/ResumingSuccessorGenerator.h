@@ -65,11 +65,11 @@ namespace LTL {
             size_t state() const {
                 return _last_state;
             }
-            
+
             size_t transition() const {
                 return _tcounter - 1;
             }
-            
+
             [[nodiscard]] bool fresh() const {
                 return _pcounter == _NoPCounter && _tcounter == _NoTCounter;
             }
@@ -81,19 +81,19 @@ namespace LTL {
         };
     public:
 
-        ResumingSuccessorGenerator(const PetriEngine::PetriNet *net);
+        ResumingSuccessorGenerator(const PetriEngine::PetriNet& net);
 
-        ResumingSuccessorGenerator(const PetriEngine::PetriNet *net, const std::shared_ptr<PetriEngine::StubbornSet> &);
+        ResumingSuccessorGenerator(const PetriEngine::PetriNet& net, const std::shared_ptr<PetriEngine::StubbornSet> &);
 
-        ResumingSuccessorGenerator(const PetriEngine::PetriNet *net,
+        ResumingSuccessorGenerator(const PetriEngine::PetriNet& net,
                 std::vector<std::shared_ptr<PetriEngine::PQL::Condition> > &queries);
 
-        ResumingSuccessorGenerator(const PetriEngine::PetriNet *net,
+        ResumingSuccessorGenerator(const PetriEngine::PetriNet& net,
                 const std::shared_ptr<PetriEngine::PQL::Condition> &query);
 
         ~ResumingSuccessorGenerator() override = default;
 
-        void prepare(const PetriEngine::Structures::State *state, const successor_info_t &sucinfo);
+        void prepare(const PetriEngine::Structures::State& state, const successor_info_t &sucinfo);
 
         bool next(PetriEngine::Structures::State &write, successor_info_t &sucinfo) {
             bool has_suc = PetriEngine::SuccessorGenerator::next(write);

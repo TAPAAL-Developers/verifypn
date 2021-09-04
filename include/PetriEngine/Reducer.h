@@ -27,11 +27,12 @@ namespace PetriEngine {
         bool _deadlock;
     public:
 
-        QueryPlaceAnalysisContext(const std::unordered_map<std::string, uint32_t>& pnames, const std::unordered_map<std::string, uint32_t>& tnames, const PetriNet* net)
+        QueryPlaceAnalysisContext(const std::unordered_map<std::string, uint32_t>& pnames,
+                const std::unordered_map<std::string, uint32_t>& tnames, const PetriNet* net)
         : PQL::AnalysisContext(pnames, tnames, net) {
             _placeInQuery.resize(_placeNames.size(), 0);
             _deadlock = false;
-        };
+        }
 
         virtual ~QueryPlaceAnalysisContext()
         {
@@ -71,18 +72,18 @@ namespace PetriEngine {
 
    struct ExpandedArc
    {
-       ExpandedArc(std::string place, size_t weight) : place(place), weight(weight) {}
+       ExpandedArc(std::string place, size_t weight) : _place(place), _weight(weight) {}
 
         friend std::ostream& operator<<(std::ostream& os, ExpandedArc const & ea) {
-            for(size_t i = 0; i < ea.weight; ++i)
+            for(size_t i = 0; i < ea._weight; ++i)
             {
-                os << "\t\t<token place=\"" << ea.place << "\" age=\"0\"/>\n";
+                os << "\t\t<token place=\"" << ea._place << "\" age=\"0\"/>\n";
             }
             return os;
         }
 
-        std::string place;
-        size_t weight;
+        std::string _place;
+        size_t _weight;
    };
 
     class Reducer {

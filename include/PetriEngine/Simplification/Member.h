@@ -36,7 +36,7 @@ namespace PetriEngine {
             Member& operator+=(const Member& m) { 
                 auto tc = _constant + m._constant;
                 auto ca = _canAnalyze && m._canAnalyze;                
-                addVariables(m);
+                add_variables(m);
                 _constant = tc;
                 _canAnalyze = ca;
                 return *this;
@@ -45,7 +45,7 @@ namespace PetriEngine {
             Member& operator-=(const Member& m) { 
                 auto tc = _constant - m._constant;
                 auto ca = _canAnalyze && m._canAnalyze;                
-                subtractVariables(m);
+                subtract_variables(m);
                 _constant = tc;
                 _canAnalyze = ca;
                 return *this;
@@ -133,20 +133,20 @@ namespace PetriEngine {
             }
 
             Trivial operator<(const Member& m) const {
-                return trivialLessThan(m, std::less<int>());
+                return trivial_less_than(m, std::less<int>());
             }
             Trivial operator<=(const Member& m) const {
-                return trivialLessThan(m, std::less_equal<int>());
+                return trivial_less_than(m, std::less_equal<int>());
             }
             Trivial operator>(const Member& m) const {
-                return m.trivialLessThan(*this, std::less<int>());
+                return m.trivial_less_than(*this, std::less<int>());
             }
             Trivial operator>=(const Member& m) const {
-                return m.trivialLessThan(*this, std::less_equal<int>());
+                return m.trivial_less_than(*this, std::less_equal<int>());
             }
             
         private:
-            void addVariables(const Member& m2) {
+            void add_variables(const Member& m2) {
                 uint32_t size = std::max(_variables.size(), m2._variables.size());
                 _variables.resize(size, 0);
 
@@ -159,7 +159,7 @@ namespace PetriEngine {
                 }
             }
 
-            void subtractVariables(const Member& m2) {
+            void subtract_variables(const Member& m2) {
                 uint32_t size = std::max(_variables.size(), m2._variables.size());
                 _variables.resize(size, 0);
                 
@@ -187,7 +187,7 @@ namespace PetriEngine {
                 _variables.clear();
             }
             
-            Trivial trivialLessThan(const Member& m2, std::function<bool (int, int)> compare) const {
+            Trivial trivial_less_than(const Member& m2, std::function<bool (int, int)> compare) const {
                 MemberType type1 = get_type();
                 MemberType type2 = m2.get_type();
                 

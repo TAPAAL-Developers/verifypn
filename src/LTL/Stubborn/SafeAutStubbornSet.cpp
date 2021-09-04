@@ -1,16 +1,16 @@
 /* Copyright (C) 2021  Nikolaj J. Ulrik <nikolaj@njulrik.dk>,
  *                     Simon M. Virenfeldt <simon@simwir.dk>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -21,13 +21,13 @@
 namespace LTL {
     using namespace PetriEngine;
 
-    bool SafeAutStubbornSet::prepare(const LTL::Structures::ProductState *state)
+    bool SafeAutStubbornSet::prepare(const LTL::Structures::ProductState& state)
     {
         reset();
-        _parent = state;
+        _parent = &state;
         memset(_places_seen.get(), 0, _net.number_of_places());
 
-        constructEnabled();
+        construct_enabled();
         if (_ordering.empty()) {
             _print_debug();
             return false;
@@ -41,7 +41,7 @@ namespace LTL {
         InterestingLTLTransitionVisitor unsafe{*this, false};
         InterestingTransitionVisitor interesting{*this, false};
 
-        PQL::EvaluationContext ctx((*_parent).marking(), &_net);
+        PQL::EvaluationContext ctx(_parent->marking(), _net);
         _prog_cond->evalAndSet(ctx);
         _sink_cond->evalAndSet(ctx);
         _prog_cond->visit(unsafe);
@@ -73,11 +73,11 @@ namespace LTL {
             return true;
         }
         // accepting states need key transition. add firs   t enabled by index.
-        if (state->is_accepting() && !_has_enabled_stubborn) {
+        if (state.is_accepting() && !_has_enabled_stubborn) {
             //set_all_stubborn();
             //_print_debug();
             //return true;
-            addToStub(_ordering.front());
+            add_to_stub(_ordering.front());
             closure();
 /*            for (int i = 0; i < _net.number_of_places(); ++i) {
                 if (_enabled[i]) {

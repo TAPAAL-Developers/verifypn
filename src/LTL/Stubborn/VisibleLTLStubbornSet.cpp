@@ -23,12 +23,12 @@ using namespace PetriEngine;
 using namespace PetriEngine::PQL;
 
 namespace LTL {
-    bool VisibleLTLStubbornSet::prepare(const PetriEngine::Structures::State *marking) {
+    bool VisibleLTLStubbornSet::prepare(const PetriEngine::Structures::State& marking) {
         reset();
-        _parent = marking;
-        PQL::EvaluationContext evaluationContext{_parent->marking(), &_net};
+        _parent = &marking;
+        PQL::EvaluationContext evaluationContext{_parent->marking(), _net};
         memset(_places_seen.get(), 0, _net.number_of_places());
-        constructEnabled();
+        construct_enabled();
         if (_ordering.empty()) return false;
         if (_ordering.size() == 1) {
             _stubborn[_ordering.front()] = true;
@@ -39,11 +39,11 @@ namespace LTL {
             EvalAndSetVisitor evalAndSetVisitor{evaluationContext};
             q->visit(evalAndSetVisitor);
         }
-        findKeyTransition();
+        find_key_transition();
 
-        ensureRuleV();
+        ensure_rule_v();
 
-        ensureRulesL();
+        ensure_rules_l();
 
         _nenabled = _ordering.size();
 
@@ -82,7 +82,7 @@ namespace LTL {
         return std::numeric_limits<uint32_t>::max();
     }
 
-    void VisibleLTLStubbornSet::findKeyTransition() {
+    void VisibleLTLStubbornSet::find_key_transition() {
         // try to find invisible key transition first
         assert(!_ordering.empty());
         auto tkey = _ordering.front();
@@ -94,21 +94,21 @@ namespace LTL {
                 }
             }
         }
-        addToStub(tkey);
+        add_to_stub(tkey);
 
         // include relevant transitions
         auto ptr = transitions()[tkey];
-        uint32_t finv = ptr.inputs;
-        uint32_t linv = ptr.outputs;
+        uint32_t finv = ptr._inputs;
+        uint32_t linv = ptr._outputs;
 
         for (; finv < linv; ++finv) {
             auto inv = invariants()[finv];
-            postset_of(inv.place, true);
+            postset_of(inv._place, true);
         }
     }
 
     constexpr bool isRuleVPrime = true;
-    void VisibleLTLStubbornSet::ensureRuleV() {
+    void VisibleLTLStubbornSet::ensure_rule_v() {
         // Rule V: If there is an enabled, visible transition in the stubborn set,
         // all visible transitions must be stubborn.
         // Rule V' (implemented): If there is an enabled, visible transition
@@ -132,7 +132,7 @@ namespace LTL {
         closure();*/
     }
 
-    void VisibleLTLStubbornSet::ensureRulesL() {
+    void VisibleLTLStubbornSet::ensure_rules_l() {
         static_assert(isRuleVPrime, "Plain rule V does not imply L1");
     }
 
@@ -142,12 +142,12 @@ namespace LTL {
         _has_enabled_stubborn = false;
     }
 
-    bool VisibleLTLStubbornSet::generate_all(const LTL::Structures::ProductState *parent) {
+    bool VisibleLTLStubbornSet::generate_all(const LTL::Structures::ProductState& parent) {
         prepare(parent);
         // Ensure rule L2, forcing all visible transitions into the stubborn set when closing cycle.
         for (uint32_t i = 0; i < _net.number_of_transitions(); ++i) {
             if (_visible[i]) {
-                addToStub(i);
+                add_to_stub(i);
             }
         }
         // recompute entire set
@@ -166,10 +166,10 @@ namespace LTL {
         }*/
     }
 
-    void VisibleLTLStubbornSet::addToStub(uint32_t t) {
+    void VisibleLTLStubbornSet::add_to_stub(uint32_t t) {
         if (_enabled[t])
             _has_enabled_stubborn = true;
-        StubbornSet::addToStub(t);
+        StubbornSet::add_to_stub(t);
     }
 
 

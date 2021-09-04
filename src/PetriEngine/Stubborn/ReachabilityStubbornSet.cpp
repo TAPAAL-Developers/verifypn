@@ -20,11 +20,11 @@
 #include "PetriEngine/PQL/Contexts.h"
 
 namespace PetriEngine {
-    bool ReachabilityStubbornSet::prepare(const Structures::State *state) {
+    bool ReachabilityStubbornSet::prepare(const Structures::State& state) {
         reset();
-        _parent = state;
+        _parent = &state;
         memset(_places_seen.get(), 0, _net.number_of_places());
-        constructEnabled();
+        construct_enabled();
         if (_ordering.size() == 0) return false;
         if (_ordering.size() == 1) {
             _stubborn[_ordering.front()] = true;
@@ -32,7 +32,7 @@ namespace PetriEngine {
         }
         assert(!_queries.empty());
         for (auto &q : _queries) {
-            q->evalAndSet(PQL::EvaluationContext((*_parent).marking(), &_net));
+            q->evalAndSet(PQL::EvaluationContext(_parent->marking(), &_net));
 
             assert(_interesting->get_negated() == false);
             q->visit(*_interesting);

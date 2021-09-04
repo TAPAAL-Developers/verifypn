@@ -320,7 +320,7 @@ namespace PetriEngine {
                 } else {
                     ExprError error("Unable to resolve identifier \"" + i.second + "\"",
                             i.second.length());
-                    context.reportError(error);
+                    context.report_error(error);
                 }
             }
             NaryExpr::analyze(context);
@@ -351,7 +351,7 @@ namespace PetriEngine {
             } else {
                 ExprError error("Unable to resolve identifier \"" + name + "\"",
                                 name.length());
-                context.reportError(error);
+                context.report_error(error);
             }
             return -1;
         }
@@ -368,12 +368,12 @@ namespace PetriEngine {
             }
 
             auto coloredContext = dynamic_cast<ColoredAnalysisContext*>(&context);
-            if(coloredContext != nullptr && coloredContext->isColored())
+            if(coloredContext != nullptr && coloredContext->is_colored())
             {
                 std::unordered_map<uint32_t,std::string> names;
-                if (!coloredContext->resolvePlace(_name, names)) {
+                if (!coloredContext->resolve_place(_name, names)) {
                     ExprError error("Unable to resolve colored identifier \"" + _name + "\"", _name.length());
-                    coloredContext->reportError(error);
+                    coloredContext->report_error(error);
                 }
 
                 if (names.size() == 1) {
@@ -398,7 +398,7 @@ namespace PetriEngine {
             } else {
                 ExprError error("Unable to resolve identifier \"" + _name + "\"",
                         _name.length());
-                context.reportError(error);
+                context.report_error(error);
             }
         }
 
@@ -423,24 +423,24 @@ namespace PetriEngine {
             {
                 ExprError error("Unable to resolve identifier \"" + _name + "\"",
                         _name.length());
-                context.reportError(error);
+                context.report_error(error);
                 return;
             }
 
-            assert(_name.compare(context.net()->transitionNames()[result._offset]) == 0);
-            auto preset = context.net()->preset(result._offset);
+            assert(_name.compare(context.net().transition_names()[result._offset]) == 0);
+            auto preset = context.net().preset(result._offset);
             for(; preset.first != preset.second; ++preset.first)
             {
-                assert(preset.first->place != std::numeric_limits<uint32_t>::max());
-                assert(preset.first->place != -1);
-                auto id = std::make_shared<UnfoldedIdentifierExpr>(context.net()->placeNames()[preset.first->place], preset.first->place);
-                auto lit = std::make_shared<LiteralExpr>(preset.first->tokens);
+                assert(preset.first->_place != std::numeric_limits<uint32_t>::max());
+                assert(preset.first->_place != -1);
+                auto id = std::make_shared<UnfoldedIdentifierExpr>(context.net().place_names()[preset.first->_place], preset.first->_place);
+                auto lit = std::make_shared<LiteralExpr>(preset.first->_tokens);
 
-                if(!preset.first->inhibitor)
+                if(!preset.first->_inhibitor)
                 {
                     conds.emplace_back(std::make_shared<LessThanOrEqualCondition>(lit, id));
                 }
-                else if(preset.first->tokens > 0)
+                else if(preset.first->_tokens > 0)
                 {
                     conds.emplace_back(std::make_shared<LessThanCondition>(id, lit));
                 }
@@ -453,11 +453,11 @@ namespace PetriEngine {
         void FireableCondition::_analyze(AnalysisContext &context) {
 
             auto coloredContext = dynamic_cast<ColoredAnalysisContext*>(&context);
-            if(coloredContext != nullptr && coloredContext->isColored()) {
+            if(coloredContext != nullptr && coloredContext->is_colored()) {
                 std::vector<std::string> names;
-                if (!coloredContext->resolveTransition(_name, names)) {
+                if (!coloredContext->resolve_transition(_name, names)) {
                     ExprError error("Unable to resolve colored identifier \"" + _name + "\"", _name.length());
-                    coloredContext->reportError(error);
+                    coloredContext->report_error(error);
                     return;
                 }
                 if(names.size() < 1){
@@ -509,14 +509,14 @@ namespace PetriEngine {
         void KSafeCondition::_analyze(AnalysisContext &context) {
             auto coloredContext = dynamic_cast<ColoredAnalysisContext*>(&context);
             std::vector<Condition_ptr> k_safe;
-            if(coloredContext != nullptr && coloredContext->isColored())
+            if(coloredContext != nullptr && coloredContext->is_colored())
             {
-                for(auto& p : coloredContext->allColoredPlaceNames())
+                for(auto& p : coloredContext->all_colored_place_names())
                     k_safe.emplace_back(std::make_shared<LessThanOrEqualCondition>(std::make_shared<IdentifierExpr>(p.first), _bound));
             }
             else
             {
-                for(auto& p : context.allPlaceNames())
+                for(auto& p : context.all_place_names())
                     k_safe.emplace_back(std::make_shared<LessThanOrEqualCondition>(std::make_shared<UnfoldedIdentifierExpr>(p.first), _bound));
             }
             _compiled = std::make_shared<AGCondition>(std::make_shared<AndCondition>(std::move(k_safe)));
@@ -527,9 +527,9 @@ namespace PetriEngine {
         {
             auto coloredContext = dynamic_cast<ColoredAnalysisContext*>(&context);
             std::vector<Condition_ptr> quasi;
-            if(coloredContext != nullptr && coloredContext->isColored())
+            if(coloredContext != nullptr && coloredContext->is_colored())
             {
-                for(auto& n : coloredContext->allColoredTransitionNames())
+                for(auto& n : coloredContext->all_colored_transition_names())
                 {
                     std::vector<Condition_ptr> disj;
                     for(auto& tn : n.second)
@@ -539,7 +539,7 @@ namespace PetriEngine {
             }
             else
             {
-                for(auto& n : context.allTransitionNames())
+                for(auto& n : context.all_transition_names())
                 {
                     quasi.emplace_back(std::make_shared<EFCondition>(std::make_shared<UnfoldedFireableCondition>(n.first)));
                 }
@@ -552,9 +552,9 @@ namespace PetriEngine {
         {
             auto coloredContext = dynamic_cast<ColoredAnalysisContext*>(&context);
             std::vector<Condition_ptr> liveness;
-            if(coloredContext != nullptr && coloredContext->isColored())
+            if(coloredContext != nullptr && coloredContext->is_colored())
             {
-                for(auto& n : coloredContext->allColoredTransitionNames())
+                for(auto& n : coloredContext->all_colored_transition_names())
                 {
                     std::vector<Condition_ptr> disj;
                     for(auto& tn : n.second)
@@ -564,7 +564,7 @@ namespace PetriEngine {
             }
             else
             {
-                for(auto& n : context.allTransitionNames())
+                for(auto& n : context.all_transition_names())
                 {
                     liveness.emplace_back(std::make_shared<AGCondition>(std::make_shared<EFCondition>(std::make_shared<UnfoldedFireableCondition>(n.first))));
                 }
@@ -577,9 +577,9 @@ namespace PetriEngine {
         {
             auto coloredContext = dynamic_cast<ColoredAnalysisContext*>(&context);
             std::vector<Condition_ptr> stable_check;
-            if(coloredContext != nullptr && coloredContext->isColored())
+            if(coloredContext != nullptr && coloredContext->is_colored())
             {
-                for(auto& cpn : coloredContext->allColoredPlaceNames())
+                for(auto& cpn : coloredContext->all_colored_place_names())
                 {
                     std::vector<Expr_ptr> sum;
                     MarkVal init_marking = 0;
@@ -587,7 +587,7 @@ namespace PetriEngine {
                     {
                         auto id = std::make_shared<UnfoldedIdentifierExpr>(pn.second);
                         id->analyze(context);
-                        init_marking += context.net()->initial(id->offset());
+                        init_marking += context.net().initial(id->offset());
                         sum.emplace_back(std::move(id));
 
                     }
@@ -599,11 +599,11 @@ namespace PetriEngine {
             else
             {
                 size_t i = 0;
-                for(auto& p : context.net()->placeNames())
+                for(auto& p : context.net().place_names())
                 {
                     stable_check.emplace_back(std::make_shared<AGCondition>(std::make_shared<EqualCondition>(
                             std::make_shared<UnfoldedIdentifierExpr>(p, i),
-                            std::make_shared<LiteralExpr>(context.net()->initial(i)))));
+                            std::make_shared<LiteralExpr>(context.net().initial(i)))));
                     ++i;
                 }
             }
@@ -614,15 +614,15 @@ namespace PetriEngine {
         void UpperBoundsCondition::_analyze(AnalysisContext& context)
         {
             auto coloredContext = dynamic_cast<ColoredAnalysisContext*>(&context);
-            if(coloredContext != nullptr && coloredContext->isColored())
+            if(coloredContext != nullptr && coloredContext->is_colored())
             {
                 std::vector<std::string> uplaces;
                 for(auto& p : _places)
                 {
                     std::unordered_map<uint32_t,std::string> names;
-                    if (!coloredContext->resolvePlace(p, names)) {
+                    if (!coloredContext->resolve_place(p, names)) {
                         ExprError error("Unable to resolve colored identifier \"" + p + "\"", p.length());
-                        coloredContext->reportError(error);
+                        coloredContext->report_error(error);
                     }
 
                     for(auto& id : names)
@@ -647,7 +647,7 @@ namespace PetriEngine {
                 } else {
                     ExprError error("Unable to resolve identifier \"" + p._name + "\"",
                             p._name.length());
-                    c.reportError(error);
+                    c.report_error(error);
                 }
             }
             std::sort(_places.begin(), _places.end());
@@ -1920,11 +1920,11 @@ namespace PetriEngine {
 
         void FireableCondition::toCompactXML(std::ostream& out, uint32_t tabs, AnalysisContext& context) const{
             auto coloredContext = dynamic_cast<ColoredAnalysisContext*>(&context);
-            if(coloredContext != nullptr && coloredContext->isColored()) {
+            if(coloredContext != nullptr && coloredContext->is_colored()) {
                 std::vector<std::string> names;
-                if (!coloredContext->resolveTransition(_name, names)) {
+                if (!coloredContext->resolve_transition(_name, names)) {
                     ExprError error("Unable to resolve colored identifier \"" + _name + "\"", _name.length());
-                    coloredContext->reportError(error);
+                    coloredContext->report_error(error);
                     return;
                 }
                 if(names.size() < 1){
@@ -1968,11 +1968,11 @@ namespace PetriEngine {
 
         void IdentifierExpr::toCompactXML(std::ostream& out, uint32_t tabs, AnalysisContext& context, bool tokencount) const{
             auto coloredContext = dynamic_cast<ColoredAnalysisContext*>(&context);
-            if(coloredContext != nullptr && coloredContext->isColored()) {
+            if(coloredContext != nullptr && coloredContext->is_colored()) {
                 std::unordered_map<uint32_t, std::string> names;
-                if (!coloredContext->resolvePlace(_name, names)) {
+                if (!coloredContext->resolve_place(_name, names)) {
                     ExprError error("Unable to resolve colored identifier \"" + _name + "\"", _name.length());
-                    coloredContext->reportError(error);
+                    coloredContext->report_error(error);
                     return;
                 }
 
@@ -2582,10 +2582,10 @@ namespace PetriEngine {
 
         Member memberForPlace(size_t p, SimplificationContext& context)
         {
-            std::vector<int> row(context.net()->number_of_transitions(), 0);
+            std::vector<int> row(context.net().number_of_transitions(), 0);
             row.shrink_to_fit();
-            for (size_t t = 0; t < context.net()->number_of_transitions(); t++) {
-                row[t] = context.net()->out_arc(t, p) - context.net()->in_arc(p, t);
+            for (size_t t = 0; t < context.net().number_of_transitions(); t++) {
+                row[t] = context.net().out_arc(t, p) - context.net().in_arc(p, t);
             }
             return Member(std::move(row), context.marking()[p]);
         }
@@ -2746,24 +2746,24 @@ namespace PetriEngine {
         Retval EUCondition::simplify(SimplificationContext& context) const {
             // cannot push negation any further
             bool neg = context.negated();
-            context.setNegate(false);
+            context.set_negate(false);
             Retval r2 = _cond2->simplify(context);
             if(r2._formula->isTriviallyTrue() || !r2._neglps->satisfiable(context))
             {
-                context.setNegate(neg);
+                context.set_negate(neg);
                 return neg ?
                             Retval(BooleanCondition::FALSE_CONSTANT) :
                             Retval(BooleanCondition::TRUE_CONSTANT);
             }
             else if(r2._formula->isTriviallyFalse() || !r2._lps->satisfiable(context))
             {
-                context.setNegate(neg);
+                context.set_negate(neg);
                 return neg ?
                             Retval(BooleanCondition::TRUE_CONSTANT) :
                             Retval(BooleanCondition::FALSE_CONSTANT);
             }
             Retval r1 = _cond1->simplify(context);
-            context.setNegate(neg);
+            context.set_negate(neg);
 
             if(context.negated()){
                 if(r1._formula->isTriviallyTrue() || !r1._neglps->satisfiable(context)){
@@ -2789,24 +2789,24 @@ namespace PetriEngine {
         Retval AUCondition::simplify(SimplificationContext& context) const {
             // cannot push negation any further
             bool neg = context.negated();
-            context.setNegate(false);
+            context.set_negate(false);
             Retval r2 = _cond2->simplify(context);
             if(r2._formula->isTriviallyTrue() || !r2._neglps->satisfiable(context))
             {
-                context.setNegate(neg);
+                context.set_negate(neg);
                 return neg ?
                             Retval(BooleanCondition::FALSE_CONSTANT) :
                             Retval(BooleanCondition::TRUE_CONSTANT);
             }
             else if(r2._formula->isTriviallyFalse() || !r2._lps->satisfiable(context))
             {
-                context.setNegate(neg);
+                context.set_negate(neg);
                 return neg ?
                             Retval(BooleanCondition::TRUE_CONSTANT) :
                             Retval(BooleanCondition::FALSE_CONSTANT);
             }
             Retval r1 = _cond1->simplify(context);
-            context.setNegate(neg);
+            context.set_negate(neg);
 
             if(context.negated()){
                 if(r1._formula->isTriviallyTrue() || !r1._neglps->satisfiable(context)){
@@ -2831,25 +2831,25 @@ namespace PetriEngine {
 
         Retval UntilCondition::simplify(SimplificationContext& context) const {
             bool neg = context.negated();
-            context.setNegate(false);
+            context.set_negate(false);
 
             Retval r2 = _cond2->simplify(context);
             if(r2._formula->isTriviallyTrue() || !r2._neglps->satisfiable(context))
             {
-                context.setNegate(neg);
+                context.set_negate(neg);
                 return neg ?
                        Retval(BooleanCondition::FALSE_CONSTANT) :
                        Retval(BooleanCondition::TRUE_CONSTANT);
             }
             else if(r2._formula->isTriviallyFalse() || !r2._lps->satisfiable(context))
             {
-                context.setNegate(neg);
+                context.set_negate(neg);
                 return neg ?
                        Retval(BooleanCondition::TRUE_CONSTANT) :
                        Retval(BooleanCondition::FALSE_CONSTANT);
             }
             Retval r1 = _cond1->simplify(context);
-            context.setNegate(neg);
+            context.set_negate(neg);
 
             if(context.negated()){
                 if(r1._formula->isTriviallyTrue() || !r1._neglps->satisfiable(context)){
@@ -3079,8 +3079,8 @@ namespace PetriEngine {
                         int constant = m2.constant() - m1.constant();
                         m1 -= m2;
                         m2 = m1;
-                        auto lp = std::make_shared<SingleProgram>(context.cache(), std::move(m1), constant, Simplification::OP_LE);
-                        auto nlp = std::make_shared<SingleProgram>(context.cache(), std::move(m2), constant, Simplification::OP_GT);
+                        auto lp = std::make_shared<SingleProgram>(std::move(m1), constant, Simplification::OP_LE);
+                        auto nlp = std::make_shared<SingleProgram>(std::move(m2), constant, Simplification::OP_GT);
                         lpsv.push_back(lp);
                         neglps.push_back(nlp);
                    }
@@ -3101,8 +3101,8 @@ namespace PetriEngine {
                         int constant = m2.constant() - m1.constant();
                         m1 -= m2;
                         m2 = m1;
-                        auto lp = std::make_shared<SingleProgram>(context.cache(), std::move(m1), constant, Simplification::OP_LE);
-                        auto nlp = std::make_shared<SingleProgram>(context.cache(), std::move(m2), constant, Simplification::OP_GT);
+                        auto lp = std::make_shared<SingleProgram>(std::move(m1), constant, Simplification::OP_LE);
+                        auto nlp = std::make_shared<SingleProgram>(std::move(m2), constant, Simplification::OP_GT);
                         lpsv.push_back(lp);
                         neglps.push_back(nlp);
                    }
@@ -3248,10 +3248,10 @@ namespace PetriEngine {
                     m2 = m1;
                     neglps =
                             std::make_shared<UnionCollection>(
-                            std::make_shared<SingleProgram>(context.cache(), std::move(m1), constant, Simplification::OP_GT),
-                            std::make_shared<SingleProgram>(context.cache(), std::move(m2), constant, Simplification::OP_LT));
+                            std::make_shared<SingleProgram>(std::move(m1), constant, Simplification::OP_GT),
+                            std::make_shared<SingleProgram>(std::move(m2), constant, Simplification::OP_LT));
                     Member m3 = m2;
-                    lps = std::make_shared<SingleProgram>(context.cache(), std::move(m3), constant, Simplification::OP_EQ);
+                    lps = std::make_shared<SingleProgram>(std::move(m3), constant, Simplification::OP_EQ);
 
                     if(context.negated()) lps.swap(neglps);
                 }
@@ -3290,10 +3290,10 @@ namespace PetriEngine {
                     m2 = m1;
                     lps =
                             std::make_shared<UnionCollection>(
-                            std::make_shared<SingleProgram>(context.cache(), std::move(m1), constant, Simplification::OP_GT),
-                            std::make_shared<SingleProgram>(context.cache(), std::move(m2), constant, Simplification::OP_LT));
+                            std::make_shared<SingleProgram>(std::move(m1), constant, Simplification::OP_GT),
+                            std::make_shared<SingleProgram>(std::move(m2), constant, Simplification::OP_LT));
                     Member m3 = m2;
-                    neglps = std::make_shared<SingleProgram>(context.cache(), std::move(m3), constant, Simplification::OP_EQ);
+                    neglps = std::make_shared<SingleProgram>(std::move(m3), constant, Simplification::OP_EQ);
 
                     if(context.negated()) lps.swap(neglps);
                 }
@@ -3330,8 +3330,8 @@ namespace PetriEngine {
                     int constant = m2.constant() - m1.constant();
                     m1 -= m2;
                     m2 = m1;
-                    lps = std::make_shared<SingleProgram>(context.cache(), std::move(m1), constant, (context.negated() ? Simplification::OP_GE : Simplification::OP_LT));
-                    neglps = std::make_shared<SingleProgram>(context.cache(), std::move(m2), constant, (!context.negated() ? Simplification::OP_GE : Simplification::OP_LT));
+                    lps = std::make_shared<SingleProgram>(std::move(m1), constant, (context.negated() ? Simplification::OP_GE : Simplification::OP_LT));
+                    neglps = std::make_shared<SingleProgram>(std::move(m2), constant, (!context.negated() ? Simplification::OP_GE : Simplification::OP_LT));
                 }
             } else {
                 lps = std::make_shared<SingleProgram>();
@@ -3368,8 +3368,8 @@ namespace PetriEngine {
                     int constant = m2.constant() - m1.constant();
                     m1 -= m2;
                     m2 = m1;
-                    lps = std::make_shared<SingleProgram>(context.cache(), std::move(m1), constant, (context.negated() ? Simplification::OP_GT : Simplification::OP_LE));
-                    neglps = std::make_shared<SingleProgram>(context.cache(), std::move(m2), constant, (context.negated() ? Simplification::OP_LE : Simplification::OP_GT));
+                    lps = std::make_shared<SingleProgram>(std::move(m1), constant, (context.negated() ? Simplification::OP_GT : Simplification::OP_LE));
+                    neglps = std::make_shared<SingleProgram>(std::move(m2), constant, (context.negated() ? Simplification::OP_LE : Simplification::OP_GT));
                 }
             } else {
                 lps = std::make_shared<SingleProgram>();
@@ -3423,7 +3423,7 @@ namespace PetriEngine {
             for(auto& p : _places)
                 places.push_back(p._place);
             const auto nplaces = _places.size();
-            const auto bounds = LinearProgram::bounds(context, context.getLpTimeout(), places);
+            const auto bounds = LinearProgram::bounds(context, context.get_lp_timeout(), places);
             double offset = _offset;
             for(size_t i = 0; i < nplaces; ++i)
             {

@@ -197,7 +197,7 @@ int main(int argc, char* argv[]) {
         std::unique_ptr<PetriNet> qnet(b2.make_petri_net(false));
         std::unique_ptr<MarkVal[]> qm0(qnet->make_initial_marking());
 
-        if(queries.size() == 0 || contextAnalysis(cpnBuilder, b2, *qnet.get(), queries) != ContinueCode)
+        if(queries.size() == 0 || context_analysis(cpnBuilder, b2, *qnet.get(), queries) != ContinueCode)
         {
             std::cerr << "Could not analyze the queries" << std::endl;
             return ErrorCode;
@@ -298,12 +298,12 @@ int main(int argc, char* argv[]) {
         }
 
         if (!ctl_ids.empty()) {
-            options._used_ctl=true;
+            options._used_ctl = true;
 
             auto reachabilityStrategy = options._strategy;
 
             // Assign indexes
-            if(queries.empty() || contextAnalysis(cpnBuilder, builder, *net, queries) != ContinueCode)
+            if(queries.empty() || context_analysis(cpnBuilder, builder, *net, queries) != ContinueCode)
             {
                 std::cerr << "An error occurred while assigning indexes" << std::endl;
                 return ErrorCode;
@@ -311,16 +311,13 @@ int main(int argc, char* argv[]) {
             if(options._strategy == options_t::search_strategy_e::DEFAULT)
                 options._strategy = options_t::search_strategy_e::DFS;
 
-            v = CTLMain(net.get(),
-                options._ctlalgorithm,
-                options._strategy,
-                options._print_statistics,
-                true,
-                options._stubborn_reduction,
-                querynames,
-                queries,
-                ctl_ids,
-                options);
+            for(auto i : ctl_ids)
+            {
+                auto r = CTL::verify_ctl(*net,
+                    queries[i],
+                    options);
+                CTL::print_ctl_result(querynames[i], r, i, options);
+            }
 
             if (std::find(results.begin(), results.end(), ResultPrinter::Unknown) == results.end()) {
                 return v;
@@ -334,13 +331,13 @@ int main(int argc, char* argv[]) {
 
         if (!ltl_ids.empty() && options._ltl_algorithm != LTL::Algorithm::None) {
             options._used_ltl = true;
-            if ((v = contextAnalysis(cpnBuilder, builder, *net, queries)) != ContinueCode) {
+            if ((v = context_analysis(cpnBuilder, builder, *net, queries)) != ContinueCode) {
                 std::cerr << "Error performing context analysis" << std::endl;
                 return v;
             }
 
             for (auto qid : ltl_ids) {
-                auto res = LTL::LTLMain(net.get(), queries[qid], querynames[qid], options);
+                auto res = LTL::verify_ltl(*net, queries[qid], querynames[qid], options);
                 std::cout << "\nQuery index " << qid << " was solved\n";
                 std::cout << "Query is " << (res ? "" : "NOT ") << "satisfied." << std::endl;
 
@@ -358,7 +355,7 @@ int main(int argc, char* argv[]) {
         //----------------------- Reachability -----------------------//
 
         //Analyse context again to reindex query
-        contextAnalysis(cpnBuilder, builder, *net, queries);
+        context_analysis(cpnBuilder, builder, *net, queries);
 
         if(options._tar && net->number_of_places() > 0)
         {

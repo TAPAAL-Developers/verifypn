@@ -1,16 +1,16 @@
 /* Copyright (C) 2021  Nikolaj J. Ulrik <nikolaj@njulrik.dk>,
  *                     Simon M. Virenfeldt <simon@simwir.dk>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,15 +30,14 @@ namespace LTL {
                            const std::vector<PetriEngine::PQL::Condition_ptr> &queries)
                 : StubbornSet(net, queries), _unsafe(std::make_unique<bool[]>(net.number_of_transitions())) {}
 
-        bool prepare(const PetriEngine::Structures::State *marking) override
+        bool prepare(const PetriEngine::Structures::State& marking) override
         {
             assert(false);
-            std::cerr << "Error: SafeAutStubbornSet is implemented only for product states\n";
-            exit(1);
+            throw base_error(ErrorCode, "Error: SafeAutStubbornSet is implemented only for product states");
             return false;
         }
 
-        bool prepare(const LTL::Structures::ProductState *state) override;
+        bool prepare(const LTL::Structures::ProductState& state) override;
 
         uint32_t next() override {
             return StubbornSet::next();
@@ -60,7 +59,7 @@ namespace LTL {
         }
 
     protected:
-        void addToStub(uint32_t t) override
+        void add_to_stub(uint32_t t) override
         {
             // potential refinement of bad: can manually check whether firing t would violate some progressing formula.
             if (_enabled[t]) {
@@ -70,7 +69,7 @@ namespace LTL {
                     return;
                 }
             }
-            StubbornSet::addToStub(t);
+            StubbornSet::add_to_stub(t);
         }
 
     private:

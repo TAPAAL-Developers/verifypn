@@ -26,7 +26,7 @@ namespace LTL {
     template<typename S, typename Spooler>
     class ReachStubProductSuccessorGenerator : public ProductSuccessorGenerator<S> {
     public:
-        ReachStubProductSuccessorGenerator(const PetriEngine::PetriNet *net, const Structures::BuchiAutomaton &buchi,
+        ReachStubProductSuccessorGenerator(const PetriEngine::PetriNet& net, const Structures::BuchiAutomaton &buchi,
                                            S *successorGen, std::unique_ptr<Spooler> &&fallbackSpooler)
                 : ProductSuccessorGenerator<S>(net, buchi, successorGen), _fallback_spooler(std::move(fallbackSpooler))
         {
@@ -39,7 +39,7 @@ namespace LTL {
             }*/
             // Create the set of büchi states from which we can use reachability stubborn sets.
             calc_safe_reach_states(buchi);
-            _reach = std::make_unique<SafeAutStubbornSet>(*net, _progressing_formulae);
+            _reach = std::make_unique<SafeAutStubbornSet>(net, _progressing_formulae);
 
         }
 
@@ -78,13 +78,13 @@ namespace LTL {
             }
         }
 
-        void prepare(const LTL::Structures::ProductState *state, typename S::successor_info_t &sucinfo) override
+        void prepare(const LTL::Structures::ProductState& state, typename S::successor_info_t &sucinfo) override
         {
-            auto suc = _reach_states.find(state->get_buchi_state());
+            auto suc = _reach_states.find(state.get_buchi_state());
             // assert valid since all states are reducible when considering
             // the sink progressing formula and key transitions in accepting states.
             assert(suc != std::end(_reach_states));
-            if (suc != std::end(_reach_states) && !this->guard_valid(*state, suc->second._bddCond)) {
+            if (suc != std::end(_reach_states) && !this->guard_valid(state, suc->second._bddCond)) {
                 //_reach->setQuery(suc->second.prog_cond.get());
                 _reach->set_buchi_conds(suc->second._ret_cond, suc->second._prog_cond, suc->second._pseudo_sink_cond);
                 set_spooler(_reach.get());

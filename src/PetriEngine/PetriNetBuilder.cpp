@@ -83,16 +83,16 @@ namespace PetriEngine {
         uint32_t t = _transitionnames[transition];
 
         Arc arc;
-        arc.place = p;
-        arc.weight = weight;
-        arc.skip = false;
-        arc.inhib = inhibitor;
+        arc._place = p;
+        arc._weight = weight;
+        arc._skip = false;
+        arc._inhib = inhibitor;
         assert(t < _transitions.size());
         assert(p < _places.size());
-        _transitions[t].pre.push_back(arc);
-        _transitions[t].inhib |= inhibitor;
-        _places[p].consumers.push_back(t);
-        _places[p].inhib |= inhibitor;
+        _transitions[t]._pre.push_back(arc);
+        _transitions[t]._inhib |= inhibitor;
+        _places[p]._consumers.push_back(t);
+        _places[p]._inhib |= inhibitor;
     }
 
     void PetriNetBuilder::add_output_arc(const std::string &transition, const std::string &place, int weight) {
@@ -111,11 +111,11 @@ namespace PetriEngine {
         assert(p < _places.size());
 
         Arc arc;
-        arc.place = p;
-        arc.weight = weight;
-        arc.skip = false;
-        _transitions[t].post.push_back(arc);
-        _places[p].producers.push_back(t);
+        arc._place = p;
+        arc._weight = weight;
+        arc._skip = false;
+        _transitions[t]._post.push_back(arc);
+        _places[p]._producers.push_back(t);
     }
 
     uint32_t PetriNetBuilder::next_place_id(std::vector<uint32_t>& counts, std::vector<uint32_t>& pcounts, std::vector<uint32_t>& ids, bool reorder)
@@ -127,7 +127,7 @@ namespace PetriEngine {
             uint32_t nnum = (pcounts[i] == 0 ? 0 : (counts[0] == 0 ? 0 : std::max(counts[i], pcounts[i])));
             if( ids[i] == std::numeric_limits<uint32_t>::max() &&
                 nnum < cnt &&
-                !_places[i].skip)
+                !_places[i]._skip)
             {
                 if(!reorder) return i;
                 cand = i;
@@ -174,11 +174,11 @@ namespace PetriEngine {
         for(uint32_t i = 0; i < _places.size(); ++i)
         {
             place_idmap[i] = std::numeric_limits<uint32_t>::max();
-            if(!_places[i].skip)
+            if(!_places[i]._skip)
             {
-                place_cons_count[i] = _places[i].consumers.size();
-                place_prod_count[i] = _places[i].producers.size();
-                invariants += _places[i].consumers.size() + _places[i].producers.size();
+                place_cons_count[i] = _places[i]._consumers.size();
+                place_prod_count[i] = _places[i]._producers.size();
+                invariants += _places[i]._consumers.size() + _places[i]._producers.size();
             }
         }
 
@@ -201,33 +201,33 @@ namespace PetriEngine {
         for(size_t t = 0; t < _transitions.size(); ++t)
         {
             Transition& trans = _transitions[t];
-            if (std::all_of(trans.pre.begin(), trans.pre.end(), [](Arc& a){return a.inhib;}))
+            if (std::all_of(trans._pre.begin(), trans._pre.end(), [](Arc& a){return a._inhib;}))
             {
                 // ALL have to be inhibitor, if any. Otherwise not orphan
 
-                if(trans.skip) continue;
-                net->_transitions[freetrans].inputs = freeinv;
+                if(trans._skip) continue;
+                net->_transitions[freetrans]._inputs = freeinv;
 
                 // add inhibitors
-                for(auto pre : trans.pre)
+                for(auto pre : trans._pre)
                 {
                     Invariant& iv = net->_invariants[freeinv];
-                    iv.place = pre.place;
-                    iv.tokens = pre.weight;
-                    iv.inhibitor = pre.inhib;
-                    assert(pre.inhib);
-                    assert(place_cons_count[pre.place] > 0);
-                    --place_cons_count[pre.place];
+                    iv._place = pre._place;
+                    iv._tokens = pre._weight;
+                    iv._inhibitor = pre._inhib;
+                    assert(pre._inhib);
+                    assert(place_cons_count[pre._place] > 0);
+                    --place_cons_count[pre._place];
                     ++freeinv;
                 }
 
-                net->_transitions[freetrans].outputs = freeinv;
+                net->_transitions[freetrans]._outputs = freeinv;
 
-                for(auto post : trans.post)
+                for(auto post : trans._post)
                 {
                     assert(freeinv < net->_ninvariants);
-                    net->_invariants[freeinv].place = post.place;
-                    net->_invariants[freeinv].tokens = post.weight;
+                    net->_invariants[freeinv]._place = post._place;
+                    net->_invariants[freeinv]._tokens = post._weight;
                     ++freeinv;
                 }
 
@@ -250,24 +250,24 @@ namespace PetriEngine {
                 net->_placeToPtrs[free] = freetrans;
             }
 
-            for(auto t : _places[next].consumers)
+            for(auto t : _places[next]._consumers)
             {
                 Transition& trans = _transitions[t];
-                if(trans.skip) continue;
+                if(trans._skip) continue;
 
-                net->_transitions[freetrans].inputs = freeinv;
+                net->_transitions[freetrans]._inputs = freeinv;
 
                 // check first, we are going to change state later, but we can
                 // break here, so no statechange inside loop!
                 bool ok = true;
                 bool all_inhib = true;
                 uint32_t cnt = 0;
-                for(const Arc& pre : trans.pre)
+                for(const Arc& pre : trans._pre)
                 {
-                    all_inhib &= pre.inhib;
+                    all_inhib &= pre._inhib;
 
                     // if transition belongs to previous place
-                    if(     (!pre.inhib && place_idmap[pre.place] < free) ||
+                    if(     (!pre._inhib && place_idmap[pre._place] < free) ||
                             freeinv + cnt >= net->_ninvariants)
                     {
                         ok = false;
@@ -275,7 +275,7 @@ namespace PetriEngine {
                     }
 
                     // or arc from place is an inhibitor
-                    if(pre.place == next &&  pre.inhib)
+                    if(pre._place == next &&  pre._inhib)
                     {
                         ok = false;
                         break;
@@ -290,25 +290,25 @@ namespace PetriEngine {
                 trans_idmap[t] = freeinv;
 
                 // everything is good, change state!.
-                for(auto pre : trans.pre)
+                for(auto pre : trans._pre)
                 {
                     Invariant& iv = net->_invariants[freeinv];
-                    iv.place = pre.place;
-                    iv.tokens = pre.weight;
-                    iv.inhibitor = pre.inhib;
+                    iv._place = pre._place;
+                    iv._tokens = pre._weight;
+                    iv._inhibitor = pre._inhib;
                     ++freeinv;
-                    assert(place_cons_count[pre.place] > 0);
-                    --place_cons_count[pre.place];
+                    assert(place_cons_count[pre._place] > 0);
+                    --place_cons_count[pre._place];
                 }
 
-                net->_transitions[freetrans].outputs = freeinv;
-                for(auto post : trans.post)
+                net->_transitions[freetrans]._outputs = freeinv;
+                for(auto post : trans._post)
                 {
                     assert(freeinv < net->_ninvariants);
                     auto& post_inv = net->_invariants[freeinv];
-                    post_inv.place = post.place;
-                    post_inv.tokens = post.weight;
-                    --place_prod_count[post.place];
+                    post_inv._place = post._place;
+                    post_inv._tokens = post._weight;
+                    --place_prod_count[post._place];
                     ++freeinv;
                 }
 
@@ -325,9 +325,9 @@ namespace PetriEngine {
         // Reindex for great justice!
         for(uint32_t i = 0; i < freeinv; i++)
         {
-            net->_invariants[i].place = place_idmap[net->_invariants[i].place];
-            assert(net->_invariants[i].place < nplaces);
-            assert(net->_invariants[i].tokens > 0);
+            net->_invariants[i]._place = place_idmap[net->_invariants[i]._place];
+            assert(net->_invariants[i]._place < nplaces);
+            assert(net->_invariants[i]._tokens > 0);
         }
 
 //        std::cout << "init" << std::endl;
@@ -386,47 +386,47 @@ namespace PetriEngine {
         for(size_t t = 0; t < net->number_of_transitions(); ++t)
         {
             {
-                auto tiv = std::make_pair(&net->_invariants[net->_transitions[t].inputs], &net->_invariants[net->_transitions[t].outputs]);
+                auto tiv = std::make_pair(&net->_invariants[net->_transitions[t]._inputs], &net->_invariants[net->_transitions[t]._outputs]);
                 for(; tiv.first != tiv.second; ++tiv.first)
                 {
-                    tiv.first->direction = tiv.first->inhibitor ? 0 : -1;
+                    tiv.first->_direction = tiv.first->_inhibitor ? 0 : -1;
                     bool found = false;
-                    auto tov = std::make_pair(&net->_invariants[net->_transitions[t].outputs], &net->_invariants[net->_transitions[t + 1].inputs]);
+                    auto tov = std::make_pair(&net->_invariants[net->_transitions[t]._outputs], &net->_invariants[net->_transitions[t + 1]._inputs]);
                     for(; tov.first != tov.second; ++tov.first)
                     {
-                        if(tov.first->place == tiv.first->place)
+                        if(tov.first->_place == tiv.first->_place)
                         {
                             found = true;
-                            if(tiv.first->inhibitor)                        tiv.first->direction = tov.first->direction = 1;
-                            else if(tiv.first->tokens < tov.first->tokens)  tiv.first->direction = tov.first->direction = 1;
-                            else if(tiv.first->tokens == tov.first->tokens) tiv.first->direction = tov.first->direction = 0;
-                            else if(tiv.first->tokens > tov.first->tokens)  tiv.first->direction = tov.first->direction = -1;
+                            if(tiv.first->_inhibitor)                        tiv.first->_direction = tov.first->_direction = 1;
+                            else if(tiv.first->_tokens < tov.first->_tokens)  tiv.first->_direction = tov.first->_direction = 1;
+                            else if(tiv.first->_tokens == tov.first->_tokens) tiv.first->_direction = tov.first->_direction = 0;
+                            else if(tiv.first->_tokens > tov.first->_tokens)  tiv.first->_direction = tov.first->_direction = -1;
                             break;
                         }
                     }
-                    if(!found) assert(tiv.first->direction < 0 || tiv.first->inhibitor);
+                    if(!found) assert(tiv.first->_direction < 0 || tiv.first->_inhibitor);
                 }
             }
             {
-                auto tiv = std::make_pair(&net->_invariants[net->_transitions[t].outputs], &net->_invariants[net->_transitions[t + 1].inputs]);
+                auto tiv = std::make_pair(&net->_invariants[net->_transitions[t]._outputs], &net->_invariants[net->_transitions[t + 1]._inputs]);
                 for(; tiv.first != tiv.second; ++tiv.first)
                 {
-                    tiv.first->direction = 1;
+                    tiv.first->_direction = 1;
                     bool found = false;
-                    auto tov = std::make_pair(&net->_invariants[net->_transitions[t].inputs], &net->_invariants[net->_transitions[t].outputs]);
+                    auto tov = std::make_pair(&net->_invariants[net->_transitions[t]._inputs], &net->_invariants[net->_transitions[t]._outputs]);
                     for(; tov.first != tov.second; ++tov.first)
                     {
                         found = true;
-                        if(tov.first->place == tiv.first->place)
+                        if(tov.first->_place == tiv.first->_place)
                         {
-                            if     (tov.first->inhibitor)                   tiv.first->direction = tov.first->direction = 1;
-                            else if(tiv.first->tokens > tov.first->tokens)  tiv.first->direction = tov.first->direction = 1;
-                            else if(tiv.first->tokens == tov.first->tokens) tiv.first->direction = tov.first->direction = 0;
-                            else if(tiv.first->tokens < tov.first->tokens)  tiv.first->direction = tov.first->direction = -1;
+                            if     (tov.first->_inhibitor)                   tiv.first->_direction = tov.first->_direction = 1;
+                            else if(tiv.first->_tokens > tov.first->_tokens)  tiv.first->_direction = tov.first->_direction = 1;
+                            else if(tiv.first->_tokens == tov.first->_tokens) tiv.first->_direction = tov.first->_direction = 0;
+                            else if(tiv.first->_tokens < tov.first->_tokens)  tiv.first->_direction = tov.first->_direction = -1;
                             break;
                         }
                     }
-                    if(!found) assert(tiv.first->direction > 0);
+                    if(!found) assert(tiv.first->_direction > 0);
                 }
             }
         }
@@ -437,20 +437,21 @@ namespace PetriEngine {
     {
         for(Place& p : _places)
         {
-            std::sort(p.consumers.begin(), p.consumers.end());
-            std::sort(p.producers.begin(), p.producers.end());
+            std::sort(p._consumers.begin(), p._consumers.end());
+            std::sort(p._producers.begin(), p._producers.end());
         }
 
         for(Transition& t : _transitions)
         {
-            std::sort(t.pre.begin(), t.pre.end());
-            std::sort(t.post.begin(), t.post.end());
+            std::sort(t._pre.begin(), t._pre.end());
+            std::sort(t._post.begin(), t._post.end());
         }
     }
 
     void PetriNetBuilder::reduce(   std::vector<std::shared_ptr<PQL::Condition> >& queries,
                                     std::vector<Reachability::ResultPrinter::Result>& results,
-                                    int reductiontype, bool reconstructTrace, const PetriNet* net, int timeout, std::vector<uint32_t>& reductions)
+                                    int reductiontype, bool reconstructTrace, const PetriNet* net,
+                                    int timeout, std::vector<uint32_t>& reductions)
 {
         QueryPlaceAnalysisContext placecontext(get_place_names(), get_transition_names(), net);
         bool all_reach = true;

@@ -31,11 +31,11 @@ bool all_done(std::vector<PetriEngine::Reachability::ResultPrinter::Result>& res
 }
 
 
-error_e contextAnalysis(const ColoredPetriNetBuilder& cpnBuilder, const PetriNetBuilder& builder, const PetriNet& net,
+error_e context_analysis(const ColoredPetriNetBuilder& cpnBuilder, const PetriNetBuilder& builder, const PetriNet& net,
     std::vector<std::shared_ptr<Condition> >& queries) {
     //Context analysis
     ColoredAnalysisContext context(builder.get_place_names(),
-        builder.get_transition_names(), &net,
+        builder.get_transition_names(), net,
         cpnBuilder.get_unfolded_place_names(),
         cpnBuilder.get_unfolded_transition_names(), cpnBuilder.is_colored());
     for (auto& q : queries) {
@@ -407,7 +407,6 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
     // simplification. We always want to do negation-push and initial marking check.
     {
         // simplification. We always want to do negation-push and initial marking check.
-        std::vector<LPCache> caches(options._cores);
         std::atomic<uint32_t> to_handle(queries.size());
         auto begin = std::chrono::high_resolution_clock::now();
         auto end = std::chrono::high_resolution_clock::now();
@@ -430,7 +429,6 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
                 auto simplify = [&, c]() {
 #endif
                     auto& out = tstream[c];
-                    auto& cache = caches[c];
                     LTL::FormulaToSpotSyntax printer{out};
                     while (true) {
                         auto i = cnt++;
@@ -455,8 +453,8 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
                         bool wasAGCPNApprox = dynamic_cast<NotCondition*> (queries[i].get()) != nullptr;
                         if (options._logic == options_t::temporal_logic_e::LTL) {
                             if (options._query_reduction_timeout == 0) continue;
-                            SimplificationContext simplificationContext(net.initial(), &net, qt,
-                                options._lpsolve_timeout, &cache);
+                            SimplificationContext simplificationContext(net.initial(), net, qt,
+                                options._lpsolve_timeout);
                             queries[i] = simplify_ltl_query(queries[i], options,
                                 context, simplificationContext, out);
                             continue;
@@ -474,8 +472,8 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
 
 
                         if (options._query_reduction_timeout > 0 && qt > 0) {
-                            SimplificationContext simplificationContext(net.initial(), &net, qt,
-                                options._lpsolve_timeout, &cache);
+                            SimplificationContext simplificationContext(net.initial(), net, qt,
+                                options._lpsolve_timeout);
                             try {
                                 negstat_t stats;
                                 queries[i] = (queries[i]->simplify(simplificationContext))._formula->pushNegation(stats, context, false, false, true);
@@ -503,7 +501,7 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
                                 hadTo[i] = true;
                             } else {
                                 if (options._print_statistics)
-                                    out << "Query reduction finished after " << simplificationContext.getReductionTime() << " seconds.\n";
+                                    out << "Query reduction finished after " << simplificationContext.get_reduction_time() << " seconds.\n";
                                 --to_handle;
                             }
                         } else if (options._print_statistics) {
@@ -553,7 +551,7 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
 error_e doReplay(const ColoredPetriNetBuilder &cpnBuilder, const PetriNetBuilder &builder,
     const PetriNet& net, std::vector<Condition_ptr>& queries,
     const std::vector<ResultPrinter::Result>& results, const options_t& options) {
-    if (contextAnalysis(cpnBuilder, builder, net, queries) != ContinueCode)
+    if (context_analysis(cpnBuilder, builder, net, queries) != ContinueCode)
         throw base_error(error_e::ErrorCode, "Fatal error assigning indexes");
     std::ifstream replay_file(options._replay_file, std::ifstream::in);
     PetriEngine::TraceReplay replay{replay_file, net, options};

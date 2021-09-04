@@ -36,13 +36,13 @@ namespace PetriEngine {
             }
             for(; pre.first != pre.second; ++pre.first)
             {
-                if(pre.first->inhibitor) return false;
-                if(pre.first->tokens != 1) return false;
+                if(pre.first->_inhibitor) return false;
+                if(pre.first->_tokens != 1) return false;
             }
             auto post = _net.postset(t);
             for(; post.first != post.second; ++post.first)
             {
-                if(post.first->tokens != 1) return false;
+                if(post.first->_tokens != 1) return false;
             }
         }
 
@@ -105,14 +105,14 @@ namespace PetriEngine {
                 auto sit = trap.begin();
                 for(; pre.first != pre.second; ++pre.first)
                 {
-                    while(sit != std::end(trap) && *sit < pre.first->place) ++sit;
+                    while(sit != std::end(trap) && *sit < pre.first->_place) ++sit;
                     if(sit == std::end(trap))
                         break;
-                    if(*sit == pre.first->place)
+                    if(*sit == pre.first->_place)
                     {
 
                         sit = trap.erase(sit);
-                        if(_m0[pre.first->place] != 0)
+                        if(_m0[pre.first->_place] != 0)
                         {
                             assert(marked_count > 0);
                             --marked_count;
@@ -176,9 +176,9 @@ namespace PetriEngine {
             auto sit = siphon.begin();
             for(; pre.first != pre.second; ++pre.first)
             {
-                while(sit != siphon.end() && *sit < pre.first->place) ++sit;
-                if(sit != siphon.end() && *sit == pre.first->place) continue;
-                if(has_st[pre.first->place])
+                while(sit != siphon.end() && *sit < pre.first->_place) ++sit;
+                if(sit != siphon.end() && *sit == pre.first->_place) continue;
+                if(has_st[pre.first->_place])
                 {
                     // we know that all siphons generated as fixpoints starting
                     // in pre.first->place have the st property, so by transitivity
@@ -187,10 +187,10 @@ namespace PetriEngine {
                     // this is quicker than the antichain check.
                     continue;
                 }
-                sit = siphon.insert(sit, pre.first->place);
+                sit = siphon.insert(sit, pre.first->_place);
                 auto npre = preset;
                 auto npost = postset;
-                extend(pre.first->place, npre, npost);
+                extend(pre.first->_place, npre, npost);
                 if(!siphon_trap(siphon, has_st, npre, npost))
                     return false;
                 else
@@ -225,16 +225,16 @@ namespace PetriEngine {
         std::vector<std::pair<std::vector<uint32_t>, std::vector < uint32_t>>> tmp_places(_net._nplaces);
         for (uint32_t t = 0; t < _net._ntransitions; t++) {
             const TransPtr& ptr = _net._transitions[t];
-            uint32_t finv = ptr.inputs;
-            uint32_t linv = ptr.outputs;
+            uint32_t finv = ptr._inputs;
+            uint32_t linv = ptr._outputs;
             for (; finv < linv; finv++) { // Post set of places
-                tmp_places[_net._invariants[finv].place].second.push_back(t);
+                tmp_places[_net._invariants[finv]._place].second.push_back(t);
             }
 
             finv = linv;
-            linv = _net._transitions[t + 1].inputs;
+            linv = _net._transitions[t + 1]._inputs;
             for (; finv < linv; finv++) { // Pre set of places
-                tmp_places[_net._invariants[finv].place].first.push_back(t);
+                tmp_places[_net._invariants[finv]._place].first.push_back(t);
             }
         }
 

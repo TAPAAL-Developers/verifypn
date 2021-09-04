@@ -23,7 +23,7 @@
 #include "options.h"
 
 namespace LTL {
-    bool LTLMain(const PetriEngine::PetriNet *net,
+    bool verify_ltl(const PetriEngine::PetriNet &net,
                         const PetriEngine::PQL::Condition_ptr &query,
                         const std::string &queryName,
                         options_t &options);

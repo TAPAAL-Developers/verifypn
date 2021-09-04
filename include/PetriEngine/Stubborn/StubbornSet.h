@@ -25,6 +25,7 @@
 
 #include <memory>
 #include <vector>
+#include <cassert>
 
 namespace PetriEngine {
     class StubbornSet {
@@ -37,9 +38,9 @@ namespace PetriEngine {
             _dependency = std::make_unique<uint32_t[]>(net._ntransitions);
             _places_seen = std::make_unique<uint8_t[]>(_net.number_of_places());
             StubbornSet::reset();
-            constructPrePost();
-            constructDependency();
-            checkForInhibitor();
+            construct_pre_post();
+            construct_dependency();
+            check_for_inhibitor();
 
         }
 
@@ -55,7 +56,7 @@ namespace PetriEngine {
             _queries.push_back(query.get());
         }
 
-        virtual bool prepare(const Structures::State *marking) = 0;
+        virtual bool prepare(const Structures::State& marking) = 0;
 
         virtual uint32_t next();
 
@@ -87,16 +88,16 @@ namespace PetriEngine {
             return _current;
         }
 
-        void setQuery(PQL::Condition *ptr) {
+        void set_query(PQL::Condition *ptr) {
             _queries.clear();
             _queries = {ptr};
         }
 
-        void setQueries(std::vector<PQL::Condition*> conds) {
+        void set_queries(std::vector<PQL::Condition*> conds) {
             _queries = conds;
         }
 
-        [[nodiscard]] size_t nenabled() const { return _nenabled; }
+        [[nodiscard]] size_t n_enabled() const { return _nenabled; }
 
         [[nodiscard]] bool *enabled() const { return _enabled.get(); };
         [[nodiscard]] bool *stubborn() const { return _stubborn.get(); };
@@ -104,28 +105,28 @@ namespace PetriEngine {
         const PetriEngine::PetriNet &_net;
 
         // Bit flags for _places_seen array.
-        static constexpr auto PresetSeen = 1;
-        static constexpr auto PostsetSeen = 2;
-        static constexpr auto InhibPostsetSeen = 4;
-        static constexpr auto PresetBad = 8;
-        static constexpr auto PostsetBad = 16;
+        static constexpr auto _presetSeen = 1;
+        static constexpr auto _postsetSeen = 2;
+        static constexpr auto _inhibPostsetSeen = 4;
+        static constexpr auto _presetBad = 8;
+        static constexpr auto _postsetBad = 16;
     protected:
         const Structures::State *_parent;
 
         struct place_t {
-            uint32_t pre, post;
+            uint32_t _pre, _post;
         };
 
         struct trans_t {
-            uint32_t index;
-            int8_t direction;
+            uint32_t _index;
+            int8_t _direction;
 
             trans_t() = default;
 
-            trans_t(uint32_t id, int8_t dir) : index(id), direction(dir) {};
+            trans_t(uint32_t id, int8_t dir) : _index(id), _direction(dir) {};
 
             bool operator<(const trans_t &t) const {
-                return index < t.index;
+                return _index < t._index;
             }
         };
 
@@ -133,11 +134,11 @@ namespace PetriEngine {
 
         const std::vector<Invariant> &invariants() { return _net._invariants; }
 
-        const std::vector<uint32_t> &placeToPtrs() { return _net._placeToPtrs; }
+        const std::vector<uint32_t> &place_to_ptrs() { return _net._placeToPtrs; }
 
-        bool checkPreset(uint32_t t);
+        bool check_preset(uint32_t t);
 
-        virtual void addToStub(uint32_t t);
+        virtual void add_to_stub(uint32_t t);
 
         template <typename T = std::nullptr_t>
         void closure(T callback = nullptr) {
@@ -148,21 +149,21 @@ namespace PetriEngine {
                 uint32_t tr = _unprocessed.front();
                 _unprocessed.pop_front();
                 const TransPtr &ptr = transitions()[tr];
-                uint32_t finv = ptr.inputs;
-                uint32_t linv = ptr.outputs;
+                uint32_t finv = ptr._inputs;
+                uint32_t linv = ptr._outputs;
                 if (_enabled[tr]) {
                     for (; finv < linv; finv++) {
-                        if (invariants()[finv].direction < 0) {
-                            auto place = invariants()[finv].place;
-                            for (uint32_t t = _places.get()[place].post; t < _places.get()[place + 1].pre; t++)
-                                addToStub(_transitions.get()[t].index);
+                        if (invariants()[finv]._direction < 0) {
+                            auto place = invariants()[finv]._place;
+                            for (uint32_t t = _places.get()[place]._post; t < _places.get()[place + 1]._pre; t++)
+                                add_to_stub(_transitions.get()[t]._index);
                         }
                     }
                     if (_netContainsInhibitorArcs) {
-                        uint32_t next_finv = transitions()[tr + 1].inputs;
+                        uint32_t next_finv = transitions()[tr + 1]._inputs;
                         for (; linv < next_finv; linv++) {
-                            if (invariants()[linv].direction > 0)
-                                inhibitor_postset_of(invariants()[linv].place);
+                            if (invariants()[linv]._direction > 0)
+                                inhibitor_postset_of(invariants()[linv]._place);
                         }
                     }
                 } else {
@@ -174,14 +175,14 @@ namespace PetriEngine {
                     // for this transition.
                     for (; finv < linv; ++finv) {
                         const Invariant &inv = invariants()[finv];
-                        if ((*_parent).marking()[inv.place] < inv.tokens && !inv.inhibitor) {
+                        if ((*_parent).marking()[inv._place] < inv._tokens && !inv._inhibitor) {
                             inhib = false;
-                            ok = (_places_seen.get()[inv.place] & 1) != 0;
-                            cand = inv.place;
-                        } else if ((*_parent).marking()[inv.place] >= inv.tokens && inv.inhibitor) {
+                            ok = (_places_seen.get()[inv._place] & 1) != 0;
+                            cand = inv._place;
+                        } else if ((*_parent).marking()[inv._place] >= inv._tokens && inv._inhibitor) {
                             inhib = true;
-                            ok = (_places_seen.get()[inv.place] & 2) != 0;
-                            cand = inv.place;
+                            ok = (_places_seen.get()[inv._place] & 2) != 0;
+                            cand = inv._place;
                         }
                         if (ok) break;
 
@@ -210,13 +211,13 @@ namespace PetriEngine {
 
         std::vector<PQL::Condition *> _queries;
 
-        void constructEnabled();
+        void construct_enabled();
 
-        void constructPrePost();
+        void construct_pre_post();
 
-        void constructDependency();
+        void construct_dependency();
 
-        void checkForInhibitor();
+        void check_for_inhibitor();
 
         void set_all_stubborn() {
             memset(_stubborn.get(), true, _net.number_of_transitions());

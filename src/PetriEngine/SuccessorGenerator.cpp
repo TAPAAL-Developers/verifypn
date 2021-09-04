@@ -19,7 +19,7 @@
 namespace PetriEngine {
 
     SuccessorGenerator::SuccessorGenerator(const PetriNet& net)
-    : _net(net), _parent(NULL) {
+    : _net(net), _parent(nullptr) {
         reset();
     }
     SuccessorGenerator::SuccessorGenerator(const PetriNet& net, std::vector<std::shared_ptr<PQL::Condition> >& queries) : SuccessorGenerator(net){}
@@ -32,8 +32,8 @@ namespace PetriEngine {
     SuccessorGenerator::~SuccessorGenerator() {
     }
 
-    bool SuccessorGenerator::prepare(const Structures::State* state) {
-        _parent = state;
+    bool SuccessorGenerator::prepare(const Structures::State& state) {
+        _parent = &state;
         reset();
         return true;
     }
@@ -46,29 +46,29 @@ namespace PetriEngine {
     void SuccessorGenerator::consume_preset(Structures::State& write, uint32_t t) {
 
         const TransPtr& ptr = _net._transitions[t];
-        uint32_t finv = ptr.inputs;
-        uint32_t linv = ptr.outputs;
+        uint32_t finv = ptr._inputs;
+        uint32_t linv = ptr._outputs;
         for (; finv < linv; ++finv) {
-            if(!_net._invariants[finv].inhibitor) {
-                assert(write.marking()[_net._invariants[finv].place] >= _net._invariants[finv].tokens);
-                write.marking()[_net._invariants[finv].place] -= _net._invariants[finv].tokens;
+            if(!_net._invariants[finv]._inhibitor) {
+                assert(write.marking()[_net._invariants[finv]._place] >= _net._invariants[finv]._tokens);
+                write.marking()[_net._invariants[finv]._place] -= _net._invariants[finv]._tokens;
             }
         }
     }
 
     bool SuccessorGenerator::check_preset(uint32_t t) {
         const TransPtr& ptr = _net._transitions[t];
-        uint32_t finv = ptr.inputs;
-        uint32_t linv = ptr.outputs;
+        uint32_t finv = ptr._inputs;
+        uint32_t linv = ptr._outputs;
 
         for (; finv < linv; ++finv) {
             const Invariant& inv = _net._invariants[finv];
-            if ((*_parent).marking()[inv.place] < inv.tokens) {
-                if (!inv.inhibitor) {
+            if ((*_parent).marking()[inv._place] < inv._tokens) {
+                if (!inv._inhibitor) {
                     return false;
                 }
             } else {
-                if (inv.inhibitor) {
+                if (inv._inhibitor) {
                     return false;
                 }
             }
@@ -78,16 +78,16 @@ namespace PetriEngine {
 
     void SuccessorGenerator::produce_postset(Structures::State& write, uint32_t t) {
         const TransPtr& ptr = _net._transitions[t];
-        uint32_t finv = ptr.outputs;
-        uint32_t linv = _net._transitions[t + 1].inputs;
+        uint32_t finv = ptr._outputs;
+        uint32_t linv = _net._transitions[t + 1]._inputs;
 
         for (; finv < linv; ++finv) {
-            size_t n = write.marking()[_net._invariants[finv].place];
-            n += _net._invariants[finv].tokens;
+            size_t n = write.marking()[_net._invariants[finv]._place];
+            n += _net._invariants[finv]._tokens;
             if (n >= std::numeric_limits<uint32_t>::max()) {
                 throw base_error(FailedCode, "Exceeded 2**32 limit of tokens in a single place (", n, ")");
             }
-            write.marking()[_net._invariants[finv].place] = n;
+            write.marking()[_net._invariants[finv]._place] = n;
         }
     }
 

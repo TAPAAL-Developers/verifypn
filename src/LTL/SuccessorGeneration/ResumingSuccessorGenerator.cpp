@@ -24,17 +24,17 @@
 namespace LTL {
     using namespace PetriEngine;
 
-    ResumingSuccessorGenerator::ResumingSuccessorGenerator(const PetriNet *net)
-    : PetriEngine::SuccessorGenerator(*net) { }
+    ResumingSuccessorGenerator::ResumingSuccessorGenerator(const PetriNet& net)
+    : PetriEngine::SuccessorGenerator(net) { }
 
-    ResumingSuccessorGenerator::ResumingSuccessorGenerator(const PetriNet *net, std::vector<std::shared_ptr<PQL::Condition> >& queries) : ResumingSuccessorGenerator(net){}
+    ResumingSuccessorGenerator::ResumingSuccessorGenerator(const PetriNet& net, std::vector<std::shared_ptr<PQL::Condition> >& queries) : ResumingSuccessorGenerator(net){}
 
-    ResumingSuccessorGenerator::ResumingSuccessorGenerator(const PetriNet *net, const std::shared_ptr<PQL::Condition> &query)
+    ResumingSuccessorGenerator::ResumingSuccessorGenerator(const PetriNet& net, const std::shared_ptr<PQL::Condition> &query)
                                            : ResumingSuccessorGenerator(net) {
     }
 
 
-    void ResumingSuccessorGenerator::prepare(const Structures::State* state, const successor_info_t &sucinfo) {
+    void ResumingSuccessorGenerator::prepare(const Structures::State& state, const successor_info_t &sucinfo) {
         SuccessorGenerator::prepare(state);
         _suc_pcounter = sucinfo._pcounter;
         _suc_tcounter = sucinfo._tcounter;
@@ -45,7 +45,7 @@ namespace LTL {
         sucinfo._tcounter = _suc_tcounter;
     }
 
-    ResumingSuccessorGenerator::ResumingSuccessorGenerator(const PetriNet *net, const std::shared_ptr<StubbornSet>&)
+    ResumingSuccessorGenerator::ResumingSuccessorGenerator(const PetriNet& net, const std::shared_ptr<StubbornSet>&)
         : ResumingSuccessorGenerator(net){}
 
 }

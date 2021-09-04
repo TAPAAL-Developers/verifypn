@@ -46,7 +46,7 @@ namespace LTL {
     template<template <typename, typename...> typename ProductSucGen, typename SuccessorGen, bool SaveTrace = false, typename... Spooler>
     class TarjanModelChecker : public ModelChecker<ProductSucGen, SuccessorGen, Spooler...> {
     public:
-        TarjanModelChecker(const PetriEngine::PetriNet *net, const PetriEngine::PQL::Condition_ptr &cond,
+        TarjanModelChecker(const PetriEngine::PetriNet& net, const PetriEngine::PQL::Condition_ptr &cond,
                            const Structures::BuchiAutomaton &buchi,
                            SuccessorGen *successorGen,
                            std::unique_ptr<Spooler> &&...spooler)

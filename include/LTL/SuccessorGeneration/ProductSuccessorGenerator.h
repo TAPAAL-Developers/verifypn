@@ -39,7 +39,7 @@ namespace LTL {
     class ProductSuccessorGenerator {
     public:
 
-        ProductSuccessorGenerator(const PetriEngine::PetriNet *net,
+        ProductSuccessorGenerator(const PetriEngine::PetriNet& net,
                                   const Structures::BuchiAutomaton &buchi,
                                   SuccessorGen *successorGen)
                 : _successor_generator(successorGen), _net(net),
@@ -86,25 +86,25 @@ namespace LTL {
         std::vector<LTL::Structures::ProductState> make_initial_state()
         {
             std::vector<LTL::Structures::ProductState> states;
-            auto buf = new PetriEngine::MarkVal[_net->number_of_places() + 1];
-            std::copy(_net->initial(), _net->initial() + _net->number_of_places(), buf);
-            buf[_net->number_of_places()] = initial_buchi_state();
+            auto buf = new PetriEngine::MarkVal[_net.number_of_places() + 1];
+            std::copy(_net.initial(), _net.initial() + _net.number_of_places(), buf);
+            buf[_net.number_of_places()] = initial_buchi_state();
             LTL::Structures::ProductState state{&_buchi._aut};
-            state.set_marking(buf, _net->number_of_places());
+            state.set_marking(buf, _net.number_of_places());
             //state.set_buchi_state(initial_buchi_state());
             _buchi.prepare(state.get_buchi_state());
             while (next_buchi_succ(state)) {
                 states.emplace_back(&_buchi._aut);
-                states.back().set_marking(new PetriEngine::MarkVal[_net->number_of_places() + 1], _net->number_of_places());
-                std::copy(state.marking(), state.marking() + _net->number_of_places(), states.back().marking());
+                states.back().set_marking(new PetriEngine::MarkVal[_net.number_of_places() + 1], _net.number_of_places());
+                std::copy(state.marking(), state.marking() + _net.number_of_places(), states.back().marking());
                 states.back().set_buchi_state(state.get_buchi_state());
             }
             return states;
         }
 
-        [[nodiscard]] bool is_initial_state(const LTL::Structures::ProductState &state) const
+        [[nodiscard]] bool is_initial_state(const LTL::Structures::ProductState& state) const
         {
-            return state.marking_equal(_net->initial());
+            return state.marking_equal(_net.initial());
         }
 
         /**
@@ -112,12 +112,12 @@ namespace LTL {
          * @param state the source state to generate successors from
          * @param sucinfo the point in the iteration to start from, as returned by `next`.
          */
-        virtual void prepare(const LTL::Structures::ProductState *state, typename SuccessorGen::successor_info_t &sucinfo)
+        virtual void prepare(const LTL::Structures::ProductState& state, typename SuccessorGen::successor_info_t &sucinfo)
         {
             _successor_generator->prepare(state, sucinfo);
             _fresh_marking = sucinfo.fresh();
-            _buchi.prepare(state->get_buchi_state());
-            _buchi_parent = state->get_buchi_state();
+            _buchi.prepare(state.get_buchi_state());
+            _buchi_parent = state.get_buchi_state();
             if (!_fresh_marking) {
                 assert(sucinfo.buchi_state != std::numeric_limits<size_t>::max());
                 // spool Büchi successors until last state found.
@@ -184,7 +184,7 @@ namespace LTL {
             return _successor_generator->fired();
         }
 
-        void generate_all(LTL::Structures::ProductState *parent, typename SuccessorGen::successor_info_t &sucinfo)
+        void generate_all(LTL::Structures::ProductState& parent, typename SuccessorGen::successor_info_t &sucinfo)
         {
             if constexpr (std::is_same_v<SuccessorGen, LTL::SpoolingSuccessorGenerator>) {
                 _successor_generator->generate_all(parent, sucinfo);
@@ -239,7 +239,7 @@ namespace LTL {
 
     protected:
         SuccessorGen *_successor_generator;
-        const PetriEngine::PetriNet *_net;
+        const PetriEngine::PetriNet &_net;
         BuchiSuccessorGenerator _buchi;
 
         const LTL::Structures::BuchiAutomaton &_aut;

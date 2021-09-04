@@ -35,7 +35,7 @@ namespace LTL {
     template<template <typename, typename...> typename ProductSucGen, typename SuccessorGen, typename... Spooler>
     class ModelChecker {
     public:
-        ModelChecker(const PetriEngine::PetriNet *net,
+        ModelChecker(const PetriEngine::PetriNet& net,
                      const PetriEngine::PQL::Condition_ptr &condition,
                      const Structures::BuchiAutomaton &buchi,
                      SuccessorGen *successorGen,
@@ -51,7 +51,7 @@ namespace LTL {
             _shortcircuitweak = options._ltl_use_weak;
             if (_traceLevel != options_t::trace_level_e::None) {
                 _maxTransName = 0;
-                for (const auto &transname : _net->transitionNames()) {
+                for (const auto &transname : _net.transition_names()) {
                     _maxTransName = std::max(transname.size(), _maxTransName);
                 }
             }
@@ -82,12 +82,12 @@ namespace LTL {
         {
             std::cout << "STATS:\n"
                       << "\tdiscovered states: " << stateSet.discovered() << std::endl
-                    << "\texplored states:   " << _stats._explored << std::endl
-                    << "\texpanded states:   " << _stats._expanded << std::endl
+                      << "\texplored states:   " << _stats._explored << std::endl
+                      << "\texpanded states:   " << _stats._expanded << std::endl
                       << "\tmax tokens:        " << stateSet.max_tokens() << std::endl;
         }
 
-        const PetriEngine::PetriNet *_net;
+        const PetriEngine::PetriNet& _net;
         PetriEngine::PQL::Condition_ptr _formula;
         std::unique_ptr<ProductSucGen<SuccessorGen, Spooler...>> _successor_generator;
 
@@ -118,19 +118,19 @@ namespace LTL {
             os << _indent << "<transition id="
                    // field width stuff obsolete without büchi state printing.
                    //<< std::setw(maxTransName + 2) << std::left
-                    << std::quoted(_net->transitionNames()[transition]);
+                    << std::quoted(_net.transition_names()[transition]);
             if (_traceLevel == options_t::trace_level_e::Full) {
                 os << ">";
                 os << std::endl;
-                auto [fpre, lpre] = _net->preset(transition);
+                auto [fpre, lpre] = _net.preset(transition);
                 for(; fpre < lpre; ++fpre) {
-                    if (fpre->inhibitor) {
-                        assert(state.marking()[fpre->place] < fpre->tokens);
+                    if (fpre->_inhibitor) {
+                        assert(state.marking()[fpre->_place] < fpre->_tokens);
                         continue;
                     }
-                    for (size_t i = 0; i < fpre->tokens; ++i) {
-                        assert(state.marking()[fpre->place] >= fpre->tokens);
-                        os << _tokenIndent << R"(<token age="0" place=")" << _net->placeNames()[fpre->place] << "\"/>\n";
+                    for (size_t i = 0; i < fpre->_tokens; ++i) {
+                        assert(state.marking()[fpre->_place] >= fpre->_tokens);
+                        os << _tokenIndent << R"(<token age="0" place=")" << _net.place_names()[fpre->_place] << "\"/>\n";
                     }
                 }
                 /*for (size_t i = 0; i < net->number_of_places(); ++i) {

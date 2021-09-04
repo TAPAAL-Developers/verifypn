@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   LPFactory.h
  * Author: Peter G. Jensen
  *
@@ -12,14 +12,13 @@
 #include <vector>
 #include <cstring>
 #include <cassert>
-#include "MurmurHash2.h"
 
 #ifndef VECTOR_H
 #define VECTOR_H
 
 namespace PetriEngine {
     namespace Simplification {
-        enum op_t 
+        enum op_t
         {
             OP_EQ,
             OP_LE,
@@ -28,31 +27,32 @@ namespace PetriEngine {
             OP_GT,
             OP_NE
         };
-        class LPCache;
         class Vector {
         public:
-            friend LPCache;
-                        
-            void free();
-            
-            void inc();
-            
-            size_t data_size() const;
 
             bool operator ==(const Vector& other) const
             {
                 return  _data == other._data;
             }
-            
-            
-            
+
+            int compare(const Vector& other) {
+                if(_data.size() != other._data.size())
+                    return (_data.size() < other._data.size()) ? -1 : 1;
+                for(size_t i = 0; i < _data.size(); ++i)
+                {
+                    if(_data[i].first != other._data[i].first)
+                        return (_data[i].first < other._data[i].first) ? -1 : 1;
+                    if(_data[i].second != other._data[i].second)
+                        return (_data[i].second < other._data[i].second) ? -1 : 1;
+                }
+                return 0;
+            }
+
             const void* raw() const
             {
                 return _data.data();
             }
-            
-            size_t refs() const { return ref; }
-            
+
             std::ostream& print(std::ostream& ss) const
             {
                 int index = 0;
@@ -64,11 +64,11 @@ namespace PetriEngine {
                 }
                 return ss;
             }
-            
+
             void write(std::vector<double>& dest) const
             {
                 memset(dest.data(), 0, sizeof (double) * dest.size());
-                
+
                 for(const std::pair<int,int>& el : _data)
                 {
                     dest[el.first + 1] = el.second;
@@ -89,9 +89,7 @@ namespace PetriEngine {
                 }
                 return l;
             }
-            
-            
-        private:
+
             Vector(const std::vector<int>& data)
             {
                 for(size_t i = 0; i < data.size(); ++i)
@@ -100,30 +98,14 @@ namespace PetriEngine {
                     {
                         _data.emplace_back(i, data[i]);
                     }
-                }                
+                }
             }
 
+        private:
+
             std::vector<std::pair<int,int>> _data;
-            LPCache* factory = NULL;
-            size_t ref = 0;
         };
     }
-}
-
-namespace std
-{
-    using namespace PetriEngine::Simplification;
-    
-    template <>
-    struct hash<Vector>
-    {
-        size_t operator()(const Vector& k) const
-        {
-            return MurmurHash64A(k.raw(), 
-                    k.data_size(), 
-                    1337);
-        }
-    };
 }
 
 #endif /* VECTOR_H */
