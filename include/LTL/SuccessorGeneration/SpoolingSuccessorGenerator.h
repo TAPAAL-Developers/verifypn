@@ -100,7 +100,7 @@ namespace LTL {
                 bool res =
 #endif
                 _spooler->prepare(state);
-                assert(!res || !_net.deadlocked(state->marking()));
+                assert(!res || !_net.deadlocked(state.marking()));
                 if (!_heuristic || !_heuristic->has_heuristic(state)) {
                     uint32_t nsuc = 0;
                     // generate list of transitions that generate a successor.

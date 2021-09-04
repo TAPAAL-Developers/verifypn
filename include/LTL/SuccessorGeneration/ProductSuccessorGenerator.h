@@ -119,7 +119,7 @@ namespace LTL {
             _buchi.prepare(state.get_buchi_state());
             _buchi_parent = state.get_buchi_state();
             if (!_fresh_marking) {
-                assert(sucinfo.buchi_state != std::numeric_limits<size_t>::max());
+                assert(sucinfo._buchi_state != std::numeric_limits<size_t>::max());
                 // spool Büchi successors until last state found.
                 // TODO is there perhaps a good way to avoid this, perhaps using raw edge vector?
                 // Caveat: it seems like there usually are not that many successors, so this is probably cheap regardless

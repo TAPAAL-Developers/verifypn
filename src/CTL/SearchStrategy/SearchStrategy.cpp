@@ -73,7 +73,7 @@ namespace CTL::SearchStrategy {
         if(!_dependencies.empty())
             _dependencies.pop_back();
 
-        assert(edge->refcnt >= 0);
+        assert(edge->_refcnt >= 0);
         --edge->_refcnt;
         edge->_status = 0;
         return edge;

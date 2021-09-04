@@ -301,25 +301,25 @@ namespace PetriEngine {
                             for(auto& t : trace)
                             {
                                 Structures::State s;
-                                s.setMarking(_mark.get());
-                                _gen.prepare(&s);
+                                s.set_marking(_mark.get());
+                                _gen.prepare(s);
                                 if(t.get_edge_cnt() == 0)
                                 {
                                     EvaluationContext ctx(_mark.get(), &_net);
                                     auto otherr = _query->eval_and_set(ctx);
                                     assert(otherr == r);
                                 }
-                                else if(_gen.checkPreset(t.get_edge_cnt()-1))
+                                else if(_gen.check_preset(t.get_edge_cnt()-1))
                                 {
-                                    _gen.consumePreset(s, t.get_edge_cnt()-1);
+                                    _gen.consume_preset(s, t.get_edge_cnt()-1);
 
-                                    _gen.producePostset(s, t.get_edge_cnt()-1);
+                                    _gen.produce_postset(s, t.get_edge_cnt()-1);
                                 }
                                 else
                                 {
                                     assert(false);
                                 }
-                                s.setMarking(nullptr);
+                                s.set_marking(nullptr);
                             }
                         }
 #endif

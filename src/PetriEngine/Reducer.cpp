@@ -190,23 +190,23 @@ namespace PetriEngine {
         for(size_t i = 0; i < _builder->number_of_transitions(); ++i)
         {
             Transition& t = _builder->_transitions[i];
-            if(t.skip) ++strans;
-            assert(std::is_sorted(t.pre.begin(), t.pre.end()));
-            assert(std::is_sorted(t.post.end(), t.post.end()));
-            assert(!t.skip || (t.pre.size() == 0 && t.post.size() == 0));
-            for(Arc& a : t.pre)
+            if(t._skip) ++strans;
+            assert(std::is_sorted(t._pre.begin(), t._pre.end()));
+            assert(std::is_sorted(t._post.end(), t._post.end()));
+            assert(!t._skip || (t._pre.size() == 0 && t._post.size() == 0));
+            for(Arc& a : t._pre)
             {
-                assert(a.weight > 0);
-                Place& p = _builder->_places[a.place];
-                assert(!p.skip);
-                assert(std::find(p.consumers.begin(), p.consumers.end(), i) != p.consumers.end());
+                assert(a._weight > 0);
+                Place& p = _builder->_places[a._place];
+                assert(!p._skip);
+                assert(std::find(p._consumers.begin(), p._consumers.end(), i) != p._consumers.end());
             }
-            for(Arc& a : t.post)
+            for(Arc& a : t._post)
             {
-                assert(a.weight > 0);
-                Place& p = _builder->_places[a.place];
-                assert(!p.skip);
-                assert(std::find(p.producers.begin(), p.producers.end(), i) != p.producers.end());
+                assert(a._weight > 0);
+                Place& p = _builder->_places[a._place];
+                assert(!p._skip);
+                assert(std::find(p._producers.begin(), p._producers.end(), i) != p._producers.end());
             }
         }
 
@@ -216,27 +216,27 @@ namespace PetriEngine {
         for(size_t i = 0; i < _builder->number_of_places(); ++i)
         {
             Place& p = _builder->_places[i];
-            if(p.skip) ++splaces;
-            assert(std::is_sorted(p.consumers.begin(), p.consumers.end()));
-            assert(std::is_sorted(p.producers.begin(), p.producers.end()));
-            assert(!p.skip || (p.consumers.size() == 0 && p.producers.size() == 0));
+            if(p._skip) ++splaces;
+            assert(std::is_sorted(p._consumers.begin(), p._consumers.end()));
+            assert(std::is_sorted(p._producers.begin(), p._producers.end()));
+            assert(!p._skip || (p._consumers.size() == 0 && p._producers.size() == 0));
 
-            for(uint c : p.consumers)
+            for(uint c : p._consumers)
             {
                 Transition& t = _builder->_transitions[c];
-                assert(!t.skip);
+                assert(!t._skip);
                 auto a = get_in_arc(i, t);
-                assert(a != t.pre.end());
-                assert(a->place == i);
+                assert(a != t._pre.end());
+                assert(a->_place == i);
             }
 
-            for(uint prod : p.producers)
+            for(uint prod : p._producers)
             {
                 Transition& t = _builder->_transitions[prod];
-                assert(!t.skip);
+                assert(!t._skip);
                 auto a = get_out_arc(t, i);
-                assert(a != t.post.end());
-                assert(a->place == i);
+                assert(a != t._post.end());
+                assert(a->_place == i);
             }
         }
         assert(splaces == _removedPlaces);

@@ -143,10 +143,10 @@ namespace PetriEngine
                 assert(_states[astate]._interpolant == predicate);
 #ifndef NDEBUG
                 for (auto& s : _states) {
-                    if (s.interpolant == predicate) {
+                    if (s._interpolant == predicate) {
                         if (&s == &_states[astate]) continue;
-                        assert((s.interpolant < predicate) ||
-                               (predicate < s.interpolant));
+                        assert((s._interpolant < predicate) ||
+                               (predicate < s._interpolant));
                         assert(false);
                     }
                 }
@@ -293,7 +293,7 @@ namespace PetriEngine
                     }
                     auto& ae = *it;
                     ++it;
-                    assert(ae.to.size() > 0);
+                    assert(ae._to.size() > 0);
                     if (ae._to.front() == 0)
                         return true;
                     nextinter.insert(ae._to.begin(), ae._to.end());

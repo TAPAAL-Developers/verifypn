@@ -25,9 +25,9 @@ bool CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
         while (auto e = _strategy->pop_edge(false))
         {
             ++e->_refcnt;
-            assert(e->refcnt >= 1);
+            assert(e->_refcnt >= 1);
             check_edge(e);
-            assert(e->refcnt >= -1);
+            assert(e->_refcnt >= -1);
             if(e->_refcnt > 0) --e->_refcnt;
             if(e->_refcnt == 0) _graph->release(e);
             ++cnt;
