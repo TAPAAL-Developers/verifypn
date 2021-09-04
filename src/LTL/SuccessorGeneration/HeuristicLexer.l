@@ -45,7 +45,7 @@ letter        [a-zA-Z_]
 "," { return TOKEN(COMMA);}
 %%
 namespace LTL {
-std::unique_ptr<LTL::Heuristic> ParseHeuristic(const PetriEngine::PetriNet *net,
+std::unique_ptr<LTL::Heuristic> parse_ltl_heuristic(const PetriEngine::PetriNet *net,
                                                const Structures::BuchiAutomaton &aut,
                                                const PetriEngine::PQL::Condition_ptr &cond,
                                                const char* heurString) {
@@ -53,7 +53,7 @@ std::unique_ptr<LTL::Heuristic> ParseHeuristic(const PetriEngine::PetriNet *net,
 	YY_BUFFER_STATE buf = heur_scan_string(heurString);
 
 	if(heurparse(net, aut, cond) != 0)
-		return NULL;
+		return nullptr;
 
 	//Delete the buffer
 	heur_delete_buffer(buf);

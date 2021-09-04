@@ -58,7 +58,7 @@ letter        [a-zA-Z_]
 
 %%
 namespace PetriEngine{ namespace PQL {
-std::shared_ptr<Condition> ParseQuery(const std::string& queryString, std::vector<std::string>& placenameforbound) {
+std::shared_ptr<Condition> parse_query(const std::string& queryString, std::vector<std::string>& placenameforbound) {
 	//Load up input buffer in Flex
 	YY_BUFFER_STATE buf = pqlq_scan_string(queryString.c_str());
 
@@ -68,7 +68,7 @@ std::shared_ptr<Condition> ParseQuery(const std::string& queryString, std::vecto
 	//Delete the buffer
 	pqlq_delete_buffer(buf);
 	return query;
-} 
+}
 }}
 #ifdef __clang__
 #pragma clang diagnostic pop
