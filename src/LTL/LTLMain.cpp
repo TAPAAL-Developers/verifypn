@@ -97,7 +97,7 @@ namespace LTL {
         if (options._strategy != options_t::search_strategy_e::HEUR && options._strategy != options_t::search_strategy_e::DEFAULT) {
             return nullptr;
         }
-        auto heur = ParseHeuristic(&net, automaton, negated_formula, options._ltl_heuristic);
+        auto heur = parse_ltl_heuristic(net, automaton, negated_formula, options._ltl_heuristic);
         if (heur == nullptr) {
             std::cerr << "Invalid heuristic specification, terminating.\n";
             exit(1);
@@ -125,7 +125,7 @@ namespace LTL {
                                && (options._ltl_por == options_t::ltl_partial_order_e::Visible ||
                                    options._ltl_por == options_t::ltl_partial_order_e::VisibleReach)
                                && !net.has_inhibitor()
-                               && !negated_formula->containsNext();
+                               && !negated_formula->contains_next();
         bool is_autreach_stub = options._stubborn_reduction
                 && (options._ltl_por == options_t::ltl_partial_order_e::AutomatonReach ||
                     options._ltl_por == options_t::ltl_partial_order_e::VisibleReach)

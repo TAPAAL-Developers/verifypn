@@ -10,7 +10,7 @@
 namespace PetriEngine {
     class STSolver {
     struct place_t {
-        uint32_t pre, post;
+        uint32_t _pre, _post;
     };
 
     public:
@@ -27,7 +27,7 @@ namespace PetriEngine {
         void construct_pre_post();
         void extend(size_t place, std::set<size_t>& pre, std::set<size_t>& post);
         bool _siphonPropperty = false;
-        const Reachability::ResultPrinter& printer;
+        const Reachability::ResultPrinter& _printer;
         PQL::Condition * _query;
         std::unique_ptr<place_t[]> _places;
         std::unique_ptr<uint32_t[]> _transitions;

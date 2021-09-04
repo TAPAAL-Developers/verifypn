@@ -24,7 +24,7 @@ namespace PetriEngine {
 
             if(_options->_cpn_overapprox)
             {
-                if(query->getQuantifier() == PQL::Quantifier::UPPERBOUNDS)
+                if(query->get_quantifier() == PQL::Quantifier::UPPERBOUNDS)
                 {
                     auto upq = ((PQL::UnfoldedUpperBoundsCondition*)query);
                     auto bnd = upq->bounds();
@@ -32,9 +32,9 @@ namespace PetriEngine {
                         retval = Unknown;
                 }
                 else if (result == Satisfied)
-                    retval = query->isInvariant() ? Unknown : Unknown;
+                    retval = query->is_invariant() ? Unknown : Unknown;
                 else if (result == NotSatisfied)
-                    retval = query->isInvariant() ? Satisfied : NotSatisfied;
+                    retval = query->is_invariant() ? Satisfied : NotSatisfied;
                 if(retval == Unknown)
                 {
                     std::cout << "\nUnable to decide if " << _querynames[index] << " is satisfied.\n\n";
@@ -72,9 +72,9 @@ namespace PetriEngine {
             }
 
             if (result == Satisfied)
-                retval = query->isInvariant() ? NotSatisfied : Satisfied;
+                retval = query->is_invariant() ? NotSatisfied : Satisfied;
             else if (result == NotSatisfied)
-                retval = query->isInvariant() ? Satisfied : NotSatisfied;
+                retval = query->is_invariant() ? Satisfied : NotSatisfied;
 
             //Print result
             auto bound = query;
@@ -116,9 +116,9 @@ namespace PetriEngine {
             }
 
             if (result == Satisfied)
-                retval = query->isInvariant() ? NotSatisfied : Satisfied;
+                retval = query->is_invariant() ? NotSatisfied : Satisfied;
             else if (result == NotSatisfied)
-                retval = query->isInvariant() ? Satisfied : NotSatisfied;
+                retval = query->is_invariant() ? Satisfied : NotSatisfied;
 
             //Print result
             if (retval == Unknown)

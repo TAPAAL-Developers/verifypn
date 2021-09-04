@@ -32,7 +32,7 @@ namespace PetriEngine {
         }
         assert(!_queries.empty());
         for (auto &q : _queries) {
-            q->evalAndSet(PQL::EvaluationContext(_parent->marking(), &_net));
+            q->eval_and_set(PQL::EvaluationContext(_parent->marking(), &_net));
 
             assert(_interesting->get_negated() == false);
             q->visit(*_interesting);

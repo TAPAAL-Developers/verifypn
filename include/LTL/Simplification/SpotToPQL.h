@@ -29,7 +29,7 @@ namespace LTL {
      * @param apinfo List of atomic propositions in the formula. This should have been created by {@link LTL::to_spot_formula}.
      * @return A PQL formula equivalent to the passed spot formula.
      */
-    PetriEngine::PQL::Condition_ptr toPQL(const spot::formula &formula, const APInfo &apinfo);
+    PetriEngine::PQL::Condition_ptr to_PQL(const spot::formula &formula, const APInfo &apinfo);
 
     /**
      * Simplify an LTL formula using Spot's formula simplifier. Throws if formula is not valid LTL.

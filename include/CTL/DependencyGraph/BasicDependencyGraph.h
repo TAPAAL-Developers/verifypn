@@ -14,9 +14,9 @@ class BasicDependencyGraph {
 
 public:
     virtual std::vector<Edge*> successors(Configuration *c) =0;
-    virtual Configuration *initialConfiguration() =0;
+    virtual Configuration *initial_configuration() =0;
     virtual void release(Edge* e) = 0;
-    virtual void cleanUp() =0;
+    virtual void cleanup() =0;
 };
 
 }

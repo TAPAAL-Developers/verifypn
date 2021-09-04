@@ -28,24 +28,17 @@ public:
 
     //Dependency graph interface
     virtual std::vector<DependencyGraph::Edge*> successors(DependencyGraph::Configuration *c) override;
-    virtual DependencyGraph::Configuration *initialConfiguration() override;
-    virtual void cleanUp() override;
-    void setQuery(const Condition_ptr& query);
+    virtual DependencyGraph::Configuration *initial_configuration() override;
+    virtual void cleanup() override;
+    void set_query(const Condition_ptr& query);
 
     virtual void release(DependencyGraph::Edge* e) override;
 
-    size_t owner(Marking& marking, Condition* cond);
-    size_t owner(Marking& marking, const Condition_ptr& cond)
-    {
-        return owner(marking, cond.get());
-    }
-
-
     //stats
-    size_t configurationCount() const;
-    size_t markingCount() const;
+    size_t configuration_count() const;
+    size_t marking_count() const;
 
-    Condition::Result initialEval();
+    Condition::Result initial_eval();
 
 protected:
 
@@ -61,7 +54,7 @@ protected:
     Condition_ptr _query = nullptr;
 
     Condition::Result fast_eval(Condition* query, Marking* unfolded);
-    Condition::Result fastEval(const Condition_ptr& query, Marking* unfolded)
+    Condition::Result fast_eval(const Condition_ptr& query, Marking* unfolded)
     {
         return fast_eval(query.get(), unfolded);
     }
@@ -87,10 +80,10 @@ protected:
             }
         }
     }
-    PetriConfig *create_configuration(size_t marking, size_t own, Condition* query);
-    PetriConfig *create_configuration(size_t marking, size_t own, const Condition_ptr& query)
+    PetriConfig *create_configuration(size_t marking, Condition* query);
+    PetriConfig *create_configuration(size_t marking, const Condition_ptr& query)
     {
-        return create_configuration(marking, own, query.get());
+        return create_configuration(marking, query.get());
     }
     size_t create_marking(Marking &marking);
     void marking_stats(const uint32_t* marking, size_t& sum, bool& allsame, uint32_t& val, uint32_t& active, uint32_t& last);

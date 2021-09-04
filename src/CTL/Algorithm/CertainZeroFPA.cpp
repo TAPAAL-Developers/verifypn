@@ -14,7 +14,7 @@ bool CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
     _graph = &t_graph;
 
 
-    _vertex = _graph->initialConfiguration();
+    _vertex = _graph->initial_configuration();
     {
         explore(_vertex);
     }

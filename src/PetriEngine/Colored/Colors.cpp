@@ -46,7 +46,7 @@ std::vector<std::string> split(const std::string &s, char delim) {
 namespace PetriEngine {
     namespace Colored {
         /*std::ostream& operator<<(std::ostream& stream, const Color& color) {
-            stream << color.toString();
+            stream << color.to_string();
             return stream;
         }*/
         
@@ -65,7 +65,7 @@ namespace PetriEngine {
         }
         
         const Color& Color::operator++ () const {
-            //std::cout << _colorName <<" " << _colorType->getName() << std::endl;
+            //std::cout << _colorName <<" " << _colorType->get_name() << std::endl;
             if (_id >= _colorType->size() - 1) {
                 //std::cout << "inside if" << std::endl;
                 return (*_colorType)[0];
@@ -82,21 +82,21 @@ namespace PetriEngine {
             return (*_colorType)[_id - 1];
         }
         
-        std::string Color::toString() const {
-            return toString(this);
+        std::string Color::to_string() const {
+            return to_string(this);
         }
 
-        void Color::getColorConstraints(Colored::interval_t& constraintsVector, uint32_t& index) const {
-            if (this->isTuple()) {
+        void Color::get_color_constraints(Colored::interval_t& constraintsVector, uint32_t& index) const {
+            if (this->is_tuple()) {
                 for (const Color *color : _tuple) {
-                    color->getColorConstraints(constraintsVector, index);
+                    color->get_color_constraints(constraintsVector, index);
                     index++;
                 }
             } else {
                 Reachability::range_t curRange;
                 if (index >= constraintsVector.size()){
                     curRange &= _id;
-                    constraintsVector.addRange(curRange);
+                    constraintsVector.add_range(curRange);
                 } else {
                     curRange = constraintsVector[index];
                     if (_id < curRange._lower){
@@ -111,22 +111,22 @@ namespace PetriEngine {
             }
         }
 
-        void Color::getTupleId(std::vector<uint32_t>& idVector) const {
-            if(this->isTuple()) {
+        void Color::get_tuple_id(std::vector<uint32_t>& idVector) const {
+            if(this->is_tuple()) {
                 for (auto* color : _tuple) {
-                    color->getTupleId(idVector);
+                    color->get_tuple_id(idVector);
                 }
             } else {
                 idVector.push_back(_id);
             }
         }
         
-        std::string Color::toString(const Color* color) {
-            if (color->isTuple()) {
+        std::string Color::to_string(const Color* color) {
+            if (color->is_tuple()) {
                 std::ostringstream oss;
                 oss << "(";
                 for (size_t i = 0; i < color->_tuple.size(); i++) {
-                    oss << color->_tuple[i]->toString();
+                    oss << color->_tuple[i]->to_string();
                     if (i < color->_tuple.size() - 1) oss << ",";
                 }
                 oss << ")";
@@ -135,13 +135,13 @@ namespace PetriEngine {
             return std::string(color->_colorName);
         }
         
-        std::string Color::toString(const std::vector<const Color*>& colors) {
+        std::string Color::to_string(const std::vector<const Color*>& colors) {
             std::ostringstream oss;
             if (colors.size() > 1)
                 oss << "(";
             
             for (size_t i = 0; i < colors.size(); i++) {
-                oss << colors[i]->toString();
+                oss << colors[i]->to_string();
                 if (i < colors.size() - 1) oss << ",";
             }
 
@@ -150,22 +150,22 @@ namespace PetriEngine {
             return oss.str();
         }
 
-        const ColorType* ColorType::dotInstance() {
+        const ColorType* ColorType::dot_instance() {
             static ColorType instance("dot");
             if(instance.size() == 0)
             {
-                instance.addColor("dot");
+                instance.add_color("dot");
             }
             return &instance;
         }
         
-        void ColorType::addColor(const char* colorName) {
+        void ColorType::add_color(const char* colorName) {
             _colors.emplace_back(this, _colors.size(), colorName);
         }
         
         const Color* ColorType::operator[] (const char* index) const {
             for (size_t i = 0; i < _colors.size(); i++) {
-                if (strcmp(operator[](i).toString().c_str(), index) == 0)
+                if (strcmp(operator[](i).to_string().c_str(), index) == 0)
                     return &operator[](i);
             }
             return nullptr;
@@ -189,23 +189,23 @@ namespace PetriEngine {
             return _cache.at(index);
         }
 
-        const Color* ProductType::getColor(const std::vector<const Color*>& colors) const {
+        const Color* ProductType::get_color(const std::vector<const Color*>& colors) const {
             size_t product = 1;
             size_t sum = 0;
 
             if (_constituents.size() != colors.size()) return nullptr;
 
             for (size_t i = 0; i < _constituents.size(); ++i) {
-                if (!(colors[i]->getColorType() == _constituents[i]))
+                if (!(colors[i]->get_color_type() == _constituents[i]))
                     return nullptr;
 
-                sum += product * colors[i]->getId();
+                sum += product * colors[i]->get_id();
                 product *= _constituents[i]->size();
             }
             return &operator[](sum);
         }
 
-        const Color* ProductType::getColor(const std::vector<uint32_t> &ids) const {
+        const Color* ProductType::get_color(const std::vector<uint32_t> &ids) const {
             assert(ids.size() == _constituents.size());
             size_t product = 1;
             size_t sum = 0;
@@ -232,7 +232,7 @@ namespace PetriEngine {
             size_t sum = 0;
             size_t mult = 1;
             for (size_t i = 0; i < parts.size(); ++i) {
-                sum += mult * (*_constituents[i])[parts[i]]->getId();
+                sum += mult * (*_constituents[i])[parts[i]]->get_id();
                 mult *= _constituents[i]->size();
             }
 

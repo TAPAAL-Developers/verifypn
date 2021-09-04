@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) {
     options.print();
     options._seed_offset = (time(NULL) xor options._seed_offset);
     ColoredPetriNetBuilder cpnBuilder;
-    if(parseModel(cpnBuilder, options) != ContinueCode)
+    if(parse_model(cpnBuilder, options) != ContinueCode)
     {
         std::cerr << "Error parsing the model" << std::endl;
         return ErrorCode;
@@ -125,17 +125,17 @@ int main(int argc, char* argv[]) {
     std::vector<std::string> querynames;
     std::vector<Condition_ptr> queries;
     {
-        auto ctlStarQueries = readQueries(options, querynames);
+        auto ctlStarQueries = read_queries(options, querynames);
         queries = options._logic == options_t::temporal_logic_e::CTL
-                ? getCTLQueries(ctlStarQueries)
-                : getLTLQueries(ctlStarQueries);
+                ? get_ctl_queries(ctlStarQueries)
+                : get_ltl_queries(ctlStarQueries);
     }
 
     if(options._print_statistics && options._query_reduction_timeout > 0)
     {
         negstat_t stats;
         std::cout << "RWSTATS LEGEND:";
-        stats.printRules(std::cout);
+        stats.print_rules(std::cout);
         std::cout << std::endl;
     }
 
@@ -144,11 +144,11 @@ int main(int argc, char* argv[]) {
         negstat_t stats;
         EvaluationContext context(nullptr, nullptr);
         for (ssize_t qid = queries.size() - 1; qid >= 0; --qid) {
-            queries[qid] = queries[qid]->pushNegation(stats, context, false, false, false);
+            queries[qid] = queries[qid]->push_negation(stats, context, false, false, false);
             if(options._print_statistics)
             {
                 std::cout << "\nQuery before expansion and reduction: ";
-                queries[qid]->toString(std::cout);
+                queries[qid]->to_string(std::cout);
                 std::cout << std::endl;
 
                 std::cout << "RWSTATS COLORED PRE:";
@@ -162,8 +162,8 @@ int main(int argc, char* argv[]) {
         for (ssize_t qid = queries.size() - 1; qid >= 0; --qid) {
             negstat_t stats;
             EvaluationContext context(nullptr, nullptr);
-            auto q = queries[qid]->pushNegation(stats, context, false, false, false);
-            if (!q->isReachability() || q->isLoopSensitive() || stats.negated_fireability) {
+            auto q = queries[qid]->push_negation(stats, context, false, false, false);
+            if (!q->is_reachability() || q->is_loop_sensitive() || stats._negated_fireability) {
                 std::cerr << "Warning: CPN OverApproximation is only available for Reachability queries without deadlock, negated fireability and UpperBounds, skipping " << querynames[qid] << std::endl;
                 queries.erase(queries.begin() + qid);
                 querynames.erase(querynames.begin() + qid);
@@ -186,7 +186,7 @@ int main(int argc, char* argv[]) {
 
 
     auto builder = options._cpn_overapprox ? cpnBuilder.strip_colors() : cpnBuilder.unfold();
-    printUnfoldingStats(cpnBuilder, options);
+    print_unfolding_stats(cpnBuilder, options);
     builder.sort();
     std::vector<ResultPrinter::Result> results(queries.size(), ResultPrinter::Result::Unknown);
     ResultPrinter printer(&builder, &options, querynames);
@@ -206,7 +206,7 @@ int main(int argc, char* argv[]) {
         simplify_queries(*qnet, queries, options);
 
         if(options._query_out_file.size() > 0) {
-            outputQueries(b2, queries, querynames, options._query_out_file, options._binary_query_io);
+            output_queries(b2, queries, querynames, options._query_out_file, options._binary_query_io);
         }
 
         qnet = nullptr;
@@ -217,7 +217,7 @@ int main(int argc, char* argv[]) {
     if (!options._statespace_exploration){
         for(size_t i = 0; i < queries.size(); ++i)
         {
-            if(queries[i]->isTriviallyTrue()){
+            if(queries[i]->is_trivially_true()){
                 results[i] = p2.handle(i, queries[i].get(), ResultPrinter::Satisfied).first;
                 if(results[i] == ResultPrinter::Ignore && options._print_statistics)
                 {
@@ -226,7 +226,7 @@ int main(int argc, char* argv[]) {
                 else if (options._print_statistics) {
                     std::cout << "Query solved by Query Simplification." << std::endl << std::endl;
                 }
-            } else if (queries[i]->isTriviallyFalse()) {
+            } else if (queries[i]->is_trivially_false()) {
                 results[i] = p2.handle(i, queries[i].get(), ResultPrinter::NotSatisfied).first;
                 if(results[i] == ResultPrinter::Ignore &&  options._print_statistics)
                 {
@@ -240,10 +240,10 @@ int main(int argc, char* argv[]) {
                 if (options._print_statistics) {
                     std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
                 }
-            } else if (options._noreach || !queries[i]->isReachability()) {
+            } else if (options._noreach || !queries[i]->is_reachability()) {
                 results[i] = options._logic == options_t::temporal_logic_e::CTL ? ResultPrinter::CTL : ResultPrinter::LTL;
             } else {
-                queries[i] = queries[i]->prepareForReachability();
+                queries[i] = queries[i]->prepare_for_reachability();
             }
         }
 
@@ -263,7 +263,7 @@ int main(int argc, char* argv[]) {
         printer.set_reducer(builder.get_reducer());
     }
 
-    printStats(builder, options);
+    print_reduction_stats(builder, options);
 
     auto net = std::unique_ptr<PetriNet>(builder.make_petri_net());
 
@@ -271,14 +271,14 @@ int main(int argc, char* argv[]) {
     {
         std::fstream file;
         file.open(options._model_out_file, std::ios::out);
-        net->toXML(file);
+        net->to_xml(file);
     }
 
     if(all_done(results))
         return SuccessCode;
 
     if (options._replay_trace) {
-        return doReplay(cpnBuilder, builder, *net, queries, results, options);
+        return replay_trace(cpnBuilder, builder, *net, queries, results, options);
     }
 
     if(options._do_verification){

@@ -27,8 +27,6 @@ public:
     uint32_t get_distance() const { return _distance; }
     bool is_done() const { return _assignment == ONE || _assignment == CZERO; }
     void add_dependency(Edge* e);
-    void set_owner(uint32_t) { }
-    uint32_t get_owner() { return 0; }
 
 };
 

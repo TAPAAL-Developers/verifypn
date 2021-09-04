@@ -13,18 +13,18 @@ namespace PetriEngine {
                 EquivalenceClass(uint32_t id, const ColorType *colorType);
                 EquivalenceClass(uint32_t id, const ColorType *colorType, interval_vector_t&& colorIntervals);
                 ~EquivalenceClass() {}
-                std::string toString() const{
-                    return _colorIntervals.toString();
+                std::string to_string() const{
+                    return _colorIntervals.to_string();
                 }
 
-                bool isEmpty() const{
+                bool is_empty() const{
                     if(_colorIntervals.size() < 1 || _colorIntervals.front().size() < 1){
                         return true;
                     } 
                     return false;
                 }
 
-                bool containsColor(const std::vector<uint32_t> &ids, const std::vector<bool> &diagonalPositions) const;
+                bool contains_color(const std::vector<uint32_t> &ids, const std::vector<bool> &diagonalPositions) const;
 
                 size_t size() const;
 
@@ -36,8 +36,8 @@ namespace PetriEngine {
                 const ColorType* type() const { return _colorType; }
                 const interval_vector_t& intervals() const { return _colorIntervals; }
                 void clear() { _colorIntervals.clear(); }
-                void setIntervalVector(const interval_vector_t& interval) { _colorIntervals = interval; }
-                void addInterval(interval_t&& interval) { _colorIntervals.addInterval(interval); }
+                void set_interval_vector(const interval_vector_t& interval) { _colorIntervals = interval; }
+                void add_interval(interval_t&& interval) { _colorIntervals.add_interval(interval); }
             private:
                 uint32_t _id;
                 const ColorType *_colorType;

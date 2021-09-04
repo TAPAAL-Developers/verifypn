@@ -105,8 +105,8 @@ namespace PetriEngine {
         uint32_t get_arc_count() const {
             uint32_t sum = 0;
             for (auto& t : _transitions) {
-                sum += t.input_arcs.size();
-                sum += t.output_arcs.size();
+                sum += t._input_arcs.size();
+                sum += t._output_arcs.size();
             }
             return sum;
         }

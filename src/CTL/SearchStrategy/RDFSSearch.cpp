@@ -19,20 +19,20 @@ size_t RDFSSearch::waiting_size() const {
 DependencyGraph::Edge* RDFSSearch::pop_from_waiting() {
     auto e = W.back();
     W.pop_back();
-    last_parent = W.size();
+    _last_parent = W.size();
     return e;
 }
 
 void RDFSSearch::push_to_waiting(DependencyGraph::Edge* edge) {
-    last_parent = std::min(W.size(), last_parent);
+    _last_parent = std::min(W.size(), _last_parent);
     W.push_back(edge);
 }
 
 auto rng = std::default_random_engine {};
 void RDFSSearch::flush() {
-    last_parent = std::min(last_parent, W.size());
-    std::shuffle(W.begin() + last_parent, W.end(), rng);
-    last_parent = W.size();
+    _last_parent = std::min(_last_parent, W.size());
+    std::shuffle(W.begin() + _last_parent, W.end(), rng);
+    _last_parent = W.size();
 }
 
 }

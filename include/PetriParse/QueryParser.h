@@ -6,13 +6,13 @@
 #include "PetriEngine/PQL/PQL.h"
 
 struct QueryItem {
-    std::string id; // query name
-    PetriEngine::PQL::Condition_ptr query;
+    std::string _id; // query name
+    PetriEngine::PQL::Condition_ptr _query;
 
     enum {
         PARSING_OK,
         UNSUPPORTED_QUERY,
-    } parsingResult;
+    } _parsing_result;
 };
 
 

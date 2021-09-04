@@ -10,50 +10,50 @@ namespace PetriEngine {
     namespace Colored {
         class EquivalenceVec{
             public:
-                void applyPartition(Colored::ArcIntervals& arcInterval) const;
-                void mergeEqClasses();
-                void applyPartition(std::vector<uint32_t> &colorIds) const;
+                void apply_partition(Colored::ArcIntervals& arcInterval) const;
+                void merge_eq_classes();
+                void apply_partition(std::vector<uint32_t> &colorIds) const;
 
-                bool isDiagonal() const{
+                bool is_diagonal() const{
                     return _diagonal;
                 }
 
-                void setDiagonal(bool diagonal) {
+                void set_diagonal(bool diagonal) {
                     _diagonal = diagonal;
                 }
 
-                const std::vector<EquivalenceClass> & getEquivalenceClasses() const{
+                const std::vector<EquivalenceClass> & get_eq_classes() const{
                     return _equivalenceClasses;
                 }
 
 
-                const std::vector<bool> & getDiagonalTuplePositions() const{
+                const std::vector<bool> & get_dagonal_tuple_positions() const{
                     return _diagonalTuplePositions;
                 }
 
-                void push_back_Eqclass(const EquivalenceClass &Eqclass){
+                void push_back_eq_class(const EquivalenceClass &Eqclass){
                     _equivalenceClasses.push_back(Eqclass);
                 }
 
-                void erase_Eqclass(uint32_t position){
+                void erase_eq_class(uint32_t position){
                     _equivalenceClasses.erase(_equivalenceClasses.begin() + position);
                 }
 
-                void push_back_diagonalTuplePos(bool val){
+                void push_back_diagonal_tuple_pos(bool val){
                     _diagonalTuplePositions.push_back(val);
                 }
 
-                void addColorToEqClassMap(const Color *color);
+                void add_color_to_eq_class_map(const Color *color);
 
-                void setDiagonalTuplePosition(uint32_t position, bool value){
+                void set_diagonal_tuple_position(uint32_t position, bool value){
                     _diagonalTuplePositions[position] = value;
                 }
 
-                void setDiagonalTuplePositions(const std::vector<bool> &diagonalPositions){
+                void set_diagonal_tuple_positions(const std::vector<bool> &diagonalPositions){
                     _diagonalTuplePositions = diagonalPositions;
                 }
 
-                const std::unordered_map<const Colored::Color *, EquivalenceClass *> &getColorEqClassMap() const{
+                const std::unordered_map<const Colored::Color *, EquivalenceClass *> &get_color_eq_class_map() const{
                     return _colorEQClassMap;
                 }
 

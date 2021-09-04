@@ -2,7 +2,7 @@
  *  Copyright Peter G. Jensen, all rights reserved.
  */
 
-/* 
+/*
  * File:   Visitor.h
  * Author: Peter G. Jensen <root@petergjoel.dk>
  *
@@ -13,6 +13,7 @@
 #define VISITOR_H
 
 #include "PetriEngine/PQL/Expressions.h"
+#include "errorcodes.h"
 #include <type_traits>
 
 namespace PetriEngine {
@@ -45,135 +46,135 @@ namespace PetriEngine {
             // default behaviour is error
             virtual void _accept(const EFCondition *) {
                 assert(false);
-                std::cerr << "No accept for EFCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for EFCondition");
+
             };
 
             virtual void _accept(const EGCondition *) {
                 assert(false);
-                std::cerr << "No accept for EGCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for EGCondition");
+
             };
 
             virtual void _accept(const AGCondition *) {
                 assert(false);
-                std::cerr << "No accept for AGCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for AGCondition");
+
             };
 
             virtual void _accept(const AFCondition *) {
                 assert(false);
-                std::cerr << "No accept for AFCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for AFCondition");
+
             };
 
             virtual void _accept(const EXCondition *) {
                 assert(false);
-                std::cerr << "No accept for EXCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for EXCondition");
+
             };
 
             virtual void _accept(const AXCondition *) {
                 assert(false);
-                std::cerr << "No accept for AXCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for AXCondition");
+
             };
 
             virtual void _accept(const EUCondition *) {
                 assert(false);
-                std::cerr << "No accept for EUCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for EUCondition");
+
             };
 
             virtual void _accept(const AUCondition *) {
                 assert(false);
-                std::cerr << "No accept for AUCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for AUCondition");
+
             };
 
             virtual void _accept(const ACondition *) {
                 assert(false);
-                std::cerr << "No accept for ACondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for ACondition");
+
             };
 
             virtual void _accept(const ECondition *) {
                 assert(false);
-                std::cerr << "No accept for ECondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for ECondition");
+
             };
 
             virtual void _accept(const GCondition *) {
                 assert(false);
-                std::cerr << "No accept for GCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for GCondition");
+
             };
 
             virtual void _accept(const FCondition *) {
                 assert(false);
-                std::cerr << "No accept for FCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for FCondition");
+
             };
 
             virtual void _accept(const XCondition *) {
                 assert(false);
-                std::cerr << "No accept for XCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for XCondition");
+
             };
 
             virtual void _accept(const UntilCondition *) {
                 assert(false);
-                std::cerr << "No accept for UntilCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for UntilCondition");
+
             };
 
             // shallow elements, neither of these should exist in a compiled expression
             virtual void _accept(const UnfoldedFireableCondition *element) {
                 assert(false);
-                std::cerr << "No accept for UnfoldedFireableCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for UnfoldedFireableCondition");
+
             };
 
             virtual void _accept(const FireableCondition *element) {
                 assert(false);
-                std::cerr << "No accept for FireableCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for FireableCondition");
+
             };
 
             virtual void _accept(const UpperBoundsCondition *element) {
                 assert(false);
-                std::cerr << "No accept for UpperBoundsCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for UpperBoundsCondition");
+
             };
 
             virtual void _accept(const LivenessCondition *element) {
                 assert(false);
-                std::cerr << "No accept for LivenessCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for LivenessCondition");
+
             };
 
             virtual void _accept(const KSafeCondition *element) {
                 assert(false);
-                std::cerr << "No accept for KSafeCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for KSafeCondition");
+
             };
 
             virtual void _accept(const QuasiLivenessCondition *element) {
                 assert(false);
-                std::cerr << "No accept for QuasiLivenessCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for QuasiLivenessCondition");
+
             };
 
             virtual void _accept(const StableMarkingCondition *element) {
                 assert(false);
-                std::cerr << "No accept for StableMarkingCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for StableMarkingCondition");
+
             };
 
             virtual void _accept(const BooleanCondition *element) {
                 assert(false);
-                std::cerr << "No accept for BooleanCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for BooleanCondition");
+
             };
 
             // Expression
@@ -192,8 +193,8 @@ namespace PetriEngine {
             // shallow expression, default to error
             virtual void _accept(const IdentifierExpr *element) {
                 assert(false);
-                std::cerr << "No accept for IdentifierExpr" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for IdentifierExpr");
+
             };
         };
 
@@ -203,62 +204,62 @@ namespace PetriEngine {
         private:
             void _accept(const NotCondition *element) override {
                 assert(false);
-                std::cerr << "No accept for NotCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for NotCondition");
+
             };
 
             void _accept(const AndCondition *element) override {
                 assert(false);
-                std::cerr << "No accept for AndCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for AndCondition");
+
             };
 
             void _accept(const OrCondition *element) override {
                 assert(false);
-                std::cerr << "No accept for OrCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for OrCondition");
+
             };
 
             void _accept(const LessThanCondition *element) override {
                 assert(false);
-                std::cerr << "No accept for LessThanCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for LessThanCondition");
+
             };
 
             void _accept(const LessThanOrEqualCondition *element) override {
                 assert(false);
-                std::cerr << "No accept for LessThanOrEqualCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for LessThanOrEqualCondition");
+
             };
 
             void _accept(const EqualCondition *element) override {
                 assert(false);
-                std::cerr << "No accept for EqualCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for EqualCondition");
+
             };
 
             void _accept(const NotEqualCondition *element) override {
                 assert(false);
-                std::cerr << "No accept for NotEqualCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for NotEqualCondition");
+
             };
 
             void _accept(const DeadlockCondition *element) override {
                 assert(false);
-                std::cerr << "No accept for DeadlockCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for DeadlockCondition");
+
             };
 
             void _accept(const CompareConjunction *element) override {
                 assert(false);
-                std::cerr << "No accept for CompareConjunction" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for CompareConjunction");
+
             };
 
             void _accept(const UnfoldedUpperBoundsCondition *element) override {
                 assert(false);
-                std::cerr << "No accept for UnfoldedUpperBoundsCondition" << std::endl;
-                exit(0);
+                throw base_error(ErrorCode, "No accept for UnfoldedUpperBoundsCondition");
+
             };
         };
 
@@ -397,43 +398,43 @@ namespace PetriEngine {
 
             void _accept(const UnfoldedFireableCondition *element) override
             {
-                if (const auto &compiled = element->getCompiled())
+                if (const auto &compiled = element->get_compiled())
                     compiled->visit(*this);
             }
 
             void _accept(const FireableCondition *element) override
             {
-                if (const auto &compiled = element->getCompiled())
+                if (const auto &compiled = element->get_compiled())
                     compiled->visit(*this);
             }
 
             void _accept(const UpperBoundsCondition *element) override
             {
-                if (const auto &compiled = element->getCompiled())
+                if (const auto &compiled = element->get_compiled())
                     compiled->visit(*this);
             }
 
             void _accept(const LivenessCondition *element) override
             {
-                if (const auto &compiled = element->getCompiled())
+                if (const auto &compiled = element->get_compiled())
                     compiled->visit(*this);
             }
 
             void _accept(const KSafeCondition *element) override
             {
-                if (const auto &compiled = element->getCompiled())
+                if (const auto &compiled = element->get_compiled())
                     compiled->visit(*this);
             }
 
             void _accept(const QuasiLivenessCondition *element) override
             {
-                if (const auto &compiled = element->getCompiled())
+                if (const auto &compiled = element->get_compiled())
                     compiled->visit(*this);
             }
 
             void _accept(const StableMarkingCondition *element) override
             {
-                if (const auto &compiled = element->getCompiled())
+                if (const auto &compiled = element->get_compiled())
                     compiled->visit(*this);
             }
 

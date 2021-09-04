@@ -61,7 +61,7 @@ namespace PetriEngine {
             bool empty() const;
             void clean();
 
-            size_t distinctSize() const {
+            size_t distinct_size() const {
                 return _set.size();
             }
 
@@ -70,7 +70,7 @@ namespace PetriEngine {
             const Iterator begin() const;
             const Iterator end() const;
 
-            std::string toString() const;
+            std::string to_string() const;
             
         private:
             Internal _set;

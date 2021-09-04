@@ -76,7 +76,7 @@ void print_ctl_result(const std::string& qname, const CTLResult& result, size_t 
 bool single_solve(const Condition_ptr& query, const PetriNet& net, CTLResult& result, options_t& options)
 {
     OnTheFlyDG graph(net, options._stubborn_reduction);
-    graph.setQuery(query);
+    graph.set_query(query);
     std::shared_ptr<Algorithm::FixedPointAlgorithm> alg = nullptr;
     if(get_algorithm(alg, options._ctlalgorithm,  options._strategy) == ErrorCode)
     {
@@ -90,8 +90,8 @@ bool single_solve(const Condition_ptr& query, const PetriNet& net, CTLResult& re
     timer.stop();
 
     result._duration += timer.duration();
-    result._numberOfConfigurations += graph.configurationCount();
-    result._numberOfMarkings += graph.markingCount();
+    result._numberOfConfigurations += graph.configuration_count();
+    result._numberOfMarkings += graph.marking_count();
     result._processedEdges += alg->processed_edges();
     result._processedNegationEdges += alg->processed_negation_edges();
     result._exploredConfigurations += alg->explored_configurations();
@@ -142,10 +142,10 @@ bool solve_logical_condition(LogicalCondition* query, bool is_conj, const PetriN
     std::vector<Condition_ptr> queries;
     for(size_t i = 0; i < query->size(); ++i)
     {
-        if((*query)[i]->isReachability())
+        if((*query)[i]->is_reachability())
         {
             state[i] = dynamic_cast<NotCondition*>((*query)[i].get()) ? -1 : 1;
-            queries.emplace_back((*query)[i]->prepareForReachability());
+            queries.emplace_back((*query)[i]->prepare_for_reachability());
             lstate.emplace_back(state[i]);
         }
     }
@@ -231,10 +231,10 @@ bool recursive_solve(const Condition_ptr& query, const PetriEngine::PetriNet& ne
     {
         return solve_logical_condition(q, false, net, result, options);
     }
-    else if(query->isReachability())
+    else if(query->is_reachability())
     {
         SimpleResultHandler handler;
-        std::vector<Condition_ptr> queries{query->prepareForReachability()};
+        std::vector<Condition_ptr> queries{query->prepare_for_reachability()};
         std::vector<AbstractHandler::Result> res;
         res.emplace_back(AbstractHandler::Unknown);
         if(options._tar)
@@ -253,7 +253,7 @@ bool recursive_solve(const Condition_ptr& query, const PetriEngine::PetriNet& ne
                            false,
                            options.seed());
         }
-        return (res.back() == AbstractHandler::Satisfied) xor query->isInvariant();
+        return (res.back() == AbstractHandler::Satisfied) xor query->is_invariant();
     }
     else
     {
@@ -272,8 +272,8 @@ CTLResult verify_ctl(const PetriNet& net,
 
     {
         OnTheFlyDG graph(net, options._stubborn_reduction);
-        graph.setQuery(result._query);
-        switch (graph.initialEval()) {
+        graph.set_query(result._query);
+        switch (graph.initial_eval()) {
             case Condition::Result::RFALSE:
                 result._result = false;
                 solved = true;

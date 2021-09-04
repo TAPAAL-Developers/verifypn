@@ -26,16 +26,16 @@ namespace PetriEngine {
 
         Expr::~Expr()= default;
         
-        bool Condition::isTriviallyTrue() {
-            if (trivial == 1) {
+        bool Condition::is_trivially_true() {
+            if (_trivial == 1) {
                 return true;
             }
             
             return false;
         }
         
-        bool Condition::isTriviallyFalse() {
-            if (trivial == 2) {
+        bool Condition::is_trivially_false() {
+            if (_trivial == 2) {
                 return true;
             }
             
@@ -44,7 +44,7 @@ namespace PetriEngine {
         
         Condition::~Condition() = default;
 
-        Condition_ptr Condition::initialMarkingRW(const std::function<Condition_ptr()>& func, negstat_t& stats, const EvaluationContext& context, bool nested, bool negated, bool initrw)
+        Condition_ptr Condition::initial_marking_rewrite(const std::function<Condition_ptr()>& func, negstat_t& stats, const EvaluationContext& context, bool nested, bool negated, bool initrw)
         {
             auto res = func();
             if(!nested && initrw)
@@ -52,7 +52,7 @@ namespace PetriEngine {
                 auto e = res->evaluate(context);
                 if(e != Condition::RUNKNOWN) 
                 {
-                    if(res->getQuantifier() == E && res->getPath() == F)
+                    if(res->get_quantifier() == E && res->get_path() == F)
                     {
                         auto ef = static_cast<EFCondition*>(res.get());
                         if(dynamic_cast<UnfoldedUpperBoundsCondition*>((*ef)[0].get()))
@@ -66,7 +66,7 @@ namespace PetriEngine {
             return res;            
         }
 
-        void Condition::toString(std::ostream &os) {
+        void Condition::to_string(std::ostream &os) {
             QueryPrinter printer{os};
             this->visit(printer);
         }

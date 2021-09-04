@@ -12,7 +12,7 @@ bool LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
     using namespace DependencyGraph;
     _graph = &t_graph;
 
-    Configuration *v = _graph->initialConfiguration();
+    Configuration *v = _graph->initial_configuration();
     explore(v);
 
         while (!_strategy->empty())

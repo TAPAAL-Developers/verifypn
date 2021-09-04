@@ -38,7 +38,7 @@ namespace PetriEngine {
         _generator->next_binding();
         if (_generator->is_initial()) _generator = nullptr;
         return *this;
-    }   
+    }
 
     const Colored::BindingMap& NaiveBindingGenerator::Iterator::operator*() const {
         return _generator->current_binding();
@@ -48,23 +48,23 @@ namespace PetriEngine {
             Colored::ColorTypeMap& colorTypes)
         : _colorTypes(colorTypes)
     {
-        _expr = transition.guard;
+        _expr = transition._guard;
         std::set<const Colored::Variable*> variables;
         if (_expr != nullptr) {
-            _expr->getVariables(variables);
+            _expr->get_variables(variables);
         }
-        for (const auto& arc : transition.input_arcs) {
-            assert(arc.expr != nullptr);
-            arc.expr->getVariables(variables);
+        for (const auto& arc : transition._input_arcs) {
+            assert(arc._expr != nullptr);
+            arc._expr->get_variables(variables);
         }
-        for (const auto& arc : transition.output_arcs) {
-            assert(arc.expr != nullptr);
-            arc.expr->getVariables(variables);
+        for (const auto& arc : transition._output_arcs) {
+            assert(arc._expr != nullptr);
+            arc._expr->get_variables(variables);
         }
         for (const auto& var : variables) {
-            _bindings[var] = &var->colorType->operator[](0);
+            _bindings[var] = &var->_colorType->operator[](0);
         }
-        
+
         if (!eval())
             next_binding();
     }
@@ -83,7 +83,7 @@ namespace PetriEngine {
         while (!test) {
             for (auto& binding : _bindings) {
                 binding.second = &binding.second->operator++();
-                if (binding.second->getId() != 0) {
+                if (binding.second->get_id() != 0) {
                     break;
                 }
             }
@@ -102,7 +102,7 @@ namespace PetriEngine {
 
     bool NaiveBindingGenerator::is_initial() const {
         for (auto& b : _bindings) {
-            if (b.second->getId() != 0) return false;
+            if (b.second->get_id() != 0) return false;
         }
         return true;
     }
@@ -147,7 +147,7 @@ namespace PetriEngine {
 
     FixpointBindingGenerator::FixpointBindingGenerator(const Colored::Transition& transition,
         const Colored::ColorTypeMap& colorTypes,  const std::vector<std::set<const Colored::Variable *>>& symmetric_vars)
-    : _expr(transition.guard), _colorTypes(colorTypes), _transition(transition), _symmetric_vars(symmetric_vars)
+    : _expr(transition._guard), _colorTypes(colorTypes), _transition(transition), _symmetric_vars(symmetric_vars)
     {
         _isDone = false;
         _noValidBindings = false;
@@ -155,35 +155,35 @@ namespace PetriEngine {
 
         std::set<const Colored::Variable*> variables;
         if (_expr != nullptr) {
-            _expr->getVariables(variables);
+            _expr->get_variables(variables);
         }
-        for (const auto &arc : _transition.input_arcs) {
-            assert(arc.expr != nullptr);
-            arc.expr->getVariables(variables);
+        for (const auto &arc : _transition._input_arcs) {
+            assert(arc._expr != nullptr);
+            arc._expr->get_variables(variables);
         }
-        for (const auto &arc : _transition.output_arcs) {
-            assert(arc.expr != nullptr);
-            arc.expr->getVariables(variables);
+        for (const auto &arc : _transition._output_arcs) {
+            assert(arc._expr != nullptr);
+            arc._expr->get_variables(variables);
         }
 
         for(const auto &varSet : symmetric_vars){
             std::vector<std::vector<uint32_t>> combinations;
             std::vector<uint32_t> temp;
-            generate_combinations(varSet.begin().operator*()->colorType->size()-1, varSet.size(), combinations, temp);
+            generate_combinations(varSet.begin().operator*()->_colorType->size()-1, varSet.size(), combinations, temp);
             _symmetric_var_combinations.push_back(combinations);
-        }       
-        
-        
+        }
+
+
         for (auto* var : variables) {
-            if(_transition.variableMaps.empty() || _transition.variableMaps[_nextIndex].find(var)->second.empty()){
+            if(_transition._variable_maps.empty() || _transition._variable_maps[_nextIndex].find(var)->second.empty()){
                 _noValidBindings = true;
                 break;
             }
-            auto color = var->colorType->getColor(_transition.variableMaps[_nextIndex].find(var)->second.front().getLowerIds());
+            auto color = var->_colorType->get_color(_transition._variable_maps[_nextIndex].find(var)->second.front().get_lower_ids());
             _bindings[var] = color;
         }
         assign_symmetric_vars();
-        
+
         if (!_noValidBindings && !eval())
             next_binding();
     }
@@ -199,7 +199,7 @@ namespace PetriEngine {
         }
         uint32_t j = 0;
         for(auto var : _symmetric_vars[_currentOuterId]){
-            _bindings[var] = &var->colorType->operator[](_symmetric_var_combinations[_currentOuterId][_currentInnerId][j]);
+            _bindings[var] = &var->_colorType->operator[](_symmetric_var_combinations[_currentOuterId][_currentInnerId][j]);
             j++;
         }
         _currentInnerId++;
@@ -211,7 +211,7 @@ namespace PetriEngine {
                 return false;
             }
         }
-        return true;        
+        return true;
     }
 
 
@@ -244,31 +244,31 @@ namespace PetriEngine {
                         continue;
                     }
 
-                    const auto &varInterval = _transition.variableMaps[_nextIndex].find(binding.first)->second;                
+                    const auto &varInterval = _transition._variable_maps[_nextIndex].find(binding.first)->second;
                     std::vector<uint32_t> colorIds;
-                    binding.second->getTupleId(colorIds);
-                    const auto &nextIntervalBinding = varInterval.isRangeEnd(colorIds);
+                    binding.second->get_tuple_id(colorIds);
+                    const auto &nextIntervalBinding = varInterval.is_range_end(colorIds);
 
-                    if (nextIntervalBinding.size() == 0){                    
+                    if (nextIntervalBinding.size() == 0){
                         binding.second = &binding.second->operator++();
                         _currentInnerId = 0;
                         _currentOuterId = 0;
                         assign_symmetric_vars();
                         next = false;
-                        break;                    
+                        break;
                     } else {
-                        binding.second = binding.second->getColorType()->getColor(nextIntervalBinding.getLowerIds());
+                        binding.second = binding.second->get_color_type()->get_color(nextIntervalBinding.get_lower_ids());
                         _currentInnerId = 0;
                         _currentOuterId = 0;
                         assign_symmetric_vars();
                         if(!nextIntervalBinding.equals(varInterval.front())){
                             next = false;
-                            
+
                             break;
-                        }              
+                        }
                     }
                 }
-            }            
+            }
 
             if(next){
                 _nextIndex++;
@@ -277,12 +277,12 @@ namespace PetriEngine {
                     break;
                 }
                 for(auto& binding : _bindings){
-                    binding.second =  binding.second->getColorType()->getColor(_transition.variableMaps[_nextIndex].find(binding.first)->second.front().getLowerIds());
+                    binding.second =  binding.second->get_color_type()->get_color(_transition._variable_maps[_nextIndex].find(binding.first)->second.front().get_lower_ids());
                 }
-            }                 
+            }
             test = eval();
         }
-        
+
         return _bindings;
     }
 
@@ -307,7 +307,7 @@ namespace PetriEngine {
     }
 
     bool FixpointBindingGenerator::is_initial() const {
-        return _nextIndex >= _transition.variableMaps.size();
+        return _nextIndex >= _transition._variable_maps.size();
     }
 
     FixpointBindingGenerator::Iterator FixpointBindingGenerator::begin() {

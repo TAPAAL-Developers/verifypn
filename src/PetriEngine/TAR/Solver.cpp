@@ -126,7 +126,7 @@ namespace PetriEngine {
                             RangeEvalContext ctx(inter.back().first, _net, _use_count.get());
                             //inter.back().first.print(std::cerr) << std::endl;
                             _query->visit(ctx);
-/*                            _query->toString(std::cerr);
+/*                            _query->to_string(std::cerr);
                             std::cerr << std::endl;
                             std::cerr << "AFTER QUERY" << std::endl;
                             inter.back().first.print(std::cerr) << std::endl;*/
@@ -275,7 +275,7 @@ namespace PetriEngine {
                 {
 #ifdef VERBOSETAR
                     std::cerr << "CHECKQ" << std::endl;
-                    _query->toString(std::cerr);
+                    _query->to_string(std::cerr);
                     std::cerr << std::endl;
 #endif
                     for(size_t p = 0; p < _net.number_of_places(); ++p)
@@ -287,10 +287,10 @@ namespace PetriEngine {
                         }
                         else _mark[p] = _m[p];
                     }
-                    if(_query->getQuantifier() != Quantifier::UPPERBOUNDS)
+                    if(_query->get_quantifier() != Quantifier::UPPERBOUNDS)
                     {
                         EvaluationContext ctx(_mark.get(), &_net);
-                        auto r = _query->evalAndSet(ctx);
+                        auto r = _query->eval_and_set(ctx);
 #ifndef NDEBUG
                         if(first_fail == std::numeric_limits<decltype(first_fail)>::max())
                         {
@@ -306,7 +306,7 @@ namespace PetriEngine {
                                 if(t.get_edge_cnt() == 0)
                                 {
                                     EvaluationContext ctx(_mark.get(), &_net);
-                                    auto otherr = _query->evalAndSet(ctx);
+                                    auto otherr = _query->eval_and_set(ctx);
                                     assert(otherr == r);
                                 }
                                 else if(_gen.checkPreset(t.get_edge_cnt()-1))
@@ -352,7 +352,7 @@ namespace PetriEngine {
                         else
                         {
                             EvaluationContext ctx(_mark.get(), &_net);
-                            _query->evalAndSet(ctx);
+                            _query->eval_and_set(ctx);
                             return fail;
                         }
                     }

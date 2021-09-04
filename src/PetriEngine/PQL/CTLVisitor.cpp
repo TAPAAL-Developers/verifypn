@@ -334,7 +334,7 @@ namespace PetriEngine::PQL {
 
     void AsCTL::_accept(const ACondition *condition) {
         auto child = dynamic_cast<QuantifierCondition*>((*condition)[0].get());
-        switch (child->getPath()) {
+        switch (child->get_path()) {
             case Path::G:
                 (*child)[0]->visit(*this);
                 _ctl_query = std::make_shared<AGCondition>(_ctl_query);
@@ -363,7 +363,7 @@ namespace PetriEngine::PQL {
 
     void AsCTL::_accept(const ECondition *condition) {
         auto child = dynamic_cast<QuantifierCondition*>((*condition)[0].get());
-        switch (child->getPath()) {
+        switch (child->get_path()) {
             case Path::G:
                 (*child)[0]->visit(*this);
                 _ctl_query = std::make_shared<EGCondition>(_ctl_query);

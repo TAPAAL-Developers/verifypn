@@ -25,7 +25,7 @@ protected:
     void push_to_waiting(DependencyGraph::Edge* edge);
     DependencyGraph::Edge* pop_from_waiting();
     std::vector<DependencyGraph::Edge*> W;
-    size_t last_parent = 0;
+    size_t _last_parent = 0;
 };
 
 }   // end SearchStrategy

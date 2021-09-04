@@ -126,7 +126,7 @@ namespace LTL {
                     const_cast<PetriEngine::PQL::Condition *>(element.get())->shared_from_this();
             std::stringstream ss;
             ss << "\"";
-            bool choice = _compress == options_t::atomic_compression_e::Choose && element->formulaSize() > 250;
+            bool choice = _compress == options_t::atomic_compression_e::Choose && element->formula_size() > 250;
             if (_compress == options_t::atomic_compression_e::Full || choice) {
                 // FIXME Very naive; this completely removes APs being in multiple places in the query,
                 // leading to some query not being answered as is. The net gain is large in the firebaility category,

@@ -21,15 +21,15 @@ namespace PetriEngine {
 
     void RangeContext::handle_compare(const Expr_ptr& left, const Expr_ptr& right, bool strict)
     {
-        auto vl = left->getEval();
-        auto vr = right->getEval();
-        if(right->placeFree())
+        auto vl = left->get_eval();
+        auto vr = right->get_eval();
+        if(right->place_free())
         {
             _limit = vr + (strict ? 0 : 1);
             _lt = false;
             left->visit(*this);
         }
-        else if(left->placeFree())
+        else if(left->place_free())
         {
             _limit = vl - (strict ? 0 : 1);
             _lt = true;
@@ -49,14 +49,13 @@ namespace PetriEngine {
     void RangeContext::_accept(const NotCondition* element)
     {
         assert(false);
-        std::cerr << "UNSUPPORTED QUERY TYPE FOR TAR" << std::endl;
-        exit(-1);
+        throw base_error(ErrorCode, "UNSUPPORTED QUERY TYPE FOR TAR");
     }
 
 
     void RangeContext::_accept(const PetriEngine::PQL::AndCondition* element)
     {
-        if (element->isSatisfied()) return;
+        if (element->is_satisfied()) return;
         EvaluationContext ctx(_marking, &_net);
         prvector_t vect = _ranges;
         prvector_t res;
@@ -65,7 +64,7 @@ namespace PetriEngine {
         bool dirty = false;
         assert(!_is_dirty);
         for (auto& e : *element) {
-            if (e->evalAndSet(ctx) == Condition::RFALSE) {
+            if (e->eval_and_set(ctx) == Condition::RFALSE) {
                 _ranges = vect;
                 e->visit(*this);
                 dirty |= _is_dirty;
@@ -112,9 +111,9 @@ namespace PetriEngine {
 
     void RangeContext::_accept(const OrCondition* element)
     {
-        // if(element->isSatisfied()) return;
+        // if(element->is_satisfied()) return;
         for (auto& e : *element) {
-            //assert(!e->isSatisfied());
+            //assert(!e->is_satisfied());
             e->visit(*this);
             if(_is_dirty)
                 return;
@@ -164,7 +163,7 @@ namespace PetriEngine {
 
     void RangeContext::_accept(const PlusExpr* element)
     {
-        //auto fdf = std::abs(_limit - element->getEval())/
+        //auto fdf = std::abs(_limit - element->get_eval())/
         //(element->places().size() + element->expressions().size());
         for (auto& p : element->places()) {
             if(_dirty[p.first])
@@ -181,7 +180,7 @@ namespace PetriEngine {
             assert(pr._range._upper >= _base[p.first]);
         }
         for (auto& e : element->expressions()) {
-            _limit = e->getEval();
+            _limit = e->get_eval();
             e->visit(*this);
             if(_is_dirty) return;
         }
@@ -205,7 +204,7 @@ namespace PetriEngine {
 
     void RangeContext::_accept(const DeadlockCondition* element)
     {
-        assert(!element->isSatisfied());
+        assert(!element->is_satisfied());
         uint64_t priority = 0;
         size_t cand = 0;
         bool dirty = false;
@@ -257,7 +256,7 @@ namespace PetriEngine {
 
     void RangeContext::_accept(const CompareConjunction* element)
     {
-        assert(!element->isSatisfied());
+        assert(!element->is_satisfied());
         bool disjunction = element->isNegated();
         placerange_t pr;
         uint64_t priority = 0;

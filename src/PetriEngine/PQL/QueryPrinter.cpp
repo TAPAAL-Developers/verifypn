@@ -166,18 +166,18 @@ namespace PetriEngine {
 
         void QueryPrinter::_accept(const UntilCondition *condition) {
             os << "(";
-            condition->getCond1()->visit(*this);
+            condition->get_cond1()->visit(*this);
             os << " U ";
-            condition->getCond2()->visit(*this);
+            condition->get_cond2()->visit(*this);
             os << ")";
         }
 
         void QueryPrinter::_accept(const UnfoldedFireableCondition *element) {
-            os << "is-fireable(" << element->getName() << ")";
+            os << "is-fireable(" << element->get_name() << ")";
         }
 
         void QueryPrinter::_accept(const FireableCondition *element) {
-            os << "is-fireable(" << element->getName() << ")";
+            os << "is-fireable(" << element->get_name() << ")";
 
         }
 
@@ -193,7 +193,7 @@ namespace PetriEngine {
         }
 
         void QueryPrinter::_accept(const LivenessCondition *element) {
-            const Condition_ptr& cond = element->getCompiled();
+            const Condition_ptr& cond = element->get_compiled();
             if (cond) {
                 cond->visit(*this);
             }
@@ -203,8 +203,8 @@ namespace PetriEngine {
         }
 
         void QueryPrinter::_accept(const KSafeCondition *element) {
-            if (element->getCompiled()) {
-                element->getCompiled()->visit(*this);
+            if (element->get_compiled()) {
+                element->get_compiled()->visit(*this);
             }
             else {
                 os << "k-safe(";
@@ -214,7 +214,7 @@ namespace PetriEngine {
         }
 
         void QueryPrinter::_accept(const QuasiLivenessCondition *element) {
-            const Condition_ptr& cond = element->getCompiled();
+            const Condition_ptr& cond = element->get_compiled();
             if (cond) {
                 cond->visit(*this);
             }
@@ -224,7 +224,7 @@ namespace PetriEngine {
         }
 
         void QueryPrinter::_accept(const StableMarkingCondition *element) {
-            const Condition_ptr& cond = element->getCompiled();
+            const Condition_ptr& cond = element->get_compiled();
             if (cond) {
                 cond->visit(*this);
             }

@@ -28,6 +28,7 @@
 #include "PetriEngine/PQL/Contexts.h"
 #include "PetriEngine/Reducer.h"
 #include "PetriEngine/PQL/Expressions.h"
+#include "PetriEngine/TAR/ContainsVisitor.h"
 
 
 namespace PetriEngine {
@@ -465,10 +466,10 @@ namespace PetriEngine {
             {
                 queries[i]->analyze(placecontext);
                 all_reach &= (results[i] != Reachability::ResultPrinter::CTL && results[i] != Reachability::ResultPrinter::LTL);
-                remove_loops &= !queries[i]->isLoopSensitive();
+                remove_loops &= !queries[i]->is_loop_sensitive();
                 // There is a deadlock somewhere, if it is not alone, we cannot reduce.
                 // this has similar problems as nested next.
-                contains_next |= queries[i]->containsNext() || queries[i]->nestedDeadlock();
+                contains_next |= queries[i]->contains_next() || queries[i]->nested_deadlock();
             }
         }
         _reducer.reduce(placecontext, reductiontype, reconstructTrace, timeout, remove_loops, all_reach, contains_next, reductions);

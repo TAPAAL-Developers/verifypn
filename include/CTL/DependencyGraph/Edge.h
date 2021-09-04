@@ -21,14 +21,13 @@ public:
     Edge(){}
     Edge(Configuration &t_source) : _source(&t_source) {}
 
-    void addTarget(Configuration* conf)
+    void add_target(Configuration* conf)
     {
         assert(conf);
         _targets.push_front(conf);
-        //++children;
     }
-    
-    container _targets;    
+
+    container _targets;
     Configuration* _source;
     uint8_t _status = 0;
     bool _processed = false;

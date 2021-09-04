@@ -37,22 +37,22 @@ bool QueryBinaryParser::parse(std::ifstream& bin, const std::set<size_t>& parse_
     bool parsingOK = true;
     for(uint32_t i = 0; i < numq; ++i)
     {
-        queries.emplace_back();
-        std::getline(bin, queries.back().id, '\0');
-        queries.back().query = parseQuery(bin, names);
-        if(queries.back().query == nullptr)
+        _queries.emplace_back();
+        std::getline(bin, _queries.back()._id, '\0');
+        _queries.back()._query = parse_query(bin, names);
+        if(_queries.back()._query == nullptr)
         {
-            queries.back().parsingResult = QueryItem::UNSUPPORTED_QUERY;
+            _queries.back()._parsing_result = QueryItem::UNSUPPORTED_QUERY;
             parsingOK = false;
         }
         else
-            queries.back().parsingResult = QueryItem::PARSING_OK;
+            _queries.back()._parsing_result = QueryItem::PARSING_OK;
     }
     //Release DOM tree
     return parsingOK;
 }
 
-Condition_ptr QueryBinaryParser::parseQuery(std::ifstream& binary, const std::vector<std::string>& names)
+Condition_ptr QueryBinaryParser::parse_query(std::ifstream& binary, const std::vector<std::string>& names)
 {
     Path p;
     binary.read(reinterpret_cast<char*>(&p), sizeof(Path));
@@ -62,7 +62,7 @@ Condition_ptr QueryBinaryParser::parseQuery(std::ifstream& binary, const std::ve
     {
         if(q == Quantifier::NEG)
         {
-            auto c = parseQuery(binary, names);
+            auto c = parse_query(binary, names);
             if(c == nullptr)
             {
                 assert(false);
@@ -87,7 +87,7 @@ Condition_ptr QueryBinaryParser::parseQuery(std::ifstream& binary, const std::ve
             std::vector<Condition_ptr> conds;
             for(uint32_t i = 0; i < size; ++i)
             {
-                conds.push_back(parseQuery(binary, names));
+                conds.push_back(parse_query(binary, names));
                 if(conds.back() == nullptr) return nullptr;
             }
             if(q == Quantifier::AND)
@@ -116,8 +116,8 @@ Condition_ptr QueryBinaryParser::parseQuery(std::ifstream& binary, const std::ve
         {
             std::string sop;
             std::getline(binary, sop, '\0');
-            auto e1 = parseExpr(binary, names);
-            auto e2 = parseExpr(binary, names);
+            auto e1 = parse_expr(binary, names);
+            auto e2 = parse_expr(binary, names);
             if(e1 == nullptr || e2 == nullptr)
             {
                 assert(false);
@@ -163,7 +163,7 @@ Condition_ptr QueryBinaryParser::parseQuery(std::ifstream& binary, const std::ve
         }
         else if (q == Quantifier::A || q == Quantifier::E)
         {
-            Condition_ptr cond1 = parseQuery(binary, names);
+            Condition_ptr cond1 = parse_query(binary, names);
             assert(cond1);
             if (!cond1) return nullptr;
             if (q == Quantifier::A)
@@ -179,7 +179,7 @@ Condition_ptr QueryBinaryParser::parseQuery(std::ifstream& binary, const std::ve
     }
     else
     {
-        Condition_ptr cond1 = parseQuery(binary, names);
+        Condition_ptr cond1 = parse_query(binary, names);
         assert(cond1);
         if(!cond1) return nullptr;
         if(p == Path::X)
@@ -211,7 +211,7 @@ Condition_ptr QueryBinaryParser::parseQuery(std::ifstream& binary, const std::ve
         }
         else if(p == Path::U)
         {
-            auto cond2 = parseQuery(binary, names);
+            auto cond2 = parse_query(binary, names);
             if(cond2 == nullptr)
             {
                 assert(false);
@@ -234,7 +234,7 @@ Condition_ptr QueryBinaryParser::parseQuery(std::ifstream& binary, const std::ve
     return nullptr;
 }
 
-Expr_ptr QueryBinaryParser::parseExpr(std::ifstream& bin, const std::vector<std::string>& names) {
+Expr_ptr QueryBinaryParser::parse_expr(std::ifstream& bin, const std::vector<std::string>& names) {
     char t;
     bin.read(&t, sizeof(char));
     if(t == 'l')
@@ -256,7 +256,7 @@ Expr_ptr QueryBinaryParser::parseExpr(std::ifstream& bin, const std::vector<std:
         std::vector<Expr_ptr> exprs;
         for(uint32_t i = 0; i < size; ++i)
         {
-            exprs.push_back(parseExpr(bin, names));
+            exprs.push_back(parse_expr(bin, names));
             if(exprs.back() == nullptr)
             {
                 assert(false);
@@ -283,7 +283,7 @@ Expr_ptr QueryBinaryParser::parseExpr(std::ifstream& bin, const std::vector<std:
         }
         for(uint32_t i = 0; i < exprssize; ++i)
         {
-            exprs.push_back(parseExpr(bin, names));
+            exprs.push_back(parse_expr(bin, names));
             if(exprs.back() == nullptr)
             {
                 assert(false);

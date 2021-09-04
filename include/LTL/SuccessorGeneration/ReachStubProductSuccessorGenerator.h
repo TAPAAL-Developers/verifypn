@@ -62,8 +62,8 @@ namespace LTL {
                     }
                 }
                 bdd sink_prop = bdd_not(retarding | progressing);
-                auto prog_cond = toPQL(spot::bdd_to_formula(progressing, buchi._dict), aps);
-                auto ret_cond = toPQL(spot::bdd_to_formula(retarding, buchi._dict), aps);
+                auto prog_cond = to_PQL(spot::bdd_to_formula(progressing, buchi._dict), aps);
+                auto ret_cond = to_PQL(spot::bdd_to_formula(retarding, buchi._dict), aps);
                 auto sink_cond = sink_prop == bdd_false()
                                  ? PetriEngine::PQL::BooleanCondition::FALSE_CONSTANT
                                  : std::make_shared<PetriEngine::PQL::NotCondition>(

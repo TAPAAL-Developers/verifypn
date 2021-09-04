@@ -169,8 +169,8 @@ namespace PetriEngine {
         /** Context for condition to TAPAAL export */
         class TAPAALConditionExportContext {
         public:
-            bool failed;
-            std::string netName;
+            bool _failed;
+            std::string _netName;
         };
 
         class SimplificationContext {

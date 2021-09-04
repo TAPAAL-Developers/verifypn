@@ -60,9 +60,9 @@ namespace LTL {
                 for (auto &e : aut._buchi->out(state)) {
                     auto formula = spot::bdd_to_formula(e.cond, aut._dict);
                     if (e.dst == state) {
-                        state_guards.back()._retarding = Guard{toPQL(formula, aps), e.cond, state};
+                        state_guards.back()._retarding = Guard{to_PQL(formula, aps), e.cond, state};
                     } else {
-                        state_guards.back()._progressing.push_back(Guard{toPQL(formula, aps), e.cond, e.dst});
+                        state_guards.back()._progressing.push_back(Guard{to_PQL(formula, aps), e.cond, e.dst});
                     }
                 }
                 if (!state_guards.back()._retarding) {

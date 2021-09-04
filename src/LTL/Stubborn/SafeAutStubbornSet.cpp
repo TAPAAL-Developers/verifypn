@@ -42,12 +42,12 @@ namespace LTL {
         InterestingTransitionVisitor interesting{*this, false};
 
         PQL::EvaluationContext ctx(_parent->marking(), _net);
-        _prog_cond->evalAndSet(ctx);
-        _sink_cond->evalAndSet(ctx);
+        _prog_cond->eval_and_set(ctx);
+        _sink_cond->eval_and_set(ctx);
         _prog_cond->visit(unsafe);
         _sink_cond->visit(unsafe);
 
-        //_ret_cond->evalAndSet(ctx);
+        //_ret_cond->eval_and_set(ctx);
         //(std::make_shared<PetriEngine::PQL::NotCondition>(_ret_cond))->visit(interesting);
 
         assert(!_bad);

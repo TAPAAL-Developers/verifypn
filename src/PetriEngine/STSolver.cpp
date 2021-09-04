@@ -4,7 +4,7 @@
 
 namespace PetriEngine {
 
-    STSolver::STSolver(const Reachability::ResultPrinter& printer, const PetriNet& net, PQL::Condition * query, uint32_t depth) : printer(printer), _query(query), _net(net){
+    STSolver::STSolver(const Reachability::ResultPrinter& printer, const PetriNet& net, PQL::Condition * query, uint32_t depth) : _printer(printer), _query(query), _net(net){
         if(depth == 0){
             _siphonDepth = _net._nplaces;
         } else {
@@ -142,8 +142,8 @@ namespace PetriEngine {
 
     void STSolver::extend(size_t place, std::set<size_t>& pre, std::set<size_t>& post)
     {
-        pre.insert(_transitions.get() + _places[place].pre, _transitions.get() + _places[place].post);
-        post.insert(_transitions.get() + _places[place].post, _transitions.get() + _places[place+1].pre);
+        pre.insert(_transitions.get() + _places[place]._pre, _transitions.get() + _places[place]._post);
+        post.insert(_transitions.get() + _places[place]._post, _transitions.get() + _places[place+1]._pre);
     }
 
     bool STSolver::siphon_trap(std::vector<size_t> siphon, const std::vector<bool>& has_st, const std::set<size_t>& preset, const std::set<size_t>& postset)
@@ -205,7 +205,7 @@ namespace PetriEngine {
 
     Reachability::ResultPrinter::Result STSolver::print_result(){
         if(_siphonPropperty){
-            return printer.handle(0, _query, Reachability::ResultPrinter::NotSatisfied).first;
+            return _printer.handle(0, _query, Reachability::ResultPrinter::NotSatisfied).first;
         } else {
             return Reachability::ResultPrinter::Unknown;
         }
@@ -256,21 +256,21 @@ namespace PetriEngine {
             std::sort(pre.begin(), pre.end());
             std::sort(post.begin(), post.end());
 
-            _places[p].pre = offset;
+            _places[p]._pre = offset;
             offset += pre.size();
-            _places[p].post = offset;
+            _places[p]._post = offset;
             offset += post.size();
             for (size_t tn = 0; tn < pre.size(); ++tn) {
-                _transitions[tn + _places[p].pre] = pre[tn];
+                _transitions[tn + _places[p]._pre] = pre[tn];
             }
 
             for (size_t tn = 0; tn < post.size(); ++tn) {
-                _transitions[tn + _places[p].post] = post[tn];
+                _transitions[tn + _places[p]._post] = post[tn];
             }
 
         }
         assert(offset == ntrans);
-        _places[p].pre = offset;
-        _places[p].post = offset;
+        _places[p]._pre = offset;
+        _places[p]._post = offset;
     }
 }

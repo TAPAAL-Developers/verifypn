@@ -176,7 +176,7 @@ namespace PetriEngine {
         }
     }
 
-    void PetriNet::toXML(std::ostream& out)
+    void PetriNet::to_xml(std::ostream& out)
     {
         out << "<?xml version=\"1.0\"?>\n"
             << "<pnml xmlns=\"http://www.pnml.org/version-2009/grammar/pnml\">\n"

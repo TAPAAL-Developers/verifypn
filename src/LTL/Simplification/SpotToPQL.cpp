@@ -27,7 +27,7 @@
 
 namespace LTL {
     using namespace PetriEngine::PQL;
-    PetriEngine::PQL::Condition_ptr toPQL(const spot::formula &formula, const APInfo &apinfo) {
+    PetriEngine::PQL::Condition_ptr to_PQL(const spot::formula &formula, const APInfo &apinfo) {
 
         switch (formula.kind()) {
             case spot::op::ff:
@@ -49,26 +49,26 @@ namespace LTL {
 
             }
             case spot::op::Not:
-                return std::make_shared<NotCondition>(toPQL(formula[0], apinfo));
+                return std::make_shared<NotCondition>(to_PQL(formula[0], apinfo));
             case spot::op::X:
-                return std::make_shared<XCondition>(toPQL(formula[0], apinfo));
+                return std::make_shared<XCondition>(to_PQL(formula[0], apinfo));
             case spot::op::F:
-                return std::make_shared<FCondition>(toPQL(formula[0], apinfo));
+                return std::make_shared<FCondition>(to_PQL(formula[0], apinfo));
             case spot::op::G:
-                return std::make_shared<GCondition>(toPQL(formula[0], apinfo));
+                return std::make_shared<GCondition>(to_PQL(formula[0], apinfo));
             case spot::op::U:
                 return std::make_shared<UntilCondition>(
-                        toPQL(formula[0], apinfo), toPQL(formula[1], apinfo));
+                        to_PQL(formula[0], apinfo), to_PQL(formula[1], apinfo));
             case spot::op::Or: {
                 std::vector<Condition_ptr> conds;
                 std::transform(std::begin(formula), std::end(formula), std::back_insert_iterator(conds),
-                               [&](auto f) { return toPQL(f, apinfo); });
+                               [&](auto f) { return to_PQL(f, apinfo); });
                 return std::make_shared<OrCondition>(conds);
             }
             case spot::op::And: {
                 std::vector<Condition_ptr> conds;
                 std::transform(std::begin(formula), std::end(formula), std::back_insert_iterator(conds),
-                               [&](auto f) { return toPQL(f, apinfo); });
+                               [&](auto f) { return to_PQL(f, apinfo); });
                 return std::make_shared<AndCondition>(conds);
             }
             case spot::op::R:
@@ -155,6 +155,6 @@ namespace LTL {
         f = simplifier.simplify(f);
         // spot simplifies using unsupported operators R, W, and M, which we now remove.
         f = spot::unabbreviate(f, "RWM");
-        return toPQL(f, apinfo);
+        return to_PQL(f, apinfo);
     }
 } // namespace LTL

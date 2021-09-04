@@ -28,7 +28,7 @@ namespace PetriEngine {
             VariableModifierMap _varIndexModMap;
             std::vector<Colored::interval_vector_t> _intervalTupleVec;
             const Colored::ColorFixpoint * _source;
-            
+
             ~ArcIntervals() {_varIndexModMap.clear();}
             ArcIntervals() {
             }
@@ -45,7 +45,7 @@ namespace PetriEngine {
             void print() {
                 std::cout << "[ ";
                 for(auto varModifierPair : _varIndexModMap){
-                    std::cout << "(" << varModifierPair.first->name << ", " << varModifierPair.first->colorType->productSize() <<  ") ";
+                    std::cout << "(" << varModifierPair.first->_name << ", " << varModifierPair.first->_colorType->product_size() <<  ") ";
                 }
                 std::cout << "]" << std::endl;
                 for(auto intervalTuple: _intervalTupleVec){

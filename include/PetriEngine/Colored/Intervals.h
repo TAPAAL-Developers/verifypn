@@ -48,7 +48,7 @@ namespace PetriEngine {
                 return _ranges.size();
             }
 
-            bool isSound() const {
+            bool is_sound() const {
                 for(const auto& range: _ranges) {
                     if(!range.is_sound()){
                         return false;
@@ -57,19 +57,19 @@ namespace PetriEngine {
                 return true;
             }
 
-            void addRange(Reachability::range_t&& newRange) {
+            void add_range(Reachability::range_t&& newRange) {
                 _ranges.emplace_back(newRange);
             }
             
-            void addRange(const Reachability::range_t& newRange) {
+            void add_range(const Reachability::range_t& newRange) {
                 _ranges.emplace_back(newRange);
             }
 
-            void addRange(Reachability::range_t newRange, uint32_t index){
+            void add_range(Reachability::range_t newRange, uint32_t index){
                 _ranges.insert(_ranges.begin() + index, newRange);
             }
 
-            void addRange(uint32_t l, uint32_t u) {
+            void add_range(uint32_t l, uint32_t u) {
                 _ranges.emplace_back(l, u);
             }
 
@@ -84,7 +84,7 @@ namespace PetriEngine {
             }
 
 
-            std::vector<uint32_t> getLowerIds() const {
+            std::vector<uint32_t> get_lower_ids() const {
                 std::vector<uint32_t> ids;
                 for(auto& range : _ranges){
                     ids.push_back(range._lower);
@@ -92,10 +92,10 @@ namespace PetriEngine {
                 return ids;
             }
 
-            interval_t getSingleColorInterval() const {
+            interval_t get_single_color_interval() const {
                 interval_t newInterval;
                 for(auto& range : _ranges){
-                    newInterval.addRange(range._lower, range._lower);
+                    newInterval.add_range(range._lower, range._lower);
                 }
                 return newInterval;
             }
@@ -113,7 +113,7 @@ namespace PetriEngine {
                 return true;
             }
 
-            uint32_t getContainedColors() const {
+            uint32_t get_contained_colors() const {
                 uint32_t colors = 1;
                 for(const auto& range : _ranges) {
                     colors *= 1+  range._upper - range._lower;
@@ -133,7 +133,7 @@ namespace PetriEngine {
                 return true;
             }
 
-            interval_t getOverlap(const interval_t &other) const {
+            interval_t get_overlap(const interval_t &other) const {
                 interval_t overlapInterval;
                 if(size() != other.size()){
                     return overlapInterval;
@@ -141,13 +141,13 @@ namespace PetriEngine {
 
                 for(uint32_t i = 0; i < size(); i++){
                     auto rangeCopy = _ranges[i];
-                    overlapInterval.addRange(rangeCopy &= other[i]);
+                    overlapInterval.add_range(rangeCopy &= other[i]);
                 }
 
                 return overlapInterval;
             }
 
-            interval_t getOverlap(const interval_t& other, const std::vector<bool> &diagonalPositions) const {
+            interval_t get_overlap(const interval_t& other, const std::vector<bool> &diagonalPositions) const {
                 interval_t overlapInterval;
                 if(size() != other.size()){
                     return overlapInterval;
@@ -155,10 +155,10 @@ namespace PetriEngine {
 
                 for(uint32_t i = 0; i < size(); i++){
                     if(diagonalPositions[i]){
-                        overlapInterval.addRange(_ranges[i]);
+                        overlapInterval.add_range(_ranges[i]);
                     } else {
                         auto rangeCopy = _ranges[i];
-                        overlapInterval.addRange(rangeCopy &= other[i]);
+                        overlapInterval.add_range(rangeCopy &= other[i]);
                     }                    
                 }
 
@@ -183,7 +183,7 @@ namespace PetriEngine {
                 return true;
             }
             
-            std::vector<interval_t> getSubtracted(const interval_t& other, const std::vector<bool> &diagonalPositions) const {
+            std::vector<interval_t> get_substracted(const interval_t& other, const std::vector<bool> &diagonalPositions) const {
                 std::vector<interval_t> result;
                 
                 if(size() != other.size()){
@@ -227,7 +227,7 @@ namespace PetriEngine {
                 }
             }
 
-            std::string toString() const {
+            std::string to_string() const {
                 std::ostringstream strs;
                 for(const auto& range : _ranges){
                     strs << " " << range._lower << "-" << range._upper << " ";
@@ -237,9 +237,9 @@ namespace PetriEngine {
         };
 
         struct interval_dist_t {
-            uint32_t intervalId1;
-            uint32_t intervalId2;
-            uint32_t distance;
+            uint32_t _intervalId1;
+            uint32_t _intervalId2;
+            uint32_t _distance;
         };
 
         class interval_vector_t {
@@ -282,27 +282,27 @@ namespace PetriEngine {
                 return _intervals.size();
             }
 
-            size_t tupleSize() const {
+            size_t tuple_size() const {
                 return _intervals[0].size();
             }
 
-            uint32_t getContainedColors() const {
+            uint32_t get_contained_colors() const {
                 uint32_t colors = 0;
                 for (const auto& interval : _intervals) {
-                    colors += interval.getContainedColors();              
+                    colors += interval.get_contained_colors();              
                 }
                 return colors;
             }
 
-            static std::pair<uint32_t,uint32_t> shiftInterval(uint32_t lower, uint32_t upper, uint32_t ctSize, int32_t modifier) {
+            static std::pair<uint32_t,uint32_t> shift_interval(uint32_t lower, uint32_t upper, uint32_t ctSize, int32_t modifier) {
                 int32_t lower_val = ctSize + (lower + modifier);
                 int32_t upper_val = ctSize + (upper + modifier);
                 return std::make_pair(lower_val % ctSize, upper_val % ctSize);
             }
 
-            bool hasValidIntervals() const {
+            bool has_valid_intervals() const {
                 for(const auto& interval : _intervals) {
-                    if(interval.isSound()){
+                    if(interval.is_sound()){
                         return true;
                     }
                 }
@@ -323,7 +323,7 @@ namespace PetriEngine {
                 _intervals.insert(_intervals.end(), other._intervals.begin(), other._intervals.end());
             }
             
-            interval_t isRangeEnd(const std::vector<uint32_t>& ids) const {
+            interval_t is_range_end(const std::vector<uint32_t>& ids) const {
                 for (uint32_t j = 0; j < _intervals.size(); j++) {
                     bool rangeEnd = true;
                     for (uint32_t i = 0; i < _intervals[j].size(); i++) {
@@ -344,19 +344,19 @@ namespace PetriEngine {
                 return interval_t();
             }
 
-            std::vector<Colored::interval_t> shrinkIntervals(uint32_t newSize) const {
+            std::vector<Colored::interval_t> shrink_intervals(uint32_t newSize) const {
                 std::vector<Colored::interval_t> resizedIntervals;
                 for(auto& interval : _intervals){
                     Colored::interval_t resizedInterval;
                     for(uint32_t i = 0; i < newSize; i++){
-                        resizedInterval.addRange(interval[i]);
+                        resizedInterval.add_range(interval[i]);
                     }
                     resizedIntervals.push_back(resizedInterval);
                 }
                 return resizedIntervals;
             }
 
-            void addInterval(const interval_t& interval) {
+            void add_interval(const interval_t& interval) {
                 uint32_t vecIndex = 0;
 
                 if(!_intervals.empty()) {
@@ -403,7 +403,7 @@ namespace PetriEngine {
                 _intervals.insert(_intervals.begin() + vecIndex, interval);
             }
 
-            void constrainLower(const std::vector<uint32_t>& values, bool strict) {
+            void constrain_lower(const std::vector<uint32_t>& values, bool strict) {
                 for(uint32_t i = 0; i < _intervals.size(); ++i) {
                     for(uint32_t j = 0; j < values.size(); ++j){
                         if(strict && _intervals[i][j]._lower <= values[j]){
@@ -417,7 +417,7 @@ namespace PetriEngine {
                 simplify();
             }
 
-            void constrainUpper(const std::vector<uint32_t>& values, bool strict) {
+            void constrain_upper(const std::vector<uint32_t>& values, bool strict) {
                 for(uint32_t i = 0; i < _intervals.size(); ++i) {
                     for(uint32_t j = 0; j < values.size(); ++j){
                         if(strict && _intervals[i][j]._upper >= values[j]){
@@ -439,21 +439,21 @@ namespace PetriEngine {
                 }
             }
 
-            std::string toString() const {
+            std::string to_string() const {
                 std::string out;
                 for (const auto &interval : _intervals){
                     out += "[";
-                    out += interval.toString();
+                    out += interval.to_string();
                     out += "]\n";
                 }
                 return out;
             }
 
-            std::vector<uint32_t> getLowerIds() const {
+            std::vector<uint32_t> get_lower_ids() const {
                 std::vector<uint32_t> ids;
                 for(const auto& interval : _intervals){
                     if(ids.empty()){
-                        ids = interval.getLowerIds();
+                        ids = interval.get_lower_ids();
                     } else {
                         for(uint32_t i = 0; i < ids.size(); i++){
                             ids[i] = std::min(ids[i], interval[i]._lower);
@@ -463,13 +463,13 @@ namespace PetriEngine {
                 return ids;
             }
 
-            std::vector<uint32_t> getLowerIds(int32_t modifier, const std::vector<size_t>& sizes) const {
+            std::vector<uint32_t> get_lower_ids(int32_t modifier, const std::vector<size_t>& sizes) const {
                 std::vector<uint32_t> ids;
                 for(uint32_t j = 0; j < size(); j++){
                     auto& interval = _intervals[j];
                     if(ids.empty()){
                         for(uint32_t i = 0; i < ids.size(); i++){
-                            auto shiftedInterval = shiftInterval(interval[i]._lower, interval[i]._upper, sizes[i], modifier);
+                            auto shiftedInterval = shift_interval(interval[i]._lower, interval[i]._upper, sizes[i], modifier);
                             if(shiftedInterval.first > shiftedInterval.second){
                                 ids.push_back(0);
                             } else {
@@ -481,7 +481,7 @@ namespace PetriEngine {
                             if(ids[i] == 0){
                                 continue;
                             }
-                            auto shiftedInterval = shiftInterval(interval[i]._lower, interval[i]._upper, sizes[i], modifier);
+                            auto shiftedInterval = shift_interval(interval[i]._lower, interval[i]._upper, sizes[i], modifier);
                             if(shiftedInterval.first > shiftedInterval.second){
                                 ids[i] = 0;
                             } else {
@@ -493,13 +493,13 @@ namespace PetriEngine {
                 return ids;
             }
 
-            std::vector<uint32_t> getUpperIds(int32_t modifier, const std::vector<size_t>& sizes) const {
+            std::vector<uint32_t> get_upper_ids(int32_t modifier, const std::vector<size_t>& sizes) const {
                 std::vector<uint32_t> ids;
                 for(uint32_t j = 0; j < size(); j++){
                     const auto& interval = _intervals[j];
                     if(ids.empty()){
                         for(uint32_t i = 0; i < ids.size(); i++){
-                            auto shiftedInterval = shiftInterval(interval[i]._lower, interval[i]._upper, sizes[i], modifier);
+                            auto shiftedInterval = shift_interval(interval[i]._lower, interval[i]._upper, sizes[i], modifier);
 
                             if(shiftedInterval.first > shiftedInterval.second){
                                 ids.push_back(sizes[i]-1);
@@ -512,7 +512,7 @@ namespace PetriEngine {
                             if(ids[i] == sizes[i]-1){
                                 continue;
                             }
-                            auto shiftedInterval = shiftInterval(interval[i]._lower, interval[i]._upper, sizes[i], modifier);
+                            auto shiftedInterval = shift_interval(interval[i]._lower, interval[i]._upper, sizes[i], modifier);
 
                             if(shiftedInterval.first > shiftedInterval.second){
                                 ids[i] = sizes[i]-1;
@@ -525,7 +525,7 @@ namespace PetriEngine {
                 return ids;
             }
 
-            void applyModifier(int32_t modifier, const std::vector<size_t>& sizes) {
+            void apply_modifier(int32_t modifier, const std::vector<size_t>& sizes) {
                 std::vector<interval_t> collectedIntervals;
                 for(auto& interval : _intervals){
                     std::vector<interval_t> newIntervals;
@@ -533,7 +533,7 @@ namespace PetriEngine {
                     for(uint32_t i = 0; i < interval.size(); i++){
                         std::vector<interval_t> tempIntervals;
                         for(auto& interval1 : newIntervals){
-                            auto shiftedInterval = shiftInterval(interval1[i]._lower, interval1[i]._upper, sizes[i], modifier);
+                            auto shiftedInterval = shift_interval(interval1[i]._lower, interval1[i]._upper, sizes[i], modifier);
 
                             if(shiftedInterval.first > shiftedInterval.second) {
                                 auto newInterval = interval1;
@@ -566,7 +566,7 @@ namespace PetriEngine {
                 return false;
             }
 
-            void removeInterval(uint32_t index) {               
+            void remove_interval(uint32_t index) {               
                 _intervals.erase(_intervals.begin() + index); 
             }
 
@@ -579,20 +579,20 @@ namespace PetriEngine {
                 }
                 
                 while (size() > k){ 
-                    interval_dist_t closestInterval = getClosestIntervals();
-                    auto& interval = _intervals[closestInterval.intervalId1]; 
-                    const auto& otherInterval = _intervals[closestInterval.intervalId2]; 
+                    interval_dist_t closestInterval = get_closest_intervals();
+                    auto& interval = _intervals[closestInterval._intervalId1]; 
+                    const auto& otherInterval = _intervals[closestInterval._intervalId2]; 
 
                     for(uint32_t l = 0; l < interval.size(); l++) {
                         interval[l] |= otherInterval[l];
                     }
                     
-                    _intervals.erase(_intervals.begin() + closestInterval.intervalId2);
+                    _intervals.erase(_intervals.begin() + closestInterval._intervalId2);
                 }
                 simplify();
             }
 
-            interval_dist_t getClosestIntervals() const {
+            interval_dist_t get_closest_intervals() const {
                 interval_dist_t currentBest = {0,0, std::numeric_limits<uint32_t>::max()};
                 for (uint32_t i = 0; i < size()-1; i++) {
                     const auto& interval = _intervals[i];
@@ -604,18 +604,18 @@ namespace PetriEngine {
                             int32_t val1 = otherInterval[k]._lower - interval[k]._upper;
                             int32_t val2 = interval[k]._lower - otherInterval[k]._upper;
                             dist += std::max(0, std::max(val1, val2));
-                            if(dist >= currentBest.distance){
+                            if(dist >= currentBest._distance){
                                 break;
                             }
                         }
 
-                        if(dist < currentBest.distance){
-                            currentBest.distance = dist;
-                            currentBest.intervalId1 = i;
-                            currentBest.intervalId2 = j;
+                        if(dist < currentBest._distance){
+                            currentBest._distance = dist;
+                            currentBest._intervalId1 = i;
+                            currentBest._intervalId2 = j;
 
                             //if the distance is 1 we cannot find any intervals that are closer so we stop searching
-                            if(currentBest.distance == 1){
+                            if(currentBest._distance == 1){
                                 return currentBest;
                             }
                         }                           
@@ -625,14 +625,14 @@ namespace PetriEngine {
             }
 
             void simplify() {
-                while(!_intervals.empty() && !_intervals[0].isSound()){
+                while(!_intervals.empty() && !_intervals[0].is_sound()){
                     _intervals.erase(_intervals.begin());
                 }
                 for (size_t i = 0; i < _intervals.size(); ++i) {                    
                     for(size_t j = _intervals.size()-1; j > i; --j){
                         const auto& otherInterval = _intervals[j];
                         auto& interval = _intervals[i];
-                        if(!otherInterval.isSound()){
+                        if(!otherInterval.is_sound()){
                             _intervals.erase(_intervals.begin() + j);
                         }
                         else if(interval.intersects(otherInterval)) {
@@ -643,7 +643,7 @@ namespace PetriEngine {
                 }
             }
 
-            void combineNeighbours() {
+            void combine_neighbours() {
                 std::set<uint32_t> rangesToRemove;
                 if(_intervals.empty()){
                     return;
@@ -651,14 +651,14 @@ namespace PetriEngine {
 
                 for (uint32_t i = 0; i < _intervals.size(); i++) {
                     auto& interval = _intervals[i];
-                    if(!interval.isSound()){
+                    if(!interval.is_sound()){
                         rangesToRemove.insert(i);
                         continue;
                     }   
                     for(uint32_t j = i+1; j < _intervals.size(); j++){
                         const auto& otherInterval = _intervals[j];
 
-                        if(!otherInterval.isSound()){
+                        if(!otherInterval.is_sound()){
                             continue;
                         }   
                         bool overlap = true;

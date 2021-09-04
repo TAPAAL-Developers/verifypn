@@ -67,7 +67,7 @@ namespace PetriEngine {
                 throw "You cannot add Multisets over different sets";
             }
             for (auto c : other._set) {
-                const Color* color = &(*ColorType::dotInstance()->begin());
+                const Color* color = &(*ColorType::dot_instance()->begin());
                 if (_type != nullptr)
                     color = &((*_type)[c.first]);
                 (*this)[color] += c.second;
@@ -82,7 +82,7 @@ namespace PetriEngine {
                 throw "You cannot add Multisets over different sets";
             }
             for (auto c : _set) {
-                const Color* color = &(*ColorType::dotInstance()->begin());
+                const Color* color = &(*ColorType::dot_instance()->begin());
                 if (_type != nullptr)
                     color = &((*_type)[c.first]);
                 (*this)[color] = std::min(c.second - other[color], c.second);
@@ -96,14 +96,14 @@ namespace PetriEngine {
         }
 
         uint32_t Multiset::operator [](const Color* color) const {
-            if (_type != nullptr && _type == color->getColorType()) {
+            if (_type != nullptr && _type == color->get_color_type()) {
                 for (auto c : _set) {
-                    if (c.first == color->getId())
+                    if (c.first == color->get_id())
                         return c.second;
                 }
             } else if (_type == nullptr){
                 for (auto c : _set) {
-                    if (c.first == color->getId())
+                    if (c.first == color->get_id())
                         return c.second;
                 }
             }
@@ -113,17 +113,17 @@ namespace PetriEngine {
 
         uint32_t& Multiset::operator [](const Color* color) {
             if (_type == nullptr) {
-                _type = color->getColorType();
+                _type = color->get_color_type();
             }
-            if (color->getColorType() != nullptr && _type != color->getColorType()) {
+            if (color->get_color_type() != nullptr && _type != color->get_color_type()) {
                 throw "You cannot access a Multiset with a color from a different color type";
             }
             for (auto & i : _set) {
-                if (i.first == color->getId())
+                if (i.first == color->get_id())
                     return i.second;
             }
 
-            _set.emplace_back(color->getId(), 0);
+            _set.emplace_back(color->get_id(), 0);
             return _set.back().second;
         }
 
@@ -171,16 +171,16 @@ namespace PetriEngine {
 
         std::pair<const Color *, const uint32_t &> Multiset::Iterator::operator*() {
             auto& item = _ms->_set[_index];
-            auto color = &(*ColorType::dotInstance()->begin());
+            auto color = &(*ColorType::dot_instance()->begin());
             if (_ms->_type != nullptr)
                 color = &(*_ms->_type)[item.first];
             return { color, item.second };
         }
 
-        std::string Multiset::toString() const {
+        std::string Multiset::to_string() const {
             std::ostringstream oss;
             for (size_t i = 0; i < _set.size(); ++i) {
-                oss << _set[i].second << "'(" << (*_type)[_set[i].first].toString() << ")";
+                oss << _set[i].second << "'(" << (*_type)[_set[i].first].to_string() << ")";
                 if (i < _set.size() - 1) {
                     oss << " + ";
                 }

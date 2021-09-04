@@ -13,15 +13,15 @@ namespace CTL::SearchStrategy {
 class DFSSearch : public SearchStrategy {
 
 protected:
-    size_t waiting_size() const { return W.size(); };
-    void push_to_waiting(DependencyGraph::Edge* edge) { W.push(edge); };
+    size_t waiting_size() const { return _waiting.size(); };
+    void push_to_waiting(DependencyGraph::Edge* edge) { _waiting.push(edge); };
     DependencyGraph::Edge* pop_from_waiting() 
     {
-        auto e = W.top();
-        W.pop();
+        auto e = _waiting.top();
+        _waiting.pop();
         return e;
     };
-    std::stack<DependencyGraph::Edge*> W;
+    std::stack<DependencyGraph::Edge*> _waiting;
 };
 
 }   // end SearchStrategy

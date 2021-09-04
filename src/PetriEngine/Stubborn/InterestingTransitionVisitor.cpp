@@ -26,11 +26,11 @@ namespace PetriEngine {
 
     void InterestingTransitionVisitor::_accept(const PQL::UntilCondition *element)
     {
-        element->getCond1()->visit(*this);
+        element->get_cond1()->visit(*this);
         negate();
-        element->getCond1()->visit(*this);
+        element->get_cond1()->visit(*this);
         negate();
-        element->getCond2()->visit(*this);
+        element->get_cond2()->visit(*this);
     }
 
 
@@ -38,7 +38,7 @@ namespace PetriEngine {
     {
         if (!negated) {               // and
             for (auto &c : *element) {
-                if (!c->isSatisfied()) {
+                if (!c->is_satisfied()) {
                     c->visit(*this);
                     break;
                 }
@@ -54,7 +54,7 @@ namespace PetriEngine {
             for (auto &c : *element) c->visit(*this);
         } else {                    // and
             for (auto &c : *element) {
-                if (c->isSatisfied()) {
+                if (c->is_satisfied()) {
                     c->visit(*this);
                     break;
                 }
@@ -127,8 +127,8 @@ namespace PetriEngine {
     void InterestingTransitionVisitor::_accept(const PQL::EqualCondition *element)
     {
         if (!negated) {               // equal
-            if (element->getExpr1()->getEval() == element->getExpr2()->getEval()) { return; }
-            if (element->getExpr1()->getEval() > element->getExpr2()->getEval()) {
+            if (element->getExpr1()->get_eval() == element->getExpr2()->get_eval()) { return; }
+            if (element->getExpr1()->get_eval() > element->getExpr2()->get_eval()) {
                 element->getExpr1()->visit(decr);
                 element->getExpr2()->visit(incr);
             } else {
@@ -136,7 +136,7 @@ namespace PetriEngine {
                 element->getExpr2()->visit(decr);
             }
         } else {                    // not equal
-            if (element->getExpr1()->getEval() != element->getExpr2()->getEval()) { return; }
+            if (element->getExpr1()->get_eval() != element->getExpr2()->get_eval()) { return; }
             element->getExpr1()->visit(incr);
             element->getExpr1()->visit(decr);
             element->getExpr2()->visit(incr);
@@ -147,14 +147,14 @@ namespace PetriEngine {
     void InterestingTransitionVisitor::_accept(const PQL::NotEqualCondition *element)
     {
         if (!negated) {               // not equal
-            if (element->getExpr1()->getEval() != element->getExpr2()->getEval()) { return; }
+            if (element->getExpr1()->get_eval() != element->getExpr2()->get_eval()) { return; }
             element->getExpr1()->visit(incr);
             element->getExpr1()->visit(decr);
             element->getExpr2()->visit(incr);
             element->getExpr2()->visit(decr);
         } else {                    // equal
-            if (element->getExpr1()->getEval() == element->getExpr2()->getEval()) { return; }
-            if (element->getExpr1()->getEval() > element->getExpr2()->getEval()) {
+            if (element->getExpr1()->get_eval() == element->getExpr2()->get_eval()) { return; }
+            if (element->getExpr1()->get_eval() > element->getExpr2()->get_eval()) {
                 element->getExpr1()->visit(decr);
                 element->getExpr2()->visit(incr);
             } else {
@@ -167,11 +167,11 @@ namespace PetriEngine {
     void InterestingTransitionVisitor::_accept(const PQL::LessThanCondition *element)
     {
         if (!negated) {               // less than
-            if (element->getExpr1()->getEval() < element->getExpr2()->getEval()) { return; }
+            if (element->getExpr1()->get_eval() < element->getExpr2()->get_eval()) { return; }
             element->getExpr1()->visit(decr);
             element->getExpr2()->visit(incr);
         } else {                    // greater than or equal
-            if (element->getExpr1()->getEval() >= element->getExpr2()->getEval()) { return; }
+            if (element->getExpr1()->get_eval() >= element->getExpr2()->get_eval()) { return; }
             element->getExpr1()->visit(incr);
             element->getExpr2()->visit(decr);
         }
@@ -180,11 +180,11 @@ namespace PetriEngine {
     void InterestingTransitionVisitor::_accept(const PQL::LessThanOrEqualCondition *element)
     {
         if (!negated) {               // less than or equal
-            if (element->getExpr1()->getEval() <= element->getExpr2()->getEval()) { return; }
+            if (element->getExpr1()->get_eval() <= element->getExpr2()->get_eval()) { return; }
             element->getExpr1()->visit(decr);
             element->getExpr2()->visit(incr);
         } else {                    // greater than
-            if (element->getExpr1()->getEval() > element->getExpr2()->getEval()) { return; }
+            if (element->getExpr1()->get_eval() > element->getExpr2()->get_eval()) { return; }
             element->getExpr1()->visit(incr);
             element->getExpr2()->visit(decr);
         }
@@ -204,7 +204,7 @@ namespace PetriEngine {
 
     void InterestingTransitionVisitor::_accept(const PQL::DeadlockCondition *element)
     {
-        if (!element->isSatisfied()) {
+        if (!element->is_satisfied()) {
             _stubborn.post_preset_of(_stubborn.least_dependent_enabled(), closure);
         } // else add nothing
     }
@@ -415,7 +415,7 @@ namespace PetriEngine {
     template<typename Condition>
     void InterestingLTLTransitionVisitor::negate_if_satisfied(const Condition *element)
     {
-        auto isSatisfied = element->getSatisfied();
+        auto isSatisfied = element->get_satisfied();
         assert(isSatisfied != PQL::Condition::RUNKNOWN);
         if ((isSatisfied == PQL::Condition::RTRUE) != negated) {
             negate();

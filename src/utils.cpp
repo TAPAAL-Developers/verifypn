@@ -44,7 +44,7 @@ error_e context_analysis(const ColoredPetriNetBuilder& cpnBuilder, const PetriNe
         //Print errors if any
         if (context.errors().size() > 0) {
             for (size_t i = 0; i < context.errors().size(); i++) {
-                fprintf(stderr, "Query Context Analysis Error: %s\n", context.errors()[i].toString().c_str());
+                fprintf(stderr, "Query Context Analysis Error: %s\n", context.errors()[i].to_string().c_str());
             }
             return ErrorCode;
         }
@@ -53,7 +53,7 @@ error_e context_analysis(const ColoredPetriNetBuilder& cpnBuilder, const PetriNe
 }
 
 std::vector<Condition_ptr>
-readQueries(options_t& options, std::vector<std::string>& qstrings) {
+read_queries(options_t& options, std::vector<std::string>& qstrings) {
 
     std::vector<Condition_ptr > conditions;
     if (!options._statespace_exploration) {
@@ -87,7 +87,7 @@ readQueries(options_t& options, std::vector<std::string>& qstrings) {
             //Wrap in not if isInvariant
             querystring = querystr.substr(2);
             std::vector<std::string> tmp;
-            conditions.emplace_back(ParseQuery(querystring, tmp));
+            conditions.emplace_back(parse_query(querystring, tmp));
             if (isInvariant) conditions.back() = std::make_shared<AGCondition>(conditions.back());
             else conditions.back() = std::make_shared<EFCondition>(conditions.back());
         } else {
@@ -100,7 +100,7 @@ readQueries(options_t& options, std::vector<std::string>& qstrings) {
                     conditions.clear();
                     return conditions;
                 }
-                queries = std::move(parser.queries);
+                queries = std::move(parser._queries);
             } else {
                 QueryXMLParser parser;
                 if (!parser.parse(qfile, options._query_numbers)) {
@@ -121,21 +121,21 @@ readQueries(options_t& options, std::vector<std::string>& qstrings) {
                 }
                 ++i;
 
-                if (q.parsingResult == QueryItem::UNSUPPORTED_QUERY) {
+                if (q._parsing_result == QueryItem::UNSUPPORTED_QUERY) {
                     fprintf(stdout, "The selected query in the XML query file is not supported\n");
-                    fprintf(stdout, "FORMULA %s CANNOT_COMPUTE\n", q.id.c_str());
+                    fprintf(stdout, "FORMULA %s CANNOT_COMPUTE\n", q._id.c_str());
                     continue;
                 }
                 // fprintf(stdout, "Index of the selected query: %d\n\n", xmlquery);
 
-                conditions.push_back(q.query);
+                conditions.push_back(q._query);
                 if (conditions.back() == nullptr) {
-                    fprintf(stderr, "Error: Failed to parse query \"%s\"\n", q.id.c_str()); //querystr.substr(2).c_str());
-                    fprintf(stdout, "FORMULA %s CANNOT_COMPUTE\n", q.id.c_str());
+                    fprintf(stderr, "Error: Failed to parse query \"%s\"\n", q._id.c_str()); //querystr.substr(2).c_str());
+                    fprintf(stdout, "FORMULA %s CANNOT_COMPUTE\n", q._id.c_str());
                     conditions.pop_back();
                 }
 
-                qstrings.push_back(q.id);
+                qstrings.push_back(q._id);
             }
         }
         qfile.close();
@@ -143,12 +143,12 @@ readQueries(options_t& options, std::vector<std::string>& qstrings) {
     } else { // state-space exploration
         std::string querystring = "false";
         std::vector<std::string> empty;
-        conditions.push_back(std::make_shared<EFCondition>(ParseQuery(querystring, empty)));
+        conditions.push_back(std::make_shared<EFCondition>(parse_query(querystring, empty)));
         return conditions;
     }
 }
 
-error_e parseModel(AbstractPetriNetBuilder& builder, options_t& options) {
+error_e parse_model(AbstractPetriNetBuilder& builder, options_t& options) {
     //Load the model
     std::ifstream mfile(options._modelfile, std::ifstream::in);
     if (!mfile) {
@@ -168,7 +168,7 @@ error_e parseModel(AbstractPetriNetBuilder& builder, options_t& options) {
     return ContinueCode;
 }
 
-void printStats(PetriNetBuilder& builder, options_t& options) {
+void print_reduction_stats(PetriNetBuilder& builder, options_t& options) {
     if (options._print_statistics) {
         if (options._enable_reduction != 0) {
 
@@ -187,7 +187,7 @@ void printStats(PetriNetBuilder& builder, options_t& options) {
     }
 }
 
-void printUnfoldingStats(ColoredPetriNetBuilder& builder, options_t& options) {
+void print_unfolding_stats(ColoredPetriNetBuilder& builder, options_t& options) {
     if (!builder.is_colored() && !builder.is_unfolded())
         return;
     if (options._compute_CFP) {
@@ -209,7 +209,7 @@ void printUnfoldingStats(ColoredPetriNetBuilder& builder, options_t& options) {
     }
 }
 
-std::string getXMLQueries(std::vector<std::shared_ptr<Condition>> queries,
+std::string get_xml_queries(std::vector<std::shared_ptr<Condition>> queries,
     std::vector<std::string> querynames, std::vector<Reachability::ResultPrinter::Result> results) {
     bool cont = false;
     for (uint32_t i = 0; i < results.size(); i++) {
@@ -231,7 +231,7 @@ std::string getXMLQueries(std::vector<std::shared_ptr<Condition>> queries,
             continue;
         }
         ss << "  <property>\n    <id>" << querynames[i] << "</id>\n    <description>Simplified</description>\n    <formula>\n";
-        queries[i]->toXML(ss, 3);
+        queries[i]->to_xml(ss, 3);
         ss << "    </formula>\n  </property>\n";
     }
 
@@ -240,7 +240,7 @@ std::string getXMLQueries(std::vector<std::shared_ptr<Condition>> queries,
     return ss.str();
 }
 
-void writeQueries(const std::vector<std::shared_ptr<Condition>>&queries, std::vector<std::string>& querynames, std::vector<uint32_t>& order,
+void write_queries(const std::vector<std::shared_ptr<Condition>>&queries, std::vector<std::string>& querynames, std::vector<uint32_t>& order,
     std::string& filename, bool binary, const std::unordered_map<std::string, uint32_t>& place_names) {
     std::fstream out;
 
@@ -248,7 +248,7 @@ void writeQueries(const std::vector<std::shared_ptr<Condition>>&queries, std::ve
         out.open(filename, std::ios::binary | std::ios::out);
         uint32_t cnt = 0;
         for (uint32_t j = 0; j < queries.size(); j++) {
-            if (queries[j]->isTriviallyTrue() || queries[j]->isTriviallyFalse()) continue;
+            if (queries[j]->is_trivially_true() || queries[j]->is_trivially_false()) continue;
             ++cnt;
         }
         out.write(reinterpret_cast<const char *> (&cnt), sizeof (uint32_t));
@@ -266,14 +266,14 @@ void writeQueries(const std::vector<std::shared_ptr<Condition>>&queries, std::ve
 
     for (uint32_t j = 0; j < queries.size(); j++) {
         auto i = order[j];
-        if (queries[i]->isTriviallyTrue() || queries[i]->isTriviallyFalse()) continue;
+        if (queries[i]->is_trivially_true() || queries[i]->is_trivially_false()) continue;
         if (binary) {
             out.write(querynames[i].data(), querynames[i].size());
             out.write("\0", sizeof (char));
-            queries[i]->toBinary(out);
+            queries[i]->to_binary(out);
         } else {
             out << "  <property>\n    <id>" << querynames[i] << "</id>\n    <description>Simplified</description>\n    <formula>\n";
-            queries[i]->toXML(out, 3);
+            queries[i]->to_xml(out, 3);
             out << "    </formula>\n  </property>\n";
         }
     }
@@ -284,7 +284,7 @@ void writeQueries(const std::vector<std::shared_ptr<Condition>>&queries, std::ve
     out.close();
 }
 
-std::vector<Condition_ptr> getCTLQueries(const std::vector<Condition_ptr>& ctlStarQueries) {
+std::vector<Condition_ptr> get_ctl_queries(const std::vector<Condition_ptr>& ctlStarQueries) {
     std::vector<Condition_ptr> ctlQueries;
     for (const auto &ctlStarQuery : ctlStarQueries) {
         IsCTLVisitor isCtlVisitor;
@@ -302,7 +302,7 @@ std::vector<Condition_ptr> getCTLQueries(const std::vector<Condition_ptr>& ctlSt
     return ctlQueries;
 }
 
-std::vector<Condition_ptr> getLTLQueries(const std::vector<Condition_ptr>& ctlStarQueries) {
+std::vector<Condition_ptr> get_ltl_queries(const std::vector<Condition_ptr>& ctlStarQueries) {
     std::vector<Condition_ptr> ltlQueries;
     for (const auto &ctlStarQuery : ctlStarQueries) {
         LTL::LTLValidator isLtl;
@@ -342,9 +342,9 @@ Condition_ptr simplify_ltl_query(Condition_ptr query,
         cond = LTL::simplify(cond, options);
     }
     negstat_t stats;
-    cond = Condition::initialMarkingRW([&]() {
+    cond = Condition::initial_marking_rewrite([&]() {
         return cond; }, stats, evalContext, false, false, true)
-        ->pushNegation(stats, evalContext, false, false, true);
+        ->push_negation(stats, evalContext, false, false, true);
 
     if (options._print_statistics) {
         out << "RWSTATS PRE:";
@@ -353,7 +353,7 @@ Condition_ptr simplify_ltl_query(Condition_ptr query,
     }
 
     try {
-        cond = (cond->simplify(simplificationContext))._formula->pushNegation(stats, evalContext, false, false, true);
+        cond = (cond->simplify(simplificationContext))._formula->push_negation(stats, evalContext, false, false, true);
     }    catch (std::bad_alloc &ba) {
         std::cerr << "Query reduction failed." << std::endl;
         std::cerr << "Exception information: " << ba.what() << std::endl;
@@ -361,14 +361,14 @@ Condition_ptr simplify_ltl_query(Condition_ptr query,
         std::exit(ErrorCode);
     }
 
-    cond = Condition::initialMarkingRW([&]() {
+    cond = Condition::initial_marking_rewrite([&]() {
 #ifdef VERIFYPN_MC_Simplification
         std::scoped_lock scopedLock{spot_mutex};
 #endif
-        return LTL::simplify(cond->pushNegation(stats, evalContext, false, false, true), options);
+        return LTL::simplify(cond->push_negation(stats, evalContext, false, false, true), options);
     }, stats, evalContext, false, false, true);
 
-    if (cond->isTriviallyTrue() || cond->isTriviallyFalse()) {
+    if (cond->is_trivially_true() || cond->is_trivially_false()) {
         // nothing
     } else if (wasACond) {
         cond = std::make_shared<ACondition>(cond);
@@ -380,27 +380,27 @@ Condition_ptr simplify_ltl_query(Condition_ptr query,
         stats.print(out);
         out << std::endl;
         out << "Query after reduction: ";
-        cond->toString(out);
+        cond->to_string(out);
         out << std::endl;
     }
     return cond;
 }
 
-void outputQueries(const PetriNetBuilder &builder, const std::vector<PetriEngine::PQL::Condition_ptr> &queries,
+void output_queries(const PetriNetBuilder &builder, const std::vector<PetriEngine::PQL::Condition_ptr> &queries,
     std::vector<std::string> &querynames, std::string filename, uint32_t binary_query_io) {
     std::vector<uint32_t> reorder(queries.size());
     for (uint32_t i = 0; i < queries.size(); ++i) reorder[i] = i;
     std::sort(reorder.begin(), reorder.end(), [&](auto a, auto b) {
 
-        if (queries[a]->isReachability() != queries[b]->isReachability())
-            return queries[a]->isReachability() > queries[b]->isReachability();
-        if (queries[a]->isLoopSensitive() != queries[b]->isLoopSensitive())
-            return queries[a]->isLoopSensitive() < queries[b]->isLoopSensitive();
-        if (queries[a]->containsNext() != queries[b]->containsNext())
-            return queries[a]->containsNext() < queries[b]->containsNext();
-        return queries[a]->formulaSize() < queries[b]->formulaSize();
+        if (queries[a]->is_reachability() != queries[b]->is_reachability())
+            return queries[a]->is_reachability() > queries[b]->is_reachability();
+        if (queries[a]->is_loop_sensitive() != queries[b]->is_loop_sensitive())
+            return queries[a]->is_loop_sensitive() < queries[b]->is_loop_sensitive();
+        if (queries[a]->contains_next() != queries[b]->contains_next())
+            return queries[a]->contains_next() < queries[b]->contains_next();
+        return queries[a]->formula_size() < queries[b]->formula_size();
     });
-    writeQueries(queries, querynames, reorder, filename, binary_query_io & 2, builder.get_place_names());
+    write_queries(queries, querynames, reorder, filename, binary_query_io & 2, builder.get_place_names());
 }
 
 void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, const options_t& options) {
@@ -440,7 +440,7 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
 
                         if (options._print_statistics && options._query_reduction_timeout > 0) {
                             out << "\nQuery before reduction: ";
-                            queries[i]->toString(out);
+                            queries[i]->to_string(out);
                             out << std::endl;
                         }
 
@@ -448,7 +448,7 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
                         qt = (options._query_reduction_timeout - std::chrono::duration_cast<std::chrono::seconds>(end - begin).count()) / (queries.size() - i);
 #endif
                         // this is used later, we already know that this is a plain reachability (or AG)
-                        int preSize = queries[i]->formulaSize();
+                        int preSize = queries[i]->formula_size();
 
                         bool wasAGCPNApprox = dynamic_cast<NotCondition*> (queries[i].get()) != nullptr;
                         if (options._logic == options_t::temporal_logic_e::LTL) {
@@ -459,9 +459,9 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
                                 context, simplificationContext, out);
                             continue;
                         }
-                        queries[i] = Condition::initialMarkingRW([&]() {
+                        queries[i] = Condition::initial_marking_rewrite([&]() {
                             return queries[i]; }, stats, context, false, false, true)
-                            ->pushNegation(stats, context, false, false, true);
+                            ->push_negation(stats, context, false, false, true);
                         wasAGCPNApprox |= dynamic_cast<NotCondition*> (queries[i].get()) != nullptr;
 
                         if (options._query_reduction_timeout > 0 && options._print_statistics) {
@@ -476,7 +476,7 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
                                 options._lpsolve_timeout);
                             try {
                                 negstat_t stats;
-                                queries[i] = (queries[i]->simplify(simplificationContext))._formula->pushNegation(stats, context, false, false, true);
+                                queries[i] = (queries[i]->simplify(simplificationContext))._formula->push_negation(stats, context, false, false, true);
                                 wasAGCPNApprox |= dynamic_cast<NotCondition*> (queries[i].get()) != nullptr;
                                 if (options._print_statistics) {
                                     out << "RWSTATS POST:";
@@ -492,7 +492,7 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
 
                             if (options._print_statistics) {
                                 out << "\nQuery after reduction: ";
-                                queries[i]->toString(out);
+                                queries[i]->to_string(out);
                                 out << std::endl;
                             }
                             if (simplificationContext.timeout()) {
@@ -508,16 +508,16 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
                             out << "Skipping linear-programming (-q 0)" << std::endl;
                         }
                         if (options._cpn_overapprox && wasAGCPNApprox) {
-                            if (queries[i]->isTriviallyTrue())
+                            if (queries[i]->is_trivially_true())
                                 queries[i] = std::make_shared<BooleanCondition>(false);
-                            else if (queries[i]->isTriviallyFalse())
+                            else if (queries[i]->is_trivially_false())
                                 queries[i] = std::make_shared<BooleanCondition>(true);
-                            queries[i]->setInvariant(wasAGCPNApprox);
+                            queries[i]->set_invariant(wasAGCPNApprox);
                         }
 
 
                         if (options._print_statistics) {
-                            int postSize = queries[i]->formulaSize();
+                            int postSize = queries[i]->formula_size();
                             double redPerc = preSize - postSize == 0 ? 0 : ((double) (preSize - postSize) / (double) preSize)*100;
                             out << "Query size reduced from " << preSize << " to " << postSize << " nodes ( " << redPerc << " percent reduction).\n";
                         }
@@ -548,7 +548,7 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
     }
 }
 
-error_e doReplay(const ColoredPetriNetBuilder &cpnBuilder, const PetriNetBuilder &builder,
+error_e replay_trace(const ColoredPetriNetBuilder &cpnBuilder, const PetriNetBuilder &builder,
     const PetriNet& net, std::vector<Condition_ptr>& queries,
     const std::vector<ResultPrinter::Result>& results, const options_t& options) {
     if (context_analysis(cpnBuilder, builder, net, queries) != ContinueCode)

@@ -40,17 +40,17 @@ public:
     std::vector<QueryItem>  queries;
 
     bool parse(std::ifstream& xml, const std::set<size_t>& );
-    void printQueries();
-    void printQueries(size_t i);
+    void print_queries();
+    void print_queries(size_t i);
 
 private:
-    bool parsePropertySet(rapidxml::xml_node<>* element, const std::set<size_t>&);
-    bool parseProperty(rapidxml::xml_node<>*  element);
-    bool parseTags(rapidxml::xml_node<>*  element);
-    Condition_ptr parseFormula(rapidxml::xml_node<>*  element);
-    Condition_ptr parseBooleanFormula(rapidxml::xml_node<>*  element);
-    Expr_ptr parseIntegerExpression(rapidxml::xml_node<>*  element);
-    std::string parsePlace(rapidxml::xml_node<>*  element);
+    bool parse_property_set(rapidxml::xml_node<>* element, const std::set<size_t>&);
+    bool parse_property(rapidxml::xml_node<>*  element);
+    bool parse_tags(rapidxml::xml_node<>*  element);
+    Condition_ptr parse_formula(rapidxml::xml_node<>*  element);
+    Condition_ptr parse_boolean_formula(rapidxml::xml_node<>*  element);
+    Expr_ptr parse_integer_expression(rapidxml::xml_node<>*  element);
+    std::string parse_place(rapidxml::xml_node<>*  element);
     void fatal_error(const std::string& token);
 };
 

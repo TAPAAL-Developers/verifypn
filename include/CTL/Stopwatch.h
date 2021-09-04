@@ -30,7 +30,7 @@ public:
         return os;
     }
 
-    std::string toString(){
+    std::string to_string(){
         stringstream ss;
         ss << this;
         return ss.str();

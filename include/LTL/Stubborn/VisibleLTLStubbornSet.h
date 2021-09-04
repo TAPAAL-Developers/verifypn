@@ -57,12 +57,12 @@ namespace LTL {
             memset(_places_seen.get(), 0, _net.number_of_places());
             for (uint32_t p = 0; p < net.number_of_places(); ++p) {
                 if (places[p]) {
-                    visTrans(p);
+                    set_transition_visible(p);
                 }
             }
         }
 
-        void visTrans(uint32_t place)
+        void set_transition_visible(uint32_t place)
         {
             if (_places_seen[place] > 0) return;
             _places_seen[place] = 1;

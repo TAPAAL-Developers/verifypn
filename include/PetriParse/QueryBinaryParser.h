@@ -30,13 +30,13 @@ public:
     QueryBinaryParser() {};
     ~QueryBinaryParser() {};
 
-    std::vector<QueryItem>  queries;
+    std::vector<QueryItem>  _queries;
 
     bool parse(std::ifstream& binary, const std::set<size_t>& );
 
 private:
-    Condition_ptr parseQuery(std::ifstream& binary, const std::vector<std::string>& names);
-    Expr_ptr parseExpr(std::ifstream& binary, const std::vector<std::string>& names);
+    Condition_ptr parse_query(std::ifstream& binary, const std::vector<std::string>& names);
+    Expr_ptr parse_expr(std::ifstream& binary, const std::vector<std::string>& names);
     
 };
 

@@ -66,7 +66,7 @@ namespace PetriEngine
     {
         _places.clear();
         // left < right (if strict is set, otherwise <= )
-        if(right->placeFree())
+        if(right->place_free())
         {
             //_limit = vr + (strict ? 0 : 1);
             //_lt = false;
@@ -89,7 +89,7 @@ namespace PetriEngine
                 _sufficient &= placerange_t(p, val, range_t::max());
             }
         } 
-        else if(left->placeFree())
+        else if(left->place_free())
         {
             //_limit = vl - (strict ? 0 : 1);
             //_lt = true;

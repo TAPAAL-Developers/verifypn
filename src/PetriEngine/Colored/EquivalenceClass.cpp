@@ -23,9 +23,9 @@ namespace PetriEngine {
 
             for(const auto& interval : _colorIntervals){
                 for(const auto& otherInterval : other._colorIntervals){
-                    auto overlappingInterval = interval.getOverlap(otherInterval);
-                    if(overlappingInterval.isSound()){
-                        result._colorIntervals.addInterval(overlappingInterval);
+                    auto overlappingInterval = interval.get_overlap(otherInterval);
+                    if(overlappingInterval.is_sound()){
+                        result._colorIntervals.add_interval(overlappingInterval);
                     }
                 }
             }
@@ -43,7 +43,7 @@ namespace PetriEngine {
             for(const auto& interval : _colorIntervals){
                 interval_vector_t intervalSubRes;
                 for(const auto& otherInterval : other._colorIntervals){
-                    auto subtractedIntervals = interval.getSubtracted(otherInterval, diagonalPositions);
+                    auto subtractedIntervals = interval.get_substracted(otherInterval, diagonalPositions);
                     
 
                     if(subtractedIntervals.empty() || subtractedIntervals[0].size() == 0){
@@ -57,9 +57,9 @@ namespace PetriEngine {
                         interval_vector_t newIntervals;
                         for(const auto& newInterval : subtractedIntervals){
                             for(const auto& interval : intervalSubRes){
-                                auto intersection = interval.getOverlap(newInterval);
-                                if(intersection.isSound()){
-                                    newIntervals.addInterval(intersection);
+                                auto intersection = interval.get_overlap(newInterval);
+                                if(intersection.is_sound()){
+                                    newIntervals.add_interval(intersection);
                                 }
                             }
                         }
@@ -67,14 +67,14 @@ namespace PetriEngine {
                     }
                 }
                 for(const auto& interval : intervalSubRes){
-                    resIntervals.addInterval(interval);
+                    resIntervals.add_interval(interval);
                 }                
             }
             result._colorIntervals = resIntervals;                  
             return result;
         }
 
-        bool EquivalenceClass::containsColor(const std::vector<uint32_t> &ids, const std::vector<bool> &diagonalPositions) const {
+        bool EquivalenceClass::contains_color(const std::vector<uint32_t> &ids, const std::vector<bool> &diagonalPositions) const {
             if(ids.size() != _colorIntervals.front().size()){
                 return false;
             }
