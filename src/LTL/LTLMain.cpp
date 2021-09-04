@@ -97,7 +97,7 @@ namespace LTL {
         if (options._strategy != options_t::search_strategy_e::HEUR && options._strategy != options_t::search_strategy_e::DEFAULT) {
             return nullptr;
         }
-        auto heur = parse_ltl_heuristic(net, automaton, negated_formula, options._ltl_heuristic);
+        auto heur = LTL::parse_ltl_heuristic(net, automaton, negated_formula, options._ltl_heuristic);
         if (heur == nullptr) {
             std::cerr << "Invalid heuristic specification, terminating.\n";
             exit(1);
