@@ -45,7 +45,7 @@ namespace PetriEngine {
 
         bool LinearProgram::is_impossible(const PQL::SimplificationContext& context, uint32_t solvetime) {
             bool use_ilp = true;
-            auto net = context.net();
+            auto& net = context.net();
 
 
             if(_result != result_t::UKNOWN)
@@ -174,7 +174,7 @@ namespace PetriEngine {
         std::vector<std::pair<double,bool>> LinearProgram::bounds(const PQL::SimplificationContext& context, uint32_t solvetime, const std::vector<uint32_t>& places)
         {
             std::vector<std::pair<double,bool>> result(places.size() + 1, std::make_pair(std::numeric_limits<double>::infinity(), false));
-            auto net = context.net();
+            auto& net = context.net();
             auto m0 = context.marking();
             auto timeout = std::min(solvetime, context.get_lp_timeout());
 
