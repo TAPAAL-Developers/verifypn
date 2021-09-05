@@ -42,10 +42,10 @@ public:
     void reset();
 
     /**
-     * Checks if the conditions are met for fireing t, if write != NULL,
+     * Checks if the conditions are met for fireing t, if write != nullptr,
      * then also consumes tokens from write while checking
      * @param t, transition to fire
-     * @param write, marking to consume from (possibly NULL)
+     * @param write, marking to consume from (possibly nullptr)
      * @return true if t is fireable, false otherwise
      */
     bool check_preset(uint32_t t);

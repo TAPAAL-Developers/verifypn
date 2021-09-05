@@ -145,7 +145,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
         if(v->_query->get_quantifier() == A){
             if (v->_query->get_path() == U){
                 auto cond = static_cast<AUCondition*>(v->_query);
-                Edge *right = NULL;
+                Edge *right = nullptr;
                 auto r1 = fast_eval((*cond)[1], &_query_marking);
                 if (r1 != Condition::RUNKNOWN){
                     //right side is not temporal, eval it right now!
@@ -161,7 +161,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                     right->add_target(c);
                 }
                 bool valid = false;
-                Configuration *left = NULL;
+                Configuration *left = nullptr;
                 auto r0 = fast_eval((*cond)[0], &_query_marking);
                 if (r0 != Condition::RUNKNOWN) {
                     //left side is not temporal, eval it right now!
@@ -170,9 +170,9 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                     //left side is temporal, include it in the edge
                     left = create_configuration(v->_marking, (*cond)[0]);
                 }
-                if (valid || left != NULL) {
+                if (valid || left != nullptr) {
                     //if left side is guaranteed to be not satisfied, skip successor generation
-                    Edge* leftEdge = NULL;
+                    Edge* leftEdge = nullptr;
                     next_states (_query_marking, cond,
                                 [&](){ leftEdge = new_edge(*v, std::numeric_limits<uint32_t>::max());},
                                 [&](Marking& mark){
@@ -194,7 +194,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                                 {
                                     if(leftEdge)
                                     {
-                                        if (left != NULL) {
+                                        if (left != nullptr) {
                                             leftEdge->add_target(left);
                                         }
                                         succs.push_back(leftEdge);
@@ -203,13 +203,13 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                             );
                 } //else: Left side is not temporal and it's false, no way to succeed there...
 
-                if (right != NULL) {
+                if (right != nullptr) {
                     succs.push_back(right);
                 }
             }
             else if(v->_query->get_path() == F){
                 auto cond = static_cast<AFCondition*>(v->_query);
-                Edge *subquery = NULL;
+                Edge *subquery = nullptr;
                 auto r = fast_eval((*cond)[0], &_query_marking);
                 if (r != Condition::RUNKNOWN) {
                     bool valid = r == Condition::RTRUE;
@@ -222,7 +222,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                     Configuration* c = create_configuration(v->_marking, (*cond)[0]);
                     subquery->add_target(c);
                 }
-                Edge* e1 = NULL;
+                Edge* e1 = nullptr;
                 next_states(_query_marking, cond,
                         [&](){e1 = new_edge(*v, std::numeric_limits<uint32_t>::max());},
                         [&](Marking& mark)
@@ -303,7 +303,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
         else if(v->_query->get_quantifier() == E){
             if (v->_query->get_path() == U){
                 auto cond = static_cast<EUCondition*>(v->_query);
-                Edge *right = NULL;
+                Edge *right = nullptr;
                 auto r1 = fast_eval((*cond)[1], &_query_marking);
                 if (r1 == Condition::RUNKNOWN) {
                     Configuration* c = create_configuration(v->_marking, (*cond)[1]);
@@ -318,7 +318,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                 }
 
 
-                Configuration *left = NULL;
+                Configuration *left = nullptr;
                 bool valid = false;
                 next_states(_query_marking, cond,
                     [&](){
@@ -330,7 +330,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                         }
                     },
                     [&](Marking& marking){
-                        if(left == NULL && !valid) return false;
+                        if(left == nullptr && !valid) return false;
                         auto res = fast_eval(cond, &marking);
                         if(res == Condition::RFALSE) return true;
                         if(res == Condition::RTRUE)
@@ -356,7 +356,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                         Edge* e = new_edge(*v, /*cond->distance(context)*/0);
                         Configuration* c1 = create_configuration(create_marking(marking), cond);
                         e->add_target(c1);
-                        if (left != NULL) {
+                        if (left != nullptr) {
                             e->add_target(left);
                         }
                         succs.push_back(e);
@@ -369,7 +369,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
             }
             else if(v->_query->get_path() == F){
                 auto cond = static_cast<EFCondition*>(v->_query);
-                Edge *subquery = NULL;
+                Edge *subquery = nullptr;
                 auto r = fast_eval((*cond)[0], &_query_marking);
                 if (r != Condition::RUNKNOWN) {
                     bool valid = r == Condition::RTRUE;
@@ -411,7 +411,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                             [](){}
                         );
 
-                if (subquery != NULL) {
+                if (subquery != nullptr) {
                     succs.push_back(subquery);
                 }
             }

@@ -105,7 +105,7 @@ int main(int argc, char* argv[]) {
     error_e v = options.parse(argc, argv);
     if(v != ContinueCode) return v;
     options.print();
-    options._seed_offset = (time(NULL) xor options._seed_offset);
+    options._seed_offset = (time(nullptr) xor options._seed_offset);
     ColoredPetriNetBuilder cpnBuilder;
     if(parse_model(cpnBuilder, options) != ContinueCode)
     {

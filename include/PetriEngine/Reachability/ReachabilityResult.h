@@ -72,7 +72,7 @@ namespace PetriEngine {
             const std::string _techniquesStateSpace = "TECHNIQUES EXPLICIT STATE_COMPRESSION";
 
             ResultPrinter(PetriNetBuilder* b, options_t* o, std::vector<std::string>& querynames)
-            : _builder(b), _options(o), _querynames(querynames), _reducer(NULL)
+            : _builder(b), _options(o), _querynames(querynames), _reducer(nullptr)
             {};
 
             void set_reducer(Reducer& r) { this->_reducer = &r; }

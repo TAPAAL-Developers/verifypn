@@ -202,7 +202,7 @@ namespace PetriEngine {
                 transitions.push(p.second);
             }
 
-            if(_reducer != NULL)
+            if(_reducer != nullptr)
                 _reducer->init_fire(std::cerr);
 
             while(transitions.size() > 0)
@@ -223,12 +223,12 @@ namespace PetriEngine {
                     }
                 }
 
-                if(_reducer != NULL)
+                if(_reducer != nullptr)
                     _reducer->extra_consume(std::cerr, tname);
 
                 std::cerr << "\t</transition>\n";
 
-                if(_reducer != NULL)
+                if(_reducer != nullptr)
                     _reducer->post_fire(std::cerr, tname);
 
             }

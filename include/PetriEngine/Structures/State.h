@@ -49,7 +49,7 @@ namespace PetriEngine {
             
             State()
             {
-                _marking = NULL;
+                _marking = nullptr;
             }
 
             State (const State &state) = delete;

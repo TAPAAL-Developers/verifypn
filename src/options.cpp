@@ -607,9 +607,9 @@ error_e options_t::parse(int argc, char* argv[])
                    );
             return SuccessCode;
         }
-        else if (_modelfile == NULL) {
+        else if (_modelfile == nullptr) {
             _modelfile = argv[i];
-        } else if (_queryfile == NULL) {
+        } else if (_queryfile == nullptr) {
             _queryfile = argv[i];
         } else {
 			fprintf(stderr, "Argument Error: Unrecognized option \"%s\"\n", _modelfile);
