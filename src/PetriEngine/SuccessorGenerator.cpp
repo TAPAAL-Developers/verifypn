@@ -22,12 +22,11 @@ namespace PetriEngine {
     : _net(net), _parent(nullptr) {
         reset();
     }
-    SuccessorGenerator::SuccessorGenerator(const PetriNet& net, std::vector<std::shared_ptr<PQL::Condition> >& queries) : SuccessorGenerator(net){}
+    SuccessorGenerator::SuccessorGenerator(const PetriNet& net, const std::vector<std::shared_ptr<PQL::Condition> >& queries) :
+    SuccessorGenerator(net){}
 
     SuccessorGenerator::SuccessorGenerator(const PetriNet &net, const std::shared_ptr<PQL::Condition> &query)
-                                           : SuccessorGenerator(net) {
-
-    }
+    : SuccessorGenerator(net) {}
 
     SuccessorGenerator::~SuccessorGenerator() {
     }

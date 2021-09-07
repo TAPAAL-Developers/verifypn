@@ -135,7 +135,7 @@ int main(int argc, char* argv[]) {
     {
         negstat_t stats;
         std::cout << "RWSTATS LEGEND:";
-        stats.print_rules(std::cout);
+        negstat_t::print_rules(std::cout);
         std::cout << std::endl;
     }
 
@@ -179,7 +179,7 @@ int main(int argc, char* argv[]) {
     if(options._symmetric_variables){
         cpnBuilder.compute_symmetric_variables();
     }
-    
+
     if(options._compute_CFP){
         cpnBuilder.compute_place_color_fixpoint(options._max_intervals, options._max_intervals_reduced, options._interval_timeout);
     }
@@ -189,11 +189,12 @@ int main(int argc, char* argv[]) {
     print_unfolding_stats(cpnBuilder, options);
     builder.sort();
     std::vector<ResultPrinter::Result> results(queries.size(), ResultPrinter::Result::Unknown);
-    ResultPrinter printer(&builder, &options, querynames);
+    ResultPrinter printer(builder, options, querynames);
 
     //----------------------- Query Simplification -----------------------//
-    PetriNetBuilder b2(builder);
+
     {
+        PetriNetBuilder b2(builder);
         std::unique_ptr<PetriNet> qnet(b2.make_petri_net(false));
         std::unique_ptr<MarkVal[]> qm0(qnet->make_initial_marking());
 
@@ -211,47 +212,12 @@ int main(int argc, char* argv[]) {
 
         qnet = nullptr;
         qm0 = nullptr;
-    }
+        print_simplification_results(b2, options, querynames, queries, results);
 
-    ResultPrinter p2(&b2, &options, querynames);
-    if (!options._statespace_exploration) {
-        for(size_t i = 0; i < queries.size(); ++i)
-        {
-            if(queries[i]->is_trivially_true()){
-                results[i] = p2.handle(i, queries[i].get(), ResultPrinter::Satisfied).first;
-                if(results[i] == ResultPrinter::Ignore && options._print_statistics)
-                {
-                    std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
-                }
-                else if (options._print_statistics) {
-                    std::cout << "Query solved by Query Simplification." << std::endl << std::endl;
-                }
-            } else if (queries[i]->is_trivially_false()) {
-                results[i] = p2.handle(i, queries[i].get(), ResultPrinter::NotSatisfied).first;
-                if(results[i] == ResultPrinter::Ignore &&  options._print_statistics)
-                {
-                    std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
-                }
-                else if (options._print_statistics) {
-                    std::cout << "Query solved by Query Simplification." << std::endl << std::endl;
-                }
-            } else if (options._strategy == options_t::search_strategy_e::OverApprox){
-                results[i] = p2.handle(i, queries[i].get(), ResultPrinter::Unknown).first;
-                if (options._print_statistics) {
-                    std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
-                }
-            } else if (options._noreach || !queries[i]->is_reachability()) {
-                results[i] = options._logic == options_t::temporal_logic_e::CTL ? ResultPrinter::CTL : ResultPrinter::LTL;
-            } else {
-                queries[i] = queries[i]->prepare_for_reachability();
-            }
-        }
-
-        if(all_done(results) && options._model_out_file.size() == 0)
+        if(all_done(results) && options._model_out_file.empty())
             return SuccessCode;
-    }
 
-    options._query_reduction_timeout = 0;
+    }
 
     //--------------------- Apply Net Reduction ---------------//
 

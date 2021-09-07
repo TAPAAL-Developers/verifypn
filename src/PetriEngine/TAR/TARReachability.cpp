@@ -495,7 +495,7 @@ namespace PetriEngine {
                         results[i] = ResultPrinter::Satisfied;
                     else
                         results[i] = ResultPrinter::NotSatisfied;
-                    auto ret = _printer.handle(i, queries[i].get(), results[i]);
+                    auto ret = _printer.handle(i, *queries[i], results[i]);
                     results[i] = ret.first;
                     if(res && ret.second)
                         return;
@@ -521,7 +521,7 @@ namespace PetriEngine {
                     EvaluationContext ec(state.marking(), &_net);
                     if(queries[i]->evaluate(ec) == Condition::RTRUE)
                     {
-                        auto ret = _printer.handle(i, queries[i].get(), ResultPrinter::Satisfied);
+                        auto ret = _printer.handle(i, *queries[i], ResultPrinter::Satisfied);
                         results[i] = ret.first;
                         if(ret.second)
                             return true;

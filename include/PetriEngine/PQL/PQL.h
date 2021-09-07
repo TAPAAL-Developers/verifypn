@@ -185,10 +185,12 @@ namespace PetriEngine {
             {
                 for(size_t i = 0; i < nrules; ++i) stream << _used[i] << ",";
             }
-            void print_rules(std::ostream& stream)
+
+            static inline void print_rules(std::ostream& stream)
             {
                 for(size_t i = 0; i < nrules; ++i) stream << _rulename[i] << ",";
             }
+
             int _used[nrules];
             int& operator[](size_t i) { return _used[i]; }
             bool _negated_fireability = false;
@@ -264,7 +266,7 @@ namespace PetriEngine {
                 _inv = isInvariant;
             }
 
-            bool is_invariant()
+            bool is_invariant() const
             {
                 return _inv;
             }

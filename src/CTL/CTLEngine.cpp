@@ -112,14 +112,14 @@ class ResultHandler : public AbstractHandler {
 
         std::pair<AbstractHandler::Result, bool> handle(
                 size_t index,
-                PQL::Condition* query,
+                const PQL::Condition& query,
                 AbstractHandler::Result result,
                 const std::vector<uint32_t>* maxPlaceBound,
                 size_t expandedStates,
                 size_t exploredStates,
                 size_t discoveredStates,
                 int maxTokens,
-                Structures::StateSetInterface* stateset, size_t lastmarking, const MarkVal* initialMarking) const override
+                const Structures::StateSetInterface* stateset, size_t lastmarking, const MarkVal* initialMarking) const override
         {
             if(result == ResultPrinter::Satisfied)
             {
@@ -204,14 +204,14 @@ class SimpleResultHandler : public AbstractHandler
 public:
     std::pair<AbstractHandler::Result, bool> handle(
                 size_t index,
-                PQL::Condition* query,
+                const PQL::Condition& query,
                 AbstractHandler::Result result,
                 const std::vector<uint32_t>* maxPlaceBound,
                 size_t expandedStates,
                 size_t exploredStates,
                 size_t discoveredStates,
                 int maxTokens,
-                Structures::StateSetInterface* stateset, size_t lastmarking, const MarkVal* initialMarking) const {
+                const Structures::StateSetInterface* stateset, size_t lastmarking, const MarkVal* initialMarking) const {
         return std::make_pair(result, false);
     }
 };

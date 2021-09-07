@@ -53,7 +53,7 @@ namespace PetriEngine {
 
             /** Perform reachability check using BFS with hasing */
             bool reachable(
-                    std::vector<std::shared_ptr<PQL::Condition > >& queries,
+                    const std::vector<std::shared_ptr<PQL::Condition > >& queries,
                     std::vector<ResultPrinter::Result>& results,
                     options_t::search_strategy_e strategy,
                     bool usestubborn,
@@ -72,16 +72,40 @@ namespace PetriEngine {
 
             template<typename Q, typename W = Structures::StateSet, typename G>
             bool try_reach(
-                std::vector<std::shared_ptr<PQL::Condition > >& queries,
+                const std::vector<std::shared_ptr<PQL::Condition > >& queries,
                 std::vector<ResultPrinter::Result>& results,
                 bool usequeries,
                 bool printstats,
                 size_t seed);
-            void print_stats(searchstate_t& s, Structures::StateSetInterface*);
-            bool check_queries(  std::vector<std::shared_ptr<PQL::Condition > >&,
-                                    std::vector<ResultPrinter::Result>&,
-                                    Structures::State&, searchstate_t&, Structures::StateSetInterface*);
-            std::pair<ResultPrinter::Result,bool> do_callback(std::shared_ptr<PQL::Condition>& query, size_t i, ResultPrinter::Result r, searchstate_t &ss, Structures::StateSetInterface *states);
+
+            template<typename Q>
+            Q init_q(Structures::StateSetInterface& states, size_t seed)
+            {
+                if constexpr (std::is_same<Q, Structures::RDFSQueue>::value)
+                    return Q(states, seed);
+                else
+                    return Q(states);
+            }
+
+            template<typename Q>
+            void push_to_q(Q& queue, size_t id, const MarkVal* marking, const PQL::Condition& query)
+            {
+                if constexpr (std::is_same<Q, Structures::HeuristicQueue>::value)
+                {
+                    PQL::DistanceContext dc(_net, marking);
+                    queue.push(id, query.distance(dc));
+                }
+                else
+                    queue.push(id);
+            }
+
+
+            void handle_completion(const searchstate_t& s, const Structures::StateSetInterface&);
+            bool check_queries( const std::vector<std::shared_ptr<PQL::Condition > >&,
+                                std::vector<ResultPrinter::Result>&,
+                                const Structures::State&, searchstate_t&, const Structures::StateSetInterface&);
+            std::pair<ResultPrinter::Result,bool> do_callback(const PQL::Condition& query,
+            size_t i, ResultPrinter::Result r, const searchstate_t &ss, const Structures::StateSetInterface& states);
 
             const PetriNet& _net;
             int _kbound;
@@ -91,18 +115,19 @@ namespace PetriEngine {
         };
 
         template <typename G>
-        inline G _make_suc_gen(const PetriNet &net, std::vector<PQL::Condition_ptr> &queries) {
-            return G{net, queries};
+        inline G _make_suc_gen(const PetriNet &net, const std::vector<PQL::Condition_ptr> &queries) {
+            return G(net, queries);
         }
         template <>
-        inline ReducingSuccessorGenerator _make_suc_gen(const PetriNet &net, std::vector<PQL::Condition_ptr> &queries) {
+        inline ReducingSuccessorGenerator _make_suc_gen(const PetriNet &net, const std::vector<PQL::Condition_ptr> &queries) {
             auto stubset = std::make_shared<ReachabilityStubbornSet>(net, queries);
             stubset->set_interesting_visitor<InterestingTransitionVisitor>();
             return ReducingSuccessorGenerator{net, stubset};
         }
 
+
         template<typename Q, typename W, typename G>
-        bool ReachabilitySearch::try_reach(   std::vector<std::shared_ptr<PQL::Condition> >& queries,
+        bool ReachabilitySearch::try_reach(const std::vector<std::shared_ptr<PQL::Condition> >& queries,
                                         std::vector<ResultPrinter::Result>& results, bool usequeries,
                                         bool printstats, size_t seed)
         {
@@ -123,7 +148,7 @@ namespace PetriEngine {
             working.set_marking(_net.make_initial_marking());
 
             W states(_net, _kbound);    // stateset
-            Q queue(&states, seed);           // working queue
+            Q queue = init_q<Q>(states, seed);           // working queue
             G generator = _make_suc_gen<G>(_net, queries); // successor generator
             auto r = states.add(state);
             // this can fail due to reductions; we push tokens around and violate K
@@ -133,17 +158,14 @@ namespace PetriEngine {
                 // check initial marking
                 if(ss._usequeries)
                 {
-                    if(check_queries(queries, results, working, ss, &states))
+                    if(check_queries(queries, results, working, ss, states))
                     {
-                        if(printstats) print_stats(ss, &states);
+                        if(printstats) handle_completion(ss, states);
                             return true;
                     }
                 }
                 // add initial to queue
-                {
-                    PQL::DistanceContext dc(_net, working.marking());
-                    queue.push(r.second, dc, queries[ss._heurquery]);
-                }
+                push_to_q(queue, r.second, working.marking(), *queries[ss._heurquery]);
 
                 // Search!
                 while (queue.pop(state)) {
@@ -153,15 +175,12 @@ namespace PetriEngine {
                         ss._enabledTransitionsCount[generator.fired()]++;
                         auto res = states.add(working);
                         if (res.first) {
-                            {
-                                PQL::DistanceContext dc(_net, working.marking());
-                                queue.push(res.second, dc, queries[ss._heurquery]);
-                            }
+                            push_to_q(queue, res.second, working.marking(), *queries[ss._heurquery]);
                             states.set_history(res.second, generator.fired());
                             _satisfyingMarking = res.second;
                             ss._exploredStates++;
-                            if (check_queries(queries, results, working, ss, &states)) {
-                                if(printstats) print_stats(ss, &states);
+                            if (check_queries(queries, results, working, ss, states)) {
+                                if(printstats) handle_completion(ss, states);
                                 return true;
                             }
                         }
@@ -175,11 +194,11 @@ namespace PetriEngine {
             {
                 if(results[i] == ResultPrinter::Unknown)
                 {
-                    results[i] = do_callback(queries[i], i, ResultPrinter::NotSatisfied, ss, &states).first;
+                    results[i] = do_callback(*queries[i], i, ResultPrinter::NotSatisfied, ss, states).first;
                 }
             }
 
-            if(printstats) print_stats(ss, &states);
+            if(printstats) handle_completion(ss, states);
             return false;
         }
 

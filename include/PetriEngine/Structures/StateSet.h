@@ -54,11 +54,11 @@ namespace PetriEngine {
 
             virtual std::pair<bool, size_t> lookup(State &state) = 0;
 
-            const PetriNet& net() { return _net;}
+            const PetriNet& net() const { return _net;}
 
             virtual void set_history(size_t id, size_t transition) = 0;
 
-            virtual std::pair<size_t, size_t> get_history(size_t markingid) = 0;
+            virtual std::pair<size_t, size_t> get_history(size_t markingid) const = 0;
 
         protected:
             size_t _discovered;
@@ -222,7 +222,7 @@ namespace PetriEngine {
 
             virtual void set_history(size_t id, size_t transition) override {}
 
-            virtual std::pair<size_t, size_t> get_history(size_t markingid) override
+            virtual std::pair<size_t, size_t> get_history(size_t markingid) const override
             {
                 assert(false);
                 return std::make_pair(0,0);
@@ -278,9 +278,10 @@ namespace PetriEngine {
                 t.transition = transition;
             }
 
-            virtual std::pair<size_t, size_t> get_history(size_t markingid) override
+            virtual std::pair<size_t, size_t> get_history(size_t markingid) const override
             {
-                traceable_t& t = _trie.get_data(markingid);
+                // const-cast here until the ptrie-library supports const access
+                traceable_t& t = const_cast<ptrie_t&>(_trie).get_data(markingid);
                 return std::pair<size_t, size_t>(t.parent, t.transition);
             }
 

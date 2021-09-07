@@ -14,7 +14,7 @@ namespace PetriEngine {
     };
 
     public:
-        STSolver(const Reachability::ResultPrinter& printer, const PetriNet& net, PQL::Condition * query, uint32_t depth);
+        STSolver(const Reachability::ResultPrinter& printer, const PetriNet& net, const PQL::Condition& query, uint32_t depth);
         virtual ~STSolver();
         bool solve(uint32_t timeout);
         Reachability::ResultPrinter::Result print_result();
@@ -28,7 +28,7 @@ namespace PetriEngine {
         void extend(size_t place, std::set<size_t>& pre, std::set<size_t>& post);
         bool _siphonPropperty = false;
         const Reachability::ResultPrinter& _printer;
-        PQL::Condition * _query;
+        const PQL::Condition&  _query;
         std::unique_ptr<place_t[]> _places;
         std::unique_ptr<uint32_t[]> _transitions;
         std::vector<size_t> _diff;

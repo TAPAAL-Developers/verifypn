@@ -25,7 +25,7 @@ namespace PetriEngine {
 public:
     SuccessorGenerator(const PetriNet& net);
     SuccessorGenerator(const PetriNet& net, const std::shared_ptr<StubbornSet>&);
-    SuccessorGenerator(const PetriNet& net, std::vector<std::shared_ptr<PQL::Condition> >& queries);
+    SuccessorGenerator(const PetriNet& net, const std::vector<std::shared_ptr<PQL::Condition> >& queries);
     SuccessorGenerator(const PetriNet& net, const std::shared_ptr<PQL::Condition> &query);
     virtual ~SuccessorGenerator();
     virtual bool prepare(const Structures::State& state);

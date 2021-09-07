@@ -4,7 +4,8 @@
 
 namespace PetriEngine {
 
-    STSolver::STSolver(const Reachability::ResultPrinter& printer, const PetriNet& net, PQL::Condition * query, uint32_t depth) : _printer(printer), _query(query), _net(net){
+    STSolver::STSolver(const Reachability::ResultPrinter& printer, const PetriNet& net, const PQL::Condition&  query, uint32_t depth)
+    : _printer(printer), _query(query), _net(net){
         if(depth == 0){
             _siphonDepth = _net._nplaces;
         } else {

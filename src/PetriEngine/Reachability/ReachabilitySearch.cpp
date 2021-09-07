@@ -29,11 +29,11 @@ using namespace PetriEngine::Structures;
 namespace PetriEngine {
     namespace Reachability {
 
-        bool ReachabilitySearch::check_queries(std::vector<std::shared_ptr<PQL::Condition > >& queries,
+        bool ReachabilitySearch::check_queries(const std::vector<std::shared_ptr<PQL::Condition > >& queries,
                                                 std::vector<ResultPrinter::Result>& results,
-                                                State& state,
-                                                searchstate_t& ss, StateSetInterface* states)
-{
+                                                const State& state,
+                                                searchstate_t& ss, const StateSetInterface& states)
+        {
             if (!ss._usequeries) return false;
 
             bool alldone = true;
@@ -43,8 +43,8 @@ namespace PetriEngine {
                 {
                     EvaluationContext ec(state.marking(), &_net);
                     if(queries[i]->evaluate(ec) == Condition::RTRUE)
-{
-                        auto r = do_callback(queries[i], i, ResultPrinter::Satisfied, ss, states);
+                    {
+                        auto r = do_callback(*queries[i], i, ResultPrinter::Satisfied, ss, states);
                         results[i] = r.first;
                         if(r.second)
                             return true;
@@ -71,21 +71,21 @@ namespace PetriEngine {
             return alldone;
         }
 
-        std::pair<ResultPrinter::Result, bool> ReachabilitySearch::do_callback(std::shared_ptr<PQL::Condition>& query, size_t i, ResultPrinter::Result r,
-                                                             searchstate_t& ss, Structures::StateSetInterface* states)
+        std::pair<ResultPrinter::Result, bool> ReachabilitySearch::do_callback(const PQL::Condition& query, size_t i, ResultPrinter::Result r,
+                                                             const searchstate_t& ss, const Structures::StateSetInterface& states)
         {
-            return _callback.handle(i, query.get(), r, &states->max_place_bound(),
-                ss._expandedStates, ss._exploredStates, states->discovered(), states->max_tokens(),
-                        states, _satisfyingMarking, _initial.marking());
+            return _callback.handle(i, query, r, &states.max_place_bound(),
+                ss._expandedStates, ss._exploredStates, states.discovered(), states.max_tokens(),
+                        &states, _satisfyingMarking, _initial.marking());
         }
 
-        void ReachabilitySearch::print_stats(searchstate_t& ss, Structures::StateSetInterface* states)
+        void ReachabilitySearch::handle_completion(const searchstate_t& ss, const Structures::StateSetInterface& states)
         {
             std::cout   << "STATS:\n"
-                        << "\tdiscovered states: " << states->discovered() << std::endl
-                << "\texplored states:   " << ss._exploredStates << std::endl
-                << "\texpanded states:   " << ss._expandedStates << std::endl
-                        << "\tmax tokens:        " << states->max_tokens() << std::endl;
+                        << "\tdiscovered states: " << states.discovered() << std::endl
+                        << "\texplored states:   " << ss._exploredStates << std::endl
+                        << "\texpanded states:   " << ss._expandedStates << std::endl
+                        << "\tmax tokens:        " << states.max_tokens() << std::endl;
 
             std::cout << "\nTRANSITION STATISTICS\n";
             for (size_t i = 0; i < _net.number_of_transitions(); ++i) {
@@ -102,7 +102,7 @@ namespace PetriEngine {
             std::cout << "\n\nPLACE-BOUND STATISTICS\n";
             for (size_t i = 0; i < _net.number_of_places(); ++i)
             {
-                std::cout << "<" << _net.place_names()[i] << ";" << states->max_place_bound()[i] << ">";
+                std::cout << "<" << _net.place_names()[i] << ";" << states.max_place_bound()[i] << ">";
             }
 
             // report maximum bounds for each place (? means that the place was removed in net reduction)
@@ -122,7 +122,7 @@ namespace PetriEngine {
 
 
         bool ReachabilitySearch::reachable(
-                    std::vector<std::shared_ptr<PQL::Condition > >& queries,
+                    const std::vector<std::shared_ptr<PQL::Condition > >& queries,
                     std::vector<ResultPrinter::Result>& results,
                     options_t::search_strategy_e strategy,
                     bool stubbornreduction,

@@ -570,12 +570,51 @@ void run_siphon_trap(const PetriNet& net, std::vector<Condition_ptr>& queries, s
             bool isDeadlockQuery = std::dynamic_pointer_cast<DeadlockCondition>(queries[i]) != nullptr;
 
             if (results[i] == ResultPrinter::Unknown && isDeadlockQuery) {
-                STSolver stSolver(printer, net, queries[i].get(), options._siphon_depth);
+                STSolver stSolver(printer, net, *queries[i], options._siphon_depth);
                 stSolver.solve(options._siphontrap_timeout);
                 results[i] = stSolver.print_result();
                 if (results[i] == Reachability::ResultPrinter::NotSatisfied && options._print_statistics) {
                     std::cout << "Query solved by Siphon-Trap Analysis." << std::endl << std::endl;
                 }
+            }
+        }
+    }
+}
+
+void print_simplification_results(const PetriEngine::PetriNetBuilder& b2, const options_t& options, const std::vector<std::string>& querynames,
+        std::vector<Condition_ptr>& queries, std::vector<ResultPrinter::Result>& results)
+{
+    ResultPrinter p2(b2, options, querynames);
+    if (!options._statespace_exploration) {
+        for(size_t i = 0; i < queries.size(); ++i)
+        {
+            if(queries[i]->is_trivially_true()){
+                results[i] = p2.handle(i, *queries[i], ResultPrinter::Satisfied).first;
+                if(results[i] == ResultPrinter::Ignore && options._print_statistics)
+                {
+                    std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
+                }
+                else if (options._print_statistics) {
+                    std::cout << "Query solved by Query Simplification." << std::endl << std::endl;
+                }
+            } else if (queries[i]->is_trivially_false()) {
+                results[i] = p2.handle(i, *queries[i], ResultPrinter::NotSatisfied).first;
+                if(results[i] == ResultPrinter::Ignore &&  options._print_statistics)
+                {
+                    std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
+                }
+                else if (options._print_statistics) {
+                    std::cout << "Query solved by Query Simplification." << std::endl << std::endl;
+                }
+            } else if (options._strategy == options_t::search_strategy_e::OverApprox){
+                results[i] = p2.handle(i, *queries[i], ResultPrinter::Unknown).first;
+                if (options._print_statistics) {
+                    std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
+                }
+            } else if (options._noreach || !queries[i]->is_reachability()) {
+                results[i] = options._logic == options_t::temporal_logic_e::CTL ? ResultPrinter::CTL : ResultPrinter::LTL;
+            } else {
+                queries[i] = queries[i]->prepare_for_reachability();
             }
         }
     }
