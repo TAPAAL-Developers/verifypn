@@ -36,8 +36,7 @@ error_e get_algorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm>& algorithm
             algorithm = std::make_shared<Algorithm::CertainZeroFPA>(search);
             break;
         default:
-            cerr << "Error: Unknown or unsupported algorithm" << endl;
-            return ErrorCode;
+            throw base_error("Error: Unknown or unsupported algorithm");
     }
     return ContinueCode;
 }

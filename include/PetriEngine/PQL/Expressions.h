@@ -30,6 +30,7 @@
 #include "..//Simplification/Member.h"
 #include "../Simplification/LinearPrograms.h"
 #include "../Simplification/Retval.h"
+#include "errorcodes.h"
 
 using namespace PetriEngine::Simplification;
 
@@ -444,7 +445,7 @@ namespace PetriEngine {
             Path get_path() const override             { return Path::pError; }
             uint32_t distance(DistanceContext& context) const override {
                 // TODO implement
-                assert(false); std::cerr << "TODO implement" << std::endl; exit(0);
+                throw base_error("TODO implement");
             }
             bool is_loop_sensitive() const override {
                 // Other LTL Loop sensitivity depend on the outermost quantifier being an A,
@@ -495,9 +496,7 @@ namespace PetriEngine {
 
           Condition_ptr prepare_for_reachability(bool negated) const override {
               // TODO implement
-              assert(false);
-              std::cerr << "TODO implement" << std::endl;
-              exit(0);
+              throw base_error("TODO implement");
           }
 
           Condition_ptr
@@ -543,7 +542,7 @@ namespace PetriEngine {
           }
             Condition_ptr prepare_for_reachability(bool negated) const override {
                 // TODO implement
-                assert(false); std::cerr << "TODO implement" << std::endl; exit(0);
+                throw base_error("TODO implement");
             }
             Condition_ptr push_negation(negstat_t&, const EvaluationContext& context, bool nested, bool negated, bool initrw) override;
             void to_xml(std::ostream&, uint32_t tabs) const override;
@@ -569,7 +568,7 @@ namespace PetriEngine {
             }
             Condition_ptr prepare_for_reachability(bool negated) const override {
                 // TODO implement
-                assert(false); std::cerr << "TODO implement" << std::endl; exit(0);
+                throw base_error("TODO implement");
             }
             Condition_ptr push_negation(negstat_t&, const EvaluationContext& context, bool nested, bool negated, bool initrw) override;
             Retval simplify(SimplificationContext& context) const override;

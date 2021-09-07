@@ -52,8 +52,7 @@ void PNMLParser::parse(std::ifstream& xml,
     rapidxml::xml_node<>* root = doc.first_node();
     if(strcmp(root->name(), "pnml") != 0)
     {
-        std::cerr << "expecting <pnml> tag as root-node in xml tree." << std::endl;
-        exit(ErrorCode);
+        throw base_error("expecting <pnml> tag as root-node in xml tree.");
     }
 
     auto declarations = root->first_node("declaration");
@@ -150,8 +149,7 @@ void PNMLParser::parse_declarations(rapidxml::xml_node<>* element) {
 
     for(auto missingCTPair : _missingCTs){
         if(_colorTypes.count(missingCTPair.first) == 0){
-            std::cerr << "Unable to find colortype " << missingCTPair.first << " used in product type " << missingCTPair.second->get_name() << std::endl;
-            exit(ErrorCode);
+            throw base_error("Unable to find colortype ", missingCTPair.first, " used in product type ", missingCTPair.second->get_name());
         }
         missingCTPair.second->add_type(_colorTypes[missingCTPair.first]);
     }
@@ -568,16 +566,13 @@ void PNMLParser::parse_element(rapidxml::xml_node<>* element) {
         } else if (strcmp(it->name(),"inhibitorArc") == 0) {
             parse_arc(it, true);
         } else if (strcmp(it->name(), "variable") == 0) {
-            std::cerr << "ERROR: variable not supported" << std::endl;
-            exit(ErrorCode);
+            throw base_error("ERROR: variable not supported");
         } else if (strcmp(it->name(),"queries") == 0) {
             parse_queries(it);
         } else if (strcmp(it->name(), "k-bound") == 0) {
-            std::cerr << "ERROR: k-bound should be given as command line option -k" << std::endl;
-            exit(ErrorCode);
+            throw base_error("ERROR: k-bound should be given as command line option -k");
         } else if (strcmp(it->name(),"query") == 0) {
-            std::cerr << "ERROR: query tag not supported, please use PQL or XML-style queries instead" << std::endl;
-            exit(ErrorCode);
+            throw base_error("ERROR: query tag not supported, please use PQL or XML-style queries instead");
         }
         else
         {
@@ -630,16 +625,14 @@ void PNMLParser::parse_place(rapidxml::xml_node<>* element) {
 
     if(initialMarking > std::numeric_limits<int>::max())
     {
-        std::cerr << "Number of tokens in " << id << " exceeded " << std::numeric_limits<int>::max() << std::endl;
-        exit(ErrorCode);
+        throw base_error("Number of tokens in ", id, " exceeded ", std::numeric_limits<int>::max());;
     }
     //Create place
     if (!_isColored) {
         _builder->add_place(id, initialMarking, x, y);
     } else {
         if (!type) {
-            std::cerr << "Place '" << id << "' is missing color type" << std::endl;
-            exit(ErrorCode);
+            throw base_error("Place '", id, "' is missing color type");
         }
         else
         {
@@ -660,8 +653,7 @@ void PNMLParser::parse_arc(rapidxml::xml_node<>* element, bool inhibitor) {
     auto type = element->first_attribute("type");
     if(type && strcmp(type->value(), "timed") == 0)
     {
-        std::cerr << "timed arcs are not supported" << std::endl;
-        exit(ErrorCode);
+        throw base_error("timed arcs are not supported");
     }
     else if(type && strcmp(type->value(), "inhibitor") == 0)
     {
@@ -680,14 +672,12 @@ void PNMLParser::parse_arc(rapidxml::xml_node<>* element, bool inhibitor) {
             weight = atoi(text.c_str());
             if(std::find_if(text.begin(), text.end(), [](char c) { return !std::isdigit(c) && !std::isblank(c); }) != text.end())
             {
-                std::cerr << "ERROR: Found non-integer-text in inscription-tag (weight) on arc from " << source << " to " << target << " with value \"" << text << "\". An integer was expected." << std::endl;
-                exit(ErrorCode);
+                throw base_error("ERROR: Found non-integer-text in inscription-tag (weight) on arc from ", source, " to ", target, " with value \"", text, "\". An integer was expected.");
             }
             assert(weight > 0);
             if(!first)
             {
-                std::cerr << "ERROR: Multiple inscription tags in xml of a arc from " << source << " to " << target << "." << std::endl;
-                exit(ErrorCode);
+                throw base_error("ERROR: Multiple inscription tags in xml of a arc from ", source, " to ", target, ".");
             }
             first = false;
         }
@@ -699,8 +689,7 @@ void PNMLParser::parse_arc(rapidxml::xml_node<>* element, bool inhibitor) {
         expr = parse_arc_expression(it->first_node("structure"));
         if(!first)
         {
-            std::cerr << "ERROR: Multiple hlinscription tags in xml of a arc from " << source << " to " << target << "." << std::endl;
-            exit(ErrorCode);
+            throw base_error("ERROR: Multiple hlinscription tags in xml of a arc from ", source, " to ", target, ".");
         }
         first = false;
     }
@@ -722,8 +711,7 @@ void PNMLParser::parse_arc(rapidxml::xml_node<>* element, bool inhibitor) {
     }
     else
     {
-        std::cerr << "ERROR: Arc from " << source << " to " << target << " has non-sensible weight 0." << std::endl;
-        exit(ErrorCode);
+        throw base_error("ERROR: Arc from ", source, " to ", target, " has non-sensible weight 0.");
     }
 }
 
@@ -767,11 +755,9 @@ void PNMLParser::parse_transition(rapidxml::xml_node<>* element) {
         } else if (strcmp(it->name(), "condition") == 0) {
             t._expr = parse_guard_expression(it->first_node("structure"), false);
         } else if (strcmp(it->name(), "conditions") == 0) {
-            std::cerr << "conditions not supported" << std::endl;
-            exit(ErrorCode);
+            throw base_error("conditions not supported");
         } else if (strcmp(it->name(), "assignments") == 0) {
-            std::cerr << "assignments not supported" << std::endl;
-            exit(ErrorCode);
+            throw base_error("assignments not supported");
         }
     }
     //Add transition to list
@@ -820,8 +806,7 @@ const PetriEngine::Colored::Color* PNMLParser::find_color(const char* name) cons
         if (col)
             return col;
     }
-    throw base_error(ErrorCode, "Could not find color: ", name, "\nCANNOT_COMPUTE\n");
-    exit(ErrorCode);
+    throw base_error("Could not find color: ", name, "\nCANNOT_COMPUTE\n");
 }
 
 std::vector<PetriEngine::Colored::ColorExpression_ptr> PNMLParser::find_partition_colors(rapidxml::xml_node<>* element) const {
@@ -846,7 +831,7 @@ std::vector<PetriEngine::Colored::ColorExpression_ptr> PNMLParser::find_partitio
     } else if (strcmp(element->name(), "subterm") == 0) {
         return find_partition_colors(element->first_node());
     } else {
-        throw base_error(ErrorCode, "Could not find color expression in expression: ", element->name(), "\nCANNOT_COMPUTE\n");
+        throw base_error("Could not find color expression in expression: ", element->name(), "\nCANNOT_COMPUTE\n");
     }
 
     for (auto partition : _partitions) {
@@ -867,5 +852,5 @@ const PetriEngine::Colored::Color* PNMLParser::find_color_for_int_range(const ch
 				return col;
 		}
 	}
-	throw base_error(ErrorCode, "Could not find color: ", value, "\nCANNOT_COMPUTE\n");
+	throw base_error("Could not find color: ", value, "\nCANNOT_COMPUTE\n");
 }

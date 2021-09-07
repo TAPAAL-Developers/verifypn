@@ -59,7 +59,7 @@ namespace PetriEngine {
             parse_root(root);
         } else {
             assert(false);
-            throw base_error(ErrorCode, "TraceReplay: Error getting root node.");
+            throw base_error("TraceReplay: Error getting root node.");
         }
 
     }
@@ -67,7 +67,7 @@ namespace PetriEngine {
     void TraceReplay::parse_root(const rapidxml::xml_node<> *pNode) {
         if (std::strcmp(pNode->name(), "trace") != 0) {
             assert(false);
-            throw base_error(ErrorCode, "TraceReplay: Expected trace node. Got: ", pNode->name());
+            throw base_error("TraceReplay: Expected trace node. Got: ", pNode->name());
         }
         for (auto it = pNode->first_node(); it; it = it->next_sibling()) {
             if (std::strcmp(it->name(), "loop") == 0) _loop_idx = _trace.size();
@@ -75,12 +75,12 @@ namespace PetriEngine {
                 _trace.push_back(parse_transition(it));
             } else {
                 assert(false);
-                throw base_error(ErrorCode, "TraceReplay: Expected transition or loop node. Got: ", it->name());
+                throw base_error("TraceReplay: Expected transition or loop node. Got: ", it->name());
             }
         }
         if (_loop_idx == std::numeric_limits<size_t>::max() && _options._logic == options_t::temporal_logic_e::LTL) {
             assert(false);
-            throw base_error(ErrorCode, "TraceReplay: Missing <loop/> statement in trace\n");
+            throw base_error("TraceReplay: Missing <loop/> statement in trace\n");
         }
     }
 
@@ -101,7 +101,7 @@ namespace PetriEngine {
         }
         if (id.empty()) {
             assert(false);
-            throw base_error(ErrorCode, "TraceReplay: Transition has no id attribute");
+            throw base_error("TraceReplay: Transition has no id attribute");
         }
 
         Transition transition(id, buchi);
@@ -165,7 +165,7 @@ namespace PetriEngine {
             auto it = _transitions.find(transition._id);
             if (it == std::end(_transitions)) {
                 assert(false);
-                throw base_error(ErrorCode, "Unrecognized transition name ", transition._id);
+                throw base_error("Unrecognized transition name ", transition._id);
             }
             int tid = it->second;
 

@@ -868,10 +868,9 @@ namespace PetriEngine {
                         _ptBuilder.add_input_arc(_places[arc._place]._name, _transitions[arc._transition]._name, false,
                                                 arc._expr->weight());
                     } catch (Colored::WeightException& e) {
-                        std::cerr << "Exception on input arc: " << arc_to_string(arc) << std::endl;
-                        std::cerr << "In expression: " << arc._expr->to_string() << std::endl;
-                        std::cerr << e.what() << std::endl;
-                        exit(ErrorCode);
+                        throw base_error(ErrorCode,
+                            "Exception on input arc: ", arc_to_string(arc), "\n",
+                            "In expression: ", arc._expr->to_string(), "\n\t\t", e.what());
                     }
                 }
                 for (const auto& arc : transition._output_arcs) {
@@ -879,10 +878,10 @@ namespace PetriEngine {
                         _ptBuilder.add_output_arc(_transitions[arc._transition]._name, _places[arc._place]._name,
                                                 arc._expr->weight());
                     } catch (Colored::WeightException& e) {
-                        std::cerr << "Exception on output arc: " << arc_to_string(arc) << std::endl;
-                        std::cerr << "In expression: " << arc._expr->to_string() << std::endl;
-                        std::cerr << e.what() << std::endl;
-                        exit(ErrorCode);
+                        throw base_error(ErrorCode,
+                            "Exception on output arc: ", arc_to_string(arc), "\n",
+                            "In expression: ", arc._expr->to_string(), "\n",
+                            "\t", e.what());
                     }
                 }
                 for(const auto& arc : _inhibitorArcs) {

@@ -99,8 +99,7 @@ namespace LTL {
         }
         auto heur = LTL::parse_ltl_heuristic(net, automaton, negated_formula, options._ltl_heuristic);
         if (heur == nullptr) {
-            std::cerr << "Invalid heuristic specification, terminating.\n";
-            exit(1);
+            throw base_error("Invalid heuristic specification, terminating.\n");
         }
         else return heur;
     }

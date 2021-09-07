@@ -54,7 +54,7 @@ namespace PetriEngine {
                     if (col)
                         return col;
                 }
-                throw base_error(ErrorCode, "Could not find color: ", color, "\nCANNOT_COMPUTE\n");
+                throw base_error("Could not find color: ", color, "\nCANNOT_COMPUTE\n");
             }
 
             const ProductType* find_product_color_type(const std::vector<const ColorType*>& types) const {
@@ -74,7 +74,7 @@ namespace PetriEngine {
         class WeightException : public base_error {
         public:
             explicit WeightException(std::string message)
-            : base_error(ErrorCode, "Undefinded weight: ", message) {}
+            : base_error("Undefinded weight: ", message) {}
         };
 
         template<typename Base, typename T>

@@ -101,8 +101,7 @@ namespace LTL {
             if constexpr (std::is_same_v<S, LTL::SpoolingSuccessorGenerator>)
                 this->_successor_generator->set_spooler(spooler);
             else {
-                assert(false);
-                std::cerr << "Fatal error\n"; exit(1);
+                throw base_error("Fatal error");
             }
         }
 

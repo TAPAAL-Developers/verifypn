@@ -63,37 +63,37 @@ namespace PetriEngine {
         void _accept(const PQL::UnfoldedIdentifierExpr *element) override
         {
             assert(false);
-            throw base_error(ErrorCode, "No accept for UnfoldedIdentifierExpr");
+            throw base_error("No accept for UnfoldedIdentifierExpr");
         };
 
         void _accept(const PQL::LiteralExpr *element) override
         {
             assert(false);
-            throw base_error(ErrorCode, "No accept for LiteralExpr");
+            throw base_error("No accept for LiteralExpr");
         };
 
         void _accept(const PQL::PlusExpr *element) override
         {
             assert(false);
-            throw base_error(ErrorCode, "No accept for PlusExpr");
+            throw base_error("No accept for PlusExpr");
         };
 
         void _accept(const PQL::MultiplyExpr *element) override
         {
             assert(false);
-            throw base_error(ErrorCode, "No accept for MultiplyExpr");
+            throw base_error("No accept for MultiplyExpr");
         };
 
         void _accept(const PQL::MinusExpr *element) override
         {
             assert(false);
-            throw base_error(ErrorCode, "No accept for MinusExpr");
+            throw base_error("No accept for MinusExpr");
         };
 
         void _accept(const PQL::SubtractExpr *element) override
         {
             assert(false);
-            throw base_error(ErrorCode, "No accept for SubtractExpr");
+            throw base_error("No accept for SubtractExpr");
         };
 
         void _accept(const PQL::SimpleQuantifierCondition *element);

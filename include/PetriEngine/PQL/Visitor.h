@@ -46,134 +46,134 @@ namespace PetriEngine {
             // default behaviour is error
             virtual void _accept(const EFCondition *) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for EFCondition");
+                throw base_error("No accept for EFCondition");
 
             };
 
             virtual void _accept(const EGCondition *) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for EGCondition");
+                throw base_error("No accept for EGCondition");
 
             };
 
             virtual void _accept(const AGCondition *) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for AGCondition");
+                throw base_error("No accept for AGCondition");
 
             };
 
             virtual void _accept(const AFCondition *) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for AFCondition");
+                throw base_error("No accept for AFCondition");
 
             };
 
             virtual void _accept(const EXCondition *) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for EXCondition");
+                throw base_error("No accept for EXCondition");
 
             };
 
             virtual void _accept(const AXCondition *) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for AXCondition");
+                throw base_error("No accept for AXCondition");
 
             };
 
             virtual void _accept(const EUCondition *) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for EUCondition");
+                throw base_error("No accept for EUCondition");
 
             };
 
             virtual void _accept(const AUCondition *) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for AUCondition");
+                throw base_error("No accept for AUCondition");
 
             };
 
             virtual void _accept(const ACondition *) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for ACondition");
+                throw base_error("No accept for ACondition");
 
             };
 
             virtual void _accept(const ECondition *) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for ECondition");
+                throw base_error("No accept for ECondition");
 
             };
 
             virtual void _accept(const GCondition *) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for GCondition");
+                throw base_error("No accept for GCondition");
 
             };
 
             virtual void _accept(const FCondition *) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for FCondition");
+                throw base_error("No accept for FCondition");
 
             };
 
             virtual void _accept(const XCondition *) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for XCondition");
+                throw base_error("No accept for XCondition");
 
             };
 
             virtual void _accept(const UntilCondition *) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for UntilCondition");
+                throw base_error("No accept for UntilCondition");
 
             };
 
             // shallow elements, neither of these should exist in a compiled expression
             virtual void _accept(const UnfoldedFireableCondition *element) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for UnfoldedFireableCondition");
+                throw base_error("No accept for UnfoldedFireableCondition");
 
             };
 
             virtual void _accept(const FireableCondition *element) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for FireableCondition");
+                throw base_error("No accept for FireableCondition");
 
             };
 
             virtual void _accept(const UpperBoundsCondition *element) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for UpperBoundsCondition");
+                throw base_error("No accept for UpperBoundsCondition");
 
             };
 
             virtual void _accept(const LivenessCondition *element) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for LivenessCondition");
+                throw base_error("No accept for LivenessCondition");
 
             };
 
             virtual void _accept(const KSafeCondition *element) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for KSafeCondition");
+                throw base_error("No accept for KSafeCondition");
 
             };
 
             virtual void _accept(const QuasiLivenessCondition *element) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for QuasiLivenessCondition");
+                throw base_error("No accept for QuasiLivenessCondition");
 
             };
 
             virtual void _accept(const StableMarkingCondition *element) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for StableMarkingCondition");
+                throw base_error("No accept for StableMarkingCondition");
 
             };
 
             virtual void _accept(const BooleanCondition *element) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for BooleanCondition");
+                throw base_error("No accept for BooleanCondition");
 
             };
 
@@ -193,7 +193,7 @@ namespace PetriEngine {
             // shallow expression, default to error
             virtual void _accept(const IdentifierExpr *element) {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for IdentifierExpr");
+                throw base_error("No accept for IdentifierExpr");
 
             };
         };
@@ -204,61 +204,61 @@ namespace PetriEngine {
         private:
             void _accept(const NotCondition *element) override {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for NotCondition");
+                throw base_error("No accept for NotCondition");
 
             };
 
             void _accept(const AndCondition *element) override {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for AndCondition");
+                throw base_error("No accept for AndCondition");
 
             };
 
             void _accept(const OrCondition *element) override {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for OrCondition");
+                throw base_error("No accept for OrCondition");
 
             };
 
             void _accept(const LessThanCondition *element) override {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for LessThanCondition");
+                throw base_error("No accept for LessThanCondition");
 
             };
 
             void _accept(const LessThanOrEqualCondition *element) override {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for LessThanOrEqualCondition");
+                throw base_error("No accept for LessThanOrEqualCondition");
 
             };
 
             void _accept(const EqualCondition *element) override {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for EqualCondition");
+                throw base_error("No accept for EqualCondition");
 
             };
 
             void _accept(const NotEqualCondition *element) override {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for NotEqualCondition");
+                throw base_error("No accept for NotEqualCondition");
 
             };
 
             void _accept(const DeadlockCondition *element) override {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for DeadlockCondition");
+                throw base_error("No accept for DeadlockCondition");
 
             };
 
             void _accept(const CompareConjunction *element) override {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for CompareConjunction");
+                throw base_error("No accept for CompareConjunction");
 
             };
 
             void _accept(const UnfoldedUpperBoundsCondition *element) override {
                 assert(false);
-                throw base_error(ErrorCode, "No accept for UnfoldedUpperBoundsCondition");
+                throw base_error("No accept for UnfoldedUpperBoundsCondition");
 
             };
         };

@@ -49,7 +49,7 @@ namespace PetriEngine {
     void RangeContext::_accept(const NotCondition* element)
     {
         assert(false);
-        throw base_error(ErrorCode, "UNSUPPORTED QUERY TYPE FOR TAR");
+        throw base_error("UNSUPPORTED QUERY TYPE FOR TAR");
     }
 
 

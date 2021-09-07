@@ -455,8 +455,7 @@ namespace PetriEngine {
                 {
                     if(in.first->_inhibitor)
                     {
-                        std::cerr << "Trace Abstraction Refinement Error : Inhibitor Arcs are not yet supported by the TAR engine" << std::endl;
-                        std::exit(ErrorCode);
+                        throw base_error("Trace Abstraction Refinement Error : Inhibitor Arcs are not yet supported by the TAR engine");
                     }
                 }
             }

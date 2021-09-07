@@ -296,8 +296,7 @@ std::vector<Condition_ptr> get_ctl_queries(const std::vector<Condition_ptr>& ctl
             ctlStarQuery->visit(asCtl);
             ctlQueries.push_back(asCtl._ctl_query);
         } else {
-            std::cerr << "Error: A query could not be translated from CTL* to CTL." << std::endl;
-            exit(1);
+            throw base_error("Error: A query could not be translated from CTL* to CTL.");
         }
 
     }
@@ -311,8 +310,7 @@ std::vector<Condition_ptr> get_ltl_queries(const std::vector<Condition_ptr>& ctl
         if (isLtl.is_LTL(ctlStarQuery)) {
             ltlQueries.push_back(ctlStarQuery);
         } else {
-            std::cerr << "Error: a query could not be translated from CTL* to LTL." << std::endl;
-            exit(1);
+            throw base_error("Error: a query could not be translated from CTL* to LTL.");
         }
     }
     return ltlQueries;
@@ -356,11 +354,11 @@ Condition_ptr simplify_ltl_query(Condition_ptr query,
 
     try {
         cond = (cond->simplify(simplificationContext))._formula->push_negation(stats, evalContext, false, false, true);
-    }    catch (std::bad_alloc &ba) {
-        std::cerr << "Query reduction failed." << std::endl;
-        std::cerr << "Exception information: " << ba.what() << std::endl;
-
-        std::exit(ErrorCode);
+    }
+    catch (std::bad_alloc &ba) {
+        throw base_error(ErrorCode,
+            "Query reduction failed.\n",
+            "Exception information: ", ba.what());
     }
 
     cond = Condition::initial_marking_rewrite([&]() {
@@ -486,10 +484,9 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
                                     out << std::endl;
                                 }
                             } catch (std::bad_alloc& ba) {
-                                std::cerr << "Query reduction failed." << std::endl;
-                                std::cerr << "Exception information: " << ba.what() << std::endl;
-
-                                std::exit(ErrorCode);
+                                throw base_error(ErrorCode,
+                                    "Query reduction failed.\n",
+                                    "Exception information: ", ba.what());
                             }
 
                             if (options._print_statistics) {

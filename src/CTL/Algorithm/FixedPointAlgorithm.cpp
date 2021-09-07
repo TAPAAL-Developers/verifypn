@@ -24,7 +24,7 @@ namespace Algorithm {
                 break;
             default:
                 assert(false);
-                throw base_error(ErrorCode, "Search strategy is unsupported by the CTL-Engine");
+                throw base_error("Search strategy is unsupported by the CTL-Engine");
         }
     }
 }
