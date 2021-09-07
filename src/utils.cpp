@@ -24,10 +24,12 @@ using namespace PetriEngine::PQL;
 using namespace PetriEngine::Reachability;
 
 bool all_done(std::vector<PetriEngine::Reachability::ResultPrinter::Result>& results) {
-    if (std::find(results.begin(), results.end(), ResultPrinter::Unknown) == results.end()) {
-        return true;
+    if (std::any_of(results.begin(), results.end(), [](auto r ) {
+        return r != ResultPrinter::Satisfied && r != ResultPrinter::NotSatisfied;
+    })) {
+        return false;
     }
-    return false;
+    return true;
 }
 
 
@@ -543,8 +545,8 @@ void simplify_queries(const PetriNet& net, std::vector<Condition_ptr>& queries, 
             end = std::chrono::high_resolution_clock::now();
 
         } while (std::any_of(hadTo.begin(), hadTo.end(), [](auto a) {
-                return a;
-            }) && std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() < options._query_reduction_timeout && to_handle > 0);
+            return a;
+        }) && std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() < options._query_reduction_timeout && to_handle > 0);
     }
 }
 

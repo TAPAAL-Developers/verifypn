@@ -457,9 +457,7 @@ error_e options_t::parse(int argc, char* argv[])
             _compute_CFP = false;
         } else if (strcmp(argv[i], "--disable-partitioning") == 0) {
             _compute_partition = false;
-        }else if (strcmp(argv[i], "--noverify") == 0) {
-            _do_verification = false;
-        }else if (strcmp(argv[i], "--disable-symmetry-vars") == 0) {
+        } else if (strcmp(argv[i], "--disable-symmetry-vars") == 0) {
             _symmetric_variables = false;
         } else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
             printf("Usage: verifypn [options] model-file query-file\n"

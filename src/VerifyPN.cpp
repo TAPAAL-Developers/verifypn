@@ -178,8 +178,8 @@ int main(int argc, char* argv[]) {
 
     if(options._symmetric_variables){
         cpnBuilder.compute_symmetric_variables();
-        //cpnBuilder.printSymmetricVariables();
     }
+    
     if(options._compute_CFP){
         cpnBuilder.compute_place_color_fixpoint(options._max_intervals, options._max_intervals_reduced, options._interval_timeout);
     }
@@ -214,7 +214,7 @@ int main(int argc, char* argv[]) {
     }
 
     ResultPrinter p2(&b2, &options, querynames);
-    if (!options._statespace_exploration){
+    if (!options._statespace_exploration) {
         for(size_t i = 0; i < queries.size(); ++i)
         {
             if(queries[i]->is_trivially_true()){
@@ -281,7 +281,7 @@ int main(int argc, char* argv[]) {
         return replay_trace(cpnBuilder, builder, *net, queries, results, options);
     }
 
-    if(options._do_verification){
+    if(options._strategy != options_t::search_strategy_e::OverApprox) {
 
         //----------------------- Verify CTL queries -----------------------//
         std::vector<size_t> ctl_ids;

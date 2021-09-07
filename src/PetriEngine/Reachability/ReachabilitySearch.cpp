@@ -137,13 +137,14 @@ namespace PetriEngine {
             if(!usequeries) strategy = options_t::search_strategy_e::BFS;
 
             switch(strategy)
-{
+            {
                 case options_t::search_strategy_e::DFS:
                     TRYREACH(DFSQueue)
                     break;
                 case options_t::search_strategy_e::BFS:
                     TRYREACH(BFSQueue)
                     break;
+                case options_t::search_strategy_e::DEFAULT:
                 case options_t::search_strategy_e::HEUR:
                     TRYREACH(HeuristicQueue)
                     break;
