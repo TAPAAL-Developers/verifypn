@@ -67,7 +67,7 @@ namespace PetriEngine {
             virtual int apply(int v1, int v2) const = 0;
             virtual std::string op() const = 0;
             std::vector<Expr_ptr> _exprs;
-            virtual int32_t preOp(const EvaluationContext& context) const;
+            virtual int32_t pre_op(const EvaluationContext& context) const;
         };
 
         class PlusExpr;
@@ -91,7 +91,7 @@ namespace PetriEngine {
         protected:
             CommutativeExpr(int constant): _constant(constant) {};
             void init(std::vector<Expr_ptr>&& exprs);
-            virtual int32_t preOp(const EvaluationContext& context) const override;
+            virtual int32_t pre_op(const EvaluationContext& context) const override;
             int32_t _constant;
             std::vector<std::pair<uint32_t,std::string>> _ids;
             Member commutative_cons(int constant, SimplificationContext& context, std::function<void(Member& a, Member b)> op) const;

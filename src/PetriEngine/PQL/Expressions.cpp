@@ -656,7 +656,7 @@ namespace PetriEngine {
         /******************** Evaluation ********************/
 
         int NaryExpr::evaluate(const EvaluationContext& context) {
-            int32_t r = preOp(context);
+            int32_t r = pre_op(context);
             for(size_t i = 1; i < _exprs.size(); ++i)
             {
                 r = apply(r, _exprs[i]->eval_and_set(context));
@@ -664,11 +664,11 @@ namespace PetriEngine {
             return r;
         }
 
-        int32_t NaryExpr::preOp(const EvaluationContext& context) const {
+        int32_t NaryExpr::pre_op(const EvaluationContext& context) const {
             return _exprs[0]->evaluate(context);
         }
 
-        int32_t CommutativeExpr::preOp(const EvaluationContext& context) const {
+        int32_t CommutativeExpr::pre_op(const EvaluationContext& context) const {
             int32_t res = _constant;
             for(auto& i : _ids) res = this->apply(res, context.marking()[i.first]);
             if(_exprs.size() > 0) res = this->apply(res, _exprs[0]->eval_and_set(context));
@@ -676,7 +676,7 @@ namespace PetriEngine {
         }
 
         int CommutativeExpr::evaluate(const EvaluationContext& context) {
-            if(_exprs.size() == 0) return preOp(context);
+            if(_exprs.size() == 0) return pre_op(context);
             return NaryExpr::evaluate(context);
         }
 
