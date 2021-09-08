@@ -1,5 +1,5 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*,-*,bugprone*,modernize*,performance*,-modernize-pass-by-value,-modernize-use-auto,-modernize-use-using,-readability-identifier-naming,-modernize-avoid-c-arrays'
+Checks:          'clang-diagnostic-*,clang-analyzer-*,-*,bugprone*,modernize*,performance*,-modernize-use-auto,-modernize-pass-by-value,readability-identifier-naming,-modernize-avoid-c-arrays'
 WarningsAsErrors: '*'
 HeaderFilterRegex: '(src,include)/*'
 AnalyzeTemporaryDtors: false
