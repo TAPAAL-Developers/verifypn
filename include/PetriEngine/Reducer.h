@@ -18,7 +18,7 @@
 
 namespace PetriEngine {
 
-using ArcIter = std::vector<Arc>::iterator;
+using ArcIter = std::vector<arc_t>::iterator;
 
 class PetriNetBuilder;
 
@@ -43,10 +43,10 @@ class QueryPlaceAnalysisContext : public PQL::AnalysisContext {
 
     virtual void set_has_deadlock() override { _deadlock = true; };
 
-    ResolutionResult resolve(const std::string &identifier, bool place) override {
+    resolution_result_t resolve(const std::string &identifier, bool place) override {
         if (!place)
             return PQL::AnalysisContext::resolve(identifier, false);
-        ResolutionResult result;
+        resolution_result_t result;
         result._offset = -1;
         result._success = false;
         auto it = _placeNames.find(identifier);
@@ -141,9 +141,9 @@ class Reducer {
     std::string get_transition_name(uint32_t transition);
     std::string get_place_name(uint32_t place);
 
-    PetriEngine::Transition &get_transition(uint32_t transition);
-    ArcIter get_out_arc(PetriEngine::Transition &, uint32_t place);
-    ArcIter get_in_arc(uint32_t place, PetriEngine::Transition &);
+    PetriEngine::transition_t &get_transition(uint32_t transition);
+    ArcIter get_out_arc(PetriEngine::transition_t &, uint32_t place);
+    ArcIter get_in_arc(uint32_t place, PetriEngine::transition_t &);
     void erase_transition(std::vector<uint32_t> &, uint32_t);
     void skip_transition(uint32_t);
     void skip_place(uint32_t);

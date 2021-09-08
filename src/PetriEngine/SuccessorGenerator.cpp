@@ -44,7 +44,7 @@ void SuccessorGenerator::reset() {
 
 void SuccessorGenerator::consume_preset(Structures::State &write, uint32_t t) {
 
-    const TransPtr &ptr = _net._transitions[t];
+    const trans_ptr_t &ptr = _net._transitions[t];
     uint32_t finv = ptr._inputs;
     uint32_t linv = ptr._outputs;
     for (; finv < linv; ++finv) {
@@ -57,12 +57,12 @@ void SuccessorGenerator::consume_preset(Structures::State &write, uint32_t t) {
 }
 
 auto SuccessorGenerator::check_preset(uint32_t t) -> bool {
-    const TransPtr &ptr = _net._transitions[t];
+    const trans_ptr_t &ptr = _net._transitions[t];
     uint32_t finv = ptr._inputs;
     uint32_t linv = ptr._outputs;
 
     for (; finv < linv; ++finv) {
-        const Invariant &inv = _net._invariants[finv];
+        const invariant_t &inv = _net._invariants[finv];
         if ((*_parent).marking()[inv._place] < inv._tokens) {
             if (!inv._inhibitor) {
                 return false;
@@ -77,7 +77,7 @@ auto SuccessorGenerator::check_preset(uint32_t t) -> bool {
 }
 
 void SuccessorGenerator::produce_postset(Structures::State &write, uint32_t t) {
-    const TransPtr &ptr = _net._transitions[t];
+    const trans_ptr_t &ptr = _net._transitions[t];
     uint32_t finv = ptr._outputs;
     uint32_t linv = _net._transitions[t + 1]._inputs;
 
@@ -85,7 +85,7 @@ void SuccessorGenerator::produce_postset(Structures::State &write, uint32_t t) {
         size_t n = write.marking()[_net._invariants[finv]._place];
         n += _net._invariants[finv]._tokens;
         if (n >= std::numeric_limits<uint32_t>::max()) {
-            throw base_error(FailedCode, "Exceeded 2**32 limit of tokens in a single place (", n,
+            throw base_error_t("Exceeded 2**32 limit of tokens in a single place (", n,
                              ")");
         }
         write.marking()[_net._invariants[finv]._place] = n;

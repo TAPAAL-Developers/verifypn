@@ -35,7 +35,7 @@ template <typename T, typename U> class AntiChain {
 
     void clear() { _map.clear(); }
 
-    template <typename S> bool subsumed(T &el, const S &set) {
+    template <typename S> auto subsumed(T &el, const S &set) -> bool {
         bool exists = false;
         if (_map.size() > (size_t)el) {
             for (auto &s : _map[el]) {
@@ -51,7 +51,7 @@ template <typename T, typename U> class AntiChain {
         return exists;
     }
 
-    template <typename S> bool insert(T &el, const S &set) {
+    template <typename S> auto insert(T &el, const S &set) -> bool {
         bool inserted = false;
         if (_map.size() <= (size_t)el)
             _map.resize(el + 1);

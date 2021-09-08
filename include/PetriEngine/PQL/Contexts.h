@@ -31,8 +31,7 @@
 #include <string>
 #include <vector>
 
-namespace PetriEngine {
-namespace PQL {
+namespace PetriEngine::PQL {
 
 /** Context provided for context analysis */
 class AnalysisContext {
@@ -44,7 +43,7 @@ class AnalysisContext {
 
   public:
     /** A resolution result */
-    struct ResolutionResult {
+    struct resolution_result_t {
         /** Offset in relevant vector */
         int _offset;
         /** True, if the resolution was successful */
@@ -57,18 +56,18 @@ class AnalysisContext {
 
     virtual void set_has_deadlock(){};
 
-    const PetriNet &net() const { return *_net; }
+    [[nodiscard]] auto net() const -> const PetriNet & { return *_net; }
 
     /** Resolve an identifier */
-    virtual ResolutionResult resolve(const std::string &identifier, bool place = true);
+    virtual resolution_result_t resolve(const std::string &identifier, bool place = true);
 
     /** Report error */
     void report_error(const ExprError &error) { _errors.push_back(error); }
 
     /** Get list of errors */
-    const std::vector<ExprError> &errors() const { return _errors; }
-    auto &all_place_names() const { return _placeNames; }
-    auto &all_transition_names() const { return _transitionNames; }
+    [[nodiscard]] auto errors() const -> const std::vector<ExprError> & { return _errors; }
+    [[nodiscard]] auto all_place_names() const -> auto & { return _placeNames; }
+    [[nodiscard]] auto all_transition_names() const -> auto & { return _transitionNames; }
 };
 
 class ColoredAnalysisContext : public AnalysisContext {
@@ -88,14 +87,17 @@ class ColoredAnalysisContext : public AnalysisContext {
         : AnalysisContext(places, tnames, &net), _coloredPlaceNames(cplaces),
           _coloredTransitionNames(ctnames), _colored(colored) {}
 
-    bool resolve_place(const std::string &place, std::unordered_map<uint32_t, std::string> &out);
+    auto resolve_place(const std::string &place, std::unordered_map<uint32_t, std::string> &out)
+        -> bool;
 
-    bool resolve_transition(const std::string &transition, std::vector<std::string> &out);
+    auto resolve_transition(const std::string &transition, std::vector<std::string> &out) -> bool;
 
-    bool is_colored() const { return _colored; }
+    [[nodiscard]] auto is_colored() const -> bool { return _colored; }
 
-    auto &all_colored_place_names() const { return _coloredPlaceNames; }
-    auto &all_colored_transition_names() const { return _coloredTransitionNames; }
+    [[nodiscard]] auto all_colored_place_names() const -> auto & { return _coloredPlaceNames; }
+    [[nodiscard]] auto all_colored_transition_names() const -> auto & {
+        return _coloredTransitionNames;
+    }
 };
 
 /** Context provided for evalation */
@@ -107,13 +109,14 @@ class EvaluationContext {
     EvaluationContext(const MarkVal *marking, const PetriNet &net)
         : _marking(marking), _net(&net) {}
 
-    EvaluationContext(){};
+    EvaluationContext() = default;
+    ;
 
-    const MarkVal *marking() const { return _marking; }
+    [[nodiscard]] auto marking() const -> const MarkVal * { return _marking; }
 
     void set_marking(MarkVal *marking) { _marking = marking; }
 
-    const PetriNet *net() const { return _net; }
+    [[nodiscard]] auto net() const -> const PetriNet * { return _net; }
 
   private:
     const MarkVal *_marking = nullptr;
@@ -130,7 +133,7 @@ class DistanceContext : public EvaluationContext {
 
     void negate() { _negated = !_negated; }
 
-    bool negated() const { return _negated; }
+    [[nodiscard]] auto negated() const -> bool { return _negated; }
 
   private:
     bool _negated;
@@ -159,27 +162,27 @@ class SimplificationContext {
         _base_lp = nullptr;
     }
 
-    const MarkVal *marking() const { return _marking; }
+    auto marking() const -> const MarkVal * { return _marking; }
 
-    const PetriNet &net() const { return _net; }
+    auto net() const -> const PetriNet & { return _net; }
 
     void negate() { _negated = !_negated; }
 
-    bool negated() const { return _negated; }
+    auto negated() const -> bool { return _negated; }
 
     void set_negate(bool b) { _negated = b; }
 
-    double get_reduction_time();
+    auto get_reduction_time() -> double;
 
-    bool timeout() const {
+    auto timeout() const -> bool {
         auto end = std::chrono::high_resolution_clock::now();
         auto diff = std::chrono::duration_cast<std::chrono::seconds>(end - _start);
         return (diff.count() >= _queryTimeout);
     }
 
-    uint32_t get_lp_timeout() const;
+    auto get_lp_timeout() const -> uint32_t;
 
-    glp_prob *make_base_lp() const;
+    auto make_base_lp() const -> glp_prob *;
 
   private:
     bool _negated;
@@ -189,10 +192,9 @@ class SimplificationContext {
     std::chrono::high_resolution_clock::time_point _start;
     mutable glp_prob *_base_lp = nullptr;
 
-    glp_prob *build_base() const;
+    auto build_base() const -> glp_prob *;
 };
 
-} // namespace PQL
-} // namespace PetriEngine
+} // namespace PetriEngine::PQL
 
 #endif // CONTEXTS_H

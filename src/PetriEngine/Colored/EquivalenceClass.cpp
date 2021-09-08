@@ -6,7 +6,7 @@ EquivalenceClass::EquivalenceClass(uint32_t id) : _id(id) {}
 EquivalenceClass::EquivalenceClass(uint32_t id, const ColorType *colorType)
     : _id(id), _colorType(colorType) {}
 EquivalenceClass::EquivalenceClass(uint32_t id, const ColorType *colorType,
-                                   interval_vector_t &&colorIntervals)
+                                   IntervalVector &&colorIntervals)
     : _id(id), _colorType(colorType), _colorIntervals(colorIntervals) {}
 
 auto EquivalenceClass::intersect(uint32_t id, const EquivalenceClass &other) const
@@ -37,9 +37,9 @@ auto EquivalenceClass::subtract(uint32_t id, const EquivalenceClass &other,
         return result;
     }
     result._colorType = _colorType;
-    interval_vector_t resIntervals;
+    IntervalVector resIntervals;
     for (const auto &interval : _colorIntervals) {
-        interval_vector_t intervalSubRes;
+        IntervalVector intervalSubRes;
         for (const auto &otherInterval : other._colorIntervals) {
             auto subtractedIntervals = interval.get_substracted(otherInterval, diagonalPositions);
 
@@ -51,7 +51,7 @@ auto EquivalenceClass::subtract(uint32_t id, const EquivalenceClass &other,
             if (intervalSubRes.empty()) {
                 intervalSubRes = subtractedIntervals;
             } else {
-                interval_vector_t newIntervals;
+                IntervalVector newIntervals;
                 for (const auto &newInterval : subtractedIntervals) {
                     for (const auto &interval : intervalSubRes) {
                         auto intersection = interval.get_overlap(newInterval);

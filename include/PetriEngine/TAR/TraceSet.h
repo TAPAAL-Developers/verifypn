@@ -20,26 +20,25 @@
 #include <map>
 #include <vector>
 
-namespace PetriEngine {
-namespace Reachability {
+namespace PetriEngine::Reachability {
 void inline_union(std::vector<size_t> &into, const std::vector<size_t> &other);
 class TraceSet {
   public:
     TraceSet(const PetriNet &net);
     void clear();
-    bool add_trace(std::vector<std::pair<prvector_t, size_t>> &inter);
+    auto add_trace(std::vector<std::pair<prvector_t, size_t>> &inter) -> bool;
     void copy_non_changed(const std::set<size_t> &from, const std::vector<int64_t> &modifiers,
                           std::set<size_t> &to) const;
-    bool follow(const std::set<size_t> &from, std::set<size_t> &nextinter, size_t symbol);
-    std::set<size_t> maximize(const std::set<size_t> &from) const;
-    std::set<size_t> minimize(const std::set<size_t> &from) const;
-    std::set<size_t> initial() const { return _initial; }
-    std::ostream &print(std::ostream &out) const;
+    auto follow(const std::set<size_t> &from, std::set<size_t> &nextinter, size_t symbol) -> bool;
+    [[nodiscard]] auto maximize(const std::set<size_t> &from) const -> std::set<size_t>;
+    [[nodiscard]] auto minimize(const std::set<size_t> &from) const -> std::set<size_t>;
+    [[nodiscard]] auto initial() const -> std::set<size_t> { return _initial; }
+    auto print(std::ostream &out) const -> std::ostream &;
     void remove_edge(size_t edge);
 
   private:
     void init();
-    std::pair<bool, size_t> state_for_predicate(prvector_t &predicate);
+    auto state_for_predicate(prvector_t &predicate) -> std::pair<bool, size_t>;
     void compute_simulation(size_t index);
     std::map<prvector_t, size_t> _intmap;
     std::vector<AutomataState> _states;
@@ -47,7 +46,6 @@ class TraceSet {
     const PetriNet &_net;
 };
 
-} // namespace Reachability
-} // namespace PetriEngine
+} // namespace PetriEngine::Reachability
 
 #endif /* TRACESET_H */

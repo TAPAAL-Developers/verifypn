@@ -224,14 +224,14 @@ void TraceSet::compute_simulation(size_t index) {
             auto lb = std::lower_bound(other._simulators.begin(), other._simulators.end(), index);
             if (lb == std::end(other._simulators) || *lb != index)
                 other._simulators.insert(lb, index);
-            other._interpolant.compare(state._interpolant);
+            //other._interpolant.compare(state._interpolant);
         }
         if (res.second) {
             state._simulators.emplace_back(i);
             auto lb = std::lower_bound(other._simulates.begin(), other._simulates.end(), index);
             if (lb == std::end(other._simulates) || *lb != index)
                 other._simulates.insert(lb, index);
-            other._interpolant.compare(state._interpolant);
+            //other._interpolant.compare(state._interpolant);
         }
     }
 

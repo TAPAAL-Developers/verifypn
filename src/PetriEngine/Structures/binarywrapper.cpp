@@ -25,12 +25,12 @@
 #include "PetriEngine/Structures/binarywrapper.h"
 namespace ptrie {
 
-const uchar binarywrapper_t::_masks[8] = {static_cast<uchar>(0x80), static_cast<uchar>(0x40),
+const uchar BinaryWrapper::_masks[8] = {static_cast<uchar>(0x80), static_cast<uchar>(0x40),
                                           static_cast<uchar>(0x20), static_cast<uchar>(0x10),
                                           static_cast<uchar>(0x08), static_cast<uchar>(0x04),
                                           static_cast<uchar>(0x02), static_cast<uchar>(0x01)};
 
-auto binarywrapper_t::overhead(uint size) -> size_t {
+auto BinaryWrapper::overhead(uint size) -> size_t {
     size = size % 8;
     if (size == 0)
         return 0;
@@ -38,14 +38,14 @@ auto binarywrapper_t::overhead(uint size) -> size_t {
         return 8 - size;
 }
 
-auto binarywrapper_t::bytes(uint size) -> size_t { return (size + overhead(size)) / 8; }
+auto BinaryWrapper::bytes(uint size) -> size_t { return (size + overhead(size)) / 8; }
 
-binarywrapper_t::binarywrapper_t(uint size) {
+BinaryWrapper::BinaryWrapper(uint size) {
     _nbytes = (size + overhead(size)) / 8;
     _blob = zallocate(_nbytes);
 }
 
-binarywrapper_t::binarywrapper_t(const binarywrapper_t &other, uint offset) {
+BinaryWrapper::BinaryWrapper(const BinaryWrapper &other, uint offset) {
     offset = offset / 8;
 
     _nbytes = other._nbytes /*.load()*/;
@@ -60,7 +60,7 @@ binarywrapper_t::binarywrapper_t(const binarywrapper_t &other, uint offset) {
     assert(raw()[0] == other.const_raw()[offset]);
 }
 
-binarywrapper_t::binarywrapper_t(uchar *org, uint size, uint offset, uint encodingsize) {
+BinaryWrapper::BinaryWrapper(uchar *org, uint size, uint offset, uint encodingsize) {
     if (size == 0 || offset >= encodingsize) {
         _nbytes = 0;
         _blob = nullptr;
@@ -80,7 +80,7 @@ binarywrapper_t::binarywrapper_t(uchar *org, uint size, uint offset, uint encodi
     }
 
     uchar *tmp = &(org[offset]);
-    if (_nbytes <= __BW_BSIZE__) {
+    if (_nbytes <= BW_BSIZE) {
         memcpy(raw(), tmp, _nbytes);
     } else {
         _blob = tmp;
@@ -88,22 +88,22 @@ binarywrapper_t::binarywrapper_t(uchar *org, uint size, uint offset, uint encodi
     assert(org[offset] == raw()[0]);
 }
 
-binarywrapper_t::binarywrapper_t(uchar *org, uint size) {
+BinaryWrapper::BinaryWrapper(uchar *org, uint size) {
     _nbytes = size / 8 + (size % 8 ? 1 : 0);
     _blob = org;
 
-    if (_nbytes <= __BW_BSIZE__)
+    if (_nbytes <= BW_BSIZE)
         memcpy(raw(), org, _nbytes);
 
     //        assert(raw[0] == const_raw()[0]);
 }
 
-void binarywrapper_t::copy(const binarywrapper_t &other, uint offset) {
+void BinaryWrapper::copy(const BinaryWrapper &other, uint offset) {
     memcpy(&(raw()[offset / 8]), other.const_raw(), other._nbytes);
     assert(other.const_raw()[0] == raw()[0]);
 }
 
-void binarywrapper_t::copy(const uchar *data, uint size) {
+void BinaryWrapper::copy(const uchar *data, uint size) {
     if (size > 0) {
         _blob = allocate(size);
         _nbytes = size;
@@ -117,7 +117,7 @@ void binarywrapper_t::copy(const uchar *data, uint size) {
 
 // accessors
 
-void binarywrapper_t::print(std::ostream &stream, size_t length) const {
+void BinaryWrapper::print(std::ostream &stream, size_t length) const {
     stream << _nbytes << " bytes : ";
     for (size_t i = 0; i < _nbytes * 8 && i < length; i++) {
         if (i % 8 == 0 && i != 0)
@@ -128,7 +128,7 @@ void binarywrapper_t::print(std::ostream &stream, size_t length) const {
 } // namespace ptrie
 
 namespace std {
-auto operator<<(std::ostream &os, const ptrie::binarywrapper_t &b) -> std::ostream & {
+auto operator<<(std::ostream &os, const ptrie::BinaryWrapper &b) -> std::ostream & {
     b.print(os);
     return os;
 }

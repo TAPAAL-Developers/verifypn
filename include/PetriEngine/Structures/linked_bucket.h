@@ -21,16 +21,16 @@
  *
  * Created on 07 June 2016, 21:51
  */
-#include <assert.h>
 #include <atomic>
+#include <cassert>
+#include <cstdlib>
 #include <iostream>
-#include <stdlib.h>
 #include <vector>
 
 #ifndef LINKED_BUCKET_H
 #define LINKED_BUCKET_H
 
-template <typename T, size_t C> class linked_bucket_t {
+template <typename T, size_t C> class LinkedBucketT {
   private:
     struct bucket_t {
         std::atomic<bucket_t *> _nbucket;
@@ -49,7 +49,7 @@ template <typename T, size_t C> class linked_bucket_t {
     index_t *_index;
 
   public:
-    linked_bucket_t(size_t threads) : _tnext(threads) {
+    LinkedBucketT(size_t threads) : _tnext(threads) {
         for (size_t i = 0; i < threads; ++i) {
             _tnext[i] = nullptr;
         }
@@ -67,7 +67,7 @@ template <typename T, size_t C> class linked_bucket_t {
         _index->_index[0] = _begin;
     }
 
-    ~linked_bucket_t() {
+    ~LinkedBucketT() {
 
         do {
             bucket_t *n = _begin->_nbucket.load();
@@ -84,8 +84,8 @@ template <typename T, size_t C> class linked_bucket_t {
         } while (_index != nullptr);
     }
 
-    inline T &operator[](size_t i) {
-        bucket_t *n = indexToBucket(i);
+    inline auto operator[](size_t i) -> T & {
+        bucket_t *n = index_to_bucket(i);
         if (n != nullptr) {
             return n->_data[i % C];
         }
@@ -103,9 +103,9 @@ template <typename T, size_t C> class linked_bucket_t {
         return n->_data[i % C];
     }
 
-    inline const T &operator[](size_t i) const {
+    inline auto operator[](size_t i) const -> const T & {
 
-        bucket_t *n = indexToBucket(i);
+        bucket_t *n = index_to_bucket(i);
         if (n != nullptr) {
             return n->_data[i % C];
         }
@@ -122,7 +122,7 @@ template <typename T, size_t C> class linked_bucket_t {
         return n->_data[i % C];
     }
 
-    size_t size() {
+    auto size() -> size_t {
         bucket_t *n = _begin;
         size_t cnt = 0;
         while (n != nullptr) {
@@ -132,7 +132,7 @@ template <typename T, size_t C> class linked_bucket_t {
         return cnt;
     }
 
-    inline size_t next(size_t thread) {
+    inline auto next(size_t thread) -> size_t {
         if (_tnext[thread] == nullptr || _tnext[thread]->_count == C) {
             bucket_t *next = new bucket_t;
             next->_count = 0;
@@ -158,7 +158,7 @@ template <typename T, size_t C> class linked_bucket_t {
             }
             _tnext[thread] = next;
 
-            insertToIndex(next, next->_offset);
+            insert_to_index(next, next->_offset);
         }
 
         bucket_t *c = _tnext[thread];
@@ -173,7 +173,7 @@ template <typename T, size_t C> class linked_bucket_t {
     }
 
   private:
-    inline void insertToIndex(bucket_t *bucket, size_t id) {
+    inline void insert_to_index(bucket_t *bucket, size_t id) {
         index_t *tmp = _index;
         while (id >= C * C) {
             index_t *old = tmp;
@@ -196,7 +196,7 @@ template <typename T, size_t C> class linked_bucket_t {
         tmp->_index[id / C] = bucket;
     }
 
-    inline bucket_t *indexToBucket(size_t id) {
+    inline auto index_to_bucket(size_t id) -> bucket_t * {
         index_t *tmp = _index;
         while (id >= C * C) {
             tmp = tmp->_next;

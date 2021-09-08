@@ -36,13 +36,13 @@ OnTheFlyDG::~OnTheFlyDG() {
     delete _edge_alloc;
 }
 
-auto OnTheFlyDG::initial_eval() -> Condition::Result {
+auto OnTheFlyDG::initial_eval() -> Condition::result_e {
     initial_configuration();
     EvaluationContext e(_query_marking.marking(), &_net);
     return _query->evaluate(e);
 }
 
-auto OnTheFlyDG::fast_eval(Condition *query, Marking *unfolded) -> Condition::Result {
+auto OnTheFlyDG::fast_eval(Condition *query, Marking *unfolded) -> Condition::result_e {
     EvaluationContext e(unfolded->marking(), &_net);
     return query->evaluate(e);
 }
@@ -229,7 +229,7 @@ auto OnTheFlyDG::successors(Configuration *c) -> std::vector<DependencyGraph::Ed
             } else if (v->_query->get_path() == X) {
                 auto cond = static_cast<AXCondition *>(v->_query);
                 Edge *e = new_edge(*v, std::numeric_limits<uint32_t>::max());
-                Condition::Result allValid = Condition::RTRUE;
+                Condition::result_e allValid = Condition::RTRUE;
                 next_states(
                     _query_marking, cond, []() {},
                     [&](Marking &mark) {
@@ -501,7 +501,7 @@ auto OnTheFlyDG::create_marking(Marking &t_marking) -> size_t {
         t_marking.marking(), sum, allsame, val, active, last, _net.number_of_places());
     unsigned char type = _encoder.get_type(sum, active, allsame, val);
     size_t length = _encoder.encode(t_marking.marking(), type);
-    binarywrapper_t w = binarywrapper_t(_encoder.scratchpad().raw(), length * 8);
+    BinaryWrapper w = BinaryWrapper(_encoder.scratchpad().raw(), length * 8);
     auto tit = _trie.insert(w.raw(), w.size());
     if (tit.first) {
         _markingCount++;

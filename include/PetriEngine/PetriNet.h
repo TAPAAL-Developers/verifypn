@@ -39,12 +39,12 @@ class State;
 class PetriNetBuilder;
 class SuccessorGenerator;
 
-struct TransPtr {
+struct trans_ptr_t {
     uint32_t _inputs;
     uint32_t _outputs;
 };
 
-struct Invariant {
+struct invariant_t {
     uint32_t _place;
     uint32_t _tokens;
     bool _inhibitor;
@@ -64,22 +64,27 @@ class PetriNet {
 
     PetriNet(PetriNet &&) = delete;
 
-    uint32_t initial(size_t id) const;
-    MarkVal *make_initial_marking() const;
+    [[nodiscard]] auto initial(size_t id) const -> uint32_t;
+    [[nodiscard]] auto make_initial_marking() const -> MarkVal *;
     /** Fire transition if possible and store result in result */
-    bool deadlocked(const MarkVal *marking) const;
-    bool fireable(const MarkVal *marking, int transitionIndex);
-    std::pair<const Invariant *, const Invariant *> preset(uint32_t id) const;
-    std::pair<const Invariant *, const Invariant *> postset(uint32_t id) const;
-    uint32_t number_of_transitions() const { return _ntransitions; }
+    auto deadlocked(const MarkVal *marking) const -> bool;
+    auto fireable(const MarkVal *marking, int transitionIndex) -> bool;
+    [[nodiscard]] auto preset(uint32_t id) const -> std::pair<const invariant_t *, const invariant_t *>;
+    [[nodiscard]] auto postset(uint32_t id) const
+        -> std::pair<const invariant_t *, const invariant_t *>;
+    [[nodiscard]] auto number_of_transitions() const -> uint32_t { return _ntransitions; }
 
-    uint32_t number_of_places() const { return _nplaces; }
-    uint32_t in_arc(uint32_t place, uint32_t transition) const;
-    uint32_t out_arc(uint32_t transition, uint32_t place) const;
+    [[nodiscard]] auto number_of_places() const -> uint32_t { return _nplaces; }
+    [[nodiscard]] auto in_arc(uint32_t place, uint32_t transition) const -> uint32_t;
+    [[nodiscard]] auto out_arc(uint32_t transition, uint32_t place) const -> uint32_t;
 
-    const std::vector<std::string> &transition_names() const { return _transitionnames; }
+    [[nodiscard]] auto transition_names() const -> const std::vector<std::string> & {
+        return _transitionnames;
+    }
 
-    const std::vector<std::string> &place_names() const { return _placenames; }
+    [[nodiscard]] auto place_names() const -> const std::vector<std::string> & {
+        return _placenames;
+    }
 
     void print(MarkVal const *const val) const {
         for (size_t i = 0; i < _nplaces; ++i) {
@@ -94,10 +99,10 @@ class PetriNet {
 
     void to_xml(std::ostream &out);
 
-    const MarkVal *initial() const { return _initialMarking; }
+    [[nodiscard]] auto initial() const -> const MarkVal * { return _initialMarking; }
 
-    bool has_inhibitor() const {
-        for (Invariant i : _invariants) {
+    [[nodiscard]] auto has_inhibitor() const -> bool {
+        for (invariant_t i : _invariants) {
             if (i._inhibitor)
                 return true;
         }
@@ -111,8 +116,8 @@ class PetriNet {
      */
     uint32_t _ninvariants, _ntransitions, _nplaces;
 
-    std::vector<TransPtr> _transitions;
-    std::vector<Invariant> _invariants;
+    std::vector<trans_ptr_t> _transitions;
+    std::vector<invariant_t> _invariants;
     std::vector<uint32_t> _placeToPtrs;
     MarkVal *_initialMarking;
 

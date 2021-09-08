@@ -10,7 +10,7 @@ namespace PetriEngine::Simplification {
 using REAL = double;
 LinearProgram::~LinearProgram() = default;
 
-LinearProgram::LinearProgram(const std::vector<int> &data, int constant, op_t op) {
+LinearProgram::LinearProgram(const std::vector<int> &data, int constant, op_e op) {
     // TODO fix memory-management here!
     equation_t c(data);
     switch (op) {
@@ -45,9 +45,9 @@ auto LinearProgram::is_impossible(const PQL::SimplificationContext &context, uin
     bool use_ilp = true;
     auto &net = context.net();
 
-    if (_result != result_t::UKNOWN) {
-        if (_result == result_t::IMPOSSIBLE)
-            return _result == result_t::IMPOSSIBLE;
+    if (_result != result_e::UKNOWN) {
+        if (_result == result_e::IMPOSSIBLE)
+            return _result == result_e::IMPOSSIBLE;
     }
 
     if (_equations.size() == 0 || context.timeout()) {
@@ -77,7 +77,7 @@ auto LinearProgram::is_impossible(const PQL::SimplificationContext &context, uin
                 glp_set_row_bnds(lp, rowno, GLP_FX, eq._lower, eq._upper);
             else {
                 if (eq._lower > eq._upper) {
-                    _result = result_t::IMPOSSIBLE;
+                    _result = result_e::IMPOSSIBLE;
                     glp_delete_prob(lp);
                     return true;
                 }
@@ -114,7 +114,7 @@ auto LinearProgram::is_impossible(const PQL::SimplificationContext &context, uin
     settings.msg_lev = 0;
     auto result = glp_simplex(lp, &settings);
     if (result == GLP_ETMLIM) {
-        _result = result_t::UKNOWN;
+        _result = result_e::UKNOWN;
         std::cerr << "glpk: timeout" << std::endl;
     } else if (result == 0) {
         auto status = glp_get_status(lp);
@@ -126,26 +126,26 @@ auto LinearProgram::is_impossible(const PQL::SimplificationContext &context, uin
             iset.presolve = GLP_OFF;
             auto ires = glp_intopt(lp, &iset);
             if (ires == GLP_ETMLIM) {
-                _result = result_t::UKNOWN;
+                _result = result_e::UKNOWN;
                 std::cerr << "glpk mip: timeout" << std::endl;
             } else if (ires == 0) {
                 auto ist = glp_mip_status(lp);
                 if (ist == GLP_OPT || ist == GLP_FEAS || ist == GLP_UNBND) {
-                    _result = result_t::POSSIBLE;
+                    _result = result_e::POSSIBLE;
                 } else {
-                    _result = result_t::IMPOSSIBLE;
+                    _result = result_e::IMPOSSIBLE;
                 }
             }
         } else if (status == GLP_FEAS || status == GLP_UNBND) {
-            _result = result_t::POSSIBLE;
+            _result = result_e::POSSIBLE;
         } else
-            _result = result_t::IMPOSSIBLE;
+            _result = result_e::IMPOSSIBLE;
     } else if (result == GLP_ENOPFS || result == GLP_ENODFS || result == GLP_ENOFEAS) {
-        _result = result_t::IMPOSSIBLE;
+        _result = result_e::IMPOSSIBLE;
     }
     glp_delete_prob(lp);
 
-    return _result == result_t::IMPOSSIBLE;
+    return _result == result_e::IMPOSSIBLE;
 }
 
 auto LinearProgram::bounds(const PQL::SimplificationContext &context, uint32_t solvetime,
@@ -300,7 +300,7 @@ void LinearProgram::make_union(const LinearProgram &other) {
             n._upper = std::min(n._upper, it2->_upper);
             /*if(n.upper < n.lower)
             {
-                _result = result_t::IMPOSSIBLE;
+                _result = result_e::IMPOSSIBLE;
                 _equations.clear();
                 return;
             }*/

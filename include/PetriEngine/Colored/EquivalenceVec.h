@@ -10,7 +10,7 @@ namespace PetriEngine {
 namespace Colored {
 class EquivalenceVec {
   public:
-    void apply_partition(Colored::ArcIntervals &arcInterval) const;
+    void apply_partition(Colored::arc_intervals_t &arcInterval) const;
     void merge_eq_classes();
     void apply_partition(std::vector<uint32_t> &colorIds) const;
 

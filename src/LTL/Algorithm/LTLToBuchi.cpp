@@ -80,32 +80,32 @@ void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::BooleanCondition *elem
 
 void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::LiteralExpr *element) {
     assert(false);
-    throw base_error("LiteralExpr should not be visited by Spot serializer");
+    throw base_error_t("LiteralExpr should not be visited by Spot serializer");
 }
 
 void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::PlusExpr *element) {
     assert(false);
-    throw base_error("PlusExpr should not be visited by Spot serializer");
+    throw base_error_t("PlusExpr should not be visited by Spot serializer");
 }
 
 void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::MultiplyExpr *element) {
     assert(false);
-    throw base_error("MultiplyExpr should not be visited by Spot serializer");
+    throw base_error_t("MultiplyExpr should not be visited by Spot serializer");
 }
 
 void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::MinusExpr *element) {
     assert(false);
-    throw base_error("MinusExpr should not be visited by Spot serializer");
+    throw base_error_t("MinusExpr should not be visited by Spot serializer");
 }
 
 void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::SubtractExpr *element) {
     assert(false);
-    throw base_error("LiteralExpr should not be visited by Spot serializer");
+    throw base_error_t("LiteralExpr should not be visited by Spot serializer");
 }
 
 void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::IdentifierExpr *element) {
     assert(false);
-    throw base_error("IdentifierExpr should not be visited by Spot serializer");
+    throw base_error_t("IdentifierExpr should not be visited by Spot serializer");
 }
 
 void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::ACondition *condition) {

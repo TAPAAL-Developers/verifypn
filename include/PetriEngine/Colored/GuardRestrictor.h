@@ -21,12 +21,11 @@
 
 #include "Colors.h"
 #include "Multiset.h"
+#include <cstdlib>
 #include <set>
-#include <stdlib.h>
 #include <unordered_map>
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 
 class GuardRestrictor {
   public:
@@ -71,19 +70,20 @@ class GuardRestrictor {
                        std::set<const Colored::Variable *> &diagonalVars, bool lessthan,
                        bool strict) const;
 
-    interval_vector_t shift_intervals(const VariableIntervalMap &varMap,
-                                      const std::vector<const ColorType *> &colortypes,
-                                      interval_vector_t &intervals, int32_t modifier,
-                                      uint32_t ctSizeBefore) const;
+    auto shift_intervals(const VariableIntervalMap &varMap,
+                         const std::vector<const ColorType *> &colortypes,
+                         IntervalVector &intervals, int32_t modifier,
+                         uint32_t ctSizeBefore) const -> IntervalVector;
 
   private:
-    int32_t get_var_modifier(const std::unordered_map<uint32_t, int32_t> &modPairMap,
-                             uint32_t index) const;
-    interval_t get_interval_from_ids(const std::vector<uint32_t> &idVec, uint32_t ctSize,
-                                     int32_t modifier) const;
-    interval_vector_t get_interval_overlap(const Colored::interval_vector_t &intervals1,
-                                           const Colored::interval_vector_t &intervals2) const;
-    void invert_intervals(interval_vector_t &intervals, const interval_vector_t &oldIntervals,
+    [[nodiscard]] auto get_var_modifier(const std::unordered_map<uint32_t, int32_t> &modPairMap,
+                                        uint32_t index) const -> int32_t;
+    [[nodiscard]] auto get_interval_from_ids(const std::vector<uint32_t> &idVec, uint32_t ctSize,
+                                             int32_t modifier) const -> interval_t;
+    [[nodiscard]] auto get_interval_overlap(const Colored::IntervalVector &intervals1,
+                                            const Colored::IntervalVector &intervals2) const
+        -> IntervalVector;
+    void invert_intervals(IntervalVector &intervals, const IntervalVector &oldIntervals,
                           const ColorType *colorType) const;
 
     void handle_inequalityconstants(const std::vector<VariableIntervalMap> &variableMapCopy,
@@ -107,7 +107,7 @@ class GuardRestrictor {
                             const VariableModifierMap &otherVarModifierMap,
                             const std::unordered_map<uint32_t, const Variable *> &varPositions,
                             const std::unordered_map<uint32_t, const Color *> &constantMap,
-                            const Variable *otherVar, interval_vector_t &intervalVec,
+                            const Variable *otherVar, IntervalVector &intervalVec,
                             size_t targetSize, uint32_t index) const;
 
     void restrict_by_constant(std::vector<VariableIntervalMap> &variableMap,
@@ -135,7 +135,6 @@ class GuardRestrictor {
                               std::set<const Colored::Variable *> &diagonalVars,
                               const Colored::Variable *var, uint32_t index) const;
 };
-} // namespace Colored
-} // namespace PetriEngine
+} // namespace PetriEngine::Colored
 
 #endif /* GuardRestrictions_H */

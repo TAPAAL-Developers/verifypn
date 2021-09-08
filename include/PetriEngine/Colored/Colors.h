@@ -251,7 +251,7 @@ struct Variable {
 };
 
 struct ColorFixpoint {
-    Colored::interval_vector_t _constraints;
+    Colored::IntervalVector _constraints;
     bool _in_queue;
 };
 
@@ -267,7 +267,7 @@ typedef std::unordered_map<const Colored::Variable *,
                            std::vector<std::unordered_map<uint32_t, int32_t>>>
     VariableModifierMap;
 typedef std::unordered_map<const PetriEngine::Colored::Variable *,
-                           PetriEngine::Colored::interval_vector_t>
+                           PetriEngine::Colored::IntervalVector>
     VariableIntervalMap;
 typedef std::unordered_map<uint32_t, std::vector<const Color *>> PositionColorsMap;
 } // namespace Colored

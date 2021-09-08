@@ -14,56 +14,60 @@
 using namespace ptrie;
 
 class AlignedEncoder {
-    typedef binarywrapper_t scratchpad_t;
+    using scratchpad_t = BinaryWrapper;
 
   public:
     AlignedEncoder(uint32_t places);
 
     ~AlignedEncoder();
 
-    size_t encode(const uint32_t *data, unsigned char type);
+    auto encode(const uint32_t *data, unsigned char type) -> size_t;
 
     void decode(uint32_t *destination, const unsigned char *source);
 
-    binarywrapper_t &scratchpad() { return _scratchpad; }
+    auto scratchpad() -> BinaryWrapper & { return _scratchpad; }
 
-    [[nodiscard]] unsigned char get_type(uint32_t sum, uint32_t pwt, bool same, uint32_t val) const;
+    [[nodiscard]] auto get_type(uint32_t sum, uint32_t pwt, bool same, uint32_t val) const
+        -> unsigned char;
 
-    size_t size(const uchar *data) const;
+    auto size(const uchar *data) const -> size_t;
 
   private:
-    [[nodiscard]] uint32_t token_bytes(uint32_t ntokens) const;
+    [[nodiscard]] auto token_bytes(uint32_t ntokens) const -> uint32_t;
 
-    uint32_t write_bit_vector(const uint32_t *data);
+    auto write_bit_vector(const uint32_t *data) -> uint32_t;
 
-    uint32_t write_two_bit_vector(const uint32_t *data);
+    auto write_two_bit_vector(const uint32_t *data) -> uint32_t;
 
-    template <typename T> uint32_t write_tokens(const uint32_t *data);
+    template <typename T> auto write_tokens(const uint32_t *data) -> uint32_t;
 
-    template <typename T> uint32_t write_token_counts(size_t offset, const uint32_t *data);
+    template <typename T> auto write_token_counts(size_t offset, const uint32_t *data) -> uint32_t;
 
-    uint32_t write_places(const uint32_t *data);
+    auto write_places(const uint32_t *data) -> uint32_t;
 
-    uint32_t read_bit_vector(uint32_t *destination, const unsigned char *source, uint32_t value);
+    auto read_bit_vector(uint32_t *destination, const unsigned char *source, uint32_t value)
+        -> uint32_t;
 
-    uint32_t read_two_bit_vector(uint32_t *destination, const unsigned char *source);
+    auto read_two_bit_vector(uint32_t *destination, const unsigned char *source) -> uint32_t;
 
-    uint32_t read_places(uint32_t *destination, const unsigned char *source, uint32_t offset,
-                         uint32_t value);
-
-    template <typename T> uint32_t read_tokens(uint32_t *destination, const unsigned char *source);
-
-    template <typename T>
-    uint32_t read_place_token_counts(uint32_t *destination, const unsigned char *source,
-                                     uint32_t offset) const;
+    auto read_places(uint32_t *destination, const unsigned char *source, uint32_t offset,
+                     uint32_t value) -> uint32_t;
 
     template <typename T>
-    size_t place_token_counts_size(const unsigned char *source, uint32_t offset) const;
+    auto read_tokens(uint32_t *destination, const unsigned char *source) -> uint32_t;
 
     template <typename T>
-    uint32_t read_bit_token_counts(uint32_t *destination, const unsigned char *source) const;
+    auto read_place_token_counts(uint32_t *destination, const unsigned char *source,
+                                 uint32_t offset) const -> uint32_t;
 
-    template <typename T> size_t bit_token_counts_size(const unsigned char *source) const;
+    template <typename T>
+    auto place_token_counts_size(const unsigned char *source, uint32_t offset) const -> size_t;
+
+    template <typename T>
+    auto read_bit_token_counts(uint32_t *destination, const unsigned char *source) const
+        -> uint32_t;
+
+    template <typename T> auto bit_token_counts_size(const unsigned char *source) const -> size_t;
 
     uint32_t _places;
 

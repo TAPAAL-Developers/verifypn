@@ -21,29 +21,28 @@
 
 #include "../TAR/range.h"
 #include <chrono>
+#include <cstring>
 #include <fstream>
 #include <iostream>
 #include <set>
 #include <sstream>
-#include <string.h>
 #include <string>
 #include <unordered_map>
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 
 struct interval_t {
     std::vector<Reachability::range_t> _ranges;
 
-    interval_t() {}
+    interval_t() = default;
 
-    ~interval_t() {}
+    ~interval_t() = default;
 
     interval_t(const std::vector<Reachability::range_t> &ranges) : _ranges(ranges) {}
 
-    size_t size() const { return _ranges.size(); }
+    [[nodiscard]] auto size() const -> size_t { return _ranges.size(); }
 
-    bool is_sound() const {
+    [[nodiscard]] auto is_sound() const -> bool {
         for (const auto &range : _ranges) {
             if (!range.is_sound()) {
                 return false;
@@ -62,14 +61,14 @@ struct interval_t {
 
     void add_range(uint32_t l, uint32_t u) { _ranges.emplace_back(l, u); }
 
-    Reachability::range_t &operator[](size_t index) {
+    auto operator[](size_t index) -> Reachability::range_t & {
         assert(index < _ranges.size());
         return _ranges[index];
     }
 
-    const Reachability::range_t &operator[](size_t index) const { return _ranges[index]; }
+    auto operator[](size_t index) const -> const Reachability::range_t & { return _ranges[index]; }
 
-    std::vector<uint32_t> get_lower_ids() const {
+    [[nodiscard]] auto get_lower_ids() const -> std::vector<uint32_t> {
         std::vector<uint32_t> ids;
         for (auto &range : _ranges) {
             ids.push_back(range._lower);
@@ -77,7 +76,7 @@ struct interval_t {
         return ids;
     }
 
-    interval_t get_single_color_interval() const {
+    [[nodiscard]] auto get_single_color_interval() const -> interval_t {
         interval_t newInterval;
         for (auto &range : _ranges) {
             newInterval.add_range(range._lower, range._lower);
@@ -85,7 +84,7 @@ struct interval_t {
         return newInterval;
     }
 
-    bool equals(const interval_t &other) const {
+    [[nodiscard]] auto equals(const interval_t &other) const -> bool {
         if (other.size() != size()) {
             return false;
         }
@@ -98,7 +97,7 @@ struct interval_t {
         return true;
     }
 
-    uint32_t get_contained_colors() const {
+    [[nodiscard]] auto get_contained_colors() const -> uint32_t {
         uint32_t colors = 1;
         for (const auto &range : _ranges) {
             colors *= 1 + range._upper - range._lower;
@@ -106,7 +105,8 @@ struct interval_t {
         return colors;
     }
 
-    bool contains(const interval_t &other, const std::vector<bool> &diagonalPositions) const {
+    [[nodiscard]] auto contains(const interval_t &other,
+                                const std::vector<bool> &diagonalPositions) const -> bool {
         if (other.size() != size()) {
             return false;
         }
@@ -118,7 +118,7 @@ struct interval_t {
         return true;
     }
 
-    interval_t get_overlap(const interval_t &other) const {
+    [[nodiscard]] auto get_overlap(const interval_t &other) const -> interval_t {
         interval_t overlapInterval;
         if (size() != other.size()) {
             return overlapInterval;
@@ -132,8 +132,8 @@ struct interval_t {
         return overlapInterval;
     }
 
-    interval_t get_overlap(const interval_t &other,
-                           const std::vector<bool> &diagonalPositions) const {
+    [[nodiscard]] auto get_overlap(const interval_t &other,
+                                   const std::vector<bool> &diagonalPositions) const -> interval_t {
         interval_t overlapInterval;
         if (size() != other.size()) {
             return overlapInterval;
@@ -151,7 +151,7 @@ struct interval_t {
         return overlapInterval;
     }
 
-    interval_t &operator|=(const interval_t &other) {
+    auto operator|=(const interval_t &other) -> interval_t & {
         assert(size() == other.size());
         for (uint32_t l = 0; l < size(); ++l) {
             _ranges[l] |= other[l];
@@ -159,7 +159,7 @@ struct interval_t {
         return *this;
     }
 
-    bool intersects(const interval_t &otherInterval) const {
+    [[nodiscard]] auto intersects(const interval_t &otherInterval) const -> bool {
         assert(size() == otherInterval.size());
         for (uint32_t k = 0; k < size(); k++) {
             if (!_ranges[k].intersects(otherInterval[k])) {
@@ -169,8 +169,9 @@ struct interval_t {
         return true;
     }
 
-    std::vector<interval_t> get_substracted(const interval_t &other,
-                                            const std::vector<bool> &diagonalPositions) const {
+    [[nodiscard]] auto get_substracted(const interval_t &other,
+                                       const std::vector<bool> &diagonalPositions) const
+        -> std::vector<interval_t> {
         std::vector<interval_t> result;
 
         if (size() != other.size()) {
@@ -214,7 +215,7 @@ struct interval_t {
         }
     }
 
-    std::string to_string() const {
+    [[nodiscard]] auto to_string() const -> std::string {
         std::ostringstream strs;
         for (const auto &range : _ranges) {
             strs << " " << range._lower << "-" << range._upper << " ";
@@ -229,35 +230,39 @@ struct interval_dist_t {
     uint32_t _distance;
 };
 
-class interval_vector_t {
+class IntervalVector {
   private:
     std::vector<interval_t> _intervals;
 
   public:
-    ~interval_vector_t() {}
+    ~IntervalVector() = default;
 
-    interval_vector_t() {}
+    IntervalVector() = default;
 
-    interval_vector_t(const std::vector<interval_t> &ranges) : _intervals(ranges){};
+    IntervalVector(const std::vector<interval_t> &ranges) : _intervals(ranges){};
 
-    std::vector<interval_t>::iterator begin() { return _intervals.begin(); }
-    std::vector<interval_t>::iterator end() { return _intervals.end(); }
-    std::vector<interval_t>::const_iterator begin() const { return _intervals.begin(); }
-    std::vector<interval_t>::const_iterator end() const { return _intervals.end(); }
+    auto begin() -> std::vector<interval_t>::iterator { return _intervals.begin(); }
+    auto end() -> std::vector<interval_t>::iterator { return _intervals.end(); }
+    [[nodiscard]] auto begin() const -> std::vector<interval_t>::const_iterator {
+        return _intervals.begin();
+    }
+    [[nodiscard]] auto end() const -> std::vector<interval_t>::const_iterator {
+        return _intervals.end();
+    }
 
-    bool empty() const { return _intervals.empty(); }
+    [[nodiscard]] auto empty() const -> bool { return _intervals.empty(); }
 
     void clear() { _intervals.clear(); }
 
-    const interval_t &front() const { return _intervals[0]; }
+    [[nodiscard]] auto front() const -> const interval_t & { return _intervals[0]; }
 
-    const interval_t &back() const { return _intervals.back(); }
+    [[nodiscard]] auto back() const -> const interval_t & { return _intervals.back(); }
 
-    size_t size() const { return _intervals.size(); }
+    [[nodiscard]] auto size() const -> size_t { return _intervals.size(); }
 
-    size_t tuple_size() const { return _intervals[0].size(); }
+    [[nodiscard]] auto tuple_size() const -> size_t { return _intervals[0].size(); }
 
-    uint32_t get_contained_colors() const {
+    [[nodiscard]] auto get_contained_colors() const -> uint32_t {
         uint32_t colors = 0;
         for (const auto &interval : _intervals) {
             colors += interval.get_contained_colors();
@@ -265,14 +270,14 @@ class interval_vector_t {
         return colors;
     }
 
-    static std::pair<uint32_t, uint32_t> shift_interval(uint32_t lower, uint32_t upper,
-                                                        uint32_t ctSize, int32_t modifier) {
+    static auto shift_interval(uint32_t lower, uint32_t upper, uint32_t ctSize, int32_t modifier)
+        -> std::pair<uint32_t, uint32_t> {
         int32_t lower_val = ctSize + (lower + modifier);
         int32_t upper_val = ctSize + (upper + modifier);
         return std::make_pair(lower_val % ctSize, upper_val % ctSize);
     }
 
-    bool has_valid_intervals() const {
+    [[nodiscard]] auto has_valid_intervals() const -> bool {
         for (const auto &interval : _intervals) {
             if (interval.is_sound()) {
                 return true;
@@ -281,21 +286,21 @@ class interval_vector_t {
         return false;
     }
 
-    const interval_t &operator[](size_t index) const {
+    auto operator[](size_t index) const -> const interval_t & {
         assert(index < _intervals.size());
         return _intervals[index];
     }
 
-    interval_t &operator[](size_t index) {
+    auto operator[](size_t index) -> interval_t & {
         assert(index < _intervals.size());
         return _intervals[index];
     }
 
-    void append(const interval_vector_t &other) {
+    void append(const IntervalVector &other) {
         _intervals.insert(_intervals.end(), other._intervals.begin(), other._intervals.end());
     }
 
-    interval_t is_range_end(const std::vector<uint32_t> &ids) const {
+    [[nodiscard]] auto is_range_end(const std::vector<uint32_t> &ids) const -> interval_t {
         for (uint32_t j = 0; j < _intervals.size(); j++) {
             bool rangeEnd = true;
             for (uint32_t i = 0; i < _intervals[j].size(); i++) {
@@ -316,7 +321,8 @@ class interval_vector_t {
         return interval_t();
     }
 
-    std::vector<Colored::interval_t> shrink_intervals(uint32_t newSize) const {
+    [[nodiscard]] auto shrink_intervals(uint32_t newSize) const
+        -> std::vector<Colored::interval_t> {
         std::vector<Colored::interval_t> resizedIntervals;
         for (auto &interval : _intervals) {
             Colored::interval_t resizedInterval;
@@ -340,8 +346,8 @@ class interval_vector_t {
 
         for (auto &localInterval : _intervals) {
             bool extendsInterval = true;
-            enum FoundPlace { undecided, greater, lower };
-            FoundPlace foundPlace = undecided;
+            enum found_place_e { UNDECIDED, GREATER, LOWER };
+            found_place_e foundPlace = UNDECIDED;
 
             for (uint32_t k = 0; k < interval.size(); k++) {
                 if (interval[k]._lower > localInterval[k]._upper ||
@@ -349,15 +355,15 @@ class interval_vector_t {
                     extendsInterval = false;
                 }
                 if (interval[k]._lower < localInterval[k]._lower) {
-                    if (foundPlace == undecided) {
-                        foundPlace = lower;
+                    if (foundPlace == UNDECIDED) {
+                        foundPlace = LOWER;
                     }
                 } else if (interval[k]._lower > localInterval[k]._lower) {
-                    if (foundPlace == undecided) {
-                        foundPlace = greater;
+                    if (foundPlace == UNDECIDED) {
+                        foundPlace = GREATER;
                     }
                 }
-                if (!extendsInterval && foundPlace != undecided) {
+                if (!extendsInterval && foundPlace != UNDECIDED) {
                     break;
                 }
             }
@@ -367,7 +373,7 @@ class interval_vector_t {
                     localInterval[k] |= interval[k];
                 }
                 return;
-            } else if (foundPlace == lower) {
+            } else if (foundPlace == LOWER) {
                 break;
             }
             vecIndex++;
@@ -377,12 +383,12 @@ class interval_vector_t {
     }
 
     void constrain_lower(const std::vector<uint32_t> &values, bool strict) {
-        for (uint32_t i = 0; i < _intervals.size(); ++i) {
+        for (auto &_interval : _intervals) {
             for (uint32_t j = 0; j < values.size(); ++j) {
-                if (strict && _intervals[i][j]._lower <= values[j]) {
-                    _intervals[i][j]._lower = values[j] + 1;
-                } else if (!strict && _intervals[i][j]._lower < values[j]) {
-                    _intervals[i][j]._lower = values[j];
+                if (strict && _interval[j]._lower <= values[j]) {
+                    _interval[j]._lower = values[j] + 1;
+                } else if (!strict && _interval[j]._lower < values[j]) {
+                    _interval[j]._lower = values[j];
                 }
             }
         }
@@ -390,12 +396,12 @@ class interval_vector_t {
     }
 
     void constrain_upper(const std::vector<uint32_t> &values, bool strict) {
-        for (uint32_t i = 0; i < _intervals.size(); ++i) {
+        for (auto &_interval : _intervals) {
             for (uint32_t j = 0; j < values.size(); ++j) {
-                if (strict && _intervals[i][j]._upper >= values[j]) {
-                    _intervals[i][j]._upper = values[j] - 1;
-                } else if (!strict && _intervals[i][j]._upper > values[j]) {
-                    _intervals[i][j]._upper = values[j];
+                if (strict && _interval[j]._upper >= values[j]) {
+                    _interval[j]._upper = values[j] - 1;
+                } else if (!strict && _interval[j]._upper > values[j]) {
+                    _interval[j]._upper = values[j];
                 }
             }
         }
@@ -410,7 +416,7 @@ class interval_vector_t {
         }
     }
 
-    std::string to_string() const {
+    [[nodiscard]] auto to_string() const -> std::string {
         std::string out;
         for (const auto &interval : _intervals) {
             out += "[";
@@ -420,7 +426,7 @@ class interval_vector_t {
         return out;
     }
 
-    std::vector<uint32_t> get_lower_ids() const {
+    [[nodiscard]] auto get_lower_ids() const -> std::vector<uint32_t> {
         std::vector<uint32_t> ids;
         for (const auto &interval : _intervals) {
             if (ids.empty()) {
@@ -434,7 +440,8 @@ class interval_vector_t {
         return ids;
     }
 
-    std::vector<uint32_t> get_lower_ids(int32_t modifier, const std::vector<size_t> &sizes) const {
+    [[nodiscard]] auto get_lower_ids(int32_t modifier, const std::vector<size_t> &sizes) const
+        -> std::vector<uint32_t> {
         std::vector<uint32_t> ids;
         for (uint32_t j = 0; j < size(); j++) {
             auto &interval = _intervals[j];
@@ -466,7 +473,8 @@ class interval_vector_t {
         return ids;
     }
 
-    std::vector<uint32_t> get_upper_ids(int32_t modifier, const std::vector<size_t> &sizes) const {
+    [[nodiscard]] auto get_upper_ids(int32_t modifier, const std::vector<size_t> &sizes) const
+        -> std::vector<uint32_t> {
         std::vector<uint32_t> ids;
         for (uint32_t j = 0; j < size(); j++) {
             const auto &interval = _intervals[j];
@@ -534,7 +542,8 @@ class interval_vector_t {
         _intervals = std::move(collectedIntervals);
     }
 
-    bool contains(const interval_t &interval, const std::vector<bool> &diagonalPositions) const {
+    [[nodiscard]] auto contains(const interval_t &interval,
+                                const std::vector<bool> &diagonalPositions) const -> bool {
         for (const auto &localInterval : _intervals) {
             if (localInterval.contains(interval, diagonalPositions)) {
                 return true;
@@ -565,7 +574,7 @@ class interval_vector_t {
         simplify();
     }
 
-    interval_dist_t get_closest_intervals() const {
+    [[nodiscard]] auto get_closest_intervals() const -> interval_dist_t {
         interval_dist_t currentBest = {0, 0, std::numeric_limits<uint32_t>::max()};
         for (uint32_t i = 0; i < size() - 1; i++) {
             const auto &interval = _intervals[i];
@@ -666,7 +675,6 @@ class interval_vector_t {
         }
     }
 };
-} // namespace Colored
-} // namespace PetriEngine
+} // namespace PetriEngine::Colored
 
 #endif /* INTERVALS_H */

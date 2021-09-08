@@ -2,15 +2,15 @@
 #include "PetriEngine/Colored/EquivalenceVec.h"
 
 namespace PetriEngine::Colored {
-void EquivalenceVec::apply_partition(Colored::ArcIntervals &arcInterval) const {
+void EquivalenceVec::apply_partition(Colored::arc_intervals_t &arcInterval) const {
     if (_diagonal || _equivalenceClasses.size() >=
                          _equivalenceClasses.back().type()->size(_diagonalTuplePositions)) {
         return;
     }
-    std::vector<Colored::interval_vector_t> newTupleVec;
+    std::vector<Colored::IntervalVector> newTupleVec;
     for (auto &intervalTuple : arcInterval._intervalTupleVec) {
         intervalTuple.combine_neighbours();
-        interval_vector_t newIntervalTuple;
+        IntervalVector newIntervalTuple;
         for (const auto &interval : intervalTuple) {
             for (const auto &EQClass : _equivalenceClasses) {
                 for (const auto &EQinterval : EQClass.intervals()) {

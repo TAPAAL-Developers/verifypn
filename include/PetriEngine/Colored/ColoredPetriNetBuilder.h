@@ -105,7 +105,7 @@ class ColoredPetriNetBuilder : public AbstractPetriNetBuilder {
   private:
     std::unordered_map<std::string, uint32_t> _placenames;
     std::unordered_map<std::string, uint32_t> _transitionnames;
-    std::unordered_map<uint32_t, std::unordered_map<uint32_t, Colored::ArcIntervals>> _arcIntervals;
+    std::unordered_map<uint32_t, std::unordered_map<uint32_t, Colored::arc_intervals_t>> _arcIntervals;
     std::unordered_map<uint32_t, std::vector<uint32_t>> _placePostTransitionMap;
     std::unordered_map<uint32_t, std::vector<uint32_t>> _placePreTransitionMap;
     PTPlaceMap _ptplacenames;
@@ -153,7 +153,7 @@ class ColoredPetriNetBuilder : public AbstractPetriNetBuilder {
     void add_transition_vars(Colored::Transition &transition) const;
 
     auto setup_transition_vars(const Colored::Transition &transition) const
-        -> std::unordered_map<uint32_t, Colored::ArcIntervals>;
+        -> std::unordered_map<uint32_t, Colored::arc_intervals_t>;
 
     void add_arc(const std::string &place, const std::string &transition,
                  const Colored::ArcExpression_ptr &expr, bool input, bool inhibitor, int weight);

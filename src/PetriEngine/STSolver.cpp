@@ -212,7 +212,7 @@ auto STSolver::duration() const -> uint32_t {
 void STSolver::construct_pre_post() {
     std::vector<std::pair<std::vector<uint32_t>, std::vector<uint32_t>>> tmp_places(_net._nplaces);
     for (uint32_t t = 0; t < _net._ntransitions; t++) {
-        const TransPtr &ptr = _net._transitions[t];
+        const trans_ptr_t &ptr = _net._transitions[t];
         uint32_t finv = ptr._inputs;
         uint32_t linv = ptr._outputs;
         for (; finv < linv; finv++) { // Post set of places

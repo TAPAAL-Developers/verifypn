@@ -22,21 +22,20 @@
 #include "../PetriNet.h"
 
 #include <algorithm>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <vector>
 
-namespace PetriEngine {
-namespace Structures {
+namespace PetriEngine::Structures {
 
 /** GeneralState class for reachability searches.
  * Used in most reachability search cases */
 class State {
   public:
-    MarkVal *marking() { return _marking; }
+    auto marking() -> MarkVal * { return _marking; }
 
-    const MarkVal *marking() const { return _marking; }
+    [[nodiscard]] auto marking() const -> const MarkVal * { return _marking; }
 
     void set_marking(MarkVal *m) { _marking = m; }
 
@@ -44,9 +43,9 @@ class State {
 
     State(const State &state) = delete;
 
-    State(State &&state) : _marking(state._marking) { state._marking = nullptr; }
+    State(State &&state) noexcept : _marking(state._marking) { state._marking = nullptr; }
 
-    State &operator=(State &&other) {
+    auto operator=(State &&other) -> State& {
         if (&other != this) {
             delete _marking;
             _marking = other._marking;
@@ -67,22 +66,21 @@ class State {
         os << std::endl;
     }
 
-    std::ostream &print_short(const PetriNet &net, std::ostream &os) {
+    auto print_short(const PetriNet &net, std::ostream &os) -> std::ostream & {
         for (uint32_t i = 0; i < net.number_of_places(); i++) {
             os << _marking[i];
         }
         return os;
     }
 
-    bool operator==(const State &rhs) const { return _marking == rhs._marking; }
+    auto operator==(const State &rhs) const -> bool { return _marking == rhs._marking; }
 
-    bool operator!=(const State &rhs) const { return !(rhs == *this); }
+    auto operator!=(const State &rhs) const -> bool { return !(rhs == *this); }
 
   private:
     MarkVal *_marking;
 };
 
-} // namespace Structures
-} // namespace PetriEngine
+} // namespace PetriEngine::Structures
 
 #endif // GENERALSTATE_H

@@ -34,7 +34,7 @@ inline auto to_string(Algorithm alg) {
         return "TARJAN";
     case Algorithm::None:
     default:
-        throw base_error("to_string: Invalid LTL Algorithm ", static_cast<int>(alg));
+        throw base_error_t("to_string: Invalid LTL Algorithm ", static_cast<int>(alg));
         assert(false);
         return "None";
     }

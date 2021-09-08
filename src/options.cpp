@@ -109,16 +109,16 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
         if (strcmp(argv[i], "-k") == 0 || strcmp(argv[i], "--k-bound") == 0) {
             if (i == argc - 1) {
                 fprintf(stderr, "Missing number after \"%s\"\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             if (sscanf(argv[++i], "%d", &_kbound) != 1 || _kbound < 0) {
                 fprintf(stderr, "Argument Error: Invalid number of tokens \"%s\"\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
         } else if (strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--search-strategy") == 0) {
             if (i == argc - 1) {
                 fprintf(stderr, "Missing search strategy after \"%s\"\n\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             char *s = argv[++i];
             if (strcmp(s, "BestFS") == 0)
@@ -133,48 +133,48 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
                 _strategy = search_strategy_e::OverApprox;
             else {
                 fprintf(stderr, "Argument Error: Unrecognized search strategy \"%s\"\n", s);
-                return ErrorCode;
+                return ERROR_CODE;
             }
         } else if (strcmp(argv[i], "-q") == 0 || strcmp(argv[i], "--query-reduction") == 0) {
             if (i == argc - 1) {
                 fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             if (sscanf(argv[++i], "%d", &_query_reduction_timeout) != 1 ||
                 _query_reduction_timeout < 0) {
                 fprintf(stderr, "Argument Error: Invalid query reduction timeout argument \"%s\"\n",
                         argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
         } else if (strcmp(argv[i], "--interval-timeout") == 0) {
             if (i == argc - 1) {
                 fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             if (sscanf(argv[++i], "%d", &_interval_timeout) != 1 || _interval_timeout < 0) {
                 fprintf(stderr, "Argument Error: Invalid fixpoint timeout argument \"%s\"\n",
                         argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
         } else if (strcmp(argv[i], "--partition-timeout") == 0) {
             if (i == argc - 1) {
                 fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             if (sscanf(argv[++i], "%d", &_partition_timeout) != 1 || _partition_timeout < 0) {
                 fprintf(stderr, "Argument Error: Invalid fixpoint timeout argument \"%s\"\n",
                         argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
         } else if (strcmp(argv[i], "-l") == 0 || strcmp(argv[i], "--lpsolve-timeout") == 0) {
             if (i == argc - 1) {
                 fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             if (sscanf(argv[++i], "%d", &_lpsolve_timeout) != 1 || _lpsolve_timeout < 0) {
                 fprintf(stderr, "Argument Error: Invalid LPSolve timeout argument \"%s\"\n",
                         argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
         } else if (strcmp(argv[i], "-e") == 0 ||
                    strcmp(argv[i], "--state-space-exploration") == 0) {
@@ -199,7 +199,7 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
         } else if (strcmp(argv[i], "-x") == 0 || strcmp(argv[i], "--xml-queries") == 0) {
             if (i == argc - 1) {
                 fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             std::vector<std::string> q = explode(argv[++i]);
             for (auto &qn : q) {
@@ -213,12 +213,12 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
         } else if (strcmp(argv[i], "-r") == 0 || strcmp(argv[i], "--reduction") == 0) {
             if (i == argc - 1) {
                 fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             if (sscanf(argv[++i], "%d", &_enable_reduction) != 1 || _enable_reduction < 0 ||
                 _enable_reduction > 3) {
                 fprintf(stderr, "Argument Error: Invalid reduction argument \"%s\"\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             if (_enable_reduction == 3) {
                 _reductions.clear();
@@ -227,7 +227,7 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
                     int32_t n;
                     if (sscanf(qn.c_str(), "%d", &n) != 1 || n < 0 || n > 10) {
                         std::cerr << "Error in reduction rule choice : " << qn << std::endl;
-                        return ErrorCode;
+                        return ERROR_CODE;
                     } else {
                         _reductions.push_back(n);
                     }
@@ -236,17 +236,17 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
         } else if (strcmp(argv[i], "-d") == 0 || strcmp(argv[i], "--reduction-timeout") == 0) {
             if (i == argc - 1) {
                 fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             if (sscanf(argv[++i], "%d", &_reduction_timeout) != 1) {
                 fprintf(stderr, "Argument Error: Invalid reduction timeout argument \"%s\"\n",
                         argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
         } else if (strcmp(argv[i], "--seed-offset") == 0) {
             if (sscanf(argv[++i], "%u", &_seed_offset) != 1) {
                 fprintf(stderr, "Argument Error: Invalid seed offset argument \"%s\"\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
         } else if (strcmp(argv[i], "-p") == 0 ||
                    strcmp(argv[i], "--partial-order-reduction") == 0) {
@@ -254,20 +254,20 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
         } else if (strcmp(argv[i], "-a") == 0 || strcmp(argv[i], "--siphon-trap") == 0) {
             if (i == argc - 1) {
                 fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             if (sscanf(argv[++i], "%u", &_siphontrap_timeout) != 1) {
                 fprintf(stderr, "Argument Error: Invalid siphon-trap timeout \"%s\"\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
         } else if (strcmp(argv[i], "--siphon-depth") == 0) {
             if (i == argc - 1) {
                 fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             if (sscanf(argv[++i], "%u", &_siphon_depth) != 1) {
                 fprintf(stderr, "Argument Error: Invalid siphon-depth count \"%s\"\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
         } else if (strcmp(argv[i], "-tar") == 0) {
             _tar = true;
@@ -275,13 +275,13 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
         } else if (strcmp(argv[i], "--max-intervals") == 0) {
             if (i == argc - 1) {
                 fprintf(stderr, "Missing number after \"%s\"\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             if (sscanf(argv[++i], "%d", &_max_intervals) != 1 || _max_intervals < 0) {
                 fprintf(stderr,
                         "Argument Error: Invalid number of max intervals in first argument\"%s\"\n",
                         argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             if (i != argc - 1) {
                 if (sscanf(argv[++i], "%d", &_max_intervals_reduced) != 1 ||
@@ -290,7 +290,7 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
                             "Argument Error: Invalid number of max intervals in second argument "
                             "\"%s\"\n",
                             argv[i]);
-                    return ErrorCode;
+                    return ERROR_CODE;
                 }
             }
         } else if (strcmp(argv[i], "--write-simplified") == 0) {
@@ -298,7 +298,7 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
         } else if (strcmp(argv[i], "--binary-query-io") == 0) {
             if (sscanf(argv[++i], "%u", &_binary_query_io) != 1 || _binary_query_io > 3) {
                 fprintf(stderr, "Argument Error: Invalid binary-query-io value \"%s\"\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
         } else if (strcmp(argv[i], "--write-reduced") == 0) {
             _model_out_file = std::string(argv[++i]);
@@ -326,7 +326,7 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
         } else if (strcmp(argv[i], "--spot-optimization") == 0) {
             if (argc == i + 1) {
                 std::cerr << "Missing argument to --spot-optimization\n";
-                return ErrorCode;
+                return ERROR_CODE;
             } else if (strcmp(argv[i + 1], "1") == 0) {
                 _buchi_optimization = buchi_optimization_e::Low;
             } else if (strcmp(argv[i + 1], "2") == 0) {
@@ -335,7 +335,7 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
                 _buchi_optimization = buchi_optimization_e::High;
             } else {
                 std::cerr << "Invalid argument " << argv[i] << " to --spot-optimization\n";
-                return ErrorCode;
+                return ERROR_CODE;
             }
             ++i;
         } else if (strcmp(argv[i], "--trace-replay") == 0) {
@@ -347,11 +347,11 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
         else if (strcmp(argv[i], "-z") == 0) {
             if (i == argc - 1) {
                 fprintf(stderr, "Missing number after \"%s\"\n\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
             if (sscanf(argv[++i], "%u", &_cores) != 1) {
                 fprintf(stderr, "Argument Error: Invalid cores count \"%s\"\n", argv[i]);
-                return ErrorCode;
+                return ERROR_CODE;
             }
         }
 #endif
@@ -367,7 +367,7 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
                 } else {
                     fprintf(stderr, "Argument Error: Invalid ctl-algorithm type \"%s\"\n",
                             argv[i + 1]);
-                    return ErrorCode;
+                    return ERROR_CODE;
                 }
                 i++;
             }
@@ -388,7 +388,7 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
         } else if (strcmp(argv[i], "--ltl-por") == 0) {
             if (argc == i + 1) {
                 std::cerr << "Missing argument to --ltl-por\n";
-                return ErrorCode;
+                return ERROR_CODE;
             } else if (strcmp(argv[i + 1], "classic") == 0) {
                 _ltl_por = ltl_partial_order_e::Visible;
             } else if (strcmp(argv[i + 1], "reach") == 0) {
@@ -401,13 +401,13 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
                 _ltl_por = ltl_partial_order_e::None;
             } else {
                 std::cerr << "Unrecognized argument " << argv[i + 1] << " to --ltl-por\n";
-                return ErrorCode;
+                return ERROR_CODE;
             }
             ++i;
         } else if (strcmp(argv[i], "--ltl-heur") == 0) {
             if (argc == i + 1) {
                 std::cerr << "Missing argument to --ltl-heur\n";
-                return ErrorCode;
+                return ERROR_CODE;
             } else {
                 _ltl_heuristic = argv[i + 1];
             }
@@ -582,7 +582,7 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
                 "\n"
                 "VerifyPN is an untimed CTL verification engine for TAPAAL.\n"
                 "TAPAAL project page: <http://www.tapaal.net>\n");
-            return SuccessCode;
+            return SUCCESS_CODE;
         } else if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--version") == 0) {
             printf("VerifyPN (untimed verification engine for TAPAAL) %s\n", VERIFYPN_VERSION);
             printf("Copyright (C) 2011-2021\n");
@@ -608,7 +608,7 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
             printf("                        Simon Mejlby Virenfeldt <simon@simwir.dk>\n");
             printf("                        Lars Kærlund Østergaard <larsko@gmail.com>\n");
             printf("GNU GPLv3 or later <http://gnu.org/licenses/gpl.html>\n");
-            return SuccessCode;
+            return SUCCESS_CODE;
         } else if (strcmp(argv[i], "--ltl-heur-help") == 0) {
             printf("Heuristics for LTL model checking are specified using the following grammar:\n"
                    "  heurexp : {'aut' | 'automaton'}\n"
@@ -624,14 +624,14 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
                    "Weight for sum and threshold for fire count are optional and integral.\n"
                    "Sum weights default to 1 (thus plain sum), and default fire count threshold is "
                    "5000.\n");
-            return SuccessCode;
+            return SUCCESS_CODE;
         } else if (_modelfile == nullptr) {
             _modelfile = argv[i];
         } else if (_queryfile == nullptr) {
             _queryfile = argv[i];
         } else {
             fprintf(stderr, "Argument Error: Unrecognized option \"%s\"\n", _modelfile);
-            return ErrorCode;
+            return ERROR_CODE;
         }
     }
     // Print parameters
@@ -659,13 +659,13 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
     // Check for model file
     if (!_modelfile) {
         fprintf(stderr, "Argument Error: No model-file provided\n");
-        return ErrorCode;
+        return ERROR_CODE;
     }
 
     // Check for query file
     if (!_modelfile && !_statespace_exploration) {
         fprintf(stderr, "Argument Error: No query-file provided\n");
-        return ErrorCode;
+        return ERROR_CODE;
     }
 
     // Check for compatibility with LTL model checking
@@ -673,18 +673,18 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
         if (_tar) {
             std::cerr << "Argument Error: -tar is not compatible with LTL model checking."
                       << std::endl;
-            return ErrorCode;
+            return ERROR_CODE;
         }
         if (_siphontrap_timeout != 0) {
             std::cerr
                 << "Argument Error: -a/--siphon-trap is not compatible with LTL model checking."
                 << std::endl;
-            return ErrorCode;
+            return ERROR_CODE;
         }
         if (_siphon_depth != 0) {
             std::cerr << "Argument Error: --siphon-depth is not compatible with LTL model checking."
                       << std::endl;
-            return ErrorCode;
+            return ERROR_CODE;
         }
         std::array ltlStrategies{search_strategy_e::DFS, search_strategy_e::RDFS,
                                  search_strategy_e::HEUR};
@@ -696,7 +696,7 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
                              "values are DFS, RDFS, and BestFS."
                           << std::endl;
 
-                return ErrorCode;
+                return ERROR_CODE;
             }
         }
     }
@@ -704,8 +704,8 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
     if (false && _replay_trace && _logic != temporal_logic_e::LTL) {
         std::cerr << "Argument Error: Trace replay_trace is only supported for LTL model checking."
                   << std::endl;
-        return ErrorCode;
+        return ERROR_CODE;
     }
 
-    return ContinueCode;
+    return CONTINUE_CODE;
 }

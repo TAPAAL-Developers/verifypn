@@ -82,12 +82,12 @@ auto Reducer::get_place_name(uint32_t place) -> std::string {
     return "";
 }
 
-auto Reducer::get_transition(uint32_t transition) -> Transition & {
+auto Reducer::get_transition(uint32_t transition) -> transition_t & {
     return _builder->_transitions[transition];
 }
 
-auto Reducer::get_out_arc(Transition &trans, uint32_t place) -> ArcIter {
-    Arc a;
+auto Reducer::get_out_arc(transition_t &trans, uint32_t place) -> ArcIter {
+    arc_t a;
     a._place = place;
     auto ait = std::lower_bound(trans._post.begin(), trans._post.end(), a);
     if (ait != trans._post.end() && ait->_place == place) {
@@ -97,8 +97,8 @@ auto Reducer::get_out_arc(Transition &trans, uint32_t place) -> ArcIter {
     }
 }
 
-auto Reducer::get_in_arc(uint32_t place, Transition &trans) -> ArcIter {
-    Arc a;
+auto Reducer::get_in_arc(uint32_t place, transition_t &trans) -> ArcIter {
+    arc_t a;
     a._place = place;
     auto ait = std::lower_bound(trans._pre.begin(), trans._pre.end(), a);
     if (ait != trans._pre.end() && ait->_place == place) {
@@ -117,7 +117,7 @@ void Reducer::erase_transition(std::vector<uint32_t> &set, uint32_t el) {
 
 void Reducer::skip_transition(uint32_t t) {
     ++_removedTransitions;
-    Transition &trans = get_transition(t);
+    transition_t &trans = get_transition(t);
     assert(!trans._skip);
     for (auto p : trans._post) {
         erase_transition(_builder->_places[p._place]._producers, t);
@@ -134,18 +134,18 @@ void Reducer::skip_transition(uint32_t t) {
 
 void Reducer::skip_place(uint32_t place) {
     ++_removedPlaces;
-    Place &pl = _builder->_places[place];
+    place_t &pl = _builder->_places[place];
     assert(!pl._skip);
     pl._skip = true;
     for (auto &t : pl._consumers) {
-        Transition &trans = get_transition(t);
+        transition_t &trans = get_transition(t);
         auto ait = get_in_arc(place, trans);
         if (ait != trans._pre.end() && ait->_place == place)
             trans._pre.erase(ait);
     }
 
     for (auto &t : pl._producers) {
-        Transition &trans = get_transition(t);
+        transition_t &trans = get_transition(t);
         auto ait = get_out_arc(trans, place);
         if (ait != trans._post.end() && ait->_place == place)
             trans._post.erase(ait);
@@ -159,21 +159,21 @@ auto Reducer::consistent() -> bool {
 #ifndef NDEBUG
     size_t strans = 0;
     for (size_t i = 0; i < _builder->number_of_transitions(); ++i) {
-        Transition &t = _builder->_transitions[i];
+        transition_t &t = _builder->_transitions[i];
         if (t._skip)
             ++strans;
         assert(std::is_sorted(t._pre.begin(), t._pre.end()));
         assert(std::is_sorted(t._post.end(), t._post.end()));
         assert(!t._skip || (t._pre.size() == 0 && t._post.size() == 0));
-        for (Arc &a : t._pre) {
+        for (arc_t &a : t._pre) {
             assert(a._weight > 0);
-            Place &p = _builder->_places[a._place];
+            place_t &p = _builder->_places[a._place];
             assert(!p._skip);
             assert(std::find(p._consumers.begin(), p._consumers.end(), i) != p._consumers.end());
         }
-        for (Arc &a : t._post) {
+        for (arc_t &a : t._post) {
             assert(a._weight > 0);
-            Place &p = _builder->_places[a._place];
+            place_t&p = _builder->_places[a._place];
             assert(!p._skip);
             assert(std::find(p._producers.begin(), p._producers.end(), i) != p._producers.end());
         }
@@ -183,7 +183,7 @@ auto Reducer::consistent() -> bool {
 
     size_t splaces = 0;
     for (size_t i = 0; i < _builder->number_of_places(); ++i) {
-        Place &p = _builder->_places[i];
+        place_t&p = _builder->_places[i];
         if (p._skip)
             ++splaces;
         assert(std::is_sorted(p._consumers.begin(), p._consumers.end()));
@@ -191,7 +191,7 @@ auto Reducer::consistent() -> bool {
         assert(!p._skip || (p._consumers.size() == 0 && p._producers.size() == 0));
 
         for (uint c : p._consumers) {
-            Transition &t = _builder->_transitions[c];
+            transition_t &t = _builder->_transitions[c];
             assert(!t._skip);
             auto a = get_in_arc(i, t);
             assert(a != t._pre.end());
@@ -199,7 +199,7 @@ auto Reducer::consistent() -> bool {
         }
 
         for (uint prod : p._producers) {
-            Transition &t = _builder->_transitions[prod];
+            transition_t &t = _builder->_transitions[prod];
             assert(!t._skip);
             auto a = get_out_arc(t, i);
             assert(a != t._post.end());
@@ -219,7 +219,7 @@ auto Reducer::rule_a(uint32_t *placeInQuery) -> bool {
     for (uint32_t t = 0; t < number_of_transitions; t++) {
         if (has_timed_out())
             return false;
-        Transition &trans = get_transition(t);
+        transition_t &trans = get_transition(t);
 
         // we have already removed
         if (trans._skip)
@@ -273,7 +273,7 @@ auto Reducer::rule_a(uint32_t *placeInQuery) -> bool {
         // here we need to remember when a token is created in pPre (some
         // transition with an output in P is fired), t is fired instantly!.
         if (_reconstruct_trace) {
-            Place &pre = _builder->_places[pPre];
+            place_t&pre = _builder->_places[pPre];
             std::string tname = get_transition_name(t);
             for (size_t pp : pre._producers) {
                 std::string prefire = get_transition_name(pp);
@@ -301,10 +301,10 @@ auto Reducer::rule_a(uint32_t *placeInQuery) -> bool {
         for (auto &_t : _builder->_places[pPre]._producers) {
             assert(_t != t);
             // move output-arcs to post.
-            Transition &src = get_transition(_t);
+            transition_t &src = get_transition(_t);
             auto source = *get_out_arc(src, pPre);
             for (auto &pPost : toMove) {
-                Arc a;
+                arc_t a;
                 a._place = pPost._place;
                 a._weight = (source._weight / w) * pPost._weight;
                 assert(a._weight > 0);
@@ -336,7 +336,7 @@ auto Reducer::rule_b(uint32_t *placeInQuery, bool remove_deadlocks, bool remove_
     for (uint32_t p = 0; p < number_of_places; p++) {
         if (has_timed_out())
             return false;
-        Place &place = _builder->_places[p];
+        place_t&place = _builder->_places[p];
 
         if (place._skip)
             continue; // already removed
@@ -361,9 +361,9 @@ auto Reducer::rule_b(uint32_t *placeInQuery, bool remove_deadlocks, bool remove_
         if (!ok)
             continue;
         auto prod = place._producers;
-        Transition &in = get_transition(tIn);
+        transition_t &in = get_transition(tIn);
         for (auto tOut : prod) {
-            Transition &out = get_transition(tOut);
+            transition_t &out = get_transition(tOut);
 
             if (out._post.size() != 1 && in._pre.size() != 1)
                 continue; // at least one has to be singular for this to work
@@ -396,7 +396,7 @@ auto Reducer::rule_b(uint32_t *placeInQuery, bool remove_deadlocks, bool remove_
             // participating in inhibitors. B7. nor can they appear in the query.
             {
                 bool post_ok = false;
-                for (const Arc &a : in._post) {
+                for (const arc_t &a : in._post) {
                     post_ok |= _builder->_places[a._place]._inhib;
                     post_ok |= placeInQuery[a._place];
                     if (post_ok)
@@ -407,7 +407,7 @@ auto Reducer::rule_b(uint32_t *placeInQuery, bool remove_deadlocks, bool remove_
             }
             {
                 bool pre_ok = false;
-                for (const Arc &a : in._pre) {
+                for (const arc_t &a : in._pre) {
                     pre_ok |= _builder->_places[a._place]._inhib;
                     pre_ok |= placeInQuery[a._place];
                     if (pre_ok)
@@ -419,7 +419,7 @@ auto Reducer::rule_b(uint32_t *placeInQuery, bool remove_deadlocks, bool remove_
 
             bool ok = true;
             if (in._pre.size() > 1)
-                for (const Arc &arc : out._pre)
+                for (const arc_t &arc : out._pre)
                     ok &= placeInQuery[arc._place] == 0;
             if (!ok)
                 continue;
@@ -446,7 +446,7 @@ auto Reducer::rule_b(uint32_t *placeInQuery, bool remove_deadlocks, bool remove_
                 std::string toutname = get_transition_name(tOut);
                 std::string tinname = get_transition_name(tIn);
                 std::string pname = get_place_name(p);
-                Arc &a = *get_in_arc(p, in);
+                arc_t &a = *get_in_arc(p, in);
                 _extraconsume[tinname].emplace_back(pname, a._weight);
                 for (size_t i = 0; i < multiplier; ++i) {
                     _postfire[toutname].push_back(tinname);
@@ -567,7 +567,7 @@ auto Reducer::rule_c(uint32_t *placeInQuery) -> bool {
                     if (swp == 1)
                         std::swap(p1, p2);
 
-                    Place &place1 = _builder->_places[p1];
+                    place_t&place1 = _builder->_places[p1];
 
                     // C1. Not same place
                     if (p1 == p2)
@@ -577,7 +577,7 @@ auto Reducer::rule_c(uint32_t *placeInQuery) -> bool {
                     if (placeInQuery[p2] > 0)
                         continue;
 
-                    Place &place2 = _builder->_places[p2];
+                    place_t&place2 = _builder->_places[p2];
 
                     // C2, C3. Consumer and producer-sets must match
                     if (place1._consumers.size() < place2._consumers.size() ||
@@ -597,7 +597,7 @@ auto Reducer::rule_c(uint32_t *placeInQuery) -> bool {
                             break;
                         }
 
-                        Transition &trans = get_transition(place1._consumers[j]);
+                        transition_t &trans = get_transition(place1._consumers[j]);
                         auto a1 = get_in_arc(p1, trans);
                         auto a2 = get_in_arc(p2, trans);
                         assert(a1 != trans._pre.end());
@@ -626,7 +626,7 @@ auto Reducer::rule_c(uint32_t *placeInQuery) -> bool {
                             break;
                         }
 
-                        Transition &trans = get_transition(_producer);
+                        transition_t &trans = get_transition(_producer);
                         auto a1 = get_out_arc(trans, p1);
                         auto a2 = get_out_arc(trans, p2);
                         assert(a1 != trans._post.end());
@@ -691,7 +691,7 @@ auto Reducer::rule_d(uint32_t *placeInQuery) -> bool {
             if (_tflags[touter] != 0)
                 continue;
             _tflags[touter] = 1;
-            Transition &tout = get_transition(touter);
+            transition_t &tout = get_transition(touter);
             if (tout._skip)
                 continue;
 
@@ -701,7 +701,7 @@ auto Reducer::rule_d(uint32_t *placeInQuery) -> bool {
 
             for (size_t inner = outer + 1; inner < op._consumers.size(); ++inner) {
                 auto tinner = op._consumers[inner];
-                Transition &tin = get_transition(tinner);
+                transition_t &tin = get_transition(tinner);
                 if (tin._skip || tout._skip)
                     continue;
 
@@ -724,8 +724,8 @@ auto Reducer::rule_d(uint32_t *placeInQuery) -> bool {
                     // D1. not same transition
                     assert(t1 != t2);
 
-                    Transition &trans1 = get_transition(t1);
-                    Transition &trans2 = get_transition(t2);
+                    transition_t &trans1 = get_transition(t1);
+                    transition_t &trans2 = get_transition(t2);
 
                     // From D3, and D4 we have that pre and post-sets are the same
                     if (trans1._post.size() != trans2._post.size())
@@ -737,8 +737,8 @@ auto Reducer::rule_d(uint32_t *placeInQuery) -> bool {
                     uint mult = std::numeric_limits<uint>::max();
                     // D4. postsets must match
                     for (int i = (int)trans1._post.size() - 1; i >= 0; --i) {
-                        Arc &arc = trans1._post[i];
-                        Arc &arc2 = trans2._post[i];
+                        arc_t &arc = trans1._post[i];
+                        arc_t &arc2 = trans2._post[i];
                         if (arc2._place != arc._place) {
                             ok = 2;
                             break;
@@ -764,8 +764,8 @@ auto Reducer::rule_d(uint32_t *placeInQuery) -> bool {
 
                     // D3. Presets must match
                     for (int i = (int)trans1._pre.size() - 1; i >= 0; --i) {
-                        Arc &arc = trans1._pre[i];
-                        Arc &arc2 = trans2._pre[i];
+                        arc_t &arc = trans1._pre[i];
+                        arc_t &arc2 = trans2._pre[i];
                         if (arc2._place != arc._place) {
                             ok = 2;
                             break;
@@ -808,7 +808,7 @@ auto Reducer::rule_e(uint32_t *placeInQuery) -> bool {
     for (uint32_t p = 0; p < number_of_places; ++p) {
         if (has_timed_out())
             return false;
-        Place &place = _builder->_places[p];
+        place_t&place = _builder->_places[p];
         if (place._skip)
             continue;
         if (place._inhib)
@@ -819,7 +819,7 @@ auto Reducer::rule_e(uint32_t *placeInQuery) -> bool {
         std::set<uint32_t> notenabled;
         bool ok = true;
         for (uint cons : place._consumers) {
-            Transition &t = get_transition(cons);
+            transition_t &t = get_transition(cons);
             auto in = get_in_arc(p, t);
             if (in->_weight <= _builder->_initial_marking[p]) {
                 auto out = get_out_arc(t, p);
@@ -842,7 +842,7 @@ auto Reducer::rule_e(uint32_t *placeInQuery) -> bool {
             }
             // check that producing arcs originate from transition also
             // consuming. If so, we know it will never fire.
-            Transition &t = get_transition(prod);
+            transition_t &t = get_transition(prod);
             ArcIter it = get_in_arc(p, t);
             if (it == t._pre.end()) {
                 ok = false;
@@ -889,7 +889,7 @@ auto Reducer::rule_i(uint32_t *placeInQuery, bool remove_loops, bool remove_cons
         for (uint32_t p = 0; p < number_of_places; ++p) {
             if (has_timed_out())
                 return false;
-            Place &place = _builder->_places[p];
+            place_t&place = _builder->_places[p];
             if (place._skip)
                 continue;
             if (place._inhib)
@@ -934,7 +934,7 @@ auto Reducer::rule_f(uint32_t *placeInQuery) -> bool {
     for (uint32_t p = 0; p < number_of_places; ++p) {
         if (has_timed_out())
             return false;
-        Place &place = _builder->_places[p];
+        place_t&place = _builder->_places[p];
         if (place._skip)
             continue;
         if (place._inhib)
@@ -946,7 +946,7 @@ auto Reducer::rule_f(uint32_t *placeInQuery) -> bool {
 
         bool ok = true;
         for (uint cons : place._consumers) {
-            Transition &t = get_transition(cons);
+            transition_t &t = get_transition(cons);
             auto w = get_in_arc(p, t)->_weight;
             if (w > _builder->_initial_marking[p]) {
                 ok = false;
@@ -988,7 +988,7 @@ auto Reducer::rule_g(uint32_t *placeInQuery, bool remove_loops, bool remove_cons
     for (uint32_t t = 0; t < _builder->number_of_transitions(); ++t) {
         if (has_timed_out())
             return false;
-        Transition &trans = _builder->_transitions[t];
+        transition_t &trans = _builder->_transitions[t];
         if (trans._skip)
             continue;
         if (trans._inhib)
@@ -1141,7 +1141,7 @@ auto Reducer::rule_h(uint32_t *placeInQuery) -> bool {
 
                 for (; p2it != place2._producers.end(); ++p2it) {
                     auto &t = _builder->_transitions[*p2it];
-                    Arc a = *get_out_arc(t, p2);
+                    arc_t a = *get_out_arc(t, p2);
                     a._place = p1;
                     auto dest = std::lower_bound(t._post.begin(), t._post.end(), a);
                     if (dest == t._post.end() || dest->_place != p1) {
@@ -1243,7 +1243,7 @@ auto Reducer::rule_j(uint32_t *placeInQuery) -> bool {
         if (_builder->_initial_marking[p] > 0) {
             continue; // can be relaxed
         }
-        const Place &place = _builder->_places[p];
+        const place_t&place = _builder->_places[p];
         if (place._skip)
             continue;
         if (place._inhib)
@@ -1268,7 +1268,7 @@ auto Reducer::rule_j(uint32_t *placeInQuery) -> bool {
         // if either all pre or all post are query-free, we are ok.
         bool inquery = false;
         for (auto t : place._consumers) {
-            Transition &trans = _builder->_transitions[t];
+            transition_t &trans = _builder->_transitions[t];
             if (trans._pre.size() == 1) // can be relaxed
             {
                 // check that weights match
@@ -1291,7 +1291,7 @@ auto Reducer::rule_j(uint32_t *placeInQuery) -> bool {
             continue;
         // check that pre of producing do not mess with query or inhib
         for (auto &t : place._producers) {
-            Transition &trans = _builder->_transitions[t];
+            transition_t &trans = _builder->_transitions[t];
             for (const auto &arc : trans._post) {
                 ok &= !inquery || placeInQuery[arc._place] == 0;
                 ok &= !_builder->_places[arc._place]._inhib;
@@ -1309,10 +1309,10 @@ auto Reducer::rule_j(uint32_t *placeInQuery) -> bool {
         // pre[1] = pre[1] + post[0]
 
         // start by copying out the post of each of the posts
-        Place pp = place;
+        place_t pp = place;
         skip_place(p);
-        std::vector<std::vector<Arc>> posts;
-        std::vector<Transition> pres;
+        std::vector<std::vector<arc_t>> posts;
+        std::vector<transition_t> pres;
 
         for (auto t : pp._consumers)
             posts.push_back(_builder->_transitions[t]._post);
@@ -1414,7 +1414,7 @@ auto Reducer::relevant(const uint32_t *placeInQuery, bool remove_consumers)
         if (has_timed_out())
             return std::nullopt;
         if (placeInQuery[p] > 0) {
-            const Place &place = _builder->_places[p];
+            const place_t&place = _builder->_places[p];
             for (auto t : place._consumers) {
                 if (!tseen[t]) {
                     wtrans.push_back(t);
@@ -1436,13 +1436,13 @@ auto Reducer::relevant(const uint32_t *placeInQuery, bool remove_consumers)
             return std::nullopt;
         auto t = wtrans.back();
         wtrans.pop_back();
-        const Transition &trans = _builder->_transitions[t];
-        for (const Arc &arc : trans._pre) {
-            const Place &place = _builder->_places[arc._place];
+        const transition_t &trans = _builder->_transitions[t];
+        for (const arc_t &arc : trans._pre) {
+            const place_t &place = _builder->_places[arc._place];
             if (arc._inhib) {
                 for (auto pt : place._consumers) {
                     if (!tseen[pt]) {
-                        Transition &trans = _builder->_transitions[pt];
+                        transition_t &trans = _builder->_transitions[pt];
                         auto it = trans._post.begin();
                         for (; it != trans._post.end(); ++it)
                             if (it->_place >= arc._place)
@@ -1462,7 +1462,7 @@ auto Reducer::relevant(const uint32_t *placeInQuery, bool remove_consumers)
             } else {
                 for (auto pt : place._producers) {
                     if (!tseen[pt]) {
-                        Transition &trans = _builder->_transitions[pt];
+                        transition_t &trans = _builder->_transitions[pt];
                         auto it = trans._pre.begin();
                         for (; it != trans._pre.end(); ++it)
                             if (it->_place >= arc._place)

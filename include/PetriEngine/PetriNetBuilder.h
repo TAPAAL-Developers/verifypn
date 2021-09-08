@@ -45,20 +45,22 @@ class PetriNetBuilder : public AbstractPetriNetBuilder {
     void add_output_arc(const std::string &transition, const std::string &place,
                         uint32_t weight) override;
 
-    virtual void sort() override;
+    void sort() override;
     /** Make the resulting petri net, you take ownership */
-    PetriNet *make_petri_net(bool reorder = true);
+    auto make_petri_net(bool reorder = true) -> PetriNet *;
     /** Make the resulting initial marking, you take ownership */
 
-    MarkVal const *init_marking() { return _initial_marking.data(); }
+    auto init_marking() -> MarkVal const * { return _initial_marking.data(); }
 
-    uint32_t number_of_places() const { return _placenames.size(); }
+    auto number_of_places() const -> uint32_t { return _placenames.size(); }
 
-    uint32_t number_of_transitions() const { return _transitionnames.size(); }
+    auto number_of_transitions() const -> uint32_t { return _transitionnames.size(); }
 
-    const std::unordered_map<std::string, uint32_t> &get_place_names() const { return _placenames; }
+    auto get_place_names() const -> const std::unordered_map<std::string, uint32_t> & {
+        return _placenames;
+    }
 
-    const std::unordered_map<std::string, uint32_t> &get_transition_names() const {
+    auto get_transition_names() const -> const std::unordered_map<std::string, uint32_t> & {
         return _transitionnames;
     }
 
@@ -67,17 +69,17 @@ class PetriNetBuilder : public AbstractPetriNetBuilder {
                 bool reconstructTrace, const PetriNet *net, int timeout,
                 std::vector<uint32_t> &reductions);
 
-    size_t removed_transitions() const { return _reducer.removed_transitions(); }
+    auto removed_transitions() const -> size_t { return _reducer.removed_transitions(); }
 
-    size_t removed_places() const { return _reducer.removed_places(); }
+    auto removed_places() const -> size_t { return _reducer.removed_places(); }
 
     void print_stats(std::ostream &out) { _reducer.print_stats(out); }
 
-    Reducer &get_reducer() { return _reducer; }
+    auto get_reducer() -> Reducer & { return _reducer; }
 
-    const Reducer &get_reducer() const { return _reducer; }
+    auto get_reducer() const -> const Reducer & { return _reducer; }
 
-    std::vector<std::pair<std::string, uint32_t>> orphan_places() const {
+    auto orphan_places() const -> std::vector<std::pair<std::string, uint32_t>> {
         std::vector<std::pair<std::string, uint32_t>> res;
         for (uint32_t p = 0; p < _places.size(); p++) {
             if (_places[p]._consumers.size() == 0 && _places[p]._producers.size() == 0) {
@@ -92,7 +94,7 @@ class PetriNetBuilder : public AbstractPetriNetBuilder {
         return res;
     }
 
-    double reduction_time() const {
+    auto reduction_time() const -> double {
         // duration in seconds
         auto end = std::chrono::high_resolution_clock::now();
         return (std::chrono::duration_cast<std::chrono::microseconds>(end - _start).count()) *
@@ -102,8 +104,8 @@ class PetriNetBuilder : public AbstractPetriNetBuilder {
     void start_timer() { _start = std::chrono::high_resolution_clock::now(); }
 
   private:
-    uint32_t next_place_id(std::vector<uint32_t> &counts, std::vector<uint32_t> &pcounts,
-                           std::vector<uint32_t> &ids, bool reorder);
+    auto next_place_id(std::vector<uint32_t> &counts, std::vector<uint32_t> &pcounts,
+                       std::vector<uint32_t> &ids, bool reorder) -> uint32_t;
     std::chrono::high_resolution_clock::time_point _start;
 
   protected:
@@ -113,8 +115,8 @@ class PetriNetBuilder : public AbstractPetriNetBuilder {
     std::vector<std::tuple<double, double>> _placelocations;
     std::vector<std::tuple<double, double>> _transitionlocations;
 
-    std::vector<PetriEngine::Transition> _transitions;
-    std::vector<PetriEngine::Place> _places;
+    std::vector<PetriEngine::transition_t> _transitions;
+    std::vector<PetriEngine::place_t> _places;
 
     std::vector<MarkVal> _initial_marking;
     Reducer _reducer;

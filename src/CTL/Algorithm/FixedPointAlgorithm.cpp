@@ -22,7 +22,7 @@ FixedPointAlgorithm::FixedPointAlgorithm(options_t::search_strategy_e type) {
         break;
     default:
         assert(false);
-        throw base_error("Search strategy is unsupported by the CTL-Engine");
+        throw base_error_t("Search strategy is unsupported by the CTL-Engine");
     }
 }
 } // namespace CTL::Algorithm

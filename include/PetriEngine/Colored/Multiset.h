@@ -19,8 +19,7 @@
 
 #include "Colors.h"
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 class Multiset {
   private:
     class Iterator {
@@ -31,14 +30,14 @@ class Multiset {
       public:
         Iterator(const Multiset *ms, size_t index) : _ms(ms), _index(index) {}
 
-        bool operator==(Iterator &other);
-        bool operator!=(Iterator &other);
-        Iterator &operator++();
-        std::pair<const Color *, const uint32_t &> operator++(int);
-        std::pair<const Color *, const uint32_t &> operator*();
+        auto operator==(Iterator &other) -> bool;
+        auto operator!=(Iterator &other) -> bool;
+        auto operator++() -> Iterator &;
+        auto operator++(int) -> std::pair<const Color *, const uint32_t &>;
+        auto operator*() -> std::pair<const Color *, const uint32_t &>;
     };
 
-    typedef std::vector<std::pair<uint32_t, uint32_t>> Internal;
+    using Internal = std::vector<std::pair<uint32_t, uint32_t>>;
 
   public:
     Multiset();
@@ -47,32 +46,31 @@ class Multiset {
     Multiset(std::vector<std::pair<const Color *, uint32_t>> &colors);
     virtual ~Multiset();
 
-    Multiset operator+(const Multiset &other) const;
-    Multiset operator-(const Multiset &other) const;
-    Multiset operator*(uint32_t scalar) const;
+    auto operator+(const Multiset &other) const -> Multiset;
+    auto operator-(const Multiset &other) const -> Multiset;
+    auto operator*(uint32_t scalar) const -> Multiset;
     void operator+=(const Multiset &other);
     void operator-=(const Multiset &other);
     void operator*=(uint32_t scalar);
-    uint32_t operator[](const Color *color) const;
-    uint32_t &operator[](const Color *color);
+    auto operator[](const Color *color) const -> uint32_t;
+    auto operator[](const Color *color) -> uint32_t &;
 
-    bool empty() const;
+    [[nodiscard]] auto empty() const -> bool;
     void clean();
 
-    size_t distinct_size() const { return _set.size(); }
+    [[nodiscard]] auto distinct_size() const -> size_t { return _set.size(); }
 
-    size_t size() const;
+    [[nodiscard]] auto size() const -> size_t;
 
-    const Iterator begin() const;
-    const Iterator end() const;
+    [[nodiscard]] auto begin() const -> const Iterator;
+    [[nodiscard]] auto end() const -> const Iterator;
 
-    std::string to_string() const;
+    [[nodiscard]] auto to_string() const -> std::string;
 
   private:
     Internal _set;
     const ColorType *_type;
 };
-} // namespace Colored
-} // namespace PetriEngine
+} // namespace PetriEngine::Colored
 
 #endif /* MULTISET_H */

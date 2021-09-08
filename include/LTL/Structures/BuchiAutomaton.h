@@ -63,10 +63,10 @@ struct BuchiAutomaton {
             // find variable to test, and test it
             size_t var = bdd_var(bdd);
             using PetriEngine::PQL::Condition;
-            Condition::Result res = _ap_info.at(var)._expression->evaluate(ctx);
+            Condition::result_e res = _ap_info.at(var)._expression->evaluate(ctx);
             switch (res) {
             case Condition::RUNKNOWN:
-                throw base_error("Unexpected unknown answer from evaluating query!\n");
+                throw base_error_t("Unexpected unknown answer from evaluating query!\n");
                 break;
             case Condition::RFALSE:
                 bdd = bdd_low(bdd);

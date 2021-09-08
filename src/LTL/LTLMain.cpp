@@ -97,7 +97,7 @@ auto make_heuristic(const PetriNet &net, const Condition_ptr &negated_formula,
     }
     auto heur = LTL::parse_ltl_heuristic(net, automaton, negated_formula, options._ltl_heuristic);
     if (heur == nullptr) {
-        throw base_error("Invalid heuristic specification, terminating.\n");
+        throw base_error_t("Invalid heuristic specification, terminating.\n");
     } else
         return heur;
 }

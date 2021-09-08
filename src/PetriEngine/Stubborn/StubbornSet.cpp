@@ -34,12 +34,12 @@ auto StubbornSet::next() -> uint32_t {
 }
 
 auto StubbornSet::check_preset(uint32_t t) -> bool {
-    const TransPtr &ptr = transitions()[t];
+    const trans_ptr_t &ptr = transitions()[t];
     uint32_t finv = ptr._inputs;
     uint32_t linv = ptr._outputs;
 
     for (; finv < linv; ++finv) {
-        const Invariant &inv = _net._invariants[finv];
+        const invariant_t &inv = _net._invariants[finv];
         if (_parent->marking()[inv._place] < inv._tokens) {
             if (!inv._inhibitor) {
                 return false;
@@ -95,7 +95,7 @@ void StubbornSet::inhibitor_postset_of(uint32_t place) {
 }
 
 void StubbornSet::post_preset_of(uint32_t t, bool make_closure) {
-    const TransPtr &ptr = transitions()[t];
+    const trans_ptr_t &ptr = transitions()[t];
     uint32_t finv = ptr._inputs;
     uint32_t linv = ptr._outputs;
     for (; finv < linv; finv++) { // pre-set of t
@@ -132,7 +132,7 @@ void StubbornSet::construct_enabled() {
 void StubbornSet::check_for_inhibitor() {
     _netContainsInhibitorArcs = false;
     for (uint32_t t = 0; t < _net._ntransitions; t++) {
-        const TransPtr &ptr = _net._transitions[t];
+        const trans_ptr_t &ptr = _net._transitions[t];
         uint32_t finv = ptr._inputs;
         uint32_t linv = ptr._outputs;
         for (; finv < linv; finv++) { // Post set of places
@@ -148,7 +148,7 @@ void StubbornSet::construct_pre_post() {
     std::vector<std::pair<std::vector<trans_t>, std::vector<trans_t>>> tmp_places(_net._nplaces);
 
     for (uint32_t t = 0; t < _net._ntransitions; t++) {
-        const TransPtr &ptr = _net._transitions[t];
+        const trans_ptr_t &ptr = _net._transitions[t];
         uint32_t finv = ptr._inputs;
         uint32_t linv = ptr._outputs;
         for (; finv < linv; finv++) { // Post set of places
@@ -213,7 +213,7 @@ void StubbornSet::construct_dependency() {
         uint32_t linv = _net._transitions[t]._outputs;
 
         for (; finv < linv; finv++) {
-            const Invariant &inv = _net._invariants[finv];
+            const invariant_t &inv = _net._invariants[finv];
             uint32_t p = inv._place;
             uint32_t ntrans = (_places[p + 1]._pre - _places[p]._post);
 

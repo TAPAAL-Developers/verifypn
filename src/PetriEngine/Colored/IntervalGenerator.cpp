@@ -60,7 +60,7 @@ auto IntervalGenerator::get_intervals_from_interval(
 }
 
 void IntervalGenerator::get_arc_var_intervals(
-    interval_vector_t &varIntervals, const std::unordered_map<uint32_t, int32_t> &modIndexMap,
+    IntervalVector &varIntervals, const std::unordered_map<uint32_t, int32_t> &modIndexMap,
     const interval_t &interval, const std::vector<const ColorType *> &varColorTypes) const {
     for (auto &posModPair : modIndexMap) {
         const auto &intervals = get_intervals_from_interval(interval, posModPair.first,
@@ -71,7 +71,7 @@ void IntervalGenerator::get_arc_var_intervals(
                 varIntervals.add_interval(interval);
             }
         } else {
-            interval_vector_t newVarIntervals;
+            IntervalVector newVarIntervals;
             for (auto &i : varIntervals) {
                 auto varInterval = &i;
                 for (auto &interval : intervals) {
@@ -87,13 +87,13 @@ void IntervalGenerator::get_arc_var_intervals(
     }
 }
 
-void IntervalGenerator::populate_local_map(const ArcIntervals &arcIntervals,
+void IntervalGenerator::populate_local_map(const arc_intervals_t &arcIntervals,
                                            const VariableIntervalMap &varMap,
                                            VariableIntervalMap &localVarMap,
                                            const interval_t &interval, bool &allVarsAssigned,
                                            uint32_t tuplePos) const {
     for (const auto &pair : arcIntervals._varIndexModMap) {
-        interval_vector_t varIntervals;
+        IntervalVector varIntervals;
         std::vector<const ColorType *> varColorTypes;
         pair.first->_colorType->get_colortypes(varColorTypes);
 
@@ -126,7 +126,7 @@ void IntervalGenerator::populate_local_map(const ArcIntervals &arcIntervals,
 }
 
 void IntervalGenerator::fill_var_maps(std::vector<VariableIntervalMap> &variableMaps,
-                                      const ArcIntervals &arcIntervals,
+                                      const arc_intervals_t &arcIntervals,
                                       const uint32_t &intervalTupleSize,
                                       const uint32_t &tuplePos) const {
     for (uint32_t i = 0; i < intervalTupleSize; i++) {
@@ -135,7 +135,7 @@ void IntervalGenerator::fill_var_maps(std::vector<VariableIntervalMap> &variable
         const auto &interval = arcIntervals._intervalTupleVec[tuplePos][i];
 
         for (const auto &pair : arcIntervals._varIndexModMap) {
-            interval_vector_t varIntervals;
+            IntervalVector varIntervals;
             std::vector<const ColorType *> varColorTypes;
             pair.first->_colorType->get_colortypes(varColorTypes);
             get_arc_var_intervals(varIntervals, pair.second[tuplePos], interval, varColorTypes);
@@ -160,7 +160,7 @@ void IntervalGenerator::fill_var_maps(std::vector<VariableIntervalMap> &variable
 
 auto IntervalGenerator::get_var_intervals(
     std::vector<VariableIntervalMap> &variableMaps,
-    const std::unordered_map<uint32_t, ArcIntervals> &placeArcIntervals) const -> bool {
+    const std::unordered_map<uint32_t, arc_intervals_t> &placeArcIntervals) const -> bool {
     for (auto &placeArcInterval : placeArcIntervals) {
         for (uint32_t j = 0; j < placeArcInterval.second._intervalTupleVec.size(); j++) {
             uint32_t intervalTupleSize = placeArcInterval.second._intervalTupleVec[j].size();

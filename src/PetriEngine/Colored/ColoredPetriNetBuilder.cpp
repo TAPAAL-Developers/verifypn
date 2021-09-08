@@ -57,7 +57,7 @@ void ColoredPetriNetBuilder::add_place(const std::string &name, const Colored::C
             _placeFixpointQueue.emplace_back(next);
         }
 
-        Colored::interval_vector_t placeConstraints;
+        Colored::IntervalVector placeConstraints;
         Colored::ColorFixpoint colorFixpoint = {placeConstraints, !tokens.empty()};
         uint32_t colorCounter = 0;
 
@@ -396,15 +396,15 @@ void ColoredPetriNetBuilder::compute_place_color_fixpoint(uint32_t maxIntervals,
 // Create Arc interval structures for the transition
 
 auto ColoredPetriNetBuilder::setup_transition_vars(const Colored::Transition &transition) const
-    -> std::unordered_map<uint32_t, Colored::ArcIntervals> {
-    std::unordered_map<uint32_t, Colored::ArcIntervals> res;
+    -> std::unordered_map<uint32_t, Colored::arc_intervals_t> {
+    std::unordered_map<uint32_t, Colored::arc_intervals_t> res;
     for (auto &arc : transition._input_arcs) {
         std::set<const Colored::Variable *> variables;
         Colored::PositionVariableMap varPositions;
         Colored::VariableModifierMap varModifiersMap;
         arc._expr->get_variables(variables, varPositions, varModifiersMap, false);
 
-        Colored::ArcIntervals newArcInterval(&_placeColorFixpoints[arc._place], varModifiersMap);
+        Colored::arc_intervals_t newArcInterval(&_placeColorFixpoints[arc._place], varModifiersMap);
         res[arc._place] = newArcInterval;
     }
     return res;
@@ -417,11 +417,11 @@ void ColoredPetriNetBuilder::create_partion_varmaps() {
         _arcIntervals[transitionId] = setup_transition_vars(transition);
 
         for (const auto &inArc : transition._input_arcs) {
-            Colored::ArcIntervals &arcInterval = _arcIntervals[transitionId][inArc._place];
+            Colored::arc_intervals_t &arcInterval = _arcIntervals[transitionId][inArc._place];
             uint32_t index = 0;
             arcInterval._intervalTupleVec.clear();
 
-            Colored::interval_vector_t intervalTuple;
+            Colored::IntervalVector intervalTuple;
             intervalTuple.add_interval(_places[inArc._place]._type->get_full_interval());
             const PetriEngine::Colored::ColorFixpoint &cfp{intervalTuple};
 
@@ -441,7 +441,7 @@ void ColoredPetriNetBuilder::create_partion_varmaps() {
         for (auto *var : variables) {
             for (auto &varmap : transition._variable_maps) {
                 if (varmap.count(var) == 0) {
-                    Colored::interval_vector_t intervalTuple;
+                    Colored::IntervalVector intervalTuple;
                     intervalTuple.add_interval(var->_colorType->get_full_interval());
                     varmap[var] = intervalTuple;
                 }
@@ -460,7 +460,7 @@ void ColoredPetriNetBuilder::get_arc_intervals(const Colored::Transition &transi
         curCFP._constraints.restrict(max_intervals);
         _maxIntervals = std::max(_maxIntervals, (uint32_t)curCFP._constraints.size());
 
-        Colored::ArcIntervals &arcInterval = _arcIntervals[transitionId][arc._place];
+        Colored::arc_intervals_t &arcInterval = _arcIntervals[transitionId][arc._place];
         uint32_t index = 0;
         arcInterval._intervalTupleVec.clear();
 
@@ -481,7 +481,7 @@ void ColoredPetriNetBuilder::add_transition_vars(Colored::Transition &transition
     for (auto *var : variables) {
         for (auto &varmap : transition._variable_maps) {
             if (varmap.count(var) == 0) {
-                Colored::interval_vector_t intervalTuple;
+                Colored::IntervalVector intervalTuple;
                 intervalTuple.add_interval(var->_colorType->get_full_interval());
                 varmap[var] = intervalTuple;
             }
@@ -558,7 +558,7 @@ void ColoredPetriNetBuilder::process_output_arcs(Colored::Transition &transition
         for (auto *var : variables) {
             for (auto &varmap : transition._variable_maps) {
                 if (varmap.count(var) == 0) {
-                    Colored::interval_vector_t intervalTuple;
+                    Colored::IntervalVector intervalTuple;
                     intervalTuple.add_interval(var->_colorType->get_full_interval());
                     varmap[var] = intervalTuple;
                 }
@@ -571,7 +571,7 @@ void ColoredPetriNetBuilder::process_output_arcs(Colored::Transition &transition
             for (auto *outVar : variables) {
                 for (auto &varMap : transition._variable_maps) {
                     if (varMap.count(outVar) == 0) {
-                        Colored::interval_vector_t varIntervalTuple;
+                        Colored::IntervalVector varIntervalTuple;
                         for (const auto &EqClass : _partition[arc._place].get_eq_classes()) {
                             varIntervalTuple.add_interval(
                                 EqClass.intervals().back().get_single_color_interval());
@@ -911,7 +911,7 @@ auto ColoredPetriNetBuilder::strip_colors() -> PetriNetBuilder & {
                                              _transitions[arc._transition]._name, false,
                                              arc._expr->weight());
                 } catch (Colored::WeightException &e) {
-                    throw base_error(ErrorCode, "Exception on input arc: ", arc_to_string(arc),
+                    throw base_error_t("Exception on input arc: ", arc_to_string(arc),
                                      "\n", "In expression: ", arc._expr->to_string(), "\n\t\t",
                                      e.what());
                 }
@@ -921,7 +921,7 @@ auto ColoredPetriNetBuilder::strip_colors() -> PetriNetBuilder & {
                     _ptBuilder.add_output_arc(_transitions[arc._transition]._name,
                                               _places[arc._place]._name, arc._expr->weight());
                 } catch (Colored::WeightException &e) {
-                    throw base_error(ErrorCode, "Exception on output arc: ", arc_to_string(arc),
+                    throw base_error_t("Exception on output arc: ", arc_to_string(arc),
                                      "\n", "In expression: ", arc._expr->to_string(), "\n", "\t",
                                      e.what());
                 }

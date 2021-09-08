@@ -18,16 +18,16 @@
 #include <limits>
 #include <vector>
 
-namespace PetriEngine {
-namespace Reachability {
+namespace PetriEngine::Reachability {
 
 struct range_t {
 
-    static inline uint32_t min() { return std::numeric_limits<uint32_t>::min(); }
+    static inline auto min() -> uint32_t { return std::numeric_limits<uint32_t>::min(); }
 
-    static inline uint32_t max() { return std::numeric_limits<uint32_t>::max(); }
+    static inline auto max() -> uint32_t { return std::numeric_limits<uint32_t>::max(); }
 
-    range_t(){};
+    range_t() = default;
+    ;
 
     explicit range_t(uint32_t val) : _lower(val), _upper(val) {}
 
@@ -36,22 +36,22 @@ struct range_t {
     uint32_t _lower = min();
     uint32_t _upper = max();
 
-    bool no_upper() const { return _upper == max(); }
+    [[nodiscard]] auto no_upper() const -> bool { return _upper == max(); }
 
-    bool no_lower() const { return _lower == min(); }
+    [[nodiscard]] auto no_lower() const -> bool { return _lower == min(); }
 
-    bool unbound() const { return no_lower() && no_upper(); }
+    [[nodiscard]] auto unbound() const -> bool { return no_lower() && no_upper(); }
 
-    bool is_sound() const { return _lower <= _upper; }
+    [[nodiscard]] auto is_sound() const -> bool { return _lower <= _upper; }
 
-    bool contains(uint32_t id) const { return _lower <= id && id <= _upper; }
+    [[nodiscard]] auto contains(uint32_t id) const -> bool { return _lower <= id && id <= _upper; }
 
     void free() {
         _upper = max();
         _lower = min();
     }
 
-    uint32_t size() const { return 1 + _upper - _lower; }
+    [[nodiscard]] auto size() const -> uint32_t { return 1 + _upper - _lower; }
 
     void invalidate() {
         // hack setting range invalid
@@ -59,7 +59,7 @@ struct range_t {
         _upper = 0;
     }
 
-    std::ostream &print(std::ostream &os) const {
+    auto print(std::ostream &os) const -> std::ostream & {
         if (no_lower())
             os << "[0";
         else
@@ -72,40 +72,40 @@ struct range_t {
         return os;
     }
 
-    std::pair<bool, bool> compare(const range_t &other) const {
+    [[nodiscard]] auto compare(const range_t &other) const -> std::pair<bool, bool> {
         return std::make_pair(_lower <= other._lower && _upper >= other._upper,
                               _lower >= other._lower && _upper <= other._upper);
     }
 
-    bool intersects(const range_t &other) const {
+    [[nodiscard]] auto intersects(const range_t &other) const -> bool {
         return _lower <= other._upper && other._lower <= _upper;
     }
 
-    range_t &operator&=(const range_t &other) {
+    auto operator&=(const range_t &other) -> range_t & {
         _lower = std::max(_lower, other._lower);
         _upper = std::min(_upper, other._upper);
         return *this;
     }
 
-    range_t &operator|=(const range_t &other) {
+    auto operator|=(const range_t &other) -> range_t & {
         _lower = std::min(_lower, other._lower);
         _upper = std::max(_upper, other._upper);
         return *this;
     }
 
-    range_t &operator|=(uint32_t val) {
+    auto operator|=(uint32_t val) -> range_t & {
         _lower = std::min(val, _lower);
         _upper = std::max(val, _upper);
         return *this;
     }
 
-    range_t &operator&=(uint32_t val) {
+    auto operator&=(uint32_t val) -> range_t & {
         _lower = val;
         _upper = val;
         return *this;
     }
 
-    range_t &operator-=(uint32_t val) {
+    auto operator-=(uint32_t val) -> range_t & {
         if (_lower < min() + val)
             _lower = min();
         else
@@ -120,7 +120,7 @@ struct range_t {
         return *this;
     }
 
-    range_t &operator+=(uint32_t val) {
+    auto operator+=(uint32_t val) -> range_t & {
         if (_lower != min()) {
             if (_lower >= max() - val)
                 assert(false);
@@ -139,7 +139,7 @@ struct placerange_t {
     range_t _range;
     uint32_t _place = std::numeric_limits<uint32_t>::max();
 
-    placerange_t() {}
+    placerange_t() = default;
 
     placerange_t(uint32_t place) : _place(place){};
 
@@ -151,47 +151,49 @@ struct placerange_t {
 
     placerange_t(uint32_t place, uint32_t l, uint32_t u) : _range(l, u), _place(place){};
 
-    std::ostream &print(std::ostream &os) const {
+    auto print(std::ostream &os) const -> std::ostream & {
         os << "<P" << _place << "> in ";
         return _range.print(os);
     }
 
-    std::pair<bool, bool> compare(const range_t &other) const { return _range.compare(other); }
+    [[nodiscard]] auto compare(const range_t &other) const -> std::pair<bool, bool> {
+        return _range.compare(other);
+    }
 
-    std::pair<bool, bool> compare(const placerange_t &other) const {
+    [[nodiscard]] auto compare(const placerange_t &other) const -> std::pair<bool, bool> {
         assert(other._place == _place);
         if (other._place != _place)
             return std::make_pair(false, false);
         return _range.compare(other._range);
     }
 
-    placerange_t &operator|=(uint32_t val) {
+    auto operator|=(uint32_t val) -> placerange_t & {
         _range |= val;
         return *this;
     }
 
-    placerange_t &operator&=(uint32_t val) {
+    auto operator&=(uint32_t val) -> placerange_t & {
         _range &= val;
         return *this;
     }
 
-    placerange_t &operator-=(uint32_t val) {
+    auto operator-=(uint32_t val) -> placerange_t & {
         _range -= val;
         return *this;
     }
 
-    placerange_t &operator+=(uint32_t val) {
+    auto operator+=(uint32_t val) -> placerange_t & {
         _range += val;
         return *this;
     }
 
-    placerange_t &operator&=(const placerange_t &other) {
+    auto operator&=(const placerange_t &other) -> placerange_t & {
         assert(other._place == _place);
         _range &= other._range;
         return *this;
     }
 
-    placerange_t &operator|=(const placerange_t &other) {
+    auto operator|=(const placerange_t &other) -> placerange_t & {
         assert(other._place == _place);
         _range |= other._range;
         return *this;
@@ -199,13 +201,13 @@ struct placerange_t {
 
     // used for sorting only!
 
-    bool operator<(const placerange_t &other) const { return _place < other._place; }
+    auto operator<(const placerange_t &other) const -> bool { return _place < other._place; }
 };
 
 struct prvector_t {
     std::vector<placerange_t> _ranges;
 
-    const placerange_t *operator[](uint32_t place) const {
+    auto operator[](uint32_t place) const -> const placerange_t * {
         auto lb = std::lower_bound(_ranges.begin(), _ranges.end(), place);
         if (lb == _ranges.end() || lb->_place != place) {
             return nullptr;
@@ -214,7 +216,7 @@ struct prvector_t {
         }
     }
 
-    placerange_t *operator[](uint32_t place) {
+    auto operator[](uint32_t place) -> placerange_t * {
         auto lb = std::lower_bound(_ranges.begin(), _ranges.end(), place);
         if (lb == _ranges.end() || lb->_place != place) {
             return nullptr;
@@ -223,7 +225,7 @@ struct prvector_t {
         }
     }
 
-    placerange_t &find_or_add(uint32_t place) {
+    auto find_or_add(uint32_t place) -> placerange_t & {
         auto lb = std::lower_bound(_ranges.begin(), _ranges.end(), place);
         if (lb == _ranges.end() || lb->_place != place) {
             lb = _ranges.emplace(lb, place);
@@ -231,21 +233,21 @@ struct prvector_t {
         return *lb;
     }
 
-    uint32_t lower(uint32_t place) const {
+    [[nodiscard]] auto lower(uint32_t place) const -> uint32_t {
         auto *pr = (*this)[place];
         if (pr == nullptr)
             return range_t::min();
         return pr->_range._lower;
     }
 
-    uint32_t upper(uint32_t place) const {
+    [[nodiscard]] auto upper(uint32_t place) const -> uint32_t {
         auto *pr = (*this)[place];
         if (pr == nullptr)
             return range_t::max();
         return pr->_range._upper;
     }
 
-    bool unbound(uint32_t place) const {
+    [[nodiscard]] auto unbound(uint32_t place) const -> bool {
         auto *pr = (*this)[place];
         if (pr == nullptr)
             return true;
@@ -265,7 +267,7 @@ struct prvector_t {
         assert(is_compact());
     }
 
-    bool is_compact() const {
+    [[nodiscard]] auto is_compact() const -> bool {
         for (auto &e : _ranges)
             if (e._range.unbound())
                 return false;
@@ -279,7 +281,7 @@ struct prvector_t {
                 _ranges.erase(_ranges.begin() + i);
     }
 
-    std::pair<bool, bool> compare(const prvector_t &other) const {
+    [[nodiscard]] auto compare(const prvector_t &other) const -> std::pair<bool, bool> {
         assert(is_compact());
         assert(other.is_compact());
         auto sit = _ranges.begin();
@@ -312,7 +314,7 @@ struct prvector_t {
         return incl;
     }
 
-    std::ostream &print(std::ostream &os) const {
+    auto print(std::ostream &os) const -> std::ostream & {
 
         os << "{\n";
         for (auto &pr : _ranges) {
@@ -323,9 +325,9 @@ struct prvector_t {
         return os;
     }
 
-    bool is_true() const { return _ranges.empty(); }
+    [[nodiscard]] auto is_true() const -> bool { return _ranges.empty(); }
 
-    bool is_false(size_t nplaces) const {
+    [[nodiscard]] auto is_false(size_t nplaces) const -> bool {
         if (_ranges.size() != nplaces)
             return false;
         for (auto &p : _ranges) {
@@ -335,7 +337,7 @@ struct prvector_t {
         return true;
     }
 
-    bool operator<(const prvector_t &other) const {
+    auto operator<(const prvector_t &other) const -> bool {
         if (_ranges.size() != other._ranges.size())
             return _ranges.size() < other._ranges.size();
         for (size_t i = 0; i < _ranges.size(); ++i) {
@@ -352,12 +354,12 @@ struct prvector_t {
         return false;
     }
 
-    bool operator==(const prvector_t &other) const {
+    auto operator==(const prvector_t &other) const -> bool {
         auto r = compare(other);
         return r.first && r.second;
     }
 
-    prvector_t &operator&=(const placerange_t &other) {
+    auto operator&=(const placerange_t &other) -> prvector_t & {
         auto lb = std::lower_bound(_ranges.begin(), _ranges.end(), other);
         if (lb == std::end(_ranges) || lb->_place != other._place) {
             _ranges.insert(lb, other);
@@ -367,7 +369,7 @@ struct prvector_t {
         return *this;
     }
 
-    prvector_t &operator&=(const prvector_t &other) {
+    auto operator&=(const prvector_t &other) -> prvector_t & {
         auto oit = other._ranges.begin();
         auto sit = _ranges.begin();
         while (sit != _ranges.end()) {
@@ -389,7 +391,7 @@ struct prvector_t {
         return *this;
     }
 
-    bool restricts(const std::vector<int64_t> &writes) const {
+    [[nodiscard]] auto restricts(const std::vector<int64_t> &writes) const -> bool {
         auto rit = _ranges.begin();
         for (auto p : writes) {
             while (rit != std::end(_ranges) && (rit->_place < p || rit->_range.unbound()))
@@ -402,7 +404,6 @@ struct prvector_t {
         return false;
     }
 };
-} // namespace Reachability
-} // namespace PetriEngine
+} // namespace PetriEngine::Reachability
 
 #endif /* RANGE_H */

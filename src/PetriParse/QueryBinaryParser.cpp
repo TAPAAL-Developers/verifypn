@@ -50,25 +50,25 @@ auto QueryBinaryParser::parse(std::ifstream &bin, const std::set<size_t> &parse_
 
 auto QueryBinaryParser::parse_query(std::ifstream &binary, const std::vector<std::string> &names)
     -> Condition_ptr {
-    Path p;
-    binary.read(reinterpret_cast<char *>(&p), sizeof(Path));
-    Quantifier q;
-    binary.read(reinterpret_cast<char *>(&q), sizeof(Quantifier));
-    if (p == pError) {
-        if (q == Quantifier::NEG) {
+    path_e p;
+    binary.read(reinterpret_cast<char *>(&p), sizeof(path_e));
+    quantifier_e q;
+    binary.read(reinterpret_cast<char *>(&q), sizeof(quantifier_e));
+    if (p == P_ERROR) {
+        if (q == quantifier_e::NEG) {
             auto c = parse_query(binary, names);
             if (c == nullptr) {
                 assert(false);
                 return nullptr;
             }
             return std::make_shared<NotCondition>(c);
-        } else if (q == Quantifier::DEADLOCK) {
+        } else if (q == quantifier_e::DEADLOCK) {
             return DeadlockCondition::DEADLOCK;
-        } else if (q == Quantifier::PN_BOOLEAN) {
+        } else if (q == quantifier_e::PN_BOOLEAN) {
             bool val;
             binary.read(reinterpret_cast<char *>(&val), sizeof(bool));
             return BooleanCondition::getShared(val);
-        } else if (q == Quantifier::AND || q == Quantifier::OR) {
+        } else if (q == quantifier_e::AND || q == quantifier_e::OR) {
             uint32_t size;
             binary.read(reinterpret_cast<char *>(&size), sizeof(uint32_t));
             std::vector<Condition_ptr> conds;
@@ -77,11 +77,11 @@ auto QueryBinaryParser::parse_query(std::ifstream &binary, const std::vector<std
                 if (conds.back() == nullptr)
                     return nullptr;
             }
-            if (q == Quantifier::AND)
+            if (q == quantifier_e::AND)
                 return std::make_shared<AndCondition>(std::move(conds));
             else
                 return std::make_shared<OrCondition>(std::move(conds));
-        } else if (q == Quantifier::COMPCONJ) {
+        } else if (q == quantifier_e::COMPCONJ) {
             bool neg;
             binary.read(reinterpret_cast<char *>(&neg), sizeof(bool));
             std::vector<CompareConjunction::cons_t> cons;
@@ -95,7 +95,7 @@ auto QueryBinaryParser::parse_query(std::ifstream &binary, const std::vector<std
                 cons.back()._name = names[cons.back()._place];
             }
             return std::make_shared<CompareConjunction>(std::move(cons), neg);
-        } else if (q == Quantifier::EMPTY) {
+        } else if (q == quantifier_e::EMPTY) {
             std::string sop;
             std::getline(binary, sop, '\0');
             auto e1 = parse_expr(binary, names);
@@ -120,7 +120,7 @@ auto QueryBinaryParser::parse_query(std::ifstream &binary, const std::vector<std
                 assert(false);
                 return nullptr;
             }
-        } else if (q == Quantifier::UPPERBOUNDS) {
+        } else if (q == quantifier_e::UPPERBOUNDS) {
             uint32_t size;
             double max, offset;
             binary.read(reinterpret_cast<char *>(&size), sizeof(uint32_t));
@@ -137,12 +137,12 @@ auto QueryBinaryParser::parse_query(std::ifstream &binary, const std::vector<std
                 places.back()._max = pmax;
             }
             return std::make_shared<UnfoldedUpperBoundsCondition>(places, max, offset);
-        } else if (q == Quantifier::A || q == Quantifier::E) {
+        } else if (q == quantifier_e::A || q == quantifier_e::E) {
             Condition_ptr cond1 = parse_query(binary, names);
             assert(cond1);
             if (!cond1)
                 return nullptr;
-            if (q == Quantifier::A)
+            if (q == quantifier_e::A)
                 return std::make_shared<ACondition>(cond1);
             else
                 return std::make_shared<ECondition>(cond1);
@@ -155,36 +155,36 @@ auto QueryBinaryParser::parse_query(std::ifstream &binary, const std::vector<std
         assert(cond1);
         if (!cond1)
             return nullptr;
-        if (p == Path::X) {
-            if (q == Quantifier::EMPTY)
+        if (p == path_e::X) {
+            if (q == quantifier_e::EMPTY)
                 return std::make_shared<XCondition>(cond1);
-            else if (q == Quantifier::A)
+            else if (q == quantifier_e::A)
                 return std::make_shared<AXCondition>(cond1);
             else
                 return std::make_shared<EXCondition>(cond1);
-        } else if (p == Path::F) {
-            if (q == Quantifier::EMPTY)
+        } else if (p == path_e::F) {
+            if (q == quantifier_e::EMPTY)
                 return std::make_shared<FCondition>(cond1);
-            else if (q == Quantifier::A)
+            else if (q == quantifier_e::A)
                 return std::make_shared<AFCondition>(cond1);
             else
                 return std::make_shared<EFCondition>(cond1);
-        } else if (p == Path::G) {
-            if (q == Quantifier::EMPTY)
+        } else if (p == path_e::G) {
+            if (q == quantifier_e::EMPTY)
                 return std::make_shared<GCondition>(cond1);
-            else if (q == Quantifier::A)
+            else if (q == quantifier_e::A)
                 return std::make_shared<AGCondition>(cond1);
             else
                 return std::make_shared<EGCondition>(cond1);
-        } else if (p == Path::U) {
+        } else if (p == path_e::U) {
             auto cond2 = parse_query(binary, names);
             if (cond2 == nullptr) {
                 assert(false);
                 return nullptr;
             }
-            if (q == Quantifier::EMPTY)
+            if (q == quantifier_e::EMPTY)
                 return std::make_shared<UntilCondition>(cond1, cond2);
-            else if (q == Quantifier::A)
+            else if (q == quantifier_e::A)
                 return std::make_shared<AUCondition>(cond1, cond2);
             else
                 return std::make_shared<EUCondition>(cond1, cond2);
@@ -248,7 +248,7 @@ auto QueryBinaryParser::parse_expr(std::ifstream &bin, const std::vector<std::st
             return std::make_shared<PlusExpr>(std::move(exprs));
 
     } else {
-        throw base_error("An error occurred parsing the binary input.\n", t);
+        throw base_error_t("An error occurred parsing the binary input.\n", t);
         return nullptr;
     }
 }

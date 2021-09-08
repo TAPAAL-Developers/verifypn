@@ -70,18 +70,18 @@ auto main(int argc, char *argv[]) -> int {
     options_t options;
 
     error_e v = options.parse(argc, argv);
-    if (v != ContinueCode)
+    if (v != CONTINUE_CODE)
         return v;
     options.print();
     options._seed_offset = (time(nullptr) xor options._seed_offset);
     ColoredPetriNetBuilder cpnBuilder;
-    if (parse_model(cpnBuilder, options) != ContinueCode) {
+    if (parse_model(cpnBuilder, options) != CONTINUE_CODE) {
         std::cerr << "Error parsing the model" << std::endl;
-        return ErrorCode;
+        return ERROR_CODE;
     }
     if (options._cpn_overapprox && !cpnBuilder.is_colored()) {
         std::cerr << "CPN OverApproximation is only usable on colored models" << std::endl;
-        return UnknownCode;
+        return UNKNOWN_CODE;
     }
     if (options._print_statistics) {
         std::cout << "Finished parsing model" << std::endl;
@@ -164,9 +164,9 @@ auto main(int argc, char *argv[]) -> int {
         std::unique_ptr<MarkVal[]> qm0(qnet->make_initial_marking());
 
         if (queries.size() == 0 ||
-            context_analysis(cpnBuilder, b2, *qnet.get(), queries) != ContinueCode) {
+            context_analysis(cpnBuilder, b2, *qnet.get(), queries) != CONTINUE_CODE) {
             std::cerr << "Could not analyze the queries" << std::endl;
-            return ErrorCode;
+            return ERROR_CODE;
         }
 
         simplify_queries(*qnet, queries, options);
@@ -181,7 +181,7 @@ auto main(int argc, char *argv[]) -> int {
         print_simplification_results(b2, options, querynames, queries, results);
 
         if (all_done(results) && options._model_out_file.empty())
-            return SuccessCode;
+            return SUCCESS_CODE;
     }
 
     //--------------------- Apply Net Reduction ---------------//
@@ -206,7 +206,7 @@ auto main(int argc, char *argv[]) -> int {
     }
 
     if (all_done(results))
-        return SuccessCode;
+        return SUCCESS_CODE;
 
     if (options._replay_trace) {
         return replay_trace(cpnBuilder, builder, *net, queries, results, options);
@@ -232,9 +232,9 @@ auto main(int argc, char *argv[]) -> int {
 
             // Assign indexes
             if (queries.empty() ||
-                context_analysis(cpnBuilder, builder, *net, queries) != ContinueCode) {
+                context_analysis(cpnBuilder, builder, *net, queries) != CONTINUE_CODE) {
                 std::cerr << "An error occurred while assigning indexes" << std::endl;
-                return ErrorCode;
+                return ERROR_CODE;
             }
             if (options._strategy == options_t::search_strategy_e::DEFAULT)
                 options._strategy = options_t::search_strategy_e::DFS;
@@ -257,7 +257,7 @@ auto main(int argc, char *argv[]) -> int {
 
         if (!ltl_ids.empty() && options._ltl_algorithm != LTL::Algorithm::None) {
             options._used_ltl = true;
-            if ((v = context_analysis(cpnBuilder, builder, *net, queries)) != ContinueCode) {
+            if ((v = context_analysis(cpnBuilder, builder, *net, queries)) != CONTINUE_CODE) {
                 std::cerr << "Error performing context analysis" << std::endl;
                 return v;
             }
@@ -268,13 +268,13 @@ auto main(int argc, char *argv[]) -> int {
                 std::cout << "Query is " << (res ? "" : "NOT ") << "satisfied." << std::endl;
             }
             if (all_done(results))
-                return SuccessCode;
+                return SUCCESS_CODE;
         }
 
         //----------------------- Siphon Trap ------------------------//
         run_siphon_trap(*net, queries, results, printer, options);
         if (all_done(results))
-            return error_e::SuccessCode;
+            return error_e::SUCCESS_CODE;
 
         //----------------------- Reachability -----------------------//
 
@@ -306,5 +306,5 @@ auto main(int argc, char *argv[]) -> int {
         }
     }
 
-    return SuccessCode;
+    return SUCCESS_CODE;
 }

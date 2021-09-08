@@ -262,7 +262,7 @@ auto Solver::find_failure(trace_t &trace, bool to_end) -> int64_t {
                 } else
                     _mark[p] = _m[p];
             }
-            if (_query->get_quantifier() != Quantifier::UPPERBOUNDS) {
+            if (_query->get_quantifier() != quantifier_e::UPPERBOUNDS) {
                 EvaluationContext ctx(_mark.get(), &_net);
                 auto r = _query->eval_and_set(ctx);
 #ifndef NDEBUG

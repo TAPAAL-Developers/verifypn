@@ -54,7 +54,7 @@ class TarjanModelChecker : public ModelChecker<ProductSucGen, SuccessorGen, Spoo
                                                                 std::move(spooler)...),
           _seen(net, 0) {
         if (buchi._buchi->num_states() > 65535) {
-            throw base_error("Fatal error: cannot handle Büchi automata larger than 2^16 states\n");
+            throw base_error_t("Fatal error: cannot handle Büchi automata larger than 2^16 states\n");
         }
         _chash.fill(std::numeric_limits<idx_t>::max());
     }

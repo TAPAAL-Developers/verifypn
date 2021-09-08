@@ -23,6 +23,7 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 #include "../PetriNet.h"
@@ -34,14 +35,14 @@ class ReducingSuccessorGenerator;
 class StubbornSet;
 namespace Simplification {
 class Member;
-struct Retval;
+struct retval_t;
 } // namespace Simplification
 namespace PQL {
 class Visitor;
 class MutatingVisitor;
 
-enum CTLType { PATHQEURY = 1, LOPERATOR = 2, EVAL = 3, TYPE_ERROR = -1 };
-enum Quantifier {
+enum ctl_type_e { PATHQEURY = 1, LOPERATOR = 2, EVAL = 3, TYPE_ERROR = -1 };
+enum quantifier_e {
     AND = 1,
     OR = 2,
     A = 3,
@@ -53,7 +54,7 @@ enum Quantifier {
     PN_BOOLEAN = 9,
     EMPTY = -1
 };
-enum Path { G = 1, X = 2, F = 3, U = 4, pError = -1 };
+enum path_e { G = 1, X = 2, F = 3, U = 4, P_ERROR = -1 };
 
 class AnalysisContext;
 class EvaluationContext;
@@ -68,21 +69,23 @@ class ExprError {
 
   public:
     ExprError(std::string text = "", int length = 0) {
-        _text = text;
+        _text = std::move(text);
         _length = length;
     }
 
     /** Human readable explaination of the error */
-    const std::string &text() const { return _text; }
+    [[nodiscard]] auto text() const -> const std::string & { return _text; }
 
     /** length in the source, 0 if not applicable */
-    int length() const { return _length; }
+    [[nodiscard]] auto length() const -> int { return _length; }
 
     /** Convert error to string */
-    std::string to_string() const { return "Parsing error \"" + text() + "\""; }
+    [[nodiscard]] auto to_string() const -> std::string {
+        return "Parsing error \"" + text() + "\"";
+    }
 
     /** True, if this is a default created ExprError without any information */
-    bool isEmpty() const { return _text.empty() && _length == 0; }
+    [[nodiscard]] auto is_empty() const -> bool { return _text.empty() && _length == 0; }
 };
 
 /** Representation of an expression */
@@ -91,19 +94,19 @@ class Expr {
 
   public:
     /** Types of expressions */
-    enum Types {
+    enum types_e {
         /** Binary addition expression */
-        PlusExpr,
+        PLUS_EXPR,
         /** Binary subtraction expression */
-        SubtractExpr,
+        SUBTRACT_EXPR,
         /** Binary multiplication expression */
-        MultiplyExpr,
+        MULTIPLY_EXPR,
         /** Unary minus expression */
-        MinusExpr,
+        MINUS_EXPR,
         /** Literal integer expression */
-        LiteralExpr,
+        LITERAL_EXPR,
         /** Identifier expression */
-        IdentifierExpr
+        IDENTIFIER_EXPR
     };
 
   public:
@@ -112,25 +115,25 @@ class Expr {
     /** Perform context analysis */
     virtual void analyze(AnalysisContext &context) = 0;
     /** Evaluate the expression given marking and assignment */
-    [[nodiscard]] virtual int evaluate(const EvaluationContext &context) = 0;
-    int eval_and_set(const EvaluationContext &context);
+    [[nodiscard]] virtual auto evaluate(const EvaluationContext &context) -> int = 0;
+    auto eval_and_set(const EvaluationContext &context) -> int;
     virtual void visit(Visitor &visitor) const = 0;
     /** Expression type */
-    [[nodiscard]] virtual Types type() const = 0;
+    [[nodiscard]] virtual types_e type() const = 0;
     /** Construct left/right side of equations used in query simplification */
-    virtual Simplification::Member constraint(SimplificationContext &context) const = 0;
+    virtual auto constraint(SimplificationContext &context) const -> Simplification::Member = 0;
     /** Output the expression as it currently is to a file in XML */
     virtual void to_xml(std::ostream &, uint32_t tabs, bool tokencount = false) const = 0;
     virtual void to_binary(std::ostream &) const = 0;
 
     /** Count size of the entire formula in number of nodes */
-    [[nodiscard]] virtual int formula_size() const = 0;
+    [[nodiscard]] virtual auto formula_size() const -> int = 0;
 
-    [[nodiscard]] virtual bool place_free() const = 0;
+    [[nodiscard]] virtual auto place_free() const -> bool = 0;
 
     void set_eval(int eval) { _eval = eval; }
 
-    [[nodiscard]] int get_eval() const { return _eval; }
+    [[nodiscard]] auto get_eval() const -> int { return _eval; }
 };
 /******************* NEGATION PUSH STATS  *******************/
 
@@ -151,12 +154,12 @@ struct negstat_t {
     static constexpr size_t nrules = std::tuple_size<decltype(_rulename)>::value;
 
     negstat_t() {
-        for (size_t i = 0; i < nrules; ++i)
-            _used[i] = 0;
+        for (int &i : _used)
+            i = 0;
     }
     void print(std::ostream &stream) {
-        for (size_t i = 0; i < nrules; ++i)
-            stream << _used[i] << ",";
+        for (int i : _used)
+            stream << i << ",";
     }
 
     static inline void print_rules(std::ostream &stream) {
@@ -165,18 +168,18 @@ struct negstat_t {
     }
 
     int _used[nrules];
-    int &operator[](size_t i) { return _used[i]; }
+    auto operator[](size_t i) -> int & { return _used[i]; }
     bool _negated_fireability = false;
 };
 
 /** Base condition */
 class Condition : public std::enable_shared_from_this<Condition> {
   public:
-    enum Result { RUNKNOWN = -1, RFALSE = 0, RTRUE = 1 };
+    enum result_e { RUNKNOWN = -1, RFALSE = 0, RTRUE = 1 };
 
   private:
     bool _inv = false;
-    Result _eval = RUNKNOWN;
+    result_e _eval = RUNKNOWN;
 
   protected:
     bool _loop_sensitive = false;
@@ -187,61 +190,61 @@ class Condition : public std::enable_shared_from_this<Condition> {
     /** Perform context analysis  */
     virtual void analyze(AnalysisContext &context) = 0;
     /** Evaluate condition */
-    virtual Result evaluate(const EvaluationContext &context) = 0;
-    virtual Result eval_and_set(const EvaluationContext &context) = 0;
+    virtual result_e evaluate(const EvaluationContext &context) = 0;
+    virtual result_e eval_and_set(const EvaluationContext &context) = 0;
     virtual void visit(Visitor &visitor) const = 0;
     virtual void visit(MutatingVisitor &visitor) = 0;
 
     /** Export condition to TAPAAL query (add EF manually!) */
     virtual void to_tapaal_query(std::ostream &, TAPAALConditionExportContext &context) const = 0;
     /** Get distance to query */
-    [[nodiscard]] virtual uint32_t distance(DistanceContext &context) const = 0;
+    [[nodiscard]] virtual auto distance(DistanceContext &context) const -> uint32_t = 0;
     /** Query Simplification */
-    virtual Simplification::Retval simplify(SimplificationContext &context) const = 0;
+    virtual auto simplify(SimplificationContext &context) const -> Simplification::retval_t = 0;
     /** Check if query is a reachability query */
-    [[nodiscard]] virtual bool is_reachability(uint32_t depth = 0) const = 0;
+    [[nodiscard]] virtual auto is_reachability(uint32_t depth = 0) const -> bool = 0;
 
-    [[nodiscard]] virtual bool is_loop_sensitive() const { return _loop_sensitive; };
+    [[nodiscard]] virtual auto is_loop_sensitive() const -> bool { return _loop_sensitive; };
     /** Prepare reachability queries */
-    [[nodiscard]] virtual std::shared_ptr<Condition>
-    prepare_for_reachability(bool negated = false) const = 0;
-    [[nodiscard]] virtual std::shared_ptr<Condition>
-    push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated = false,
-                  bool initrw = true) = 0;
+    [[nodiscard]] virtual auto prepare_for_reachability(bool negated = false) const
+        -> std::shared_ptr<Condition> = 0;
+    [[nodiscard]] virtual auto push_negation(negstat_t &, const EvaluationContext &context,
+                                             bool nested, bool negated = false, bool initrw = true)
+        -> std::shared_ptr<Condition> = 0;
 
     /** Output the condition as it currently is to a file in XML */
     virtual void to_xml(std::ostream &, uint32_t tabs) const = 0;
     virtual void to_binary(std::ostream &out) const = 0;
 
     /** Checks if the condition is trivially true */
-    [[nodiscard]] bool is_trivially_true();
+    [[nodiscard]] auto is_trivially_true() -> bool;
     /*** Checks if the condition is trivially false */
-    [[nodiscard]] bool is_trivially_false();
+    [[nodiscard]] auto is_trivially_false() -> bool;
     /** Count size of the entire formula in number of nodes */
-    [[nodiscard]] virtual int formula_size() const = 0;
+    [[nodiscard]] virtual auto formula_size() const -> int = 0;
 
-    [[nodiscard]] bool is_satisfied() const { return _eval == RTRUE; }
+    [[nodiscard]] auto is_satisfied() const -> bool { return _eval == RTRUE; }
 
     void set_satisfied(bool isSatisfied) { _eval = isSatisfied ? RTRUE : RFALSE; }
 
-    void set_satisfied(Result isSatisfied) { _eval = isSatisfied; }
+    void set_satisfied(result_e isSatisfied) { _eval = isSatisfied; }
 
-    [[nodiscard]] Result get_satisfied() const { return _eval; }
+    [[nodiscard]] result_e get_satisfied() const { return _eval; }
 
     void set_invariant(bool isInvariant) { _inv = isInvariant; }
 
-    bool is_invariant() const { return _inv; }
+    auto is_invariant() const -> bool { return _inv; }
 
-    [[nodiscard]] virtual bool is_temporal() const { return false; }
-    [[nodiscard]] virtual CTLType get_query_type() const = 0;
-    [[nodiscard]] virtual Quantifier get_quantifier() const = 0;
-    [[nodiscard]] virtual Path get_path() const = 0;
-    [[nodiscard]] static std::shared_ptr<Condition>
+    [[nodiscard]] virtual auto is_temporal() const -> bool { return false; }
+    [[nodiscard]] virtual ctl_type_e get_query_type() const = 0;
+    [[nodiscard]] virtual quantifier_e get_quantifier() const = 0;
+    [[nodiscard]] virtual path_e get_path() const = 0;
+    [[nodiscard]] static auto
     initial_marking_rewrite(const std::function<std::shared_ptr<Condition>()> &func,
                             negstat_t &stats, const EvaluationContext &context, bool nested,
-                            bool negated, bool initrw);
-    [[nodiscard]] virtual bool contains_next() const = 0;
-    [[nodiscard]] virtual bool nested_deadlock() const = 0;
+                            bool negated, bool initrw) -> std::shared_ptr<Condition>;
+    [[nodiscard]] virtual auto contains_next() const -> bool = 0;
+    [[nodiscard]] virtual auto nested_deadlock() const -> bool = 0;
     void to_string(std::ostream &os = std::cout);
 
   protected:
@@ -249,9 +252,9 @@ class Condition : public std::enable_shared_from_this<Condition> {
     // 0 is undecided (default), 1 is true, 2 is false.
     uint32_t _trivial = 0;
 };
-typedef std::shared_ptr<Condition> Condition_ptr;
+using Condition_ptr = std::shared_ptr<Condition>;
 using Condition_constptr = std::shared_ptr<const Condition>;
-typedef std::shared_ptr<Expr> Expr_ptr;
+using Expr_ptr = std::shared_ptr<Expr>;
 } // namespace PQL
 } // namespace PetriEngine
 

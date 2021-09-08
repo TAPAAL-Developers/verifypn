@@ -14,14 +14,13 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-namespace PetriEngine {
-namespace Simplification {
-enum op_t { OP_EQ, OP_LE, OP_GE, OP_LT, OP_GT, OP_NE };
+namespace PetriEngine::Simplification {
+enum op_e { OP_EQ, OP_LE, OP_GE, OP_LT, OP_GT, OP_NE };
 class Vector {
   public:
-    bool operator==(const Vector &other) const { return _data == other._data; }
+    auto operator==(const Vector &other) const -> bool { return _data == other._data; }
 
-    int compare(const Vector &other) {
+    auto compare(const Vector &other) -> int {
         if (_data.size() != other._data.size())
             return (_data.size() < other._data.size()) ? -1 : 1;
         for (size_t i = 0; i < _data.size(); ++i) {
@@ -33,9 +32,9 @@ class Vector {
         return 0;
     }
 
-    const void *raw() const { return _data.data(); }
+    [[nodiscard]] auto raw() const -> const void * { return _data.data(); }
 
-    std::ostream &print(std::ostream &ss) const {
+    auto print(std::ostream &ss) const -> std::ostream & {
         int index = 0;
         for (const std::pair<int, int> &el : _data) {
             while (index < el.first) {
@@ -56,7 +55,7 @@ class Vector {
         }
     }
 
-    size_t write_indir(std::vector<double> &dest, std::vector<int32_t> &indir) const {
+    auto write_indir(std::vector<double> &dest, std::vector<int32_t> &indir) const -> size_t {
         size_t l = 1;
         for (const std::pair<int, int> &el : _data) {
             dest[l] = el.second;
@@ -79,7 +78,6 @@ class Vector {
   private:
     std::vector<std::pair<int, int>> _data;
 };
-} // namespace Simplification
-} // namespace PetriEngine
+} // namespace PetriEngine::Simplification
 
 #endif /* VECTOR_H */

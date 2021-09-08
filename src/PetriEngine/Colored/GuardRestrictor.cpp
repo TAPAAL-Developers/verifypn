@@ -45,10 +45,10 @@ auto GuardRestrictor::get_interval_from_ids(const std::vector<uint32_t> &idVec, 
     return interval;
 }
 
-auto GuardRestrictor::get_interval_overlap(const interval_vector_t &intervals1,
-                                           const interval_vector_t &intervals2) const
-    -> interval_vector_t {
-    interval_vector_t newIntervalTuple;
+auto GuardRestrictor::get_interval_overlap(const IntervalVector &intervals1,
+                                           const IntervalVector &intervals2) const
+    -> IntervalVector {
+    IntervalVector newIntervalTuple;
     for (const auto &mainInterval : intervals1) {
         for (const auto &otherInterval : intervals2) {
             auto intervalOverlap = otherInterval.get_overlap(mainInterval);
@@ -97,7 +97,7 @@ void GuardRestrictor::expand_interva_vec(
     const VariableIntervalMap &varMap, const VariableModifierMap &mainVarModifierMap,
     const VariableModifierMap &otherVarModifierMap, const PositionVariableMap &varPositions,
     const std::unordered_map<uint32_t, const Color *> &constantMap,
-    const Colored::Variable *otherVar, Colored::interval_vector_t &intervalVec, size_t targetSize,
+    const Colored::Variable *otherVar, Colored::IntervalVector &intervalVec, size_t targetSize,
     uint32_t index) const {
     while (intervalVec.size() < targetSize) {
         if (varPositions.count(index)) {
@@ -163,7 +163,7 @@ void GuardRestrictor::restrict_eq_by_constant(
 
         std::vector<Colored::interval_t> iv{
             get_interval_from_ids(idVec, var->_colorType->size(), varModifier)};
-        Colored::interval_vector_t intervals(iv);
+        Colored::IntervalVector intervals(iv);
 
         expand_interva_vec(varMap, mainVarModifierMap, otherVarModifierMap, varPositions,
                            constantMap, var, intervals, tupleInterval.tuple_size(),
@@ -284,7 +284,7 @@ void GuardRestrictor::restrict_eq_diagonal(
         // comparing vars of same size
         if (var->_colorType->product_size() ==
             varPositionsR.find(index)->second->_colorType->product_size()) {
-            Colored::interval_vector_t newIntervalTuple =
+            Colored::IntervalVector newIntervalTuple =
                 get_interval_overlap(leftTupleIntervalVal, rightTupleIntervalVal);
 
             leftTupleInterval = newIntervalTuple;
@@ -306,9 +306,9 @@ void GuardRestrictor::restrict_eq_diagonal(
                                index +
                                    varPositionsR.find(index)->second->_colorType->product_size());
 
-            Colored::interval_vector_t newIntervalTupleR =
+            Colored::IntervalVector newIntervalTupleR =
                 get_interval_overlap(rightTupleIntervalVal, resizedLeftIntervals);
-            Colored::interval_vector_t newIntervalTupleL =
+            Colored::IntervalVector newIntervalTupleL =
                 get_interval_overlap(leftTupleIntervalVal, intervalVec);
 
             newIntervalTupleL.apply_modifier(leftVarModifier,
@@ -330,9 +330,9 @@ void GuardRestrictor::restrict_eq_diagonal(
                 varPositionsR.find(index)->second, intervalVec, rightTupleInterval.tuple_size(),
                 index + varPositionsL.find(index)->second->_colorType->product_size());
 
-            Colored::interval_vector_t newIntervalTupleL =
+            Colored::IntervalVector newIntervalTupleL =
                 get_interval_overlap(leftTupleIntervalVal, resizedRightIntervals);
-            Colored::interval_vector_t newIntervalTupleR =
+            Colored::IntervalVector newIntervalTupleR =
                 get_interval_overlap(rightTupleIntervalVal, intervalVec);
 
             newIntervalTupleL.apply_modifier(leftVarModifier,
@@ -511,11 +511,11 @@ void GuardRestrictor::handle_inequality_vars(
 
 // Retrieve the intervals remaining when the intervals created from restricting by equvalence
 // are removed from the original intervals
-void GuardRestrictor::invert_intervals(interval_vector_t &intervals,
-                                       const interval_vector_t &oldIntervals,
+void GuardRestrictor::invert_intervals(IntervalVector &intervals,
+                                       const IntervalVector &oldIntervals,
                                        const ColorType *colorType) const {
     const std::vector<bool> diagonalPositions(colorType->size(), false);
-    interval_vector_t invertedIntervalvec;
+    IntervalVector invertedIntervalvec;
 
     for (const auto &oldInterval : oldIntervals) {
         std::vector<PetriEngine::Colored::interval_t> subtractionRes;
@@ -546,10 +546,10 @@ void GuardRestrictor::invert_intervals(interval_vector_t &intervals,
 
 auto GuardRestrictor::shift_intervals(const VariableIntervalMap &varMap,
                                       const std::vector<const Colored::ColorType *> &colortypes,
-                                      PetriEngine::Colored::interval_vector_t &intervals,
+                                      PetriEngine::Colored::IntervalVector &intervals,
                                       int32_t modifier, uint32_t ctSizeBefore) const
-    -> interval_vector_t {
-    Colored::interval_vector_t newIntervals;
+    -> IntervalVector {
+    Colored::IntervalVector newIntervals;
     for (auto &interval : intervals) {
         Colored::interval_t newInterval;
         std::vector<Colored::interval_t> tempIntervals;

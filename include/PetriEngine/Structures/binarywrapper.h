@@ -22,40 +22,40 @@
  * Created on 10 June 2015, 19:20
  */
 
-#include <assert.h>
+#include <cassert>
+#include <cstdint>
+#include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <limits>
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
 
 #ifndef BINARYWRAPPER_H
 #define BINARYWRAPPER_H
 
 namespace ptrie {
-typedef unsigned int uint;
-typedef unsigned char uchar;
-constexpr auto __BW_BSIZE__ = sizeof(size_t); // SIZE OF POINTER!
+using uint = unsigned int;
+using uchar = unsigned char;
+constexpr auto BW_BSIZE = sizeof(size_t); // SIZE OF POINTER!
 /**
  * Wrapper for binary data. This provides easy access to individual bits,
  * heap allocation and comparison. Notice that one has to make sure to
  * explicitly call release() if one wishes to deallocate (possibly shared data).
  *
  */
-class binarywrapper_t {
+class BinaryWrapper {
   public:
     // Constructors
     /**
      * Empty constructor, no data is allocated
      */
 
-    binarywrapper_t() : _blob(nullptr), _nbytes(0) {}
+    BinaryWrapper() {}
 
     /**
      Allocates a room for at least size bits
      */
 
-    binarywrapper_t(uint size);
+    BinaryWrapper(uint size);
 
     /**
      * Constructor for copying over data from latest the offset'th bit.
@@ -64,9 +64,9 @@ class binarywrapper_t {
      * @param offset: maximal number of bits to skip.
      */
 
-    binarywrapper_t(const binarywrapper_t &other, uint offset);
+    BinaryWrapper(const BinaryWrapper &other, uint offset);
 
-    inline void init(const binarywrapper_t &other, uint size, uint offset, uint encodingsize) {
+    inline void init(const BinaryWrapper &other, uint size, uint offset, uint encodingsize) {
         uint so = size + offset;
         offset = ((so - 1) / 8) - ((size - 1) / 8);
 
@@ -82,7 +82,7 @@ class binarywrapper_t {
         memcpy(raw(), &(other.const_raw()[offset]), _nbytes);
     }
 
-    binarywrapper_t(uchar *raw, uint size, uint offset, uint encsize);
+    BinaryWrapper(uchar *raw, uint size, uint offset, uint encsize);
 
     /**
      * Assign (not copy) raw data to pointer. Set number of bytes to size
@@ -90,21 +90,21 @@ class binarywrapper_t {
      * @param size: number of bytes.
      */
 
-    binarywrapper_t(uchar *org, uint size);
+    BinaryWrapper(uchar *org, uint size);
 
     /**
      * Empty destructor. Does NOT deallocate data - do this with explicit
      * call to release().
      */
 
-    ~binarywrapper_t() {}
+    ~BinaryWrapper() = default;
 
     /**
      * Makes a complete copy, including new heap-allocation
      * @return an exact copy, but in a different area of the heap.
      */
 
-    // binarywrapper_t clone() const;
+    // BinaryWrapper clone() const;
 
     /**
      * Copy over data and meta-data from other, but insert only into target
@@ -115,7 +115,7 @@ class binarywrapper_t {
      * @param offset: bits to skip
      */
 
-    void copy(const binarywrapper_t &other, uint offset);
+    void copy(const BinaryWrapper &other, uint offset);
 
     /**
      * Copy over size bytes form raw data. Assumes that current wrapper has
@@ -132,7 +132,7 @@ class binarywrapper_t {
      * @param place: bit index
      * @return
      */
-    inline bool at(const uint place) const {
+    [[nodiscard]] inline auto at(const uint place) const -> bool {
         uint offset = place % 8;
         bool res2;
         if (place / 8 < _nbytes)
@@ -148,15 +148,15 @@ class binarywrapper_t {
      * @return
      */
 
-    inline uint size() const { return _nbytes; }
+    [[nodiscard]] inline auto size() const -> uint { return _nbytes; }
 
     /**
      * Raw access to data when in const setting
      * @return
      */
 
-    inline const uchar *const_raw() const {
-        if (_nbytes <= __BW_BSIZE__)
+    [[nodiscard]] inline auto const_raw() const -> const uchar * {
+        if (_nbytes <= BW_BSIZE)
             return offset((uchar *)&_blob, _nbytes);
         else
             return offset(_blob, _nbytes);
@@ -167,7 +167,7 @@ class binarywrapper_t {
      * @return
      */
 
-    inline uchar *raw() { return const_cast<uchar *>(const_raw()); }
+    inline auto raw() -> uchar * { return const_cast<uchar *>(const_raw()); }
 
     /**
      * pretty print of content
@@ -182,9 +182,9 @@ class binarywrapper_t {
      * @return
      */
 
-    static size_t overhead(uint size);
+    static auto overhead(uint size) -> size_t;
 
-    static size_t bytes(uint size);
+    static auto bytes(uint size) -> size_t;
     // modifiers
     /**
      * Change value of place'th bit
@@ -218,7 +218,7 @@ class binarywrapper_t {
      */
 
     inline void release() {
-        if (_nbytes > __BW_BSIZE__)
+        if (_nbytes > BW_BSIZE)
             dealloc(_blob);
         _blob = nullptr;
         _nbytes = 0;
@@ -230,7 +230,7 @@ class binarywrapper_t {
      * @return
      */
 
-    inline uchar operator[](unsigned int i) const {
+    inline auto operator[](unsigned int i) const -> uchar {
         if (i >= _nbytes) {
             return 0x0;
         }
@@ -243,7 +243,7 @@ class binarywrapper_t {
      * @param other: wrapper to compare to
      * @return -1 if other is smaller, 0 if same, 1 if other is larger
      */
-    inline int cmp(const binarywrapper_t &other) const {
+    [[nodiscard]] inline auto cmp(const BinaryWrapper &other) const -> int {
         if (_nbytes < other._nbytes)
             return -1;
         else if (_nbytes > other._nbytes)
@@ -260,7 +260,7 @@ class binarywrapper_t {
      * @param enc2
      * @return true if a match, false otherwise
      */
-    friend bool operator==(const binarywrapper_t &enc1, const binarywrapper_t &enc2) {
+    friend auto operator==(const BinaryWrapper &enc1, const BinaryWrapper &enc2) -> bool {
         return enc1.cmp(enc2) == 0;
     }
 
@@ -271,7 +271,7 @@ class binarywrapper_t {
      * @param enc2
      * @return true if a match, false otherwise
      */
-    friend bool operator<(const binarywrapper_t &enc1, const binarywrapper_t &enc2) {
+    friend auto operator<(const BinaryWrapper &enc1, const BinaryWrapper &enc2) -> bool {
         return enc1.cmp(enc2) < 0;
     }
 
@@ -282,7 +282,7 @@ class binarywrapper_t {
      * @param enc2
      * @return true if a match, false otherwise
      */
-    friend bool operator!=(const binarywrapper_t &enc1, const binarywrapper_t &enc2) {
+    friend auto operator!=(const BinaryWrapper &enc1, const BinaryWrapper &enc2) -> bool {
         return !(enc1 == enc2);
     }
 
@@ -293,7 +293,7 @@ class binarywrapper_t {
      * @param enc2
      * @return true if a match, false otherwise
      */
-    friend bool operator>=(const binarywrapper_t &enc1, const binarywrapper_t &enc2) {
+    friend auto operator>=(const BinaryWrapper &enc1, const BinaryWrapper &enc2) -> bool {
         return !(enc1 < enc2);
     }
 
@@ -304,7 +304,7 @@ class binarywrapper_t {
      * @param enc2
      * @return true if a match, false otherwise
      */
-    friend bool operator>(const binarywrapper_t &enc1, const binarywrapper_t &enc2) {
+    friend auto operator>(const BinaryWrapper &enc1, const BinaryWrapper &enc2) -> bool {
         return enc2 < enc1;
     }
 
@@ -315,46 +315,46 @@ class binarywrapper_t {
      * @param enc2
      * @return true if a match, false otherwise
      */
-    friend bool operator<=(const binarywrapper_t &enc1, const binarywrapper_t &enc2) {
+    friend auto operator<=(const BinaryWrapper &enc1, const BinaryWrapper &enc2) -> bool {
         return enc2 < enc1;
     }
 
     const static uchar _masks[8];
 
   private:
-    static inline uchar *allocate(size_t n) {
-        if (n <= __BW_BSIZE__)
-            return 0;
+    static inline auto allocate(size_t n) -> uchar * {
+        if (n <= BW_BSIZE)
+            return nullptr;
 #ifndef NDEBUG
         size_t on = n;
 #endif
-        if (n % __BW_BSIZE__ != 0)
-            n = (1 + (n / __BW_BSIZE__)) * (__BW_BSIZE__);
-        assert(n % __BW_BSIZE__ == 0);
+        if (n % BW_BSIZE != 0)
+            n = (1 + (n / BW_BSIZE)) * (BW_BSIZE);
+        assert(n % BW_BSIZE == 0);
         assert(on <= n);
         return (uchar *)malloc(n);
     }
 
-    static inline uchar *zallocate(size_t n) {
-        if (n <= __BW_BSIZE__)
-            return 0;
+    static inline auto zallocate(size_t n) -> uchar * {
+        if (n <= BW_BSIZE)
+            return nullptr;
 #ifndef NDEBUG
         size_t on = n;
 #endif
-        if (n % __BW_BSIZE__ != 0) {
-            n = (1 + (n / __BW_BSIZE__)) * (__BW_BSIZE__);
-            assert(n == on + (__BW_BSIZE__ - (on % __BW_BSIZE__)));
+        if (n % BW_BSIZE != 0) {
+            n = (1 + (n / BW_BSIZE)) * (BW_BSIZE);
+            assert(n == on + (BW_BSIZE - (on % BW_BSIZE)));
         }
-        assert(n % __BW_BSIZE__ == 0);
+        assert(n % BW_BSIZE == 0);
         assert(on <= n);
         return (uchar *)calloc(n, 1);
     }
 
     static inline void dealloc(uchar *data) { free(data); }
 
-    static inline uchar *offset(uchar *data, uint16_t size) {
-        //            if((size % __BW_BSIZE__) == 0) return data;
-        //            else return &data[(__BW_BSIZE__ - (size % __BW_BSIZE__))];
+    static inline auto offset(uchar *data, uint16_t size) -> uchar * {
+        //            if((size % __BW_BSIZE_) == 0) return data;
+        //            else return &data[(__BW_BSIZE_ - (size % __BW_BSIZE_))];
         return data;
     }
 
@@ -368,6 +368,6 @@ class binarywrapper_t {
 } __attribute__((packed));
 } // namespace ptrie
 namespace std {
-std::ostream &operator<<(std::ostream &os, const ptrie::binarywrapper_t &b);
+auto operator<<(std::ostream &os, const ptrie::BinaryWrapper &b) -> std::ostream &;
 }
 #endif /* BINARYWRAPPER_H */

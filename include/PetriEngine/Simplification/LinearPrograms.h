@@ -238,7 +238,7 @@ class SingleProgram : public AbstractProgramCollection {
   public:
     SingleProgram() : AbstractProgramCollection() { _has_empty = true; }
 
-    SingleProgram(const Member &lh, int constant, op_t op)
+    SingleProgram(const Member &lh, int constant, op_e op)
         : AbstractProgramCollection(), _program(lh.variables(), constant, op) {
         _has_empty = _program.size() == 0;
         assert(!_has_empty);

@@ -41,7 +41,7 @@ auto to_PQL(const spot::formula &formula, const APInfo &apinfo) -> PetriEngine::
                 return ap == std::string_view(formula.ap_name());
             });
         if (it == std::end(apinfo)) {
-            throw base_error("Error: Expected to find ", formula.ap_name(), " in APInfo.\n");
+            throw base_error_t("Error: Expected to find ", formula.ap_name(), " in APInfo.\n");
         } else {
             return it->_expression;
         }
@@ -70,51 +70,51 @@ auto to_PQL(const spot::formula &formula, const APInfo &apinfo) -> PetriEngine::
         return std::make_shared<AndCondition>(conds);
     }
     case spot::op::R:
-        throw base_error(ErrorCode, "Unimplemented: R");
+        throw base_error_t("Unimplemented: R");
     case spot::op::W:
-        throw base_error("Unimplemented: W");
+        throw base_error_t("Unimplemented: W");
     case spot::op::M:
-        throw base_error("Unimplemented: M");
+        throw base_error_t("Unimplemented: M");
     case spot::op::eword:
-        throw base_error("Unimplemented: eword");
+        throw base_error_t("Unimplemented: eword");
     case spot::op::Closure:
-        throw base_error("Unimplemented: Closure");
+        throw base_error_t("Unimplemented: Closure");
     case spot::op::NegClosure:
-        throw base_error("Unimplemented: NegClosure");
+        throw base_error_t("Unimplemented: NegClosure");
     case spot::op::NegClosureMarked:
-        throw base_error("Unimplemented: NegClosureMarked");
+        throw base_error_t("Unimplemented: NegClosureMarked");
     case spot::op::Xor:
-        throw base_error("Unimplemented: Xor");
+        throw base_error_t("Unimplemented: Xor");
     case spot::op::Implies:
-        throw base_error("Unimplemented: Implies");
+        throw base_error_t("Unimplemented: Implies");
     case spot::op::Equiv:
-        throw base_error("Unimplemented: Equiv");
+        throw base_error_t("Unimplemented: Equiv");
     case spot::op::EConcat:
-        throw base_error("Unimplemented: EConcat");
+        throw base_error_t("Unimplemented: EConcat");
     case spot::op::EConcatMarked:
-        throw base_error("Unimplemented: EConcatMarked");
+        throw base_error_t("Unimplemented: EConcatMarked");
     case spot::op::UConcat:
-        throw base_error("Unimplemented: UConcat");
+        throw base_error_t("Unimplemented: UConcat");
     case spot::op::OrRat:
-        throw base_error("Unimplemented: OrRat");
+        throw base_error_t("Unimplemented: OrRat");
     case spot::op::AndRat:
-        throw base_error("Unimplemented: AndRat");
+        throw base_error_t("Unimplemented: AndRat");
     case spot::op::AndNLM:
-        throw base_error("Unimplemented: AndNLM");
+        throw base_error_t("Unimplemented: AndNLM");
     case spot::op::Concat:
-        throw base_error("Unimplemented: Concat");
+        throw base_error_t("Unimplemented: Concat");
     case spot::op::Fusion:
-        throw base_error("Unimplemented: Fusion");
+        throw base_error_t("Unimplemented: Fusion");
     case spot::op::Star:
-        throw base_error("Unimplemented: Star");
+        throw base_error_t("Unimplemented: Star");
     case spot::op::FStar:
-        throw base_error("Unimplemented: FStar");
+        throw base_error_t("Unimplemented: FStar");
     case spot::op::first_match:
-        throw base_error("Unimplemented: first_match");
+        throw base_error_t("Unimplemented: first_match");
     default: {
         std::stringstream ss;
         formula.dump(ss);
-        throw base_error("Found unrecognized op in formula ", ss.str());
+        throw base_error_t("Found unrecognized op in formula ", ss.str());
     }
     }
 }

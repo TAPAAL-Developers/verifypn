@@ -27,7 +27,7 @@ template <typename T> class light_deque {
         _size = initial_size;
     }
 
-    light_deque<T> &operator=(const light_deque<T> &other) {
+    auto operator=(const light_deque<T> &other) -> light_deque<T> & {
         for (auto &e : *this)
             e.~T();
         delete[](uint8_t *) _data;
@@ -63,17 +63,17 @@ template <typename T> class light_deque {
         }
     }
 
-    bool empty() const { return _front == _back; }
+    [[nodiscard]] auto empty() const -> bool { return _front == _back; }
 
-    size_t size() const { return _back - _front; }
+    [[nodiscard]] auto size() const -> size_t { return _back - _front; }
 
-    const T &front() const { return _data[_front]; }
+    auto front() const -> const T & { return _data[_front]; }
 
-    T &front() { return _data[_front]; }
+    auto front() -> T & { return _data[_front]; }
 
-    const T &back() const { return _data[_back - 1]; }
+    auto back() const -> const T & { return _data[_back - 1]; }
 
-    T &back() { return _data[_back - 1]; }
+    auto back() -> T & { return _data[_back - 1]; }
 
     void pop_front() {
         _data[_front].~T();
@@ -98,13 +98,13 @@ template <typename T> class light_deque {
         _front = _back = 0;
     }
 
-    T *begin() { return &front(); }
+    auto begin() -> T * { return &front(); }
 
-    T *end() { return &_data[_back]; }
+    auto end() -> T * { return &_data[_back]; }
 
-    const T *begin() const { return &front(); }
+    auto begin() const -> const T * { return &front(); }
 
-    const T *end() const { return &_data[_back]; }
+    auto end() const -> const T * { return &_data[_back]; }
 
   private:
     void expand() {

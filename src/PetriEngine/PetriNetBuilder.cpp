@@ -74,7 +74,7 @@ void PetriNetBuilder::add_input_arc(const std::string &place, const std::string 
     uint32_t p = _placenames[place];
     uint32_t t = _transitionnames[transition];
 
-    Arc arc;
+    arc_t arc;
     arc._place = p;
     arc._weight = weight;
     arc._skip = false;
@@ -101,7 +101,7 @@ void PetriNetBuilder::add_output_arc(const std::string &transition, const std::s
     assert(t < _transitions.size());
     assert(p < _places.size());
 
-    Arc arc;
+    arc_t arc;
     arc._place = p;
     arc._weight = weight;
     arc._skip = false;
@@ -183,8 +183,8 @@ auto PetriNetBuilder::make_petri_net(bool reorder) -> PetriNet * {
         place_idmap[next] = free;
     net->_placeToPtrs[free] = freetrans;
     for (size_t t = 0; t < _transitions.size(); ++t) {
-        Transition &trans = _transitions[t];
-        if (std::all_of(trans._pre.begin(), trans._pre.end(), [](Arc &a) { return a._inhib; })) {
+        transition_t &trans = _transitions[t];
+        if (std::all_of(trans._pre.begin(), trans._pre.end(), [](auto &a) { return a._inhib; })) {
             // ALL have to be inhibitor, if any. Otherwise not orphan
 
             if (trans._skip)
@@ -193,7 +193,7 @@ auto PetriNetBuilder::make_petri_net(bool reorder) -> PetriNet * {
 
             // add inhibitors
             for (auto pre : trans._pre) {
-                Invariant &iv = net->_invariants[freeinv];
+                invariant_t &iv = net->_invariants[freeinv];
                 iv._place = pre._place;
                 iv._tokens = pre._weight;
                 iv._inhibitor = pre._inhib;
@@ -229,7 +229,7 @@ auto PetriNetBuilder::make_petri_net(bool reorder) -> PetriNet * {
         }
 
         for (auto t : _places[next]._consumers) {
-            Transition &trans = _transitions[t];
+            auto &trans = _transitions[t];
             if (trans._skip)
                 continue;
 
@@ -240,7 +240,7 @@ auto PetriNetBuilder::make_petri_net(bool reorder) -> PetriNet * {
             bool ok = true;
             bool all_inhib = true;
             uint32_t cnt = 0;
-            for (const Arc &pre : trans._pre) {
+            for (const auto &pre : trans._pre) {
                 all_inhib &= pre._inhib;
 
                 // if transition belongs to previous place
@@ -267,7 +267,7 @@ auto PetriNetBuilder::make_petri_net(bool reorder) -> PetriNet * {
 
             // everything is good, change state!.
             for (auto pre : trans._pre) {
-                Invariant &iv = net->_invariants[freeinv];
+                invariant_t &iv = net->_invariants[freeinv];
                 iv._place = pre._place;
                 iv._tokens = pre._weight;
                 iv._inhibitor = pre._inhib;
@@ -404,12 +404,12 @@ auto PetriNetBuilder::make_petri_net(bool reorder) -> PetriNet * {
 }
 
 void PetriNetBuilder::sort() {
-    for (Place &p : _places) {
+    for (auto &p : _places) {
         std::sort(p._consumers.begin(), p._consumers.end());
         std::sort(p._producers.begin(), p._producers.end());
     }
 
-    for (Transition &t : _transitions) {
+    for (auto &t : _transitions) {
         std::sort(t._pre.begin(), t._pre.end());
         std::sort(t._post.begin(), t._post.end());
     }

@@ -11,13 +11,12 @@
 #include <memory>
 #include <unordered_set>
 
-namespace PetriEngine {
-namespace Simplification {
+namespace PetriEngine::Simplification {
 
 struct equation_t {
     double _upper = std::numeric_limits<double>::infinity();
     double _lower = -std::numeric_limits<double>::infinity();
-    double operator[](size_t i) const { return i > 0 ? _upper : _lower; }
+    auto operator[](size_t i) const -> double { return i > 0 ? _upper : _lower; }
     Vector _row;
 
     equation_t(const std::vector<int> &data) : _row(data) {}
@@ -25,8 +24,8 @@ struct equation_t {
 
 class LinearProgram {
   private:
-    enum result_t { UKNOWN, IMPOSSIBLE, POSSIBLE };
-    result_t _result = result_t::UKNOWN;
+    enum result_e { UKNOWN, IMPOSSIBLE, POSSIBLE };
+    result_e _result = result_e::UKNOWN;
     std::vector<equation_t> _equations;
 
   public:
@@ -35,23 +34,25 @@ class LinearProgram {
         std::swap(_equations, other._equations);
     }
     virtual ~LinearProgram();
-    LinearProgram(){};
+    LinearProgram() = default;
+    ;
 
-    LinearProgram(const LinearProgram &other)
-        : _result(other._result), _equations(other._equations) {}
+    LinearProgram(const LinearProgram &other) = default;
 
-    LinearProgram(const std::vector<int> &vec, int constant, op_t op);
-    size_t size() const { return _equations.size(); }
+    LinearProgram(const std::vector<int> &vec, int constant, op_e op);
+    [[nodiscard]] auto size() const -> size_t { return _equations.size(); }
 
-    const std::vector<equation_t> &equations() const { return _equations; }
+    [[nodiscard]] auto equations() const -> const std::vector<equation_t> & { return _equations; }
 
-    bool known_impossible() const { return _result == result_t::IMPOSSIBLE; }
-    bool known_possible() const { return _result == result_t::POSSIBLE; }
-    bool is_impossible(const PQL::SimplificationContext &context, uint32_t solvetime);
+    [[nodiscard]] auto known_impossible() const -> bool {
+        return _result == result_e::IMPOSSIBLE;
+    }
+    [[nodiscard]] auto known_possible() const -> bool { return _result == result_e::POSSIBLE; }
+    auto is_impossible(const PQL::SimplificationContext &context, uint32_t solvetime) -> bool;
 
     void make_union(const LinearProgram &other);
 
-    std::ostream &print(std::ostream &ss, size_t indent = 0) const {
+    auto print(std::ostream &ss, size_t indent = 0) const -> std::ostream & {
         for (size_t i = 0; i < indent; ++i)
             ss << "\t";
         ss << "### LP\n";
@@ -68,11 +69,9 @@ class LinearProgram {
         ss << "### LP DONE";
         return ss;
     }
-    static std::vector<std::pair<double, bool>> bounds(const PQL::SimplificationContext &context,
-                                                       uint32_t solvetime,
-                                                       const std::vector<uint32_t> &places);
+    static auto bounds(const PQL::SimplificationContext &context, uint32_t solvetime,
+                       const std::vector<uint32_t> &places) -> std::vector<std::pair<double, bool>>;
 };
-} // namespace Simplification
-} // namespace PetriEngine
+} // namespace PetriEngine::Simplification
 
 #endif /* LINEARPROGRAM_H */

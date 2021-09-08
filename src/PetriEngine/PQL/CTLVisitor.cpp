@@ -304,26 +304,26 @@ void AsCTL::_accept(const AUCondition *condition) {
 void AsCTL::_accept(const ACondition *condition) {
     auto child = dynamic_cast<QuantifierCondition *>((*condition)[0].get());
     switch (child->get_path()) {
-    case Path::G:
+    case path_e::G:
         (*child)[0]->visit(*this);
         _ctl_query = std::make_shared<AGCondition>(_ctl_query);
         break;
-    case Path::X:
+    case path_e::X:
         (*child)[0]->visit(*this);
         _ctl_query = std::make_shared<AXCondition>(_ctl_query);
         break;
-    case Path::F:
+    case path_e::F:
         (*child)[0]->visit(*this);
         _ctl_query = std::make_shared<AFCondition>(_ctl_query);
         break;
-    case Path::U: {
+    case path_e::U: {
         (*child)[0]->visit(*this);
         auto first = _ctl_query;
         (*child)[1]->visit(*this);
         _ctl_query = std::make_shared<AUCondition>(first, _ctl_query);
         break;
     }
-    case Path::pError:
+    case path_e::P_ERROR:
         assert(false);
         _ctl_query = nullptr;
         break;
@@ -333,26 +333,26 @@ void AsCTL::_accept(const ACondition *condition) {
 void AsCTL::_accept(const ECondition *condition) {
     auto child = dynamic_cast<QuantifierCondition *>((*condition)[0].get());
     switch (child->get_path()) {
-    case Path::G:
+    case path_e::G:
         (*child)[0]->visit(*this);
         _ctl_query = std::make_shared<EGCondition>(_ctl_query);
         break;
-    case Path::X:
+    case path_e::X:
         (*child)[0]->visit(*this);
         _ctl_query = std::make_shared<EXCondition>(_ctl_query);
         break;
-    case Path::F:
+    case path_e::F:
         (*child)[0]->visit(*this);
         _ctl_query = std::make_shared<EFCondition>(_ctl_query);
         break;
-    case Path::U: {
+    case path_e::U: {
         (*child)[0]->visit(*this);
         auto first = _ctl_query;
         (*child)[1]->visit(*this);
         _ctl_query = std::make_shared<EUCondition>(first, _ctl_query);
         break;
     }
-    case Path::pError:
+    case path_e::P_ERROR:
         assert(false);
         _ctl_query = nullptr;
         break;

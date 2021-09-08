@@ -15,30 +15,30 @@
 
 namespace PetriEngine {
 
-struct Arc {
+struct arc_t {
     uint32_t _place;
     uint32_t _weight;
     bool _skip = false;
     bool _inhib = false;
 
-    Arc()
+    arc_t()
         : _place(std::numeric_limits<uint32_t>::max()),
-          _weight(std::numeric_limits<uint32_t>::max()), _skip(false), _inhib(false){};
+          _weight(std::numeric_limits<uint32_t>::max()){};
 
-    bool operator<(const Arc &other) const { return _place < other._place; }
+    auto operator<(const arc_t &other) const -> bool { return _place < other._place; }
 
-    bool operator==(const Arc &other) const {
+    auto operator==(const arc_t &other) const -> bool {
         return _place == other._place && _weight == other._weight && _inhib == other._inhib;
     }
 };
 
-struct Transition {
-    std::vector<Arc> _pre;
-    std::vector<Arc> _post;
+struct transition_t {
+    std::vector<arc_t> _pre;
+    std::vector<arc_t> _post;
     bool _skip = false;
     bool _inhib = false;
 
-    void add_pre_arc(const Arc &arc) {
+    void add_pre_arc(const arc_t &arc) {
         auto lb = std::lower_bound(_pre.begin(), _pre.end(), arc);
         if (lb != _pre.end() && lb->_place == arc._place)
             lb->_weight += arc._weight;
@@ -47,7 +47,7 @@ struct Transition {
         assert(lb->_weight > 0);
     }
 
-    void add_post_arc(const Arc &arc) {
+    void add_post_arc(const arc_t &arc) {
         auto lb = std::lower_bound(_post.begin(), _post.end(), arc);
         if (lb != _post.end() && lb->_place == arc._place)
             lb->_weight += arc._weight;
@@ -57,7 +57,7 @@ struct Transition {
     }
 };
 
-struct Place {
+struct place_t {
     std::vector<uint32_t> _consumers; // things consuming
     std::vector<uint32_t> _producers; // things producing
     bool _skip = false;

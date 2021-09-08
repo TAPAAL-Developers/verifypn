@@ -1,5 +1,5 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*,-*,bugprone*,modernize*,performance*,-modernize-use-auto,-modernize-pass-by-value,readability-identifier-naming,-modernize-avoid-c-arrays,-bugprone-branch-clone,-modernize-use-emplace'
+Checks:          'clang-diagnostic-*,clang-analyzer-*,-*,bugprone*,modernize*,performance*,-modernize-use-auto,-modernize-pass-by-value,readability-identifier-naming,-modernize-avoid-c-arrays,-bugprone-branch-clone,-modernize-use-emplace,-bugprone-inaccurate-erase'
 WarningsAsErrors: ''
 AnalyzeTemporaryDtors: false
 FormatStyle:     file

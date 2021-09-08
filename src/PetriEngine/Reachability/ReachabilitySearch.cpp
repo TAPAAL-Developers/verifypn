@@ -140,7 +140,7 @@ auto ReachabilitySearch::reachable(const std::vector<std::shared_ptr<PQL::Condit
         TRYREACH(RDFSQueue)
         break;
     default:
-        throw base_error("Unsupported search strategy for ReachabilitySearch");
+        throw base_error_t("Unsupported search strategy for ReachabilitySearch");
     }
 }
 } // namespace PetriEngine::Reachability

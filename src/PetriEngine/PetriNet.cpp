@@ -52,7 +52,7 @@ auto PetriNet::in_arc(uint32_t place, uint32_t transition) const -> uint32_t {
     }
 
     for (; imin < imax; ++imin) {
-        const Invariant &inv = _invariants[imin];
+        const invariant_t &inv = _invariants[imin];
         if (inv._place == place) {
             return inv._inhibitor ? 0 : _invariants[imin]._tokens;
         }
@@ -84,7 +84,7 @@ auto PetriNet::deadlocked(const MarkVal *m) const -> bool {
             uint32_t first = _placeToPtrs[i];
             uint32_t last = _placeToPtrs[i + 1];
             for (; first != last; ++first) {
-                const TransPtr &ptr = _transitions[first];
+                const trans_ptr_t &ptr = _transitions[first];
                 uint32_t finv = ptr._inputs;
                 uint32_t linv = ptr._outputs;
                 bool allgood = true;
@@ -108,26 +108,26 @@ auto PetriNet::deadlocked(const MarkVal *m) const -> bool {
     return true;
 }
 
-auto PetriNet::preset(uint32_t id) const -> std::pair<const Invariant *, const Invariant *> {
-    const TransPtr &transition = _transitions[id];
+auto PetriNet::preset(uint32_t id) const -> std::pair<const invariant_t *, const invariant_t *> {
+    const trans_ptr_t &transition = _transitions[id];
     uint32_t first = transition._inputs;
     uint32_t last = transition._outputs;
     return std::make_pair(&_invariants[first], &_invariants[last]);
 }
 
-auto PetriNet::postset(uint32_t id) const -> std::pair<const Invariant *, const Invariant *> {
+auto PetriNet::postset(uint32_t id) const -> std::pair<const invariant_t *, const invariant_t *> {
     uint32_t first = _transitions[id]._outputs;
     uint32_t last = _transitions[id + 1]._inputs;
     return std::make_pair(&_invariants[first], &_invariants[last]);
 }
 
 auto PetriNet::fireable(const MarkVal *marking, int transitionIndex) -> bool {
-    const TransPtr &transition = _transitions[transitionIndex];
+    const trans_ptr_t &transition = _transitions[transitionIndex];
     uint32_t first = transition._inputs;
     uint32_t last = transition._outputs;
 
     for (; first < last; ++first) {
-        const Invariant &inv = _invariants[first];
+        const invariant_t &inv = _invariants[first];
         if (inv._inhibitor == (marking[inv._place] >= inv._tokens))
             return false;
     }
@@ -144,10 +144,10 @@ auto PetriNet::make_initial_marking() const -> MarkVal * {
 
 void PetriNet::sort() {
     for (size_t i = 0; i < _ntransitions; ++i) {
-        TransPtr &t = _transitions[i];
+        trans_ptr_t &t = _transitions[i];
         std::sort(&_invariants[t._inputs], &_invariants[t._outputs],
                   [](const auto &a, const auto &b) { return a._place < b._place; });
-        TransPtr &t2 = _transitions[i + 1];
+        trans_ptr_t &t2 = _transitions[i + 1];
         std::sort(&_invariants[t._outputs], &_invariants[t2._inputs],
                   [](const auto &a, const auto &b) { return a._place < b._place; });
     }

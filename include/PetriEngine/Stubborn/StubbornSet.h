@@ -121,9 +121,9 @@ class StubbornSet {
         bool operator<(const trans_t &t) const { return _index < t._index; }
     };
 
-    const std::vector<TransPtr> &transitions() { return _net._transitions; }
+    const std::vector<trans_ptr_t> &transitions() { return _net._transitions; }
 
-    const std::vector<Invariant> &invariants() { return _net._invariants; }
+    const std::vector<invariant_t> &invariants() { return _net._invariants; }
 
     const std::vector<uint32_t> &place_to_ptrs() { return _net._placeToPtrs; }
 
@@ -139,7 +139,7 @@ class StubbornSet {
             }
             uint32_t tr = _unprocessed.front();
             _unprocessed.pop_front();
-            const TransPtr &ptr = transitions()[tr];
+            const trans_ptr_t &ptr = transitions()[tr];
             uint32_t finv = ptr._inputs;
             uint32_t linv = ptr._outputs;
             if (_enabled[tr]) {
@@ -166,7 +166,7 @@ class StubbornSet {
                 // Lets try to see if we havent already added sufficient pre/post
                 // for this transition.
                 for (; finv < linv; ++finv) {
-                    const Invariant &inv = invariants()[finv];
+                    const invariant_t &inv = invariants()[finv];
                     if ((*_parent).marking()[inv._place] < inv._tokens && !inv._inhibitor) {
                         inhib = false;
                         ok = (_places_seen.get()[inv._place] & 1) != 0;

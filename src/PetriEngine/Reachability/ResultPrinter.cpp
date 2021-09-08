@@ -18,7 +18,7 @@ auto ResultPrinter::handle(size_t index, const PQL::Condition &query, Result res
     Result retval = result;
 
     if (_options._cpn_overapprox) {
-        if (query.get_quantifier() == PQL::Quantifier::UPPERBOUNDS) {
+        if (query.get_quantifier() == PQL::quantifier_e::UPPERBOUNDS) {
             auto upq = ((const PQL::UnfoldedUpperBoundsCondition &)query);
             auto bnd = upq.bounds();
             if (initialMarking == nullptr || bnd > upq.value(initialMarking))

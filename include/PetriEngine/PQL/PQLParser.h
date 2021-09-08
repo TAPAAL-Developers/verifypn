@@ -23,13 +23,11 @@
 #include <string>
 #include <vector>
 
-namespace PetriEngine {
-namespace PQL {
+namespace PetriEngine::PQL {
 
 class Condition;
 
-std::shared_ptr<Condition> parse_query(const std::string &queryString,
-                                       std::vector<std::string> &placenameforbound);
-} // namespace PQL
-} // namespace PetriEngine
+auto parse_query(const std::string &queryString, std::vector<std::string> &placenameforbound)
+    -> std::shared_ptr<Condition>;
+} // namespace PetriEngine::PQL
 #endif // PQLPARSER_H

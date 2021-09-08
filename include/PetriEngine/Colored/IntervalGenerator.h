@@ -27,7 +27,7 @@ class IntervalGenerator {
     IntervalGenerator();
     bool
     get_var_intervals(std::vector<VariableIntervalMap> &variableMaps,
-                      const std::unordered_map<uint32_t, ArcIntervals> &placeArcIntervals) const;
+                      const std::unordered_map<uint32_t, arc_intervals_t> &placeArcIntervals) const;
 
   private:
     std::vector<interval_t>
@@ -35,17 +35,17 @@ class IntervalGenerator {
                                 int32_t varModifier,
                                 const std::vector<const ColorType *> &varColorTypes) const;
 
-    void get_arc_var_intervals(interval_vector_t &varIntervals,
+    void get_arc_var_intervals(IntervalVector &varIntervals,
                                const std::unordered_map<uint32_t, int32_t> &modIndexMap,
                                const interval_t &interval,
                                const std::vector<const ColorType *> &varColorTypes) const;
 
-    void populate_local_map(const ArcIntervals &arcIntervals, const VariableIntervalMap &varMap,
+    void populate_local_map(const arc_intervals_t &arcIntervals, const VariableIntervalMap &varMap,
                             VariableIntervalMap &localVarMap, const interval_t &interval,
                             bool &allVarsAssigned, uint32_t tuplePos) const;
 
     void fill_var_maps(std::vector<VariableIntervalMap> &variableMaps,
-                       const ArcIntervals &arcIntervals, const uint32_t &intervalTupleSize,
+                       const arc_intervals_t &arcIntervals, const uint32_t &intervalTupleSize,
                        const uint32_t &tuplePos) const;
 };
 } // namespace Colored

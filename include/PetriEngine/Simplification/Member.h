@@ -7,8 +7,8 @@
 #include <functional>
 
 namespace PetriEngine::Simplification {
-enum Trivial { False = 0, True = 1, Indeterminate = 2 };
-enum MemberType { Constant, Input, Output, Regular };
+enum trivial_e { FALSE = 0, TRUE = 1, INDETERMINATE = 2 };
+enum member_type_e { CONSTANT, INPUT, OUTPUT, REGULAR };
 class Member {
     std::vector<int> _variables;
     int _constant = 0;
@@ -18,17 +18,17 @@ class Member {
     Member(std::vector<int> &&vec, int constant, bool canAnalyze = true)
         : _variables(vec), _constant(constant), _canAnalyze(canAnalyze) {}
     Member(int constant, bool canAnalyse = true) : _constant(constant), _canAnalyze(canAnalyse) {}
-    Member() {}
+    Member() = default;
 
-    virtual ~Member() {}
+    virtual ~Member() = default;
 
-    int constant() const { return _constant; };
-    bool can_analyze() const { return _canAnalyze; };
-    size_t size() const { return _variables.size(); }
-    std::vector<int> &variables() { return _variables; }
-    const std::vector<int> &variables() const { return _variables; }
+    [[nodiscard]] auto constant() const -> int { return _constant; };
+    [[nodiscard]] auto can_analyze() const -> bool { return _canAnalyze; };
+    [[nodiscard]] auto size() const -> size_t { return _variables.size(); }
+    auto variables() -> std::vector<int> & { return _variables; }
+    [[nodiscard]] auto variables() const -> const std::vector<int> & { return _variables; }
 
-    Member &operator+=(const Member &m) {
+    auto operator+=(const Member &m) -> Member & {
         auto tc = _constant + m._constant;
         auto ca = _canAnalyze && m._canAnalyze;
         add_variables(m);
@@ -37,7 +37,7 @@ class Member {
         return *this;
     }
 
-    Member &operator-=(const Member &m) {
+    auto operator-=(const Member &m) -> Member & {
         auto tc = _constant - m._constant;
         auto ca = _canAnalyze && m._canAnalyze;
         subtract_variables(m);
@@ -46,7 +46,7 @@ class Member {
         return *this;
     }
 
-    Member &operator*=(const Member &m) {
+    auto operator*=(const Member &m) -> Member & {
         if (!is_zero() && !m.is_zero()) {
             _canAnalyze = false;
             _constant = 0;
@@ -61,7 +61,7 @@ class Member {
         return *this;
     }
 
-    [[nodiscard]] bool substration_is_zero(const Member &m2) const {
+    [[nodiscard]] auto substration_is_zero(const Member &m2) const -> bool {
         uint32_t min = std::min(_variables.size(), m2._variables.size());
         uint32_t i = 0;
         for (; i < min; i++) {
@@ -81,7 +81,7 @@ class Member {
         return true;
     }
 
-    [[nodiscard]] bool is_zero() const {
+    [[nodiscard]] auto is_zero() const -> bool {
         for (const int &v : _variables) {
             if (v != 0)
                 return false;
@@ -89,7 +89,7 @@ class Member {
         return true;
     }
 
-    [[nodiscard]] MemberType get_type() const {
+    [[nodiscard]] member_type_e get_type() const {
         bool isConstant = true;
         bool isInput = true;
         bool isOutput = true;
@@ -103,16 +103,16 @@ class Member {
             }
         }
         if (isConstant)
-            return MemberType::Constant;
+            return member_type_e::CONSTANT;
         else if (isInput)
-            return MemberType::Input;
+            return member_type_e::INPUT;
         else if (isOutput)
-            return MemberType::Output;
+            return member_type_e::OUTPUT;
         else
-            return MemberType::Regular;
+            return member_type_e::REGULAR;
     }
 
-    bool operator==(const Member &m) const {
+    auto operator==(const Member &m) const -> bool {
         size_t min = std::min(_variables.size(), m.size());
         size_t max = std::max(_variables.size(), m.size());
         if (memcmp(_variables.data(), m._variables.data(), sizeof(int) * min) != 0) {
@@ -134,14 +134,14 @@ class Member {
         return true;
     }
 
-    Trivial operator<(const Member &m) const { return trivial_less_than(m, std::less<int>()); }
-    Trivial operator<=(const Member &m) const {
+    trivial_e operator<(const Member &m) const { return trivial_less_than(m, std::less<int>()); }
+    trivial_e operator<=(const Member &m) const {
         return trivial_less_than(m, std::less_equal<int>());
     }
-    Trivial operator>(const Member &m) const {
+    trivial_e operator>(const Member &m) const {
         return m.trivial_less_than(*this, std::less<int>());
     }
-    Trivial operator>=(const Member &m) const {
+    trivial_e operator>=(const Member &m) const {
         return m.trivial_less_than(*this, std::less_equal<int>());
     }
 
@@ -189,37 +189,38 @@ class Member {
         _variables.clear();
     }
 
-    Trivial trivial_less_than(const Member &m2, std::function<bool(int, int)> compare) const {
-        MemberType type1 = get_type();
-        MemberType type2 = m2.get_type();
+    trivial_e trivial_less_than(const Member &m2,
+                                const std::function<bool(int, int)> &compare) const {
+        member_type_e type1 = get_type();
+        member_type_e type2 = m2.get_type();
 
         // self comparison
         if (*this == m2)
-            return compare(_constant, m2._constant) ? Trivial::True : Trivial::False;
+            return compare(_constant, m2._constant) ? trivial_e::TRUE : trivial_e::FALSE;
 
         // constant < constant/input/output
-        if (type1 == MemberType::Constant) {
-            if (type2 == MemberType::Constant) {
-                return compare(_constant, m2._constant) ? Trivial::True : Trivial::False;
-            } else if (type2 == MemberType::Input && !compare(_constant, m2._constant)) {
-                return Trivial::False;
-            } else if (type2 == MemberType::Output && compare(_constant, m2._constant)) {
-                return Trivial::True;
+        if (type1 == member_type_e::CONSTANT) {
+            if (type2 == member_type_e::CONSTANT) {
+                return compare(_constant, m2._constant) ? trivial_e::TRUE : trivial_e::FALSE;
+            } else if (type2 == member_type_e::INPUT && !compare(_constant, m2._constant)) {
+                return trivial_e::FALSE;
+            } else if (type2 == member_type_e::OUTPUT && compare(_constant, m2._constant)) {
+                return trivial_e::TRUE;
             }
         }
         // input < output/constant
-        else if (type1 == MemberType::Input &&
-                 (type2 == MemberType::Constant || type2 == MemberType::Output) &&
+        else if (type1 == member_type_e::INPUT &&
+                 (type2 == member_type_e::CONSTANT || type2 == member_type_e::OUTPUT) &&
                  compare(_constant, m2._constant)) {
-            return Trivial::True;
+            return trivial_e::TRUE;
         }
         // output < input/constant
-        else if (type1 == MemberType::Output &&
-                 (type2 == MemberType::Constant || type2 == MemberType::Input) &&
+        else if (type1 == member_type_e::OUTPUT &&
+                 (type2 == member_type_e::CONSTANT || type2 == member_type_e::INPUT) &&
                  !compare(_constant, m2._constant)) {
-            return Trivial::False;
+            return trivial_e::FALSE;
         }
-        return Trivial::Indeterminate;
+        return trivial_e::INDETERMINATE;
     }
 };
 } // namespace PetriEngine::Simplification

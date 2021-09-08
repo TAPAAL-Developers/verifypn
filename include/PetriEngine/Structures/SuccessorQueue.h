@@ -41,9 +41,9 @@ template <typename T = uint32_t> class SuccessorQueue {
         std::transform(std::begin(src), std::end(src), _data.get(), fn);
     }
 
-    SuccessorQueue() noexcept : _front(0), _size(0), _data(nullptr) {}
+    SuccessorQueue() noexcept : _data(nullptr) {}
 
-    [[nodiscard]] T front() const {
+    [[nodiscard]] auto front() const -> T {
         assert(!empty());
         return _data[_front];
     }
@@ -53,21 +53,21 @@ template <typename T = uint32_t> class SuccessorQueue {
         ++_front;
     }
 
-    [[nodiscard]] size_t size() const { return _size - _front; }
+    [[nodiscard]] auto size() const -> size_t { return _size - _front; }
 
-    [[nodiscard]] bool empty() const { return _front >= _size; }
+    [[nodiscard]] auto empty() const -> bool { return _front >= _size; }
 
-    [[nodiscard]] bool valid() const { return _data != nullptr; }
+    [[nodiscard]] auto valid() const -> bool { return _data != nullptr; }
 
-    [[nodiscard]] bool has_consumed() const { return _front > 0; }
+    [[nodiscard]] auto has_consumed() const -> bool { return _front > 0; }
 
-    T last_pop() const {
+    auto last_pop() const -> T {
         assert(has_consumed());
         return _data[_front - 1];
     }
 
-    bool operator==(std::nullptr_t) { return _data == nullptr; }
-    bool operator!=(std::nullptr_t) { return _data != nullptr; }
+    auto operator==(std::nullptr_t) -> bool { return _data == nullptr; }
+    auto operator!=(std::nullptr_t) -> bool { return _data != nullptr; }
 
     /**
      * Extend successor list while excluding previously popped elements.
@@ -106,11 +106,13 @@ template <typename T = uint32_t> class SuccessorQueue {
         _data.swap(newdata);
     }
 
-    std::pair<T *, T *> all_successors() { return std::make_pair(_data.get(), &_data[_size]); }
+    auto all_successors() -> std::pair<T *, T *> {
+        return std::make_pair(_data.get(), &_data[_size]);
+    }
 
   private:
-    uint32_t _front; /* index of first element */
-    uint32_t _size;  /* size of data array */
+    uint32_t _front{0}; /* index of first element */
+    uint32_t _size{0};  /* size of data array */
     std::unique_ptr<T[]> _data;
 };
 

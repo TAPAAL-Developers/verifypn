@@ -48,10 +48,10 @@ auto context_analysis(const ColoredPetriNetBuilder &cpnBuilder, const PetriNetBu
             for (const auto &i : context.errors()) {
                 fprintf(stderr, "Query Context Analysis Error: %s\n", i.to_string().c_str());
             }
-            return ErrorCode;
+            return ERROR_CODE;
         }
     }
-    return ContinueCode;
+    return CONTINUE_CODE;
 }
 
 auto read_queries(options_t &options, std::vector<std::string> &qstrings)
@@ -160,7 +160,7 @@ auto parse_model(AbstractPetriNetBuilder &builder, options_t &options) -> error_
     if (!mfile) {
         fprintf(stderr, "Error: Model file \"%s\" couldn't be opened\n", options._modelfile);
         fprintf(stdout, "CANNOT_COMPUTE\n");
-        return ErrorCode;
+        return ERROR_CODE;
     }
 
     // Parse and build the petri net
@@ -170,7 +170,7 @@ auto parse_model(AbstractPetriNetBuilder &builder, options_t &options) -> error_
 
     // Close the file
     mfile.close();
-    return ContinueCode;
+    return CONTINUE_CODE;
 }
 
 void print_reduction_stats(PetriNetBuilder &builder, options_t &options) {
@@ -307,7 +307,7 @@ auto get_ctl_queries(const std::vector<Condition_ptr> &ctlStarQueries)
             ctlStarQuery->visit(asCtl);
             ctlQueries.push_back(asCtl._ctl_query);
         } else {
-            throw base_error("Error: A query could not be translated from CTL* to CTL.");
+            throw base_error_t("Error: A query could not be translated from CTL* to CTL.");
         }
     }
     return ctlQueries;
@@ -321,7 +321,7 @@ auto get_ltl_queries(const std::vector<Condition_ptr> &ctlStarQueries)
         if (isLtl.is_LTL(ctlStarQuery)) {
             ltlQueries.push_back(ctlStarQuery);
         } else {
-            throw base_error("Error: a query could not be translated from CTL* to LTL.");
+            throw base_error_t("Error: a query could not be translated from CTL* to LTL.");
         }
     }
     return ltlQueries;
@@ -366,7 +366,7 @@ auto simplify_ltl_query(const Condition_ptr &query, const options_t &options,
         cond = (cond->simplify(simplificationContext))
                    ._formula->push_negation(stats, evalContext, false, false, true);
     } catch (std::bad_alloc &ba) {
-        throw base_error(ErrorCode, "Query reduction failed.\n",
+        throw base_error_t("Query reduction failed.\n",
                          "Exception information: ", ba.what());
     }
 
@@ -516,7 +516,7 @@ void simplify_queries(const PetriNet &net, std::vector<Condition_ptr> &queries,
                                     out << std::endl;
                                 }
                             } catch (std::bad_alloc &ba) {
-                                throw base_error(ErrorCode, "Query reduction failed.\n",
+                                throw base_error_t("Query reduction failed.\n",
                                                  "Exception information: ", ba.what());
                             }
 
@@ -588,8 +588,8 @@ auto replay_trace(const ColoredPetriNetBuilder &cpnBuilder, const PetriNetBuilde
                   const PetriNet &net, std::vector<Condition_ptr> &queries,
                   const std::vector<ResultPrinter::Result> &results, const options_t &options)
     -> error_e {
-    if (context_analysis(cpnBuilder, builder, net, queries) != ContinueCode)
-        throw base_error(error_e::ErrorCode, "Fatal error assigning indexes");
+    if (context_analysis(cpnBuilder, builder, net, queries) != CONTINUE_CODE)
+        throw base_error_t("Fatal error assigning indexes");
     std::ifstream replay_file(options._replay_file, std::ifstream::in);
     PetriEngine::TraceReplay replay{replay_file, net, options};
     for (size_t i = 0; i < queries.size(); ++i) {
@@ -597,7 +597,7 @@ auto replay_trace(const ColoredPetriNetBuilder &cpnBuilder, const PetriNetBuilde
             results[i] == ResultPrinter::LTL)
             replay.replay(net, queries[i]);
     }
-    return SuccessCode;
+    return SUCCESS_CODE;
 }
 
 void run_siphon_trap(const PetriNet &net, std::vector<Condition_ptr> &queries,

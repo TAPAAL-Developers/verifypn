@@ -37,7 +37,7 @@ class StateSetInterface {
         _kbound = kbound;
         _maxTokens = 0;
         _maxPlaceBound = std::vector<uint32_t>(net.number_of_places(), 0);
-        _sp = binarywrapper_t(sizeof(uint32_t) * _nplaces * 8);
+        _sp = BinaryWrapper(sizeof(uint32_t) * _nplaces * 8);
     }
 
     virtual ~StateSetInterface() { _sp.release(); }
@@ -62,7 +62,7 @@ class StateSetInterface {
     std::vector<uint32_t> _maxPlaceBound;
     AlignedEncoder _encoder;
     const PetriNet &_net;
-    binarywrapper_t _sp;
+    BinaryWrapper _sp;
 #ifdef DEBUG
     std::vector<uint32_t *> _dbg;
 #endif
@@ -101,10 +101,10 @@ class StateSetInterface {
 
         size_t length = _encoder.encode(state.marking(), type);
         if (length * 8 >= std::numeric_limits<uint16_t>::max()) {
-            throw base_error("error: Marking could not be encoded into less than 2^16 bytes, "
+            throw base_error_t("error: Marking could not be encoded into less than 2^16 bytes, "
                              "current limit of PTries");
         }
-        binarywrapper_t w = binarywrapper_t(_encoder.scratchpad().raw(), length * 8);
+        BinaryWrapper w = BinaryWrapper(_encoder.scratchpad().raw(), length * 8);
         auto tit = _trie.insert(w.raw(), w.size());
 
         if (!tit.first) {
@@ -140,7 +140,7 @@ class StateSetInterface {
         unsigned char type = _encoder.get_type(sum, active, allsame, val);
 
         size_t length = _encoder.encode(state.marking(), type);
-        binarywrapper_t w = binarywrapper_t(_encoder.scratchpad().raw(), length * 8);
+        BinaryWrapper w = BinaryWrapper(_encoder.scratchpad().raw(), length * 8);
         auto tit = _trie.exists(w.raw(), w.size());
 
         if (tit.first) {
@@ -175,7 +175,7 @@ class StateSetInterface {
 #define STATESET_BUCKETS 1000000
 class StateSet : public StateSetInterface {
   private:
-    using wrapper_t = ptrie::binarywrapper_t;
+    using wrapper_t = ptrie::BinaryWrapper;
     using ptrie_t = ptrie::set_stable<ptrie::uchar, 17, 128, 4>;
 
   public:

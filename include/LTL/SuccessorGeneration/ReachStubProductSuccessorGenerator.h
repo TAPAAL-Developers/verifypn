@@ -95,7 +95,7 @@ class ReachStubProductSuccessorGenerator : public ProductSuccessorGenerator<S> {
         if constexpr (std::is_same_v<S, LTL::SpoolingSuccessorGenerator>)
             this->_successor_generator->set_spooler(spooler);
         else {
-            throw base_error("Fatal error");
+            throw base_error_t("Fatal error");
         }
     }
 

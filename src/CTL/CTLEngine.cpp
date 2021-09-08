@@ -32,9 +32,9 @@ auto get_algorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm> &algorithm,
         algorithm = std::make_shared<Algorithm::CertainZeroFPA>(search);
         break;
     default:
-        throw base_error("Error: Unknown or unsupported algorithm");
+        throw base_error_t("Error: Unknown or unsupported algorithm");
     }
-    return ContinueCode;
+    return CONTINUE_CODE;
 }
 
 void print_ctl_result(const std::string &qname, const CTLResult &result, size_t index,
@@ -72,7 +72,7 @@ auto single_solve(const Condition_ptr &query, const PetriNet &net, CTLResult &re
     OnTheFlyDG graph(net, options._stubborn_reduction);
     graph.set_query(query);
     std::shared_ptr<Algorithm::FixedPointAlgorithm> alg = nullptr;
-    if (get_algorithm(alg, options._ctlalgorithm, options._strategy) == ErrorCode) {
+    if (get_algorithm(alg, options._ctlalgorithm, options._strategy) == ERROR_CODE) {
         assert(false);
         throw std::exception();
     }
@@ -219,11 +219,11 @@ auto verify_ctl(const PetriNet &net, Condition_ptr &query, options_t &options) -
         OnTheFlyDG graph(net, options._stubborn_reduction);
         graph.set_query(result._query);
         switch (graph.initial_eval()) {
-        case Condition::Result::RFALSE:
+        case Condition::result_e::RFALSE:
             result._result = false;
             solved = true;
             break;
-        case Condition::Result::RTRUE:
+        case Condition::result_e::RTRUE:
             result._result = true;
             solved = true;
             break;

@@ -27,8 +27,8 @@ auto ColoredAnalysisContext::resolve_transition(const std::string &transition,
 }
 
 auto AnalysisContext::resolve(const std::string &identifier, bool place)
-    -> AnalysisContext::ResolutionResult {
-    ResolutionResult result;
+    -> AnalysisContext::resolution_result_t {
+    resolution_result_t result;
     result._offset = -1;
     result._success = false;
     auto &map = place ? _placeNames : _transitionNames;

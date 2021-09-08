@@ -446,10 +446,10 @@ auto PartitionBuilder::prepare_variables(const VariableModifierMap &varModifierM
     std::vector<VariableIntervalMap> varMaps;
     VariableIntervalMap varMap;
     varMaps.push_back(varMap);
-    std::unordered_map<uint32_t, ArcIntervals> placeArcIntervals;
+    std::unordered_map<uint32_t, arc_intervals_t> placeArcIntervals;
     ColorFixpoint postPlaceFixpoint;
     postPlaceFixpoint._constraints = eqClass.intervals();
-    ArcIntervals newArcInterval(&postPlaceFixpoint, varModifierMap);
+    arc_intervals_t newArcInterval(&postPlaceFixpoint, varModifierMap);
     uint32_t index = 0;
 
     arc->_expr->get_arc_intervals(newArcInterval, postPlaceFixpoint, index, 0);

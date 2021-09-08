@@ -43,7 +43,7 @@ struct Transition {
     GuardExpression_ptr _guard;
     std::vector<Arc> _input_arcs;
     std::vector<Arc> _output_arcs;
-    std::vector<std::unordered_map<const Variable *, interval_vector_t>> _variable_maps;
+    std::vector<std::unordered_map<const Variable *, IntervalVector>> _variable_maps;
     bool _considered;
 };
 

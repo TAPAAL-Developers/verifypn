@@ -41,7 +41,7 @@ void RangeContext::handle_compare(const Expr_ptr &left, const Expr_ptr &right, b
 
 void RangeContext::_accept(const NotCondition *element) {
     assert(false);
-    throw base_error("UNSUPPORTED QUERY TYPE FOR TAR");
+    throw base_error_t("UNSUPPORTED QUERY TYPE FOR TAR");
 }
 
 void RangeContext::_accept(const PetriEngine::PQL::AndCondition *element) {

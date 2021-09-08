@@ -38,7 +38,7 @@ class OnTheFlyDG : public DependencyGraph::BasicDependencyGraph {
     size_t configuration_count() const;
     size_t marking_count() const;
 
-    Condition::Result initial_eval();
+    Condition::result_e initial_eval();
 
   protected:
     // initialized from constructor
@@ -52,8 +52,8 @@ class OnTheFlyDG : public DependencyGraph::BasicDependencyGraph {
     // used after query is set
     Condition_ptr _query = nullptr;
 
-    Condition::Result fast_eval(Condition *query, Marking *unfolded);
-    Condition::Result fast_eval(const Condition_ptr &query, Marking *unfolded) {
+    Condition::result_e fast_eval(Condition *query, Marking *unfolded);
+    Condition::result_e fast_eval(const Condition_ptr &query, Marking *unfolded) {
         return fast_eval(query.get(), unfolded);
     }
     void next_states(Marking &t_marking, Condition *, std::function<void()> &&pre,
