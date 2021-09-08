@@ -34,10 +34,10 @@ namespace PetriEngine {
 
 PetriNetBuilder::PetriNetBuilder() : AbstractPetriNetBuilder(), _reducer(this) {}
 PetriNetBuilder::PetriNetBuilder(const PetriNetBuilder &other)
-    : AbstractPetriNetBuilder(other), _placenames(other._placenames), _transitionnames(other._transitionnames),
-      _placelocations(other._placelocations), _transitionlocations(other._transitionlocations),
-      _transitions(other._transitions), _places(other._places),
-      _initial_marking(other._initial_marking), _reducer(this) {}
+    : AbstractPetriNetBuilder(other), _placenames(other._placenames),
+      _transitionnames(other._transitionnames), _placelocations(other._placelocations),
+      _transitionlocations(other._transitionlocations), _transitions(other._transitions),
+      _places(other._places), _initial_marking(other._initial_marking), _reducer(this) {}
 
 void PetriNetBuilder::add_place(const std::string &name, uint32_t tokens, double x, double y) {
     if (_placenames.count(name) == 0) {

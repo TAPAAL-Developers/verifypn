@@ -183,4 +183,4 @@ size_t Multiset::size() const {
     }
     return res;
 }
-} // namespace PetriEngine
+} // namespace PetriEngine::Colored

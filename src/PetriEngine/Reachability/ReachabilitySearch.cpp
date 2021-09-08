@@ -143,4 +143,4 @@ auto ReachabilitySearch::reachable(const std::vector<std::shared_ptr<PQL::Condit
         throw base_error("Unsupported search strategy for ReachabilitySearch");
     }
 }
-} // namespace PetriEngine
+} // namespace PetriEngine::Reachability

@@ -26,7 +26,9 @@ class Configuration {
     int8_t _assignment = UNKNOWN;
     Configuration() = default;
     [[nodiscard]] auto get_distance() const -> uint32_t { return _distance; }
-    [[nodiscard]] auto is_done() const -> bool { return _assignment == ONE || _assignment == CZERO; }
+    [[nodiscard]] auto is_done() const -> bool {
+        return _assignment == ONE || _assignment == CZERO;
+    }
     void add_dependency(Edge *e);
 };
 

@@ -31,11 +31,13 @@ namespace PetriEngine {
 class AbstractPetriNetBuilder {
   protected:
     bool _isColored = false;
-    AbstractPetriNetBuilder(const AbstractPetriNetBuilder&) = default;
+    AbstractPetriNetBuilder(const AbstractPetriNetBuilder &) = default;
     AbstractPetriNetBuilder() = default;
+
   public:
     /** Add a new place with a unique name */
-    virtual void add_place(const std::string &name, uint32_t tokens, double x = 0, double y = 0) = 0;
+    virtual void add_place(const std::string &name, uint32_t tokens, double x = 0,
+                           double y = 0) = 0;
     /** Add a new colored place with a unique name */
     virtual void add_place(const std::string &name, const Colored::ColorType *type,
                            Colored::Multiset &&tokens, double x = 0, double y = 0) {
@@ -53,7 +55,8 @@ class AbstractPetriNetBuilder {
                                bool inhibitor, uint32_t) = 0;
     /** Add colored input arc with given arc expression */
     virtual void add_input_arc(const std::string &place, const std::string &transition,
-                               const Colored::ArcExpression_ptr &expr, bool inhibitor, uint32_t weight) {
+                               const Colored::ArcExpression_ptr &expr, bool inhibitor,
+                               uint32_t weight) {
         throw base_error("Colored input arcs are not supported in standard P/T nets");
     }
     /** Add output arc with given weight */

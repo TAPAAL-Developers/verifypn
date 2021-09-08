@@ -122,4 +122,4 @@ void HeuristicQueue::push(size_t id, uint32_t dist) {
     _queue.emplace(dist, (uint32_t)id);
 }
 
-} // namespace PetriEngine
+} // namespace PetriEngine::Structures

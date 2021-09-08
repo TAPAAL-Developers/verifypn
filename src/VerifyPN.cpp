@@ -43,23 +43,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <cstdio>
+#include <cstring>
 #include <functional>
 #include <iostream>
 #include <map>
 #include <memory>
-#include <cstdio>
-#include <cstring>
 #include <string>
 
 #include "options.h"
 #include "utils.h"
 
+#include "CTL/CTLEngine.h"
+#include "LTL/LTLMain.h"
+#include "PetriEngine/Colored/ColoredPetriNetBuilder.h"
 #include "PetriEngine/PQL/Contexts.h"
 #include "PetriEngine/PQL/PQL.h"
-#include "LTL/LTLMain.h"
-#include "CTL/CTLEngine.h"
 #include "PetriEngine/TAR/TARReachability.h"
-#include "PetriEngine/Colored/ColoredPetriNetBuilder.h"
 
 using namespace PetriEngine;
 using namespace PetriEngine::PQL;

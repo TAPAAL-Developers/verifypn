@@ -12,9 +12,9 @@
 
 #include <algorithm>
 #include <map>
+#include <set>
 #include <stack>
 #include <unordered_map>
-#include <set>
 #include <vector>
 
 template <typename T, typename U> class AntiChain {
@@ -30,7 +30,8 @@ template <typename T, typename U> class AntiChain {
     };
 
   public:
-    AntiChain()= default;;
+    AntiChain() = default;
+    ;
 
     void clear() { _map.clear(); }
 

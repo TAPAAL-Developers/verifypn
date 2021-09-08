@@ -51,7 +51,8 @@ class ColoredPetriNetBuilder : public AbstractPetriNetBuilder {
     void add_input_arc(const std::string &place, const std::string &transition, bool inhibitor,
                        uint32_t) override;
     void add_input_arc(const std::string &place, const std::string &transition,
-                       const Colored::ArcExpression_ptr &expr, bool inhibitor, uint32_t weight) override;
+                       const Colored::ArcExpression_ptr &expr, bool inhibitor,
+                       uint32_t weight) override;
     void add_output_arc(const std::string &transition, const std::string &place,
                         uint32_t weight = 1) override;
     void add_output_arc(const std::string &transition, const std::string &place,
@@ -151,8 +152,7 @@ class ColoredPetriNetBuilder : public AbstractPetriNetBuilder {
     void remove_invalid_varmaps(Colored::Transition &transition) const;
     void add_transition_vars(Colored::Transition &transition) const;
 
-    auto
-    setup_transition_vars(const Colored::Transition &transition) const
+    auto setup_transition_vars(const Colored::Transition &transition) const
         -> std::unordered_map<uint32_t, Colored::ArcIntervals>;
 
     void add_arc(const std::string &place, const std::string &transition,

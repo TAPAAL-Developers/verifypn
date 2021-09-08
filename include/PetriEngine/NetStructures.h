@@ -9,9 +9,9 @@
 #define NETSTRUCTURES_H
 
 #include <cassert>
+#include <cinttypes>
 #include <limits>
 #include <vector>
-#include <cinttypes>
 
 namespace PetriEngine {
 

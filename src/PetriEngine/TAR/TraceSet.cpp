@@ -172,8 +172,8 @@ auto TraceSet::state_for_predicate(prvector_t &predicate) -> std::pair<bool, siz
                             break;
                         }
                     }
-                    if ( (change < 0 && !it->_range.no_lower()) ||
-                         (change > 0 && !it->_range.no_upper()) )
+                    if ((change < 0 && !it->_range.no_lower()) ||
+                        (change > 0 && !it->_range.no_upper()))
                         ok = false;
                 }
                 if (!ok)
@@ -193,8 +193,8 @@ auto TraceSet::state_for_predicate(prvector_t &predicate) -> std::pair<bool, siz
                             break;
                         }
                     }
-                    if ( (change < 0 && !it->_range.no_lower()) ||
-                         (change > 0 && !it->_range.no_upper()))
+                    if ((change < 0 && !it->_range.no_lower()) ||
+                        (change > 0 && !it->_range.no_upper()))
                         ok = false;
                 }
                 if (!ok)

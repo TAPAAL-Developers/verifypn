@@ -256,4 +256,4 @@ void CertainZeroFPA::explore(Configuration *c) {
     }
     _strategy->flush();
 }
-} // namespace CTL
+} // namespace CTL::Algorithm

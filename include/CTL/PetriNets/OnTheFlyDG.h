@@ -56,8 +56,8 @@ class OnTheFlyDG : public DependencyGraph::BasicDependencyGraph {
     Condition::Result fast_eval(const Condition_ptr &query, Marking *unfolded) {
         return fast_eval(query.get(), unfolded);
     }
-    void next_states(Marking &t_marking, Condition *, std::function<void()>&& pre,
-                     std::function<bool(Marking &)>&& foreach, std::function<void()>&& post);
+    void next_states(Marking &t_marking, Condition *, std::function<void()> &&pre,
+                     std::function<bool(Marking &)> &&foreach, std::function<void()> &&post);
 
     template <typename T>
     void do_work(T &gen, bool &first, std::function<void()> &&pre,

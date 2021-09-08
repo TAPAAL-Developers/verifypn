@@ -25,7 +25,8 @@ namespace PetriEngine {
 ColoredPetriNetBuilder::ColoredPetriNetBuilder() = default;
 
 ColoredPetriNetBuilder::ColoredPetriNetBuilder(const ColoredPetriNetBuilder &orig)
-    : AbstractPetriNetBuilder(orig), _placenames(orig._placenames), _transitionnames(orig._transitionnames), _places(orig._places),
+    : AbstractPetriNetBuilder(orig), _placenames(orig._placenames),
+      _transitionnames(orig._transitionnames), _places(orig._places),
       _transitions(orig._transitions) {}
 
 ColoredPetriNetBuilder::~ColoredPetriNetBuilder() {
@@ -37,7 +38,8 @@ ColoredPetriNetBuilder::~ColoredPetriNetBuilder() {
     _colors.clear();
 }
 
-void ColoredPetriNetBuilder::add_place(const std::string &name, uint32_t tokens, double x, double y) {
+void ColoredPetriNetBuilder::add_place(const std::string &name, uint32_t tokens, double x,
+                                       double y) {
     if (!_isColored) {
         _ptBuilder.add_place(name, tokens, x, y);
     }

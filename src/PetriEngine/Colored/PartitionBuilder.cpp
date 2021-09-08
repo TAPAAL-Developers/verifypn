@@ -50,7 +50,6 @@ void PartitionBuilder::print_partion() const {
             std::cout << equivalenceClass.to_string() << std::endl;
         }
         std::cout << "Diagonal " << equivalenceVec.second.is_diagonal() << std::endl << std::endl;
-
     }
 }
 

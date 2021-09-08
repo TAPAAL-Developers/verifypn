@@ -116,8 +116,8 @@ void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::ECondition *condition)
     (*condition)[0]->visit(*this);
 }
 
-auto to_spot_formula(const PetriEngine::PQL::Condition_ptr &query,
-                                                 const options_t &options) -> std::pair<spot::formula, APInfo> {
+auto to_spot_formula(const PetriEngine::PQL::Condition_ptr &query, const options_t &options)
+    -> std::pair<spot::formula, APInfo> {
     std::stringstream ss;
     FormulaToSpotSyntax spotConverter{ss, options._ltl_compress_aps};
     query->visit(spotConverter);
@@ -129,8 +129,8 @@ auto to_spot_formula(const PetriEngine::PQL::Condition_ptr &query,
     return std::make_pair(spot_formula, spotConverter.atomic_info());
 }
 
-auto make_buchi_automaton(const PetriEngine::PQL::Condition_ptr &query,
-                                                const options_t &options) -> Structures::BuchiAutomaton {
+auto make_buchi_automaton(const PetriEngine::PQL::Condition_ptr &query, const options_t &options)
+    -> Structures::BuchiAutomaton {
     auto [formula, apinfo] = to_spot_formula(query, options);
     formula = spot::formula::Not(formula);
     spot::translator translator;
@@ -163,8 +163,8 @@ auto make_buchi_automaton(const PetriEngine::PQL::Condition_ptr &query,
     return Structures::BuchiAutomaton{automaton, ap_map};
 }
 
-auto make_buchi_successor_generator(const Condition_ptr &query,
-                                                       const options_t &options) -> BuchiSuccessorGenerator {
+auto make_buchi_successor_generator(const Condition_ptr &query, const options_t &options)
+    -> BuchiSuccessorGenerator {
     return BuchiSuccessorGenerator{make_buchi_automaton(query, options)};
 }
 

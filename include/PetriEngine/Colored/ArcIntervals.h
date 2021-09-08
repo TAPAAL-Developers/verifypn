@@ -42,16 +42,17 @@ struct ArcIntervals {
 
     ArcIntervals(const Colored::ColorFixpoint *source, VariableModifierMap varIndexModMap,
                  std::vector<Colored::interval_vector_t> ranges)
-        : _varIndexModMap(std::move(std::move(varIndexModMap))), _intervalTupleVec(std::move(std::move(ranges))), _source(source){};
+        : _varIndexModMap(std::move(std::move(varIndexModMap))),
+          _intervalTupleVec(std::move(std::move(ranges))), _source(source){};
 
     void print() {
         std::cout << "[ ";
-        for (const auto& varModifierPair : _varIndexModMap) {
+        for (const auto &varModifierPair : _varIndexModMap) {
             std::cout << "(" << varModifierPair.first->_name << ", "
                       << varModifierPair.first->_colorType->product_size() << ") ";
         }
         std::cout << "]" << std::endl;
-        for (const auto& intervalTuple : _intervalTupleVec) {
+        for (const auto &intervalTuple : _intervalTupleVec) {
             std::cout << "--------------------------------------------------------------------"
                       << std::endl;
             intervalTuple.print();
@@ -60,6 +61,6 @@ struct ArcIntervals {
         }
     }
 };
-} // namespace PetriEngine
+} // namespace PetriEngine::Colored
 
 #endif /* INTERVALGENERATOR_H */

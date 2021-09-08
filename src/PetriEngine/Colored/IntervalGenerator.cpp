@@ -166,8 +166,8 @@ bool IntervalGenerator::get_var_intervals(
         for (uint32_t j = 0; j < placeArcInterval.second._intervalTupleVec.size(); j++) {
             uint32_t intervalTupleSize = placeArcInterval.second._intervalTupleVec[j].size();
             // If we have not found intervals for any place yet, we fill the intervals from this
-            // place Else we restrict the intervals we already found to only keep those that can also
-            // be matched in this place
+            // place Else we restrict the intervals we already found to only keep those that can
+            // also be matched in this place
             if (variableMaps.empty()) {
                 fill_var_maps(variableMaps, placeArcInterval.second, intervalTupleSize, j);
             } else {

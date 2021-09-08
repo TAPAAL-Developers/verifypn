@@ -1,10 +1,10 @@
 #include "CTL/PetriNets/OnTheFlyDG.h"
 
 #include <algorithm>
+#include <cstring>
 #include <iostream>
 #include <limits>
 #include <queue>
-#include <cstring>
 
 #include "CTL/SearchStrategy/SearchStrategy.h"
 #include "PetriEngine/PQL/Expressions.h"
@@ -431,8 +431,9 @@ auto OnTheFlyDG::initial_configuration() -> Configuration * {
     return _initial_config;
 }
 
-void OnTheFlyDG::next_states(Marking &t_marking, Condition *ptr, std::function<void()>&& pre,
-                             std::function<bool(Marking &)>&& foreach, std::function<void()>&& post) {
+void OnTheFlyDG::next_states(Marking &t_marking, Condition *ptr, std::function<void()> &&pre,
+                             std::function<bool(Marking &)> &&foreach,
+                             std::function<void()> &&post) {
     bool first = true;
     memcpy(_working_marking.marking(), _query_marking.marking(),
            _net.number_of_places() * sizeof(PetriEngine::MarkVal));
@@ -443,7 +444,8 @@ void OnTheFlyDG::next_states(Marking &t_marking, Condition *ptr, std::function<v
         do_work<PetriEngine::SuccessorGenerator>(PNGen, first, std::move(pre), std::move(foreach));
     } else {
         _redgen.set_query(ptr);
-        do_work<PetriEngine::ReducingSuccessorGenerator>(_redgen, first, std::move(pre), std::move(foreach));
+        do_work<PetriEngine::ReducingSuccessorGenerator>(_redgen, first, std::move(pre),
+                                                         std::move(foreach));
     }
 
     if (!first)

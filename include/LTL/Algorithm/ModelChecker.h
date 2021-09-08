@@ -38,9 +38,8 @@ class ModelChecker {
     ModelChecker(const PetriEngine::PetriNet &net, const PetriEngine::PQL::Condition_ptr &condition,
                  const Structures::BuchiAutomaton &buchi, SuccessorGen *successorGen,
                  std::unique_ptr<Spooler> &&...spooler)
-        : _net(net),
-          _successor_generator(std::make_unique<ProductSucGen<SuccessorGen, Spooler...>>(
-              net, buchi, successorGen, std::move(spooler)...)),
+        : _net(net), _successor_generator(std::make_unique<ProductSucGen<SuccessorGen, Spooler...>>(
+                         net, buchi, successorGen, std::move(spooler)...)),
           _factory(net, buchi, this->_successor_generator->initial_buchi_state()) {}
 
     void set_options(const options_t &options) {

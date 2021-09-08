@@ -8,7 +8,7 @@ namespace CTL::SearchStrategy {
 
 class SearchStrategy {
   public:
-    virtual ~SearchStrategy()= default;
+    virtual ~SearchStrategy() = default;
     [[nodiscard]] auto empty() const -> bool;
     void push_edge(DependencyGraph::Edge *edge);
     void push_dependency(DependencyGraph::Edge *edge);

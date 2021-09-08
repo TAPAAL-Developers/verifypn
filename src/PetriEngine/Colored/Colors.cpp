@@ -233,4 +233,4 @@ const Color *ProductType::operator[](const std::string &index) const {
     return &operator[](sum);
 }
 
-} // namespace PetriEngine
+} // namespace PetriEngine::Colored

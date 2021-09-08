@@ -2,9 +2,9 @@
 #define MEMBER_H
 #include <algorithm>
 #include <cassert>
+#include <cinttypes>
 #include <cstring>
 #include <functional>
-#include <cinttypes>
 
 namespace PetriEngine::Simplification {
 enum Trivial { False = 0, True = 1, Indeterminate = 2 };
@@ -222,6 +222,6 @@ class Member {
         return Trivial::Indeterminate;
     }
 };
-} // namespace PetriEngine
+} // namespace PetriEngine::Simplification
 
 #endif /* MEMBER_H */

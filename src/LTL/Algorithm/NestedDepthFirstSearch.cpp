@@ -25,7 +25,8 @@ template <typename S> auto NestedDepthFirstSearch<S>::is_satisfied() -> bool {
 }
 
 template <typename S>
-auto NestedDepthFirstSearch<S>::mark(State &state, const uint8_t MARKER) -> std::pair<bool, size_t> {
+auto NestedDepthFirstSearch<S>::mark(State &state, const uint8_t MARKER)
+    -> std::pair<bool, size_t> {
     auto [_, stateid] = _states.add(state);
     if (_markers.size() <= stateid)
         _markers.resize(stateid + 1);

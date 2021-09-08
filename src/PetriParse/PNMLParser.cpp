@@ -676,7 +676,6 @@ void PNMLParser::parse_place(rapidxml::xml_node<> *element) {
 
     if (initialMarking > std::numeric_limits<int>::max()) {
         throw base_error("Number of tokens in ", id, " exceeded ", std::numeric_limits<int>::max());
-
     }
     // Create place
     if (!_isColored) {

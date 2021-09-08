@@ -25,4 +25,4 @@ FixedPointAlgorithm::FixedPointAlgorithm(options_t::search_strategy_e type) {
         throw base_error("Search strategy is unsupported by the CTL-Engine");
     }
 }
-} // namespace CTL
+} // namespace CTL::Algorithm
