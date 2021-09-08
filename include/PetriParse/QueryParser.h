@@ -4,7 +4,7 @@
 
 #include "PetriEngine/PQL/PQL.h"
 
-struct QueryItem {
+struct query_item_t {
     std::string _id; // query name
     PetriEngine::PQL::Condition_ptr _query;
 

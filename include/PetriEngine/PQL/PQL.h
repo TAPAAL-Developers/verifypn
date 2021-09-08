@@ -119,7 +119,7 @@ class Expr {
     auto eval_and_set(const EvaluationContext &context) -> int;
     virtual void visit(Visitor &visitor) const = 0;
     /** Expression type */
-    [[nodiscard]] virtual types_e type() const = 0;
+    [[nodiscard]] virtual auto type() const -> types_e = 0;
     /** Construct left/right side of equations used in query simplification */
     virtual auto constraint(SimplificationContext &context) const -> Simplification::Member = 0;
     /** Output the expression as it currently is to a file in XML */
@@ -190,8 +190,8 @@ class Condition : public std::enable_shared_from_this<Condition> {
     /** Perform context analysis  */
     virtual void analyze(AnalysisContext &context) = 0;
     /** Evaluate condition */
-    virtual result_e evaluate(const EvaluationContext &context) = 0;
-    virtual result_e eval_and_set(const EvaluationContext &context) = 0;
+    virtual auto evaluate(const EvaluationContext &context) -> result_e = 0;
+    virtual auto eval_and_set(const EvaluationContext &context) -> result_e = 0;
     virtual void visit(Visitor &visitor) const = 0;
     virtual void visit(MutatingVisitor &visitor) = 0;
 
@@ -229,16 +229,16 @@ class Condition : public std::enable_shared_from_this<Condition> {
 
     void set_satisfied(result_e isSatisfied) { _eval = isSatisfied; }
 
-    [[nodiscard]] result_e get_satisfied() const { return _eval; }
+    [[nodiscard]] auto get_satisfied() const -> result_e { return _eval; }
 
     void set_invariant(bool isInvariant) { _inv = isInvariant; }
 
     auto is_invariant() const -> bool { return _inv; }
 
     [[nodiscard]] virtual auto is_temporal() const -> bool { return false; }
-    [[nodiscard]] virtual ctl_type_e get_query_type() const = 0;
-    [[nodiscard]] virtual quantifier_e get_quantifier() const = 0;
-    [[nodiscard]] virtual path_e get_path() const = 0;
+    [[nodiscard]] virtual auto get_query_type() const -> ctl_type_e = 0;
+    [[nodiscard]] virtual auto get_quantifier() const -> quantifier_e = 0;
+    [[nodiscard]] virtual auto get_path() const -> path_e = 0;
     [[nodiscard]] static auto
     initial_marking_rewrite(const std::function<std::shared_ptr<Condition>()> &func,
                             negstat_t &stats, const EvaluationContext &context, bool nested,

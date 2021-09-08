@@ -89,7 +89,7 @@ class Member {
         return true;
     }
 
-    [[nodiscard]] member_type_e get_type() const {
+    [[nodiscard]] auto get_type() const -> member_type_e {
         bool isConstant = true;
         bool isInput = true;
         bool isOutput = true;
@@ -134,14 +134,16 @@ class Member {
         return true;
     }
 
-    trivial_e operator<(const Member &m) const { return trivial_less_than(m, std::less<int>()); }
-    trivial_e operator<=(const Member &m) const {
+    auto operator<(const Member &m) const -> trivial_e {
+        return trivial_less_than(m, std::less<int>());
+    }
+    auto operator<=(const Member &m) const -> trivial_e {
         return trivial_less_than(m, std::less_equal<int>());
     }
-    trivial_e operator>(const Member &m) const {
+    auto operator>(const Member &m) const -> trivial_e {
         return m.trivial_less_than(*this, std::less<int>());
     }
-    trivial_e operator>=(const Member &m) const {
+    auto operator>=(const Member &m) const -> trivial_e {
         return m.trivial_less_than(*this, std::less_equal<int>());
     }
 
@@ -189,8 +191,8 @@ class Member {
         _variables.clear();
     }
 
-    trivial_e trivial_less_than(const Member &m2,
-                                const std::function<bool(int, int)> &compare) const {
+    auto trivial_less_than(const Member &m2, const std::function<bool(int, int)> &compare) const
+        -> trivial_e {
         member_type_e type1 = get_type();
         member_type_e type2 = m2.get_type();
 

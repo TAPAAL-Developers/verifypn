@@ -37,10 +37,10 @@ auto ReachabilitySearch::check_queries(const std::vector<std::shared_ptr<PQL::Co
 
     bool alldone = true;
     for (size_t i = 0; i < queries.size(); ++i) {
-        if (results[i] == ResultPrinter::Unknown) {
+        if (results[i] == ResultPrinter::UNKNOWN) {
             EvaluationContext ec(state.marking(), &_net);
             if (queries[i]->evaluate(ec) == Condition::RTRUE) {
-                auto r = do_callback(*queries[i], i, ResultPrinter::Satisfied, ss, states);
+                auto r = do_callback(*queries[i], i, ResultPrinter::SATISFIED, ss, states);
                 results[i] = r.first;
                 if (r.second)
                     return true;
@@ -48,11 +48,11 @@ auto ReachabilitySearch::check_queries(const std::vector<std::shared_ptr<PQL::Co
                 alldone = false;
             }
         }
-        if (i == ss._heurquery && results[i] != ResultPrinter::Unknown) {
+        if (i == ss._heurquery && results[i] != ResultPrinter::UNKNOWN) {
             if (queries.size() >= 2) {
                 for (size_t n = 1; n < queries.size(); ++n) {
                     ss._heurquery = (ss._heurquery + n) % queries.size();
-                    if (results[i] == ResultPrinter::Unknown)
+                    if (results[i] == ResultPrinter::UNKNOWN)
                         break;
                 }
             }

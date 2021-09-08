@@ -34,35 +34,35 @@ class ResumingSuccessorGenerator : public PetriEngine::SuccessorGenerator {
         size_t _buchi_state;
         size_t _last_state;
 
-        friend bool operator==(const successor_info_t &lhs, const successor_info_t &rhs) {
+        friend auto operator==(const successor_info_t &lhs, const successor_info_t &rhs) -> bool {
             return lhs._pcounter == rhs._pcounter && lhs._tcounter == rhs._tcounter &&
                    lhs._buchi_state == rhs._buchi_state && lhs._last_state == rhs._last_state;
         }
 
-        friend bool operator!=(const successor_info_t &lhs, const successor_info_t &rhs) {
+        friend auto operator!=(const successor_info_t &lhs, const successor_info_t &rhs) -> bool {
             return !(rhs == lhs);
         }
 
-        bool has_pcounter() const { return _pcounter != _NoPCounter; }
+        [[nodiscard]] auto has_pcounter() const -> bool { return _pcounter != NoPCounter; }
 
-        bool has_tcounter() const { return _tcounter != _NoTCounter; }
+        [[nodiscard]] auto has_tcounter() const -> bool { return _tcounter != NoTCounter; }
 
-        bool has_buchistate() const { return _buchi_state != _NoBuchiState; }
+        [[nodiscard]] auto has_buchistate() const -> bool { return _buchi_state != NoBuchiState; }
 
-        bool has_prev_state() const { return _last_state != _NoLastState; }
+        [[nodiscard]] auto has_prev_state() const -> bool { return _last_state != NoLastState; }
 
-        size_t state() const { return _last_state; }
+        [[nodiscard]] auto state() const -> size_t { return _last_state; }
 
-        size_t transition() const { return _tcounter - 1; }
+        [[nodiscard]] auto transition() const -> size_t { return _tcounter - 1; }
 
-        [[nodiscard]] bool fresh() const {
-            return _pcounter == _NoPCounter && _tcounter == _NoTCounter;
+        [[nodiscard]] auto fresh() const -> bool {
+            return _pcounter == NoPCounter && _tcounter == NoTCounter;
         }
 
-        static constexpr auto _NoPCounter = 0;
-        static constexpr auto _NoTCounter = std::numeric_limits<uint32_t>::max();
-        static constexpr auto _NoBuchiState = std::numeric_limits<size_t>::max();
-        static constexpr auto _NoLastState = std::numeric_limits<size_t>::max();
+        static constexpr auto NoPCounter = 0;
+        static constexpr auto NoTCounter = std::numeric_limits<uint32_t>::max();
+        static constexpr auto NoBuchiState = std::numeric_limits<size_t>::max();
+        static constexpr auto NoLastState = std::numeric_limits<size_t>::max();
     };
 
   public:
@@ -81,25 +81,27 @@ class ResumingSuccessorGenerator : public PetriEngine::SuccessorGenerator {
 
     void prepare(const PetriEngine::Structures::State &state, const successor_info_t &sucinfo);
 
-    bool next(PetriEngine::Structures::State &write, successor_info_t &sucinfo) {
+    auto next(PetriEngine::Structures::State &write, successor_info_t &sucinfo) -> bool {
         bool has_suc = PetriEngine::SuccessorGenerator::next(write);
         get_succ_info(sucinfo);
         return has_suc;
     }
 
-    uint32_t fired() const { return _suc_tcounter - 1; }
+    [[nodiscard]] auto fired() const -> uint32_t override { return _suc_tcounter - 1; }
 
-    const PetriEngine::MarkVal *get_parent() const { return _parent->marking(); }
+    [[nodiscard]] auto get_parent() const -> const PetriEngine::MarkVal * override {
+        return _parent->marking();
+    }
 
-    size_t last_transition() const {
+    [[nodiscard]] auto last_transition() const -> size_t {
         return _suc_tcounter == std::numeric_limits<uint32_t>::max()
                    ? std::numeric_limits<uint32_t>::max()
                    : _suc_tcounter - 1;
     }
 
     static constexpr successor_info_t _initial_suc_info{
-        successor_info_t::_NoPCounter, successor_info_t::_NoTCounter,
-        successor_info_t::_NoBuchiState, successor_info_t::_NoLastState};
+        successor_info_t::NoPCounter, successor_info_t::NoTCounter, successor_info_t::NoBuchiState,
+        successor_info_t::NoLastState};
 
     static constexpr auto initial_suc_info() { return _initial_suc_info; }
 

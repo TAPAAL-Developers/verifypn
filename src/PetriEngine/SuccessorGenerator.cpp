@@ -132,7 +132,7 @@ auto SuccessorGenerator::next(Structures::State &write, uint32_t &tindex) -> boo
 
                 if (!check_preset(tindex))
                     continue;
-                _fire(write, tindex);
+                fire(write, tindex);
 
                 ++tindex;
                 return true;
@@ -144,7 +144,7 @@ auto SuccessorGenerator::next(Structures::State &write, uint32_t &tindex) -> boo
     return false;
 }
 
-void SuccessorGenerator::_fire(Structures::State &write, uint32_t tid) {
+void SuccessorGenerator::fire(Structures::State &write, uint32_t tid) {
     assert(check_preset(tid));
     memcpy(write.marking(), (*_parent).marking(), _net._nplaces * sizeof(MarkVal));
     consume_preset(write, tid);

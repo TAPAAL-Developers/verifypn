@@ -77,7 +77,7 @@ auto TARReachabilitySearch::pop_done(trace_t &waiting, size_t &stepno) -> bool {
     return popped;
 }
 
-void TARReachabilitySearch::next_edge(AntiChain<uint32_t, size_t> &checked, state_t &state,
+void TARReachabilitySearch::next_edge(AntiChain<uint32_t, size_t> &checked, State &state,
                                       trace_t &waiting, std::set<size_t> &nextinter) {
     uint32_t dummy = state.get_edge_cnt() == 0 ? 0 : 1;
     bool res = checked.subsumed(dummy, nextinter);
@@ -86,16 +86,16 @@ void TARReachabilitySearch::next_edge(AntiChain<uint32_t, size_t> &checked, stat
     } else {
         auto minimal = _traceset.minimize(nextinter);
         checked.insert(dummy, minimal);
-        state_t next;
+        State next;
         next.reset_edges(_net);
         next.set_interpolants(nextinter);
         waiting.push_back(next);
     }
 }
 
-auto TARReachabilitySearch::run_TAR(bool printtrace, Solver &solver, std::vector<bool> &use_trans)
+auto TARReachabilitySearch::run_tar(bool printtrace, Solver &solver, std::vector<bool> &use_trans)
     -> std::pair<bool, bool> {
-    stopwatch tt;
+    Stopwatch tt;
     tt.start();
     auto checked = AntiChain<uint32_t, size_t>();
     // waiting-list with levels
@@ -103,7 +103,7 @@ auto TARReachabilitySearch::run_TAR(bool printtrace, Solver &solver, std::vector
     trace_t waiting;
     // initialize
     {
-        state_t state;
+        State state;
         state.reset_edges(_net);
         state.set_interpolants(_traceset.maximize(_traceset.initial()));
         waiting.push_back(state);
@@ -115,7 +115,7 @@ auto TARReachabilitySearch::run_TAR(bool printtrace, Solver &solver, std::vector
         ++_stepno;
 
         assert(waiting.size() > 0);
-        state_t &state = waiting.back();
+        State &state = waiting.back();
         std::set<size_t> nextinter;
         if (!use_trans[state.get_edge_cnt()]) {
             state.next_edge(_net);
@@ -227,7 +227,7 @@ auto TARReachabilitySearch::try_reach(bool printtrace, Solver &solver) -> bool {
     rt.start();
 #endif
     do {
-        auto [finished, satisfied] = run_TAR(printtrace, solver, use_trans);
+        auto [finished, satisfied] = run_tar(printtrace, solver, use_trans);
         if (finished) {
             if (!satisfied) {
                 if (update_use(false))
@@ -288,7 +288,7 @@ auto TARReachabilitySearch::try_reach(bool printtrace, Solver &solver) -> bool {
     return false;
 }
 
-auto TARReachabilitySearch::do_step(state_t &state, std::set<size_t> &nextinter) -> bool {
+auto TARReachabilitySearch::do_step(State &state, std::set<size_t> &nextinter) -> bool {
     // if NFA accepts the trace after this instruction, abort.
 #ifdef TAR_TIMING
     stopwatch flw;
@@ -323,7 +323,7 @@ auto TARReachabilitySearch::do_step(state_t &state, std::set<size_t> &nextinter)
 auto TARReachabilitySearch::validate(const std::vector<size_t> &transitions) -> bool {
     AntiChain<uint32_t, size_t> chain;
 
-    state_t s;
+    State s;
     s.set_interpolants(_traceset.initial());
     std::cerr << "I ";
     for (auto &i : s.get_interpolants())
@@ -357,7 +357,7 @@ auto TARReachabilitySearch::validate(const std::vector<size_t> &transitions) -> 
     return true;
 }
 
-void TARReachabilitySearch::add_non_changing(state_t &state, std::set<size_t> &maximal,
+void TARReachabilitySearch::add_non_changing(State &state, std::set<size_t> &maximal,
                                              std::set<size_t> &nextinter) {
 
     std::vector<int64_t> changes;
@@ -439,7 +439,7 @@ void TARReachabilitySearch::reachable(std::vector<std::shared_ptr<PQL::Condition
     // Search!
     for (size_t i = 0; i < queries.size(); ++i) {
         _traceset.clear();
-        if (results[i] == ResultPrinter::Unknown) {
+        if (results[i] == ResultPrinter::UNKNOWN) {
             PlaceUseVisitor visitor(_net.number_of_places());
             queries[i]->visit(visitor);
             ContainsVisitor<DeadlockCondition> dlvisitor;
@@ -452,9 +452,9 @@ void TARReachabilitySearch::reachable(std::vector<std::shared_ptr<PQL::Condition
             Solver solver(_net, state.marking(), queries[i].get(), used);
             bool res = try_reach(printtrace, solver);
             if (res)
-                results[i] = ResultPrinter::Satisfied;
+                results[i] = ResultPrinter::SATISFIED;
             else
-                results[i] = ResultPrinter::NotSatisfied;
+                results[i] = ResultPrinter::NOT_SATISFIED;
             auto ret = _printer.handle(i, *queries[i], results[i]);
             results[i] = ret.first;
             if (res && ret.second)
@@ -474,10 +474,10 @@ auto TARReachabilitySearch::check_queries(std::vector<std::shared_ptr<PQL::Condi
 
     bool alldone = true;
     for (size_t i = 0; i < queries.size(); ++i) {
-        if (results[i] == ResultPrinter::Unknown) {
+        if (results[i] == ResultPrinter::UNKNOWN) {
             EvaluationContext ec(state.marking(), &_net);
             if (queries[i]->evaluate(ec) == Condition::RTRUE) {
-                auto ret = _printer.handle(i, *queries[i], ResultPrinter::Satisfied);
+                auto ret = _printer.handle(i, *queries[i], ResultPrinter::SATISFIED);
                 results[i] = ret.first;
                 if (ret.second)
                     return true;

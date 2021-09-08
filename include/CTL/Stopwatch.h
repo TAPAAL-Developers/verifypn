@@ -6,15 +6,15 @@
 
 using namespace std;
 
-class stopwatch {
+class Stopwatch {
     bool _running = false;
     clock_t _start;
     clock_t _stop;
 
   public:
-    double started() const { return _start; }
-    double stopped() const { return _stop; }
-    bool running() const { return _running; }
+    [[nodiscard]] auto started() const -> double { return _start; }
+    [[nodiscard]] auto stopped() const -> double { return _stop; }
+    [[nodiscard]] auto running() const -> bool { return _running; }
     void start() {
         _running = true;
         _start = clock();
@@ -23,14 +23,16 @@ class stopwatch {
         _stop = clock();
         _running = false;
     }
-    double duration() const { return ((double(_stop - _start)) * 1000) / CLOCKS_PER_SEC; }
+    [[nodiscard]] auto duration() const -> double {
+        return ((double(_stop - _start)) * 1000) / CLOCKS_PER_SEC;
+    }
 
-    ostream &operator<<(ostream &os) {
+    auto operator<<(ostream &os) -> ostream & {
         os << duration() << " ms";
         return os;
     }
 
-    std::string to_string() {
+    auto to_string() -> std::string {
         stringstream ss;
         ss << this;
         return ss.str();

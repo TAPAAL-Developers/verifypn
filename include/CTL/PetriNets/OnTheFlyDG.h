@@ -26,19 +26,19 @@ class OnTheFlyDG : public DependencyGraph::BasicDependencyGraph {
     virtual ~OnTheFlyDG();
 
     // Dependency graph interface
-    virtual std::vector<DependencyGraph::Edge *>
-    successors(DependencyGraph::Configuration *c) override;
-    virtual DependencyGraph::Configuration *initial_configuration() override;
+    auto successors(DependencyGraph::Configuration *c)
+        -> std::vector<DependencyGraph::Edge *> override;
+    auto initial_configuration() -> DependencyGraph::Configuration * override;
     void cleanup();
     void set_query(const Condition_ptr &query);
 
-    virtual void release(DependencyGraph::Edge *e) override;
+    void release(DependencyGraph::Edge *e) override;
 
     // stats
-    size_t configuration_count() const;
-    size_t marking_count() const;
+    [[nodiscard]] auto configuration_count() const -> size_t;
+    [[nodiscard]] auto marking_count() const -> size_t;
 
-    Condition::result_e initial_eval();
+    auto initial_eval() -> Condition::result_e;
 
   protected:
     // initialized from constructor
@@ -52,8 +52,8 @@ class OnTheFlyDG : public DependencyGraph::BasicDependencyGraph {
     // used after query is set
     Condition_ptr _query = nullptr;
 
-    Condition::result_e fast_eval(Condition *query, Marking *unfolded);
-    Condition::result_e fast_eval(const Condition_ptr &query, Marking *unfolded) {
+    auto fast_eval(Condition *query, Marking *unfolded) -> Condition::result_e;
+    auto fast_eval(const Condition_ptr &query, Marking *unfolded) -> Condition::result_e {
         return fast_eval(query.get(), unfolded);
     }
     void next_states(Marking &t_marking, Condition *, std::function<void()> &&pre,
@@ -74,13 +74,14 @@ class OnTheFlyDG : public DependencyGraph::BasicDependencyGraph {
             }
         }
     }
-    PetriConfig *create_configuration(size_t marking, Condition *query);
-    PetriConfig *create_configuration(size_t marking, const Condition_ptr &query) {
+    auto create_configuration(size_t marking, Condition *query) -> PetriConfig *;
+    auto create_configuration(size_t marking, const Condition_ptr &query) -> PetriConfig * {
         return create_configuration(marking, query.get());
     }
-    size_t create_marking(Marking &marking);
+    auto create_marking(Marking &marking) -> size_t;
 
-    DependencyGraph::Edge *new_edge(DependencyGraph::Configuration &t_source, uint32_t weight);
+    auto new_edge(DependencyGraph::Configuration &t_source, uint32_t weight)
+        -> DependencyGraph::Edge *;
 
     std::stack<DependencyGraph::Edge *> _recycle;
     ptrie::map<ptrie::uchar, std::vector<PetriConfig *>> _trie;

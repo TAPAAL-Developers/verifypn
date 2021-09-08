@@ -32,7 +32,7 @@ auto TarjanModelChecker<S, G, SaveTrace, Spooler...>::is_satisfied() -> bool {
             push(state, res.second);
         }
         while (!_dstack.empty() && !_violation) {
-            DEntry &dtop = _dstack.top();
+            d_entry_t &dtop = _dstack.top();
             // write next successor state to working.
             if (!next_trans(working, parent, dtop)) {
                 ++this->_stats._expanded;
@@ -93,7 +93,7 @@ auto TarjanModelChecker<S, G, SaveTrace, Spooler...>::is_satisfied() -> bool {
         if constexpr (SaveTrace) {
             // print counter-example if it exists.
             if (_violation) {
-                std::stack<DEntry> revstack;
+                std::stack<d_entry_t> revstack;
                 while (!_dstack.empty()) {
                     revstack.push(std::move(_dstack.top()));
                     _dstack.pop();
@@ -117,7 +117,7 @@ void TarjanModelChecker<S, G, SaveTrace, Spooler...>::push(State &state, size_t 
     const auto h = hash(stateid);
     _cstack.emplace_back(ctop, stateid, _chash[h]);
     _chash[h] = ctop;
-    _dstack.push(DEntry{ctop});
+    _dstack.push(d_entry_t{ctop});
     if (this->_successor_generator->is_accepting(state)) {
         _astack.push(ctop);
         if (this->_successor_generator->has_invariant_self_loop(state) && !SaveTrace) {
@@ -138,13 +138,13 @@ void TarjanModelChecker<S, G, SaveTrace, Spooler...>::pop() {
     _cstack[p]._dstack = false;
     if (_cstack[p]._lowlink == p) {
         while (_cstack.size() > p) {
-            pop_C_stack();
+            pop_c_stack();
         }
     } else if (this->_is_weak) {
         State state = this->_factory.new_state();
         _seen.decode(state, _cstack[p]._stateid);
         if (!this->_successor_generator->is_accepting(state)) {
-            pop_C_stack();
+            pop_c_stack();
         }
     }
     if (!_astack.empty() && p == _astack.top()) {
@@ -160,7 +160,7 @@ void TarjanModelChecker<S, G, SaveTrace, Spooler...>::pop() {
 
 template <template <typename, typename...> typename S, typename G, bool SaveTrace,
           typename... Spooler>
-void TarjanModelChecker<S, G, SaveTrace, Spooler...>::pop_C_stack() {
+void TarjanModelChecker<S, G, SaveTrace, Spooler...>::pop_c_stack() {
     auto h = hash(_cstack.back()._stateid);
     _store.insert(_cstack.back()._stateid);
     _chash[h] = _cstack.back()._next;
@@ -191,7 +191,7 @@ void TarjanModelChecker<S, G, SaveTrace, Spooler...>::update(idx_t to) {
 template <template <typename, typename...> typename S, typename G, bool SaveTrace,
           typename... Spooler>
 auto TarjanModelChecker<S, G, SaveTrace, Spooler...>::next_trans(State &state, State &parent,
-                                                                 TarjanModelChecker::DEntry &delem)
+                                                                 TarjanModelChecker::d_entry_t &delem)
     -> bool {
     _seen.decode(parent, _cstack[delem._pos]._stateid);
     this->_successor_generator->prepare(parent, delem._sucinfo);
@@ -205,7 +205,7 @@ auto TarjanModelChecker<S, G, SaveTrace, Spooler...>::next_trans(State &state, S
 
 template <template <typename, typename...> typename S, typename G, bool SaveTrace,
           typename... Spooler>
-void TarjanModelChecker<S, G, SaveTrace, Spooler...>::print_trace(std::stack<DEntry> &&dstack,
+void TarjanModelChecker<S, G, SaveTrace, Spooler...>::print_trace(std::stack<d_entry_t> &&dstack,
                                                                   std::ostream &os) {
     if constexpr (!SaveTrace) {
         return;

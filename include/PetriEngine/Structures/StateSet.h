@@ -17,16 +17,15 @@
 #ifndef STATESET_H
 #define STATESET_H
 #include "AlignedEncoder.h"
+#include "BinaryWrapper.h"
 #include "State.h"
-#include "binarywrapper.h"
 #include "errorcodes.h"
 #include <iostream>
 #include <ptrie/ptrie_map.h>
 #include <ptrie/ptrie_stable.h>
 #include <unordered_map>
 
-namespace PetriEngine {
-namespace Structures {
+namespace PetriEngine::Structures {
 
 class StateSetInterface {
   public:
@@ -42,17 +41,17 @@ class StateSetInterface {
 
     virtual ~StateSetInterface() { _sp.release(); }
 
-    virtual std::pair<bool, size_t> add(const State &state) = 0;
+    virtual auto add(const State &state) -> std::pair<bool, size_t> = 0;
 
     virtual void decode(State &state, size_t id) = 0;
 
-    virtual std::pair<bool, size_t> lookup(State &state) = 0;
+    virtual auto lookup(State &state) -> std::pair<bool, size_t> = 0;
 
-    const PetriNet &net() const { return _net; }
+    [[nodiscard]] auto net() const -> const PetriNet & { return _net; }
 
     virtual void set_history(size_t id, size_t transition) = 0;
 
-    virtual std::pair<size_t, size_t> get_history(size_t markingid) const = 0;
+    [[nodiscard]] virtual auto get_history(size_t markingid) const -> std::pair<size_t, size_t> = 0;
 
   protected:
     size_t _discovered;
@@ -66,7 +65,7 @@ class StateSetInterface {
 #ifdef DEBUG
     std::vector<uint32_t *> _dbg;
 #endif
-    template <typename T> void _decode(State &state, size_t id, T &_trie) {
+    template <typename T> void decode(State &state, size_t id, T &_trie) {
         _trie.unpack(id, _encoder.scratchpad().raw());
         _encoder.decode(state.marking(), _encoder.scratchpad().raw());
 
@@ -75,7 +74,7 @@ class StateSetInterface {
 #endif
     }
 
-    template <typename T> std::pair<bool, size_t> _add(const State &state, T &_trie) {
+    template <typename T> auto add(const State &state, T &_trie) -> std::pair<bool, size_t> {
         _discovered++;
 
 #ifdef DEBUG
@@ -129,7 +128,7 @@ class StateSetInterface {
         return std::pair<bool, size_t>(true, tit.second);
     }
 
-    template <typename T> std::pair<bool, size_t> _lookup(const State &state, T &_trie) {
+    template <typename T> auto lookup(const State &state, T &_trie) -> std::pair<bool, size_t> {
         MarkVal sum = 0;
         bool allsame = true;
         uint32_t val = 0;
@@ -150,11 +149,13 @@ class StateSetInterface {
     }
 
   public:
-    size_t discovered() const { return _discovered; }
+    [[nodiscard]] auto discovered() const -> size_t { return _discovered; }
 
-    uint32_t max_tokens() const { return _maxTokens; }
+    [[nodiscard]] auto max_tokens() const -> uint32_t { return _maxTokens; }
 
-    const std::vector<MarkVal> &max_place_bound() const { return _maxPlaceBound; }
+    [[nodiscard]] auto max_place_bound() const -> const std::vector<MarkVal> & {
+        return _maxPlaceBound;
+    }
 
     static void marking_stats(const uint32_t *marking, MarkVal &sum, bool &allsame, uint32_t &val,
                               uint32_t &active, uint32_t &last, size_t nplaces) {
@@ -177,32 +178,30 @@ class StateSet : public StateSetInterface {
   private:
     using wrapper_t = ptrie::BinaryWrapper;
     using ptrie_t = ptrie::set_stable<ptrie::uchar, 17, 128, 4>;
+    ptrie_t _trie;
 
   public:
     using StateSetInterface::StateSetInterface;
 
-    virtual std::pair<bool, size_t> add(const State &state) override { return _add(state, _trie); }
+    auto add(const State &state) -> std::pair<bool, size_t> override { return StateSetInterface::add(state, _trie); }
 
-    virtual void decode(State &state, size_t id) override { _decode(state, id, _trie); }
+    void decode(State &state, size_t id) override { StateSetInterface::decode(state, id, _trie); }
 
-    virtual std::pair<bool, size_t> lookup(State &state) override { return _lookup(state, _trie); }
+    auto lookup(State &state) -> std::pair<bool, size_t> override { return StateSetInterface::lookup(state, _trie); }
 
-    virtual void set_history(size_t id, size_t transition) override {}
+    void set_history(size_t id, size_t transition) override {}
 
-    virtual std::pair<size_t, size_t> get_history(size_t markingid) const override {
+    [[nodiscard]] auto get_history(size_t markingid) const -> std::pair<size_t, size_t> override {
         assert(false);
         return std::make_pair(0, 0);
     }
-
-  private:
-    ptrie_t _trie;
 };
 
 class TracableStateSet : public StateSetInterface {
   public:
     struct traceable_t {
-        ptrie::uint parent;
-        ptrie::uint transition = std::numeric_limits<ptrie::uint>::max();
+        ptrie::uint _parent;
+        ptrie::uint _transition = std::numeric_limits<ptrie::uint>::max();
     };
 
   private:
@@ -211,34 +210,34 @@ class TracableStateSet : public StateSetInterface {
   public:
     using StateSetInterface::StateSetInterface;
 
-    virtual std::pair<bool, size_t> add(const State &state) override {
+    auto add(const State &state) -> std::pair<bool, size_t> override {
 #ifdef DEBUG
         size_t tmppar = _parent; // we might change this while debugging.
 #endif
-        auto res = _add(state, _trie);
+        auto res = StateSetInterface::add(state, _trie);
 #ifdef DEBUG
         _parent = tmppar;
 #endif
         return res;
     }
 
-    virtual void decode(State &state, size_t id) override {
+    void decode(State &state, size_t id) override {
         _parent = id;
-        _decode(state, id, _trie);
+        StateSetInterface::decode(state, id, _trie);
     }
 
-    virtual std::pair<bool, size_t> lookup(State &state) override { return _lookup(state, _trie); }
+    auto lookup(State &state) -> std::pair<bool, size_t> override { return StateSetInterface::lookup(state, _trie); }
 
-    virtual void set_history(size_t id, size_t transition) override {
+    void set_history(size_t id, size_t transition) override {
         traceable_t &t = _trie.get_data(id);
-        t.parent = _parent;
-        t.transition = transition;
+        t._parent = _parent;
+        t._transition = transition;
     }
 
-    virtual std::pair<size_t, size_t> get_history(size_t markingid) const override {
+    [[nodiscard]] auto get_history(size_t markingid) const -> std::pair<size_t, size_t> override {
         // const-cast here until the ptrie-library supports const access
         traceable_t &t = const_cast<ptrie_t &>(_trie).get_data(markingid);
-        return std::pair<size_t, size_t>(t.parent, t.transition);
+        return std::pair<size_t, size_t>(t._parent, t._transition);
     }
 
   private:
@@ -246,7 +245,6 @@ class TracableStateSet : public StateSetInterface {
     size_t _parent = 0;
 };
 
-} // namespace Structures
-} // namespace PetriEngine
+} // namespace PetriEngine::Structures
 
 #endif // STATESET_H

@@ -31,26 +31,26 @@ class ProductStateSetInterface {
     using stateid_t = size_t;
     using result_t = std::pair<bool, stateid_t>;
 
-    virtual size_t get_buchi_state(stateid_t id) = 0;
+    virtual auto get_buchi_state(stateid_t id) -> size_t = 0;
 
-    virtual size_t get_marking_id(stateid_t id) = 0;
+    virtual auto get_marking_id(stateid_t id) -> size_t = 0;
 
-    virtual stateid_t get_product_id(size_t markingId, size_t buchiState) = 0;
+    virtual auto get_product_id(size_t markingId, size_t buchiState) -> stateid_t = 0;
 
-    virtual result_t add(const LTL::Structures::ProductState &state) = 0;
+    virtual auto add(const LTL::Structures::ProductState &state) -> result_t = 0;
 
-    virtual bool decode(LTL::Structures::ProductState &state, stateid_t id) = 0;
+    virtual auto decode(LTL::Structures::ProductState &state, stateid_t id) -> bool = 0;
 
     virtual void set_history(stateid_t id, size_t transition) {}
 
-    virtual std::pair<size_t, size_t> get_history(stateid_t stateid) {
+    virtual auto get_history(stateid_t stateid) -> std::pair<size_t, size_t> {
         return std::make_pair(std::numeric_limits<size_t>::max(),
                               std::numeric_limits<size_t>::max());
     }
 
-    virtual size_t discovered() const = 0;
+    [[nodiscard]] virtual auto discovered() const -> size_t = 0;
 
-    virtual size_t max_tokens() const = 0;
+    [[nodiscard]] virtual auto max_tokens() const -> size_t = 0;
 
     virtual ~ProductStateSetInterface() = default;
 };
@@ -74,11 +74,11 @@ template <uint8_t nbits = 16> class BitProductStateSet : public ProductStateSetI
      * size_t stateID; if error it is UINT64_MAX.
      */
 
-    size_t get_buchi_state(stateid_t id) override { return id >> _buchiShift; }
+    auto get_buchi_state(stateid_t id) -> size_t override { return id >> _buchiShift; }
 
-    size_t get_marking_id(stateid_t id) override { return id & _markingMask; }
+    auto get_marking_id(stateid_t id) -> size_t override { return id & _markingMask; }
 
-    stateid_t get_product_id(size_t markingId, size_t buchiState) override {
+    auto get_product_id(size_t markingId, size_t buchiState) -> stateid_t override {
         return (buchiState << _buchiShift) | (_markingMask & markingId);
     }
 
@@ -87,7 +87,7 @@ template <uint8_t nbits = 16> class BitProductStateSet : public ProductStateSetI
      * @param state the product state to insert.
      * @return pair of [success, ID]
      */
-    result_t add(const LTL::Structures::ProductState &state) override {
+    auto add(const LTL::Structures::ProductState &state) -> result_t override {
         ++_discovered;
         const auto [_, markingId] = _markings.add(state);
         const stateid_t product_id = get_product_id(markingId, state.get_buchi_state());
@@ -103,7 +103,7 @@ template <uint8_t nbits = 16> class BitProductStateSet : public ProductStateSetI
      * @param state Output parameter to write product state to.
      * @return true if the state was successfully retrieved, false otherwise.
      */
-    bool decode(LTL::Structures::ProductState &state, stateid_t id) override {
+    auto decode(LTL::Structures::ProductState &state, stateid_t id) -> bool override {
         const auto it = _states.find(id);
         if (it == std::cend(_states)) {
             return false;
@@ -116,9 +116,9 @@ template <uint8_t nbits = 16> class BitProductStateSet : public ProductStateSetI
     }
 
     // size_t size() { return states.size(); }
-    size_t discovered() const override { return _discovered; }
+    auto discovered() const -> size_t override { return _discovered; }
 
-    size_t max_tokens() const override { return _markings.max_tokens(); }
+    auto max_tokens() const -> size_t override { return _markings.max_tokens(); }
 
   protected:
     static constexpr auto _markingMask = (1LL << (64 - nbits)) - 1;
@@ -140,7 +140,7 @@ class TraceableBitProductStateSet : public BitProductStateSet<nbytes> {
     explicit TraceableBitProductStateSet(const PetriEngine::PetriNet &net, int kbound = 0)
         : BitProductStateSet<nbytes>(net, kbound) {}
 
-    bool decode(ProductState &state, stateid_t id) override {
+    auto decode(ProductState &state, stateid_t id) -> bool override {
         _parent = id;
         return BitProductStateSet<nbytes>::decode(state, id);
     }
@@ -149,19 +149,19 @@ class TraceableBitProductStateSet : public BitProductStateSet<nbytes> {
         _history[id] = {_parent, transition};
     }
 
-    std::pair<size_t, size_t> get_history(stateid_t stateid) override {
+    auto get_history(stateid_t stateid) -> std::pair<size_t, size_t> override {
         auto [parent, trans] = _history.at(stateid);
         return std::make_pair(parent, trans);
     }
 
   private:
-    struct history {
+    struct history_t {
         size_t _parent;
         size_t _trans;
     };
     stateid_t _parent = 0;
     // product ID to parent ID
-    std::unordered_map<size_t, history> _history;
+    std::unordered_map<size_t, history_t> _history;
 };
 } // namespace LTL::Structures
 

@@ -45,7 +45,7 @@ class State {
 
     State(State &&state) noexcept : _marking(state._marking) { state._marking = nullptr; }
 
-    auto operator=(State &&other) -> State& {
+    auto operator=(State &&other) noexcept -> State & {
         if (&other != this) {
             delete _marking;
             _marking = other._marking;

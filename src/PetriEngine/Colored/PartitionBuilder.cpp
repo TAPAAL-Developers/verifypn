@@ -5,23 +5,23 @@
 namespace PetriEngine::Colored {
 
 PartitionBuilder::PartitionBuilder(
-    const std::vector<Transition> &transitions, const std::vector<Place> &places,
+    const std::vector<transition_t> &transitions, const std::vector<place_t> &places,
     const std::unordered_map<uint32_t, std::vector<uint32_t>> &placePostTransitionMap,
     const std::unordered_map<uint32_t, std::vector<uint32_t>> &placePreTransitionMap)
     : PartitionBuilder(transitions, places, placePostTransitionMap, placePreTransitionMap,
                        nullptr) {}
 
 PartitionBuilder::PartitionBuilder(
-    const std::vector<Transition> &transitions, const std::vector<Place> &places,
+    const std::vector<transition_t> &transitions, const std::vector<place_t> &places,
     const std::unordered_map<uint32_t, std::vector<uint32_t>> &placePostTransitionMap,
     const std::unordered_map<uint32_t, std::vector<uint32_t>> &placePreTransitionMap,
-    const std::vector<Colored::ColorFixpoint> *placeColorFixpoints)
+    const std::vector<Colored::color_fixpoint_t> *placeColorFixpoints)
     : _transitions(transitions), _places(places), _placePostTransitionMap(placePostTransitionMap),
       _placePreTransitionMap(placePreTransitionMap) {
 
     // Instantiate partitions
     for (uint32_t i = 0; i < _places.size(); i++) {
-        const PetriEngine::Colored::Place &place = _places[i];
+        const PetriEngine::Colored::place_t &place = _places[i];
         EquivalenceClass fullClass = EquivalenceClass(++_eq_id_counter, place._type);
         if (placeColorFixpoints != nullptr) {
             fullClass.set_interval_vector((*placeColorFixpoints)[i]._constraints);
@@ -101,8 +101,8 @@ void PartitionBuilder::assign_color_map(
 }
 
 void PartitionBuilder::handle_transition(uint32_t transitionId, uint32_t postPlaceId) {
-    const PetriEngine::Colored::Transition &transition = _transitions[transitionId];
-    Arc postArc;
+    const PetriEngine::Colored::transition_t &transition = _transitions[transitionId];
+    arc_t postArc;
     bool arcFound = false;
     for (const auto &outArc : transition._output_arcs) {
         if (outArc._place == postPlaceId) {
@@ -265,7 +265,7 @@ auto PartitionBuilder::check_diagonal(uint32_t placeId) -> bool {
 }
 
 void PartitionBuilder::apply_new_intervals(
-    const Arc &inArc, const std::vector<PetriEngine::Colored::VariableIntervalMap> &varMaps) {
+    const arc_t &inArc, const std::vector<PetriEngine::Colored::VariableIntervalMap> &varMaps) {
     // Retrieve the intervals for the current place,
     // based on the intervals from the postPlace, the postArc, preArc and guard
     auto outIntervals = inArc._expr->get_output_intervals(varMaps);
@@ -287,8 +287,8 @@ void PartitionBuilder::apply_new_intervals(
     _partition[inArc._place].merge_eq_classes();
 }
 
-void PartitionBuilder::handle_transition(const Transition &transition, const uint32_t postPlaceId,
-                                         const Arc *postArc) {
+void PartitionBuilder::handle_transition(const transition_t &transition, const uint32_t postPlaceId,
+                                         const arc_t *postArc) {
     VariableModifierMap varModifierMap;
     PositionVariableMap varPositionMap;
     std::set<const PetriEngine::Colored::Variable *> postArcVars;
@@ -329,7 +329,7 @@ void PartitionBuilder::handle_transition(const Transition &transition, const uin
 }
 
 void PartitionBuilder::handle_in_arcs(
-    const Transition &transition, std::set<const Colored::Variable *> &diagonalVars,
+    const transition_t &transition, std::set<const Colored::Variable *> &diagonalVars,
     const PositionVariableMap &varPositionMap,
     const std::vector<PetriEngine::Colored::VariableIntervalMap> &varMaps, uint32_t postPlaceId) {
     std::unordered_map<uint32_t, PositionVariableMap> placeVariableMap;
@@ -441,13 +441,13 @@ auto PartitionBuilder::find_overlap(const EquivalenceVec &equivalenceVec1,
 }
 
 auto PartitionBuilder::prepare_variables(const VariableModifierMap &varModifierMap,
-                                         const EquivalenceClass &eqClass, const Arc *arc,
+                                         const EquivalenceClass &eqClass, const arc_t *arc,
                                          uint32_t placeId) -> std::vector<VariableIntervalMap> {
     std::vector<VariableIntervalMap> varMaps;
     VariableIntervalMap varMap;
     varMaps.push_back(varMap);
     std::unordered_map<uint32_t, arc_intervals_t> placeArcIntervals;
-    ColorFixpoint postPlaceFixpoint;
+    color_fixpoint_t postPlaceFixpoint;
     postPlaceFixpoint._constraints = eqClass.intervals();
     arc_intervals_t newArcInterval(&postPlaceFixpoint, varModifierMap);
     uint32_t index = 0;

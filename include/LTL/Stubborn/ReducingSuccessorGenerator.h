@@ -35,7 +35,7 @@ class ReducingSuccessorGenerator : public PetriEngine::ReducingSuccessorGenerato
                                const std::shared_ptr<AutomatonStubbornSet> &stubSet)
         : PetriEngine::ReducingSuccessorGenerator(net, stubSet) {}
 
-    bool prepare(const PetriEngine::Structures::State *state, const LTL::GuardInfo &info) {
+    auto prepare(const PetriEngine::Structures::State *state, const LTL::GuardInfo &info) -> bool {
         _current = 0;
         _parent = state;
         return (dynamic_pointer_cast<LTL::AutomatonStubbornSet>(_stubSet))->prepare(state, info);

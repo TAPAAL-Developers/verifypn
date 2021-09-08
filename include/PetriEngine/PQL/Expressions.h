@@ -33,10 +33,9 @@
 
 using namespace PetriEngine::Simplification;
 
-namespace PetriEngine {
-namespace PQL {
+namespace PetriEngine::PQL {
 
-std::string generate_tabs(uint32_t tabs);
+auto generate_tabs(uint32_t tabs) -> std::string;
 class CompareCondition;
 class NotCondition;
 /******************** EXPRESSIONS ********************/
@@ -44,28 +43,29 @@ class NotCondition;
 /** Base class for all binary expressions */
 class NaryExpr : public Expr {
   protected:
-    NaryExpr(){};
+    NaryExpr() = default;
+    ;
 
   public:
     NaryExpr(std::vector<Expr_ptr> &&exprs) : _exprs(std::move(exprs)) {}
-    virtual void analyze(AnalysisContext &context) override;
-    int evaluate(const EvaluationContext &context) override;
-    int formula_size() const override {
+    void analyze(AnalysisContext &context) override;
+    auto evaluate(const EvaluationContext &context) -> int override;
+    [[nodiscard]] auto formula_size() const -> int override {
         size_t sum = 0;
         for (auto &e : _exprs)
             sum += e->formula_size();
         return sum + 1;
     }
-    bool place_free() const override;
-    auto &expressions() const { return _exprs; }
-    size_t operands() const { return _exprs.size(); }
-    const Expr_ptr &operator[](size_t i) const { return _exprs[i]; }
+    [[nodiscard]] auto place_free() const -> bool override;
+    [[nodiscard]] auto expressions() const -> auto & { return _exprs; }
+    [[nodiscard]] auto operands() const -> size_t { return _exprs.size(); }
+    auto operator[](size_t i) const -> const Expr_ptr & { return _exprs[i]; }
 
   protected:
-    virtual int apply(int v1, int v2) const = 0;
-    virtual std::string op() const = 0;
+    [[nodiscard]] virtual auto apply(int v1, int v2) const -> int = 0;
+    [[nodiscard]] virtual auto op() const -> std::string = 0;
     std::vector<Expr_ptr> _exprs;
-    virtual int32_t pre_op(const EvaluationContext &context) const;
+    [[nodiscard]] virtual auto pre_op(const EvaluationContext &context) const -> int32_t;
 };
 
 class PlusExpr;
@@ -74,27 +74,27 @@ class MultiplyExpr;
 class CommutativeExpr : public NaryExpr {
   public:
     friend CompareCondition;
-    virtual void analyze(AnalysisContext &context) override;
-    int evaluate(const EvaluationContext &context) override;
+    void analyze(AnalysisContext &context) override;
+    auto evaluate(const EvaluationContext &context) -> int override;
     void to_binary(std::ostream &) const override;
-    int formula_size() const override {
+    [[nodiscard]] auto formula_size() const -> int override {
         size_t sum = _ids.size();
         for (auto &e : _exprs)
             sum += e->formula_size();
         return sum + 1;
     }
-    bool place_free() const override;
-    auto constant() const { return _constant; }
-    auto &places() const { return _ids; }
+    [[nodiscard]] auto place_free() const -> bool override;
+    [[nodiscard]] auto constant() const { return _constant; }
+    [[nodiscard]] auto places() const -> auto & { return _ids; }
 
   protected:
     CommutativeExpr(int constant) : _constant(constant){};
     void init(std::vector<Expr_ptr> &&exprs);
-    virtual int32_t pre_op(const EvaluationContext &context) const override;
+    [[nodiscard]] auto pre_op(const EvaluationContext &context) const -> int32_t override;
     int32_t _constant;
     std::vector<std::pair<uint32_t, std::string>> _ids;
-    Member commutative_cons(int constant, SimplificationContext &context,
-                            const std::function<void(Member &a, Member b)> &op) const;
+    auto commutative_cons(int constant, SimplificationContext &context,
+                          const std::function<void(Member &a, Member b)> &op) const -> Member;
 };
 
 /** Binary plus expression */
@@ -102,67 +102,67 @@ class PlusExpr : public CommutativeExpr {
   public:
     PlusExpr(std::vector<Expr_ptr> &&exprs, bool tk = false);
 
-    Expr::types_e type() const override;
-    Member constraint(SimplificationContext &context) const override;
+    [[nodiscard]] auto type() const -> Expr::types_e override;
+    auto constraint(SimplificationContext &context) const -> Member override;
     void to_xml(std::ostream &, uint32_t tabs, bool tokencount = false) const override;
     bool _tk = false;
 
     void visit(Visitor &visitor) const override;
 
   protected:
-    int apply(int v1, int v2) const override;
+    [[nodiscard]] auto apply(int v1, int v2) const -> int override;
     // int binaryOp() const;
-    std::string op() const override;
+    [[nodiscard]] auto op() const -> std::string override;
 };
 
 /** Binary minus expression */
 class SubtractExpr : public NaryExpr {
   public:
     SubtractExpr(std::vector<Expr_ptr> &&exprs) : NaryExpr(std::move(exprs)) {}
-    Expr::types_e type() const override;
-    Member constraint(SimplificationContext &context) const override;
+    [[nodiscard]] auto type() const -> Expr::types_e override;
+    auto constraint(SimplificationContext &context) const -> Member override;
     void to_xml(std::ostream &, uint32_t tabs, bool tokencount = false) const override;
 
     void to_binary(std::ostream &) const override;
     void visit(Visitor &visitor) const override;
 
   protected:
-    int apply(int v1, int v2) const override;
+    [[nodiscard]] auto apply(int v1, int v2) const -> int override;
     // int binaryOp() const;
-    std::string op() const override;
+    [[nodiscard]] auto op() const -> std::string override;
 };
 
 /** Binary multiplication expression **/
 class MultiplyExpr : public CommutativeExpr {
   public:
     MultiplyExpr(std::vector<Expr_ptr> &&exprs);
-    Expr::types_e type() const override;
-    Member constraint(SimplificationContext &context) const override;
+    [[nodiscard]] auto type() const -> Expr::types_e override;
+    auto constraint(SimplificationContext &context) const -> Member override;
     void to_xml(std::ostream &, uint32_t tabs, bool tokencount = false) const override;
 
     void visit(Visitor &visitor) const override;
 
   protected:
-    int apply(int v1, int v2) const override;
+    [[nodiscard]] auto apply(int v1, int v2) const -> int override;
     // int binaryOp() const;
-    std::string op() const override;
+    [[nodiscard]] auto op() const -> std::string override;
 };
 
 /** Unary minus expression*/
 class MinusExpr : public Expr {
   public:
-    MinusExpr(const Expr_ptr expr) { _expr = expr; }
+    MinusExpr(const Expr_ptr &expr) { _expr = expr; }
     void analyze(AnalysisContext &context) override;
-    int evaluate(const EvaluationContext &context) override;
-    Expr::types_e type() const override;
-    Member constraint(SimplificationContext &context) const override;
+    auto evaluate(const EvaluationContext &context) -> int override;
+    [[nodiscard]] auto type() const -> Expr::types_e override;
+    auto constraint(SimplificationContext &context) const -> Member override;
     void to_xml(std::ostream &, uint32_t tabs, bool tokencount = false) const override;
     void to_binary(std::ostream &) const override;
 
     void visit(Visitor &visitor) const override;
-    int formula_size() const override { return _expr->formula_size() + 1; }
-    bool place_free() const override;
-    const Expr_ptr &operator[](size_t i) const { return _expr; };
+    [[nodiscard]] auto formula_size() const -> int override { return _expr->formula_size() + 1; }
+    [[nodiscard]] auto place_free() const -> bool override;
+    auto operator[](size_t i) const -> const Expr_ptr & { return _expr; };
 
   private:
     Expr_ptr _expr;
@@ -174,16 +174,16 @@ class LiteralExpr : public Expr {
     LiteralExpr(int value) : _value(value) {}
     LiteralExpr(const LiteralExpr &) = default;
     void analyze(AnalysisContext &context) override;
-    int evaluate(const EvaluationContext &context) override;
-    Expr::types_e type() const override;
+    auto evaluate(const EvaluationContext &context) -> int override;
+    [[nodiscard]] auto type() const -> Expr::types_e override;
     void to_xml(std::ostream &, uint32_t tabs, bool tokencount = false) const override;
     void to_binary(std::ostream &) const override;
 
     void visit(Visitor &visitor) const override;
-    int formula_size() const override { return 1; }
-    int value() const { return _value; };
-    Member constraint(SimplificationContext &context) const override;
-    bool place_free() const override { return true; }
+    [[nodiscard]] auto formula_size() const -> int override { return 1; }
+    [[nodiscard]] auto value() const -> int { return _value; };
+    auto constraint(SimplificationContext &context) const -> Member override;
+    [[nodiscard]] auto place_free() const -> bool override { return true; }
 
   private:
     int _value;
@@ -194,8 +194,10 @@ class IdentifierExpr : public Expr {
     IdentifierExpr(const std::string &name) : _name(name) {}
     IdentifierExpr(const IdentifierExpr &) = default;
     void analyze(AnalysisContext &context) override;
-    int evaluate(const EvaluationContext &context) override { return _compiled->evaluate(context); }
-    [[nodiscard]] Expr::types_e type() const override {
+    auto evaluate(const EvaluationContext &context) -> int override {
+        return _compiled->evaluate(context);
+    }
+    [[nodiscard]] auto type() const -> Expr::types_e override {
         if (_compiled)
             return _compiled->type();
         return Expr::IDENTIFIER_EXPR;
@@ -204,27 +206,27 @@ class IdentifierExpr : public Expr {
         _compiled->to_xml(os, tabs, tokencount);
     }
 
-    int formula_size() const override {
+    [[nodiscard]] auto formula_size() const -> int override {
         if (_compiled)
             return _compiled->formula_size();
         return 1;
     }
-    virtual bool place_free() const override {
+    [[nodiscard]] auto place_free() const -> bool override {
         if (_compiled)
             return _compiled->place_free();
         return false;
     }
 
-    Member constraint(SimplificationContext &context) const override {
+    auto constraint(SimplificationContext &context) const -> Member override {
         return _compiled->constraint(context);
     }
 
     void to_binary(std::ostream &s) const override { _compiled->to_binary(s); }
     void visit(Visitor &visitor) const override;
 
-    [[nodiscard]] const std::string &name() const { return _name; }
+    [[nodiscard]] auto name() const -> const std::string & { return _name; }
 
-    [[nodiscard]] const Expr_ptr &compiled() const { return _compiled; }
+    [[nodiscard]] auto compiled() const -> const Expr_ptr & { return _compiled; }
 
   private:
     std::string _name;
@@ -242,16 +244,16 @@ class UnfoldedIdentifierExpr : public Expr {
     UnfoldedIdentifierExpr(const UnfoldedIdentifierExpr &) = default;
 
     void analyze(AnalysisContext &context) override;
-    int evaluate(const EvaluationContext &context) override;
-    Expr::types_e type() const override;
+    auto evaluate(const EvaluationContext &context) -> int override;
+    [[nodiscard]] auto type() const -> Expr::types_e override;
     void to_xml(std::ostream &, uint32_t tabs, bool tokencount = false) const override;
     void to_binary(std::ostream &) const override;
-    int formula_size() const override { return 1; }
+    [[nodiscard]] auto formula_size() const -> int override { return 1; }
     /** Offset in marking or valuation */
-    int offset() const { return _offsetInMarking; }
-    const std::string &name() const { return _name; }
-    Member constraint(SimplificationContext &context) const override;
-    bool place_free() const override { return false; }
+    [[nodiscard]] auto offset() const -> int { return _offsetInMarking; }
+    [[nodiscard]] auto name() const -> const std::string & { return _name; }
+    auto constraint(SimplificationContext &context) const -> Member override;
+    [[nodiscard]] auto place_free() const -> bool override { return false; }
     void visit(Visitor &visitor) const override;
 
   private:
@@ -262,40 +264,40 @@ class UnfoldedIdentifierExpr : public Expr {
 };
 
 class ShallowCondition : public Condition {
-    result_e evaluate(const EvaluationContext &context) override {
+    auto evaluate(const EvaluationContext &context) -> result_e override {
         return _compiled->evaluate(context);
     }
-    result_e eval_and_set(const EvaluationContext &context) override {
+    auto eval_and_set(const EvaluationContext &context) -> result_e override {
         return _compiled->eval_and_set(context);
     }
-    uint32_t distance(DistanceContext &context) const override {
+    auto distance(DistanceContext &context) const -> uint32_t override {
         return _compiled->distance(context);
     }
     void to_tapaal_query(std::ostream &out, TAPAALConditionExportContext &context) const override {
         _compiled->to_tapaal_query(out, context);
     }
     void to_binary(std::ostream &out) const override { return _compiled->to_binary(out); }
-    retval_t simplify(SimplificationContext &context) const override {
+    auto simplify(SimplificationContext &context) const -> retval_t override {
         return _compiled->simplify(context);
     }
-    Condition_ptr prepare_for_reachability(bool negated) const override {
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override {
         return _compiled->prepare_for_reachability(negated);
     }
-    bool is_reachability(uint32_t depth) const override {
+    auto is_reachability(uint32_t depth) const -> bool override {
         return _compiled->is_reachability(depth);
     }
 
     void to_xml(std::ostream &out, uint32_t tabs) const override { _compiled->to_xml(out, tabs); }
 
-    quantifier_e get_quantifier() const override { return _compiled->get_quantifier(); }
-    path_e get_path() const override { return _compiled->get_path(); }
-    ctl_type_e get_query_type() const override { return _compiled->get_query_type(); }
-    bool contains_next() const override { return _compiled->contains_next(); }
-    bool nested_deadlock() const override { return _compiled->nested_deadlock(); }
-    int formula_size() const override { return _compiled->formula_size(); }
+    auto get_quantifier() const -> quantifier_e override { return _compiled->get_quantifier(); }
+    auto get_path() const -> path_e override { return _compiled->get_path(); }
+    auto get_query_type() const -> ctl_type_e override { return _compiled->get_query_type(); }
+    auto contains_next() const -> bool override { return _compiled->contains_next(); }
+    auto nested_deadlock() const -> bool override { return _compiled->nested_deadlock(); }
+    auto formula_size() const -> int override { return _compiled->formula_size(); }
 
-    virtual Condition_ptr push_negation(negstat_t &neg, const EvaluationContext &context,
-                                        bool nested, bool negated, bool initrw) override {
+    auto push_negation(negstat_t &neg, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override {
         if (_compiled)
             return _compiled->push_negation(neg, context, nested, negated, initrw);
         else {
@@ -310,51 +312,51 @@ class ShallowCondition : public Condition {
         if (_compiled)
             _compiled->analyze(context);
         else
-            _analyze(context);
+            internal_analyze(context);
     }
 
   public:
-    const Condition_ptr &get_compiled() const { return _compiled; }
+    auto get_compiled() const -> const Condition_ptr & { return _compiled; }
 
   protected:
-    virtual void _analyze(AnalysisContext &context) = 0;
-    virtual Condition_ptr clone() = 0;
+    virtual void internal_analyze(AnalysisContext &context) = 0;
+    virtual auto clone() -> Condition_ptr = 0;
     Condition_ptr _compiled = nullptr;
 };
 
 /* Not condition */
 class NotCondition : public Condition {
   public:
-    NotCondition(const Condition_ptr cond) {
+    NotCondition(const Condition_ptr &cond) {
         _cond = cond;
         _temporal = _cond->is_temporal();
         _loop_sensitive = _cond->is_loop_sensitive();
     }
-    int formula_size() const override { return _cond->formula_size() + 1; }
+    auto formula_size() const -> int override { return _cond->formula_size() + 1; }
 
     void analyze(AnalysisContext &context) override;
-    result_e evaluate(const EvaluationContext &context) override;
-    result_e eval_and_set(const EvaluationContext &context) override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
-    uint32_t distance(DistanceContext &context) const override;
+    auto distance(DistanceContext &context) const -> uint32_t override;
     void to_tapaal_query(std::ostream &, TAPAALConditionExportContext &context) const override;
-    retval_t simplify(SimplificationContext &context) const override;
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
     void to_binary(std::ostream &) const override;
 
-    quantifier_e get_quantifier() const override { return quantifier_e::NEG; }
-    path_e get_path() const override { return path_e::P_ERROR; }
-    ctl_type_e get_query_type() const override { return ctl_type_e::LOPERATOR; }
-    const Condition_ptr &operator[](size_t i) const { return _cond; };
-    const Condition_ptr &getCond() const { return _cond; };
-    virtual bool is_temporal() const override { return _temporal; }
-    bool contains_next() const override { return _cond->contains_next(); }
-    bool nested_deadlock() const override { return _cond->nested_deadlock(); }
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::NEG; }
+    auto get_path() const -> path_e override { return path_e::P_ERROR; }
+    auto get_query_type() const -> ctl_type_e override { return ctl_type_e::LOPERATOR; }
+    auto operator[](size_t i) const -> const Condition_ptr & { return _cond; };
+    auto get_cond() const -> const Condition_ptr & { return _cond; };
+    auto is_temporal() const -> bool override { return _temporal; }
+    auto contains_next() const -> bool override { return _cond->contains_next(); }
+    auto nested_deadlock() const -> bool override { return _cond->nested_deadlock(); }
 
   private:
     Condition_ptr _cond;
@@ -365,32 +367,32 @@ class NotCondition : public Condition {
 
 class QuantifierCondition : public Condition {
   public:
-    bool is_temporal() const override { return true; }
-    ctl_type_e get_query_type() const override { return ctl_type_e::PATHQEURY; }
-    virtual const Condition_ptr &operator[](size_t i) const = 0;
+    auto is_temporal() const -> bool override { return true; }
+    auto get_query_type() const -> ctl_type_e override { return ctl_type_e::PATHQEURY; }
+    virtual auto operator[](size_t i) const -> const Condition_ptr & = 0;
 };
 
 class SimpleQuantifierCondition : public QuantifierCondition {
   public:
-    SimpleQuantifierCondition(const Condition_ptr cond) {
+    SimpleQuantifierCondition(const Condition_ptr &cond) {
         _cond = cond;
         _loop_sensitive = cond->is_loop_sensitive();
     }
-    int formula_size() const override { return _cond->formula_size() + 1; }
+    auto formula_size() const -> int override { return _cond->formula_size() + 1; }
 
     void analyze(AnalysisContext &context) override;
-    result_e evaluate(const EvaluationContext &context) override;
-    result_e eval_and_set(const EvaluationContext &context) override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
     void to_tapaal_query(std::ostream &, TAPAALConditionExportContext &context) const override;
     void to_binary(std::ostream &out) const override;
 
-    virtual const Condition_ptr &operator[](size_t i) const override { return _cond; }
-    const Condition_ptr &getCond() const { return _cond; }
-    bool contains_next() const override { return _cond->contains_next(); }
-    bool nested_deadlock() const override { return _cond->nested_deadlock(); }
+    auto operator[](size_t i) const -> const Condition_ptr & override { return _cond; }
+    auto get_cond() const -> const Condition_ptr & { return _cond; }
+    auto contains_next() const -> bool override { return _cond->contains_next(); }
+    auto nested_deadlock() const -> bool override { return _cond->nested_deadlock(); }
 
   private:
-    virtual std::string op() const = 0;
+    virtual auto op() const -> std::string = 0;
 
   protected:
     Condition_ptr _cond;
@@ -400,22 +402,22 @@ class ECondition : public SimpleQuantifierCondition {
   public:
     using SimpleQuantifierCondition::SimpleQuantifierCondition;
 
-    result_e evaluate(const EvaluationContext &context) override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
 
-    retval_t simplify(SimplificationContext &context) const override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
 
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
-    quantifier_e get_quantifier() const override { return quantifier_e::E; }
-    path_e get_path() const override { return path_e::P_ERROR; }
-    uint32_t distance(DistanceContext &context) const override {
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::E; }
+    auto get_path() const -> path_e override { return path_e::P_ERROR; }
+    auto distance(DistanceContext &context) const -> uint32_t override {
         // TODO implement
         throw base_error_t("TODO implement");
     }
-    bool is_loop_sensitive() const override {
+    auto is_loop_sensitive() const -> bool override {
         // Other LTL Loop sensitivity depend on the outermost quantifier being an A,
         // so if it is an E we disable loop sensitive reductions.
         return true;
@@ -424,24 +426,24 @@ class ECondition : public SimpleQuantifierCondition {
     void visit(MutatingVisitor &) override;
 
   private:
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 class ACondition : public SimpleQuantifierCondition {
   public:
     using SimpleQuantifierCondition::SimpleQuantifierCondition;
 
-    result_e evaluate(const EvaluationContext &context) override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
 
-    retval_t simplify(SimplificationContext &context) const override;
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
-    quantifier_e get_quantifier() const override { return quantifier_e::A; }
-    path_e get_path() const override { return path_e::P_ERROR; }
-    uint32_t distance(DistanceContext &context) const override {
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::A; }
+    auto get_path() const -> path_e override { return path_e::P_ERROR; }
+    auto distance(DistanceContext &context) const -> uint32_t override {
         uint32_t retval = _cond->distance(context);
         return retval;
     }
@@ -449,290 +451,294 @@ class ACondition : public SimpleQuantifierCondition {
     void visit(MutatingVisitor &) override;
 
   private:
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 class GCondition : public SimpleQuantifierCondition {
   public:
     using SimpleQuantifierCondition::SimpleQuantifierCondition;
 
-    result_e evaluate(const EvaluationContext &context) override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
 
-    bool is_reachability(uint32_t depth) const override {
+    auto is_reachability(uint32_t depth) const -> bool override {
         // This could potentially be a reachability formula if the parent is an A.
         // This case is however already handled by ACondition.
         return false;
     }
 
-    Condition_ptr prepare_for_reachability(bool negated) const override {
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override {
         // TODO implement
         throw base_error_t("TODO implement");
     }
 
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
 
-    retval_t simplify(SimplificationContext &context) const override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
 
     void to_xml(std::ostream &, uint32_t tabs) const override;
 
-    quantifier_e get_quantifier() const override { return quantifier_e::EMPTY; }
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::EMPTY; }
 
-    path_e get_path() const override { return path_e::G; }
+    auto get_path() const -> path_e override { return path_e::G; }
 
-    uint32_t distance(DistanceContext &context) const override {
+    auto distance(DistanceContext &context) const -> uint32_t override {
         context.negate();
         uint32_t retval = _cond->distance(context);
         context.negate();
         return retval;
     }
 
-    result_e eval_and_set(const EvaluationContext &context) override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
 
-    bool is_loop_sensitive() const override { return true; }
+    auto is_loop_sensitive() const -> bool override { return true; }
 
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
 
   private:
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 class FCondition : public SimpleQuantifierCondition {
   public:
     using SimpleQuantifierCondition::SimpleQuantifierCondition;
 
-    result_e evaluate(const EvaluationContext &context) override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
 
-    retval_t simplify(SimplificationContext &context) const override;
-    bool is_reachability(uint32_t depth) const override {
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto is_reachability(uint32_t depth) const -> bool override {
         // This could potentially be a reachability formula if the parent is an E.
         // This case is however already handled by ECondition.
         return false;
     }
-    Condition_ptr prepare_for_reachability(bool negated) const override {
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override {
         // TODO implement
         throw base_error_t("TODO implement");
     }
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
-    quantifier_e get_quantifier() const override { return quantifier_e::EMPTY; }
-    path_e get_path() const override { return path_e::F; }
-    uint32_t distance(DistanceContext &context) const override { return _cond->distance(context); }
-    result_e eval_and_set(const EvaluationContext &context) override;
-    bool is_loop_sensitive() const override { return true; }
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::EMPTY; }
+    auto get_path() const -> path_e override { return path_e::F; }
+    auto distance(DistanceContext &context) const -> uint32_t override {
+        return _cond->distance(context);
+    }
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
+    auto is_loop_sensitive() const -> bool override { return true; }
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
 
   private:
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 class XCondition : public SimpleQuantifierCondition {
   public:
     using SimpleQuantifierCondition::SimpleQuantifierCondition;
 
-    bool is_reachability(uint32_t depth) const override { return false; }
-    Condition_ptr prepare_for_reachability(bool negated) const override {
+    auto is_reachability(uint32_t depth) const -> bool override { return false; }
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override {
         // TODO implement
         throw base_error_t("TODO implement");
     }
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
-    retval_t simplify(SimplificationContext &context) const override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
-    quantifier_e get_quantifier() const override { return quantifier_e::EMPTY; }
-    path_e get_path() const override { return path_e::X; }
-    uint32_t distance(DistanceContext &context) const override { return _cond->distance(context); }
-    bool contains_next() const override { return true; }
-    bool is_loop_sensitive() const override { return true; }
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::EMPTY; }
+    auto get_path() const -> path_e override { return path_e::X; }
+    auto distance(DistanceContext &context) const -> uint32_t override {
+        return _cond->distance(context);
+    }
+    auto contains_next() const -> bool override { return true; }
+    auto is_loop_sensitive() const -> bool override { return true; }
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
 
   private:
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 class EXCondition : public SimpleQuantifierCondition {
   public:
     using SimpleQuantifierCondition::SimpleQuantifierCondition;
-    retval_t simplify(SimplificationContext &context) const override;
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
-    quantifier_e get_quantifier() const override { return quantifier_e::E; }
-    path_e get_path() const override { return path_e::X; }
-    uint32_t distance(DistanceContext &context) const override;
-    bool contains_next() const override { return true; }
-    virtual bool is_loop_sensitive() const override { return true; }
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::E; }
+    auto get_path() const -> path_e override { return path_e::X; }
+    auto distance(DistanceContext &context) const -> uint32_t override;
+    auto contains_next() const -> bool override { return true; }
+    auto is_loop_sensitive() const -> bool override { return true; }
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
 
   private:
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 class EGCondition : public SimpleQuantifierCondition {
   public:
     using SimpleQuantifierCondition::SimpleQuantifierCondition;
 
-    retval_t simplify(SimplificationContext &context) const override;
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
-    quantifier_e get_quantifier() const override { return quantifier_e::E; }
-    path_e get_path() const override { return path_e::G; }
-    uint32_t distance(DistanceContext &context) const override;
-    result_e evaluate(const EvaluationContext &context) override;
-    result_e eval_and_set(const EvaluationContext &context) override;
-    virtual bool is_loop_sensitive() const override { return true; }
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::E; }
+    auto get_path() const -> path_e override { return path_e::G; }
+    auto distance(DistanceContext &context) const -> uint32_t override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
+    auto is_loop_sensitive() const -> bool override { return true; }
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
 
   private:
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 class EFCondition : public SimpleQuantifierCondition {
   public:
     using SimpleQuantifierCondition::SimpleQuantifierCondition;
 
-    retval_t simplify(SimplificationContext &context) const override;
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
-    quantifier_e get_quantifier() const override { return quantifier_e::E; }
-    path_e get_path() const override { return path_e::F; }
-    uint32_t distance(DistanceContext &context) const override;
-    result_e evaluate(const EvaluationContext &context) override;
-    result_e eval_and_set(const EvaluationContext &context) override;
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::E; }
+    auto get_path() const -> path_e override { return path_e::F; }
+    auto distance(DistanceContext &context) const -> uint32_t override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
 
   private:
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 class AXCondition : public SimpleQuantifierCondition {
   public:
     using SimpleQuantifierCondition::SimpleQuantifierCondition;
-    retval_t simplify(SimplificationContext &context) const override;
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
-    quantifier_e get_quantifier() const override { return quantifier_e::A; }
-    path_e get_path() const override { return path_e::X; }
-    uint32_t distance(DistanceContext &context) const override;
-    bool contains_next() const override { return true; }
-    virtual bool is_loop_sensitive() const override { return true; }
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::A; }
+    auto get_path() const -> path_e override { return path_e::X; }
+    auto distance(DistanceContext &context) const -> uint32_t override;
+    auto contains_next() const -> bool override { return true; }
+    auto is_loop_sensitive() const -> bool override { return true; }
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
 
   private:
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 class AGCondition : public SimpleQuantifierCondition {
   public:
     using SimpleQuantifierCondition::SimpleQuantifierCondition;
-    retval_t simplify(SimplificationContext &context) const override;
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
-    quantifier_e get_quantifier() const override { return quantifier_e::A; }
-    path_e get_path() const override { return path_e::G; }
-    uint32_t distance(DistanceContext &context) const override;
-    result_e evaluate(const EvaluationContext &context) override;
-    result_e eval_and_set(const EvaluationContext &context) override;
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::A; }
+    auto get_path() const -> path_e override { return path_e::G; }
+    auto distance(DistanceContext &context) const -> uint32_t override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
 
   private:
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 class AFCondition : public SimpleQuantifierCondition {
   public:
     using SimpleQuantifierCondition::SimpleQuantifierCondition;
-    retval_t simplify(SimplificationContext &context) const override;
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
-    quantifier_e get_quantifier() const override { return quantifier_e::A; }
-    path_e get_path() const override { return path_e::F; }
-    uint32_t distance(DistanceContext &context) const override;
-    result_e evaluate(const EvaluationContext &context) override;
-    result_e eval_and_set(const EvaluationContext &context) override;
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::A; }
+    auto get_path() const -> path_e override { return path_e::F; }
+    auto distance(DistanceContext &context) const -> uint32_t override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
-    virtual bool is_loop_sensitive() const override { return true; }
+    auto is_loop_sensitive() const -> bool override { return true; }
 
   private:
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 class UntilCondition : public QuantifierCondition {
   public:
-    UntilCondition(const Condition_ptr cond1, const Condition_ptr cond2) {
+    UntilCondition(const Condition_ptr &cond1, const Condition_ptr &cond2) {
         _cond1 = cond1;
         _cond2 = cond2;
         _loop_sensitive = _cond1->is_loop_sensitive() || _cond2->is_loop_sensitive();
     }
-    int formula_size() const override {
+    auto formula_size() const -> int override {
         return _cond1->formula_size() + _cond2->formula_size() + 1;
     }
 
     void analyze(AnalysisContext &context) override;
-    result_e evaluate(const EvaluationContext &context) override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
     void to_tapaal_query(std::ostream &, TAPAALConditionExportContext &context) const override;
     void to_binary(std::ostream &out) const override;
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
 
-    result_e eval_and_set(const EvaluationContext &context) override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
 
-    [[nodiscard]] virtual const Condition_ptr &operator[](size_t i) const override {
+    [[nodiscard]] auto operator[](size_t i) const -> const Condition_ptr & override {
         if (i == 0)
             return _cond1;
         return _cond2;
     }
-    path_e get_path() const override { return path_e::U; }
-    bool contains_next() const override {
+    auto get_path() const -> path_e override { return path_e::U; }
+    auto contains_next() const -> bool override {
         return _cond1->contains_next() || _cond2->contains_next();
     }
-    bool nested_deadlock() const override {
+    auto nested_deadlock() const -> bool override {
         return _cond1->nested_deadlock() || _cond2->nested_deadlock();
     }
 
-    [[nodiscard]] const Condition_ptr &get_cond1() const { return (*this)[0]; }
-    [[nodiscard]] const Condition_ptr &get_cond2() const { return (*this)[1]; }
+    [[nodiscard]] auto get_cond1() const -> const Condition_ptr & { return (*this)[0]; }
+    [[nodiscard]] auto get_cond2() const -> const Condition_ptr & { return (*this)[1]; }
 
-    retval_t simplify(SimplificationContext &context) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
-    uint32_t distance(DistanceContext &context) const override {
+    auto distance(DistanceContext &context) const -> uint32_t override {
         return (*this)[1]->distance(context);
     }
-    quantifier_e get_quantifier() const override { return quantifier_e::EMPTY; }
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::EMPTY; }
 
   private:
-    virtual std::string op() const;
+    virtual auto op() const -> std::string;
 
   protected:
     Condition_ptr _cond1;
@@ -742,34 +748,34 @@ class UntilCondition : public QuantifierCondition {
 class EUCondition : public UntilCondition {
   public:
     using UntilCondition::UntilCondition;
-    retval_t simplify(SimplificationContext &context) const override;
-    quantifier_e get_quantifier() const override { return quantifier_e::E; }
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::E; }
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
-    uint32_t distance(DistanceContext &context) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto distance(DistanceContext &context) const -> uint32_t override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
 
   private:
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 class AUCondition : public UntilCondition {
   public:
     using UntilCondition::UntilCondition;
-    retval_t simplify(SimplificationContext &context) const override;
-    quantifier_e get_quantifier() const override { return quantifier_e::A; }
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::A; }
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
-    uint32_t distance(DistanceContext &context) const override;
+    auto distance(DistanceContext &context) const -> uint32_t override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
-    virtual bool is_loop_sensitive() const override { return true; }
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
+    auto is_loop_sensitive() const -> bool override { return true; }
 
   private:
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 /******************** CONDITIONS ********************/
@@ -777,17 +783,19 @@ class AUCondition : public UntilCondition {
 class UnfoldedFireableCondition : public ShallowCondition {
   public:
     UnfoldedFireableCondition(const std::string &tname) : ShallowCondition(), _name(tname){};
-    Condition_ptr push_negation(negstat_t &stat, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto push_negation(negstat_t &stat, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
-    std::string get_name() const { return _name; }
+    auto get_name() const -> std::string { return _name; }
     void to_xml(std::ostream &out, uint32_t tabs) const override;
 
   protected:
-    void _analyze(AnalysisContext &context) override;
+    void internal_analyze(AnalysisContext &context) override;
 
-    Condition_ptr clone() { return std::make_shared<UnfoldedFireableCondition>(_name); }
+    auto clone() -> Condition_ptr override {
+        return std::make_shared<UnfoldedFireableCondition>(_name);
+    }
 
   public:
   private:
@@ -797,15 +805,15 @@ class UnfoldedFireableCondition : public ShallowCondition {
 class FireableCondition : public ShallowCondition {
   public:
     FireableCondition(const std::string &tname) : _name(tname){};
-    Condition_ptr push_negation(negstat_t &stat, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto push_negation(negstat_t &stat, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
-    std::string get_name() const { return _name; }
+    auto get_name() const -> std::string { return _name; }
 
   protected:
-    void _analyze(AnalysisContext &context) override;
-    Condition_ptr clone() { return std::make_shared<FireableCondition>(_name); }
+    void internal_analyze(AnalysisContext &context) override;
+    auto clone() -> Condition_ptr override { return std::make_shared<FireableCondition>(_name); }
 
   private:
     const std::string _name;
@@ -814,7 +822,7 @@ class FireableCondition : public ShallowCondition {
 /* Logical conditon */
 class LogicalCondition : public Condition {
   public:
-    int formula_size() const override {
+    auto formula_size() const -> int override {
         size_t i = 1;
         for (auto &c : _conds)
             i += c->formula_size();
@@ -825,33 +833,34 @@ class LogicalCondition : public Condition {
 
     void to_binary(std::ostream &out) const override;
     void to_tapaal_query(std::ostream &, TAPAALConditionExportContext &context) const override;
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    const Condition_ptr &operator[](size_t i) const { return _conds[i]; };
-    size_t operands() const { return _conds.size(); }
-    ctl_type_e get_query_type() const override { return ctl_type_e::LOPERATOR; }
-    path_e get_path() const override { return path_e::P_ERROR; }
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto operator[](size_t i) const -> const Condition_ptr & { return _conds[i]; };
+    auto operands() const -> size_t { return _conds.size(); }
+    auto get_query_type() const -> ctl_type_e override { return ctl_type_e::LOPERATOR; }
+    auto get_path() const -> path_e override { return path_e::P_ERROR; }
 
-    bool is_temporal() const override { return _temporal; }
+    auto is_temporal() const -> bool override { return _temporal; }
     auto begin() { return _conds.begin(); }
     auto end() { return _conds.end(); }
     auto begin() const { return _conds.begin(); }
     auto end() const { return _conds.end(); }
-    bool empty() const { return _conds.size() == 0; }
-    bool singular() const { return _conds.size() == 1; }
-    size_t size() const { return _conds.size(); }
-    bool contains_next() const override {
+    auto empty() const -> bool { return _conds.size() == 0; }
+    auto singular() const -> bool { return _conds.size() == 1; }
+    auto size() const -> size_t { return _conds.size(); }
+    auto contains_next() const -> bool override {
         return std::any_of(begin(), end(), [](auto &a) { return a->contains_next(); });
     }
-    bool nested_deadlock() const override;
+    auto nested_deadlock() const -> bool override;
 
   protected:
-    LogicalCondition(){};
-    retval_t simplifyOr(SimplificationContext &context) const;
-    retval_t simplify_and(SimplificationContext &context) const;
+    LogicalCondition() = default;
+    ;
+    auto simplify_or(SimplificationContext &context) const -> retval_t;
+    auto simplify_and(SimplificationContext &context) const -> retval_t;
 
   private:
-    virtual std::string op() const = 0;
+    virtual auto op() const -> std::string = 0;
 
   protected:
     bool _temporal = false;
@@ -867,20 +876,20 @@ class AndCondition : public LogicalCondition {
 
     AndCondition(const Condition_ptr &left, const Condition_ptr &right);
 
-    retval_t simplify(SimplificationContext &context) const override;
-    result_e evaluate(const EvaluationContext &context) override;
-    result_e eval_and_set(const EvaluationContext &context) override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
-    quantifier_e get_quantifier() const override { return quantifier_e::AND; }
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
-    uint32_t distance(DistanceContext &context) const override;
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::AND; }
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
+    auto distance(DistanceContext &context) const -> uint32_t override;
 
   private:
     // int logicalOp() const;
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 /* Disjunctive or conditon */
@@ -892,21 +901,21 @@ class OrCondition : public LogicalCondition {
 
     OrCondition(const Condition_ptr &left, const Condition_ptr &right);
 
-    retval_t simplify(SimplificationContext &context) const override;
-    result_e evaluate(const EvaluationContext &context) override;
-    result_e eval_and_set(const EvaluationContext &context) override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
 
-    quantifier_e get_quantifier() const override { return quantifier_e::OR; }
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
-    uint32_t distance(DistanceContext &context) const override;
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::OR; }
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
+    auto distance(DistanceContext &context) const -> uint32_t override;
 
   private:
     // int logicalOp() const;
-    std::string op() const override;
+    auto op() const -> std::string override;
 };
 
 class CompareConjunction : public Condition {
@@ -916,7 +925,7 @@ class CompareConjunction : public Condition {
         uint32_t _upper = std::numeric_limits<uint32_t>::max();
         uint32_t _lower = 0;
         std::string _name;
-        bool operator<(const cons_t &other) const { return _place < other._place; }
+        auto operator<(const cons_t &other) const -> bool { return _place < other._place; }
 
         void invert() {
             if (_lower == 0 && _upper == std::numeric_limits<uint32_t>::max())
@@ -939,7 +948,7 @@ class CompareConjunction : public Condition {
         }
     };
 
-    CompareConjunction(bool negated = false) : _negated(false){};
+    CompareConjunction(bool negated = false){};
     friend FireableCondition;
     CompareConjunction(const std::vector<cons_t> &&cons, bool negated)
         : _constraints(cons), _negated(negated){};
@@ -950,7 +959,7 @@ class CompareConjunction : public Condition {
     void merge(const CompareConjunction &other);
     void merge(const std::vector<Condition_ptr> &, bool negated);
 
-    int formula_size() const override {
+    auto formula_size() const -> int override {
         int sum = 0;
         for (auto &c : _constraints) {
             assert(c._place >= 0);
@@ -969,37 +978,37 @@ class CompareConjunction : public Condition {
             return (sum * 2) + 1;
     }
     void analyze(AnalysisContext &context) override;
-    uint32_t distance(DistanceContext &context) const override;
+    auto distance(DistanceContext &context) const -> uint32_t override;
     void to_tapaal_query(std::ostream &stream,
                          TAPAALConditionExportContext &context) const override;
     void to_binary(std::ostream &out) const override;
-    bool is_reachability(uint32_t depth) const override { return depth > 0; };
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    ctl_type_e get_query_type() const override { return ctl_type_e::LOPERATOR; }
-    path_e get_path() const override { return path_e::P_ERROR; }
-    virtual void to_xml(std::ostream &stream, uint32_t tabs) const override;
-    retval_t simplify(SimplificationContext &context) const override;
-    result_e evaluate(const EvaluationContext &context) override;
-    result_e eval_and_set(const EvaluationContext &context) override;
+    auto is_reachability(uint32_t depth) const -> bool override { return depth > 0; };
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto get_query_type() const -> ctl_type_e override { return ctl_type_e::LOPERATOR; }
+    auto get_path() const -> path_e override { return path_e::P_ERROR; }
+    void to_xml(std::ostream &stream, uint32_t tabs) const override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &visitor) override;
 
-    quantifier_e get_quantifier() const override {
+    auto get_quantifier() const -> quantifier_e override {
         return _negated ? quantifier_e::OR : quantifier_e::AND;
     }
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
-    bool isNegated() const { return _negated; }
-    bool singular() const {
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
+    auto is_negated() const -> bool { return _negated; }
+    auto singular() const -> bool {
         return _constraints.size() == 1 &&
                (_constraints[0]._lower == 0 ||
                 _constraints[0]._upper == std::numeric_limits<uint32_t>::max());
     };
-    bool contains_next() const override { return false; }
-    bool nested_deadlock() const override { return false; }
-    const std::vector<cons_t> &constraints() const { return _constraints; }
-    std::vector<cons_t>::const_iterator begin() const { return _constraints.begin(); }
-    std::vector<cons_t>::const_iterator end() const { return _constraints.end(); }
+    auto contains_next() const -> bool override { return false; }
+    auto nested_deadlock() const -> bool override { return false; }
+    auto constraints() const -> const std::vector<cons_t> & { return _constraints; }
+    auto begin() const -> std::vector<cons_t>::const_iterator { return _constraints.begin(); }
+    auto end() const -> std::vector<cons_t>::const_iterator { return _constraints.end(); }
 
   private:
     std::vector<cons_t> _constraints;
@@ -1009,48 +1018,48 @@ class CompareConjunction : public Condition {
 /* Comparison conditon */
 class CompareCondition : public Condition {
   public:
-    CompareCondition(const Expr_ptr expr1, const Expr_ptr expr2) : _expr1(expr1), _expr2(expr2) {}
+    CompareCondition(const Expr_ptr &expr1, const Expr_ptr &expr2) : _expr1(expr1), _expr2(expr2) {}
 
-    int formula_size() const override {
+    auto formula_size() const -> int override {
         return _expr1->formula_size() + _expr2->formula_size() + 1;
     }
     void analyze(AnalysisContext &context) override;
-    result_e evaluate(const EvaluationContext &context) override;
-    result_e eval_and_set(const EvaluationContext &context) override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
     void to_tapaal_query(std::ostream &, TAPAALConditionExportContext &context) const override;
     void to_binary(std::ostream &out) const override;
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    quantifier_e get_quantifier() const override { return quantifier_e::EMPTY; }
-    path_e get_path() const override { return path_e::P_ERROR; }
-    ctl_type_e get_query_type() const override { return ctl_type_e::EVAL; }
-    const Expr_ptr &operator[](uint32_t id) const {
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::EMPTY; }
+    auto get_path() const -> path_e override { return path_e::P_ERROR; }
+    auto get_query_type() const -> ctl_type_e override { return ctl_type_e::EVAL; }
+    auto operator[](uint32_t id) const -> const Expr_ptr & {
         if (id == 0)
             return _expr1;
         else
             return _expr2;
     }
-    bool contains_next() const override { return false; }
-    bool is_trivial() const;
-    bool nested_deadlock() const override { return false; }
+    auto contains_next() const -> bool override { return false; }
+    auto is_trivial() const -> bool;
+    auto nested_deadlock() const -> bool override { return false; }
 
-    [[nodiscard]] const Expr_ptr &getExpr1() const { return _expr1; }
+    [[nodiscard]] auto get_expr1() const -> const Expr_ptr & { return _expr1; }
 
-    [[nodiscard]] const Expr_ptr &getExpr2() const { return _expr2; }
+    [[nodiscard]] auto get_expr2() const -> const Expr_ptr & { return _expr2; }
 
   protected:
-    uint32_t _distance(DistanceContext &c,
-                       std::function<uint32_t(uint32_t, uint32_t, bool)> d) const {
+    auto distance(DistanceContext &c,
+                  const std::function<uint32_t(uint32_t, uint32_t, bool)> &d) const -> uint32_t {
         return d(_expr1->evaluate(c), _expr2->evaluate(c), c.negated());
     }
 
   private:
-    virtual bool apply(int v1, int v2) const = 0;
-    virtual std::string op() const = 0;
+    virtual auto apply(int v1, int v2) const -> bool = 0;
+    virtual auto op() const -> std::string = 0;
     /** Operator when exported to TAPAAL */
-    virtual std::string opTAPAAL() const = 0;
+    virtual auto op_tapaal() const -> std::string = 0;
     /** Swapped operator when exported to TAPAAL, e.g. operator when operands are swapped */
-    virtual std::string sopTAPAAL() const = 0;
+    virtual auto sop_tapaal() const -> std::string = 0;
 
   protected:
     Expr_ptr _expr1;
@@ -1058,25 +1067,25 @@ class CompareCondition : public Condition {
 };
 
 /* delta */
-template <typename T> uint32_t delta(int v1, int v2, bool negated) { return 0; }
+template <typename T> auto delta(int v1, int v2, bool negated) -> uint32_t { return 0; }
 
 class EqualCondition : public CompareCondition {
   public:
     using CompareCondition::CompareCondition;
-    retval_t simplify(SimplificationContext &context) const override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
 
-    uint32_t distance(DistanceContext &context) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto distance(DistanceContext &context) const -> uint32_t override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
 
   private:
-    bool apply(int v1, int v2) const override;
-    std::string op() const override;
-    std::string opTAPAAL() const override;
-    std::string sopTAPAAL() const override;
+    auto apply(int v1, int v2) const -> bool override;
+    auto op() const -> std::string override;
+    auto op_tapaal() const -> std::string override;
+    auto sop_tapaal() const -> std::string override;
 };
 
 /* None equality conditon */
@@ -1084,138 +1093,138 @@ class NotEqualCondition : public CompareCondition {
   public:
     using CompareCondition::CompareCondition;
     void to_tapaal_query(std::ostream &, TAPAALConditionExportContext &context) const override;
-    retval_t simplify(SimplificationContext &context) const override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
 
-    uint32_t distance(DistanceContext &context) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto distance(DistanceContext &context) const -> uint32_t override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
 
   private:
-    bool apply(int v1, int v2) const override;
-    std::string op() const override;
-    std::string opTAPAAL() const override;
-    std::string sopTAPAAL() const override;
+    auto apply(int v1, int v2) const -> bool override;
+    auto op() const -> std::string override;
+    auto op_tapaal() const -> std::string override;
+    auto sop_tapaal() const -> std::string override;
 };
 
 /* Less-than conditon */
 class LessThanCondition : public CompareCondition {
   public:
     using CompareCondition::CompareCondition;
-    retval_t simplify(SimplificationContext &context) const override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
 
-    uint32_t distance(DistanceContext &context) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto distance(DistanceContext &context) const -> uint32_t override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
 
   private:
-    bool apply(int v1, int v2) const override;
-    std::string op() const override;
-    std::string opTAPAAL() const override;
-    std::string sopTAPAAL() const override;
+    auto apply(int v1, int v2) const -> bool override;
+    auto op() const -> std::string override;
+    auto op_tapaal() const -> std::string override;
+    auto sop_tapaal() const -> std::string override;
 };
 
 /* Less-than-or-equal conditon */
 class LessThanOrEqualCondition : public CompareCondition {
   public:
     using CompareCondition::CompareCondition;
-    retval_t simplify(SimplificationContext &context) const override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
 
-    uint32_t distance(DistanceContext &context) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto distance(DistanceContext &context) const -> uint32_t override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
 
   private:
-    bool apply(int v1, int v2) const override;
-    std::string op() const override;
-    std::string opTAPAAL() const override;
-    std::string sopTAPAAL() const override;
+    auto apply(int v1, int v2) const -> bool override;
+    auto op() const -> std::string override;
+    auto op_tapaal() const -> std::string override;
+    auto sop_tapaal() const -> std::string override;
 };
 
 /* Bool condition */
 class BooleanCondition : public Condition {
   public:
-    BooleanCondition(bool value) : value(value) {
+    BooleanCondition(bool value) : _value(value) {
         if (value) {
             _trivial = 1;
         } else {
             _trivial = 2;
         }
     }
-    int formula_size() const override { return 0; }
+    auto formula_size() const -> int override { return 0; }
     void analyze(AnalysisContext &context) override;
-    result_e evaluate(const EvaluationContext &context) override;
-    result_e eval_and_set(const EvaluationContext &context) override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
-    uint32_t distance(DistanceContext &context) const override;
+    auto distance(DistanceContext &context) const -> uint32_t override;
     static Condition_ptr TRUE_CONSTANT;
     static Condition_ptr FALSE_CONSTANT;
     void to_tapaal_query(std::ostream &, TAPAALConditionExportContext &context) const override;
-    static Condition_ptr getShared(bool val);
-    retval_t simplify(SimplificationContext &context) const override;
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    static auto get_shared(bool val) -> Condition_ptr;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
     void to_binary(std::ostream &) const override;
 
-    quantifier_e get_quantifier() const override { return quantifier_e::EMPTY; }
-    path_e get_path() const override { return path_e::P_ERROR; }
-    ctl_type_e get_query_type() const override { return ctl_type_e::EVAL; }
-    bool contains_next() const override { return false; }
-    bool nested_deadlock() const override { return false; }
-    const bool value;
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::EMPTY; }
+    auto get_path() const -> path_e override { return path_e::P_ERROR; }
+    auto get_query_type() const -> ctl_type_e override { return ctl_type_e::EVAL; }
+    auto contains_next() const -> bool override { return false; }
+    auto nested_deadlock() const -> bool override { return false; }
+    const bool _value;
 };
 
 /* Deadlock condition */
 class DeadlockCondition : public Condition {
   public:
     DeadlockCondition() { _loop_sensitive = true; }
-    int formula_size() const override { return 1; }
+    auto formula_size() const -> int override { return 1; }
     void analyze(AnalysisContext &context) override;
-    result_e evaluate(const EvaluationContext &context) override;
-    result_e eval_and_set(const EvaluationContext &context) override;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
-    uint32_t distance(DistanceContext &context) const override;
+    auto distance(DistanceContext &context) const -> uint32_t override;
     void to_tapaal_query(std::ostream &, TAPAALConditionExportContext &context) const override;
-    retval_t simplify(SimplificationContext &context) const override;
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
     void to_binary(std::ostream &) const override;
 
     static Condition_ptr DEADLOCK;
-    quantifier_e get_quantifier() const override { return quantifier_e::DEADLOCK; }
-    path_e get_path() const override { return path_e::P_ERROR; }
-    ctl_type_e get_query_type() const override { return ctl_type_e::EVAL; }
-    bool contains_next() const override { return false; }
-    bool nested_deadlock() const override { return false; }
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::DEADLOCK; }
+    auto get_path() const -> path_e override { return path_e::P_ERROR; }
+    auto get_query_type() const -> ctl_type_e override { return ctl_type_e::EVAL; }
+    auto contains_next() const -> bool override { return false; }
+    auto nested_deadlock() const -> bool override { return false; }
 };
 
 class KSafeCondition : public ShallowCondition {
   public:
     KSafeCondition(const Expr_ptr &expr1) : _bound(expr1) {}
 
-    const Expr_ptr &getBound() const { return _bound; }
+    auto get_bound() const -> const Expr_ptr & { return _bound; }
 
   protected:
-    void _analyze(AnalysisContext &context) override;
+    void internal_analyze(AnalysisContext &context) override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
-    Condition_ptr clone() override { return std::make_shared<KSafeCondition>(_bound); }
+    auto clone() -> Condition_ptr override { return std::make_shared<KSafeCondition>(_bound); }
 
   private:
     Expr_ptr _bound = nullptr;
@@ -1223,47 +1232,49 @@ class KSafeCondition : public ShallowCondition {
 
 class LivenessCondition : public ShallowCondition {
   public:
-    LivenessCondition() {}
+    LivenessCondition() = default;
 
   protected:
-    void _analyze(AnalysisContext &context) override;
+    void internal_analyze(AnalysisContext &context) override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
-    Condition_ptr clone() override { return std::make_shared<LivenessCondition>(); }
+    auto clone() -> Condition_ptr override { return std::make_shared<LivenessCondition>(); }
 };
 
 class QuasiLivenessCondition : public ShallowCondition {
   public:
-    QuasiLivenessCondition() {}
+    QuasiLivenessCondition() = default;
 
   protected:
-    void _analyze(AnalysisContext &context) override;
+    void internal_analyze(AnalysisContext &context) override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
-    Condition_ptr clone() override { return std::make_shared<QuasiLivenessCondition>(); }
+    auto clone() -> Condition_ptr override { return std::make_shared<QuasiLivenessCondition>(); }
 };
 
 class StableMarkingCondition : public ShallowCondition {
   public:
-    StableMarkingCondition() {}
+    StableMarkingCondition() = default;
 
   protected:
-    void _analyze(AnalysisContext &context) override;
+    void internal_analyze(AnalysisContext &context) override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
-    Condition_ptr clone() override { return std::make_shared<StableMarkingCondition>(); }
+    auto clone() -> Condition_ptr override { return std::make_shared<StableMarkingCondition>(); }
 };
 
 class UpperBoundsCondition : public ShallowCondition {
   public:
     UpperBoundsCondition(const std::vector<std::string> &places) : _places(places) {}
-    const std::vector<std::string> &getPlaces() const { return _places; }
+    auto get_places() const -> const std::vector<std::string> & { return _places; }
 
   protected:
-    void _analyze(AnalysisContext &context) override;
+    void internal_analyze(AnalysisContext &context) override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
-    Condition_ptr clone() override { return std::make_shared<UpperBoundsCondition>(_places); }
+    auto clone() -> Condition_ptr override {
+        return std::make_shared<UpperBoundsCondition>(_places);
+    }
 
   private:
     std::vector<std::string> _places;
@@ -1282,7 +1293,7 @@ class UnfoldedUpperBoundsCondition : public Condition {
             _place = other._place;
             _max = max;
         }
-        bool operator<(const place_t &other) const { return _place < other._place; }
+        auto operator<(const place_t &other) const -> bool { return _place < other._place; }
     };
 
     UnfoldedUpperBoundsCondition(const std::vector<std::string> &places) {
@@ -1292,34 +1303,36 @@ class UnfoldedUpperBoundsCondition : public Condition {
     UnfoldedUpperBoundsCondition(const std::vector<place_t> &places, double max, double offset)
         : _places(places), _max(max), _offset(offset){};
     UnfoldedUpperBoundsCondition(const UnfoldedUpperBoundsCondition &) = default;
-    int formula_size() const override { return _places.size(); }
+    auto formula_size() const -> int override { return _places.size(); }
     void analyze(AnalysisContext &context) override;
-    size_t value(const MarkVal *);
-    result_e evaluate(const EvaluationContext &context) override;
-    result_e eval_and_set(const EvaluationContext &context) override;
+    auto value(const MarkVal *) -> size_t;
+    auto evaluate(const EvaluationContext &context) -> result_e override;
+    auto eval_and_set(const EvaluationContext &context) -> result_e override;
     void visit(Visitor &) const override;
     void visit(MutatingVisitor &) override;
-    uint32_t distance(DistanceContext &context) const override;
+    auto distance(DistanceContext &context) const -> uint32_t override;
     void to_tapaal_query(std::ostream &, TAPAALConditionExportContext &context) const override;
     void to_binary(std::ostream &) const override;
-    retval_t simplify(SimplificationContext &context) const override;
-    bool is_reachability(uint32_t depth) const override;
-    Condition_ptr prepare_for_reachability(bool negated) const override;
-    Condition_ptr push_negation(negstat_t &, const EvaluationContext &context, bool nested,
-                                bool negated, bool initrw) override;
+    auto simplify(SimplificationContext &context) const -> retval_t override;
+    auto is_reachability(uint32_t depth) const -> bool override;
+    auto prepare_for_reachability(bool negated) const -> Condition_ptr override;
+    auto push_negation(negstat_t &, const EvaluationContext &context, bool nested, bool negated,
+                       bool initrw) -> Condition_ptr override;
     void to_xml(std::ostream &, uint32_t tabs) const override;
 
-    quantifier_e get_quantifier() const override { return quantifier_e::UPPERBOUNDS; }
-    path_e get_path() const override { return path_e::P_ERROR; }
-    ctl_type_e get_query_type() const override { return ctl_type_e::EVAL; }
-    bool contains_next() const override { return false; }
-    bool nested_deadlock() const override { return false; }
+    auto get_quantifier() const -> quantifier_e override { return quantifier_e::UPPERBOUNDS; }
+    auto get_path() const -> path_e override { return path_e::P_ERROR; }
+    auto get_query_type() const -> ctl_type_e override { return ctl_type_e::EVAL; }
+    auto contains_next() const -> bool override { return false; }
+    auto nested_deadlock() const -> bool override { return false; }
 
-    double bounds(bool add_offset = true) const { return (add_offset ? _offset : 0) + _bound; }
+    auto bounds(bool add_offset = true) const -> double {
+        return (add_offset ? _offset : 0) + _bound;
+    }
 
-    virtual void setUpperBound(size_t bound) { _bound = std::max(_bound, bound); }
+    virtual void set_upper_bound(size_t bound) { _bound = std::max(_bound, bound); }
 
-    const std::vector<place_t> &places() const { return _places; }
+    auto places() const -> const std::vector<place_t> & { return _places; }
 
   private:
     std::vector<place_t> _places;
@@ -1328,7 +1341,6 @@ class UnfoldedUpperBoundsCondition : public Condition {
     double _offset = 0;
 };
 
-} // namespace PQL
-} // namespace PetriEngine
+} // namespace PetriEngine::PQL
 
 #endif // EXPRESSIONS_H

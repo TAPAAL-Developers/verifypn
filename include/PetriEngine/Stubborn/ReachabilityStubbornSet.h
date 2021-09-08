@@ -35,7 +35,7 @@ class ReachabilityStubbornSet : public StubbornSet {
         set_interesting_visitor<InterestingTransitionVisitor>();
     }
 
-    bool prepare(const Structures::State &state) override;
+    auto prepare(const Structures::State &state) -> bool override;
 
     template <typename TVisitor> void set_interesting_visitor() {
         _interesting = std::make_unique<TVisitor>(*this, _closure);

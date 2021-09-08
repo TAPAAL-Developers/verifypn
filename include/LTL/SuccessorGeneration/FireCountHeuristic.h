@@ -26,12 +26,12 @@ class FireCountHeuristic : public Heuristic {
     explicit FireCountHeuristic(const PetriEngine::PetriNet &net)
         : _fireCount(net.number_of_transitions()) {}
 
-    uint32_t eval(const Structures::ProductState &state, uint32_t tid) override {
+    auto eval(const Structures::ProductState &state, uint32_t tid) -> uint32_t override {
         assert(tid <= _fireCount.size());
         return _fireCount[tid];
     }
 
-    bool has_heuristic(const Structures::ProductState &state) override { return true; }
+    auto has_heuristic(const Structures::ProductState &state) -> bool override { return true; }
 
     void push(uint32_t tid) override {
         assert(tid <= _fireCount.size());
@@ -43,7 +43,7 @@ class FireCountHeuristic : public Heuristic {
         --_fireCount[tid];
     }
 
-    std::ostream &output(std::ostream &os) { return os << "FIRECOUNT_HEUR"; }
+    auto output(std::ostream &os)  -> std::ostream & override { return os << "FIRECOUNT_HEUR"; }
 
   protected:
     std::vector<uint32_t> _fireCount;

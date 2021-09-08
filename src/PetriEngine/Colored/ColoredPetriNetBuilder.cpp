@@ -49,7 +49,7 @@ void ColoredPetriNetBuilder::add_place(const std::string &name, const Colored::C
                                        Colored::Multiset &&tokens, double x, double y) {
     if (_placenames.count(name) == 0) {
         uint32_t next = _placenames.size();
-        _places.emplace_back(Colored::Place{name, type, tokens});
+        _places.emplace_back(Colored::place_t{name, type, tokens});
         _placenames[name] = next;
 
         // set up place color fix points and initialize queue
@@ -58,7 +58,7 @@ void ColoredPetriNetBuilder::add_place(const std::string &name, const Colored::C
         }
 
         Colored::IntervalVector placeConstraints;
-        Colored::ColorFixpoint colorFixpoint = {placeConstraints, !tokens.empty()};
+        Colored::color_fixpoint_t colorFixpoint = {placeConstraints, !tokens.empty()};
         uint32_t colorCounter = 0;
 
         if (tokens.size() == type->size()) {
@@ -98,7 +98,7 @@ void ColoredPetriNetBuilder::add_transition(const std::string &name,
                                             double y) {
     if (_transitionnames.count(name) == 0) {
         uint32_t next = _transitionnames.size();
-        _transitions.emplace_back(Colored::Transition{name, guard});
+        _transitions.emplace_back(Colored::transition_t{name, guard});
         _transitionnames[name] = next;
     }
 }
@@ -147,7 +147,7 @@ void ColoredPetriNetBuilder::add_arc(const std::string &place, const std::string
 
     input ? _placePostTransitionMap[p].emplace_back(t) : _placePreTransitionMap[p].emplace_back(t);
 
-    Colored::Arc arc;
+    Colored::arc_t arc;
     arc._place = p;
     arc._transition = t;
     _places[p]._inhibitor |= inhibitor;
@@ -175,7 +175,7 @@ void ColoredPetriNetBuilder::sort() {}
 void ColoredPetriNetBuilder::compute_symmetric_variables() {
     if (_isColored) {
         for (uint32_t transitionId = 0; transitionId < _transitions.size(); transitionId++) {
-            const Colored::Transition &transition = _transitions[transitionId];
+            const Colored::transition_t &transition = _transitions[transitionId];
             if (transition._guard) {
                 continue;
                 // the variables cannot appear on the guard
@@ -217,7 +217,7 @@ void ColoredPetriNetBuilder::compute_symmetric_variables() {
 }
 
 void ColoredPetriNetBuilder::check_symmetric_vars_in_arcs(
-    const Colored::Transition &transition, const Colored::Arc &inArc,
+    const Colored::transition_t &transition, const Colored::arc_t &inArc,
     const std::set<const Colored::Variable *> &inArcVars, bool &isEligible) const {
     for (auto &otherInArc : transition._input_arcs) {
         if (inArc._place == otherInArc._place) {
@@ -235,7 +235,7 @@ void ColoredPetriNetBuilder::check_symmetric_vars_in_arcs(
 }
 
 void ColoredPetriNetBuilder::check_symmetric_vars_out_arcs(
-    const Colored::Transition &transition, const std::set<const Colored::Variable *> &inArcVars,
+    const Colored::transition_t &transition, const std::set<const Colored::Variable *> &inArcVars,
     bool &isEligible) const {
     uint32_t numArcs = 0;
     bool foundSomeVars = false;
@@ -360,7 +360,7 @@ void ColoredPetriNetBuilder::compute_place_color_fixpoint(uint32_t maxIntervals,
             std::vector<uint32_t> connectedTransitions = _placePostTransitionMap[currentPlaceId];
 
             for (uint32_t transitionId : connectedTransitions) {
-                Colored::Transition &transition = _transitions[transitionId];
+                Colored::transition_t &transition = _transitions[transitionId];
                 // Skip transitions that cannot add anything new,
                 // such as transitions with only constants on their arcs that have been processed
                 // once
@@ -395,7 +395,7 @@ void ColoredPetriNetBuilder::compute_place_color_fixpoint(uint32_t maxIntervals,
 
 // Create Arc interval structures for the transition
 
-auto ColoredPetriNetBuilder::setup_transition_vars(const Colored::Transition &transition) const
+auto ColoredPetriNetBuilder::setup_transition_vars(const Colored::transition_t &transition) const
     -> std::unordered_map<uint32_t, Colored::arc_intervals_t> {
     std::unordered_map<uint32_t, Colored::arc_intervals_t> res;
     for (auto &arc : transition._input_arcs) {
@@ -412,7 +412,7 @@ auto ColoredPetriNetBuilder::setup_transition_vars(const Colored::Transition &tr
 
 void ColoredPetriNetBuilder::create_partion_varmaps() {
     for (uint32_t transitionId = 0; transitionId < _transitions.size(); transitionId++) {
-        Colored::Transition &transition = _transitions[transitionId];
+        Colored::transition_t &transition = _transitions[transitionId];
         std::set<const Colored::Variable *> variables;
         _arcIntervals[transitionId] = setup_transition_vars(transition);
 
@@ -423,7 +423,7 @@ void ColoredPetriNetBuilder::create_partion_varmaps() {
 
             Colored::IntervalVector intervalTuple;
             intervalTuple.add_interval(_places[inArc._place]._type->get_full_interval());
-            const PetriEngine::Colored::ColorFixpoint &cfp{intervalTuple};
+            const PetriEngine::Colored::color_fixpoint_t &cfp{intervalTuple};
 
             inArc._expr->get_arc_intervals(arcInterval, cfp, index, 0);
 
@@ -452,11 +452,11 @@ void ColoredPetriNetBuilder::create_partion_varmaps() {
 
 // Retrieve color intervals for the input arcs based on their places
 
-void ColoredPetriNetBuilder::get_arc_intervals(const Colored::Transition &transition,
+void ColoredPetriNetBuilder::get_arc_intervals(const Colored::transition_t &transition,
                                                bool &transitionActivated, uint32_t max_intervals,
                                                uint32_t transitionId) {
     for (auto &arc : transition._input_arcs) {
-        PetriEngine::Colored::ColorFixpoint &curCFP = _placeColorFixpoints[arc._place];
+        PetriEngine::Colored::color_fixpoint_t &curCFP = _placeColorFixpoints[arc._place];
         curCFP._constraints.restrict(max_intervals);
         _maxIntervals = std::max(_maxIntervals, (uint32_t)curCFP._constraints.size());
 
@@ -475,7 +475,7 @@ void ColoredPetriNetBuilder::get_arc_intervals(const Colored::Transition &transi
     }
 }
 
-void ColoredPetriNetBuilder::add_transition_vars(Colored::Transition &transition) const {
+void ColoredPetriNetBuilder::add_transition_vars(Colored::transition_t &transition) const {
     std::set<const Colored::Variable *> variables;
     transition._guard->get_variables(variables);
     for (auto *var : variables) {
@@ -489,7 +489,7 @@ void ColoredPetriNetBuilder::add_transition_vars(Colored::Transition &transition
     }
 }
 
-void ColoredPetriNetBuilder::remove_invalid_varmaps(Colored::Transition &transition) const {
+void ColoredPetriNetBuilder::remove_invalid_varmaps(Colored::transition_t &transition) const {
     std::vector<Colored::VariableIntervalMap> newVarmaps;
     for (auto &varMap : transition._variable_maps) {
         bool validVarMap = true;
@@ -510,7 +510,7 @@ void ColoredPetriNetBuilder::remove_invalid_varmaps(Colored::Transition &transit
 
 // Retreive interval colors from the input arcs restricted by the transition guard
 
-void ColoredPetriNetBuilder::process_input_arcs(Colored::Transition &transition,
+void ColoredPetriNetBuilder::process_input_arcs(Colored::transition_t &transition,
                                                 uint32_t currentPlaceId, uint32_t transitionId,
                                                 bool &transitionActivated, uint32_t max_intervals) {
     get_arc_intervals(transition, transitionActivated, max_intervals, transitionId);
@@ -537,10 +537,10 @@ void ColoredPetriNetBuilder::process_input_arcs(Colored::Transition &transition,
     }
 }
 
-void ColoredPetriNetBuilder::process_output_arcs(Colored::Transition &transition) {
+void ColoredPetriNetBuilder::process_output_arcs(Colored::transition_t &transition) {
     bool transitionHasVarOutArcs = false;
     for (const auto &arc : transition._output_arcs) {
-        Colored::ColorFixpoint &placeFixpoint = _placeColorFixpoints[arc._place];
+        Colored::color_fixpoint_t &placeFixpoint = _placeColorFixpoints[arc._place];
         // used to check if colors are added to the place. The total distance between upper and
         // lower bounds should grow when more colors are added and as we cannot remove colors this
         // can be checked by summing the differences
@@ -629,7 +629,7 @@ void ColoredPetriNetBuilder::find_stable_places() {
                     _places[placeId]._stable = false;
                     break;
                 }
-                const Colored::Arc *inArc;
+                const Colored::arc_t *inArc;
                 for (const auto &arc : _transitions[transitionId]._input_arcs) {
                     if (arc._place == placeId) {
                         inArc = &arc;
@@ -695,7 +695,7 @@ auto ColoredPetriNetBuilder::unfold() -> PetriNetBuilder & {
 // tokens Ideally, orphan places should just be translated to a constant in the query
 
 void ColoredPetriNetBuilder::handle_orphan_place(
-    const Colored::Place &place,
+    const Colored::place_t &place,
     const std::unordered_map<std::string, uint32_t> &unfoldedPlaceMap) {
     if (_ptplacenames.count(place._name) <= 0 && place._marking.size() > 0) {
         const std::string &name = place._name + "_orphan";
@@ -717,7 +717,7 @@ void ColoredPetriNetBuilder::handle_orphan_place(
     }
 }
 
-void ColoredPetriNetBuilder::unfold_place(const Colored::Place *place,
+void ColoredPetriNetBuilder::unfold_place(const Colored::place_t *place,
                                           const PetriEngine::Colored::Color *color,
                                           uint32_t placeId, uint32_t id) {
     size_t tokenSize = 0;
@@ -756,7 +756,7 @@ void ColoredPetriNetBuilder::unfold_place(const Colored::Place *place,
 }
 
 void ColoredPetriNetBuilder::unfold_transition(uint32_t transitionId) {
-    const Colored::Transition &transition = _transitions[transitionId];
+    const Colored::transition_t &transition = _transitions[transitionId];
 
     if (_fixpointDone || _partitionComputed) {
         FixpointBindingGenerator gen(transition, _colors, _symmetric_var_map[transitionId]);
@@ -804,11 +804,11 @@ void ColoredPetriNetBuilder::unfold_inhibitor_arc(const std::string &oldname,
                                                   const std::string &newname) {
     for (auto &_inhibitorArc : _inhibitorArcs) {
         if (_transitions[_inhibitorArc._transition]._name.compare(oldname) == 0) {
-            const Colored::Arc &inhibArc = _inhibitorArc;
+            const Colored::arc_t &inhibArc = _inhibitorArc;
             const std::string &placeName = _sumPlacesNames[inhibArc._place];
 
             if (placeName.empty()) {
-                const PetriEngine::Colored::Place &place = _places[inhibArc._place];
+                const PetriEngine::Colored::place_t &place = _places[inhibArc._place];
                 const std::string &sumPlaceName = place._name + "Sum";
                 _ptBuilder.add_place(sumPlaceName, place._marking.size(), 0.0, 0.0);
                 if (_ptplacenames.count(place._name) <= 0) {
@@ -821,9 +821,9 @@ void ColoredPetriNetBuilder::unfold_inhibitor_arc(const std::string &oldname,
     }
 }
 
-void ColoredPetriNetBuilder::unfold_arc(const Colored::Arc &arc, const Colored::BindingMap &binding,
+void ColoredPetriNetBuilder::unfold_arc(const Colored::arc_t &arc, const Colored::BindingMap &binding,
                                         const std::string &tName) {
-    const PetriEngine::Colored::Place &place = _places[arc._place];
+    const PetriEngine::Colored::place_t &place = _places[arc._place];
     // If the place is stable, the arc does not need to be unfolded.
     // This exploits the fact that since the transition is being unfolded with this binding
     // we know that this place contains the tokens to activate the transition for this binding
@@ -832,7 +832,7 @@ void ColoredPetriNetBuilder::unfold_arc(const Colored::Arc &arc, const Colored::
         return;
     }
 
-    const Colored::ExpressionContext &context{binding, _colors, _partition[arc._place]};
+    const Colored::expression_context_t &context{binding, _colors, _partition[arc._place]};
     const auto &ms = arc._expr->eval(context);
     uint32_t shadowWeight = 0;
 
@@ -939,7 +939,7 @@ auto ColoredPetriNetBuilder::strip_colors() -> PetriNetBuilder & {
     return _ptBuilder;
 }
 
-auto ColoredPetriNetBuilder::arc_to_string(const Colored::Arc &arc) const -> std::string {
+auto ColoredPetriNetBuilder::arc_to_string(const Colored::arc_t &arc) const -> std::string {
     return !arc._input
                ? "(" + _transitions[arc._transition]._name + ", " + _places[arc._place]._name + ")"
                : "(" + _places[arc._place]._name + ", " + _transitions[arc._transition]._name + ")";

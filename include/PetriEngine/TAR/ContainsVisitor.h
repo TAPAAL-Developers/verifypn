@@ -25,25 +25,25 @@ using namespace Reachability;
 using namespace PQL;
 template <typename T> class ContainsVisitor : public Visitor {
   public:
-    ContainsVisitor() {}
-    bool does_contain() const { return _value; }
+    ContainsVisitor() = default;
+    [[nodiscard]] auto does_contain() const -> bool { return _value; }
 
   private:
     bool _value = false;
 
   protected:
-    template <typename K> bool found_type(K element) {
+    template <typename K> auto found_type(K element) -> bool {
         if (std::is_same<const T *, K>::value)
             _value = true;
         return _value;
     }
 
-    virtual void _accept(const NotCondition *element) override {
+    void accept(const NotCondition *element) override {
         if (found_type(element))
             return;
         (*element)[0]->visit(*this);
     }
-    virtual void _accept(const PetriEngine::PQL::AndCondition *element) override {
+    void accept(const PetriEngine::PQL::AndCondition *element) override {
         if (found_type(element))
             return;
         for (auto &e : *element) {
@@ -53,7 +53,7 @@ template <typename T> class ContainsVisitor : public Visitor {
         }
     }
 
-    virtual void _accept(const OrCondition *element) override {
+    void accept(const OrCondition *element) override {
         if (found_type(element))
             return;
         for (auto &e : *element) {
@@ -63,7 +63,7 @@ template <typename T> class ContainsVisitor : public Visitor {
         }
     }
 
-    template <typename K> void handleCompare(const CompareCondition *element) {
+    template <typename K> void handle_compare(const CompareCondition *element) {
         if (found_type(element))
             return;
         (*element)[0]->visit(*this);
@@ -72,33 +72,33 @@ template <typename T> class ContainsVisitor : public Visitor {
         (*element)[1]->visit(*this);
     }
 
-    virtual void _accept(const LessThanCondition *element) override {
-        handleCompare<decltype(element)>(element);
+    void accept(const LessThanCondition *element) override {
+        handle_compare<decltype(element)>(element);
     }
 
-    virtual void _accept(const LessThanOrEqualCondition *element) override {
-        handleCompare<decltype(element)>(element);
+    void accept(const LessThanOrEqualCondition *element) override {
+        handle_compare<decltype(element)>(element);
     }
 
-    virtual void _accept(const NotEqualCondition *element) override {
-        handleCompare<decltype(element)>(element);
+    void accept(const NotEqualCondition *element) override {
+        handle_compare<decltype(element)>(element);
     }
 
-    virtual void _accept(const EqualCondition *element) override {
-        handleCompare<decltype(element)>(element);
+    void accept(const EqualCondition *element) override {
+        handle_compare<decltype(element)>(element);
     }
 
-    virtual void _accept(const IdentifierExpr *element) override {
+    void accept(const IdentifierExpr *element) override {
         if (found_type(element))
             return;
     }
 
-    virtual void _accept(const LiteralExpr *element) override {
+    void accept(const LiteralExpr *element) override {
         if (found_type(element))
             return;
     }
 
-    virtual void _accept(const UnfoldedIdentifierExpr *element) override {
+    void accept(const UnfoldedIdentifierExpr *element) override {
         if (found_type(element))
             return;
     }
@@ -113,53 +113,51 @@ template <typename T> class ContainsVisitor : public Visitor {
         }
     }
 
-    virtual void _accept(const PlusExpr *element) override {
+    void accept(const PlusExpr *element) override { handle_nary_expr<decltype(element)>(element); }
+
+    void accept(const MultiplyExpr *element) override {
         handle_nary_expr<decltype(element)>(element);
     }
 
-    virtual void _accept(const MultiplyExpr *element) override {
-        handle_nary_expr<decltype(element)>(element);
-    }
-
-    virtual void _accept(const MinusExpr *element) override {
+    void accept(const MinusExpr *element) override {
         if (found_type(element))
             return;
         (*element)[0]->visit(*this);
     }
 
-    virtual void _accept(const SubtractExpr *element) override {
+    void accept(const SubtractExpr *element) override {
         handle_nary_expr<decltype(element)>(element);
     }
 
-    virtual void _accept(const DeadlockCondition *element) override {
+    void accept(const DeadlockCondition *element) override {
         if (found_type(element))
             return;
     }
 
-    virtual void _accept(const CompareConjunction *element) override {
+    void accept(const CompareConjunction *element) override {
         if (found_type(element))
             return;
     }
 
-    virtual void _accept(const UnfoldedUpperBoundsCondition *element) override {
+    void accept(const UnfoldedUpperBoundsCondition *element) override {
         if (found_type(element))
             return;
     }
 
-    template <typename K> void handleSimpleQuantifierCondition(K element) {
+    template <typename K> void handle_simple_quantifier_condition(K element) {
         if (found_type(element))
             return;
         (*element)[0]->visit(*this);
     }
 
-    virtual void _accept(const EFCondition *el) { handleSimpleQuantifierCondition(el); }
-    virtual void _accept(const EGCondition *el) { handleSimpleQuantifierCondition(el); }
-    virtual void _accept(const AGCondition *el) { handleSimpleQuantifierCondition(el); }
-    virtual void _accept(const AFCondition *el) { handleSimpleQuantifierCondition(el); }
-    virtual void _accept(const EXCondition *el) { handleSimpleQuantifierCondition(el); }
-    virtual void _accept(const AXCondition *el) { handleSimpleQuantifierCondition(el); }
+    void accept(const EFCondition *el) override { handle_simple_quantifier_condition(el); }
+    void accept(const EGCondition *el) override { handle_simple_quantifier_condition(el); }
+    void accept(const AGCondition *el) override { handle_simple_quantifier_condition(el); }
+    void accept(const AFCondition *el) override { handle_simple_quantifier_condition(el); }
+    void accept(const EXCondition *el) override { handle_simple_quantifier_condition(el); }
+    void accept(const AXCondition *el) override { handle_simple_quantifier_condition(el); }
 
-    virtual void _accept(const EUCondition *el) {
+    void accept(const EUCondition *el) override {
         if (found_type(el))
             return;
         (*el)[0]->visit(*this);
@@ -168,7 +166,7 @@ template <typename T> class ContainsVisitor : public Visitor {
         (*el)[1]->visit(*this);
     }
 
-    virtual void _accept(const AUCondition *el) {
+    void accept(const AUCondition *el) override {
         if (found_type(el))
             return;
         (*el)[0]->visit(*this);
@@ -178,14 +176,14 @@ template <typename T> class ContainsVisitor : public Visitor {
     }
 
     // shallow elements, neither of these should exist in a compiled expression
-    virtual void _accept(const UnfoldedFireableCondition *element) { found_type(element); };
-    virtual void _accept(const FireableCondition *element) { found_type(element); };
-    virtual void _accept(const UpperBoundsCondition *element) { found_type(element); };
-    virtual void _accept(const LivenessCondition *element) { found_type(element); };
-    virtual void _accept(const KSafeCondition *element) { found_type(element); };
-    virtual void _accept(const QuasiLivenessCondition *element) { found_type(element); };
-    virtual void _accept(const StableMarkingCondition *element) { found_type(element); };
-    virtual void _accept(const BooleanCondition *element) { found_type(element); };
+    void accept(const UnfoldedFireableCondition *element) override { found_type(element); };
+    void accept(const FireableCondition *element) override { found_type(element); };
+    void accept(const UpperBoundsCondition *element) override { found_type(element); };
+    void accept(const LivenessCondition *element) override { found_type(element); };
+    void accept(const KSafeCondition *element) override { found_type(element); };
+    void accept(const QuasiLivenessCondition *element) override { found_type(element); };
+    void accept(const StableMarkingCondition *element) override { found_type(element); };
+    void accept(const BooleanCondition *element) override { found_type(element); };
 };
 } // namespace PetriEngine
 

@@ -26,8 +26,7 @@
 
 #include "PetriEngine/Reachability/ReachabilitySearch.h"
 
-namespace PetriEngine {
-namespace Reachability {
+namespace PetriEngine::Reachability {
 class Solver;
 class TARReachabilitySearch {
   private:
@@ -40,28 +39,29 @@ class TARReachabilitySearch {
         _kbound = kbound;
     }
 
-    ~TARReachabilitySearch() {}
+    ~TARReachabilitySearch() = default;
 
     void reachable(std::vector<std::shared_ptr<PQL::Condition>> &queries,
                    std::vector<ResultPrinter::Result> &results, bool printstats, bool printtrace);
 
   private:
     void print_trace(trace_t &stack);
-    void next_edge(AntiChain<uint32_t, size_t> &checked, state_t &state, trace_t &waiting,
+    void next_edge(AntiChain<uint32_t, size_t> &checked, State &state, trace_t &waiting,
                    std::set<size_t> &nextinter);
-    bool try_reach(bool printtrace, Solver &solver);
-    std::pair<bool, bool> run_TAR(bool printtrace, Solver &solver, std::vector<bool> &use_trans);
-    bool pop_done(trace_t &waiting, size_t &stepno);
-    bool do_step(state_t &state, std::set<size_t> &nextinter);
-    void add_non_changing(state_t &state, std::set<size_t> &maximal, std::set<size_t> &nextinter);
-    bool validate(const std::vector<size_t> &transitions);
+    auto try_reach(bool printtrace, Solver &solver) -> bool;
+    auto run_tar(bool printtrace, Solver &solver, std::vector<bool> &use_trans)
+        -> std::pair<bool, bool>;
+    auto pop_done(trace_t &waiting, size_t &stepno) -> bool;
+    auto do_step(State &state, std::set<size_t> &nextinter) -> bool;
+    void add_non_changing(State &state, std::set<size_t> &maximal, std::set<size_t> &nextinter);
+    auto validate(const std::vector<size_t> &transitions) -> bool;
 
     [[maybe_unused]] void handle_invalid_trace(trace_t &waiting, int nvalid);
-    std::pair<int, bool> is_valid_trace(trace_t &trace, Structures::State &initial,
-                                        const std::vector<bool> &, PQL::Condition *query);
+    auto is_valid_trace(trace_t &trace, Structures::State &initial, const std::vector<bool> &,
+                        PQL::Condition *query) -> std::pair<int, bool>;
     void print_stats();
-    bool check_queries(std::vector<std::shared_ptr<PQL::Condition>> &,
-                       std::vector<ResultPrinter::Result> &, Structures::State &, bool);
+    auto check_queries(std::vector<std::shared_ptr<PQL::Condition>> &,
+                       std::vector<ResultPrinter::Result> &, Structures::State &, bool) -> bool;
 
     int _kbound;
     size_t _stepno = 0;
@@ -79,6 +79,5 @@ class TARReachabilitySearch {
 #endif
 };
 
-} // namespace Reachability
-} // namespace PetriEngine
+} // namespace PetriEngine::Reachability
 #endif /* TARREACHABILITY_H */

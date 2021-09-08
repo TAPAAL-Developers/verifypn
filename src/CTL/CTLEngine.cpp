@@ -23,12 +23,12 @@ using namespace PetriNets;
 
 namespace CTL {
 auto get_algorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm> &algorithm,
-                   CTLAlgorithmType algorithmtype, options_t::search_strategy_e search) -> error_e {
+                   ctl_algorithm_type_e algorithmtype, options_t::search_strategy_e search) -> error_e {
     switch (algorithmtype) {
-    case CTLAlgorithmType::Local:
+    case ctl_algorithm_type_e::LOCAL:
         algorithm = std::make_shared<Algorithm::LocalFPA>(search);
         break;
-    case CTLAlgorithmType::CZero:
+    case ctl_algorithm_type_e::C_ZERO:
         algorithm = std::make_shared<Algorithm::CertainZeroFPA>(search);
         break;
     default:
@@ -37,7 +37,7 @@ auto get_algorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm> &algorithm,
     return CONTINUE_CODE;
 }
 
-void print_ctl_result(const std::string &qname, const CTLResult &result, size_t index,
+void print_ctl_result(const std::string &qname, const ctl_result_t &result, size_t index,
                       options_t &options) {
     const static string techniques =
         "TECHNIQUES COLLATERAL_PROCESSING EXPLICIT STATE_COMPRESSION SAT_SMT ";
@@ -46,8 +46,8 @@ void print_ctl_result(const std::string &qname, const CTLResult &result, size_t 
     cout << "FORMULA " << qname << " " << (result._result ? "TRUE" : "FALSE") << " " << techniques
          << (options._is_CPN ? "UNFOLDING_TO_PT " : "")
          << (options._stubborn_reduction ? "STUBBORN_SETS " : "")
-         << (options._ctlalgorithm == CTL::CZero ? "CTL_CZERO " : "")
-         << (options._ctlalgorithm == CTL::Local ? "CTL_LOCAL " : "") << endl
+         << (options._ctlalgorithm == CTL::C_ZERO ? "CTL_CZERO " : "")
+         << (options._ctlalgorithm == CTL::LOCAL ? "CTL_LOCAL " : "") << endl
          << endl;
     std::cout << "Query index " << index << " was solved" << std::endl;
     cout << "Query is" << (result._result ? "" : " NOT") << " satisfied." << endl;
@@ -67,7 +67,7 @@ void print_ctl_result(const std::string &qname, const CTLResult &result, size_t 
     }
 }
 
-auto single_solve(const Condition_ptr &query, const PetriNet &net, CTLResult &result,
+auto single_solve(const Condition_ptr &query, const PetriNet &net, ctl_result_t &result,
                   options_t &options) -> bool {
     OnTheFlyDG graph(net, options._stubborn_reduction);
     graph.set_query(query);
@@ -77,7 +77,7 @@ auto single_solve(const Condition_ptr &query, const PetriNet &net, CTLResult &re
         throw std::exception();
     }
 
-    stopwatch timer;
+    Stopwatch timer;
     timer.start();
     auto res = alg->search(graph);
     timer.stop();
@@ -92,7 +92,7 @@ auto single_solve(const Condition_ptr &query, const PetriNet &net, CTLResult &re
     return res;
 }
 
-auto recursive_solve(const Condition_ptr &query, const PetriNet &net, CTLResult &result,
+auto recursive_solve(const Condition_ptr &query, const PetriNet &net, ctl_result_t &result,
                      options_t &options) -> bool;
 
 class ResultHandler : public AbstractHandler {
@@ -110,19 +110,19 @@ class ResultHandler : public AbstractHandler {
                 const Structures::StateSetInterface *stateset, size_t lastmarking,
                 const MarkVal *initialMarking) const
         -> std::pair<AbstractHandler::Result, bool> override {
-        if (result == ResultPrinter::Satisfied) {
-            result = _lstate[index] < 0 ? ResultPrinter::NotSatisfied : ResultPrinter::Satisfied;
-        } else if (result == ResultPrinter::NotSatisfied) {
-            result = _lstate[index] < 0 ? ResultPrinter::Satisfied : ResultPrinter::NotSatisfied;
+        if (result == ResultPrinter::SATISFIED) {
+            result = _lstate[index] < 0 ? ResultPrinter::NOT_SATISFIED : ResultPrinter::SATISFIED;
+        } else if (result == ResultPrinter::NOT_SATISFIED) {
+            result = _lstate[index] < 0 ? ResultPrinter::SATISFIED : ResultPrinter::NOT_SATISFIED;
         }
-        bool terminate = _is_conj ? (result == ResultPrinter::NotSatisfied)
-                                  : (result == ResultPrinter::Satisfied);
+        bool terminate = _is_conj ? (result == ResultPrinter::NOT_SATISFIED)
+                                  : (result == ResultPrinter::SATISFIED);
         return std::make_pair(result, terminate);
     }
 };
 
 auto solve_logical_condition(LogicalCondition *query, bool is_conj, const PetriNet &net,
-                             CTLResult &result, options_t &options) -> bool {
+                             ctl_result_t &result, options_t &options) -> bool {
     std::vector<int8_t> state(query->size(), 0);
     std::vector<int8_t> lstate;
     std::vector<Condition_ptr> queries;
@@ -136,7 +136,7 @@ auto solve_logical_condition(LogicalCondition *query, bool is_conj, const PetriN
 
     {
         ResultHandler handler(is_conj, lstate);
-        std::vector<AbstractHandler::Result> res(queries.size(), AbstractHandler::Unknown);
+        std::vector<AbstractHandler::Result> res(queries.size(), AbstractHandler::UNKNOWN);
         if (!options._tar) {
             ReachabilitySearch strategy(net, handler, options._kbound, true);
             strategy.reachable(queries, res, options._strategy, options._stubborn_reduction, false,
@@ -148,11 +148,11 @@ auto solve_logical_condition(LogicalCondition *query, bool is_conj, const PetriN
         size_t j = 0;
         for (size_t i = 0; i < query->size(); ++i) {
             if (state[i] != 0) {
-                if (res[j] == AbstractHandler::Unknown) {
+                if (res[j] == AbstractHandler::UNKNOWN) {
                     ++j;
                     continue;
                 }
-                auto bres = res[j] == AbstractHandler::Satisfied;
+                auto bres = res[j] == AbstractHandler::SATISFIED;
 
                 if (bres xor is_conj) {
                     return !is_conj;
@@ -185,7 +185,7 @@ class SimpleResultHandler : public AbstractHandler {
 };
 
 auto recursive_solve(const Condition_ptr &query, const PetriEngine::PetriNet &net,
-                     CTLResult &result, options_t &options) -> bool {
+                     ctl_result_t &result, options_t &options) -> bool {
     if (auto q = dynamic_cast<NotCondition *>(query.get())) {
         return !recursive_solve((*q)[0], net, result, options);
     } else if (auto q = dynamic_cast<AndCondition *>(query.get())) {
@@ -196,7 +196,7 @@ auto recursive_solve(const Condition_ptr &query, const PetriEngine::PetriNet &ne
         SimpleResultHandler handler;
         std::vector<Condition_ptr> queries{query->prepare_for_reachability()};
         std::vector<AbstractHandler::Result> res;
-        res.emplace_back(AbstractHandler::Unknown);
+        res.emplace_back(AbstractHandler::UNKNOWN);
         if (options._tar) {
             TARReachabilitySearch tar(handler, net, nullptr, options._kbound);
             tar.reachable(queries, res, false, false);
@@ -205,14 +205,14 @@ auto recursive_solve(const Condition_ptr &query, const PetriEngine::PetriNet &ne
             strategy.reachable(queries, res, options._strategy, options._stubborn_reduction, false,
                                false, false, options.seed());
         }
-        return (res.back() == AbstractHandler::Satisfied) xor query->is_invariant();
+        return (res.back() == AbstractHandler::SATISFIED) xor query->is_invariant();
     } else {
         return single_solve(query, net, result, options);
     }
 }
 
-auto verify_ctl(const PetriNet &net, Condition_ptr &query, options_t &options) -> CTLResult {
-    CTLResult result(query);
+auto verify_ctl(const PetriNet &net, Condition_ptr &query, options_t &options) -> ctl_result_t {
+    ctl_result_t result(query);
     bool solved = false;
 
     {

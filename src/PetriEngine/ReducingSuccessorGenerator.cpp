@@ -34,7 +34,7 @@ auto ReducingSuccessorGenerator::next(Structures::State &write) -> bool {
         return false;
     }
     assert(check_preset(_current));
-    _fire(write, _current);
+    fire(write, _current);
     return true;
 }
 

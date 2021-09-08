@@ -20,20 +20,19 @@
 
 #include "ColoredNetStructures.h"
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 class IntervalGenerator {
   public:
     IntervalGenerator();
-    bool
+    auto
     get_var_intervals(std::vector<VariableIntervalMap> &variableMaps,
-                      const std::unordered_map<uint32_t, arc_intervals_t> &placeArcIntervals) const;
+                      const std::unordered_map<uint32_t, arc_intervals_t> &placeArcIntervals) const
+        -> bool;
 
   private:
-    std::vector<interval_t>
-    get_intervals_from_interval(const interval_t &interval, uint32_t varPosition,
-                                int32_t varModifier,
-                                const std::vector<const ColorType *> &varColorTypes) const;
+    [[nodiscard]] auto get_intervals_from_interval(
+        const interval_t &interval, uint32_t varPosition, int32_t varModifier,
+        const std::vector<const ColorType *> &varColorTypes) const -> std::vector<interval_t>;
 
     void get_arc_var_intervals(IntervalVector &varIntervals,
                                const std::unordered_map<uint32_t, int32_t> &modIndexMap,
@@ -48,7 +47,6 @@ class IntervalGenerator {
                        const arc_intervals_t &arcIntervals, const uint32_t &intervalTupleSize,
                        const uint32_t &tuplePos) const;
 };
-} // namespace Colored
-} // namespace PetriEngine
+} // namespace PetriEngine::Colored
 
 #endif /* INTERVALGENERATOR_H */

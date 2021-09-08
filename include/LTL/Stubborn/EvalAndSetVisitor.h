@@ -33,39 +33,39 @@ class EvalAndSetVisitor : public PetriEngine::PQL::MutatingVisitor {
 
   protected:
   protected:
-    void _accept(PetriEngine::PQL::ACondition *condition) override;
+    void accept(PetriEngine::PQL::ACondition *condition) override;
 
-    void _accept(PetriEngine::PQL::ECondition *condition) override;
+    void accept(PetriEngine::PQL::ECondition *condition) override;
 
-    void _accept(PetriEngine::PQL::GCondition *condition) override;
+    void accept(PetriEngine::PQL::GCondition *condition) override;
 
-    void _accept(PetriEngine::PQL::FCondition *condition) override;
+    void accept(PetriEngine::PQL::FCondition *condition) override;
 
-    void _accept(PetriEngine::PQL::XCondition *condition) override;
+    void accept(PetriEngine::PQL::XCondition *condition) override;
 
-    void _accept(PetriEngine::PQL::UntilCondition *condition) override;
+    void accept(PetriEngine::PQL::UntilCondition *condition) override;
 
-    void _accept(PetriEngine::PQL::NotCondition *element) override;
+    void accept(PetriEngine::PQL::NotCondition *element) override;
 
-    void _accept(PetriEngine::PQL::AndCondition *element) override;
+    void accept(PetriEngine::PQL::AndCondition *element) override;
 
-    void _accept(PetriEngine::PQL::OrCondition *element) override;
+    void accept(PetriEngine::PQL::OrCondition *element) override;
 
-    void _accept(PetriEngine::PQL::LessThanCondition *element) override;
+    void accept(PetriEngine::PQL::LessThanCondition *element) override;
 
-    void _accept(PetriEngine::PQL::LessThanOrEqualCondition *element) override;
+    void accept(PetriEngine::PQL::LessThanOrEqualCondition *element) override;
 
-    void _accept(PetriEngine::PQL::EqualCondition *element) override;
+    void accept(PetriEngine::PQL::EqualCondition *element) override;
 
-    void _accept(PetriEngine::PQL::NotEqualCondition *element) override;
+    void accept(PetriEngine::PQL::NotEqualCondition *element) override;
 
-    void _accept(PetriEngine::PQL::DeadlockCondition *element) override;
+    void accept(PetriEngine::PQL::DeadlockCondition *element) override;
 
-    void _accept(PetriEngine::PQL::CompareConjunction *element) override;
+    void accept(PetriEngine::PQL::CompareConjunction *element) override;
 
-    void _accept(PetriEngine::PQL::UnfoldedUpperBoundsCondition *element) override;
+    void accept(PetriEngine::PQL::UnfoldedUpperBoundsCondition *element) override;
 
-    void _accept(PetriEngine::PQL::BooleanCondition *element) override;
+    void accept(PetriEngine::PQL::BooleanCondition *element) override;
 };
 
 } // namespace LTL

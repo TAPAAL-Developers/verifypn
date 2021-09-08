@@ -153,7 +153,7 @@ auto main(int argc, char *argv[]) -> int {
     auto builder = options._cpn_overapprox ? cpnBuilder.strip_colors() : cpnBuilder.unfold();
     print_unfolding_stats(cpnBuilder, options);
     builder.sort();
-    std::vector<ResultPrinter::Result> results(queries.size(), ResultPrinter::Result::Unknown);
+    std::vector<ResultPrinter::Result> results(queries.size(), ResultPrinter::Result::UNKNOWN);
     ResultPrinter printer(builder, options, querynames);
 
     //----------------------- Query Simplification -----------------------//
@@ -190,7 +190,7 @@ auto main(int argc, char *argv[]) -> int {
         // Compute how many times each place appears in the query
         builder.start_timer();
         builder.reduce(queries, results, options._enable_reduction,
-                       options._trace != options_t::trace_level_e::None, nullptr,
+                       options._trace != options_t::trace_level_e::NONE, nullptr,
                        options._reduction_timeout, options._reductions);
         printer.set_reducer(builder.get_reducer());
     }
@@ -212,7 +212,7 @@ auto main(int argc, char *argv[]) -> int {
         return replay_trace(cpnBuilder, builder, *net, queries, results, options);
     }
 
-    if (options._strategy != options_t::search_strategy_e::OverApprox) {
+    if (options._strategy != options_t::search_strategy_e::OVER_APPROX) {
 
         //----------------------- Verify CTL queries -----------------------//
         std::vector<size_t> ctl_ids;
@@ -244,7 +244,7 @@ auto main(int argc, char *argv[]) -> int {
                 CTL::print_ctl_result(querynames[i], r, i, options);
             }
 
-            if (std::find(results.begin(), results.end(), ResultPrinter::Unknown) ==
+            if (std::find(results.begin(), results.end(), ResultPrinter::UNKNOWN) ==
                 results.end()) {
                 return v;
             }
@@ -255,7 +255,7 @@ auto main(int argc, char *argv[]) -> int {
 
         //----------------------- Verify LTL queries -----------------------//
 
-        if (!ltl_ids.empty() && options._ltl_algorithm != LTL::Algorithm::None) {
+        if (!ltl_ids.empty() && options._ltl_algorithm != LTL::algorithm_e::NONE) {
             options._used_ltl = true;
             if ((v = context_analysis(cpnBuilder, builder, *net, queries)) != CONTINUE_CODE) {
                 std::cerr << "Error performing context analysis" << std::endl;
@@ -291,7 +291,7 @@ auto main(int argc, char *argv[]) -> int {
 
             // Reachability search
             strategy.reachable(queries, results, options._print_statistics,
-                               options._trace != options_t::trace_level_e::None);
+                               options._trace != options_t::trace_level_e::NONE);
         } else {
             // Change default place-holder to default strategy
             if (options._strategy == options_t::search_strategy_e::DEFAULT)
@@ -302,7 +302,7 @@ auto main(int argc, char *argv[]) -> int {
             // Reachability search
             strategy.reachable(queries, results, options._strategy, options._stubborn_reduction,
                                options._statespace_exploration, options._print_statistics,
-                               options._trace != options_t::trace_level_e::None, options.seed());
+                               options._trace != options_t::trace_level_e::NONE, options.seed());
         }
     }
 

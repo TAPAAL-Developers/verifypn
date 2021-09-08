@@ -61,7 +61,7 @@ class TarjanModelChecker : public ModelChecker<ProductSucGen, SuccessorGen, Spoo
 
     auto is_satisfied() -> bool;
 
-    void print_stats(std::ostream &os) override { this->_print_stats(os, _seen); }
+    void print_stats(std::ostream &os) override { ModelChecker<ProductSucGen, SuccessorGen, Spooler...>::print_stats(os, _seen); }
 
   private:
     using State = LTL::Structures::ProductState;
@@ -81,40 +81,40 @@ class TarjanModelChecker : public ModelChecker<ProductSucGen, SuccessorGen, Spoo
     std::array<idx_t, _hash_sz> _chash;
     static_assert(sizeof(_chash) == (1U << 27U));
 
-    static inline idx_t hash(idx_t id) { return id % _hash_sz; }
+    static inline auto hash(idx_t id) -> idx_t { return id % _hash_sz; }
 
-    struct PlainCEntry {
+    struct plain_c_entry_t {
         idx_t _lowlink;
         idx_t _stateid;
         idx_t _next = std::numeric_limits<idx_t>::max();
         bool _dstack = true;
 
-        PlainCEntry(idx_t lowlink, idx_t stateid, idx_t next)
+        plain_c_entry_t(idx_t lowlink, idx_t stateid, idx_t next)
             : _lowlink(lowlink), _stateid(stateid), _next(next) {}
     };
 
-    struct TracableCEntry : PlainCEntry {
+    struct tracable_c_entry_t : plain_c_entry_t {
         idx_t _lowsource = std::numeric_limits<idx_t>::max();
         idx_t _sourcetrans;
 
-        TracableCEntry(idx_t lowlink, idx_t stateid, idx_t next)
-            : PlainCEntry(lowlink, stateid, next) {}
+        tracable_c_entry_t(idx_t lowlink, idx_t stateid, idx_t next)
+            : plain_c_entry_t(lowlink, stateid, next) {}
     };
 
-    using CEntry = std::conditional_t<SaveTrace, TracableCEntry, PlainCEntry>;
+    using CEntry = std::conditional_t<SaveTrace, tracable_c_entry_t, plain_c_entry_t>;
 
-    struct DEntry {
+    struct d_entry_t {
         idx_t _pos; // position in cstack.
 
         typename SuccessorGen::successor_info_t _sucinfo;
 
-        explicit DEntry(idx_t pos) : _pos(pos), _sucinfo(SuccessorGen::initial_suc_info()) {}
+        explicit d_entry_t(idx_t pos) : _pos(pos), _sucinfo(SuccessorGen::initial_suc_info()) {}
     };
 
     // master list of state information.
     std::vector<CEntry> _cstack;
     // depth-first search stack, contains current search path.
-    std::stack<DEntry> _dstack;
+    std::stack<d_entry_t> _dstack;
     // cstack positions of accepting states in current search path, for quick access.
     std::stack<idx_t> _astack;
 
@@ -128,11 +128,11 @@ class TarjanModelChecker : public ModelChecker<ProductSucGen, SuccessorGen, Spoo
 
     void update(idx_t to);
 
-    auto next_trans(State &state, State &parent, DEntry &delem) -> bool;
+    auto next_trans(State &state, State &parent, d_entry_t &delem) -> bool;
 
-    void pop_C_stack();
+    void pop_c_stack();
 
-    void print_trace(std::stack<DEntry> &&dstack, std::ostream &os = std::cout);
+    void print_trace(std::stack<d_entry_t> &&dstack, std::ostream &os = std::cout);
 };
 extern template class TarjanModelChecker<ProductSuccessorGenerator, LTL::ResumingSuccessorGenerator,
                                          true>;

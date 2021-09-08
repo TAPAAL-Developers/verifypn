@@ -22,26 +22,25 @@
 #include "../PQL/PQL.h"
 #include "StateSet.h"
 
-namespace PetriEngine {
-namespace Structures {
+namespace PetriEngine::Structures {
 class Queue {
   public:
     Queue(StateSetInterface &states);
     virtual ~Queue();
-    virtual bool pop(Structures::State &state) = 0;
-    size_t last_popped() { return last; }
+    virtual auto pop(Structures::State &state) -> bool = 0;
+    auto last_popped() -> size_t { return _last; }
 
   protected:
     StateSetInterface &_states;
-    size_t last = 0;
+    size_t _last = 0;
 };
 
 class BFSQueue : public Queue {
   public:
     BFSQueue(StateSetInterface &states);
-    virtual ~BFSQueue();
+    ~BFSQueue() override;
 
-    virtual bool pop(Structures::State &state);
+    auto pop(Structures::State &state) -> bool override;
     void push(size_t id);
 
   private:
@@ -52,10 +51,10 @@ class BFSQueue : public Queue {
 class DFSQueue : public Queue {
   public:
     DFSQueue(StateSetInterface &states);
-    virtual ~DFSQueue();
+    ~DFSQueue() override;
 
-    virtual bool pop(Structures::State &state);
-    bool top(Structures::State &state) const;
+    auto pop(Structures::State &state) -> bool override;
+    auto top(Structures::State &state) const -> bool;
     void push(size_t id);
 
   private:
@@ -65,10 +64,10 @@ class DFSQueue : public Queue {
 class RDFSQueue : public Queue {
   public:
     RDFSQueue(StateSetInterface &states, size_t seed);
-    virtual ~RDFSQueue();
+    ~RDFSQueue() override;
 
-    virtual bool pop(Structures::State &state);
-    bool top(Structures::State &state);
+    auto pop(Structures::State &state) -> bool override;
+    auto top(Structures::State &state) -> bool;
     void push(size_t id);
 
   private:
@@ -80,28 +79,27 @@ class RDFSQueue : public Queue {
 class HeuristicQueue : public Queue {
   public:
     struct weighted_t {
-        size_t weight;
-        size_t item;
-        weighted_t(size_t w, size_t i) : weight(w), item(i){};
-        bool operator<(const weighted_t &y) const {
-            if (weight == y.weight)
-                return item < y.item; // do dfs if they match
+        size_t _weight;
+        size_t _item;
+        weighted_t(size_t w, size_t i) : _weight(w), _item(i){};
+        auto operator<(const weighted_t &y) const -> bool {
+            if (_weight == y._weight)
+                return _item < y._item; // do dfs if they match
             //                    if(weight == y.weight) return item > y.item;// do bfs if they
             //                    match
-            return weight > y.weight;
+            return _weight > y._weight;
         }
     };
 
     HeuristicQueue(StateSetInterface &states);
-    virtual ~HeuristicQueue();
+    ~HeuristicQueue() override;
 
-    virtual bool pop(Structures::State &state);
+    auto pop(Structures::State &state) -> bool override;
     void push(size_t id, uint32_t distance);
 
   private:
     std::priority_queue<weighted_t> _queue;
 };
-} // namespace Structures
-} // namespace PetriEngine
+} // namespace PetriEngine::Structures
 
 #endif /* QUEUE_H */

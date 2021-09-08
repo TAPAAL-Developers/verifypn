@@ -19,13 +19,13 @@ namespace CTL::SearchStrategy {
 
 class RDFSSearch : public SearchStrategy {
   public:
-    void flush();
+    void flush() override;
 
   protected:
-    size_t waiting_size() const;
-    void push_to_waiting(DependencyGraph::Edge *edge);
-    DependencyGraph::Edge *pop_from_waiting();
-    std::vector<DependencyGraph::Edge *> W;
+    [[nodiscard]] auto waiting_size() const -> size_t override;
+    void push_to_waiting(DependencyGraph::Edge *edge) override;
+    auto pop_from_waiting() -> DependencyGraph::Edge * override;
+    std::vector<DependencyGraph::Edge *> _waiting;
     size_t _last_parent = 0;
 };
 

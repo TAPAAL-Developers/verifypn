@@ -59,7 +59,7 @@ class AnalysisContext {
     [[nodiscard]] auto net() const -> const PetriNet & { return *_net; }
 
     /** Resolve an identifier */
-    virtual resolution_result_t resolve(const std::string &identifier, bool place = true);
+    virtual auto resolve(const std::string &identifier, bool place = true) -> resolution_result_t;
 
     /** Report error */
     void report_error(const ExprError &error) { _errors.push_back(error); }

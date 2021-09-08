@@ -23,14 +23,13 @@
 #include "Colors.h"
 #include "Expressions.h"
 #include "Multiset.h"
-#include <assert.h>
+#include <cassert>
 #include <set>
 #include <vector>
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 
-struct Arc {
+struct arc_t {
     uint32_t _place;
     uint32_t _transition;
     ArcExpression_ptr _expr;
@@ -38,23 +37,22 @@ struct Arc {
     uint32_t _weight;
 };
 
-struct Transition {
+struct transition_t {
     std::string _name;
     GuardExpression_ptr _guard;
-    std::vector<Arc> _input_arcs;
-    std::vector<Arc> _output_arcs;
+    std::vector<arc_t> _input_arcs;
+    std::vector<arc_t> _output_arcs;
     std::vector<std::unordered_map<const Variable *, IntervalVector>> _variable_maps;
     bool _considered;
 };
 
-struct Place {
+struct place_t {
     std::string _name;
     const ColorType *_type;
     Multiset _marking;
     bool _inhibitor;
     bool _stable = true;
 };
-} // namespace Colored
-} // namespace PetriEngine
+} // namespace PetriEngine::Colored
 
 #endif /* COLOREDNETSTRUCTURES_H */

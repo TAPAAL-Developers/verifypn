@@ -11,13 +11,13 @@ class LocalFPA : public FixedPointAlgorithm {
     // FixedPointAlgorithm interface
   public:
     LocalFPA(options_t::search_strategy_e type) : FixedPointAlgorithm(type) {}
-    virtual ~LocalFPA() {}
-    virtual bool search(DependencyGraph::BasicDependencyGraph &graph);
+    ~LocalFPA() override = default;
+    auto search(DependencyGraph::BasicDependencyGraph &graph) -> bool override;
 
   protected:
     DependencyGraph::BasicDependencyGraph *_graph;
 
-    void final_assign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
+    void final_assign(DependencyGraph::Configuration *c, DependencyGraph::assignment_e a);
     void explore(DependencyGraph::Configuration *c);
     void add_dependency(DependencyGraph::Edge *e, DependencyGraph::Configuration *target);
 };

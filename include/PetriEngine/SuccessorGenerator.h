@@ -29,15 +29,15 @@ class SuccessorGenerator {
                        const std::vector<std::shared_ptr<PQL::Condition>> &queries);
     SuccessorGenerator(const PetriNet &net, const std::shared_ptr<PQL::Condition> &query);
     virtual ~SuccessorGenerator();
-    virtual bool prepare(const Structures::State &state);
-    virtual bool next(Structures::State &write);
-    virtual uint32_t fired() const {
+    virtual auto prepare(const Structures::State &state) -> bool;
+    virtual auto next(Structures::State &write) -> bool;
+    [[nodiscard]] virtual auto fired() const -> uint32_t {
         return _suc_tcounter == std::numeric_limits<uint32_t>::max()
                    ? std::numeric_limits<uint32_t>::max()
                    : _suc_tcounter - 1;
     }
 
-    const MarkVal *get_parent() const { return _parent->marking(); }
+    [[nodiscard]] virtual auto get_parent() const -> const MarkVal * { return _parent->marking(); }
 
     void reset();
 
@@ -48,7 +48,7 @@ class SuccessorGenerator {
      * @param write, marking to consume from (possibly nullptr)
      * @return true if t is fireable, false otherwise
      */
-    bool check_preset(uint32_t t);
+    auto check_preset(uint32_t t) -> bool;
 
     /**
      * Consumes tokens in preset of t without from marking write checking
@@ -67,9 +67,9 @@ class SuccessorGenerator {
   protected:
     const PetriNet &_net;
 
-    bool next(Structures::State &write, uint32_t &tindex);
+    auto next(Structures::State &write, uint32_t &tindex) -> bool;
 
-    void _fire(Structures::State &write, uint32_t tid);
+    void fire(Structures::State &write, uint32_t tid);
 
     const Structures::State *_parent;
 

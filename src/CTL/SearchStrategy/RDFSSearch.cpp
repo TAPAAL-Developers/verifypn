@@ -12,25 +12,25 @@
 #include <random>
 
 namespace CTL::SearchStrategy {
-auto RDFSSearch::waiting_size() const -> size_t { return W.size(); }
+auto RDFSSearch::waiting_size() const -> size_t { return _waiting.size(); }
 
 auto RDFSSearch::pop_from_waiting() -> DependencyGraph::Edge * {
-    auto e = W.back();
-    W.pop_back();
-    _last_parent = W.size();
+    auto e = _waiting.back();
+    _waiting.pop_back();
+    _last_parent = _waiting.size();
     return e;
 }
 
 void RDFSSearch::push_to_waiting(DependencyGraph::Edge *edge) {
-    _last_parent = std::min(W.size(), _last_parent);
-    W.push_back(edge);
+    _last_parent = std::min(_waiting.size(), _last_parent);
+    _waiting.push_back(edge);
 }
 
 auto rng = std::default_random_engine{};
 void RDFSSearch::flush() {
-    _last_parent = std::min(_last_parent, W.size());
-    std::shuffle(W.begin() + _last_parent, W.end(), rng);
-    _last_parent = W.size();
+    _last_parent = std::min(_last_parent, _waiting.size());
+    std::shuffle(_waiting.begin() + _last_parent, _waiting.end(), rng);
+    _last_parent = _waiting.size();
 }
 
 } // namespace CTL::SearchStrategy

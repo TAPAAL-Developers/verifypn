@@ -39,18 +39,18 @@ class AutomatonStubbornSet : public PetriEngine::StubbornSet, public SuccessorSp
             .set_interesting_visitor<PetriEngine::AutomatonInterestingTransitionVisitor>();
     }
 
-    bool prepare(const PetriEngine::Structures::State &marking) override {
+    auto prepare(const PetriEngine::Structures::State &marking) -> bool override {
         return prepare(dynamic_cast<const LTL::Structures::ProductState &>(marking));
     }
 
-    bool prepare(const LTL::Structures::ProductState &state) override;
+    auto prepare(const LTL::Structures::ProductState &state) -> bool override;
 
-    uint32_t next() override;
+    auto next() -> uint32_t override;
 
     void reset() override;
 
   private:
-    static bool has_shared_mark(const bool *a, const bool *b, size_t size) {
+    static auto has_shared_mark(const bool *a, const bool *b, size_t size) -> bool {
         for (size_t i = 0; i < size; ++i) {
             if (a[i] && b[i])
                 return true;
@@ -76,17 +76,17 @@ class AutomatonStubbornSet : public PetriEngine::StubbornSet, public SuccessorSp
 
     std::unordered_set<uint32_t> _pending_stubborn;
 
-    void _reset_pending();
+    void reset_pending();
 
-    void _apply_pending();
+    void apply_pending();
 
     void __print_debug();
 
     void set_all_stubborn();
 
-    bool _closure();
+    auto closure() -> bool;
 
-    bool _cond3_valid(uint32_t t);
+    auto cond3_valid(uint32_t t) -> bool;
 
     friend class NondeterministicConjunctionVisitor;
 };

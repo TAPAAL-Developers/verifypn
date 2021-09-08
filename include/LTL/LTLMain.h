@@ -23,8 +23,8 @@
 #include "options.h"
 
 namespace LTL {
-bool verify_ltl(const PetriEngine::PetriNet &net, const PetriEngine::PQL::Condition_ptr &query,
-                const std::string &queryName, options_t &options);
+auto verify_ltl(const PetriEngine::PetriNet &net, const PetriEngine::PQL::Condition_ptr &query,
+                const std::string &queryName, options_t &options) -> bool;
 }
 
 #endif // VERIFYPN_LTLMAIN_H

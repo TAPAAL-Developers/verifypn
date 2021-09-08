@@ -17,8 +17,8 @@ RangeEvalContext::RangeEvalContext(const prvector_t &vector, const PetriNet &net
                                    const uint64_t *use_count)
     : _ranges(vector), _net(net), _use_count(use_count) {}
 
-void RangeEvalContext::_accept(const NotCondition *element) { assert(false); }
-void RangeEvalContext::_accept(const AndCondition *element) {
+void RangeEvalContext::accept(const NotCondition *element) { assert(false); }
+void RangeEvalContext::accept(const AndCondition *element) {
     prvector_t sufficient;
     sufficient = _sufficient;
     auto best = _sufficient;
@@ -40,7 +40,7 @@ void RangeEvalContext::_accept(const AndCondition *element) {
     _bool_result = !found; // true on TOS
 }
 
-void RangeEvalContext::_accept(const OrCondition *element) {
+void RangeEvalContext::accept(const OrCondition *element) {
     prvector_t sufficient = _sufficient;
     for (auto &c : *element) {
         c->visit(*this);
@@ -100,34 +100,34 @@ void RangeEvalContext::handle_compare(const Expr_ptr &left, const Expr_ptr &righ
     }
 }
 
-void RangeEvalContext::_accept(const EqualCondition *element) {
+void RangeEvalContext::accept(const EqualCondition *element) {
     _bool_result = true; // TODO handle better
 }
 
-void RangeEvalContext::_accept(const NotEqualCondition *element) {
+void RangeEvalContext::accept(const NotEqualCondition *element) {
     _bool_result = true; // TODO handle better
 }
 
-void RangeEvalContext::_accept(const LessThanCondition *element) {
+void RangeEvalContext::accept(const LessThanCondition *element) {
     handle_compare((*element)[0], (*element)[1], true);
 }
 
-void RangeEvalContext::_accept(const LessThanOrEqualCondition *element) {
+void RangeEvalContext::accept(const LessThanOrEqualCondition *element) {
     handle_compare((*element)[0], (*element)[1], false);
 }
 
-void RangeEvalContext::_accept(const DeadlockCondition *element) { _bool_result = true; }
+void RangeEvalContext::accept(const DeadlockCondition *element) { _bool_result = true; }
 
-void RangeEvalContext::_accept(const CompareConjunction *element) {
+void RangeEvalContext::accept(const CompareConjunction *element) {
     placerange_t tmp;
     bool found = false;
     for (const CompareConjunction::cons_t &c : *element) {
         auto it = _ranges[c._place];
-        if (it == nullptr && element->isNegated()) {
+        if (it == nullptr && element->is_negated()) {
             _bool_result = true; // disjunction, one element has viable satisfiability
             return;
         }
-        if (element->isNegated()) {
+        if (element->is_negated()) {
             if (it == nullptr ||                // unconstraint
                 it->_range._upper < c._lower || // -INF [... it->_upper] [c._lower, c._upper] + INF
                 c._upper < it->_range._lower    // -INF [c._lower, c._upper] [it->_lower ...] + INF
@@ -164,7 +164,7 @@ void RangeEvalContext::_accept(const CompareConjunction *element) {
         }
     }
     // negated = disj = "nothing is true at this point", otherwise conj = "everything is true"
-    if (!element->isNegated()) {
+    if (!element->is_negated()) {
         if (found) {
             _sufficient &= tmp;
             // tmp.print(std::cerr) << std::endl;
@@ -172,16 +172,16 @@ void RangeEvalContext::_accept(const CompareConjunction *element) {
         _bool_result = !found;
         return;
     }
-    _bool_result = !element->isNegated();
+    _bool_result = !element->is_negated();
 }
 
-void RangeEvalContext::_accept(const LiteralExpr *element) { _literal = element->value(); }
+void RangeEvalContext::accept(const LiteralExpr *element) { _literal = element->value(); }
 
-void RangeEvalContext::_accept(const UnfoldedIdentifierExpr *element) {
+void RangeEvalContext::accept(const UnfoldedIdentifierExpr *element) {
     _places.emplace_back(element->offset());
 }
 
-void RangeEvalContext::_accept(const PlusExpr *element) {
+void RangeEvalContext::accept(const PlusExpr *element) {
     for (auto &e : element->expressions())
         e->visit(*this);
     _literal += element->constant();
@@ -189,11 +189,11 @@ void RangeEvalContext::_accept(const PlusExpr *element) {
         _places.push_back(p.first);
 }
 
-void RangeEvalContext::_accept(const UnfoldedUpperBoundsCondition *element) { _bool_result = true; }
+void RangeEvalContext::accept(const UnfoldedUpperBoundsCondition *element) { _bool_result = true; }
 
-void RangeEvalContext::_accept(const MultiplyExpr *) { _bool_result = true; }
+void RangeEvalContext::accept(const MultiplyExpr *) { _bool_result = true; }
 
-void RangeEvalContext::_accept(const MinusExpr *) { _bool_result = true; }
+void RangeEvalContext::accept(const MinusExpr *) { _bool_result = true; }
 
-void RangeEvalContext::_accept(const SubtractExpr *) { _bool_result = true; }
+void RangeEvalContext::accept(const SubtractExpr *) { _bool_result = true; }
 } // namespace PetriEngine

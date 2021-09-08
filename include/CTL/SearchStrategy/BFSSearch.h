@@ -19,9 +19,9 @@ namespace CTL::SearchStrategy {
 class BFSSearch : public SearchStrategy {
 
   protected:
-    size_t waiting_size() const { return _waiting.size(); };
-    void push_to_waiting(DependencyGraph::Edge *edge) { _waiting.push(edge); };
-    DependencyGraph::Edge *pop_from_waiting() {
+    [[nodiscard]] auto waiting_size() const -> size_t override { return _waiting.size(); };
+    void push_to_waiting(DependencyGraph::Edge *edge) override { _waiting.push(edge); };
+    auto pop_from_waiting() -> DependencyGraph::Edge * override {
         auto e = _waiting.front();
         _waiting.pop();
         return e;

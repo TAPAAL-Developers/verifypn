@@ -23,11 +23,11 @@
 namespace LTL {
 class LTLValidator : public PetriEngine::PQL::Visitor {
   public:
-    bool bad() const { return _bad; }
+    [[nodiscard]] auto bad() const -> bool { return _bad; }
 
     operator bool() const { return !bad(); }
 
-    bool is_LTL(const PetriEngine::PQL::Condition_ptr &condition) {
+    auto is_ltl(const PetriEngine::PQL::Condition_ptr &condition) -> bool {
         std::shared_ptr<PetriEngine::PQL::SimpleQuantifierCondition> quantifierCondition;
         if ((quantifierCondition =
                  std::dynamic_pointer_cast<PetriEngine::PQL::ACondition>(condition)) != nullptr ||
@@ -41,135 +41,135 @@ class LTLValidator : public PetriEngine::PQL::Visitor {
     }
 
   protected:
-    void _visit_nary(const PetriEngine::PQL::LogicalCondition *condition) {
+    void visit_nary(const PetriEngine::PQL::LogicalCondition *condition) {
         for (const auto &cond : *condition) {
             cond->visit(*this);
         }
     };
 
-    void _accept(const PetriEngine::PQL::EFCondition *condition) override {
+    void accept(const PetriEngine::PQL::EFCondition *condition) override {
         set_bad();
         std::cerr << "found EFCondition" << std::endl;
     }
 
-    void _accept(const PetriEngine::PQL::EGCondition *condition) override {
+    void accept(const PetriEngine::PQL::EGCondition *condition) override {
         set_bad();
         std::cerr << "found EGCondition" << std::endl;
     }
 
-    void _accept(const PetriEngine::PQL::AGCondition *condition) override {
+    void accept(const PetriEngine::PQL::AGCondition *condition) override {
         set_bad();
         std::cerr << "found AGCondition" << std::endl;
     }
 
-    void _accept(const PetriEngine::PQL::AFCondition *condition) override {
+    void accept(const PetriEngine::PQL::AFCondition *condition) override {
         set_bad();
         std::cerr << "found AFCondition" << std::endl;
     }
 
-    void _accept(const PetriEngine::PQL::EXCondition *condition) override {
+    void accept(const PetriEngine::PQL::EXCondition *condition) override {
         set_bad();
         std::cerr << "found EXCondition" << std::endl;
     }
 
-    void _accept(const PetriEngine::PQL::AXCondition *condition) override {
+    void accept(const PetriEngine::PQL::AXCondition *condition) override {
         set_bad();
         std::cerr << "found AXCondition" << std::endl;
     }
 
-    void _accept(const PetriEngine::PQL::EUCondition *condition) override {
+    void accept(const PetriEngine::PQL::EUCondition *condition) override {
         set_bad();
         std::cerr << "found EUCondition" << std::endl;
     }
 
-    void _accept(const PetriEngine::PQL::AUCondition *condition) override {
+    void accept(const PetriEngine::PQL::AUCondition *condition) override {
         set_bad();
         std::cerr << "found AUCondition" << std::endl;
     }
 
-    void _accept(const PetriEngine::PQL::ACondition *condition) override { set_bad(); }
+    void accept(const PetriEngine::PQL::ACondition *condition) override { set_bad(); }
 
-    void _accept(const PetriEngine::PQL::ECondition *condition) override { set_bad(); }
+    void accept(const PetriEngine::PQL::ECondition *condition) override { set_bad(); }
 
-    void _accept(const PetriEngine::PQL::NotCondition *element) override {
+    void accept(const PetriEngine::PQL::NotCondition *element) override {
         (*element)[0]->visit(*this);
     }
 
-    void _accept(const PetriEngine::PQL::AndCondition *element) override { _visit_nary(element); }
+    void accept(const PetriEngine::PQL::AndCondition *element) override { visit_nary(element); }
 
-    void _accept(const PetriEngine::PQL::OrCondition *element) override { _visit_nary(element); }
+    void accept(const PetriEngine::PQL::OrCondition *element) override { visit_nary(element); }
 
-    void _accept(const PetriEngine::PQL::LessThanCondition *element) override {
-        (*element)[0]->visit(*this);
-        (*element)[1]->visit(*this);
-    }
-
-    void _accept(const PetriEngine::PQL::LessThanOrEqualCondition *element) override {
+    void accept(const PetriEngine::PQL::LessThanCondition *element) override {
         (*element)[0]->visit(*this);
         (*element)[1]->visit(*this);
     }
 
-    void _accept(const PetriEngine::PQL::EqualCondition *element) override {
+    void accept(const PetriEngine::PQL::LessThanOrEqualCondition *element) override {
         (*element)[0]->visit(*this);
         (*element)[1]->visit(*this);
     }
 
-    void _accept(const PetriEngine::PQL::NotEqualCondition *element) override {
+    void accept(const PetriEngine::PQL::EqualCondition *element) override {
         (*element)[0]->visit(*this);
         (*element)[1]->visit(*this);
     }
 
-    void _accept(const PetriEngine::PQL::DeadlockCondition *element) override {}
+    void accept(const PetriEngine::PQL::NotEqualCondition *element) override {
+        (*element)[0]->visit(*this);
+        (*element)[1]->visit(*this);
+    }
 
-    void _accept(const PetriEngine::PQL::CompareConjunction *element) override {}
+    void accept(const PetriEngine::PQL::DeadlockCondition *element) override {}
 
-    void _accept(const PetriEngine::PQL::UnfoldedUpperBoundsCondition *element) override {}
+    void accept(const PetriEngine::PQL::CompareConjunction *element) override {}
 
-    void _accept(const PetriEngine::PQL::GCondition *condition) override {
+    void accept(const PetriEngine::PQL::UnfoldedUpperBoundsCondition *element) override {}
+
+    void accept(const PetriEngine::PQL::GCondition *condition) override {
         (*condition)[0]->visit(*this);
     }
 
-    void _accept(const PetriEngine::PQL::FCondition *condition) override {
+    void accept(const PetriEngine::PQL::FCondition *condition) override {
         (*condition)[0]->visit(*this);
     }
 
-    void _accept(const PetriEngine::PQL::XCondition *condition) override {
+    void accept(const PetriEngine::PQL::XCondition *condition) override {
         (*condition)[0]->visit(*this);
     }
 
-    void _accept(const PetriEngine::PQL::UntilCondition *condition) override {
+    void accept(const PetriEngine::PQL::UntilCondition *condition) override {
         (*condition)[0]->visit(*this);
     }
 
-    void _accept(const PetriEngine::PQL::UnfoldedFireableCondition *element) override {}
+    void accept(const PetriEngine::PQL::UnfoldedFireableCondition *element) override {}
 
-    void _accept(const PetriEngine::PQL::FireableCondition *element) override {}
+    void accept(const PetriEngine::PQL::FireableCondition *element) override {}
 
-    void _accept(const PetriEngine::PQL::UpperBoundsCondition *element) override {}
+    void accept(const PetriEngine::PQL::UpperBoundsCondition *element) override {}
 
-    void _accept(const PetriEngine::PQL::LivenessCondition *element) override {}
+    void accept(const PetriEngine::PQL::LivenessCondition *element) override {}
 
-    void _accept(const PetriEngine::PQL::KSafeCondition *element) override {}
+    void accept(const PetriEngine::PQL::KSafeCondition *element) override {}
 
-    void _accept(const PetriEngine::PQL::QuasiLivenessCondition *element) override {}
+    void accept(const PetriEngine::PQL::QuasiLivenessCondition *element) override {}
 
-    void _accept(const PetriEngine::PQL::StableMarkingCondition *element) override {}
+    void accept(const PetriEngine::PQL::StableMarkingCondition *element) override {}
 
-    void _accept(const PetriEngine::PQL::BooleanCondition *element) override {}
+    void accept(const PetriEngine::PQL::BooleanCondition *element) override {}
 
-    void _accept(const PetriEngine::PQL::UnfoldedIdentifierExpr *element) override {}
+    void accept(const PetriEngine::PQL::UnfoldedIdentifierExpr *element) override {}
 
-    void _accept(const PetriEngine::PQL::LiteralExpr *element) override {}
+    void accept(const PetriEngine::PQL::LiteralExpr *element) override {}
 
-    void _accept(const PetriEngine::PQL::PlusExpr *element) override {}
+    void accept(const PetriEngine::PQL::PlusExpr *element) override {}
 
-    void _accept(const PetriEngine::PQL::MultiplyExpr *element) override {}
+    void accept(const PetriEngine::PQL::MultiplyExpr *element) override {}
 
-    void _accept(const PetriEngine::PQL::MinusExpr *element) override {}
+    void accept(const PetriEngine::PQL::MinusExpr *element) override {}
 
-    void _accept(const PetriEngine::PQL::SubtractExpr *element) override {}
+    void accept(const PetriEngine::PQL::SubtractExpr *element) override {}
 
-    void _accept(const PetriEngine::PQL::IdentifierExpr *element) override {}
+    void accept(const PetriEngine::PQL::IdentifierExpr *element) override {}
 
   private:
     bool _bad = false;

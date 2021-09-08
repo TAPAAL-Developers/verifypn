@@ -28,11 +28,11 @@ class EnabledSpooler : public SuccessorSpooler {
         _marking.set_marking(new PetriEngine::MarkVal[net.number_of_places()]);
     }
 
-    bool prepare(const LTL::Structures::ProductState &state) override {
+    auto prepare(const LTL::Structures::ProductState &state) -> bool override {
         return _successorGenerator.prepare(state);
     }
 
-    uint32_t next() override {
+    auto next() -> uint32_t override {
         // TODO don't need to actually fire the transition, merely spool to next.
         // this is a non-trivial refactor in SuccessorGenerator, but seems natural.
         if (_successorGenerator.next(_marking)) {

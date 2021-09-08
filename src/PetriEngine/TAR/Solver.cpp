@@ -83,7 +83,7 @@ auto Solver::find_free(trace_t &trace) -> Solver::interpolant_t {
     for (int64_t step = ((int64_t)trace.size()) - 2; step >= 1; --step) {
         interpolant_t inter(2);
         {
-            state_t &s = trace[step];
+            State &s = trace[step];
             inter[0].second = s.get_edge_cnt();
             auto t = s.get_edge_cnt() - 1;
             auto post = _net.postset(t);
@@ -101,7 +101,7 @@ auto Solver::find_free(trace_t &trace) -> Solver::interpolant_t {
         // OK, lets try to forward approximate result from here
         {
             for (size_t f = step + 1; f < trace.size(); ++f) {
-                state_t &s = trace[f];
+                State &s = trace[f];
                 auto t = s.get_edge_cnt();
                 if (t == 0) {
                     inter.back().second = 0;
@@ -247,7 +247,7 @@ auto Solver::find_failure(trace_t &trace, bool to_end) -> int64_t {
     int64_t fail = 0;
     int64_t first_fail = std::numeric_limits<decltype(first_fail)>::max();
     for (; fail < (int64_t)trace.size(); ++fail) {
-        state_t &s = trace[fail];
+        State &s = trace[fail];
         auto t = s.get_edge_cnt();
         if (t == 0) {
 #ifdef VERBOSETAR
@@ -354,7 +354,7 @@ auto Solver::find_failure(trace_t &trace, bool to_end) -> int64_t {
     return -1;
 }
 
-auto Solver::compute_terminal(state_t &end, inter_t &last) -> bool {
+auto Solver::compute_terminal(State &end, inter_t &last) -> bool {
     last.second = end.get_edge_cnt();
     if (end.get_edge_cnt() == 0) {
         RangeContext ctx(last.first, _mark.get(), _net, _use_count.get(), _mark.get(), _dirty);
@@ -403,7 +403,7 @@ auto Solver::compute_terminal(state_t &end, inter_t &last) -> bool {
 auto Solver::compute_hoare(trace_t &trace, interpolant_t &ranges, int64_t fail) -> bool {
     for (; fail >= 0; --fail) {
         ranges[fail].first.copy(ranges[fail + 1].first);
-        state_t &s = trace[fail];
+        State &s = trace[fail];
         bool touches = false;
         auto t = s.get_edge_cnt() - 1;
         auto post = _net.postset(t);

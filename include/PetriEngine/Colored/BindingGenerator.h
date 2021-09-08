@@ -34,10 +34,10 @@ class NaiveBindingGenerator {
       public:
         Iterator(NaiveBindingGenerator *generator);
 
-        bool operator==(Iterator &other);
-        bool operator!=(Iterator &other);
-        Iterator &operator++();
-        const Colored::BindingMap &operator*() const;
+        auto operator==(Iterator &other) -> bool;
+        auto operator!=(Iterator &other) -> bool;
+        auto operator++() -> Iterator &;
+        auto operator*() const -> const Colored::BindingMap &;
     };
 
   private:
@@ -45,16 +45,16 @@ class NaiveBindingGenerator {
     Colored::BindingMap _bindings;
     Colored::ColorTypeMap &_colorTypes;
 
-    bool eval() const;
+    auto eval() const -> bool;
 
   public:
-    NaiveBindingGenerator(const Colored::Transition &transition, Colored::ColorTypeMap &colorTypes);
+    NaiveBindingGenerator(const Colored::transition_t &transition, Colored::ColorTypeMap &colorTypes);
 
-    const Colored::BindingMap &next_binding();
-    const Colored::BindingMap &current_binding() const;
-    bool is_initial() const;
-    Iterator begin();
-    Iterator end();
+    auto next_binding() -> const Colored::BindingMap &;
+    auto current_binding() const -> const Colored::BindingMap &;
+    auto is_initial() const -> bool;
+    auto begin() -> Iterator;
+    auto end() -> Iterator;
 };
 
 class FixpointBindingGenerator {
@@ -66,11 +66,11 @@ class FixpointBindingGenerator {
       public:
         Iterator(FixpointBindingGenerator *generator);
 
-        bool operator==(Iterator &other);
-        bool operator!=(Iterator &other);
-        Iterator &operator++();
-        const Colored::BindingMap operator++(int);
-        const Colored::BindingMap &operator*() const;
+        auto operator==(Iterator &other) -> bool;
+        auto operator!=(Iterator &other) -> bool;
+        auto operator++() -> Iterator &;
+        auto operator++(int) -> const Colored::BindingMap;
+        auto operator*() const -> const Colored::BindingMap &;
     };
 
   private:
@@ -78,7 +78,7 @@ class FixpointBindingGenerator {
     Colored::BindingMap _bindings;
     std::vector<std::vector<std::vector<uint32_t>>> _symmetric_var_combinations;
     const Colored::ColorTypeMap &_colorTypes;
-    const Colored::Transition &_transition;
+    const Colored::transition_t &_transition;
     const std::vector<std::set<const Colored::Variable *>> &_symmetric_vars;
     Colored::BindingMap::iterator _bindingIterator;
     bool _isDone;
@@ -88,25 +88,25 @@ class FixpointBindingGenerator {
     uint32_t _currentInnerId = 0;
     uint32_t _symmetric_vars_set = 0;
 
-    bool eval() const;
-    bool assign_symmetric_vars();
+    auto eval() const -> bool;
+    auto assign_symmetric_vars() -> bool;
     void generate_combinations(uint32_t options, uint32_t samples,
                                std::vector<std::vector<uint32_t>> &result,
                                std::vector<uint32_t> &current) const;
 
   public:
     FixpointBindingGenerator(
-        const Colored::Transition &transition, const Colored::ColorTypeMap &colorTypes,
+        const Colored::transition_t &transition, const Colored::ColorTypeMap &colorTypes,
         const std::vector<std::set<const Colored::Variable *>> &symmetric_vars);
 
     FixpointBindingGenerator(const FixpointBindingGenerator &) = default;
 
-    FixpointBindingGenerator &operator=(const FixpointBindingGenerator &b) = default;
+    auto operator=(const FixpointBindingGenerator &b) -> FixpointBindingGenerator & = default;
 
-    const Colored::BindingMap &next_binding();
-    const Colored::BindingMap &current_binding() const;
-    bool is_initial() const;
-    Iterator begin();
-    Iterator end();
+    auto next_binding() -> const Colored::BindingMap &;
+    auto current_binding() const -> const Colored::BindingMap &;
+    auto is_initial() const -> bool;
+    auto begin() -> Iterator;
+    auto end() -> Iterator;
 };
 } // namespace PetriEngine

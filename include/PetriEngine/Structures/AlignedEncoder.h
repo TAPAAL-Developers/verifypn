@@ -8,7 +8,7 @@
 #ifndef ALIGNEDENCODER_H
 #define ALIGNEDENCODER_H
 
-#include "binarywrapper.h"
+#include "BinaryWrapper.h"
 #include <cmath>
 
 using namespace ptrie;

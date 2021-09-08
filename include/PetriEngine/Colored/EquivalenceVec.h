@@ -6,21 +6,24 @@
 #include "EquivalenceClass.h"
 #include "Intervals.h"
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 class EquivalenceVec {
   public:
     void apply_partition(Colored::arc_intervals_t &arcInterval) const;
     void merge_eq_classes();
     void apply_partition(std::vector<uint32_t> &colorIds) const;
 
-    bool is_diagonal() const { return _diagonal; }
+    auto is_diagonal() const -> bool { return _diagonal; }
 
     void set_diagonal(bool diagonal) { _diagonal = diagonal; }
 
-    const std::vector<EquivalenceClass> &get_eq_classes() const { return _equivalenceClasses; }
+    auto get_eq_classes() const -> const std::vector<EquivalenceClass> & {
+        return _equivalenceClasses;
+    }
 
-    const std::vector<bool> &get_dagonal_tuple_positions() const { return _diagonalTuplePositions; }
+    auto get_dagonal_tuple_positions() const -> const std::vector<bool> & {
+        return _diagonalTuplePositions;
+    }
 
     void push_back_eq_class(const EquivalenceClass &Eqclass) {
         _equivalenceClasses.push_back(Eqclass);
@@ -42,8 +45,8 @@ class EquivalenceVec {
         _diagonalTuplePositions = diagonalPositions;
     }
 
-    const std::unordered_map<const Colored::Color *, EquivalenceClass *> &
-    get_color_eq_class_map() const {
+    auto get_color_eq_class_map() const
+        -> const std::unordered_map<const Colored::Color *, EquivalenceClass *> & {
         return _colorEQClassMap;
     }
 
@@ -53,7 +56,6 @@ class EquivalenceVec {
     std::vector<bool> _diagonalTuplePositions;
     bool _diagonal = false;
 };
-} // namespace Colored
-} // namespace PetriEngine
+} // namespace PetriEngine::Colored
 
 #endif /* EQUIVALENCEVEC_H */

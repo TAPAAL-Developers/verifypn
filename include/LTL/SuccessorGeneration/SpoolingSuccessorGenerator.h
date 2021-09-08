@@ -44,33 +44,33 @@ class SpoolingSuccessorGenerator : public PetriEngine::SuccessorGenerator {
         successor_info_t(size_t buchiState, size_t lastState)
             : _buchi_state(buchiState), _last_state(lastState) {}
 
-        [[nodiscard]] bool has_prev_state() const { return _last_state != _NoLastState; }
+        [[nodiscard]] auto has_prev_state() const -> bool { return _last_state != NoLastState; }
 
-        size_t state() const { return _last_state; }
+        [[nodiscard]] auto state() const -> size_t { return _last_state; }
 
-        size_t transition() const { return _transition; }
+        [[nodiscard]] auto transition() const -> size_t { return _transition; }
 
-        [[nodiscard]] bool fresh() const {
-            return _buchi_state == _NoBuchiState && _last_state == _NoLastState;
+        [[nodiscard]] auto fresh() const -> bool {
+            return _buchi_state == NoBuchiState && _last_state == NoLastState;
         }
 
-        static constexpr auto _NoBuchiState = std::numeric_limits<size_t>::max();
-        static constexpr auto _NoLastState = std::numeric_limits<size_t>::max();
+        static constexpr auto NoBuchiState = std::numeric_limits<size_t>::max();
+        static constexpr auto NoLastState = std::numeric_limits<size_t>::max();
     };
 
     void set_spooler(SuccessorSpooler *const spooler) { _spooler = spooler; }
 
     void set_heuristic(Heuristic *const heuristic) { _heuristic = heuristic; }
 
-    [[nodiscard]] static successor_info_t initial_suc_info() {
-        return successor_info_t{successor_info_t::_NoBuchiState, successor_info_t::_NoLastState};
+    [[nodiscard]] static auto initial_suc_info() -> successor_info_t {
+        return successor_info_t{successor_info_t::NoBuchiState, successor_info_t::NoLastState};
     }
 
-    bool prepare(const PetriEngine::Structures::State &state) {
+    auto prepare(const PetriEngine::Structures::State &state) -> bool override {
         return PetriEngine::SuccessorGenerator::prepare(state);
     }
 
-    bool next(PetriEngine::Structures::State &write) {
+    auto next(PetriEngine::Structures::State &write) -> bool override {
         return PetriEngine::SuccessorGenerator::next(write);
     }
 
@@ -101,7 +101,7 @@ class SpoolingSuccessorGenerator : public PetriEngine::SuccessorGenerator {
                 std::vector<std::pair<uint32_t, uint32_t>> weighted_tids;
                 while ((tid = _spooler->next()) != SuccessorSpooler::NoTransition) {
                     assert(tid <= _net.number_of_transitions());
-                    SuccessorGenerator::_fire(_statebuf, tid);
+                    SuccessorGenerator::fire(_statebuf, tid);
                     _statebuf.set_buchi_state(state.get_buchi_state());
                     weighted_tids.emplace_back(tid, _heuristic->eval(_statebuf, tid));
                 }
@@ -113,7 +113,7 @@ class SpoolingSuccessorGenerator : public PetriEngine::SuccessorGenerator {
             }
         }
     }
-    bool next(Structures::ProductState &state, successor_info_t &sucinfo) {
+    auto next(Structures::ProductState &state, successor_info_t &sucinfo) -> bool {
         assert(sucinfo._successors != nullptr);
         if (sucinfo._successors.empty()) {
 #ifndef NDEBUG
@@ -129,11 +129,11 @@ class SpoolingSuccessorGenerator : public PetriEngine::SuccessorGenerator {
         // std::cerr << "Firing " << _net.transitionNames()[_last] << std::endl;
 #endif
         sucinfo._successors.pop();
-        SuccessorGenerator::_fire(state, _last);
+        SuccessorGenerator::fire(state, _last);
         return true;
     }
 
-    [[nodiscard]] uint32_t fired() const { return _last; }
+    [[nodiscard]] auto fired() const -> uint32_t override { return _last; }
 
     void generate_all(LTL::Structures::ProductState &parent, successor_info_t &sucinfo) {
         assert(_spooler != nullptr);
@@ -163,7 +163,7 @@ class SpoolingSuccessorGenerator : public PetriEngine::SuccessorGenerator {
 
         } else {
             auto evaluate_heuristic = [&](uint32_t tid) {
-                SuccessorGenerator::_fire(_statebuf, tid);
+                SuccessorGenerator::fire(_statebuf, tid);
                 _statebuf.set_buchi_state(sucinfo._buchi_state);
                 return _heuristic->eval(_statebuf, tid);
             };

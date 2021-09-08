@@ -30,17 +30,17 @@ namespace PetriEngine::Colored {
 struct arc_intervals_t {
     VariableModifierMap _varIndexModMap;
     std::vector<Colored::IntervalVector> _intervalTupleVec;
-    const Colored::ColorFixpoint *_source{};
+    const Colored::color_fixpoint_t *_source{};
 
     ~arc_intervals_t() { _varIndexModMap.clear(); }
     arc_intervals_t() = default;
 
-    explicit arc_intervals_t(const Colored::ColorFixpoint *source) : _source(source) {}
+    explicit arc_intervals_t(const Colored::color_fixpoint_t *source) : _source(source) {}
 
-    arc_intervals_t(const Colored::ColorFixpoint *source, VariableModifierMap varIndexModMap)
+    arc_intervals_t(const Colored::color_fixpoint_t *source, VariableModifierMap varIndexModMap)
         : _varIndexModMap(std::move(std::move(varIndexModMap))), _source(source){};
 
-    arc_intervals_t(const Colored::ColorFixpoint *source, VariableModifierMap varIndexModMap,
+    arc_intervals_t(const Colored::color_fixpoint_t *source, VariableModifierMap varIndexModMap,
                     std::vector<Colored::IntervalVector> ranges)
         : _varIndexModMap(std::move(std::move(varIndexModMap))),
           _intervalTupleVec(std::move(std::move(ranges))), _source(source){};

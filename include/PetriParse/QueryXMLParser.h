@@ -18,11 +18,11 @@
 #ifndef QUERYXMLPARSER_H
 #define QUERYXMLPARSER_H
 
+#include <cstring>
 #include <map>
 #include <memory>
 #include <set>
 #include <sstream>
-#include <string.h>
 #include <string>
 #include <vector>
 
@@ -37,20 +37,20 @@ class QueryXMLParser {
     QueryXMLParser();
     ~QueryXMLParser();
 
-    std::vector<QueryItem> queries;
+    std::vector<query_item_t> _queries;
 
-    bool parse(std::ifstream &xml, const std::set<size_t> &);
+    auto parse(std::ifstream &xml, const std::set<size_t> &) -> bool;
     void print_queries();
     void print_queries(size_t i);
 
   private:
-    bool parse_property_set(rapidxml::xml_node<> *element, const std::set<size_t> &);
-    bool parse_property(rapidxml::xml_node<> *element);
-    bool parse_tags(rapidxml::xml_node<> *element);
-    Condition_ptr parse_formula(rapidxml::xml_node<> *element);
-    Condition_ptr parse_boolean_formula(rapidxml::xml_node<> *element);
-    Expr_ptr parse_integer_expression(rapidxml::xml_node<> *element);
-    std::string parse_place(rapidxml::xml_node<> *element);
+    auto parse_property_set(rapidxml::xml_node<> *element, const std::set<size_t> &) -> bool;
+    auto parse_property(rapidxml::xml_node<> *element) -> bool;
+    auto parse_tags(rapidxml::xml_node<> *element) -> bool;
+    auto parse_formula(rapidxml::xml_node<> *element) -> Condition_ptr;
+    auto parse_boolean_formula(rapidxml::xml_node<> *element) -> Condition_ptr;
+    auto parse_integer_expression(rapidxml::xml_node<> *element) -> Expr_ptr;
+    auto parse_place(rapidxml::xml_node<> *element) -> std::string;
     void fatal_error(const std::string &token);
 };
 

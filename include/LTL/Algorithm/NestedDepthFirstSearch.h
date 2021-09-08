@@ -23,7 +23,7 @@
 #include "PetriEngine/Structures/Queue.h"
 #include "PetriEngine/Structures/State.h"
 #include "PetriEngine/Structures/StateSet.h"
-#include "PetriEngine/Structures/light_deque.h"
+#include "PetriEngine/Structures/LightDequeue.h"
 
 namespace LTL {
 
@@ -55,22 +55,22 @@ class NestedDepthFirstSearch : public ModelChecker<ProductSuccessorGenerator, Su
         : ModelChecker<ProductSuccessorGenerator, SucGen>(net, query, buchi, gen),
           _states(net, 0, (int)net.number_of_places() + 1), _print_trace(print_trace) {}
 
-    bool is_satisfied();
+    auto is_satisfied() -> bool;
 
-    void print_stats(std::ostream &os);
+    void print_stats(std::ostream &os) override;
 
   private:
     using State = LTL::Structures::ProductState;
-    std::pair<bool, size_t> mark(State &state, uint8_t);
+    auto mark(State &state, uint8_t) -> std::pair<bool, size_t>;
 
     PetriEngine::Structures::StateSet _states;
 
     std::vector<uint8_t> _markers;
-    static constexpr uint8_t _MARKER1 = 1;
-    static constexpr uint8_t _MARKER2 = 2;
+    static constexpr uint8_t MARKER1 = 1;
+    static constexpr uint8_t MARKER2 = 2;
     size_t _mark_count[3] = {0, 0, 0};
 
-    struct StackEntry {
+    struct stack_entry_t {
         size_t _id;
         typename SucGen::successor_info_t _sucinfo;
     };
@@ -83,9 +83,9 @@ class NestedDepthFirstSearch : public ModelChecker<ProductSuccessorGenerator, Su
 
     void dfs();
 
-    void ndfs(const State &state, light_deque<StackEntry> &nested_todo);
+    void ndfs(const State &state, LightDequeue<stack_entry_t> &nested_todo);
 
-    void print_trace(light_deque<StackEntry> &todo, light_deque<StackEntry> &nested_todo,
+    void print_trace(LightDequeue<stack_entry_t> &todo, LightDequeue<stack_entry_t> &nested_todo,
                      std::ostream &os = std::cout);
 };
 

@@ -12,10 +12,10 @@
 #include <set>
 
 namespace CTL {
-CTLResult verify_ctl(const PetriEngine::PetriNet &net, PetriEngine::PQL::Condition_ptr &query,
-                     options_t &options);
+auto verify_ctl(const PetriEngine::PetriNet &net, PetriEngine::PQL::Condition_ptr &query,
+                options_t &options) -> ctl_result_t;
 
-void print_ctl_result(const std::string &qname, const CTLResult &result, size_t index,
+void print_ctl_result(const std::string &qname, const ctl_result_t &result, size_t index,
                       options_t &options);
 } // namespace CTL
 

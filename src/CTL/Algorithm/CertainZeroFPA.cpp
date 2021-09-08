@@ -169,12 +169,12 @@ void CertainZeroFPA::check_edge(Edge *e, bool only_assign) {
         _graph->release(e);
 }
 
-void CertainZeroFPA::final_assign(DependencyGraph::Edge *e, DependencyGraph::Assignment a) {
+void CertainZeroFPA::final_assign(DependencyGraph::Edge *e, DependencyGraph::assignment_e a) {
     final_assign(e->_source, a);
 }
 
 void CertainZeroFPA::final_assign(DependencyGraph::Configuration *c,
-                                  DependencyGraph::Assignment a) {
+                                  DependencyGraph::assignment_e a) {
     assert(a == ONE || a == CZERO);
 
     c->_assignment = a;

@@ -21,10 +21,11 @@
 #include "PetriEngine/PQL/PQL.h"
 #include "PetriEngine/PetriNet.h"
 #include "PetriEngine/Structures/State.h"
-#include "PetriEngine/Structures/light_deque.h"
+#include "PetriEngine/Structures/LightDequeue.h"
 
 #include <cassert>
 #include <memory>
+#include <utility>
 #include <vector>
 
 namespace PetriEngine {
@@ -54,15 +55,15 @@ class StubbornSet {
         _queries.push_back(query.get());
     }
 
-    virtual bool prepare(const Structures::State &marking) = 0;
+    virtual auto prepare(const Structures::State &marking) -> bool = 0;
 
-    virtual uint32_t next();
+    virtual auto next() -> uint32_t;
 
     virtual ~StubbornSet() = default;
 
     virtual void reset();
 
-    [[nodiscard]] const MarkVal *get_parent() const { return _parent->marking(); }
+    [[nodiscard]] auto get_parent() const -> const MarkVal * { return _parent->marking(); }
 
     uint32_t _current = 0;
 
@@ -74,25 +75,25 @@ class StubbornSet {
 
     void inhibitor_postset_of(uint32_t place);
 
-    bool seen_pre(uint32_t place) const;
+    [[nodiscard]] auto seen_pre(uint32_t place) const -> bool;
 
-    bool seen_post(uint32_t place) const;
+    [[nodiscard]] auto seen_post(uint32_t place) const -> bool;
 
-    uint32_t least_dependent_enabled();
+    auto least_dependent_enabled() -> uint32_t;
 
-    uint32_t fired() { return _current; }
+    auto fired() -> uint32_t { return _current; }
 
     void set_query(PQL::Condition *ptr) {
         _queries.clear();
         _queries = {ptr};
     }
 
-    void set_queries(std::vector<PQL::Condition *> conds) { _queries = conds; }
+    void set_queries(std::vector<PQL::Condition *> conds) { _queries = std::move(conds); }
 
-    [[nodiscard]] size_t n_enabled() const { return _nenabled; }
+    [[nodiscard]] auto n_enabled() const -> size_t { return _nenabled; }
 
-    [[nodiscard]] bool *enabled() const { return _enabled.get(); };
-    [[nodiscard]] bool *stubborn() const { return _stubborn.get(); };
+    [[nodiscard]] auto enabled() const -> bool * { return _enabled.get(); };
+    [[nodiscard]] auto stubborn() const -> bool * { return _stubborn.get(); };
 
     const PetriEngine::PetriNet &_net;
 
@@ -118,16 +119,16 @@ class StubbornSet {
 
         trans_t(uint32_t id, int8_t dir) : _index(id), _direction(dir){};
 
-        bool operator<(const trans_t &t) const { return _index < t._index; }
+        auto operator<(const trans_t &t) const -> bool { return _index < t._index; }
     };
 
-    const std::vector<trans_ptr_t> &transitions() { return _net._transitions; }
+    auto transitions() -> const std::vector<trans_ptr_t> & { return _net._transitions; }
 
-    const std::vector<invariant_t> &invariants() { return _net._invariants; }
+    auto invariants() -> const std::vector<invariant_t> & { return _net._invariants; }
 
-    const std::vector<uint32_t> &place_to_ptrs() { return _net._placeToPtrs; }
+    auto place_to_ptrs() -> const std::vector<uint32_t> & { return _net._placeToPtrs; }
 
-    bool check_preset(uint32_t t);
+    auto check_preset(uint32_t t) -> bool;
 
     virtual void add_to_stub(uint32_t t);
 
@@ -198,7 +199,7 @@ class StubbornSet {
     std::unique_ptr<uint8_t[]> _places_seen;
     std::unique_ptr<place_t[]> _places;
     std::unique_ptr<trans_t[]> _transitions;
-    light_deque<uint32_t> _unprocessed, _ordering;
+    LightDequeue<uint32_t> _unprocessed, _ordering;
     std::unique_ptr<uint32_t[]> _dependency;
     bool _netContainsInhibitorArcs, _done;
     std::vector<std::vector<uint32_t>> _inhibpost;

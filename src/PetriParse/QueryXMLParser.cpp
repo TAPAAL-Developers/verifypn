@@ -71,10 +71,10 @@ auto QueryXMLParser::parse_property_set(rapidxml::xml_node<> *element,
                 return false;
             }
         } else {
-            QueryItem queryItem;
+            query_item_t queryItem;
             queryItem._query = nullptr;
-            queryItem._parsing_result = QueryItem::PARSING_OK;
-            queries.push_back(queryItem);
+            queryItem._parsing_result = query_item_t::PARSING_OK;
+            _queries.push_back(queryItem);
         }
         ++i;
     }
@@ -104,17 +104,17 @@ auto QueryXMLParser::parse_property(rapidxml::xml_node<> *element) -> bool {
         return false;
     }
 
-    QueryItem queryItem;
+    query_item_t queryItem;
     queryItem._id = id;
     if (tagsOK) {
         queryItem._query = parse_formula(formulaPtr);
         assert(queryItem._query);
-        queryItem._parsing_result = QueryItem::PARSING_OK;
+        queryItem._parsing_result = query_item_t::PARSING_OK;
     } else {
         queryItem._query = nullptr;
-        queryItem._parsing_result = QueryItem::UNSUPPORTED_QUERY;
+        queryItem._parsing_result = query_item_t::UNSUPPORTED_QUERY;
     }
-    queries.push_back(queryItem);
+    _queries.push_back(queryItem);
     return true;
 }
 
@@ -492,13 +492,13 @@ auto QueryXMLParser::parse_place(rapidxml::xml_node<> *element) -> std::string {
 
 void QueryXMLParser::print_queries(size_t i) {
     //	QueryXMLParser::QueriesIterator it;
-    if (i <= 0 || i > queries.size()) {
+    if (i <= 0 || i > _queries.size()) {
         std::cout << "In printQueries the query index is out of scope\n\n";
         return;
     }
-    QueryItem it = queries[i - 1];
+    query_item_t it = _queries[i - 1];
     std::cout << it._id << ": ";
-    if (it._parsing_result == QueryItem::UNSUPPORTED_QUERY) {
+    if (it._parsing_result == query_item_t::UNSUPPORTED_QUERY) {
         std::cout << "\t---------- unsupported query ----------" << std::endl;
     } else {
         std::cout << "\t";
@@ -509,7 +509,7 @@ void QueryXMLParser::print_queries(size_t i) {
 }
 
 void QueryXMLParser::print_queries() {
-    for (size_t i = 1; i <= queries.size(); i++) {
+    for (size_t i = 1; i <= _queries.size(); i++) {
         print_queries(i);
     }
 }

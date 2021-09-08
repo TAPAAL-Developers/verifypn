@@ -424,7 +424,7 @@ void PetriNetBuilder::reduce(std::vector<std::shared_ptr<PQL::Condition>> &queri
     bool remove_loops = true;
     bool contains_next = false;
     for (uint32_t i = 0; i < queries.size(); ++i) {
-        if (results[i] == Reachability::ResultPrinter::Unknown ||
+        if (results[i] == Reachability::ResultPrinter::UNKNOWN ||
             results[i] == Reachability::ResultPrinter::CTL ||
             results[i] == Reachability::ResultPrinter::LTL) {
             queries[i]->analyze(placecontext);

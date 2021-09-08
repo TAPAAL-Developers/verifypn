@@ -11,10 +11,10 @@
 namespace DependencyGraph {
 
 class Configuration;
-enum Assignment { ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2 };
+enum assignment_e { ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2 };
 
 class Edge {
-    typedef std::forward_list<Configuration *> container;
+    using container = std::forward_list<Configuration *>;
 
   public:
     Edge() = default;

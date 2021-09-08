@@ -30,15 +30,15 @@ namespace LTL {
  * LTL::to_spot_formula}.
  * @return A PQL formula equivalent to the passed spot formula.
  */
-PetriEngine::PQL::Condition_ptr to_PQL(const spot::formula &formula, const APInfo &apinfo);
+auto to_pql(const spot::formula &formula, const APInfo &apinfo) -> PetriEngine::PQL::Condition_ptr;
 
 /**
  * Simplify an LTL formula using Spot's formula simplifier. Throws if formula is not valid LTL.
  * @param formula The formula to simplify.
  * @return the simplified formula.
  */
-PetriEngine::PQL::Condition_ptr simplify(const PetriEngine::PQL::Condition_ptr &formula,
-                                         const options_t &options);
+auto simplify(const PetriEngine::PQL::Condition_ptr &formula, const options_t &options)
+    -> PetriEngine::PQL::Condition_ptr;
 } // namespace LTL
 
 #endif // VERIFYPN_SPOTTOPQL_H

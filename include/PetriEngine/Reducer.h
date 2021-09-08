@@ -14,6 +14,7 @@
 #include "PetriNet.h"
 
 #include <optional>
+#include <utility>
 #include <vector>
 
 namespace PetriEngine {
@@ -35,15 +36,15 @@ class QueryPlaceAnalysisContext : public PQL::AnalysisContext {
         _deadlock = false;
     }
 
-    virtual ~QueryPlaceAnalysisContext() {}
+    virtual ~QueryPlaceAnalysisContext() = default;
 
-    uint32_t *get_query_placeCount() { return _placeInQuery.data(); }
+    auto get_query_place_count() -> uint32_t * { return _placeInQuery.data(); }
 
-    bool has_deadlock() { return _deadlock; }
+    auto has_deadlock() -> bool { return _deadlock; }
 
-    virtual void set_has_deadlock() override { _deadlock = true; };
+    void set_has_deadlock() override { _deadlock = true; };
 
-    resolution_result_t resolve(const std::string &identifier, bool place) override {
+    auto resolve(const std::string &identifier, bool place) -> resolution_result_t override {
         if (!place)
             return PQL::AnalysisContext::resolve(identifier, false);
         resolution_result_t result;
@@ -62,10 +63,10 @@ class QueryPlaceAnalysisContext : public PQL::AnalysisContext {
     }
 };
 
-struct ExpandedArc {
-    ExpandedArc(std::string place, size_t weight) : _place(place), _weight(weight) {}
+struct expanded_arc_t {
+    expanded_arc_t(std::string place, size_t weight) : _place(std::move(place)), _weight(weight) {}
 
-    friend std::ostream &operator<<(std::ostream &os, ExpandedArc const &ea) {
+    friend auto operator<<(std::ostream &os, expanded_arc_t const &ea) -> std::ostream & {
         for (size_t i = 0; i < ea._weight; ++i) {
             os << "\t\t<token place=\"" << ea._place << "\" age=\"0\"/>\n";
         }
@@ -85,9 +86,9 @@ class Reducer {
                 int timeout, bool remove_loops, bool remove_consumers, bool next_safe,
                 std::vector<uint32_t> &reductions);
 
-    size_t removed_transitions() const { return _removedTransitions; }
+    auto removed_transitions() const -> size_t { return _removedTransitions; }
 
-    size_t removed_places() const { return _removedPlaces; }
+    auto removed_places() const -> size_t { return _removedPlaces; }
 
     void print_stats(std::ostream &out) {
         out << "Removed transitions: " << _removedTransitions << "\n"
@@ -121,36 +122,36 @@ class Reducer {
 
     // The reduction methods return true if they reduced something and reductions should continue
     // with other rules
-    bool rule_a(uint32_t *placeInQuery);
-    bool rule_b(uint32_t *placeInQuery, bool remove_deadlocks, bool remove_consumers);
-    bool rule_c(uint32_t *placeInQuery);
-    bool rule_d(uint32_t *placeInQuery);
-    bool rule_e(uint32_t *placeInQuery);
-    bool rule_i(uint32_t *placeInQuery, bool remove_loops, bool remove_consumers);
-    bool rule_f(uint32_t *placeInQuery);
-    bool rule_g(uint32_t *placeInQuery, bool remove_loops, bool remove_consumers);
-    bool rule_h(uint32_t *placeInQuery);
-    bool rule_j(uint32_t *placeInQuery);
-    bool rule_k(uint32_t *placeInQuery, bool remove_consumers);
+    auto rule_a(uint32_t *placeInQuery) -> bool;
+    auto rule_b(uint32_t *placeInQuery, bool remove_deadlocks, bool remove_consumers) -> bool;
+    auto rule_c(uint32_t *placeInQuery) -> bool;
+    auto rule_d(uint32_t *placeInQuery) -> bool;
+    auto rule_e(uint32_t *placeInQuery) -> bool;
+    auto rule_i(uint32_t *placeInQuery, bool remove_loops, bool remove_consumers) -> bool;
+    auto rule_f(uint32_t *placeInQuery) -> bool;
+    auto rule_g(uint32_t *placeInQuery, bool remove_loops, bool remove_consumers) -> bool;
+    auto rule_h(uint32_t *placeInQuery) -> bool;
+    auto rule_j(uint32_t *placeInQuery) -> bool;
+    auto rule_k(uint32_t *placeInQuery, bool remove_consumers) -> bool;
 
-    std::optional<std::pair<std::vector<bool>, std::vector<bool>>>
-    relevant(const uint32_t *placeInQuery, bool remove_consumers);
-    bool remove_irrelevant(const uint32_t *placeInQuery, const std::vector<bool> &tseen,
-                           const std::vector<bool> &pseen);
+    auto relevant(const uint32_t *placeInQuery, bool remove_consumers)
+        -> std::optional<std::pair<std::vector<bool>, std::vector<bool>>>;
+    auto remove_irrelevant(const uint32_t *placeInQuery, const std::vector<bool> &tseen,
+                           const std::vector<bool> &pseen) -> bool;
 
-    std::string get_transition_name(uint32_t transition);
-    std::string get_place_name(uint32_t place);
+    auto get_transition_name(uint32_t transition) -> std::string;
+    auto get_place_name(uint32_t place) -> std::string;
 
-    PetriEngine::transition_t &get_transition(uint32_t transition);
-    ArcIter get_out_arc(PetriEngine::transition_t &, uint32_t place);
-    ArcIter get_in_arc(uint32_t place, PetriEngine::transition_t &);
+    auto get_transition(uint32_t transition) -> PetriEngine::transition_t &;
+    auto get_out_arc(PetriEngine::transition_t &, uint32_t place) -> ArcIter;
+    auto get_in_arc(uint32_t place, PetriEngine::transition_t &) -> ArcIter;
     void erase_transition(std::vector<uint32_t> &, uint32_t);
     void skip_transition(uint32_t);
     void skip_place(uint32_t);
-    std::string new_trans_name();
+    auto new_trans_name() -> std::string;
 
-    bool consistent();
-    bool has_timed_out() const {
+    auto consistent() -> bool;
+    auto has_timed_out() const -> bool {
         auto end = std::chrono::high_resolution_clock::now();
         auto diff = std::chrono::duration_cast<std::chrono::seconds>(end - _timer);
         return (diff.count() >= _timeout);
@@ -158,7 +159,7 @@ class Reducer {
 
     std::vector<std::string> _initfire;
     std::unordered_map<std::string, std::vector<std::string>> _postfire;
-    std::unordered_map<std::string, std::vector<ExpandedArc>> _extraconsume;
+    std::unordered_map<std::string, std::vector<expanded_arc_t>> _extraconsume;
     std::vector<uint8_t> _tflags;
     std::vector<uint8_t> _pflags;
     size_t _tnameid = 0;

@@ -18,6 +18,8 @@
 #ifndef VERIFYPN_SAFEAUTSTUBBORNSET_H
 #define VERIFYPN_SAFEAUTSTUBBORNSET_H
 
+#include <utility>
+
 #include "LTL/SuccessorGeneration/SuccessorSpooler.h"
 #include "PetriEngine/PQL/PQL.h"
 #include "PetriEngine/Stubborn/InterestingTransitionVisitor.h"
@@ -31,15 +33,15 @@ class SafeAutStubbornSet : public PetriEngine::StubbornSet, public SuccessorSpoo
         : StubbornSet(net, queries),
           _unsafe(std::make_unique<bool[]>(net.number_of_transitions())) {}
 
-    bool prepare(const PetriEngine::Structures::State &marking) override {
+    auto prepare(const PetriEngine::Structures::State &marking) -> bool override {
         assert(false);
         throw base_error_t("Error: SafeAutStubbornSet is implemented only for product states");
         return false;
     }
 
-    bool prepare(const LTL::Structures::ProductState &state) override;
+    auto prepare(const LTL::Structures::ProductState &state) -> bool override;
 
-    uint32_t next() override { return StubbornSet::next(); }
+    auto next() -> uint32_t override { return StubbornSet::next(); }
 
     void reset() override {
         StubbornSet::reset();
@@ -51,9 +53,9 @@ class SafeAutStubbornSet : public PetriEngine::StubbornSet, public SuccessorSpoo
     void set_buchi_conds(PetriEngine::PQL::Condition_ptr ret_cond,
                          PetriEngine::PQL::Condition_ptr prog_cond,
                          PetriEngine::PQL::Condition_ptr sink_cond) {
-        _ret_cond = ret_cond;
-        _prog_cond = prog_cond;
-        _sink_cond = sink_cond;
+        _ret_cond = std::move(ret_cond);
+        _prog_cond = std::move(prog_cond);
+        _sink_cond = std::move(sink_cond);
     }
 
   protected:
@@ -78,7 +80,7 @@ class SafeAutStubbornSet : public PetriEngine::StubbornSet, public SuccessorSpoo
     PetriEngine::PQL::Condition_ptr _prog_cond;
     PetriEngine::PQL::Condition_ptr _sink_cond;
 
-    void _print_debug();
+    void print_debug();
 };
 } // namespace LTL
 

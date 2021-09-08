@@ -27,11 +27,11 @@ class AutomatonHeuristic : public Heuristic {
   public:
     AutomatonHeuristic(const PetriEngine::PetriNet &net, const Structures::BuchiAutomaton &aut);
 
-    uint32_t eval(const Structures::ProductState &state, uint32_t tid) override;
+    auto eval(const Structures::ProductState &state, uint32_t tid) -> uint32_t override;
 
-    bool has_heuristic(const Structures::ProductState &state) override;
+    auto has_heuristic(const Structures::ProductState &state) -> bool override;
 
-    std::ostream &output(std::ostream &os) override { return os << "AUTOMATON_HEUR"; }
+    auto output(std::ostream &os) -> std::ostream & override { return os << "AUTOMATON_HEUR"; }
 
   protected:
     const PetriEngine::PetriNet &_net;

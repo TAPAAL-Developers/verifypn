@@ -18,11 +18,11 @@ void SearchStrategy::push_negation(DependencyGraph::Edge *edge) {
     bool hasCZero = false;
 
     for (DependencyGraph::Configuration *c : edge->_targets) {
-        if (c->_assignment == DependencyGraph::Assignment::CZERO) {
+        if (c->_assignment == DependencyGraph::assignment_e::CZERO) {
             hasCZero = true;
             break;
         }
-        if (c->_assignment != DependencyGraph::Assignment::ONE) {
+        if (c->_assignment != DependencyGraph::assignment_e::ONE) {
             allOne = false;
         }
     }
@@ -100,11 +100,11 @@ auto SearchStrategy::trivial_negation() -> bool {
         bool hasCZero = false;
         auto e = *it;
         for (DependencyGraph::Configuration *c : e->_targets) {
-            if (c->_assignment == DependencyGraph::Assignment::CZERO) {
+            if (c->_assignment == DependencyGraph::assignment_e::CZERO) {
                 hasCZero = true;
                 break;
             }
-            if (c->_assignment != DependencyGraph::Assignment::ONE) {
+            if (c->_assignment != DependencyGraph::assignment_e::ONE) {
                 allOne = false;
             }
         }

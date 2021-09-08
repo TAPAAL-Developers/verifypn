@@ -21,10 +21,10 @@
 #define COLORS_H
 
 #include <cassert>
+#include <cstddef>
+#include <cstdint>
+#include <cstring>
 #include <iostream>
-#include <stddef.h>
-#include <stdint.h>
-#include <string.h>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -32,18 +32,17 @@
 
 #include "Intervals.h"
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 class ColorType;
 class Variable;
 class Color;
 
-typedef std::unordered_map<std::string, const ColorType *> ColorTypeMap;
-typedef std::unordered_map<const Variable *, const Color *> BindingMap;
+using ColorTypeMap = std::unordered_map<std::string, const ColorType *>;
+using BindingMap = std::unordered_map<const Variable *, const Color *>;
 
 class Color final {
   public:
-    friend std::ostream &operator<<(std::ostream &stream, const Color &color);
+    friend auto operator<<(std::ostream &stream, const Color &color) -> std::ostream &;
 
   protected:
     const std::vector<const Color *> _tuple;
@@ -54,44 +53,46 @@ class Color final {
   public:
     Color(const ColorType *colorType, uint32_t id, std::vector<const Color *> &colors);
     Color(const ColorType *colorType, uint32_t id, const char *color);
-    ~Color() {}
+    ~Color() = default;
 
-    bool is_tuple() const { return _tuple.size() > 1; }
+    [[nodiscard]] auto is_tuple() const -> bool { return _tuple.size() > 1; }
 
     void get_color_constraints(Colored::interval_t &constraintsVector, uint32_t &index) const;
 
-    const std::vector<const Color *> &get_tuple_colors() const { return _tuple; }
+    [[nodiscard]] auto get_tuple_colors() const -> const std::vector<const Color *> & {
+        return _tuple;
+    }
 
     void get_tuple_id(std::vector<uint32_t> &idVector) const;
 
-    const std::string &get_color_name() const {
+    [[nodiscard]] auto get_color_name() const -> const std::string & {
         if (this->is_tuple()) {
             throw "Cannot get color from a tuple color.";
         }
         return _colorName;
     }
 
-    const ColorType *get_color_type() const { return _colorType; }
+    [[nodiscard]] auto get_color_type() const -> const ColorType * { return _colorType; }
 
-    uint32_t get_id() const { return _id; }
+    [[nodiscard]] auto get_id() const -> uint32_t { return _id; }
 
-    const Color *operator[](size_t index) const;
-    bool operator<(const Color &other) const;
-    bool operator>(const Color &other) const;
-    bool operator<=(const Color &other) const;
-    bool operator>=(const Color &other) const;
+    auto operator[](size_t index) const -> const Color *;
+    auto operator<(const Color &other) const -> bool;
+    auto operator>(const Color &other) const -> bool;
+    auto operator<=(const Color &other) const -> bool;
+    auto operator>=(const Color &other) const -> bool;
 
-    bool operator==(const Color &other) const {
+    auto operator==(const Color &other) const -> bool {
         return _colorType == other._colorType && _id == other._id;
     }
-    bool operator!=(const Color &other) const { return !((*this) == other); }
+    auto operator!=(const Color &other) const -> bool { return !((*this) == other); }
 
-    const Color &operator++() const;
-    const Color &operator--() const;
+    auto operator++() const -> const Color &;
+    auto operator--() const -> const Color &;
 
-    std::string to_string() const;
-    static std::string to_string(const Color *color);
-    static std::string to_string(const std::vector<const Color *> &colors);
+    [[nodiscard]] auto to_string() const -> std::string;
+    static auto to_string(const Color *color) -> std::string;
+    static auto to_string(const std::vector<const Color *> &colors) -> std::string;
 };
 
 class ColorType {
@@ -104,23 +105,25 @@ class ColorType {
 
     virtual ~ColorType() = default;
 
-    static const ColorType *dot_instance();
+    static auto dot_instance() -> const ColorType *;
     virtual void add_color(const char *colorName);
 
-    virtual size_t size() const { return _colors.size(); }
+    [[nodiscard]] virtual auto size() const -> size_t { return _colors.size(); }
 
-    virtual size_t size(const std::vector<bool> &excludedFields) const { return _colors.size(); }
+    [[nodiscard]] virtual auto size(const std::vector<bool> &excludedFields) const -> size_t {
+        return _colors.size();
+    }
 
-    virtual size_t product_size() const { return 1; }
+    [[nodiscard]] virtual auto product_size() const -> size_t { return 1; }
 
-    virtual std::vector<size_t> get_constituents_sizes() const {
+    [[nodiscard]] virtual auto get_constituents_sizes() const -> std::vector<size_t> {
         std::vector<size_t> result;
         result.push_back(_colors.size());
 
         return result;
     }
 
-    virtual Colored::interval_t get_full_interval() const {
+    [[nodiscard]] virtual auto get_full_interval() const -> Colored::interval_t {
         Colored::interval_t interval;
         interval.add_range(0, size() - 1);
         return interval;
@@ -130,31 +133,33 @@ class ColorType {
         colorTypes.emplace_back(this);
     }
 
-    virtual const Color &operator[](size_t index) const { return _colors[index]; }
+    virtual auto operator[](size_t index) const -> const Color & { return _colors[index]; }
 
-    virtual const Color &operator[](int index) const { return _colors[index]; }
+    virtual auto operator[](int index) const -> const Color & { return _colors[index]; }
 
-    virtual const Color &operator[](uint32_t index) const {
+    virtual auto operator[](uint32_t index) const -> const Color & {
         assert(index < _colors.size());
         return _colors[index];
     }
 
-    virtual const Color *operator[](const char *index) const;
+    virtual auto operator[](const char *index) const -> const Color *;
 
-    virtual const Color *operator[](const std::string &index) const {
+    virtual auto operator[](const std::string &index) const -> const Color * {
         return (*this)[index.c_str()];
     }
 
-    virtual const Color *get_color(const std::vector<uint32_t> &ids) const {
+    [[nodiscard]] virtual auto get_color(const std::vector<uint32_t> &ids) const -> const Color * {
         assert(ids.size() == 1);
         return &_colors[ids[0]];
     }
 
-    const std::string &get_name() const { return _name; }
+    [[nodiscard]] auto get_name() const -> const std::string & { return _name; }
 
-    std::vector<Color>::const_iterator begin() const { return _colors.begin(); }
+    [[nodiscard]] auto begin() const -> std::vector<Color>::const_iterator {
+        return _colors.begin();
+    }
 
-    std::vector<Color>::const_iterator end() const { return _colors.end(); }
+    [[nodiscard]] auto end() const -> std::vector<Color>::const_iterator { return _colors.end(); }
 };
 
 class ProductType : public ColorType {
@@ -164,13 +169,13 @@ class ProductType : public ColorType {
 
   public:
     ProductType(const std::string &name = "Undefined") : ColorType(name) {}
-    ~ProductType() { _cache.clear(); }
+    ~ProductType() override { _cache.clear(); }
 
     void add_type(const ColorType *type) { _constituents.push_back(type); }
 
     void add_color(const char *colorName) override {}
 
-    size_t size() const override {
+    auto size() const -> size_t override {
         size_t product = 1;
         for (auto *ct : _constituents) {
             product *= ct->size();
@@ -178,7 +183,7 @@ class ProductType : public ColorType {
         return product;
     }
 
-    size_t size(const std::vector<bool> &excludedFields) const override {
+    auto size(const std::vector<bool> &excludedFields) const -> size_t override {
         size_t product = 1;
         for (uint32_t i = 0; i < _constituents.size(); i++) {
             if (!excludedFields[i]) {
@@ -188,7 +193,7 @@ class ProductType : public ColorType {
         return product;
     }
 
-    virtual size_t product_size() const {
+    auto product_size() const -> size_t override {
         size_t size = 0;
         for (auto *ct : _constituents) {
             size += ct->product_size();
@@ -196,7 +201,7 @@ class ProductType : public ColorType {
         return size;
     }
 
-    std::vector<size_t> get_constituents_sizes() const override {
+    auto get_constituents_sizes() const -> std::vector<size_t> override {
         std::vector<size_t> result;
         for (auto *ct : _constituents) {
             result.push_back(ct->size());
@@ -204,7 +209,7 @@ class ProductType : public ColorType {
         return result;
     }
 
-    Colored::interval_t get_full_interval() const override {
+    auto get_full_interval() const -> Colored::interval_t override {
         Colored::interval_t interval;
         for (auto ct : _constituents) {
             interval.add_range(Reachability::range_t(0, ct->size() - 1));
@@ -218,12 +223,12 @@ class ProductType : public ColorType {
         }
     }
 
-    bool contains_types(const std::vector<const ColorType *> &types) const {
+    auto contains_types(const std::vector<const ColorType *> &types) const -> bool {
         if (_constituents.size() != types.size())
             return false;
 
         for (size_t i = 0; i < _constituents.size(); ++i) {
-            if (!(_constituents[i] == types[i])) {
+            if (_constituents[i] != types[i]) {
                 return false;
             }
         }
@@ -231,18 +236,22 @@ class ProductType : public ColorType {
         return true;
     }
 
-    const ColorType *get_nested_color_type(size_t index) const { return _constituents[index]; }
+    auto get_nested_color_type(size_t index) const -> const ColorType * {
+        return _constituents[index];
+    }
 
-    const Color *get_color(const std::vector<uint32_t> &ids) const override;
+    auto get_color(const std::vector<uint32_t> &ids) const -> const Color * override;
 
-    const Color *get_color(const std::vector<const Color *> &colors) const;
+    auto get_color(const std::vector<const Color *> &colors) const -> const Color *;
 
-    const Color &operator[](size_t index) const override;
-    const Color &operator[](int index) const override { return operator[]((size_t)index); }
-    const Color &operator[](uint32_t index) const override { return operator[]((size_t)index); }
+    auto operator[](size_t index) const -> const Color & override;
+    auto operator[](int index) const -> const Color & override { return operator[]((size_t)index); }
+    auto operator[](uint32_t index) const -> const Color & override {
+        return operator[]((size_t)index);
+    }
 
-    const Color *operator[](const char *index) const override;
-    const Color *operator[](const std::string &index) const override;
+    auto operator[](const char *index) const -> const Color * override;
+    auto operator[](const std::string &index) const -> const Color * override;
 };
 
 struct Variable {
@@ -250,27 +259,24 @@ struct Variable {
     const ColorType *_colorType;
 };
 
-struct ColorFixpoint {
+struct color_fixpoint_t {
     Colored::IntervalVector _constraints;
     bool _in_queue;
 };
 
-struct ColorTypePartition {
+struct color_type_partition_t {
     std::vector<const Color *> _colors;
     std::string _name;
 };
 
-typedef std::unordered_map<uint32_t, const Colored::Variable *> PositionVariableMap;
+using PositionVariableMap = std::unordered_map<uint32_t, const Colored::Variable *>;
 // Map from variables to a vector of maps from variable positions to the modifiers applied to the
 // variable in that position
-typedef std::unordered_map<const Colored::Variable *,
-                           std::vector<std::unordered_map<uint32_t, int32_t>>>
-    VariableModifierMap;
-typedef std::unordered_map<const PetriEngine::Colored::Variable *,
-                           PetriEngine::Colored::IntervalVector>
-    VariableIntervalMap;
-typedef std::unordered_map<uint32_t, std::vector<const Color *>> PositionColorsMap;
-} // namespace Colored
-} // namespace PetriEngine
+using VariableModifierMap = std::unordered_map<const Colored::Variable *,
+                                               std::vector<std::unordered_map<uint32_t, int32_t>>>;
+using VariableIntervalMap = std::unordered_map<const PetriEngine::Colored::Variable *,
+                                               PetriEngine::Colored::IntervalVector>;
+using PositionColorsMap = std::unordered_map<uint32_t, std::vector<const Color *>>;
+} // namespace PetriEngine::Colored
 
 #endif /* COLORS_H */

@@ -21,7 +21,7 @@
 #include "PetriEngine/PQL/PQL.h"
 #include "PetriEngine/PQL/Visitor.h"
 #include "PetriEngine/PetriNet.h"
-#include "PetriEngine/Structures/light_deque.h"
+#include "PetriEngine/Structures/LightDequeue.h"
 
 namespace LTL {
 class VisibleTransitionVisitor : public PetriEngine::PQL::Visitor {
@@ -29,49 +29,49 @@ class VisibleTransitionVisitor : public PetriEngine::PQL::Visitor {
     explicit VisibleTransitionVisitor(std::unique_ptr<bool[]> &visible) : _places(visible) {}
 
   protected:
-    void _accept(const PetriEngine::PQL::NotCondition *element) override;
+    void accept(const PetriEngine::PQL::NotCondition *element) override;
 
-    void _accept(const PetriEngine::PQL::AndCondition *element) override;
+    void accept(const PetriEngine::PQL::AndCondition *element) override;
 
-    void _accept(const PetriEngine::PQL::OrCondition *element) override;
+    void accept(const PetriEngine::PQL::OrCondition *element) override;
 
-    void _accept(const PetriEngine::PQL::LessThanCondition *element) override;
+    void accept(const PetriEngine::PQL::LessThanCondition *element) override;
 
-    void _accept(const PetriEngine::PQL::LessThanOrEqualCondition *element) override;
+    void accept(const PetriEngine::PQL::LessThanOrEqualCondition *element) override;
 
-    void _accept(const PetriEngine::PQL::EqualCondition *element) override;
+    void accept(const PetriEngine::PQL::EqualCondition *element) override;
 
-    void _accept(const PetriEngine::PQL::NotEqualCondition *element) override;
+    void accept(const PetriEngine::PQL::NotEqualCondition *element) override;
 
-    void _accept(const PetriEngine::PQL::DeadlockCondition *element) override;
+    void accept(const PetriEngine::PQL::DeadlockCondition *element) override;
 
-    void _accept(const PetriEngine::PQL::CompareConjunction *element) override;
+    void accept(const PetriEngine::PQL::CompareConjunction *element) override;
 
-    void _accept(const PetriEngine::PQL::UnfoldedUpperBoundsCondition *element) override;
+    void accept(const PetriEngine::PQL::UnfoldedUpperBoundsCondition *element) override;
 
-    void _accept(const PetriEngine::PQL::UnfoldedIdentifierExpr *element) override;
+    void accept(const PetriEngine::PQL::UnfoldedIdentifierExpr *element) override;
 
-    void _accept(const PetriEngine::PQL::LiteralExpr *element) override;
+    void accept(const PetriEngine::PQL::LiteralExpr *element) override;
 
-    void _accept(const PetriEngine::PQL::PlusExpr *element) override;
+    void accept(const PetriEngine::PQL::PlusExpr *element) override;
 
-    void _accept(const PetriEngine::PQL::MultiplyExpr *element) override;
+    void accept(const PetriEngine::PQL::MultiplyExpr *element) override;
 
-    void _accept(const PetriEngine::PQL::MinusExpr *element) override;
+    void accept(const PetriEngine::PQL::MinusExpr *element) override;
 
-    void _accept(const PetriEngine::PQL::SubtractExpr *element) override;
+    void accept(const PetriEngine::PQL::SubtractExpr *element) override;
 
-    void _accept(const PetriEngine::PQL::ACondition *condition) override;
+    void accept(const PetriEngine::PQL::ACondition *condition) override;
 
-    void _accept(const PetriEngine::PQL::ECondition *condition) override;
+    void accept(const PetriEngine::PQL::ECondition *condition) override;
 
-    void _accept(const PetriEngine::PQL::GCondition *condition) override;
+    void accept(const PetriEngine::PQL::GCondition *condition) override;
 
-    void _accept(const PetriEngine::PQL::FCondition *condition) override;
+    void accept(const PetriEngine::PQL::FCondition *condition) override;
 
-    void _accept(const PetriEngine::PQL::XCondition *condition) override;
+    void accept(const PetriEngine::PQL::XCondition *condition) override;
 
-    void _accept(const PetriEngine::PQL::UntilCondition *condition) override;
+    void accept(const PetriEngine::PQL::UntilCondition *condition) override;
 
   private:
     std::unique_ptr<bool[]> &_places;

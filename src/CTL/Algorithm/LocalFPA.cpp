@@ -68,7 +68,7 @@ auto LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph) -> bool {
     return v->_assignment == ONE;
 }
 
-void LocalFPA::final_assign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a) {
+void LocalFPA::final_assign(DependencyGraph::Configuration *c, DependencyGraph::assignment_e a) {
     assert(a == DependencyGraph::ONE);
     c->_assignment = a;
 

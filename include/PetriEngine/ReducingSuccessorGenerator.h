@@ -4,7 +4,7 @@
 #include "PQL/PQL.h"
 #include "PetriEngine/Stubborn/StubbornSet.h"
 #include "Structures/State.h"
-#include "Structures/light_deque.h"
+#include "Structures/LightDequeue.h"
 #include "SuccessorGenerator.h"
 #include <memory>
 
@@ -26,11 +26,11 @@ class ReducingSuccessorGenerator : public SuccessorGenerator {
 
     void set_query(PQL::Condition *ptr) { _stubSet->set_query(ptr); }
 
-    virtual bool prepare(const Structures::State &state) override;
+    auto prepare(const Structures::State &state) -> bool override;
 
-    virtual bool next(Structures::State &write) override;
+    auto next(Structures::State &write) -> bool override;
 
-    virtual uint32_t fired() const override { return _current; }
+    [[nodiscard]] auto fired() const -> uint32_t override { return _current; }
 
   private:
     std::shared_ptr<StubbornSet> _stubSet;

@@ -32,12 +32,13 @@ class TraceReplay {
   public:
     TraceReplay(std::istream &is, const PetriEngine::PetriNet &net, const options_t &options);
 
-    struct Token {
+    struct token_t {
         std::string _place;
     };
 
-    struct Transition {
-        explicit Transition(std::string id, int buchi) : _id(std::move(id)), _buchi_state(buchi) {}
+    struct transition_t {
+        explicit transition_t(std::string id, int buchi)
+            : _id(std::move(id)), _buchi_state(buchi) {}
 
         std::string _id;
         int _buchi_state;
@@ -46,15 +47,16 @@ class TraceReplay {
 
     void parse(std::istream &xml, const PetriEngine::PetriNet &net);
 
-    bool replay(const PetriEngine::PetriNet &net, const PetriEngine::PQL::Condition_ptr &cond);
+    auto replay(const PetriEngine::PetriNet &net, const PetriEngine::PQL::Condition_ptr &cond)
+        -> bool;
 
-    std::vector<Transition> _trace;
+    std::vector<transition_t> _trace;
 
   private:
-    static constexpr auto _DEADLOCK_TRANS = "##deadlock";
+    static constexpr auto DEADLOCK_TRANS = "##deadlock";
     void parse_root(const rapidxml::xml_node<> *pNode);
 
-    Transition parse_transition(const rapidxml::xml_node<char> *pNode);
+    transition_t parse_transition(const rapidxml::xml_node<char> *pNode);
 
     void parse_token(const rapidxml::xml_node<char> *pNode,
                      std::unordered_map<uint32_t, uint32_t> &current_marking);
@@ -62,8 +64,8 @@ class TraceReplay {
     size_t _loop_idx = std::numeric_limits<size_t>::max();
     std::unordered_map<std::string, int> _transitions;
     std::unordered_map<std::string, int> _places;
-    bool _play_trace(const PetriEngine::PetriNet &net,
-                     PetriEngine::SuccessorGenerator &successorGenerator);
+    auto play_trace(const PetriEngine::PetriNet &net,
+                    PetriEngine::SuccessorGenerator &successorGenerator) -> bool;
     const options_t &_options;
 };
 } // namespace PetriEngine

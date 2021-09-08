@@ -18,247 +18,247 @@
 #include "PetriEngine/PQL/QueryPrinter.h"
 
 namespace PetriEngine::PQL {
-void QueryPrinter::_accept(const NotCondition *element) {
-    os << "(not ";
+void QueryPrinter::accept(const NotCondition *element) {
+    _os << "(not ";
     element->operator[](0)->visit(*this);
-    os << ")";
+    _os << ")";
 }
 
-void QueryPrinter::_accept(const LogicalCondition *element, const std::string &op) {
-    os << "(";
+void QueryPrinter::accept(const LogicalCondition *element, const std::string &op) {
+    _os << "(";
     (*element)[0]->visit(*this);
     for (size_t i = 1; i < element->operands(); ++i) {
-        os << " " << op << " ";
+        _os << " " << op << " ";
         (*element)[i]->visit(*this);
     }
-    os << ")";
+    _os << ")";
 }
 
-void QueryPrinter::_accept(const CompareCondition *element, const std::string &op) {
-    os << "(";
-    element->getExpr1()->visit(*this);
-    os << " " << op << " ";
-    element->getExpr2()->visit(*this);
-    os << ")";
+void QueryPrinter::accept(const CompareCondition *element, const std::string &op) {
+    _os << "(";
+    (*element)[0]->visit(*this);
+    _os << " " << op << " ";
+    (*element)[1]->visit(*this);
+    _os << ")";
 }
 
-void QueryPrinter::_accept(const AndCondition *element) { _accept(element, "and"); }
+void QueryPrinter::accept(const AndCondition *element) { accept(element, "and"); }
 
-void QueryPrinter::_accept(const OrCondition *element) { _accept(element, "or"); }
+void QueryPrinter::accept(const OrCondition *element) { accept(element, "or"); }
 
-void QueryPrinter::_accept(const LessThanCondition *element) { _accept(element, "<"); }
+void QueryPrinter::accept(const LessThanCondition *element) { accept(element, "<"); }
 
-void QueryPrinter::_accept(const LessThanOrEqualCondition *element) { _accept(element, "<="); }
+void QueryPrinter::accept(const LessThanOrEqualCondition *element) { accept(element, "<="); }
 
-void QueryPrinter::_accept(const EqualCondition *element) { _accept(element, "=="); }
+void QueryPrinter::accept(const EqualCondition *element) { accept(element, "=="); }
 
-void QueryPrinter::_accept(const NotEqualCondition *element) { _accept(element, "!="); }
+void QueryPrinter::accept(const NotEqualCondition *element) { accept(element, "!="); }
 
-void QueryPrinter::_accept(const DeadlockCondition *element) { os << "deadlock"; }
+void QueryPrinter::accept(const DeadlockCondition *element) { _os << "deadlock"; }
 
-void QueryPrinter::_accept(const CompareConjunction *element) {
-    os << "(";
-    if (element->isNegated())
-        os << "not";
+void QueryPrinter::accept(const CompareConjunction *element) {
+    _os << "(";
+    if (element->is_negated())
+        _os << "not";
     bool first = true;
     for (const auto &cons : *element) {
         if (!first)
-            os << " and ";
+            _os << " and ";
         if (cons._lower != 0)
-            os << "(" << cons._lower << " <= " << cons._name << ")";
+            _os << "(" << cons._lower << " <= " << cons._name << ")";
         if (cons._lower != 0 && cons._upper != std::numeric_limits<uint32_t>::max())
-            os << " and ";
+            _os << " and ";
         if (cons._upper != std::numeric_limits<uint32_t>::max())
-            os << "(" << cons._upper << " >= " << cons._name << ")";
+            _os << "(" << cons._upper << " >= " << cons._name << ")";
         first = false;
     }
-    os << ")";
+    _os << ")";
 }
 
-void QueryPrinter::_accept(const UnfoldedUpperBoundsCondition *element) {
-    os << "bounds (";
+void QueryPrinter::accept(const UnfoldedUpperBoundsCondition *element) {
+    _os << "bounds (";
     auto places = element->places();
     for (size_t i = 0; i < places.size(); ++i) {
         if (i != 0)
-            os << ", ";
-        os << places[i]._name;
+            _os << ", ";
+        _os << places[i]._name;
     }
-    os << ")";
+    _os << ")";
 }
 
-void QueryPrinter::_accept(const EFCondition *condition) {
-    os << "EF ";
+void QueryPrinter::accept(const EFCondition *condition) {
+    _os << "EF ";
     (*condition)[0]->visit(*this);
 }
 
-void QueryPrinter::_accept(const EGCondition *condition) {
-    os << "EG ";
+void QueryPrinter::accept(const EGCondition *condition) {
+    _os << "EG ";
     (*condition)[0]->visit(*this);
 }
 
-void QueryPrinter::_accept(const AGCondition *condition) {
-    os << "AG ";
+void QueryPrinter::accept(const AGCondition *condition) {
+    _os << "AG ";
     (*condition)[0]->visit(*this);
 }
 
-void QueryPrinter::_accept(const AFCondition *condition) {
-    os << "AF ";
+void QueryPrinter::accept(const AFCondition *condition) {
+    _os << "AF ";
     (*condition)[0]->visit(*this);
 }
 
-void QueryPrinter::_accept(const EXCondition *condition) {
-    os << "AF ";
+void QueryPrinter::accept(const EXCondition *condition) {
+    _os << "AF ";
     (*condition)[0]->visit(*this);
 }
 
-void QueryPrinter::_accept(const AXCondition *condition) {
-    os << "AX ";
+void QueryPrinter::accept(const AXCondition *condition) {
+    _os << "AX ";
     (*condition)[0]->visit(*this);
 }
 
-void QueryPrinter::_accept(const EUCondition *condition) {
-    os << "E ";
-    _accept((UntilCondition *)condition);
+void QueryPrinter::accept(const EUCondition *condition) {
+    _os << "E ";
+    accept((UntilCondition *)condition);
 }
 
-void QueryPrinter::_accept(const AUCondition *condition) {
-    os << "A ";
-    _accept((UntilCondition *)condition);
+void QueryPrinter::accept(const AUCondition *condition) {
+    _os << "A ";
+    accept((UntilCondition *)condition);
 }
 
-void QueryPrinter::_accept(const ACondition *condition) {
-    os << "A ";
+void QueryPrinter::accept(const ACondition *condition) {
+    _os << "A ";
     (*condition)[0]->visit(*this);
 }
 
-void QueryPrinter::_accept(const ECondition *condition) {
-    os << "E ";
+void QueryPrinter::accept(const ECondition *condition) {
+    _os << "E ";
     (*condition)[0]->visit(*this);
 }
 
-void QueryPrinter::_accept(const GCondition *condition) {
-    os << "G ";
+void QueryPrinter::accept(const GCondition *condition) {
+    _os << "G ";
     (*condition)[0]->visit(*this);
 }
 
-void QueryPrinter::_accept(const FCondition *condition) {
-    os << "F ";
+void QueryPrinter::accept(const FCondition *condition) {
+    _os << "F ";
     (*condition)[0]->visit(*this);
 }
 
-void QueryPrinter::_accept(const XCondition *condition) {
-    os << "X ";
+void QueryPrinter::accept(const XCondition *condition) {
+    _os << "X ";
     (*condition)[0]->visit(*this);
 }
 
-void QueryPrinter::_accept(const UntilCondition *condition) {
-    os << "(";
+void QueryPrinter::accept(const UntilCondition *condition) {
+    _os << "(";
     condition->get_cond1()->visit(*this);
-    os << " U ";
+    _os << " U ";
     condition->get_cond2()->visit(*this);
-    os << ")";
+    _os << ")";
 }
 
-void QueryPrinter::_accept(const UnfoldedFireableCondition *element) {
-    os << "is-fireable(" << element->get_name() << ")";
+void QueryPrinter::accept(const UnfoldedFireableCondition *element) {
+    _os << "is-fireable(" << element->get_name() << ")";
 }
 
-void QueryPrinter::_accept(const FireableCondition *element) {
-    os << "is-fireable(" << element->get_name() << ")";
+void QueryPrinter::accept(const FireableCondition *element) {
+    _os << "is-fireable(" << element->get_name() << ")";
 }
 
-void QueryPrinter::_accept(const UpperBoundsCondition *element) {
-    os << "bounds (";
-    auto places = element->getPlaces();
+void QueryPrinter::accept(const UpperBoundsCondition *element) {
+    _os << "bounds (";
+    auto places = element->get_places();
     for (size_t i = 0; i < places.size(); ++i) {
         if (i != 0)
-            os << ", ";
-        os << places[i];
+            _os << ", ";
+        _os << places[i];
     }
-    os << ")";
+    _os << ")";
 }
 
-void QueryPrinter::_accept(const LivenessCondition *element) {
+void QueryPrinter::accept(const LivenessCondition *element) {
     const Condition_ptr &cond = element->get_compiled();
     if (cond) {
         cond->visit(*this);
     } else {
-        os << "liveness";
+        _os << "liveness";
     }
 }
 
-void QueryPrinter::_accept(const KSafeCondition *element) {
+void QueryPrinter::accept(const KSafeCondition *element) {
     if (element->get_compiled()) {
         element->get_compiled()->visit(*this);
     } else {
-        os << "k-safe(";
-        element->getBound()->visit(*this);
-        os << ")";
+        _os << "k-safe(";
+        element->get_bound()->visit(*this);
+        _os << ")";
     }
 }
 
-void QueryPrinter::_accept(const QuasiLivenessCondition *element) {
+void QueryPrinter::accept(const QuasiLivenessCondition *element) {
     const Condition_ptr &cond = element->get_compiled();
     if (cond) {
         cond->visit(*this);
     } else {
-        os << "liveness";
+        _os << "liveness";
     }
 }
 
-void QueryPrinter::_accept(const StableMarkingCondition *element) {
+void QueryPrinter::accept(const StableMarkingCondition *element) {
     const Condition_ptr &cond = element->get_compiled();
     if (cond) {
         cond->visit(*this);
     } else {
-        os << "stable-marking";
+        _os << "stable-marking";
     }
 }
 
-void QueryPrinter::_accept(const BooleanCondition *element) {
-    os << (element->value ? "true" : "false");
+void QueryPrinter::accept(const BooleanCondition *element) {
+    _os << (element->_value ? "true" : "false");
 }
 
-void QueryPrinter::_accept(const UnfoldedIdentifierExpr *element) { os << element->name(); }
+void QueryPrinter::accept(const UnfoldedIdentifierExpr *element) { _os << element->name(); }
 
-void QueryPrinter::_accept(const LiteralExpr *element) { os << element->value(); }
+void QueryPrinter::accept(const LiteralExpr *element) { _os << element->value(); }
 
-void QueryPrinter::_accept(const CommutativeExpr *element, const std::string &op) {
-    os << "(" << element->constant();
+void QueryPrinter::accept(const CommutativeExpr *element, const std::string &op) {
+    _os << "(" << element->constant();
     for (const auto &id : element->places()) {
-        os << " " << op << " " << id.second;
+        _os << " " << op << " " << id.second;
     }
     for (const auto &expr : element->expressions()) {
-        os << " " << op << " ";
+        _os << " " << op << " ";
         expr->visit(*this);
     }
-    os << ")";
+    _os << ")";
 }
 
-void QueryPrinter::_accept(const NaryExpr *element, const std::string &op) {
-    os << "(";
+void QueryPrinter::accept(const NaryExpr *element, const std::string &op) {
+    _os << "(";
     (*element)[0]->visit(*this);
     for (size_t i = 1; i < element->operands(); ++i) {
-        os << " " << op << " ";
+        _os << " " << op << " ";
         (*element)[i]->visit(*this);
     }
-    os << ")";
+    _os << ")";
 }
 
-void QueryPrinter::_accept(const PlusExpr *element) {
-    _accept((const CommutativeExpr *)element, "+");
+void QueryPrinter::accept(const PlusExpr *element) {
+    accept((const CommutativeExpr *)element, "+");
 }
 
-void QueryPrinter::_accept(const MultiplyExpr *element) {
-    _accept((const CommutativeExpr *)element, "*");
+void QueryPrinter::accept(const MultiplyExpr *element) {
+    accept((const CommutativeExpr *)element, "*");
 }
 
-void QueryPrinter::_accept(const MinusExpr *element) {
-    os << "-";
+void QueryPrinter::accept(const MinusExpr *element) {
+    _os << "-";
     (*element)[0]->visit(*this);
 }
 
-void QueryPrinter::_accept(const SubtractExpr *element) { _accept((const NaryExpr *)element, "-"); }
+void QueryPrinter::accept(const SubtractExpr *element) { accept((const NaryExpr *)element, "-"); }
 
-void QueryPrinter::_accept(const IdentifierExpr *element) { os << element->name(); }
+void QueryPrinter::accept(const IdentifierExpr *element) { _os << element->name(); }
 } // namespace PetriEngine::PQL

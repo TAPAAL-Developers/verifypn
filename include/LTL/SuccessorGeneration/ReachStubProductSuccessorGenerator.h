@@ -45,9 +45,9 @@ class ReachStubProductSuccessorGenerator : public ProductSuccessorGenerator<S> {
 
     void calc_safe_reach_states(const Structures::BuchiAutomaton &buchi) {
         assert(_reach_states.empty());
-        std::vector<AtomicProposition> aps(buchi._ap_info.size());
+        std::vector<atomic_proposition_t> aps(buchi._ap_info.size());
         std::transform(std::begin(buchi._ap_info), std::end(buchi._ap_info), std::begin(aps),
-                       [](const std::pair<int, AtomicProposition> &pair) { return pair.second; });
+                       [](const std::pair<int, atomic_proposition_t> &pair) { return pair.second; });
         for (unsigned state = 0; state < buchi._buchi->num_states(); ++state) {
             // if (buchi._buchi->state_is_accepting(state)) continue;
 
@@ -61,15 +61,15 @@ class ReachStubProductSuccessorGenerator : public ProductSuccessorGenerator<S> {
                 }
             }
             bdd sink_prop = bdd_not(retarding | progressing);
-            auto prog_cond = to_PQL(spot::bdd_to_formula(progressing, buchi._dict), aps);
-            auto ret_cond = to_PQL(spot::bdd_to_formula(retarding, buchi._dict), aps);
+            auto prog_cond = to_pql(spot::bdd_to_formula(progressing, buchi._dict), aps);
+            auto ret_cond = to_pql(spot::bdd_to_formula(retarding, buchi._dict), aps);
             auto sink_cond =
                 sink_prop == bdd_false()
                     ? PetriEngine::PQL::BooleanCondition::FALSE_CONSTANT
                     : std::make_shared<PetriEngine::PQL::NotCondition>(
                           std::make_shared<PetriEngine::PQL::OrCondition>(prog_cond, ret_cond));
             _reach_states.insert(std::make_pair(
-                state, BuchiEdge{progressing | sink_prop, ret_cond, prog_cond, sink_cond}));
+                state, buchi_edge_t{progressing | sink_prop, ret_cond, prog_cond, sink_cond}));
         }
     }
 
@@ -99,7 +99,7 @@ class ReachStubProductSuccessorGenerator : public ProductSuccessorGenerator<S> {
         }
     }
 
-    struct BuchiEdge {
+    struct buchi_edge_t {
         bdd _bddCond;
         PetriEngine::PQL::Condition_ptr _ret_cond;
         PetriEngine::PQL::Condition_ptr _prog_cond;
@@ -108,7 +108,7 @@ class ReachStubProductSuccessorGenerator : public ProductSuccessorGenerator<S> {
 
     std::unique_ptr<Spooler> _fallback_spooler;
     std::unique_ptr<LTL::SafeAutStubbornSet> _reach;
-    std::unordered_map<size_t, BuchiEdge> _reach_states;
+    std::unordered_map<size_t, buchi_edge_t> _reach_states;
     std::vector<PetriEngine::PQL::Condition_ptr> _progressing_formulae;
 };
 } // namespace LTL

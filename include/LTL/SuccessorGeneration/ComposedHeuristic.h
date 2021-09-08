@@ -34,9 +34,9 @@ class ComposedHeuristic : public Heuristic {
         _secondary->prepare(state);
     }
 
-    uint32_t eval(const Structures::ProductState &state, uint32_t tid) override = 0;
+    auto eval(const Structures::ProductState &state, uint32_t tid) -> uint32_t override = 0;
 
-    bool has_heuristic(const Structures::ProductState &state) override {
+    auto has_heuristic(const Structures::ProductState &state) -> bool override {
         _primary_has_heuristic = _primary->has_heuristic(state);
         _secondary_has_heuristic = _secondary->has_heuristic(state);
         return _primary_has_heuristic || _secondary_has_heuristic;

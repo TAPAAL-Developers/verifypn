@@ -39,10 +39,10 @@ auto QueryBinaryParser::parse(std::ifstream &bin, const std::set<size_t> &parse_
         std::getline(bin, _queries.back()._id, '\0');
         _queries.back()._query = parse_query(bin, names);
         if (_queries.back()._query == nullptr) {
-            _queries.back()._parsing_result = QueryItem::UNSUPPORTED_QUERY;
+            _queries.back()._parsing_result = query_item_t::UNSUPPORTED_QUERY;
             parsingOK = false;
         } else
-            _queries.back()._parsing_result = QueryItem::PARSING_OK;
+            _queries.back()._parsing_result = query_item_t::PARSING_OK;
     }
     // Release DOM tree
     return parsingOK;
@@ -67,7 +67,7 @@ auto QueryBinaryParser::parse_query(std::ifstream &binary, const std::vector<std
         } else if (q == quantifier_e::PN_BOOLEAN) {
             bool val;
             binary.read(reinterpret_cast<char *>(&val), sizeof(bool));
-            return BooleanCondition::getShared(val);
+            return BooleanCondition::get_shared(val);
         } else if (q == quantifier_e::AND || q == quantifier_e::OR) {
             uint32_t size;
             binary.read(reinterpret_cast<char *>(&size), sizeof(uint32_t));

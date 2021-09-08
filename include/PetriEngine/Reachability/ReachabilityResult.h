@@ -37,25 +37,25 @@ class AbstractHandler {
   public:
     enum Result {
         /** The query was satisfied */
-        Satisfied,
+        SATISFIED,
         /** The query cannot be satisfied */
-        NotSatisfied,
+        NOT_SATISFIED,
         /** We're unable to say if the query can be satisfied */
-        Unknown,
+        UNKNOWN,
         /** The query should be verified using the CTL engine */
         CTL,
         /** The query should be verified using the LTL engine */
         LTL,
         /** Just ignore */
-        Ignore
+        IGNORE
     };
-    virtual std::pair<Result, bool> handle(size_t index, const PQL::Condition &query, Result result,
-                                           const std::vector<uint32_t> *maxPlaceBound = nullptr,
-                                           size_t expandedStates = 0, size_t exploredStates = 0,
-                                           size_t discoveredStates = 0, int maxTokens = 0,
-                                           const Structures::StateSetInterface *stateset = nullptr,
-                                           size_t lastmarking = 0,
-                                           const MarkVal *initialMarking = nullptr) const = 0;
+    virtual auto handle(size_t index, const PQL::Condition &query, Result result,
+                        const std::vector<uint32_t> *maxPlaceBound = nullptr,
+                        size_t expandedStates = 0, size_t exploredStates = 0,
+                        size_t discoveredStates = 0, int maxTokens = 0,
+                        const Structures::StateSetInterface *stateset = nullptr,
+                        size_t lastmarking = 0, const MarkVal *initialMarking = nullptr) const
+        -> std::pair<Result, bool> = 0;
 };
 
 class ResultPrinter : public AbstractHandler {
@@ -76,15 +76,13 @@ class ResultPrinter : public AbstractHandler {
 
     void set_reducer(const Reducer &r) { this->_reducer = &r; }
 
-    std::pair<Result, bool> handle(size_t index, const PQL::Condition &query, Result result,
-                                   const std::vector<uint32_t> *maxPlaceBound = nullptr,
-                                   size_t expandedStates = 0, size_t exploredStates = 0,
-                                   size_t discoveredStates = 0, int maxTokens = 0,
-                                   const Structures::StateSetInterface *stateset = nullptr,
-                                   size_t lastmarking = 0,
-                                   const MarkVal *initialMarking = nullptr) const override;
+    auto handle(size_t index, const PQL::Condition &query, Result result,
+                const std::vector<uint32_t> *maxPlaceBound = nullptr, size_t expandedStates = 0,
+                size_t exploredStates = 0, size_t discoveredStates = 0, int maxTokens = 0,
+                const Structures::StateSetInterface *stateset = nullptr, size_t lastmarking = 0,
+                const MarkVal *initialMarking = nullptr) const -> std::pair<Result, bool> override;
 
-    std::string print_techniques() const;
+    [[nodiscard]] auto print_techniques() const -> std::string;
 
     void print_trace(const Structures::StateSetInterface &, size_t lastmarking) const;
 };

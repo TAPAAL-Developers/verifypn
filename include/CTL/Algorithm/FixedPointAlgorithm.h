@@ -5,19 +5,20 @@
 #include "CTL/SearchStrategy/SearchStrategy.h"
 #include "PetriEngine/Reachability/ReachabilitySearch.h"
 
-namespace CTL {
-namespace Algorithm {
+namespace CTL::Algorithm {
 
 class FixedPointAlgorithm {
   public:
-    virtual bool search(DependencyGraph::BasicDependencyGraph &graph) = 0;
+    virtual auto search(DependencyGraph::BasicDependencyGraph &graph) -> bool = 0;
     FixedPointAlgorithm(options_t::search_strategy_e type);
-    virtual ~FixedPointAlgorithm() {}
+    virtual ~FixedPointAlgorithm() = default;
 
-    size_t processed_edges() const { return _processedEdges; }
-    size_t processed_negation_edges() const { return _processedNegationEdges; }
-    size_t explored_configurations() const { return _exploredConfigurations; }
-    size_t number_of_edges() const { return _numberOfEdges; }
+    [[nodiscard]] auto processed_edges() const -> size_t { return _processedEdges; }
+    [[nodiscard]] auto processed_negation_edges() const -> size_t {
+        return _processedNegationEdges;
+    }
+    [[nodiscard]] auto explored_configurations() const -> size_t { return _exploredConfigurations; }
+    [[nodiscard]] auto number_of_edges() const -> size_t { return _numberOfEdges; }
 
   protected:
     std::shared_ptr<CTL::SearchStrategy::SearchStrategy> _strategy;
@@ -30,6 +31,5 @@ class FixedPointAlgorithm {
     // total number of edges found when computing successors
     size_t _numberOfEdges = 0;
 };
-} // namespace Algorithm
-} // namespace CTL
+} // namespace CTL::Algorithm
 #endif // FIXEDPOINTALGORITHM_H

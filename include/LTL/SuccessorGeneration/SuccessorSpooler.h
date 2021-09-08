@@ -23,15 +23,15 @@
 namespace LTL {
 class SuccessorSpooler {
   public:
-    virtual bool prepare(const LTL::Structures::ProductState &) = 0;
+    virtual auto prepare(const LTL::Structures::ProductState &) -> bool = 0;
 
-    virtual uint32_t next() = 0;
+    virtual auto next() -> uint32_t = 0;
 
     virtual ~SuccessorSpooler() = default;
 
     virtual void reset() {}
 
-    virtual bool generate_all(const LTL::Structures::ProductState &parent) { return false; }
+    virtual auto generate_all(const LTL::Structures::ProductState &parent) -> bool { return false; }
     static constexpr uint32_t NoTransition = std::numeric_limits<uint32_t>::max();
 };
 } // namespace LTL

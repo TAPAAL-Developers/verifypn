@@ -29,25 +29,25 @@
 
 namespace LTL::Structures {
 struct BuchiAutomaton {
-    BuchiAutomaton(spot::twa_graph_ptr buchi, std::unordered_map<int, AtomicProposition> apInfo)
+    BuchiAutomaton(spot::twa_graph_ptr buchi, std::unordered_map<int, atomic_proposition_t> apInfo)
         : _buchi(std::move(buchi)), _ap_info(std::move(apInfo)) {
         _dict = _buchi->get_dict();
     }
 
     spot::twa_graph_ptr _buchi;
-    const std::unordered_map<int, AtomicProposition> _ap_info;
+    const std::unordered_map<int, atomic_proposition_t> _ap_info;
     spot::bdd_dict_ptr _dict;
 
-    void output_buchi(const std::string &file, BuchiOutType type) {
+    void output_buchi(const std::string &file, buchi_out_type_e type) {
         std::ofstream fs(file);
         switch (type) {
-        case BuchiOutType::Dot:
+        case buchi_out_type_e::DOT:
             spot::print_dot(fs, _buchi);
             break;
-        case BuchiOutType::HOA:
+        case buchi_out_type_e::HOA:
             spot::print_hoa(fs, _buchi, "s");
             break;
-        case BuchiOutType::Spin:
+        case buchi_out_type_e::SPIN:
             spot::print_never_claim(fs, _buchi);
             break;
         }
@@ -56,7 +56,7 @@ struct BuchiAutomaton {
     /**
      * Evaluate binary decision diagram (BDD) representation of transition guard in given state.
      */
-    bool guard_valid(PetriEngine::PQL::EvaluationContext &ctx, bdd bdd) const {
+    auto guard_valid(PetriEngine::PQL::EvaluationContext &ctx, bdd bdd) const -> bool {
         // IDs 0 and 1 are false and true atoms, respectively
         // More details in buddy manual ( http://buddy.sourceforge.net/manual/main.html )
         while (bdd.id() > 1) {

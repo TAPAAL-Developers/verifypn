@@ -6,24 +6,24 @@
 
 #include <set>
 
-namespace PetriEngine {
-namespace Simplification {
+namespace PetriEngine::Simplification {
 
 class AbstractProgramCollection {
   protected:
-    enum result_t { UNKNOWN, IMPOSSIBLE, POSSIBLE };
-    result_t _result = result_t::UNKNOWN;
+    enum result_t_e { UNKNOWN, IMPOSSIBLE, POSSIBLE };
+    result_t_e _result = result_t_e::UNKNOWN;
 
     virtual void satisfiable_impl(const PQL::SimplificationContext &context,
                                   uint32_t solvetime) = 0;
     bool _has_empty = false;
 
   public:
-    virtual ~AbstractProgramCollection(){};
-    bool empty() { return _has_empty; }
+    virtual ~AbstractProgramCollection() = default;
+    ;
+    auto empty() -> bool { return _has_empty; }
 
-    virtual bool satisfiable(const PQL::SimplificationContext &context,
-                             uint32_t solvetime = std::numeric_limits<uint32_t>::max()) {
+    virtual auto satisfiable(const PQL::SimplificationContext &context,
+                             uint32_t solvetime = std::numeric_limits<uint32_t>::max()) -> bool {
         reset();
         if (context.timeout() || _has_empty || solvetime == 0)
             return true;
@@ -37,17 +37,17 @@ class AbstractProgramCollection {
         return _result == POSSIBLE;
     }
 
-    bool known_sat() { return _result == POSSIBLE; };
-    bool known_unsat() { return _result == IMPOSSIBLE; };
+    auto known_sat() -> bool { return _result == POSSIBLE; };
+    auto known_unsat() -> bool { return _result == IMPOSSIBLE; };
 
     virtual void clear() = 0;
 
-    virtual bool merge(bool &has_empty, LinearProgram &program, bool dry_run = false) = 0;
+    virtual auto merge(bool &has_empty, LinearProgram &program, bool dry_run = false) -> bool = 0;
     virtual void reset() = 0;
-    virtual size_t size() const = 0;
+    [[nodiscard]] virtual auto size() const -> size_t = 0;
 };
 
-typedef std::shared_ptr<AbstractProgramCollection> AbstractProgramCollection_ptr;
+using AbstractProgramCollection_ptr = std::shared_ptr<AbstractProgramCollection>;
 
 class UnionCollection : public AbstractProgramCollection {
   protected:
@@ -55,7 +55,7 @@ class UnionCollection : public AbstractProgramCollection {
     size_t _current = 0;
     size_t _size = 0;
 
-    virtual void satisfiable_impl(const PQL::SimplificationContext &context, uint32_t solvetime) {
+    void satisfiable_impl(const PQL::SimplificationContext &context, uint32_t solvetime) override {
         for (int i = _lps.size() - 1; i >= 0; --i) {
             if (_lps[i]->satisfiable(context, solvetime) || context.timeout()) {
                 _result = POSSIBLE;
@@ -89,17 +89,17 @@ class UnionCollection : public AbstractProgramCollection {
             _size += p->size();
     };
 
-    void clear() {
+    void clear() override {
         _lps.clear();
         _current = 0;
     };
 
-    virtual void reset() {
+    void reset() override {
         _lps[0]->reset();
         _current = 0;
     }
 
-    virtual bool merge(bool &has_empty, LinearProgram &program, bool dry_run = false) {
+    auto merge(bool &has_empty, LinearProgram &program, bool dry_run = false) -> bool override {
 
         if (_current >= _lps.size()) {
             _current = 0;
@@ -113,7 +113,7 @@ class UnionCollection : public AbstractProgramCollection {
 
         return _current < _lps.size();
     }
-    virtual size_t size() const { return _size; }
+    [[nodiscard]] auto size() const -> size_t override { return _size; }
 };
 
 class MergeCollection : public AbstractProgramCollection {
@@ -129,7 +129,7 @@ class MergeCollection : public AbstractProgramCollection {
     size_t _curr = 0;
     size_t _size = 0;
 
-    virtual void satisfiable_impl(const PQL::SimplificationContext &context, uint32_t solvetime) {
+    void satisfiable_impl(const PQL::SimplificationContext &context, uint32_t solvetime) override {
         // this is where the magic needs to happen
         bool hasmore = false;
         do {
@@ -165,7 +165,7 @@ class MergeCollection : public AbstractProgramCollection {
         _size = _left->size() * _right->size();
     };
 
-    virtual void reset() {
+    void reset() override {
         if (_right)
             _right->reset();
 
@@ -177,12 +177,12 @@ class MergeCollection : public AbstractProgramCollection {
         _curr = 0;
     }
 
-    void clear() {
+    void clear() override {
         _left = nullptr;
         _right = nullptr;
     };
 
-    virtual bool merge(bool &has_empty, LinearProgram &program, bool dry_run = false) {
+    auto merge(bool &has_empty, LinearProgram &program, bool dry_run = false) -> bool override {
         if (program.known_impossible())
             return false;
         bool lempty = false;
@@ -218,7 +218,7 @@ class MergeCollection : public AbstractProgramCollection {
         return more_left || _more_right;
     }
 
-    virtual size_t size() const { return _size - _nsat; }
+    [[nodiscard]] auto size() const -> size_t override { return _size - _nsat; }
 };
 
 class SingleProgram : public AbstractProgramCollection {
@@ -226,7 +226,7 @@ class SingleProgram : public AbstractProgramCollection {
     LinearProgram _program;
 
   protected:
-    virtual void satisfiable_impl(const PQL::SimplificationContext &context, uint32_t solvetime) {
+    void satisfiable_impl(const PQL::SimplificationContext &context, uint32_t solvetime) override {
         // this is where the magic needs to happen
         if (!_program.is_impossible(context, solvetime)) {
             _result = POSSIBLE;
@@ -244,11 +244,11 @@ class SingleProgram : public AbstractProgramCollection {
         assert(!_has_empty);
     }
 
-    virtual ~SingleProgram() {}
+    ~SingleProgram() override = default;
 
-    virtual void reset() {}
+    void reset() override {}
 
-    virtual bool merge(bool &has_empty, LinearProgram &program, bool dry_run = false) {
+    auto merge(bool &has_empty, LinearProgram &program, bool dry_run = false) -> bool override {
         if (dry_run)
             return false;
         program.make_union(this->_program);
@@ -257,11 +257,10 @@ class SingleProgram : public AbstractProgramCollection {
         return false;
     }
 
-    void clear() {}
+    void clear() override {}
 
-    virtual size_t size() const { return 1; }
+    [[nodiscard]] auto size() const -> size_t override { return 1; }
 };
-} // namespace Simplification
-} // namespace PetriEngine
+} // namespace PetriEngine::Simplification
 
 #endif /* LINEARPROGRAMS_H */

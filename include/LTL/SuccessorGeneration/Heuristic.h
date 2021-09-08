@@ -27,13 +27,13 @@ class Heuristic {
   public:
     virtual void prepare(const LTL::Structures::ProductState &state) {}
 
-    virtual uint32_t eval(const LTL::Structures::ProductState &state, uint32_t tid) = 0;
+    virtual auto eval(const LTL::Structures::ProductState &state, uint32_t tid) -> uint32_t = 0;
 
     /**
      * Does the heuristic provide a prioritisation from this state.
      * @return True if a heuristic can be calculated from this state.
      */
-    virtual bool has_heuristic(const LTL::Structures::ProductState &) { return true; }
+    virtual auto has_heuristic(const LTL::Structures::ProductState &) -> bool { return true; }
 
     virtual void push(uint32_t tid){};
 
@@ -41,7 +41,7 @@ class Heuristic {
 
     virtual ~Heuristic() = default;
 
-    virtual std::ostream &output(std::ostream &os) = 0;
+    virtual auto output(std::ostream &os) -> std::ostream & = 0;
 };
 } // namespace LTL
 

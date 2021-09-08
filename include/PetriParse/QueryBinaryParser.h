@@ -27,16 +27,18 @@ using namespace PetriEngine::PQL;
 
 class QueryBinaryParser {
   public:
-    QueryBinaryParser(){};
-    ~QueryBinaryParser(){};
+    QueryBinaryParser() = default;
+    ;
+    ~QueryBinaryParser() = default;
+    ;
 
-    std::vector<QueryItem> _queries;
+    std::vector<query_item_t> _queries;
 
-    bool parse(std::ifstream &binary, const std::set<size_t> &);
+    auto parse(std::ifstream &binary, const std::set<size_t> &) -> bool;
 
   private:
-    Condition_ptr parse_query(std::ifstream &binary, const std::vector<std::string> &names);
-    Expr_ptr parse_expr(std::ifstream &binary, const std::vector<std::string> &names);
+    auto parse_query(std::ifstream &binary, const std::vector<std::string> &names) -> Condition_ptr;
+    auto parse_expr(std::ifstream &binary, const std::vector<std::string> &names) -> Expr_ptr;
 };
 
 #endif /* BINARYPARSER_H */

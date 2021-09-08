@@ -56,7 +56,7 @@ auto Condition::initial_marking_rewrite(const std::function<Condition_ptr()> &fu
                     return res;
                 }
             }
-            return BooleanCondition::getShared(e);
+            return BooleanCondition::get_shared(e);
         }
     }
     return res;

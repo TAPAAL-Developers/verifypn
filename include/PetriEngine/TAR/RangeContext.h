@@ -27,7 +27,7 @@ class RangeContext : public Visitor {
   public:
     RangeContext(prvector_t &vector, MarkVal *base, const PetriNet &net, const uint64_t *uses,
                  MarkVal *marking, const std::vector<bool> &dirty);
-    bool is_dirty() const { return _is_dirty; }
+    [[nodiscard]] auto is_dirty() const -> bool { return _is_dirty; }
 
   private:
     void handle_compare(const Expr_ptr &left, const Expr_ptr &right, bool strict);
@@ -43,22 +43,22 @@ class RangeContext : public Visitor {
     const std::vector<bool> &_dirty;
 
   protected:
-    virtual void _accept(const NotCondition *element) override;
-    virtual void _accept(const PetriEngine::PQL::AndCondition *element) override;
-    virtual void _accept(const OrCondition *element) override;
-    virtual void _accept(const LessThanCondition *element) override;
-    virtual void _accept(const LessThanOrEqualCondition *element) override;
-    virtual void _accept(const EqualCondition *element) override;
-    virtual void _accept(const NotEqualCondition *element) override;
-    virtual void _accept(const LiteralExpr *element) override;
-    virtual void _accept(const UnfoldedIdentifierExpr *element) override;
-    virtual void _accept(const PlusExpr *element) override;
-    virtual void _accept(const MinusExpr *element) override;
-    virtual void _accept(const SubtractExpr *element) override;
-    virtual void _accept(const MultiplyExpr *element) override;
-    virtual void _accept(const DeadlockCondition *element) override;
-    virtual void _accept(const CompareConjunction *element) override;
-    virtual void _accept(const UnfoldedUpperBoundsCondition *element) override;
+    void accept(const NotCondition *element) override;
+    void accept(const PetriEngine::PQL::AndCondition *element) override;
+    void accept(const OrCondition *element) override;
+    void accept(const LessThanCondition *element) override;
+    void accept(const LessThanOrEqualCondition *element) override;
+    void accept(const EqualCondition *element) override;
+    void accept(const NotEqualCondition *element) override;
+    void accept(const LiteralExpr *element) override;
+    void accept(const UnfoldedIdentifierExpr *element) override;
+    void accept(const PlusExpr *element) override;
+    void accept(const MinusExpr *element) override;
+    void accept(const SubtractExpr *element) override;
+    void accept(const MultiplyExpr *element) override;
+    void accept(const DeadlockCondition *element) override;
+    void accept(const CompareConjunction *element) override;
+    void accept(const UnfoldedUpperBoundsCondition *element) override;
 };
 } // namespace PetriEngine
 

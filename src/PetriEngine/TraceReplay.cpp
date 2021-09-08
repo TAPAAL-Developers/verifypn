@@ -47,7 +47,7 @@ void TraceReplay::parse(std::istream &xml, const PetriNet &net) {
     for (size_t i = 0; i < net.transition_names().size(); ++i) {
         _transitions[net.transition_names()[i]] = i;
     }
-    _transitions[_DEADLOCK_TRANS] = -1;
+    _transitions[DEADLOCK_TRANS] = -1;
 
     // TODO can also validate transition names up front.
     rapidxml::xml_document<> doc;
@@ -89,7 +89,7 @@ void TraceReplay::parse_root(const rapidxml::xml_node<> *pNode) {
 }
 
 auto TraceReplay::parse_transition(const rapidxml::xml_node<char> *pNode)
-    -> TraceReplay::Transition {
+    -> TraceReplay::transition_t {
     std::string id;
     int buchi = -1;
     for (auto it = pNode->first_attribute(); it; it = it->next_attribute()) {
@@ -103,14 +103,14 @@ auto TraceReplay::parse_transition(const rapidxml::xml_node<char> *pNode)
         }
     }
     if (strcmp(pNode->name(), "deadlock") == 0) {
-        id = _DEADLOCK_TRANS;
+        id = DEADLOCK_TRANS;
     }
     if (id.empty()) {
         assert(false);
         throw base_error_t("TraceReplay: Transition has no id attribute");
     }
 
-    Transition transition(id, buchi);
+    transition_t transition(id, buchi);
 
     for (auto it = pNode->first_node(); it; it = it->next_sibling()) {
         if (std::strcmp(it->name(), "token") != 0) {
@@ -145,14 +145,14 @@ auto TraceReplay::replay(const PetriEngine::PetriNet &net,
     PetriEngine::SuccessorGenerator successorGenerator(net);
 
     std::cout << "Playing back trace. Length: " << _trace.size() << std::endl;
-    if (_play_trace(net, successorGenerator)) {
+    if (play_trace(net, successorGenerator)) {
         std::cout << "Replay complete. No errors" << std::endl;
         return true;
     }
     return false;
 }
 
-auto TraceReplay::_play_trace(const PetriEngine::PetriNet &net,
+auto TraceReplay::play_trace(const PetriEngine::PetriNet &net,
                               PetriEngine::SuccessorGenerator &successorGenerator) -> bool {
     PetriEngine::Structures::State state;
     PetriEngine::Structures::State loopstate;
@@ -160,7 +160,7 @@ auto TraceReplay::_play_trace(const PetriEngine::PetriNet &net,
     state.set_marking(net.make_initial_marking());
     loopstate.set_marking(net.make_initial_marking());
     for (size_t i = 0; i < _trace.size(); ++i) {
-        const Transition &transition = _trace[i];
+        const transition_t &transition = _trace[i];
         // looping part should end up at the state _before_ the <loop/> tag,
         // hence copy state from previous iteration.
         if (i == _loop_idx) {

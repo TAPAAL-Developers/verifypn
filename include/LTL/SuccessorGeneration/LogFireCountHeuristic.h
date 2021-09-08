@@ -22,7 +22,7 @@
 #include "Heuristic.h"
 
 namespace LTL {
-constexpr int _approx_log(uint32_t i) {
+constexpr auto approx_log(uint32_t i) -> int {
     // log2 of an integer is the highest set bit
     // loop is not optimal but portable and likely reasonably performant for small-ish ints
     // (which most of the time is the expected input)
@@ -43,13 +43,13 @@ class LogFireCountHeuristic : public FireCountHeuristic {
     explicit LogFireCountHeuristic(const PetriEngine::PetriNet &net, uint32_t threshold = 200)
         : FireCountHeuristic(net), _threshold(threshold) {}
 
-    uint32_t eval(const Structures::ProductState &state, uint32_t tid) override {
+    auto eval(const Structures::ProductState &state, uint32_t tid) -> uint32_t override {
         if (_fireCount[tid] < _threshold)
             return 0;
-        return _approx_log(_fireCount[tid] - _threshold);
+        return approx_log(_fireCount[tid] - _threshold);
     }
 
-    std::ostream &output(std::ostream &os) {
+    auto output(std::ostream &os) -> std::ostream & override {
         return os << "LOGFIRECOUNT_HEUR(" << _threshold << ")";
     }
 
@@ -57,12 +57,12 @@ class LogFireCountHeuristic : public FireCountHeuristic {
     uint32_t _threshold;
 
     // compile-time sanity checks, feel free to remove if problematic
-    static_assert(_approx_log(1) == 0);
-    static_assert(_approx_log(2) == 1);
-    static_assert(_approx_log(3) == 1);
-    static_assert(_approx_log(9) == 3);
-    static_assert(_approx_log(15) == 3);
-    static_assert(_approx_log(16) == 4);
+    static_assert(approx_log(1) == 0);
+    static_assert(approx_log(2) == 1);
+    static_assert(approx_log(3) == 1);
+    static_assert(approx_log(9) == 3);
+    static_assert(approx_log(15) == 3);
+    static_assert(approx_log(16) == 4);
 };
 } // namespace LTL
 

@@ -12,8 +12,8 @@ auto ResultPrinter::handle(size_t index, const PQL::Condition &query, Result res
                            const Structures::StateSetInterface *stateset, size_t lastmarking,
                            const MarkVal *initialMarking) const
     -> std::pair<AbstractHandler::Result, bool> {
-    if (result == Unknown)
-        return std::make_pair(Unknown, false);
+    if (result == UNKNOWN)
+        return std::make_pair(UNKNOWN, false);
 
     Result retval = result;
 
@@ -22,25 +22,25 @@ auto ResultPrinter::handle(size_t index, const PQL::Condition &query, Result res
             auto upq = ((const PQL::UnfoldedUpperBoundsCondition &)query);
             auto bnd = upq.bounds();
             if (initialMarking == nullptr || bnd > upq.value(initialMarking))
-                retval = Unknown;
-        } else if (result == Satisfied)
-            retval = query.is_invariant() ? Unknown : Unknown;
-        else if (result == NotSatisfied)
-            retval = query.is_invariant() ? Satisfied : NotSatisfied;
-        if (retval == Unknown) {
+                retval = UNKNOWN;
+        } else if (result == SATISFIED)
+            retval = UNKNOWN;
+        else if (result == NOT_SATISFIED)
+            retval = query.is_invariant() ? SATISFIED : NOT_SATISFIED;
+        if (retval == UNKNOWN) {
             std::cout << "\nUnable to decide if " << _querynames[index] << " is satisfied.\n\n";
             std::cout << "Query is MAYBE satisfied.\n" << std::endl;
-            return std::make_pair(Ignore, false);
+            return std::make_pair(IGNORE, false);
         }
     }
     std::cout << std::endl;
 
-    bool showTrace = (result == Satisfied);
+    bool showTrace = (result == SATISFIED);
 
-    if (!_options._statespace_exploration && retval != Unknown) {
+    if (!_options._statespace_exploration && retval != UNKNOWN) {
         std::cout << "FORMULA " << _querynames[index] << " ";
     } else {
-        retval = Satisfied;
+        retval = SATISFIED;
         uint32_t placeBound = 0;
         if (maxPlaceBound != nullptr) {
             for (unsigned int p : *maxPlaceBound) {
@@ -59,10 +59,10 @@ auto ResultPrinter::handle(size_t index, const PQL::Condition &query, Result res
         return std::make_pair(retval, false);
     }
 
-    if (result == Satisfied)
-        retval = query.is_invariant() ? NotSatisfied : Satisfied;
-    else if (result == NotSatisfied)
-        retval = query.is_invariant() ? Satisfied : NotSatisfied;
+    if (result == SATISFIED)
+        retval = query.is_invariant() ? NOT_SATISFIED : SATISFIED;
+    else if (result == NOT_SATISFIED)
+        retval = query.is_invariant() ? SATISFIED : NOT_SATISFIED;
 
     // Print result
     auto bound = &query;
@@ -71,18 +71,18 @@ auto ResultPrinter::handle(size_t index, const PQL::Condition &query, Result res
     }
     bound = dynamic_cast<const PQL::UnfoldedUpperBoundsCondition *>(bound);
 
-    if (retval == Unknown) {
+    if (retval == UNKNOWN) {
         std::cout << "\nUnable to decide if " << _querynames[index] << " is satisfied.";
     } else if (bound) {
         std::cout << ((PQL::UnfoldedUpperBoundsCondition *)bound)->bounds() << " " << _techniques
                   << print_techniques() << std::endl;
         std::cout << "Query index " << index << " was solved" << std::endl;
-    } else if (retval == Satisfied) {
+    } else if (retval == SATISFIED) {
         if (!_options._statespace_exploration) {
             std::cout << "TRUE " << _techniques << print_techniques() << std::endl;
             std::cout << "Query index " << index << " was solved" << std::endl;
         }
-    } else if (retval == NotSatisfied) {
+    } else if (retval == NOT_SATISFIED) {
         if (!_options._statespace_exploration) {
             std::cout << "FALSE " << _techniques << print_techniques() << std::endl;
             std::cout << "Query index " << index << " was solved" << std::endl;
@@ -93,18 +93,18 @@ auto ResultPrinter::handle(size_t index, const PQL::Condition &query, Result res
 
     std::cout << "Query is ";
     if (_options._statespace_exploration) {
-        retval = Satisfied;
+        retval = SATISFIED;
     }
 
-    if (result == Satisfied)
-        retval = query.is_invariant() ? NotSatisfied : Satisfied;
-    else if (result == NotSatisfied)
-        retval = query.is_invariant() ? Satisfied : NotSatisfied;
+    if (result == SATISFIED)
+        retval = query.is_invariant() ? NOT_SATISFIED : SATISFIED;
+    else if (result == NOT_SATISFIED)
+        retval = query.is_invariant() ? SATISFIED : NOT_SATISFIED;
 
     // Print result
-    if (retval == Unknown) {
+    if (retval == UNKNOWN) {
         std::cout << "MAYBE ";
-    } else if (retval == NotSatisfied) {
+    } else if (retval == NOT_SATISFIED) {
         std::cout << "NOT ";
     }
     std::cout << "satisfied." << std::endl;
@@ -112,7 +112,7 @@ auto ResultPrinter::handle(size_t index, const PQL::Condition &query, Result res
     if (_options._cpn_overapprox)
         std::cout << "\nSolved using CPN Approximation\n" << std::endl;
 
-    if (showTrace && _options._trace != options_t::trace_level_e::None) {
+    if (showTrace && _options._trace != options_t::trace_level_e::NONE) {
         if (stateset == nullptr) {
             std::cout << "No trace could be generated" << std::endl;
         } else {

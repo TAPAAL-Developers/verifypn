@@ -3,7 +3,7 @@
 
 namespace DependencyGraph {
 
-enum Assignment { ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2 };
+enum assignment_e { ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2 };
 }
 
 #endif // ASSIGNMENT_H

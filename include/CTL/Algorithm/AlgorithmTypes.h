@@ -3,6 +3,6 @@
 
 namespace CTL {
 
-enum CTLAlgorithmType { Local = 0, CZero = 1 };
+enum ctl_algorithm_type_e { LOCAL = 0, C_ZERO = 1 };
 }
 #endif // ALGORITHMTYPES_H

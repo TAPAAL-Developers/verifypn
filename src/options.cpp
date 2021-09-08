@@ -35,7 +35,7 @@ void options_t::print(std::ostream &optionsOut) const {
         optionsOut << "\nSearch=OverApprox";
     }
 
-    if (_trace != trace_level_e::None) {
+    if (_trace != trace_level_e::NONE) {
         optionsOut << ",Trace=ENABLED";
     } else {
         optionsOut << ",Trace=DISABLED";
@@ -82,20 +82,20 @@ void options_t::print(std::ostream &optionsOut) const {
     optionsOut << ",LPSolve_Timeout=" << _lpsolve_timeout;
 
     if (_used_ctl) {
-        if (_ctlalgorithm == CTL::CZero) {
+        if (_ctlalgorithm == CTL::C_ZERO) {
             optionsOut << ",CTLAlgorithm=CZERO";
         } else {
             optionsOut << ",CTLAlgorithm=LOCAL";
         }
     } else if (_used_ltl) {
         switch (_ltl_algorithm) {
-        case LTL::Algorithm::NDFS:
+        case LTL::algorithm_e::NDFS:
             optionsOut << ",LTLAlgorithm=NDFS";
             break;
-        case LTL::Algorithm::Tarjan:
+        case LTL::algorithm_e::TARJAN:
             optionsOut << ",LTLAlgorithm=Tarjan";
             break;
-        case LTL::Algorithm::None:
+        case LTL::algorithm_e::NONE:
             optionsOut << ",LTLAlgorithm=None";
             break;
         }
@@ -130,7 +130,7 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
             else if (strcmp(s, "RDFS") == 0)
                 _strategy = search_strategy_e::RDFS;
             else if (strcmp(s, "OverApprox") == 0)
-                _strategy = search_strategy_e::OverApprox;
+                _strategy = search_strategy_e::OVER_APPROX;
             else {
                 fprintf(stderr, "Argument Error: Unrecognized search strategy \"%s\"\n", s);
                 return ERROR_CODE;
@@ -185,16 +185,16 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
         } else if (strcmp(argv[i], "-t") == 0 || strcmp(argv[i], "--trace") == 0) {
             if (argc > i + 1) {
                 if (strcmp("1", argv[i + 1]) == 0) {
-                    _trace = trace_level_e::Transitions;
+                    _trace = trace_level_e::TRANSITIONS;
                 } else if (strcmp("2", argv[i + 1]) == 0) {
-                    _trace = trace_level_e::Full;
+                    _trace = trace_level_e::FULL;
                 } else {
-                    _trace = trace_level_e::Full;
+                    _trace = trace_level_e::FULL;
                     continue;
                 }
                 ++i;
             } else {
-                _trace = trace_level_e::Full;
+                _trace = trace_level_e::FULL;
             }
         } else if (strcmp(argv[i], "-x") == 0 || strcmp(argv[i], "--xml-queries") == 0) {
             if (i == argc - 1) {
@@ -306,21 +306,21 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
             _buchi_out_file = std::string(argv[++i]);
             if (argc > i + 1) {
                 if (strcmp(argv[i + 1], "dot") == 0) {
-                    _buchi_out_type = LTL::BuchiOutType::Dot;
+                    _buchi_out_type = LTL::buchi_out_type_e::DOT;
                 } else if (strcmp(argv[i + 1], "hoa") == 0) {
-                    _buchi_out_type = LTL::BuchiOutType::HOA;
+                    _buchi_out_type = LTL::buchi_out_type_e::HOA;
                 } else if (strcmp(argv[i + 1], "spin") == 0) {
-                    _buchi_out_type = LTL::BuchiOutType::Spin;
+                    _buchi_out_type = LTL::buchi_out_type_e::SPIN;
                 } else
                     continue;
                 ++i;
             }
         } else if (strcmp(argv[i], "--compress-aps") == 0) {
             if (argc <= i + 1 || strcmp(argv[i + 1], "1") == 0) {
-                _ltl_compress_aps = atomic_compression_e::Full;
+                _ltl_compress_aps = atomic_compression_e::FULL;
                 ++i;
             } else if (strcmp(argv[i + 1], "0") == 0) {
-                _ltl_compress_aps = atomic_compression_e::None;
+                _ltl_compress_aps = atomic_compression_e::NONE;
                 ++i;
             }
         } else if (strcmp(argv[i], "--spot-optimization") == 0) {
@@ -328,11 +328,11 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
                 std::cerr << "Missing argument to --spot-optimization\n";
                 return ERROR_CODE;
             } else if (strcmp(argv[i + 1], "1") == 0) {
-                _buchi_optimization = buchi_optimization_e::Low;
+                _buchi_optimization = buchi_optimization_e::LOW;
             } else if (strcmp(argv[i + 1], "2") == 0) {
-                _buchi_optimization = buchi_optimization_e::Medium;
+                _buchi_optimization = buchi_optimization_e::MEDIUM;
             } else if (strcmp(argv[i + 1], "3") == 0) {
-                _buchi_optimization = buchi_optimization_e::High;
+                _buchi_optimization = buchi_optimization_e::HIGH;
             } else {
                 std::cerr << "Invalid argument " << argv[i] << " to --spot-optimization\n";
                 return ERROR_CODE;
@@ -361,9 +361,9 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
             _logic = temporal_logic_e::CTL;
             if (argc > i + 1) {
                 if (strcmp(argv[i + 1], "local") == 0) {
-                    _ctlalgorithm = CTL::Local;
+                    _ctlalgorithm = CTL::LOCAL;
                 } else if (strcmp(argv[i + 1], "czero") == 0) {
-                    _ctlalgorithm = CTL::CZero;
+                    _ctlalgorithm = CTL::C_ZERO;
                 } else {
                     fprintf(stderr, "Argument Error: Invalid ctl-algorithm type \"%s\"\n",
                             argv[i + 1]);
@@ -375,11 +375,11 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
             _logic = temporal_logic_e::LTL;
             if (argc > i + 1) {
                 if (strcmp(argv[i + 1], "ndfs") == 0) {
-                    _ltl_algorithm = LTL::Algorithm::NDFS;
+                    _ltl_algorithm = LTL::algorithm_e::NDFS;
                 } else if (strcmp(argv[i + 1], "tarjan") == 0) {
-                    _ltl_algorithm = LTL::Algorithm::Tarjan;
+                    _ltl_algorithm = LTL::algorithm_e::TARJAN;
                 } else if (strcmp(argv[i + 1], "none") == 0) {
-                    _ltl_algorithm = LTL::Algorithm::None;
+                    _ltl_algorithm = LTL::algorithm_e::NONE;
                 } else {
                     continue;
                 }
@@ -390,15 +390,15 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
                 std::cerr << "Missing argument to --ltl-por\n";
                 return ERROR_CODE;
             } else if (strcmp(argv[i + 1], "classic") == 0) {
-                _ltl_por = ltl_partial_order_e::Visible;
+                _ltl_por = ltl_partial_order_e::VISIBLE;
             } else if (strcmp(argv[i + 1], "reach") == 0) {
-                _ltl_por = ltl_partial_order_e::AutomatonReach;
+                _ltl_por = ltl_partial_order_e::AUTOMATON_REACH;
             } else if (strcmp(argv[i + 1], "mix") == 0) {
-                _ltl_por = ltl_partial_order_e::VisibleReach;
+                _ltl_por = ltl_partial_order_e::VISIBLE_REACH;
             } else if (strcmp(argv[i + 1], "automaton") == 0) {
-                _ltl_por = ltl_partial_order_e::FullAutomaton;
+                _ltl_por = ltl_partial_order_e::FULL_AUTOMATON;
             } else if (strcmp(argv[i + 1], "none") == 0) {
-                _ltl_por = ltl_partial_order_e::None;
+                _ltl_por = ltl_partial_order_e::NONE;
             } else {
                 std::cerr << "Unrecognized argument " << argv[i + 1] << " to --ltl-por\n";
                 return ERROR_CODE;
@@ -689,7 +689,7 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
         std::array ltlStrategies{search_strategy_e::DFS, search_strategy_e::RDFS,
                                  search_strategy_e::HEUR};
 
-        if (_strategy != search_strategy_e::DEFAULT && _strategy != search_strategy_e::OverApprox) {
+        if (_strategy != search_strategy_e::DEFAULT && _strategy != search_strategy_e::OVER_APPROX) {
             if (std::find(std::begin(ltlStrategies), std::end(ltlStrategies), _strategy) ==
                 std::end(ltlStrategies)) {
                 std::cerr << "Argument Error: Unsupported search strategy for LTL. Supported "

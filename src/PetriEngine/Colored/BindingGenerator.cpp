@@ -43,7 +43,7 @@ auto NaiveBindingGenerator::Iterator::operator*() const -> const Colored::Bindin
     return _generator->current_binding();
 }
 
-NaiveBindingGenerator::NaiveBindingGenerator(const Colored::Transition &transition,
+NaiveBindingGenerator::NaiveBindingGenerator(const Colored::transition_t &transition,
                                              Colored::ColorTypeMap &colorTypes)
     : _colorTypes(colorTypes) {
     _expr = transition._guard;
@@ -72,7 +72,7 @@ auto NaiveBindingGenerator::eval() const -> bool {
         return true;
     Colored::EquivalenceVec placePartition;
 
-    const Colored::ExpressionContext &context{_bindings, _colorTypes, placePartition};
+    const Colored::expression_context_t &context{_bindings, _colorTypes, placePartition};
     return _expr->eval(context);
 }
 
@@ -138,7 +138,7 @@ auto FixpointBindingGenerator::Iterator::operator*() const -> const Colored::Bin
 }
 
 FixpointBindingGenerator::FixpointBindingGenerator(
-    const Colored::Transition &transition, const Colored::ColorTypeMap &colorTypes,
+    const Colored::transition_t &transition, const Colored::ColorTypeMap &colorTypes,
     const std::vector<std::set<const Colored::Variable *>> &symmetric_vars)
     : _expr(transition._guard), _colorTypes(colorTypes), _transition(transition),
       _symmetric_vars(symmetric_vars) {
@@ -215,7 +215,7 @@ auto FixpointBindingGenerator::eval() const -> bool {
         return true;
 
     Colored::EquivalenceVec placePartition;
-    const Colored::ExpressionContext &context{_bindings, _colorTypes, placePartition};
+    const Colored::expression_context_t &context{_bindings, _colorTypes, placePartition};
     return _expr->eval(context);
 }
 

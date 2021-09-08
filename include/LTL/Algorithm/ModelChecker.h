@@ -45,7 +45,7 @@ class ModelChecker {
     void set_options(const options_t &options) {
         _traceLevel = options._trace;
         _shortcircuitweak = options._ltl_use_weak;
-        if (_traceLevel != options_t::trace_level_e::None) {
+        if (_traceLevel != options_t::trace_level_e::NONE) {
             _maxTransName = 0;
             for (const auto &transname : _net.transition_names()) {
                 _maxTransName = std::max(transname.size(), _maxTransName);
@@ -57,9 +57,9 @@ class ModelChecker {
 
     virtual void print_stats(std::ostream &os) = 0;
 
-    [[nodiscard]] bool is_weak() const { return _is_weak; }
+    [[nodiscard]] auto is_weak() const -> bool { return _is_weak; }
 
-    size_t get_explored() { return _stats._explored; }
+    auto get_explored() -> size_t { return _stats._explored; }
 
   protected:
     struct stats_t {
@@ -68,8 +68,8 @@ class ModelChecker {
 
     stats_t _stats;
 
-    virtual void _print_stats(std::ostream &os,
-                              const LTL::Structures::ProductStateSetInterface &stateSet) {
+    virtual void print_stats(std::ostream &os,
+                             const LTL::Structures::ProductStateSetInterface &stateSet) {
         std::cout << "STATS:\n"
                   << "\tdiscovered states: " << stateSet.discovered() << std::endl
                   << "\texplored states:   " << _stats._explored << std::endl
@@ -93,8 +93,8 @@ class ModelChecker {
 
     void print_loop(std::ostream &os) { os << _indent << "<loop/>\n"; }
 
-    std::ostream &print_transition(size_t transition, LTL::Structures::ProductState &state,
-                                   std::ostream &os) {
+    auto print_transition(size_t transition, LTL::Structures::ProductState &state, std::ostream &os)
+        -> std::ostream & {
         if (transition >= std::numeric_limits<ptrie::uint>::max() - 1) {
             os << _indent << "<deadlock/>";
             return os;
@@ -104,7 +104,7 @@ class ModelChecker {
            // field width stuff obsolete without büchi state printing.
            //<< std::setw(maxTransName + 2) << std::left
            << std::quoted(_net.transition_names()[transition]);
-        if (_traceLevel == options_t::trace_level_e::Full) {
+        if (_traceLevel == options_t::trace_level_e::FULL) {
             os << ">";
             os << std::endl;
             auto [fpre, lpre] = _net.preset(transition);

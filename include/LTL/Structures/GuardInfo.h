@@ -29,7 +29,7 @@
 namespace LTL {
 struct GuardInfo {
 
-    struct Guard {
+    struct guard_t {
         PetriEngine::PQL::Condition_ptr _condition;
         bdd _decision_diagram;
         uint32_t _dest;
@@ -41,28 +41,28 @@ struct GuardInfo {
         : _buchi_state(buchiState), _is_accepting(isAccepting) {}
 
     int _buchi_state;
-    Guard _retarding;
-    std::vector<Guard> _progressing;
+    guard_t _retarding;
+    std::vector<guard_t> _progressing;
     bool _is_accepting;
 
-    static std::vector<GuardInfo> from_automaton(const Structures::BuchiAutomaton &aut) {
+    static auto from_automaton(const Structures::BuchiAutomaton &aut) -> std::vector<GuardInfo> {
         std::vector<GuardInfo> state_guards;
-        std::vector<AtomicProposition> aps(aut._ap_info.size());
+        std::vector<atomic_proposition_t> aps(aut._ap_info.size());
         std::transform(std::begin(aut._ap_info), std::end(aut._ap_info), std::begin(aps),
-                       [](const std::pair<int, AtomicProposition> &pair) { return pair.second; });
+                       [](const std::pair<int, atomic_proposition_t> &pair) { return pair.second; });
         for (unsigned state = 0; state < aut._buchi->num_states(); ++state) {
             state_guards.emplace_back(state, aut._buchi->state_is_accepting(state));
             for (auto &e : aut._buchi->out(state)) {
                 auto formula = spot::bdd_to_formula(e.cond, aut._dict);
                 if (e.dst == state) {
-                    state_guards.back()._retarding = Guard{to_PQL(formula, aps), e.cond, state};
+                    state_guards.back()._retarding = guard_t{to_pql(formula, aps), e.cond, state};
                 } else {
                     state_guards.back()._progressing.push_back(
-                        Guard{to_PQL(formula, aps), e.cond, e.dst});
+                        guard_t{to_pql(formula, aps), e.cond, e.dst});
                 }
             }
             if (!state_guards.back()._retarding) {
-                state_guards.back()._retarding = Guard{
+                state_guards.back()._retarding = guard_t{
                     std::make_shared<PetriEngine::PQL::BooleanCondition>(false), bddfalse, state};
             }
         }

@@ -31,11 +31,11 @@ class ReachabilityStubbornSpooler : public SuccessorSpooler {
         _stubborn.setInterestingVisitor<PetriEngine::InterestingLTLTransitionVisitor>();
     }
 
-    bool prepare(const LTL::Structures::ProductState *state) override {
+    auto prepare(const LTL::Structures::ProductState *state) -> bool override {
         return _stubborn.prepare(state);
     }
 
-    uint32_t next() override { return _stubborn.next(); }
+    auto next() -> uint32_t override { return _stubborn.next(); }
 
     void reset() override { _stubborn.reset(); }
 

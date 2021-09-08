@@ -26,22 +26,22 @@
 namespace PetriEngine::Reachability {
 class AutomataState;
 
-struct AutomataEdge {
+struct automata_edge_t {
     size_t _edge;
     std::vector<size_t> _to;
 
-    auto operator==(const AutomataEdge &other) const -> bool { return _edge == other._edge; }
+    auto operator==(const automata_edge_t &other) const -> bool { return _edge == other._edge; }
 
-    auto operator!=(const AutomataEdge &other) const -> bool { return !(*this == other); }
+    auto operator!=(const automata_edge_t &other) const -> bool { return !(*this == other); }
 
-    auto operator<(const AutomataEdge &other) const -> bool { return _edge < other._edge; };
+    auto operator<(const automata_edge_t &other) const -> bool { return _edge < other._edge; };
 
-    AutomataEdge(size_t e) : _edge(e){};
+    automata_edge_t(size_t e) : _edge(e){};
 
-    AutomataEdge(const AutomataEdge &other) = default;
-    AutomataEdge(AutomataEdge &&) = default;
-    auto operator=(const AutomataEdge &other) -> AutomataEdge & = default;
-    auto operator=(AutomataEdge &&other) -> AutomataEdge & = default;
+    automata_edge_t(const automata_edge_t &other) = default;
+    automata_edge_t(automata_edge_t &&) = default;
+    auto operator=(const automata_edge_t &other) -> automata_edge_t & = default;
+    auto operator=(automata_edge_t &&other) -> automata_edge_t & = default;
 
     auto has_to(size_t i) -> bool {
         if (_to.size() > 0 && _to[0] == 0)
@@ -88,7 +88,7 @@ struct AutomataEdge {
 class TraceSet;
 struct AutomataState {
   private:
-    std::vector<AutomataEdge> _edges;
+    std::vector<automata_edge_t> _edges;
     bool _accept = false;
     std::vector<size_t> _simulates;
     std::vector<size_t> _simulators;
@@ -102,7 +102,7 @@ struct AutomataState {
     inline void set_accepting(bool val = true) { _accept = val; }
 
     inline auto has_edge(const size_t &e, size_t to) -> bool {
-        AutomataEdge edge(e);
+        automata_edge_t edge(e);
         auto lb = std::lower_bound(_edges.begin(), _edges.end(), edge);
         if (lb == _edges.end() || *lb != edge) {
             return false;
@@ -111,7 +111,7 @@ struct AutomataState {
     }
 
     inline auto has_any_edge(size_t prod, const size_t &e) -> bool {
-        AutomataEdge edge(e);
+        automata_edge_t edge(e);
         auto lb = std::lower_bound(_edges.begin(), _edges.end(), edge);
         if (lb == _edges.end() || *lb != edge) {
             return false;
@@ -120,7 +120,7 @@ struct AutomataState {
     }
 
     inline auto add_edge(const size_t &e, size_t to) -> bool {
-        AutomataEdge edge(e);
+        automata_edge_t edge(e);
         auto lb = std::lower_bound(_edges.begin(), _edges.end(), edge);
 #ifndef NDEBUG
         bool isnew = false;
@@ -141,7 +141,7 @@ struct AutomataState {
     }
 
     inline auto remove_edge(size_t e) -> bool {
-        AutomataEdge edge(e);
+        automata_edge_t edge(e);
         auto lb = std::lower_bound(_edges.begin(), _edges.end(), edge);
         if (lb == _edges.end() || *lb != edge)
             return false;
@@ -150,7 +150,7 @@ struct AutomataState {
     }
 
     inline auto remove_edge(size_t e, size_t to) -> bool {
-        AutomataEdge edge(e);
+        automata_edge_t edge(e);
         auto lb = std::lower_bound(_edges.begin(), _edges.end(), edge);
         if (lb == _edges.end() || *lb != edge) {
             assert(lb == _edges.end() || *lb != edge);
@@ -169,7 +169,7 @@ struct AutomataState {
     }
 
     inline auto first_edge(size_t &e) const {
-        AutomataEdge edge(e);
+        automata_edge_t edge(e);
         auto lb = std::lower_bound(_edges.begin(), _edges.end(), edge);
         return lb;
     }
@@ -200,7 +200,7 @@ struct AutomataState {
     }
 };
 
-class state_t {
+class State {
 
   private:
     size_t _offset = 0;
@@ -209,7 +209,7 @@ class state_t {
     std::set<size_t> _interpolant;
 
   public:
-    auto operator==(const state_t &other) -> bool {
+    auto operator==(const State &other) -> bool {
         //                if((get_edge_cnt() == 0) != (other.get_edge_cnt() == 0)) return false;
         if (_interpolant.size() == other._interpolant.size() &&
             std::equal(_interpolant.begin(), _interpolant.end(), other._interpolant.begin(),
@@ -219,9 +219,9 @@ class state_t {
         return false;
     }
 
-    auto operator!=(const state_t &other) -> bool { return !(*this == other); }
+    auto operator!=(const State &other) -> bool { return !(*this == other); }
 
-    auto operator<=(const state_t &other) -> bool {
+    auto operator<=(const State &other) -> bool {
         //                if((get_edge_cnt() == 0) != (other.get_edge_cnt() == 0)) return false;
         if (_interpolant.size() <= other._interpolant.size() &&
             std::includes(other._interpolant.begin(), other._interpolant.end(),
@@ -268,7 +268,7 @@ class state_t {
     }
 };
 
-using trace_t = std::vector<state_t>;
+using trace_t = std::vector<State>;
 } // namespace PetriEngine::Reachability
 
 #endif /* TARAUTOMATA_H */

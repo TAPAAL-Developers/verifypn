@@ -21,13 +21,14 @@
 #define COLORED_EXPRESSIONS_H
 
 #include <cassert>
+#include <cstdlib>
 #include <iostream>
 #include <memory>
 #include <set>
-#include <stdlib.h>
 #include <string>
 #include <typeinfo>
 #include <unordered_map>
+#include <utility>
 
 #include "ArcIntervals.h"
 #include "Colors.h"
@@ -40,13 +41,13 @@ namespace PetriEngine {
 class ColoredPetriNetBuilder;
 
 namespace Colored {
-struct ExpressionContext {
+struct expression_context_t {
 
     const BindingMap &_binding;
     const ColorTypeMap &_colorTypes;
     const Colored::EquivalenceVec &_placePartition;
 
-    const Color *find_color(const std::string &color) const {
+    [[nodiscard]] auto find_color(const std::string &color) const -> const Color * {
         for (auto &elem : _colorTypes) {
             auto col = (*elem.second)[color];
             if (col)
@@ -55,7 +56,8 @@ struct ExpressionContext {
         throw base_error_t("Could not find color: ", color, "\nCANNOT_COMPUTE\n");
     }
 
-    const ProductType *find_product_color_type(const std::vector<const ColorType *> &types) const {
+    [[nodiscard]] auto find_product_color_type(const std::vector<const ColorType *> &types) const
+        -> const ProductType * {
         for (auto &elem : _colorTypes) {
             auto *pt = dynamic_cast<const ProductType *>(elem.second);
 
@@ -69,16 +71,17 @@ struct ExpressionContext {
 
 class WeightException : public base_error_t {
   public:
-    explicit WeightException(std::string message) : base_error_t("Undefinded weight: ", message) {}
+    explicit WeightException(std::string message)
+        : base_error_t("Undefinded weight: ", std::move(message)) {}
 };
 
-template <typename Base, typename T> inline bool instanceof (const T *) {
+template <typename Base, typename T> inline auto instanceof (const T *) -> bool {
     return std::is_base_of<Base, T>::value;
 }
 
 class Expression {
   public:
-    Expression() {}
+    Expression() = default;
 
     virtual void get_variables(std::set<const Colored::Variable *> &variables,
                                PositionVariableMap &varPositions,
@@ -107,45 +110,48 @@ class Expression {
         get_variables(variables, varPositions, varModifierMap, false, index);
     }
 
-    virtual bool is_tuple() const { return false; }
+    [[nodiscard]] virtual auto is_tuple() const -> bool { return false; }
 
-    virtual bool is_eligible_for_symmetry(std::vector<uint32_t> &numbers) const { return false; }
+    virtual auto is_eligible_for_symmetry(std::vector<uint32_t> &numbers) const -> bool {
+        return false;
+    }
 
-    virtual std::string to_string() const { return "Unsupported"; }
+    [[nodiscard]] virtual auto to_string() const -> std::string { return "Unsupported"; }
 };
 
 class ColorExpression : public Expression {
   public:
-    ColorExpression() {}
-    virtual ~ColorExpression() {}
+    ColorExpression() = default;
+    virtual ~ColorExpression() = default;
 
-    virtual const Color *eval(const ExpressionContext &context) const = 0;
+    [[nodiscard]] virtual auto eval(const expression_context_t &context) const -> const Color * = 0;
 
     virtual void get_constants(std::unordered_map<uint32_t, const Color *> &constantMap,
                                uint32_t &index) const = 0;
 
-    virtual bool get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                                   const PetriEngine::Colored::ColorFixpoint &cfp, uint32_t &index,
-                                   int32_t modifier) const = 0;
+    virtual auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
+                                   const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
+                                   int32_t modifier) const -> bool = 0;
 
-    virtual const ColorType *get_color_type(const ColorTypeMap &colorTypes) const = 0;
+    [[nodiscard]] virtual auto get_color_type(const ColorTypeMap &colorTypes) const
+        -> const ColorType * = 0;
 
-    virtual Colored::IntervalVector
-    get_output_intervals(const VariableIntervalMap &varMap,
-                         std::vector<const Colored::ColorType *> &colortypes) const {
+    virtual auto get_output_intervals(const VariableIntervalMap &varMap,
+                                      std::vector<const Colored::ColorType *> &colortypes) const
+        -> Colored::IntervalVector {
         return Colored::IntervalVector();
     }
 };
 
 class DotConstantExpression : public ColorExpression {
   public:
-    const Color *eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> const Color * override {
         return &(*ColorType::dot_instance()->begin());
     }
 
-    bool get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                           const PetriEngine::Colored::ColorFixpoint &cfp, uint32_t &index,
-                           int32_t modifier) const override {
+    auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
+                           const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
+                           int32_t modifier) const -> bool override {
         if (arcIntervals._intervalTupleVec.empty()) {
             // We can add all place tokens when considering the dot constant as, that must be
             // present
@@ -154,9 +160,9 @@ class DotConstantExpression : public ColorExpression {
         return !cfp._constraints.empty();
     }
 
-    Colored::IntervalVector
-    get_output_intervals(const VariableIntervalMap &varMap,
-                         std::vector<const Colored::ColorType *> &colortypes) const override {
+    auto get_output_intervals(const VariableIntervalMap &varMap,
+                              std::vector<const Colored::ColorType *> &colortypes) const
+        -> Colored::IntervalVector override {
         Colored::interval_t interval;
         Colored::IntervalVector tupleInterval;
         const Color *dotColor = &(*ColorType::dot_instance()->begin());
@@ -174,21 +180,22 @@ class DotConstantExpression : public ColorExpression {
         constantMap[index] = dotColor;
     }
 
-    const ColorType *get_color_type(const ColorTypeMap &colorTypes) const override {
+    [[nodiscard]] auto get_color_type(const ColorTypeMap &colorTypes) const
+        -> const ColorType * override {
         return ColorType::dot_instance();
     }
 
-    std::string to_string() const override { return "dot"; }
+    [[nodiscard]] auto to_string() const -> std::string override { return "dot"; }
 };
 
-typedef std::shared_ptr<ColorExpression> ColorExpression_ptr;
+using ColorExpression_ptr = std::shared_ptr<ColorExpression>;
 
 class VariableExpression : public ColorExpression {
   private:
     const Variable *_variable;
 
   public:
-    const Color *eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> const Color * override {
         return context._binding.find(_variable)->second;
     }
 
@@ -200,7 +207,7 @@ class VariableExpression : public ColorExpression {
         if (varModifierMap.count(_variable) == 0) {
             std::vector<std::unordered_map<uint32_t, int32_t>> newVec;
 
-            for (auto pair : varModifierMap) {
+            for (const auto &pair : varModifierMap) {
                 for (uint32_t i = 0; i < pair.second.size() - 1; i++) {
                     std::unordered_map<uint32_t, int32_t> emptyMap;
                     newVec.push_back(emptyMap);
@@ -216,9 +223,9 @@ class VariableExpression : public ColorExpression {
         }
     }
 
-    Colored::IntervalVector
-    get_output_intervals(const VariableIntervalMap &varMap,
-                         std::vector<const Colored::ColorType *> &colortypes) const override {
+    auto get_output_intervals(const VariableIntervalMap &varMap,
+                              std::vector<const Colored::ColorType *> &colortypes) const
+        -> Colored::IntervalVector override {
         Colored::IntervalVector varInterval;
 
         // If we see a new variable on an out arc, it gets its full interval
@@ -234,15 +241,15 @@ class VariableExpression : public ColorExpression {
         _variable->_colorType->get_colortypes(varColorTypes);
 
         for (auto &ct : varColorTypes) {
-            colortypes.push_back(std::move(ct));
+            colortypes.push_back(ct);
         }
 
         return varInterval;
     }
 
-    bool get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                           const PetriEngine::Colored::ColorFixpoint &cfp, uint32_t &index,
-                           int32_t modifier) const override {
+    auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
+                           const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
+                           int32_t modifier) const -> bool override {
         if (arcIntervals._intervalTupleVec.empty()) {
             // As variables does not restrict the values before the guard we include all tokens
             arcIntervals._intervalTupleVec.push_back(cfp._constraints);
@@ -253,9 +260,10 @@ class VariableExpression : public ColorExpression {
     void get_constants(std::unordered_map<uint32_t, const Color *> &constantMap,
                        uint32_t &index) const override {}
 
-    std::string to_string() const override { return _variable->_name; }
+    [[nodiscard]] auto to_string() const -> std::string override { return _variable->_name; }
 
-    const ColorType *get_color_type(const ColorTypeMap &colorTypes) const override {
+    [[nodiscard]] auto get_color_type(const ColorTypeMap &colorTypes) const
+        -> const ColorType * override {
         return _variable->_colorType;
     }
 
@@ -267,7 +275,7 @@ class UserOperatorExpression : public ColorExpression {
     const Color *_userOperator;
 
   public:
-    const Color *eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> const Color * override {
         if (context._placePartition.get_eq_classes().empty()) {
             return _userOperator;
         } else {
@@ -279,9 +287,9 @@ class UserOperatorExpression : public ColorExpression {
         }
     }
 
-    bool get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                           const PetriEngine::Colored::ColorFixpoint &cfp, uint32_t &index,
-                           int32_t modifier) const override {
+    auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
+                           const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
+                           int32_t modifier) const -> bool override {
         uint32_t colorId = _userOperator->get_id() + modifier;
         while (colorId < 0) {
             colorId += _userOperator->get_color_type()->size();
@@ -316,20 +324,23 @@ class UserOperatorExpression : public ColorExpression {
         }
     }
 
-    std::string to_string() const override { return _userOperator->to_string(); }
+    [[nodiscard]] auto to_string() const -> std::string override {
+        return _userOperator->to_string();
+    }
 
     void get_constants(std::unordered_map<uint32_t, const Color *> &constantMap,
                        uint32_t &index) const override {
         constantMap[index] = _userOperator;
     }
 
-    const ColorType *get_color_type(const ColorTypeMap &colorTypes) const override {
+    [[nodiscard]] auto get_color_type(const ColorTypeMap &colorTypes) const
+        -> const ColorType * override {
         return _userOperator->get_color_type();
     }
 
-    Colored::IntervalVector
-    get_output_intervals(const VariableIntervalMap &varMap,
-                         std::vector<const Colored::ColorType *> &colortypes) const override {
+    auto get_output_intervals(const VariableIntervalMap &varMap,
+                              std::vector<const Colored::ColorType *> &colortypes) const
+        -> Colored::IntervalVector override {
         Colored::interval_t interval;
         Colored::IntervalVector tupleInterval;
 
@@ -348,11 +359,11 @@ class SuccessorExpression : public ColorExpression {
     ColorExpression_ptr _color;
 
   public:
-    const Color *eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> const Color * override {
         return &++(*_color->eval(context));
     }
 
-    bool is_tuple() const override { return _color->is_tuple(); }
+    [[nodiscard]] auto is_tuple() const -> bool override { return _color->is_tuple(); }
 
     void get_variables(std::set<const Colored::Variable *> &variables,
                        PositionVariableMap &varPositions, VariableModifierMap &varModifierMap,
@@ -369,15 +380,15 @@ class SuccessorExpression : public ColorExpression {
         }
     }
 
-    bool get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                           const PetriEngine::Colored::ColorFixpoint &cfp, uint32_t &index,
-                           int32_t modifier) const override {
+    auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
+                           const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
+                           int32_t modifier) const -> bool override {
         return _color->get_arc_intervals(arcIntervals, cfp, index, modifier + 1);
     }
 
-    Colored::IntervalVector
-    get_output_intervals(const VariableIntervalMap &varMap,
-                         std::vector<const Colored::ColorType *> &colortypes) const override {
+    auto get_output_intervals(const VariableIntervalMap &varMap,
+                              std::vector<const Colored::ColorType *> &colortypes) const
+        -> Colored::IntervalVector override {
         // store the number of colortyps already in colortypes vector and use that as offset when
         // indexing it
         auto colortypesBefore = colortypes.size();
@@ -396,9 +407,12 @@ class SuccessorExpression : public ColorExpression {
         }
     }
 
-    std::string to_string() const override { return _color->to_string() + "++"; }
+    [[nodiscard]] auto to_string() const -> std::string override {
+        return _color->to_string() + "++";
+    }
 
-    const ColorType *get_color_type(const ColorTypeMap &colorTypes) const override {
+    [[nodiscard]] auto get_color_type(const ColorTypeMap &colorTypes) const
+        -> const ColorType * override {
         return _color->get_color_type(colorTypes);
     }
 
@@ -410,11 +424,11 @@ class PredecessorExpression : public ColorExpression {
     ColorExpression_ptr _color;
 
   public:
-    const Color *eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> const Color * override {
         return &--(*_color->eval(context));
     }
 
-    bool is_tuple() const override { return _color->is_tuple(); }
+    [[nodiscard]] auto is_tuple() const -> bool override { return _color->is_tuple(); }
 
     void get_variables(std::set<const Colored::Variable *> &variables,
                        PositionVariableMap &varPositions, VariableModifierMap &varModifierMap,
@@ -431,15 +445,15 @@ class PredecessorExpression : public ColorExpression {
         }
     }
 
-    bool get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                           const PetriEngine::Colored::ColorFixpoint &cfp, uint32_t &index,
-                           int32_t modifier) const override {
+    auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
+                           const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
+                           int32_t modifier) const -> bool override {
         return _color->get_arc_intervals(arcIntervals, cfp, index, modifier - 1);
     }
 
-    Colored::IntervalVector
-    get_output_intervals(const VariableIntervalMap &varMap,
-                         std::vector<const Colored::ColorType *> &colortypes) const override {
+    auto get_output_intervals(const VariableIntervalMap &varMap,
+                              std::vector<const Colored::ColorType *> &colortypes) const
+        -> Colored::IntervalVector override {
         // store the number of colortyps already in colortypes vector and use that as offset when
         // indexing it
         auto colortypesBefore = colortypes.size();
@@ -458,9 +472,12 @@ class PredecessorExpression : public ColorExpression {
         }
     }
 
-    std::string to_string() const override { return _color->to_string() + "--"; }
+    [[nodiscard]] auto to_string() const -> std::string override {
+        return _color->to_string() + "--";
+    }
 
-    const ColorType *get_color_type(const ColorTypeMap &colorTypes) const override {
+    [[nodiscard]] auto get_color_type(const ColorTypeMap &colorTypes) const
+        -> const ColorType * override {
         return _color->get_color_type(colorTypes);
     }
 
@@ -473,7 +490,7 @@ class TupleExpression : public ColorExpression {
     const ColorType *_colorType = nullptr;
 
   public:
-    const Color *eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> const Color * override {
         std::vector<const Color *> colors;
         std::vector<const ColorType *> types;
         for (const auto &color : _colors) {
@@ -487,11 +504,11 @@ class TupleExpression : public ColorExpression {
         return col;
     }
 
-    bool is_tuple() const override { return true; }
+    [[nodiscard]] auto is_tuple() const -> bool override { return true; }
 
-    Colored::IntervalVector
-    get_output_intervals(const VariableIntervalMap &varMap,
-                         std::vector<const Colored::ColorType *> &colortypes) const override {
+    auto get_output_intervals(const VariableIntervalMap &varMap,
+                              std::vector<const Colored::ColorType *> &colortypes) const
+        -> Colored::IntervalVector override {
         Colored::IntervalVector intervals;
 
         for (const auto &colorExp : _colors) {
@@ -519,9 +536,9 @@ class TupleExpression : public ColorExpression {
         return intervals;
     }
 
-    bool get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                           const PetriEngine::Colored::ColorFixpoint &cfp, uint32_t &index,
-                           int32_t modifier) const override {
+    auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
+                           const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
+                           int32_t modifier) const -> bool override {
         for (const auto &expr : _colors) {
             bool res = expr->get_arc_intervals(arcIntervals, cfp, index, modifier);
             if (!res) {
@@ -541,7 +558,8 @@ class TupleExpression : public ColorExpression {
         }
     }
 
-    const ColorType *get_color_type(const ColorTypeMap &colorTypes) const override {
+    [[nodiscard]] auto get_color_type(const ColorTypeMap &colorTypes) const
+        -> const ColorType * override {
 
         std::vector<const ColorType *> types;
         if (_colorType != nullptr) {
@@ -552,7 +570,7 @@ class TupleExpression : public ColorExpression {
             types.push_back(color->get_color_type(colorTypes));
         }
 
-        for (auto elem : colorTypes) {
+        for (const auto &elem : colorTypes) {
             auto *pt = dynamic_cast<const ProductType *>(elem.second);
             if (pt && pt->contains_types(types)) {
                 return pt;
@@ -571,7 +589,7 @@ class TupleExpression : public ColorExpression {
         }
     }
 
-    std::string to_string() const override {
+    [[nodiscard]] auto to_string() const -> std::string override {
         std::string res = "(" + _colors[0]->to_string();
         for (uint32_t i = 1; i < _colors.size(); ++i) {
             res += "," + _colors[i]->to_string();
@@ -587,10 +605,10 @@ class TupleExpression : public ColorExpression {
 
 class GuardExpression : public Expression {
   public:
-    GuardExpression() {}
-    virtual ~GuardExpression() {}
+    GuardExpression() = default;
+    virtual ~GuardExpression() = default;
 
-    virtual bool eval(const ExpressionContext &context) const = 0;
+    [[nodiscard]] virtual auto eval(const expression_context_t &context) const -> bool = 0;
 
     virtual void restrict_vars(std::vector<VariableIntervalMap> &variableMap,
                                std::set<const Colored::Variable *> &diagonalVars) const = 0;
@@ -601,7 +619,7 @@ class GuardExpression : public Expression {
     }
 };
 
-typedef std::shared_ptr<GuardExpression> GuardExpression_ptr;
+using GuardExpression_ptr = std::shared_ptr<GuardExpression>;
 
 class LessThanExpression : public GuardExpression {
   private:
@@ -609,7 +627,7 @@ class LessThanExpression : public GuardExpression {
     ColorExpression_ptr _right;
 
   public:
-    bool eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> bool override {
         return _left->eval(context) < _right->eval(context);
     }
 
@@ -620,7 +638,9 @@ class LessThanExpression : public GuardExpression {
         _right->get_variables(variables, varPositions, varModifierMap, includeSubtracts);
     }
 
-    bool is_tuple() const override { return _left->is_tuple() || _right->is_tuple(); }
+    [[nodiscard]] auto is_tuple() const -> bool override {
+        return _left->is_tuple() || _right->is_tuple();
+    }
 
     void restrict_vars(std::vector<VariableIntervalMap> &variableMap,
                        std::set<const Colored::Variable *> &diagonalVars) const override {
@@ -648,7 +668,7 @@ class LessThanExpression : public GuardExpression {
                                       true);
     }
 
-    std::string to_string() const override {
+    [[nodiscard]] auto to_string() const -> std::string override {
         std::string res = _left->to_string() + " < " + _right->to_string();
         return res;
     }
@@ -663,11 +683,13 @@ class GreaterThanExpression : public GuardExpression {
     ColorExpression_ptr _right;
 
   public:
-    bool eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> bool override {
         return _left->eval(context) > _right->eval(context);
     }
 
-    bool is_tuple() const override { return _left->is_tuple() || _right->is_tuple(); }
+    [[nodiscard]] auto is_tuple() const -> bool override {
+        return _left->is_tuple() || _right->is_tuple();
+    }
 
     void get_variables(std::set<const Colored::Variable *> &variables,
                        PositionVariableMap &varPositions, VariableModifierMap &varModifierMap,
@@ -703,7 +725,7 @@ class GreaterThanExpression : public GuardExpression {
                                       false, true);
     }
 
-    std::string to_string() const override {
+    [[nodiscard]] auto to_string() const -> std::string override {
         std::string res = _left->to_string() + " > " + _right->to_string();
         return res;
     }
@@ -718,11 +740,13 @@ class LessThanEqExpression : public GuardExpression {
     ColorExpression_ptr _right;
 
   public:
-    bool eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> bool override {
         return _left->eval(context) <= _right->eval(context);
     }
 
-    bool is_tuple() const override { return _left->is_tuple() || _right->is_tuple(); }
+    [[nodiscard]] auto is_tuple() const -> bool override {
+        return _left->is_tuple() || _right->is_tuple();
+    }
 
     void get_variables(std::set<const Colored::Variable *> &variables,
                        PositionVariableMap &varPositions, VariableModifierMap &varModifierMap,
@@ -758,7 +782,7 @@ class LessThanEqExpression : public GuardExpression {
                                       false);
     }
 
-    std::string to_string() const override {
+    [[nodiscard]] auto to_string() const -> std::string override {
         std::string res = _left->to_string() + " <= " + _right->to_string();
         return res;
     }
@@ -773,11 +797,13 @@ class GreaterThanEqExpression : public GuardExpression {
     ColorExpression_ptr _right;
 
   public:
-    bool eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> bool override {
         return _left->eval(context) >= _right->eval(context);
     }
 
-    bool is_tuple() const override { return _left->is_tuple() || _right->is_tuple(); }
+    [[nodiscard]] auto is_tuple() const -> bool override {
+        return _left->is_tuple() || _right->is_tuple();
+    }
 
     void get_variables(std::set<const Colored::Variable *> &variables,
                        PositionVariableMap &varPositions, VariableModifierMap &varModifierMap,
@@ -813,7 +839,7 @@ class GreaterThanEqExpression : public GuardExpression {
                                       false, false);
     }
 
-    std::string to_string() const override {
+    [[nodiscard]] auto to_string() const -> std::string override {
         std::string res = _left->to_string() + " >= " + _right->to_string();
         return res;
     }
@@ -828,11 +854,13 @@ class EqualityExpression : public GuardExpression {
     ColorExpression_ptr _right;
 
   public:
-    bool eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> bool override {
         return _left->eval(context) == _right->eval(context);
     }
 
-    bool is_tuple() const override { return _left->is_tuple() || _right->is_tuple(); }
+    [[nodiscard]] auto is_tuple() const -> bool override {
+        return _left->is_tuple() || _right->is_tuple();
+    }
 
     void get_variables(std::set<const Colored::Variable *> &variables,
                        PositionVariableMap &varPositions, VariableModifierMap &varModifierMap,
@@ -868,7 +896,7 @@ class EqualityExpression : public GuardExpression {
                                           diagonalVars);
     }
 
-    std::string to_string() const override {
+    [[nodiscard]] auto to_string() const -> std::string override {
         std::string res = _left->to_string() + " == " + _right->to_string();
         return res;
     }
@@ -883,11 +911,13 @@ class InequalityExpression : public GuardExpression {
     ColorExpression_ptr _right;
 
   public:
-    bool eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> bool override {
         return _left->eval(context) != _right->eval(context);
     }
 
-    bool is_tuple() const override { return _left->is_tuple() || _right->is_tuple(); }
+    [[nodiscard]] auto is_tuple() const -> bool override {
+        return _left->is_tuple() || _right->is_tuple();
+    }
 
     void get_variables(std::set<const Colored::Variable *> &variables,
                        PositionVariableMap &varPositions, VariableModifierMap &varModifierMap,
@@ -922,7 +952,7 @@ class InequalityExpression : public GuardExpression {
                                             constantMapR, diagonalVars);
     }
 
-    std::string to_string() const override {
+    [[nodiscard]] auto to_string() const -> std::string override {
         std::string res = _left->to_string() + " != " + _right->to_string();
         return res;
     }
@@ -937,11 +967,13 @@ class AndExpression : public GuardExpression {
     GuardExpression_ptr _right;
 
   public:
-    bool eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> bool override {
         return _left->eval(context) && _right->eval(context);
     }
 
-    bool is_tuple() const override { return _left->is_tuple() || _right->is_tuple(); }
+    [[nodiscard]] auto is_tuple() const -> bool override {
+        return _left->is_tuple() || _right->is_tuple();
+    }
 
     void get_variables(std::set<const Colored::Variable *> &variables,
                        PositionVariableMap &varPositions, VariableModifierMap &varModifierMap,
@@ -956,7 +988,7 @@ class AndExpression : public GuardExpression {
         _right->restrict_vars(variableMap, diagonalVars);
     }
 
-    std::string to_string() const override {
+    [[nodiscard]] auto to_string() const -> std::string override {
         std::string res = _left->to_string() + " && " + _right->to_string();
         return res;
     }
@@ -971,11 +1003,13 @@ class OrExpression : public GuardExpression {
     GuardExpression_ptr _right;
 
   public:
-    bool eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> bool override {
         return _left->eval(context) || _right->eval(context);
     }
 
-    bool is_tuple() const override { return _left->is_tuple() || _right->is_tuple(); }
+    [[nodiscard]] auto is_tuple() const -> bool override {
+        return _left->is_tuple() || _right->is_tuple();
+    }
 
     void get_variables(std::set<const Colored::Variable *> &variables,
                        PositionVariableMap &varPositions, VariableModifierMap &varModifierMap,
@@ -993,7 +1027,7 @@ class OrExpression : public GuardExpression {
         variableMap.insert(variableMap.end(), varMapCopy.begin(), varMapCopy.end());
     }
 
-    std::string to_string() const override {
+    [[nodiscard]] auto to_string() const -> std::string override {
         std::string res = _left->to_string() + " || " + _right->to_string();
         return res;
     }
@@ -1004,48 +1038,51 @@ class OrExpression : public GuardExpression {
 
 class ArcExpression : public Expression {
   public:
-    ArcExpression() {}
-    virtual ~ArcExpression() {}
+    ArcExpression() = default;
+    virtual ~ArcExpression() = default;
 
-    virtual Multiset eval(const ExpressionContext &context) const = 0;
+    [[nodiscard]] virtual auto eval(const expression_context_t &context) const -> Multiset = 0;
 
     virtual void get_constants(PositionColorsMap &constantMap, uint32_t &index) const = 0;
 
-    virtual bool get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                                   const PetriEngine::Colored::ColorFixpoint &cfp, uint32_t &index,
-                                   int32_t modifier) const = 0;
+    virtual auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
+                                   const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
+                                   int32_t modifier) const -> bool = 0;
 
-    virtual uint32_t weight() const = 0;
+    [[nodiscard]] virtual auto weight() const -> uint32_t = 0;
 
-    virtual std::vector<Colored::IntervalVector>
-    get_output_intervals(const std::vector<VariableIntervalMap> &varMapVec) const {
+    [[nodiscard]] virtual auto
+    get_output_intervals(const std::vector<VariableIntervalMap> &varMapVec) const
+        -> std::vector<Colored::IntervalVector> {
         std::vector<const Colored::ColorType *> colortypes;
 
         return get_output_intervals(varMapVec, colortypes);
     }
 
-    virtual std::vector<Colored::IntervalVector>
-    get_output_intervals(const std::vector<VariableIntervalMap> &varMapVec,
-                         std::vector<const Colored::ColorType *> &colortypes) const {
+    virtual auto get_output_intervals(const std::vector<VariableIntervalMap> &varMapVec,
+                                      std::vector<const Colored::ColorType *> &colortypes) const
+        -> std::vector<Colored::IntervalVector> {
         return std::vector<Colored::IntervalVector>(0);
     }
 };
 
-typedef std::shared_ptr<ArcExpression> ArcExpression_ptr;
+using ArcExpression_ptr = std::shared_ptr<ArcExpression>;
 
 class AllExpression : public Expression {
   private:
     const ColorType *_sort;
 
   public:
-    virtual ~AllExpression(){};
-    std::vector<std::pair<const Color *, uint32_t>> eval(const ExpressionContext &context) const {
+    virtual ~AllExpression() = default;
+    ;
+    [[nodiscard]] auto eval(const expression_context_t &context) const
+        -> std::vector<std::pair<const Color *, uint32_t>> {
         std::vector<std::pair<const Color *, uint32_t>> colors;
         assert(_sort != nullptr);
         if (context._placePartition.is_diagonal() ||
             context._placePartition.get_eq_classes().empty()) {
-            for (size_t i = 0; i < _sort->size(); i++) {
-                colors.push_back(std::make_pair(&(*_sort)[i], 1));
+            for (const auto &i : *_sort) {
+                colors.push_back(std::make_pair(&i, 1));
             }
         } else {
             for (const auto &eq_class : context._placePartition.get_eq_classes()) {
@@ -1057,25 +1094,25 @@ class AllExpression : public Expression {
         return colors;
     }
 
-    bool is_tuple() const override { return _sort->product_size() > 1; }
+    [[nodiscard]] auto is_tuple() const -> bool override { return _sort->product_size() > 1; }
 
     void get_constants(PositionColorsMap &constantMap, uint32_t &index) const {
-        for (size_t i = 0; i < _sort->size(); i++) {
-            constantMap[index].push_back(&(*_sort)[i]);
+        for (const auto &i : *_sort) {
+            constantMap[index].push_back(&i);
         }
     }
 
-    Colored::IntervalVector
-    get_output_intervals(const std::vector<VariableIntervalMap> &varMapVec,
-                         std::vector<const Colored::ColorType *> &colortypes) const {
+    auto get_output_intervals(const std::vector<VariableIntervalMap> &varMapVec,
+                              std::vector<const Colored::ColorType *> &colortypes) const
+        -> Colored::IntervalVector {
         Colored::IntervalVector newIntervalTuple;
         newIntervalTuple.add_interval(_sort->get_full_interval());
         return newIntervalTuple;
     }
 
-    bool get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                           const PetriEngine::Colored::ColorFixpoint &cfp, uint32_t &index,
-                           int32_t modifier) const {
+    auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
+                           const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
+                           int32_t modifier) const -> bool {
 
         if (arcIntervals._intervalTupleVec.empty()) {
             bool colorsInFixpoint = false;
@@ -1090,8 +1127,7 @@ class AllExpression : public Expression {
             return colorsInFixpoint;
         } else {
             std::vector<Colored::IntervalVector> newIntervalTupleVec;
-            for (uint32_t i = 0; i < arcIntervals._intervalTupleVec.size(); i++) {
-                auto &intervalTuple = arcIntervals._intervalTupleVec[i];
+            for (auto &intervalTuple : arcIntervals._intervalTupleVec) {
                 if (intervalTuple.get_contained_colors() == _sort->size()) {
                     newIntervalTupleVec.push_back(intervalTuple);
                 }
@@ -1101,14 +1137,16 @@ class AllExpression : public Expression {
         }
     }
 
-    size_t size() const { return _sort->size(); }
+    [[nodiscard]] auto size() const -> size_t { return _sort->size(); }
 
-    std::string to_string() const override { return _sort->get_name() + ".all"; }
+    [[nodiscard]] auto to_string() const -> std::string override {
+        return _sort->get_name() + ".all";
+    }
 
     AllExpression(const ColorType *sort) : _sort(sort) { assert(sort != nullptr); }
 };
 
-typedef std::shared_ptr<AllExpression> AllExpression_ptr;
+using AllExpression_ptr = std::shared_ptr<AllExpression>;
 
 class NumberOfExpression : public ArcExpression {
   private:
@@ -1117,7 +1155,7 @@ class NumberOfExpression : public ArcExpression {
     AllExpression_ptr _all;
 
   public:
-    Multiset eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> Multiset override {
         std::vector<std::pair<const Color *, uint32_t>> col;
         if (!_color.empty()) {
             for (const auto &elem : _color) {
@@ -1132,7 +1170,7 @@ class NumberOfExpression : public ArcExpression {
 
         return Multiset(col);
     }
-    bool is_eligible_for_symmetry(std::vector<uint32_t> &numbers) const override {
+    auto is_eligible_for_symmetry(std::vector<uint32_t> &numbers) const -> bool override {
         // Not entirely sure what to do if there is more than one colorExpression, but should
         // probably return false
         if (_color.size() > 1) {
@@ -1143,7 +1181,7 @@ class NumberOfExpression : public ArcExpression {
         return true;
     }
 
-    bool is_tuple() const override {
+    [[nodiscard]] auto is_tuple() const -> bool override {
         for (const auto &colorExpr : _color) {
             if (colorExpr->is_tuple()) {
                 return true;
@@ -1163,9 +1201,9 @@ class NumberOfExpression : public ArcExpression {
         }
     }
 
-    bool get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                           const PetriEngine::Colored::ColorFixpoint &cfp, uint32_t &index,
-                           int32_t modifier) const override {
+    auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
+                           const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
+                           int32_t modifier) const -> bool override {
         if (_all != nullptr) {
             return _all->get_arc_intervals(arcIntervals, cfp, index, modifier);
         }
@@ -1177,9 +1215,9 @@ class NumberOfExpression : public ArcExpression {
         return true;
     }
 
-    std::vector<Colored::IntervalVector>
-    get_output_intervals(const std::vector<VariableIntervalMap> &varMapVec,
-                         std::vector<const Colored::ColorType *> &colortypes) const override {
+    auto get_output_intervals(const std::vector<VariableIntervalMap> &varMapVec,
+                              std::vector<const Colored::ColorType *> &colortypes) const
+        -> std::vector<Colored::IntervalVector> override {
         std::vector<Colored::IntervalVector> intervalsVec;
         if (_all == nullptr) {
             for (const auto &elem : _color) {
@@ -1206,20 +1244,20 @@ class NumberOfExpression : public ArcExpression {
             }
     }
 
-    uint32_t weight() const override {
+    [[nodiscard]] auto weight() const -> uint32_t override {
         if (_all == nullptr)
             return _number * _color.size();
         else
             return _number * _all->size();
     }
 
-    bool is_all() const { return (bool)_all; }
+    [[nodiscard]] auto is_all() const -> bool { return (bool)_all; }
 
-    bool is_single_color() const { return !is_all() && _color.size() == 1; }
+    [[nodiscard]] auto is_single_color() const -> bool { return !is_all() && _color.size() == 1; }
 
-    uint32_t number() const { return _number; }
+    [[nodiscard]] auto number() const -> uint32_t { return _number; }
 
-    std::string to_string() const override {
+    [[nodiscard]] auto to_string() const -> std::string override {
         if (is_all())
             return std::to_string(_number) + "'(" + _all->to_string() + ")";
         std::string res = std::to_string(_number) + "'(" + _color[0]->to_string() + ")";
@@ -1236,14 +1274,14 @@ class NumberOfExpression : public ArcExpression {
         : _number(number), _color(), _all(std::move(all)) {}
 };
 
-typedef std::shared_ptr<NumberOfExpression> NumberOfExpression_ptr;
+using NumberOfExpression_ptr = std::shared_ptr<NumberOfExpression>;
 
 class AddExpression : public ArcExpression {
   private:
     std::vector<ArcExpression_ptr> _constituents;
 
   public:
-    Multiset eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> Multiset override {
         Multiset ms;
         for (const auto &expr : _constituents) {
             ms += expr->eval(context);
@@ -1251,7 +1289,7 @@ class AddExpression : public ArcExpression {
         return ms;
     }
 
-    bool is_eligible_for_symmetry(std::vector<uint32_t> &numbers) const override {
+    auto is_eligible_for_symmetry(std::vector<uint32_t> &numbers) const -> bool override {
         for (const auto &elem : _constituents) {
             if (!elem->is_eligible_for_symmetry(numbers)) {
                 return false;
@@ -1284,7 +1322,7 @@ class AddExpression : public ArcExpression {
         }
     }
 
-    bool is_tuple() const override {
+    [[nodiscard]] auto is_tuple() const -> bool override {
         for (const auto &arcExpr : _constituents) {
             if (arcExpr->is_tuple()) {
                 return true;
@@ -1293,9 +1331,9 @@ class AddExpression : public ArcExpression {
         return false;
     }
 
-    bool get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                           const PetriEngine::Colored::ColorFixpoint &cfp, uint32_t &index,
-                           int32_t modifier) const override {
+    auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
+                           const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
+                           int32_t modifier) const -> bool override {
         for (const auto &elem : _constituents) {
             uint32_t newIndex = 0;
             Colored::arc_intervals_t newArcIntervals;
@@ -1316,9 +1354,9 @@ class AddExpression : public ArcExpression {
         return true;
     }
 
-    std::vector<Colored::IntervalVector>
-    get_output_intervals(const std::vector<VariableIntervalMap> &varMapVec,
-                         std::vector<const Colored::ColorType *> &colortypes) const override {
+    auto get_output_intervals(const std::vector<VariableIntervalMap> &varMapVec,
+                              std::vector<const Colored::ColorType *> &colortypes) const
+        -> std::vector<Colored::IntervalVector> override {
         std::vector<Colored::IntervalVector> intervalsVec;
 
         for (const auto &elem : _constituents) {
@@ -1337,7 +1375,7 @@ class AddExpression : public ArcExpression {
         }
     }
 
-    uint32_t weight() const override {
+    [[nodiscard]] auto weight() const -> uint32_t override {
         uint32_t res = 0;
         for (const auto &expr : _constituents) {
             res += expr->weight();
@@ -1345,7 +1383,7 @@ class AddExpression : public ArcExpression {
         return res;
     }
 
-    std::string to_string() const override {
+    [[nodiscard]] auto to_string() const -> std::string override {
         std::string res = _constituents[0]->to_string();
         for (uint32_t i = 1; i < _constituents.size(); ++i) {
             res += " + " + _constituents[i]->to_string();
@@ -1363,7 +1401,7 @@ class SubtractExpression : public ArcExpression {
     ArcExpression_ptr _right;
 
   public:
-    Multiset eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> Multiset override {
         return _left->eval(context) - _right->eval(context);
     }
 
@@ -1377,19 +1415,21 @@ class SubtractExpression : public ArcExpression {
         }
     }
 
-    bool is_tuple() const override { return _left->is_tuple() || _right->is_tuple(); }
+    [[nodiscard]] auto is_tuple() const -> bool override {
+        return _left->is_tuple() || _right->is_tuple();
+    }
 
-    bool get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                           const PetriEngine::Colored::ColorFixpoint &cfp, uint32_t &index,
-                           int32_t modifier) const override {
+    auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
+                           const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
+                           int32_t modifier) const -> bool override {
         return _left->get_arc_intervals(arcIntervals, cfp, index, modifier);
         // We ignore the restrictions imposed by the subtraction for now
         //_right->get_arc_intervals(arcIntervals, cfp, &rightIndex);
     }
 
-    std::vector<Colored::IntervalVector>
-    get_output_intervals(const std::vector<VariableIntervalMap> &varMapVec,
-                         std::vector<const Colored::ColorType *> &colortypes) const override {
+    auto get_output_intervals(const std::vector<VariableIntervalMap> &varMapVec,
+                              std::vector<const Colored::ColorType *> &colortypes) const
+        -> std::vector<Colored::IntervalVector> override {
         // We could maybe reduce the intervals slightly by checking if the upper or lower bound is
         // being subtracted
         return _left->get_output_intervals(varMapVec, colortypes);
@@ -1401,7 +1441,7 @@ class SubtractExpression : public ArcExpression {
         _right->get_constants(constantMap, rIndex);
     }
 
-    uint32_t weight() const override {
+    [[nodiscard]] auto weight() const -> uint32_t override {
         auto *left = dynamic_cast<NumberOfExpression *>(_left.get());
         if (!left || !left->is_all()) {
             throw WeightException("Left constituent of subtract is not an all expression!");
@@ -1416,7 +1456,7 @@ class SubtractExpression : public ArcExpression {
         return _left->weight() - val;
     }
 
-    std::string to_string() const override {
+    [[nodiscard]] auto to_string() const -> std::string override {
         return _left->to_string() + " - " + _right->to_string();
     }
 
@@ -1430,7 +1470,7 @@ class ScalarProductExpression : public ArcExpression {
     ArcExpression_ptr _expr;
 
   public:
-    Multiset eval(const ExpressionContext &context) const override {
+    [[nodiscard]] auto eval(const expression_context_t &context) const -> Multiset override {
         return _expr->eval(context) * _scalar;
     }
 
@@ -1440,17 +1480,17 @@ class ScalarProductExpression : public ArcExpression {
         _expr->get_variables(variables, varPositions, varModifierMap, includeSubtracts);
     }
 
-    bool is_tuple() const override { return _expr->is_tuple(); }
+    [[nodiscard]] auto is_tuple() const -> bool override { return _expr->is_tuple(); }
 
-    bool get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                           const PetriEngine::Colored::ColorFixpoint &cfp, uint32_t &index,
-                           int32_t modifier) const override {
+    auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
+                           const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
+                           int32_t modifier) const -> bool override {
         return _expr->get_arc_intervals(arcIntervals, cfp, index, modifier);
     }
 
-    std::vector<Colored::IntervalVector>
-    get_output_intervals(const std::vector<VariableIntervalMap> &varMapVec,
-                         std::vector<const Colored::ColorType *> &colortypes) const override {
+    auto get_output_intervals(const std::vector<VariableIntervalMap> &varMapVec,
+                              std::vector<const Colored::ColorType *> &colortypes) const
+        -> std::vector<Colored::IntervalVector> override {
         return _expr->get_output_intervals(varMapVec, colortypes);
     }
 
@@ -1458,14 +1498,14 @@ class ScalarProductExpression : public ArcExpression {
         _expr->get_constants(constantMap, index);
     }
 
-    uint32_t weight() const override { return _scalar * _expr->weight(); }
+    [[nodiscard]] auto weight() const -> uint32_t override { return _scalar * _expr->weight(); }
 
-    std::string to_string() const override {
+    [[nodiscard]] auto to_string() const -> std::string override {
         return std::to_string(_scalar) + " * " + _expr->to_string();
     }
 
     ScalarProductExpression(ArcExpression_ptr &&expr, uint32_t scalar)
-        : _scalar(std::move(scalar)), _expr(expr) {}
+        : _scalar(scalar), _expr(expr) {}
 };
 } // namespace Colored
 } // namespace PetriEngine

@@ -74,7 +74,7 @@ class AbstractPetriNetBuilder {
 
     virtual void enable_colors() { _isColored = true; }
 
-    [[nodiscard]] virtual bool is_colored() const { return _isColored; }
+    [[nodiscard]] virtual auto is_colored() const -> bool { return _isColored; }
 
     virtual void sort() = 0;
 

@@ -21,35 +21,35 @@ namespace LTL {
 
 using namespace PetriEngine::PQL;
 
-void EvalAndSetVisitor::_accept(PetriEngine::PQL::ACondition *condition) {
-    condition->getCond()->visit(*this);
+void EvalAndSetVisitor::accept(PetriEngine::PQL::ACondition *condition) {
+    condition->get_cond()->visit(*this);
 }
 
-void EvalAndSetVisitor::_accept(PetriEngine::PQL::ECondition *condition) {
-    condition->getCond()->visit(*this);
+void EvalAndSetVisitor::accept(PetriEngine::PQL::ECondition *condition) {
+    condition->get_cond()->visit(*this);
 }
 
-void EvalAndSetVisitor::_accept(PetriEngine::PQL::XCondition *condition) {
-    condition->getCond()->visit(*this);
+void EvalAndSetVisitor::accept(PetriEngine::PQL::XCondition *condition) {
+    condition->get_cond()->visit(*this);
 }
 
-void EvalAndSetVisitor::_accept(PetriEngine::PQL::GCondition *condition) {
-    condition->getCond()->visit(*this);
-    auto res = condition->getCond()->get_satisfied();
+void EvalAndSetVisitor::accept(PetriEngine::PQL::GCondition *condition) {
+    condition->get_cond()->visit(*this);
+    auto res = condition->get_cond()->get_satisfied();
     if (res != Condition::RFALSE)
         res = Condition::RUNKNOWN;
     condition->set_satisfied(res);
 }
 
-void EvalAndSetVisitor::_accept(PetriEngine::PQL::FCondition *condition) {
-    condition->getCond()->visit(*this);
-    auto res = condition->getCond()->get_satisfied();
+void EvalAndSetVisitor::accept(PetriEngine::PQL::FCondition *condition) {
+    condition->get_cond()->visit(*this);
+    auto res = condition->get_cond()->get_satisfied();
     if (res != Condition::RTRUE)
         res = Condition::RUNKNOWN;
     condition->set_satisfied(res);
 }
 
-void EvalAndSetVisitor::_accept(PetriEngine::PQL::UntilCondition *condition) {
+void EvalAndSetVisitor::accept(PetriEngine::PQL::UntilCondition *condition) {
     condition->get_cond1()->visit(*this);
     condition->get_cond2()->visit(*this);
     auto r2 = condition->get_cond2()->get_satisfied();
@@ -65,15 +65,15 @@ void EvalAndSetVisitor::_accept(PetriEngine::PQL::UntilCondition *condition) {
     condition->set_satisfied(Condition::RUNKNOWN);
 }
 
-void EvalAndSetVisitor::_accept(NotCondition *element) {
-    element->getCond()->visit(*this);
-    auto res = element->getCond()->get_satisfied();
+void EvalAndSetVisitor::accept(NotCondition *element) {
+    element->get_cond()->visit(*this);
+    auto res = element->get_cond()->get_satisfied();
     if (res != Condition::RUNKNOWN)
         res = res == Condition::RFALSE ? Condition::RTRUE : Condition::RFALSE;
     element->set_satisfied(res);
 }
 
-void EvalAndSetVisitor::_accept(AndCondition *element) {
+void EvalAndSetVisitor::accept(AndCondition *element) {
     auto res = Condition::RTRUE;
     for (auto &c : *element) {
         c->visit(*this);
@@ -86,7 +86,7 @@ void EvalAndSetVisitor::_accept(AndCondition *element) {
     element->set_satisfied(res);
 }
 
-void EvalAndSetVisitor::_accept(OrCondition *element) {
+void EvalAndSetVisitor::accept(OrCondition *element) {
     auto res = Condition::RFALSE;
     for (auto &c : *element) {
         c->visit(*this);
@@ -99,23 +99,23 @@ void EvalAndSetVisitor::_accept(OrCondition *element) {
     element->set_satisfied(res);
 }
 
-void EvalAndSetVisitor::_accept(LessThanCondition *element) { element->eval_and_set(_context); }
+void EvalAndSetVisitor::accept(LessThanCondition *element) { element->eval_and_set(_context); }
 
-void EvalAndSetVisitor::_accept(LessThanOrEqualCondition *element) {
+void EvalAndSetVisitor::accept(LessThanOrEqualCondition *element) {
     element->eval_and_set(_context);
 }
 
-void EvalAndSetVisitor::_accept(EqualCondition *element) { element->eval_and_set(_context); }
+void EvalAndSetVisitor::accept(EqualCondition *element) { element->eval_and_set(_context); }
 
-void EvalAndSetVisitor::_accept(NotEqualCondition *element) { element->eval_and_set(_context); }
+void EvalAndSetVisitor::accept(NotEqualCondition *element) { element->eval_and_set(_context); }
 
-void EvalAndSetVisitor::_accept(DeadlockCondition *element) { element->eval_and_set(_context); }
+void EvalAndSetVisitor::accept(DeadlockCondition *element) { element->eval_and_set(_context); }
 
-void EvalAndSetVisitor::_accept(CompareConjunction *element) { element->eval_and_set(_context); }
+void EvalAndSetVisitor::accept(CompareConjunction *element) { element->eval_and_set(_context); }
 
-void EvalAndSetVisitor::_accept(UnfoldedUpperBoundsCondition *element) {
+void EvalAndSetVisitor::accept(UnfoldedUpperBoundsCondition *element) {
     element->eval_and_set(_context);
 }
 
-void EvalAndSetVisitor::_accept(BooleanCondition *element) { element->eval_and_set(_context); }
+void EvalAndSetVisitor::accept(BooleanCondition *element) { element->eval_and_set(_context); }
 } // namespace LTL

@@ -36,7 +36,7 @@ namespace LTL {
 struct result_t {
     bool _satisfied = false;
     bool _is_weak = true;
-    Algorithm _algorithm = Algorithm::Tarjan;
+    algorithm_e _algorithm = algorithm_e::TARJAN;
 #ifdef DEBUG_EXPLORED_STATES
     size_t explored_states = 0;
 #endif
@@ -108,7 +108,7 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
     // force AP compress off for Büchi prints
     options._ltl_compress_aps = options._buchi_out_file.empty()
                                     ? options._ltl_compress_aps
-                                    : options_t::atomic_compression_e::None;
+                                    : options_t::atomic_compression_e::NONE;
 
     auto [negated_formula, negate_answer] = to_ltl(query);
 
@@ -118,18 +118,18 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
     }
 
     bool is_visible_stub = options._stubborn_reduction &&
-                           (options._ltl_por == options_t::ltl_partial_order_e::Visible ||
-                            options._ltl_por == options_t::ltl_partial_order_e::VisibleReach) &&
+                           (options._ltl_por == options_t::ltl_partial_order_e::VISIBLE ||
+                            options._ltl_por == options_t::ltl_partial_order_e::VISIBLE_REACH) &&
                            !net.has_inhibitor() && !negated_formula->contains_next();
     bool is_autreach_stub = options._stubborn_reduction &&
-                            (options._ltl_por == options_t::ltl_partial_order_e::AutomatonReach ||
-                             options._ltl_por == options_t::ltl_partial_order_e::VisibleReach) &&
+                            (options._ltl_por == options_t::ltl_partial_order_e::AUTOMATON_REACH ||
+                             options._ltl_por == options_t::ltl_partial_order_e::VISIBLE_REACH) &&
                             !net.has_inhibitor();
     bool is_buchi_stub = options._stubborn_reduction &&
-                         options._ltl_por == options_t::ltl_partial_order_e::FullAutomaton &&
+                         options._ltl_por == options_t::ltl_partial_order_e::FULL_AUTOMATON &&
                          !net.has_inhibitor();
 
-    bool is_stubborn = options._ltl_por != options_t::ltl_partial_order_e::None &&
+    bool is_stubborn = options._ltl_por != options_t::ltl_partial_order_e::NONE &&
                        (is_visible_stub || is_autreach_stub || is_buchi_stub);
 
     std::unique_ptr<SuccessorSpooler> spooler;
@@ -137,7 +137,7 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
 
     result_t result;
     switch (options._ltl_algorithm) {
-    case Algorithm::NDFS:
+    case algorithm_e::NDFS:
         if (options._strategy != options_t::search_strategy_e::DFS) {
             SpoolingSuccessorGenerator gen{net, negated_formula};
             spooler = std::make_unique<EnabledSpooler>(net, gen);
@@ -145,19 +145,19 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
             gen.set_heuristic(heuristic.get());
             result = verify(std::make_unique<NestedDepthFirstSearch<SpoolingSuccessorGenerator>>(
                                 net, negated_formula, automaton, &gen,
-                                options._trace != options_t::trace_level_e::None),
+                                options._trace != options_t::trace_level_e::NONE),
                             options);
 
         } else {
             ResumingSuccessorGenerator gen{net};
             result = verify(std::make_unique<NestedDepthFirstSearch<ResumingSuccessorGenerator>>(
                                 net, negated_formula, automaton, &gen,
-                                options._trace != options_t::trace_level_e::None),
+                                options._trace != options_t::trace_level_e::NONE),
                             options);
         }
         break;
 
-    case Algorithm::Tarjan:
+    case algorithm_e::TARJAN:
         if (options._strategy != options_t::search_strategy_e::DFS || is_stubborn) {
             // Use spooling successor generator in case of different search strategy or stubborn set
             // method. Running default, BestFS, or RDFS search strategy so use spooling successor
@@ -180,7 +180,7 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
                 gen.set_heuristic(heuristic.get());
             }
 
-            if (options._trace != options_t::trace_level_e::None) {
+            if (options._trace != options_t::trace_level_e::NONE) {
                 if (is_autreach_stub && is_visible_stub) {
                     result = verify(
                         std::make_unique<TarjanModelChecker<ReachStubProductSuccessorGenerator,
@@ -234,7 +234,7 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
             ResumingSuccessorGenerator gen{net};
 
             // no spooling needed, thus use resuming successor generation
-            if (options._trace != options_t::trace_level_e::None) {
+            if (options._trace != options_t::trace_level_e::NONE) {
                 result =
                     verify(std::make_unique<TarjanModelChecker<ProductSuccessorGenerator,
                                                                ResumingSuccessorGenerator, true>>(
@@ -249,7 +249,7 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
             }
         }
         break;
-    case Algorithm::None:
+    case algorithm_e::NONE:
         assert(false);
         std::cerr << "Error: cannot LTL verify with algorithm None";
     }

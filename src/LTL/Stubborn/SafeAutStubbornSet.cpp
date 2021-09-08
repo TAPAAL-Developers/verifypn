@@ -28,12 +28,12 @@ auto SafeAutStubbornSet::prepare(const LTL::Structures::ProductState &state) -> 
 
     construct_enabled();
     if (_ordering.empty()) {
-        _print_debug();
+        print_debug();
         return false;
     }
     if (_ordering.size() == 1) {
         _stubborn[_ordering.front()] = true;
-        _print_debug();
+        print_debug();
         return true;
     }
 
@@ -66,7 +66,7 @@ auto SafeAutStubbornSet::prepare(const LTL::Structures::ProductState &state) -> 
     if (_bad) {
         // abort
         set_all_stubborn();
-        _print_debug();
+        print_debug();
         return true;
     }
     // accepting states need key transition. add firs   t enabled by index.
@@ -87,11 +87,11 @@ auto SafeAutStubbornSet::prepare(const LTL::Structures::ProductState &state) -> 
             set_all_stubborn();
         }
     }
-    _print_debug();
+    print_debug();
     return true;
 }
 
-void SafeAutStubbornSet::_print_debug() {
+void SafeAutStubbornSet::print_debug() {
 #ifndef NDEBUG
     float num_stubborn = 0;
     float num_enabled = 0;

@@ -12,13 +12,13 @@ class PetriConfig : public DependencyGraph::Configuration {
 
   public:
     using Condition = PetriEngine::PQL::Condition;
-    PetriConfig() : DependencyGraph::Configuration(), _marking(0), _query(nullptr) {}
+    PetriConfig() : DependencyGraph::Configuration() {}
 
     PetriConfig(size_t t_marking, Condition *t_query)
         : DependencyGraph::Configuration(), _marking(t_marking), _query(t_query) {}
 
-    size_t _marking;
-    Condition *_query;
+    size_t _marking{0};
+    Condition *_query{nullptr};
 };
 
 } // namespace PetriNets

@@ -111,7 +111,7 @@ HeuristicQueue::~HeuristicQueue() = default;
 auto HeuristicQueue::pop(Structures::State &state) -> bool {
     if (_queue.empty())
         return false;
-    uint32_t n = _queue.top().item;
+    uint32_t n = _queue.top()._item;
     _queue.pop();
     _states.decode(state, n);
     return true;

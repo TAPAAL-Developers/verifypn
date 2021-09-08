@@ -75,16 +75,16 @@ void try_merge(std::vector<Condition_ptr> &_conds, const Condition_ptr &ptr,
             try_merge<T>(_conds, cmp, aggressive);
         }
     } else if (auto conj = std::dynamic_pointer_cast<CompareConjunction>(ptr)) {
-        if ((std::is_same<T, OrCondition>::value && (conj->isNegated() || conj->singular())) ||
-            (std::is_same<T, AndCondition>::value && (!conj->isNegated() || conj->singular()))) {
+        if ((std::is_same<T, OrCondition>::value && (conj->is_negated() || conj->singular())) ||
+            (std::is_same<T, AndCondition>::value && (!conj->is_negated() || conj->singular()))) {
             if (auto lc = std::dynamic_pointer_cast<CompareConjunction>(
                     _conds.size() == 0 ? nullptr : _conds[0])) {
-                if (lc->isNegated() == std::is_same<T, OrCondition>::value) {
+                if (lc->is_negated() == std::is_same<T, OrCondition>::value) {
                     auto cpy = std::make_shared<CompareConjunction>(*lc);
                     cpy->merge(*conj);
                     _conds[0] = cpy;
                 } else {
-                    if (conj->isNegated() == std::is_same<T, OrCondition>::value)
+                    if (conj->is_negated() == std::is_same<T, OrCondition>::value)
                         _conds.insert(_conds.begin(), conj);
                     else {
                         auto next = std::make_shared<CompareConjunction>(
@@ -107,7 +107,7 @@ void try_merge(std::vector<Condition_ptr> &_conds, const Condition_ptr &ptr,
 template <typename T, bool K>
 auto make_log(const std::vector<Condition_ptr> &conds, bool aggressive) -> Condition_ptr {
     if (conds.size() == 0)
-        return BooleanCondition::getShared(K);
+        return BooleanCondition::get_shared(K);
     if (conds.size() == 1)
         return conds[0];
 
@@ -118,7 +118,7 @@ auto make_log(const std::vector<Condition_ptr> &conds, bool aggressive) -> Condi
     if (res->singular())
         return *res->begin();
     if (res->empty())
-        return BooleanCondition::getShared(K);
+        return BooleanCondition::get_shared(K);
     return res;
 }
 
@@ -142,7 +142,7 @@ Condition_ptr BooleanCondition::FALSE_CONSTANT = std::make_shared<BooleanConditi
 Condition_ptr BooleanCondition::TRUE_CONSTANT = std::make_shared<BooleanCondition>(true);
 Condition_ptr DeadlockCondition::DEADLOCK = std::make_shared<DeadlockCondition>();
 
-auto BooleanCondition::getShared(bool val) -> Condition_ptr {
+auto BooleanCondition::get_shared(bool val) -> Condition_ptr {
     if (val) {
         return TRUE_CONSTANT;
     } else {
@@ -205,14 +205,14 @@ void CompareCondition::to_tapaal_query(std::ostream &out,
     if (_expr1->type() == Expr::IDENTIFIER_EXPR && _expr2->type() == Expr::LITERAL_EXPR) {
         out << " ( " << context._netName << ".";
         _expr1->visit(printer);
-        out << " " << opTAPAAL() << " ";
+        out << " " << op_tapaal() << " ";
         _expr2->visit(printer);
         out << " ) ";
         // If <literal> <op> <id>
     } else if (_expr2->type() == Expr::IDENTIFIER_EXPR && _expr1->type() == Expr::LITERAL_EXPR) {
         out << " ( ";
         _expr1->visit(printer);
-        out << " " << sopTAPAAL() << " " << context._netName << ".";
+        out << " " << sop_tapaal() << " " << context._netName << ".";
         _expr2->visit(printer);
         out << " ) ";
     } else {
@@ -235,7 +235,7 @@ void NotCondition::to_tapaal_query(std::ostream &out, TAPAALConditionExportConte
 }
 
 void BooleanCondition::to_tapaal_query(std::ostream &out, TAPAALConditionExportContext &) const {
-    if (value)
+    if (_value)
         out << "true";
     else
         out << "false";
@@ -258,25 +258,25 @@ void UnfoldedUpperBoundsCondition::to_tapaal_query(std::ostream &out,
 
 /******************** opTAPAAL ********************/
 
-auto EqualCondition::opTAPAAL() const -> std::string { return "="; }
+auto EqualCondition::op_tapaal() const -> std::string { return "="; }
 
-auto NotEqualCondition::opTAPAAL() const -> std::string {
+auto NotEqualCondition::op_tapaal() const -> std::string {
     return "=";
 } // Handled with hack in NotEqualCondition::toTAPAALQuery
 
-auto LessThanCondition::opTAPAAL() const -> std::string { return "<"; }
+auto LessThanCondition::op_tapaal() const -> std::string { return "<"; }
 
-auto LessThanOrEqualCondition::opTAPAAL() const -> std::string { return "<="; }
+auto LessThanOrEqualCondition::op_tapaal() const -> std::string { return "<="; }
 
-auto EqualCondition::sopTAPAAL() const -> std::string { return "="; }
+auto EqualCondition::sop_tapaal() const -> std::string { return "="; }
 
-auto NotEqualCondition::sopTAPAAL() const -> std::string {
+auto NotEqualCondition::sop_tapaal() const -> std::string {
     return "=";
 } // Handled with hack in NotEqualCondition::toTAPAALQuery
 
-auto LessThanCondition::sopTAPAAL() const -> std::string { return ">="; }
+auto LessThanCondition::sop_tapaal() const -> std::string { return ">="; }
 
-auto LessThanOrEqualCondition::sopTAPAAL() const -> std::string { return ">"; }
+auto LessThanOrEqualCondition::sop_tapaal() const -> std::string { return ">"; }
 
 /******************** Context Analysis ********************/
 
@@ -385,7 +385,7 @@ void LogicalCondition::analyze(AnalysisContext &context) {
         c->analyze(context);
 }
 
-void UnfoldedFireableCondition::_analyze(AnalysisContext &context) {
+void UnfoldedFireableCondition::internal_analyze(AnalysisContext &context) {
     std::vector<Condition_ptr> conds;
     AnalysisContext::resolution_result_t result = context.resolve(_name, false);
     if (!result._success) {
@@ -416,7 +416,7 @@ void UnfoldedFireableCondition::_analyze(AnalysisContext &context) {
     _compiled->analyze(context);
 }
 
-void FireableCondition::_analyze(AnalysisContext &context) {
+void FireableCondition::internal_analyze(AnalysisContext &context) {
 
     auto coloredContext = dynamic_cast<ColoredAnalysisContext *>(&context);
     if (coloredContext != nullptr && coloredContext->is_colored()) {
@@ -469,7 +469,7 @@ void BooleanCondition::analyze(AnalysisContext &) {}
 
 void DeadlockCondition::analyze(AnalysisContext &c) { c.set_has_deadlock(); }
 
-void KSafeCondition::_analyze(AnalysisContext &context) {
+void KSafeCondition::internal_analyze(AnalysisContext &context) {
     auto coloredContext = dynamic_cast<ColoredAnalysisContext *>(&context);
     std::vector<Condition_ptr> k_safe;
     if (coloredContext != nullptr && coloredContext->is_colored()) {
@@ -485,7 +485,7 @@ void KSafeCondition::_analyze(AnalysisContext &context) {
     _compiled->analyze(context);
 }
 
-void QuasiLivenessCondition::_analyze(AnalysisContext &context) {
+void QuasiLivenessCondition::internal_analyze(AnalysisContext &context) {
     auto coloredContext = dynamic_cast<ColoredAnalysisContext *>(&context);
     std::vector<Condition_ptr> quasi;
     if (coloredContext != nullptr && coloredContext->is_colored()) {
@@ -506,7 +506,7 @@ void QuasiLivenessCondition::_analyze(AnalysisContext &context) {
     _compiled->analyze(context);
 }
 
-void LivenessCondition::_analyze(AnalysisContext &context) {
+void LivenessCondition::internal_analyze(AnalysisContext &context) {
     auto coloredContext = dynamic_cast<ColoredAnalysisContext *>(&context);
     std::vector<Condition_ptr> liveness;
     if (coloredContext != nullptr && coloredContext->is_colored()) {
@@ -527,7 +527,7 @@ void LivenessCondition::_analyze(AnalysisContext &context) {
     _compiled->analyze(context);
 }
 
-void StableMarkingCondition::_analyze(AnalysisContext &context) {
+void StableMarkingCondition::internal_analyze(AnalysisContext &context) {
     auto coloredContext = dynamic_cast<ColoredAnalysisContext *>(&context);
     std::vector<Condition_ptr> stable_check;
     if (coloredContext != nullptr && coloredContext->is_colored()) {
@@ -558,7 +558,7 @@ void StableMarkingCondition::_analyze(AnalysisContext &context) {
     _compiled->analyze(context);
 }
 
-void UpperBoundsCondition::_analyze(AnalysisContext &context) {
+void UpperBoundsCondition::internal_analyze(AnalysisContext &context) {
     auto coloredContext = dynamic_cast<ColoredAnalysisContext *>(&context);
     if (coloredContext != nullptr && coloredContext->is_colored()) {
         std::vector<std::string> uplaces;
@@ -746,7 +746,7 @@ auto NotCondition::evaluate(const EvaluationContext &context) -> Condition::resu
 }
 
 auto BooleanCondition::evaluate(const EvaluationContext &) -> Condition::result_e {
-    return value ? RTRUE : RFALSE;
+    return _value ? RTRUE : RFALSE;
 }
 
 auto DeadlockCondition::evaluate(const EvaluationContext &context) -> Condition::result_e {
@@ -769,7 +769,7 @@ auto UnfoldedUpperBoundsCondition::value(const MarkVal *marking) -> size_t {
 }
 
 auto UnfoldedUpperBoundsCondition::evaluate(const EvaluationContext &context) -> Condition::result_e {
-    setUpperBound(value(context.marking()));
+    set_upper_bound(value(context.marking()));
     return _max <= _bound ? RTRUE : RUNKNOWN;
 }
 
@@ -896,8 +896,8 @@ auto NotCondition::eval_and_set(const EvaluationContext &context) -> Condition::
 }
 
 auto BooleanCondition::eval_and_set(const EvaluationContext &) -> Condition::result_e {
-    set_satisfied(value);
-    return value ? RTRUE : RFALSE;
+    set_satisfied(_value);
+    return _value ? RTRUE : RFALSE;
 }
 
 auto DeadlockCondition::eval_and_set(const EvaluationContext &context) -> Condition::result_e {
@@ -1275,7 +1275,7 @@ auto NotCondition::distance(DistanceContext &context) const -> uint32_t {
 }
 
 auto BooleanCondition::distance(DistanceContext &context) const -> uint32_t {
-    if (context.negated() != value)
+    if (context.negated() != _value)
         return 0;
     return std::numeric_limits<uint32_t>::max();
 }
@@ -1407,19 +1407,19 @@ struct s_t {
 };
 
 auto LessThanOrEqualCondition::distance(DistanceContext &context) const -> uint32_t {
-    return _distance(context, delta<LessThanOrEqualCondition>);
+    return CompareCondition::distance(context, delta<LessThanOrEqualCondition>);
 }
 
 auto LessThanCondition::distance(DistanceContext &context) const -> uint32_t {
-    return _distance(context, delta<LessThanCondition>);
+    return CompareCondition::distance(context, delta<LessThanCondition>);
 }
 
 auto NotEqualCondition::distance(DistanceContext &context) const -> uint32_t {
-    return _distance(context, delta<NotEqualCondition>);
+    return CompareCondition::distance(context, delta<NotEqualCondition>);
 }
 
 auto EqualCondition::distance(DistanceContext &context) const -> uint32_t {
-    return _distance(context, delta<EqualCondition>);
+    return CompareCondition::distance(context, delta<EqualCondition>);
 }
 
 /******************** BIN output ********************/
@@ -1531,7 +1531,7 @@ void BooleanCondition::to_binary(std::ostream &out) const {
     auto quant = quantifier_e::PN_BOOLEAN;
     out.write(reinterpret_cast<const char *>(&path), sizeof(path_e));
     out.write(reinterpret_cast<const char *>(&quant), sizeof(quantifier_e));
-    out.write(reinterpret_cast<const char *>(&value), sizeof(bool));
+    out.write(reinterpret_cast<const char *>(&_value), sizeof(bool));
 }
 
 void UnfoldedUpperBoundsCondition::to_binary(std::ostream &out) const {
@@ -1872,7 +1872,7 @@ void NotCondition::to_xml(std::ostream &out, uint32_t tabs) const {
 }
 
 void BooleanCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generate_tabs(out, tabs) << "<" << (value ? "true" : "false") << "/>\n";
+    generate_tabs(out, tabs) << "<" << (_value ? "true" : "false") << "/>\n";
 }
 
 void DeadlockCondition::to_xml(std::ostream &out, uint32_t tabs) const {
@@ -2259,7 +2259,7 @@ auto LogicalCondition::simplify_and(SimplificationContext &context) const -> ret
                   std::make_shared<UnionCollection>(std::move(neglps)));
 }
 
-auto LogicalCondition::simplifyOr(SimplificationContext &context) const -> retval_t {
+auto LogicalCondition::simplify_or(SimplificationContext &context) const -> retval_t {
 
     std::vector<Condition_ptr> conditions;
     std::vector<AbstractProgramCollection_ptr> lps, neglpsv;
@@ -2310,7 +2310,7 @@ auto AndCondition::simplify(SimplificationContext &context) const -> retval_t {
     }
 
     if (context.negated())
-        return simplifyOr(context);
+        return simplify_or(context);
     else
         return simplify_and(context);
 }
@@ -2325,7 +2325,7 @@ auto OrCondition::simplify(SimplificationContext &context) const -> retval_t {
     if (context.negated())
         return simplify_and(context);
     else
-        return simplifyOr(context);
+        return simplify_or(context);
 }
 
 auto CompareConjunction::simplify(SimplificationContext &context) const -> retval_t {
@@ -2344,7 +2344,7 @@ auto CompareConjunction::simplify(SimplificationContext &context) const -> retva
             trivial_e eval = m1 <= m2;
             if (eval != trivial_e::INDETERMINATE) {
                 if (eval == trivial_e::FALSE)
-                    return retval_t(BooleanCondition::getShared(neg));
+                    return retval_t(BooleanCondition::get_shared(neg));
                 else
                     nconstraints.back()._lower = 0;
             } else { // if no trivial case
@@ -2367,7 +2367,7 @@ auto CompareConjunction::simplify(SimplificationContext &context) const -> retva
             trivial_e eval = m1 <= m2;
             if (eval != trivial_e::INDETERMINATE) {
                 if (eval == trivial_e::FALSE)
-                    return retval_t(BooleanCondition::getShared(neg));
+                    return retval_t(BooleanCondition::get_shared(neg));
                 else
                     nconstraints.back()._upper = std::numeric_limits<uint32_t>::max();
             } else { // if no trivial case
@@ -2394,12 +2394,12 @@ auto CompareConjunction::simplify(SimplificationContext &context) const -> retva
     auto lps = merge_lps(std::move(lpsv));
 
     if (lps == nullptr && !context.timeout()) {
-        return retval_t(BooleanCondition::getShared(!neg));
+        return retval_t(BooleanCondition::get_shared(!neg));
     }
 
     try {
         if (!context.timeout() && lps && !lps->satisfiable(context)) {
-            return retval_t(BooleanCondition::getShared(neg));
+            return retval_t(BooleanCondition::get_shared(neg));
         }
     } catch (std::bad_alloc &e) {
         // we are out of memory, deal with it.
@@ -2440,7 +2440,7 @@ auto CompareConjunction::simplify(SimplificationContext &context) const -> retva
         std::cout << "Query reduction: memory exceeded during LPS merge." << std::endl;
     }
     if (nconstraints.size() == 0) {
-        return retval_t(BooleanCondition::getShared(!neg));
+        return retval_t(BooleanCondition::get_shared(!neg));
     }
 
     Condition_ptr rc = [&]() -> Condition_ptr {
@@ -2499,7 +2499,7 @@ auto EqualCondition::simplify(SimplificationContext &context) const -> retval_t 
     std::shared_ptr<AbstractProgramCollection> lps, neglps;
     if (!context.timeout() && m1.can_analyze() && m2.can_analyze()) {
         if ((m1.is_zero() && m2.is_zero()) || m1.substration_is_zero(m2)) {
-            return retval_t(BooleanCondition::getShared(context.negated()
+            return retval_t(BooleanCondition::get_shared(context.negated()
                                                           ? (m1.constant() != m2.constant())
                                                           : (m1.constant() == m2.constant())));
         } else {
@@ -2585,7 +2585,7 @@ auto LessThanCondition::simplify(SimplificationContext &context) const -> retval
         // test for trivial comparison
         trivial_e eval = context.negated() ? m1 >= m2 : m1 < m2;
         if (eval != trivial_e::INDETERMINATE) {
-            return retval_t(BooleanCondition::getShared(eval == trivial_e::TRUE));
+            return retval_t(BooleanCondition::get_shared(eval == trivial_e::TRUE));
         } else { // if no trivial case
             int constant = m2.constant() - m1.constant();
             m1 -= m2;
@@ -2626,7 +2626,7 @@ auto LessThanOrEqualCondition::simplify(SimplificationContext &context) const ->
         // test for trivial comparison
         trivial_e eval = context.negated() ? m1 > m2 : m1 <= m2;
         if (eval != trivial_e::INDETERMINATE) {
-            return retval_t(BooleanCondition::getShared(eval == trivial_e::TRUE));
+            return retval_t(BooleanCondition::get_shared(eval == trivial_e::TRUE));
         } else { // if no trivial case
             int constant = m2.constant() - m1.constant();
             m1 -= m2;
@@ -2670,9 +2670,9 @@ auto NotCondition::simplify(SimplificationContext &context) const -> retval_t {
 
 auto BooleanCondition::simplify(SimplificationContext &context) const -> retval_t {
     if (context.negated()) {
-        return retval_t(getShared(!value));
+        return retval_t(get_shared(!_value));
     } else {
-        return retval_t(getShared(value));
+        return retval_t(get_shared(_value));
     }
 }
 
@@ -3397,7 +3397,7 @@ auto LessThanCondition::push_negation(negstat_t &stats, const EvaluationContext 
     return initial_marking_rewrite(
         [&]() -> Condition_ptr {
             if (is_trivial())
-                return BooleanCondition::getShared(evaluate(context) xor negated);
+                return BooleanCondition::get_shared(evaluate(context) xor negated);
             if (negated)
                 return std::make_shared<LessThanOrEqualCondition>(_expr2, _expr1);
             else
@@ -3412,7 +3412,7 @@ auto LessThanOrEqualCondition::push_negation(negstat_t &stats, const EvaluationC
     return initial_marking_rewrite(
         [&]() -> Condition_ptr {
             if (is_trivial())
-                return BooleanCondition::getShared(evaluate(context) xor negated);
+                return BooleanCondition::get_shared(evaluate(context) xor negated);
             if (negated)
                 return std::make_shared<LessThanCondition>(_expr2, _expr1);
             else
@@ -3424,7 +3424,7 @@ auto LessThanOrEqualCondition::push_negation(negstat_t &stats, const EvaluationC
 auto push_equal(CompareCondition *org, bool negated, bool noteq, const EvaluationContext &context)
     -> Condition_ptr {
     if (org->is_trivial())
-        return BooleanCondition::getShared(org->evaluate(context) xor negated);
+        return BooleanCondition::get_shared(org->evaluate(context) xor negated);
     for (auto i : {0, 1}) {
         if ((*org)[i]->place_free() && (*org)[i]->evaluate(context) == 0) {
             if (negated == noteq)
@@ -3460,9 +3460,9 @@ auto BooleanCondition::push_negation(negstat_t &stats, const EvaluationContext &
     return initial_marking_rewrite(
         [&]() -> Condition_ptr {
             if (negated)
-                return getShared(!value);
+                return get_shared(!_value);
             else
-                return getShared(value);
+                return get_shared(_value);
         },
         stats, context, nested, negated, initrw);
 }

@@ -65,7 +65,7 @@ auto STSolver::solve(uint32_t timelimit) -> bool {
     return true;
 }
 
-auto STSolver::_compute_trap(std::vector<size_t> &trap, const std::set<size_t> &preset,
+auto STSolver::compute_trap(std::vector<size_t> &trap, const std::set<size_t> &preset,
                              const std::set<size_t> &postset, size_t marked_count) -> size_t {
     if (trap.empty())
         return 0;
@@ -85,7 +85,7 @@ auto STSolver::_compute_trap(std::vector<size_t> &trap, const std::set<size_t> &
                 std::set<size_t> npreset, npostset;
                 for (auto p : trap)
                     extend(p, npreset, npostset);
-                _compute_trap(trap, npreset, npostset, marked_count - rm);
+                compute_trap(trap, npreset, npostset, marked_count - rm);
             }
         }
         return marked_count;
@@ -123,7 +123,7 @@ auto STSolver::_compute_trap(std::vector<size_t> &trap, const std::set<size_t> &
             std::set<size_t> npreset, npostset;
             for (auto p : trap)
                 extend(p, npreset, npostset);
-            return _compute_trap(trap, npreset, npostset, marked_count);
+            return compute_trap(trap, npreset, npostset, marked_count);
         }
     }
 }
@@ -155,7 +155,7 @@ auto STSolver::siphon_trap(std::vector<size_t> siphon, const std::vector<bool> &
                 ++marked_count;
         if (marked_count == 0)
             return false;
-        marked_count = _compute_trap(siphon, preset, postset, marked_count);
+        marked_count = compute_trap(siphon, preset, postset, marked_count);
         if (marked_count == 0)
             return false;
         else
@@ -195,9 +195,9 @@ auto STSolver::siphon_trap(std::vector<size_t> siphon, const std::vector<bool> &
 
 auto STSolver::print_result() -> Reachability::ResultPrinter::Result {
     if (_siphonPropperty) {
-        return _printer.handle(0, _query, Reachability::ResultPrinter::NotSatisfied).first;
+        return _printer.handle(0, _query, Reachability::ResultPrinter::NOT_SATISFIED).first;
     } else {
-        return Reachability::ResultPrinter::Unknown;
+        return Reachability::ResultPrinter::UNKNOWN;
     }
 }
 auto STSolver::timeout() const -> bool { return (duration() >= _timelimit); }

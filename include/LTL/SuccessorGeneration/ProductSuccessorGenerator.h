@@ -32,6 +32,7 @@
 
 #include <spot/tl/formula.hh>
 #include <spot/twa/formula2bdd.hh>
+#include <utility>
 
 namespace LTL {
 
@@ -41,9 +42,11 @@ template <class SuccessorGen> class ProductSuccessorGenerator {
                               const Structures::BuchiAutomaton &buchi, SuccessorGen *successorGen)
         : _successor_generator(successorGen), _net(net), _buchi(buchi), _aut(buchi) {}
 
-    [[nodiscard]] size_t initial_buchi_state() const { return _buchi.initial_state_number(); };
+    [[nodiscard]] auto initial_buchi_state() const -> size_t {
+        return _buchi.initial_state_number();
+    };
 
-    bool next(LTL::Structures::ProductState &state) {
+    auto next(LTL::Structures::ProductState &state) -> bool {
         if (_fresh_marking) {
             _fresh_marking = false;
             if (!_successor_generator->next(state)) {
@@ -72,11 +75,11 @@ template <class SuccessorGen> class ProductSuccessorGenerator {
         }
     }
 
-    bool is_accepting(const LTL::Structures::ProductState &state) {
+    auto is_accepting(const LTL::Structures::ProductState &state) -> bool {
         return _buchi.is_accepting(state.get_buchi_state());
     }
 
-    std::vector<LTL::Structures::ProductState> make_initial_state() {
+    auto make_initial_state() -> std::vector<LTL::Structures::ProductState> {
         std::vector<LTL::Structures::ProductState> states;
         auto buf = new PetriEngine::MarkVal[_net.number_of_places() + 1];
         std::copy(_net.initial(), _net.initial() + _net.number_of_places(), buf);
@@ -96,7 +99,7 @@ template <class SuccessorGen> class ProductSuccessorGenerator {
         return states;
     }
 
-    [[nodiscard]] bool is_initial_state(const LTL::Structures::ProductState &state) const {
+    [[nodiscard]] auto is_initial_state(const LTL::Structures::ProductState &state) const -> bool {
         return state.marking_equal(_net.initial());
     }
 
@@ -134,7 +137,8 @@ template <class SuccessorGen> class ProductSuccessorGenerator {
      * @warning do not use the same State for both prepare and next, this will cause wildly
      * incorrect behaviour!
      */
-    bool next(Structures::ProductState &state, typename SuccessorGen::successor_info_t &sucinfo) {
+    auto next(Structures::ProductState &state, typename SuccessorGen::successor_info_t &sucinfo)
+        -> bool {
         if (_fresh_marking) {
             _fresh_marking = false;
             if (!_successor_generator->next(state, sucinfo)) {
@@ -167,11 +171,11 @@ template <class SuccessorGen> class ProductSuccessorGenerator {
         }
     }
 
-    [[nodiscard]] bool is_weak() const { return _buchi.is_weak(); }
+    [[nodiscard]] auto is_weak() const -> bool { return _buchi.is_weak(); }
 
-    size_t last_transition() const { return _successor_generator->last_transition(); }
+    auto last_transition() const -> size_t { return _successor_generator->last_transition(); }
 
-    size_t fired() const { return _successor_generator->fired(); }
+    auto fired() const -> size_t { return _successor_generator->fired(); }
 
     void generate_all(LTL::Structures::ProductState &parent,
                       typename SuccessorGen::successor_info_t &sucinfo) {
@@ -180,28 +184,28 @@ template <class SuccessorGen> class ProductSuccessorGenerator {
         }
     }
 
-    size_t num_enabled() {
+    auto num_enabled() -> size_t {
         if constexpr (std::is_same_v<SuccessorGen, LTL::SpoolingSuccessorGenerator>) {
             return _successor_generator->nenabled();
         }
         return -1;
     }
 
-    const bool *enabled() const {
+    auto enabled() const -> const bool * {
         if constexpr (std::is_same_v<SuccessorGen, LTL::SpoolingSuccessorGenerator>) {
             return _successor_generator->enabled();
         }
         return nullptr;
     };
 
-    const bool *stubborn() const {
+    auto stubborn() const -> const bool * {
         if constexpr (std::is_same_v<SuccessorGen, LTL::SpoolingSuccessorGenerator>) {
             return _successor_generator->stubborn();
         }
         return nullptr;
     };
 
-    size_t buchi_states() { return _buchi.buchi_states(); }
+    auto buchi_states() -> size_t { return _buchi.buchi_states(); }
 
     void push() {
         if constexpr (std::is_same_v<SuccessorGen, LTL::SpoolingSuccessorGenerator>) {
@@ -215,7 +219,7 @@ template <class SuccessorGen> class ProductSuccessorGenerator {
         }
     }
 
-    bool has_invariant_self_loop(const LTL::Structures::ProductState &state) {
+    auto has_invariant_self_loop(const LTL::Structures::ProductState &state) -> bool {
         return _buchi.has_invariant_self_loop(state.get_buchi_state());
     }
 
@@ -234,13 +238,13 @@ template <class SuccessorGen> class ProductSuccessorGenerator {
     /**
      * Evaluate binary decision diagram (BDD) representation of transition guard in given state.
      */
-    bool guard_valid(const PetriEngine::Structures::State &state, bdd bdd) {
+    auto guard_valid(const PetriEngine::Structures::State &state, bdd bdd) -> bool {
         PetriEngine::PQL::EvaluationContext ctx{state.marking(), _net};
-        return _buchi._aut.guard_valid(ctx, bdd);
+        return _buchi._aut.guard_valid(ctx, std::move(bdd));
     }
 
   private:
-    bool next_buchi_succ(LTL::Structures::ProductState &state) {
+    auto next_buchi_succ(LTL::Structures::ProductState &state) -> bool {
         size_t tmp;
         while (_buchi.next(tmp, _cond)) {
             if (guard_valid(state, _cond)) {

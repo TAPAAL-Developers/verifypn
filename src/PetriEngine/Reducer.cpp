@@ -48,7 +48,7 @@ void Reducer::print(QueryPlaceAnalysisContext &context) {
                   << std::endl;
     }
     for (uint32_t i = 0; i < _builder->number_of_places(); i++) {
-        std::cout << "Query count for place " << i << " is: " << context.get_query_placeCount()[i]
+        std::cout << "Query count for place " << i << " is: " << context.get_query_place_count()[i]
                   << std::endl;
     }
 }
@@ -1554,11 +1554,11 @@ void Reducer::reduce(QueryPlaceAnalysisContext &context, int enablereduction, bo
         while (changed && !has_timed_out()) {
             changed = false;
             if (!next_safe) {
-                while (rule_a(context.get_query_placeCount()))
+                while (rule_a(context.get_query_place_count()))
                     changed = true;
-                while (rule_d(context.get_query_placeCount()))
+                while (rule_d(context.get_query_place_count()))
                     changed = true;
-                while (rule_h(context.get_query_placeCount()))
+                while (rule_h(context.get_query_place_count()))
                     changed = true;
             }
         }
@@ -1567,26 +1567,26 @@ void Reducer::reduce(QueryPlaceAnalysisContext &context, int enablereduction, bo
         bool changed = false;
         do {
             if (remove_loops && !next_safe)
-                while (rule_i(context.get_query_placeCount(), remove_loops, remove_consumers))
+                while (rule_i(context.get_query_place_count(), remove_loops, remove_consumers))
                     changed = true;
             do {
                 do { // start by rules that do not move tokens
                     changed = false;
-                    while (rule_e(context.get_query_placeCount()))
+                    while (rule_e(context.get_query_place_count()))
                         changed = true;
-                    while (rule_c(context.get_query_placeCount()))
+                    while (rule_c(context.get_query_place_count()))
                         changed = true;
-                    while (rule_f(context.get_query_placeCount()))
+                    while (rule_f(context.get_query_place_count()))
                         changed = true;
                     if (!next_safe) {
                         while (
-                            rule_g(context.get_query_placeCount(), remove_loops, remove_consumers))
+                            rule_g(context.get_query_place_count(), remove_loops, remove_consumers))
                             changed = true;
                         if (!remove_loops)
-                            while (rule_i(context.get_query_placeCount(), remove_loops,
+                            while (rule_i(context.get_query_place_count(), remove_loops,
                                           remove_consumers))
                                 changed = true;
-                        while (rule_d(context.get_query_placeCount()))
+                        while (rule_d(context.get_query_place_count()))
                             changed = true;
                         // changed |= ReducebyRuleK(context.getQueryPlaceCount(), remove_consumers);
                         // //Rule disabled as correctness has not been proved. Experiments indicate
@@ -1595,15 +1595,15 @@ void Reducer::reduce(QueryPlaceAnalysisContext &context, int enablereduction, bo
                 } while (changed && !has_timed_out());
                 if (!next_safe) { // then apply tokens moving rules
                     // while(ReducebyRuleJ(context.getQueryPlaceCount())) changed = true;
-                    while (rule_b(context.get_query_placeCount(), remove_loops, remove_consumers))
+                    while (rule_b(context.get_query_place_count(), remove_loops, remove_consumers))
                         changed = true;
-                    while (rule_a(context.get_query_placeCount()))
+                    while (rule_a(context.get_query_place_count()))
                         changed = true;
                 }
             } while (changed && !has_timed_out());
             if (!next_safe && !changed) {
                 // Only try RuleH last. It can reduce applicability of other rules.
-                while (rule_h(context.get_query_placeCount()))
+                while (rule_h(context.get_query_place_count()))
                     changed = true;
             }
         } while (!has_timed_out() && changed);
@@ -1636,47 +1636,47 @@ void Reducer::reduce(QueryPlaceAnalysisContext &context, int enablereduction, bo
 #endif
                 switch (r) {
                 case 0:
-                    while (rule_a(context.get_query_placeCount()))
+                    while (rule_a(context.get_query_place_count()))
                         changed = true;
                     break;
                 case 1:
-                    while (rule_b(context.get_query_placeCount(), remove_loops, remove_consumers))
+                    while (rule_b(context.get_query_place_count(), remove_loops, remove_consumers))
                         changed = true;
                     break;
                 case 2:
-                    while (rule_c(context.get_query_placeCount()))
+                    while (rule_c(context.get_query_place_count()))
                         changed = true;
                     break;
                 case 3:
-                    while (rule_d(context.get_query_placeCount()))
+                    while (rule_d(context.get_query_place_count()))
                         changed = true;
                     break;
                 case 4:
-                    while (rule_e(context.get_query_placeCount()))
+                    while (rule_e(context.get_query_place_count()))
                         changed = true;
                     break;
                 case 5:
-                    while (rule_f(context.get_query_placeCount()))
+                    while (rule_f(context.get_query_place_count()))
                         changed = true;
                     break;
                 case 6:
-                    while (rule_g(context.get_query_placeCount(), remove_loops, remove_consumers))
+                    while (rule_g(context.get_query_place_count(), remove_loops, remove_consumers))
                         changed = true;
                     break;
                 case 7:
-                    while (rule_h(context.get_query_placeCount()))
+                    while (rule_h(context.get_query_place_count()))
                         changed = true;
                     break;
                 case 8:
-                    while (rule_i(context.get_query_placeCount(), remove_loops, remove_consumers))
+                    while (rule_i(context.get_query_place_count(), remove_loops, remove_consumers))
                         changed = true;
                     break;
                 case 9:
-                    while (rule_j(context.get_query_placeCount()))
+                    while (rule_j(context.get_query_place_count()))
                         changed = true;
                     break;
                 case 10:
-                    if (rule_k(context.get_query_placeCount(), remove_consumers))
+                    if (rule_k(context.get_query_place_count(), remove_consumers))
                         changed = true;
                     break;
                 }

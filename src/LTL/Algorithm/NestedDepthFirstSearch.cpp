@@ -42,8 +42,8 @@ auto NestedDepthFirstSearch<S>::mark(State &state, const uint8_t MARKER)
 
 template <typename S> void NestedDepthFirstSearch<S>::dfs() {
 
-    light_deque<StackEntry> todo;
-    light_deque<StackEntry> nested_todo;
+    LightDequeue<stack_entry_t> todo;
+    LightDequeue<stack_entry_t> nested_todo;
 
     State working = this->_factory.new_state();
     State curState = this->_factory.new_state();
@@ -53,7 +53,7 @@ template <typename S> void NestedDepthFirstSearch<S>::dfs() {
         for (auto &state : initial_states) {
             auto res = _states.add(state);
             assert(res.first);
-            todo.push_back(StackEntry{res.second, S::initial_suc_info()});
+            todo.push_back(stack_entry_t{res.second, S::initial_suc_info()});
             this->_discovered++;
         }
     }
@@ -78,22 +78,22 @@ template <typename S> void NestedDepthFirstSearch<S>::dfs() {
                 }
             }
         } else {
-            auto [is_new, stateid] = mark(working, _MARKER1);
+            auto [is_new, stateid] = mark(working, MARKER1);
             top._sucinfo._last_state = stateid;
             if (is_new) {
-                todo.push_back(StackEntry{stateid, S::initial_suc_info()});
+                todo.push_back(stack_entry_t{stateid, S::initial_suc_info()});
             }
         }
     }
 }
 
 template <typename S>
-void NestedDepthFirstSearch<S>::ndfs(const State &state, light_deque<StackEntry> &nested_todo) {
+void NestedDepthFirstSearch<S>::ndfs(const State &state, LightDequeue<stack_entry_t> &nested_todo) {
 
     State working = this->_factory.new_state();
     State curState = this->_factory.new_state();
 
-    nested_todo.push_back(StackEntry{_states.add(state).second, S::initial_suc_info()});
+    nested_todo.push_back(stack_entry_t{_states.add(state).second, S::initial_suc_info()});
 
     while (!nested_todo.empty()) {
         auto &top = nested_todo.back();
@@ -112,10 +112,10 @@ void NestedDepthFirstSearch<S>::ndfs(const State &state, light_deque<StackEntry>
                 _violation = true;
                 return;
             }
-            auto [is_new, stateid] = mark(working, _MARKER2);
+            auto [is_new, stateid] = mark(working, MARKER2);
             top._sucinfo._last_state = stateid;
             if (is_new) {
-                nested_todo.push_back(StackEntry{stateid, S::initial_suc_info()});
+                nested_todo.push_back(stack_entry_t{stateid, S::initial_suc_info()});
             }
         }
     }
@@ -125,13 +125,13 @@ template <typename S> void NestedDepthFirstSearch<S>::print_stats(std::ostream &
     std::cout << "STATS:\n"
               << "\tdiscovered states:          " << _states.discovered() << std::endl
               << "\tmax tokens:                 " << _states.max_tokens() << std::endl
-              << "\texplored states:            " << _mark_count[_MARKER1] << std::endl
-              << "\texplored states (nested):   " << _mark_count[_MARKER2] << std::endl;
+              << "\texplored states:            " << _mark_count[MARKER1] << std::endl
+              << "\texplored states (nested):   " << _mark_count[MARKER2] << std::endl;
 }
 
 template <typename S>
-void NestedDepthFirstSearch<S>::print_trace(light_deque<StackEntry> &todo,
-                                            light_deque<StackEntry> &nested_todo,
+void NestedDepthFirstSearch<S>::print_trace(LightDequeue<stack_entry_t> &todo,
+                                            LightDequeue<stack_entry_t> &nested_todo,
                                             std::ostream &os) {
     State state = this->_factory.new_state();
     os << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"

@@ -41,11 +41,11 @@ class ProductState : public PetriEngine::Structures::State {
         _buchi_state_idx = nplaces;
     }
 
-    uint32_t get_buchi_state() const { return marking()[_buchi_state_idx]; }
+    [[nodiscard]] auto get_buchi_state() const -> uint32_t { return marking()[_buchi_state_idx]; }
 
     void set_buchi_state(uint32_t state) { marking()[_buchi_state_idx] = state; }
 
-    [[nodiscard]] bool marking_equal(const PetriEngine::MarkVal *rhs) const {
+    [[nodiscard]] auto marking_equal(const PetriEngine::MarkVal *rhs) const -> bool {
         for (size_t i = 0; i < _buchi_state_idx; ++i) {
             if (marking()[i] != rhs[i]) {
                 return false;
@@ -54,7 +54,7 @@ class ProductState : public PetriEngine::Structures::State {
         return true;
     }
 
-    bool operator==(const ProductState &rhs) const {
+    auto operator==(const ProductState &rhs) const -> bool {
         for (size_t i = 0; i <= _buchi_state_idx; ++i) {
             if (marking()[i] != rhs.marking()[i]) {
                 return false;
@@ -63,11 +63,11 @@ class ProductState : public PetriEngine::Structures::State {
         return true;
     }
 
-    size_t size() const { return _buchi_state_idx + 1; }
+    [[nodiscard]] auto size() const -> size_t { return _buchi_state_idx + 1; }
 
-    bool operator!=(const ProductState &rhs) const { return !(rhs == *this); }
+    auto operator!=(const ProductState &rhs) const -> bool { return !(rhs == *this); }
 
-    [[nodiscard]] bool is_accepting() const {
+    [[nodiscard]] auto is_accepting() const -> bool {
         if (_aut)
             return _aut->_buchi->state_is_accepting(marking()[_buchi_state_idx]);
         assert(false);

@@ -34,9 +34,9 @@ class NondeterministicConjunctionVisitor : public InterestingLTLTransitionVisito
     static constexpr auto _presetBad = StubbornSet::_presetBad;
     static constexpr auto _postsetBad = StubbornSet::_postsetBad;
 
-    void _accept(const PQL::CompareConjunction *element) override {
-        if (_stubborn._track_changes || element->isNegated() != negated) {
-            InterestingLTLTransitionVisitor::_accept(element);
+    void accept(const PQL::CompareConjunction *element) override {
+        if (_stubborn._track_changes || element->is_negated() != _negated) {
+            InterestingLTLTransitionVisitor::accept(element);
             return;
         }
         _stubborn._track_changes = true;
@@ -50,7 +50,7 @@ class NondeterministicConjunctionVisitor : public InterestingLTLTransitionVisito
     void accept_conjunction(const PQL::CompareConjunction *element) {
         assert(_stubborn._track_changes);
         assert(_stubborn._pending_stubborn.empty());
-        assert(element->isNegated() == negated);
+        assert(element->is_negated() == _negated);
         std::vector<std::pair<int32_t, bool>> cands; // Transition id, Preset
         for (auto &cons : *element) {
             uint32_t tokens = _stubborn.get_parent()[cons._place];
@@ -114,20 +114,20 @@ class NondeterministicConjunctionVisitor : public InterestingLTLTransitionVisito
 #ifndef NDEBUG
                 // std::cerr << "Bad pre/post and reset" << std::endl;
 #endif
-                _stubborn._reset_pending();
+                _stubborn.reset_pending();
                 continue;
             }
 
-            if (_stubborn._closure()) {
+            if (_stubborn.closure()) {
                 // success, return this stubborn set
-                _stubborn._apply_pending();
+                _stubborn.apply_pending();
                 return;
             } else {
 #ifndef NDEBUG
                 // std::cerr << "Bad closure and reset" << std::endl;
 #endif
                 _stubborn._places_seen[cand] |= pre ? _presetBad : _postsetBad;
-                _stubborn._reset_pending();
+                _stubborn.reset_pending();
             }
         }
 
@@ -198,7 +198,7 @@ auto AutomatonStubbornSet::prepare(const LTL::Structures::ProductState &state) -
             assert(!_track_changes);
             assert(_pending_stubborn.empty());
             // Closure to ensure COM.
-            _closure();
+            closure();
             if (_bad) {
                 set_all_stubborn();
                 return true;
@@ -223,7 +223,7 @@ auto AutomatonStubbornSet::prepare(const LTL::Structures::ProductState &state) -
         for (uint32_t i = 0; i < _net.number_of_transitions(); ++i) {
             if (!_stubborn[i] && _enabled[i]) {
                 add_to_stub(i);
-                _closure();
+                closure();
                 if (_bad) {
                     set_all_stubborn();
                     return true;
@@ -285,7 +285,7 @@ void AutomatonStubbornSet::reset() {
 }
 
 void AutomatonStubbornSet::add_to_stub(uint32_t t) {
-    if (_retarding_stubborn_set.stubborn()[t] || !_cond3_valid(t)) {
+    if (_retarding_stubborn_set.stubborn()[t] || !cond3_valid(t)) {
         _bad = true;
         return;
     }
@@ -300,7 +300,7 @@ void AutomatonStubbornSet::add_to_stub(uint32_t t) {
     }
 }
 
-auto AutomatonStubbornSet::_cond3_valid(uint32_t t) -> bool {
+auto AutomatonStubbornSet::cond3_valid(uint32_t t) -> bool {
     EvaluationContext ctx{_markbuf.marking(), _net};
     if (_retarding_satisfied || !_enabled[t])
         return true;
@@ -317,14 +317,14 @@ auto AutomatonStubbornSet::_cond3_valid(uint32_t t) -> bool {
     }
 }
 
-void AutomatonStubbornSet::_reset_pending() {
+void AutomatonStubbornSet::reset_pending() {
     _bad = false;
     _pending_stubborn.clear();
     _unprocessed.clear();
     memcpy(_places_seen.get(), _place_checkpoint.get(), _net.number_of_places());
 }
 
-void AutomatonStubbornSet::_apply_pending() {
+void AutomatonStubbornSet::apply_pending() {
     assert(!_bad);
     for (auto t : _pending_stubborn) {
         _stubborn[t] = true;
@@ -338,7 +338,7 @@ void AutomatonStubbornSet::set_all_stubborn() {
     _done = true;
 }
 
-auto AutomatonStubbornSet::_closure() -> bool {
+auto AutomatonStubbornSet::closure() -> bool {
     StubbornSet::closure([&]() { return !_bad; });
     return !_bad;
 }

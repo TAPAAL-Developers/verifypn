@@ -19,195 +19,195 @@
 #include <memory>
 
 namespace PetriEngine::PQL {
-void IsCTLVisitor::_accept(const NotCondition *element) {
+void IsCTLVisitor::accept(const NotCondition *element) {
     (*element)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::BOOLEAN)
+    if (_cur_type != ctl_syntax_type_e::BOOLEAN)
         _is_CTL = false;
 }
 
-void IsCTLVisitor::_accept(const LogicalCondition *element) {
+void IsCTLVisitor::accept(const LogicalCondition *element) {
     for (size_t i = 0; i < element->operands(); i++) {
         (*element)[i]->visit(*this);
-        if (_cur_type != CTLSyntaxType::BOOLEAN) {
+        if (_cur_type != ctl_syntax_type_e::BOOLEAN) {
             _is_CTL = false;
             break;
         }
     }
 }
 
-void IsCTLVisitor::_accept(const AndCondition *element) {
-    _accept((const LogicalCondition *)element);
+void IsCTLVisitor::accept(const AndCondition *element) {
+    accept((const LogicalCondition *)element);
 }
 
-void IsCTLVisitor::_accept(const OrCondition *element) {
-    _accept((const LogicalCondition *)element);
+void IsCTLVisitor::accept(const OrCondition *element) {
+    accept((const LogicalCondition *)element);
 }
 
-void IsCTLVisitor::_accept(const CompareCondition *element) {
+void IsCTLVisitor::accept(const CompareCondition *element) {
     // We are an atom. No need to check children as they are the same as CTL*
-    _cur_type = CTLSyntaxType::BOOLEAN;
+    _cur_type = ctl_syntax_type_e::BOOLEAN;
 }
 
-void IsCTLVisitor::_accept(const LessThanCondition *element) {
-    _accept((const CompareCondition *)element);
+void IsCTLVisitor::accept(const LessThanCondition *element) {
+    accept((const CompareCondition *)element);
 }
 
-void IsCTLVisitor::_accept(const LessThanOrEqualCondition *element) {
-    _accept((const CompareCondition *)element);
+void IsCTLVisitor::accept(const LessThanOrEqualCondition *element) {
+    accept((const CompareCondition *)element);
 }
 
-void IsCTLVisitor::_accept(const EqualCondition *element) {
-    _accept((const CompareCondition *)element);
+void IsCTLVisitor::accept(const EqualCondition *element) {
+    accept((const CompareCondition *)element);
 }
 
-void IsCTLVisitor::_accept(const NotEqualCondition *element) {
-    _accept((const CompareCondition *)element);
+void IsCTLVisitor::accept(const NotEqualCondition *element) {
+    accept((const CompareCondition *)element);
 }
 
-void IsCTLVisitor::_accept(const DeadlockCondition *element) { _cur_type = CTLSyntaxType::BOOLEAN; }
+void IsCTLVisitor::accept(const DeadlockCondition *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
 
-void IsCTLVisitor::_accept(const CompareConjunction *element) {
-    _cur_type = CTLSyntaxType::BOOLEAN;
+void IsCTLVisitor::accept(const CompareConjunction *element) {
+    _cur_type = ctl_syntax_type_e::BOOLEAN;
 }
 
-void IsCTLVisitor::_accept(const UnfoldedUpperBoundsCondition *element) {
-    _cur_type = CTLSyntaxType::BOOLEAN;
+void IsCTLVisitor::accept(const UnfoldedUpperBoundsCondition *element) {
+    _cur_type = ctl_syntax_type_e::BOOLEAN;
 }
 
-void IsCTLVisitor::_accept(const EFCondition *condition) {
+void IsCTLVisitor::accept(const EFCondition *condition) {
     (*condition)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::BOOLEAN)
+    if (_cur_type != ctl_syntax_type_e::BOOLEAN)
         _is_CTL = false;
 }
 
-void IsCTLVisitor::_accept(const EGCondition *condition) {
+void IsCTLVisitor::accept(const EGCondition *condition) {
     (*condition)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::BOOLEAN)
+    if (_cur_type != ctl_syntax_type_e::BOOLEAN)
         _is_CTL = false;
 }
 
-void IsCTLVisitor::_accept(const AGCondition *condition) {
+void IsCTLVisitor::accept(const AGCondition *condition) {
     (*condition)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::BOOLEAN)
+    if (_cur_type != ctl_syntax_type_e::BOOLEAN)
         _is_CTL = false;
 }
 
-void IsCTLVisitor::_accept(const AFCondition *condition) {
+void IsCTLVisitor::accept(const AFCondition *condition) {
     (*condition)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::BOOLEAN)
+    if (_cur_type != ctl_syntax_type_e::BOOLEAN)
         _is_CTL = false;
 }
 
-void IsCTLVisitor::_accept(const EXCondition *condition) {
+void IsCTLVisitor::accept(const EXCondition *condition) {
     (*condition)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::BOOLEAN)
+    if (_cur_type != ctl_syntax_type_e::BOOLEAN)
         _is_CTL = false;
 }
 
-void IsCTLVisitor::_accept(const AXCondition *condition) {
+void IsCTLVisitor::accept(const AXCondition *condition) {
     (*condition)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::BOOLEAN)
+    if (_cur_type != ctl_syntax_type_e::BOOLEAN)
         _is_CTL = false;
 }
 
-void IsCTLVisitor::_accept(const EUCondition *condition) {
+void IsCTLVisitor::accept(const EUCondition *condition) {
     (*condition)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::BOOLEAN)
+    if (_cur_type != ctl_syntax_type_e::BOOLEAN)
         _is_CTL = false;
 }
 
-void IsCTLVisitor::_accept(const AUCondition *condition) {
+void IsCTLVisitor::accept(const AUCondition *condition) {
     (*condition)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::BOOLEAN)
+    if (_cur_type != ctl_syntax_type_e::BOOLEAN)
         _is_CTL = false;
 }
 
-void IsCTLVisitor::_accept(const ACondition *condition) {
+void IsCTLVisitor::accept(const ACondition *condition) {
     (*condition)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::PATH)
+    if (_cur_type != ctl_syntax_type_e::PATH)
         _is_CTL = false;
-    _cur_type = CTLSyntaxType::BOOLEAN;
+    _cur_type = ctl_syntax_type_e::BOOLEAN;
 }
 
-void IsCTLVisitor::_accept(const ECondition *condition) {
+void IsCTLVisitor::accept(const ECondition *condition) {
     (*condition)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::PATH)
+    if (_cur_type != ctl_syntax_type_e::PATH)
         _is_CTL = false;
-    _cur_type = CTLSyntaxType::BOOLEAN;
+    _cur_type = ctl_syntax_type_e::BOOLEAN;
 }
 
-void IsCTLVisitor::_accept(const GCondition *condition) {
+void IsCTLVisitor::accept(const GCondition *condition) {
     (*condition)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::BOOLEAN)
+    if (_cur_type != ctl_syntax_type_e::BOOLEAN)
         _is_CTL = false;
-    _cur_type = CTLSyntaxType::PATH;
+    _cur_type = ctl_syntax_type_e::PATH;
 }
 
-void IsCTLVisitor::_accept(const FCondition *condition) {
+void IsCTLVisitor::accept(const FCondition *condition) {
     (*condition)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::BOOLEAN)
+    if (_cur_type != ctl_syntax_type_e::BOOLEAN)
         _is_CTL = false;
-    _cur_type = CTLSyntaxType::PATH;
+    _cur_type = ctl_syntax_type_e::PATH;
 }
 
-void IsCTLVisitor::_accept(const XCondition *condition) {
+void IsCTLVisitor::accept(const XCondition *condition) {
     (*condition)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::BOOLEAN)
+    if (_cur_type != ctl_syntax_type_e::BOOLEAN)
         _is_CTL = false;
-    _cur_type = CTLSyntaxType::PATH;
+    _cur_type = ctl_syntax_type_e::PATH;
 }
 
-void IsCTLVisitor::_accept(const UntilCondition *condition) {
+void IsCTLVisitor::accept(const UntilCondition *condition) {
     (*condition)[0]->visit(*this);
-    if (_cur_type != CTLSyntaxType::BOOLEAN)
+    if (_cur_type != ctl_syntax_type_e::BOOLEAN)
         _is_CTL = false;
     (*condition)[1]->visit(*this);
-    if (_cur_type != CTLSyntaxType::BOOLEAN)
+    if (_cur_type != ctl_syntax_type_e::BOOLEAN)
         _is_CTL = false;
-    _cur_type = CTLSyntaxType::PATH;
+    _cur_type = ctl_syntax_type_e::PATH;
 }
 
-void IsCTLVisitor::_accept(const UnfoldedFireableCondition *element) {
-    _cur_type = CTLSyntaxType::BOOLEAN;
+void IsCTLVisitor::accept(const UnfoldedFireableCondition *element) {
+    _cur_type = ctl_syntax_type_e::BOOLEAN;
 }
 
-void IsCTLVisitor::_accept(const FireableCondition *element) { _cur_type = CTLSyntaxType::BOOLEAN; }
+void IsCTLVisitor::accept(const FireableCondition *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
 
-void IsCTLVisitor::_accept(const UpperBoundsCondition *element) {
-    _cur_type = CTLSyntaxType::BOOLEAN;
+void IsCTLVisitor::accept(const UpperBoundsCondition *element) {
+    _cur_type = ctl_syntax_type_e::BOOLEAN;
 }
 
-void IsCTLVisitor::_accept(const LivenessCondition *element) { _cur_type = CTLSyntaxType::BOOLEAN; }
+void IsCTLVisitor::accept(const LivenessCondition *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
 
-void IsCTLVisitor::_accept(const KSafeCondition *element) { _cur_type = CTLSyntaxType::BOOLEAN; }
+void IsCTLVisitor::accept(const KSafeCondition *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
 
-void IsCTLVisitor::_accept(const QuasiLivenessCondition *element) {
-    _cur_type = CTLSyntaxType::BOOLEAN;
+void IsCTLVisitor::accept(const QuasiLivenessCondition *element) {
+    _cur_type = ctl_syntax_type_e::BOOLEAN;
 }
 
-void IsCTLVisitor::_accept(const StableMarkingCondition *element) {
-    _cur_type = CTLSyntaxType::BOOLEAN;
+void IsCTLVisitor::accept(const StableMarkingCondition *element) {
+    _cur_type = ctl_syntax_type_e::BOOLEAN;
 }
 
-void IsCTLVisitor::_accept(const BooleanCondition *element) { _cur_type = CTLSyntaxType::BOOLEAN; }
+void IsCTLVisitor::accept(const BooleanCondition *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
 
-void IsCTLVisitor::_accept(const UnfoldedIdentifierExpr *element) {
-    _cur_type = CTLSyntaxType::BOOLEAN;
+void IsCTLVisitor::accept(const UnfoldedIdentifierExpr *element) {
+    _cur_type = ctl_syntax_type_e::BOOLEAN;
 }
 
-void IsCTLVisitor::_accept(const LiteralExpr *element) { _cur_type = CTLSyntaxType::BOOLEAN; }
+void IsCTLVisitor::accept(const LiteralExpr *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
 
-void IsCTLVisitor::_accept(const PlusExpr *element) { _cur_type = CTLSyntaxType::BOOLEAN; }
+void IsCTLVisitor::accept(const PlusExpr *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
 
-void IsCTLVisitor::_accept(const MultiplyExpr *element) { _cur_type = CTLSyntaxType::BOOLEAN; }
+void IsCTLVisitor::accept(const MultiplyExpr *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
 
-void IsCTLVisitor::_accept(const MinusExpr *element) { _cur_type = CTLSyntaxType::BOOLEAN; }
+void IsCTLVisitor::accept(const MinusExpr *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
 
-void IsCTLVisitor::_accept(const SubtractExpr *element) { _cur_type = CTLSyntaxType::BOOLEAN; }
+void IsCTLVisitor::accept(const SubtractExpr *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
 
-void IsCTLVisitor::_accept(const IdentifierExpr *element) { _cur_type = CTLSyntaxType::BOOLEAN; }
+void IsCTLVisitor::accept(const IdentifierExpr *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
 
-void AsCTL::_accept(const NotCondition *element) {
+void AsCTL::accept(const NotCondition *element) {
     (*element)[0]->visit(*this);
     _ctl_query = std::make_shared<NotCondition>(_ctl_query);
 }
@@ -221,9 +221,9 @@ template <typename T> void AsCTL::accept_nary(const T *element) {
     _ctl_query = std::make_shared<T>(children);
 }
 
-void AsCTL::_accept(const AndCondition *element) { AsCTL::accept_nary(element); }
+void AsCTL::accept(const AndCondition *element) { AsCTL::accept_nary(element); }
 
-void AsCTL::_accept(const OrCondition *element) { AsCTL::accept_nary(element); }
+void AsCTL::accept(const OrCondition *element) { AsCTL::accept_nary(element); }
 
 template <typename T> auto AsCTL::copy_compare_condition(const T *element) -> std::shared_ptr<T> {
     // we copy of sharedptr for now, but this is not safe!
@@ -231,77 +231,77 @@ template <typename T> auto AsCTL::copy_compare_condition(const T *element) -> st
     return std::make_shared<T>((*element)[0], (*element)[1]);
 }
 
-void AsCTL::_accept(const LessThanCondition *element) {
+void AsCTL::accept(const LessThanCondition *element) {
     _ctl_query = copy_compare_condition(element);
 }
 
-void AsCTL::_accept(const LessThanOrEqualCondition *element) {
+void AsCTL::accept(const LessThanOrEqualCondition *element) {
     _ctl_query = copy_compare_condition(element);
 }
 
-void AsCTL::_accept(const EqualCondition *element) { _ctl_query = copy_compare_condition(element); }
+void AsCTL::accept(const EqualCondition *element) { _ctl_query = copy_compare_condition(element); }
 
-void AsCTL::_accept(const NotEqualCondition *element) {
+void AsCTL::accept(const NotEqualCondition *element) {
     _ctl_query = copy_compare_condition(element);
 }
 
-void AsCTL::_accept(const DeadlockCondition *element) {
+void AsCTL::accept(const DeadlockCondition *element) {
     _ctl_query = std::make_shared<DeadlockCondition>();
 }
 
-void AsCTL::_accept(const CompareConjunction *element) {
+void AsCTL::accept(const CompareConjunction *element) {
     _ctl_query = std::make_shared<CompareConjunction>(*element);
 }
 
-void AsCTL::_accept(const UnfoldedUpperBoundsCondition *element) {
+void AsCTL::accept(const UnfoldedUpperBoundsCondition *element) {
     _ctl_query = std::make_shared<UnfoldedUpperBoundsCondition>(*element);
 }
 
-void AsCTL::_accept(const EFCondition *condition) {
+void AsCTL::accept(const EFCondition *condition) {
     (*condition)[0]->visit(*this);
     _ctl_query = std::make_shared<EFCondition>(_ctl_query);
 }
 
-void AsCTL::_accept(const EGCondition *condition) {
+void AsCTL::accept(const EGCondition *condition) {
     (*condition)[0]->visit(*this);
     _ctl_query = std::make_shared<EGCondition>(_ctl_query);
 }
 
-void AsCTL::_accept(const AGCondition *condition) {
+void AsCTL::accept(const AGCondition *condition) {
     (*condition)[0]->visit(*this);
     _ctl_query = std::make_shared<AGCondition>(_ctl_query);
 }
 
-void AsCTL::_accept(const AFCondition *condition) {
+void AsCTL::accept(const AFCondition *condition) {
     (*condition)[0]->visit(*this);
     _ctl_query = std::make_shared<AFCondition>(_ctl_query);
 }
 
-void AsCTL::_accept(const EXCondition *condition) {
+void AsCTL::accept(const EXCondition *condition) {
     (*condition)[0]->visit(*this);
     _ctl_query = std::make_shared<EXCondition>(_ctl_query);
 }
 
-void AsCTL::_accept(const AXCondition *condition) {
+void AsCTL::accept(const AXCondition *condition) {
     (*condition)[0]->visit(*this);
     _ctl_query = std::make_shared<AXCondition>(_ctl_query);
 }
 
-void AsCTL::_accept(const EUCondition *condition) {
+void AsCTL::accept(const EUCondition *condition) {
     (*condition)[0]->visit(*this);
     auto first = _ctl_query;
     (*condition)[1]->visit(*this);
     _ctl_query = std::make_shared<EUCondition>(first, _ctl_query);
 }
 
-void AsCTL::_accept(const AUCondition *condition) {
+void AsCTL::accept(const AUCondition *condition) {
     (*condition)[0]->visit(*this);
     auto first = _ctl_query;
     (*condition)[1]->visit(*this);
     _ctl_query = std::make_shared<AUCondition>(first, _ctl_query);
 }
 
-void AsCTL::_accept(const ACondition *condition) {
+void AsCTL::accept(const ACondition *condition) {
     auto child = dynamic_cast<QuantifierCondition *>((*condition)[0].get());
     switch (child->get_path()) {
     case path_e::G:
@@ -330,7 +330,7 @@ void AsCTL::_accept(const ACondition *condition) {
     }
 }
 
-void AsCTL::_accept(const ECondition *condition) {
+void AsCTL::accept(const ECondition *condition) {
     auto child = dynamic_cast<QuantifierCondition *>((*condition)[0].get());
     switch (child->get_path()) {
     case path_e::G:
@@ -359,31 +359,31 @@ void AsCTL::_accept(const ECondition *condition) {
     }
 }
 
-void AsCTL::_accept(const GCondition *condition) {
+void AsCTL::accept(const GCondition *condition) {
     std::cerr << "Direct call to path quantifier in AsCTL GCondition" << std::endl;
     assert(false);
     _ctl_query = nullptr;
 }
 
-void AsCTL::_accept(const FCondition *condition) {
+void AsCTL::accept(const FCondition *condition) {
     std::cerr << "Direct call to path quantifier in AsCTL FCondition" << std::endl;
     assert(false);
     _ctl_query = nullptr;
 }
 
-void AsCTL::_accept(const XCondition *condition) {
+void AsCTL::accept(const XCondition *condition) {
     std::cerr << "Direct call to path quantifier in AsCTL XCondition" << std::endl;
     assert(false);
     _ctl_query = nullptr;
 }
 
-void AsCTL::_accept(const UntilCondition *condition) {
+void AsCTL::accept(const UntilCondition *condition) {
     std::cerr << "Direct call to path quantifier in AsCTL UntilCondition" << std::endl;
     assert(false);
     _ctl_query = nullptr;
 }
 
-void AsCTL::_accept(const UnfoldedFireableCondition *element) {
+void AsCTL::accept(const UnfoldedFireableCondition *element) {
     _ctl_query = std::make_shared<UnfoldedFireableCondition>(*element);
 }
 
@@ -391,21 +391,21 @@ template <typename T> auto copy_condition(const T *el) -> Condition_ptr {
     return std::make_shared<T>(*el);
 }
 
-void AsCTL::_accept(const FireableCondition *element) { _ctl_query = copy_condition(element); }
+void AsCTL::accept(const FireableCondition *element) { _ctl_query = copy_condition(element); }
 
-void AsCTL::_accept(const UpperBoundsCondition *element) { _ctl_query = copy_condition(element); }
+void AsCTL::accept(const UpperBoundsCondition *element) { _ctl_query = copy_condition(element); }
 
-void AsCTL::_accept(const LivenessCondition *element) { _ctl_query = copy_condition(element); }
+void AsCTL::accept(const LivenessCondition *element) { _ctl_query = copy_condition(element); }
 
-void AsCTL::_accept(const KSafeCondition *element) { _ctl_query = copy_condition(element); }
+void AsCTL::accept(const KSafeCondition *element) { _ctl_query = copy_condition(element); }
 
-void AsCTL::_accept(const QuasiLivenessCondition *element) { _ctl_query = copy_condition(element); }
+void AsCTL::accept(const QuasiLivenessCondition *element) { _ctl_query = copy_condition(element); }
 
-void AsCTL::_accept(const StableMarkingCondition *element) { _ctl_query = copy_condition(element); }
+void AsCTL::accept(const StableMarkingCondition *element) { _ctl_query = copy_condition(element); }
 
-void AsCTL::_accept(const BooleanCondition *element) {
+void AsCTL::accept(const BooleanCondition *element) {
     _ctl_query =
-        element->value ? BooleanCondition::TRUE_CONSTANT : BooleanCondition::FALSE_CONSTANT;
+        element->_value ? BooleanCondition::TRUE_CONSTANT : BooleanCondition::FALSE_CONSTANT;
 }
 
 template <typename T> auto AsCTL::copy_narry_expr(const T *el) -> Expr_ptr {
@@ -414,26 +414,26 @@ template <typename T> auto AsCTL::copy_narry_expr(const T *el) -> Expr_ptr {
     return nullptr;
 }
 
-void AsCTL::_accept(const PlusExpr *element) { _expression = copy_narry_expr(element); }
+void AsCTL::accept(const PlusExpr *element) { _expression = copy_narry_expr(element); }
 
-void AsCTL::_accept(const MultiplyExpr *element) { _expression = copy_narry_expr(element); }
+void AsCTL::accept(const MultiplyExpr *element) { _expression = copy_narry_expr(element); }
 
-void AsCTL::_accept(const SubtractExpr *element) { _expression = copy_narry_expr(element); }
+void AsCTL::accept(const SubtractExpr *element) { _expression = copy_narry_expr(element); }
 
-void AsCTL::_accept(const MinusExpr *element) {
+void AsCTL::accept(const MinusExpr *element) {
     (*element)[0]->visit(*this);
     _expression = std::make_shared<MinusExpr>(_expression);
 }
 
-void AsCTL::_accept(const LiteralExpr *element) {
+void AsCTL::accept(const LiteralExpr *element) {
     _expression = std::make_shared<LiteralExpr>(element->value());
 }
 
-void AsCTL::_accept(const IdentifierExpr *element) {
+void AsCTL::accept(const IdentifierExpr *element) {
     _expression = std::make_shared<IdentifierExpr>(*element);
 }
 
-void AsCTL::_accept(const UnfoldedIdentifierExpr *element) {
+void AsCTL::accept(const UnfoldedIdentifierExpr *element) {
     _expression = std::make_shared<UnfoldedIdentifierExpr>(*element);
 }
 

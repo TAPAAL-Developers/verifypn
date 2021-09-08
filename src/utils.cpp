@@ -25,7 +25,7 @@ using namespace PetriEngine::Reachability;
 
 auto all_done(std::vector<PetriEngine::Reachability::ResultPrinter::Result> &results) -> bool {
     if (std::any_of(results.begin(), results.end(), [](auto r) {
-            return r != ResultPrinter::Satisfied && r != ResultPrinter::NotSatisfied;
+            return r != ResultPrinter::SATISFIED && r != ResultPrinter::NOT_SATISFIED;
         })) {
         return false;
     }
@@ -97,7 +97,7 @@ auto read_queries(options_t &options, std::vector<std::string> &qstrings)
             else
                 conditions.back() = std::make_shared<EFCondition>(conditions.back());
         } else {
-            std::vector<QueryItem> queries;
+            std::vector<query_item_t> queries;
             if (options._binary_query_io & 1) {
                 QueryBinaryParser parser;
                 if (!parser.parse(qfile, options._query_numbers)) {
@@ -115,7 +115,7 @@ auto read_queries(options_t &options, std::vector<std::string> &qstrings)
                     conditions.clear();
                     return conditions;
                 }
-                queries = std::move(parser.queries);
+                queries = std::move(parser._queries);
             }
 
             size_t i = 0;
@@ -126,7 +126,7 @@ auto read_queries(options_t &options, std::vector<std::string> &qstrings)
                 }
                 ++i;
 
-                if (q._parsing_result == QueryItem::UNSUPPORTED_QUERY) {
+                if (q._parsing_result == query_item_t::UNSUPPORTED_QUERY) {
                     fprintf(stdout, "The selected query in the XML query file is not supported\n");
                     fprintf(stdout, "FORMULA %s CANNOT_COMPUTE\n", q._id.c_str());
                     continue;
@@ -318,7 +318,7 @@ auto get_ltl_queries(const std::vector<Condition_ptr> &ctlStarQueries)
     std::vector<Condition_ptr> ltlQueries;
     for (const auto &ctlStarQuery : ctlStarQueries) {
         LTL::LTLValidator isLtl;
-        if (isLtl.is_LTL(ctlStarQuery)) {
+        if (isLtl.is_ltl(ctlStarQuery)) {
             ltlQueries.push_back(ctlStarQuery);
         } else {
             throw base_error_t("Error: a query could not be translated from CTL* to LTL.");
@@ -593,7 +593,7 @@ auto replay_trace(const ColoredPetriNetBuilder &cpnBuilder, const PetriNetBuilde
     std::ifstream replay_file(options._replay_file, std::ifstream::in);
     PetriEngine::TraceReplay replay{replay_file, net, options};
     for (size_t i = 0; i < queries.size(); ++i) {
-        if (results[i] == ResultPrinter::Unknown || results[i] == ResultPrinter::CTL ||
+        if (results[i] == ResultPrinter::UNKNOWN || results[i] == ResultPrinter::CTL ||
             results[i] == ResultPrinter::LTL)
             replay.replay(net, queries[i]);
     }
@@ -608,11 +608,11 @@ void run_siphon_trap(const PetriNet &net, std::vector<Condition_ptr> &queries,
             bool isDeadlockQuery =
                 std::dynamic_pointer_cast<DeadlockCondition>(queries[i]) != nullptr;
 
-            if (results[i] == ResultPrinter::Unknown && isDeadlockQuery) {
+            if (results[i] == ResultPrinter::UNKNOWN && isDeadlockQuery) {
                 STSolver stSolver(printer, net, *queries[i], options._siphon_depth);
                 stSolver.solve(options._siphontrap_timeout);
                 results[i] = stSolver.print_result();
-                if (results[i] == Reachability::ResultPrinter::NotSatisfied &&
+                if (results[i] == Reachability::ResultPrinter::NOT_SATISFIED &&
                     options._print_statistics) {
                     std::cout << "Query solved by Siphon-Trap Analysis." << std::endl << std::endl;
                 }
@@ -629,23 +629,23 @@ void print_simplification_results(const PetriEngine::PetriNetBuilder &b2, const 
     if (!options._statespace_exploration) {
         for (size_t i = 0; i < queries.size(); ++i) {
             if (queries[i]->is_trivially_true()) {
-                results[i] = p2.handle(i, *queries[i], ResultPrinter::Satisfied).first;
-                if (results[i] == ResultPrinter::Ignore && options._print_statistics) {
+                results[i] = p2.handle(i, *queries[i], ResultPrinter::SATISFIED).first;
+                if (results[i] == ResultPrinter::IGNORE && options._print_statistics) {
                     std::cout << "Unable to decide if query is satisfied." << std::endl
                               << std::endl;
                 } else if (options._print_statistics) {
                     std::cout << "Query solved by Query Simplification." << std::endl << std::endl;
                 }
             } else if (queries[i]->is_trivially_false()) {
-                results[i] = p2.handle(i, *queries[i], ResultPrinter::NotSatisfied).first;
-                if (results[i] == ResultPrinter::Ignore && options._print_statistics) {
+                results[i] = p2.handle(i, *queries[i], ResultPrinter::NOT_SATISFIED).first;
+                if (results[i] == ResultPrinter::IGNORE && options._print_statistics) {
                     std::cout << "Unable to decide if query is satisfied." << std::endl
                               << std::endl;
                 } else if (options._print_statistics) {
                     std::cout << "Query solved by Query Simplification." << std::endl << std::endl;
                 }
-            } else if (options._strategy == options_t::search_strategy_e::OverApprox) {
-                results[i] = p2.handle(i, *queries[i], ResultPrinter::Unknown).first;
+            } else if (options._strategy == options_t::search_strategy_e::OVER_APPROX) {
+                results[i] = p2.handle(i, *queries[i], ResultPrinter::UNKNOWN).first;
                 if (options._print_statistics) {
                     std::cout << "Unable to decide if query is satisfied." << std::endl
                               << std::endl;

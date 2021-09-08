@@ -22,17 +22,17 @@
 #include <cassert>
 
 namespace LTL {
-enum class Algorithm { NDFS, Tarjan, None = -1 };
+enum class algorithm_e { NDFS, TARJAN, NONE = -1 };
 
-enum class BuchiOutType { Dot, HOA, Spin };
+enum class buchi_out_type_e { DOT, HOA, SPIN };
 
-inline auto to_string(Algorithm alg) {
+inline auto to_string(algorithm_e alg) {
     switch (alg) {
-    case Algorithm::NDFS:
+    case algorithm_e::NDFS:
         return "NDFS";
-    case Algorithm::Tarjan:
+    case algorithm_e::TARJAN:
         return "TARJAN";
-    case Algorithm::None:
+    case algorithm_e::NONE:
     default:
         throw base_error_t("to_string: Invalid LTL Algorithm ", static_cast<int>(alg));
         assert(false);

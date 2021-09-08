@@ -6,8 +6,8 @@
 
 #include <string>
 
-struct CTLResult {
-    CTLResult(const PetriEngine::PQL::Condition_ptr &qry) { _query = qry; }
+struct ctl_result_t {
+    ctl_result_t(const PetriEngine::PQL::Condition_ptr &qry) { _query = qry; }
 
     PetriEngine::PQL::Condition_ptr _query;
     bool _result;

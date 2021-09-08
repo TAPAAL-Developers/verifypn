@@ -17,16 +17,16 @@ class STSolver {
     STSolver(const Reachability::ResultPrinter &printer, const PetriNet &net,
              const PQL::Condition &query, uint32_t depth);
     virtual ~STSolver();
-    bool solve(uint32_t timeout);
-    Reachability::ResultPrinter::Result print_result();
+    auto solve(uint32_t timeout) -> bool;
+    auto print_result() -> Reachability::ResultPrinter::Result;
 
   private:
-    size_t _compute_trap(std::vector<size_t> &siphon, const std::set<size_t> &pre,
-                         const std::set<size_t> &post, size_t marked_count);
-    bool siphon_trap(std::vector<size_t> siphon, const std::vector<bool> &has_st,
-                     const std::set<size_t> &pre, const std::set<size_t> &post);
-    uint32_t duration() const;
-    bool timeout() const;
+    auto compute_trap(std::vector<size_t> &siphon, const std::set<size_t> &pre,
+                      const std::set<size_t> &post, size_t marked_count) -> size_t;
+    auto siphon_trap(std::vector<size_t> siphon, const std::vector<bool> &has_st,
+                     const std::set<size_t> &pre, const std::set<size_t> &post) -> bool;
+    [[nodiscard]] auto duration() const -> uint32_t;
+    [[nodiscard]] auto timeout() const -> bool;
     void construct_pre_post();
     void extend(size_t place, std::set<size_t> &pre, std::set<size_t> &post);
     bool _siphonPropperty = false;

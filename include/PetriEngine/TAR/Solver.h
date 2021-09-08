@@ -36,7 +36,7 @@ class Solver {
     auto find_failure(trace_t &trace, bool to_end) -> int64_t;
     auto find_free(trace_t &trace) -> interpolant_t;
     auto compute_hoare(trace_t &trace, interpolant_t &ranges, int64_t fail) -> bool;
-    auto compute_terminal(state_t &end, inter_t &last) -> bool;
+    auto compute_terminal(State &end, inter_t &last) -> bool;
     const PetriNet &_net;
     MarkVal *_initial;
     Condition *_query;

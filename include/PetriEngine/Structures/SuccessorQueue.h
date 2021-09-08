@@ -24,19 +24,19 @@
 #include <memory>
 
 /**
- * light_deque derivative, designed for 'read-mostly' access
+ * LightDequeue derivative, designed for 'read-mostly' access
  * to list of successors. Popped elements are preserved post-mortem.
  */
 template <typename T = uint32_t> class SuccessorQueue {
   public:
-    SuccessorQueue(T *src, uint32_t nelem) : _front(0), _size(nelem) {
+    SuccessorQueue(T *src, uint32_t nelem) : _size(nelem) {
         _data = std::make_unique<T[]>(nelem);
         memcpy(_data.get(), src, sizeof(T) * nelem);
     }
 
     // construct from array of different type, using fn as transformation function.
     template <typename U, typename Fn>
-    SuccessorQueue(std::vector<U> &src, Fn &&fn) : _front(0), _size(src.size()) {
+    SuccessorQueue(std::vector<U> &src, Fn &&fn) : _size(src.size()) {
         _data = std::make_unique<T[]>(src.size());
         std::transform(std::begin(src), std::end(src), _data.get(), fn);
     }

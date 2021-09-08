@@ -13,8 +13,8 @@ class Edge;
 class BasicDependencyGraph {
 
   public:
-    virtual std::vector<Edge *> successors(Configuration *c) = 0;
-    virtual Configuration *initial_configuration() = 0;
+    virtual auto successors(Configuration *c) -> std::vector<Edge *> = 0;
+    virtual auto initial_configuration() -> Configuration * = 0;
     virtual void release(Edge *e) = 0;
 };
 

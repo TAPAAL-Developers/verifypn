@@ -39,12 +39,12 @@ void RangeContext::handle_compare(const Expr_ptr &left, const Expr_ptr &right, b
     }
 }
 
-void RangeContext::_accept(const NotCondition *element) {
+void RangeContext::accept(const NotCondition *element) {
     assert(false);
     throw base_error_t("UNSUPPORTED QUERY TYPE FOR TAR");
 }
 
-void RangeContext::_accept(const PetriEngine::PQL::AndCondition *element) {
+void RangeContext::accept(const PetriEngine::PQL::AndCondition *element) {
     if (element->is_satisfied())
         return;
     EvaluationContext ctx(_marking, &_net);
@@ -93,7 +93,7 @@ void RangeContext::_accept(const PetriEngine::PQL::AndCondition *element) {
     }
 }
 
-void RangeContext::_accept(const OrCondition *element) {
+void RangeContext::accept(const OrCondition *element) {
     // if(element->is_satisfied()) return;
     for (auto &e : *element) {
         // assert(!e->is_satisfied());
@@ -103,25 +103,25 @@ void RangeContext::_accept(const OrCondition *element) {
     }
 }
 
-void RangeContext::_accept(const NotEqualCondition *element) {
+void RangeContext::accept(const NotEqualCondition *element) {
     _is_dirty = true; // TODO improve
 }
 
-void RangeContext::_accept(const EqualCondition *element) {
+void RangeContext::accept(const EqualCondition *element) {
     _is_dirty = true; // TODO improve
 }
 
-void RangeContext::_accept(const LessThanCondition *element) {
+void RangeContext::accept(const LessThanCondition *element) {
     handle_compare((*element)[0], (*element)[1], true);
 }
 
-void RangeContext::_accept(const LessThanOrEqualCondition *element) {
+void RangeContext::accept(const LessThanOrEqualCondition *element) {
     handle_compare((*element)[0], (*element)[1], false);
 }
 
-void RangeContext::_accept(const LiteralExpr *element) {}
+void RangeContext::accept(const LiteralExpr *element) {}
 
-void RangeContext::_accept(const UnfoldedIdentifierExpr *element) {
+void RangeContext::accept(const UnfoldedIdentifierExpr *element) {
     if (_dirty[element->offset()]) {
         _is_dirty = true;
         return;
@@ -135,7 +135,7 @@ void RangeContext::_accept(const UnfoldedIdentifierExpr *element) {
     assert(pr._range._upper >= _base[element->offset()]);
 }
 
-void RangeContext::_accept(const PlusExpr *element) {
+void RangeContext::accept(const PlusExpr *element) {
     // auto fdf = std::abs(_limit - element->get_eval())/
     //(element->places().size() + element->expressions().size());
     for (auto &p : element->places()) {
@@ -159,19 +159,19 @@ void RangeContext::_accept(const PlusExpr *element) {
     }
 }
 
-void RangeContext::_accept(const MultiplyExpr *) {
+void RangeContext::accept(const MultiplyExpr *) {
     _is_dirty = true; // TODO improve
 }
 
-void RangeContext::_accept(const MinusExpr *) {
+void RangeContext::accept(const MinusExpr *) {
     _is_dirty = true; // TODO improve
 }
 
-void RangeContext::_accept(const SubtractExpr *) {
+void RangeContext::accept(const SubtractExpr *) {
     _is_dirty = true; // TODO improve
 }
 
-void RangeContext::_accept(const DeadlockCondition *element) {
+void RangeContext::accept(const DeadlockCondition *element) {
     assert(!element->is_satisfied());
     uint64_t priority = 0;
     size_t cand = 0;
@@ -221,9 +221,9 @@ void RangeContext::_accept(const DeadlockCondition *element) {
     assert(false);
 }
 
-void RangeContext::_accept(const CompareConjunction *element) {
+void RangeContext::accept(const CompareConjunction *element) {
     assert(!element->is_satisfied());
-    bool disjunction = element->isNegated();
+    bool disjunction = element->is_negated();
     placerange_t pr;
     uint64_t priority = 0;
     for (auto &c : element->constraints()) {
@@ -277,7 +277,7 @@ void RangeContext::_accept(const CompareConjunction *element) {
     }
 }
 
-void RangeContext::_accept(const UnfoldedUpperBoundsCondition *element) {
+void RangeContext::accept(const UnfoldedUpperBoundsCondition *element) {
     for (auto &pb : element->places()) {
         _ranges.find_or_add(pb._place)._range._upper =
             std::min<double>(pb._max, _marking[pb._place]);

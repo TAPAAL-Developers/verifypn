@@ -29,12 +29,12 @@ class DistanceHeuristic : public Heuristic {
     DistanceHeuristic(const PetriEngine::PetriNet &net, PetriEngine::PQL::Condition_ptr cond)
         : _net(net), _cond(std::move(cond)) {}
 
-    uint32_t eval(const Structures::ProductState &state, uint32_t tid) override {
+    auto eval(const Structures::ProductState &state, uint32_t tid) -> uint32_t override {
         PetriEngine::PQL::DistanceContext context{_net, state.marking()};
         return _cond->distance(context);
     }
 
-    std::ostream &output(std::ostream &os) { return os << "DIST_HEUR"; }
+    auto output(std::ostream &os) -> std::ostream & override { return os << "DIST_HEUR"; }
 
   private:
     const PetriEngine::PetriNet &_net;

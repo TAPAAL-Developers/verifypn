@@ -35,8 +35,7 @@
 #include <memory>
 #include <vector>
 
-namespace PetriEngine {
-namespace Reachability {
+namespace PetriEngine::Reachability {
 
 /** Implements reachability check in a BFS manner using a hash table */
 class ReachabilitySearch {
@@ -45,13 +44,13 @@ class ReachabilitySearch {
                        bool early = false)
         : _net(net), _kbound(kbound), _callback(callback) {}
 
-    ~ReachabilitySearch() {}
+    ~ReachabilitySearch() = default;
 
     /** Perform reachability check using BFS with hasing */
-    bool reachable(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
+    auto reachable(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
                    std::vector<ResultPrinter::Result> &results,
                    options_t::search_strategy_e strategy, bool usestubborn, bool statespacesearch,
-                   bool printstats, bool keep_trace, size_t seed);
+                   bool printstats, bool keep_trace, size_t seed) -> bool;
 
   private:
     struct searchstate_t {
@@ -63,11 +62,11 @@ class ReachabilitySearch {
     };
 
     template <typename Q, typename W = Structures::StateSet, typename G>
-    bool try_reach(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
+    auto try_reach(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
                    std::vector<ResultPrinter::Result> &results, bool usequeries, bool printstats,
-                   size_t seed);
+                   size_t seed) -> bool;
 
-    template <typename Q> Q init_q(Structures::StateSetInterface &states, size_t seed) {
+    template <typename Q> auto init_q(Structures::StateSetInterface &states, size_t seed) -> Q {
         if constexpr (std::is_same<Q, Structures::RDFSQueue>::value)
             return Q(states, seed);
         else
@@ -84,13 +83,12 @@ class ReachabilitySearch {
     }
 
     void handle_completion(const searchstate_t &s, const Structures::StateSetInterface &);
-    bool check_queries(const std::vector<std::shared_ptr<PQL::Condition>> &,
+    auto check_queries(const std::vector<std::shared_ptr<PQL::Condition>> &,
                        std::vector<ResultPrinter::Result> &, const Structures::State &,
-                       searchstate_t &, const Structures::StateSetInterface &);
-    std::pair<ResultPrinter::Result, bool> do_callback(const PQL::Condition &query, size_t i,
-                                                       ResultPrinter::Result r,
-                                                       const searchstate_t &ss,
-                                                       const Structures::StateSetInterface &states);
+                       searchstate_t &, const Structures::StateSetInterface &) -> bool;
+    auto do_callback(const PQL::Condition &query, size_t i, ResultPrinter::Result r,
+                     const searchstate_t &ss, const Structures::StateSetInterface &states)
+        -> std::pair<ResultPrinter::Result, bool>;
 
     const PetriNet &_net;
     int _kbound;
@@ -100,21 +98,21 @@ class ReachabilitySearch {
 };
 
 template <typename G>
-inline G _make_suc_gen(const PetriNet &net, const std::vector<PQL::Condition_ptr> &queries) {
+inline auto make_suc_gen(const PetriNet &net, const std::vector<PQL::Condition_ptr> &queries) -> G {
     return G(net, queries);
 }
 template <>
-inline ReducingSuccessorGenerator _make_suc_gen(const PetriNet &net,
-                                                const std::vector<PQL::Condition_ptr> &queries) {
+inline auto make_suc_gen(const PetriNet &net, const std::vector<PQL::Condition_ptr> &queries)
+    -> ReducingSuccessorGenerator {
     auto stubset = std::make_shared<ReachabilityStubbornSet>(net, queries);
     stubset->set_interesting_visitor<InterestingTransitionVisitor>();
     return ReducingSuccessorGenerator{net, stubset};
 }
 
 template <typename Q, typename W, typename G>
-bool ReachabilitySearch::try_reach(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
+auto ReachabilitySearch::try_reach(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
                                    std::vector<ResultPrinter::Result> &results, bool usequeries,
-                                   bool printstats, size_t seed) {
+                                   bool printstats, size_t seed) -> bool {
 
     // set up state
     searchstate_t ss;
@@ -133,7 +131,7 @@ bool ReachabilitySearch::try_reach(const std::vector<std::shared_ptr<PQL::Condit
 
     W states(_net, _kbound);                       // stateset
     Q queue = init_q<Q>(states, seed);             // working queue
-    G generator = _make_suc_gen<G>(_net, queries); // successor generator
+    G generator = make_suc_gen<G>(_net, queries); // successor generator
     auto r = states.add(state);
     // this can fail due to reductions; we push tokens around and violate K
     if (r.first) {
@@ -175,8 +173,8 @@ bool ReachabilitySearch::try_reach(const std::vector<std::shared_ptr<PQL::Condit
 
     // no more successors, print last results
     for (size_t i = 0; i < queries.size(); ++i) {
-        if (results[i] == ResultPrinter::Unknown) {
-            results[i] = do_callback(*queries[i], i, ResultPrinter::NotSatisfied, ss, states).first;
+        if (results[i] == ResultPrinter::UNKNOWN) {
+            results[i] = do_callback(*queries[i], i, ResultPrinter::NOT_SATISFIED, ss, states).first;
         }
     }
 
@@ -185,7 +183,6 @@ bool ReachabilitySearch::try_reach(const std::vector<std::shared_ptr<PQL::Condit
     return false;
 }
 
-} // namespace Reachability
-} // namespace PetriEngine
+} // namespace PetriEngine::Reachability
 
 #endif // BREADTHFIRSTREACHABILITYSEARCH_H

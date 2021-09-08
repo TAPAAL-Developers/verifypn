@@ -21,185 +21,183 @@
 #include "PetriEngine/PQL/Expressions.h"
 #include "errorcodes.h"
 
-namespace PetriEngine {
-namespace PQL {
+namespace PetriEngine::PQL {
 class MutatingVisitor {
   public:
-    MutatingVisitor() {}
+    MutatingVisitor() = default;
 
-    template <typename T> void accept(T &&element) { _accept(element); }
+    template <typename T> void accept(T &&element) { accept(element); }
 
   protected:
-    virtual void _accept(NotCondition *element) = 0;
+    virtual void accept(NotCondition *element) = 0;
 
-    virtual void _accept(AndCondition *element) = 0;
+    virtual void accept(AndCondition *element) = 0;
 
-    virtual void _accept(OrCondition *element) = 0;
+    virtual void accept(OrCondition *element) = 0;
 
-    virtual void _accept(LessThanCondition *element) = 0;
+    virtual void accept(LessThanCondition *element) = 0;
 
-    virtual void _accept(LessThanOrEqualCondition *element) = 0;
+    virtual void accept(LessThanOrEqualCondition *element) = 0;
 
-    virtual void _accept(EqualCondition *element) = 0;
+    virtual void accept(EqualCondition *element) = 0;
 
-    virtual void _accept(NotEqualCondition *element) = 0;
+    virtual void accept(NotEqualCondition *element) = 0;
 
-    virtual void _accept(DeadlockCondition *element) = 0;
+    virtual void accept(DeadlockCondition *element) = 0;
 
-    virtual void _accept(CompareConjunction *element) = 0;
+    virtual void accept(CompareConjunction *element) = 0;
 
-    virtual void _accept(UnfoldedUpperBoundsCondition *element) = 0;
+    virtual void accept(UnfoldedUpperBoundsCondition *element) = 0;
 
     // Quantifiers, most uses of the visitor will not use the quantifiers - so we give a default
     // implementation. default behaviour is error
-    virtual void _accept(EFCondition *) {
+    virtual void accept(EFCondition *) {
         assert(false);
         throw base_error_t("No accept for EFCondition");
     };
 
-    virtual void _accept(EGCondition *) {
+    virtual void accept(EGCondition *) {
         assert(false);
         throw base_error_t("No accept for EGCondition");
     };
 
-    virtual void _accept(AGCondition *) {
+    virtual void accept(AGCondition *) {
         assert(false);
         throw base_error_t("No accept for AGCondition");
     };
 
-    virtual void _accept(AFCondition *) {
+    virtual void accept(AFCondition *) {
         assert(false);
         throw base_error_t("No accept for AFCondition");
     };
 
-    virtual void _accept(EXCondition *) {
+    virtual void accept(EXCondition *) {
         assert(false);
         throw base_error_t("No accept for EXCondition");
     };
 
-    virtual void _accept(AXCondition *) {
+    virtual void accept(AXCondition *) {
         assert(false);
         throw base_error_t("No accept for AXCondition");
     };
 
-    virtual void _accept(EUCondition *) {
+    virtual void accept(EUCondition *) {
         assert(false);
         throw base_error_t("No accept for EUCondition");
     };
 
-    virtual void _accept(AUCondition *) {
+    virtual void accept(AUCondition *) {
         assert(false);
         throw base_error_t("No accept for AUCondition");
     };
 
-    virtual void _accept(ACondition *) {
+    virtual void accept(ACondition *) {
         assert(false);
         throw base_error_t("No accept for ACondition");
     };
 
-    virtual void _accept(ECondition *) {
+    virtual void accept(ECondition *) {
         assert(false);
         throw base_error_t("No accept for ECondition");
     };
 
-    virtual void _accept(GCondition *) {
+    virtual void accept(GCondition *) {
         assert(false);
         throw base_error_t("No accept for GCondition");
     };
 
-    virtual void _accept(FCondition *) {
+    virtual void accept(FCondition *) {
         assert(false);
         throw base_error_t("No accept for FCondition");
     };
 
-    virtual void _accept(XCondition *) {
+    virtual void accept(XCondition *) {
         assert(false);
         throw base_error_t("No accept for XCondition");
     };
 
-    virtual void _accept(UntilCondition *) {
+    virtual void accept(UntilCondition *) {
         assert(false);
         throw base_error_t("No accept for UntilCondition");
     };
 
     // shallow elements, neither of these should exist in a compiled expression
-    virtual void _accept(UnfoldedFireableCondition *element) {
+    virtual void accept(UnfoldedFireableCondition *element) {
         assert(false);
         throw base_error_t("No accept for UnfoldedFireableCondition");
     };
 
-    virtual void _accept(FireableCondition *element) {
+    virtual void accept(FireableCondition *element) {
         assert(false);
         throw base_error_t("No accept for FireableCondition");
     };
 
-    virtual void _accept(UpperBoundsCondition *element) {
+    virtual void accept(UpperBoundsCondition *element) {
         assert(false);
         throw base_error_t("No accept for UpperBoundsCondition");
     };
 
-    virtual void _accept(LivenessCondition *element) {
+    virtual void accept(LivenessCondition *element) {
         assert(false);
         throw base_error_t("No accept for LivenessCondition");
     };
 
-    virtual void _accept(KSafeCondition *element) {
+    virtual void accept(KSafeCondition *element) {
         assert(false);
         throw base_error_t("No accept for KSafeCondition");
     };
 
-    virtual void _accept(QuasiLivenessCondition *element) {
+    virtual void accept(QuasiLivenessCondition *element) {
         assert(false);
         throw base_error_t("No accept for QuasiLivenessCondition");
     };
 
-    virtual void _accept(StableMarkingCondition *element) {
+    virtual void accept(StableMarkingCondition *element) {
         assert(false);
         throw base_error_t("No accept for StableMarkingCondition");
     };
 
-    virtual void _accept(BooleanCondition *element) {
+    virtual void accept(BooleanCondition *element) {
         assert(false);
         throw base_error_t("No accept for BooleanCondition");
     };
 
     // Expression
-    virtual void _accept(UnfoldedIdentifierExpr *element) {
+    virtual void accept(UnfoldedIdentifierExpr *element) {
         assert(false);
         throw base_error_t("No accept for UnfoldedIdentifierExpr");
     };
 
-    virtual void _accept(LiteralExpr *element) {
+    virtual void accept(LiteralExpr *element) {
         assert(false);
         throw base_error_t("No accept for LiteralExpr");
     };
 
-    virtual void _accept(PlusExpr *element) {
+    virtual void accept(PlusExpr *element) {
         assert(false);
         throw base_error_t("No accept for PlusExpr");
     };
 
-    virtual void _accept(MultiplyExpr *element) {
+    virtual void accept(MultiplyExpr *element) {
         assert(false);
         throw base_error_t("No accept for MultiplyExpr");
     };
 
-    virtual void _accept(MinusExpr *element) {
+    virtual void accept(MinusExpr *element) {
         assert(false);
         throw base_error_t("No accept for MinusExpr");
     };
 
-    virtual void _accept(SubtractExpr *element) {
+    virtual void accept(SubtractExpr *element) {
         assert(false);
         throw base_error_t("No accept for SubtractExpr");
     };
 
     // shallow expression, default to error
-    virtual void _accept(IdentifierExpr *element) {
+    virtual void accept(IdentifierExpr *element) {
         assert(false);
         throw base_error_t("No accept for IdentifierExpr");
     };
 };
-} // namespace PQL
-} // namespace PetriEngine
+} // namespace PetriEngine::PQL
 #endif // VERIFYPN_MUTATINGVISITOR_H

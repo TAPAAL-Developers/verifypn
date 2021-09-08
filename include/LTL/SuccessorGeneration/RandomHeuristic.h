@@ -27,9 +27,9 @@ class RandomHeuristic : public Heuristic {
   public:
     explicit RandomHeuristic(uint32_t seed = 0) : _g(seed == 0 ? _rd() : seed) {}
 
-    uint32_t eval(const LTL::Structures::ProductState &, uint32_t) override { return _g(); }
+    auto eval(const LTL::Structures::ProductState &, uint32_t) -> uint32_t override { return _g(); }
 
-    std::ostream &output(std::ostream &os) { return os << "RANDOM_HEUR"; }
+    auto output(std::ostream &os) -> std::ostream & override { return os << "RANDOM_HEUR"; }
 
   private:
     std::random_device _rd;

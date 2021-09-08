@@ -75,24 +75,24 @@ class VisibleLTLStubbornSet : public PetriEngine::StubbornSet, public SuccessorS
         }
     }
 
-    bool prepare(const PetriEngine::Structures::State &marking) override;
+    auto prepare(const PetriEngine::Structures::State &marking) -> bool override;
 
-    bool prepare(const LTL::Structures::ProductState &marking) override {
+    auto prepare(const LTL::Structures::ProductState &marking) -> bool override {
         return prepare((const PetriEngine::Structures::State &)marking);
     }
 
-    uint32_t next() override;
+    auto next() -> uint32_t override;
 
-    void reset();
+    void reset() override;
 
-    bool generate_all(const LTL::Structures::ProductState &parent);
+    auto generate_all(const LTL::Structures::ProductState &parent) -> bool override;
 
   protected:
     void add_to_stub(uint32_t t) override;
 
   private:
     std::unique_ptr<bool[]> _visible;
-    light_deque<uint32_t> _skipped;
+    LightDequeue<uint32_t> _skipped;
     bool _has_enabled_stubborn;
 
     void find_key_transition();
