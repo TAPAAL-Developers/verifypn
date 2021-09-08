@@ -18,70 +18,68 @@
 #ifndef VERIFYPN_SAFEAUTSTUBBORNSET_H
 #define VERIFYPN_SAFEAUTSTUBBORNSET_H
 
-#include "PetriEngine/Stubborn/InterestingTransitionVisitor.h"
 #include "LTL/SuccessorGeneration/SuccessorSpooler.h"
-#include "PetriEngine/Stubborn/StubbornSet.h"
 #include "PetriEngine/PQL/PQL.h"
+#include "PetriEngine/Stubborn/InterestingTransitionVisitor.h"
+#include "PetriEngine/Stubborn/StubbornSet.h"
 
 namespace LTL {
-    class SafeAutStubbornSet : public PetriEngine::StubbornSet, public SuccessorSpooler {
-    public:
-        SafeAutStubbornSet(const PetriEngine::PetriNet &net,
-                           const std::vector<PetriEngine::PQL::Condition_ptr> &queries)
-                : StubbornSet(net, queries), _unsafe(std::make_unique<bool[]>(net.number_of_transitions())) {}
+class SafeAutStubbornSet : public PetriEngine::StubbornSet, public SuccessorSpooler {
+  public:
+    SafeAutStubbornSet(const PetriEngine::PetriNet &net,
+                       const std::vector<PetriEngine::PQL::Condition_ptr> &queries)
+        : StubbornSet(net, queries),
+          _unsafe(std::make_unique<bool[]>(net.number_of_transitions())) {}
 
-        bool prepare(const PetriEngine::Structures::State& marking) override
-        {
-            assert(false);
-            throw base_error("Error: SafeAutStubbornSet is implemented only for product states");
-            return false;
-        }
+    bool prepare(const PetriEngine::Structures::State &marking) override {
+        assert(false);
+        throw base_error("Error: SafeAutStubbornSet is implemented only for product states");
+        return false;
+    }
 
-        bool prepare(const LTL::Structures::ProductState& state) override;
+    bool prepare(const LTL::Structures::ProductState &state) override;
 
-        uint32_t next() override {
-            return StubbornSet::next();
-        }
+    uint32_t next() override { return StubbornSet::next(); }
 
-        void reset() override {
-            StubbornSet::reset();
-            memset(_unsafe.get(), false, sizeof(bool) * _net.number_of_transitions());
-            _bad = false;
-            _has_enabled_stubborn = false;
-        }
+    void reset() override {
+        StubbornSet::reset();
+        memset(_unsafe.get(), false, sizeof(bool) * _net.number_of_transitions());
+        _bad = false;
+        _has_enabled_stubborn = false;
+    }
 
-        void set_buchi_conds(PetriEngine::PQL::Condition_ptr ret_cond,
-                             PetriEngine::PQL::Condition_ptr prog_cond,
-                             PetriEngine::PQL::Condition_ptr sink_cond) {
-            _ret_cond = ret_cond;
-            _prog_cond = prog_cond;
-            _sink_cond = sink_cond;
-        }
+    void set_buchi_conds(PetriEngine::PQL::Condition_ptr ret_cond,
+                         PetriEngine::PQL::Condition_ptr prog_cond,
+                         PetriEngine::PQL::Condition_ptr sink_cond) {
+        _ret_cond = ret_cond;
+        _prog_cond = prog_cond;
+        _sink_cond = sink_cond;
+    }
 
-    protected:
-        void add_to_stub(uint32_t t) override
-        {
-            // potential refinement of bad: can manually check whether firing t would violate some progressing formula.
-            if (_enabled[t]) {
-                _has_enabled_stubborn = true;
-                if (_unsafe[t]) {
-                    _bad = true;
-                    return;
-                }
+  protected:
+    void add_to_stub(uint32_t t) override {
+        // potential refinement of bad: can manually check whether firing t would violate some
+        // progressing formula.
+        if (_enabled[t]) {
+            _has_enabled_stubborn = true;
+            if (_unsafe[t]) {
+                _bad = true;
+                return;
             }
-            StubbornSet::add_to_stub(t);
         }
+        StubbornSet::add_to_stub(t);
+    }
 
-    private:
-        std::unique_ptr<bool[]> _unsafe;
-        bool _bad = false;
-        bool _has_enabled_stubborn = false;
-        PetriEngine::PQL::Condition_ptr _ret_cond;
-        PetriEngine::PQL::Condition_ptr _prog_cond;
-        PetriEngine::PQL::Condition_ptr _sink_cond;
+  private:
+    std::unique_ptr<bool[]> _unsafe;
+    bool _bad = false;
+    bool _has_enabled_stubborn = false;
+    PetriEngine::PQL::Condition_ptr _ret_cond;
+    PetriEngine::PQL::Condition_ptr _prog_cond;
+    PetriEngine::PQL::Condition_ptr _sink_cond;
 
-        void _print_debug();
-    };
-}
+    void _print_debug();
+};
+} // namespace LTL
 
-#endif //VERIFYPN_SAFEAUTSTUBBORNSET_H
+#endif // VERIFYPN_SAFEAUTSTUBBORNSET_H

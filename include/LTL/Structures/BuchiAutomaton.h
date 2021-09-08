@@ -18,8 +18,8 @@
 #ifndef VERIFYPN_BUCHIAUTOMATON_H
 #define VERIFYPN_BUCHIAUTOMATON_H
 
-#include "LTL/LTLToBuchi.h"
 #include "LTL/AlgorithmTypes.h"
+#include "LTL/LTLToBuchi.h"
 #include <spot/twa/twagraph.hh>
 #include <unordered_map>
 
@@ -28,60 +28,57 @@
 #include <spot/twaalgos/neverclaim.hh>
 
 namespace LTL::Structures {
-    struct BuchiAutomaton {
-        BuchiAutomaton(spot::twa_graph_ptr buchi, std::unordered_map<int, AtomicProposition> apInfo)
+struct BuchiAutomaton {
+    BuchiAutomaton(spot::twa_graph_ptr buchi, std::unordered_map<int, AtomicProposition> apInfo)
         : _buchi(std::move(buchi)), _ap_info(std::move(apInfo)) {
-            _dict = _buchi->get_dict();
+        _dict = _buchi->get_dict();
+    }
+
+    spot::twa_graph_ptr _buchi;
+    const std::unordered_map<int, AtomicProposition> _ap_info;
+    spot::bdd_dict_ptr _dict;
+
+    void output_buchi(const std::string &file, BuchiOutType type) {
+        std::ofstream fs(file);
+        switch (type) {
+        case BuchiOutType::Dot:
+            spot::print_dot(fs, _buchi);
+            break;
+        case BuchiOutType::HOA:
+            spot::print_hoa(fs, _buchi, "s");
+            break;
+        case BuchiOutType::Spin:
+            spot::print_never_claim(fs, _buchi);
+            break;
         }
+    }
 
-        spot::twa_graph_ptr _buchi;
-        const std::unordered_map<int, AtomicProposition> _ap_info;
-        spot::bdd_dict_ptr _dict;
-
-
-        void output_buchi(const std::string& file, BuchiOutType type)
-        {
-            std::ofstream fs(file);
-            switch (type) {
-                case BuchiOutType::Dot:
-                    spot::print_dot(fs, _buchi);
-                    break;
-                case BuchiOutType::HOA:
-                    spot::print_hoa(fs, _buchi, "s");
-                    break;
-                case BuchiOutType::Spin:
-                    spot::print_never_claim(fs, _buchi);
-                    break;
+    /**
+     * Evaluate binary decision diagram (BDD) representation of transition guard in given state.
+     */
+    bool guard_valid(PetriEngine::PQL::EvaluationContext &ctx, bdd bdd) const {
+        // IDs 0 and 1 are false and true atoms, respectively
+        // More details in buddy manual ( http://buddy.sourceforge.net/manual/main.html )
+        while (bdd.id() > 1) {
+            // find variable to test, and test it
+            size_t var = bdd_var(bdd);
+            using PetriEngine::PQL::Condition;
+            Condition::Result res = _ap_info.at(var)._expression->evaluate(ctx);
+            switch (res) {
+            case Condition::RUNKNOWN:
+                throw base_error("Unexpected unknown answer from evaluating query!\n");
+                break;
+            case Condition::RFALSE:
+                bdd = bdd_low(bdd);
+                break;
+            case Condition::RTRUE:
+                bdd = bdd_high(bdd);
+                break;
             }
         }
+        return bdd == bddtrue;
+    }
+};
+} // namespace LTL::Structures
 
-        /**
-         * Evaluate binary decision diagram (BDD) representation of transition guard in given state.
-         */
-        bool guard_valid(PetriEngine::PQL::EvaluationContext &ctx, bdd bdd) const
-        {
-            // IDs 0 and 1 are false and true atoms, respectively
-            // More details in buddy manual ( http://buddy.sourceforge.net/manual/main.html )
-            while (bdd.id() > 1) {
-                // find variable to test, and test it
-                size_t var = bdd_var(bdd);
-                using PetriEngine::PQL::Condition;
-                Condition::Result res = _ap_info.at(var)._expression->evaluate(ctx);
-                switch (res) {
-                    case Condition::RUNKNOWN:
-                        throw base_error("Unexpected unknown answer from evaluating query!\n");
-                        break;
-                    case Condition::RFALSE:
-                        bdd = bdd_low(bdd);
-                        break;
-                    case Condition::RTRUE:
-                        bdd = bdd_high(bdd);
-                        break;
-                }
-            }
-            return bdd == bddtrue;
-        }
-    };
-}
-
-#endif //VERIFYPN_BUCHIAUTOMATON_H
+#endif // VERIFYPN_BUCHIAUTOMATON_H

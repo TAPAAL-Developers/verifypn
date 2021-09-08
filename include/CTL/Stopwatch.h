@@ -11,7 +11,7 @@ class stopwatch {
     clock_t _start;
     clock_t _stop;
 
-public:
+  public:
     double started() const { return _start; }
     double stopped() const { return _stop; }
     bool running() const { return _running; }
@@ -23,14 +23,14 @@ public:
         _stop = clock();
         _running = false;
     }
-    double duration() const { return ( (double(_stop - _start))*1000)/CLOCKS_PER_SEC; }
+    double duration() const { return ((double(_stop - _start)) * 1000) / CLOCKS_PER_SEC; }
 
-    ostream &operator<<(ostream &os){
+    ostream &operator<<(ostream &os) {
         os << duration() << " ms";
         return os;
     }
 
-    std::string to_string(){
+    std::string to_string() {
         stringstream ss;
         ss << this;
         return ss.str();

@@ -18,15 +18,13 @@
 #ifndef VERIFYPN_LTLMAIN_H
 #define VERIFYPN_LTLMAIN_H
 
-#include "PetriEngine/PetriNet.h"
 #include "PetriEngine/PQL/PQL.h"
+#include "PetriEngine/PetriNet.h"
 #include "options.h"
 
 namespace LTL {
-    bool verify_ltl(const PetriEngine::PetriNet &net,
-                        const PetriEngine::PQL::Condition_ptr &query,
-                        const std::string &queryName,
-                        options_t &options);
+bool verify_ltl(const PetriEngine::PetriNet &net, const PetriEngine::PQL::Condition_ptr &query,
+                const std::string &queryName, options_t &options);
 }
 
-#endif //VERIFYPN_LTLMAIN_H
+#endif // VERIFYPN_LTLMAIN_H

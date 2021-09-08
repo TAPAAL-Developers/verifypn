@@ -19,10 +19,10 @@
 #define VERIFYPN_HEURISTICPARSER_H
 
 namespace LTL {
-    std::unique_ptr<LTL::Heuristic> parse_ltl_heuristic(const PetriEngine::PetriNet& net,
-                                                   const Structures::BuchiAutomaton &aut,
-                                                   const PetriEngine::PQL::Condition_ptr &cond,
-                                                   const char* heurString);
+std::unique_ptr<LTL::Heuristic> parse_ltl_heuristic(const PetriEngine::PetriNet &net,
+                                                    const Structures::BuchiAutomaton &aut,
+                                                    const PetriEngine::PQL::Condition_ptr &cond,
+                                                    const char *heurString);
 }
 
-#endif //VERIFYPN_HEURISTICPARSER_H
+#endif // VERIFYPN_HEURISTICPARSER_H

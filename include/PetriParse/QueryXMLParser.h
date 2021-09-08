@@ -19,12 +19,12 @@
 #define QUERYXMLPARSER_H
 
 #include <map>
-#include <string>
-#include <string.h>
-#include <vector>
 #include <memory>
-#include <sstream> 
 #include <set>
+#include <sstream>
+#include <string.h>
+#include <string>
+#include <vector>
 
 #include <rapidxml.hpp>
 
@@ -33,26 +33,25 @@
 using namespace PetriEngine::PQL;
 
 class QueryXMLParser {
-public:
+  public:
     QueryXMLParser();
     ~QueryXMLParser();
 
-    std::vector<QueryItem>  queries;
+    std::vector<QueryItem> queries;
 
-    bool parse(std::ifstream& xml, const std::set<size_t>& );
+    bool parse(std::ifstream &xml, const std::set<size_t> &);
     void print_queries();
     void print_queries(size_t i);
 
-private:
-    bool parse_property_set(rapidxml::xml_node<>* element, const std::set<size_t>&);
-    bool parse_property(rapidxml::xml_node<>*  element);
-    bool parse_tags(rapidxml::xml_node<>*  element);
-    Condition_ptr parse_formula(rapidxml::xml_node<>*  element);
-    Condition_ptr parse_boolean_formula(rapidxml::xml_node<>*  element);
-    Expr_ptr parse_integer_expression(rapidxml::xml_node<>*  element);
-    std::string parse_place(rapidxml::xml_node<>*  element);
-    void fatal_error(const std::string& token);
+  private:
+    bool parse_property_set(rapidxml::xml_node<> *element, const std::set<size_t> &);
+    bool parse_property(rapidxml::xml_node<> *element);
+    bool parse_tags(rapidxml::xml_node<> *element);
+    Condition_ptr parse_formula(rapidxml::xml_node<> *element);
+    Condition_ptr parse_boolean_formula(rapidxml::xml_node<> *element);
+    Expr_ptr parse_integer_expression(rapidxml::xml_node<> *element);
+    std::string parse_place(rapidxml::xml_node<> *element);
+    void fatal_error(const std::string &token);
 };
 
 #endif /* QUERYXMLPARSER_H */
-

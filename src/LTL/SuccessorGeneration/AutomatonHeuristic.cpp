@@ -27,12 +27,11 @@
  * This thus implements BFS_accept(q) for each NBA state q.
  */
 class reach_distance : public spot::bfs_steps {
-public:
+  public:
     explicit reach_distance(const spot::const_twa_graph_ptr &ptr) : spot::bfs_steps(ptr) {}
 
-private:
-    bool match(spot::twa_run::step &step, const spot::state *dest) override
-    {
+  private:
+    bool match(spot::twa_run::step &step, const spot::state *dest) override {
         return std::dynamic_pointer_cast<const spot::twa_graph>(a_)->state_is_accepting(dest);
     }
 
@@ -40,45 +39,41 @@ private:
 };
 
 namespace LTL {
-    AutomatonHeuristic::AutomatonHeuristic( const PetriEngine::PetriNet& net,
-                                            const Structures::BuchiAutomaton &aut)
-            : _net(net), _aut(aut), _bfs_dists(aut._buchi->num_states())
-    {
-        _state_guards = std::move(GuardInfo::from_automaton(_aut));
+AutomatonHeuristic::AutomatonHeuristic(const PetriEngine::PetriNet &net,
+                                       const Structures::BuchiAutomaton &aut)
+    : _net(net), _aut(aut), _bfs_dists(aut._buchi->num_states()) {
+    _state_guards = std::move(GuardInfo::from_automaton(_aut));
 
-        reach_distance bfs_calc{_aut._buchi};
-        for (unsigned state = 0; state < _aut._buchi->num_states(); ++state) {
-            if (_aut._buchi->state_is_accepting(state)) {
-                _bfs_dists[state] = 1;
-            } else {
-                spot::twa_run::steps steps;
-                // Calculate BFS distance to accepting state.
-                bfs_calc.search(_aut._buchi->state_from_number(state), steps);
-                _bfs_dists[state] = steps.size() + 1;
-            }
+    reach_distance bfs_calc{_aut._buchi};
+    for (unsigned state = 0; state < _aut._buchi->num_states(); ++state) {
+        if (_aut._buchi->state_is_accepting(state)) {
+            _bfs_dists[state] = 1;
+        } else {
+            spot::twa_run::steps steps;
+            // Calculate BFS distance to accepting state.
+            bfs_calc.search(_aut._buchi->state_from_number(state), steps);
+            _bfs_dists[state] = steps.size() + 1;
         }
     }
+}
 
-    uint32_t AutomatonHeuristic::eval(const Structures::ProductState &state, uint32_t)
-    {
-        assert(state.get_buchi_state() < _state_guards.size());
-        const auto &guardInfo = _state_guards[state.get_buchi_state()];
-        if (guardInfo._is_accepting)
-            return 0;
-        uint32_t min_dist = std::numeric_limits<uint32_t>::max();
-        PetriEngine::PQL::DistanceContext context{_net, state.marking()};
-        for (const auto& guard : guardInfo._progressing) {
-            uint32_t dist = _bfs_dists[guard._dest] * guard._condition->distance(context);
-            if (dist < min_dist)
-                min_dist = dist;
-        }
-        return min_dist;
+uint32_t AutomatonHeuristic::eval(const Structures::ProductState &state, uint32_t) {
+    assert(state.get_buchi_state() < _state_guards.size());
+    const auto &guardInfo = _state_guards[state.get_buchi_state()];
+    if (guardInfo._is_accepting)
+        return 0;
+    uint32_t min_dist = std::numeric_limits<uint32_t>::max();
+    PetriEngine::PQL::DistanceContext context{_net, state.marking()};
+    for (const auto &guard : guardInfo._progressing) {
+        uint32_t dist = _bfs_dists[guard._dest] * guard._condition->distance(context);
+        if (dist < min_dist)
+            min_dist = dist;
     }
+    return min_dist;
+}
 
-    bool AutomatonHeuristic::has_heuristic(const Structures::ProductState &state)
-    {
-        assert(state.get_buchi_state() < _state_guards.size());
-        return !_state_guards[state.get_buchi_state()]._is_accepting;
-    }
+bool AutomatonHeuristic::has_heuristic(const Structures::ProductState &state) {
+    assert(state.get_buchi_state() < _state_guards.size());
+    return !_state_guards[state.get_buchi_state()]._is_accepting;
+}
 } // namespace LTL
-

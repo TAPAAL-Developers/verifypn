@@ -19,29 +19,27 @@
 #define VERIFYPN_AUTOMATONHEURISTIC_H
 
 #include "LTL/Structures/BuchiAutomaton.h"
-#include "LTL/SuccessorGeneration/Heuristic.h"
 #include "LTL/Structures/GuardInfo.h"
+#include "LTL/SuccessorGeneration/Heuristic.h"
 
 namespace LTL {
-    class AutomatonHeuristic : public Heuristic {
-    public:
-        AutomatonHeuristic(const PetriEngine::PetriNet& net, const Structures::BuchiAutomaton &aut);
+class AutomatonHeuristic : public Heuristic {
+  public:
+    AutomatonHeuristic(const PetriEngine::PetriNet &net, const Structures::BuchiAutomaton &aut);
 
-        uint32_t eval(const Structures::ProductState &state, uint32_t tid) override;
+    uint32_t eval(const Structures::ProductState &state, uint32_t tid) override;
 
-        bool has_heuristic(const Structures::ProductState &state) override;
+    bool has_heuristic(const Structures::ProductState &state) override;
 
-        std::ostream &output(std::ostream &os) {
-            return os << "AUTOMATON_HEUR";
-        }
+    std::ostream &output(std::ostream &os) { return os << "AUTOMATON_HEUR"; }
 
-    protected:
-        const PetriEngine::PetriNet& _net;
-        const LTL::Structures::BuchiAutomaton& _aut;
-        std::vector<GuardInfo> _state_guards;
+  protected:
+    const PetriEngine::PetriNet &_net;
+    const LTL::Structures::BuchiAutomaton &_aut;
+    std::vector<GuardInfo> _state_guards;
 
-        std::vector<uint32_t> _bfs_dists;
-    };
-}
+    std::vector<uint32_t> _bfs_dists;
+};
+} // namespace LTL
 
-#endif //VERIFYPN_AUTOMATONHEURISTIC_H
+#endif // VERIFYPN_AUTOMATONHEURISTIC_H

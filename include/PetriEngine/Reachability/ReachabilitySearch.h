@@ -20,190 +20,172 @@
 #ifndef BREADTHFIRSTREACHABILITYSEARCH_H
 #define BREADTHFIRSTREACHABILITYSEARCH_H
 
-#include "../Structures/State.h"
-#include "ReachabilityResult.h"
 #include "../PQL/PQL.h"
 #include "../PetriNet.h"
-#include "../Structures/StateSet.h"
-#include "../Structures/Queue.h"
-#include "../SuccessorGenerator.h"
 #include "../ReducingSuccessorGenerator.h"
+#include "../Structures/Queue.h"
+#include "../Structures/State.h"
+#include "../Structures/StateSet.h"
+#include "../SuccessorGenerator.h"
 #include "PetriEngine/Stubborn/ReachabilityStubbornSet.h"
+#include "ReachabilityResult.h"
 #include "options.h"
 
+#include <PetriEngine/Stubborn/ReachabilityStubbornSet.h>
 #include <memory>
 #include <vector>
-#include <PetriEngine/Stubborn/ReachabilityStubbornSet.h>
-
 
 namespace PetriEngine {
-    namespace Reachability {
+namespace Reachability {
 
-        /** Implements reachability check in a BFS manner using a hash table */
-        class ReachabilitySearch {
-        public:
+/** Implements reachability check in a BFS manner using a hash table */
+class ReachabilitySearch {
+  public:
+    ReachabilitySearch(const PetriNet &net, AbstractHandler &callback, int kbound = 0,
+                       bool early = false)
+        : _net(net), _kbound(kbound), _callback(callback) {}
 
-            ReachabilitySearch(const PetriNet& net, AbstractHandler& callback, int kbound = 0, bool early = false)
-            : _net(net), _kbound(kbound), _callback(callback) {
-            }
+    ~ReachabilitySearch() {}
 
-            ~ReachabilitySearch()
-            {
-            }
+    /** Perform reachability check using BFS with hasing */
+    bool reachable(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
+                   std::vector<ResultPrinter::Result> &results,
+                   options_t::search_strategy_e strategy, bool usestubborn, bool statespacesearch,
+                   bool printstats, bool keep_trace, size_t seed);
 
-            /** Perform reachability check using BFS with hasing */
-            bool reachable(
-                    const std::vector<std::shared_ptr<PQL::Condition > >& queries,
-                    std::vector<ResultPrinter::Result>& results,
-                    options_t::search_strategy_e strategy,
-                    bool usestubborn,
-                    bool statespacesearch,
-                    bool printstats,
-                    bool keep_trace,
-                    size_t seed);
-        private:
-            struct searchstate_t {
-                size_t _expandedStates = 0;
-                size_t _exploredStates = 1;
-                std::vector<size_t> _enabledTransitionsCount;
-                size_t _heurquery = 0;
-                bool _usequeries;
-            };
+  private:
+    struct searchstate_t {
+        size_t _expandedStates = 0;
+        size_t _exploredStates = 1;
+        std::vector<size_t> _enabledTransitionsCount;
+        size_t _heurquery = 0;
+        bool _usequeries;
+    };
 
-            template<typename Q, typename W = Structures::StateSet, typename G>
-            bool try_reach(
-                const std::vector<std::shared_ptr<PQL::Condition > >& queries,
-                std::vector<ResultPrinter::Result>& results,
-                bool usequeries,
-                bool printstats,
-                size_t seed);
+    template <typename Q, typename W = Structures::StateSet, typename G>
+    bool try_reach(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
+                   std::vector<ResultPrinter::Result> &results, bool usequeries, bool printstats,
+                   size_t seed);
 
-            template<typename Q>
-            Q init_q(Structures::StateSetInterface& states, size_t seed)
-            {
-                if constexpr (std::is_same<Q, Structures::RDFSQueue>::value)
-                    return Q(states, seed);
-                else
-                    return Q(states);
-            }
-
-            template<typename Q>
-            void push_to_q(Q& queue, size_t id, const MarkVal* marking, const PQL::Condition& query)
-            {
-                if constexpr (std::is_same<Q, Structures::HeuristicQueue>::value)
-                {
-                    PQL::DistanceContext dc(_net, marking);
-                    queue.push(id, query.distance(dc));
-                }
-                else
-                    queue.push(id);
-            }
-
-
-            void handle_completion(const searchstate_t& s, const Structures::StateSetInterface&);
-            bool check_queries( const std::vector<std::shared_ptr<PQL::Condition > >&,
-                                std::vector<ResultPrinter::Result>&,
-                                const Structures::State&, searchstate_t&, const Structures::StateSetInterface&);
-            std::pair<ResultPrinter::Result,bool> do_callback(const PQL::Condition& query,
-            size_t i, ResultPrinter::Result r, const searchstate_t &ss, const Structures::StateSetInterface& states);
-
-            const PetriNet& _net;
-            int _kbound;
-            size_t _satisfyingMarking = 0;
-            Structures::State _initial;
-            AbstractHandler& _callback;
-        };
-
-        template <typename G>
-        inline G _make_suc_gen(const PetriNet &net, const std::vector<PQL::Condition_ptr> &queries) {
-            return G(net, queries);
-        }
-        template <>
-        inline ReducingSuccessorGenerator _make_suc_gen(const PetriNet &net, const std::vector<PQL::Condition_ptr> &queries) {
-            auto stubset = std::make_shared<ReachabilityStubbornSet>(net, queries);
-            stubset->set_interesting_visitor<InterestingTransitionVisitor>();
-            return ReducingSuccessorGenerator{net, stubset};
-        }
-
-
-        template<typename Q, typename W, typename G>
-        bool ReachabilitySearch::try_reach(const std::vector<std::shared_ptr<PQL::Condition> >& queries,
-                                        std::vector<ResultPrinter::Result>& results, bool usequeries,
-                                        bool printstats, size_t seed)
-        {
-
-            // set up state
-            searchstate_t ss;
-            ss._enabledTransitionsCount.resize(_net.number_of_transitions(), 0);
-            ss._expandedStates = 0;
-            ss._exploredStates = 1;
-            ss._heurquery = queries.size() >= 2 ? std::rand() % queries.size() : 0;
-            ss._usequeries = usequeries;
-
-            // set up working area
-            Structures::State state;
-            Structures::State working;
-            _initial.set_marking(_net.make_initial_marking());
-            state.set_marking(_net.make_initial_marking());
-            working.set_marking(_net.make_initial_marking());
-
-            W states(_net, _kbound);    // stateset
-            Q queue = init_q<Q>(states, seed);           // working queue
-            G generator = _make_suc_gen<G>(_net, queries); // successor generator
-            auto r = states.add(state);
-            // this can fail due to reductions; we push tokens around and violate K
-            if(r.first){
-                // add initial to states, check queries on initial state
-                _satisfyingMarking = r.second;
-                // check initial marking
-                if(ss._usequeries)
-                {
-                    if(check_queries(queries, results, working, ss, states))
-                    {
-                        if(printstats) handle_completion(ss, states);
-                            return true;
-                    }
-                }
-                // add initial to queue
-                push_to_q(queue, r.second, working.marking(), *queries[ss._heurquery]);
-
-                // Search!
-                while (queue.pop(state)) {
-                    generator.prepare(state);
-
-                    while(generator.next(working)){
-                        ss._enabledTransitionsCount[generator.fired()]++;
-                        auto res = states.add(working);
-                        if (res.first) {
-                            push_to_q(queue, res.second, working.marking(), *queries[ss._heurquery]);
-                            states.set_history(res.second, generator.fired());
-                            _satisfyingMarking = res.second;
-                            ss._exploredStates++;
-                            if (check_queries(queries, results, working, ss, states)) {
-                                if(printstats) handle_completion(ss, states);
-                                return true;
-                            }
-                        }
-                    }
-                    ss._expandedStates++;
-                }
-            }
-
-            // no more successors, print last results
-            for(size_t i= 0; i < queries.size(); ++i)
-            {
-                if(results[i] == ResultPrinter::Unknown)
-                {
-                    results[i] = do_callback(*queries[i], i, ResultPrinter::NotSatisfied, ss, states).first;
-                }
-            }
-
-            if(printstats) handle_completion(ss, states);
-            return false;
-        }
-
-
+    template <typename Q> Q init_q(Structures::StateSetInterface &states, size_t seed) {
+        if constexpr (std::is_same<Q, Structures::RDFSQueue>::value)
+            return Q(states, seed);
+        else
+            return Q(states);
     }
-} // Namespaces
+
+    template <typename Q>
+    void push_to_q(Q &queue, size_t id, const MarkVal *marking, const PQL::Condition &query) {
+        if constexpr (std::is_same<Q, Structures::HeuristicQueue>::value) {
+            PQL::DistanceContext dc(_net, marking);
+            queue.push(id, query.distance(dc));
+        } else
+            queue.push(id);
+    }
+
+    void handle_completion(const searchstate_t &s, const Structures::StateSetInterface &);
+    bool check_queries(const std::vector<std::shared_ptr<PQL::Condition>> &,
+                       std::vector<ResultPrinter::Result> &, const Structures::State &,
+                       searchstate_t &, const Structures::StateSetInterface &);
+    std::pair<ResultPrinter::Result, bool> do_callback(const PQL::Condition &query, size_t i,
+                                                       ResultPrinter::Result r,
+                                                       const searchstate_t &ss,
+                                                       const Structures::StateSetInterface &states);
+
+    const PetriNet &_net;
+    int _kbound;
+    size_t _satisfyingMarking = 0;
+    Structures::State _initial;
+    AbstractHandler &_callback;
+};
+
+template <typename G>
+inline G _make_suc_gen(const PetriNet &net, const std::vector<PQL::Condition_ptr> &queries) {
+    return G(net, queries);
+}
+template <>
+inline ReducingSuccessorGenerator _make_suc_gen(const PetriNet &net,
+                                                const std::vector<PQL::Condition_ptr> &queries) {
+    auto stubset = std::make_shared<ReachabilityStubbornSet>(net, queries);
+    stubset->set_interesting_visitor<InterestingTransitionVisitor>();
+    return ReducingSuccessorGenerator{net, stubset};
+}
+
+template <typename Q, typename W, typename G>
+bool ReachabilitySearch::try_reach(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
+                                   std::vector<ResultPrinter::Result> &results, bool usequeries,
+                                   bool printstats, size_t seed) {
+
+    // set up state
+    searchstate_t ss;
+    ss._enabledTransitionsCount.resize(_net.number_of_transitions(), 0);
+    ss._expandedStates = 0;
+    ss._exploredStates = 1;
+    ss._heurquery = queries.size() >= 2 ? std::rand() % queries.size() : 0;
+    ss._usequeries = usequeries;
+
+    // set up working area
+    Structures::State state;
+    Structures::State working;
+    _initial.set_marking(_net.make_initial_marking());
+    state.set_marking(_net.make_initial_marking());
+    working.set_marking(_net.make_initial_marking());
+
+    W states(_net, _kbound);                       // stateset
+    Q queue = init_q<Q>(states, seed);             // working queue
+    G generator = _make_suc_gen<G>(_net, queries); // successor generator
+    auto r = states.add(state);
+    // this can fail due to reductions; we push tokens around and violate K
+    if (r.first) {
+        // add initial to states, check queries on initial state
+        _satisfyingMarking = r.second;
+        // check initial marking
+        if (ss._usequeries) {
+            if (check_queries(queries, results, working, ss, states)) {
+                if (printstats)
+                    handle_completion(ss, states);
+                return true;
+            }
+        }
+        // add initial to queue
+        push_to_q(queue, r.second, working.marking(), *queries[ss._heurquery]);
+
+        // Search!
+        while (queue.pop(state)) {
+            generator.prepare(state);
+
+            while (generator.next(working)) {
+                ss._enabledTransitionsCount[generator.fired()]++;
+                auto res = states.add(working);
+                if (res.first) {
+                    push_to_q(queue, res.second, working.marking(), *queries[ss._heurquery]);
+                    states.set_history(res.second, generator.fired());
+                    _satisfyingMarking = res.second;
+                    ss._exploredStates++;
+                    if (check_queries(queries, results, working, ss, states)) {
+                        if (printstats)
+                            handle_completion(ss, states);
+                        return true;
+                    }
+                }
+            }
+            ss._expandedStates++;
+        }
+    }
+
+    // no more successors, print last results
+    for (size_t i = 0; i < queries.size(); ++i) {
+        if (results[i] == ResultPrinter::Unknown) {
+            results[i] = do_callback(*queries[i], i, ResultPrinter::NotSatisfied, ss, states).first;
+        }
+    }
+
+    if (printstats)
+        handle_completion(ss, states);
+    return false;
+}
+
+} // namespace Reachability
+} // namespace PetriEngine
 
 #endif // BREADTHFIRSTREACHABILITYSEARCH_H

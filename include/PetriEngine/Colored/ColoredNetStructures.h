@@ -20,42 +20,41 @@
 #ifndef COLOREDNETSTRUCTURES_H
 #define COLOREDNETSTRUCTURES_H
 
-#include <vector>
-#include <set>
-#include <assert.h>
 #include "Colors.h"
 #include "Expressions.h"
 #include "Multiset.h"
+#include <assert.h>
+#include <set>
+#include <vector>
 
 namespace PetriEngine {
-    namespace Colored {
+namespace Colored {
 
-        struct Arc {
-            uint32_t _place;
-            uint32_t _transition;
-            ArcExpression_ptr _expr;
-            bool _input;
-            uint32_t _weight;
-        };
+struct Arc {
+    uint32_t _place;
+    uint32_t _transition;
+    ArcExpression_ptr _expr;
+    bool _input;
+    uint32_t _weight;
+};
 
-        struct Transition {
-            std::string _name;
-            GuardExpression_ptr _guard;
-            std::vector<Arc> _input_arcs;
-            std::vector<Arc> _output_arcs;
-            std::vector<std::unordered_map<const Variable *, interval_vector_t>> _variable_maps;
-            bool _considered;
-        };
+struct Transition {
+    std::string _name;
+    GuardExpression_ptr _guard;
+    std::vector<Arc> _input_arcs;
+    std::vector<Arc> _output_arcs;
+    std::vector<std::unordered_map<const Variable *, interval_vector_t>> _variable_maps;
+    bool _considered;
+};
 
-        struct Place {
-            std::string _name;
-            const ColorType* _type;
-            Multiset _marking;
-            bool _inhibitor;
-            bool _stable = true;
-        };
-    }
-}
+struct Place {
+    std::string _name;
+    const ColorType *_type;
+    Multiset _marking;
+    bool _inhibitor;
+    bool _stable = true;
+};
+} // namespace Colored
+} // namespace PetriEngine
 
 #endif /* COLOREDNETSTRUCTURES_H */
-

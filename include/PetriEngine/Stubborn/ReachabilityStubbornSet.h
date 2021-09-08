@@ -18,36 +18,34 @@
 #ifndef VERIFYPN_REACHABILITYSTUBBORNSET_H
 #define VERIFYPN_REACHABILITYSTUBBORNSET_H
 
-
-#include "PetriEngine/Stubborn/StubbornSet.h"
 #include "InterestingTransitionVisitor.h"
+#include "PetriEngine/Stubborn/StubbornSet.h"
 
 namespace PetriEngine {
-    class ReachabilityStubbornSet : public StubbornSet {
-    public:
-        ReachabilityStubbornSet(const PetriNet &net, const std::vector<PQL::Condition_ptr> &queries, bool closure = true)
-                : StubbornSet(net, queries), _closure(closure) {
-            set_interesting_visitor<InterestingTransitionVisitor>();
-        }
+class ReachabilityStubbornSet : public StubbornSet {
+  public:
+    ReachabilityStubbornSet(const PetriNet &net, const std::vector<PQL::Condition_ptr> &queries,
+                            bool closure = true)
+        : StubbornSet(net, queries), _closure(closure) {
+        set_interesting_visitor<InterestingTransitionVisitor>();
+    }
 
-        ReachabilityStubbornSet(const PetriNet &net, bool closure = true)
-                : StubbornSet(net) , _closure(closure) {
-            set_interesting_visitor<InterestingTransitionVisitor>();
-        }
+    ReachabilityStubbornSet(const PetriNet &net, bool closure = true)
+        : StubbornSet(net), _closure(closure) {
+        set_interesting_visitor<InterestingTransitionVisitor>();
+    }
 
-        bool prepare(const Structures::State& state) override;
+    bool prepare(const Structures::State &state) override;
 
-        template <typename TVisitor>
-        void set_interesting_visitor()
-        {
-            _interesting = std::make_unique<TVisitor>(*this, _closure);
-        }
+    template <typename TVisitor> void set_interesting_visitor() {
+        _interesting = std::make_unique<TVisitor>(*this, _closure);
+    }
 
-    private:
-        std::unique_ptr<InterestingTransitionVisitor> _interesting;
+  private:
+    std::unique_ptr<InterestingTransitionVisitor> _interesting;
 
-        bool _closure;
-    };
-}
+    bool _closure;
+};
+} // namespace PetriEngine
 
-#endif //VERIFYPN_REACHABILITYSTUBBORNSET_H
+#endif // VERIFYPN_REACHABILITYSTUBBORNSET_H

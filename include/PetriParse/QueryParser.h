@@ -2,7 +2,6 @@
 #ifndef QUERYPARSER_H
 #define QUERYPARSER_H
 
-
 #include "PetriEngine/PQL/PQL.h"
 
 struct QueryItem {
@@ -15,6 +14,4 @@ struct QueryItem {
     } _parsing_result;
 };
 
-
 #endif /* QUERYPARSER_H */
-

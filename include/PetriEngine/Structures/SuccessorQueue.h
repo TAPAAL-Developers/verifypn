@@ -1,16 +1,16 @@
 /* Copyright (C) 2021  Nikolaj J. Ulrik <nikolaj@njulrik.dk>,
  *                     Simon M. Virenfeldt <simon@simwir.dk>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,55 +20,42 @@
 
 #include <algorithm>
 #include <cassert>
-#include <memory>
 #include <cstdint>
+#include <memory>
 
 /**
  * light_deque derivative, designed for 'read-mostly' access
  * to list of successors. Popped elements are preserved post-mortem.
  */
-template <typename T = uint32_t>
-class SuccessorQueue {
-public:
-    SuccessorQueue(T *src, uint32_t nelem)
-            : _front(0), _size(nelem)
-    {
+template <typename T = uint32_t> class SuccessorQueue {
+  public:
+    SuccessorQueue(T *src, uint32_t nelem) : _front(0), _size(nelem) {
         _data = std::make_unique<T[]>(nelem);
         memcpy(_data.get(), src, sizeof(T) * nelem);
     }
 
     // construct from array of different type, using fn as transformation function.
     template <typename U, typename Fn>
-    SuccessorQueue(std::vector<U> &src, Fn&& fn)
-            : _front(0), _size(src.size())
-    {
+    SuccessorQueue(std::vector<U> &src, Fn &&fn) : _front(0), _size(src.size()) {
         _data = std::make_unique<T[]>(src.size());
         std::transform(std::begin(src), std::end(src), _data.get(), fn);
     }
 
-    SuccessorQueue() noexcept :_front(0), _size(0), _data(nullptr) {}
+    SuccessorQueue() noexcept : _front(0), _size(0), _data(nullptr) {}
 
-    [[nodiscard]] T front() const
-    {
+    [[nodiscard]] T front() const {
         assert(!empty());
         return _data[_front];
     }
 
-    void pop()
-    {
+    void pop() {
         assert(!empty());
         ++_front;
     }
 
-    [[nodiscard]] size_t size() const
-    {
-        return _size - _front;
-    }
+    [[nodiscard]] size_t size() const { return _size - _front; }
 
-    [[nodiscard]] bool empty() const
-    {
-        return _front >= _size;
-    }
+    [[nodiscard]] bool empty() const { return _front >= _size; }
 
     [[nodiscard]] bool valid() const { return _data != nullptr; }
 
@@ -87,12 +74,11 @@ public:
      * @param src C-array containing the new successor list
      * @param nelem the length of src
      */
-    void extend_to(T *src, uint32_t nelem)
-    {
+    void extend_to(T *src, uint32_t nelem) {
         assert(nelem >= _size); // Cannot extend to fewer elements.
         auto newdata = std::make_unique<T[]>(nelem);
         if (_front != 0) {
-            //Add previously fired transitions to start of array.
+            // Add previously fired transitions to start of array.
             memcpy(newdata.get(), _data.get(), sizeof(T) * _front);
         }
         uint32_t sz = _front;
@@ -120,14 +106,12 @@ public:
         _data.swap(newdata);
     }
 
-    std::pair<T*, T*> all_successors() {
-        return std::make_pair(_data.get(), &_data[_size]);
-    }
+    std::pair<T *, T *> all_successors() { return std::make_pair(_data.get(), &_data[_size]); }
 
-private:
+  private:
     uint32_t _front; /* index of first element */
     uint32_t _size;  /* size of data array */
     std::unique_ptr<T[]> _data;
 };
 
-#endif //VERIFYPN_SUCCESSORQUEUE_H
+#endif // VERIFYPN_SUCCESSORQUEUE_H

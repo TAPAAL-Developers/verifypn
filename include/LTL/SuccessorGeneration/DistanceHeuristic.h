@@ -20,27 +20,26 @@
 
 #include "LTL/SuccessorGeneration/Heuristic.h"
 
-#include <utility>
 #include "PetriEngine/PQL/Contexts.h"
+#include <utility>
 
 namespace LTL {
-    class DistanceHeuristic : public Heuristic {
-    public:
-        DistanceHeuristic(const PetriEngine::PetriNet& net, PetriEngine::PQL::Condition_ptr cond) : _net(net), _cond(std::move(cond)) {}
+class DistanceHeuristic : public Heuristic {
+  public:
+    DistanceHeuristic(const PetriEngine::PetriNet &net, PetriEngine::PQL::Condition_ptr cond)
+        : _net(net), _cond(std::move(cond)) {}
 
-        uint32_t eval(const Structures::ProductState &state, uint32_t tid) override
-        {
-            PetriEngine::PQL::DistanceContext context{_net, state.marking()};
-            return _cond->distance(context);
-        }
+    uint32_t eval(const Structures::ProductState &state, uint32_t tid) override {
+        PetriEngine::PQL::DistanceContext context{_net, state.marking()};
+        return _cond->distance(context);
+    }
 
-        std::ostream &output(std::ostream &os) {
-            return os << "DIST_HEUR";
-        }
-    private:
-        const PetriEngine::PetriNet& _net;
-        const PetriEngine::PQL::Condition_ptr _cond;
-    };
-}
+    std::ostream &output(std::ostream &os) { return os << "DIST_HEUR"; }
 
-#endif //VERIFYPN_DISTANCEHEURISTIC_H
+  private:
+    const PetriEngine::PetriNet &_net;
+    const PetriEngine::PQL::Condition_ptr _cond;
+};
+} // namespace LTL
+
+#endif // VERIFYPN_DISTANCEHEURISTIC_H

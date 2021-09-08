@@ -20,221 +20,179 @@
 #ifndef CONTEXTS_H
 #define CONTEXTS_H
 
+#include "../NetStructures.h"
 #include "../PetriNet.h"
 #include "PQL.h"
-#include "../NetStructures.h"
 
-#include <string>
-#include <vector>
-#include <list>
-#include <map>
 #include <chrono>
 #include <glpk.h>
+#include <list>
+#include <map>
+#include <string>
+#include <vector>
 
 namespace PetriEngine {
-    namespace PQL {
+namespace PQL {
 
-        /** Context provided for context analysis */
-        class AnalysisContext {
-        protected:
-            const std::unordered_map<std::string, uint32_t>& _placeNames;
-            const std::unordered_map<std::string, uint32_t>& _transitionNames;
-            const PetriNet* _net;
-            std::vector<ExprError> _errors;
-        public:
+/** Context provided for context analysis */
+class AnalysisContext {
+  protected:
+    const std::unordered_map<std::string, uint32_t> &_placeNames;
+    const std::unordered_map<std::string, uint32_t> &_transitionNames;
+    const PetriNet *_net;
+    std::vector<ExprError> _errors;
 
-            /** A resolution result */
-            struct ResolutionResult {
-                /** Offset in relevant vector */
-                int _offset;
-                /** True, if the resolution was successful */
-                bool _success;
-            };
+  public:
+    /** A resolution result */
+    struct ResolutionResult {
+        /** Offset in relevant vector */
+        int _offset;
+        /** True, if the resolution was successful */
+        bool _success;
+    };
 
-            AnalysisContext(const std::unordered_map<std::string, uint32_t>& places, const std::unordered_map<std::string, uint32_t>& tnames, const PetriNet* net)
-            : _placeNames(places), _transitionNames(tnames), _net(net) {
+    AnalysisContext(const std::unordered_map<std::string, uint32_t> &places,
+                    const std::unordered_map<std::string, uint32_t> &tnames, const PetriNet *net)
+        : _placeNames(places), _transitionNames(tnames), _net(net) {}
 
-            }
+    virtual void set_has_deadlock(){};
 
-            virtual void set_has_deadlock(){};
+    const PetriNet &net() const { return *_net; }
 
-            const PetriNet& net() const
-            {
-                return *_net;
-            }
+    /** Resolve an identifier */
+    virtual ResolutionResult resolve(const std::string &identifier, bool place = true);
 
-            /** Resolve an identifier */
-            virtual ResolutionResult resolve(const std::string& identifier, bool place = true);
+    /** Report error */
+    void report_error(const ExprError &error) { _errors.push_back(error); }
 
-            /** Report error */
-            void report_error(const ExprError& error) {
-                _errors.push_back(error);
-            }
+    /** Get list of errors */
+    const std::vector<ExprError> &errors() const { return _errors; }
+    auto &all_place_names() const { return _placeNames; }
+    auto &all_transition_names() const { return _transitionNames; }
+};
 
-            /** Get list of errors */
-            const std::vector<ExprError>& errors() const {
-                return _errors;
-            }
-            auto& all_place_names() const { return _placeNames; }
-            auto& all_transition_names() const { return _transitionNames; }
+class ColoredAnalysisContext : public AnalysisContext {
+  protected:
+    const std::unordered_map<std::string, std::unordered_map<uint32_t, std::string>>
+        &_coloredPlaceNames;
+    const std::unordered_map<std::string, std::vector<std::string>> &_coloredTransitionNames;
 
-        };
+    bool _colored;
 
-        class ColoredAnalysisContext : public AnalysisContext {
-        protected:
-            const std::unordered_map<std::string, std::unordered_map<uint32_t , std::string>>& _coloredPlaceNames;
-            const std::unordered_map<std::string, std::vector<std::string>>& _coloredTransitionNames;
+  public:
+    ColoredAnalysisContext(
+        const std::unordered_map<std::string, uint32_t> &places,
+        const std::unordered_map<std::string, uint32_t> &tnames, const PetriNet &net,
+        const std::unordered_map<std::string, std::unordered_map<uint32_t, std::string>> &cplaces,
+        const std::unordered_map<std::string, std::vector<std::string>> &ctnames, bool colored)
+        : AnalysisContext(places, tnames, &net), _coloredPlaceNames(cplaces),
+          _coloredTransitionNames(ctnames), _colored(colored) {}
 
-            bool _colored;
+    bool resolve_place(const std::string &place, std::unordered_map<uint32_t, std::string> &out);
 
-        public:
-            ColoredAnalysisContext(const std::unordered_map<std::string, uint32_t>& places,
-                                   const std::unordered_map<std::string, uint32_t>& tnames,
-                                   const PetriNet& net,
-                                   const std::unordered_map<std::string, std::unordered_map<uint32_t , std::string>>& cplaces,
-                                   const std::unordered_map<std::string, std::vector<std::string>>& ctnames,
-                                   bool colored)
-                    : AnalysisContext(places, tnames, &net),
-                      _coloredPlaceNames(cplaces),
-                      _coloredTransitionNames(ctnames),
-                      _colored(colored)
-            {}
+    bool resolve_transition(const std::string &transition, std::vector<std::string> &out);
 
-            bool resolve_place(const std::string& place, std::unordered_map<uint32_t,std::string>& out);
+    bool is_colored() const { return _colored; }
 
-            bool resolve_transition(const std::string& transition, std::vector<std::string>& out);
+    auto &all_colored_place_names() const { return _coloredPlaceNames; }
+    auto &all_colored_transition_names() const { return _coloredTransitionNames; }
+};
 
-            bool is_colored() const {
-                return _colored;
-            }
+/** Context provided for evalation */
+class EvaluationContext {
+  public:
+    /** Create evaluation context, this doesn't take ownership */
+    EvaluationContext(const MarkVal *marking, const PetriNet *net) : _marking(marking), _net(net) {}
 
-            auto& all_colored_place_names() const { return _coloredPlaceNames; }
-            auto& all_colored_transition_names() const { return _coloredTransitionNames; }
-        };
+    EvaluationContext(const MarkVal *marking, const PetriNet &net)
+        : _marking(marking), _net(&net) {}
 
-        /** Context provided for evalation */
-        class EvaluationContext {
-        public:
+    EvaluationContext(){};
 
-            /** Create evaluation context, this doesn't take ownership */
-            EvaluationContext(const MarkVal* marking,
-                    const PetriNet* net) : _marking(marking), _net(net) {
-            }
+    const MarkVal *marking() const { return _marking; }
 
-            EvaluationContext(const MarkVal* marking,
-                    const PetriNet& net) : _marking(marking), _net(&net) {
-            }
+    void set_marking(MarkVal *marking) { _marking = marking; }
 
-            EvaluationContext() {};
+    const PetriNet *net() const { return _net; }
 
-            const MarkVal* marking() const {
-                return _marking;
-            }
+  private:
+    const MarkVal *_marking = nullptr;
+    const PetriNet *_net;
+};
 
-            void set_marking(MarkVal* marking) {
-                _marking = marking;
-            }
+/** Context for distance computation */
+class DistanceContext : public EvaluationContext {
+  public:
+    DistanceContext(const PetriNet &net, const MarkVal *marking)
+        : EvaluationContext(marking, &net) {
+        _negated = false;
+    }
 
-            const PetriNet* net() const {
-                return _net;
-            }
-        private:
-            const MarkVal* _marking = nullptr;
-            const PetriNet* _net;
-        };
+    void negate() { _negated = !_negated; }
 
-        /** Context for distance computation */
-        class DistanceContext : public EvaluationContext {
-        public:
+    bool negated() const { return _negated; }
 
-            DistanceContext(const PetriNet& net,
-                    const MarkVal* marking)
-            : EvaluationContext(marking, &net) {
-                _negated = false;
-            }
+  private:
+    bool _negated;
+};
 
+/** Context for condition to TAPAAL export */
+class TAPAALConditionExportContext {
+  public:
+    bool _failed;
+    std::string _netName;
+};
 
-            void negate() {
-                _negated = !_negated;
-            }
+class SimplificationContext {
+  public:
+    SimplificationContext(const MarkVal *marking, const PetriNet &net, uint32_t queryTimeout,
+                          uint32_t lpTimeout)
+        : _negated(false), _marking(marking), _net(net), _queryTimeout(queryTimeout),
+          _lpTimeout(lpTimeout) {
+        _base_lp = build_base();
+        _start = std::chrono::high_resolution_clock::now();
+    }
 
-            bool negated() const {
-                return _negated;
-            }
+    virtual ~SimplificationContext() {
+        if (_base_lp != nullptr)
+            glp_delete_prob(_base_lp);
+        _base_lp = nullptr;
+    }
 
-        private:
-            bool _negated;
-        };
+    const MarkVal *marking() const { return _marking; }
 
-        /** Context for condition to TAPAAL export */
-        class TAPAALConditionExportContext {
-        public:
-            bool _failed;
-            std::string _netName;
-        };
+    const PetriNet &net() const { return _net; }
 
-        class SimplificationContext {
-        public:
+    void negate() { _negated = !_negated; }
 
-            SimplificationContext(const MarkVal* marking,
-                    const PetriNet& net, uint32_t queryTimeout, uint32_t lpTimeout)
-                    : _negated(false), _marking(marking), _net(net), _queryTimeout(queryTimeout), _lpTimeout(lpTimeout) {
-                _base_lp = build_base();
-                _start = std::chrono::high_resolution_clock::now();
-            }
+    bool negated() const { return _negated; }
 
-            virtual ~SimplificationContext() {
-                if(_base_lp != nullptr)
-                    glp_delete_prob(_base_lp);
-                _base_lp = nullptr;
-            }
+    void set_negate(bool b) { _negated = b; }
 
+    double get_reduction_time();
 
-            const MarkVal* marking() const {
-                return _marking;
-            }
+    bool timeout() const {
+        auto end = std::chrono::high_resolution_clock::now();
+        auto diff = std::chrono::duration_cast<std::chrono::seconds>(end - _start);
+        return (diff.count() >= _queryTimeout);
+    }
 
-            const PetriNet& net() const {
-                return _net;
-            }
+    uint32_t get_lp_timeout() const;
 
-            void negate() {
-                _negated = !_negated;
-            }
+    glp_prob *make_base_lp() const;
 
-            bool negated() const {
-                return _negated;
-            }
+  private:
+    bool _negated;
+    const MarkVal *_marking;
+    const PetriNet &_net;
+    uint32_t _queryTimeout, _lpTimeout;
+    std::chrono::high_resolution_clock::time_point _start;
+    mutable glp_prob *_base_lp = nullptr;
 
-            void set_negate(bool b){
-                _negated = b;
-            }
+    glp_prob *build_base() const;
+};
 
-            double get_reduction_time();
-
-            bool timeout() const {
-                auto end = std::chrono::high_resolution_clock::now();
-                auto diff = std::chrono::duration_cast<std::chrono::seconds>(end - _start);
-                return (diff.count() >= _queryTimeout);
-            }
-
-            uint32_t get_lp_timeout() const;
-
-            glp_prob* make_base_lp() const;
-
-        private:
-            bool _negated;
-            const MarkVal* _marking;
-            const PetriNet& _net;
-            uint32_t _queryTimeout, _lpTimeout;
-            std::chrono::high_resolution_clock::time_point _start;
-            mutable glp_prob* _base_lp = nullptr;
-
-            glp_prob* build_base() const;
-
-        };
-
-    } // PQL
-} // PetriEngine
+} // namespace PQL
+} // namespace PetriEngine
 
 #endif // CONTEXTS_H

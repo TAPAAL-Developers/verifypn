@@ -19,94 +19,97 @@
 #include "LTL/Stubborn/VisibleTransitionVisitor.h"
 
 namespace LTL {
-    using namespace PetriEngine;
+using namespace PetriEngine;
 
-    bool SafeAutStubbornSet::prepare(const LTL::Structures::ProductState& state)
-    {
-        reset();
-        _parent = &state;
-        memset(_places_seen.get(), 0, _net.number_of_places());
+bool SafeAutStubbornSet::prepare(const LTL::Structures::ProductState &state) {
+    reset();
+    _parent = &state;
+    memset(_places_seen.get(), 0, _net.number_of_places());
 
-        construct_enabled();
-        if (_ordering.empty()) {
-            _print_debug();
-            return false;
-        }
-        if (_ordering.size() == 1) {
-            _stubborn[_ordering.front()] = true;
-            _print_debug();
-            return true;
-        }
-
-        InterestingLTLTransitionVisitor unsafe{*this, false};
-        InterestingTransitionVisitor interesting{*this, false};
-
-        PQL::EvaluationContext ctx(_parent->marking(), _net);
-        _prog_cond->eval_and_set(ctx);
-        _sink_cond->eval_and_set(ctx);
-        _prog_cond->visit(unsafe);
-        _sink_cond->visit(unsafe);
-
-        //_ret_cond->eval_and_set(ctx);
-        //(std::make_shared<PetriEngine::PQL::NotCondition>(_ret_cond))->visit(interesting);
-
-        assert(!_bad);
-
-        _unsafe.swap(_stubborn);
-        _has_enabled_stubborn = false;
-        //memset(_stubborn.get(), false, sizeof(bool) * _net.number_of_transitions());
-        _unprocessed.clear();
-        memset(_places_seen.get(), 0, _net.number_of_places());
-
-        assert(_unprocessed.empty());
-
-
-
-        // sink condition is not interesting, just unsafe.
-        _prog_cond->visit(interesting);
-        //_sink_cond->visit(interesting);
-        closure();
-        if (_bad) {
-            // abort
-            set_all_stubborn();
-            _print_debug();
-            return true;
-        }
-        // accepting states need key transition. add firs   t enabled by index.
-        if (state.is_accepting() && !_has_enabled_stubborn) {
-            //set_all_stubborn();
-            //_print_debug();
-            //return true;
-            add_to_stub(_ordering.front());
-            closure();
-/*            for (int i = 0; i < _net.number_of_places(); ++i) {
-                if (_enabled[i]) {
-                    addToStub(i);
-                    closure();
-                    break;
-                }
-            }*/
-            if (_bad) {
-                set_all_stubborn();
-            }
-        }
+    construct_enabled();
+    if (_ordering.empty()) {
+        _print_debug();
+        return false;
+    }
+    if (_ordering.size() == 1) {
+        _stubborn[_ordering.front()] = true;
         _print_debug();
         return true;
     }
 
-    void SafeAutStubbornSet::_print_debug() {
-#ifndef NDEBUG
-        float num_stubborn = 0;
-        float num_enabled = 0;
-        float num_enabled_stubborn = 0;
-        for (int i = 0; i < _net.number_of_transitions(); ++i) {
-            if (_stubborn[i]) ++num_stubborn;
-            if (_enabled[i]) ++num_enabled;
-            if (_stubborn[i] && _enabled[i]) ++num_enabled_stubborn;
-        }
-        std::cerr << "Enabled: " << num_enabled << "/" << _net.number_of_transitions() << " (" << num_enabled/_net.number_of_transitions()*100.0 << "%),\t\t "
-        << "Stubborn: " << num_stubborn << "/" << _net.number_of_transitions() << " (" << num_stubborn/_net.number_of_transitions()*100.0 << "%),\t\t "
-        << "Enabled stubborn: " << num_enabled_stubborn << "/" << num_enabled << " (" << num_enabled_stubborn/num_enabled*100.0 << "%)" << std::endl;
-#endif
+    InterestingLTLTransitionVisitor unsafe{*this, false};
+    InterestingTransitionVisitor interesting{*this, false};
+
+    PQL::EvaluationContext ctx(_parent->marking(), _net);
+    _prog_cond->eval_and_set(ctx);
+    _sink_cond->eval_and_set(ctx);
+    _prog_cond->visit(unsafe);
+    _sink_cond->visit(unsafe);
+
+    //_ret_cond->eval_and_set(ctx);
+    //(std::make_shared<PetriEngine::PQL::NotCondition>(_ret_cond))->visit(interesting);
+
+    assert(!_bad);
+
+    _unsafe.swap(_stubborn);
+    _has_enabled_stubborn = false;
+    // memset(_stubborn.get(), false, sizeof(bool) * _net.number_of_transitions());
+    _unprocessed.clear();
+    memset(_places_seen.get(), 0, _net.number_of_places());
+
+    assert(_unprocessed.empty());
+
+    // sink condition is not interesting, just unsafe.
+    _prog_cond->visit(interesting);
+    //_sink_cond->visit(interesting);
+    closure();
+    if (_bad) {
+        // abort
+        set_all_stubborn();
+        _print_debug();
+        return true;
     }
+    // accepting states need key transition. add firs   t enabled by index.
+    if (state.is_accepting() && !_has_enabled_stubborn) {
+        // set_all_stubborn();
+        //_print_debug();
+        // return true;
+        add_to_stub(_ordering.front());
+        closure();
+        /*            for (int i = 0; i < _net.number_of_places(); ++i) {
+                        if (_enabled[i]) {
+                            addToStub(i);
+                            closure();
+                            break;
+                        }
+                    }*/
+        if (_bad) {
+            set_all_stubborn();
+        }
+    }
+    _print_debug();
+    return true;
 }
+
+void SafeAutStubbornSet::_print_debug() {
+#ifndef NDEBUG
+    float num_stubborn = 0;
+    float num_enabled = 0;
+    float num_enabled_stubborn = 0;
+    for (int i = 0; i < _net.number_of_transitions(); ++i) {
+        if (_stubborn[i])
+            ++num_stubborn;
+        if (_enabled[i])
+            ++num_enabled;
+        if (_stubborn[i] && _enabled[i])
+            ++num_enabled_stubborn;
+    }
+    std::cerr << "Enabled: " << num_enabled << "/" << _net.number_of_transitions() << " ("
+              << num_enabled / _net.number_of_transitions() * 100.0 << "%),\t\t "
+              << "Stubborn: " << num_stubborn << "/" << _net.number_of_transitions() << " ("
+              << num_stubborn / _net.number_of_transitions() * 100.0 << "%),\t\t "
+              << "Enabled stubborn: " << num_enabled_stubborn << "/" << num_enabled << " ("
+              << num_enabled_stubborn / num_enabled * 100.0 << "%)" << std::endl;
+#endif
+}
+} // namespace LTL

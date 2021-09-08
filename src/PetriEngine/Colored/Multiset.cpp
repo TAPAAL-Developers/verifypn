@@ -14,188 +14,176 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <ios>
 #include <algorithm>
+#include <ios>
 #include <iostream>
 #include <sstream>
 
 #include "PetriEngine/Colored/Multiset.h"
 
 namespace PetriEngine {
-    namespace Colored {
-        Multiset::Multiset() : _set(), _type(nullptr) {
-        }
+namespace Colored {
+Multiset::Multiset() : _set(), _type(nullptr) {}
 
-        Multiset::Multiset(const Multiset& orig) {
-            _set = orig._set;
-            _type = orig._type;
-        }
+Multiset::Multiset(const Multiset &orig) {
+    _set = orig._set;
+    _type = orig._type;
+}
 
-        Multiset::Multiset(std::vector<std::pair<const Color*,uint32_t>>& colors)
-                : _set(), _type(nullptr)
-        {
-            for (auto& c : colors) {
-                (*this)[c.first] += c.second;
-            }
-        }
-
-        Multiset::~Multiset() = default;
-
-        Multiset Multiset::operator +(const Multiset& other) const {
-            Multiset ms(*this);
-            ms += other;
-            return ms;
-        }
-
-        Multiset Multiset::operator -(const Multiset& other) const {
-            Multiset ms(*this);
-            ms -= other;
-            return ms;
-        }
-
-        Multiset Multiset::operator *(uint32_t scalar) const {
-            Multiset ms(*this);
-            ms *= scalar;
-            return ms;
-        }
-
-        void Multiset::operator +=(const Multiset& other) {
-            if (_type == nullptr) {
-                _type = other._type;
-            }
-            if (other._type != nullptr && _type != other._type) {
-                throw "You cannot add Multisets over different sets";
-            }
-            for (auto c : other._set) {
-                const Color* color = &(*ColorType::dot_instance()->begin());
-                if (_type != nullptr)
-                    color = &((*_type)[c.first]);
-                (*this)[color] += c.second;
-            }
-        }
-
-        void Multiset::operator -=(const Multiset& other) {
-            if (_type == nullptr) {
-                _type = other._type;
-            }
-            if (other._type != nullptr && _type != other._type) {
-                throw "You cannot add Multisets over different sets";
-            }
-            for (auto c : _set) {
-                const Color* color = &(*ColorType::dot_instance()->begin());
-                if (_type != nullptr)
-                    color = &((*_type)[c.first]);
-                (*this)[color] = std::min(c.second - other[color], c.second);
-            }
-        }
-
-        void Multiset::operator *=(uint32_t scalar) {
-            for (auto& c : _set) {
-                c.second *= scalar;
-            }
-        }
-
-        uint32_t Multiset::operator [](const Color* color) const {
-            if (_type != nullptr && _type == color->get_color_type()) {
-                for (auto c : _set) {
-                    if (c.first == color->get_id())
-                        return c.second;
-                }
-            } else if (_type == nullptr){
-                for (auto c : _set) {
-                    if (c.first == color->get_id())
-                        return c.second;
-                }
-            }
-
-            return 0;
-        }
-
-        uint32_t& Multiset::operator [](const Color* color) {
-            if (_type == nullptr) {
-                _type = color->get_color_type();
-            }
-            if (color->get_color_type() != nullptr && _type != color->get_color_type()) {
-                throw "You cannot access a Multiset with a color from a different color type";
-            }
-            for (auto & i : _set) {
-                if (i.first == color->get_id())
-                    return i.second;
-            }
-
-            _set.emplace_back(color->get_id(), 0);
-            return _set.back().second;
-        }
-
-        bool Multiset::empty() const {
-            return _set.empty();
-        }
-
-        void Multiset::clean() {
-            if (std::find_if(_set.begin(), _set.end(), [&](auto elem) { return elem.second == 0; }) == _set.end())
-                return;
-
-            _set.erase(std::remove_if(_set.begin(), _set.end(), [&](auto elem) {
-                return elem.second == 0;
-            }));
-        }
-
-        const Multiset::Iterator Multiset::begin() const {
-            return Iterator(this, 0);
-        }
-
-        const Multiset::Iterator Multiset::end() const{
-            return Iterator(this, _set.size());
-        }
-
-
-        /** Multiset iterator implementation */
-        bool Multiset::Iterator::operator==(Multiset::Iterator &other) {
-            return _ms == other._ms && _index == other._index;
-        }
-
-        bool Multiset::Iterator::operator!=(Multiset::Iterator &other) {
-            return !(*this == other);
-        }
-
-        Multiset::Iterator &Multiset::Iterator::operator++() {
-            ++_index;
-            return *this;
-        }
-
-        std::pair<const Color *, const uint32_t &> Multiset::Iterator::operator++(int) {
-            std::pair<const Color*, const uint32_t&> old = **this;
-            ++_index;
-            return old;
-        }
-
-        std::pair<const Color *, const uint32_t &> Multiset::Iterator::operator*() {
-            auto& item = _ms->_set[_index];
-            auto color = &(*ColorType::dot_instance()->begin());
-            if (_ms->_type != nullptr)
-                color = &(*_ms->_type)[item.first];
-            return { color, item.second };
-        }
-
-        std::string Multiset::to_string() const {
-            std::ostringstream oss;
-            for (size_t i = 0; i < _set.size(); ++i) {
-                oss << _set[i].second << "'(" << (*_type)[_set[i].first].to_string() << ")";
-                if (i < _set.size() - 1) {
-                    oss << " + ";
-                }
-            }
-
-            return oss.str();
-        }
-
-        size_t Multiset::size() const {
-            size_t res = 0;
-            for (auto item : _set) {
-                res += item.second;
-            }
-            return res;
-        }
+Multiset::Multiset(std::vector<std::pair<const Color *, uint32_t>> &colors)
+    : _set(), _type(nullptr) {
+    for (auto &c : colors) {
+        (*this)[c.first] += c.second;
     }
 }
 
+Multiset::~Multiset() = default;
+
+Multiset Multiset::operator+(const Multiset &other) const {
+    Multiset ms(*this);
+    ms += other;
+    return ms;
+}
+
+Multiset Multiset::operator-(const Multiset &other) const {
+    Multiset ms(*this);
+    ms -= other;
+    return ms;
+}
+
+Multiset Multiset::operator*(uint32_t scalar) const {
+    Multiset ms(*this);
+    ms *= scalar;
+    return ms;
+}
+
+void Multiset::operator+=(const Multiset &other) {
+    if (_type == nullptr) {
+        _type = other._type;
+    }
+    if (other._type != nullptr && _type != other._type) {
+        throw "You cannot add Multisets over different sets";
+    }
+    for (auto c : other._set) {
+        const Color *color = &(*ColorType::dot_instance()->begin());
+        if (_type != nullptr)
+            color = &((*_type)[c.first]);
+        (*this)[color] += c.second;
+    }
+}
+
+void Multiset::operator-=(const Multiset &other) {
+    if (_type == nullptr) {
+        _type = other._type;
+    }
+    if (other._type != nullptr && _type != other._type) {
+        throw "You cannot add Multisets over different sets";
+    }
+    for (auto c : _set) {
+        const Color *color = &(*ColorType::dot_instance()->begin());
+        if (_type != nullptr)
+            color = &((*_type)[c.first]);
+        (*this)[color] = std::min(c.second - other[color], c.second);
+    }
+}
+
+void Multiset::operator*=(uint32_t scalar) {
+    for (auto &c : _set) {
+        c.second *= scalar;
+    }
+}
+
+uint32_t Multiset::operator[](const Color *color) const {
+    if (_type != nullptr && _type == color->get_color_type()) {
+        for (auto c : _set) {
+            if (c.first == color->get_id())
+                return c.second;
+        }
+    } else if (_type == nullptr) {
+        for (auto c : _set) {
+            if (c.first == color->get_id())
+                return c.second;
+        }
+    }
+
+    return 0;
+}
+
+uint32_t &Multiset::operator[](const Color *color) {
+    if (_type == nullptr) {
+        _type = color->get_color_type();
+    }
+    if (color->get_color_type() != nullptr && _type != color->get_color_type()) {
+        throw "You cannot access a Multiset with a color from a different color type";
+    }
+    for (auto &i : _set) {
+        if (i.first == color->get_id())
+            return i.second;
+    }
+
+    _set.emplace_back(color->get_id(), 0);
+    return _set.back().second;
+}
+
+bool Multiset::empty() const { return _set.empty(); }
+
+void Multiset::clean() {
+    if (std::find_if(_set.begin(), _set.end(), [&](auto elem) { return elem.second == 0; }) ==
+        _set.end())
+        return;
+
+    _set.erase(
+        std::remove_if(_set.begin(), _set.end(), [&](auto elem) { return elem.second == 0; }));
+}
+
+const Multiset::Iterator Multiset::begin() const { return Iterator(this, 0); }
+
+const Multiset::Iterator Multiset::end() const { return Iterator(this, _set.size()); }
+
+/** Multiset iterator implementation */
+bool Multiset::Iterator::operator==(Multiset::Iterator &other) {
+    return _ms == other._ms && _index == other._index;
+}
+
+bool Multiset::Iterator::operator!=(Multiset::Iterator &other) { return !(*this == other); }
+
+Multiset::Iterator &Multiset::Iterator::operator++() {
+    ++_index;
+    return *this;
+}
+
+std::pair<const Color *, const uint32_t &> Multiset::Iterator::operator++(int) {
+    std::pair<const Color *, const uint32_t &> old = **this;
+    ++_index;
+    return old;
+}
+
+std::pair<const Color *, const uint32_t &> Multiset::Iterator::operator*() {
+    auto &item = _ms->_set[_index];
+    auto color = &(*ColorType::dot_instance()->begin());
+    if (_ms->_type != nullptr)
+        color = &(*_ms->_type)[item.first];
+    return {color, item.second};
+}
+
+std::string Multiset::to_string() const {
+    std::ostringstream oss;
+    for (size_t i = 0; i < _set.size(); ++i) {
+        oss << _set[i].second << "'(" << (*_type)[_set[i].first].to_string() << ")";
+        if (i < _set.size() - 1) {
+            oss << " + ";
+        }
+    }
+
+    return oss.str();
+}
+
+size_t Multiset::size() const {
+    size_t res = 0;
+    for (auto item : _set) {
+        res += item.second;
+    }
+    return res;
+}
+} // namespace Colored
+} // namespace PetriEngine

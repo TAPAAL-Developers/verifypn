@@ -21,34 +21,31 @@
 #include "LTL/SuccessorGeneration/SuccessorSpooler.h"
 
 namespace LTL {
-    class EnabledSpooler : public SuccessorSpooler {
-    public:
-        EnabledSpooler(const PetriEngine::PetriNet& net, PetriEngine::SuccessorGenerator &sucGen)
-                : _successorGenerator(sucGen)
-        {
-            _marking.set_marking(new PetriEngine::MarkVal[net.number_of_places()]);
+class EnabledSpooler : public SuccessorSpooler {
+  public:
+    EnabledSpooler(const PetriEngine::PetriNet &net, PetriEngine::SuccessorGenerator &sucGen)
+        : _successorGenerator(sucGen) {
+        _marking.set_marking(new PetriEngine::MarkVal[net.number_of_places()]);
+    }
+
+    bool prepare(const LTL::Structures::ProductState &state) override {
+        return _successorGenerator.prepare(state);
+    }
+
+    uint32_t next() override {
+        // TODO don't need to actually fire the transition, merely spool to next.
+        // this is a non-trivial refactor in SuccessorGenerator, but seems natural.
+        if (_successorGenerator.next(_marking)) {
+            return _successorGenerator.fired();
+        } else {
+            return NoTransition;
         }
+    }
 
-        bool prepare(const LTL::Structures::ProductState& state) override
-        {
-            return _successorGenerator.prepare(state);
-        }
+  private:
+    PetriEngine::SuccessorGenerator &_successorGenerator;
+    PetriEngine::Structures::State _marking;
+};
+} // namespace LTL
 
-        uint32_t next() override
-        {
-            // TODO don't need to actually fire the transition, merely spool to next.
-            // this is a non-trivial refactor in SuccessorGenerator, but seems natural.
-            if (_successorGenerator.next(_marking)) {
-                return _successorGenerator.fired();
-            } else {
-                return NoTransition;
-            }
-        }
-
-    private:
-        PetriEngine::SuccessorGenerator &_successorGenerator;
-        PetriEngine::Structures::State _marking;
-    };
-}
-
-#endif //VERIFYPN_ENABLEDSPOOLER_H
+#endif // VERIFYPN_ENABLEDSPOOLER_H

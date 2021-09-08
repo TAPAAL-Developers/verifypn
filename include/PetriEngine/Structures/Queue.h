@@ -16,89 +16,92 @@
 
 #include <memory>
 #include <queue>
-#include <stack>
 #include <random>
+#include <stack>
 
 #include "../PQL/PQL.h"
 #include "StateSet.h"
 
 namespace PetriEngine {
-    namespace Structures {
-        class Queue {
-        public:
-            Queue(StateSetInterface& states);
-            virtual ~Queue();
-            virtual bool pop(Structures::State& state) = 0;
-            size_t last_popped()
-            {
-                return last;
-            }
-        protected:
-            StateSetInterface& _states;
-            size_t last = 0;
-        };
+namespace Structures {
+class Queue {
+  public:
+    Queue(StateSetInterface &states);
+    virtual ~Queue();
+    virtual bool pop(Structures::State &state) = 0;
+    size_t last_popped() { return last; }
 
-        class BFSQueue : public Queue {
-        public:
-            BFSQueue(StateSetInterface& states);
-            virtual ~BFSQueue();
+  protected:
+    StateSetInterface &_states;
+    size_t last = 0;
+};
 
-            virtual bool pop(Structures::State& state);
-            void push(size_t id);
-        private:
-            size_t _cnt;
-            size_t _nstates;
-        };
+class BFSQueue : public Queue {
+  public:
+    BFSQueue(StateSetInterface &states);
+    virtual ~BFSQueue();
 
-        class DFSQueue : public Queue {
-        public:
-            DFSQueue(StateSetInterface& states);
-            virtual ~DFSQueue();
+    virtual bool pop(Structures::State &state);
+    void push(size_t id);
 
-            virtual bool pop(Structures::State& state);
-            bool top(Structures::State& state) const;
-            void push(size_t id);
-        private:
-            std::stack<size_t> _stack;
-        };
+  private:
+    size_t _cnt;
+    size_t _nstates;
+};
 
-        class RDFSQueue : public Queue {
-        public:
-            RDFSQueue(StateSetInterface& states, size_t seed);
-            virtual ~RDFSQueue();
+class DFSQueue : public Queue {
+  public:
+    DFSQueue(StateSetInterface &states);
+    virtual ~DFSQueue();
 
-            virtual bool pop(Structures::State& state);
-            bool top(Structures::State& state);
-            void push(size_t id);
-        private:
-            std::stack<size_t> _stack;
-            std::vector<size_t> _cache;
-            std::default_random_engine _rng;
-        };
+    virtual bool pop(Structures::State &state);
+    bool top(Structures::State &state) const;
+    void push(size_t id);
 
-        class HeuristicQueue : public Queue {
-        public:
-            struct weighted_t {
-                size_t weight;
-                size_t item;
-                weighted_t(size_t w, size_t i) : weight(w), item(i) {};
-                bool operator <(const weighted_t& y) const {
-                    if(weight == y.weight) return item < y.item;// do dfs if they match
-//                    if(weight == y.weight) return item > y.item;// do bfs if they match
-                    return weight > y.weight;
-                }
-            };
+  private:
+    std::stack<size_t> _stack;
+};
 
-            HeuristicQueue(StateSetInterface& states);
-            virtual ~HeuristicQueue();
+class RDFSQueue : public Queue {
+  public:
+    RDFSQueue(StateSetInterface &states, size_t seed);
+    virtual ~RDFSQueue();
 
-            virtual bool pop(Structures::State& state);
-            void push(size_t id, uint32_t distance);
-        private:
-            std::priority_queue<weighted_t> _queue;
-        };
-    }
-}
+    virtual bool pop(Structures::State &state);
+    bool top(Structures::State &state);
+    void push(size_t id);
+
+  private:
+    std::stack<size_t> _stack;
+    std::vector<size_t> _cache;
+    std::default_random_engine _rng;
+};
+
+class HeuristicQueue : public Queue {
+  public:
+    struct weighted_t {
+        size_t weight;
+        size_t item;
+        weighted_t(size_t w, size_t i) : weight(w), item(i){};
+        bool operator<(const weighted_t &y) const {
+            if (weight == y.weight)
+                return item < y.item; // do dfs if they match
+            //                    if(weight == y.weight) return item > y.item;// do bfs if they
+            //                    match
+            return weight > y.weight;
+        }
+    };
+
+    HeuristicQueue(StateSetInterface &states);
+    virtual ~HeuristicQueue();
+
+    virtual bool pop(Structures::State &state);
+    void push(size_t id, uint32_t distance);
+
+  private:
+    std::priority_queue<weighted_t> _queue;
+};
+} // namespace Structures
+} // namespace PetriEngine
 
 #endif /* QUEUE_H */
-

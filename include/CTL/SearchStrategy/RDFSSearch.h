@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Encoder.h
  * Author: Peter G. Jensen
  *
@@ -8,9 +8,9 @@
 #ifndef RDFSSEARCH_H
 #define RDFSSEARCH_H
 
-#include <deque>
 #include "CTL/DependencyGraph/Edge.h"
 #include "SearchStrategy.h"
+#include <deque>
 
 namespace CTL::SearchStrategy {
 
@@ -18,17 +18,17 @@ namespace CTL::SearchStrategy {
 // while running sequential computation.
 
 class RDFSSearch : public SearchStrategy {
-public:
+  public:
     void flush();
-protected:
+
+  protected:
     size_t waiting_size() const;
-    void push_to_waiting(DependencyGraph::Edge* edge);
-    DependencyGraph::Edge* pop_from_waiting();
-    std::vector<DependencyGraph::Edge*> W;
+    void push_to_waiting(DependencyGraph::Edge *edge);
+    DependencyGraph::Edge *pop_from_waiting();
+    std::vector<DependencyGraph::Edge *> W;
     size_t _last_parent = 0;
 };
 
-}   // end SearchStrategy
+} // namespace CTL::SearchStrategy
 
 #endif /* RDFSSEARCH_H */
-

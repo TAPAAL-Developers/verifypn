@@ -21,28 +21,34 @@
 #include "ColoredNetStructures.h"
 
 namespace PetriEngine {
-    namespace Colored {
-        class IntervalGenerator {
-            public:
-                IntervalGenerator();
-                bool get_var_intervals(std::vector<VariableIntervalMap>& variableMaps, const std::unordered_map<uint32_t, ArcIntervals> &placeArcIntervals) const;
-            private:
+namespace Colored {
+class IntervalGenerator {
+  public:
+    IntervalGenerator();
+    bool
+    get_var_intervals(std::vector<VariableIntervalMap> &variableMaps,
+                      const std::unordered_map<uint32_t, ArcIntervals> &placeArcIntervals) const;
 
-                std::vector<interval_t> get_intervals_from_interval(const interval_t &interval, uint32_t varPosition, int32_t varModifier, const std::vector<const ColorType*> &varColorTypes) const;
+  private:
+    std::vector<interval_t>
+    get_intervals_from_interval(const interval_t &interval, uint32_t varPosition,
+                                int32_t varModifier,
+                                const std::vector<const ColorType *> &varColorTypes) const;
 
-                void get_arc_var_intervals(interval_vector_t& varIntervals, const std::unordered_map<uint32_t, int32_t> &modIndexMap, const interval_t &interval, const std::vector<const ColorType*> &varColorTypes) const;
+    void get_arc_var_intervals(interval_vector_t &varIntervals,
+                               const std::unordered_map<uint32_t, int32_t> &modIndexMap,
+                               const interval_t &interval,
+                               const std::vector<const ColorType *> &varColorTypes) const;
 
-                void populate_local_map(const ArcIntervals &arcIntervals, 
-                                    const VariableIntervalMap &varMap,
-                                    VariableIntervalMap &localVarMap,
-                                    const interval_t &interval, bool& allVarsAssigned,  uint32_t tuplePos) const;
+    void populate_local_map(const ArcIntervals &arcIntervals, const VariableIntervalMap &varMap,
+                            VariableIntervalMap &localVarMap, const interval_t &interval,
+                            bool &allVarsAssigned, uint32_t tuplePos) const;
 
-                void fill_var_maps(std::vector<VariableIntervalMap> &variableMaps,
-                                                    const ArcIntervals &arcIntervals,
-                                                    const uint32_t &intervalTupleSize,
-                                                    const uint32_t &tuplePos) const;               
-        }; 
-    }       
-}
+    void fill_var_maps(std::vector<VariableIntervalMap> &variableMaps,
+                       const ArcIntervals &arcIntervals, const uint32_t &intervalTupleSize,
+                       const uint32_t &tuplePos) const;
+};
+} // namespace Colored
+} // namespace PetriEngine
 
 #endif /* INTERVALGENERATOR_H */

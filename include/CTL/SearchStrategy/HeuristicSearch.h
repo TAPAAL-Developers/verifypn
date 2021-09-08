@@ -8,9 +8,9 @@
 #ifndef HEURISTICSEARCH_H
 #define HEURISTICSEARCH_H
 
-#include <vector>
 #include "CTL/DependencyGraph/Edge.h"
 #include "SearchStrategy.h"
+#include <vector>
 
 namespace CTL::SearchStrategy {
 
@@ -19,14 +19,13 @@ namespace CTL::SearchStrategy {
 
 class HeuristicSearch : public SearchStrategy {
 
-protected:
+  protected:
     size_t waiting_size() const;
-    void push_to_waiting(DependencyGraph::Edge* edge);
-    DependencyGraph::Edge* pop_from_waiting();
-    std::vector<DependencyGraph::Edge*> _waiting;
+    void push_to_waiting(DependencyGraph::Edge *edge);
+    DependencyGraph::Edge *pop_from_waiting();
+    std::vector<DependencyGraph::Edge *> _waiting;
 };
 
-}   // end SearchStrategy
+} // namespace CTL::SearchStrategy
 
 #endif /* HEURISTICSEARCH_H */
-

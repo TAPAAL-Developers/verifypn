@@ -2,8 +2,8 @@
 #define ABSTRACTDEPENDENCYGRAPH_H
 
 #include <cstddef>
-#include <vector>
 #include <cstdint>
+#include <vector>
 
 namespace DependencyGraph {
 
@@ -12,12 +12,12 @@ class Edge;
 
 class BasicDependencyGraph {
 
-public:
-    virtual std::vector<Edge*> successors(Configuration *c) =0;
-    virtual Configuration *initial_configuration() =0;
-    virtual void release(Edge* e) = 0;
-    virtual void cleanup() =0;
+  public:
+    virtual std::vector<Edge *> successors(Configuration *c) = 0;
+    virtual Configuration *initial_configuration() = 0;
+    virtual void release(Edge *e) = 0;
+    virtual void cleanup() = 0;
 };
 
-}
+} // namespace DependencyGraph
 #endif // ABSTRACTDEPENDENCYGRAPH_H

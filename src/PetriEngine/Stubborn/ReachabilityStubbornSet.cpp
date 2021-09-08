@@ -16,29 +16,30 @@
  */
 
 #include "PetriEngine/Stubborn/ReachabilityStubbornSet.h"
-#include "PetriEngine/Stubborn/InterestingTransitionVisitor.h"
 #include "PetriEngine/PQL/Contexts.h"
+#include "PetriEngine/Stubborn/InterestingTransitionVisitor.h"
 
 namespace PetriEngine {
-    bool ReachabilityStubbornSet::prepare(const Structures::State& state) {
-        reset();
-        _parent = &state;
-        memset(_places_seen.get(), 0, _net.number_of_places());
-        construct_enabled();
-        if (_ordering.size() == 0) return false;
-        if (_ordering.size() == 1) {
-            _stubborn[_ordering.front()] = true;
-            return true;
-        }
-        assert(!_queries.empty());
-        for (auto &q : _queries) {
-            q->eval_and_set(PQL::EvaluationContext(_parent->marking(), &_net));
-
-            assert(_interesting->get_negated() == false);
-            q->visit(*_interesting);
-        }
-
-        closure();
+bool ReachabilityStubbornSet::prepare(const Structures::State &state) {
+    reset();
+    _parent = &state;
+    memset(_places_seen.get(), 0, _net.number_of_places());
+    construct_enabled();
+    if (_ordering.size() == 0)
+        return false;
+    if (_ordering.size() == 1) {
+        _stubborn[_ordering.front()] = true;
         return true;
     }
+    assert(!_queries.empty());
+    for (auto &q : _queries) {
+        q->eval_and_set(PQL::EvaluationContext(_parent->marking(), &_net));
+
+        assert(_interesting->get_negated() == false);
+        q->visit(*_interesting);
+    }
+
+    closure();
+    return true;
 }
+} // namespace PetriEngine

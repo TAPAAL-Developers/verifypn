@@ -1,15 +1,13 @@
 #ifndef CTLRESULT_H
 #define CTLRESULT_H
 
-#include "errorcodes.h"
 #include "PetriEngine/PQL/PQL.h"
+#include "errorcodes.h"
 
 #include <string>
 
 struct CTLResult {
-    CTLResult(const PetriEngine::PQL::Condition_ptr& qry){
-        _query = qry;
-    }
+    CTLResult(const PetriEngine::PQL::Condition_ptr &qry) { _query = qry; }
 
     PetriEngine::PQL::Condition_ptr _query;
     bool _result;

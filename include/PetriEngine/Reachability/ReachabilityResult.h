@@ -20,80 +20,75 @@
 #ifndef REACHABILITYRESULT_H
 #define REACHABILITYRESULT_H
 
-#include <vector>
 #include "../PQL/PQL.h"
-#include "../Structures/StateSet.h"
 #include "../Reducer.h"
+#include "../Structures/StateSet.h"
+#include <vector>
 
 struct options_t;
 
 namespace PetriEngine {
-    class PetriNetBuilder;
-    namespace Reachability {
+class PetriNetBuilder;
+namespace Reachability {
 
-        /** Result of a reachability search */
+/** Result of a reachability search */
 
-        class AbstractHandler {
-        public:
-            enum Result {
-                /** The query was satisfied */
-                Satisfied,
-                /** The query cannot be satisfied */
-                NotSatisfied,
-                /** We're unable to say if the query can be satisfied */
-                Unknown,
-                /** The query should be verified using the CTL engine */
-                CTL,
-                /** The query should be verified using the LTL engine */
-                LTL,
-                /** Just ignore */
-                Ignore
-            };
-            virtual std::pair<Result, bool> handle(
-                size_t index,
-                const PQL::Condition& query,
-                Result result,
-                const std::vector<uint32_t>* maxPlaceBound = nullptr,
-                size_t expandedStates = 0,
-                size_t exploredStates = 0,
-                size_t discoveredStates = 0,
-                int maxTokens = 0,
-                const Structures::StateSetInterface* stateset = nullptr, size_t lastmarking = 0, const MarkVal* initialMarking = nullptr) const = 0;
-        };
+class AbstractHandler {
+  public:
+    enum Result {
+        /** The query was satisfied */
+        Satisfied,
+        /** The query cannot be satisfied */
+        NotSatisfied,
+        /** We're unable to say if the query can be satisfied */
+        Unknown,
+        /** The query should be verified using the CTL engine */
+        CTL,
+        /** The query should be verified using the LTL engine */
+        LTL,
+        /** Just ignore */
+        Ignore
+    };
+    virtual std::pair<Result, bool> handle(size_t index, const PQL::Condition &query, Result result,
+                                           const std::vector<uint32_t> *maxPlaceBound = nullptr,
+                                           size_t expandedStates = 0, size_t exploredStates = 0,
+                                           size_t discoveredStates = 0, int maxTokens = 0,
+                                           const Structures::StateSetInterface *stateset = nullptr,
+                                           size_t lastmarking = 0,
+                                           const MarkVal *initialMarking = nullptr) const = 0;
+};
 
-        class ResultPrinter : public AbstractHandler {
-        protected:
-            const PetriNetBuilder& _builder;
-            const options_t& _options;
-            const std::vector<std::string>& _querynames;
-            const Reducer* _reducer;
-        public:
-            const std::string _techniques = "TECHNIQUES COLLATERAL_PROCESSING STRUCTURAL_REDUCTION QUERY_REDUCTION SAT_SMT ";
-            const std::string _techniquesStateSpace = "TECHNIQUES EXPLICIT STATE_COMPRESSION";
+class ResultPrinter : public AbstractHandler {
+  protected:
+    const PetriNetBuilder &_builder;
+    const options_t &_options;
+    const std::vector<std::string> &_querynames;
+    const Reducer *_reducer;
 
-            ResultPrinter(const PetriNetBuilder& b, const options_t& o, const std::vector<std::string>& querynames)
-            : _builder(b), _options(o), _querynames(querynames), _reducer(nullptr)
-            {};
+  public:
+    const std::string _techniques =
+        "TECHNIQUES COLLATERAL_PROCESSING STRUCTURAL_REDUCTION QUERY_REDUCTION SAT_SMT ";
+    const std::string _techniquesStateSpace = "TECHNIQUES EXPLICIT STATE_COMPRESSION";
 
-            void set_reducer(const Reducer& r) { this->_reducer = &r; }
+    ResultPrinter(const PetriNetBuilder &b, const options_t &o,
+                  const std::vector<std::string> &querynames)
+        : _builder(b), _options(o), _querynames(querynames), _reducer(nullptr){};
 
-            std::pair<Result, bool> handle(
-                size_t index,
-                const PQL::Condition& query,
-                Result result,
-                const std::vector<uint32_t>* maxPlaceBound = nullptr,
-                size_t expandedStates = 0,
-                size_t exploredStates = 0,
-                size_t discoveredStates = 0,
-                int maxTokens = 0,
-                const Structures::StateSetInterface* stateset = nullptr, size_t lastmarking = 0, const MarkVal* initialMarking = nullptr) const override;
+    void set_reducer(const Reducer &r) { this->_reducer = &r; }
 
-            std::string print_techniques() const;
+    std::pair<Result, bool> handle(size_t index, const PQL::Condition &query, Result result,
+                                   const std::vector<uint32_t> *maxPlaceBound = nullptr,
+                                   size_t expandedStates = 0, size_t exploredStates = 0,
+                                   size_t discoveredStates = 0, int maxTokens = 0,
+                                   const Structures::StateSetInterface *stateset = nullptr,
+                                   size_t lastmarking = 0,
+                                   const MarkVal *initialMarking = nullptr) const override;
 
-            void print_trace(const Structures::StateSetInterface&, size_t lastmarking) const;
+    std::string print_techniques() const;
 
-        };
-    } // Reachability
-} // PetriEngine
+    void print_trace(const Structures::StateSetInterface &, size_t lastmarking) const;
+};
+} // namespace Reachability
+} // namespace PetriEngine
 
 #endif // REACHABILITYRESULT_H

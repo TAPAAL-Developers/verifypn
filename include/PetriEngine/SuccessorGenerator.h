@@ -16,28 +16,28 @@
 
 #include "PetriNet.h"
 #include "Structures/State.h"
-#include <memory>
 #include "Stubborn/StubbornSet.h"
+#include <memory>
 
 namespace PetriEngine {
 
-    class SuccessorGenerator {
-public:
-    SuccessorGenerator(const PetriNet& net);
-    SuccessorGenerator(const PetriNet& net, const std::shared_ptr<StubbornSet>&);
-    SuccessorGenerator(const PetriNet& net, const std::vector<std::shared_ptr<PQL::Condition> >& queries);
-    SuccessorGenerator(const PetriNet& net, const std::shared_ptr<PQL::Condition> &query);
+class SuccessorGenerator {
+  public:
+    SuccessorGenerator(const PetriNet &net);
+    SuccessorGenerator(const PetriNet &net, const std::shared_ptr<StubbornSet> &);
+    SuccessorGenerator(const PetriNet &net,
+                       const std::vector<std::shared_ptr<PQL::Condition>> &queries);
+    SuccessorGenerator(const PetriNet &net, const std::shared_ptr<PQL::Condition> &query);
     virtual ~SuccessorGenerator();
-    virtual bool prepare(const Structures::State& state);
-    virtual bool next(Structures::State& write);
-    uint32_t fired() const
-    {
-        return _suc_tcounter == std::numeric_limits<uint32_t>::max() ? std::numeric_limits<uint32_t>::max() : _suc_tcounter - 1;
+    virtual bool prepare(const Structures::State &state);
+    virtual bool next(Structures::State &write);
+    uint32_t fired() const {
+        return _suc_tcounter == std::numeric_limits<uint32_t>::max()
+                   ? std::numeric_limits<uint32_t>::max()
+                   : _suc_tcounter - 1;
     }
 
-    const MarkVal* get_parent() const {
-        return _parent->marking();
-    }
+    const MarkVal *get_parent() const { return _parent->marking(); }
 
     void reset();
 
@@ -55,33 +55,30 @@ public:
      * @param write, a marking to consume from
      * @param t, a transition to fire
      */
-    void consume_preset(Structures::State& write, uint32_t t);
+    void consume_preset(Structures::State &write, uint32_t t);
 
     /**
      * Produces tokens in write, given by t
      * @param write, a marking to produce to
      * @param t, a transition to fire
      */
-    void produce_postset(Structures::State& write, uint32_t t);
+    void produce_postset(Structures::State &write, uint32_t t);
 
-protected:
-    const PetriNet& _net;
+  protected:
+    const PetriNet &_net;
 
     bool next(Structures::State &write, uint32_t &tindex);
 
     void _fire(Structures::State &write, uint32_t tid);
 
-    const Structures::State* _parent;
+    const Structures::State *_parent;
 
     uint32_t _suc_pcounter;
     uint32_t _suc_tcounter;
 
-private:
-
+  private:
     friend class ReducingSuccessorGenerator;
-
 };
-}
+} // namespace PetriEngine
 
 #endif /* SUCCESSORGENERATOR_H */
-

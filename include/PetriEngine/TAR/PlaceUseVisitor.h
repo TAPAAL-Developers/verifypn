@@ -2,7 +2,7 @@
  *  Copyright Peter G. Jensen, all rights reserved.
  */
 
-/* 
+/*
  * File:   PlaceUseVisitor.h
  * Author: Peter G. Jensen <root@petergjoel.dk>
  *
@@ -18,47 +18,46 @@
 
 namespace PetriEngine {
 namespace PQL {
-    class PlaceUseVisitor : public Visitor {
-    private:
-        std::vector<bool> _in_use;
-    public:
+class PlaceUseVisitor : public Visitor {
+  private:
+    std::vector<bool> _in_use;
 
-        PlaceUseVisitor(size_t places);
+  public:
+    PlaceUseVisitor(size_t places);
 
-        const std::vector<bool> in_use() const {
-            return _in_use;
-        }
-    protected:
-        virtual void _accept(const NotCondition* element) override;
-        virtual void _accept(const AndCondition* element) override;
-        virtual void _accept(const OrCondition* element) override;
-        virtual void _accept(const LessThanCondition* element) override;
-        virtual void _accept(const LessThanOrEqualCondition* element) override;
-        virtual void _accept(const EqualCondition* element) override;
-        virtual void _accept(const NotEqualCondition* element) override;
-        virtual void _accept(const LiteralExpr* element) override;
-        virtual void _accept(const UnfoldedIdentifierExpr* element) override;
-        virtual void _accept(const PlusExpr* element) override;
-        virtual void _accept(const MultiplyExpr* element) override;
-        virtual void _accept(const MinusExpr* element) override;
-        virtual void _accept(const SubtractExpr* element) override;
-        virtual void _accept(const DeadlockCondition* element) override;
-        virtual void _accept(const CompareConjunction* element) override;
-        virtual void _accept(const UnfoldedUpperBoundsCondition* element) override;        
+    const std::vector<bool> in_use() const { return _in_use; }
 
-        virtual void _accept(const EFCondition* el);
-        virtual void _accept(const EGCondition* el);
-        virtual void _accept(const AGCondition* el);
-        virtual void _accept(const AFCondition* el);
-        virtual void _accept(const EXCondition* el);
-        virtual void _accept(const AXCondition* el);
-        virtual void _accept(const EUCondition* el);
-        virtual void _accept(const AUCondition* el);
-    private:
-        void visit_commutative_expr(const CommutativeExpr* element);        
-    };
-}
-}
+  protected:
+    virtual void _accept(const NotCondition *element) override;
+    virtual void _accept(const AndCondition *element) override;
+    virtual void _accept(const OrCondition *element) override;
+    virtual void _accept(const LessThanCondition *element) override;
+    virtual void _accept(const LessThanOrEqualCondition *element) override;
+    virtual void _accept(const EqualCondition *element) override;
+    virtual void _accept(const NotEqualCondition *element) override;
+    virtual void _accept(const LiteralExpr *element) override;
+    virtual void _accept(const UnfoldedIdentifierExpr *element) override;
+    virtual void _accept(const PlusExpr *element) override;
+    virtual void _accept(const MultiplyExpr *element) override;
+    virtual void _accept(const MinusExpr *element) override;
+    virtual void _accept(const SubtractExpr *element) override;
+    virtual void _accept(const DeadlockCondition *element) override;
+    virtual void _accept(const CompareConjunction *element) override;
+    virtual void _accept(const UnfoldedUpperBoundsCondition *element) override;
+
+    virtual void _accept(const EFCondition *el);
+    virtual void _accept(const EGCondition *el);
+    virtual void _accept(const AGCondition *el);
+    virtual void _accept(const AFCondition *el);
+    virtual void _accept(const EXCondition *el);
+    virtual void _accept(const AXCondition *el);
+    virtual void _accept(const EUCondition *el);
+    virtual void _accept(const AUCondition *el);
+
+  private:
+    void visit_commutative_expr(const CommutativeExpr *element);
+};
+} // namespace PQL
+} // namespace PetriEngine
 
 #endif /* PLACEUSEVISITOR_H */
-

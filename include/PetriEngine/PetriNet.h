@@ -20,132 +20,116 @@
 #ifndef PETRINET_H
 #define PETRINET_H
 
+#include <climits>
+#include <iostream>
+#include <limits>
 #include <string>
 #include <vector>
-#include <climits>
-#include <limits>
-#include <iostream>
 
 namespace PetriEngine {
 
-    namespace PQL {
-        class Condition;
-    }
+namespace PQL {
+class Condition;
+}
 
-    namespace Structures {
-        class State;
-    }
+namespace Structures {
+class State;
+}
 
-    class PetriNetBuilder;
-    class SuccessorGenerator;
+class PetriNetBuilder;
+class SuccessorGenerator;
 
-    struct TransPtr {
-        uint32_t _inputs;
-        uint32_t _outputs;
-    };
+struct TransPtr {
+    uint32_t _inputs;
+    uint32_t _outputs;
+};
 
-    struct Invariant {
-        uint32_t _place;
-        uint32_t _tokens;
-        bool _inhibitor;
-        int8_t _direction;
-        // we can pack things here, but might give slowdown
-    } /*__attribute__((packed))*/;
+struct Invariant {
+    uint32_t _place;
+    uint32_t _tokens;
+    bool _inhibitor;
+    int8_t _direction;
+    // we can pack things here, but might give slowdown
+} /*__attribute__((packed))*/;
 
-    /** Type used for holding markings values */
-    typedef uint32_t MarkVal;
+/** Type used for holding markings values */
+typedef uint32_t MarkVal;
 
-    /** Efficient representation of PetriNet */
-    class PetriNet {
-        PetriNet(uint32_t transitions, uint32_t invariants, uint32_t places);
-    public:
-        ~PetriNet();
+/** Efficient representation of PetriNet */
+class PetriNet {
+    PetriNet(uint32_t transitions, uint32_t invariants, uint32_t places);
 
-        PetriNet(PetriNet&&) = delete;
-        
+  public:
+    ~PetriNet();
 
-        uint32_t initial(size_t id) const;
-        MarkVal* make_initial_marking() const;
-        /** Fire transition if possible and store result in result */
-        bool deadlocked(const MarkVal* marking) const;
-        bool fireable(const MarkVal* marking, int transitionIndex);
-        std::pair<const Invariant*, const Invariant*> preset(uint32_t id) const;
-        std::pair<const Invariant*, const Invariant*> postset(uint32_t id) const;
-        uint32_t number_of_transitions() const {
-            return _ntransitions;
-        }
+    PetriNet(PetriNet &&) = delete;
 
-        uint32_t number_of_places() const {
-            return _nplaces;
-        }
-        int in_arc(uint32_t place, uint32_t transition) const;
-        int out_arc(uint32_t transition, uint32_t place) const;
+    uint32_t initial(size_t id) const;
+    MarkVal *make_initial_marking() const;
+    /** Fire transition if possible and store result in result */
+    bool deadlocked(const MarkVal *marking) const;
+    bool fireable(const MarkVal *marking, int transitionIndex);
+    std::pair<const Invariant *, const Invariant *> preset(uint32_t id) const;
+    std::pair<const Invariant *, const Invariant *> postset(uint32_t id) const;
+    uint32_t number_of_transitions() const { return _ntransitions; }
 
+    uint32_t number_of_places() const { return _nplaces; }
+    int in_arc(uint32_t place, uint32_t transition) const;
+    int out_arc(uint32_t transition, uint32_t place) const;
 
-        const std::vector<std::string>& transition_names() const
-        {
-            return _transitionnames;
-        }
+    const std::vector<std::string> &transition_names() const { return _transitionnames; }
 
-        const std::vector<std::string>& place_names() const
-        {
-            return _placenames;
-        }
+    const std::vector<std::string> &place_names() const { return _placenames; }
 
-        void print(MarkVal const * const val) const
-        {
-            for(size_t i = 0; i < _nplaces; ++i)
-            {
-                if(val[i] != 0)
-                {
-                    std::cout << _placenames[i] << "(" << i << ")" << " -> " << val[i] << std::endl;
-                }
+    void print(MarkVal const *const val) const {
+        for (size_t i = 0; i < _nplaces; ++i) {
+            if (val[i] != 0) {
+                std::cout << _placenames[i] << "(" << i << ")"
+                          << " -> " << val[i] << std::endl;
             }
         }
+    }
 
-        void sort();
+    void sort();
 
-        void to_xml(std::ostream& out);
+    void to_xml(std::ostream &out);
 
-        const MarkVal* initial() const {
-            return _initialMarking;
+    const MarkVal *initial() const { return _initialMarking; }
+
+    bool has_inhibitor() const {
+        for (Invariant i : _invariants) {
+            if (i._inhibitor)
+                return true;
         }
+        return false;
+    }
 
-        bool has_inhibitor() const {
-            for (Invariant i : _invariants) {
-                if (i._inhibitor)
-                    return true;
-            }
-            return false;
-        }
+  private:
+    /** Number of x variables
+     * @remarks We could also get this from the _places vector, but I don't see any
+     * any complexity garentees for this type.
+     */
+    uint32_t _ninvariants, _ntransitions, _nplaces;
 
-    private:
+    std::vector<TransPtr> _transitions;
+    std::vector<Invariant> _invariants;
+    std::vector<uint32_t> _placeToPtrs;
+    MarkVal *_initialMarking;
 
-        /** Number of x variables
-         * @remarks We could also get this from the _places vector, but I don't see any
-         * any complexity garentees for this type.
-         */
-        uint32_t _ninvariants, _ntransitions, _nplaces;
+    std::vector<std::string> _transitionnames;
+    std::vector<std::string> _placenames;
 
-        std::vector<TransPtr> _transitions;
-        std::vector<Invariant> _invariants;
-        std::vector<uint32_t> _placeToPtrs;
-        MarkVal* _initialMarking;
+    std::vector<std::tuple<double, double>> _placelocations;
+    std::vector<std::tuple<double, double>> _transitionlocations;
 
-        std::vector<std::string> _transitionnames;
-        std::vector<std::string> _placenames;
+    friend class PetriNetBuilder;
+    friend class Reducer;
+    friend class SuccessorGenerator;
+    friend class ReducingSuccessorGenerator;
+    friend class STSolver;
+    friend class StubbornSet;
+};
 
-        std::vector< std::tuple<double, double> > _placelocations;
-        std::vector< std::tuple<double, double> > _transitionlocations;
-
-        friend class PetriNetBuilder;
-        friend class Reducer;
-        friend class SuccessorGenerator;
-        friend class ReducingSuccessorGenerator;
-        friend class STSolver;
-        friend class StubbornSet;
-    };
-
-} // PetriEngine
+} // namespace PetriEngine
 
 #endif // PETRINET_H

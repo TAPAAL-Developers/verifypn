@@ -18,52 +18,52 @@
 #ifndef VERIFYPN_LOGFIRECOUNTHEURISTIC_H
 #define VERIFYPN_LOGFIRECOUNTHEURISTIC_H
 
-#include "Heuristic.h"
 #include "FireCountHeuristic.h"
+#include "Heuristic.h"
 
 namespace LTL {
-    constexpr int _approx_log(uint32_t i)
-    {
-        // log2 of an integer is the highest set bit
-        // loop is not optimal but portable and likely reasonably performant for small-ish ints
-        // (which most of the time is the expected input)
-        int r = 0;
-        while (i >>= 1) {
-            ++r;
-        }
-        return r;
+constexpr int _approx_log(uint32_t i) {
+    // log2 of an integer is the highest set bit
+    // loop is not optimal but portable and likely reasonably performant for small-ish ints
+    // (which most of the time is the expected input)
+    int r = 0;
+    while (i >>= 1) {
+        ++r;
     }
-
-    /**
-     * Piece-wise zero/logarithmic fire count heuristic, switching to log at threshold defined by parameter
-     * (default 200). Intent is to avoid firing the same transition excessively in models with massive token counts.
-     */
-    class LogFireCountHeuristic : public FireCountHeuristic {
-    public:
-        explicit LogFireCountHeuristic(const PetriEngine::PetriNet& net, uint32_t threshold = 200)
-                : FireCountHeuristic(net), _threshold(threshold) {}
-
-        uint32_t eval(const Structures::ProductState &state, uint32_t tid) override
-        {
-            if (_fireCount[tid] < _threshold) return 0;
-            return _approx_log(_fireCount[tid] - _threshold);
-        }
-
-        std::ostream &output(std::ostream &os) {
-            return os << "LOGFIRECOUNT_HEUR(" << _threshold << ")";
-        }
-
-    private:
-        uint32_t _threshold;
-
-        // compile-time sanity checks, feel free to remove if problematic
-        static_assert(_approx_log(1) == 0);
-        static_assert(_approx_log(2) == 1);
-        static_assert(_approx_log(3) == 1);
-        static_assert(_approx_log(9) == 3);
-        static_assert(_approx_log(15) == 3);
-        static_assert(_approx_log(16) == 4);
-    };
+    return r;
 }
 
-#endif //VERIFYPN_LOGFIRECOUNTHEURISTIC_H
+/**
+ * Piece-wise zero/logarithmic fire count heuristic, switching to log at threshold defined by
+ * parameter (default 200). Intent is to avoid firing the same transition excessively in models with
+ * massive token counts.
+ */
+class LogFireCountHeuristic : public FireCountHeuristic {
+  public:
+    explicit LogFireCountHeuristic(const PetriEngine::PetriNet &net, uint32_t threshold = 200)
+        : FireCountHeuristic(net), _threshold(threshold) {}
+
+    uint32_t eval(const Structures::ProductState &state, uint32_t tid) override {
+        if (_fireCount[tid] < _threshold)
+            return 0;
+        return _approx_log(_fireCount[tid] - _threshold);
+    }
+
+    std::ostream &output(std::ostream &os) {
+        return os << "LOGFIRECOUNT_HEUR(" << _threshold << ")";
+    }
+
+  private:
+    uint32_t _threshold;
+
+    // compile-time sanity checks, feel free to remove if problematic
+    static_assert(_approx_log(1) == 0);
+    static_assert(_approx_log(2) == 1);
+    static_assert(_approx_log(3) == 1);
+    static_assert(_approx_log(9) == 3);
+    static_assert(_approx_log(15) == 3);
+    static_assert(_approx_log(16) == 4);
+};
+} // namespace LTL
+
+#endif // VERIFYPN_LOGFIRECOUNTHEURISTIC_H

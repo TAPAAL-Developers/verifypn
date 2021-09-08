@@ -18,33 +18,27 @@
 #ifndef VERIFYPN_ALGORITHMTYPES_H
 #define VERIFYPN_ALGORITHMTYPES_H
 
-#include <cassert>
 #include "errorcodes.h"
+#include <cassert>
 
 namespace LTL {
-    enum class Algorithm {
-        NDFS, Tarjan, None=-1
-    };
+enum class Algorithm { NDFS, Tarjan, None = -1 };
 
-    enum class BuchiOutType {
-        Dot,
-        HOA,
-        Spin
-    };
+enum class BuchiOutType { Dot, HOA, Spin };
 
-    inline auto to_string(Algorithm alg) {
-        switch (alg) {
-            case Algorithm::NDFS:
-                return "NDFS";
-            case Algorithm::Tarjan:
-                return "TARJAN";
-            case Algorithm::None:
-            default:
-                throw base_error("to_string: Invalid LTL Algorithm ", static_cast<int>(alg));
-                assert(false);
-                return "None";
-        }
+inline auto to_string(Algorithm alg) {
+    switch (alg) {
+    case Algorithm::NDFS:
+        return "NDFS";
+    case Algorithm::Tarjan:
+        return "TARJAN";
+    case Algorithm::None:
+    default:
+        throw base_error("to_string: Invalid LTL Algorithm ", static_cast<int>(alg));
+        assert(false);
+        return "None";
     }
 }
+} // namespace LTL
 
-#endif //VERIFYPN_ALGORITHMTYPES_H
+#endif // VERIFYPN_ALGORITHMTYPES_H

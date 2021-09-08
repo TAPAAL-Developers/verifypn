@@ -19,81 +19,78 @@
 #define VERIFYPN_AUTOMATONSTUBBORNSET_H
 
 #include "LTL/Structures/BuchiAutomaton.h"
-#include "PetriEngine/Stubborn/ReachabilityStubbornSet.h"
-#include "PetriEngine/PQL/PQL.h"
 #include "LTL/Structures/GuardInfo.h"
 #include "LTL/SuccessorGeneration/SuccessorSpooler.h"
+#include "PetriEngine/PQL/PQL.h"
+#include "PetriEngine/Stubborn/ReachabilityStubbornSet.h"
 #include "PetriEngine/SuccessorGenerator.h"
 
 namespace LTL {
-    class NondeterministicConjunctionVisitor;
-    class AutomatonStubbornSet : public PetriEngine::StubbornSet, public SuccessorSpooler {
-    public:
-        explicit AutomatonStubbornSet(const PetriEngine::PetriNet &net, const Structures::BuchiAutomaton &aut)
-        : PetriEngine::StubbornSet(net), _retarding_stubborn_set(net,false),
-            _state_guards(std::move(GuardInfo::from_automaton(aut))),
-            _aut(aut),
-            _place_checkpoint(new bool[net.number_of_places()]),
-            _gen(_net)
-        {
-            _markbuf.set_marking(net.make_initial_marking());
-            _retarding_stubborn_set.set_interesting_visitor<PetriEngine::AutomatonInterestingTransitionVisitor>();
+class NondeterministicConjunctionVisitor;
+class AutomatonStubbornSet : public PetriEngine::StubbornSet, public SuccessorSpooler {
+  public:
+    explicit AutomatonStubbornSet(const PetriEngine::PetriNet &net,
+                                  const Structures::BuchiAutomaton &aut)
+        : PetriEngine::StubbornSet(net), _retarding_stubborn_set(net, false),
+          _state_guards(std::move(GuardInfo::from_automaton(aut))), _aut(aut),
+          _place_checkpoint(new bool[net.number_of_places()]), _gen(_net) {
+        _markbuf.set_marking(net.make_initial_marking());
+        _retarding_stubborn_set
+            .set_interesting_visitor<PetriEngine::AutomatonInterestingTransitionVisitor>();
+    }
+
+    bool prepare(const PetriEngine::Structures::State &marking) override {
+        return prepare(dynamic_cast<const LTL::Structures::ProductState &>(marking));
+    }
+
+    bool prepare(const LTL::Structures::ProductState &state) override;
+
+    uint32_t next() override;
+
+    void reset() override;
+
+  private:
+    static bool has_shared_mark(const bool *a, const bool *b, size_t size) {
+        for (size_t i = 0; i < size; ++i) {
+            if (a[i] && b[i])
+                return true;
         }
+        return false;
+    }
 
-        bool prepare(const PetriEngine::Structures::State& marking) override {
-            return prepare(dynamic_cast<const LTL::Structures::ProductState&>(marking));
-        }
+  protected:
+    void add_to_stub(uint32_t t) override;
 
-        bool prepare(const LTL::Structures::ProductState& state) override;
+  private:
+    PetriEngine::ReachabilityStubbornSet _retarding_stubborn_set;
+    const std::vector<GuardInfo> _state_guards;
+    const Structures::BuchiAutomaton &_aut;
+    std::unique_ptr<bool[]> _place_checkpoint;
+    PetriEngine::SuccessorGenerator _gen;
+    PetriEngine::Structures::State _markbuf;
+    bool _has_enabled_stubborn = false;
+    bool _bad = false;
+    bool _done = false;
+    bool _track_changes = false;
+    bool _retarding_satisfied;
 
-        uint32_t next() override;
+    std::unordered_set<uint32_t> _pending_stubborn;
 
-        void reset() override;
+    void _reset_pending();
 
+    void _apply_pending();
 
-    private:
-        static bool has_shared_mark(const bool* a, const bool* b, size_t size) {
-            for (size_t i = 0; i < size; ++i) {
-                if (a[i] && b[i]) return true;
-            }
-            return false;
-        }
+    void __print_debug();
 
-    protected:
-        void add_to_stub(uint32_t t) override;
+    void set_all_stubborn();
 
-    private:
+    bool _closure();
 
-        PetriEngine::ReachabilityStubbornSet _retarding_stubborn_set;
-        const std::vector<GuardInfo> _state_guards;
-        const Structures::BuchiAutomaton &_aut;
-        std::unique_ptr<bool[]> _place_checkpoint;
-        PetriEngine::SuccessorGenerator _gen;
-        PetriEngine::Structures::State _markbuf;
-        bool _has_enabled_stubborn = false;
-        bool _bad = false;
-        bool _done = false;
-        bool _track_changes = false;
-        bool _retarding_satisfied;
+    bool _cond3_valid(uint32_t t);
 
-        std::unordered_set<uint32_t> _pending_stubborn;
+    friend class NondeterministicConjunctionVisitor;
+};
 
+} // namespace LTL
 
-        void _reset_pending();
-
-        void _apply_pending();
-
-        void __print_debug();
-
-        void set_all_stubborn();
-
-        bool _closure();
-
-        bool _cond3_valid(uint32_t t);
-
-        friend class NondeterministicConjunctionVisitor;
-    };
-
-}
-
-#endif //VERIFYPN_AUTOMATONSTUBBORNSET_H
+#endif // VERIFYPN_AUTOMATONSTUBBORNSET_H

@@ -1,16 +1,16 @@
 /* Copyright (C) 2021  Nikolaj J. Ulrik <nikolaj@njulrik.dk>,
  *                     Simon M. Virenfeldt <simon@simwir.dk>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,21 +23,18 @@
 #include <random>
 
 namespace LTL {
-    class RandomHeuristic : public Heuristic {
-    public:
-        explicit RandomHeuristic(uint32_t seed = 0) : _g(seed == 0 ? _rd() : seed) {}
+class RandomHeuristic : public Heuristic {
+  public:
+    explicit RandomHeuristic(uint32_t seed = 0) : _g(seed == 0 ? _rd() : seed) {}
 
-        uint32_t eval(const LTL::Structures::ProductState &, uint32_t) override {
-            return _g();
-        }
+    uint32_t eval(const LTL::Structures::ProductState &, uint32_t) override { return _g(); }
 
-        std::ostream &output(std::ostream &os) {
-            return os << "RANDOM_HEUR";
-        }
-    private:
-        std::random_device _rd;
-        std::mt19937 _g;
-    };
-}
+    std::ostream &output(std::ostream &os) { return os << "RANDOM_HEUR"; }
 
-#endif //VERIFYPN_RANDOMHEURISTIC_H
+  private:
+    std::random_device _rd;
+    std::mt19937 _g;
+};
+} // namespace LTL
+
+#endif // VERIFYPN_RANDOMHEURISTIC_H

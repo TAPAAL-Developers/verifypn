@@ -10,86 +10,67 @@
 #ifndef ANTICHAIN_H
 #define ANTICHAIN_H
 
-#include <vector>
-#include <map>
-#include <unordered_map>
-#include <stack>
 #include <algorithm>
+#include <map>
+#include <stack>
+#include <unordered_map>
+#include <vector>
 
-
-
-template<typename T, typename U>
-class AntiChain
-{
-    using set_t     = std::set<U>;
-    using sset_t    = std::vector<U>;
-    using smap_t    = std::vector<std::vector<sset_t>>;
+template <typename T, typename U> class AntiChain {
+    using set_t = std::set<U>;
+    using sset_t = std::vector<U>;
+    using smap_t = std::vector<std::vector<sset_t>>;
 
     smap_t _map;
 
     struct node_t {
         U _key;
-        std::vector<node_t*> _children;
+        std::vector<node_t *> _children;
     };
 
-    public:
-        AntiChain(){};
+  public:
+    AntiChain(){};
 
-        void clear()
-{
-        _map.clear();
-        }
+    void clear() { _map.clear(); }
 
-        template<typename S>
-        bool subsumed(T& el, const S& set)
-        {
-            bool exists = false;
-        if (_map.size() > (size_t) el)
-{
-            for (auto& s : _map[el])
-                {
-                    if(std::includes(set.begin(), set.end(), s.begin(), s.end()))
-                    {
-                        /*std::cout << "SUBSUMBED BY ";
-                        for(auto& e : s) std::cout << e << ",";
-                        std::cout << std::endl;*/
-                        exists = true;
-                        break;
-                    }
+    template <typename S> bool subsumed(T &el, const S &set) {
+        bool exists = false;
+        if (_map.size() > (size_t)el) {
+            for (auto &s : _map[el]) {
+                if (std::includes(set.begin(), set.end(), s.begin(), s.end())) {
+                    /*std::cout << "SUBSUMBED BY ";
+                    for(auto& e : s) std::cout << e << ",";
+                    std::cout << std::endl;*/
+                    exists = true;
+                    break;
                 }
             }
-            return exists;
         }
+        return exists;
+    }
 
-        template<typename S>
-        bool insert(T& el, const S& set)
-        {
-            bool inserted = false;
-        if (_map.size() <= (size_t) el) _map.resize(el + 1);
-/*            std::cout << "ANTI (" << (size_t)el << ") -> ";
-            for(auto& e : set) std::cout << e << ",";
-            std::cout << std::endl;*/
-            if(!subsumed(el, set))
-{
-            auto& chains = _map[el];
-                for(int i = chains.size() - 1; i >= 0; --i)
-                {
-                    if(std::includes(chains[i].begin(), chains[i].end(), set.begin(), set.end()))
-                    {
-                        chains.erase(chains.begin() + i);
-                    }
+    template <typename S> bool insert(T &el, const S &set) {
+        bool inserted = false;
+        if (_map.size() <= (size_t)el)
+            _map.resize(el + 1);
+        /*            std::cout << "ANTI (" << (size_t)el << ") -> ";
+                    for(auto& e : set) std::cout << e << ",";
+                    std::cout << std::endl;*/
+        if (!subsumed(el, set)) {
+            auto &chains = _map[el];
+            for (int i = chains.size() - 1; i >= 0; --i) {
+                if (std::includes(chains[i].begin(), chains[i].end(), set.begin(), set.end())) {
+                    chains.erase(chains.begin() + i);
                 }
-                chains.emplace_back(sset_t{set.begin(), set.end()});
-                inserted = true;
             }
-            else
-            {
-                inserted = false;
-            }
-
-            return inserted;
+            chains.emplace_back(sset_t{set.begin(), set.end()});
+            inserted = true;
+        } else {
+            inserted = false;
         }
+
+        return inserted;
+    }
 };
-
 
 #endif /* ANTICHAIN_H */

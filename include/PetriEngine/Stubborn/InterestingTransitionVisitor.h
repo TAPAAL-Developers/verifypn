@@ -22,209 +22,202 @@
 #include "PetriEngine/Stubborn/StubbornSet.h"
 
 namespace PetriEngine {
-    class InterestingTransitionVisitor : public PQL::Visitor {
-    public:
-        InterestingTransitionVisitor(PetriEngine::StubbornSet &stubbornSet, bool closure)
-                : _stubborn(stubbornSet), closure(closure), incr(stubbornSet, closure), decr(stubbornSet, closure)
-        {
-            incr.decr = &decr;
-            decr.incr = &incr;
-        }
+class InterestingTransitionVisitor : public PQL::Visitor {
+  public:
+    InterestingTransitionVisitor(PetriEngine::StubbornSet &stubbornSet, bool closure)
+        : _stubborn(stubbornSet), closure(closure), incr(stubbornSet, closure),
+          decr(stubbornSet, closure) {
+        incr.decr = &decr;
+        decr.incr = &incr;
+    }
 
-        void negate() { negated = !negated; }
+    void negate() { negated = !negated; }
 
-        bool get_negated() const { return negated; }
+    bool get_negated() const { return negated; }
 
-    protected:
-        PetriEngine::StubbornSet &_stubborn;
+  protected:
+    PetriEngine::StubbornSet &_stubborn;
 
+    bool closure;
+
+    void _accept(const PQL::NotCondition *element) override;
+
+    void _accept(const PQL::AndCondition *element) override;
+
+    void _accept(const PQL::OrCondition *element) override;
+
+    void _accept(const PQL::LessThanCondition *element) override;
+
+    void _accept(const PQL::LessThanOrEqualCondition *element) override;
+
+    void _accept(const PQL::EqualCondition *element) override;
+
+    void _accept(const PQL::NotEqualCondition *element) override;
+
+    void _accept(const PQL::DeadlockCondition *element) override;
+
+    void _accept(const PQL::CompareConjunction *element) override;
+
+    void _accept(const PQL::UnfoldedUpperBoundsCondition *element) override;
+
+    void _accept(const PQL::UnfoldedIdentifierExpr *element) override {
+        assert(false);
+        throw base_error("No accept for UnfoldedIdentifierExpr");
+    };
+
+    void _accept(const PQL::LiteralExpr *element) override {
+        assert(false);
+        throw base_error("No accept for LiteralExpr");
+    };
+
+    void _accept(const PQL::PlusExpr *element) override {
+        assert(false);
+        throw base_error("No accept for PlusExpr");
+    };
+
+    void _accept(const PQL::MultiplyExpr *element) override {
+        assert(false);
+        throw base_error("No accept for MultiplyExpr");
+    };
+
+    void _accept(const PQL::MinusExpr *element) override {
+        assert(false);
+        throw base_error("No accept for MinusExpr");
+    };
+
+    void _accept(const PQL::SubtractExpr *element) override {
+        assert(false);
+        throw base_error("No accept for SubtractExpr");
+    };
+
+    void _accept(const PQL::SimpleQuantifierCondition *element);
+
+    void _accept(const PQL::EFCondition *condition) override;
+
+    void _accept(const PQL::EGCondition *condition) override;
+
+    void _accept(const PQL::AGCondition *condition) override;
+
+    void _accept(const PQL::AFCondition *condition) override;
+
+    void _accept(const PQL::EXCondition *condition) override;
+
+    void _accept(const PQL::AXCondition *condition) override;
+
+    void _accept(const PQL::ACondition *condition) override;
+
+    void _accept(const PQL::ECondition *condition) override;
+
+    void _accept(const PQL::XCondition *condition) override;
+
+    void _accept(const PQL::UntilCondition *element) override;
+
+    void _accept(const PQL::GCondition *condition) override;
+
+    void _accept(const PQL::FCondition *condition) override;
+
+    void _accept(const PQL::EUCondition *condition) override;
+
+    void _accept(const PQL::AUCondition *condition) override;
+
+    void _accept(const PQL::BooleanCondition *element) override;
+
+    bool negated = false;
+
+  private:
+    /*
+     * Mutually recursive visitors for incrementing/decrementing of places.
+     */
+
+    class DecrVisitor;
+
+    class IncrVisitor : public PQL::ExpressionVisitor {
+      public:
+        IncrVisitor(StubbornSet &stubbornSet, bool closure)
+            : _stubborn(stubbornSet), closure(closure) {}
+
+        DecrVisitor *decr;
+
+      private:
+        StubbornSet &_stubborn;
         bool closure;
 
-        void _accept(const PQL::NotCondition *element) override;
+        void _accept(const PQL::IdentifierExpr *element) override {
+            element->compiled()->visit(*this);
+        }
 
-        void _accept(const PQL::AndCondition *element) override;
+        void _accept(const PQL::UnfoldedIdentifierExpr *element) override;
 
-        void _accept(const PQL::OrCondition *element) override;
+        void _accept(const PQL::LiteralExpr *element) override;
 
-        void _accept(const PQL::LessThanCondition *element) override;
+        void _accept(const PQL::PlusExpr *element) override;
 
-        void _accept(const PQL::LessThanOrEqualCondition *element) override;
+        void _accept(const PQL::MultiplyExpr *element) override;
 
-        void _accept(const PQL::EqualCondition *element) override;
+        void _accept(const PQL::MinusExpr *element) override;
 
-        void _accept(const PQL::NotEqualCondition *element) override;
-
-        void _accept(const PQL::DeadlockCondition *element) override;
-
-        void _accept(const PQL::CompareConjunction *element) override;
-
-        void _accept(const PQL::UnfoldedUpperBoundsCondition *element) override;
-
-        void _accept(const PQL::UnfoldedIdentifierExpr *element) override
-        {
-            assert(false);
-            throw base_error("No accept for UnfoldedIdentifierExpr");
-        };
-
-        void _accept(const PQL::LiteralExpr *element) override
-        {
-            assert(false);
-            throw base_error("No accept for LiteralExpr");
-        };
-
-        void _accept(const PQL::PlusExpr *element) override
-        {
-            assert(false);
-            throw base_error("No accept for PlusExpr");
-        };
-
-        void _accept(const PQL::MultiplyExpr *element) override
-        {
-            assert(false);
-            throw base_error("No accept for MultiplyExpr");
-        };
-
-        void _accept(const PQL::MinusExpr *element) override
-        {
-            assert(false);
-            throw base_error("No accept for MinusExpr");
-        };
-
-        void _accept(const PQL::SubtractExpr *element) override
-        {
-            assert(false);
-            throw base_error("No accept for SubtractExpr");
-        };
-
-        void _accept(const PQL::SimpleQuantifierCondition *element);
-
-        void _accept(const PQL::EFCondition *condition) override;
-
-        void _accept(const PQL::EGCondition *condition) override;
-
-        void _accept(const PQL::AGCondition *condition) override;
-
-        void _accept(const PQL::AFCondition *condition) override;
-
-        void _accept(const PQL::EXCondition *condition) override;
-
-        void _accept(const PQL::AXCondition *condition) override;
-
-        void _accept(const PQL::ACondition *condition) override;
-
-        void _accept(const PQL::ECondition *condition) override;
-
-        void _accept(const PQL::XCondition *condition) override;
-
-        void _accept(const PQL::UntilCondition *element) override;
-
-        void _accept(const PQL::GCondition *condition) override;
-
-        void _accept(const PQL::FCondition *condition) override;
-
-        void _accept(const PQL::EUCondition *condition) override;
-
-        void _accept(const PQL::AUCondition *condition) override;
-
-        void _accept(const PQL::BooleanCondition *element) override;
-
-        bool negated = false;
-    private:
-
-        /*
-         * Mutually recursive visitors for incrementing/decrementing of places.
-         */
-
-        class DecrVisitor;
-
-        class IncrVisitor : public PQL::ExpressionVisitor {
-        public:
-            IncrVisitor(StubbornSet &stubbornSet, bool closure)
-                    : _stubborn(stubbornSet), closure(closure) {}
-
-            DecrVisitor *decr;
-        private:
-            StubbornSet &_stubborn;
-            bool closure;
-
-            void _accept(const PQL::IdentifierExpr *element) override
-            {
-                element->compiled()->visit(*this);
-            }
-
-            void _accept(const PQL::UnfoldedIdentifierExpr *element) override;
-
-            void _accept(const PQL::LiteralExpr *element) override;
-
-            void _accept(const PQL::PlusExpr *element) override;
-
-            void _accept(const PQL::MultiplyExpr *element) override;
-
-            void _accept(const PQL::MinusExpr *element) override;
-
-            void _accept(const PQL::SubtractExpr *element) override;
-        };
-
-        class DecrVisitor : public PQL::ExpressionVisitor {
-        public:
-            DecrVisitor(StubbornSet &stubbornSet, bool closure)
-                    : _stubborn(stubbornSet), closure(closure) {}
-
-            IncrVisitor *incr;
-
-        private:
-            StubbornSet &_stubborn;
-            bool closure;
-
-            void _accept(const PQL::IdentifierExpr *element) override
-            {
-                element->compiled()->visit(*this);
-            }
-
-            void _accept(const PQL::UnfoldedIdentifierExpr *element) override;
-
-            void _accept(const PQL::LiteralExpr *element) override;
-
-            void _accept(const PQL::PlusExpr *element) override;
-
-            void _accept(const PQL::MultiplyExpr *element) override;
-
-            void _accept(const PQL::MinusExpr *element) override;
-
-            void _accept(const PQL::SubtractExpr *element) override;
-        };
-
-        IncrVisitor incr;
-        DecrVisitor decr;
+        void _accept(const PQL::SubtractExpr *element) override;
     };
 
-    class InterestingLTLTransitionVisitor : public InterestingTransitionVisitor {
-    public:
-        explicit InterestingLTLTransitionVisitor(StubbornSet &stubbornSet, bool closure) : InterestingTransitionVisitor(stubbornSet, closure) {}
+    class DecrVisitor : public PQL::ExpressionVisitor {
+      public:
+        DecrVisitor(StubbornSet &stubbornSet, bool closure)
+            : _stubborn(stubbornSet), closure(closure) {}
 
-    protected:
-        void _accept(const PQL::LessThanCondition *element) override;
+        IncrVisitor *incr;
 
-        void _accept(const PQL::LessThanOrEqualCondition *element) override;
+      private:
+        StubbornSet &_stubborn;
+        bool closure;
 
-        void _accept(const PQL::EqualCondition *element) override;
+        void _accept(const PQL::IdentifierExpr *element) override {
+            element->compiled()->visit(*this);
+        }
 
-        void _accept(const PQL::NotEqualCondition *element) override;
+        void _accept(const PQL::UnfoldedIdentifierExpr *element) override;
 
-        void _accept(const PQL::CompareConjunction *element) override;
+        void _accept(const PQL::LiteralExpr *element) override;
 
-        template<typename Condition>
-        void negate_if_satisfied(const Condition *element);
+        void _accept(const PQL::PlusExpr *element) override;
+
+        void _accept(const PQL::MultiplyExpr *element) override;
+
+        void _accept(const PQL::MinusExpr *element) override;
+
+        void _accept(const PQL::SubtractExpr *element) override;
     };
 
-    class AutomatonInterestingTransitionVisitor : public InterestingTransitionVisitor {
-    public:
-        explicit AutomatonInterestingTransitionVisitor(StubbornSet &stubbornSet, bool closure) : InterestingTransitionVisitor(stubbornSet, closure) {}
+    IncrVisitor incr;
+    DecrVisitor decr;
+};
 
-    protected:
-        void _accept(const PQL::CompareConjunction *element) override;
-    };
-}
+class InterestingLTLTransitionVisitor : public InterestingTransitionVisitor {
+  public:
+    explicit InterestingLTLTransitionVisitor(StubbornSet &stubbornSet, bool closure)
+        : InterestingTransitionVisitor(stubbornSet, closure) {}
 
+  protected:
+    void _accept(const PQL::LessThanCondition *element) override;
 
-#endif //VERIFYPN_INTERESTINGTRANSITIONVISITOR_H
+    void _accept(const PQL::LessThanOrEqualCondition *element) override;
+
+    void _accept(const PQL::EqualCondition *element) override;
+
+    void _accept(const PQL::NotEqualCondition *element) override;
+
+    void _accept(const PQL::CompareConjunction *element) override;
+
+    template <typename Condition> void negate_if_satisfied(const Condition *element);
+};
+
+class AutomatonInterestingTransitionVisitor : public InterestingTransitionVisitor {
+  public:
+    explicit AutomatonInterestingTransitionVisitor(StubbornSet &stubbornSet, bool closure)
+        : InterestingTransitionVisitor(stubbornSet, closure) {}
+
+  protected:
+    void _accept(const PQL::CompareConjunction *element) override;
+};
+} // namespace PetriEngine
+
+#endif // VERIFYPN_INTERESTINGTRANSITIONVISITOR_H

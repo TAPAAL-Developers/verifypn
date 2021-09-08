@@ -17,97 +17,96 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 #include "ColoredNetStructures.h"
 #include "EquivalenceClass.h"
 
 namespace PetriEngine {
 
-    class NaiveBindingGenerator {
-    public:
-        class Iterator {
-        private:
-            NaiveBindingGenerator* _generator;
-            
-        public:
-            Iterator(NaiveBindingGenerator* generator);
-            
-            bool operator==(Iterator& other);
-            bool operator!=(Iterator& other);
-            Iterator& operator++();
-            const Colored::BindingMap& operator*() const;
-        };
-    private:
-        Colored::GuardExpression_ptr _expr;
-        Colored::BindingMap _bindings;
-        Colored::ColorTypeMap& _colorTypes;
-        
-        bool eval() const;
-        
-    public:
-        NaiveBindingGenerator(const Colored::Transition& transition,
-                Colored::ColorTypeMap& colorTypes);
+class NaiveBindingGenerator {
+  public:
+    class Iterator {
+      private:
+        NaiveBindingGenerator *_generator;
 
-        const Colored::BindingMap& next_binding();
-        const Colored::BindingMap& current_binding() const;
-        bool is_initial() const;
-        Iterator begin();
-        Iterator end();
+      public:
+        Iterator(NaiveBindingGenerator *generator);
+
+        bool operator==(Iterator &other);
+        bool operator!=(Iterator &other);
+        Iterator &operator++();
+        const Colored::BindingMap &operator*() const;
     };
 
+  private:
+    Colored::GuardExpression_ptr _expr;
+    Colored::BindingMap _bindings;
+    Colored::ColorTypeMap &_colorTypes;
 
-    class FixpointBindingGenerator {
-    public:
-        class Iterator {
-        private:
-            FixpointBindingGenerator* _generator;
-                        
-        public:
-            Iterator(FixpointBindingGenerator* generator);
-            
-            bool operator==(Iterator& other);
-            bool operator!=(Iterator& other);
-            Iterator& operator++();
-            const Colored::BindingMap operator++(int);
-            const Colored::BindingMap& operator*() const;
-        };
-    private:
-        const Colored::GuardExpression_ptr &_expr;
-        Colored::BindingMap _bindings;
-        std::vector<std::vector<std::vector<uint32_t>>> _symmetric_var_combinations;
-        const Colored::ColorTypeMap& _colorTypes;
-        const Colored::Transition &_transition;
-        const std::vector<std::set<const Colored::Variable *>>& _symmetric_vars;
-        Colored::BindingMap::iterator _bindingIterator;
-        bool _isDone;
-        bool _noValidBindings;
-        uint32_t _nextIndex = 0;
-        uint32_t _currentOuterId = 0;
-        uint32_t _currentInnerId = 0;
-        uint32_t _symmetric_vars_set = 0;
-        
-        bool eval() const;
-        bool assign_symmetric_vars();
-        void generate_combinations(
-            uint32_t options,
-            uint32_t samples,
-            std::vector<std::vector<uint32_t>> &result,
-            std::vector<uint32_t> &current) const;
-        
-    public:
-        FixpointBindingGenerator(const Colored::Transition &transition,
-                const Colored::ColorTypeMap& colorTypes,  const std::vector<std::set<const Colored::Variable *>>& symmetric_vars);
+    bool eval() const;
 
-        FixpointBindingGenerator(const FixpointBindingGenerator& ) = default;
-        
-        FixpointBindingGenerator& operator= (const FixpointBindingGenerator& b) = default;
+  public:
+    NaiveBindingGenerator(const Colored::Transition &transition, Colored::ColorTypeMap &colorTypes);
 
-        const Colored::BindingMap& next_binding();
-        const Colored::BindingMap& current_binding() const;
-        bool is_initial() const;
-        Iterator begin();
-        Iterator end();
-    };    
-}
+    const Colored::BindingMap &next_binding();
+    const Colored::BindingMap &current_binding() const;
+    bool is_initial() const;
+    Iterator begin();
+    Iterator end();
+};
+
+class FixpointBindingGenerator {
+  public:
+    class Iterator {
+      private:
+        FixpointBindingGenerator *_generator;
+
+      public:
+        Iterator(FixpointBindingGenerator *generator);
+
+        bool operator==(Iterator &other);
+        bool operator!=(Iterator &other);
+        Iterator &operator++();
+        const Colored::BindingMap operator++(int);
+        const Colored::BindingMap &operator*() const;
+    };
+
+  private:
+    const Colored::GuardExpression_ptr &_expr;
+    Colored::BindingMap _bindings;
+    std::vector<std::vector<std::vector<uint32_t>>> _symmetric_var_combinations;
+    const Colored::ColorTypeMap &_colorTypes;
+    const Colored::Transition &_transition;
+    const std::vector<std::set<const Colored::Variable *>> &_symmetric_vars;
+    Colored::BindingMap::iterator _bindingIterator;
+    bool _isDone;
+    bool _noValidBindings;
+    uint32_t _nextIndex = 0;
+    uint32_t _currentOuterId = 0;
+    uint32_t _currentInnerId = 0;
+    uint32_t _symmetric_vars_set = 0;
+
+    bool eval() const;
+    bool assign_symmetric_vars();
+    void generate_combinations(uint32_t options, uint32_t samples,
+                               std::vector<std::vector<uint32_t>> &result,
+                               std::vector<uint32_t> &current) const;
+
+  public:
+    FixpointBindingGenerator(
+        const Colored::Transition &transition, const Colored::ColorTypeMap &colorTypes,
+        const std::vector<std::set<const Colored::Variable *>> &symmetric_vars);
+
+    FixpointBindingGenerator(const FixpointBindingGenerator &) = default;
+
+    FixpointBindingGenerator &operator=(const FixpointBindingGenerator &b) = default;
+
+    const Colored::BindingMap &next_binding();
+    const Colored::BindingMap &current_binding() const;
+    bool is_initial() const;
+    Iterator begin();
+    Iterator end();
+};
+} // namespace PetriEngine

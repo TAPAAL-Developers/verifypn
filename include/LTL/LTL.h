@@ -18,14 +18,15 @@
 #ifndef VERIFYPN_LTLALGORITHM_H
 #define VERIFYPN_LTLALGORITHM_H
 
-#include "LTL/LTLValidator.h"
-#include "LTL/Algorithm/TarjanModelChecker.h"
 #include "LTL/Algorithm/NestedDepthFirstSearch.h"
-#include "LTL/Simplification/SpotToPQL.h"
+#include "LTL/Algorithm/TarjanModelChecker.h"
 #include "LTL/LTLToBuchi.h"
+#include "LTL/LTLValidator.h"
+#include "LTL/Simplification/SpotToPQL.h"
 
 namespace LTL {
-    std::pair<PetriEngine::PQL::Condition_ptr, bool> to_ltl(const PetriEngine::PQL::Condition_ptr &formula);
+std::pair<PetriEngine::PQL::Condition_ptr, bool>
+to_ltl(const PetriEngine::PQL::Condition_ptr &formula);
 }
 
 #endif

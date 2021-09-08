@@ -18,137 +18,140 @@
 #include <cassert>
 namespace PetriEngine {
 
-    SuccessorGenerator::SuccessorGenerator(const PetriNet& net)
-    : _net(net), _parent(nullptr) {
-        reset();
-    }
-    SuccessorGenerator::SuccessorGenerator(const PetriNet& net, const std::vector<std::shared_ptr<PQL::Condition> >& queries) :
-    SuccessorGenerator(net){}
-
-    SuccessorGenerator::SuccessorGenerator(const PetriNet &net, const std::shared_ptr<PQL::Condition> &query)
+SuccessorGenerator::SuccessorGenerator(const PetriNet &net) : _net(net), _parent(nullptr) {
+    reset();
+}
+SuccessorGenerator::SuccessorGenerator(const PetriNet &net,
+                                       const std::vector<std::shared_ptr<PQL::Condition>> &queries)
     : SuccessorGenerator(net) {}
 
-    SuccessorGenerator::~SuccessorGenerator() {
+SuccessorGenerator::SuccessorGenerator(const PetriNet &net,
+                                       const std::shared_ptr<PQL::Condition> &query)
+    : SuccessorGenerator(net) {}
+
+SuccessorGenerator::~SuccessorGenerator() {}
+
+bool SuccessorGenerator::prepare(const Structures::State &state) {
+    _parent = &state;
+    reset();
+    return true;
+}
+
+void SuccessorGenerator::reset() {
+    _suc_pcounter = 0;
+    _suc_tcounter = std::numeric_limits<uint32_t>::max();
+}
+
+void SuccessorGenerator::consume_preset(Structures::State &write, uint32_t t) {
+
+    const TransPtr &ptr = _net._transitions[t];
+    uint32_t finv = ptr._inputs;
+    uint32_t linv = ptr._outputs;
+    for (; finv < linv; ++finv) {
+        if (!_net._invariants[finv]._inhibitor) {
+            assert(write.marking()[_net._invariants[finv]._place] >=
+                   _net._invariants[finv]._tokens);
+            write.marking()[_net._invariants[finv]._place] -= _net._invariants[finv]._tokens;
+        }
     }
+}
 
-    bool SuccessorGenerator::prepare(const Structures::State& state) {
-        _parent = &state;
-        reset();
-        return true;
-    }
+bool SuccessorGenerator::check_preset(uint32_t t) {
+    const TransPtr &ptr = _net._transitions[t];
+    uint32_t finv = ptr._inputs;
+    uint32_t linv = ptr._outputs;
 
-    void SuccessorGenerator::reset() {
-        _suc_pcounter = 0;
-        _suc_tcounter = std::numeric_limits<uint32_t>::max();
-    }
-
-    void SuccessorGenerator::consume_preset(Structures::State& write, uint32_t t) {
-
-        const TransPtr& ptr = _net._transitions[t];
-        uint32_t finv = ptr._inputs;
-        uint32_t linv = ptr._outputs;
-        for (; finv < linv; ++finv) {
-            if(!_net._invariants[finv]._inhibitor) {
-                assert(write.marking()[_net._invariants[finv]._place] >= _net._invariants[finv]._tokens);
-                write.marking()[_net._invariants[finv]._place] -= _net._invariants[finv]._tokens;
+    for (; finv < linv; ++finv) {
+        const Invariant &inv = _net._invariants[finv];
+        if ((*_parent).marking()[inv._place] < inv._tokens) {
+            if (!inv._inhibitor) {
+                return false;
+            }
+        } else {
+            if (inv._inhibitor) {
+                return false;
             }
         }
     }
+    return true;
+}
 
-    bool SuccessorGenerator::check_preset(uint32_t t) {
-        const TransPtr& ptr = _net._transitions[t];
-        uint32_t finv = ptr._inputs;
-        uint32_t linv = ptr._outputs;
+void SuccessorGenerator::produce_postset(Structures::State &write, uint32_t t) {
+    const TransPtr &ptr = _net._transitions[t];
+    uint32_t finv = ptr._outputs;
+    uint32_t linv = _net._transitions[t + 1]._inputs;
 
-        for (; finv < linv; ++finv) {
-            const Invariant& inv = _net._invariants[finv];
-            if ((*_parent).marking()[inv._place] < inv._tokens) {
-                if (!inv._inhibitor) {
-                    return false;
-                }
-            } else {
-                if (inv._inhibitor) {
-                    return false;
-                }
-            }
+    for (; finv < linv; ++finv) {
+        size_t n = write.marking()[_net._invariants[finv]._place];
+        n += _net._invariants[finv]._tokens;
+        if (n >= std::numeric_limits<uint32_t>::max()) {
+            throw base_error(FailedCode, "Exceeded 2**32 limit of tokens in a single place (", n,
+                             ")");
         }
-        return true;
+        write.marking()[_net._invariants[finv]._place] = n;
     }
+}
 
-    void SuccessorGenerator::produce_postset(Structures::State& write, uint32_t t) {
-        const TransPtr& ptr = _net._transitions[t];
-        uint32_t finv = ptr._outputs;
-        uint32_t linv = _net._transitions[t + 1]._inputs;
-
-        for (; finv < linv; ++finv) {
-            size_t n = write.marking()[_net._invariants[finv]._place];
-            n += _net._invariants[finv]._tokens;
-            if (n >= std::numeric_limits<uint32_t>::max()) {
-                throw base_error(FailedCode, "Exceeded 2**32 limit of tokens in a single place (", n, ")");
+bool SuccessorGenerator::next(Structures::State &write) {
+    for (; _suc_pcounter < _net._nplaces; ++_suc_pcounter) {
+        // orphans are currently under "place 0" as a special case
+        if (_suc_pcounter == 0 || (*_parent).marking()[_suc_pcounter] > 0) {
+            if (_suc_tcounter == std::numeric_limits<uint32_t>::max()) {
+                _suc_tcounter = _net._placeToPtrs[_suc_pcounter];
             }
-            write.marking()[_net._invariants[finv]._place] = n;
-        }
-    }
+            uint32_t last = _net._placeToPtrs[_suc_pcounter + 1];
+            for (; _suc_tcounter != last; ++_suc_tcounter) {
 
-    bool SuccessorGenerator::next(Structures::State& write) {
-        for (; _suc_pcounter < _net._nplaces; ++_suc_pcounter) {
-            // orphans are currently under "place 0" as a special case
-            if (_suc_pcounter == 0 || (*_parent).marking()[_suc_pcounter] > 0) {
-                if (_suc_tcounter == std::numeric_limits<uint32_t>::max()) {
-                    _suc_tcounter = _net._placeToPtrs[_suc_pcounter];
-                }
-                uint32_t last = _net._placeToPtrs[_suc_pcounter + 1];
-                for (; _suc_tcounter != last; ++_suc_tcounter) {
+                if (!check_preset(_suc_tcounter))
+                    continue;
+                memcpy(write.marking(), (*_parent).marking(), _net._nplaces * sizeof(MarkVal));
+                consume_preset(write, _suc_tcounter);
+                produce_postset(write, _suc_tcounter);
 
-                    if (!check_preset(_suc_tcounter)) continue;
-                    memcpy(write.marking(), (*_parent).marking(), _net._nplaces * sizeof (MarkVal));
-                    consume_preset(write, _suc_tcounter);
-                    produce_postset(write, _suc_tcounter);
-
-                    ++_suc_tcounter;
-                    return true;
-                }
-                _suc_tcounter = std::numeric_limits<uint32_t>::max();
+                ++_suc_tcounter;
+                return true;
             }
             _suc_tcounter = std::numeric_limits<uint32_t>::max();
         }
-        return false;
+        _suc_tcounter = std::numeric_limits<uint32_t>::max();
     }
+    return false;
+}
 
-    bool SuccessorGenerator::next(Structures::State& write, uint32_t &tindex) {
-        _parent = &write;
-        _suc_pcounter = 0;
-        for (; _suc_pcounter < _net._nplaces; ++_suc_pcounter) {
-            // orphans are currently under "place 0" as a special case
-            if (_suc_pcounter == 0 || (*_parent).marking()[_suc_pcounter] > 0) {
-                if (tindex == std::numeric_limits<uint32_t>::max()) {
-                    tindex = _net._placeToPtrs[_suc_pcounter];
-                }
-                uint32_t last = _net._placeToPtrs[_suc_pcounter + 1];
-                for (; tindex != last; ++tindex) {
+bool SuccessorGenerator::next(Structures::State &write, uint32_t &tindex) {
+    _parent = &write;
+    _suc_pcounter = 0;
+    for (; _suc_pcounter < _net._nplaces; ++_suc_pcounter) {
+        // orphans are currently under "place 0" as a special case
+        if (_suc_pcounter == 0 || (*_parent).marking()[_suc_pcounter] > 0) {
+            if (tindex == std::numeric_limits<uint32_t>::max()) {
+                tindex = _net._placeToPtrs[_suc_pcounter];
+            }
+            uint32_t last = _net._placeToPtrs[_suc_pcounter + 1];
+            for (; tindex != last; ++tindex) {
 
-                    if (!check_preset(tindex)) continue;
-                    _fire(write, tindex);
+                if (!check_preset(tindex))
+                    continue;
+                _fire(write, tindex);
 
-                    ++tindex;
-                    return true;
-                }
-                tindex = std::numeric_limits<uint32_t>::max();
+                ++tindex;
+                return true;
             }
             tindex = std::numeric_limits<uint32_t>::max();
         }
-        return false;
+        tindex = std::numeric_limits<uint32_t>::max();
     }
-
-    void SuccessorGenerator::_fire(Structures::State &write, uint32_t tid) {
-        assert(check_preset(tid));
-        memcpy(write.marking(), (*_parent).marking(), _net._nplaces * sizeof (MarkVal));
-        consume_preset(write, tid);
-        produce_postset(write, tid);
-    }
-
-    SuccessorGenerator::SuccessorGenerator(const PetriNet &net, const std::shared_ptr<StubbornSet>&)
-        : SuccessorGenerator(net){}
-
+    return false;
 }
 
+void SuccessorGenerator::_fire(Structures::State &write, uint32_t tid) {
+    assert(check_preset(tid));
+    memcpy(write.marking(), (*_parent).marking(), _net._nplaces * sizeof(MarkVal));
+    consume_preset(write, tid);
+    produce_postset(write, tid);
+}
+
+SuccessorGenerator::SuccessorGenerator(const PetriNet &net, const std::shared_ptr<StubbornSet> &)
+    : SuccessorGenerator(net) {}
+
+} // namespace PetriEngine

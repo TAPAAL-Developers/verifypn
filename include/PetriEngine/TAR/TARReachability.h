@@ -20,71 +20,65 @@
 
 #ifndef TARREACHABILITY_H
 #define TARREACHABILITY_H
+#include "AntiChain.h"
 #include "TARAutomata.h"
 #include "TraceSet.h"
-#include "AntiChain.h"
 
 #include "PetriEngine/Reachability/ReachabilitySearch.h"
 
-
 namespace PetriEngine {
-    namespace Reachability {
-        class Solver;
-        class TARReachabilitySearch {
-        private:
-            const AbstractHandler& _printer;
+namespace Reachability {
+class Solver;
+class TARReachabilitySearch {
+  private:
+    const AbstractHandler &_printer;
 
+  public:
+    TARReachabilitySearch(const AbstractHandler &printer, const PetriNet &net,
+                          const Reducer &reducer, int kbound = 0)
+        : _printer(printer), _net(net), _reducer(reducer), _traceset(net) {
+        _kbound = kbound;
+    }
 
-        public:
+    ~TARReachabilitySearch() {}
 
-            TARReachabilitySearch(const AbstractHandler& printer, const PetriNet& net, const Reducer& reducer, int kbound = 0)
-            : _printer(printer), _net(net), _reducer(reducer), _traceset(net) {
-                _kbound = kbound;
-            }
+    void reachable(std::vector<std::shared_ptr<PQL::Condition>> &queries,
+                   std::vector<ResultPrinter::Result> &results, bool printstats, bool printtrace);
 
-            ~TARReachabilitySearch()
-            {
-            }
+  private:
+    void print_trace(trace_t &stack);
+    void next_edge(AntiChain<uint32_t, size_t> &checked, state_t &state, trace_t &waiting,
+                   std::set<size_t> &nextinter);
+    bool try_reach(bool printtrace, Solver &solver);
+    std::pair<bool, bool> run_TAR(bool printtrace, Solver &solver, std::vector<bool> &use_trans);
+    bool pop_done(trace_t &waiting, size_t &stepno);
+    bool do_step(state_t &state, std::set<size_t> &nextinter);
+    void add_non_changing(state_t &state, std::set<size_t> &maximal, std::set<size_t> &nextinter);
+    bool validate(const std::vector<size_t> &transitions);
 
-            void reachable(
-                std::vector<std::shared_ptr<PQL::Condition > >& queries,
-                std::vector<ResultPrinter::Result>& results,
-                bool printstats, bool printtrace);
-        private:
+    void handle_invalid_trace(trace_t &waiting, int nvalid);
+    std::pair<int, bool> is_valid_trace(trace_t &trace, Structures::State &initial,
+                                        const std::vector<bool> &, PQL::Condition *query);
+    void print_stats();
+    bool check_queries(std::vector<std::shared_ptr<PQL::Condition>> &,
+                       std::vector<ResultPrinter::Result> &, Structures::State &, bool);
 
-            void print_trace(trace_t& stack);
-            void next_edge(AntiChain<uint32_t, size_t>& checked, state_t& state, trace_t& waiting, std::set<size_t>& nextinter);
-            bool try_reach(  bool printtrace, Solver& solver);
-            std::pair<bool,bool> run_TAR(    bool printtrace, Solver& solver, std::vector<bool>& use_trans);
-            bool pop_done(trace_t& waiting, size_t& stepno);
-            bool do_step(state_t& state, std::set<size_t>& nextinter);
-            void add_non_changing(state_t& state, std::set<size_t>& maximal, std::set<size_t>& nextinter);
-            bool validate(const std::vector<size_t>& transitions);
-
-            void handle_invalid_trace(trace_t& waiting, int nvalid);
-            std::pair<int,bool>  is_valid_trace(trace_t& trace, Structures::State& initial, const std::vector<bool>&, PQL::Condition* query);
-            void print_stats();
-            bool check_queries(  std::vector<std::shared_ptr<PQL::Condition > >&,
-                                std::vector<ResultPrinter::Result>&,
-                                Structures::State&, bool);
-
-            int _kbound;
-            size_t _stepno = 0;
-            const PetriNet& _net;
-            const Reducer& _reducer;
-            TraceSet _traceset;
+    int _kbound;
+    size_t _stepno = 0;
+    const PetriNet &_net;
+    const Reducer &_reducer;
+    TraceSet _traceset;
 
 #ifdef TAR_TIMING
-            double _check_time = 0;
-            double _next_time = 0;
-            double _do_step = 0;
-            double _do_step_next = 0;
-            double _non_change_time = 0;
-            double _follow_time = 0;
+    double _check_time = 0;
+    double _next_time = 0;
+    double _do_step = 0;
+    double _do_step_next = 0;
+    double _non_change_time = 0;
+    double _follow_time = 0;
 #endif
-        };
+};
 
-    }
-}
+} // namespace Reachability
+} // namespace PetriEngine
 #endif /* TARREACHABILITY_H */
-

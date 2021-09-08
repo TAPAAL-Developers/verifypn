@@ -21,37 +21,33 @@
 #include "LTL/SuccessorGeneration/Heuristic.h"
 
 namespace LTL {
-    class FireCountHeuristic : public Heuristic {
-    public:
-        explicit FireCountHeuristic(const PetriEngine::PetriNet& net) : _fireCount(net.number_of_transitions()) {}
+class FireCountHeuristic : public Heuristic {
+  public:
+    explicit FireCountHeuristic(const PetriEngine::PetriNet &net)
+        : _fireCount(net.number_of_transitions()) {}
 
-        uint32_t eval(const Structures::ProductState &state, uint32_t tid) override {
-            assert(tid <= _fireCount.size());
-            return _fireCount[tid];
-        }
+    uint32_t eval(const Structures::ProductState &state, uint32_t tid) override {
+        assert(tid <= _fireCount.size());
+        return _fireCount[tid];
+    }
 
-        bool has_heuristic(const Structures::ProductState &state) override {
-            return true;
-        }
+    bool has_heuristic(const Structures::ProductState &state) override { return true; }
 
-        void push(uint32_t tid) override {
-            assert(tid <= _fireCount.size());
-            ++_fireCount[tid];
-        }
+    void push(uint32_t tid) override {
+        assert(tid <= _fireCount.size());
+        ++_fireCount[tid];
+    }
 
-        void pop(uint32_t tid) override {
-            assert(tid <= _fireCount.size());
-            --_fireCount[tid];
-        }
+    void pop(uint32_t tid) override {
+        assert(tid <= _fireCount.size());
+        --_fireCount[tid];
+    }
 
-        std::ostream &output(std::ostream &os) {
-            return os << "FIRECOUNT_HEUR";
-        }
+    std::ostream &output(std::ostream &os) { return os << "FIRECOUNT_HEUR"; }
 
+  protected:
+    std::vector<uint32_t> _fireCount;
+};
+} // namespace LTL
 
-    protected:
-        std::vector<uint32_t> _fireCount;
-    };
-}
-
-#endif //VERIFYPN_FIRECOUNTHEURISTIC_H
+#endif // VERIFYPN_FIRECOUNTHEURISTIC_H

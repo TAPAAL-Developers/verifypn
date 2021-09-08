@@ -21,25 +21,19 @@
 #include "LTL/Structures/ProductState.h"
 
 namespace LTL {
-    class SuccessorSpooler {
-    public:
-        virtual bool prepare(const LTL::Structures::ProductState& ) = 0;
+class SuccessorSpooler {
+  public:
+    virtual bool prepare(const LTL::Structures::ProductState &) = 0;
 
-        virtual uint32_t next() = 0;
+    virtual uint32_t next() = 0;
 
-        virtual ~SuccessorSpooler() = default;
+    virtual ~SuccessorSpooler() = default;
 
-        virtual void reset()
-        {
+    virtual void reset() {}
 
-        }
+    virtual bool generate_all(const LTL::Structures::ProductState &parent) { return false; }
+    static constexpr uint32_t NoTransition = std::numeric_limits<uint32_t>::max();
+};
+} // namespace LTL
 
-        virtual bool generate_all(const LTL::Structures::ProductState& parent)
-        {
-            return false;
-        }
-        static constexpr uint32_t NoTransition = std::numeric_limits<uint32_t>::max();
-    };
-}
-
-#endif //VERIFYPN_SUCCESSORSPOOLER_H
+#endif // VERIFYPN_SUCCESSORSPOOLER_H

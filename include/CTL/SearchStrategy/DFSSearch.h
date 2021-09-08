@@ -1,9 +1,9 @@
 #ifndef DFSSEARCH_H
 #define DFSSEARCH_H
 
-#include <stack>
 #include "CTL/DependencyGraph/Edge.h"
 #include "SearchStrategy.h"
+#include <stack>
 
 namespace CTL::SearchStrategy {
 
@@ -12,17 +12,16 @@ namespace CTL::SearchStrategy {
 
 class DFSSearch : public SearchStrategy {
 
-protected:
+  protected:
     size_t waiting_size() const { return _waiting.size(); };
-    void push_to_waiting(DependencyGraph::Edge* edge) { _waiting.push(edge); };
-    DependencyGraph::Edge* pop_from_waiting() 
-    {
+    void push_to_waiting(DependencyGraph::Edge *edge) { _waiting.push(edge); };
+    DependencyGraph::Edge *pop_from_waiting() {
         auto e = _waiting.top();
         _waiting.pop();
         return e;
     };
-    std::stack<DependencyGraph::Edge*> _waiting;
+    std::stack<DependencyGraph::Edge *> _waiting;
 };
 
-}   // end SearchStrategy
+} // namespace CTL::SearchStrategy
 #endif // DFSSEARCH_H

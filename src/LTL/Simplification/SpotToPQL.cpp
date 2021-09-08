@@ -26,113 +26,112 @@
 #include <spot/tl/unabbrev.hh>
 
 namespace LTL {
+using namespace PetriEngine::PQL;
+PetriEngine::PQL::Condition_ptr to_PQL(const spot::formula &formula, const APInfo &apinfo) {
+
+    switch (formula.kind()) {
+    case spot::op::ff:
+        return BooleanCondition::FALSE_CONSTANT;
+    case spot::op::tt:
+        return BooleanCondition::TRUE_CONSTANT;
+    case spot::op::ap: {
+        auto it =
+            std::find_if(std::begin(apinfo), std::end(apinfo), [&](const AtomicProposition &info) {
+                auto ap = std::string_view(info._text);
+                return ap == std::string_view(formula.ap_name());
+            });
+        if (it == std::end(apinfo)) {
+            throw base_error("Error: Expected to find ", formula.ap_name(), " in APInfo.\n");
+        } else {
+            return it->_expression;
+        }
+    }
+    case spot::op::Not:
+        return std::make_shared<NotCondition>(to_PQL(formula[0], apinfo));
+    case spot::op::X:
+        return std::make_shared<XCondition>(to_PQL(formula[0], apinfo));
+    case spot::op::F:
+        return std::make_shared<FCondition>(to_PQL(formula[0], apinfo));
+    case spot::op::G:
+        return std::make_shared<GCondition>(to_PQL(formula[0], apinfo));
+    case spot::op::U:
+        return std::make_shared<UntilCondition>(to_PQL(formula[0], apinfo),
+                                                to_PQL(formula[1], apinfo));
+    case spot::op::Or: {
+        std::vector<Condition_ptr> conds;
+        std::transform(std::begin(formula), std::end(formula), std::back_insert_iterator(conds),
+                       [&](auto f) { return to_PQL(f, apinfo); });
+        return std::make_shared<OrCondition>(conds);
+    }
+    case spot::op::And: {
+        std::vector<Condition_ptr> conds;
+        std::transform(std::begin(formula), std::end(formula), std::back_insert_iterator(conds),
+                       [&](auto f) { return to_PQL(f, apinfo); });
+        return std::make_shared<AndCondition>(conds);
+    }
+    case spot::op::R:
+        throw base_error(ErrorCode, "Unimplemented: R");
+    case spot::op::W:
+        throw base_error("Unimplemented: W");
+    case spot::op::M:
+        throw base_error("Unimplemented: M");
+    case spot::op::eword:
+        throw base_error("Unimplemented: eword");
+    case spot::op::Closure:
+        throw base_error("Unimplemented: Closure");
+    case spot::op::NegClosure:
+        throw base_error("Unimplemented: NegClosure");
+    case spot::op::NegClosureMarked:
+        throw base_error("Unimplemented: NegClosureMarked");
+    case spot::op::Xor:
+        throw base_error("Unimplemented: Xor");
+    case spot::op::Implies:
+        throw base_error("Unimplemented: Implies");
+    case spot::op::Equiv:
+        throw base_error("Unimplemented: Equiv");
+    case spot::op::EConcat:
+        throw base_error("Unimplemented: EConcat");
+    case spot::op::EConcatMarked:
+        throw base_error("Unimplemented: EConcatMarked");
+    case spot::op::UConcat:
+        throw base_error("Unimplemented: UConcat");
+    case spot::op::OrRat:
+        throw base_error("Unimplemented: OrRat");
+    case spot::op::AndRat:
+        throw base_error("Unimplemented: AndRat");
+    case spot::op::AndNLM:
+        throw base_error("Unimplemented: AndNLM");
+    case spot::op::Concat:
+        throw base_error("Unimplemented: Concat");
+    case spot::op::Fusion:
+        throw base_error("Unimplemented: Fusion");
+    case spot::op::Star:
+        throw base_error("Unimplemented: Star");
+    case spot::op::FStar:
+        throw base_error("Unimplemented: FStar");
+    case spot::op::first_match:
+        throw base_error("Unimplemented: first_match");
+    default: {
+        std::stringstream ss;
+        formula.dump(ss);
+        throw base_error("Found unrecognized op in formula ", ss.str());
+    }
+    }
+}
+
+PetriEngine::PQL::Condition_ptr simplify(const PetriEngine::PQL::Condition_ptr &formula,
+                                         const options_t &options) {
     using namespace PetriEngine::PQL;
-    PetriEngine::PQL::Condition_ptr to_PQL(const spot::formula &formula, const APInfo &apinfo) {
-
-        switch (formula.kind()) {
-            case spot::op::ff:
-                return BooleanCondition::FALSE_CONSTANT;
-            case spot::op::tt:
-                return BooleanCondition::TRUE_CONSTANT;
-            case spot::op::ap: {
-                auto it = std::find_if(std::begin(apinfo), std::end(apinfo),
-                                       [&](const AtomicProposition &info) {
-                                           auto ap = std::string_view(info._text);
-                                           return ap == std::string_view(formula.ap_name());
-                                       });
-                if (it == std::end(apinfo)) {
-                    throw base_error("Error: Expected to find ", formula.ap_name(), " in APInfo.\n");
-                } else {
-                    return it->_expression;
-                }
-
-            }
-            case spot::op::Not:
-                return std::make_shared<NotCondition>(to_PQL(formula[0], apinfo));
-            case spot::op::X:
-                return std::make_shared<XCondition>(to_PQL(formula[0], apinfo));
-            case spot::op::F:
-                return std::make_shared<FCondition>(to_PQL(formula[0], apinfo));
-            case spot::op::G:
-                return std::make_shared<GCondition>(to_PQL(formula[0], apinfo));
-            case spot::op::U:
-                return std::make_shared<UntilCondition>(
-                        to_PQL(formula[0], apinfo), to_PQL(formula[1], apinfo));
-            case spot::op::Or: {
-                std::vector<Condition_ptr> conds;
-                std::transform(std::begin(formula), std::end(formula), std::back_insert_iterator(conds),
-                               [&](auto f) { return to_PQL(f, apinfo); });
-                return std::make_shared<OrCondition>(conds);
-            }
-            case spot::op::And: {
-                std::vector<Condition_ptr> conds;
-                std::transform(std::begin(formula), std::end(formula), std::back_insert_iterator(conds),
-                               [&](auto f) { return to_PQL(f, apinfo); });
-                return std::make_shared<AndCondition>(conds);
-            }
-            case spot::op::R:
-                throw base_error(ErrorCode,"Unimplemented: R");
-            case spot::op::W:
-                throw base_error("Unimplemented: W");
-            case spot::op::M:
-                throw base_error("Unimplemented: M");
-            case spot::op::eword:
-                throw base_error("Unimplemented: eword");
-            case spot::op::Closure:
-                throw base_error("Unimplemented: Closure");
-            case spot::op::NegClosure:
-                throw base_error("Unimplemented: NegClosure");
-            case spot::op::NegClosureMarked:
-                throw base_error("Unimplemented: NegClosureMarked");
-            case spot::op::Xor:
-                throw base_error("Unimplemented: Xor");
-            case spot::op::Implies:
-                throw base_error("Unimplemented: Implies");
-            case spot::op::Equiv:
-                throw base_error("Unimplemented: Equiv");
-            case spot::op::EConcat:
-                throw base_error("Unimplemented: EConcat");
-            case spot::op::EConcatMarked:
-                throw base_error("Unimplemented: EConcatMarked");
-            case spot::op::UConcat:
-                throw base_error("Unimplemented: UConcat");
-            case spot::op::OrRat:
-                throw base_error("Unimplemented: OrRat");
-            case spot::op::AndRat:
-                throw base_error("Unimplemented: AndRat");
-            case spot::op::AndNLM:
-                throw base_error("Unimplemented: AndNLM");
-            case spot::op::Concat:
-                throw base_error("Unimplemented: Concat");
-            case spot::op::Fusion:
-                throw base_error("Unimplemented: Fusion");
-            case spot::op::Star:
-                throw base_error("Unimplemented: Star");
-            case spot::op::FStar:
-                throw base_error("Unimplemented: FStar");
-            case spot::op::first_match:
-                throw base_error("Unimplemented: first_match");
-            default:
-            {
-                std::stringstream ss;
-                formula.dump(ss);
-                throw base_error("Found unrecognized op in formula ", ss.str());
-            }
-        }
+    if (auto e = std::dynamic_pointer_cast<ECondition>(formula)) {
+        return std::make_shared<ECondition>(simplify((*e)[0], options));
+    } else if (auto a = std::dynamic_pointer_cast<ACondition>(formula)) {
+        return std::make_shared<ACondition>(simplify((*a)[0], options));
     }
-
-    PetriEngine::PQL::Condition_ptr simplify(const PetriEngine::PQL::Condition_ptr &formula, const options_t &options) {
-        using namespace PetriEngine::PQL;
-        if (auto e = std::dynamic_pointer_cast<ECondition>(formula)) {
-            return std::make_shared<ECondition>(simplify((*e)[0], options));
-        } else if (auto a = std::dynamic_pointer_cast<ACondition>(formula)) {
-            return std::make_shared<ACondition>(simplify((*a)[0], options));
-        }
-        auto[f, apinfo] = LTL::to_spot_formula(formula, options);
-        spot::tl_simplifier simplifier{static_cast<int>(options._buchi_optimization)};
-        f = simplifier.simplify(f);
-        // spot simplifies using unsupported operators R, W, and M, which we now remove.
-        f = spot::unabbreviate(f, "RWM");
-        return to_PQL(f, apinfo);
-    }
+    auto [f, apinfo] = LTL::to_spot_formula(formula, options);
+    spot::tl_simplifier simplifier{static_cast<int>(options._buchi_optimization)};
+    f = simplifier.simplify(f);
+    // spot simplifies using unsupported operators R, W, and M, which we now remove.
+    f = spot::unabbreviate(f, "RWM");
+    return to_PQL(f, apinfo);
+}
 } // namespace LTL

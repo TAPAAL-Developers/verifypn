@@ -17,8 +17,8 @@
 #ifndef BINARYPARSER_H
 #define BINARYPARSER_H
 
-#include <set>
 #include <iostream>
+#include <set>
 #include <vector>
 
 #include "PNMLParser.h"
@@ -26,20 +26,17 @@
 using namespace PetriEngine::PQL;
 
 class QueryBinaryParser {
-public:
-    QueryBinaryParser() {};
-    ~QueryBinaryParser() {};
+  public:
+    QueryBinaryParser(){};
+    ~QueryBinaryParser(){};
 
-    std::vector<QueryItem>  _queries;
+    std::vector<QueryItem> _queries;
 
-    bool parse(std::ifstream& binary, const std::set<size_t>& );
+    bool parse(std::ifstream &binary, const std::set<size_t> &);
 
-private:
-    Condition_ptr parse_query(std::ifstream& binary, const std::vector<std::string>& names);
-    Expr_ptr parse_expr(std::ifstream& binary, const std::vector<std::string>& names);
-    
+  private:
+    Condition_ptr parse_query(std::ifstream &binary, const std::vector<std::string> &names);
+    Expr_ptr parse_expr(std::ifstream &binary, const std::vector<std::string> &names);
 };
 
-
 #endif /* BINARYPARSER_H */
-
