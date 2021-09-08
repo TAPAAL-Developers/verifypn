@@ -1,16 +1,16 @@
 #include "PetriEngine/Colored/EquivalenceClass.h"
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 
 EquivalenceClass::EquivalenceClass(uint32_t id) : _id(id) {}
 EquivalenceClass::EquivalenceClass(uint32_t id, const ColorType *colorType)
     : _id(id), _colorType(colorType) {}
 EquivalenceClass::EquivalenceClass(uint32_t id, const ColorType *colorType,
                                    interval_vector_t &&colorIntervals)
-    : _id(id), _colorType(colorType), _colorIntervals(std::move(colorIntervals)) {}
+    : _id(id), _colorType(colorType), _colorIntervals(colorIntervals) {}
 
-EquivalenceClass EquivalenceClass::intersect(uint32_t id, const EquivalenceClass &other) const {
+auto EquivalenceClass::intersect(uint32_t id, const EquivalenceClass &other) const
+    -> EquivalenceClass {
     EquivalenceClass result = EquivalenceClass(id);
 
     if (_colorType != other._colorType) {
@@ -29,8 +29,9 @@ EquivalenceClass EquivalenceClass::intersect(uint32_t id, const EquivalenceClass
     return result;
 }
 
-EquivalenceClass EquivalenceClass::subtract(uint32_t id, const EquivalenceClass &other,
-                                            const std::vector<bool> &diagonalPositions) const {
+auto EquivalenceClass::subtract(uint32_t id, const EquivalenceClass &other,
+                                const std::vector<bool> &diagonalPositions) const
+    -> EquivalenceClass {
     EquivalenceClass result = EquivalenceClass(id);
     if (_colorType != other._colorType) {
         return result;
@@ -59,7 +60,7 @@ EquivalenceClass EquivalenceClass::subtract(uint32_t id, const EquivalenceClass 
                         }
                     }
                 }
-                intervalSubRes = std::move(newIntervals);
+                intervalSubRes = newIntervals;
             }
         }
         for (const auto &interval : intervalSubRes) {
@@ -70,8 +71,8 @@ EquivalenceClass EquivalenceClass::subtract(uint32_t id, const EquivalenceClass 
     return result;
 }
 
-bool EquivalenceClass::contains_color(const std::vector<uint32_t> &ids,
-                                      const std::vector<bool> &diagonalPositions) const {
+auto EquivalenceClass::contains_color(const std::vector<uint32_t> &ids,
+                                      const std::vector<bool> &diagonalPositions) const -> bool {
     if (ids.size() != _colorIntervals.front().size()) {
         return false;
     }
@@ -90,7 +91,7 @@ bool EquivalenceClass::contains_color(const std::vector<uint32_t> &ids,
     return false;
 }
 
-size_t EquivalenceClass::size() const {
+auto EquivalenceClass::size() const -> size_t {
     size_t result = 0;
     for (const auto &interval : _colorIntervals) {
         size_t intervalSize = 1;
@@ -101,5 +102,4 @@ size_t EquivalenceClass::size() const {
     }
     return result;
 }
-} // namespace Colored
-} // namespace PetriEngine
+} // namespace PetriEngine::Colored

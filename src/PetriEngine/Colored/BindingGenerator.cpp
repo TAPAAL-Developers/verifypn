@@ -24,22 +24,22 @@ namespace PetriEngine {
 NaiveBindingGenerator::Iterator::Iterator(NaiveBindingGenerator *generator)
     : _generator(generator) {}
 
-bool NaiveBindingGenerator::Iterator::operator==(Iterator &other) {
+auto NaiveBindingGenerator::Iterator::operator==(Iterator &other) -> bool {
     return _generator == other._generator;
 }
 
-bool NaiveBindingGenerator::Iterator::operator!=(Iterator &other) {
+auto NaiveBindingGenerator::Iterator::operator!=(Iterator &other) -> bool {
     return _generator != other._generator;
 }
 
-NaiveBindingGenerator::Iterator &NaiveBindingGenerator::Iterator::operator++() {
+auto NaiveBindingGenerator::Iterator::operator++() -> NaiveBindingGenerator::Iterator & {
     _generator->next_binding();
     if (_generator->is_initial())
         _generator = nullptr;
     return *this;
 }
 
-const Colored::BindingMap &NaiveBindingGenerator::Iterator::operator*() const {
+auto NaiveBindingGenerator::Iterator::operator*() const -> const Colored::BindingMap & {
     return _generator->current_binding();
 }
 
@@ -67,7 +67,7 @@ NaiveBindingGenerator::NaiveBindingGenerator(const Colored::Transition &transiti
         next_binding();
 }
 
-bool NaiveBindingGenerator::eval() const {
+auto NaiveBindingGenerator::eval() const -> bool {
     if (_expr == nullptr)
         return true;
     Colored::EquivalenceVec placePartition;
@@ -76,7 +76,7 @@ bool NaiveBindingGenerator::eval() const {
     return _expr->eval(context);
 }
 
-const Colored::BindingMap &NaiveBindingGenerator::next_binding() {
+auto NaiveBindingGenerator::next_binding() -> const Colored::BindingMap & {
     bool test = false;
     while (!test) {
         for (auto &binding : _bindings) {
@@ -94,9 +94,11 @@ const Colored::BindingMap &NaiveBindingGenerator::next_binding() {
     return _bindings;
 }
 
-const Colored::BindingMap &NaiveBindingGenerator::current_binding() const { return _bindings; }
+auto NaiveBindingGenerator::current_binding() const -> const Colored::BindingMap & {
+    return _bindings;
+}
 
-bool NaiveBindingGenerator::is_initial() const {
+auto NaiveBindingGenerator::is_initial() const -> bool {
     for (auto &b : _bindings) {
         if (b.second->get_id() != 0)
             return false;
@@ -104,22 +106,22 @@ bool NaiveBindingGenerator::is_initial() const {
     return true;
 }
 
-NaiveBindingGenerator::Iterator NaiveBindingGenerator::begin() { return {this}; }
+auto NaiveBindingGenerator::begin() -> NaiveBindingGenerator::Iterator { return {this}; }
 
-NaiveBindingGenerator::Iterator NaiveBindingGenerator::end() { return {nullptr}; }
+auto NaiveBindingGenerator::end() -> NaiveBindingGenerator::Iterator { return {nullptr}; }
 
 FixpointBindingGenerator::Iterator::Iterator(FixpointBindingGenerator *generator)
     : _generator(generator) {}
 
-bool FixpointBindingGenerator::Iterator::operator==(Iterator &other) {
+auto FixpointBindingGenerator::Iterator::operator==(Iterator &other) -> bool {
     return _generator == other._generator;
 }
 
-bool FixpointBindingGenerator::Iterator::operator!=(Iterator &other) {
+auto FixpointBindingGenerator::Iterator::operator!=(Iterator &other) -> bool {
     return _generator != other._generator;
 }
 
-FixpointBindingGenerator::Iterator &FixpointBindingGenerator::Iterator::operator++() {
+auto FixpointBindingGenerator::Iterator::operator++() -> FixpointBindingGenerator::Iterator & {
     if (_generator->_isDone) {
         _generator = nullptr;
     } else {
@@ -131,7 +133,7 @@ FixpointBindingGenerator::Iterator &FixpointBindingGenerator::Iterator::operator
     return *this;
 }
 
-const Colored::BindingMap &FixpointBindingGenerator::Iterator::operator*() const {
+auto FixpointBindingGenerator::Iterator::operator*() const -> const Colored::BindingMap & {
     return _generator->current_binding();
 }
 
@@ -181,7 +183,7 @@ FixpointBindingGenerator::FixpointBindingGenerator(
         next_binding();
 }
 
-bool FixpointBindingGenerator::assign_symmetric_vars() {
+auto FixpointBindingGenerator::assign_symmetric_vars() -> bool {
     if (_currentOuterId < _symmetric_vars.size()) {
         if (_currentInnerId >= _symmetric_var_combinations[_currentOuterId].size()) {
             _currentOuterId++;
@@ -208,7 +210,7 @@ bool FixpointBindingGenerator::assign_symmetric_vars() {
     return true;
 }
 
-bool FixpointBindingGenerator::eval() const {
+auto FixpointBindingGenerator::eval() const -> bool {
     if (_expr == nullptr)
         return true;
 
@@ -217,7 +219,7 @@ bool FixpointBindingGenerator::eval() const {
     return _expr->eval(context);
 }
 
-const Colored::BindingMap &FixpointBindingGenerator::next_binding() {
+auto FixpointBindingGenerator::next_binding() -> const Colored::BindingMap & {
     bool test = false;
     while (!test) {
         bool next = true;
@@ -299,18 +301,20 @@ void FixpointBindingGenerator::generate_combinations(uint32_t options, uint32_t 
     }
 }
 
-const Colored::BindingMap &FixpointBindingGenerator::current_binding() const { return _bindings; }
+auto FixpointBindingGenerator::current_binding() const -> const Colored::BindingMap & {
+    return _bindings;
+}
 
-bool FixpointBindingGenerator::is_initial() const {
+auto FixpointBindingGenerator::is_initial() const -> bool {
     return _nextIndex >= _transition._variable_maps.size();
 }
 
-FixpointBindingGenerator::Iterator FixpointBindingGenerator::begin() {
+auto FixpointBindingGenerator::begin() -> FixpointBindingGenerator::Iterator {
     if (_noValidBindings || _isDone) {
         return {nullptr};
     }
     return {this};
 }
 
-FixpointBindingGenerator::Iterator FixpointBindingGenerator::end() { return {nullptr}; }
+auto FixpointBindingGenerator::end() -> FixpointBindingGenerator::Iterator { return {nullptr}; }
 } // namespace PetriEngine

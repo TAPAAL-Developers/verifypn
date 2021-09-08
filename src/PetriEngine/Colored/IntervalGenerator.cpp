@@ -18,14 +18,13 @@
 
 #include "PetriEngine/Colored/IntervalGenerator.h"
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 
-IntervalGenerator::IntervalGenerator() {}
+IntervalGenerator::IntervalGenerator() = default;
 
-std::vector<interval_t> IntervalGenerator::get_intervals_from_interval(
+auto IntervalGenerator::get_intervals_from_interval(
     const interval_t &interval, uint32_t varPosition, int32_t varModifier,
-    const std::vector<const ColorType *> &varColorTypes) const {
+    const std::vector<const ColorType *> &varColorTypes) const -> std::vector<interval_t> {
     std::vector<interval_t> varIntervals;
     interval_t firstVarInterval;
     varIntervals.push_back(firstVarInterval);
@@ -69,21 +68,21 @@ void IntervalGenerator::get_arc_var_intervals(
 
         if (varIntervals.empty()) {
             for (auto &interval : intervals) {
-                varIntervals.add_interval(std::move(interval));
+                varIntervals.add_interval(interval);
             }
         } else {
             interval_vector_t newVarIntervals;
-            for (uint32_t i = 0; i < varIntervals.size(); i++) {
-                auto varInterval = &varIntervals[i];
+            for (auto &i : varIntervals) {
+                auto varInterval = &i;
                 for (auto &interval : intervals) {
                     auto overlap = varInterval->get_overlap(interval);
                     if (overlap.is_sound()) {
-                        newVarIntervals.add_interval(std::move(overlap));
+                        newVarIntervals.add_interval(overlap);
                         // break;
                     }
                 }
             }
-            varIntervals = std::move(newVarIntervals);
+            varIntervals = newVarIntervals;
         }
     }
 }
@@ -107,7 +106,7 @@ void IntervalGenerator::populate_local_map(const ArcIntervals &arcIntervals,
         }
 
         if (varMap.count(pair.first) == 0) {
-            localVarMap[pair.first] = std::move(varIntervals);
+            localVarMap[pair.first] = varIntervals;
         } else {
             for (const auto &varInterval : varIntervals) {
                 for (const auto &interval : varMap.find(pair.first)->second) {
@@ -159,9 +158,9 @@ void IntervalGenerator::fill_var_maps(std::vector<VariableIntervalMap> &variable
     }
 }
 
-bool IntervalGenerator::get_var_intervals(
+auto IntervalGenerator::get_var_intervals(
     std::vector<VariableIntervalMap> &variableMaps,
-    const std::unordered_map<uint32_t, ArcIntervals> &placeArcIntervals) const {
+    const std::unordered_map<uint32_t, ArcIntervals> &placeArcIntervals) const -> bool {
     for (auto &placeArcInterval : placeArcIntervals) {
         for (uint32_t j = 0; j < placeArcInterval.second._intervalTupleVec.size(); j++) {
             uint32_t intervalTupleSize = placeArcInterval.second._intervalTupleVec[j].size();
@@ -184,7 +183,7 @@ bool IntervalGenerator::get_var_intervals(
 
                         for (const auto &varTuplePair : varMap) {
                             if (localVarMap.count(varTuplePair.first) == 0) {
-                                localVarMap[varTuplePair.first] = std::move(varTuplePair.second);
+                                localVarMap[varTuplePair.first] = varTuplePair.second;
                             }
                         }
 
@@ -203,5 +202,4 @@ bool IntervalGenerator::get_var_intervals(
     }
     return true;
 }
-} // namespace Colored
-} // namespace PetriEngine
+} // namespace PetriEngine::Colored

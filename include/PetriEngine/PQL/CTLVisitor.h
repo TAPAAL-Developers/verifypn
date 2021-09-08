@@ -185,7 +185,7 @@ class AsCTL : public Visitor {
   private:
     std::pair<Expr_ptr, Expr_ptr> compare_condition(const CompareCondition *element);
 
-    template <typename T> void _accept_nary(const T *element);
+    template <typename T> void accept_nary(const T *element);
 
     template <typename T> Expr_ptr copy_narry_expr(const T *el);
 

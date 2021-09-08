@@ -26,11 +26,11 @@ class ReducingSuccessorGenerator : public SuccessorGenerator {
 
     void set_query(PQL::Condition *ptr) { _stubSet->set_query(ptr); }
 
-    bool prepare(const Structures::State &state) override;
+    virtual bool prepare(const Structures::State &state) override;
 
-    bool next(Structures::State &write);
+    virtual bool next(Structures::State &write) override;
 
-    auto fired() const { return _current; }
+    virtual uint32_t fired() const override { return _current; }
 
   private:
     std::shared_ptr<StubbornSet> _stubSet;

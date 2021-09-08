@@ -2,8 +2,7 @@
 #include <chrono>
 #include <numeric>
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 
 PartitionBuilder::PartitionBuilder(
     const std::vector<Transition> &transitions, const std::vector<Place> &places,
@@ -53,7 +52,7 @@ void PartitionBuilder::print_partion() const {
     }
 }
 
-bool PartitionBuilder::partition_net(int32_t timeout) {
+auto PartitionBuilder::partition_net(int32_t timeout) -> bool {
     const auto start = std::chrono::high_resolution_clock::now();
     handle_leaf_transitions();
     auto end = std::chrono::high_resolution_clock::now();
@@ -94,8 +93,8 @@ void PartitionBuilder::assign_color_map(
             continue;
         }
         const ColorType *colorType = _places[eqVec.first]._type;
-        for (uint32_t i = 0; i < colorType->size(); i++) {
-            const Color *color = &(*colorType)[i];
+        for (const auto &i : *colorType) {
+            const Color *color = &i;
             eqVec.second.add_color_to_eq_class_map(color);
         }
     }
@@ -240,7 +239,7 @@ void PartitionBuilder::check_var_in_guard(const PositionVariableMap &preVarPosit
 
 // Check if we have marked all positions in the product type of the place as diagonal
 // and mark the whole place as diagonal if it is the case
-bool PartitionBuilder::check_tuple_diagonal(uint32_t placeId) {
+auto PartitionBuilder::check_tuple_diagonal(uint32_t placeId) -> bool {
     bool allPositionsDiagonal = true;
     for (auto diag : _partition[placeId].get_dagonal_tuple_positions()) {
         if (!diag) {
@@ -257,7 +256,7 @@ bool PartitionBuilder::check_tuple_diagonal(uint32_t placeId) {
     return false;
 }
 
-bool PartitionBuilder::check_diagonal(uint32_t placeId) {
+auto PartitionBuilder::check_diagonal(uint32_t placeId) -> bool {
     if (_partition[placeId].is_diagonal()) {
         add_to_queue(placeId);
         return true;
@@ -276,7 +275,7 @@ void PartitionBuilder::apply_new_intervals(
         EquivalenceClass newEqClass(++_eq_id_counter,
                                     _partition[inArc._place].get_eq_classes().back().type(),
                                     std::move(intervalTuple));
-        newEqVec.push_back_eq_class(std::move(newEqClass));
+        newEqVec.push_back_eq_class(newEqClass);
     }
     newEqVec.set_diagonal_tuple_positions(_partition[inArc._place].get_dagonal_tuple_positions());
 
@@ -386,8 +385,8 @@ void PartitionBuilder::add_to_queue(uint32_t placeId) {
     }
 }
 
-bool PartitionBuilder::split_partition(PetriEngine::Colored::EquivalenceVec equivalenceVec,
-                                       uint32_t placeId) {
+auto PartitionBuilder::split_partition(PetriEngine::Colored::EquivalenceVec equivalenceVec,
+                                       uint32_t placeId) -> bool {
     bool split = false;
     if (_partition.count(placeId) == 0) {
         _partition[placeId] = equivalenceVec;
@@ -421,9 +420,9 @@ bool PartitionBuilder::split_partition(PetriEngine::Colored::EquivalenceVec equi
     return split;
 }
 
-bool PartitionBuilder::find_overlap(const EquivalenceVec &equivalenceVec1,
+auto PartitionBuilder::find_overlap(const EquivalenceVec &equivalenceVec1,
                                     const EquivalenceVec &equivalenceVec2, uint32_t &overlap1,
-                                    uint32_t &overlap2, EquivalenceClass &intersection) {
+                                    uint32_t &overlap2, EquivalenceClass &intersection) -> bool {
     for (uint32_t i = 0; i < equivalenceVec1.get_eq_classes().size(); i++) {
         for (uint32_t j = 0; j < equivalenceVec2.get_eq_classes().size(); j++) {
             const auto &ec = equivalenceVec1.get_eq_classes()[i];
@@ -441,10 +440,9 @@ bool PartitionBuilder::find_overlap(const EquivalenceVec &equivalenceVec1,
     return false;
 }
 
-std::vector<VariableIntervalMap>
-PartitionBuilder::prepare_variables(const VariableModifierMap &varModifierMap,
-                                    const EquivalenceClass &eqClass, const Arc *arc,
-                                    uint32_t placeId) {
+auto PartitionBuilder::prepare_variables(const VariableModifierMap &varModifierMap,
+                                         const EquivalenceClass &eqClass, const Arc *arc,
+                                         uint32_t placeId) -> std::vector<VariableIntervalMap> {
     std::vector<VariableIntervalMap> varMaps;
     VariableIntervalMap varMap;
     varMaps.push_back(varMap);
@@ -455,20 +453,18 @@ PartitionBuilder::prepare_variables(const VariableModifierMap &varModifierMap,
     uint32_t index = 0;
 
     arc->_expr->get_arc_intervals(newArcInterval, postPlaceFixpoint, index, 0);
-    placeArcIntervals[placeId] = std::move(newArcInterval);
+    placeArcIntervals[placeId] = newArcInterval;
     _interval_generator.get_var_intervals(varMaps, placeArcIntervals);
 
     return varMaps;
 }
 
 void PartitionBuilder::handle_leaf_transitions() {
-    for (uint32_t i = 0; i < _transitions.size(); i++) {
-        const Transition &transition = _transitions[i];
+    for (const auto &transition : _transitions) {
         if (transition._output_arcs.empty() && !transition._input_arcs.empty()) {
             handle_transition(transition, transition._input_arcs.back()._place,
                               &transition._input_arcs.back());
         }
     }
 }
-} // namespace Colored
-} // namespace PetriEngine
+} // namespace PetriEngine::Colored

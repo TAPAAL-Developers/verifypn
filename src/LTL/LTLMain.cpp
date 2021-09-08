@@ -33,10 +33,10 @@ using namespace PetriEngine;
 // this causes a nuisance. #define DEBUG_EXPLORED_STATES
 
 namespace LTL {
-struct Result {
-    bool satisfied = false;
-    bool is_weak = true;
-    Algorithm algorithm = Algorithm::Tarjan;
+struct result_t {
+    bool _satisfied = false;
+    bool _is_weak = true;
+    Algorithm _algorithm = Algorithm::Tarjan;
 #ifdef DEBUG_EXPLORED_STATES
     size_t explored_states = 0;
 #endif
@@ -71,11 +71,11 @@ auto to_ltl(const Condition_ptr &formula) -> std::pair<Condition_ptr, bool> {
 }
 
 template <typename Checker>
-auto _verify(std::unique_ptr<Checker> checker, const options_t &options) -> Result {
-    Result result;
+auto verify(std::unique_ptr<Checker> checker, const options_t &options) -> result_t {
+    result_t result;
     checker->set_options(options);
-    result.satisfied = checker->is_satisfied();
-    result.is_weak = checker->is_weak();
+    result._satisfied = checker->is_satisfied();
+    result._is_weak = checker->is_weak();
 #ifdef DEBUG_EXPLORED_STATES
     result.explored_states = checker->get_explored();
 #endif
@@ -135,7 +135,7 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
     std::unique_ptr<SuccessorSpooler> spooler;
     std::unique_ptr<Heuristic> heuristic = make_heuristic(net, negated_formula, automaton, options);
 
-    Result result;
+    result_t result;
     switch (options._ltl_algorithm) {
     case Algorithm::NDFS:
         if (options._strategy != options_t::search_strategy_e::DFS) {
@@ -143,17 +143,17 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
             spooler = std::make_unique<EnabledSpooler>(net, gen);
             gen.set_spooler(spooler.get());
             gen.set_heuristic(heuristic.get());
-            result = _verify(std::make_unique<NestedDepthFirstSearch<SpoolingSuccessorGenerator>>(
-                                 net, negated_formula, automaton, &gen,
-                                 options._trace != options_t::trace_level_e::None),
-                             options);
+            result = verify(std::make_unique<NestedDepthFirstSearch<SpoolingSuccessorGenerator>>(
+                                net, negated_formula, automaton, &gen,
+                                options._trace != options_t::trace_level_e::None),
+                            options);
 
         } else {
             ResumingSuccessorGenerator gen{net};
-            result = _verify(std::make_unique<NestedDepthFirstSearch<ResumingSuccessorGenerator>>(
-                                 net, negated_formula, automaton, &gen,
-                                 options._trace != options_t::trace_level_e::None),
-                             options);
+            result = verify(std::make_unique<NestedDepthFirstSearch<ResumingSuccessorGenerator>>(
+                                net, negated_formula, automaton, &gen,
+                                options._trace != options_t::trace_level_e::None),
+                            options);
         }
         break;
 
@@ -182,7 +182,7 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
 
             if (options._trace != options_t::trace_level_e::None) {
                 if (is_autreach_stub && is_visible_stub) {
-                    result = _verify(
+                    result = verify(
                         std::make_unique<TarjanModelChecker<ReachStubProductSuccessorGenerator,
                                                             SpoolingSuccessorGenerator, true,
                                                             VisibleLTLStubbornSet>>(
@@ -190,7 +190,7 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
                             std::make_unique<VisibleLTLStubbornSet>(net, negated_formula)),
                         options);
                 } else if (is_autreach_stub && !is_visible_stub) {
-                    result = _verify(
+                    result = verify(
                         std::make_unique<
                             TarjanModelChecker<ReachStubProductSuccessorGenerator,
                                                SpoolingSuccessorGenerator, true, EnabledSpooler>>(
@@ -198,7 +198,7 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
                             std::make_unique<EnabledSpooler>(net, gen)),
                         options);
                 } else {
-                    result = _verify(
+                    result = verify(
                         std::make_unique<TarjanModelChecker<ProductSuccessorGenerator,
                                                             SpoolingSuccessorGenerator, true>>(
                             net, negated_formula, automaton, &gen),
@@ -207,7 +207,7 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
             } else {
 
                 if (is_autreach_stub && is_visible_stub) {
-                    result = _verify(
+                    result = verify(
                         std::make_unique<TarjanModelChecker<ReachStubProductSuccessorGenerator,
                                                             SpoolingSuccessorGenerator, false,
                                                             VisibleLTLStubbornSet>>(
@@ -215,7 +215,7 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
                             std::make_unique<VisibleLTLStubbornSet>(net, negated_formula)),
                         options);
                 } else if (is_autreach_stub && !is_visible_stub) {
-                    result = _verify(
+                    result = verify(
                         std::make_unique<
                             TarjanModelChecker<ReachStubProductSuccessorGenerator,
                                                SpoolingSuccessorGenerator, false, EnabledSpooler>>(
@@ -223,7 +223,7 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
                             std::make_unique<EnabledSpooler>(net, gen)),
                         options);
                 } else {
-                    result = _verify(
+                    result = verify(
                         std::make_unique<TarjanModelChecker<ProductSuccessorGenerator,
                                                             SpoolingSuccessorGenerator, false>>(
                             net, negated_formula, automaton, &gen),
@@ -236,16 +236,16 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
             // no spooling needed, thus use resuming successor generation
             if (options._trace != options_t::trace_level_e::None) {
                 result =
-                    _verify(std::make_unique<TarjanModelChecker<ProductSuccessorGenerator,
-                                                                ResumingSuccessorGenerator, true>>(
-                                net, negated_formula, automaton, &gen),
-                            options);
+                    verify(std::make_unique<TarjanModelChecker<ProductSuccessorGenerator,
+                                                               ResumingSuccessorGenerator, true>>(
+                               net, negated_formula, automaton, &gen),
+                           options);
             } else {
                 result =
-                    _verify(std::make_unique<TarjanModelChecker<ProductSuccessorGenerator,
-                                                                ResumingSuccessorGenerator, false>>(
-                                net, negated_formula, automaton, &gen),
-                            options);
+                    verify(std::make_unique<TarjanModelChecker<ProductSuccessorGenerator,
+                                                               ResumingSuccessorGenerator, false>>(
+                               net, negated_formula, automaton, &gen),
+                           options);
             }
         }
         break;
@@ -253,9 +253,9 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
         assert(false);
         std::cerr << "Error: cannot LTL verify with algorithm None";
     }
-    std::cout << "FORMULA " << queryName << (result.satisfied ^ negate_answer ? " TRUE" : " FALSE")
+    std::cout << "FORMULA " << queryName << (result._satisfied ^ negate_answer ? " TRUE" : " FALSE")
               << " TECHNIQUES EXPLICIT " << LTL::to_string(options._ltl_algorithm)
-              << (result.is_weak ? " WEAK_SKIP" : "") << (is_stubborn ? " STUBBORN" : "")
+              << (result._is_weak ? " WEAK_SKIP" : "") << (is_stubborn ? " STUBBORN" : "")
               << (is_visible_stub ? " CLASSIC_STUB" : "") << (is_autreach_stub ? " REACH_STUB" : "")
               << (is_buchi_stub ? " BUCHI_STUB" : "");
     if (heuristic != nullptr) {
@@ -267,6 +267,6 @@ auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::stri
     std::cout << "FORMULA " << queryName << " STATS EXPLORED " << result.explored_states
               << std::endl;
 #endif
-    return result.satisfied ^ negate_answer;
+    return result._satisfied ^ negate_answer;
 }
 } // namespace LTL

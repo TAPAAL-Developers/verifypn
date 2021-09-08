@@ -212,7 +212,7 @@ void AsCTL::_accept(const NotCondition *element) {
     _ctl_query = std::make_shared<NotCondition>(_ctl_query);
 }
 
-template <typename T> void AsCTL::_accept_nary(const T *element) {
+template <typename T> void AsCTL::accept_nary(const T *element) {
     std::vector<Condition_ptr> children;
     for (const auto &operand : *element) {
         operand->visit(*this);
@@ -221,9 +221,9 @@ template <typename T> void AsCTL::_accept_nary(const T *element) {
     _ctl_query = std::make_shared<T>(children);
 }
 
-void AsCTL::_accept(const AndCondition *element) { AsCTL::_accept_nary(element); }
+void AsCTL::_accept(const AndCondition *element) { AsCTL::accept_nary(element); }
 
-void AsCTL::_accept(const OrCondition *element) { AsCTL::_accept_nary(element); }
+void AsCTL::_accept(const OrCondition *element) { AsCTL::accept_nary(element); }
 
 template <typename T> auto AsCTL::copy_compare_condition(const T *element) -> std::shared_ptr<T> {
     // we copy of sharedptr for now, but this is not safe!

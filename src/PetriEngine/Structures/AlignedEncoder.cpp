@@ -29,7 +29,7 @@ AlignedEncoder::AlignedEncoder(uint32_t places) : _places(places) {
 
 AlignedEncoder::~AlignedEncoder() { _scratchpad.release(); }
 
-uint32_t AlignedEncoder::token_bytes(uint32_t ntokens) const {
+auto AlignedEncoder::token_bytes(uint32_t ntokens) const -> uint32_t {
     uint32_t size;
     if (ntokens < 256)
         size = 1;
@@ -40,14 +40,14 @@ uint32_t AlignedEncoder::token_bytes(uint32_t ntokens) const {
     return size;
 }
 
-uint32_t AlignedEncoder::write_bit_vector(const uint32_t *data) {
+auto AlignedEncoder::write_bit_vector(const uint32_t *data) -> uint32_t {
     for (size_t i = 0; i < _places; ++i) {
         _scratchpad.set(i + (1 * 8), data[i] > 0);
     }
     return 1 + scratchpad_t::bytes(_places);
 }
 
-uint32_t AlignedEncoder::write_two_bit_vector(const uint32_t *data) {
+auto AlignedEncoder::write_two_bit_vector(const uint32_t *data) -> uint32_t {
     for (size_t i = 0; i < _places; ++i) {
         switch (data[i]) {
         case 1:
@@ -66,7 +66,8 @@ uint32_t AlignedEncoder::write_two_bit_vector(const uint32_t *data) {
     return 1 + scratchpad_t::bytes(_places * 2);
 }
 
-uint32_t AlignedEncoder::read_two_bit_vector(uint32_t *destination, const unsigned char *source) {
+auto AlignedEncoder::read_two_bit_vector(uint32_t *destination, const unsigned char *source)
+    -> uint32_t {
     scratchpad_t b = scratchpad_t((unsigned char *)&source[1], _places * 2);
     for (size_t i = 0; i < _places; ++i) {
         destination[i] = 0;
@@ -81,7 +82,7 @@ uint32_t AlignedEncoder::read_two_bit_vector(uint32_t *destination, const unsign
     return 1 + scratchpad_t::bytes(_places * 2);
 }
 
-template <typename T> uint32_t AlignedEncoder::write_tokens(const uint32_t *data) {
+template <typename T> auto AlignedEncoder::write_tokens(const uint32_t *data) -> uint32_t {
     if (sizeof(T) == sizeof(uint32_t)) {
         memcpy(&(_scratchpad.raw()[1]), data, _places * sizeof(T));
     } else {
@@ -94,7 +95,7 @@ template <typename T> uint32_t AlignedEncoder::write_tokens(const uint32_t *data
 }
 
 template <typename T>
-uint32_t AlignedEncoder::read_tokens(uint32_t *destination, const unsigned char *source) {
+auto AlignedEncoder::read_tokens(uint32_t *destination, const unsigned char *source) -> uint32_t {
     for (size_t i = 0; i < _places; ++i) {
         T *src = (T *)(&source[1 + (i * sizeof(T))]);
         destination[i] = *src;
@@ -103,7 +104,7 @@ uint32_t AlignedEncoder::read_tokens(uint32_t *destination, const unsigned char 
 }
 
 template <typename T>
-uint32_t AlignedEncoder::write_token_counts(size_t offset, const uint32_t *data) {
+auto AlignedEncoder::write_token_counts(size_t offset, const uint32_t *data) -> uint32_t {
     size_t cnt = 0;
 
     for (size_t i = 0; i < _places; ++i) {
@@ -117,7 +118,7 @@ uint32_t AlignedEncoder::write_token_counts(size_t offset, const uint32_t *data)
 }
 
 template <typename T>
-size_t AlignedEncoder::bit_token_counts_size(const unsigned char *source) const {
+auto AlignedEncoder::bit_token_counts_size(const unsigned char *source) const -> size_t {
     scratchpad_t b = scratchpad_t((unsigned char *)&source[1], _places);
 
     size_t cnt = 0;
@@ -130,8 +131,8 @@ size_t AlignedEncoder::bit_token_counts_size(const unsigned char *source) const 
 }
 
 template <typename T>
-uint32_t AlignedEncoder::read_bit_token_counts(uint32_t *destination,
-                                               const unsigned char *source) const {
+auto AlignedEncoder::read_bit_token_counts(uint32_t *destination, const unsigned char *source) const
+    -> uint32_t {
     const unsigned char *ts = &source[1 + scratchpad_t::bytes(_places)];
     scratchpad_t b = scratchpad_t((unsigned char *)&source[1], _places);
 
@@ -146,7 +147,8 @@ uint32_t AlignedEncoder::read_bit_token_counts(uint32_t *destination,
 }
 
 template <typename T>
-size_t AlignedEncoder::place_token_counts_size(const unsigned char *source, uint32_t offset) const {
+auto AlignedEncoder::place_token_counts_size(const unsigned char *source, uint32_t offset) const
+    -> size_t {
     size_t size;
     switch (_psize) {
     case 1:
@@ -167,8 +169,8 @@ size_t AlignedEncoder::place_token_counts_size(const unsigned char *source, uint
 }
 
 template <typename T>
-uint32_t AlignedEncoder::read_place_token_counts(uint32_t *destination, const unsigned char *source,
-                                                 uint32_t offset) const {
+auto AlignedEncoder::read_place_token_counts(uint32_t *destination, const unsigned char *source,
+                                             uint32_t offset) const -> uint32_t {
     size_t size;
     switch (_psize) {
     case 1:
@@ -209,7 +211,7 @@ uint32_t AlignedEncoder::read_place_token_counts(uint32_t *destination, const un
     return offset + size;
 }
 
-uint32_t AlignedEncoder::write_places(const uint32_t *data) {
+auto AlignedEncoder::write_places(const uint32_t *data) -> uint32_t {
     size_t cnt = 0;
     uint16_t *dest16 = (uint16_t *)(&_scratchpad.raw()[1]);
     uint32_t *dest32 = (uint32_t *)(&_scratchpad.raw()[1]);
@@ -248,8 +250,8 @@ uint32_t AlignedEncoder::write_places(const uint32_t *data) {
     return 1 + _psize + cnt * _psize;
 }
 
-uint32_t AlignedEncoder::read_places(uint32_t *destination, const unsigned char *source,
-                                     uint32_t offset, uint32_t value) {
+auto AlignedEncoder::read_places(uint32_t *destination, const unsigned char *source,
+                                 uint32_t offset, uint32_t value) -> uint32_t {
     size_t size;
     switch (_psize) {
     case 1:
@@ -288,8 +290,8 @@ uint32_t AlignedEncoder::read_places(uint32_t *destination, const unsigned char 
     return offset + _psize * size;
 }
 
-uint32_t AlignedEncoder::read_bit_vector(uint32_t *destination, const unsigned char *source,
-                                         uint32_t value) {
+auto AlignedEncoder::read_bit_vector(uint32_t *destination, const unsigned char *source,
+                                     uint32_t value) -> uint32_t {
     scratchpad_t b = scratchpad_t((unsigned char *)&source[1], _places);
     for (uint32_t i = 0; i < _places; ++i) {
         if (b.at(i)) {
@@ -301,7 +303,8 @@ uint32_t AlignedEncoder::read_bit_vector(uint32_t *destination, const unsigned c
     return 1 + b.size();
 }
 
-unsigned char AlignedEncoder::get_type(uint32_t sum, uint32_t pwt, bool same, uint32_t val) const {
+auto AlignedEncoder::get_type(uint32_t sum, uint32_t pwt, bool same, uint32_t val) const
+    -> unsigned char {
     if (pwt == 0)
         return 0;
     if (same && val <= SAMEBOUND) {
@@ -361,7 +364,7 @@ unsigned char AlignedEncoder::get_type(uint32_t sum, uint32_t pwt, bool same, ui
     return 0;
 }
 
-size_t AlignedEncoder::size(const uchar *s) const {
+auto AlignedEncoder::size(const uchar *s) const -> size_t {
     unsigned char type = s[0];
     if (type <= SAMEBOUND) {
         if ((_places % 8) == 0)
@@ -421,7 +424,7 @@ size_t AlignedEncoder::size(const uchar *s) const {
     }
 }
 
-size_t AlignedEncoder::encode(const uint32_t *d, unsigned char type) {
+auto AlignedEncoder::encode(const uint32_t *d, unsigned char type) -> size_t {
     _scratchpad.zero();
     _scratchpad.raw()[0] = type;
     if (type <= SAMEBOUND) {

@@ -36,7 +36,7 @@ using namespace PetriEngine::Simplification;
 
 namespace PetriEngine::PQL {
 
-auto generateTabs(std::ostream &out, uint32_t tabs) -> std::ostream & {
+auto generate_tabs(std::ostream &out, uint32_t tabs) -> std::ostream & {
 
     for (uint32_t i = 0; i < tabs; i++) {
         out << "  ";
@@ -47,11 +47,11 @@ auto generateTabs(std::ostream &out, uint32_t tabs) -> std::ostream & {
 /** FOR COMPILING AND CONSTRUCTING LOGICAL OPERATORS **/
 
 template <typename T>
-void tryMerge(std::vector<Condition_ptr> &_conds, const Condition_ptr &ptr,
-              bool aggressive = false) {
+void try_merge(std::vector<Condition_ptr> &_conds, const Condition_ptr &ptr,
+               bool aggressive = false) {
     if (auto lor = std::dynamic_pointer_cast<T>(ptr)) {
         for (auto &c : *lor)
-            tryMerge<T>(_conds, c, aggressive);
+            try_merge<T>(_conds, c, aggressive);
     } else if (!aggressive) {
         _conds.emplace_back(ptr);
     } else if (auto comp = std::dynamic_pointer_cast<CompareCondition>(ptr)) {
@@ -72,7 +72,7 @@ void tryMerge(std::vector<Condition_ptr> &_conds, const Condition_ptr &ptr,
             std::vector<Condition_ptr> cnds{ptr};
             auto cmp =
                 std::make_shared<CompareConjunction>(cnds, std::is_same<T, OrCondition>::value);
-            tryMerge<T>(_conds, cmp, aggressive);
+            try_merge<T>(_conds, cmp, aggressive);
         }
     } else if (auto conj = std::dynamic_pointer_cast<CompareConjunction>(ptr)) {
         if ((std::is_same<T, OrCondition>::value && (conj->isNegated() || conj->singular())) ||
@@ -105,7 +105,7 @@ void tryMerge(std::vector<Condition_ptr> &_conds, const Condition_ptr &ptr,
 }
 
 template <typename T, bool K>
-auto makeLog(const std::vector<Condition_ptr> &conds, bool aggressive) -> Condition_ptr {
+auto make_log(const std::vector<Condition_ptr> &conds, bool aggressive) -> Condition_ptr {
     if (conds.size() == 0)
         return BooleanCondition::getShared(K);
     if (conds.size() == 1)
@@ -113,7 +113,7 @@ auto makeLog(const std::vector<Condition_ptr> &conds, bool aggressive) -> Condit
 
     std::vector<Condition_ptr> cnds;
     for (auto &c : conds)
-        tryMerge<T>(cnds, c, aggressive);
+        try_merge<T>(cnds, c, aggressive);
     auto res = std::make_shared<T>(cnds);
     if (res->singular())
         return *res->begin();
@@ -122,19 +122,19 @@ auto makeLog(const std::vector<Condition_ptr> &conds, bool aggressive) -> Condit
     return res;
 }
 
-auto makeOr(const std::vector<Condition_ptr> &cptr) -> Condition_ptr {
-    return makeLog<OrCondition, false>(cptr, true);
+auto make_or(const std::vector<Condition_ptr> &cptr) -> Condition_ptr {
+    return make_log<OrCondition, false>(cptr, true);
 }
-auto makeAnd(const std::vector<Condition_ptr> &cptr) -> Condition_ptr {
-    return makeLog<AndCondition, true>(cptr, true);
+auto make_and(const std::vector<Condition_ptr> &cptr) -> Condition_ptr {
+    return make_log<AndCondition, true>(cptr, true);
 }
-auto makeOr(const Condition_ptr &a, const Condition_ptr &b) -> Condition_ptr {
+auto make_or(const Condition_ptr &a, const Condition_ptr &b) -> Condition_ptr {
     std::vector<Condition_ptr> cnds{a, b};
-    return makeLog<OrCondition, false>(cnds, true);
+    return make_log<OrCondition, false>(cnds, true);
 }
-auto makeAnd(const Condition_ptr &a, const Condition_ptr &b) -> Condition_ptr {
+auto make_and(const Condition_ptr &a, const Condition_ptr &b) -> Condition_ptr {
     std::vector<Condition_ptr> cnds{a, b};
-    return makeLog<AndCondition, true>(cnds, true);
+    return make_log<AndCondition, true>(cnds, true);
 }
 
 // CONSTANTS
@@ -312,7 +312,7 @@ void MinusExpr::analyze(AnalysisContext &context) { _expr->analyze(context); }
 
 void LiteralExpr::analyze(AnalysisContext &) { return; }
 
-auto getPlace(AnalysisContext &context, const std::string &name) -> uint32_t {
+auto get_place(AnalysisContext &context, const std::string &name) -> uint32_t {
     AnalysisContext::ResolutionResult result = context.resolve(name);
     if (result._success) {
         return result._offset;
@@ -323,11 +323,11 @@ auto getPlace(AnalysisContext &context, const std::string &name) -> uint32_t {
     return -1;
 }
 
-auto generateUnfoldedIdentifierExpr(ColoredAnalysisContext &context,
-                                    std::unordered_map<uint32_t, std::string> &names,
-                                    uint32_t colorIndex) -> Expr_ptr {
+auto generate_unfolded_identifier_expr(ColoredAnalysisContext &context,
+                                       std::unordered_map<uint32_t, std::string> &names,
+                                       uint32_t colorIndex) -> Expr_ptr {
     std::string &place = names[colorIndex];
-    return std::make_shared<UnfoldedIdentifierExpr>(place, getPlace(context, place));
+    return std::make_shared<UnfoldedIdentifierExpr>(place, get_place(context, place));
 }
 
 void IdentifierExpr::analyze(AnalysisContext &context) {
@@ -347,18 +347,18 @@ void IdentifierExpr::analyze(AnalysisContext &context) {
 
         if (names.size() == 1) {
             _compiled =
-                generateUnfoldedIdentifierExpr(*coloredContext, names, names.begin()->first);
+                generate_unfolded_identifier_expr(*coloredContext, names, names.begin()->first);
         } else {
             std::vector<Expr_ptr> identifiers;
             identifiers.reserve(names.size());
             for (auto &unfoldedName : names) {
                 identifiers.push_back(
-                    generateUnfoldedIdentifierExpr(*coloredContext, names, unfoldedName.first));
+                    generate_unfolded_identifier_expr(*coloredContext, names, unfoldedName.first));
             }
             _compiled = std::make_shared<PQL::PlusExpr>(std::move(identifiers));
         }
     } else {
-        _compiled = std::make_shared<UnfoldedIdentifierExpr>(_name, getPlace(context, _name));
+        _compiled = std::make_shared<UnfoldedIdentifierExpr>(_name, get_place(context, _name));
     }
     _compiled->analyze(context);
 }
@@ -452,7 +452,7 @@ void FireableCondition::_analyze(AnalysisContext &context) {
 
 void CompareConjunction::analyze(AnalysisContext &context) {
     for (auto &c : _constraints) {
-        c._place = getPlace(context, c._name);
+        c._place = get_place(context, c._name);
         assert(c._place >= 0);
     }
     std::sort(std::begin(_constraints), std::end(_constraints));
@@ -1373,14 +1373,14 @@ auto CompareConjunction::distance(DistanceContext &context) const -> uint32_t {
     return d;
 }
 
-auto conjDistance(DistanceContext &context, const std::vector<Condition_ptr> &conds) -> uint32_t {
+auto conj_distance(DistanceContext &context, const std::vector<Condition_ptr> &conds) -> uint32_t {
     uint32_t val = 0;
     for (auto &c : conds)
         val += c->distance(context);
     return val;
 }
 
-auto disjDistance(DistanceContext &context, const std::vector<Condition_ptr> &conds) -> uint32_t {
+auto disj_distance(DistanceContext &context, const std::vector<Condition_ptr> &conds) -> uint32_t {
     uint32_t val = std::numeric_limits<uint32_t>::max();
     for (auto &c : conds)
         val = std::min(c->distance(context), val);
@@ -1389,21 +1389,21 @@ auto disjDistance(DistanceContext &context, const std::vector<Condition_ptr> &co
 
 auto AndCondition::distance(DistanceContext &context) const -> uint32_t {
     if (context.negated())
-        return disjDistance(context, _conds);
+        return disj_distance(context, _conds);
     else
-        return conjDistance(context, _conds);
+        return conj_distance(context, _conds);
 }
 
 auto OrCondition::distance(DistanceContext &context) const -> uint32_t {
     if (context.negated())
-        return conjDistance(context, _conds);
+        return conj_distance(context, _conds);
     else
-        return disjDistance(context, _conds);
+        return disj_distance(context, _conds);
 }
 
-struct S {
-    int d;
-    unsigned int p;
+struct s_t {
+    int _d;
+    unsigned int _p;
 };
 
 auto LessThanOrEqualCondition::distance(DistanceContext &context) const -> uint32_t {
@@ -1560,22 +1560,22 @@ void NotCondition::to_binary(std::ostream &out) const {
 /******************** CTL Output ********************/
 
 void LiteralExpr::to_xml(std::ostream &out, uint32_t tabs, bool tokencount) const {
-    generateTabs(out, tabs) << "<integer-constant>" + std::to_string(_value) +
-                                   "</integer-constant>\n";
+    generate_tabs(out, tabs) << "<integer-constant>" + std::to_string(_value) +
+                                    "</integer-constant>\n";
 }
 
 void UnfoldedFireableCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<is-fireable><transition>" + _name
-                            << "</transition></is-fireable>\n";
+    generate_tabs(out, tabs) << "<is-fireable><transition>" + _name
+                             << "</transition></is-fireable>\n";
 }
 
 void UnfoldedIdentifierExpr::to_xml(std::ostream &out, uint32_t tabs, bool tokencount) const {
     if (tokencount) {
-        generateTabs(out, tabs) << "<place>" << _name << "</place>\n";
+        generate_tabs(out, tabs) << "<place>" << _name << "</place>\n";
     } else {
-        generateTabs(out, tabs) << "<tokens-count>\n";
-        generateTabs(out, tabs + 1) << "<place>" << _name << "</place>\n";
-        generateTabs(out, tabs) << "</tokens-count>\n";
+        generate_tabs(out, tabs) << "<tokens-count>\n";
+        generate_tabs(out, tabs + 1) << "<place>" << _name << "</place>\n";
+        generate_tabs(out, tabs) << "</tokens-count>\n";
     }
 }
 
@@ -1587,165 +1587,165 @@ void PlusExpr::to_xml(std::ostream &ss, uint32_t tabs, bool tokencount) const {
     }
 
     if (_tk) {
-        generateTabs(ss, tabs) << "<tokens-count>\n";
+        generate_tabs(ss, tabs) << "<tokens-count>\n";
         for (auto &e : _ids)
-            generateTabs(ss, tabs + 1) << "<place>" << e.second << "</place>\n";
+            generate_tabs(ss, tabs + 1) << "<place>" << e.second << "</place>\n";
         for (auto &e : _exprs)
             e->to_xml(ss, tabs + 1, true);
-        generateTabs(ss, tabs) << "</tokens-count>\n";
+        generate_tabs(ss, tabs) << "</tokens-count>\n";
         return;
     }
-    generateTabs(ss, tabs) << "<integer-sum>\n";
-    generateTabs(ss, tabs + 1) << "<integer-constant>" + std::to_string(_constant) +
-                                      "</integer-constant>\n";
+    generate_tabs(ss, tabs) << "<integer-sum>\n";
+    generate_tabs(ss, tabs + 1) << "<integer-constant>" + std::to_string(_constant) +
+                                       "</integer-constant>\n";
     for (auto &i : _ids) {
-        generateTabs(ss, tabs + 1) << "<tokens-count>\n";
-        generateTabs(ss, tabs + 2) << "<place>" << i.second << "</place>\n";
-        generateTabs(ss, tabs + 1) << "</tokens-count>\n";
+        generate_tabs(ss, tabs + 1) << "<tokens-count>\n";
+        generate_tabs(ss, tabs + 2) << "<place>" << i.second << "</place>\n";
+        generate_tabs(ss, tabs + 1) << "</tokens-count>\n";
     }
     for (auto &e : _exprs)
         e->to_xml(ss, tabs + 1, tokencount);
-    generateTabs(ss, tabs) << "</integer-sum>\n";
+    generate_tabs(ss, tabs) << "</integer-sum>\n";
 }
 
 void SubtractExpr::to_xml(std::ostream &ss, uint32_t tabs, bool tokencount) const {
-    generateTabs(ss, tabs) << "<integer-difference>\n";
+    generate_tabs(ss, tabs) << "<integer-difference>\n";
     for (auto &e : _exprs)
         e->to_xml(ss, tabs + 1);
-    generateTabs(ss, tabs) << "</integer-difference>\n";
+    generate_tabs(ss, tabs) << "</integer-difference>\n";
 }
 
 void MultiplyExpr::to_xml(std::ostream &ss, uint32_t tabs, bool tokencount) const {
-    generateTabs(ss, tabs) << "<integer-product>\n";
+    generate_tabs(ss, tabs) << "<integer-product>\n";
     for (auto &e : _exprs)
         e->to_xml(ss, tabs + 1);
-    generateTabs(ss, tabs) << "</integer-product>\n";
+    generate_tabs(ss, tabs) << "</integer-product>\n";
 }
 
 void MinusExpr::to_xml(std::ostream &out, uint32_t tabs, bool tokencount) const {
 
-    generateTabs(out, tabs) << "<integer-product>\n";
+    generate_tabs(out, tabs) << "<integer-product>\n";
     _expr->to_xml(out, tabs + 1);
-    generateTabs(out, tabs + 1) << "<integer-difference>\n";
-    generateTabs(out, tabs + 2) << "<integer-constant>0</integer-constant>\n";
-    generateTabs(out, tabs + 2) << "<integer-constant>1</integer-constant>\n";
-    generateTabs(out, tabs + 1) << "</integer-difference>\n";
-    generateTabs(out, tabs) << "</integer-product>\n";
+    generate_tabs(out, tabs + 1) << "<integer-difference>\n";
+    generate_tabs(out, tabs + 2) << "<integer-constant>0</integer-constant>\n";
+    generate_tabs(out, tabs + 2) << "<integer-constant>1</integer-constant>\n";
+    generate_tabs(out, tabs + 1) << "</integer-difference>\n";
+    generate_tabs(out, tabs) << "</integer-product>\n";
 }
 
 void EXCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<exists-path>\n";
-    generateTabs(out, tabs + 1) << "<next>\n";
+    generate_tabs(out, tabs) << "<exists-path>\n";
+    generate_tabs(out, tabs + 1) << "<next>\n";
     _cond->to_xml(out, tabs + 2);
-    generateTabs(out, tabs + 1) << "</next>\n";
-    generateTabs(out, tabs) << "</exists-path>\n";
+    generate_tabs(out, tabs + 1) << "</next>\n";
+    generate_tabs(out, tabs) << "</exists-path>\n";
 }
 
 void AXCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<all-paths>\n";
-    generateTabs(out, tabs + 1) << "<next>\n";
+    generate_tabs(out, tabs) << "<all-paths>\n";
+    generate_tabs(out, tabs + 1) << "<next>\n";
     _cond->to_xml(out, tabs + 2);
-    generateTabs(out, tabs + 1) << "</next>\n";
-    generateTabs(out, tabs) << "</all-paths>\n";
+    generate_tabs(out, tabs + 1) << "</next>\n";
+    generate_tabs(out, tabs) << "</all-paths>\n";
 }
 
 void EFCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<exists-path>\n";
-    generateTabs(out, tabs + 1) << "<finally>\n";
+    generate_tabs(out, tabs) << "<exists-path>\n";
+    generate_tabs(out, tabs + 1) << "<finally>\n";
     _cond->to_xml(out, tabs + 2);
-    generateTabs(out, tabs + 1) << "</finally>\n";
-    generateTabs(out, tabs) << "</exists-path>\n";
+    generate_tabs(out, tabs + 1) << "</finally>\n";
+    generate_tabs(out, tabs) << "</exists-path>\n";
 }
 
 void AFCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<all-paths>\n";
-    generateTabs(out, tabs + 1) << "<finally>\n";
+    generate_tabs(out, tabs) << "<all-paths>\n";
+    generate_tabs(out, tabs + 1) << "<finally>\n";
     _cond->to_xml(out, tabs + 2);
-    generateTabs(out, tabs + 1) << "</finally>\n";
-    generateTabs(out, tabs) << "</all-paths>\n";
+    generate_tabs(out, tabs + 1) << "</finally>\n";
+    generate_tabs(out, tabs) << "</all-paths>\n";
 }
 
 void EGCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<exists-path>\n";
-    generateTabs(out, tabs + 1) << "<globally>\n";
+    generate_tabs(out, tabs) << "<exists-path>\n";
+    generate_tabs(out, tabs + 1) << "<globally>\n";
     _cond->to_xml(out, tabs + 2);
-    generateTabs(out, tabs + 1) << "</globally>\n";
-    generateTabs(out, tabs) << "</exists-path>\n";
+    generate_tabs(out, tabs + 1) << "</globally>\n";
+    generate_tabs(out, tabs) << "</exists-path>\n";
 }
 
 void AGCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<all-paths>\n";
-    generateTabs(out, tabs + 1) << "<globally>\n";
+    generate_tabs(out, tabs) << "<all-paths>\n";
+    generate_tabs(out, tabs + 1) << "<globally>\n";
     _cond->to_xml(out, tabs + 2);
-    generateTabs(out, tabs + 1) << "</globally>\n";
-    generateTabs(out, tabs) << "</all-paths>\n";
+    generate_tabs(out, tabs + 1) << "</globally>\n";
+    generate_tabs(out, tabs) << "</all-paths>\n";
 }
 
 void EUCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<exists-path>\n";
-    generateTabs(out, tabs + 1) << "<until>\n";
-    generateTabs(out, tabs + 2) << "<before>\n";
+    generate_tabs(out, tabs) << "<exists-path>\n";
+    generate_tabs(out, tabs + 1) << "<until>\n";
+    generate_tabs(out, tabs + 2) << "<before>\n";
     _cond1->to_xml(out, tabs + 3);
-    generateTabs(out, tabs + 2) << "</before>\n";
-    generateTabs(out, tabs + 2) << "<reach>\n";
+    generate_tabs(out, tabs + 2) << "</before>\n";
+    generate_tabs(out, tabs + 2) << "<reach>\n";
     _cond2->to_xml(out, tabs + 3);
-    generateTabs(out, tabs + 2) << "</reach>\n";
-    generateTabs(out, tabs + 1) << "</until>\n";
-    generateTabs(out, tabs) << "</exists-path>\n";
+    generate_tabs(out, tabs + 2) << "</reach>\n";
+    generate_tabs(out, tabs + 1) << "</until>\n";
+    generate_tabs(out, tabs) << "</exists-path>\n";
 }
 
 void AUCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<all-paths>\n";
-    generateTabs(out, tabs + 1) << "<until>\n";
-    generateTabs(out, tabs + 2) << "<before>\n";
+    generate_tabs(out, tabs) << "<all-paths>\n";
+    generate_tabs(out, tabs + 1) << "<until>\n";
+    generate_tabs(out, tabs + 2) << "<before>\n";
     _cond1->to_xml(out, tabs + 3);
-    generateTabs(out, tabs + 2) << "</before>\n";
-    generateTabs(out, tabs + 2) << "<reach>\n";
+    generate_tabs(out, tabs + 2) << "</before>\n";
+    generate_tabs(out, tabs + 2) << "<reach>\n";
     _cond2->to_xml(out, tabs + 3);
-    generateTabs(out, tabs + 2) << "</reach>\n";
-    generateTabs(out, tabs + 1) << "</until>\n";
-    generateTabs(out, tabs) << "</all-paths>\n";
+    generate_tabs(out, tabs + 2) << "</reach>\n";
+    generate_tabs(out, tabs + 1) << "</until>\n";
+    generate_tabs(out, tabs) << "</all-paths>\n";
 }
 
 void ACondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<all-paths>\n";
+    generate_tabs(out, tabs) << "<all-paths>\n";
     _cond->to_xml(out, tabs + 1);
-    generateTabs(out, tabs) << "</all-paths>\n";
+    generate_tabs(out, tabs) << "</all-paths>\n";
 }
 
 void ECondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<exists-path>\n";
+    generate_tabs(out, tabs) << "<exists-path>\n";
     _cond->to_xml(out, tabs + 1);
-    generateTabs(out, tabs) << "</exists-path>\n";
+    generate_tabs(out, tabs) << "</exists-path>\n";
 }
 
 void FCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<finally>\n";
+    generate_tabs(out, tabs) << "<finally>\n";
     _cond->to_xml(out, tabs + 1);
-    generateTabs(out, tabs) << "</finally>\n";
+    generate_tabs(out, tabs) << "</finally>\n";
 }
 
 void GCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<globally>\n";
+    generate_tabs(out, tabs) << "<globally>\n";
     _cond->to_xml(out, tabs + 1);
-    generateTabs(out, tabs) << "</globally>\n";
+    generate_tabs(out, tabs) << "</globally>\n";
 }
 
 void XCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<next>\n";
+    generate_tabs(out, tabs) << "<next>\n";
     _cond->to_xml(out, tabs + 1);
-    generateTabs(out, tabs) << "</next>\n";
+    generate_tabs(out, tabs) << "</next>\n";
 }
 
 void UntilCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<until>\n";
-    generateTabs(out, tabs + 1) << "<before>\n";
+    generate_tabs(out, tabs) << "<until>\n";
+    generate_tabs(out, tabs + 1) << "<before>\n";
     _cond1->to_xml(out, tabs + 2);
-    generateTabs(out, tabs + 1) << "</before>\n";
-    generateTabs(out, tabs + 1) << "<reach>\n";
+    generate_tabs(out, tabs + 1) << "</before>\n";
+    generate_tabs(out, tabs + 1) << "<reach>\n";
     _cond2->to_xml(out, tabs + 2);
-    generateTabs(out, tabs + 1) << "</reach>\n";
-    generateTabs(out, tabs) << "</until>\n";
+    generate_tabs(out, tabs + 1) << "</reach>\n";
+    generate_tabs(out, tabs) << "</until>\n";
 }
 
 void AndCondition::to_xml(std::ostream &out, uint32_t tabs) const {
@@ -1757,20 +1757,20 @@ void AndCondition::to_xml(std::ostream &out, uint32_t tabs) const {
         _conds[0]->to_xml(out, tabs);
         return;
     }
-    generateTabs(out, tabs) << "<conjunction>\n";
+    generate_tabs(out, tabs) << "<conjunction>\n";
     _conds[0]->to_xml(out, tabs + 1);
     for (size_t i = 1; i < _conds.size(); ++i) {
         if (i + 1 == _conds.size()) {
             _conds[i]->to_xml(out, tabs + i + 1);
         } else {
-            generateTabs(out, tabs + i) << "<conjunction>\n";
+            generate_tabs(out, tabs + i) << "<conjunction>\n";
             _conds[i]->to_xml(out, tabs + i + 1);
         }
     }
     for (size_t i = _conds.size() - 1; i > 1; --i) {
-        generateTabs(out, tabs + i) << "</conjunction>\n";
+        generate_tabs(out, tabs + i) << "</conjunction>\n";
     }
-    generateTabs(out, tabs) << "</conjunction>\n";
+    generate_tabs(out, tabs) << "</conjunction>\n";
 }
 
 void OrCondition::to_xml(std::ostream &out, uint32_t tabs) const {
@@ -1782,25 +1782,25 @@ void OrCondition::to_xml(std::ostream &out, uint32_t tabs) const {
         _conds[0]->to_xml(out, tabs);
         return;
     }
-    generateTabs(out, tabs) << "<disjunction>\n";
+    generate_tabs(out, tabs) << "<disjunction>\n";
     _conds[0]->to_xml(out, tabs + 1);
     for (size_t i = 1; i < _conds.size(); ++i) {
         if (i + 1 == _conds.size()) {
             _conds[i]->to_xml(out, tabs + i + 1);
         } else {
-            generateTabs(out, tabs + i) << "<disjunction>\n";
+            generate_tabs(out, tabs + i) << "<disjunction>\n";
             _conds[i]->to_xml(out, tabs + i + 1);
         }
     }
     for (size_t i = _conds.size() - 1; i > 1; --i) {
-        generateTabs(out, tabs + i) << "</disjunction>\n";
+        generate_tabs(out, tabs + i) << "</disjunction>\n";
     }
-    generateTabs(out, tabs) << "</disjunction>\n";
+    generate_tabs(out, tabs) << "</disjunction>\n";
 }
 
 void CompareConjunction::to_xml(std::ostream &out, uint32_t tabs) const {
     if (_negated)
-        generateTabs(out, tabs++) << "<negation>";
+        generate_tabs(out, tabs++) << "<negation>";
     if (_constraints.size() == 0)
         BooleanCondition::TRUE_CONSTANT->to_xml(out, tabs);
     else {
@@ -1808,82 +1808,82 @@ void CompareConjunction::to_xml(std::ostream &out, uint32_t tabs) const {
                       (_constraints[0]._lower == 0 ||
                        _constraints[0]._upper == std::numeric_limits<uint32_t>::max());
         if (!single)
-            generateTabs(out, tabs) << "<conjunction>\n";
+            generate_tabs(out, tabs) << "<conjunction>\n";
         for (auto &c : _constraints) {
             if (c._lower != 0) {
-                generateTabs(out, tabs + 1) << "<integer-ge>\n";
-                generateTabs(out, tabs + 2) << "<tokens-count>\n";
-                generateTabs(out, tabs + 3) << "<place>" << c._name << "</place>\n";
-                generateTabs(out, tabs + 2) << "</tokens-count>\n";
-                generateTabs(out, tabs + 2)
+                generate_tabs(out, tabs + 1) << "<integer-ge>\n";
+                generate_tabs(out, tabs + 2) << "<tokens-count>\n";
+                generate_tabs(out, tabs + 3) << "<place>" << c._name << "</place>\n";
+                generate_tabs(out, tabs + 2) << "</tokens-count>\n";
+                generate_tabs(out, tabs + 2)
                     << "<integer-constant>" << c._lower << "</integer-constant>\n";
-                generateTabs(out, tabs + 1) << "</integer-ge>\n";
+                generate_tabs(out, tabs + 1) << "</integer-ge>\n";
             }
             if (c._upper != std::numeric_limits<uint32_t>::max()) {
-                generateTabs(out, tabs + 1) << "<integer-le>\n";
-                generateTabs(out, tabs + 2) << "<tokens-count>\n";
-                generateTabs(out, tabs + 3) << "<place>" << c._name << "</place>\n";
-                generateTabs(out, tabs + 2) << "</tokens-count>\n";
-                generateTabs(out, tabs + 2)
+                generate_tabs(out, tabs + 1) << "<integer-le>\n";
+                generate_tabs(out, tabs + 2) << "<tokens-count>\n";
+                generate_tabs(out, tabs + 3) << "<place>" << c._name << "</place>\n";
+                generate_tabs(out, tabs + 2) << "</tokens-count>\n";
+                generate_tabs(out, tabs + 2)
                     << "<integer-constant>" << c._upper << "</integer-constant>\n";
-                generateTabs(out, tabs + 1) << "</integer-le>\n";
+                generate_tabs(out, tabs + 1) << "</integer-le>\n";
             }
         }
         if (!single)
-            generateTabs(out, tabs) << "</conjunction>\n";
+            generate_tabs(out, tabs) << "</conjunction>\n";
     }
     if (_negated)
-        generateTabs(out, --tabs) << "</negation>";
+        generate_tabs(out, --tabs) << "</negation>";
 }
 
 void EqualCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<integer-eq>\n";
+    generate_tabs(out, tabs) << "<integer-eq>\n";
     _expr1->to_xml(out, tabs + 1);
     _expr2->to_xml(out, tabs + 1);
-    generateTabs(out, tabs) << "</integer-eq>\n";
+    generate_tabs(out, tabs) << "</integer-eq>\n";
 }
 
 void NotEqualCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<integer-ne>\n";
+    generate_tabs(out, tabs) << "<integer-ne>\n";
     _expr1->to_xml(out, tabs + 1);
     _expr2->to_xml(out, tabs + 1);
-    generateTabs(out, tabs) << "</integer-ne>\n";
+    generate_tabs(out, tabs) << "</integer-ne>\n";
 }
 
 void LessThanCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<integer-lt>\n";
+    generate_tabs(out, tabs) << "<integer-lt>\n";
     _expr1->to_xml(out, tabs + 1);
     _expr2->to_xml(out, tabs + 1);
-    generateTabs(out, tabs) << "</integer-lt>\n";
+    generate_tabs(out, tabs) << "</integer-lt>\n";
 }
 
 void LessThanOrEqualCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<integer-le>\n";
+    generate_tabs(out, tabs) << "<integer-le>\n";
     _expr1->to_xml(out, tabs + 1);
     _expr2->to_xml(out, tabs + 1);
-    generateTabs(out, tabs) << "</integer-le>\n";
+    generate_tabs(out, tabs) << "</integer-le>\n";
 }
 
 void NotCondition::to_xml(std::ostream &out, uint32_t tabs) const {
 
-    generateTabs(out, tabs) << "<negation>\n";
+    generate_tabs(out, tabs) << "<negation>\n";
     _cond->to_xml(out, tabs + 1);
-    generateTabs(out, tabs) << "</negation>\n";
+    generate_tabs(out, tabs) << "</negation>\n";
 }
 
 void BooleanCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<" << (value ? "true" : "false") << "/>\n";
+    generate_tabs(out, tabs) << "<" << (value ? "true" : "false") << "/>\n";
 }
 
 void DeadlockCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<deadlock/>\n";
+    generate_tabs(out, tabs) << "<deadlock/>\n";
 }
 
 void UnfoldedUpperBoundsCondition::to_xml(std::ostream &out, uint32_t tabs) const {
-    generateTabs(out, tabs) << "<place-bound>\n";
+    generate_tabs(out, tabs) << "<place-bound>\n";
     for (auto &p : _places)
-        generateTabs(out, tabs + 1) << "<place>" << p._name << "</place>\n";
-    generateTabs(out, tabs) << "</place-bound>\n";
+        generate_tabs(out, tabs + 1) << "<place>" << p._name << "</place>\n";
+    generate_tabs(out, tabs) << "</place-bound>\n";
 }
 
 /******************** Query Simplification ********************/
@@ -1953,7 +1953,7 @@ auto MinusExpr::constraint(SimplificationContext &context) const -> Member {
     return _expr->constraint(context) *= neg;
 }
 
-auto simplifyEX(Retval &r, SimplificationContext &context) -> Retval {
+auto simplify_ex(Retval &r, SimplificationContext &context) -> Retval {
     if (r._formula->is_trivially_true() || !r._neglps->satisfiable(context)) {
         return Retval(std::make_shared<NotCondition>(std::make_shared<DeadlockCondition>()));
     } else if (r._formula->is_trivially_false() || !r._lps->satisfiable(context)) {
@@ -1963,7 +1963,7 @@ auto simplifyEX(Retval &r, SimplificationContext &context) -> Retval {
     }
 }
 
-auto simplifyAX(Retval &r, SimplificationContext &context) -> Retval {
+auto simplify_ax(Retval &r, SimplificationContext &context) -> Retval {
     if (r._formula->is_trivially_true() || !r._neglps->satisfiable(context)) {
         return Retval(BooleanCondition::TRUE_CONSTANT);
     } else if (r._formula->is_trivially_false() || !r._lps->satisfiable(context)) {
@@ -1973,7 +1973,7 @@ auto simplifyAX(Retval &r, SimplificationContext &context) -> Retval {
     }
 }
 
-auto simplifyEF(Retval &r, SimplificationContext &context) -> Retval {
+auto simplify_ef(Retval &r, SimplificationContext &context) -> Retval {
     if (r._formula->is_trivially_true() || !r._neglps->satisfiable(context)) {
         return Retval(BooleanCondition::TRUE_CONSTANT);
     } else if (r._formula->is_trivially_false() || !r._lps->satisfiable(context)) {
@@ -1983,7 +1983,7 @@ auto simplifyEF(Retval &r, SimplificationContext &context) -> Retval {
     }
 }
 
-auto simplifyAF(Retval &r, SimplificationContext &context) -> Retval {
+auto simplify_af(Retval &r, SimplificationContext &context) -> Retval {
     if (r._formula->is_trivially_true() || !r._neglps->satisfiable(context)) {
         return Retval(BooleanCondition::TRUE_CONSTANT);
     } else if (r._formula->is_trivially_false() || !r._lps->satisfiable(context)) {
@@ -1993,7 +1993,7 @@ auto simplifyAF(Retval &r, SimplificationContext &context) -> Retval {
     }
 }
 
-auto simplifyEG(Retval &r, SimplificationContext &context) -> Retval {
+auto simplify_eg(Retval &r, SimplificationContext &context) -> Retval {
     if (r._formula->is_trivially_true() || !r._neglps->satisfiable(context)) {
         return Retval(BooleanCondition::TRUE_CONSTANT);
     } else if (r._formula->is_trivially_false() || !r._lps->satisfiable(context)) {
@@ -2003,7 +2003,7 @@ auto simplifyEG(Retval &r, SimplificationContext &context) -> Retval {
     }
 }
 
-auto simplifyAG(Retval &r, SimplificationContext &context) -> Retval {
+auto simplify_ag(Retval &r, SimplificationContext &context) -> Retval {
     if (r._formula->is_trivially_true() || !r._neglps->satisfiable(context)) {
         return Retval(BooleanCondition::TRUE_CONSTANT);
     } else if (r._formula->is_trivially_false() || !r._lps->satisfiable(context)) {
@@ -2014,7 +2014,7 @@ auto simplifyAG(Retval &r, SimplificationContext &context) -> Retval {
 }
 
 template <typename Quantifier>
-auto simplifySimpleQuant(Retval &r, SimplificationContext &context) -> Retval {
+auto simplify_simple_quant(Retval &r, SimplificationContext &context) -> Retval {
     static_assert(std::is_base_of_v<SimpleQuantifierCondition, Quantifier>);
     if (r._formula->is_trivially_true() || !r._neglps->satisfiable(context)) {
         return Retval(BooleanCondition::TRUE_CONSTANT);
@@ -2027,32 +2027,32 @@ auto simplifySimpleQuant(Retval &r, SimplificationContext &context) -> Retval {
 
 auto EXCondition::simplify(SimplificationContext &context) const -> Retval {
     Retval r = _cond->simplify(context);
-    return context.negated() ? simplifyAX(r, context) : simplifyEX(r, context);
+    return context.negated() ? simplify_ax(r, context) : simplify_ex(r, context);
 }
 
 auto AXCondition::simplify(SimplificationContext &context) const -> Retval {
     Retval r = _cond->simplify(context);
-    return context.negated() ? simplifyEX(r, context) : simplifyAX(r, context);
+    return context.negated() ? simplify_ex(r, context) : simplify_ax(r, context);
 }
 
 auto EFCondition::simplify(SimplificationContext &context) const -> Retval {
     Retval r = _cond->simplify(context);
-    return context.negated() ? simplifyAG(r, context) : simplifyEF(r, context);
+    return context.negated() ? simplify_ag(r, context) : simplify_ef(r, context);
 }
 
 auto AFCondition::simplify(SimplificationContext &context) const -> Retval {
     Retval r = _cond->simplify(context);
-    return context.negated() ? simplifyEG(r, context) : simplifyAF(r, context);
+    return context.negated() ? simplify_eg(r, context) : simplify_af(r, context);
 }
 
 auto EGCondition::simplify(SimplificationContext &context) const -> Retval {
     Retval r = _cond->simplify(context);
-    return context.negated() ? simplifyAF(r, context) : simplifyEG(r, context);
+    return context.negated() ? simplify_af(r, context) : simplify_eg(r, context);
 }
 
 auto AGCondition::simplify(SimplificationContext &context) const -> Retval {
     Retval r = _cond->simplify(context);
-    return context.negated() ? simplifyEF(r, context) : simplifyAG(r, context);
+    return context.negated() ? simplify_ef(r, context) : simplify_ag(r, context);
 }
 
 auto EUCondition::simplify(SimplificationContext &context) const -> Retval {
@@ -2172,32 +2172,32 @@ auto UntilCondition::simplify(SimplificationContext &context) const -> Retval {
 auto ECondition::simplify(SimplificationContext &context) const -> Retval {
     assert(false);
     Retval r = _cond->simplify(context);
-    return context.negated() ? simplifySimpleQuant<ACondition>(r, context)
-                             : simplifySimpleQuant<ECondition>(r, context);
+    return context.negated() ? simplify_simple_quant<ACondition>(r, context)
+                             : simplify_simple_quant<ECondition>(r, context);
 }
 
 auto ACondition::simplify(SimplificationContext &context) const -> Retval {
     assert(false);
     Retval r = _cond->simplify(context);
-    return context.negated() ? simplifySimpleQuant<ECondition>(r, context)
-                             : simplifySimpleQuant<ACondition>(r, context);
+    return context.negated() ? simplify_simple_quant<ECondition>(r, context)
+                             : simplify_simple_quant<ACondition>(r, context);
 }
 
 auto FCondition::simplify(SimplificationContext &context) const -> Retval {
     Retval r = _cond->simplify(context);
-    return context.negated() ? simplifySimpleQuant<GCondition>(r, context)
-                             : simplifySimpleQuant<FCondition>(r, context);
+    return context.negated() ? simplify_simple_quant<GCondition>(r, context)
+                             : simplify_simple_quant<FCondition>(r, context);
 }
 
 auto GCondition::simplify(SimplificationContext &context) const -> Retval {
     Retval r = _cond->simplify(context);
-    return context.negated() ? simplifySimpleQuant<FCondition>(r, context)
-                             : simplifySimpleQuant<GCondition>(r, context);
+    return context.negated() ? simplify_simple_quant<FCondition>(r, context)
+                             : simplify_simple_quant<GCondition>(r, context);
 }
 
 auto XCondition::simplify(SimplificationContext &context) const -> Retval {
     Retval r = _cond->simplify(context);
-    return simplifySimpleQuant<XCondition>(r, context);
+    return simplify_simple_quant<XCondition>(r, context);
 }
 
 auto merge_lps(std::vector<AbstractProgramCollection_ptr> &&lps) -> AbstractProgramCollection_ptr {
@@ -2255,7 +2255,7 @@ auto LogicalCondition::simplify_and(SimplificationContext &context) const -> Ret
     // If not, then we know that r1 || r2 must be true.
     // we check this by checking if !r1 && !r2 is unsat
 
-    return Retval(makeAnd(conditions), std::move(lps),
+    return Retval(make_and(conditions), std::move(lps),
                   std::make_shared<UnionCollection>(std::move(neglps)));
 }
 
@@ -2297,16 +2297,16 @@ auto LogicalCondition::simplifyOr(SimplificationContext &context) const -> Retva
     // If not, then we know that r1 || r2 must be true.
     // we check this by checking if !r1 && !r2 is unsat
 
-    return Retval(makeOr(conditions), std::make_shared<UnionCollection>(std::move(lps)),
+    return Retval(make_or(conditions), std::make_shared<UnionCollection>(std::move(lps)),
                   std::move(neglps));
 }
 
 auto AndCondition::simplify(SimplificationContext &context) const -> Retval {
     if (context.timeout()) {
         if (context.negated())
-            return Retval(std::make_shared<NotCondition>(makeAnd(_conds)));
+            return Retval(std::make_shared<NotCondition>(make_and(_conds)));
         else
-            return Retval(makeAnd(_conds));
+            return Retval(make_and(_conds));
     }
 
     if (context.negated())
@@ -2318,9 +2318,9 @@ auto AndCondition::simplify(SimplificationContext &context) const -> Retval {
 auto OrCondition::simplify(SimplificationContext &context) const -> Retval {
     if (context.timeout()) {
         if (context.negated())
-            return Retval(std::make_shared<NotCondition>(makeOr(_conds)));
+            return Retval(std::make_shared<NotCondition>(make_or(_conds)));
         else
-            return Retval(makeOr(_conds));
+            return Retval(make_or(_conds));
     }
     if (context.negated())
         return simplify_and(context);
@@ -2462,11 +2462,11 @@ auto CompareConjunction::simplify(SimplificationContext &context) const -> Retva
             } else {
                 if (c._lower != 0 && c._upper != std::numeric_limits<uint32_t>::max()) {
                     if (neg)
-                        return makeOr(std::make_shared<LessThanCondition>(id, ll),
-                                      std::make_shared<LessThanCondition>(lu, id));
+                        return make_or(std::make_shared<LessThanCondition>(id, ll),
+                                       std::make_shared<LessThanCondition>(lu, id));
                     else
-                        return makeAnd(std::make_shared<LessThanOrEqualCondition>(ll, id),
-                                       std::make_shared<LessThanOrEqualCondition>(id, lu));
+                        return make_and(std::make_shared<LessThanOrEqualCondition>(ll, id),
+                                        std::make_shared<LessThanOrEqualCondition>(id, lu));
                 } else if (c._lower != 0) {
                     if (neg)
                         return std::make_shared<LessThanCondition>(id, ll);
@@ -2951,7 +2951,7 @@ auto EFCondition::push_negation(negstat_t &stats, const EvaluationContext &conte
                 for (auto &i : *cond) {
                     pef.push_back(std::make_shared<EFCondition>(i));
                 }
-                a = makeOr(pef)->push_negation(stats, context, nested, negated, initrw);
+                a = make_or(pef)->push_negation(stats, context, nested, negated, initrw);
                 return a;
             } else {
                 Condition_ptr b = std::make_shared<EFCondition>(a);
@@ -2998,8 +2998,8 @@ auto AFCondition::push_negation(negstat_t &stats, const EvaluationContext &conte
                 }
                 if (pef.size() > 0) {
                     stats[17] += pef.size();
-                    pef.push_back(std::make_shared<AFCondition>(makeOr(npef)));
-                    return makeOr(pef)->push_negation(stats, context, nested, negated, initrw);
+                    pef.push_back(std::make_shared<AFCondition>(make_or(npef)));
+                    return make_or(pef)->push_negation(stats, context, nested, negated, initrw);
                 }
             } else if (auto cond = dynamic_cast<AUCondition *>(a.get())) {
                 ++stats[18];
@@ -3055,12 +3055,12 @@ auto AUCondition::push_negation(negstat_t &stats, const EvaluationContext &conte
                 if (pef.size() > 0) {
                     stats[24] += pef.size();
                     if (npef.size() != 0) {
-                        pef.push_back(std::make_shared<AUCondition>(_cond1, makeOr(npef)));
+                        pef.push_back(std::make_shared<AUCondition>(_cond1, make_or(npef)));
                     } else {
                         ++stats[23];
                         --stats[24];
                     }
-                    return makeOr(pef)->push_negation(stats, context, nested, negated, initrw);
+                    return make_or(pef)->push_negation(stats, context, nested, negated, initrw);
                 }
             }
 
@@ -3111,11 +3111,11 @@ auto EUCondition::push_negation(negstat_t &stats, const EvaluationContext &conte
                 if (pef.size() > 0) {
                     stats[29] += pef.size();
                     if (npef.size() != 0) {
-                        pef.push_back(std::make_shared<EUCondition>(_cond1, makeOr(npef)));
+                        pef.push_back(std::make_shared<EUCondition>(_cond1, make_or(npef)));
                         ++stats[28];
                         --stats[29];
                     }
-                    return makeOr(pef)->push_negation(stats, context, nested, negated, initrw);
+                    return make_or(pef)->push_negation(stats, context, nested, negated, initrw);
                 }
             }
             auto c = std::make_shared<EUCondition>(a, b);
@@ -3196,7 +3196,7 @@ auto FCondition::push_negation(negstat_t &stats, const EvaluationContext &contex
                 for (auto &i : *cond) {
                     distributed.push_back(std::make_shared<FCondition>(i));
                 }
-                return makeOr(distributed)->push_negation(stats, context, nested, negated, initrw);
+                return make_or(distributed)->push_negation(stats, context, nested, negated, initrw);
             } else {
                 Condition_ptr b = std::make_shared<FCondition>(a);
                 if (negated)
@@ -3230,8 +3230,8 @@ auto GCondition::push_negation(negstat_t &stats, const EvaluationContext &contex
 }
 
 /*Boolean connectives */
-auto pushAnd(const std::vector<Condition_ptr> &_conds, negstat_t &stats,
-             const EvaluationContext &context, bool nested, bool negate_children, bool initrw)
+auto push_and(const std::vector<Condition_ptr> &_conds, negstat_t &stats,
+              const EvaluationContext &context, bool nested, bool negate_children, bool initrw)
     -> Condition_ptr {
     std::vector<Condition_ptr> nef, other;
     for (auto &c : _conds) {
@@ -3258,15 +3258,16 @@ auto pushAnd(const std::vector<Condition_ptr> &_conds, negstat_t &stats,
                    : std::make_shared<NotCondition>(std::make_shared<EFCondition>(nef[0]));
     }
     if (nef.size() != 0)
-        other.push_back(std::make_shared<NotCondition>(std::make_shared<EFCondition>(makeOr(nef))));
+        other.push_back(
+            std::make_shared<NotCondition>(std::make_shared<EFCondition>(make_or(nef))));
     if (other.size() == 1)
         return other[0];
-    auto res = makeAnd(other);
+    auto res = make_and(other);
     return res;
 }
 
-auto pushOr(const std::vector<Condition_ptr> &_conds, negstat_t &stats,
-            const EvaluationContext &context, bool nested, bool negate_children, bool initrw)
+auto push_or(const std::vector<Condition_ptr> &_conds, negstat_t &stats,
+             const EvaluationContext &context, bool nested, bool negate_children, bool initrw)
     -> Condition_ptr {
     std::vector<Condition_ptr> nef, other;
     for (auto &c : _conds) {
@@ -3288,18 +3289,18 @@ auto pushOr(const std::vector<Condition_ptr> &_conds, negstat_t &stats,
         return nef.size() == 0 ? other[0] : std::make_shared<EFCondition>(nef[0]);
     }
     if (nef.size() != 0)
-        other.push_back(std::make_shared<EFCondition>(makeOr(nef)));
+        other.push_back(std::make_shared<EFCondition>(make_or(nef)));
     if (other.size() == 1)
         return other[0];
-    return makeOr(other);
+    return make_or(other);
 }
 
 auto OrCondition::push_negation(negstat_t &stats, const EvaluationContext &context, bool nested,
                                 bool negated, bool initrw) -> Condition_ptr {
     return initial_marking_rewrite(
         [&]() -> Condition_ptr {
-            return negated ? pushAnd(_conds, stats, context, nested, true, initrw)
-                           : pushOr(_conds, stats, context, nested, false, initrw);
+            return negated ? push_and(_conds, stats, context, nested, true, initrw)
+                           : push_or(_conds, stats, context, nested, false, initrw);
         },
         stats, context, nested, negated, initrw);
 }
@@ -3308,8 +3309,8 @@ auto AndCondition::push_negation(negstat_t &stats, const EvaluationContext &cont
                                  bool negated, bool initrw) -> Condition_ptr {
     return initial_marking_rewrite(
         [&]() -> Condition_ptr {
-            return negated ? pushOr(_conds, stats, context, nested, true, initrw)
-                           : pushAnd(_conds, stats, context, nested, false, initrw);
+            return negated ? push_or(_conds, stats, context, nested, true, initrw)
+                           : push_and(_conds, stats, context, nested, false, initrw);
         },
         stats, context, nested, negated, initrw);
 }
@@ -3333,9 +3334,9 @@ auto NotCondition::push_negation(negstat_t &stats, const EvaluationContext &cont
 }
 
 template <typename T>
-auto pushFireableNegation(negstat_t &stat, const EvaluationContext &context, bool nested,
-                          bool negated, bool initrw, const std::string &name,
-                          const Condition_ptr &compiled) -> Condition_ptr {
+auto push_fireable_negation(negstat_t &stat, const EvaluationContext &context, bool nested,
+                            bool negated, bool initrw, const std::string &name,
+                            const Condition_ptr &compiled) -> Condition_ptr {
     if (compiled)
         return compiled->push_negation(stat, context, nested, negated, initrw);
     if (negated) {
@@ -3348,14 +3349,14 @@ auto pushFireableNegation(negstat_t &stat, const EvaluationContext &context, boo
 auto UnfoldedFireableCondition::push_negation(negstat_t &stat, const EvaluationContext &context,
                                               bool nested, bool negated, bool initrw)
     -> Condition_ptr {
-    return pushFireableNegation<UnfoldedFireableCondition>(stat, context, nested, negated, initrw,
-                                                           _name, _compiled);
+    return push_fireable_negation<UnfoldedFireableCondition>(stat, context, nested, negated, initrw,
+                                                             _name, _compiled);
 }
 
 auto FireableCondition::push_negation(negstat_t &stat, const EvaluationContext &context,
                                       bool nested, bool negated, bool initrw) -> Condition_ptr {
-    return pushFireableNegation<FireableCondition>(stat, context, nested, negated, initrw, _name,
-                                                   _compiled);
+    return push_fireable_negation<FireableCondition>(stat, context, nested, negated, initrw, _name,
+                                                     _compiled);
 }
 
 auto CompareCondition::is_trivial() const -> bool {
@@ -3420,7 +3421,7 @@ auto LessThanOrEqualCondition::push_negation(negstat_t &stats, const EvaluationC
         stats, context, nested, negated, initrw);
 }
 
-auto pushEqual(CompareCondition *org, bool negated, bool noteq, const EvaluationContext &context)
+auto push_equal(CompareCondition *org, bool negated, bool noteq, const EvaluationContext &context)
     -> Condition_ptr {
     if (org->is_trivial())
         return BooleanCondition::getShared(org->evaluate(context) xor negated);
@@ -3443,15 +3444,15 @@ auto pushEqual(CompareCondition *org, bool negated, bool noteq, const Evaluation
 auto NotEqualCondition::push_negation(negstat_t &stats, const EvaluationContext &context,
                                       bool nested, bool negated, bool initrw) -> Condition_ptr {
     return initial_marking_rewrite(
-        [&]() -> Condition_ptr { return pushEqual(this, negated, true, context); }, stats, context,
+        [&]() -> Condition_ptr { return push_equal(this, negated, true, context); }, stats, context,
         nested, negated, initrw);
 }
 
 auto EqualCondition::push_negation(negstat_t &stats, const EvaluationContext &context, bool nested,
                                    bool negated, bool initrw) -> Condition_ptr {
     return initial_marking_rewrite(
-        [&]() -> Condition_ptr { return pushEqual(this, negated, false, context); }, stats, context,
-        nested, negated, initrw);
+        [&]() -> Condition_ptr { return push_equal(this, negated, false, context); }, stats,
+        context, nested, negated, initrw);
 }
 
 auto BooleanCondition::push_negation(negstat_t &stats, const EvaluationContext &context,
@@ -3489,69 +3490,69 @@ auto UnfoldedUpperBoundsCondition::push_negation(negstat_t &, const EvaluationCo
 
 /********************** CONSTRUCTORS *********************************/
 
-void postMerge(std::vector<Condition_ptr> &conds) {
+void post_merge(std::vector<Condition_ptr> &conds) {
     std::sort(std::begin(conds), std::end(conds),
               [](auto &a, auto &b) { return a->is_temporal() < b->is_temporal(); });
 }
 
 AndCondition::AndCondition(std::vector<Condition_ptr> &&conds) {
     for (auto &c : conds)
-        tryMerge<AndCondition>(_conds, c);
+        try_merge<AndCondition>(_conds, c);
     for (auto &c : _conds)
         _temporal = _temporal || c->is_temporal();
     for (auto &c : _conds)
         _loop_sensitive = _loop_sensitive || c->is_loop_sensitive();
-    postMerge(_conds);
+    post_merge(_conds);
 }
 
 AndCondition::AndCondition(const std::vector<Condition_ptr> &conds) {
     for (auto &c : conds)
-        tryMerge<AndCondition>(_conds, c);
+        try_merge<AndCondition>(_conds, c);
     for (auto &c : _conds)
         _temporal = _temporal || c->is_temporal();
     for (auto &c : _conds)
         _loop_sensitive = _loop_sensitive || c->is_loop_sensitive();
-    postMerge(_conds);
+    post_merge(_conds);
 }
 
 AndCondition::AndCondition(const Condition_ptr &left, const Condition_ptr &right) {
-    tryMerge<AndCondition>(_conds, left);
-    tryMerge<AndCondition>(_conds, right);
+    try_merge<AndCondition>(_conds, left);
+    try_merge<AndCondition>(_conds, right);
     for (auto &c : _conds)
         _temporal = _temporal || c->is_temporal();
     for (auto &c : _conds)
         _loop_sensitive = _loop_sensitive || c->is_loop_sensitive();
-    postMerge(_conds);
+    post_merge(_conds);
 }
 
 OrCondition::OrCondition(std::vector<Condition_ptr> &&conds) {
     for (auto &c : conds)
-        tryMerge<OrCondition>(_conds, c);
+        try_merge<OrCondition>(_conds, c);
     for (auto &c : _conds)
         _temporal = _temporal || c->is_temporal();
     for (auto &c : _conds)
         _loop_sensitive = _loop_sensitive || c->is_loop_sensitive();
-    postMerge(_conds);
+    post_merge(_conds);
 }
 
 OrCondition::OrCondition(const std::vector<Condition_ptr> &conds) {
     for (auto &c : conds)
-        tryMerge<OrCondition>(_conds, c);
+        try_merge<OrCondition>(_conds, c);
     for (auto &c : _conds)
         _temporal = _temporal || c->is_temporal();
     for (auto &c : _conds)
         _loop_sensitive = _loop_sensitive || c->is_loop_sensitive();
-    postMerge(_conds);
+    post_merge(_conds);
 }
 
 OrCondition::OrCondition(const Condition_ptr &left, const Condition_ptr &right) {
-    tryMerge<OrCondition>(_conds, left);
-    tryMerge<OrCondition>(_conds, right);
+    try_merge<OrCondition>(_conds, left);
+    try_merge<OrCondition>(_conds, right);
     for (auto &c : _conds)
         _temporal = _temporal || c->is_temporal();
     for (auto &c : _conds)
         _loop_sensitive = _loop_sensitive || c->is_loop_sensitive();
-    postMerge(_conds);
+    post_merge(_conds);
 }
 
 CompareConjunction::CompareConjunction(const std::vector<Condition_ptr> &conditions, bool negated) {

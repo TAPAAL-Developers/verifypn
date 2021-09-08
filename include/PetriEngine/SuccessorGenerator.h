@@ -31,7 +31,7 @@ class SuccessorGenerator {
     virtual ~SuccessorGenerator();
     virtual bool prepare(const Structures::State &state);
     virtual bool next(Structures::State &write);
-    uint32_t fired() const {
+    virtual uint32_t fired() const {
         return _suc_tcounter == std::numeric_limits<uint32_t>::max()
                    ? std::numeric_limits<uint32_t>::max()
                    : _suc_tcounter - 1;

@@ -18,13 +18,12 @@
 
 #include "PetriEngine/Colored/GuardRestrictor.h"
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 
-GuardRestrictor::GuardRestrictor() {}
+GuardRestrictor::GuardRestrictor() = default;
 
-int32_t GuardRestrictor::get_var_modifier(const std::unordered_map<uint32_t, int32_t> &modPairMap,
-                                          uint32_t index) const {
+auto GuardRestrictor::get_var_modifier(const std::unordered_map<uint32_t, int32_t> &modPairMap,
+                                       uint32_t index) const -> int32_t {
     int32_t modifier;
     for (auto idModPair : modPairMap) {
         if (idModPair.first == index) {
@@ -35,8 +34,8 @@ int32_t GuardRestrictor::get_var_modifier(const std::unordered_map<uint32_t, int
     return modifier;
 }
 
-interval_t GuardRestrictor::get_interval_from_ids(const std::vector<uint32_t> &idVec,
-                                                  uint32_t ctSize, int32_t modifier) const {
+auto GuardRestrictor::get_interval_from_ids(const std::vector<uint32_t> &idVec, uint32_t ctSize,
+                                            int32_t modifier) const -> interval_t {
     interval_t interval;
     for (auto id : idVec) {
         int32_t val = ctSize + (id + modifier);
@@ -46,15 +45,16 @@ interval_t GuardRestrictor::get_interval_from_ids(const std::vector<uint32_t> &i
     return interval;
 }
 
-interval_vector_t GuardRestrictor::get_interval_overlap(const interval_vector_t &intervals1,
-                                                        const interval_vector_t &intervals2) const {
+auto GuardRestrictor::get_interval_overlap(const interval_vector_t &intervals1,
+                                           const interval_vector_t &intervals2) const
+    -> interval_vector_t {
     interval_vector_t newIntervalTuple;
     for (const auto &mainInterval : intervals1) {
         for (const auto &otherInterval : intervals2) {
             auto intervalOverlap = otherInterval.get_overlap(mainInterval);
 
             if (intervalOverlap.is_sound()) {
-                newIntervalTuple.add_interval(std::move(intervalOverlap));
+                newIntervalTuple.add_interval(intervalOverlap);
             }
         }
     }
@@ -541,19 +541,18 @@ void GuardRestrictor::invert_intervals(interval_vector_t &intervals,
         }
     }
 
-    intervals = std::move(invertedIntervalvec);
+    intervals = invertedIntervalvec;
 }
 
-interval_vector_t
-GuardRestrictor::shift_intervals(const VariableIntervalMap &varMap,
-                                 const std::vector<const Colored::ColorType *> &colortypes,
-                                 PetriEngine::Colored::interval_vector_t &intervals,
-                                 int32_t modifier, uint32_t ctSizeBefore) const {
+auto GuardRestrictor::shift_intervals(const VariableIntervalMap &varMap,
+                                      const std::vector<const Colored::ColorType *> &colortypes,
+                                      PetriEngine::Colored::interval_vector_t &intervals,
+                                      int32_t modifier, uint32_t ctSizeBefore) const
+    -> interval_vector_t {
     Colored::interval_vector_t newIntervals;
-    for (uint32_t i = 0; i < intervals.size(); i++) {
+    for (auto &interval : intervals) {
         Colored::interval_t newInterval;
         std::vector<Colored::interval_t> tempIntervals;
-        auto &interval = intervals[i];
         for (uint32_t j = 0; j < interval._ranges.size(); j++) {
             auto &range = interval.operator[](j);
             size_t ctSize = colortypes[j + ctSizeBefore]->size();
@@ -608,5 +607,4 @@ GuardRestrictor::shift_intervals(const VariableIntervalMap &varMap,
     }
     return newIntervals;
 }
-} // namespace Colored
-} // namespace PetriEngine
+} // namespace PetriEngine::Colored

@@ -30,7 +30,7 @@ const uchar binarywrapper_t::_masks[8] = {static_cast<uchar>(0x80), static_cast<
                                           static_cast<uchar>(0x08), static_cast<uchar>(0x04),
                                           static_cast<uchar>(0x02), static_cast<uchar>(0x01)};
 
-size_t binarywrapper_t::overhead(uint size) {
+auto binarywrapper_t::overhead(uint size) -> size_t {
     size = size % 8;
     if (size == 0)
         return 0;
@@ -38,7 +38,7 @@ size_t binarywrapper_t::overhead(uint size) {
         return 8 - size;
 }
 
-size_t binarywrapper_t::bytes(uint size) { return (size + overhead(size)) / 8; }
+auto binarywrapper_t::bytes(uint size) -> size_t { return (size + overhead(size)) / 8; }
 
 binarywrapper_t::binarywrapper_t(uint size) {
     _nbytes = (size + overhead(size)) / 8;
@@ -128,7 +128,7 @@ void binarywrapper_t::print(std::ostream &stream, size_t length) const {
 } // namespace ptrie
 
 namespace std {
-std::ostream &operator<<(std::ostream &os, const ptrie::binarywrapper_t &b) {
+auto operator<<(std::ostream &os, const ptrie::binarywrapper_t &b) -> std::ostream & {
     b.print(os);
     return os;
 }

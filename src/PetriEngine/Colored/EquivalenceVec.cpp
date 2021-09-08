@@ -1,8 +1,7 @@
 
 #include "PetriEngine/Colored/EquivalenceVec.h"
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 void EquivalenceVec::apply_partition(Colored::ArcIntervals &arcInterval) const {
     if (_diagonal || _equivalenceClasses.size() >=
                          _equivalenceClasses.back().type()->size(_diagonalTuplePositions)) {
@@ -23,7 +22,7 @@ void EquivalenceVec::apply_partition(Colored::ArcIntervals &arcInterval) const {
                                 singleInterval[i] = interval[i];
                             }
                         }
-                        newIntervalTuple.add_interval(std::move(singleInterval));
+                        newIntervalTuple.add_interval(singleInterval);
                         continue;
                     }
                 }
@@ -86,5 +85,4 @@ void EquivalenceVec::apply_partition(std::vector<uint32_t> &colorIds) const {
         }
     }
 }
-} // namespace Colored
-} // namespace PetriEngine
+} // namespace PetriEngine::Colored

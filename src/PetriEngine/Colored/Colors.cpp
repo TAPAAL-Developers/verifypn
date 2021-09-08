@@ -33,7 +33,7 @@ template <typename Out> void split(const std::string &s, char delim, Out result)
     }
 }
 
-std::vector<std::string> split(const std::string &s, char delim) {
+auto split(const std::string &s, char delim) -> std::vector<std::string> {
     std::vector<std::string> elems;
     split(s, delim, std::back_inserter(elems));
     return elems;
@@ -58,7 +58,7 @@ Color::Color(const ColorType *colorType, uint32_t id, const char *color)
         assert(id <= colorType->size());
 }
 
-const Color &Color::operator++() const {
+auto Color::operator++() const -> const Color & {
     // std::cout << _colorName <<" " << _colorType->get_name() << std::endl;
     if (_id >= _colorType->size() - 1) {
         // std::cout << "inside if" << std::endl;
@@ -68,7 +68,7 @@ const Color &Color::operator++() const {
     return (*_colorType)[_id + 1];
 }
 
-const Color &Color::operator--() const {
+auto Color::operator--() const -> const Color & {
     if (_id <= 0) {
         return (*_colorType)[_colorType->size() - 1];
     }
@@ -76,7 +76,7 @@ const Color &Color::operator--() const {
     return (*_colorType)[_id - 1];
 }
 
-std::string Color::to_string() const { return to_string(this); }
+auto Color::to_string() const -> std::string { return to_string(this); }
 
 void Color::get_color_constraints(Colored::interval_t &constraintsVector, uint32_t &index) const {
     if (this->is_tuple()) {
@@ -113,7 +113,7 @@ void Color::get_tuple_id(std::vector<uint32_t> &idVector) const {
     }
 }
 
-std::string Color::to_string(const Color *color) {
+auto Color::to_string(const Color *color) -> std::string {
     if (color->is_tuple()) {
         std::ostringstream oss;
         oss << "(";
@@ -128,7 +128,7 @@ std::string Color::to_string(const Color *color) {
     return std::string(color->_colorName);
 }
 
-std::string Color::to_string(const std::vector<const Color *> &colors) {
+auto Color::to_string(const std::vector<const Color *> &colors) -> std::string {
     std::ostringstream oss;
     if (colors.size() > 1)
         oss << "(";
@@ -144,7 +144,7 @@ std::string Color::to_string(const std::vector<const Color *> &colors) {
     return oss.str();
 }
 
-const ColorType *ColorType::dot_instance() {
+auto ColorType::dot_instance() -> const ColorType * {
     static ColorType instance("dot");
     if (instance.size() == 0) {
         instance.add_color("dot");
@@ -156,7 +156,7 @@ void ColorType::add_color(const char *colorName) {
     _colors.emplace_back(this, _colors.size(), colorName);
 }
 
-const Color *ColorType::operator[](const char *index) const {
+auto ColorType::operator[](const char *index) const -> const Color * {
     for (size_t i = 0; i < _colors.size(); i++) {
         if (strcmp(operator[](i).to_string().c_str(), index) == 0)
             return &operator[](i);
@@ -164,7 +164,7 @@ const Color *ColorType::operator[](const char *index) const {
     return nullptr;
 }
 
-const Color &ProductType::operator[](size_t index) const {
+auto ProductType::operator[](size_t index) const -> const Color & {
     if (_cache.count(index) < 1) {
         size_t mod = 1;
         size_t div = 1;
@@ -182,7 +182,7 @@ const Color &ProductType::operator[](size_t index) const {
     return _cache.at(index);
 }
 
-const Color *ProductType::get_color(const std::vector<const Color *> &colors) const {
+auto ProductType::get_color(const std::vector<const Color *> &colors) const -> const Color * {
     size_t product = 1;
     size_t sum = 0;
 
@@ -199,7 +199,7 @@ const Color *ProductType::get_color(const std::vector<const Color *> &colors) co
     return &operator[](sum);
 }
 
-const Color *ProductType::get_color(const std::vector<uint32_t> &ids) const {
+auto ProductType::get_color(const std::vector<uint32_t> &ids) const -> const Color * {
     assert(ids.size() == _constituents.size());
     size_t product = 1;
     size_t sum = 0;
@@ -211,11 +211,11 @@ const Color *ProductType::get_color(const std::vector<uint32_t> &ids) const {
     return &operator[](sum);
 }
 
-const Color *ProductType::operator[](const char *index) const {
+auto ProductType::operator[](const char *index) const -> const Color * {
     return operator[](std::string(index));
 }
 
-const Color *ProductType::operator[](const std::string &index) const {
+auto ProductType::operator[](const std::string &index) const -> const Color * {
     std::string str(index.substr(1, index.size() - 2));
     std::vector<std::string> parts = split(str, ',');
 

@@ -25,7 +25,7 @@
 #include <iostream>
 #include <string>
 
-auto getChildCount(rapidxml::xml_node<> *n) -> int {
+auto get_child_count(rapidxml::xml_node<> *n) -> int {
     int c = 0;
     for (rapidxml::xml_node<> *child = n->first_node(); child != nullptr;
          child = child->next_sibling()) {
@@ -133,7 +133,7 @@ void QueryXMLParser::fatal_error(const std::string &token) {
 }
 
 auto QueryXMLParser::parse_formula(rapidxml::xml_node<> *element) -> Condition_ptr {
-    if (getChildCount(element) != 1) {
+    if (get_child_count(element) != 1) {
         assert(false);
         return nullptr;
     }
@@ -216,7 +216,7 @@ auto QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *element) -> Con
         if ((cond = parse_boolean_formula(element->first_node())) != nullptr)
             return std::make_shared<EFCondition>(cond);
     } else if (elementName == "exists-path") {
-        if (getChildCount(element) != 1) {
+        if (get_child_count(element) != 1) {
             assert(false);
             return nullptr;
         }
@@ -224,7 +224,7 @@ auto QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *element) -> Con
             return std::make_shared<ECondition>(cond);
 
     } else if (elementName == "next") {
-        if (getChildCount(element) != 1) {
+        if (get_child_count(element) != 1) {
             assert(false);
             return nullptr;
         }
@@ -232,27 +232,27 @@ auto QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *element) -> Con
             return std::make_shared<XCondition>(cond);
 
     } else if (elementName == "globally") {
-        if (getChildCount(element) != 1) {
+        if (get_child_count(element) != 1) {
             assert(false);
             return nullptr;
         }
         if ((cond = parse_boolean_formula(element->first_node())) != nullptr)
             return std::make_shared<GCondition>(cond);
     } else if (elementName == "finally") {
-        if (getChildCount(element) != 1) {
+        if (get_child_count(element) != 1) {
             assert(false);
             return nullptr;
         }
         if ((cond = parse_boolean_formula(element->first_node())) != nullptr)
             return std::make_shared<FCondition>(cond);
     } else if (elementName == "until") {
-        if (getChildCount(element) != 2) {
+        if (get_child_count(element) != 2) {
             assert(false);
             return nullptr;
         }
         auto before = element->first_node();
         auto reach = before->next_sibling();
-        if (getChildCount(before) != 1 || getChildCount(reach) != 1 ||
+        if (get_child_count(before) != 1 || get_child_count(reach) != 1 ||
             strcmp(before->name(), "before") != 0 || strcmp(reach->name(), "reach") != 0) {
             assert(false);
             return nullptr;
@@ -263,7 +263,7 @@ auto QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *element) -> Con
             }
         }
     } else if (elementName == "all-paths") {
-        if (getChildCount(element) != 1) {
+        if (get_child_count(element) != 1) {
             assert(false);
             return nullptr;
         }
@@ -276,7 +276,7 @@ auto QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *element) -> Con
     } else if (elementName == "false") {
         return BooleanCondition::FALSE_CONSTANT;
     } else if (elementName == "negation" || elementName == "not") {
-        if (getChildCount(element) != 1) {
+        if (get_child_count(element) != 1) {
             assert(false);
             return nullptr;
         }
@@ -284,7 +284,7 @@ auto QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *element) -> Con
             return std::make_shared<NotCondition>(cond);
     } else if (elementName == "conjunction" || elementName == "and") {
         auto children = element->first_node();
-        if (getChildCount(element) < 2) {
+        if (get_child_count(element) < 2) {
             assert(false);
             return nullptr;
         }
@@ -302,7 +302,7 @@ auto QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *element) -> Con
         return cond;
     } else if (elementName == "disjunction" || elementName == "or") {
         auto children = element->first_node();
-        if (getChildCount(element) < 2) {
+        if (get_child_count(element) < 2) {
             assert(false);
             return nullptr;
         }
@@ -320,7 +320,7 @@ auto QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *element) -> Con
         return cond;
     } else if (elementName == "exclusive-disjunction") {
         auto children = element->first_node();
-        if (getChildCount(element) != 2) {
+        if (get_child_count(element) != 2) {
             assert(false);
             return nullptr;
         }
@@ -335,7 +335,7 @@ auto QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *element) -> Con
             std::make_shared<AndCondition>(std::make_shared<NotCondition>(cond), cond2));
     } else if (elementName == "implication") {
         auto children = element->first_node();
-        if (getChildCount(element) != 2) {
+        if (get_child_count(element) != 2) {
             assert(false);
             return nullptr;
         }
@@ -348,7 +348,7 @@ auto QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *element) -> Con
         return std::make_shared<OrCondition>(std::make_shared<NotCondition>(cond), cond2);
     } else if (elementName == "equivalence") {
         auto children = element->first_node();
-        if (getChildCount(element) != 2) {
+        if (get_child_count(element) != 2) {
             assert(false);
             return nullptr;
         }
@@ -364,7 +364,7 @@ auto QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *element) -> Con
                elementName == "integer-lt" || elementName == "integer-le" ||
                elementName == "integer-gt" || elementName == "integer-ge") {
         auto children = element->first_node();
-        if (getChildCount(element) != 2) {
+        if (get_child_count(element) != 2) {
             assert(false);
             return nullptr;
         }
@@ -387,7 +387,7 @@ auto QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *element) -> Con
         else if (elementName == "integer-ge")
             return std::make_shared<LessThanOrEqualCondition>(expr2, expr1);
     } else if (elementName == "is-fireable") {
-        size_t nrOfChildren = getChildCount(element);
+        size_t nrOfChildren = get_child_count(element);
         if (nrOfChildren == 0) {
             assert(false);
             return nullptr;

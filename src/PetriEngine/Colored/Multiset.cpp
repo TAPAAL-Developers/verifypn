@@ -37,19 +37,19 @@ Multiset::Multiset(std::vector<std::pair<const Color *, uint32_t>> &colors)
 
 Multiset::~Multiset() = default;
 
-Multiset Multiset::operator+(const Multiset &other) const {
+auto Multiset::operator+(const Multiset &other) const -> Multiset {
     Multiset ms(*this);
     ms += other;
     return ms;
 }
 
-Multiset Multiset::operator-(const Multiset &other) const {
+auto Multiset::operator-(const Multiset &other) const -> Multiset {
     Multiset ms(*this);
     ms -= other;
     return ms;
 }
 
-Multiset Multiset::operator*(uint32_t scalar) const {
+auto Multiset::operator*(uint32_t scalar) const -> Multiset {
     Multiset ms(*this);
     ms *= scalar;
     return ms;
@@ -91,7 +91,7 @@ void Multiset::operator*=(uint32_t scalar) {
     }
 }
 
-uint32_t Multiset::operator[](const Color *color) const {
+auto Multiset::operator[](const Color *color) const -> uint32_t {
     if (_type != nullptr && _type == color->get_color_type()) {
         for (auto c : _set) {
             if (c.first == color->get_id())
@@ -107,7 +107,7 @@ uint32_t Multiset::operator[](const Color *color) const {
     return 0;
 }
 
-uint32_t &Multiset::operator[](const Color *color) {
+auto Multiset::operator[](const Color *color) -> uint32_t & {
     if (_type == nullptr) {
         _type = color->get_color_type();
     }
@@ -123,7 +123,7 @@ uint32_t &Multiset::operator[](const Color *color) {
     return _set.back().second;
 }
 
-bool Multiset::empty() const { return _set.empty(); }
+auto Multiset::empty() const -> bool { return _set.empty(); }
 
 void Multiset::clean() {
     if (std::find_if(_set.begin(), _set.end(), [&](auto elem) { return elem.second == 0; }) ==
@@ -134,29 +134,29 @@ void Multiset::clean() {
         std::remove_if(_set.begin(), _set.end(), [&](auto elem) { return elem.second == 0; }));
 }
 
-const Multiset::Iterator Multiset::begin() const { return Iterator(this, 0); }
+auto Multiset::begin() const -> const Multiset::Iterator { return Iterator(this, 0); }
 
-const Multiset::Iterator Multiset::end() const { return Iterator(this, _set.size()); }
+auto Multiset::end() const -> const Multiset::Iterator { return Iterator(this, _set.size()); }
 
 /** Multiset iterator implementation */
-bool Multiset::Iterator::operator==(Multiset::Iterator &other) {
+auto Multiset::Iterator::operator==(Multiset::Iterator &other) -> bool {
     return _ms == other._ms && _index == other._index;
 }
 
-bool Multiset::Iterator::operator!=(Multiset::Iterator &other) { return !(*this == other); }
+auto Multiset::Iterator::operator!=(Multiset::Iterator &other) -> bool { return !(*this == other); }
 
-Multiset::Iterator &Multiset::Iterator::operator++() {
+auto Multiset::Iterator::operator++() -> Multiset::Iterator & {
     ++_index;
     return *this;
 }
 
-std::pair<const Color *, const uint32_t &> Multiset::Iterator::operator++(int) {
+auto Multiset::Iterator::operator++(int) -> std::pair<const Color *, const uint32_t &> {
     std::pair<const Color *, const uint32_t &> old = **this;
     ++_index;
     return old;
 }
 
-std::pair<const Color *, const uint32_t &> Multiset::Iterator::operator*() {
+auto Multiset::Iterator::operator*() -> std::pair<const Color *, const uint32_t &> {
     auto &item = _ms->_set[_index];
     auto color = &(*ColorType::dot_instance()->begin());
     if (_ms->_type != nullptr)
@@ -164,7 +164,7 @@ std::pair<const Color *, const uint32_t &> Multiset::Iterator::operator*() {
     return {color, item.second};
 }
 
-std::string Multiset::to_string() const {
+auto Multiset::to_string() const -> std::string {
     std::ostringstream oss;
     for (size_t i = 0; i < _set.size(); ++i) {
         oss << _set[i].second << "'(" << (*_type)[_set[i].first].to_string() << ")";
@@ -176,7 +176,7 @@ std::string Multiset::to_string() const {
     return oss.str();
 }
 
-size_t Multiset::size() const {
+auto Multiset::size() const -> size_t {
     size_t res = 0;
     for (auto item : _set) {
         res += item.second;

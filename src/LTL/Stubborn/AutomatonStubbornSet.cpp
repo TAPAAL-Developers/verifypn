@@ -42,12 +42,12 @@ class NondeterministicConjunctionVisitor : public InterestingLTLTransitionVisito
         _stubborn._track_changes = true;
         memcpy(_stubborn._place_checkpoint.get(), _stubborn._places_seen.get(),
                _net.number_of_places());
-        _accept_conjunction(element);
+        accept_conjunction(element);
         _stubborn._track_changes = false;
         assert(_stubborn._pending_stubborn.empty());
     }
 
-    void _accept_conjunction(const PQL::CompareConjunction *element) {
+    void accept_conjunction(const PQL::CompareConjunction *element) {
         assert(_stubborn._track_changes);
         assert(_stubborn._pending_stubborn.empty());
         assert(element->isNegated() == negated);
