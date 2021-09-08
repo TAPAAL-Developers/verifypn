@@ -5,14 +5,13 @@
 
 #include "options.h"
 
-namespace PetriEngine {
-namespace Reachability {
-std::pair<AbstractHandler::Result, bool>
-ResultPrinter::handle(size_t index, const PQL::Condition &query, Result result,
-                      const std::vector<uint32_t> *maxPlaceBound, size_t expandedStates,
-                      size_t exploredStates, size_t discoveredStates, int maxTokens,
-                      const Structures::StateSetInterface *stateset, size_t lastmarking,
-                      const MarkVal *initialMarking) const {
+namespace PetriEngine::Reachability {
+auto ResultPrinter::handle(size_t index, const PQL::Condition &query, Result result,
+                           const std::vector<uint32_t> *maxPlaceBound, size_t expandedStates,
+                           size_t exploredStates, size_t discoveredStates, int maxTokens,
+                           const Structures::StateSetInterface *stateset, size_t lastmarking,
+                           const MarkVal *initialMarking) const
+    -> std::pair<AbstractHandler::Result, bool> {
     if (result == Unknown)
         return std::make_pair(Unknown, false);
 
@@ -44,8 +43,8 @@ ResultPrinter::handle(size_t index, const PQL::Condition &query, Result result,
         retval = Satisfied;
         uint32_t placeBound = 0;
         if (maxPlaceBound != nullptr) {
-            for (size_t p = 0; p < maxPlaceBound->size(); p++) {
-                placeBound = std::max<uint32_t>(placeBound, (*maxPlaceBound)[p]);
+            for (unsigned int p : *maxPlaceBound) {
+                placeBound = std::max<uint32_t>(placeBound, p);
             }
         }
         // fprintf(stdout,"STATE_SPACE %lli -1 %d %d TECHNIQUES EXPLICIT\n",
@@ -125,7 +124,7 @@ ResultPrinter::handle(size_t index, const PQL::Condition &query, Result result,
     return std::make_pair(retval, false);
 }
 
-std::string ResultPrinter::print_techniques() const {
+auto ResultPrinter::print_techniques() const -> std::string {
     std::string out;
 
     if (_options._query_reduction_timeout > 0) {
@@ -200,5 +199,4 @@ void ResultPrinter::print_trace(const Structures::StateSetInterface &ss, size_t 
     std::cerr << "</trace>\n" << std::endl;
 }
 
-} // namespace Reachability
-} // namespace PetriEngine
+} // namespace PetriEngine::Reachability

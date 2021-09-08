@@ -21,12 +21,11 @@
 #include "PetriEngine/PQL/Expressions.h"
 #include "PetriEngine/PQL/QueryPrinter.h"
 
-namespace PetriEngine {
-namespace PQL {
+namespace PetriEngine::PQL {
 
 Expr::~Expr() = default;
 
-bool Condition::is_trivially_true() {
+auto Condition::is_trivially_true() -> bool {
     if (_trivial == 1) {
         return true;
     }
@@ -34,7 +33,7 @@ bool Condition::is_trivially_true() {
     return false;
 }
 
-bool Condition::is_trivially_false() {
+auto Condition::is_trivially_false() -> bool {
     if (_trivial == 2) {
         return true;
     }
@@ -44,9 +43,9 @@ bool Condition::is_trivially_false() {
 
 Condition::~Condition() = default;
 
-Condition_ptr Condition::initial_marking_rewrite(const std::function<Condition_ptr()> &func,
-                                                 negstat_t &stats, const EvaluationContext &context,
-                                                 bool nested, bool negated, bool initrw) {
+auto Condition::initial_marking_rewrite(const std::function<Condition_ptr()> &func,
+                                        negstat_t &stats, const EvaluationContext &context,
+                                        bool nested, bool negated, bool initrw) -> Condition_ptr {
     auto res = func();
     if (!nested && initrw) {
         auto e = res->evaluate(context);
@@ -68,5 +67,4 @@ void Condition::to_string(std::ostream &os) {
     this->visit(printer);
 }
 
-} // namespace PQL
-} // namespace PetriEngine
+} // namespace PetriEngine::PQL

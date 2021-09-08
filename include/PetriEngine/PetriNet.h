@@ -53,7 +53,7 @@ struct Invariant {
 } /*__attribute__((packed))*/;
 
 /** Type used for holding markings values */
-typedef uint32_t MarkVal;
+using MarkVal = uint32_t;
 
 /** Efficient representation of PetriNet */
 class PetriNet {
@@ -74,8 +74,8 @@ class PetriNet {
     uint32_t number_of_transitions() const { return _ntransitions; }
 
     uint32_t number_of_places() const { return _nplaces; }
-    int in_arc(uint32_t place, uint32_t transition) const;
-    int out_arc(uint32_t transition, uint32_t place) const;
+    uint32_t in_arc(uint32_t place, uint32_t transition) const;
+    uint32_t out_arc(uint32_t transition, uint32_t place) const;
 
     const std::vector<std::string> &transition_names() const { return _transitionnames; }
 

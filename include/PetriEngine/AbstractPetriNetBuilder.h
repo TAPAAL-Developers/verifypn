@@ -31,10 +31,11 @@ namespace PetriEngine {
 class AbstractPetriNetBuilder {
   protected:
     bool _isColored = false;
-
+    AbstractPetriNetBuilder(const AbstractPetriNetBuilder&) = default;
+    AbstractPetriNetBuilder() = default;
   public:
     /** Add a new place with a unique name */
-    virtual void add_place(const std::string &name, int tokens, double x = 0, double y = 0) = 0;
+    virtual void add_place(const std::string &name, uint32_t tokens, double x = 0, double y = 0) = 0;
     /** Add a new colored place with a unique name */
     virtual void add_place(const std::string &name, const Colored::ColorType *type,
                            Colored::Multiset &&tokens, double x = 0, double y = 0) {
@@ -49,15 +50,15 @@ class AbstractPetriNetBuilder {
     }
     /** Add input arc with given weight */
     virtual void add_input_arc(const std::string &place, const std::string &transition,
-                               bool inhibitor, int) = 0;
+                               bool inhibitor, uint32_t) = 0;
     /** Add colored input arc with given arc expression */
     virtual void add_input_arc(const std::string &place, const std::string &transition,
-                               const Colored::ArcExpression_ptr &expr, bool inhibitor, int weight) {
+                               const Colored::ArcExpression_ptr &expr, bool inhibitor, uint32_t weight) {
         throw base_error("Colored input arcs are not supported in standard P/T nets");
     }
     /** Add output arc with given weight */
     virtual void add_output_arc(const std::string &transition, const std::string &place,
-                                int weight = 1) = 0;
+                                uint32_t weight = 1) = 0;
     /** Add output arc with given arc expression */
     virtual void add_output_arc(const std::string &transition, const std::string &place,
                                 const Colored::ArcExpression_ptr &expr) {

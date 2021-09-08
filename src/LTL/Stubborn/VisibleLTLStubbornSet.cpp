@@ -73,7 +73,7 @@ auto VisibleLTLStubbornSet::prepare(const PetriEngine::Structures::State &markin
     return true;
 }
 
-uint32_t VisibleLTLStubbornSet::next() {
+auto VisibleLTLStubbornSet::next() -> uint32_t {
     while (!_ordering.empty()) {
         _current = _ordering.front();
         _ordering.pop_front();
@@ -149,7 +149,7 @@ void VisibleLTLStubbornSet::reset() {
     _has_enabled_stubborn = false;
 }
 
-bool VisibleLTLStubbornSet::generate_all(const LTL::Structures::ProductState &parent) {
+auto VisibleLTLStubbornSet::generate_all(const LTL::Structures::ProductState &parent) -> bool {
     prepare(parent);
     // Ensure rule L2, forcing all visible transitions into the stubborn set when closing cycle.
     for (uint32_t i = 0; i < _net.number_of_transitions(); ++i) {

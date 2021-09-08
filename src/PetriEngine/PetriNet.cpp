@@ -21,7 +21,7 @@
 #include "PetriEngine/Structures/State.h"
 
 #include <cassert>
-#include <string.h>
+#include <cstring>
 
 namespace PetriEngine {
 
@@ -39,7 +39,7 @@ PetriNet::PetriNet(uint32_t trans, uint32_t invariants, uint32_t places)
 
 PetriNet::~PetriNet() { delete[] _initialMarking; }
 
-int PetriNet::in_arc(uint32_t place, uint32_t transition) const {
+auto PetriNet::in_arc(uint32_t place, uint32_t transition) const -> uint32_t {
     assert(_nplaces > 0);
     assert(place < _nplaces);
     assert(transition < _ntransitions);
@@ -59,7 +59,7 @@ int PetriNet::in_arc(uint32_t place, uint32_t transition) const {
     }
     return 0;
 }
-int PetriNet::out_arc(uint32_t transition, uint32_t place) const {
+auto PetriNet::out_arc(uint32_t transition, uint32_t place) const -> uint32_t {
     assert(_nplaces > 0);
     assert(place < _nplaces);
     assert(transition < _ntransitions);
@@ -73,7 +73,7 @@ int PetriNet::out_arc(uint32_t transition, uint32_t place) const {
     return 0;
 }
 
-bool PetriNet::deadlocked(const MarkVal *m) const {
+auto PetriNet::deadlocked(const MarkVal *m) const -> bool {
     // Check that we can take from the marking
     if (_nplaces == 0) {
         return _ntransitions == 0;
@@ -108,20 +108,20 @@ bool PetriNet::deadlocked(const MarkVal *m) const {
     return true;
 }
 
-std::pair<const Invariant *, const Invariant *> PetriNet::preset(uint32_t id) const {
+auto PetriNet::preset(uint32_t id) const -> std::pair<const Invariant *, const Invariant *> {
     const TransPtr &transition = _transitions[id];
     uint32_t first = transition._inputs;
     uint32_t last = transition._outputs;
     return std::make_pair(&_invariants[first], &_invariants[last]);
 }
 
-std::pair<const Invariant *, const Invariant *> PetriNet::postset(uint32_t id) const {
+auto PetriNet::postset(uint32_t id) const -> std::pair<const Invariant *, const Invariant *> {
     uint32_t first = _transitions[id]._outputs;
     uint32_t last = _transitions[id + 1]._inputs;
     return std::make_pair(&_invariants[first], &_invariants[last]);
 }
 
-bool PetriNet::fireable(const MarkVal *marking, int transitionIndex) {
+auto PetriNet::fireable(const MarkVal *marking, int transitionIndex) -> bool {
     const TransPtr &transition = _transitions[transitionIndex];
     uint32_t first = transition._inputs;
     uint32_t last = transition._outputs;
@@ -134,9 +134,9 @@ bool PetriNet::fireable(const MarkVal *marking, int transitionIndex) {
     return true;
 }
 
-MarkVal PetriNet::initial(size_t id) const { return _initialMarking[id]; }
+auto PetriNet::initial(size_t id) const -> MarkVal { return _initialMarking[id]; }
 
-MarkVal *PetriNet::make_initial_marking() const {
+auto PetriNet::make_initial_marking() const -> MarkVal * {
     MarkVal *marking = new MarkVal[_nplaces];
     std::copy(_initialMarking, _initialMarking + _nplaces, marking);
     return marking;

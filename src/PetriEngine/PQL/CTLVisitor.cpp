@@ -214,7 +214,7 @@ void AsCTL::_accept(const NotCondition *element) {
 
 template <typename T> void AsCTL::_accept_nary(const T *element) {
     std::vector<Condition_ptr> children;
-    for (auto operand : *element) {
+    for (const auto &operand : *element) {
         operand->visit(*this);
         children.push_back(_ctl_query);
     }
@@ -225,7 +225,7 @@ void AsCTL::_accept(const AndCondition *element) { AsCTL::_accept_nary(element);
 
 void AsCTL::_accept(const OrCondition *element) { AsCTL::_accept_nary(element); }
 
-template <typename T> std::shared_ptr<T> AsCTL::copy_compare_condition(const T *element) {
+template <typename T> auto AsCTL::copy_compare_condition(const T *element) -> std::shared_ptr<T> {
     // we copy of sharedptr for now, but this is not safe!
     // copy_narry_expr needs fixing.
     return std::make_shared<T>((*element)[0], (*element)[1]);
@@ -387,7 +387,9 @@ void AsCTL::_accept(const UnfoldedFireableCondition *element) {
     _ctl_query = std::make_shared<UnfoldedFireableCondition>(*element);
 }
 
-template <typename T> Condition_ptr copy_condition(const T *el) { return std::make_shared<T>(*el); }
+template <typename T> auto copy_condition(const T *el) -> Condition_ptr {
+    return std::make_shared<T>(*el);
+}
 
 void AsCTL::_accept(const FireableCondition *element) { _ctl_query = copy_condition(element); }
 
@@ -406,7 +408,7 @@ void AsCTL::_accept(const BooleanCondition *element) {
         element->value ? BooleanCondition::TRUE_CONSTANT : BooleanCondition::FALSE_CONSTANT;
 }
 
-template <typename T> Expr_ptr AsCTL::copy_narry_expr(const T *el) {
+template <typename T> auto AsCTL::copy_narry_expr(const T *el) -> Expr_ptr {
     assert(false);
     // TODO: fix
     return nullptr;

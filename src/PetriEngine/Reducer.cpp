@@ -17,7 +17,7 @@ namespace PetriEngine {
 
 Reducer::Reducer(PetriNetBuilder *p) : _builder(p) {}
 
-Reducer::~Reducer() {}
+Reducer::~Reducer() = default;
 
 void Reducer::print(QueryPlaceAnalysisContext &context) {
     std::cout << "\nNET INFO:\n"
@@ -53,8 +53,8 @@ void Reducer::print(QueryPlaceAnalysisContext &context) {
     }
 }
 
-std::string Reducer::get_transition_name(uint32_t transition) {
-    for (auto t : _builder->_transitionnames) {
+auto Reducer::get_transition_name(uint32_t transition) -> std::string {
+    for (const auto &t : _builder->_transitionnames) {
         if (t.second == transition)
             return t.first;
     }
@@ -62,7 +62,7 @@ std::string Reducer::get_transition_name(uint32_t transition) {
     return "";
 }
 
-std::string Reducer::new_trans_name() {
+auto Reducer::new_trans_name() -> std::string {
     auto prefix = "CT";
     auto tmp = prefix + std::to_string(_tnameid);
     while (_builder->_transitionnames.count(tmp) >= 1) {
@@ -73,8 +73,8 @@ std::string Reducer::new_trans_name() {
     return tmp;
 }
 
-std::string Reducer::get_place_name(uint32_t place) {
-    for (auto t : _builder->_placenames) {
+auto Reducer::get_place_name(uint32_t place) -> std::string {
+    for (const auto &t : _builder->_placenames) {
         if (t.second == place)
             return t.first;
     }
@@ -82,11 +82,11 @@ std::string Reducer::get_place_name(uint32_t place) {
     return "";
 }
 
-Transition &Reducer::get_transition(uint32_t transition) {
+auto Reducer::get_transition(uint32_t transition) -> Transition & {
     return _builder->_transitions[transition];
 }
 
-ArcIter Reducer::get_out_arc(Transition &trans, uint32_t place) {
+auto Reducer::get_out_arc(Transition &trans, uint32_t place) -> ArcIter {
     Arc a;
     a._place = place;
     auto ait = std::lower_bound(trans._post.begin(), trans._post.end(), a);
@@ -97,7 +97,7 @@ ArcIter Reducer::get_out_arc(Transition &trans, uint32_t place) {
     }
 }
 
-ArcIter Reducer::get_in_arc(uint32_t place, Transition &trans) {
+auto Reducer::get_in_arc(uint32_t place, Transition &trans) -> ArcIter {
     Arc a;
     a._place = place;
     auto ait = std::lower_bound(trans._pre.begin(), trans._pre.end(), a);
@@ -155,7 +155,7 @@ void Reducer::skip_place(uint32_t place) {
     assert(consistent());
 }
 
-bool Reducer::consistent() {
+auto Reducer::consistent() -> bool {
 #ifndef NDEBUG
     size_t strans = 0;
     for (size_t i = 0; i < _builder->number_of_transitions(); ++i) {
@@ -211,7 +211,7 @@ bool Reducer::consistent() {
     return true;
 }
 
-bool Reducer::rule_a(uint32_t *placeInQuery) {
+auto Reducer::rule_a(uint32_t *placeInQuery) -> bool {
     // Rule A  - find transition t that has exactly one place in pre and post and remove one of the
     // places (and t)
     bool continueReductions = false;
@@ -327,7 +327,7 @@ bool Reducer::rule_a(uint32_t *placeInQuery) {
     return continueReductions;
 }
 
-bool Reducer::rule_b(uint32_t *placeInQuery, bool remove_deadlocks, bool remove_consumers) {
+auto Reducer::rule_b(uint32_t *placeInQuery, bool remove_deadlocks, bool remove_consumers) -> bool {
 
     // Rule B - find place p that has exactly one transition in pre and exactly one in post and
     // remove the place
@@ -523,7 +523,7 @@ bool Reducer::rule_b(uint32_t *placeInQuery, bool remove_deadlocks, bool remove_
     return continueReductions;
 }
 
-bool Reducer::rule_c(uint32_t *placeInQuery) {
+auto Reducer::rule_c(uint32_t *placeInQuery) -> bool {
     // Rule C - Places with same input and output-transitions which a modulo each other
     bool continueReductions = false;
 
@@ -589,12 +589,10 @@ bool Reducer::rule_c(uint32_t *placeInQuery) {
                     // C8. Consumers must match with weights
                     int ok = 0;
                     size_t j = 0;
-                    for (size_t i = 0; i < place2._consumers.size(); ++i) {
-                        while (j < place1._consumers.size() &&
-                               place1._consumers[j] < place2._consumers[i])
+                    for (unsigned int _consumer : place2._consumers) {
+                        while (j < place1._consumers.size() && place1._consumers[j] < _consumer)
                             ++j;
-                        if (place1._consumers.size() <= j ||
-                            place1._consumers[j] != place2._consumers[i]) {
+                        if (place1._consumers.size() <= j || place1._consumers[j] != _consumer) {
                             ok = 2;
                             break;
                         }
@@ -620,17 +618,15 @@ bool Reducer::rule_c(uint32_t *placeInQuery) {
 
                     // C7. Producers must match with weights
                     j = 0;
-                    for (size_t i = 0; i < place1._producers.size(); ++i) {
-                        while (j < place2._producers.size() &&
-                               place2._producers[j] < place1._producers[i])
+                    for (unsigned int _producer : place1._producers) {
+                        while (j < place2._producers.size() && place2._producers[j] < _producer)
                             ++j;
-                        if (j == place2._producers.size() ||
-                            place1._producers[i] != place2._producers[j]) {
+                        if (j == place2._producers.size() || _producer != place2._producers[j]) {
                             ok = 2;
                             break;
                         }
 
-                        Transition &trans = get_transition(place1._producers[i]);
+                        Transition &trans = get_transition(_producer);
                         auto a1 = get_out_arc(trans, p1);
                         auto a2 = get_out_arc(trans, p2);
                         assert(a1 != trans._post.end());
@@ -670,7 +666,7 @@ bool Reducer::rule_c(uint32_t *placeInQuery) {
     return continueReductions;
 }
 
-bool Reducer::rule_d(uint32_t *placeInQuery) {
+auto Reducer::rule_d(uint32_t *placeInQuery) -> bool {
     // Rule D - two transitions with the same pre and post and same inhibitor arcs
     // This does not alter the trace.
     bool continueReductions = false;
@@ -740,7 +736,7 @@ bool Reducer::rule_d(uint32_t *placeInQuery) {
                     int ok = 0;
                     uint mult = std::numeric_limits<uint>::max();
                     // D4. postsets must match
-                    for (int i = trans1._post.size() - 1; i >= 0; --i) {
+                    for (int i = (int)trans1._post.size() - 1; i >= 0; --i) {
                         Arc &arc = trans1._post[i];
                         Arc &arc2 = trans2._post[i];
                         if (arc2._place != arc._place) {
@@ -767,7 +763,7 @@ bool Reducer::rule_d(uint32_t *placeInQuery) {
                         continue;
 
                     // D3. Presets must match
-                    for (int i = trans1._pre.size() - 1; i >= 0; --i) {
+                    for (int i = (int)trans1._pre.size() - 1; i >= 0; --i) {
                         Arc &arc = trans1._pre[i];
                         Arc &arc2 = trans2._pre[i];
                         if (arc2._place != arc._place) {
@@ -806,7 +802,7 @@ bool Reducer::rule_d(uint32_t *placeInQuery) {
     return continueReductions;
 }
 
-bool Reducer::rule_e(uint32_t *placeInQuery) {
+auto Reducer::rule_e(uint32_t *placeInQuery) -> bool {
     bool continueReductions = false;
     const size_t number_of_places = _builder->number_of_places();
     for (uint32_t p = 0; p < number_of_places; ++p) {
@@ -874,7 +870,7 @@ bool Reducer::rule_e(uint32_t *placeInQuery) {
     return continueReductions;
 }
 
-bool Reducer::rule_i(uint32_t *placeInQuery, bool remove_loops, bool remove_consumers) {
+auto Reducer::rule_i(uint32_t *placeInQuery, bool remove_loops, bool remove_consumers) -> bool {
     bool reduced = false;
     if (remove_loops) {
 
@@ -932,7 +928,7 @@ bool Reducer::rule_i(uint32_t *placeInQuery, bool remove_loops, bool remove_cons
     return reduced;
 }
 
-bool Reducer::rule_f(uint32_t *placeInQuery) {
+auto Reducer::rule_f(uint32_t *placeInQuery) -> bool {
     bool continueReductions = false;
     const size_t number_of_places = _builder->number_of_places();
     for (uint32_t p = 0; p < number_of_places; ++p) {
@@ -985,7 +981,7 @@ bool Reducer::rule_f(uint32_t *placeInQuery) {
     return continueReductions;
 }
 
-bool Reducer::rule_g(uint32_t *placeInQuery, bool remove_loops, bool remove_consumers) {
+auto Reducer::rule_g(uint32_t *placeInQuery, bool remove_loops, bool remove_consumers) -> bool {
     if (!remove_loops)
         return false;
     bool continueReductions = false;
@@ -1059,7 +1055,7 @@ bool Reducer::rule_g(uint32_t *placeInQuery, bool remove_loops, bool remove_cons
     return continueReductions;
 }
 
-bool Reducer::rule_h(uint32_t *placeInQuery) {
+auto Reducer::rule_h(uint32_t *placeInQuery) -> bool {
     if (_reconstruct_trace)
         return false; // we don't know where in the loop the tokens are needed
     auto transok = [this](uint32_t t) -> uint32_t {
@@ -1231,7 +1227,7 @@ bool Reducer::rule_h(uint32_t *placeInQuery) {
     return continueReductions;
 }
 
-bool Reducer::rule_j(uint32_t *placeInQuery) {
+auto Reducer::rule_j(uint32_t *placeInQuery) -> bool {
     bool continueReductions = false;
     for (uint32_t t = 0; t < _builder->number_of_transitions(); ++t) {
         if (has_timed_out())
@@ -1368,7 +1364,7 @@ bool Reducer::rule_j(uint32_t *placeInQuery) {
     return continueReductions;
 }
 
-bool Reducer::rule_k(uint32_t *placeInQuery, bool remove_consumers) {
+auto Reducer::rule_k(uint32_t *placeInQuery, bool remove_consumers) -> bool {
     bool reduced = false;
     auto opt = relevant(placeInQuery, remove_consumers);
     if (!opt)
@@ -1410,8 +1406,8 @@ bool Reducer::rule_k(uint32_t *placeInQuery, bool remove_consumers) {
     return reduced;
 }
 
-std::optional<std::pair<std::vector<bool>, std::vector<bool>>>
-Reducer::relevant(const uint32_t *placeInQuery, bool remove_consumers) {
+auto Reducer::relevant(const uint32_t *placeInQuery, bool remove_consumers)
+    -> std::optional<std::pair<std::vector<bool>, std::vector<bool>>> {
     std::vector<uint32_t> wtrans;
     std::vector<bool> tseen(_builder->number_of_transitions(), false);
     for (uint32_t p = 0; p < _builder->number_of_places(); ++p) {
@@ -1499,8 +1495,8 @@ Reducer::relevant(const uint32_t *placeInQuery, bool remove_consumers) {
     return std::make_optional(std::pair(tseen, pseen));
 }
 
-bool Reducer::remove_irrelevant(const uint32_t *placeInQuery, const std::vector<bool> &tseen,
-                                const std::vector<bool> &pseen) {
+auto Reducer::remove_irrelevant(const uint32_t *placeInQuery, const std::vector<bool> &tseen,
+                                const std::vector<bool> &pseen) -> bool {
     bool reduced = false;
     for (size_t t = 0; t < _builder->number_of_transitions(); ++t) {
         if (!tseen[t] && !_builder->_transitions[t]._skip) {
@@ -1614,7 +1610,7 @@ void Reducer::reduce(QueryPlaceAnalysisContext &context, int enablereduction, bo
 
     } else {
         const char *rnames = "ABCDEFGHIJK";
-        for (int i = reduction.size() - 1; i >= 0; --i) {
+        for (int i = (int)reduction.size() - 1; i >= 0; --i) {
             if (next_safe) {
                 if (reduction[i] != 2 && reduction[i] != 4 && reduction[i] != 5) {
                     std::cerr << "Skipping Rule" << rnames[reduction[i]]

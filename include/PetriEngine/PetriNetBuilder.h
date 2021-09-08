@@ -38,12 +38,12 @@ class PetriNetBuilder : public AbstractPetriNetBuilder {
   public:
     PetriNetBuilder();
     PetriNetBuilder(const PetriNetBuilder &other);
-    void add_place(const std::string &name, int tokens, double x, double y) override;
+    void add_place(const std::string &name, uint32_t tokens, double x, double y) override;
     void add_transition(const std::string &name, double x, double y) override;
     void add_input_arc(const std::string &place, const std::string &transition, bool inhibitor,
-                       int weight) override;
+                       uint32_t weight) override;
     void add_output_arc(const std::string &transition, const std::string &place,
-                        int weight) override;
+                        uint32_t weight) override;
 
     virtual void sort() override;
     /** Make the resulting petri net, you take ownership */

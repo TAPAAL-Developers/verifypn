@@ -88,7 +88,8 @@ void TraceReplay::parse_root(const rapidxml::xml_node<> *pNode) {
     }
 }
 
-TraceReplay::Transition TraceReplay::parse_transition(const rapidxml::xml_node<char> *pNode) {
+auto TraceReplay::parse_transition(const rapidxml::xml_node<char> *pNode)
+    -> TraceReplay::Transition {
     std::string id;
     int buchi = -1;
     for (auto it = pNode->first_attribute(); it; it = it->next_attribute()) {
@@ -136,8 +137,8 @@ void TraceReplay::parse_token(const rapidxml::xml_node<char> *pNode,
     }
 }
 
-bool TraceReplay::replay(const PetriEngine::PetriNet &net,
-                         const PetriEngine::PQL::Condition_ptr &cond) {
+auto TraceReplay::replay(const PetriEngine::PetriNet &net,
+                         const PetriEngine::PQL::Condition_ptr &cond) -> bool {
     // spot::print_dot(std::cerr, buchiGenerator.aut._buchi);
     PetriEngine::Structures::State state;
     state.set_marking(net.make_initial_marking());
@@ -151,8 +152,8 @@ bool TraceReplay::replay(const PetriEngine::PetriNet &net,
     return false;
 }
 
-bool TraceReplay::_play_trace(const PetriEngine::PetriNet &net,
-                              PetriEngine::SuccessorGenerator &successorGenerator) {
+auto TraceReplay::_play_trace(const PetriEngine::PetriNet &net,
+                              PetriEngine::SuccessorGenerator &successorGenerator) -> bool {
     PetriEngine::Structures::State state;
     PetriEngine::Structures::State loopstate;
     bool looping = false;

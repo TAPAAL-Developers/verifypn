@@ -94,7 +94,7 @@ class CommutativeExpr : public NaryExpr {
     int32_t _constant;
     std::vector<std::pair<uint32_t, std::string>> _ids;
     Member commutative_cons(int constant, SimplificationContext &context,
-                            std::function<void(Member &a, Member b)> op) const;
+                            const std::function<void(Member &a, Member b)> &op) const;
 };
 
 /** Binary plus expression */
@@ -848,7 +848,7 @@ class LogicalCondition : public Condition {
   protected:
     LogicalCondition(){};
     Retval simplifyOr(SimplificationContext &context) const;
-    Retval simplifyAnd(SimplificationContext &context) const;
+    Retval simplify_and(SimplificationContext &context) const;
 
   private:
     virtual std::string op() const = 0;
@@ -865,7 +865,7 @@ class AndCondition : public LogicalCondition {
 
     AndCondition(const std::vector<Condition_ptr> &conds);
 
-    AndCondition(Condition_ptr left, Condition_ptr right);
+    AndCondition(const Condition_ptr &left, const Condition_ptr &right);
 
     Retval simplify(SimplificationContext &context) const override;
     Result evaluate(const EvaluationContext &context) override;
@@ -890,7 +890,7 @@ class OrCondition : public LogicalCondition {
 
     OrCondition(const std::vector<Condition_ptr> &conds);
 
-    OrCondition(Condition_ptr left, Condition_ptr right);
+    OrCondition(const Condition_ptr &left, const Condition_ptr &right);
 
     Retval simplify(SimplificationContext &context) const override;
     Result evaluate(const EvaluationContext &context) override;

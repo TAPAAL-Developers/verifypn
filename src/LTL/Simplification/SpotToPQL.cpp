@@ -27,7 +27,7 @@
 
 namespace LTL {
 using namespace PetriEngine::PQL;
-PetriEngine::PQL::Condition_ptr to_PQL(const spot::formula &formula, const APInfo &apinfo) {
+auto to_PQL(const spot::formula &formula, const APInfo &apinfo) -> PetriEngine::PQL::Condition_ptr {
 
     switch (formula.kind()) {
     case spot::op::ff:
@@ -119,8 +119,8 @@ PetriEngine::PQL::Condition_ptr to_PQL(const spot::formula &formula, const APInf
     }
 }
 
-PetriEngine::PQL::Condition_ptr simplify(const PetriEngine::PQL::Condition_ptr &formula,
-                                         const options_t &options) {
+auto simplify(const PetriEngine::PQL::Condition_ptr &formula, const options_t &options)
+    -> PetriEngine::PQL::Condition_ptr {
     using namespace PetriEngine::PQL;
     if (auto e = std::dynamic_pointer_cast<ECondition>(formula)) {
         return std::make_shared<ECondition>(simplify((*e)[0], options));

@@ -11,8 +11,7 @@
 
 #include "PetriEngine/TAR/PlaceUseVisitor.h"
 
-namespace PetriEngine {
-namespace PQL {
+namespace PetriEngine::PQL {
 
 PlaceUseVisitor::PlaceUseVisitor(size_t places) : _in_use(places) {}
 
@@ -101,5 +100,4 @@ void PlaceUseVisitor::_accept(const AXCondition *el) { (*el)[0]->visit(*this); }
 void PlaceUseVisitor::_accept(const LiteralExpr *element) {}
 void PlaceUseVisitor::_accept(const DeadlockCondition *) {}
 
-} // namespace PQL
-} // namespace PetriEngine
+} // namespace PetriEngine::PQL

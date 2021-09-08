@@ -4,11 +4,10 @@
 
 #include "PetriEngine/PQL/Contexts.h"
 
-namespace PetriEngine {
-namespace PQL {
+namespace PetriEngine::PQL {
 
-bool ColoredAnalysisContext::resolve_place(const std::string &place,
-                                           std::unordered_map<uint32_t, std::string> &out) {
+auto ColoredAnalysisContext::resolve_place(const std::string &place,
+                                           std::unordered_map<uint32_t, std::string> &out) -> bool {
     auto it = _coloredPlaceNames.find(place);
     if (it != _coloredPlaceNames.end()) {
         out = it->second;
@@ -17,8 +16,8 @@ bool ColoredAnalysisContext::resolve_place(const std::string &place,
     return false;
 }
 
-bool ColoredAnalysisContext::resolve_transition(const std::string &transition,
-                                                std::vector<std::string> &out) {
+auto ColoredAnalysisContext::resolve_transition(const std::string &transition,
+                                                std::vector<std::string> &out) -> bool {
     auto it = _coloredTransitionNames.find(transition);
     if (it != _coloredTransitionNames.end()) {
         out = it->second;
@@ -27,8 +26,8 @@ bool ColoredAnalysisContext::resolve_transition(const std::string &transition,
     return false;
 }
 
-AnalysisContext::ResolutionResult AnalysisContext::resolve(const std::string &identifier,
-                                                           bool place) {
+auto AnalysisContext::resolve(const std::string &identifier, bool place)
+    -> AnalysisContext::ResolutionResult {
     ResolutionResult result;
     result._offset = -1;
     result._success = false;
@@ -42,15 +41,15 @@ AnalysisContext::ResolutionResult AnalysisContext::resolve(const std::string &id
     return result;
 }
 
-uint32_t SimplificationContext::get_lp_timeout() const { return _lpTimeout; }
+auto SimplificationContext::get_lp_timeout() const -> uint32_t { return _lpTimeout; }
 
-double SimplificationContext::get_reduction_time() {
+auto SimplificationContext::get_reduction_time() -> double {
     // duration in seconds
     auto end = std::chrono::high_resolution_clock::now();
     return (std::chrono::duration_cast<std::chrono::microseconds>(end - _start).count()) * 0.000001;
 }
 
-glp_prob *SimplificationContext::make_base_lp() const {
+auto SimplificationContext::make_base_lp() const -> glp_prob * {
     if (_base_lp == nullptr)
         _base_lp = build_base();
     if (_base_lp == nullptr)
@@ -60,7 +59,7 @@ glp_prob *SimplificationContext::make_base_lp() const {
     return tmp_lp;
 }
 
-glp_prob *SimplificationContext::build_base() const {
+auto SimplificationContext::build_base() const -> glp_prob * {
     constexpr auto infty = std::numeric_limits<double>::infinity();
     if (timeout())
         return nullptr;
@@ -73,8 +72,8 @@ glp_prob *SimplificationContext::build_base() const {
     const int nRow = _net.number_of_places();
     std::vector<int32_t> indir(std::max<uint32_t>(nCol, nRow) + 1);
 
-    glp_add_cols(lp, nCol + 1);
-    glp_add_rows(lp, nRow + 1);
+    glp_add_cols(lp, (int)nCol + 1);
+    glp_add_rows(lp, (int)nRow + 1);
     {
         std::vector<double> col = std::vector<double>(nRow + 1);
         for (size_t t = 0; t < _net.number_of_transitions(); ++t) {
@@ -107,7 +106,7 @@ glp_prob *SimplificationContext::build_base() const {
                 }
                 ++l;
             }
-            glp_set_mat_col(lp, t + 1, l - 1, indir.data(), col.data());
+            glp_set_mat_col(lp, (int)t + 1, (int)l - 1, indir.data(), col.data());
             if (timeout()) {
                 std::cerr << "glpk: construction timeout" << std::endl;
                 glp_delete_prob(lp);
@@ -127,5 +126,4 @@ glp_prob *SimplificationContext::build_base() const {
     }
     return lp;
 }
-} // namespace PQL
-} // namespace PetriEngine
+} // namespace PetriEngine::PQL

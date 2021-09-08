@@ -1,7 +1,6 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*,-*,bugprone*,modernize*,performance*,-modernize-use-auto,-modernize-pass-by-value,readability-identifier-naming,-modernize-avoid-c-arrays'
+Checks:          'clang-diagnostic-*,clang-analyzer-*,-*,bugprone*,modernize*,performance*,-modernize-use-auto,-modernize-pass-by-value,readability-identifier-naming,-modernize-avoid-c-arrays,-bugprone-branch-clone,-modernize-use-emplace'
 WarningsAsErrors: '*'
-HeaderFilterRegex: '(src,include)/*'
 AnalyzeTemporaryDtors: false
 FormatStyle:     file
 CheckOptions:

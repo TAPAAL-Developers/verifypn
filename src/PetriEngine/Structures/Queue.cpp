@@ -23,12 +23,12 @@
 namespace PetriEngine::Structures {
 Queue::Queue(StateSetInterface &states) : _states(states) {}
 
-Queue::~Queue() {}
+Queue::~Queue() = default;
 
 BFSQueue::BFSQueue(StateSetInterface &states) : Queue(states), _cnt(0), _nstates(0) {}
-BFSQueue::~BFSQueue() {}
+BFSQueue::~BFSQueue() = default;
 
-bool BFSQueue::pop(Structures::State &state) {
+auto BFSQueue::pop(Structures::State &state) -> bool {
     if (_cnt < _nstates) {
         _states.decode(state, _cnt);
         ++_cnt;
@@ -41,9 +41,9 @@ bool BFSQueue::pop(Structures::State &state) {
 void BFSQueue::push(size_t id) { ++_nstates; }
 
 DFSQueue::DFSQueue(StateSetInterface &states) : Queue(states) {}
-DFSQueue::~DFSQueue() {}
+DFSQueue::~DFSQueue() = default;
 
-bool DFSQueue::pop(Structures::State &state) {
+auto DFSQueue::pop(Structures::State &state) -> bool {
     if (_stack.empty())
         return false;
     uint32_t n = _stack.top();
@@ -54,7 +54,7 @@ bool DFSQueue::pop(Structures::State &state) {
 
 void DFSQueue::push(size_t id) { _stack.push(id); }
 
-bool DFSQueue::top(State &state) const {
+auto DFSQueue::top(State &state) const -> bool {
     if (_stack.empty())
         return false;
     uint32_t n = _stack.top();
@@ -64,9 +64,9 @@ bool DFSQueue::top(State &state) const {
 
 RDFSQueue::RDFSQueue(StateSetInterface &states, size_t seed) : Queue(states) { _rng.seed(seed); }
 
-RDFSQueue::~RDFSQueue() {}
+RDFSQueue::~RDFSQueue() = default;
 
-bool RDFSQueue::pop(Structures::State &state) {
+auto RDFSQueue::pop(Structures::State &state) -> bool {
     if (_cache.empty()) {
         if (_stack.empty())
             return false;
@@ -86,13 +86,13 @@ bool RDFSQueue::pop(Structures::State &state) {
     }
 }
 
-bool RDFSQueue::top(State &state) {
+auto RDFSQueue::top(State &state) -> bool {
     if (!_cache.empty()) {
         std::shuffle(_cache.begin(), _cache.end(), _rng);
         uint32_t n = _cache.back();
         _states.decode(state, n);
-        for (size_t i = 0; i < _cache.size(); ++i) {
-            _stack.push(_cache[i]);
+        for (unsigned long &i : _cache) {
+            _stack.push(i);
         }
         _cache.clear();
     }
@@ -106,9 +106,9 @@ bool RDFSQueue::top(State &state) {
 void RDFSQueue::push(size_t id) { _cache.push_back(id); }
 
 HeuristicQueue::HeuristicQueue(StateSetInterface &states) : Queue(states) {}
-HeuristicQueue::~HeuristicQueue() {}
+HeuristicQueue::~HeuristicQueue() = default;
 
-bool HeuristicQueue::pop(Structures::State &state) {
+auto HeuristicQueue::pop(Structures::State &state) -> bool {
     if (_queue.empty())
         return false;
     uint32_t n = _queue.top().item;

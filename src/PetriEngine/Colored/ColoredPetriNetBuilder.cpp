@@ -22,10 +22,10 @@
 #include <tuple>
 using std::get;
 namespace PetriEngine {
-ColoredPetriNetBuilder::ColoredPetriNetBuilder() {}
+ColoredPetriNetBuilder::ColoredPetriNetBuilder() = default;
 
 ColoredPetriNetBuilder::ColoredPetriNetBuilder(const ColoredPetriNetBuilder &orig)
-    : _placenames(orig._placenames), _transitionnames(orig._transitionnames), _places(orig._places),
+    : AbstractPetriNetBuilder(orig), _placenames(orig._placenames), _transitionnames(orig._transitionnames), _places(orig._places),
       _transitions(orig._transitions) {}
 
 ColoredPetriNetBuilder::~ColoredPetriNetBuilder() {
@@ -37,7 +37,7 @@ ColoredPetriNetBuilder::~ColoredPetriNetBuilder() {
     _colors.clear();
 }
 
-void ColoredPetriNetBuilder::add_place(const std::string &name, int tokens, double x, double y) {
+void ColoredPetriNetBuilder::add_place(const std::string &name, uint32_t tokens, double x, double y) {
     if (!_isColored) {
         _ptBuilder.add_place(name, tokens, x, y);
     }
@@ -102,7 +102,7 @@ void ColoredPetriNetBuilder::add_transition(const std::string &name,
 }
 
 void ColoredPetriNetBuilder::add_input_arc(const std::string &place, const std::string &transition,
-                                           bool inhibitor, int weight) {
+                                           bool inhibitor, uint32_t weight) {
     if (!_isColored) {
         _ptBuilder.add_input_arc(place, transition, inhibitor, weight);
     }
@@ -110,12 +110,12 @@ void ColoredPetriNetBuilder::add_input_arc(const std::string &place, const std::
 
 void ColoredPetriNetBuilder::add_input_arc(const std::string &place, const std::string &transition,
                                            const Colored::ArcExpression_ptr &expr, bool inhibitor,
-                                           int weight) {
+                                           uint32_t weight) {
     add_arc(place, transition, expr, true, inhibitor, weight);
 }
 
 void ColoredPetriNetBuilder::add_output_arc(const std::string &transition, const std::string &place,
-                                            int weight) {
+                                            uint32_t weight) {
     if (!_isColored) {
         _ptBuilder.add_output_arc(transition, place, weight);
     }
@@ -151,7 +151,7 @@ void ColoredPetriNetBuilder::add_arc(const std::string &place, const std::string
     _places[p]._inhibitor |= inhibitor;
     if (!inhibitor)
         assert(expr != nullptr);
-    arc._expr = std::move(expr);
+    arc._expr = expr;
     arc._input = input;
     arc._weight = weight;
     if (inhibitor) {
@@ -393,8 +393,8 @@ void ColoredPetriNetBuilder::compute_place_color_fixpoint(uint32_t maxIntervals,
 
 // Create Arc interval structures for the transition
 
-std::unordered_map<uint32_t, Colored::ArcIntervals>
-ColoredPetriNetBuilder::setup_transition_vars(const Colored::Transition &transition) const {
+auto ColoredPetriNetBuilder::setup_transition_vars(const Colored::Transition &transition) const
+    -> std::unordered_map<uint32_t, Colored::ArcIntervals> {
     std::unordered_map<uint32_t, Colored::ArcIntervals> res;
     for (auto &arc : transition._input_arcs) {
         std::set<const Colored::Variable *> variables;
@@ -481,7 +481,7 @@ void ColoredPetriNetBuilder::add_transition_vars(Colored::Transition &transition
             if (varmap.count(var) == 0) {
                 Colored::interval_vector_t intervalTuple;
                 intervalTuple.add_interval(var->_colorType->get_full_interval());
-                varmap[var] = std::move(intervalTuple);
+                varmap[var] = intervalTuple;
             }
         }
     }
@@ -558,7 +558,7 @@ void ColoredPetriNetBuilder::process_output_arcs(Colored::Transition &transition
                 if (varmap.count(var) == 0) {
                     Colored::interval_vector_t intervalTuple;
                     intervalTuple.add_interval(var->_colorType->get_full_interval());
-                    varmap[var] = std::move(intervalTuple);
+                    varmap[var] = intervalTuple;
                 }
             }
         }
@@ -574,7 +574,7 @@ void ColoredPetriNetBuilder::process_output_arcs(Colored::Transition &transition
                             varIntervalTuple.add_interval(
                                 EqClass.intervals().back().get_single_color_interval());
                         }
-                        varMap[outVar] = std::move(varIntervalTuple);
+                        varMap[outVar] = varIntervalTuple;
                     }
                 }
             }
@@ -585,7 +585,7 @@ void ColoredPetriNetBuilder::process_output_arcs(Colored::Transition &transition
         for (auto &intervalTuple : intervals) {
             intervalTuple.simplify();
             for (auto &interval : intervalTuple) {
-                placeFixpoint._constraints.add_interval(std::move(interval));
+                placeFixpoint._constraints.add_interval(interval);
             }
         }
         placeFixpoint._constraints.simplify();
@@ -656,7 +656,7 @@ void ColoredPetriNetBuilder::find_stable_places() {
 
 //----------------------- Unfolding -----------------------//
 
-PetriNetBuilder &ColoredPetriNetBuilder::unfold() {
+auto ColoredPetriNetBuilder::unfold() -> PetriNetBuilder & {
     if (_stripped)
         assert(false);
     if (_isColored && !_unfolded) {
@@ -698,7 +698,7 @@ void ColoredPetriNetBuilder::handle_orphan_place(
     if (_ptplacenames.count(place._name) <= 0 && place._marking.size() > 0) {
         const std::string &name = place._name + "_orphan";
         _ptBuilder.add_place(name, place._marking.size(), 0.0, 0.0);
-        _ptplacenames[place._name][0] = std::move(name);
+        _ptplacenames[place._name][0] = name;
     } else {
         uint32_t usedTokens = 0;
 
@@ -710,7 +710,7 @@ void ColoredPetriNetBuilder::handle_orphan_place(
         if (place._marking.size() > usedTokens) {
             const std::string &name = place._name + "_orphan";
             _ptBuilder.add_place(name, place._marking.size() - usedTokens, 0.0, 0.0);
-            _ptplacenames[place._name][UINT32_MAX] = std::move(name);
+            _ptplacenames[place._name][UINT32_MAX] = name;
         }
     }
 }
@@ -750,7 +750,7 @@ void ColoredPetriNetBuilder::unfold_place(const Colored::Place *place,
     const std::string &name = place->_name + "_" + std::to_string(color->get_id());
 
     _ptBuilder.add_place(name, tokenSize, 0.0, 0.0);
-    _ptplacenames[place->_name][id] = std::move(name);
+    _ptplacenames[place->_name][id] = name;
 }
 
 void ColoredPetriNetBuilder::unfold_transition(uint32_t transitionId) {
@@ -773,7 +773,7 @@ void ColoredPetriNetBuilder::unfold_transition(uint32_t transitionId) {
                 unfold_arc(arc, b, name);
             }
 
-            _pttransitionnames[transition._name].push_back(std::move(name));
+            _pttransitionnames[transition._name].push_back(name);
             unfold_inhibitor_arc(transition._name, name);
         }
         if (!hasBindings) {
@@ -792,7 +792,7 @@ void ColoredPetriNetBuilder::unfold_transition(uint32_t transitionId) {
             for (const auto &arc : transition._output_arcs) {
                 unfold_arc(arc, b, name);
             }
-            _pttransitionnames[transition._name].push_back(std::move(name));
+            _pttransitionnames[transition._name].push_back(name);
             unfold_inhibitor_arc(transition._name, name);
         }
     }
@@ -800,9 +800,9 @@ void ColoredPetriNetBuilder::unfold_transition(uint32_t transitionId) {
 
 void ColoredPetriNetBuilder::unfold_inhibitor_arc(const std::string &oldname,
                                                   const std::string &newname) {
-    for (uint32_t i = 0; i < _inhibitorArcs.size(); ++i) {
-        if (_transitions[_inhibitorArcs[i]._transition]._name.compare(oldname) == 0) {
-            const Colored::Arc &inhibArc = _inhibitorArcs[i];
+    for (auto &_inhibitorArc : _inhibitorArcs) {
+        if (_transitions[_inhibitorArc._transition]._name.compare(oldname) == 0) {
+            const Colored::Arc &inhibArc = _inhibitorArc;
             const std::string &placeName = _sumPlacesNames[inhibArc._place];
 
             if (placeName.empty()) {
@@ -812,7 +812,7 @@ void ColoredPetriNetBuilder::unfold_inhibitor_arc(const std::string &oldname,
                 if (_ptplacenames.count(place._name) <= 0) {
                     _ptplacenames[place._name][0] = sumPlaceName;
                 }
-                _sumPlacesNames[inhibArc._place] = std::move(sumPlaceName);
+                _sumPlacesNames[inhibArc._place] = sumPlaceName;
             }
             _ptBuilder.add_input_arc(placeName, newname, true, inhibArc._weight);
         }
@@ -832,7 +832,7 @@ void ColoredPetriNetBuilder::unfold_arc(const Colored::Arc &arc, const Colored::
 
     const Colored::ExpressionContext &context{binding, _colors, _partition[arc._place]};
     const auto &ms = arc._expr->eval(context);
-    int shadowWeight = 0;
+    uint32_t shadowWeight = 0;
 
     const Colored::Color *newColor;
     std::vector<uint32_t> tupleIds;
@@ -877,7 +877,7 @@ void ColoredPetriNetBuilder::unfold_arc(const Colored::Arc &arc, const Colored::
         if (sumPlaceName.empty()) {
             const std::string &newSumPlaceName = place._name + "Sum";
             _ptBuilder.add_place(newSumPlaceName, place._marking.size(), 0.0, 0.0);
-            _sumPlacesNames[arc._place] = std::move(newSumPlaceName);
+            _sumPlacesNames[arc._place] = newSumPlaceName;
         }
 
         if (shadowWeight > 0) {
@@ -893,7 +893,7 @@ void ColoredPetriNetBuilder::unfold_arc(const Colored::Arc &arc, const Colored::
 
 //----------------------- Strip Colors -----------------------//
 
-PetriNetBuilder &ColoredPetriNetBuilder::strip_colors() {
+auto ColoredPetriNetBuilder::strip_colors() -> PetriNetBuilder & {
     if (_unfolded)
         assert(false);
     if (_isColored && !_stripped) {
@@ -937,7 +937,7 @@ PetriNetBuilder &ColoredPetriNetBuilder::strip_colors() {
     return _ptBuilder;
 }
 
-std::string ColoredPetriNetBuilder::arc_to_string(const Colored::Arc &arc) const {
+auto ColoredPetriNetBuilder::arc_to_string(const Colored::Arc &arc) const -> std::string {
     return !arc._input
                ? "(" + _transitions[arc._transition]._name + ", " + _places[arc._place]._name + ")"
                : "(" + _places[arc._place]._name + ", " + _transitions[arc._transition]._name + ")";

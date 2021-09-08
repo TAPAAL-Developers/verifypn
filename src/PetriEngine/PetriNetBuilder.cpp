@@ -19,7 +19,7 @@
  */
 
 #include <algorithm>
-#include <assert.h>
+#include <cassert>
 
 #include "PetriEngine/PQL/Contexts.h"
 #include "PetriEngine/PQL/Expressions.h"
@@ -34,17 +34,17 @@ namespace PetriEngine {
 
 PetriNetBuilder::PetriNetBuilder() : AbstractPetriNetBuilder(), _reducer(this) {}
 PetriNetBuilder::PetriNetBuilder(const PetriNetBuilder &other)
-    : _placenames(other._placenames), _transitionnames(other._transitionnames),
+    : AbstractPetriNetBuilder(other), _placenames(other._placenames), _transitionnames(other._transitionnames),
       _placelocations(other._placelocations), _transitionlocations(other._transitionlocations),
       _transitions(other._transitions), _places(other._places),
       _initial_marking(other._initial_marking), _reducer(this) {}
 
-void PetriNetBuilder::add_place(const std::string &name, int tokens, double x, double y) {
+void PetriNetBuilder::add_place(const std::string &name, uint32_t tokens, double x, double y) {
     if (_placenames.count(name) == 0) {
         uint32_t next = _placenames.size();
         _places.emplace_back();
         _placenames[name] = next;
-        _placelocations.push_back(std::tuple<double, double>(x, y));
+        _placelocations.emplace_back(x, y);
     }
 
     uint32_t id = _placenames[name];
@@ -59,12 +59,12 @@ void PetriNetBuilder::add_transition(const std::string &name, double x, double y
         uint32_t next = _transitionnames.size();
         _transitions.emplace_back();
         _transitionnames[name] = next;
-        _transitionlocations.push_back(std::tuple<double, double>(x, y));
+        _transitionlocations.emplace_back(x, y);
     }
 }
 
 void PetriNetBuilder::add_input_arc(const std::string &place, const std::string &transition,
-                                    bool inhibitor, int weight) {
+                                    bool inhibitor, uint32_t weight) {
     if (_transitionnames.count(transition) == 0) {
         add_transition(transition, 0.0, 0.0);
     }
@@ -88,7 +88,7 @@ void PetriNetBuilder::add_input_arc(const std::string &place, const std::string 
 }
 
 void PetriNetBuilder::add_output_arc(const std::string &transition, const std::string &place,
-                                     int weight) {
+                                     uint32_t weight) {
     if (_transitionnames.count(transition) == 0) {
         add_transition(transition, 0, 0);
     }
@@ -109,9 +109,8 @@ void PetriNetBuilder::add_output_arc(const std::string &transition, const std::s
     _places[p]._producers.push_back(t);
 }
 
-uint32_t PetriNetBuilder::next_place_id(std::vector<uint32_t> &counts,
-                                        std::vector<uint32_t> &pcounts, std::vector<uint32_t> &ids,
-                                        bool reorder) {
+auto PetriNetBuilder::next_place_id(std::vector<uint32_t> &counts, std::vector<uint32_t> &pcounts,
+                                    std::vector<uint32_t> &ids, bool reorder) -> uint32_t {
     uint32_t cand = std::numeric_limits<uint32_t>::max();
     uint32_t cnt = std::numeric_limits<uint32_t>::max();
     for (uint32_t i = 0; i < _places.size(); ++i) {
@@ -127,7 +126,7 @@ uint32_t PetriNetBuilder::next_place_id(std::vector<uint32_t> &counts,
     return cand;
 }
 
-PetriNet *PetriNetBuilder::make_petri_net(bool reorder) {
+auto PetriNetBuilder::make_petri_net(bool reorder) -> PetriNet * {
 
     /*
      * The basic idea is to construct three arrays, the first array,
@@ -317,7 +316,7 @@ PetriNet *PetriNetBuilder::make_petri_net(bool reorder) {
 
     // reindex place-names
     net->_placenames.resize(_placenames.size());
-    int rindex = _placenames.size() - 1;
+    int rindex = ((int)_placenames.size()) - 1;
     for (auto &i : _placenames) {
         auto &placelocation = _placelocations[i.second];
         i.second = place_idmap[i.second];
@@ -332,7 +331,7 @@ PetriNet *PetriNetBuilder::make_petri_net(bool reorder) {
         }
     }
     net->_transitionnames.resize(_transitionnames.size());
-    int trindex = _transitionnames.size() - 1;
+    int trindex = ((int)_transitionnames.size()) - 1;
     for (auto &i : _transitionnames) {
         auto &transitionlocation = _transitionlocations[i.second];
         i.second = trans_idmap[i.second];

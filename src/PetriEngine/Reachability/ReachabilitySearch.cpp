@@ -28,10 +28,10 @@ using namespace PetriEngine::Structures;
 
 namespace PetriEngine::Reachability {
 
-bool ReachabilitySearch::check_queries(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
+auto ReachabilitySearch::check_queries(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
                                        std::vector<ResultPrinter::Result> &results,
                                        const State &state, searchstate_t &ss,
-                                       const StateSetInterface &states) {
+                                       const StateSetInterface &states) -> bool {
     if (!ss._usequeries)
         return false;
 
@@ -61,10 +61,10 @@ bool ReachabilitySearch::check_queries(const std::vector<std::shared_ptr<PQL::Co
     return alldone;
 }
 
-std::pair<ResultPrinter::Result, bool>
-ReachabilitySearch::do_callback(const PQL::Condition &query, size_t i, ResultPrinter::Result r,
-                                const searchstate_t &ss,
-                                const Structures::StateSetInterface &states) {
+auto ReachabilitySearch::do_callback(const PQL::Condition &query, size_t i, ResultPrinter::Result r,
+                                     const searchstate_t &ss,
+                                     const Structures::StateSetInterface &states)
+    -> std::pair<ResultPrinter::Result, bool> {
     return _callback.handle(i, query, r, &states.max_place_bound(), ss._expandedStates,
                             ss._exploredStates, states.discovered(), states.max_tokens(), &states,
                             _satisfyingMarking, _initial.marking());
@@ -114,11 +114,11 @@ void ReachabilitySearch::handle_completion(const searchstate_t &ss,
     else                                                                                           \
         TEMPPAR(X, SuccessorGenerator)
 
-bool ReachabilitySearch::reachable(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
+auto ReachabilitySearch::reachable(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
                                    std::vector<ResultPrinter::Result> &results,
                                    options_t::search_strategy_e strategy, bool stubbornreduction,
                                    bool statespacesearch, bool printstats, bool keep_trace,
-                                   size_t seed) {
+                                   size_t seed) -> bool {
     bool usequeries = !statespacesearch;
 
     // if we are searching for bounds

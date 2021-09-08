@@ -19,9 +19,9 @@ STSolver::STSolver(const Reachability::ResultPrinter &printer, const PetriNet &n
     construct_pre_post(); // TODO: Refactor this out...
 }
 
-STSolver::~STSolver() {}
+STSolver::~STSolver() = default;
 
-bool STSolver::solve(uint32_t timelimit) {
+auto STSolver::solve(uint32_t timelimit) -> bool {
     if (_net.number_of_places() == 0)
         return false;
     _timelimit = timelimit;
@@ -65,8 +65,8 @@ bool STSolver::solve(uint32_t timelimit) {
     return true;
 }
 
-size_t STSolver::_compute_trap(std::vector<size_t> &trap, const std::set<size_t> &preset,
-                               const std::set<size_t> &postset, size_t marked_count) {
+auto STSolver::_compute_trap(std::vector<size_t> &trap, const std::set<size_t> &preset,
+                             const std::set<size_t> &postset, size_t marked_count) -> size_t {
     if (trap.empty())
         return 0;
     // compute DIFF = T* \ *T
@@ -134,8 +134,9 @@ void STSolver::extend(size_t place, std::set<size_t> &pre, std::set<size_t> &pos
                 _transitions.get() + _places[place + 1]._pre);
 }
 
-bool STSolver::siphon_trap(std::vector<size_t> siphon, const std::vector<bool> &has_st,
-                           const std::set<size_t> &preset, const std::set<size_t> &postset) {
+auto STSolver::siphon_trap(std::vector<size_t> siphon, const std::vector<bool> &has_st,
+                           const std::set<size_t> &preset, const std::set<size_t> &postset)
+    -> bool {
     if (timeout())
         return false;
 
@@ -192,15 +193,15 @@ bool STSolver::siphon_trap(std::vector<size_t> siphon, const std::vector<bool> &
     return true;
 }
 
-Reachability::ResultPrinter::Result STSolver::print_result() {
+auto STSolver::print_result() -> Reachability::ResultPrinter::Result {
     if (_siphonPropperty) {
         return _printer.handle(0, _query, Reachability::ResultPrinter::NotSatisfied).first;
     } else {
         return Reachability::ResultPrinter::Unknown;
     }
 }
-bool STSolver::timeout() const { return (duration() >= _timelimit); }
-uint32_t STSolver::duration() const {
+auto STSolver::timeout() const -> bool { return (duration() >= _timelimit); }
+auto STSolver::duration() const -> uint32_t {
     auto end = std::chrono::high_resolution_clock::now();
     auto diff = std::chrono::duration_cast<std::chrono::seconds>(end - _start);
     return diff.count();
@@ -227,7 +228,7 @@ void STSolver::construct_pre_post() {
 
     // flatten
     size_t ntrans = 0;
-    for (auto p : tmp_places) {
+    for (const auto &p : tmp_places) {
         ntrans += p.first.size() + p.second.size();
     }
     _transitions = std::make_unique<uint32_t[]>(ntrans);

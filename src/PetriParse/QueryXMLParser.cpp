@@ -25,7 +25,7 @@
 #include <iostream>
 #include <string>
 
-int getChildCount(rapidxml::xml_node<> *n) {
+auto getChildCount(rapidxml::xml_node<> *n) -> int {
     int c = 0;
     for (rapidxml::xml_node<> *child = n->first_node(); child != nullptr;
          child = child->next_sibling()) {
@@ -38,7 +38,7 @@ QueryXMLParser::QueryXMLParser() = default;
 
 QueryXMLParser::~QueryXMLParser() = default;
 
-bool QueryXMLParser::parse(std::ifstream &xml, const std::set<size_t> &parse_only) {
+auto QueryXMLParser::parse(std::ifstream &xml, const std::set<size_t> &parse_only) -> bool {
     // Parse the xml
     rapidxml::xml_document<> doc;
     std::vector<char> buffer((std::istreambuf_iterator<char>(xml)),
@@ -57,8 +57,8 @@ bool QueryXMLParser::parse(std::ifstream &xml, const std::set<size_t> &parse_onl
     return parsingOK;
 }
 
-bool QueryXMLParser::parse_property_set(rapidxml::xml_node<> *element,
-                                        const std::set<size_t> &parse_only) {
+auto QueryXMLParser::parse_property_set(rapidxml::xml_node<> *element,
+                                        const std::set<size_t> &parse_only) -> bool {
     if (strcmp(element->name(), "property-set") != 0) {
         fprintf(stderr, "ERROR missing property-set\n");
         return false; // missing property-set element
@@ -81,7 +81,7 @@ bool QueryXMLParser::parse_property_set(rapidxml::xml_node<> *element,
     return true;
 }
 
-bool QueryXMLParser::parse_property(rapidxml::xml_node<> *element) {
+auto QueryXMLParser::parse_property(rapidxml::xml_node<> *element) -> bool {
     if (strcmp(element->name(), "property") != 0) {
         fprintf(stderr, "ERROR missing property\n");
         return false; // unexpected element (only property is allowed)
@@ -118,7 +118,7 @@ bool QueryXMLParser::parse_property(rapidxml::xml_node<> *element) {
     return true;
 }
 
-bool QueryXMLParser::parse_tags(rapidxml::xml_node<> *element) {
+auto QueryXMLParser::parse_tags(rapidxml::xml_node<> *element) -> bool {
     // we can accept only reachability query
     for (auto it = element->first_node(); it; it = it->next_sibling()) {
         if (strcmp(it->name(), "is-reachability") == 0 && strcmp(it->value(), "true") == 0) {
@@ -132,7 +132,7 @@ void QueryXMLParser::fatal_error(const std::string &token) {
     throw base_error(ErrorCode, "An error occurred while parsing the query.", token);
 }
 
-Condition_ptr QueryXMLParser::parse_formula(rapidxml::xml_node<> *element) {
+auto QueryXMLParser::parse_formula(rapidxml::xml_node<> *element) -> Condition_ptr {
     if (getChildCount(element) != 1) {
         assert(false);
         return nullptr;
@@ -189,7 +189,7 @@ Condition_ptr QueryXMLParser::parse_formula(rapidxml::xml_node<> *element) {
     }
 }
 
-Condition_ptr QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *element) {
+auto QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *element) -> Condition_ptr {
     /*
      Describe here how to parse
      * INV phi =  AG phi =  not EF not phi
@@ -406,7 +406,7 @@ Condition_ptr QueryXMLParser::parse_boolean_formula(rapidxml::xml_node<> *elemen
     return nullptr;
 }
 
-Expr_ptr QueryXMLParser::parse_integer_expression(rapidxml::xml_node<> *element) {
+auto QueryXMLParser::parse_integer_expression(rapidxml::xml_node<> *element) -> Expr_ptr {
     std::string elementName = element->name();
     if (elementName == "integer-constant") {
         int i;
@@ -482,7 +482,7 @@ Expr_ptr QueryXMLParser::parse_integer_expression(rapidxml::xml_node<> *element)
     return nullptr;
 }
 
-std::string QueryXMLParser::parse_place(rapidxml::xml_node<> *element) {
+auto QueryXMLParser::parse_place(rapidxml::xml_node<> *element) -> std::string {
     if (strcmp(element->name(), "place") != 0)
         return ""; // missing place tag
     std::string placeName = element->value();

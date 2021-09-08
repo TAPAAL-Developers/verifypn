@@ -5,7 +5,7 @@
 #include <array>
 #include <cstring>
 
-std::vector<std::string> explode(std::string const &s) {
+auto explode(std::string const &s) -> std::vector<std::string> {
     std::vector<std::string> result;
     std::istringstream iss(s);
 
@@ -104,7 +104,7 @@ void options_t::print(std::ostream &optionsOut) const {
     optionsOut << std::endl;
 }
 
-error_e options_t::parse(int argc, char *argv[]) {
+auto options_t::parse(int argc, char *argv[]) -> error_e {
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-k") == 0 || strcmp(argv[i], "--k-bound") == 0) {
             if (i == argc - 1) {

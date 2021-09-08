@@ -21,7 +21,7 @@
 namespace LTL {
 using namespace PetriEngine;
 
-bool SafeAutStubbornSet::prepare(const LTL::Structures::ProductState &state) {
+auto SafeAutStubbornSet::prepare(const LTL::Structures::ProductState &state) -> bool {
     reset();
     _parent = &state;
     memset(_places_seen.get(), 0, _net.number_of_places());

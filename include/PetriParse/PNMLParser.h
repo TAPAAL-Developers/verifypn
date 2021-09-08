@@ -105,11 +105,11 @@ class PNMLParser {
     std::vector<PetriEngine::Colored::ColorExpression_ptr>
     find_partition_colors(rapidxml::xml_node<> *element) const;
     std::vector<std::vector<PetriEngine::Colored::ColorExpression_ptr>>
-    cartesian_product(std::vector<PetriEngine::Colored::ColorExpression_ptr> rightVector,
-                      std::vector<PetriEngine::Colored::ColorExpression_ptr> leftVector);
+    cartesian_product(const std::vector<PetriEngine::Colored::ColorExpression_ptr> &rightVector,
+                      const std::vector<PetriEngine::Colored::ColorExpression_ptr> &leftVector);
     std::vector<std::vector<PetriEngine::Colored::ColorExpression_ptr>> cartesian_product(
-        std::vector<std::vector<PetriEngine::Colored::ColorExpression_ptr>> rightVector,
-        std::vector<PetriEngine::Colored::ColorExpression_ptr> leftVector);
+        const std::vector<std::vector<PetriEngine::Colored::ColorExpression_ptr>> &rightVector,
+        const std::vector<PetriEngine::Colored::ColorExpression_ptr> &leftVector);
     PetriEngine::AbstractPetriNetBuilder *_builder;
     NodeNameMap _id2name;
     ArcList _arcs;

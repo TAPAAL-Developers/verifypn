@@ -42,18 +42,18 @@ class ColoredPetriNetBuilder : public AbstractPetriNetBuilder {
     ColoredPetriNetBuilder(const ColoredPetriNetBuilder &orig);
     virtual ~ColoredPetriNetBuilder();
 
-    void add_place(const std::string &name, int tokens, double x = 0, double y = 0) override;
+    void add_place(const std::string &name, uint32_t tokens, double x = 0, double y = 0) override;
     void add_place(const std::string &name, const Colored::ColorType *type,
                    Colored::Multiset &&tokens, double x = 0, double y = 0) override;
     void add_transition(const std::string &name, double x = 0, double y = 0) override;
     void add_transition(const std::string &name, const Colored::GuardExpression_ptr &guard,
                         double x = 0, double y = 0) override;
     void add_input_arc(const std::string &place, const std::string &transition, bool inhibitor,
-                       int) override;
+                       uint32_t) override;
     void add_input_arc(const std::string &place, const std::string &transition,
-                       const Colored::ArcExpression_ptr &expr, bool inhibitor, int weight) override;
+                       const Colored::ArcExpression_ptr &expr, bool inhibitor, uint32_t weight) override;
     void add_output_arc(const std::string &transition, const std::string &place,
-                        int weight = 1) override;
+                        uint32_t weight = 1) override;
     void add_output_arc(const std::string &transition, const std::string &place,
                         const Colored::ArcExpression_ptr &expr) override;
     void add_color_type(const std::string &id, const Colored::ColorType *type) override;
@@ -107,7 +107,6 @@ class ColoredPetriNetBuilder : public AbstractPetriNetBuilder {
     std::unordered_map<uint32_t, std::unordered_map<uint32_t, Colored::ArcIntervals>> _arcIntervals;
     std::unordered_map<uint32_t, std::vector<uint32_t>> _placePostTransitionMap;
     std::unordered_map<uint32_t, std::vector<uint32_t>> _placePreTransitionMap;
-    std::unordered_map<uint32_t, FixpointBindingGenerator> _bindings;
     PTPlaceMap _ptplacenames;
     PTTransitionMap _pttransitionnames;
     uint32_t _nptarcs = 0;
@@ -138,7 +137,7 @@ class ColoredPetriNetBuilder : public AbstractPetriNetBuilder {
 
     double _partitionTimer = 0;
 
-    std::string arc_to_string(const Colored::Arc &arc) const;
+    auto arc_to_string(const Colored::Arc &arc) const -> std::string;
 
     void print_place_table() const;
 
@@ -152,8 +151,9 @@ class ColoredPetriNetBuilder : public AbstractPetriNetBuilder {
     void remove_invalid_varmaps(Colored::Transition &transition) const;
     void add_transition_vars(Colored::Transition &transition) const;
 
-    std::unordered_map<uint32_t, Colored::ArcIntervals>
-    setup_transition_vars(const Colored::Transition &transition) const;
+    auto
+    setup_transition_vars(const Colored::Transition &transition) const
+        -> std::unordered_map<uint32_t, Colored::ArcIntervals>;
 
     void add_arc(const std::string &place, const std::string &transition,
                  const Colored::ArcExpression_ptr &expr, bool input, bool inhibitor, int weight);

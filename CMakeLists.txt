@@ -29,7 +29,7 @@ option(VERIFYPN_Tidy "Run clang-tidy on code." ON)
 if (VERIFYPN_Tidy)
     set(CMAKE_CXX_CLANG_TIDY 
       clang-tidy;
-      --line-filter=[{"name":"*/HeuristicParser.parser.cpp"},{"name":"*/HeuristicLexer.lexer.cpp"}];
+      --header-filter="$CMAKE_SOURCE_DIR/include/*",
       -fix)
 endif(VERIFYPN_Tidy)
 

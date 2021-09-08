@@ -17,8 +17,7 @@
 
 #include "PetriEngine/PQL/QueryPrinter.h"
 
-namespace PetriEngine {
-namespace PQL {
+namespace PetriEngine::PQL {
 void QueryPrinter::_accept(const NotCondition *element) {
     os << "(not ";
     element->operator[](0)->visit(*this);
@@ -262,5 +261,4 @@ void QueryPrinter::_accept(const MinusExpr *element) {
 void QueryPrinter::_accept(const SubtractExpr *element) { _accept((const NaryExpr *)element, "-"); }
 
 void QueryPrinter::_accept(const IdentifierExpr *element) { os << element->name(); }
-} // namespace PQL
-} // namespace PetriEngine
+} // namespace PetriEngine::PQL

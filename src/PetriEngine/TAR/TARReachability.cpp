@@ -60,7 +60,7 @@ namespace Reachability {
         return;
 }
 
-bool TARReachabilitySearch::pop_done(trace_t &waiting, size_t &stepno) {
+auto TARReachabilitySearch::pop_done(trace_t &waiting, size_t &stepno) -> bool {
     bool popped = false;
     while (waiting.back().done(_net)) // we have tried all transitions for this state-pair!
     {
@@ -79,7 +79,7 @@ bool TARReachabilitySearch::pop_done(trace_t &waiting, size_t &stepno) {
 
 void TARReachabilitySearch::next_edge(AntiChain<uint32_t, size_t> &checked, state_t &state,
                                       trace_t &waiting, std::set<size_t> &nextinter) {
-    uint32_t dummy = state.get_edge_cnt() == 0 ? 0 : 0;
+    uint32_t dummy = state.get_edge_cnt() == 0 ? 0 : 1;
     bool res = checked.subsumed(dummy, nextinter);
     if (res) {
         waiting.back().next_edge(_net);
@@ -88,13 +88,13 @@ void TARReachabilitySearch::next_edge(AntiChain<uint32_t, size_t> &checked, stat
         checked.insert(dummy, minimal);
         state_t next;
         next.reset_edges(_net);
-        next.set_interpolants(std::move(nextinter));
+        next.set_interpolants(nextinter);
         waiting.push_back(next);
     }
 }
 
-std::pair<bool, bool> TARReachabilitySearch::run_TAR(bool printtrace, Solver &solver,
-                                                     std::vector<bool> &use_trans) {
+auto TARReachabilitySearch::run_TAR(bool printtrace, Solver &solver, std::vector<bool> &use_trans)
+    -> std::pair<bool, bool> {
     stopwatch tt;
     tt.start();
     auto checked = AntiChain<uint32_t, size_t>();
@@ -185,7 +185,7 @@ std::pair<bool, bool> TARReachabilitySearch::run_TAR(bool printtrace, Solver &so
     return std::make_pair(all_covered, false);
 }
 
-bool TARReachabilitySearch::try_reach(bool printtrace, Solver &solver) {
+auto TARReachabilitySearch::try_reach(bool printtrace, Solver &solver) -> bool {
     _traceset.remove_edge(0);
     std::vector<bool> use_trans(_net.number_of_transitions() + 1);
     std::vector<bool> use_place = solver.in_query();
@@ -288,7 +288,7 @@ bool TARReachabilitySearch::try_reach(bool printtrace, Solver &solver) {
     return false;
 }
 
-bool TARReachabilitySearch::do_step(state_t &state, std::set<size_t> &nextinter) {
+auto TARReachabilitySearch::do_step(state_t &state, std::set<size_t> &nextinter) -> bool {
     // if NFA accepts the trace after this instruction, abort.
 #ifdef TAR_TIMING
     stopwatch flw;
@@ -320,7 +320,7 @@ bool TARReachabilitySearch::do_step(state_t &state, std::set<size_t> &nextinter)
     return false;
 }
 
-bool TARReachabilitySearch::validate(const std::vector<size_t> &transitions) {
+auto TARReachabilitySearch::validate(const std::vector<size_t> &transitions) -> bool {
     AntiChain<uint32_t, size_t> chain;
 
     state_t s;
@@ -466,9 +466,9 @@ void TARReachabilitySearch::reachable(std::vector<std::shared_ptr<PQL::Condition
         print_stats();
 }
 
-bool TARReachabilitySearch::check_queries(std::vector<std::shared_ptr<PQL::Condition>> &queries,
+auto TARReachabilitySearch::check_queries(std::vector<std::shared_ptr<PQL::Condition>> &queries,
                                           std::vector<ResultPrinter::Result> &results,
-                                          Structures::State &state, bool usequeries) {
+                                          Structures::State &state, bool usequeries) -> bool {
     if (!usequeries)
         return false;
 

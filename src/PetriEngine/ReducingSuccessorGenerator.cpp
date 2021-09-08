@@ -16,7 +16,7 @@ ReducingSuccessorGenerator::ReducingSuccessorGenerator(const PetriNet &net,
 ReducingSuccessorGenerator::ReducingSuccessorGenerator(
     const PetriNet &net, std::vector<std::shared_ptr<PQL::Condition>> &queries,
     std::shared_ptr<StubbornSet> stubbornSet)
-    : ReducingSuccessorGenerator(net, stubbornSet) {
+    : ReducingSuccessorGenerator(net, std::move(stubbornSet)) {
     _queries.reserve(queries.size());
     for (auto &q : queries)
         _queries.push_back(q.get());
@@ -27,7 +27,7 @@ void ReducingSuccessorGenerator::reset() {
     _stubSet->reset();
 }
 
-bool ReducingSuccessorGenerator::next(Structures::State &write) {
+auto ReducingSuccessorGenerator::next(Structures::State &write) -> bool {
     _current = _stubSet->next();
     if (_current == std::numeric_limits<uint32_t>::max()) {
         reset();
@@ -38,7 +38,7 @@ bool ReducingSuccessorGenerator::next(Structures::State &write) {
     return true;
 }
 
-bool ReducingSuccessorGenerator::prepare(const Structures::State &state) {
+auto ReducingSuccessorGenerator::prepare(const Structures::State &state) -> bool {
     _current = 0;
     _parent = &state;
     return _stubSet->prepare(state);

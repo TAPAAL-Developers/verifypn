@@ -23,7 +23,7 @@ using namespace PetriEngine;
 using namespace PetriEngine::PQL;
 using namespace PetriEngine::Reachability;
 
-bool all_done(std::vector<PetriEngine::Reachability::ResultPrinter::Result> &results) {
+auto all_done(std::vector<PetriEngine::Reachability::ResultPrinter::Result> &results) -> bool {
     if (std::any_of(results.begin(), results.end(), [](auto r) {
             return r != ResultPrinter::Satisfied && r != ResultPrinter::NotSatisfied;
         })) {
@@ -32,8 +32,9 @@ bool all_done(std::vector<PetriEngine::Reachability::ResultPrinter::Result> &res
     return true;
 }
 
-error_e context_analysis(const ColoredPetriNetBuilder &cpnBuilder, const PetriNetBuilder &builder,
-                         const PetriNet &net, std::vector<std::shared_ptr<Condition>> &queries) {
+auto context_analysis(const ColoredPetriNetBuilder &cpnBuilder, const PetriNetBuilder &builder,
+                      const PetriNet &net, std::vector<std::shared_ptr<Condition>> &queries)
+    -> error_e {
     // Context analysis
     ColoredAnalysisContext context(builder.get_place_names(), builder.get_transition_names(), net,
                                    cpnBuilder.get_unfolded_place_names(),
@@ -44,9 +45,8 @@ error_e context_analysis(const ColoredPetriNetBuilder &cpnBuilder, const PetriNe
 
         // Print errors if any
         if (context.errors().size() > 0) {
-            for (size_t i = 0; i < context.errors().size(); i++) {
-                fprintf(stderr, "Query Context Analysis Error: %s\n",
-                        context.errors()[i].to_string().c_str());
+            for (const auto &i : context.errors()) {
+                fprintf(stderr, "Query Context Analysis Error: %s\n", i.to_string().c_str());
             }
             return ErrorCode;
         }
@@ -54,7 +54,8 @@ error_e context_analysis(const ColoredPetriNetBuilder &cpnBuilder, const PetriNe
     return ContinueCode;
 }
 
-std::vector<Condition_ptr> read_queries(options_t &options, std::vector<std::string> &qstrings) {
+auto read_queries(options_t &options, std::vector<std::string> &qstrings)
+    -> std::vector<Condition_ptr> {
 
     std::vector<Condition_ptr> conditions;
     if (!options._statespace_exploration) {
@@ -153,7 +154,7 @@ std::vector<Condition_ptr> read_queries(options_t &options, std::vector<std::str
     }
 }
 
-error_e parse_model(AbstractPetriNetBuilder &builder, options_t &options) {
+auto parse_model(AbstractPetriNetBuilder &builder, options_t &options) -> error_e {
     // Load the model
     std::ifstream mfile(options._modelfile, std::ifstream::in);
     if (!mfile) {
@@ -213,12 +214,12 @@ void print_unfolding_stats(ColoredPetriNetBuilder &builder, options_t &options) 
     }
 }
 
-std::string get_xml_queries(std::vector<std::shared_ptr<Condition>> queries,
-                            std::vector<std::string> querynames,
-                            std::vector<Reachability::ResultPrinter::Result> results) {
+auto get_xml_queries(std::vector<std::shared_ptr<Condition>> queries,
+                     std::vector<std::string> querynames,
+                     std::vector<Reachability::ResultPrinter::Result> results) -> std::string {
     bool cont = false;
-    for (uint32_t i = 0; i < results.size(); i++) {
-        if (results[i] == Reachability::ResultPrinter::CTL) {
+    for (auto &result : results) {
+        if (result == Reachability::ResultPrinter::CTL) {
             cont = true;
             break;
         }
@@ -255,8 +256,8 @@ void write_queries(const std::vector<std::shared_ptr<Condition>> &queries,
     if (binary) {
         out.open(filename, std::ios::binary | std::ios::out);
         uint32_t cnt = 0;
-        for (uint32_t j = 0; j < queries.size(); j++) {
-            if (queries[j]->is_trivially_true() || queries[j]->is_trivially_false())
+        for (const auto &querie : queries) {
+            if (querie->is_trivially_true() || querie->is_trivially_false())
                 continue;
             ++cnt;
         }
@@ -295,7 +296,8 @@ void write_queries(const std::vector<std::shared_ptr<Condition>> &queries,
     out.close();
 }
 
-std::vector<Condition_ptr> get_ctl_queries(const std::vector<Condition_ptr> &ctlStarQueries) {
+auto get_ctl_queries(const std::vector<Condition_ptr> &ctlStarQueries)
+    -> std::vector<Condition_ptr> {
     std::vector<Condition_ptr> ctlQueries;
     for (const auto &ctlStarQuery : ctlStarQueries) {
         IsCTLVisitor isCtlVisitor;
@@ -311,7 +313,8 @@ std::vector<Condition_ptr> get_ctl_queries(const std::vector<Condition_ptr> &ctl
     return ctlQueries;
 }
 
-std::vector<Condition_ptr> get_ltl_queries(const std::vector<Condition_ptr> &ctlStarQueries) {
+auto get_ltl_queries(const std::vector<Condition_ptr> &ctlStarQueries)
+    -> std::vector<Condition_ptr> {
     std::vector<Condition_ptr> ltlQueries;
     for (const auto &ctlStarQuery : ctlStarQueries) {
         LTL::LTLValidator isLtl;
@@ -328,9 +331,10 @@ std::vector<Condition_ptr> get_ltl_queries(const std::vector<Condition_ptr> &ctl
 std::mutex spot_mutex;
 #endif
 
-Condition_ptr simplify_ltl_query(Condition_ptr query, const options_t &options,
-                                 const EvaluationContext &evalContext,
-                                 SimplificationContext &simplificationContext, std::ostream &out) {
+auto simplify_ltl_query(const Condition_ptr &query, const options_t &options,
+                        const EvaluationContext &evalContext,
+                        SimplificationContext &simplificationContext, std::ostream &out)
+    -> Condition_ptr {
     Condition_ptr cond;
     bool wasACond;
     if (std::dynamic_pointer_cast<SimpleQuantifierCondition>(query) != nullptr) {
@@ -580,9 +584,10 @@ void simplify_queries(const PetriNet &net, std::vector<Condition_ptr> &queries,
     }
 }
 
-error_e replay_trace(const ColoredPetriNetBuilder &cpnBuilder, const PetriNetBuilder &builder,
-                     const PetriNet &net, std::vector<Condition_ptr> &queries,
-                     const std::vector<ResultPrinter::Result> &results, const options_t &options) {
+auto replay_trace(const ColoredPetriNetBuilder &cpnBuilder, const PetriNetBuilder &builder,
+                  const PetriNet &net, std::vector<Condition_ptr> &queries,
+                  const std::vector<ResultPrinter::Result> &results, const options_t &options)
+    -> error_e {
     if (context_analysis(cpnBuilder, builder, net, queries) != ContinueCode)
         throw base_error(error_e::ErrorCode, "Fatal error assigning indexes");
     std::ifstream replay_file(options._replay_file, std::ifstream::in);

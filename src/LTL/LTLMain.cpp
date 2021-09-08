@@ -51,7 +51,7 @@ struct Result {
  * formula, nullptr otherwise. should_negate indicates whether the returned formula is negated (in
  * the case the parameter was E f)
  */
-std::pair<Condition_ptr, bool> to_ltl(const Condition_ptr &formula) {
+auto to_ltl(const Condition_ptr &formula) -> std::pair<Condition_ptr, bool> {
     LTL::LTLValidator validator;
     bool should_negate = false;
     Condition_ptr converted;
@@ -71,7 +71,7 @@ std::pair<Condition_ptr, bool> to_ltl(const Condition_ptr &formula) {
 }
 
 template <typename Checker>
-Result _verify(std::unique_ptr<Checker> checker, const options_t &options) {
+auto _verify(std::unique_ptr<Checker> checker, const options_t &options) -> Result {
     Result result;
     checker->set_options(options);
     result.satisfied = checker->is_satisfied();
@@ -85,9 +85,9 @@ Result _verify(std::unique_ptr<Checker> checker, const options_t &options) {
     return result;
 }
 
-std::unique_ptr<Heuristic> make_heuristic(const PetriNet &net, const Condition_ptr &negated_formula,
-                                          const Structures::BuchiAutomaton &automaton,
-                                          options_t &options) {
+auto make_heuristic(const PetriNet &net, const Condition_ptr &negated_formula,
+                    const Structures::BuchiAutomaton &automaton, options_t &options)
+    -> std::unique_ptr<Heuristic> {
     if (options._strategy == options_t::search_strategy_e::RDFS) {
         return std::make_unique<RandomHeuristic>(options.seed());
     }
@@ -102,8 +102,8 @@ std::unique_ptr<Heuristic> make_heuristic(const PetriNet &net, const Condition_p
         return heur;
 }
 
-bool verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::string &queryName,
-                options_t &options) {
+auto verify_ltl(const PetriNet &net, const Condition_ptr &query, const std::string &queryName,
+                options_t &options) -> bool {
 
     // force AP compress off for Büchi prints
     options._ltl_compress_aps = options._buchi_out_file.empty()

@@ -31,8 +31,8 @@ class NondeterministicConjunctionVisitor : public InterestingLTLTransitionVisito
           _stubborn(stubbornSet) {}
 
   protected:
-    static constexpr auto PresetBad = StubbornSet::_presetBad;
-    static constexpr auto PostsetBad = StubbornSet::_postsetBad;
+    static constexpr auto _presetBad = StubbornSet::_presetBad;
+    static constexpr auto _postsetBad = StubbornSet::_postsetBad;
 
     void _accept(const PQL::CompareConjunction *element) override {
         if (_stubborn._track_changes || element->isNegated() != negated) {
@@ -84,8 +84,8 @@ class NondeterministicConjunctionVisitor : public InterestingLTLTransitionVisito
             auto &[cand, pre] = cands.back();
             if (!cands.empty() && cand == cons._place) {
                 assert(_stubborn._pending_stubborn.empty());
-                if ((pre && _stubborn._places_seen[cand] & PresetBad) ||
-                    (!pre && _stubborn._places_seen[cand] & PostsetBad)) {
+                if ((pre && _stubborn._places_seen[cand] & _presetBad) ||
+                    (!pre && _stubborn._places_seen[cand] & _postsetBad)) {
                     cands.pop_back();
                     continue;
                 }
@@ -101,16 +101,16 @@ class NondeterministicConjunctionVisitor : public InterestingLTLTransitionVisito
             auto &[cand, pre] = cands[i - 1];
             if (pre) {
                 // explore pre
-                assert(!(_stubborn._places_seen[cand] & PresetBad));
+                assert(!(_stubborn._places_seen[cand] & _presetBad));
                 _stubborn.preset_of(cand, false);
             } else {
                 // explore post
-                assert(!(_stubborn._places_seen[cand] & PostsetBad));
+                assert(!(_stubborn._places_seen[cand] & _postsetBad));
                 _stubborn.postset_of(cand, false);
             }
 
             if (_stubborn._bad) {
-                _stubborn._places_seen[cand] |= pre ? PresetBad : PostsetBad;
+                _stubborn._places_seen[cand] |= pre ? _presetBad : _postsetBad;
 #ifndef NDEBUG
                 // std::cerr << "Bad pre/post and reset" << std::endl;
 #endif
@@ -126,7 +126,7 @@ class NondeterministicConjunctionVisitor : public InterestingLTLTransitionVisito
 #ifndef NDEBUG
                 // std::cerr << "Bad closure and reset" << std::endl;
 #endif
-                _stubborn._places_seen[cand] |= pre ? PresetBad : PostsetBad;
+                _stubborn._places_seen[cand] |= pre ? _presetBad : _postsetBad;
                 _stubborn._reset_pending();
             }
         }

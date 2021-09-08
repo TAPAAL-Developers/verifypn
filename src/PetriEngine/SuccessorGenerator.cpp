@@ -29,9 +29,9 @@ SuccessorGenerator::SuccessorGenerator(const PetriNet &net,
                                        const std::shared_ptr<PQL::Condition> &query)
     : SuccessorGenerator(net) {}
 
-SuccessorGenerator::~SuccessorGenerator() {}
+SuccessorGenerator::~SuccessorGenerator() = default;
 
-bool SuccessorGenerator::prepare(const Structures::State &state) {
+auto SuccessorGenerator::prepare(const Structures::State &state) -> bool {
     _parent = &state;
     reset();
     return true;
@@ -56,7 +56,7 @@ void SuccessorGenerator::consume_preset(Structures::State &write, uint32_t t) {
     }
 }
 
-bool SuccessorGenerator::check_preset(uint32_t t) {
+auto SuccessorGenerator::check_preset(uint32_t t) -> bool {
     const TransPtr &ptr = _net._transitions[t];
     uint32_t finv = ptr._inputs;
     uint32_t linv = ptr._outputs;
@@ -92,7 +92,7 @@ void SuccessorGenerator::produce_postset(Structures::State &write, uint32_t t) {
     }
 }
 
-bool SuccessorGenerator::next(Structures::State &write) {
+auto SuccessorGenerator::next(Structures::State &write) -> bool {
     for (; _suc_pcounter < _net._nplaces; ++_suc_pcounter) {
         // orphans are currently under "place 0" as a special case
         if (_suc_pcounter == 0 || (*_parent).marking()[_suc_pcounter] > 0) {
@@ -118,7 +118,7 @@ bool SuccessorGenerator::next(Structures::State &write) {
     return false;
 }
 
-bool SuccessorGenerator::next(Structures::State &write, uint32_t &tindex) {
+auto SuccessorGenerator::next(Structures::State &write, uint32_t &tindex) -> bool {
     _parent = &write;
     _suc_pcounter = 0;
     for (; _suc_pcounter < _net._nplaces; ++_suc_pcounter) {

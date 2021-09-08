@@ -26,9 +26,9 @@
  * spot::bfs_steps runs a BFS searching for states satisfying bool match(step, state).
  * This thus implements BFS_accept(q) for each NBA state q.
  */
-class reach_distance : public spot::bfs_steps {
+class ReachDistance : public spot::bfs_steps {
   public:
-    explicit reach_distance(const spot::const_twa_graph_ptr &ptr) : spot::bfs_steps(ptr) {}
+    explicit ReachDistance(const spot::const_twa_graph_ptr &ptr) : spot::bfs_steps(ptr) {}
 
   private:
     auto match(spot::twa_run::step &step, const spot::state *dest) -> bool override {
@@ -44,7 +44,7 @@ AutomatonHeuristic::AutomatonHeuristic(const PetriEngine::PetriNet &net,
     : _net(net), _aut(aut), _bfs_dists(aut._buchi->num_states()) {
     _state_guards = std::move(GuardInfo::from_automaton(_aut));
 
-    reach_distance bfs_calc{_aut._buchi};
+    ReachDistance bfs_calc{_aut._buchi};
     for (unsigned state = 0; state < _aut._buchi->num_states(); ++state) {
         if (_aut._buchi->state_is_accepting(state)) {
             _bfs_dists[state] = 1;

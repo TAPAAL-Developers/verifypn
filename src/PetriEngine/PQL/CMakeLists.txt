@@ -1,5 +1,9 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+add_library(PQLExpression Expressions.cpp PQL.cpp Contexts.cpp QueryPrinter.cpp CTLVisitor.cpp)
+add_dependencies(PQLExpression glpk-ext)
+target_link_libraries(PQLExpression Simplification glpk)
+
 find_package(FLEX 2.6.4 REQUIRED)
 find_package(BISON 3.0.5 REQUIRED)
 
@@ -11,7 +15,7 @@ bison_target(pql_parser "${CMAKE_CURRENT_SOURCE_DIR}/PQLQueryParser.y"
 
 add_flex_bison_dependency(pql_lexer pql_parser)
 
-add_library(PQL ${BISON_pql_parser_OUTPUTS} ${FLEX_pql_lexer_OUTPUTS} Expressions.cpp PQL.cpp Contexts.cpp QueryPrinter.cpp CTLVisitor.cpp)
-add_dependencies(PQL glpk-ext)
-target_link_libraries(PQL Simplification Reachability glpk PetriEngine)
+add_library(PQL OBJECT ${BISON_pql_parser_OUTPUTS} ${FLEX_pql_lexer_OUTPUTS})
+set_target_properties(PQL PROPERTIES CXX_CLANG_TIDY "") # we do this trick to avoid tidy on the generated files
+target_link_libraries(PQL PQLExpression)
 
