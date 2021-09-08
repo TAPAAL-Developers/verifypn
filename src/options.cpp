@@ -689,7 +689,8 @@ auto options_t::parse(int argc, char *argv[]) -> error_e {
         std::array ltlStrategies{search_strategy_e::DFS, search_strategy_e::RDFS,
                                  search_strategy_e::HEUR};
 
-        if (_strategy != search_strategy_e::DEFAULT && _strategy != search_strategy_e::OVER_APPROX) {
+        if (_strategy != search_strategy_e::DEFAULT &&
+            _strategy != search_strategy_e::OVER_APPROX) {
             if (std::find(std::begin(ltlStrategies), std::end(ltlStrategies), _strategy) ==
                 std::end(ltlStrategies)) {
                 std::cerr << "Argument Error: Unsupported search strategy for LTL. Supported "

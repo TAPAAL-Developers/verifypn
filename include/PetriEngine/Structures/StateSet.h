@@ -101,7 +101,7 @@ class StateSetInterface {
         size_t length = _encoder.encode(state.marking(), type);
         if (length * 8 >= std::numeric_limits<uint16_t>::max()) {
             throw base_error_t("error: Marking could not be encoded into less than 2^16 bytes, "
-                             "current limit of PTries");
+                               "current limit of PTries");
         }
         BinaryWrapper w = BinaryWrapper(_encoder.scratchpad().raw(), length * 8);
         auto tit = _trie.insert(w.raw(), w.size());
@@ -183,11 +183,15 @@ class StateSet : public StateSetInterface {
   public:
     using StateSetInterface::StateSetInterface;
 
-    auto add(const State &state) -> std::pair<bool, size_t> override { return StateSetInterface::add(state, _trie); }
+    auto add(const State &state) -> std::pair<bool, size_t> override {
+        return StateSetInterface::add(state, _trie);
+    }
 
     void decode(State &state, size_t id) override { StateSetInterface::decode(state, id, _trie); }
 
-    auto lookup(State &state) -> std::pair<bool, size_t> override { return StateSetInterface::lookup(state, _trie); }
+    auto lookup(State &state) -> std::pair<bool, size_t> override {
+        return StateSetInterface::lookup(state, _trie);
+    }
 
     void set_history(size_t id, size_t transition) override {}
 
@@ -226,7 +230,9 @@ class TracableStateSet : public StateSetInterface {
         StateSetInterface::decode(state, id, _trie);
     }
 
-    auto lookup(State &state) -> std::pair<bool, size_t> override { return StateSetInterface::lookup(state, _trie); }
+    auto lookup(State &state) -> std::pair<bool, size_t> override {
+        return StateSetInterface::lookup(state, _trie);
+    }
 
     void set_history(size_t id, size_t transition) override {
         traceable_t &t = _trie.get_data(id);

@@ -85,8 +85,7 @@ void SuccessorGenerator::produce_postset(Structures::State &write, uint32_t t) {
         size_t n = write.marking()[_net._invariants[finv]._place];
         n += _net._invariants[finv]._tokens;
         if (n >= std::numeric_limits<uint32_t>::max()) {
-            throw base_error_t("Exceeded 2**32 limit of tokens in a single place (", n,
-                             ")");
+            throw base_error_t("Exceeded 2**32 limit of tokens in a single place (", n, ")");
         }
         write.marking()[_net._invariants[finv]._place] = n;
     }

@@ -23,7 +23,8 @@ using namespace PetriNets;
 
 namespace CTL {
 auto get_algorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm> &algorithm,
-                   ctl_algorithm_type_e algorithmtype, options_t::search_strategy_e search) -> error_e {
+                   ctl_algorithm_type_e algorithmtype, options_t::search_strategy_e search)
+    -> error_e {
     switch (algorithmtype) {
     case ctl_algorithm_type_e::LOCAL:
         algorithm = std::make_shared<Algorithm::LocalFPA>(search);

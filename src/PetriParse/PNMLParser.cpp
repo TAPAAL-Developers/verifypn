@@ -143,7 +143,7 @@ void PNMLParser::parse_declarations(rapidxml::xml_node<> *element) {
     for (auto missingCTPair : _missingCTs) {
         if (_colorTypes.count(missingCTPair.first) == 0) {
             throw base_error_t("Unable to find colortype ", missingCTPair.first,
-                             " used in product type ", missingCTPair.second->get_name());
+                               " used in product type ", missingCTPair.second->get_name());
         }
         missingCTPair.second->add_type(_colorTypes[missingCTPair.first]);
     }
@@ -667,7 +667,8 @@ void PNMLParser::parse_place(rapidxml::xml_node<> *element) {
                                const PetriEngine::Colored::Color *>
                 binding;
             PetriEngine::Colored::EquivalenceVec placePartition;
-            PetriEngine::Colored::expression_context_t context{binding, _colorTypes, placePartition};
+            PetriEngine::Colored::expression_context_t context{binding, _colorTypes,
+                                                               placePartition};
             hlinitialMarking = parse_arc_expression(it->first_node("structure"))->eval(context);
         } else if (strcmp(it->name(), "type") == 0) {
             type = parse_user_sort(it);
@@ -675,7 +676,8 @@ void PNMLParser::parse_place(rapidxml::xml_node<> *element) {
     }
 
     if (initialMarking > std::numeric_limits<int>::max()) {
-        throw base_error_t("Number of tokens in ", id, " exceeded ", std::numeric_limits<int>::max());
+        throw base_error_t("Number of tokens in ", id, " exceeded ",
+                           std::numeric_limits<int>::max());
     }
     // Create place
     if (!_isColored) {
@@ -726,7 +728,7 @@ void PNMLParser::parse_arc(rapidxml::xml_node<> *element, bool inhibitor) {
             assert(weight > 0);
             if (!first) {
                 throw base_error_t("ERROR: Multiple inscription tags in xml of a arc from ", source,
-                                 " to ", target, ".");
+                                   " to ", target, ".");
             }
             first = false;
         }
@@ -739,7 +741,7 @@ void PNMLParser::parse_arc(rapidxml::xml_node<> *element, bool inhibitor) {
         expr = parse_arc_expression(it->first_node("structure"));
         if (!first) {
             throw base_error_t("ERROR: Multiple hlinscription tags in xml of a arc from ", source,
-                             " to ", target, ".");
+                               " to ", target, ".");
         }
         first = false;
     }
@@ -758,7 +760,8 @@ void PNMLParser::parse_arc(rapidxml::xml_node<> *element, bool inhibitor) {
     if (weight != 0) {
         _arcs.push_back(arc);
     } else {
-        throw base_error_t("ERROR: Arc from ", source, " to ", target, " has non-sensible weight 0.");
+        throw base_error_t("ERROR: Arc from ", source, " to ", target,
+                           " has non-sensible weight 0.");
     }
 }
 
@@ -883,7 +886,7 @@ auto PNMLParser::find_partition_colors(rapidxml::xml_node<> *element) const
         return find_partition_colors(element->first_node());
     } else {
         throw base_error_t("Could not find color expression in expression: ", element->name(),
-                         "\nCANNOT_COMPUTE\n");
+                           "\nCANNOT_COMPUTE\n");
     }
 
     for (const auto &partition : _partitions) {

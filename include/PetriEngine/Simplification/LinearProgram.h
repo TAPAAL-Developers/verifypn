@@ -44,9 +44,7 @@ class LinearProgram {
 
     [[nodiscard]] auto equations() const -> const std::vector<equation_t> & { return _equations; }
 
-    [[nodiscard]] auto known_impossible() const -> bool {
-        return _result == result_e::IMPOSSIBLE;
-    }
+    [[nodiscard]] auto known_impossible() const -> bool { return _result == result_e::IMPOSSIBLE; }
     [[nodiscard]] auto known_possible() const -> bool { return _result == result_e::POSSIBLE; }
     auto is_impossible(const PQL::SimplificationContext &context, uint32_t solvetime) -> bool;
 

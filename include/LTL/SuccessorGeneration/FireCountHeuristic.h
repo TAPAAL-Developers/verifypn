@@ -43,7 +43,7 @@ class FireCountHeuristic : public Heuristic {
         --_fireCount[tid];
     }
 
-    auto output(std::ostream &os)  -> std::ostream & override { return os << "FIRECOUNT_HEUR"; }
+    auto output(std::ostream &os) -> std::ostream & override { return os << "FIRECOUNT_HEUR"; }
 
   protected:
     std::vector<uint32_t> _fireCount;

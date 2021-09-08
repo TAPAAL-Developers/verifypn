@@ -768,7 +768,8 @@ auto UnfoldedUpperBoundsCondition::value(const MarkVal *marking) -> size_t {
     return tmp;
 }
 
-auto UnfoldedUpperBoundsCondition::evaluate(const EvaluationContext &context) -> Condition::result_e {
+auto UnfoldedUpperBoundsCondition::evaluate(const EvaluationContext &context)
+    -> Condition::result_e {
     set_upper_bound(value(context.marking()));
     return _max <= _bound ? RTRUE : RUNKNOWN;
 }
@@ -2256,7 +2257,7 @@ auto LogicalCondition::simplify_and(SimplificationContext &context) const -> ret
     // we check this by checking if !r1 && !r2 is unsat
 
     return retval_t(make_and(conditions), std::move(lps),
-                  std::make_shared<UnionCollection>(std::move(neglps)));
+                    std::make_shared<UnionCollection>(std::move(neglps)));
 }
 
 auto LogicalCondition::simplify_or(SimplificationContext &context) const -> retval_t {
@@ -2298,7 +2299,7 @@ auto LogicalCondition::simplify_or(SimplificationContext &context) const -> retv
     // we check this by checking if !r1 && !r2 is unsat
 
     return retval_t(make_or(conditions), std::make_shared<UnionCollection>(std::move(lps)),
-                  std::move(neglps));
+                    std::move(neglps));
 }
 
 auto AndCondition::simplify(SimplificationContext &context) const -> retval_t {
@@ -2500,8 +2501,8 @@ auto EqualCondition::simplify(SimplificationContext &context) const -> retval_t 
     if (!context.timeout() && m1.can_analyze() && m2.can_analyze()) {
         if ((m1.is_zero() && m2.is_zero()) || m1.substration_is_zero(m2)) {
             return retval_t(BooleanCondition::get_shared(context.negated()
-                                                          ? (m1.constant() != m2.constant())
-                                                          : (m1.constant() == m2.constant())));
+                                                             ? (m1.constant() != m2.constant())
+                                                             : (m1.constant() == m2.constant())));
         } else {
             int constant = m2.constant() - m1.constant();
             m1 -= m2;
@@ -2527,10 +2528,10 @@ auto EqualCondition::simplify(SimplificationContext &context) const -> retval_t 
     } else {
         if (context.negated()) {
             return retval_t(std::make_shared<NotEqualCondition>(_expr1, _expr2), std::move(lps),
-                          std::move(neglps));
+                            std::move(neglps));
         } else {
             return retval_t(std::make_shared<EqualCondition>(_expr1, _expr2), std::move(lps),
-                          std::move(neglps));
+                            std::move(neglps));
         }
     }
 }
@@ -2569,10 +2570,10 @@ auto NotEqualCondition::simplify(SimplificationContext &context) const -> retval
     } else {
         if (context.negated()) {
             return retval_t(std::make_shared<EqualCondition>(_expr1, _expr2), std::move(lps),
-                          std::move(neglps));
+                            std::move(neglps));
         } else {
             return retval_t(std::make_shared<NotEqualCondition>(_expr1, _expr2), std::move(lps),
-                          std::move(neglps));
+                            std::move(neglps));
         }
     }
 }
@@ -2609,10 +2610,10 @@ auto LessThanCondition::simplify(SimplificationContext &context) const -> retval
     } else {
         if (context.negated()) {
             return retval_t(std::make_shared<LessThanOrEqualCondition>(_expr2, _expr1),
-                          std::move(lps), std::move(neglps));
+                            std::move(lps), std::move(neglps));
         } else {
             return retval_t(std::make_shared<LessThanCondition>(_expr1, _expr2), std::move(lps),
-                          std::move(neglps));
+                            std::move(neglps));
         }
     }
 }
@@ -2653,10 +2654,10 @@ auto LessThanOrEqualCondition::simplify(SimplificationContext &context) const ->
     } else {
         if (context.negated()) {
             return retval_t(std::make_shared<LessThanCondition>(_expr2, _expr1), std::move(lps),
-                          std::move(neglps));
+                            std::move(neglps));
         } else {
             return retval_t(std::make_shared<LessThanOrEqualCondition>(_expr1, _expr2),
-                          std::move(lps), std::move(neglps));
+                            std::move(lps), std::move(neglps));
         }
     }
 }

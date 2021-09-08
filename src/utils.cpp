@@ -366,8 +366,7 @@ auto simplify_ltl_query(const Condition_ptr &query, const options_t &options,
         cond = (cond->simplify(simplificationContext))
                    ._formula->push_negation(stats, evalContext, false, false, true);
     } catch (std::bad_alloc &ba) {
-        throw base_error_t("Query reduction failed.\n",
-                         "Exception information: ", ba.what());
+        throw base_error_t("Query reduction failed.\n", "Exception information: ", ba.what());
     }
 
     cond = Condition::initial_marking_rewrite(
@@ -517,7 +516,7 @@ void simplify_queries(const PetriNet &net, std::vector<Condition_ptr> &queries,
                                 }
                             } catch (std::bad_alloc &ba) {
                                 throw base_error_t("Query reduction failed.\n",
-                                                 "Exception information: ", ba.what());
+                                                   "Exception information: ", ba.what());
                             }
 
                             if (options._print_statistics) {

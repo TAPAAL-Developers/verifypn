@@ -48,8 +48,9 @@ struct GuardInfo {
     static auto from_automaton(const Structures::BuchiAutomaton &aut) -> std::vector<GuardInfo> {
         std::vector<GuardInfo> state_guards;
         std::vector<atomic_proposition_t> aps(aut._ap_info.size());
-        std::transform(std::begin(aut._ap_info), std::end(aut._ap_info), std::begin(aps),
-                       [](const std::pair<int, atomic_proposition_t> &pair) { return pair.second; });
+        std::transform(
+            std::begin(aut._ap_info), std::end(aut._ap_info), std::begin(aps),
+            [](const std::pair<int, atomic_proposition_t> &pair) { return pair.second; });
         for (unsigned state = 0; state < aut._buchi->num_states(); ++state) {
             state_guards.emplace_back(state, aut._buchi->state_is_accepting(state));
             for (auto &e : aut._buchi->out(state)) {

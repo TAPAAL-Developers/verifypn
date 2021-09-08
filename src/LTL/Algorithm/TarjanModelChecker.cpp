@@ -190,9 +190,8 @@ void TarjanModelChecker<S, G, SaveTrace, Spooler...>::update(idx_t to) {
 
 template <template <typename, typename...> typename S, typename G, bool SaveTrace,
           typename... Spooler>
-auto TarjanModelChecker<S, G, SaveTrace, Spooler...>::next_trans(State &state, State &parent,
-                                                                 TarjanModelChecker::d_entry_t &delem)
-    -> bool {
+auto TarjanModelChecker<S, G, SaveTrace, Spooler...>::next_trans(
+    State &state, State &parent, TarjanModelChecker::d_entry_t &delem) -> bool {
     _seen.decode(parent, _cstack[delem._pos]._stateid);
     this->_successor_generator->prepare(parent, delem._sucinfo);
     // ensure that `state` buffer contains the correct state for Büchi successor generation.

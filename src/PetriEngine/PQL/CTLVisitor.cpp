@@ -39,9 +39,7 @@ void IsCTLVisitor::accept(const AndCondition *element) {
     accept((const LogicalCondition *)element);
 }
 
-void IsCTLVisitor::accept(const OrCondition *element) {
-    accept((const LogicalCondition *)element);
-}
+void IsCTLVisitor::accept(const OrCondition *element) { accept((const LogicalCondition *)element); }
 
 void IsCTLVisitor::accept(const CompareCondition *element) {
     // We are an atom. No need to check children as they are the same as CTL*
@@ -64,7 +62,9 @@ void IsCTLVisitor::accept(const NotEqualCondition *element) {
     accept((const CompareCondition *)element);
 }
 
-void IsCTLVisitor::accept(const DeadlockCondition *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
+void IsCTLVisitor::accept(const DeadlockCondition *element) {
+    _cur_type = ctl_syntax_type_e::BOOLEAN;
+}
 
 void IsCTLVisitor::accept(const CompareConjunction *element) {
     _cur_type = ctl_syntax_type_e::BOOLEAN;
@@ -171,13 +171,17 @@ void IsCTLVisitor::accept(const UnfoldedFireableCondition *element) {
     _cur_type = ctl_syntax_type_e::BOOLEAN;
 }
 
-void IsCTLVisitor::accept(const FireableCondition *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
+void IsCTLVisitor::accept(const FireableCondition *element) {
+    _cur_type = ctl_syntax_type_e::BOOLEAN;
+}
 
 void IsCTLVisitor::accept(const UpperBoundsCondition *element) {
     _cur_type = ctl_syntax_type_e::BOOLEAN;
 }
 
-void IsCTLVisitor::accept(const LivenessCondition *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
+void IsCTLVisitor::accept(const LivenessCondition *element) {
+    _cur_type = ctl_syntax_type_e::BOOLEAN;
+}
 
 void IsCTLVisitor::accept(const KSafeCondition *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
 
@@ -189,7 +193,9 @@ void IsCTLVisitor::accept(const StableMarkingCondition *element) {
     _cur_type = ctl_syntax_type_e::BOOLEAN;
 }
 
-void IsCTLVisitor::accept(const BooleanCondition *element) { _cur_type = ctl_syntax_type_e::BOOLEAN; }
+void IsCTLVisitor::accept(const BooleanCondition *element) {
+    _cur_type = ctl_syntax_type_e::BOOLEAN;
+}
 
 void IsCTLVisitor::accept(const UnfoldedIdentifierExpr *element) {
     _cur_type = ctl_syntax_type_e::BOOLEAN;

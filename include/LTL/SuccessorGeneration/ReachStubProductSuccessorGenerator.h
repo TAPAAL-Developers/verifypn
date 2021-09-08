@@ -46,8 +46,9 @@ class ReachStubProductSuccessorGenerator : public ProductSuccessorGenerator<S> {
     void calc_safe_reach_states(const Structures::BuchiAutomaton &buchi) {
         assert(_reach_states.empty());
         std::vector<atomic_proposition_t> aps(buchi._ap_info.size());
-        std::transform(std::begin(buchi._ap_info), std::end(buchi._ap_info), std::begin(aps),
-                       [](const std::pair<int, atomic_proposition_t> &pair) { return pair.second; });
+        std::transform(
+            std::begin(buchi._ap_info), std::end(buchi._ap_info), std::begin(aps),
+            [](const std::pair<int, atomic_proposition_t> &pair) { return pair.second; });
         for (unsigned state = 0; state < buchi._buchi->num_states(); ++state) {
             // if (buchi._buchi->state_is_accepting(state)) continue;
 

@@ -35,11 +35,11 @@ auto to_pql(const spot::formula &formula, const APInfo &apinfo) -> PetriEngine::
     case spot::op::tt:
         return BooleanCondition::TRUE_CONSTANT;
     case spot::op::ap: {
-        auto it =
-            std::find_if(std::begin(apinfo), std::end(apinfo), [&](const atomic_proposition_t &info) {
-                auto ap = std::string_view(info._text);
-                return ap == std::string_view(formula.ap_name());
-            });
+        auto it = std::find_if(std::begin(apinfo), std::end(apinfo),
+                               [&](const atomic_proposition_t &info) {
+                                   auto ap = std::string_view(info._text);
+                                   return ap == std::string_view(formula.ap_name());
+                               });
         if (it == std::end(apinfo)) {
             throw base_error_t("Error: Expected to find ", formula.ap_name(), " in APInfo.\n");
         } else {

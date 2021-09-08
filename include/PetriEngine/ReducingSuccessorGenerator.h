@@ -3,8 +3,8 @@
 
 #include "PQL/PQL.h"
 #include "PetriEngine/Stubborn/StubbornSet.h"
-#include "Structures/State.h"
 #include "Structures/LightDequeue.h"
+#include "Structures/State.h"
 #include "SuccessorGenerator.h"
 #include <memory>
 

@@ -69,7 +69,8 @@ class PetriNet {
     /** Fire transition if possible and store result in result */
     auto deadlocked(const MarkVal *marking) const -> bool;
     auto fireable(const MarkVal *marking, int transitionIndex) -> bool;
-    [[nodiscard]] auto preset(uint32_t id) const -> std::pair<const invariant_t *, const invariant_t *>;
+    [[nodiscard]] auto preset(uint32_t id) const
+        -> std::pair<const invariant_t *, const invariant_t *>;
     [[nodiscard]] auto postset(uint32_t id) const
         -> std::pair<const invariant_t *, const invariant_t *>;
     [[nodiscard]] auto number_of_transitions() const -> uint32_t { return _ntransitions; }

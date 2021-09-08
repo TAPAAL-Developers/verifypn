@@ -821,7 +821,8 @@ void ColoredPetriNetBuilder::unfold_inhibitor_arc(const std::string &oldname,
     }
 }
 
-void ColoredPetriNetBuilder::unfold_arc(const Colored::arc_t &arc, const Colored::BindingMap &binding,
+void ColoredPetriNetBuilder::unfold_arc(const Colored::arc_t &arc,
+                                        const Colored::BindingMap &binding,
                                         const std::string &tName) {
     const PetriEngine::Colored::place_t &place = _places[arc._place];
     // If the place is stable, the arc does not need to be unfolded.
@@ -911,9 +912,9 @@ auto ColoredPetriNetBuilder::strip_colors() -> PetriNetBuilder & {
                                              _transitions[arc._transition]._name, false,
                                              arc._expr->weight());
                 } catch (Colored::WeightException &e) {
-                    throw base_error_t("Exception on input arc: ", arc_to_string(arc),
-                                     "\n", "In expression: ", arc._expr->to_string(), "\n\t\t",
-                                     e.what());
+                    throw base_error_t("Exception on input arc: ", arc_to_string(arc), "\n",
+                                       "In expression: ", arc._expr->to_string(), "\n\t\t",
+                                       e.what());
                 }
             }
             for (const auto &arc : transition._output_arcs) {
@@ -921,9 +922,9 @@ auto ColoredPetriNetBuilder::strip_colors() -> PetriNetBuilder & {
                     _ptBuilder.add_output_arc(_transitions[arc._transition]._name,
                                               _places[arc._place]._name, arc._expr->weight());
                 } catch (Colored::WeightException &e) {
-                    throw base_error_t("Exception on output arc: ", arc_to_string(arc),
-                                     "\n", "In expression: ", arc._expr->to_string(), "\n", "\t",
-                                     e.what());
+                    throw base_error_t("Exception on output arc: ", arc_to_string(arc), "\n",
+                                       "In expression: ", arc._expr->to_string(), "\n", "\t",
+                                       e.what());
                 }
             }
             for (const auto &arc : _inhibitorArcs) {

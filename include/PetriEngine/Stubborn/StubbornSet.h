@@ -20,8 +20,8 @@
 
 #include "PetriEngine/PQL/PQL.h"
 #include "PetriEngine/PetriNet.h"
-#include "PetriEngine/Structures/State.h"
 #include "PetriEngine/Structures/LightDequeue.h"
+#include "PetriEngine/Structures/State.h"
 
 #include <cassert>
 #include <memory>

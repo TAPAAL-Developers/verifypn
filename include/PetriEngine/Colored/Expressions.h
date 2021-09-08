@@ -130,8 +130,8 @@ class ColorExpression : public Expression {
                                uint32_t &index) const = 0;
 
     virtual auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                                   const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
-                                   int32_t modifier) const -> bool = 0;
+                                   const PetriEngine::Colored::color_fixpoint_t &cfp,
+                                   uint32_t &index, int32_t modifier) const -> bool = 0;
 
     [[nodiscard]] virtual auto get_color_type(const ColorTypeMap &colorTypes) const
         -> const ColorType * = 0;
@@ -1046,8 +1046,8 @@ class ArcExpression : public Expression {
     virtual void get_constants(PositionColorsMap &constantMap, uint32_t &index) const = 0;
 
     virtual auto get_arc_intervals(Colored::arc_intervals_t &arcIntervals,
-                                   const PetriEngine::Colored::color_fixpoint_t &cfp, uint32_t &index,
-                                   int32_t modifier) const -> bool = 0;
+                                   const PetriEngine::Colored::color_fixpoint_t &cfp,
+                                   uint32_t &index, int32_t modifier) const -> bool = 0;
 
     [[nodiscard]] virtual auto weight() const -> uint32_t = 0;
 

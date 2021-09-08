@@ -20,10 +20,10 @@
 
 #include "LTL/Structures/ProductStateFactory.h"
 #include "ModelChecker.h"
+#include "PetriEngine/Structures/LightDequeue.h"
 #include "PetriEngine/Structures/Queue.h"
 #include "PetriEngine/Structures/State.h"
 #include "PetriEngine/Structures/StateSet.h"
-#include "PetriEngine/Structures/LightDequeue.h"
 
 namespace LTL {
 

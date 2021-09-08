@@ -173,7 +173,7 @@ auto Reducer::consistent() -> bool {
         }
         for (arc_t &a : t._post) {
             assert(a._weight > 0);
-            place_t&p = _builder->_places[a._place];
+            place_t &p = _builder->_places[a._place];
             assert(!p._skip);
             assert(std::find(p._producers.begin(), p._producers.end(), i) != p._producers.end());
         }
@@ -183,7 +183,7 @@ auto Reducer::consistent() -> bool {
 
     size_t splaces = 0;
     for (size_t i = 0; i < _builder->number_of_places(); ++i) {
-        place_t&p = _builder->_places[i];
+        place_t &p = _builder->_places[i];
         if (p._skip)
             ++splaces;
         assert(std::is_sorted(p._consumers.begin(), p._consumers.end()));
@@ -273,7 +273,7 @@ auto Reducer::rule_a(uint32_t *placeInQuery) -> bool {
         // here we need to remember when a token is created in pPre (some
         // transition with an output in P is fired), t is fired instantly!.
         if (_reconstruct_trace) {
-            place_t&pre = _builder->_places[pPre];
+            place_t &pre = _builder->_places[pPre];
             std::string tname = get_transition_name(t);
             for (size_t pp : pre._producers) {
                 std::string prefire = get_transition_name(pp);
@@ -336,7 +336,7 @@ auto Reducer::rule_b(uint32_t *placeInQuery, bool remove_deadlocks, bool remove_
     for (uint32_t p = 0; p < number_of_places; p++) {
         if (has_timed_out())
             return false;
-        place_t&place = _builder->_places[p];
+        place_t &place = _builder->_places[p];
 
         if (place._skip)
             continue; // already removed
@@ -567,7 +567,7 @@ auto Reducer::rule_c(uint32_t *placeInQuery) -> bool {
                     if (swp == 1)
                         std::swap(p1, p2);
 
-                    place_t&place1 = _builder->_places[p1];
+                    place_t &place1 = _builder->_places[p1];
 
                     // C1. Not same place
                     if (p1 == p2)
@@ -577,7 +577,7 @@ auto Reducer::rule_c(uint32_t *placeInQuery) -> bool {
                     if (placeInQuery[p2] > 0)
                         continue;
 
-                    place_t&place2 = _builder->_places[p2];
+                    place_t &place2 = _builder->_places[p2];
 
                     // C2, C3. Consumer and producer-sets must match
                     if (place1._consumers.size() < place2._consumers.size() ||
@@ -808,7 +808,7 @@ auto Reducer::rule_e(uint32_t *placeInQuery) -> bool {
     for (uint32_t p = 0; p < number_of_places; ++p) {
         if (has_timed_out())
             return false;
-        place_t&place = _builder->_places[p];
+        place_t &place = _builder->_places[p];
         if (place._skip)
             continue;
         if (place._inhib)
@@ -889,7 +889,7 @@ auto Reducer::rule_i(uint32_t *placeInQuery, bool remove_loops, bool remove_cons
         for (uint32_t p = 0; p < number_of_places; ++p) {
             if (has_timed_out())
                 return false;
-            place_t&place = _builder->_places[p];
+            place_t &place = _builder->_places[p];
             if (place._skip)
                 continue;
             if (place._inhib)
@@ -934,7 +934,7 @@ auto Reducer::rule_f(uint32_t *placeInQuery) -> bool {
     for (uint32_t p = 0; p < number_of_places; ++p) {
         if (has_timed_out())
             return false;
-        place_t&place = _builder->_places[p];
+        place_t &place = _builder->_places[p];
         if (place._skip)
             continue;
         if (place._inhib)
@@ -1243,7 +1243,7 @@ auto Reducer::rule_j(uint32_t *placeInQuery) -> bool {
         if (_builder->_initial_marking[p] > 0) {
             continue; // can be relaxed
         }
-        const place_t&place = _builder->_places[p];
+        const place_t &place = _builder->_places[p];
         if (place._skip)
             continue;
         if (place._inhib)
@@ -1414,7 +1414,7 @@ auto Reducer::relevant(const uint32_t *placeInQuery, bool remove_consumers)
         if (has_timed_out())
             return std::nullopt;
         if (placeInQuery[p] > 0) {
-            const place_t&place = _builder->_places[p];
+            const place_t &place = _builder->_places[p];
             for (auto t : place._consumers) {
                 if (!tseen[t]) {
                     wtrans.push_back(t);

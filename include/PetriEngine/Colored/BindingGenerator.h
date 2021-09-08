@@ -48,7 +48,8 @@ class NaiveBindingGenerator {
     auto eval() const -> bool;
 
   public:
-    NaiveBindingGenerator(const Colored::transition_t &transition, Colored::ColorTypeMap &colorTypes);
+    NaiveBindingGenerator(const Colored::transition_t &transition,
+                          Colored::ColorTypeMap &colorTypes);
 
     auto next_binding() -> const Colored::BindingMap &;
     auto current_binding() const -> const Colored::BindingMap &;

@@ -72,8 +72,8 @@ class GuardRestrictor {
 
     auto shift_intervals(const VariableIntervalMap &varMap,
                          const std::vector<const ColorType *> &colortypes,
-                         IntervalVector &intervals, int32_t modifier,
-                         uint32_t ctSizeBefore) const -> IntervalVector;
+                         IntervalVector &intervals, int32_t modifier, uint32_t ctSizeBefore) const
+        -> IntervalVector;
 
   private:
     [[nodiscard]] auto get_var_modifier(const std::unordered_map<uint32_t, int32_t> &modPairMap,

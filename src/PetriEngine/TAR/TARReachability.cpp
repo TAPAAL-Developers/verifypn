@@ -419,8 +419,9 @@ void TARReachabilitySearch::reachable(std::vector<std::shared_ptr<PQL::Condition
         auto in = _net.preset(t);
         for (; in.first != in.second; ++in.first) {
             if (in.first->_inhibitor) {
-                throw base_error_t("Trace Abstraction Refinement Error : Inhibitor Arcs are not yet "
-                                 "supported by the TAR engine");
+                throw base_error_t(
+                    "Trace Abstraction Refinement Error : Inhibitor Arcs are not yet "
+                    "supported by the TAR engine");
             }
         }
     }

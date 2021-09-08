@@ -356,13 +356,11 @@ void InterestingTransitionVisitor::DecrVisitor::accept(const PQL::LiteralExpr *e
     // Add nothing
 }
 
-void InterestingTransitionVisitor::IncrVisitor::accept(
-    const PQL::UnfoldedIdentifierExpr *element) {
+void InterestingTransitionVisitor::IncrVisitor::accept(const PQL::UnfoldedIdentifierExpr *element) {
     _stubborn.preset_of(element->offset(), _closure);
 }
 
-void InterestingTransitionVisitor::DecrVisitor::accept(
-    const PQL::UnfoldedIdentifierExpr *element) {
+void InterestingTransitionVisitor::DecrVisitor::accept(const PQL::UnfoldedIdentifierExpr *element) {
     _stubborn.postset_of(element->offset(), _closure);
 }
 

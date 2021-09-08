@@ -129,8 +129,8 @@ auto ReachabilitySearch::try_reach(const std::vector<std::shared_ptr<PQL::Condit
     state.set_marking(_net.make_initial_marking());
     working.set_marking(_net.make_initial_marking());
 
-    W states(_net, _kbound);                       // stateset
-    Q queue = init_q<Q>(states, seed);             // working queue
+    W states(_net, _kbound);                      // stateset
+    Q queue = init_q<Q>(states, seed);            // working queue
     G generator = make_suc_gen<G>(_net, queries); // successor generator
     auto r = states.add(state);
     // this can fail due to reductions; we push tokens around and violate K
@@ -174,7 +174,8 @@ auto ReachabilitySearch::try_reach(const std::vector<std::shared_ptr<PQL::Condit
     // no more successors, print last results
     for (size_t i = 0; i < queries.size(); ++i) {
         if (results[i] == ResultPrinter::UNKNOWN) {
-            results[i] = do_callback(*queries[i], i, ResultPrinter::NOT_SATISFIED, ss, states).first;
+            results[i] =
+                do_callback(*queries[i], i, ResultPrinter::NOT_SATISFIED, ss, states).first;
         }
     }
 

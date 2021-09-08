@@ -66,7 +66,7 @@ auto STSolver::solve(uint32_t timelimit) -> bool {
 }
 
 auto STSolver::compute_trap(std::vector<size_t> &trap, const std::set<size_t> &preset,
-                             const std::set<size_t> &postset, size_t marked_count) -> size_t {
+                            const std::set<size_t> &postset, size_t marked_count) -> size_t {
     if (trap.empty())
         return 0;
     // compute DIFF = T* \ *T

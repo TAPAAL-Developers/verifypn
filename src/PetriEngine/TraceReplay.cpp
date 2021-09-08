@@ -153,7 +153,7 @@ auto TraceReplay::replay(const PetriEngine::PetriNet &net,
 }
 
 auto TraceReplay::play_trace(const PetriEngine::PetriNet &net,
-                              PetriEngine::SuccessorGenerator &successorGenerator) -> bool {
+                             PetriEngine::SuccessorGenerator &successorGenerator) -> bool {
     PetriEngine::Structures::State state;
     PetriEngine::Structures::State loopstate;
     bool looping = false;
