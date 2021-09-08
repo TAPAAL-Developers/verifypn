@@ -26,8 +26,7 @@
 using namespace PetriEngine::PQL;
 using namespace PetriEngine::Structures;
 
-namespace PetriEngine {
-namespace Reachability {
+namespace PetriEngine::Reachability {
 
 bool ReachabilitySearch::check_queries(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
                                        std::vector<ResultPrinter::Result> &results,
@@ -144,5 +143,4 @@ bool ReachabilitySearch::reachable(const std::vector<std::shared_ptr<PQL::Condit
         throw base_error("Unsupported search strategy for ReachabilitySearch");
     }
 }
-} // namespace Reachability
 } // namespace PetriEngine

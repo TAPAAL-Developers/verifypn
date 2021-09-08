@@ -22,8 +22,8 @@ using namespace PetriEngine::Reachability;
 using namespace PetriNets;
 
 namespace CTL {
-error_e get_algorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm> &algorithm,
-                      CTLAlgorithmType algorithmtype, options_t::search_strategy_e search) {
+auto get_algorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm> &algorithm,
+                      CTLAlgorithmType algorithmtype, options_t::search_strategy_e search) -> error_e {
     switch (algorithmtype) {
     case CTLAlgorithmType::Local:
         algorithm = std::make_shared<Algorithm::LocalFPA>(search);
@@ -67,8 +67,8 @@ void print_ctl_result(const std::string &qname, const CTLResult &result, size_t 
     }
 }
 
-bool single_solve(const Condition_ptr &query, const PetriNet &net, CTLResult &result,
-                  options_t &options) {
+auto single_solve(const Condition_ptr &query, const PetriNet &net, CTLResult &result,
+                  options_t &options) -> bool {
     OnTheFlyDG graph(net, options._stubborn_reduction);
     graph.set_query(query);
     std::shared_ptr<Algorithm::FixedPointAlgorithm> alg = nullptr;
@@ -92,8 +92,8 @@ bool single_solve(const Condition_ptr &query, const PetriNet &net, CTLResult &re
     return res;
 }
 
-bool recursive_solve(const Condition_ptr &query, const PetriNet &net, CTLResult &result,
-                     options_t &options);
+auto recursive_solve(const Condition_ptr &query, const PetriNet &net, CTLResult &result,
+                     options_t &options) -> bool;
 
 class ResultHandler : public AbstractHandler {
   private:
@@ -104,11 +104,11 @@ class ResultHandler : public AbstractHandler {
     ResultHandler(bool is_conj, const std::vector<int8_t> &lstate)
         : _is_conj(is_conj), _lstate(lstate) {}
 
-    std::pair<AbstractHandler::Result, bool>
+    auto
     handle(size_t index, const PQL::Condition &query, AbstractHandler::Result result,
            const std::vector<uint32_t> *maxPlaceBound, size_t expandedStates, size_t exploredStates,
            size_t discoveredStates, int maxTokens, const Structures::StateSetInterface *stateset,
-           size_t lastmarking, const MarkVal *initialMarking) const override {
+           size_t lastmarking, const MarkVal *initialMarking) const -> std::pair<AbstractHandler::Result, bool> override {
         if (result == ResultPrinter::Satisfied) {
             result = _lstate[index] < 0 ? ResultPrinter::NotSatisfied : ResultPrinter::Satisfied;
         } else if (result == ResultPrinter::NotSatisfied) {
@@ -120,8 +120,8 @@ class ResultHandler : public AbstractHandler {
     }
 };
 
-bool solve_logical_condition(LogicalCondition *query, bool is_conj, const PetriNet &net,
-                             CTLResult &result, options_t &options) {
+auto solve_logical_condition(LogicalCondition *query, bool is_conj, const PetriNet &net,
+                             CTLResult &result, options_t &options) -> bool {
     std::vector<int8_t> state(query->size(), 0);
     std::vector<int8_t> lstate;
     std::vector<Condition_ptr> queries;
@@ -173,17 +173,17 @@ bool solve_logical_condition(LogicalCondition *query, bool is_conj, const PetriN
 
 class SimpleResultHandler : public AbstractHandler {
   public:
-    std::pair<AbstractHandler::Result, bool>
+    auto
     handle(size_t index, const PQL::Condition &query, AbstractHandler::Result result,
            const std::vector<uint32_t> *maxPlaceBound, size_t expandedStates, size_t exploredStates,
            size_t discoveredStates, int maxTokens, const Structures::StateSetInterface *stateset,
-           size_t lastmarking, const MarkVal *initialMarking) const {
+           size_t lastmarking, const MarkVal *initialMarking) const -> std::pair<AbstractHandler::Result, bool> override {
         return std::make_pair(result, false);
     }
 };
 
-bool recursive_solve(const Condition_ptr &query, const PetriEngine::PetriNet &net,
-                     CTLResult &result, options_t &options) {
+auto recursive_solve(const Condition_ptr &query, const PetriEngine::PetriNet &net,
+                     CTLResult &result, options_t &options) -> bool {
     if (auto q = dynamic_cast<NotCondition *>(query.get())) {
         return !recursive_solve((*q)[0], net, result, options);
     } else if (auto q = dynamic_cast<AndCondition *>(query.get())) {
@@ -209,7 +209,7 @@ bool recursive_solve(const Condition_ptr &query, const PetriEngine::PetriNet &ne
     }
 }
 
-CTLResult verify_ctl(const PetriNet &net, Condition_ptr &query, options_t &options) {
+auto verify_ctl(const PetriNet &net, Condition_ptr &query, options_t &options) -> CTLResult {
     CTLResult result(query);
     bool solved = false;
 

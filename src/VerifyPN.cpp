@@ -43,62 +43,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <fstream>
 #include <functional>
 #include <iostream>
 #include <map>
 #include <memory>
-#include <sstream>
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 #include <string>
-#include <utility>
-// #include <filesystem>
-// #include <bits/stdc++.h>
-// #include <iostream>
-// #include <sys/stat.h>
-// #include <sys/types.h>
-#ifdef VERIFYPN_MC_Simplification
-#include <iso646.h>
-#include <mutex>
-#include <thread>
-#endif
 
 #include "options.h"
 #include "utils.h"
 
-#include "PetriEngine/PQL/CTLVisitor.h"
 #include "PetriEngine/PQL/Contexts.h"
 #include "PetriEngine/PQL/PQL.h"
-#include "PetriEngine/PQL/PQLParser.h"
-#include "PetriEngine/PetriNetBuilder.h"
-#include "PetriEngine/Reachability/ReachabilitySearch.h"
-#include "PetriEngine/Reducer.h"
-#include "PetriEngine/STSolver.h"
-#include "PetriEngine/Simplification/LinearPrograms.h"
-#include "PetriEngine/Simplification/Member.h"
-#include "PetriEngine/Simplification/Retval.h"
-#include "PetriEngine/TAR/TARReachability.h"
-#include "PetriParse/PNMLParser.h"
-#include "PetriParse/QueryBinaryParser.h"
-#include "PetriParse/QueryXMLParser.h"
-#include "errorcodes.h"
-#include "options.h"
-
-#include "CTL/CTLEngine.h"
-#include "LTL/LTL.h"
 #include "LTL/LTLMain.h"
+#include "CTL/CTLEngine.h"
+#include "PetriEngine/TAR/TARReachability.h"
 #include "PetriEngine/Colored/ColoredPetriNetBuilder.h"
-#include "PetriEngine/PQL/Expressions.h"
-#include "PetriEngine/TraceReplay.h"
-
-#include <atomic>
 
 using namespace PetriEngine;
 using namespace PetriEngine::PQL;
 using namespace PetriEngine::Reachability;
 
-int main(int argc, char *argv[]) {
+auto main(int argc, char *argv[]) -> int {
 
     options_t options;
 

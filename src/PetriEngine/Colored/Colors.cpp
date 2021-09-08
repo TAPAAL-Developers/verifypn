@@ -21,8 +21,6 @@
 #include <algorithm>
 #include <cassert>
 #include <iostream>
-#include <iterator>
-#include <sstream>
 #include <string>
 
 //@{
@@ -42,8 +40,7 @@ std::vector<std::string> split(const std::string &s, char delim) {
 }
 //}@
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 /*std::ostream& operator<<(std::ostream& stream, const Color& color) {
     stream << color.to_string();
     return stream;
@@ -236,5 +233,4 @@ const Color *ProductType::operator[](const std::string &index) const {
     return &operator[](sum);
 }
 
-} // namespace Colored
 } // namespace PetriEngine

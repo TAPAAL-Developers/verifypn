@@ -19,36 +19,39 @@
 #ifndef ARCINTERVALS_H
 #define ARCINTERVALS_H
 
+#include <utility>
+
+#include <utility>
+
 #include "Colors.h"
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 
 struct ArcIntervals {
     VariableModifierMap _varIndexModMap;
     std::vector<Colored::interval_vector_t> _intervalTupleVec;
-    const Colored::ColorFixpoint *_source;
+    const Colored::ColorFixpoint *_source{};
 
     ~ArcIntervals() { _varIndexModMap.clear(); }
-    ArcIntervals() {}
+    ArcIntervals() = default;
 
-    ArcIntervals(const Colored::ColorFixpoint *source) : _source(source) {}
+    explicit ArcIntervals(const Colored::ColorFixpoint *source) : _source(source) {}
 
     ArcIntervals(const Colored::ColorFixpoint *source, VariableModifierMap varIndexModMap)
-        : _varIndexModMap(varIndexModMap), _source(source){};
+        : _varIndexModMap(std::move(std::move(varIndexModMap))), _source(source){};
 
     ArcIntervals(const Colored::ColorFixpoint *source, VariableModifierMap varIndexModMap,
                  std::vector<Colored::interval_vector_t> ranges)
-        : _varIndexModMap(varIndexModMap), _intervalTupleVec(ranges), _source(source){};
+        : _varIndexModMap(std::move(std::move(varIndexModMap))), _intervalTupleVec(std::move(std::move(ranges))), _source(source){};
 
     void print() {
         std::cout << "[ ";
-        for (auto varModifierPair : _varIndexModMap) {
+        for (const auto& varModifierPair : _varIndexModMap) {
             std::cout << "(" << varModifierPair.first->_name << ", "
                       << varModifierPair.first->_colorType->product_size() << ") ";
         }
         std::cout << "]" << std::endl;
-        for (auto intervalTuple : _intervalTupleVec) {
+        for (const auto& intervalTuple : _intervalTupleVec) {
             std::cout << "--------------------------------------------------------------------"
                       << std::endl;
             intervalTuple.print();
@@ -57,7 +60,6 @@ struct ArcIntervals {
         }
     }
 };
-} // namespace Colored
 } // namespace PetriEngine
 
 #endif /* INTERVALGENERATOR_H */

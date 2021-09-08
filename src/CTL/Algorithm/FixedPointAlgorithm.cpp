@@ -4,8 +4,7 @@
 #include "CTL/SearchStrategy/HeuristicSearch.h"
 #include "CTL/SearchStrategy/RDFSSearch.h"
 
-namespace CTL {
-namespace Algorithm {
+namespace CTL::Algorithm {
 FixedPointAlgorithm::FixedPointAlgorithm(options_t::search_strategy_e type) {
     switch (type) {
     case options_t::search_strategy_e::DEFAULT:
@@ -26,5 +25,4 @@ FixedPointAlgorithm::FixedPointAlgorithm(options_t::search_strategy_e type) {
         throw base_error("Search strategy is unsupported by the CTL-Engine");
     }
 }
-} // namespace Algorithm
 } // namespace CTL

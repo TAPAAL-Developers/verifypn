@@ -17,7 +17,7 @@ class Edge {
     typedef std::forward_list<Configuration *> container;
 
   public:
-    Edge() {}
+    Edge() = default;
     Edge(Configuration &t_source) : _source(&t_source) {}
 
     void add_target(Configuration *conf) {

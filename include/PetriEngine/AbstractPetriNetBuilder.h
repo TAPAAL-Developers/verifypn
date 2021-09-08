@@ -70,11 +70,11 @@ class AbstractPetriNetBuilder {
 
     virtual void enable_colors() { _isColored = true; }
 
-    virtual bool is_colored() const { return _isColored; }
+    [[nodiscard]] virtual bool is_colored() const { return _isColored; }
 
     virtual void sort() = 0;
 
-    virtual ~AbstractPetriNetBuilder() {}
+    virtual ~AbstractPetriNetBuilder() = default;
 };
 
 } // namespace PetriEngine

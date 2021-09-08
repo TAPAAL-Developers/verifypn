@@ -8,22 +8,21 @@ namespace CTL::SearchStrategy {
 
 class SearchStrategy {
   public:
-    virtual ~SearchStrategy(){};
-    bool empty() const;
+    virtual ~SearchStrategy()= default;
+    [[nodiscard]] auto empty() const -> bool;
     void push_edge(DependencyGraph::Edge *edge);
     void push_dependency(DependencyGraph::Edge *edge);
     void push_negation(DependencyGraph::Edge *edge);
-    DependencyGraph::Edge *pop_edge(bool saturate = false);
-    size_t size() const;
-    uint32_t max_distance() const;
+    auto pop_edge(bool saturate = false) -> DependencyGraph::Edge *;
+    [[nodiscard]] auto max_distance() const -> uint32_t;
     void release_negation_edges(uint32_t);
-    bool trivial_negation();
+    auto trivial_negation() -> bool;
     virtual void flush(){};
 
   protected:
-    virtual size_t waiting_size() const = 0;
+    [[nodiscard]] virtual auto waiting_size() const -> size_t = 0;
     virtual void push_to_waiting(DependencyGraph::Edge *edge) = 0;
-    virtual DependencyGraph::Edge *pop_from_waiting() = 0;
+    virtual auto pop_from_waiting() -> DependencyGraph::Edge * = 0;
 
     std::vector<DependencyGraph::Edge *> _negation;
     std::vector<DependencyGraph::Edge *> _dependencies;

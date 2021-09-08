@@ -38,7 +38,7 @@ class ModelChecker {
     ModelChecker(const PetriEngine::PetriNet &net, const PetriEngine::PQL::Condition_ptr &condition,
                  const Structures::BuchiAutomaton &buchi, SuccessorGen *successorGen,
                  std::unique_ptr<Spooler> &&...spooler)
-        : _net(net), _formula(condition),
+        : _net(net),
           _successor_generator(std::make_unique<ProductSucGen<SuccessorGen, Spooler...>>(
               net, buchi, successorGen, std::move(spooler)...)),
           _factory(net, buchi, this->_successor_generator->initial_buchi_state()) {}
@@ -53,8 +53,6 @@ class ModelChecker {
             }
         }
     }
-
-    virtual bool is_satisfied() = 0;
 
     virtual ~ModelChecker() = default;
 
@@ -81,7 +79,6 @@ class ModelChecker {
     }
 
     const PetriEngine::PetriNet &_net;
-    PetriEngine::PQL::Condition_ptr _formula;
     std::unique_ptr<ProductSucGen<SuccessorGen, Spooler...>> _successor_generator;
 
     options_t::trace_level_e _traceLevel;
@@ -89,7 +86,6 @@ class ModelChecker {
 
     size_t _discovered = 0;
     bool _shortcircuitweak;
-    bool _weakskip = false;
     bool _is_weak = false;
     size_t _maxTransName;
 

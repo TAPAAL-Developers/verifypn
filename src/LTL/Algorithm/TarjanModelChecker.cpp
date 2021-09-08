@@ -123,7 +123,6 @@ void TarjanModelChecker<S, G, SaveTrace, Spooler...>::push(State &state, size_t 
         if (this->_successor_generator->has_invariant_self_loop(state) && !SaveTrace) {
             // std::cerr << "Invariant self loop found. Violation is true" << std::endl;
             _violation = true;
-            _invariant_loop = true;
         }
     }
     if constexpr (_is_spooling) {

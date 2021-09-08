@@ -30,8 +30,6 @@
 #include <iostream>
 #include <numeric>
 #include <set>
-#include <sstream>
-#include <stdio.h>
 #include <string.h>
 
 using namespace PetriEngine::Simplification;

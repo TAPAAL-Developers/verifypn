@@ -17,12 +17,10 @@
 #include <algorithm>
 #include <ios>
 #include <iostream>
-#include <sstream>
 
 #include "PetriEngine/Colored/Multiset.h"
 
-namespace PetriEngine {
-namespace Colored {
+namespace PetriEngine::Colored {
 Multiset::Multiset() : _set(), _type(nullptr) {}
 
 Multiset::Multiset(const Multiset &orig) {
@@ -185,5 +183,4 @@ size_t Multiset::size() const {
     }
     return res;
 }
-} // namespace Colored
 } // namespace PetriEngine

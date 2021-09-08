@@ -17,9 +17,6 @@
 
 #include "LTL/SuccessorGeneration/ResumingSuccessorGenerator.h"
 #include "PetriEngine/Structures/State.h"
-#include "errorcodes.h"
-
-#include <cassert>
 
 namespace LTL {
 using namespace PetriEngine;

@@ -59,7 +59,7 @@ class TarjanModelChecker : public ModelChecker<ProductSucGen, SuccessorGen, Spoo
         _chash.fill(std::numeric_limits<idx_t>::max());
     }
 
-    bool is_satisfied() override;
+    auto is_satisfied() -> bool;
 
     void print_stats(std::ostream &os) override { this->_print_stats(os, _seen); }
 
@@ -119,7 +119,6 @@ class TarjanModelChecker : public ModelChecker<ProductSucGen, SuccessorGen, Spoo
     std::stack<idx_t> _astack;
 
     bool _violation = false;
-    bool _invariant_loop = true;
     size_t _loop_state = std::numeric_limits<size_t>::max();
     size_t _loop_trans = std::numeric_limits<size_t>::max();
 
@@ -129,7 +128,7 @@ class TarjanModelChecker : public ModelChecker<ProductSucGen, SuccessorGen, Spoo
 
     void update(idx_t to);
 
-    bool next_trans(State &state, State &parent, DEntry &delem);
+    auto next_trans(State &state, State &parent, DEntry &delem) -> bool;
 
     void pop_C_stack();
 

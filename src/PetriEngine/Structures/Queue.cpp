@@ -19,10 +19,8 @@
 #include "PetriEngine/PQL/Contexts.h"
 
 #include <algorithm>
-#include <random>
 
-namespace PetriEngine {
-namespace Structures {
+namespace PetriEngine::Structures {
 Queue::Queue(StateSetInterface &states) : _states(states) {}
 
 Queue::~Queue() {}
@@ -124,5 +122,4 @@ void HeuristicQueue::push(size_t id, uint32_t dist) {
     _queue.emplace(dist, (uint32_t)id);
 }
 
-} // namespace Structures
 } // namespace PetriEngine

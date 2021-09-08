@@ -7,7 +7,7 @@
 
 namespace CTL::SearchStrategy {
 
-bool SearchStrategy::empty() const {
+auto SearchStrategy::empty() const -> bool {
     return waiting_size() == 0 && _negation.empty() && _dependencies.empty();
 }
 
@@ -54,7 +54,7 @@ void SearchStrategy::push_dependency(DependencyGraph::Edge *edge) {
     _dependencies.push_back(edge);
 }
 
-DependencyGraph::Edge *SearchStrategy::pop_edge(bool saturate) {
+auto SearchStrategy::pop_edge(bool saturate) -> DependencyGraph::Edge * {
     if (saturate && _dependencies.empty())
         return nullptr;
 
@@ -73,7 +73,7 @@ DependencyGraph::Edge *SearchStrategy::pop_edge(bool saturate) {
     return edge;
 }
 
-uint32_t SearchStrategy::max_distance() const {
+auto SearchStrategy::max_distance() const -> uint32_t {
     uint32_t m = 0;
     for (DependencyGraph::Edge *e : _negation) {
         if (!e->_source->is_done())
@@ -94,7 +94,7 @@ void SearchStrategy::release_negation_edges(uint32_t dist) {
     }
 }
 
-bool SearchStrategy::trivial_negation() {
+auto SearchStrategy::trivial_negation() -> bool {
     for (auto it = _negation.begin(); it != _negation.end(); ++it) {
         bool allOne = true;
         bool hasCZero = false;

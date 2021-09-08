@@ -34,7 +34,7 @@ namespace PetriEngine {
 using namespace PQL;
 namespace Reachability {
 
-void TARReachabilitySearch::handle_invalid_trace(trace_t &waiting, int nvalid) {
+[[maybe_unused]] void TARReachabilitySearch::handle_invalid_trace(trace_t &waiting, int nvalid) {
     // sanity(waiting);
     assert(waiting.size() >= (size_t)nvalid);
     waiting.resize(nvalid); // remove invalid part of trace

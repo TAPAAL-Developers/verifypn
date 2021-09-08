@@ -166,14 +166,6 @@ void PNMLParser::parse_partitions(rapidxml::xml_node<> *element) {
     }
 }
 
-bool isInitialBinding(std::vector<const PetriEngine::Colored::Color *> &binding) {
-    for (auto color : binding) {
-        if (color->get_id() != 0)
-            return false;
-    }
-    return true;
-}
-
 void PNMLParser::parse_named_sort(rapidxml::xml_node<> *element) {
     auto type = element->first_node();
     const PetriEngine::Colored::ColorType *fct = nullptr;
@@ -680,7 +672,7 @@ void PNMLParser::parse_place(rapidxml::xml_node<> *element) {
 
     if (initialMarking > std::numeric_limits<int>::max()) {
         throw base_error("Number of tokens in ", id, " exceeded ", std::numeric_limits<int>::max());
-        ;
+
     }
     // Create place
     if (!_isColored) {

@@ -29,7 +29,7 @@ class OnTheFlyDG : public DependencyGraph::BasicDependencyGraph {
     virtual std::vector<DependencyGraph::Edge *>
     successors(DependencyGraph::Configuration *c) override;
     virtual DependencyGraph::Configuration *initial_configuration() override;
-    virtual void cleanup() override;
+    void cleanup();
     void set_query(const Condition_ptr &query);
 
     virtual void release(DependencyGraph::Edge *e) override;
@@ -56,12 +56,12 @@ class OnTheFlyDG : public DependencyGraph::BasicDependencyGraph {
     Condition::Result fast_eval(const Condition_ptr &query, Marking *unfolded) {
         return fast_eval(query.get(), unfolded);
     }
-    void next_states(Marking &t_marking, Condition *, std::function<void()> pre,
-                     std::function<bool(Marking &)> foreach, std::function<void()> post);
+    void next_states(Marking &t_marking, Condition *, std::function<void()>&& pre,
+                     std::function<bool(Marking &)>&& foreach, std::function<void()>&& post);
 
     template <typename T>
-    void do_work(T &gen, bool &first, std::function<void()> &pre,
-                 std::function<bool(Marking &)> &foreach) {
+    void do_work(T &gen, bool &first, std::function<void()> &&pre,
+                 std::function<bool(Marking &)> &&foreach) {
         gen.prepare(_query_marking);
 
         while (gen.next(_working_marking)) {
@@ -79,8 +79,6 @@ class OnTheFlyDG : public DependencyGraph::BasicDependencyGraph {
         return create_configuration(marking, query.get());
     }
     size_t create_marking(Marking &marking);
-    void marking_stats(const uint32_t *marking, size_t &sum, bool &allsame, uint32_t &val,
-                       uint32_t &active, uint32_t &last);
 
     DependencyGraph::Edge *new_edge(DependencyGraph::Configuration &t_source, uint32_t weight);
 

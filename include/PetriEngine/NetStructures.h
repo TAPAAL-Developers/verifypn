@@ -11,6 +11,7 @@
 #include <cassert>
 #include <limits>
 #include <vector>
+#include <cinttypes>
 
 namespace PetriEngine {
 

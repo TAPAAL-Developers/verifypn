@@ -185,7 +185,7 @@ void RangeEvalContext::_accept(const PlusExpr *element) {
     for (auto &e : element->expressions())
         e->visit(*this);
     _literal += element->constant();
-    for (auto p : element->places())
+    for (const auto &p : element->places())
         _places.push_back(p.first);
 }
 

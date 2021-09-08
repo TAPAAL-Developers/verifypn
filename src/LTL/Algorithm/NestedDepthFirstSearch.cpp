@@ -18,14 +18,14 @@
 #include "LTL/Algorithm/NestedDepthFirstSearch.h"
 
 namespace LTL {
-template <typename S> bool NestedDepthFirstSearch<S>::is_satisfied() {
+template <typename S> auto NestedDepthFirstSearch<S>::is_satisfied() -> bool {
     this->_is_weak = this->_successor_generator->is_weak() && this->_shortcircuitweak;
     dfs();
     return !_violation;
 }
 
 template <typename S>
-std::pair<bool, size_t> NestedDepthFirstSearch<S>::mark(State &state, const uint8_t MARKER) {
+auto NestedDepthFirstSearch<S>::mark(State &state, const uint8_t MARKER) -> std::pair<bool, size_t> {
     auto [_, stateid] = _states.add(state);
     if (_markers.size() <= stateid)
         _markers.resize(stateid + 1);

@@ -6,10 +6,9 @@
 #include "PetriEngine/PQL/Contexts.h"
 #include "PetriEngine/Simplification/LinearProgram.h"
 
-namespace PetriEngine {
-namespace Simplification {
+namespace PetriEngine::Simplification {
 using REAL = double;
-LinearProgram::~LinearProgram() {}
+LinearProgram::~LinearProgram() = default;
 
 LinearProgram::LinearProgram(const std::vector<int> &data, int constant, op_t op) {
     // TODO fix memory-management here!
@@ -41,7 +40,8 @@ LinearProgram::LinearProgram(const std::vector<int> &data, int constant, op_t op
 
 constexpr auto infty = std::numeric_limits<REAL>::infinity();
 
-bool LinearProgram::is_impossible(const PQL::SimplificationContext &context, uint32_t solvetime) {
+auto LinearProgram::is_impossible(const PQL::SimplificationContext &context, uint32_t solvetime)
+    -> bool {
     bool use_ilp = true;
     auto &net = context.net();
 
@@ -66,12 +66,12 @@ bool LinearProgram::is_impossible(const PQL::SimplificationContext &context, uin
     if (lp == nullptr)
         return false;
 
-    int rowno = 1 + net.number_of_places();
+    auto rowno = 1 + net.number_of_places();
     glp_add_rows(lp, _equations.size());
     for (const auto &eq : _equations) {
         auto l = eq._row.write_indir(row, indir);
         assert(!(std::isinf(eq._upper) && std::isinf(eq._lower)));
-        glp_set_mat_row(lp, rowno, l - 1, indir.data(), row.data());
+        glp_set_mat_row(lp, rowno, (int)l - 1, indir.data(), row.data());
         if (!std::isinf(eq._lower) && !std::isinf(eq._upper)) {
             if (eq._lower == eq._upper)
                 glp_set_row_bnds(lp, rowno, GLP_FX, eq._lower, eq._upper);
@@ -148,9 +148,9 @@ bool LinearProgram::is_impossible(const PQL::SimplificationContext &context, uin
     return _result == result_t::IMPOSSIBLE;
 }
 
-std::vector<std::pair<double, bool>>
-LinearProgram::bounds(const PQL::SimplificationContext &context, uint32_t solvetime,
-                      const std::vector<uint32_t> &places) {
+auto LinearProgram::bounds(const PQL::SimplificationContext &context, uint32_t solvetime,
+                           const std::vector<uint32_t> &places)
+    -> std::vector<std::pair<double, bool>> {
     std::vector<std::pair<double, bool>> result(
         places.size() + 1, std::make_pair(std::numeric_limits<double>::infinity(), false));
     auto &net = context.net();
@@ -162,7 +162,7 @@ LinearProgram::bounds(const PQL::SimplificationContext &context, uint32_t solvet
 
     glp_smcp settings;
     glp_init_smcp(&settings);
-    settings.tm_lim = timeout * 1000;
+    settings.tm_lim = (int)timeout * 1000;
     settings.presolve = GLP_OFF;
     settings.msg_lev = 0;
 
@@ -312,5 +312,4 @@ void LinearProgram::make_union(const LinearProgram &other) {
     if (it2 != other._equations.end())
         _equations.insert(_equations.end(), it2, other._equations.end());
 }
-} // namespace Simplification
-} // namespace PetriEngine
+} // namespace PetriEngine::Simplification

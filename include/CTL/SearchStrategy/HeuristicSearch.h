@@ -20,9 +20,9 @@ namespace CTL::SearchStrategy {
 class HeuristicSearch : public SearchStrategy {
 
   protected:
-    size_t waiting_size() const;
-    void push_to_waiting(DependencyGraph::Edge *edge);
-    DependencyGraph::Edge *pop_from_waiting();
+    [[nodiscard]] auto waiting_size() const -> size_t override;
+    void push_to_waiting(DependencyGraph::Edge *edge) override;
+    auto pop_from_waiting() -> DependencyGraph::Edge * override;
     std::vector<DependencyGraph::Edge *> _waiting;
 };
 

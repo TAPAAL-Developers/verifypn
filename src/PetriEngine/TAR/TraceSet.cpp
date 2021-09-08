@@ -11,8 +11,7 @@
 
 #include "PetriEngine/TAR/TraceSet.h"
 
-namespace PetriEngine {
-namespace Reachability {
+namespace PetriEngine::Reachability {
 
 void inline_union(std::vector<size_t> &into, const std::vector<size_t> &other) {
     into.reserve(into.size() + other.size());
@@ -74,7 +73,7 @@ void TraceSet::clear() {
     init();
 }
 
-std::set<size_t> TraceSet::minimize(const std::set<size_t> &org) const {
+auto TraceSet::minimize(const std::set<size_t> &org) const -> std::set<size_t> {
     std::set<size_t> minimal = org;
     for (size_t i : org)
         for (auto e : _states[i]._simulates)
@@ -89,7 +88,7 @@ void TraceSet::copy_non_changed(const std::set<size_t> &from, const std::vector<
             to.insert(p);
 }
 
-std::set<size_t> TraceSet::maximize(const std::set<size_t> &org) const {
+auto TraceSet::maximize(const std::set<size_t> &org) const -> std::set<size_t> {
     auto maximal = org;
     maximal.insert(1);
     for (size_t i : org)
@@ -97,7 +96,7 @@ std::set<size_t> TraceSet::maximize(const std::set<size_t> &org) const {
     return maximal;
 }
 
-std::pair<bool, size_t> TraceSet::state_for_predicate(prvector_t &predicate) {
+auto TraceSet::state_for_predicate(prvector_t &predicate) -> std::pair<bool, size_t> {
     predicate.compress();
     assert(predicate.is_compact());
     if (predicate.is_true()) {
@@ -173,9 +172,8 @@ std::pair<bool, size_t> TraceSet::state_for_predicate(prvector_t &predicate) {
                             break;
                         }
                     }
-                    if (change < 0 && !it->_range.no_lower())
-                        ok = false;
-                    else if (change > 0 && !it->_range.no_upper())
+                    if ( (change < 0 && !it->_range.no_lower()) ||
+                         (change > 0 && !it->_range.no_upper()) )
                         ok = false;
                 }
                 if (!ok)
@@ -195,9 +193,8 @@ std::pair<bool, size_t> TraceSet::state_for_predicate(prvector_t &predicate) {
                             break;
                         }
                     }
-                    if (change < 0 && !it->_range.no_lower())
-                        ok = false;
-                    else if (change > 0 && !it->_range.no_upper())
+                    if ( (change < 0 && !it->_range.no_lower()) ||
+                         (change > 0 && !it->_range.no_upper()))
                         ok = false;
                 }
                 if (!ok)
@@ -242,7 +239,8 @@ void TraceSet::compute_simulation(size_t index) {
     assert(_states[0]._simulators.size() == 0);
 }
 
-bool TraceSet::follow(const std::set<size_t> &from, std::set<size_t> &nextinter, size_t symbol) {
+auto TraceSet::follow(const std::set<size_t> &from, std::set<size_t> &nextinter, size_t symbol)
+    -> bool {
     nextinter.insert(1);
     for (size_t i : from) {
         if (i == 0) {
@@ -279,7 +277,7 @@ void TraceSet::remove_edge(size_t edge) {
     // TODO back color here to remove non-accepting end-components.
 }
 
-bool TraceSet::add_trace(std::vector<std::pair<prvector_t, size_t>> &inter) {
+auto TraceSet::add_trace(std::vector<std::pair<prvector_t, size_t>> &inter) -> bool {
     assert(inter.size() > 0);
     bool some = false;
 
@@ -320,7 +318,7 @@ bool TraceSet::add_trace(std::vector<std::pair<prvector_t, size_t>> &inter) {
     return some;
 }
 
-std::ostream &TraceSet::print(std::ostream &out) const {
+auto TraceSet::print(std::ostream &out) const -> std::ostream & {
     out << "digraph graphname {\n";
     for (size_t i = 0; i < _states.size(); ++i) {
         auto &s = _states[i];
@@ -356,5 +354,4 @@ std::ostream &TraceSet::print(std::ostream &out) const {
     out << "}\n";
     return out;
 }
-} // namespace Reachability
-} // namespace PetriEngine
+} // namespace PetriEngine::Reachability

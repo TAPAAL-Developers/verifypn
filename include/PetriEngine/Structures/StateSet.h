@@ -31,7 +31,7 @@ namespace Structures {
 class StateSetInterface {
   public:
     StateSetInterface(const PetriNet &net, uint32_t kbound, int nplaces = -1)
-        : _nplaces(nplaces == -1 ? net.number_of_places() : nplaces), _encoder(_nplaces, kbound),
+        : _nplaces(nplaces == -1 ? net.number_of_places() : nplaces), _encoder(_nplaces),
           _net(net) {
         _discovered = 0;
         _kbound = kbound;

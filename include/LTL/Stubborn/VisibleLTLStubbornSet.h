@@ -93,7 +93,6 @@ class VisibleLTLStubbornSet : public PetriEngine::StubbornSet, public SuccessorS
   private:
     std::unique_ptr<bool[]> _visible;
     light_deque<uint32_t> _skipped;
-    uint32_t _key;
     bool _has_enabled_stubborn;
 
     void find_key_transition();

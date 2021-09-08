@@ -31,7 +31,7 @@ class AutomatonHeuristic : public Heuristic {
 
     bool has_heuristic(const Structures::ProductState &state) override;
 
-    std::ostream &output(std::ostream &os) { return os << "AUTOMATON_HEUR"; }
+    std::ostream &output(std::ostream &os) override { return os << "AUTOMATON_HEUR"; }
 
   protected:
     const PetriEngine::PetriNet &_net;

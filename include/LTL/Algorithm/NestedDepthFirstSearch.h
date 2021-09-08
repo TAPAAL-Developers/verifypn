@@ -55,9 +55,9 @@ class NestedDepthFirstSearch : public ModelChecker<ProductSuccessorGenerator, Su
         : ModelChecker<ProductSuccessorGenerator, SucGen>(net, query, buchi, gen),
           _states(net, 0, (int)net.number_of_places() + 1), _print_trace(print_trace) {}
 
-    bool is_satisfied() override;
+    bool is_satisfied();
 
-    void print_stats(std::ostream &os) override;
+    void print_stats(std::ostream &os);
 
   private:
     using State = LTL::Structures::ProductState;

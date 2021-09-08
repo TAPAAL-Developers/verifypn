@@ -3,11 +3,10 @@
 #include "CTL/DependencyGraph/Edge.h"
 
 #include <cassert>
-#include <iostream>
 
 namespace CTL::Algorithm {
 
-bool LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph) {
+auto LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph) -> bool {
     using namespace DependencyGraph;
     _graph = &t_graph;
 

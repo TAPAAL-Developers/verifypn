@@ -22,7 +22,7 @@
 #include <memory>
 
 namespace PetriEngine {
-uint32_t StubbornSet::next() {
+auto StubbornSet::next() -> uint32_t {
     while (!_ordering.empty()) {
         _current = _ordering.front();
         _ordering.pop_front();
@@ -33,7 +33,7 @@ uint32_t StubbornSet::next() {
     return std::numeric_limits<uint32_t>::max();
 }
 
-bool StubbornSet::check_preset(uint32_t t) {
+auto StubbornSet::check_preset(uint32_t t) -> bool {
     const TransPtr &ptr = transitions()[t];
     uint32_t finv = ptr._inputs;
     uint32_t linv = ptr._outputs;
@@ -53,11 +53,11 @@ bool StubbornSet::check_preset(uint32_t t) {
     return true;
 }
 
-bool StubbornSet::seen_pre(uint32_t place) const {
+auto StubbornSet::seen_pre(uint32_t place) const -> bool {
     return (_places_seen.get()[place] & _presetSeen) != 0;
 }
 
-bool StubbornSet::seen_post(uint32_t place) const {
+auto StubbornSet::seen_post(uint32_t place) const -> bool {
     return (_places_seen.get()[place] & _postsetSeen) != 0;
 }
 
@@ -231,7 +231,7 @@ void StubbornSet::add_to_stub(uint32_t t) {
     }
 }
 
-uint32_t StubbornSet::least_dependent_enabled() {
+auto StubbornSet::least_dependent_enabled() -> uint32_t {
     uint32_t tLeast = -1;
     bool foundLeast = false;
     for (uint32_t t = 0; t < _net.number_of_transitions(); t++) {

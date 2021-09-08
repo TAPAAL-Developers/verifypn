@@ -12,9 +12,9 @@
 #include <random>
 
 namespace CTL::SearchStrategy {
-size_t RDFSSearch::waiting_size() const { return W.size(); }
+auto RDFSSearch::waiting_size() const -> size_t { return W.size(); }
 
-DependencyGraph::Edge *RDFSSearch::pop_from_waiting() {
+auto RDFSSearch::pop_from_waiting() -> DependencyGraph::Edge * {
     auto e = W.back();
     W.pop_back();
     _last_parent = W.size();

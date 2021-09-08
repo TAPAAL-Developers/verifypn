@@ -18,13 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "PetriEngine/PetriNet.h"
-#include "PetriEngine/PQL/Contexts.h"
-#include "PetriEngine/PQL/PQL.h"
 #include "PetriEngine/Structures/State.h"
 
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cassert>
 #include <string.h>
 
 namespace PetriEngine {

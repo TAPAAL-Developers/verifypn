@@ -3,13 +3,12 @@
 #include <cassert>
 #include <iostream>
 
-namespace CTL {
-namespace Algorithm {
+namespace CTL::Algorithm {
 
 using namespace DependencyGraph;
 using namespace SearchStrategy;
 
-bool CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_graph) {
+auto CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_graph) -> bool {
     _graph = &t_graph;
 
     _vertex = _graph->initial_configuration();
@@ -182,14 +181,14 @@ void CertainZeroFPA::final_assign(DependencyGraph::Configuration *c,
     c->_nsuccs = 0;
     for (DependencyGraph::Edge *e : c->_dependency_set) {
         if (!e->_source->is_done()) {
-            if (a == CZERO) {
-                /*e->assignment = CZERO;*/
+            /*if (a == CZERO) {
+                e->assignment = CZERO;
             } else if (a == ONE) {
-                /*assert(e->children >= 1);
+                assert(e->children >= 1);
                 --e->children;
                 if(e->children == 0)
-                    e->assignment = ONE;*/
-            }
+                    e->assignment = ONE;
+            }*/
             if (!e->_is_negated || a == CZERO) {
                 _strategy->push_dependency(e);
             } else {
@@ -217,7 +216,7 @@ void CertainZeroFPA::explore(Configuration *c) {
         // before we start exploring, lets check if any of them determine
         // the outcome already!
 
-        for (int32_t i = c->_nsuccs - 1; i >= 0; --i) {
+        for (int64_t i = c->_nsuccs - 1; i >= 0; --i) {
             check_edge(succs[i], true);
             if (c->is_done()) {
                 for (Edge *e : succs) {
@@ -257,5 +256,4 @@ void CertainZeroFPA::explore(Configuration *c) {
     }
     _strategy->flush();
 }
-} // namespace Algorithm
 } // namespace CTL

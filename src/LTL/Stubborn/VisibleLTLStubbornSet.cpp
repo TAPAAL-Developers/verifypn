@@ -17,13 +17,12 @@
 
 #include "LTL/Stubborn/VisibleLTLStubbornSet.h"
 #include "LTL/Stubborn/EvalAndSetVisitor.h"
-#include "PetriEngine/Stubborn/InterestingTransitionVisitor.h"
 
 using namespace PetriEngine;
 using namespace PetriEngine::PQL;
 
 namespace LTL {
-bool VisibleLTLStubbornSet::prepare(const PetriEngine::Structures::State &marking) {
+auto VisibleLTLStubbornSet::prepare(const PetriEngine::Structures::State &marking) -> bool {
     reset();
     _parent = &marking;
     PQL::EvaluationContext evaluationContext{_parent->marking(), _net};

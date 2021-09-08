@@ -4,10 +4,9 @@
 #include <cassert>
 #include <cstring>
 #include <functional>
-//#include "../PQL/PQL.h"
+#include <cinttypes>
 
-namespace PetriEngine {
-namespace Simplification {
+namespace PetriEngine::Simplification {
 enum Trivial { False = 0, True = 1, Indeterminate = 2 };
 enum MemberType { Constant, Input, Output, Regular };
 class Member {
@@ -62,7 +61,7 @@ class Member {
         return *this;
     }
 
-    bool substration_is_zero(const Member &m2) const {
+    [[nodiscard]] bool substration_is_zero(const Member &m2) const {
         uint32_t min = std::min(_variables.size(), m2._variables.size());
         uint32_t i = 0;
         for (; i < min; i++) {
@@ -82,7 +81,7 @@ class Member {
         return true;
     }
 
-    bool is_zero() const {
+    [[nodiscard]] bool is_zero() const {
         for (const int &v : _variables) {
             if (v != 0)
                 return false;
@@ -90,7 +89,7 @@ class Member {
         return true;
     }
 
-    MemberType get_type() const {
+    [[nodiscard]] MemberType get_type() const {
         bool isConstant = true;
         bool isInput = true;
         bool isOutput = true;
@@ -223,7 +222,6 @@ class Member {
         return Trivial::Indeterminate;
     }
 };
-} // namespace Simplification
 } // namespace PetriEngine
 
 #endif /* MEMBER_H */

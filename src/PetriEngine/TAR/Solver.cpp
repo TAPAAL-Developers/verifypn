@@ -19,8 +19,7 @@
 #include <memory>
 #include <vector>
 
-namespace PetriEngine {
-namespace Reachability {
+namespace PetriEngine::Reachability {
 using namespace PQL;
 Solver::Solver(const PetriNet &net, MarkVal *initial, Condition *query, std::vector<bool> &inq)
     : _net(net), _initial(initial), _query(query), _inq(inq)
@@ -79,7 +78,7 @@ Solver::Solver(const PetriNet &net, MarkVal *initial, Condition *query, std::vec
     }*/
 }
 
-Solver::interpolant_t Solver::find_free(trace_t &trace) {
+auto Solver::find_free(trace_t &trace) -> Solver::interpolant_t {
     assert(trace.back().get_edge_cnt() == 0);
     for (int64_t step = ((int64_t)trace.size()) - 2; step >= 1; --step) {
         interpolant_t inter(2);
@@ -240,7 +239,7 @@ Solver::interpolant_t Solver::find_free(trace_t &trace) {
     return {};
 }
 
-int64_t Solver::find_failure(trace_t &trace, bool to_end) {
+auto Solver::find_failure(trace_t &trace, bool to_end) -> int64_t {
     for (size_t p = 0; p < _net.number_of_places(); ++p) {
         _m[p] = _initial[p];
         _mark[p] = _m[p];
@@ -355,7 +354,7 @@ int64_t Solver::find_failure(trace_t &trace, bool to_end) {
     return -1;
 }
 
-bool Solver::compute_terminal(state_t &end, inter_t &last) {
+auto Solver::compute_terminal(state_t &end, inter_t &last) -> bool {
     last.second = end.get_edge_cnt();
     if (end.get_edge_cnt() == 0) {
         RangeContext ctx(last.first, _mark.get(), _net, _use_count.get(), _mark.get(), _dirty);
@@ -401,7 +400,7 @@ bool Solver::compute_terminal(state_t &end, inter_t &last) {
     return true;
 }
 
-bool Solver::compute_hoare(trace_t &trace, interpolant_t &ranges, int64_t fail) {
+auto Solver::compute_hoare(trace_t &trace, interpolant_t &ranges, int64_t fail) -> bool {
     for (; fail >= 0; --fail) {
         ranges[fail].first.copy(ranges[fail + 1].first);
         state_t &s = trace[fail];
@@ -490,7 +489,7 @@ bool Solver::compute_hoare(trace_t &trace, interpolant_t &ranges, int64_t fail) 
     return true;
 }
 
-bool Solver::check(trace_t &trace, TraceSet &interpolants) {
+auto Solver::check(trace_t &trace, TraceSet &interpolants) -> bool {
     std::fill(_dirty.begin(), _dirty.end(), false);
     //            std::cerr << "SOLVE! " << (++cnt) << std::endl;
     auto back_inter = find_free(trace);
@@ -550,5 +549,4 @@ bool Solver::check(trace_t &trace, TraceSet &interpolants) {
     #endif*/
     return false;
 }
-} // namespace Reachability
-} // namespace PetriEngine
+} // namespace PetriEngine::Reachability

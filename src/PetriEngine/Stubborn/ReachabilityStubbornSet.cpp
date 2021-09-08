@@ -20,7 +20,7 @@
 #include "PetriEngine/Stubborn/InterestingTransitionVisitor.h"
 
 namespace PetriEngine {
-bool ReachabilityStubbornSet::prepare(const Structures::State &state) {
+auto ReachabilityStubbornSet::prepare(const Structures::State &state) -> bool {
     reset();
     _parent = &state;
     memset(_places_seen.get(), 0, _net.number_of_places());

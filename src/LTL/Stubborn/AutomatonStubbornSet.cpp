@@ -139,7 +139,7 @@ class NondeterministicConjunctionVisitor : public InterestingLTLTransitionVisito
     AutomatonStubbornSet &_stubborn;
 };
 
-bool AutomatonStubbornSet::prepare(const LTL::Structures::ProductState &state) {
+auto AutomatonStubbornSet::prepare(const LTL::Structures::ProductState &state) -> bool {
     reset();
     _parent = &state;
     _gen.prepare(state);
@@ -241,7 +241,7 @@ bool AutomatonStubbornSet::prepare(const LTL::Structures::ProductState &state) {
     return true;
 }
 
-uint32_t AutomatonStubbornSet::next() {
+auto AutomatonStubbornSet::next() -> uint32_t {
     while (!_ordering.empty()) {
         _current = _ordering.front();
         _ordering.pop_front();
@@ -300,7 +300,7 @@ void AutomatonStubbornSet::add_to_stub(uint32_t t) {
     }
 }
 
-bool AutomatonStubbornSet::_cond3_valid(uint32_t t) {
+auto AutomatonStubbornSet::_cond3_valid(uint32_t t) -> bool {
     EvaluationContext ctx{_markbuf.marking(), _net};
     if (_retarding_satisfied || !_enabled[t])
         return true;
@@ -338,7 +338,7 @@ void AutomatonStubbornSet::set_all_stubborn() {
     _done = true;
 }
 
-bool AutomatonStubbornSet::_closure() {
+auto AutomatonStubbornSet::_closure() -> bool {
     StubbornSet::closure([&]() { return !_bad; });
     return !_bad;
 }

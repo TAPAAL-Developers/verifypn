@@ -31,11 +31,11 @@ class reach_distance : public spot::bfs_steps {
     explicit reach_distance(const spot::const_twa_graph_ptr &ptr) : spot::bfs_steps(ptr) {}
 
   private:
-    bool match(spot::twa_run::step &step, const spot::state *dest) override {
+    auto match(spot::twa_run::step &step, const spot::state *dest) -> bool override {
         return std::dynamic_pointer_cast<const spot::twa_graph>(a_)->state_is_accepting(dest);
     }
 
-    const spot::state *filter(const spot::state *s) override { return s; }
+    auto filter(const spot::state *s) -> const spot::state * override { return s; }
 };
 
 namespace LTL {
@@ -57,7 +57,7 @@ AutomatonHeuristic::AutomatonHeuristic(const PetriEngine::PetriNet &net,
     }
 }
 
-uint32_t AutomatonHeuristic::eval(const Structures::ProductState &state, uint32_t) {
+auto AutomatonHeuristic::eval(const Structures::ProductState &state, uint32_t) -> uint32_t {
     assert(state.get_buchi_state() < _state_guards.size());
     const auto &guardInfo = _state_guards[state.get_buchi_state()];
     if (guardInfo._is_accepting)
@@ -72,7 +72,7 @@ uint32_t AutomatonHeuristic::eval(const Structures::ProductState &state, uint32_
     return min_dist;
 }
 
-bool AutomatonHeuristic::has_heuristic(const Structures::ProductState &state) {
+auto AutomatonHeuristic::has_heuristic(const Structures::ProductState &state) -> bool {
     assert(state.get_buchi_state() < _state_guards.size());
     return !_state_guards[state.get_buchi_state()]._is_accepting;
 }

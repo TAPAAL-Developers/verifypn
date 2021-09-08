@@ -56,7 +56,7 @@ class TARReachabilitySearch {
     void add_non_changing(state_t &state, std::set<size_t> &maximal, std::set<size_t> &nextinter);
     bool validate(const std::vector<size_t> &transitions);
 
-    void handle_invalid_trace(trace_t &waiting, int nvalid);
+    [[maybe_unused]] void handle_invalid_trace(trace_t &waiting, int nvalid);
     std::pair<int, bool> is_valid_trace(trace_t &trace, Structures::State &initial,
                                         const std::vector<bool> &, PQL::Condition *query);
     void print_stats();
