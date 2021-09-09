@@ -28,9 +28,7 @@ using namespace PetriEngine::PQL;
 class QueryBinaryParser {
   public:
     QueryBinaryParser() = default;
-    ;
     ~QueryBinaryParser() = default;
-    ;
 
     std::vector<query_item_t> _queries;
 
