@@ -37,7 +37,7 @@ namespace ptrie
         static_cast <uchar>(0x01)
     };
             
-    size_t BinaryWrapper::overhead(uint size)
+    auto BinaryWrapper::overhead(uint size) -> size_t
     {
         size = size % 8;
         if (size == 0)
@@ -47,7 +47,7 @@ namespace ptrie
     }
     
     
-    size_t BinaryWrapper::bytes(uint size)
+    auto BinaryWrapper::bytes(uint size) -> size_t
     {
         return (size + overhead(size))/8;
     }
@@ -160,7 +160,7 @@ namespace ptrie
 }
 
 namespace std {
-    std::ostream &operator<<(std::ostream &os, const ptrie::BinaryWrapper &b) {
+    auto operator<<(std::ostream &os, const ptrie::BinaryWrapper &b) -> std::ostream& {
         b.print(os);
         return os;
     }
