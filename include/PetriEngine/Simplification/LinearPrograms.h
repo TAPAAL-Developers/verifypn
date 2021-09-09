@@ -19,7 +19,6 @@ class AbstractProgramCollection {
 
   public:
     virtual ~AbstractProgramCollection() = default;
-    ;
     auto empty() -> bool { return _has_empty; }
 
     virtual auto satisfiable(const PQL::SimplificationContext &context,

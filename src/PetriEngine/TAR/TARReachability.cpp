@@ -412,7 +412,7 @@ void TARReachabilitySearch::print_trace(trace_t &stack) {
 }
 
 void TARReachabilitySearch::reachable(std::vector<std::shared_ptr<PQL::Condition>> &queries,
-                                      std::vector<ResultPrinter::Result> &results, bool printstats,
+                                      std::vector<ResultPrinter::result_e> &results, bool printstats,
                                       bool printtrace) {
     // inhibitors are not supported yet
     for (size_t t = 0; t < _net.number_of_transitions(); ++t) {
@@ -468,7 +468,7 @@ void TARReachabilitySearch::reachable(std::vector<std::shared_ptr<PQL::Condition
 }
 
 auto TARReachabilitySearch::check_queries(std::vector<std::shared_ptr<PQL::Condition>> &queries,
-                                          std::vector<ResultPrinter::Result> &results,
+                                          std::vector<ResultPrinter::result_e> &results,
                                           Structures::State &state, bool usequeries) -> bool {
     if (!usequeries)
         return false;

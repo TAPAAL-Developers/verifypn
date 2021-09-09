@@ -6,16 +6,16 @@
 #include "options.h"
 
 namespace PetriEngine::Reachability {
-auto ResultPrinter::handle(size_t index, const PQL::Condition &query, Result result,
+auto ResultPrinter::handle(size_t index, const PQL::Condition &query, result_e result,
                            const std::vector<uint32_t> *maxPlaceBound, size_t expandedStates,
                            size_t exploredStates, size_t discoveredStates, int maxTokens,
                            const Structures::StateSetInterface *stateset, size_t lastmarking,
                            const MarkVal *initialMarking) const
-    -> std::pair<AbstractHandler::Result, bool> {
+    -> std::pair<AbstractHandler::result_e, bool> {
     if (result == UNKNOWN)
         return std::make_pair(UNKNOWN, false);
 
-    Result retval = result;
+    result_e retval = result;
 
     if (_options._cpn_overapprox) {
         if (query.get_quantifier() == PQL::quantifier_e::UPPERBOUNDS) {

@@ -56,7 +56,7 @@ class TraceReplay {
     static constexpr auto DEADLOCK_TRANS = "##deadlock";
     void parse_root(const rapidxml::xml_node<> *pNode);
 
-    transition_t parse_transition(const rapidxml::xml_node<char> *pNode);
+    auto parse_transition(const rapidxml::xml_node<char> *pNode) -> transition_t;
 
     void parse_token(const rapidxml::xml_node<char> *pNode,
                      std::unordered_map<uint32_t, uint32_t> &current_marking);

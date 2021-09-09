@@ -29,7 +29,7 @@ using namespace PetriEngine::Structures;
 namespace PetriEngine::Reachability {
 
 auto ReachabilitySearch::check_queries(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
-                                       std::vector<ResultPrinter::Result> &results,
+                                       std::vector<ResultPrinter::result_e> &results,
                                        const State &state, searchstate_t &ss,
                                        const StateSetInterface &states) -> bool {
     if (!ss._usequeries)
@@ -61,10 +61,10 @@ auto ReachabilitySearch::check_queries(const std::vector<std::shared_ptr<PQL::Co
     return alldone;
 }
 
-auto ReachabilitySearch::do_callback(const PQL::Condition &query, size_t i, ResultPrinter::Result r,
+auto ReachabilitySearch::do_callback(const PQL::Condition &query, size_t i, ResultPrinter::result_e r,
                                      const searchstate_t &ss,
                                      const Structures::StateSetInterface &states)
-    -> std::pair<ResultPrinter::Result, bool> {
+    -> std::pair<ResultPrinter::result_e, bool> {
     return _callback.handle(i, query, r, &states.max_place_bound(), ss._expandedStates,
                             ss._exploredStates, states.discovered(), states.max_tokens(), &states,
                             _satisfyingMarking, _initial.marking());
@@ -115,7 +115,7 @@ void ReachabilitySearch::handle_completion(const searchstate_t &ss,
         TEMPPAR(X, SuccessorGenerator)
 
 auto ReachabilitySearch::reachable(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
-                                   std::vector<ResultPrinter::Result> &results,
+                                   std::vector<ResultPrinter::result_e> &results,
                                    options_t::search_strategy_e strategy, bool stubbornreduction,
                                    bool statespacesearch, bool printstats, bool keep_trace,
                                    size_t seed) -> bool {

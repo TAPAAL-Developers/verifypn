@@ -35,41 +35,41 @@
 
 class PNMLParser {
 
-    struct Arc {
+    struct arc_t {
         std::string _source, _target;
         int _weight;
         bool _inhib;
         PetriEngine::Colored::ArcExpression_ptr _expr;
     };
-    using ArcList = std::vector<Arc>;
+    using ArcList = std::vector<arc_t>;
     using ArcIter = ArcList::iterator;
 
-    struct Transition {
+    struct transition_t {
         std::string _id;
         double _x, _y;
         PetriEngine::Colored::GuardExpression_ptr _expr;
     };
-    using TransitionList = std::vector<Transition>;
+    using TransitionList = std::vector<transition_t>;
     using TransitionIter = TransitionList::iterator;
 
-    struct NodeName {
+    struct node_name_t {
         std::string _id;
         bool _is_place;
     };
-    using NodeNameMap = std::unordered_map<std::string, NodeName>;
+    using NodeNameMap = std::unordered_map<std::string, node_name_t>;
 
     using ColorTypeMap = std::unordered_map<std::string, const PetriEngine::Colored::ColorType *>;
     using VariableMap = std::unordered_map<std::string, const PetriEngine::Colored::Variable *>;
 
   public:
-    struct Query {
+    struct query_t {
         std::string _name, _text;
     };
 
     PNMLParser() { _builder = nullptr; }
     void parse(std::ifstream &xml, PetriEngine::AbstractPetriNetBuilder *builder);
 
-    auto get_queries() -> std::vector<Query> { return _queries; }
+    auto get_queries() -> std::vector<query_t> { return _queries; }
 
   private:
     void parse_element(rapidxml::xml_node<> *element);
@@ -122,7 +122,7 @@ class PNMLParser {
     ColorTypeMap _colorTypes;
     VariableMap _variables;
     bool _isColored;
-    std::vector<Query> _queries;
+    std::vector<query_t> _queries;
     std::vector<PetriEngine::Colored::color_type_partition_t> _partitions;
     std::vector<std::pair<char *, PetriEngine::Colored::ProductType *>> _missingCTs;
 };

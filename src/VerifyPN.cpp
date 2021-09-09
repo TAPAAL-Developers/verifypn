@@ -153,7 +153,7 @@ auto main(int argc, char *argv[]) -> int {
     auto builder = options._cpn_overapprox ? cpnBuilder.strip_colors() : cpnBuilder.unfold();
     print_unfolding_stats(cpnBuilder, options);
     builder.sort();
-    std::vector<ResultPrinter::Result> results(queries.size(), ResultPrinter::Result::UNKNOWN);
+    std::vector<ResultPrinter::result_e> results(queries.size(), ResultPrinter::result_e::UNKNOWN);
     ResultPrinter printer(builder, options, querynames);
 
     //----------------------- Query Simplification -----------------------//

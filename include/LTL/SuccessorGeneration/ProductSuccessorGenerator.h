@@ -234,7 +234,7 @@ template <class SuccessorGen> class ProductSuccessorGenerator {
     bdd _cond;
     size_t _buchi_parent;
     bool _fresh_marking = true;
-    std::vector<GuardInfo> _stateToGuards;
+    std::vector<guard_info_t> _stateToGuards;
     /**
      * Evaluate binary decision diagram (BDD) representation of transition guard in given state.
      */

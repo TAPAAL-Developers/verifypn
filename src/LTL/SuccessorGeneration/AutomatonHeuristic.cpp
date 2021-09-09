@@ -42,7 +42,7 @@ namespace LTL {
 AutomatonHeuristic::AutomatonHeuristic(const PetriEngine::PetriNet &net,
                                        const Structures::BuchiAutomaton &aut)
     : _net(net), _aut(aut), _bfs_dists(aut._buchi->num_states()) {
-    _state_guards = std::move(GuardInfo::from_automaton(_aut));
+    _state_guards = std::move(guard_info_t::from_automaton(_aut));
 
     ReachDistance bfs_calc{_aut._buchi};
     for (unsigned state = 0; state < _aut._buchi->num_states(); ++state) {

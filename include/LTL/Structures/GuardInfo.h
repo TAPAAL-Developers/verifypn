@@ -27,7 +27,7 @@
 #include <vector>
 
 namespace LTL {
-struct GuardInfo {
+struct guard_info_t {
 
     struct guard_t {
         PetriEngine::PQL::Condition_ptr _condition;
@@ -37,7 +37,7 @@ struct GuardInfo {
         explicit operator bool() { return bool(_condition); }
     };
 
-    GuardInfo(size_t buchiState, bool isAccepting)
+    guard_info_t(size_t buchiState, bool isAccepting)
         : _buchi_state(buchiState), _is_accepting(isAccepting) {}
 
     int _buchi_state;
@@ -45,8 +45,8 @@ struct GuardInfo {
     std::vector<guard_t> _progressing;
     bool _is_accepting;
 
-    static auto from_automaton(const Structures::BuchiAutomaton &aut) -> std::vector<GuardInfo> {
-        std::vector<GuardInfo> state_guards;
+    static auto from_automaton(const Structures::BuchiAutomaton &aut) -> std::vector<guard_info_t> {
+        std::vector<guard_info_t> state_guards;
         std::vector<atomic_proposition_t> aps(aut._ap_info.size());
         std::transform(
             std::begin(aut._ap_info), std::end(aut._ap_info), std::begin(aps),

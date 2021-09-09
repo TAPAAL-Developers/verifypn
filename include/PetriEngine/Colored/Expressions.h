@@ -1074,7 +1074,6 @@ class AllExpression : public Expression {
 
   public:
     virtual ~AllExpression() = default;
-    ;
     [[nodiscard]] auto eval(const expression_context_t &context) const
         -> std::vector<std::pair<const Color *, uint32_t>> {
         std::vector<std::pair<const Color *, uint32_t>> colors;

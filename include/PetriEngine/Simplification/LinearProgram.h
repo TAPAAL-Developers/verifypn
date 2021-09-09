@@ -35,7 +35,6 @@ class LinearProgram {
     }
     virtual ~LinearProgram();
     LinearProgram() = default;
-    ;
 
     LinearProgram(const LinearProgram &other) = default;
 

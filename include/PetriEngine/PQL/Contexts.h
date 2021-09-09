@@ -110,7 +110,6 @@ class EvaluationContext {
         : _marking(marking), _net(&net) {}
 
     EvaluationContext() = default;
-    ;
 
     [[nodiscard]] auto marking() const -> const MarkVal * { return _marking; }
 

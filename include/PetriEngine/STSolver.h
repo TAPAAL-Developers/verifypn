@@ -18,7 +18,7 @@ class STSolver {
              const PQL::Condition &query, uint32_t depth);
     virtual ~STSolver();
     auto solve(uint32_t timeout) -> bool;
-    auto print_result() -> Reachability::ResultPrinter::Result;
+    auto print_result() -> Reachability::ResultPrinter::result_e;
 
   private:
     auto compute_trap(std::vector<size_t> &siphon, const std::set<size_t> &pre,

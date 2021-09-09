@@ -416,7 +416,7 @@ void PetriNetBuilder::sort() {
 }
 
 void PetriNetBuilder::reduce(std::vector<std::shared_ptr<PQL::Condition>> &queries,
-                             std::vector<Reachability::ResultPrinter::Result> &results,
+                             std::vector<Reachability::ResultPrinter::result_e> &results,
                              int reductiontype, bool reconstructTrace, const PetriNet *net,
                              int timeout, std::vector<uint32_t> &reductions) {
     QueryPlaceAnalysisContext placecontext(get_place_names(), get_transition_names(), net);

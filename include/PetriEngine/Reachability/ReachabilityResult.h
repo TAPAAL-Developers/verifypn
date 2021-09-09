@@ -35,7 +35,7 @@ namespace Reachability {
 
 class AbstractHandler {
   public:
-    enum Result {
+    enum result_e {
         /** The query was satisfied */
         SATISFIED,
         /** The query cannot be satisfied */
@@ -49,13 +49,13 @@ class AbstractHandler {
         /** Just ignore */
         IGNORE
     };
-    virtual auto handle(size_t index, const PQL::Condition &query, Result result,
+    virtual auto handle(size_t index, const PQL::Condition &query, result_e result,
                         const std::vector<uint32_t> *maxPlaceBound = nullptr,
                         size_t expandedStates = 0, size_t exploredStates = 0,
                         size_t discoveredStates = 0, int maxTokens = 0,
                         const Structures::StateSetInterface *stateset = nullptr,
                         size_t lastmarking = 0, const MarkVal *initialMarking = nullptr) const
-        -> std::pair<Result, bool> = 0;
+        -> std::pair<result_e, bool> = 0;
 };
 
 class ResultPrinter : public AbstractHandler {
@@ -76,11 +76,12 @@ class ResultPrinter : public AbstractHandler {
 
     void set_reducer(const Reducer &r) { this->_reducer = &r; }
 
-    auto handle(size_t index, const PQL::Condition &query, Result result,
+    auto handle(size_t index, const PQL::Condition &query, result_e result,
                 const std::vector<uint32_t> *maxPlaceBound = nullptr, size_t expandedStates = 0,
                 size_t exploredStates = 0, size_t discoveredStates = 0, int maxTokens = 0,
                 const Structures::StateSetInterface *stateset = nullptr, size_t lastmarking = 0,
-                const MarkVal *initialMarking = nullptr) const -> std::pair<Result, bool> override;
+                const MarkVal *initialMarking = nullptr) const
+        -> std::pair<result_e, bool> override;
 
     [[nodiscard]] auto print_techniques() const -> std::string;
 

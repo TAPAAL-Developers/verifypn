@@ -193,7 +193,7 @@ auto STSolver::siphon_trap(std::vector<size_t> siphon, const std::vector<bool> &
     return true;
 }
 
-auto STSolver::print_result() -> Reachability::ResultPrinter::Result {
+auto STSolver::print_result() -> Reachability::ResultPrinter::result_e {
     if (_siphonPropperty) {
         return _printer.handle(0, _query, Reachability::ResultPrinter::NOT_SATISFIED).first;
     } else {

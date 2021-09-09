@@ -42,7 +42,7 @@ class TARReachabilitySearch {
     ~TARReachabilitySearch() = default;
 
     void reachable(std::vector<std::shared_ptr<PQL::Condition>> &queries,
-                   std::vector<ResultPrinter::Result> &results, bool printstats, bool printtrace);
+                   std::vector<ResultPrinter::result_e> &results, bool printstats, bool printtrace);
 
   private:
     void print_trace(trace_t &stack);
@@ -61,7 +61,7 @@ class TARReachabilitySearch {
                         PQL::Condition *query) -> std::pair<int, bool>;
     void print_stats();
     auto check_queries(std::vector<std::shared_ptr<PQL::Condition>> &,
-                       std::vector<ResultPrinter::Result> &, Structures::State &, bool) -> bool;
+                       std::vector<ResultPrinter::result_e> &, Structures::State &, bool) -> bool;
 
     int _kbound;
     size_t _stepno = 0;

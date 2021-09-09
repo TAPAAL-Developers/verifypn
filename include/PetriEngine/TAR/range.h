@@ -27,7 +27,6 @@ struct range_t {
     static inline auto max() -> uint32_t { return std::numeric_limits<uint32_t>::max(); }
 
     range_t() = default;
-    ;
 
     explicit range_t(uint32_t val) : _lower(val), _upper(val) {}
 

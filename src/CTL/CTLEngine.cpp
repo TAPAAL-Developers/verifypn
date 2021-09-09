@@ -105,12 +105,12 @@ class ResultHandler : public AbstractHandler {
     ResultHandler(bool is_conj, const std::vector<int8_t> &lstate)
         : _is_conj(is_conj), _lstate(lstate) {}
 
-    auto handle(size_t index, const PQL::Condition &query, AbstractHandler::Result result,
+    auto handle(size_t index, const PQL::Condition &query, AbstractHandler::result_e result,
                 const std::vector<uint32_t> *maxPlaceBound, size_t expandedStates,
                 size_t exploredStates, size_t discoveredStates, int maxTokens,
                 const Structures::StateSetInterface *stateset, size_t lastmarking,
                 const MarkVal *initialMarking) const
-        -> std::pair<AbstractHandler::Result, bool> override {
+        -> std::pair<AbstractHandler::result_e, bool> override {
         if (result == ResultPrinter::SATISFIED) {
             result = _lstate[index] < 0 ? ResultPrinter::NOT_SATISFIED : ResultPrinter::SATISFIED;
         } else if (result == ResultPrinter::NOT_SATISFIED) {
@@ -137,7 +137,7 @@ auto solve_logical_condition(LogicalCondition *query, bool is_conj, const PetriN
 
     {
         ResultHandler handler(is_conj, lstate);
-        std::vector<AbstractHandler::Result> res(queries.size(), AbstractHandler::UNKNOWN);
+        std::vector<AbstractHandler::result_e> res(queries.size(), AbstractHandler::UNKNOWN);
         if (!options._tar) {
             ReachabilitySearch strategy(net, handler, options._kbound, true);
             strategy.reachable(queries, res, options._strategy, options._stubborn_reduction, false,
@@ -175,12 +175,12 @@ auto solve_logical_condition(LogicalCondition *query, bool is_conj, const PetriN
 
 class SimpleResultHandler : public AbstractHandler {
   public:
-    auto handle(size_t index, const PQL::Condition &query, AbstractHandler::Result result,
+    auto handle(size_t index, const PQL::Condition &query, AbstractHandler::result_e result,
                 const std::vector<uint32_t> *maxPlaceBound, size_t expandedStates,
                 size_t exploredStates, size_t discoveredStates, int maxTokens,
                 const Structures::StateSetInterface *stateset, size_t lastmarking,
                 const MarkVal *initialMarking) const
-        -> std::pair<AbstractHandler::Result, bool> override {
+        -> std::pair<AbstractHandler::result_e, bool> override {
         return std::make_pair(result, false);
     }
 };
@@ -196,7 +196,7 @@ auto recursive_solve(const Condition_ptr &query, const PetriEngine::PetriNet &ne
     } else if (query->is_reachability()) {
         SimpleResultHandler handler;
         std::vector<Condition_ptr> queries{query->prepare_for_reachability()};
-        std::vector<AbstractHandler::Result> res;
+        std::vector<AbstractHandler::result_e> res;
         res.emplace_back(AbstractHandler::UNKNOWN);
         if (options._tar) {
             TARReachabilitySearch tar(handler, net, nullptr, options._kbound);

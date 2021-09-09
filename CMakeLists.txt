@@ -25,6 +25,10 @@ option(VERIFYPN_MC_Simplification "Enables multicore simplification, incompatibl
 option(VERIFYPN_GetDependencies "Fetch external dependencies from web." ON)
 option(VERIFYPN_Tidy "Run clang-tidy on code." ON)
 
+if (VERIFYPN_Tidy)
+    set(CMAKE_CXX_CLANG_TIDY clang-tidy)
+endif(VERIFYPN_Tidy)
+
 if (VERIFYPN_Static)
     set(BUILD_SHARED_LIBS OFF)
     if (VERIFYPN_MC_Simplification)

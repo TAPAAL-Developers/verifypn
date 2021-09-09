@@ -48,7 +48,7 @@ class ReachabilitySearch {
 
     /** Perform reachability check using BFS with hasing */
     auto reachable(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
-                   std::vector<ResultPrinter::Result> &results,
+                   std::vector<ResultPrinter::result_e> &results,
                    options_t::search_strategy_e strategy, bool usestubborn, bool statespacesearch,
                    bool printstats, bool keep_trace, size_t seed) -> bool;
 
@@ -63,7 +63,7 @@ class ReachabilitySearch {
 
     template <typename Q, typename W = Structures::StateSet, typename G>
     auto try_reach(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
-                   std::vector<ResultPrinter::Result> &results, bool usequeries, bool printstats,
+                   std::vector<ResultPrinter::result_e> &results, bool usequeries, bool printstats,
                    size_t seed) -> bool;
 
     template <typename Q> auto init_q(Structures::StateSetInterface &states, size_t seed) -> Q {
@@ -84,11 +84,11 @@ class ReachabilitySearch {
 
     void handle_completion(const searchstate_t &s, const Structures::StateSetInterface &);
     auto check_queries(const std::vector<std::shared_ptr<PQL::Condition>> &,
-                       std::vector<ResultPrinter::Result> &, const Structures::State &,
+                       std::vector<ResultPrinter::result_e> &, const Structures::State &,
                        searchstate_t &, const Structures::StateSetInterface &) -> bool;
-    auto do_callback(const PQL::Condition &query, size_t i, ResultPrinter::Result r,
+    auto do_callback(const PQL::Condition &query, size_t i, ResultPrinter::result_e r,
                      const searchstate_t &ss, const Structures::StateSetInterface &states)
-        -> std::pair<ResultPrinter::Result, bool>;
+        -> std::pair<ResultPrinter::result_e, bool>;
 
     const PetriNet &_net;
     int _kbound;
@@ -111,7 +111,7 @@ inline auto make_suc_gen(const PetriNet &net, const std::vector<PQL::Condition_p
 
 template <typename Q, typename W, typename G>
 auto ReachabilitySearch::try_reach(const std::vector<std::shared_ptr<PQL::Condition>> &queries,
-                                   std::vector<ResultPrinter::Result> &results, bool usequeries,
+                                   std::vector<ResultPrinter::result_e> &results, bool usequeries,
                                    bool printstats, size_t seed) -> bool {
 
     // set up state

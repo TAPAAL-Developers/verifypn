@@ -23,7 +23,7 @@ using namespace PetriEngine;
 using namespace PetriEngine::PQL;
 using namespace PetriEngine::Reachability;
 
-auto all_done(std::vector<PetriEngine::Reachability::ResultPrinter::Result> &results) -> bool {
+auto all_done(std::vector<PetriEngine::Reachability::ResultPrinter::result_e> &results) -> bool {
     if (std::any_of(results.begin(), results.end(), [](auto r) {
             return r != ResultPrinter::SATISFIED && r != ResultPrinter::NOT_SATISFIED;
         })) {
@@ -216,7 +216,7 @@ void print_unfolding_stats(ColoredPetriNetBuilder &builder, options_t &options) 
 
 auto get_xml_queries(std::vector<std::shared_ptr<Condition>> queries,
                      std::vector<std::string> querynames,
-                     std::vector<Reachability::ResultPrinter::Result> results) -> std::string {
+                     std::vector<Reachability::ResultPrinter::result_e> results) -> std::string {
     bool cont = false;
     for (auto &result : results) {
         if (result == Reachability::ResultPrinter::CTL) {
@@ -585,7 +585,7 @@ void simplify_queries(const PetriNet &net, std::vector<Condition_ptr> &queries,
 
 auto replay_trace(const ColoredPetriNetBuilder &cpnBuilder, const PetriNetBuilder &builder,
                   const PetriNet &net, std::vector<Condition_ptr> &queries,
-                  const std::vector<ResultPrinter::Result> &results, const options_t &options)
+                  const std::vector<ResultPrinter::result_e> &results, const options_t &options)
     -> error_e {
     if (context_analysis(cpnBuilder, builder, net, queries) != CONTINUE_CODE)
         throw base_error_t("Fatal error assigning indexes");
@@ -600,7 +600,7 @@ auto replay_trace(const ColoredPetriNetBuilder &cpnBuilder, const PetriNetBuilde
 }
 
 void run_siphon_trap(const PetriNet &net, std::vector<Condition_ptr> &queries,
-                     std::vector<ResultPrinter::Result> &results, const ResultPrinter &printer,
+                     std::vector<ResultPrinter::result_e> &results, const ResultPrinter &printer,
                      const options_t &options) {
     if (options._siphontrap_timeout > 0) {
         for (uint32_t i = 0; i < results.size(); i++) {
@@ -623,7 +623,7 @@ void run_siphon_trap(const PetriNet &net, std::vector<Condition_ptr> &queries,
 void print_simplification_results(const PetriEngine::PetriNetBuilder &b2, const options_t &options,
                                   const std::vector<std::string> &querynames,
                                   std::vector<Condition_ptr> &queries,
-                                  std::vector<ResultPrinter::Result> &results) {
+                                  std::vector<ResultPrinter::result_e> &results) {
     ResultPrinter p2(b2, options, querynames);
     if (!options._statespace_exploration) {
         for (size_t i = 0; i < queries.size(); ++i) {

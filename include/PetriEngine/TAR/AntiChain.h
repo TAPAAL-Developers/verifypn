@@ -31,8 +31,6 @@ template <typename T, typename U> class AntiChain {
 
   public:
     AntiChain() = default;
-    ;
-
     void clear() { _map.clear(); }
 
     template <typename S> auto subsumed(T &el, const S &set) -> bool {

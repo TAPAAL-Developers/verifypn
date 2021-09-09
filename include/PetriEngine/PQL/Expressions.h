@@ -44,7 +44,6 @@ class NotCondition;
 class NaryExpr : public Expr {
   protected:
     NaryExpr() = default;
-    ;
 
   public:
     NaryExpr(std::vector<Expr_ptr> &&exprs) : _exprs(std::move(exprs)) {}
@@ -855,7 +854,6 @@ class LogicalCondition : public Condition {
 
   protected:
     LogicalCondition() = default;
-    ;
     auto simplify_or(SimplificationContext &context) const -> retval_t;
     auto simplify_and(SimplificationContext &context) const -> retval_t;
 

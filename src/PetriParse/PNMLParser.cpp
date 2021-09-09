@@ -91,8 +91,8 @@ void PNMLParser::parse(std::ifstream &xml, AbstractPetriNetBuilder *builder) {
             continue;
         }
         // Find source and target
-        NodeName source = _id2name[arc._source];
-        NodeName target = _id2name[arc._target];
+        node_name_t source = _id2name[arc._source];
+        node_name_t target = _id2name[arc._target];
 
         if (source._is_place && !target._is_place) {
             if (!_isColored) {
@@ -636,7 +636,7 @@ void PNMLParser::parse_queries(rapidxml::xml_node<> *element) {
     for (auto it = element->first_node(); it; it = it->next_sibling()) {
         std::string name(element->first_attribute("name")->value());
         parse_value(element, query);
-        Query q;
+        query_t q;
         q._name = name;
         q._text = query;
         this->_queries.push_back(q);
@@ -690,7 +690,7 @@ void PNMLParser::parse_place(rapidxml::xml_node<> *element) {
         }
     }
     // Map id to name
-    NodeName nn;
+    node_name_t nn;
     nn._id = id;
     nn._is_place = true;
     _id2name[id] = nn;
@@ -748,7 +748,7 @@ void PNMLParser::parse_arc(rapidxml::xml_node<> *element, bool inhibitor) {
 
     if (_isColored && !inhibitor)
         assert(expr != nullptr);
-    Arc arc;
+    arc_t arc;
     arc._source = source;
     arc._target = target;
     arc._weight = weight;
@@ -777,13 +777,13 @@ void PNMLParser::parse_transport_arc(rapidxml::xml_node<> *element) {
         weight = atoi(text.c_str());
     }
 
-    Arc inArc;
+    arc_t inArc;
     inArc._source = source;
     inArc._target = transiton;
     inArc._weight = weight;
     _arcs.push_back(inArc);
 
-    Arc outArc;
+    arc_t outArc;
     outArc._source = transiton;
     outArc._target = target;
     outArc._weight = weight;
@@ -791,7 +791,7 @@ void PNMLParser::parse_transport_arc(rapidxml::xml_node<> *element) {
 }
 
 void PNMLParser::parse_transition(rapidxml::xml_node<> *element) {
-    Transition t;
+    transition_t t;
     t._x = 0;
     t._y = 0;
     t._id = element->first_attribute("id")->value();
@@ -812,7 +812,7 @@ void PNMLParser::parse_transition(rapidxml::xml_node<> *element) {
     // Add transition to list
     _transitions.push_back(t);
     // Map id to name
-    NodeName nn;
+    node_name_t nn;
     nn._id = t._id;
     nn._is_place = false;
     _id2name[t._id] = nn;

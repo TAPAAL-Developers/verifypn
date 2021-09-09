@@ -155,7 +155,7 @@ auto AutomatonStubbornSet::prepare(const LTL::Structures::ProductState &state) -
         return true;
     }
 
-    GuardInfo buchi_state = _state_guards[state.get_buchi_state()];
+    guard_info_t buchi_state = _state_guards[state.get_buchi_state()];
 
     PQL::EvaluationContext evaluationContext{_parent->marking(), _net};
 

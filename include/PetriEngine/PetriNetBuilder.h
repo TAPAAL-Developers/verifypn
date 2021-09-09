@@ -65,7 +65,7 @@ class PetriNetBuilder : public AbstractPetriNetBuilder {
     }
 
     void reduce(std::vector<std::shared_ptr<PQL::Condition>> &query,
-                std::vector<Reachability::ResultPrinter::Result> &results, int reductiontype,
+                std::vector<Reachability::ResultPrinter::result_e> &results, int reductiontype,
                 bool reconstructTrace, const PetriNet *net, int timeout,
                 std::vector<uint32_t> &reductions);
 

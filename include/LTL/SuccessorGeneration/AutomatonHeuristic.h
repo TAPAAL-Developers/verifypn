@@ -36,7 +36,7 @@ class AutomatonHeuristic : public Heuristic {
   protected:
     const PetriEngine::PetriNet &_net;
     const LTL::Structures::BuchiAutomaton &_aut;
-    std::vector<GuardInfo> _state_guards;
+    std::vector<guard_info_t> _state_guards;
 
     std::vector<uint32_t> _bfs_dists;
 };
