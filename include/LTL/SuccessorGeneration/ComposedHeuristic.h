@@ -24,6 +24,10 @@
 
 namespace LTL {
 
+    /**
+     * Composed heuristics considered experimental. Performance evaluations did not prove
+     * great results for these.
+     */
     class ComposedHeuristic : public Heuristic {
     public:
 
