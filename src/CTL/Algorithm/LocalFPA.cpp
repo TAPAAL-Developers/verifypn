@@ -21,6 +21,17 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
                 break;
             }
 
+            bool allDone = e->source != v;
+            for (auto *pre : e->source->dependency_set) {
+                //if (preEdge->processed) {
+                if (!pre->source->isDone()) {
+                    allDone = false;
+                    break;
+                }
+            }
+            if (allDone)
+                continue;
+
             bool allOne = true;
             Configuration *lastUndecided = nullptr;
 
