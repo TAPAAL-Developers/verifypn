@@ -29,8 +29,12 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
                     break;
                 }
             }
-            if (allDone)
+            if (allDone) {
+                if (e->source->assignment == ZERO) {
+                    e->source->assignment = UNKNOWN;
+                }
                 continue;
+            }
 
             bool allOne = true;
             Configuration *lastUndecided = nullptr;
