@@ -54,20 +54,21 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
         return;
     }
 
-    /*{
-        bool any = false;
-        size_t n = 0;
-        size_t k = 0;
-        for(Edge* deps : e->source->dependency_set)
-        {
-            ++k;
-            if(deps->source->isDone()) continue;
-            any = true;
-            ++n;
+    bool allDone = e->source != vertex;
+    for (auto *pre : e->source->dependency_set) {
+        //if (preEdge->processed) {
+        if (!pre->source->isDone()) {
+            allDone = false;
+            break;
         }
-        if(!any && e->source != vertex) return;
-    }*/
-    
+    }
+    if (allDone) {
+        if (e->source->assignment == ZERO) {
+            e->source->assignment = UNKNOWN;
+        }
+        return;
+    }
+
     bool allOne = true;
     bool hasCZero = false;
     //auto pre_empty = e->targets.empty();
