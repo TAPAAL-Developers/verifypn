@@ -56,7 +56,6 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
 
     bool allDone = e->source != vertex;
     for (auto *pre : e->source->dependency_set) {
-        //if (preEdge->processed) {
         if (!pre->source->isDone()) {
             allDone = false;
             break;
@@ -66,6 +65,8 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
         if (e->source->assignment == ZERO) {
             e->source->assignment = UNKNOWN;
         }
+        if(e->refcnt == 0) graph->release(e);
+
         return;
     }
 

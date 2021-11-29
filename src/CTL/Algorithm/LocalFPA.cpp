@@ -21,6 +21,10 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
                 break;
             }
 
+            if (e->source->isDone()) {
+                if(e->refcnt == 0) graph->release(e);
+                continue;
+            }
             bool allDone = e->source != v;
             for (auto *pre : e->source->dependency_set) {
                 //if (preEdge->processed) {
@@ -33,6 +37,7 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
                 if (e->source->assignment == ZERO) {
                     e->source->assignment = UNKNOWN;
                 }
+                if(e->refcnt == 0) graph->release(e);
                 continue;
             }
 
