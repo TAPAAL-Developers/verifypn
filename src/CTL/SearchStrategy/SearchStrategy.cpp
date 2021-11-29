@@ -6,7 +6,7 @@
 #include <cassert>
 
 namespace SearchStrategy{
-
+    using DependencyGraph::EdgeStatus;
     bool SearchStrategy::empty() const
     {
         return Wsize() == 0 && N.empty() && D.empty();
@@ -14,7 +14,7 @@ namespace SearchStrategy{
 
     void SearchStrategy::pushNegation(DependencyGraph::Edge* edge)
     {
-        edge->status = 3;
+        edge->status = EdgeStatus::Negation;
         ++edge->refcnt;
         bool allOne = true;
         bool hasCZero = false;
@@ -41,13 +41,13 @@ namespace SearchStrategy{
 
     void SearchStrategy::pushEdge(DependencyGraph::Edge *edge)
     {
-        if(edge->status > 0 || edge->source->isDone()) return;
+        if(edge->status != EdgeStatus::NotWaiting || edge->source->isDone()) return;
         if(edge->processed && edge->is_negated)
         {
             pushNegation(edge);
             return;
         }
-        edge->status = 1;
+        edge->status = EdgeStatus::InWaiting;
         ++edge->refcnt;
         pushToW(edge);
     }
@@ -55,7 +55,7 @@ namespace SearchStrategy{
     void SearchStrategy::pushDependency(DependencyGraph::Edge* edge)
     {
         if(edge->source->isDone()) return;
-        edge->status = 2;
+        edge->status = EdgeStatus::Dependency;
         ++edge->refcnt;
         D.push_back(edge);
     }
@@ -75,7 +75,7 @@ namespace SearchStrategy{
 
         assert(edge->refcnt >= 0);
         --edge->refcnt;
-        edge->status = 0;
+        edge->status = EdgeStatus::NotWaiting;
         return edge;
     }
 
