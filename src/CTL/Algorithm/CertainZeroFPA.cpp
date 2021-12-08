@@ -50,13 +50,15 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
     if(e->handled) return;
     /*if(e->source->isDone())
     {
-        //if(e->refcnt == 0) graph->release(e);
+        if(e->refcnt == 0) graph->release(e);
         return;
-    }
+    }*/
 
     bool allDone = e->source != vertex;
     for (auto *pre : e->source->dependency_set) {
+        //if (preEdge->processed) {
         if (!pre->source->isDone()) {
+
             allDone = false;
             break;
         }
@@ -65,10 +67,10 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
         if (e->source->assignment == ZERO) {
             e->source->assignment = UNKNOWN;
         }
-        //if(e->refcnt == 0) graph->release(e);
+        if(e->refcnt == 0) graph->release(e);
 
         return;
-    }*/
+    }
 
     bool allOne = true;
     bool hasCZero = false;
