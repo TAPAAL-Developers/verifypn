@@ -48,29 +48,29 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
 void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
 {
     if(e->handled) return;
-    if(e->source->isDone())
-    {
-        if(e->refcnt == 0) graph->release(e);
-        return;
-    }
+    // if(e->source->isDone())
+    // {
+    //     if(e->refcnt == 0) graph->release(e);
+    //     return;
+    // }
 
-    bool allDone = e->source != vertex;
-    for (auto *pre : e->source->dependency_set) {
-        //if (preEdge->processed) {
-        if (!pre->source->isDone()) {
+    // bool allDone = e->source != vertex;
+    // for (auto *pre : e->source->dependency_set) {
+    //     //if (preEdge->processed) {
+    //     if (!pre->source->isDone()) {
 
-            allDone = false;
-            break;
-        }
-    }
-    if (allDone) {
-        if (e->source->assignment == ZERO) {
-            e->source->assignment = UNKNOWN;
-        }
-        if(e->refcnt == 0) graph->release(e);
+    //         allDone = false;
+    //         break;
+    //     }
+    // }
+    // if (allDone) {
+    //     if (e->source->assignment == ZERO) {
+    //         e->source->assignment = UNKNOWN;
+    //     }
+    //     if(e->refcnt == 0) graph->release(e);
 
-        return;
-    }
+    //     return;
+    // }
 
     bool allOne = true;
     bool hasCZero = false;
