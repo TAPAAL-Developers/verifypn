@@ -48,11 +48,11 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
 void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
 {
     if(e->handled) return;
-    /*if(e->source->isDone())
+    if(e->source->isDone())
     {
         if(e->refcnt == 0) graph->release(e);
         return;
-    }*/
+    }
 
     bool allDone = e->source != vertex;
     for (auto *pre : e->source->dependency_set) {
