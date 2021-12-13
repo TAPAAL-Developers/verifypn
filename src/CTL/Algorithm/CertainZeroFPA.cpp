@@ -48,29 +48,30 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
 void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
 {
     if(e->handled) return;
-    // if(e->source->isDone())
-    // {
-    //     if(e->refcnt == 0) graph->release(e);
-    //     return;
-    // }
+    if (e->source->isDone()) {
+        if (e->refcnt == 0) graph->release(e);
+        return;
+    }
 
-    // bool allDone = e->source != vertex;
-    // for (auto *pre : e->source->dependency_set) {
-    //     //if (preEdge->processed) {
-    //     if (!pre->source->isDone()) {
+    bool allDone = e->source != vertex;
+    for (auto *pre: e->source->dependency_set) {
+        //if (preEdge->processed) {
+        if (!pre->source->isDone()) {
+            allDone = false;
+            break;
+        }
+    }
+    if (allDone) {
+        if (e->source->assignment == ZERO) {
+            e->source->assignment = UNKNOWN;
+        }
 
-    //         allDone = false;
-    //         break;
-    //     }
-    // }
-    // if (allDone) {
-    //     if (e->source->assignment == ZERO) {
-    //         e->source->assignment = UNKNOWN;
-    //     }
-    //     if(e->refcnt == 0) graph->release(e);
+        prune_forward_dependents(e);
 
-    //     return;
-    // }
+        if (e->refcnt == 0) graph->release(e);
+
+        return;
+    }
 
     bool allOne = true;
     bool hasCZero = false;
@@ -210,6 +211,7 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, D
     }
     
     c->dependency_set.clear();
+
 }
 
 void Algorithm::CertainZeroFPA::explore(Configuration *c)
@@ -264,4 +266,37 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c)
         }
     }
     strategy->flush();
+}
+
+void remove_dependent(Configuration* v, Configuration* c) {
+    auto it = v->dependency_set.begin();
+    auto pit = v->dependency_set.before_begin();
+    while(it != v->dependency_set.end())
+    {
+        if((*it)->source == c) {
+            v->dependency_set.erase_after(pit);
+            it = pit;
+        }
+        pit = it;
+        ++it;
+    }
+}
+
+void Algorithm::CertainZeroFPA::prune_forward_dependents(Edge* edge) {
+    std::stack<Configuration*> W;
+
+    W.push(edge->source);
+
+    while (!W.empty()) {
+        auto c = W.top(); W.pop();
+        for (auto *v : c->forward_dependency_set) {
+
+            remove_dependent(v, c);
+            if (v->dependency_set.empty()) {
+                W.push(v);
+            }
+        }
+        c->forward_dependency_set.clear();
+    }
+
 }

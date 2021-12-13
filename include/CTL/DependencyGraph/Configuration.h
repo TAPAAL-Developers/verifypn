@@ -16,7 +16,8 @@ class Edge;
 class Configuration
 {
 public:
-    std::forward_list<Edge*> dependency_set;   
+    std::forward_list<Edge*> dependency_set;
+    std::forward_list<Configuration*> forward_dependency_set;
     uint32_t nsuccs = 0;
 private:
     uint32_t distance = 0;

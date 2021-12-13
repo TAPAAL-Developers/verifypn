@@ -13,12 +13,19 @@ namespace DependencyGraph {
         auto pit = dependency_set.before_begin();
         while(it != dependency_set.end())
         {
-            if(*it == e) return;
+            if(*it == e) {
+                assert(std::find(e->source->forward_dependency_set.begin(),
+                                 e->source->forward_dependency_set.end(),
+                                 this) != e->source->forward_dependency_set.end());
+                return;
+            }
             if(*it > e) break;
             pit = it;
             ++it;
         }
         dependency_set.insert_after(pit, e);
+        e->source->forward_dependency_set.emplace_front(this);
+
         ++e->refcnt;
     }
 }

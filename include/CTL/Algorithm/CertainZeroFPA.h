@@ -30,6 +30,9 @@ protected:
     void finalAssign(DependencyGraph::Edge *e, DependencyGraph::Assignment a);
     void explore(DependencyGraph::Configuration *c);
 
+private:
+    void prune_forward_dependents(DependencyGraph::Edge* edge);
+
 };
 }
 #endif // CERTAINZEROFPA_H
