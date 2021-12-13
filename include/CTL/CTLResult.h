@@ -21,6 +21,10 @@ struct CTLResult {
     size_t processedNegationEdges = 0;
     size_t exploredConfigurations = 0;
     size_t numberOfEdges = 0;
+    size_t _dead_pruned = 0;
+    size_t _pruned_done_dependents = 0;
+    size_t _dead_pruned_rec = 0;
+
 #ifdef VERIFYPNDIST
     size_t numberOfRoundsComputingDistance = 0;
     size_t numberOfTokensReceived = 0;

@@ -27,6 +27,10 @@ protected:
     size_t _exploredConfigurations = 0;
     //total number of edges found when computing successors
     size_t _numberOfEdges = 0;
+public:
+    size_t _dead_pruned = 0;
+    size_t _pruned_done_dependents = 0;
+    size_t _dead_pruned_rec = 0;
 };
 }
 #endif // FIXEDPOINTALGORITHM_H

@@ -64,13 +64,18 @@ void printResult(const std::string& qname, CTLResult& result, StatisticsLevel st
     }
     if(statisticslevel != StatisticsLevel::None){
         cout << "STATS:" << endl;
-        cout << "	Time (seconds)    : " << setprecision(4) << result.duration / 1000 << endl;
-        cout << "	Configurations    : " << result.numberOfConfigurations << endl;
-        cout << "	Markings          : " << result.numberOfMarkings << endl;
-        cout << "	Edges             : " << result.numberOfEdges << endl;
-        cout << "	Processed Edges   : " << result.processedEdges << endl;
-        cout << "	Processed N. Edges: " << result.processedNegationEdges << endl;
-        cout << "	Explored Configs  : " << result.exploredConfigurations << endl;
+        cout << "   Time (seconds)    : " << setprecision(4) << result.duration / 1000 << endl;
+        cout << "   Configurations    : " << result.numberOfConfigurations << endl;
+        cout << "   Markings          : " << result.numberOfMarkings << endl;
+        cout << "   Edges             : " << result.numberOfEdges << endl;
+        cout << "   Processed Edges   : " << result.processedEdges << endl;
+        cout << "   Processed N. Edges: " << result.processedNegationEdges << endl;
+        cout << "   Explored Configs  : " << result.exploredConfigurations << endl;
+        // TODO temp?
+        cout << "   Pruned edges      : " << result._dead_pruned << endl;
+        cout << "   Pruned edges (rec): " << result._dead_pruned_rec << endl;
+        cout << "   Done dependents   : " << result._pruned_done_dependents << endl;
+
         std::cout << endl;
     }
 }
@@ -100,6 +105,10 @@ bool singleSolve(const Condition_ptr& query, PetriNet* net,
     result.processedNegationEdges += alg->processedNegationEdges();
     result.exploredConfigurations += alg->exploredConfigurations();
     result.numberOfEdges += alg->numberOfEdges();
+    result._dead_pruned += alg->_dead_pruned;
+    result._pruned_done_dependents += alg->_pruned_done_dependents;
+    result._dead_pruned_rec += alg->_dead_pruned_rec;
+
     return res;
 }
 

@@ -55,6 +55,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
 
     bool allDone = e->source != vertex;
     for (auto *pre: e->source->dependency_set) {
+        assert(!e->source->isDone());
         //if (preEdge->processed) {
         if (!pre->source->isDone()) {
             allDone = false;
@@ -62,6 +63,9 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
         }
     }
     if (allDone) {
+        ++_dead_pruned;
+        ++_pruned_done_dependents;
+
         if (e->source->assignment == ZERO) {
             e->source->assignment = UNKNOWN;
         }
@@ -284,16 +288,19 @@ void remove_dependent(Configuration* v, Configuration* c) {
 
 void Algorithm::CertainZeroFPA::prune_forward_dependents(Edge* edge) {
     std::stack<Configuration*> W;
-
     W.push(edge->source);
 
     while (!W.empty()) {
+        ++_dead_pruned_rec;
         auto c = W.top(); W.pop();
+        if (!c->isDone()) // REVISIT can potentially be unconditional?
+            c->assignment = UNKNOWN;
         for (auto *v : c->forward_dependency_set) {
 
             remove_dependent(v, c);
             if (v->dependency_set.empty()) {
                 W.push(v);
+
             }
         }
         c->forward_dependency_set.clear();
