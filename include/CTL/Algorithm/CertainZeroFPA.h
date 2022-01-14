@@ -23,7 +23,7 @@ public:
 protected:
 
     DependencyGraph::BasicDependencyGraph *graph;
-    DependencyGraph::Configuration* vertex;
+    DependencyGraph::Configuration* root;
     
     void checkEdge(DependencyGraph::Edge* e, bool only_assign = false);
     void finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);

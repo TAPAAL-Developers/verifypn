@@ -11,9 +11,9 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
     graph = &t_graph;
 
 
-    vertex = graph->initialConfiguration();
+    root = graph->initialConfiguration();
     {
-        explore(vertex);
+        explore(root);
     }
 
     size_t cnt = 0;
@@ -29,10 +29,10 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
             if(e->refcnt == 0) graph->release(e);            
             ++cnt;
             if((cnt % 1000) == 0) strategy->trivialNegation();
-            if(vertex->isDone()) return vertex->assignment == ONE;
+            if(root->isDone()) return root->assignment == ONE;
         }
         
-        if(vertex->isDone()) return vertex->assignment == ONE;
+        if(root->isDone()) return root->assignment == ONE;
         
         if(!strategy->trivialNegation())
         {
@@ -42,7 +42,7 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
         }
     }
 
-    return vertex->assignment == ONE;
+    return root->assignment == ONE;
 }
 
 void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
@@ -65,7 +65,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
             any = true;
             ++n;
         }
-        if(!any && e->source != vertex) return;
+        if(!any && e->source != root) return;
     }*/
     
     bool allOne = true;
