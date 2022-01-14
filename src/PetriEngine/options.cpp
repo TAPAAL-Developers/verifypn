@@ -20,19 +20,19 @@ std::vector<std::string> explode(std::string const & s) {
     return result;
 }
 
-using namespace PetriEngine::Reachability;
+//using namespace PetriEngine::Reachability;
 void options_t::print(std::ostream& optionsOut) {
-    if (!printstatistics) {
+    if (printstatistics != StatisticsLevel::Full) {
         return;
     }
 
-    if (strategy == PetriEngine::Reachability::Strategy::BFS) {
+    if (strategy == ReachabilityStrategy::BFS) {
         optionsOut << "\nSearch=BFS";
-    } else if (strategy == PetriEngine::Reachability::Strategy::DFS) {
+    } else if (strategy == ReachabilityStrategy::DFS) {
         optionsOut << "\nSearch=DFS";
-    } else if (strategy == PetriEngine::Reachability::Strategy::HEUR) {
+    } else if (strategy == ReachabilityStrategy::HEUR) {
         optionsOut << "\nSearch=HEUR";
-    } else if (strategy == PetriEngine::Reachability::Strategy::RDFS) {
+    } else if (strategy == ReachabilityStrategy::RDFS) {
         optionsOut << "\nSearch=RDFS";
     } else {
         optionsOut << "\nSearch=OverApprox";
@@ -158,6 +158,7 @@ void printHelp() {
         "  -a, --siphon-trap <timeout>          Siphon-Trap analysis timeout in seconds (default 0)\n"
         "      --siphon-depth <place count>     Search depth of siphon (default 0, which counts all places)\n"
         "  -n, --no-statistics                  Do not display any statistics (default is to display it)\n"
+        "                                       Using -n 1 prints just statistics on number of states/edges/etc.\n"
         "  -h, --help                           Display this help message\n"
         "  -v, --version                        Display version information\n"
         "  -ctl, --ctl-algorithm [<type>]       Verify CTL properties\n"
@@ -281,7 +282,22 @@ bool options_t::parse(int argc, const char** argv) {
             statespaceexploration = true;
             computePartition = false;
         } else if (std::strcmp(argv[i], "-n") == 0 || std::strcmp(argv[i], "--no-statistics") == 0) {
-            printstatistics = false;
+            if (argc > i + 1) {
+                if (strcmp("1", argv[i+1]) == 0) {
+                    printstatistics = StatisticsLevel::SearchOnly;
+                }
+                else if (strcmp("2", argv[i+1]) == 0) {
+                    printstatistics = StatisticsLevel::Full;
+                }
+                else {
+                    printstatistics = StatisticsLevel::None;
+                    continue;
+                }
+                ++i;
+            }
+            else {
+                printstatistics = StatisticsLevel::None;
+            }
         } else if (std::strcmp(argv[i], "-t") == 0 || std::strcmp(argv[i], "--trace") == 0) {
             if (argc > i + 1) {
                 if (std::strcmp("1", argv[i + 1]) == 0) {
@@ -576,11 +592,11 @@ bool options_t::parse(int argc, const char** argv) {
         if (siphonDepth != 0) {
             throw base_error("Argument Error: --siphon-depth is not compatible with LTL model checking.");
         }
-        if(strategy != DFS &&
-           strategy != RDFS &&
-           strategy != HEUR &&
-           strategy != DEFAULT &&
-           strategy != OverApprox)
+        if(strategy != ReachabilityStrategy::DFS &&
+           strategy != ReachabilityStrategy::RDFS &&
+           strategy != ReachabilityStrategy::HEUR &&
+           strategy != ReachabilityStrategy::DEFAULT &&
+           strategy != ReachabilityStrategy::OverApprox)
         {
             throw base_error("Argument Error: Unsupported search strategy for LTL. Supported values are DEFAULT, OverApprox, DFS, RDFS, and BestFS.");
         }

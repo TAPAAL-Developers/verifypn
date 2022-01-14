@@ -27,7 +27,7 @@ using namespace PetriEngine::Reachability;
 using namespace PetriNets;
 
 ReturnValue getAlgorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm>& algorithm,
-                         CTLAlgorithmType algorithmtype, Reachability::Strategy search)
+                         CTLAlgorithmType algorithmtype, ReachabilityStrategy search)
 {
     switch(algorithmtype)
     {
@@ -44,7 +44,7 @@ ReturnValue getAlgorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm>& algori
     return ContinueCode;
 }
 
-void printResult(const std::string& qname, CTLResult& result, bool statisticslevel, bool mccouput, bool only_stats, size_t index, options_t& options){
+void printResult(const std::string& qname, CTLResult& result, StatisticsLevel statisticslevel, bool mccouput, bool only_stats, size_t index, options_t& options){
     const static string techniques = "TECHNIQUES COLLATERAL_PROCESSING EXPLICIT STATE_COMPRESSION SAT_SMT ";
 
     if(!only_stats)
@@ -64,7 +64,7 @@ void printResult(const std::string& qname, CTLResult& result, bool statisticslev
 
         cout << endl;
     }
-    if(statisticslevel){
+    if(statisticslevel != StatisticsLevel::None){
         cout << "STATS:" << endl;
         cout << "	Time (seconds)    : " << setprecision(4) << result.duration / 1000 << endl;
         cout << "	Configurations    : " << result.numberOfConfigurations << endl;
@@ -79,7 +79,7 @@ void printResult(const std::string& qname, CTLResult& result, bool statisticslev
 
 bool singleSolve(const Condition_ptr& query, PetriNet* net,
                  CTLAlgorithmType algorithmtype,
-                 Strategy strategytype, bool partial_order, CTLResult& result)
+                 ReachabilityStrategy strategytype, bool partial_order, CTLResult& result)
 {
     OnTheFlyDG graph(net, partial_order);
     graph.setQuery(query);
@@ -107,7 +107,7 @@ bool singleSolve(const Condition_ptr& query, PetriNet* net,
 
 bool recursiveSolve(const Condition_ptr& query, PetriNet* net,
                     CTLAlgorithmType algorithmtype,
-                    Strategy strategytype, bool partial_order, CTLResult& result, options_t& options);
+                    ReachabilityStrategy strategytype, bool partial_order, CTLResult& result, options_t& options);
 
 class ResultHandler : public AbstractHandler {
     private:
@@ -144,7 +144,7 @@ class ResultHandler : public AbstractHandler {
 
 bool solveLogicalCondition(LogicalCondition* query, bool is_conj, PetriNet* net,
                            CTLAlgorithmType algorithmtype,
-                           Reachability::Strategy strategytype, bool partial_order, CTLResult& result, options_t& options)
+                           ReachabilityStrategy strategytype, bool partial_order, CTLResult& result, options_t& options)
 {
     std::vector<int8_t> state(query->size(), 0);
     std::vector<int8_t> lstate;
@@ -169,14 +169,14 @@ bool solveLogicalCondition(LogicalCondition* query, bool is_conj, PetriNet* net,
                                         options.strategy,
                                         options.stubbornreduction,
                                         false,
-                                        false,
+                                        StatisticsLevel::None,
                                         false,
                                         options.seed());
         }
         else
         {
             TARReachabilitySearch tar(handler, *net, nullptr, options.kbound);
-            tar.reachable(queries, res, false, false);
+            tar.reachable(queries, res, StatisticsLevel::None, false);
         }
         size_t j = 0;
         for(size_t i = 0; i < query->size(); ++i) {
@@ -227,7 +227,7 @@ public:
 
 bool recursiveSolve(const Condition_ptr& query, PetriEngine::PetriNet* net,
                     CTL::CTLAlgorithmType algorithmtype,
-                    PetriEngine::Reachability::Strategy strategytype, bool partial_order, CTLResult& result, options_t& options)
+                    ReachabilityStrategy strategytype, bool partial_order, CTLResult& result, options_t& options)
 {
     if(auto q = dynamic_cast<NotCondition*>(query.get()))
     {
@@ -250,7 +250,7 @@ bool recursiveSolve(const Condition_ptr& query, PetriEngine::PetriNet* net,
         if(options.tar)
         {
             TARReachabilitySearch tar(handler, *net, nullptr, options.kbound);
-            tar.reachable(queries, res, false, false);
+            tar.reachable(queries, res, StatisticsLevel::None, false);
         }
         else
         {
@@ -259,7 +259,7 @@ bool recursiveSolve(const Condition_ptr& query, PetriEngine::PetriNet* net,
                            options.strategy,
                            options.stubbornreduction,
                            false,
-                           false,
+                           StatisticsLevel::None,
                            false,
                            options.seed());
         }
@@ -274,9 +274,9 @@ bool recursiveSolve(const Condition_ptr& query, PetriEngine::PetriNet* net,
 
 ReturnValue CTLMain(PetriNet* net,
                     CTLAlgorithmType algorithmtype,
-                    Strategy strategytype,
+                    ReachabilityStrategy strategytype,
                     bool gamemode,
-                    bool printstatistics,
+                    StatisticsLevel printstatistics,
                     bool mccoutput,
                     bool partial_order,
                     const std::vector<std::string>& querynames,
