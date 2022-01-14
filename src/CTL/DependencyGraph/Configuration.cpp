@@ -14,7 +14,6 @@ namespace DependencyGraph {
         while(it != dependency_set.end())
         {
             if(*it == e) return;
-            if(*it > e) break;
             pit = it;
             ++it;
         }
