@@ -23,6 +23,7 @@ private:
     void setDistance(uint32_t value) { distance = value; }
 public:
     int8_t assignment = UNKNOWN;
+    bool passed = false;
     Configuration() {}
     uint32_t getDistance() const { return distance; }
     bool isDone() const { return assignment == ONE || assignment == CZERO; }

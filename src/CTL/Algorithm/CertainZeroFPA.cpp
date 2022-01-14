@@ -54,6 +54,20 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
         return;
     }
 
+    bool allDone = e->source != root;
+    for (auto *pre : e->source->dependency_set) {
+        //if (preEdge->processed) {
+        if (!pre->source->isDone()) {
+            allDone = false;
+            break;
+        }
+    }
+    if (allDone) {
+        e->source->passed = false;
+        //if(e->refcnt == 0) graph->release(e);
+        return;
+    }
+
     /*{
         bool any = false;
         size_t n = 0;
@@ -129,9 +143,13 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
                     strategy->pushNegation(e);
                 }
                 lastUndecided->addDependency(e);
-                if (lastUndecided->assignment == UNKNOWN) {
+                if (!lastUndecided->passed) {
+                    lastUndecided->passed = true;
                     explore(lastUndecided);
                 }
+//                if (lastUndecided->assignment == UNKNOWN) {
+//                    explore(lastUndecided);
+//                }
             }
         }
     } else {
