@@ -10,14 +10,14 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
     using namespace DependencyGraph;
     graph = &t_graph;
 
-    Configuration *v = graph->initialConfiguration();
-    explore(v);
+    Configuration *root = graph->initialConfiguration();
+    explore(root);
 
     while (!strategy->empty())
     {
         while (auto e = strategy->popEdge()) {
 
-            if (v->assignment == DependencyGraph::ONE) {
+            if (root->assignment == DependencyGraph::ONE) {
                 break;
             }
 
@@ -67,7 +67,7 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
         }
     }
 
-    return v->assignment == ONE;
+    return root->assignment == ONE;
 }
 
 void Algorithm::LocalFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)
