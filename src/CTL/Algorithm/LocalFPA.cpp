@@ -21,6 +21,20 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
                 break;
             }
 
+            bool allDone = e->source != root;
+            for (auto *pre : e->source->dependency_set) {
+                //if (preEdge->processed) {
+                if (!pre->source->isDone()) {
+                    allDone = false;
+                    break;
+                }
+            }
+            if (allDone) {
+                e->source->passed = false;
+                //if(e->refcnt == 0) graph->release(e);
+                continue;
+            }
+
             bool allOne = true;
             Configuration *lastUndecided = nullptr;
 
@@ -53,7 +67,9 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
                     finalAssign(e->source, ONE);
                 } else {
                     addDependency(e, lastUndecided);
-                    if (lastUndecided->assignment == UNKNOWN) {
+                    //if (lastUndecided->assignment == UNKNOWN) {
+                    if (!lastUndecided->passed) {
+                        lastUndecided->passed = true;
                         explore(lastUndecided);
                     }
                 }
