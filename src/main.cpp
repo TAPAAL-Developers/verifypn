@@ -135,12 +135,15 @@ int main(int argc, const char** argv) {
 
 
     if(options.computePartition){
+        std::cerr << "PARTITION" << std::endl;
         cpnBuilder.computePartition(options.partitionTimeout);
     }
     if(options.symmetricVariables){
+        std::cerr << "SYM" << std::endl;
         cpnBuilder.computeSymmetricVariables();
     }
     if(options.computeCFP){
+        std::cerr << "CFP" << std::endl;
         cpnBuilder.computePlaceColorFixpoint(options.max_intervals, options.max_intervals_reduced, options.intervalTimeout);
     }
 

@@ -32,7 +32,7 @@ namespace PetriEngine {
 
                 void getArcVarIntervals(interval_vector_t& varIntervals, const std::unordered_map<uint32_t, int32_t> &modIndexMap, const interval_t &interval, const std::vector<const ColorType*> &varColorTypes) const;
 
-                void populateLocalMap(const ArcIntervals &arcIntervals, 
+                void populateLocalMap(const ArcIntervals &arcIntervals,
                                     const VariableIntervalMap &varMap,
                                     VariableIntervalMap &localVarMap,
                                     const interval_t &interval, bool& allVarsAssigned,  uint32_t tuplePos) const;
@@ -40,9 +40,9 @@ namespace PetriEngine {
                 void fillVarMaps(std::vector<VariableIntervalMap> &variableMaps,
                                                     const ArcIntervals &arcIntervals,
                                                     const uint32_t &intervalTupleSize,
-                                                    const uint32_t &tuplePos) const;               
-        }; 
-    }       
+                                                    const uint32_t &tuplePos) const;
+        };
+    }
 }
 
 #endif /* INTERVALGENERATOR_H */

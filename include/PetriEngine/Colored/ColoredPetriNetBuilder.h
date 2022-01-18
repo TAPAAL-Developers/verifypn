@@ -30,6 +30,7 @@
 #include "IntervalGenerator.h"
 #include "PartitionBuilder.h"
 #include "ArcIntervals.h"
+#include "ColorOverapprox.h"
 
 namespace PetriEngine {
 
@@ -37,6 +38,7 @@ namespace PetriEngine {
     public:
         typedef std::unordered_map<std::string, std::unordered_map<uint32_t , std::string>> PTPlaceMap;
         typedef std::unordered_map<std::string, std::vector<std::string>> PTTransitionMap;
+        using partition_t = std::unordered_map<uint32_t, Colored::EquivalenceVec>;
 
     public:
         ColoredPetriNetBuilder();
@@ -89,16 +91,12 @@ namespace PetriEngine {
             return _partitionTimer;
         }
 
-        double getFixpointTime() const {
-            return _fixPointCreationTime;
-        }
-
         uint32_t getPlaceCount() const {
             return _places.size();
         }
 
         uint32_t getMaxIntervals() const {
-            return _maxIntervals;
+            return _cfp.max_intervals();
         }
 
         uint32_t getTransitionCount() const {
@@ -144,24 +142,43 @@ namespace PetriEngine {
         void computePartition(int32_t timeout);
         void computeSymmetricVariables();
         void printSymmetricVariables() const;
+        bool is_partitioned() const { return _partitionComputed; }
+        const partition_t& partitions() const { return _partition; }
+        const std::vector<Colored::Place>& places() const { return _places; }
+        const std::vector<Colored::Transition>& transitions() const { return _transitions; }
+        uint32_t place_id(const std::string& s) const {
+            assert(_placenames.count(s) > 0);
+            return _placenames.find(s)->second;
+        }
+
+        const ColorOverapprox& cfp() const {
+            return _cfp;
+        }
+
+        const std::vector<uint32_t>& place_postset(uint32_t pid) const {
+            return _placePostTransitionMap.find(pid)->second;
+        }
+
+        const std::vector<uint32_t>& place_preset(uint32_t pid) const {
+            return _placePreTransitionMap.find(pid)->second;
+        }
 
     private:
         std::unordered_map<std::string,uint32_t> _placenames;
         std::unordered_map<std::string,uint32_t> _transitionnames;
-        std::unordered_map<uint32_t, std::unordered_map<uint32_t, Colored::ArcIntervals>> _arcIntervals;
         std::unordered_map<uint32_t,std::vector<uint32_t>> _placePostTransitionMap;
         std::unordered_map<uint32_t,std::vector<uint32_t>> _placePreTransitionMap;
         std::unordered_map<uint32_t,FixpointBindingGenerator> _bindings;
         PTPlaceMap _ptplacenames;
         PTTransitionMap _pttransitionnames;
         uint32_t _nptarcs = 0;
-        uint32_t _maxIntervals = 0;
+
         const Colored::IntervalGenerator intervalGenerator = Colored::IntervalGenerator();
 
         std::vector<Colored::Place> _places;
         std::vector<Colored::Transition> _transitions;
         std::vector<Colored::Arc> _inhibitorArcs;
-        std::vector<Colored::ColorFixpoint> _placeColorFixpoints;
+
         //transition id to vector of vectors of variables, where variable in vector are symmetric
         std::unordered_map<uint32_t, std::vector<std::set<const Colored::Variable *>>> symmetric_var_map;
 
@@ -170,27 +187,23 @@ namespace PetriEngine {
         PetriNetBuilder _ptBuilder;
         bool _unfolded = false;
         bool _stripped = false;
-        bool _fixpointDone = false;
         bool _partitionComputed = false;
 
-        std::vector<uint32_t> _placeFixpointQueue;
-        std::unordered_map<uint32_t, Colored::EquivalenceVec> _partition;
+
+        partition_t _partition;
 
         double _time;
-        double _fixPointCreationTime;
 
         double _partitionTimer = 0;
+        ColorOverapprox _cfp;
 
         std::string arcToString(const Colored::Arc& arc) const ;
 
-        void printPlaceTable() const;
+
 
         void checkSymmetricVarsInArcs(const Colored::Transition &transition, const Colored::Arc &inArc, const std::set<const Colored::Variable*> &inArcVars, bool &isEligible ) const;
         void checkSymmetricVarsOutArcs(const Colored::Transition &transition, const std::set<const Colored::Variable*> &inArcVars, bool &isEligible) const;
         void removeInvalidVarmaps(Colored::Transition& transition) const;
-        void addTransitionVars(Colored::Transition& transition) const;
-
-        std::unordered_map<uint32_t, Colored::ArcIntervals> setupTransitionVars(const Colored::Transition &transition) const;
 
         void addArc(const std::string& place,
                 const std::string& transition,
@@ -199,14 +212,11 @@ namespace PetriEngine {
 
         void findStablePlaces();
 
-        void getArcIntervals(const Colored::Transition& transition, bool &transitionActivated, uint32_t max_intervals, uint32_t transitionId);
-        void processInputArcs(Colored::Transition& transition, uint32_t currentPlaceId, uint32_t transitionId, bool &transitionActivated, uint32_t max_intervals);
-        void processOutputArcs(Colored::Transition& transition);
 
         void unfoldPlace(const Colored::Place* place, const PetriEngine::Colored::Color *color, uint32_t unfoldPlace, uint32_t id);
         void unfoldTransition(uint32_t transitionId);
         void handleOrphanPlace(const Colored::Place& place, const std::unordered_map<std::string, uint32_t> &unfoldedPlaceMap);
-        void createPartionVarmaps();
+        void createPartitionVarmaps();
         void unfoldInhibitorArc(const std::string &oldname, const std::string &newname);
 
         void unfoldArc(const Colored::Arc& arc, const Colored::BindingMap& binding, const std::string& name);
