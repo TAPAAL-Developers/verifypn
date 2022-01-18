@@ -148,13 +148,13 @@ namespace PetriEngine {
             //Apply partitioning to unbound outgoing variables such that
             // bindings are only created for colors used in the rest of the net
 
-            if (_builder.is_partitioned() && !_builder.partitions().find(arc.place)->second.isDiagonal()) {
-                auto& partition = _builder.partitions().find(arc.place)->second;
+            if (_builder.is_partitioned() && !_builder.partitions()[arc.place].isDiagonal()) {
+                auto& partition = _builder.partitions()[arc.place];
                 for (auto* outVar : variables) {
                     for (auto& varMap : _var_map[transition_id]) {
                         if (varMap.count(outVar) == 0) {
                             Colored::interval_vector_t varIntervalTuple;
-                            for (const auto& EqClass : partition.getEquivalenceClasses()) {
+                            for (const auto& EqClass : partition) {
                                 varIntervalTuple.addInterval(EqClass.intervals().back().getSingleColorInterval());
                             }
                             varMap[outVar] = std::move(varIntervalTuple);
@@ -301,7 +301,7 @@ namespace PetriEngine {
             }
 
             if(_builder.is_partitioned()){
-                _builder.partitions().find(arc.place)->second.applyPartition(arcInterval);
+                _builder.partitions()[arc.place].applyPartition(arcInterval);
             }
         }
         return true;

@@ -38,7 +38,7 @@ namespace PetriEngine {
     public:
         typedef std::unordered_map<std::string, std::unordered_map<uint32_t , std::string>> PTPlaceMap;
         typedef std::unordered_map<std::string, std::vector<std::string>> PTTransitionMap;
-        using partition_t = std::unordered_map<uint32_t, Colored::EquivalenceVec>;
+        using partition_t = std::vector<Colored::EquivalenceVec>;
 
     public:
         ColoredPetriNetBuilder();
@@ -88,7 +88,7 @@ namespace PetriEngine {
         }
 
         double getPartitionTime() const {
-            return _partitionTimer;
+            return _partition_timer;
         }
 
         uint32_t getPlaceCount() const {
@@ -138,11 +138,10 @@ namespace PetriEngine {
 
         PetriNetBuilder& unfold();
         PetriNetBuilder& stripColors();
-        void computePlaceColorFixpoint(uint32_t max_intervals, uint32_t max_intervals_reduced, int32_t timeout);
-        void computePartition(int32_t timeout);
+        void partition(int32_t timeout);
         void computeSymmetricVariables();
         void printSymmetricVariables() const;
-        bool is_partitioned() const { return _partitionComputed; }
+        bool is_partitioned() const { return _partition.size() > 0; }
         const partition_t& partitions() const { return _partition; }
         const std::vector<Colored::Place>& places() const { return _places; }
         const std::vector<Colored::Transition>& transitions() const { return _transitions; }
@@ -183,14 +182,12 @@ namespace PetriEngine {
         PetriNetBuilder _ptBuilder;
         bool _unfolded = false;
         bool _stripped = false;
-        bool _partitionComputed = false;
-
 
         partition_t _partition;
 
         double _time;
 
-        double _partitionTimer = 0;
+        double _partition_timer = 0;
         ColorOverapprox _cfp;
 
         std::string arcToString(const Colored::Arc& arc) const ;

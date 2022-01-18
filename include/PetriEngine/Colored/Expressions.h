@@ -270,7 +270,7 @@ namespace PetriEngine {
 
         public:
             const Color* eval(const ExpressionContext& context) const override {
-                if(context.placePartition.getEquivalenceClasses().empty()){
+                if(context.placePartition.empty()){
                     return _userOperator;
                 } else {
                     std::vector<uint32_t> tupleIds;
@@ -1010,12 +1010,12 @@ namespace PetriEngine {
             std::vector<std::pair<const Color*,uint32_t>> eval(const ExpressionContext& context) const {
                 std::vector<std::pair<const Color*,uint32_t>> colors;
                 assert(_sort != nullptr);
-                if(context.placePartition.isDiagonal() || context.placePartition.getEquivalenceClasses().empty()){
+                if(context.placePartition.isDiagonal() || context.placePartition.empty()){
                     for (size_t i = 0; i < _sort->size(); i++) {
                         colors.push_back(std::make_pair(&(*_sort)[i], 1));
                     }
                 } else {
-                    for (const auto& eq_class : context.placePartition.getEquivalenceClasses()){
+                    for (const auto& eq_class : context.placePartition){
                         colors.push_back(std::make_pair(_sort->getColor(eq_class.intervals().getLowerIds()),eq_class.size()));
                     }
                 }

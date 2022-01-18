@@ -52,11 +52,12 @@ namespace PetriEngine {
         }
 
         void EquivalenceVec::addColorToEqClassMap(const Color *color){
-            for(auto& eqClass : _equivalenceClasses){
+            for(size_t id = 0; id < _equivalenceClasses.size(); ++id){
+                auto& eq_class = _equivalenceClasses[id];
                 std::vector<uint32_t> colorIds;
                 color->getTupleId(colorIds);
-                if(eqClass.containsColor(colorIds, _diagonalTuplePositions)){
-                    _colorEQClassMap[color] = &eqClass;
+                if(eq_class.containsColor(colorIds, _diagonalTuplePositions)){
+                    _colorEQClassMap[color] = id;
                     break;
                 }
             }
@@ -87,7 +88,7 @@ namespace PetriEngine {
         //Add color ids of diagonal positions as we represent partitions with diagonal postitions
         //as a single equivalence class to save space, but they should not be partition together
         const uint32_t EquivalenceVec::getUniqueIdForColor(const Colored::Color *color) const {
-            PetriEngine::Colored::EquivalenceClass *eqClass = _colorEQClassMap.find(color)->second;
+            const auto& eqClass = _equivalenceClasses[_colorEQClassMap.find(color)->second];
 
             std::vector<uint32_t> colorTupleIds;
             std::vector<uint32_t> newColorTupleIds;
@@ -98,15 +99,15 @@ namespace PetriEngine {
                     newColorTupleIds.push_back(colorTupleIds[i]);
                 } else {
                     hasDiagonalPositions = true;
-                    newColorTupleIds.push_back(eqClass->intervals().back().getLowerIds()[i]);
+                    newColorTupleIds.push_back(eqClass.intervals().back().getLowerIds()[i]);
                 }
             }
 
             if(hasDiagonalPositions){
-                return eqClass->id() + color->getColorType()->getColor(newColorTupleIds)->getId();
+                return eqClass.id() + color->getColorType()->getColor(newColorTupleIds)->getId();
             }
 
-            return eqClass->id();
+            return eqClass.id();
 
         }
     }

@@ -136,7 +136,7 @@ int main(int argc, const char** argv) {
 
     if(options.computePartition){
         std::cerr << "PARTITION" << std::endl;
-        cpnBuilder.computePartition(options.partitionTimeout);
+        cpnBuilder.partition(options.partitionTimeout);
     }
     if(options.symmetricVariables){
         std::cerr << "SYM" << std::endl;

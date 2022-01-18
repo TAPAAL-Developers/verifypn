@@ -153,7 +153,7 @@ namespace PetriEngine {
                     std::vector<uint32_t> numbers;
 
                     //Application of symmetric variables for partitioned places is currently unhandled
-                    if(_partitionComputed && !_partition[inArc.place].isDiagonal()){
+                    if(is_partitioned() && !_partition[inArc.place].isDiagonal()){
                         continue;
                     }
 
@@ -216,7 +216,7 @@ namespace PetriEngine {
             }
             if(foundArc){
                 //Application of symmetric variables for partitioned places is currently unhandled
-                if(_partitionComputed && !_partition.find(outputArc.place)->second.isDiagonal()){
+                if(is_partitioned() && !_partition[outputArc.place].isDiagonal()){
                     isEligible = false;
                     break;
                 }
@@ -257,19 +257,18 @@ namespace PetriEngine {
 
     //----------------------- Partitioning -----------------------//
 
-    void ColoredPetriNetBuilder::computePartition(int32_t timeout){
+    void ColoredPetriNetBuilder::partition(int32_t timeout){
         if(_isColored){
-            auto partitionStart = std::chrono::high_resolution_clock::now();
+
             Colored::PartitionBuilder pBuilder(*this);
 
             if(pBuilder.partition(timeout)){
                 //pBuilder.printPartion();
-                _partition = pBuilder.getPartition();
-                pBuilder.assignColorMap(_partition);
-                _partitionComputed = true;
+                _partition = pBuilder.get_partition();
             }
-            auto partitionEnd = std::chrono::high_resolution_clock::now();
-            _partitionTimer = (std::chrono::duration_cast<std::chrono::microseconds>(partitionEnd - partitionStart).count())*0.000001;
+            _partition_timer = pBuilder.time();
+        } else {
+            throw base_error("ERROR: Computing partition on uncolored net");
         }
     }
 
@@ -371,7 +370,7 @@ namespace PetriEngine {
             if(_cfp.computed()) {
                 findStablePlaces();
             }
-            else if(!_cfp.computed() && _partitionComputed){
+            else if(!_cfp.computed() && is_partitioned()){
                 createPartitionVarmaps();
             }
 
@@ -418,16 +417,18 @@ namespace PetriEngine {
 
     void ColoredPetriNetBuilder::unfoldPlace(const Colored::Place* place, const PetriEngine::Colored::Color *color, uint32_t placeId, uint32_t id) {
         size_t tokenSize = 0;
-        if(!_partitionComputed || _partition[placeId].isDiagonal()){
+        if(!is_partitioned() || _partition[placeId].isDiagonal()){
             tokenSize = place->marking[color];
         } else {
             const std::vector<const Colored::Color*>& tupleColors = color->getTupleColors();
-            const size_t &tupleSize = _partition[placeId].getDiagonalTuplePositions().size();
-            const uint32_t &classId = _partition[placeId].getColorEqClassMap().find(color)->second->id();
-            const auto &diagonalTuplePos = _partition[placeId].getDiagonalTuplePositions();
+            const auto& partition = _partition[placeId];
+            const size_t tupleSize = partition.getDiagonalTuplePositions().size();
+            const uint32_t classId = partition.class_id(color);
+            const auto &diagonalTuplePos = partition.getDiagonalTuplePositions();
 
-            for(const auto &colorEqClassPair : _partition[placeId].getColorEqClassMap()){
-                if(colorEqClassPair.second->id() == classId){
+            for(const auto &colorEqClassPair : partition.getColorEqClassMap()){
+                const auto& eq_class = partition[colorEqClassPair.second];
+                if(eq_class.id() == classId){
                     const std::vector<const Colored::Color*>& testColors = colorEqClassPair.first->getTupleColors();
                     bool match = true;
                     for(uint32_t i = 0; i < tupleSize; i++){
@@ -451,7 +452,7 @@ namespace PetriEngine {
     void ColoredPetriNetBuilder::unfoldTransition(uint32_t transitionId) {
         double offset = 0;
         const Colored::Transition &transition = _transitions[transitionId];
-        if(_cfp.computed() || _partitionComputed){
+        if(_cfp.computed() || is_partitioned()){
             FixpointBindingGenerator gen(transition, _colors, _cfp.variable_maps()[transitionId], symmetric_var_map[transitionId]);
             size_t i = 0;
             bool hasBindings = false;
@@ -536,7 +537,7 @@ namespace PetriEngine {
                 continue;
             }
 
-            if(!_partitionComputed || _partition[arc.place].isDiagonal()){
+            if(!is_partitioned() || _partition[arc.place].isDiagonal()){
                 newColor = color.first;
             } else {
                 tupleIds.clear();
@@ -548,7 +549,7 @@ namespace PetriEngine {
 
             shadowWeight += color.second;
             uint32_t id;
-            if(!_partitionComputed || _partition[arc.place].isDiagonal()){
+            if(!is_partitioned() || _partition[arc.place].isDiagonal()){
                 id = newColor->getId();
             } else {
                 id = _partition[arc.place].getUniqueIdForColor(newColor);
