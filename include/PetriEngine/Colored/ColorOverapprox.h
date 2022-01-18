@@ -41,7 +41,7 @@ namespace PetriEngine {
         using color_map_vector_t = std::vector<color_var_map_t>;
         using color_map_t = std::vector<color_map_vector_t>;
 
-        ColorOverapprox(ColoredPetriNetBuilder& builder);
+        ColorOverapprox(const ColoredPetriNetBuilder& builder);
         void compute(uint32_t maxIntervals, uint32_t maxIntervalsReduced, int32_t timeout);
         double time() const {
             return _fixPointCreationTime;
@@ -72,7 +72,7 @@ namespace PetriEngine {
         void init_place(size_t placeid);
         bool make_arc_intervals(uint32_t transitionId, uint32_t max_intervals);
 
-        ColoredPetriNetBuilder& _builder;
+        const ColoredPetriNetBuilder& _builder;
         std::vector<Colored::ColorFixpoint> _placeColorFixpoints;
         bool _fixpointDone = false;
         std::vector<uint32_t> _placeFixpointQueue;

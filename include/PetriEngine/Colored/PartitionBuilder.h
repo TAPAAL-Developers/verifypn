@@ -14,7 +14,7 @@ namespace PetriEngine {
         class PartitionBuilder {
 
             public:
-                PartitionBuilder(ColoredPetriNetBuilder& builder);
+                PartitionBuilder(const ColoredPetriNetBuilder& builder);
 
                 ~PartitionBuilder() {}
 

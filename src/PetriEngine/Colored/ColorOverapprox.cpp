@@ -25,7 +25,7 @@
 
 namespace PetriEngine {
 
-    ColorOverapprox::ColorOverapprox(ColoredPetriNetBuilder& builder)
+    ColorOverapprox::ColorOverapprox(const ColoredPetriNetBuilder& builder)
     : _builder(builder) {
     }
 

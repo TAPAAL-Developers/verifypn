@@ -292,7 +292,7 @@ namespace PetriEngine {
                 _partition[inArc.place].applyPartition(arcInterval);
             }
 
-            intervalGenerator.getVarIntervals(_cfp.variable_maps()[transitionId], arc_intervals);
+            _intervalGenerator.getVarIntervals(_cfp.variable_maps()[transitionId], arc_intervals);
             for(const auto &outArc : transition.output_arcs){
                 outArc.expr->getVariables(variables);
             }

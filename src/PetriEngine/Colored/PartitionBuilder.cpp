@@ -9,7 +9,7 @@
 namespace PetriEngine {
     namespace Colored {
 
-        PartitionBuilder::PartitionBuilder(ColoredPetriNetBuilder& builder)
+        PartitionBuilder::PartitionBuilder(const ColoredPetriNetBuilder& builder)
         : _builder(builder) {
 
             //Instantiate partitions

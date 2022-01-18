@@ -146,7 +146,11 @@ namespace PetriEngine {
         const std::vector<Colored::Place>& places() const { return _places; }
         const std::vector<Colored::Transition>& transitions() const { return _transitions; }
 
-         ColorOverapprox& cfp() {
+        ColorOverapprox& cfp() {
+            return _cfp;
+        }
+
+        const ColorOverapprox& cfp() const {
             return _cfp;
         }
 
@@ -167,7 +171,7 @@ namespace PetriEngine {
         PTTransitionMap _pttransitionnames;
         uint32_t _nptarcs = 0;
 
-        const Colored::IntervalGenerator intervalGenerator = Colored::IntervalGenerator();
+        const Colored::IntervalGenerator _intervalGenerator = Colored::IntervalGenerator();
 
         std::vector<Colored::Place> _places;
         std::vector<bool> _stable;
