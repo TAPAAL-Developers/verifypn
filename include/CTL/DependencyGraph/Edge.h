@@ -37,6 +37,10 @@ public:
     int32_t refcnt = 0;
     /*size_t children;
     Assignment assignment;*/
+
+#ifndef NDEBUG
+    bool has_suc(size_t id);
+#endif
 };
 }
 #endif // EDGE_H

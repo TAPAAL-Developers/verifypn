@@ -20,4 +20,15 @@ namespace DependencyGraph {
         dependency_set.insert_after(pit, e);
         ++e->refcnt;
     }
+
+#ifndef NDEBUG
+    bool Edge::has_suc(size_t id) {
+        for (auto *conf : targets) {
+            if (conf->id == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+#endif
 }
