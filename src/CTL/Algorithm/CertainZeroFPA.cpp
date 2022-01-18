@@ -10,7 +10,7 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
 {
     graph = &t_graph;
 
-
+    root->passed = true;
     root = graph->initialConfiguration();
     {
         explore(root);
