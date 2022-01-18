@@ -531,6 +531,9 @@ size_t OnTheFlyDG::markingCount() const
 {
     return _markingCount;
 }
+#ifndef NDEBUG
+static size_t confid = 0;
+#endif
 
 PetriConfig *OnTheFlyDG::createConfiguration(size_t marking, size_t own, Condition* t_query)
 {
@@ -547,6 +550,9 @@ PetriConfig *OnTheFlyDG::createConfiguration(size_t marking, size_t own, Conditi
     newConfig->marking = marking;
     newConfig->query = t_query;
     newConfig->setOwner(own);
+#ifndef NDEBUG
+    newConfig->id = confid++;
+#endif
     configs.push_back(newConfig);
     return newConfig;
 }

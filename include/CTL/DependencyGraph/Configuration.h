@@ -24,6 +24,9 @@ private:
 public:
     int8_t assignment = UNKNOWN;
     bool passed = false;
+#ifndef NDEBUG
+    size_t id;
+#endif
     Configuration() {}
     uint32_t getDistance() const { return distance; }
     bool isDone() const { return assignment == ONE || assignment == CZERO; }
