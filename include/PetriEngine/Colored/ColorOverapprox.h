@@ -42,8 +42,8 @@ namespace PetriEngine {
         using color_map_t = std::vector<color_map_vector_t>;
 
         ColorOverapprox(ColoredPetriNetBuilder& builder);
-        void computePlaceColorFixpoint(uint32_t maxIntervals, uint32_t maxIntervalsReduced, int32_t timeout);
-        double getFixpointTime() const {
+        void compute(uint32_t maxIntervals, uint32_t maxIntervalsReduced, int32_t timeout);
+        double time() const {
             return _fixPointCreationTime;
         }
 
@@ -51,19 +51,10 @@ namespace PetriEngine {
             return _fixpointDone;
         }
 
-        const Colored::ColorFixpoint& place_fixpoint(uint32_t pid) const {
-            return _placeColorFixpoints[pid];
-        }
-
-        const Colored::ArcIntervals& arc_fixpoint(uint32_t tid, uint32_t pid) const {
-            return _arcIntervals.find(tid)->second.find(pid)->second;
-        }
-
         const std::vector<Colored::ColorFixpoint>& places_fixpoint() const {
             return _placeColorFixpoints;
         }
 
-        Colored::ColorFixpoint default_place_fixpoint(uint32_t pid) const;
         std::unordered_map<uint32_t, Colored::ArcIntervals> default_transition_intervals(const Colored::Transition &transition) const;
 
         uint64_t max_intervals() const { return _max_intervals; }
@@ -71,17 +62,15 @@ namespace PetriEngine {
             return _var_map;
         }
 
-
-
-
+        void print() const;
     private:
-        bool processInputArcs(size_t transition_id, uint32_t currentPlaceId, uint32_t max_intervals);
-        void processOutputArcs(size_t transition_id);
-        void addTransitionVars(size_t transition_id);
-        void printPlaceTable() const;
+        Colored::ColorFixpoint default_place_fixpoint(uint32_t pid) const;
+        bool process_input_arcs(size_t transition_id, uint32_t currentPlaceId, uint32_t max_intervals);
+        void process_output_arcs(size_t transition_id);
+        void add_transition_vars(size_t transition_id);
         void removeInvalidVarmaps(size_t transition_id);
         void init_place(size_t placeid);
-        bool getArcIntervals(uint32_t transitionId, uint32_t max_intervals);
+        bool make_arc_intervals(uint32_t transitionId, uint32_t max_intervals);
 
         ColoredPetriNetBuilder& _builder;
         std::vector<Colored::ColorFixpoint> _placeColorFixpoints;

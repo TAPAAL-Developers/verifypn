@@ -29,7 +29,7 @@ namespace PetriEngine {
     : _builder(builder) {
     }
 
-    void ColorOverapprox::computePlaceColorFixpoint(uint32_t maxIntervals, uint32_t maxIntervalsReduced, int32_t timeout) {
+    void ColorOverapprox::compute(uint32_t maxIntervals, uint32_t maxIntervalsReduced, int32_t timeout) {
         if (_builder.isColored()) {
             _considered.clear();
             _var_map.clear();
@@ -57,7 +57,7 @@ namespace PetriEngine {
                 _placeColorFixpoints[currentPlaceId].inQueue = false;
                 const std::vector<uint32_t>& connectedTransitions = _builder.place_postset(currentPlaceId);
                 std::cerr << "Processing place : " << _builder.places()[currentPlaceId].name << std::endl;
-                printPlaceTable();
+                print();
                 for (uint32_t transitionId : connectedTransitions) {
                     const Colored::Transition& transition = _builder.transitions()[transitionId];
                     std::cerr << "Processing " << transition.name << std::endl;
@@ -69,11 +69,11 @@ namespace PetriEngine {
                     if (!_arcIntervals.count(transitionId)) {
                         _arcIntervals[transitionId] = default_transition_intervals(transition);
                     }
-                    bool transitionActivated = processInputArcs(transitionId, currentPlaceId, maxIntervals);
+                    bool transitionActivated = process_input_arcs(transitionId, currentPlaceId, maxIntervals);
 
                     //If there were colors which activated the transitions, compute the intervals produced
                     if (transitionActivated) {
-                        processOutputArcs(transitionId);
+                        process_output_arcs(transitionId);
                     }
                 }
                 end = std::chrono::high_resolution_clock::now();
@@ -86,7 +86,7 @@ namespace PetriEngine {
         }
     }
 
-    void ColorOverapprox::printPlaceTable() const {
+    void ColorOverapprox::print() const {
         for (const auto &place : _builder.places()) {
             const auto &placeID = _builder.place_id(place.name);
             const auto &placeColorFixpoint = _placeColorFixpoints[placeID];
@@ -105,16 +105,16 @@ namespace PetriEngine {
 
     //Retreive interval colors from the input arcs restricted by the transition guard
 
-    bool ColorOverapprox::processInputArcs(size_t transition_id, uint32_t currentPlaceId, uint32_t max_intervals) {
+    bool ColorOverapprox::process_input_arcs(size_t transition_id, uint32_t currentPlaceId, uint32_t max_intervals) {
         const auto& transition = _builder.transitions()[transition_id];
 
-        if (!getArcIntervals(transition_id, max_intervals)) {
+        if (!make_arc_intervals(transition_id, max_intervals)) {
             return false;
         }
         auto& varmap = _var_map[transition_id];
         if (_intervalGenerator.getVarIntervals(varmap, _arcIntervals[transition_id])) {
             if (transition.guard != nullptr) {
-                addTransitionVars(transition_id);
+                add_transition_vars(transition_id);
                 transition.guard->restrictVars(varmap);
                 removeInvalidVarmaps(transition_id);
 
@@ -130,7 +130,7 @@ namespace PetriEngine {
         return true;
     }
 
-    void ColorOverapprox::processOutputArcs(size_t transition_id) {
+    void ColorOverapprox::process_output_arcs(size_t transition_id) {
         bool transitionHasVarOutArcs = false;
         const auto& transition = _builder.transitions()[transition_id];
         for (const auto& arc : transition.output_arcs) {
@@ -205,7 +205,7 @@ namespace PetriEngine {
         }
     }
 
-    void ColorOverapprox::addTransitionVars(size_t transition_id) {
+    void ColorOverapprox::add_transition_vars(size_t transition_id) {
         std::set<const Colored::Variable *> variables;
         _builder.transitions()[transition_id].guard->getVariables(variables);
         for (auto* var : variables) {
@@ -288,7 +288,7 @@ namespace PetriEngine {
 
     //Retrieve color intervals for the input arcs based on their places
 
-    bool ColorOverapprox::getArcIntervals(uint32_t transitionId, uint32_t max_intervals) {
+    bool ColorOverapprox::make_arc_intervals(uint32_t transitionId, uint32_t max_intervals) {
         const auto& transition = _builder.transitions()[transitionId];
         for (auto& arc : transition.input_arcs) {
             auto& curCFP = _placeColorFixpoints[arc.place];

@@ -151,7 +151,7 @@ namespace PetriEngine {
             return _placenames.find(s)->second;
         }
 
-        const ColorOverapprox& cfp() const {
+         ColorOverapprox& cfp() {
             return _cfp;
         }
 

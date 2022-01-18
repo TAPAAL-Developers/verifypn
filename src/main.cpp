@@ -144,7 +144,7 @@ int main(int argc, const char** argv) {
     }
     if(options.computeCFP){
         std::cerr << "CFP" << std::endl;
-        cpnBuilder.computePlaceColorFixpoint(options.max_intervals, options.max_intervals_reduced, options.intervalTimeout);
+        cpnBuilder.cfp().compute(options.max_intervals, options.max_intervals_reduced, options.intervalTimeout);
     }
 
 

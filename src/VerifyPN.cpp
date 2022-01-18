@@ -195,7 +195,7 @@ void printUnfoldingStats(ColoredPetriNetBuilder& builder, options_t& options) {
     if (!builder.isColored() && !builder.isUnfolded())
         return;
     if (builder.cfp().computed()) {
-        std::cout << "\nColor fixpoint computed in " << builder.cfp().getFixpointTime() << " seconds" << std::endl;
+        std::cout << "\nColor fixpoint computed in " << builder.cfp().time() << " seconds" << std::endl;
         std::cout << "Max intervals used: " << builder.cfp().max_intervals() << std::endl;
     }
 
