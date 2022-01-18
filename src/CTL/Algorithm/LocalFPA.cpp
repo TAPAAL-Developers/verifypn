@@ -51,7 +51,8 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
                 if(allOne) {}
                 else if(!e->processed){
                     addDependency(e, lastUndecided);
-                    if(lastUndecided->assignment == UNKNOWN){
+                    if(!lastUndecided->passed){
+                        lastUndecided->passed = true;
                         explore(lastUndecided);
                     }
                     strategy->pushNegation(e);

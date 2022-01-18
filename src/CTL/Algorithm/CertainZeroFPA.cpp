@@ -176,7 +176,9 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
                         t->addDependency(e);
                 }
             }                 
-            if (lastUndecided->assignment == UNKNOWN) {
+            //if (lastUndecided->assignment == UNKNOWN) {
+            if (!lastUndecided->passed) {
+                lastUndecided->passed = true;
                 explore(lastUndecided);
             }
         }
