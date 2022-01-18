@@ -53,21 +53,21 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
 //        if(e->refcnt == 0) graph->release(e);
 //        return;
 //    }
-
-    bool allDone = e->source != root;
-    for (auto *pre : e->source->dependency_set) {
-        //if (preEdge->processed) {
-        if (!pre->source->isDone()) {
-            allDone = false;
-            break;
+    if (!only_assign) {
+        bool allDone = e->source != root;
+        for (auto *pre : e->source->dependency_set) {
+            //if (preEdge->processed) {
+            if (!pre->source->isDone()) {
+                allDone = false;
+                break;
+            }
+        }
+        if (allDone) {
+            e->source->passed = false;
+            //if(e->refcnt == 0) graph->release(e);
+            return;
         }
     }
-    if (allDone) {
-        e->source->passed = false;
-        //if(e->refcnt == 0) graph->release(e);
-        return;
-    }
-
     /*{
         bool any = false;
         size_t n = 0;
