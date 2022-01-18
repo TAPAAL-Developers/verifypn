@@ -10,7 +10,6 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
 {
     graph = &t_graph;
 
-    root->passed = true;
     root = graph->initialConfiguration();
     {
         explore(root);
@@ -144,7 +143,6 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
                 }
                 lastUndecided->addDependency(e);
                 if (!lastUndecided->passed) {
-                    lastUndecided->passed = true;
                     explore(lastUndecided);
                 }
 //                if (lastUndecided->assignment == UNKNOWN) {
@@ -178,7 +176,6 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
             }                 
             //if (lastUndecided->assignment == UNKNOWN) {
             if (!lastUndecided->passed) {
-                lastUndecided->passed = true;
                 explore(lastUndecided);
             }
         }
@@ -231,6 +228,7 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, D
 void Algorithm::CertainZeroFPA::explore(Configuration *c)
 {
     c->assignment = ZERO;
+    c->passed = true;
 
     {
         auto succs = graph->successors(c);
