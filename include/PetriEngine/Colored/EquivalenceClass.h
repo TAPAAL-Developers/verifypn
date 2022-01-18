@@ -17,7 +17,7 @@ namespace PetriEngine {
                     return _colorIntervals.toString();
                 }
 
-                bool isEmpty() const{
+                bool empty() const{
                     if(_colorIntervals.size() < 1 || _colorIntervals.front().size() < 1){
                         return true;
                     } 

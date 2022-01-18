@@ -146,28 +146,23 @@ namespace PetriEngine {
         const partition_t& partitions() const { return _partition; }
         const std::vector<Colored::Place>& places() const { return _places; }
         const std::vector<Colored::Transition>& transitions() const { return _transitions; }
-        uint32_t place_id(const std::string& s) const {
-            assert(_placenames.count(s) > 0);
-            return _placenames.find(s)->second;
-        }
 
          ColorOverapprox& cfp() {
             return _cfp;
         }
 
         const std::vector<uint32_t>& place_postset(uint32_t pid) const {
-            return _placePostTransitionMap.find(pid)->second;
+            return _place_prepost[pid].second;
         }
 
         const std::vector<uint32_t>& place_preset(uint32_t pid) const {
-            return _placePreTransitionMap.find(pid)->second;
+            return _place_prepost[pid].first;
         }
 
     private:
         std::unordered_map<std::string,uint32_t> _placenames;
         std::unordered_map<std::string,uint32_t> _transitionnames;
-        std::unordered_map<uint32_t,std::vector<uint32_t>> _placePostTransitionMap;
-        std::unordered_map<uint32_t,std::vector<uint32_t>> _placePreTransitionMap;
+        std::vector<std::pair<std::vector<uint32_t>,std::vector<uint32_t>>> _place_prepost;
         std::unordered_map<uint32_t,FixpointBindingGenerator> _bindings;
         PTPlaceMap _ptplacenames;
         PTTransitionMap _pttransitionnames;
@@ -176,6 +171,7 @@ namespace PetriEngine {
         const Colored::IntervalGenerator intervalGenerator = Colored::IntervalGenerator();
 
         std::vector<Colored::Place> _places;
+        std::vector<bool> _stable;
         std::vector<Colored::Transition> _transitions;
         std::vector<Colored::Arc> _inhibitorArcs;
 

@@ -47,6 +47,10 @@ namespace PetriEngine {
         if (!_isColored) {
             _ptBuilder.addPlace(name, tokens, x, y);
         }
+        else
+        {
+            throw base_error("Adding uncolored to colored net");
+        }
     }
 
     void ColoredPetriNetBuilder::addPlace(const std::string& name, const Colored::ColorType* type, Colored::Multiset&& tokens, double x, double y) {
@@ -55,8 +59,8 @@ namespace PetriEngine {
             uint32_t next = _placenames.size();
             _places.emplace_back(Colored::Place {name, type, tokens, x, y});
             _placenames[name] = next;
-
-
+            if(next >= _place_prepost.size())
+                _place_prepost.resize(next + 1);
         }
     }
 
@@ -106,7 +110,9 @@ namespace PetriEngine {
         assert(t < _transitions.size());
         assert(p < _places.size());
 
-        input? _placePostTransitionMap[p].emplace_back(t): _placePreTransitionMap[p].emplace_back(t);
+        if(p >= _place_prepost.size())
+            _place_prepost.resize(p+1);
+        (input ? _place_prepost[p].first : _place_prepost[p].second).emplace_back(t);
 
         Colored::Arc arc;
         arc.place = p;
@@ -254,11 +260,9 @@ namespace PetriEngine {
     void ColoredPetriNetBuilder::computePartition(int32_t timeout){
         if(_isColored){
             auto partitionStart = std::chrono::high_resolution_clock::now();
-            Colored::PartitionBuilder pBuilder = _cfp.computed() ?
-                Colored::PartitionBuilder(_transitions, _places, _placePostTransitionMap, _placePreTransitionMap, &_cfp.places_fixpoint()) :
-                Colored::PartitionBuilder(_transitions, _places, _placePostTransitionMap, _placePreTransitionMap);
+            Colored::PartitionBuilder pBuilder(*this);
 
-            if(pBuilder.partitionNet(timeout)){
+            if(pBuilder.partition(timeout)){
                 //pBuilder.printPartion();
                 _partition = pBuilder.getPartition();
                 pBuilder.assignColorMap(_partition);
@@ -311,21 +315,23 @@ namespace PetriEngine {
     //Find places for which the marking cannot change as all input arcs are matched
     //by an output arc with an equivalent arc expression and vice versa
     void ColoredPetriNetBuilder::findStablePlaces(){
-        for(uint32_t placeId = 0; placeId < _places.size(); placeId++){
-            if(_placePostTransitionMap.count(placeId) != 0 &&
-                !_placePostTransitionMap[placeId].empty() &&
-                _placePostTransitionMap[placeId].size() == _placePreTransitionMap[placeId].size()){
+        _stable.clear();
+        _stable.resize(_places.size(), true);
+        for(uint32_t placeId = 0; placeId < _places.size(); ++placeId) {
+            auto& [pre, post] = _place_prepost[placeId];
+            if(!post.empty() &&
+                post.size() == pre.size()){
 
-                for(auto transitionId : _placePostTransitionMap[placeId]){
+                for(auto transitionId : post){
                     bool matched = false;
-                    for(auto transitionId2 : _placePreTransitionMap[placeId]){
+                    for(auto transitionId2 : pre){
                         if(transitionId == transitionId2){
                             matched = true;
                             break;
                         }
                     }
                     if(!matched){
-                        _places[placeId].stable = false;
+                        _stable[placeId] = false;
                         break;
                     }
                     const Colored::Arc *inArc;
@@ -345,12 +351,12 @@ namespace PetriEngine {
                         }
                     }
                     if(!mirroredArcs){
-                        _places[placeId].stable = false;
+                        _stable[placeId] = false;
                         break;
                     }
                 }
             } else {
-                _places[placeId].stable = false;
+                _stable[placeId] = false;
             }
         }
     }
@@ -515,7 +521,7 @@ namespace PetriEngine {
         //This exploits the fact that since the transition is being unfolded with this binding
         //we know that this place contains the tokens to activate the transition for this binding
         //because color fixpoint allowed the binding
-        if(_cfp.computed() && place.stable){
+        if(_cfp.computed() && _stable[arc.place]){
             return;
         }
 

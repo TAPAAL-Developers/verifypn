@@ -36,11 +36,10 @@ namespace PetriEngine {
             _var_map.resize(_builder.transitions().size());
             _considered.resize(_builder.transitions().size());
             std::cerr << "START CFP " << std::endl;
-            for (auto& p : _builder.places()) {
-                auto id = _builder.place_id(p.name);
-                init_place(id);
-                if (!p.marking.empty())
-                    _placeFixpointQueue.push_back(id);
+            for (size_t pid = 0; pid < _builder.places().size(); ++pid) {
+                init_place(pid);
+                if (!_builder.places()[pid].marking.empty())
+                    _placeFixpointQueue.push_back(pid);
             }
             //Start timers for timing color fixpoint creation and max interval reduction steps
             auto start = std::chrono::high_resolution_clock::now();
@@ -87,11 +86,10 @@ namespace PetriEngine {
     }
 
     void ColorOverapprox::print() const {
-        for (const auto &place : _builder.places()) {
-            const auto &placeID = _builder.place_id(place.name);
-            const auto &placeColorFixpoint = _placeColorFixpoints[placeID];
+        for (size_t pid = 0; pid < _builder.places().size(); ++pid) {
+            const auto &placeColorFixpoint = _placeColorFixpoints[pid];
+            const auto& place = _builder.places()[pid];
             std::cout << "Place: " << place.name << " in queue: " << placeColorFixpoint.inQueue << " with colortype " << place.type->getName() << std::endl;
-
             for (const auto &fixpointPair : placeColorFixpoint.constraints) {
                 std::cout << "[";
                 for (const auto &range : fixpointPair._ranges) {
