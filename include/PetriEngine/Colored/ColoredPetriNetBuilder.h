@@ -31,6 +31,7 @@
 #include "PartitionBuilder.h"
 #include "ArcIntervals.h"
 #include "ColorOverapprox.h"
+#include "SymmetryDetector.h"
 
 namespace PetriEngine {
 
@@ -139,8 +140,6 @@ namespace PetriEngine {
         PetriNetBuilder& unfold();
         PetriNetBuilder& stripColors();
         void partition(int32_t timeout);
-        void computeSymmetricVariables();
-        void printSymmetricVariables() const;
         bool is_partitioned() const { return _partition.size() > 0; }
         const partition_t& partitions() const { return _partition; }
         const std::vector<Colored::Place>& places() const { return _places; }
@@ -152,6 +151,14 @@ namespace PetriEngine {
 
         const ColorOverapprox& cfp() const {
             return _cfp;
+        }
+
+        SymmetryDetector& symmetries() {
+            return _symmetries;
+        }
+
+        const SymmetryDetector& symmetries() const {
+            return _symmetries;
         }
 
         const std::vector<uint32_t>& place_postset(uint32_t pid) const {
@@ -178,9 +185,6 @@ namespace PetriEngine {
         std::vector<Colored::Transition> _transitions;
         std::vector<Colored::Arc> _inhibitorArcs;
 
-        //transition id to vector of vectors of variables, where variable in vector are symmetric
-        std::unordered_map<uint32_t, std::vector<std::set<const Colored::Variable *>>> symmetric_var_map;
-
         std::unordered_map<uint32_t, std::string> _sumPlacesNames;
         Colored::ColorTypeMap _colors;
         PetriNetBuilder _ptBuilder;
@@ -193,6 +197,7 @@ namespace PetriEngine {
 
         double _partition_timer = 0;
         ColorOverapprox _cfp;
+        SymmetryDetector _symmetries;
 
         std::string arcToString(const Colored::Arc& arc) const ;
 

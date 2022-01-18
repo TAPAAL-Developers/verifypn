@@ -24,12 +24,12 @@
 #include <tuple>
 using std::get;
 namespace PetriEngine {
-    ColoredPetriNetBuilder::ColoredPetriNetBuilder() : _cfp(*this) {
+    ColoredPetriNetBuilder::ColoredPetriNetBuilder() : _cfp(*this), _symmetries(*this) {
     }
 
     ColoredPetriNetBuilder::ColoredPetriNetBuilder(const ColoredPetriNetBuilder& orig)
     : _placenames(orig._placenames), _transitionnames(orig._transitionnames),
-       _places(orig._places), _transitions(orig._transitions), _cfp(*this)
+       _places(orig._places), _transitions(orig._transitions), _cfp(*this), _symmetries(*this)
     {
     }
 
@@ -137,125 +137,6 @@ namespace PetriEngine {
 
     void ColoredPetriNetBuilder::sort() {
     }
-
-    //------------------- Symmetric Variables --------------------//
-    void ColoredPetriNetBuilder::computeSymmetricVariables(){
-        if(_isColored){
-            for(uint32_t transitionId = 0; transitionId < _transitions.size(); transitionId++){
-                const Colored::Transition &transition = _transitions[transitionId];
-                if(transition.guard){
-                    continue;
-                    //the variables cannot appear on the guard
-                }
-
-                for(const auto &inArc : transition.input_arcs){
-                    std::set<const Colored::Variable*> inArcVars;
-                    std::vector<uint32_t> numbers;
-
-                    //Application of symmetric variables for partitioned places is currently unhandled
-                    if(is_partitioned() && !_partition[inArc.place].isDiagonal()){
-                        continue;
-                    }
-
-                    //the expressions is eligible if it is an addexpression that contains only
-                    //numberOfExpressions with the same number
-                    bool isEligible = inArc.expr->isEligibleForSymmetry(numbers);
-
-                    if(isEligible && numbers.size() > 1){
-                        inArc.expr->getVariables(inArcVars);
-                        //It cannot be symmetric with anything if there is only one variable
-                        if(inArcVars.size() < 2){
-                            continue;
-                        }
-                        //The variables may appear only on one input arc and one output arc
-                        checkSymmetricVarsInArcs(transition, inArc, inArcVars, isEligible);
-
-
-                        //All the variables have to appear on exactly one output arc and nowhere else
-                        checkSymmetricVarsOutArcs(transition, inArcVars, isEligible);
-                    }else{
-                        isEligible = false;
-                    }
-                    if(isEligible){
-                        symmetric_var_map[transitionId].emplace_back(inArcVars);
-                    }
-                }
-            }
-        }
-    }
-
-    void ColoredPetriNetBuilder::checkSymmetricVarsInArcs(const Colored::Transition &transition, const Colored::Arc &inArc, const std::set<const Colored::Variable*> &inArcVars, bool &isEligible ) const{
-        for(auto& otherInArc : transition.input_arcs){
-            if(inArc.place == otherInArc.place){
-                continue;
-            }
-            std::set<const Colored::Variable*> otherArcVars;
-            otherInArc.expr->getVariables(otherArcVars);
-            for(auto* var : inArcVars){
-                if(otherArcVars.find(var) != otherArcVars.end()){
-                    isEligible = false;
-                    break;
-                }
-            }
-        }
-    }
-
-    void ColoredPetriNetBuilder::checkSymmetricVarsOutArcs(const Colored::Transition &transition, const std::set<const Colored::Variable*> &inArcVars, bool &isEligible) const{
-        uint32_t numArcs = 0;
-        bool foundSomeVars = false;
-        for(auto& outputArc : transition.output_arcs){
-            bool foundArc = true;
-            std::set<const Colored::Variable*> otherArcVars;
-            outputArc.expr->getVariables(otherArcVars);
-            for(auto* var : inArcVars){
-                if(otherArcVars.find(var) == otherArcVars.end()){
-                    foundArc = false;
-                } else{
-                    foundSomeVars = true;
-                }
-            }
-            if(foundArc){
-                //Application of symmetric variables for partitioned places is currently unhandled
-                if(is_partitioned() && !_partition[outputArc.place].isDiagonal()){
-                    isEligible = false;
-                    break;
-                }
-                numArcs++;
-                //All vars were present
-                foundSomeVars = false;
-            }
-            //If some vars are present the vars are not eligible
-            if(foundSomeVars){
-                isEligible = false;
-                break;
-            }
-        }
-
-        if(numArcs != 1){
-            isEligible = false;
-        }
-    }
-
-    void ColoredPetriNetBuilder::printSymmetricVariables() const {
-        for(uint32_t transitionId = 0; transitionId < _transitions.size(); transitionId++){
-            const auto &transition = _transitions[transitionId];
-            if ( symmetric_var_map.find(transitionId) == symmetric_var_map.end() ) {
-                std::cout << "Transition " << transition.name << " has no symmetric variables" << std::endl;
-            }else{
-                std::cout << "Transition " << transition.name << " has symmetric variables: " << std::endl;
-                for(const auto &set : symmetric_var_map.find(transitionId)->second){
-                    std::string toPrint = "SET: ";
-                    for(auto* variable : set){
-                        toPrint += variable->name + ", ";
-                    }
-                    std::cout << toPrint << std::endl;
-                }
-            }
-        }
-    }
-
-
-    //----------------------- Partitioning -----------------------//
 
     void ColoredPetriNetBuilder::partition(int32_t timeout){
         if(_isColored){
@@ -453,7 +334,8 @@ namespace PetriEngine {
         double offset = 0;
         const Colored::Transition &transition = _transitions[transitionId];
         if(_cfp.computed() || is_partitioned()){
-            FixpointBindingGenerator gen(transition, _colors, _cfp.variable_maps()[transitionId], symmetric_var_map[transitionId]);
+            FixpointBindingGenerator gen(transition, _colors,
+                _cfp.variable_maps()[transitionId], _symmetries[transitionId]);
             size_t i = 0;
             bool hasBindings = false;
             for (const auto &b : gen) {

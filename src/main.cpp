@@ -140,7 +140,7 @@ int main(int argc, const char** argv) {
     }
     if(options.symmetricVariables){
         std::cerr << "SYM" << std::endl;
-        cpnBuilder.computeSymmetricVariables();
+        cpnBuilder.symmetries().compute();
     }
     if(options.computeCFP){
         std::cerr << "CFP" << std::endl;
