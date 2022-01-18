@@ -236,7 +236,7 @@ namespace PetriEngine {
         _var_map[tid] = std::move(newVarmaps);
     }
 
-    std::unordered_map<uint32_t, Colored::ArcIntervals> ColorOverapprox::default_transition_intervals(const Colored::Transition &transition) const {
+    ColorOverapprox::arc_intervals_t ColorOverapprox::default_transition_intervals(const Colored::Transition &transition) const {
         std::unordered_map<uint32_t, Colored::ArcIntervals> res;
         for (auto& arc : transition.input_arcs) {
             std::set<const Colored::Variable *> variables;

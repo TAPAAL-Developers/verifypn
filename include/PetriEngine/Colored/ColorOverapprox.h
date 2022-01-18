@@ -40,6 +40,7 @@ namespace PetriEngine {
         using color_var_map_t = std::unordered_map<const Colored::Variable *, Colored::interval_vector_t>;
         using color_map_vector_t = std::vector<color_var_map_t>;
         using color_map_t = std::vector<color_map_vector_t>;
+        using arc_intervals_t = std::unordered_map<uint32_t, Colored::ArcIntervals>;
 
         ColorOverapprox(const ColoredPetriNetBuilder& builder);
         void compute(uint32_t maxIntervals, uint32_t maxIntervalsReduced, int32_t timeout);
@@ -55,7 +56,7 @@ namespace PetriEngine {
             return _placeColorFixpoints;
         }
 
-        std::unordered_map<uint32_t, Colored::ArcIntervals> default_transition_intervals(const Colored::Transition &transition) const;
+        arc_intervals_t default_transition_intervals(const Colored::Transition &transition) const;
 
         uint64_t max_intervals() const { return _max_intervals; }
         color_map_t& variable_maps() {
@@ -77,7 +78,7 @@ namespace PetriEngine {
         bool _fixpointDone = false;
         std::vector<uint32_t> _placeFixpointQueue;
         double _fixPointCreationTime;
-        std::unordered_map<uint32_t, std::unordered_map<uint32_t, Colored::ArcIntervals>> _arcIntervals;
+        std::unordered_map<uint32_t, arc_intervals_t> _arcIntervals;
         const Colored::IntervalGenerator _intervalGenerator = Colored::IntervalGenerator();
         uint64_t _max_intervals = 0;
         std::vector<color_map_vector_t> _var_map;
