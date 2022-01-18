@@ -60,23 +60,23 @@ namespace SearchStrategy{
         D.push_back(edge);
     }
 
-    DependencyGraph::Edge* SearchStrategy::popEdge(bool saturate)
+    std::pair<DependencyGraph::Edge*, bool> SearchStrategy::popEdge(bool saturate)
     {
-        if(saturate && D.empty()) return nullptr;
+        if(saturate && D.empty()) return std::make_pair(nullptr, false);
 
         if (Wsize() == 0 && D.empty()) {
-            return nullptr;
+            return std::make_pair(nullptr, false);
         }
 
         auto edge = D.empty() ? popFromW() : D.back();
-
+        bool was_dep = !D.empty();
         if(!D.empty())
             D.pop_back();
 
         assert(edge->refcnt >= 0);
         --edge->refcnt;
         edge->status = 0;
-        return edge;
+        return std::make_pair(edge, was_dep);
     }
 
     uint32_t SearchStrategy::maxDistance() const

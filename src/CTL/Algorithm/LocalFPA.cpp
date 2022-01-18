@@ -15,7 +15,9 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
 
     while (!strategy->empty())
     {
-        while (auto e = strategy->popEdge()) {
+        while (true) {
+            auto [e, was_dep] = strategy->popEdge();
+            if (!e) break;
 
             if (root->assignment == DependencyGraph::ONE) {
                 break;

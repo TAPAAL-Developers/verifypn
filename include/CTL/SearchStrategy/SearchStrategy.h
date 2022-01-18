@@ -34,7 +34,8 @@ public:
     void pushEdge(DependencyGraph::Edge *edge);
     void pushDependency(DependencyGraph::Edge* edge);
     void pushNegation(DependencyGraph::Edge *edge);
-    DependencyGraph::Edge* popEdge(bool saturate = false);
+    // edge is null if no edge in list, bool is true if edge was dependency
+    std::pair<DependencyGraph::Edge*, bool> popEdge(bool saturate = false);
     size_t size() const;
 //#ifdef VERIFYPNDIST
     uint32_t maxDistance() const;

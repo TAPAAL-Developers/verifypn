@@ -18,11 +18,13 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
     size_t cnt = 0;
     while(!strategy->empty())
     {
-        while (auto e = strategy->popEdge(false)) 
-        {
+        while (true) {
+            auto [e, was_dep] = strategy->popEdge(false);
+            if (!e) break;
+
             ++e->refcnt;
             assert(e->refcnt >= 1);
-            checkEdge(e);
+            checkEdge(e, false, was_dep);
             assert(e->refcnt >= -1);
             if(e->refcnt > 0) --e->refcnt;
             if(e->refcnt == 0) graph->release(e);            
@@ -44,7 +46,7 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
     return root->assignment == ONE;
 }
 
-void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
+void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_dep)
 {
     if(e->handled) return;
     if(e->source->isDone())
@@ -52,7 +54,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
         if(e->refcnt == 0) graph->release(e);
         return;
     }
-    if (!only_assign) {
+    if (!only_assign && !was_dep) {
         bool allDone = e->source != root;
         for (auto *pre : e->source->dependency_set) {
             //if (preEdge->processed) {
