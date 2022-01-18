@@ -78,7 +78,7 @@ namespace PetriEngine {
         bool _fixpointDone = false;
         std::vector<uint32_t> _placeFixpointQueue;
         double _fixPointCreationTime;
-        std::unordered_map<uint32_t, arc_intervals_t> _arcIntervals;
+        std::vector<arc_intervals_t> _arcIntervals;
         const Colored::IntervalGenerator _intervalGenerator = Colored::IntervalGenerator();
         uint64_t _max_intervals = 0;
         std::vector<color_map_vector_t> _var_map;

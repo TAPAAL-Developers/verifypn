@@ -32,15 +32,21 @@ namespace PetriEngine {
     void ColorOverapprox::compute(uint32_t maxIntervals, uint32_t maxIntervalsReduced, int32_t timeout) {
         if (_builder.isColored()) {
             _considered.clear();
+            _considered.resize(_builder.transitions().size(), false);
             _var_map.clear();
             _var_map.resize(_builder.transitions().size());
-            _considered.resize(_builder.transitions().size());
-            std::cerr << "START CFP " << std::endl;
             for (size_t pid = 0; pid < _builder.places().size(); ++pid) {
                 init_place(pid);
                 if (!_builder.places()[pid].marking.empty())
                     _placeFixpointQueue.push_back(pid);
             }
+
+            _arcIntervals.clear();
+            _arcIntervals.reserve(_builder.transitions().size());
+            for(size_t t = 0; t < _builder.transitions().size(); ++t)
+                _arcIntervals.emplace_back(default_transition_intervals(_builder.transitions()[t]));
+            std::cerr << "START CFP " << std::endl;
+
             //Start timers for timing color fixpoint creation and max interval reduction steps
             auto start = std::chrono::high_resolution_clock::now();
             auto end = std::chrono::high_resolution_clock::now();
@@ -50,7 +56,7 @@ namespace PetriEngine {
                 if (maxIntervals > maxIntervalsReduced && timeout > 0 && std::chrono::duration_cast<std::chrono::seconds>(end - reduceTimer).count() >= timeout) {
                     maxIntervals = maxIntervalsReduced;
                 }
-
+                print();
                 uint32_t currentPlaceId = _placeFixpointQueue.back();
                 _placeFixpointQueue.pop_back();
                 _placeColorFixpoints[currentPlaceId].inQueue = false;
@@ -65,9 +71,6 @@ namespace PetriEngine {
                     if (_considered[transitionId]) continue;
                     _var_map[transitionId].clear();
 
-                    if (!_arcIntervals.count(transitionId)) {
-                        _arcIntervals[transitionId] = default_transition_intervals(transition);
-                    }
                     bool transitionActivated = process_input_arcs(transitionId, currentPlaceId, maxIntervals);
 
                     //If there were colors which activated the transitions, compute the intervals produced
@@ -81,7 +84,6 @@ namespace PetriEngine {
             _fixpointDone = true;
             _fixPointCreationTime = (std::chrono::duration_cast<std::chrono::microseconds>(end - start).count())*0.000001;
             std::cerr << "END CFP " << std::endl;
-            _placeColorFixpoints.clear();
         }
     }
 
@@ -243,6 +245,12 @@ namespace PetriEngine {
             Colored::PositionVariableMap varPositions;
             Colored::VariableModifierMap varModifiersMap;
             arc.expr->getVariables(variables, varPositions, varModifiersMap, false);
+            std::cerr << "Got variables for " << transition.name << std::endl;
+            for(auto& v : variables)
+            {
+                std::cerr << v->name << std::endl;
+            }
+            std::cerr << std::endl;
 
             Colored::ArcIntervals newArcInterval(&_placeColorFixpoints[arc.place], varModifiersMap);
             res[arc.place] = newArcInterval;
@@ -273,10 +281,12 @@ namespace PetriEngine {
                 Colored::interval_t tokenConstraints;
                 uint32_t index = 0;
                 colorPair.first->getColorConstraints(tokenConstraints, index);
-
+                std::cerr << colorPair.first->toString() << std::endl;
                 colorFixpoint.constraints.addInterval(tokenConstraints);
             }
         }
+        std::cerr << "PLACE (" << place.name << ") ";
+        std::cerr << colorFixpoint.constraints.toString() << std::endl;
         return colorFixpoint;
     }
 
