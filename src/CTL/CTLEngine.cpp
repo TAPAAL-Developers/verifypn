@@ -58,6 +58,15 @@ void printResult(const std::string& qname, CTLResult& result, StatisticsLevel st
              << (options.stubbornreduction ? "STUBBORN_SETS " : "")
              << (options.ctlalgorithm == CTL::CZero ? "CTL_CZERO " : "")
              << (options.ctlalgorithm == CTL::Local ? "CTL_LOCAL " : "")
+#ifdef DG_SOURCE_CHECK
+             << "SOURCE_CHECK "
+#endif
+#ifdef DG_LAZY_CHECK
+             << "LAZY_CHECK "
+#endif
+#ifdef DG_REFCOUNTING
+             << "REFCOUNTING "
+#endif
                 << endl << endl;
         std::cout << "Query index " << index << " was solved" << std::endl;
         cout << "Query is" << (result.result ? "" : " NOT") << " satisfied." << endl;

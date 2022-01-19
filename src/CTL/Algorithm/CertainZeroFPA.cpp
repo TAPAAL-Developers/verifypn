@@ -49,11 +49,14 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
 void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_dep)
 {
     if(e->handled) return;
+#ifdef DG_SOURCE_CHECK
     if(e->source->isDone())
     {
         if(e->refcnt == 0) graph->release(e);
         return;
     }
+#endif
+#ifdef DG_LAZY_CHECK
     if (!only_assign && !was_dep) {
         bool allDone = e->source != root;
         for (auto *pre : e->source->dependency_set) {
@@ -69,20 +72,17 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_de
             return;
         }
     }
-    /*{
-        bool any = false;
-        size_t n = 0;
-        size_t k = 0;
-        for(Edge* deps : e->source->dependency_set)
-        {
-            ++k;
-            if(deps->source->isDone()) continue;
-            any = true;
-            ++n;
+#endif
+#ifdef DG_REFCOUNTING
+    if (!only_assign && !was_dep && v->refc == 0) {
+            assert(v != root);
+            assert(v->dependency_set.empty());
+            if (v->assignment == ZERO)
+                v->passed = false;
+            return;
         }
-        if(!any && e->source != root) return;
-    }*/
-    
+#endif
+
     bool allOne = true;
     bool hasCZero = false;
     //auto pre_empty = e->targets.empty();
@@ -143,6 +143,9 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_de
                 {
                     strategy->pushNegation(e);
                 }
+#ifdef DG_REFCOUNTING
+                ++lastUndecided->refc;
+#endif
                 lastUndecided->addDependency(e);
                 if (!lastUndecided->passed) {
                     explore(lastUndecided);
@@ -223,7 +226,15 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, D
         --e->refcnt;
         if(e->refcnt == 0) graph->release(e);
     }
-    
+#ifdef DG_REFCOUNTING
+    for (auto v: c->forward_dependency_set) {
+        //assert(v->refc > 0);
+        //assert(!v->dependency_set.empty());
+        v->remove_dependent(c);
+    }
+    c->forward_dependency_set.clear();
+#endif
+
     c->dependency_set.clear();
 }
 

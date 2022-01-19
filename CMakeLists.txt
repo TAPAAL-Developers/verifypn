@@ -22,7 +22,47 @@ set(EXTERNAL_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/external CACHE PATH "Install l
 option(VERIFYPN_MC_Simplification "Enables multicore simplification, incompatible with static linking" OFF)
 option(VERIFYPN_TEST "Build unit tests" OFF)
 set(VERIFYPN_TARGETDIR "${CMAKE_BINARY_DIR}/${VERIFYPN_NAME}" CACHE PATH "Traget directory for build files")
-set(VERIFYPN_OSX_DEPLOYMENT_TARGET 10.8 CACHE STRING "Specify the minimum version of the target platform for MacOS on which the target binaries are to be deployed ") 
+set(VERIFYPN_OSX_DEPLOYMENT_TARGET 10.8 CACHE STRING "Specify the minimum version of the target platform for MacOS on which the target binaries are to be deployed ")
+
+## TEMPORARY FLAGS PLEASE REMOVE
+set(DG_Use_Source_Check ON)
+set(DG_Use_Lazy_Check ON)
+set(DG_Use_Refcounting OFF)
+
+option(DG_CONFIGURATION SourceLazy)
+
+## Configurations:
+##   Baseline
+##   Source
+##   SourceLazy
+##   SourceRef
+if (DG_CONFIGURATION MATCHES Baseline)
+    set(DG_Use_Source_Check OFF)
+    set(DG_Use_Lazy_Check OFF)
+    set(DG_Use_Refcounting OFF)
+elseif(DG_CONFIGURATION MATCHES Source)
+    set(DG_Use_Source_Check ON)
+    set(DG_Use_Lazy_Check OFF)
+    set(DG_Use_Refcounting OFF)
+elseif(DG_CONFIGURATION MATCHES SourceLazy)
+    set(DG_Use_Source_Check ON)
+    set(DG_Use_Lazy_Check ON)
+    set(DG_Use_Refcounting OFF)
+elseif(DG_CONFIGURATION MATCHES SourceRef)
+    set(DG_Use_Source_Check ON)
+    set(DG_Use_Lazy_Check OFF)
+    set(DG_Use_Refcounting ON)
+endif ()
+
+if (DG_Use_Source_Check)
+    add_compile_definitions(DG_SOURCE_CHECK)
+endif (DG_Use_Source_Check)
+if (DG_Use_Lazy_Check)
+    add_compile_definitions(DG_LAZY_CHECK)
+endif (DG_Use_Lazy_Check)
+if (DG_Use_Refcounting)
+    add_compile_definitions(DG_REFCOUNTING)
+endif (DG_Use_Refcounting)
 
 # Configure Project
 
@@ -130,6 +170,7 @@ if (VERIFYPN_MC_Simplification)
     add_compile_definitions(VERIFYPN_MC_Simplification)
 endif(VERIFYPN_MC_Simplification)
 add_compile_definitions(VERIFYPN_VERSION=\"${VERIFYPN_VERSION}\")
+
 
 # Source
 include_directories(include)
