@@ -14,6 +14,12 @@ class Configuration;
 enum Assignment {
     ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2
 };
+enum class EdgeStatus : uint8_t {
+    NotWaiting = 0,
+    InWaiting = 1,
+    Dependency = 2,
+    Negation = 3
+};
 
 class Edge {
     typedef std::forward_list<Configuration*> container;
@@ -30,7 +36,7 @@ public:
     
     container targets;    
     Configuration* source;
-    uint8_t status = 0;
+    EdgeStatus status = EdgeStatus::NotWaiting;
     bool processed = false;
     bool is_negated = false;
     bool handled = false;
