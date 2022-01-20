@@ -13,7 +13,9 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
     {
         explore(root);
     }
+#ifdef DG_REFCOUNTING
     root->refc = 1;
+#endif
 
     size_t cnt = 0;
     while (!strategy->empty()) {
@@ -164,7 +166,9 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             if (!e->processed) {
                 if (!lastUndecided->isDone()) {
                     for (auto t: e->targets) {
+#ifdef DG_REFCOUNTING
                         ++t->refc;
+#endif
                         t->addDependency(e);
                     }
                 }
