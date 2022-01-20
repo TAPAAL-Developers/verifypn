@@ -3,17 +3,16 @@
 
 namespace DependencyGraph {
 
-    void Configuration::addDependency(Edge* e) {
-        if(assignment == ONE) return;
+    void Configuration::addDependency(Edge *e) {
+        if (assignment == ONE) return;
         unsigned int sDist = e->is_negated ? e->source->getDistance() + 1 : e->source->getDistance();
         unsigned int tDist = getDistance();
 
         setDistance(std::max(sDist, tDist));
         auto it = dependency_set.begin();
         auto pit = dependency_set.before_begin();
-        while(it != dependency_set.end())
-        {
-            if(*it == e) {
+        while (it != dependency_set.end()) {
+            if (*it == e) {
 #ifdef DG_REFCOUNTING
                 assert(std::find(e->source->forward_dependency_set.begin(),
                                  e->source->forward_dependency_set.end(),
@@ -21,15 +20,16 @@ namespace DependencyGraph {
 #endif
                 return;
             }
-            if(*it == e) return;
+            if (*it == e) return;
             pit = it;
             ++it;
         }
         dependency_set.insert_after(pit, e);
 #ifdef DG_REFCOUNTING
         assert(std::find(
-                std::begin(e->source->forward_dependency_set), std::end(e->source->forward_dependency_set), this) == std::en
-d(forward_dependency_set));
+                std::begin(e->source->forward_dependency_set), std::end(e->source->forward_dependency_set), this) ==
+               std::en
+                       d(forward_dependency_set));
 
         e->source->forward_dependency_set.emplace_front(this);
 
@@ -46,17 +46,19 @@ d(forward_dependency_set));
     }
 
 #ifndef NDEBUG
+
     bool Edge::has_suc(size_t id) {
-        for (auto *conf : targets) {
+        for (auto *conf: targets) {
             if (conf->id == id) {
                 return true;
             }
         }
         return false;
     }
-#endif
 
+#endif
 #ifdef DG_REFCOUNTING
+
     void Configuration::remove_dependent(Configuration *c) {
         assert(refc > 0);
         assert(std::find_if(
@@ -73,7 +75,8 @@ d(forward_dependency_set));
                 }
                 pit = it;
                 ++it;
-
+            }
+        }
 /*{
             // might not be needed,
             auto pit = c->forward_dependency_set.before_begin();
