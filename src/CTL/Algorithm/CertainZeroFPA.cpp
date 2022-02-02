@@ -245,6 +245,16 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c)
             finalAssign(c, CZERO);
             return;
         }
+        auto it = succs.begin();
+        while (it != succs.end()) {
+            if ((*it)->source == nullptr) {
+                it = succs.erase(it);
+            }
+            else {
+                ++it;
+            }
+        }
+        assert(succs.size() == c->nsuccs);
 
         _order_successors(succs);
 
@@ -274,22 +284,27 @@ void Algorithm::CertainZeroFPA::_order_successors(std::vector<DependencyGraph::E
      */
     std::vector<std::pair<Edge *, int>> weighted_edges;
     for (Edge *e: sucs) {
+        if (e->source == nullptr) continue;
         assert(e->source->nsuccs > 0);
-        std::vector<std::pair<Configuration *, int>> weighted_configs;
+        std::vector<std::pair<PetriNets::PetriConfig *, int>> weighted_configs;
         std::transform(e->targets.begin(), e->targets.end(), std::back_inserter(weighted_configs),
-                       [&](auto &c) { return std::make_pair(c, _heuristic.eval(c->query)); });
-        std::sort(std::begin(weighted_configs), std::end(weighted_configs), [](auto p) { return p.second; });
+                       [&](auto &c) {
+                           return std::make_pair((PetriNets::PetriConfig *) c,
+                                                 _heuristic.eval(((PetriNets::PetriConfig *) c)->query));
+                       });
+        std::sort(std::begin(weighted_configs), std::end(weighted_configs),
+                  [](auto &p, auto &q) { return p.second < q.second; });
 
         weighted_edges.emplace_back(e, weighted_configs[0].second);
 
-        assert(weighted_configs.size() == e->source->nsuccs);
+        assert(weighted_configs.size() == std::distance(e->targets.begin(), e->targets.end()));
         std::transform(std::begin(weighted_configs), std::end(weighted_configs), std::begin(e->targets),
                        [](auto &p) { return p.first; });
     }
-    // sort by -heur to accomodate DFS.
+    // sort in reverse to accomodate DFS.
     std::sort(std::begin(weighted_edges), std::end(weighted_edges),
-              [](auto p) { return -p.second; });
+              [](auto &p, auto &q) { return p.second > q.second; });
     assert(weighted_edges.size() == sucs.size());
     std::transform(std::begin(weighted_edges), std::end(weighted_edges), std::begin(sucs),
-                   [] (auto p) { return p.first; });
+                   [](auto p) { return p.first; });
 }
