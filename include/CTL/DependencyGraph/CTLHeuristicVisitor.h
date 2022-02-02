@@ -19,25 +19,23 @@
 #define VERIFYPN_CTLHEURISTICVISITOR_H
 
 #include "PetriEngine/PQL/Visitor.h"
-
+#include "PetriEngine/options.h"
 
 
 class CTLHeuristicVisitor : public PetriEngine::PQL::BaseVisitor {
 public:
-    enum BoolBehaviour {
-        PeterVal,  // and -> min, or -> max
-        JiriVal,   // and -> max, or -> min
-        NikolajVal // and -> sum, or -> sum
-    };
 
-    explicit CTLHeuristicVisitor(BoolBehaviour boolBehaviour = BoolBehaviour::JiriVal)
-            : _bool_behaviour(boolBehaviour) {}
+    explicit CTLHeuristicVisitor(CTLHeuristic boolBehaviour = CTLHeuristic::JiriVal)
+            : type(boolBehaviour) {}
     [[nodiscard]] int value() { return _cur_val; }
 
     [[nodiscard]] int eval(PetriEngine::PQL::Condition* cond) {
+        _cur_val = 0;
         cond->visit(*this);
         return _cur_val;
     }
+
+    const CTLHeuristic type = CTLHeuristic::JiriVal;
 protected:
     void _accept(const PetriEngine::PQL::NotCondition *element) override;
 
@@ -69,9 +67,6 @@ protected:
 
 private:
     int _cur_val;
-
-
-    BoolBehaviour _bool_behaviour = BoolBehaviour::JiriVal;
 
     void _accum_max(const PetriEngine::PQL::LogicalCondition *cond);
 

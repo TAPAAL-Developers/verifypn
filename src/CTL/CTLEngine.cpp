@@ -26,7 +26,7 @@ using namespace PetriEngine::Reachability;
 using namespace PetriNets;
 
 ReturnValue getAlgorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm>& algorithm,
-                         CTLAlgorithmType algorithmtype, Strategy search)
+                         CTLAlgorithmType algorithmtype, Strategy search, CTLHeuristic heur)
 {
     switch(algorithmtype)
     {
@@ -34,7 +34,7 @@ ReturnValue getAlgorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm>& algori
             algorithm = std::make_shared<Algorithm::LocalFPA>(search);
             break;
         case CTLAlgorithmType::CZero:
-            algorithm = std::make_shared<Algorithm::CertainZeroFPA>(search);
+            algorithm = std::make_shared<Algorithm::CertainZeroFPA>(search, heur);
             break;
         default:
             throw base_error("Unknown or unsupported algorithm");
@@ -44,23 +44,23 @@ ReturnValue getAlgorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm>& algori
 
 bool singleSolve(Condition* query, PetriNet* net,
                  CTLAlgorithmType algorithmtype,
-                 Strategy strategytype, bool partial_order, CTLResult& result);
+                 Strategy strategytype, bool partial_order, CTLResult& result, const options_t &options);
 
 bool singleSolve(const Condition_ptr& query, PetriNet* net,
                  CTLAlgorithmType algorithmtype,
-                 Strategy strategytype, bool partial_order, CTLResult& result)
+                 Strategy strategytype, bool partial_order, CTLResult& result, const options_t &options)
 {
-    return singleSolve(query.get(), net, algorithmtype, strategytype, partial_order, result);
+    return singleSolve(query.get(), net, algorithmtype, strategytype, partial_order, result, options);
 }
 
 bool singleSolve(Condition* query, PetriNet* net,
                  CTLAlgorithmType algorithmtype,
-                 Strategy strategytype, bool partial_order, CTLResult& result)
+                 Strategy strategytype, bool partial_order, CTLResult& result, const options_t &options)
 {
     OnTheFlyDG graph(net, partial_order);
     graph.setQuery(query);
     std::shared_ptr<Algorithm::FixedPointAlgorithm> alg = nullptr;
-    getAlgorithm(alg, algorithmtype,  strategytype);
+    getAlgorithm(alg, algorithmtype,  strategytype, options.ctl_heuristic);
 
     stopwatch timer;
     timer.start();
@@ -250,7 +250,7 @@ bool recursiveSolve(Condition* query, PetriEngine::PetriNet* net,
     }
     else
     {
-        return singleSolve(query, net, algorithmtype, strategytype, partial_order, result);
+        return singleSolve(query, net, algorithmtype, strategytype, partial_order, result, options);
     }
 }
 

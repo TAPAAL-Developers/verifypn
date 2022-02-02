@@ -256,7 +256,9 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c)
         }
         assert(succs.size() == c->nsuccs);
 
-        _order_successors(succs);
+        if (_heuristic.type != CTLHeuristic::None) {
+            _order_successors(succs);
+        }
 
         for (Edge *succ : succs) {
             assert(succ->refcnt <= 1);

@@ -13,9 +13,9 @@ namespace Algorithm {
 class CertainZeroFPA : public FixedPointAlgorithm
 {
 public:
-    CertainZeroFPA(Strategy type)
+    CertainZeroFPA(Strategy type, CTLHeuristic heuristic)
             : FixedPointAlgorithm(type),
-              _heuristic(CTLHeuristicVisitor::JiriVal)
+              _heuristic(heuristic)
     {
     }
     virtual ~CertainZeroFPA()

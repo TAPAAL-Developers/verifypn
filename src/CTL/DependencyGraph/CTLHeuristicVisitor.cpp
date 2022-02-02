@@ -25,28 +25,28 @@ void CTLHeuristicVisitor::_accept(const PetriEngine::PQL::NotCondition *element)
 }
 
 void CTLHeuristicVisitor::_accept(const PetriEngine::PQL::AndCondition *element) {
-    switch (_bool_behaviour) {
-        case BoolBehaviour::PeterVal:
+    switch (type) {
+        case CTLHeuristic::PeterVal:
             _accum_min(element);
             break;
-        case BoolBehaviour::JiriVal:
+        case CTLHeuristic::JiriVal:
             _accum_max(element);
             break;
-        case BoolBehaviour::NikolajVal:
+        case CTLHeuristic::NikolajVal:
             _accum_sum(element);
             break;
     }
 }
 
 void CTLHeuristicVisitor::_accept(const PetriEngine::PQL::OrCondition *element) {
-    switch (_bool_behaviour) {
-        case BoolBehaviour::PeterVal:
+    switch (type) {
+        case CTLHeuristic::PeterVal:
             _accum_max(element);
             break;
-        case BoolBehaviour::JiriVal:
+        case CTLHeuristic::JiriVal:
             _accum_min(element);
             break;
-        case BoolBehaviour::NikolajVal:
+        case CTLHeuristic::NikolajVal:
             _accum_sum(element);
             break;
     }

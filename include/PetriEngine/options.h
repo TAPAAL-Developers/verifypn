@@ -11,6 +11,7 @@
 
 #include "CTL/Algorithm/AlgorithmTypes.h"
 #include "LTL/AlgorithmTypes.h"
+#include "PetriEngine/PQL/Visitor.h"
 
 enum class Strategy {
     BFS,
@@ -56,6 +57,14 @@ enum class LTLHeuristic {
     Automaton,
     FireCount,
 };
+
+enum class CTLHeuristic {
+    PeterVal,   // and -> min, or -> max
+    JiriVal,    // and -> max, or -> min
+    NikolajVal, // and -> sum, or -> sum
+    None
+};
+
 struct options_t {
 //    bool outputtrace = false;
     int kbound = 0;
@@ -84,6 +93,7 @@ struct options_t {
     CTL::CTLAlgorithmType ctlalgorithm = CTL::CZero;
     bool tar = false;
     uint32_t binary_query_io = 0;
+    CTLHeuristic ctl_heuristic = CTLHeuristic::JiriVal;
 
     // LTL Specific options
     bool usedltl = false;
@@ -121,5 +131,7 @@ struct options_t {
     size_t seed() { return ++seed_offset; }
     void print(std::ostream& out = std::cout);
     bool parse(int argc, const char** argv);
+
+
 };
 #endif

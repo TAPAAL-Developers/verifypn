@@ -441,6 +441,23 @@ bool options_t::parse(int argc, const char** argv) {
                 }
                 i++;
             }
+        } else if (std::strcmp(argv[i], "--ctl-heur") == 0) {
+            if (argc == i + 1) {
+                throw base_error("Missing argument to --ctl-heur");
+            }
+            if (std::strcmp(argv[i + 1], "peter") == 0) {
+                ctl_heuristic = CTLHeuristic::PeterVal;
+            } else if (std::strcmp(argv[i + 1], "jiri") == 0) {
+                ctl_heuristic = CTLHeuristic::JiriVal;
+            } else if (std::strcmp(argv[i + 1], "nikolaj") == 0) {
+                ctl_heuristic = CTLHeuristic::NikolajVal;
+            } else if (std::strcmp(argv[i + 1], "none") == 0) {
+                ctl_heuristic = CTLHeuristic::None;
+            } else {
+                throw base_error("Unknown --ctl-heur value ", std::quoted(argv[i+1]));
+            }
+
+            ++i;
         } else if (std::strcmp(argv[i], "-ltl") == 0 || std::strcmp(argv[i], "--ltl-algorithm") == 0) {
             logic = TemporalLogic::LTL;
             if (argc > i + 1) {
