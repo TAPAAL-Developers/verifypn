@@ -6,14 +6,16 @@
 #include "CTL/DependencyGraph/Configuration.h"
 #include "PetriEngine/Reachability/ReachabilitySearch.h"
 #include "CTL/SearchStrategy/SearchStrategy.h"
-
+#include "CTL/DependencyGraph/CTLHeuristicVisitor.h"
 
 namespace Algorithm {
 
 class CertainZeroFPA : public FixedPointAlgorithm
 {
 public:
-    CertainZeroFPA(Strategy type) : FixedPointAlgorithm(type)
+    CertainZeroFPA(Strategy type)
+            : FixedPointAlgorithm(type),
+              _heuristic(CTLHeuristicVisitor::JiriVal)
     {
     }
     virtual ~CertainZeroFPA()
@@ -30,6 +32,10 @@ protected:
     void finalAssign(DependencyGraph::Edge *e, DependencyGraph::Assignment a);
     void explore(DependencyGraph::Configuration *c);
 
+private:
+    CTLHeuristicVisitor _heuristic;
+
+    void _order_successors(std::vector<DependencyGraph::Edge*> &sucs);
 };
 }
 #endif // CERTAINZEROFPA_H

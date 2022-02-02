@@ -1,4 +1,5 @@
 #include "CTL/Algorithm/CertainZeroFPA.h"
+#include "CTL/PetriNets/PetriConfig.h"
 
 #include <cassert>
 #include <iostream>
@@ -19,21 +20,21 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
     size_t cnt = 0;
     while(!strategy->empty())
     {
-        while (auto e = strategy->popEdge(false)) 
+        while (auto e = strategy->popEdge(false))
         {
             ++e->refcnt;
             assert(e->refcnt >= 1);
             checkEdge(e);
             assert(e->refcnt >= -1);
             if(e->refcnt > 0) --e->refcnt;
-            if(e->refcnt == 0) graph->release(e);            
+            if(e->refcnt == 0) graph->release(e);
             ++cnt;
             if((cnt % 1000) == 0) strategy->trivialNegation();
             if(vertex->isDone()) return vertex->assignment == ONE;
         }
-        
+
         if(vertex->isDone()) return vertex->assignment == ONE;
-        
+
         if(!strategy->trivialNegation())
         {
             cnt = 0;
@@ -67,7 +68,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
         }
         if(!any && e->source != vertex) return;
     }*/
-    
+
     bool allOne = true;
     bool hasCZero = false;
     //auto pre_empty = e->targets.empty();
@@ -157,7 +158,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
                     for (auto t : e->targets)
                         t->addDependency(e);
                 }
-            }                 
+            }
             if (lastUndecided->assignment == UNKNOWN) {
                 explore(lastUndecided);
             }
@@ -204,7 +205,7 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, D
         --e->refcnt;
         if(e->refcnt == 0) graph->release(e);
     }
-    
+
     c->dependency_set.clear();
 }
 
@@ -224,7 +225,7 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c)
         for(int32_t i = c->nsuccs-1; i >= 0; --i)
         {
             checkEdge(succs[i], true);
-            if(c->isDone()) 
+            if(c->isDone())
             {
                 for(Edge *e : succs){
                     assert(e->refcnt <= 1);
@@ -245,6 +246,8 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c)
             return;
         }
 
+        _order_successors(succs);
+
         for (Edge *succ : succs) {
             assert(succ->refcnt <= 1);
             if(succ->refcnt > 0)
@@ -260,4 +263,33 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c)
         }
     }
     strategy->flush();
+}
+
+void Algorithm::CertainZeroFPA::_order_successors(std::vector<DependencyGraph::Edge *> &sucs) {
+    /*
+     * Scheme: Configurations ordered with smallest formula first (see CTLHeuristicVisitor for details)
+     * Sort edges by minimum config heuristic among targets.
+     *
+     * Assumes no edge has zero targets.
+     */
+    std::vector<std::pair<Edge *, int>> weighted_edges;
+    for (Edge *e: sucs) {
+        assert(e->source->nsuccs > 0);
+        std::vector<std::pair<Configuration *, int>> weighted_configs;
+        std::transform(e->targets.begin(), e->targets.end(), std::back_inserter(weighted_configs),
+                       [&](auto &c) { return std::make_pair(c, _heuristic.eval(c->query)); });
+        std::sort(std::begin(weighted_configs), std::end(weighted_configs), [](auto p) { return p.second; });
+
+        weighted_edges.emplace_back(e, weighted_configs[0].second);
+
+        assert(weighted_configs.size() == e->source->nsuccs);
+        std::transform(std::begin(weighted_configs), std::end(weighted_configs), std::begin(e->targets),
+                       [](auto &p) { return p.first; });
+    }
+    // sort by -heur to accomodate DFS.
+    std::sort(std::begin(weighted_edges), std::end(weighted_edges),
+              [](auto p) { return -p.second; });
+    assert(weighted_edges.size() == sucs.size());
+    std::transform(std::begin(weighted_edges), std::end(weighted_edges), std::begin(sucs),
+                   [] (auto p) { return p.first; });
 }
