@@ -65,6 +65,13 @@ enum class CTLHeuristic {
     None
 };
 
+
+enum class StatisticsLevel {
+    None,
+    SearchOnly,
+    Full
+};
+
 struct options_t {
 //    bool outputtrace = false;
     int kbound = 0;
@@ -75,7 +82,7 @@ struct options_t {
     int reductionTimeout = 60;
     bool stubbornreduction = true;
     bool statespaceexploration = false;
-    bool printstatistics = true;
+    StatisticsLevel printstatistics = StatisticsLevel::Full;
     std::set<size_t> querynumbers;
     Strategy strategy = Strategy::DEFAULT;
     int queryReductionTimeout = 30, intervalTimeout = 10, partitionTimeout = 5, lpsolveTimeout = 10;

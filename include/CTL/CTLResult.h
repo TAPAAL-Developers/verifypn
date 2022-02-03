@@ -5,7 +5,6 @@
 #include "PetriEngine/PQL/PQL.h"
 #include "PetriEngine/options.h"
 
-
 #include <ostream>
 #include <string>
 
@@ -33,7 +32,7 @@ struct CTLResult {
     size_t numberOfAnswersReceived = 0;
     size_t numberOfMessagesSend = 0;
 #endif
-    void print(const std::string& qname, bool statisticslevel, size_t index, options_t& options, std::ostream& out) const;
+    void print(const std::string& qname, StatisticsLevel statisticslevel, size_t index, options_t& options, std::ostream& out) const;
 };
 
 #endif // CTLRESULT_H

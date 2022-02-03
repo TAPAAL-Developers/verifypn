@@ -158,7 +158,7 @@ readQueries(options_t& options, std::vector<std::string>& qstrings) {
 }
 
 void printStats(PetriNetBuilder& builder, options_t& options) {
-    if (options.printstatistics) {
+    if (options.printstatistics == StatisticsLevel::Full) {
         if (options.enablereduction != 0) {
 
             std::cout << "Size of net before structural reductions: " <<
@@ -309,7 +309,7 @@ Condition_ptr simplify_ltl_query(Condition_ptr query,
         return cond; }, stats, evalContext, false, false, true),
         stats, evalContext, false, false, true);
 
-    if (options.printstatistics) {
+    if (options.printstatistics == StatisticsLevel::Full) {
         out << "RWSTATS PRE:";
         stats.print(out);
         out << std::endl;
@@ -336,7 +336,7 @@ Condition_ptr simplify_ltl_query(Condition_ptr query,
     } else {
         cond = std::make_shared<ECondition>(cond);
     }
-    if (options.printstatistics) {
+    if (options.printstatistics == StatisticsLevel::Full) {
         out << "RWSTATS POST:";
         stats.print(out);
         out << std::endl;
@@ -419,7 +419,7 @@ void simplify_queries(  const MarkVal* marking,
                     negstat_t stats;
                     EvaluationContext context(marking, net);
 
-                    if (options.printstatistics && options.queryReductionTimeout > 0) {
+                    if (options.printstatistics == StatisticsLevel::Full && options.queryReductionTimeout > 0) {
                         out << "\nQuery before reduction: ";
                         queries[i]->toString(out);
                         out << std::endl;
@@ -445,7 +445,7 @@ void simplify_queries(  const MarkVal* marking,
                         stats, context, false, false, true);
                     wasAGCPNApprox |= dynamic_cast<NotCondition*> (queries[i].get()) != nullptr;
 
-                    if (options.queryReductionTimeout > 0 && options.printstatistics) {
+                    if (options.queryReductionTimeout > 0 && options.printstatistics == StatisticsLevel::Full) {
                         out << "RWSTATS PRE:";
                         stats.print(out);
                         out << std::endl;
@@ -460,7 +460,7 @@ void simplify_queries(  const MarkVal* marking,
                             auto simp_cond = PetriEngine::PQL::simplify(queries[i], simplificationContext);
                             queries[i] = pushNegation(simp_cond.formula, stats, context, false, false, true);
                             wasAGCPNApprox |= dynamic_cast<NotCondition*> (queries[i].get()) != nullptr;
-                            if (options.printstatistics) {
+                            if (options.printstatistics == StatisticsLevel::Full) {
                                 out << "RWSTATS POST:";
                                 stats.print(out);
                                 out << std::endl;
@@ -469,21 +469,21 @@ void simplify_queries(  const MarkVal* marking,
                             throw base_error("Query reduction failed.\nException information: ", ba.what());
                         }
 
-                        if (options.printstatistics) {
+                        if (options.printstatistics == StatisticsLevel::Full) {
                             out << "\nQuery after reduction: ";
                             queries[i]->toString(out);
                             out << std::endl;
                         }
                         if (simplificationContext.timeout()) {
-                            if (options.printstatistics)
+                            if (options.printstatistics == StatisticsLevel::Full)
                                 out << "Query reduction reached timeout.\n";
                             hadTo[i] = true;
                         } else {
-                            if (options.printstatistics)
+                            if (options.printstatistics == StatisticsLevel::Full)
                                 out << "Query reduction finished after " << simplificationContext.getReductionTime() << " seconds.\n";
                             --to_handle;
                         }
-                    } else if (options.printstatistics) {
+                    } else if (options.printstatistics == StatisticsLevel::Full) {
                         out << "Skipping linear-programming (-q 0)" << std::endl;
                     }
                     if (options.cpnOverApprox && wasAGCPNApprox) {
@@ -495,7 +495,7 @@ void simplify_queries(  const MarkVal* marking,
                     }
 
 
-                    if (options.printstatistics) {
+                    if (options.printstatistics == StatisticsLevel::Full) {
                         int postSize = formulaSize(queries[i]);
                         double redPerc = preSize - postSize == 0 ? 0 : ((double) (preSize - postSize) / (double) preSize)*100;
                         out << "Query size reduced from " << preSize << " to " << postSize << " nodes ( " << redPerc << " percent reduction).\n";

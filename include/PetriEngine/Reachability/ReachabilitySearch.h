@@ -29,7 +29,7 @@
 #include "../SuccessorGenerator.h"
 #include "../ReducingSuccessorGenerator.h"
 #include "PetriEngine/Stubborn/ReachabilityStubbornSet.h"
-#include "PetriEngine/Stubborn/ReachabilityStubbornSet.h"
+
 #include "PetriEngine/options.h"
 
 #include <memory>
@@ -59,7 +59,7 @@ namespace PetriEngine {
                     Strategy strategy,
                     bool usestubborn,
                     bool statespacesearch,
-                    bool printstats,
+                    StatisticsLevel printstats,
                     bool keep_trace,
                     size_t seed);
         private:
@@ -76,9 +76,9 @@ namespace PetriEngine {
                 std::vector<std::shared_ptr<PQL::Condition > >& queries,
                 std::vector<ResultPrinter::Result>& results,
                 bool usequeries,
-                bool printstats,
+                StatisticsLevel statisticsLevel,
                 size_t seed);
-            void printStats(searchstate_t& s, Structures::StateSetInterface*);
+            void printStats(searchstate_t& s, Structures::StateSetInterface*, StatisticsLevel);
             bool checkQueries(  std::vector<std::shared_ptr<PQL::Condition > >&,
                                     std::vector<ResultPrinter::Result>&,
                                     Structures::State&, searchstate_t&, Structures::StateSetInterface*);
@@ -103,9 +103,9 @@ namespace PetriEngine {
         }
 
         template<typename Q, typename W, typename G>
-        bool ReachabilitySearch::tryReach(   std::vector<std::shared_ptr<PQL::Condition> >& queries,
-                                        std::vector<ResultPrinter::Result>& results, bool usequeries,
-                                        bool printstats, size_t seed)
+        bool ReachabilitySearch::tryReach(std::vector<std::shared_ptr<PQL::Condition> >& queries,
+                                          std::vector<ResultPrinter::Result>& results, bool usequeries,
+                                          StatisticsLevel statisticsLevel, size_t seed)
         {
 
             // set up state
@@ -136,7 +136,7 @@ namespace PetriEngine {
                 {
                     if(checkQueries(queries, results, working, ss, &states))
                     {
-                        if(printstats) printStats(ss, &states);
+                        if(statisticsLevel != StatisticsLevel::None) printStats(ss, &states, statisticsLevel);
                             return true;
                     }
                 }
@@ -163,7 +163,7 @@ namespace PetriEngine {
                             _satisfyingMarking = res.second;
                             ss.exploredStates++;
                             if (checkQueries(queries, results, working, ss, &states)) {
-                                if(printstats) printStats(ss, &states);
+                                printStats(ss, &states, statisticsLevel);
                                 return true;
                             }
                         }
@@ -181,7 +181,7 @@ namespace PetriEngine {
                 }
             }
 
-            if(printstats) printStats(ss, &states);
+            if(statisticsLevel != StatisticsLevel::None) printStats(ss, &states, statisticsLevel);
             return false;
         }
 

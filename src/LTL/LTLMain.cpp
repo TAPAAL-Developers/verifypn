@@ -82,7 +82,7 @@ namespace LTL {
 #ifdef DEBUG_EXPLORED_STATES
         result.explored_states = checker->get_explored();
 #endif
-        if (options.printstatistics) {
+        if (options.printstatistics != StatisticsLevel::None) {
             checker->printStats(std::cout);
         }
         return result;
@@ -181,7 +181,7 @@ namespace LTL {
                     gen.setSpooler(spooler.get());
                     // if search strategy used, set heuristic, otherwise ignore it
                     // (default is null which is checked elsewhere)
-                    if (options.strategy != Strategy::DFS) {
+                    if (options.strategy != Strategy::DFS || is_stubborn) {
                         assert(heuristic != nullptr);
                         gen.setHeuristic(heuristic.get());
                     }
@@ -273,6 +273,7 @@ namespace LTL {
             case Algorithm::None:
                 assert(false);
                 std::cerr << "Error: cannot LTL verify with algorithm None";
+                break;
         }
         std::cout << "FORMULA " << queryName
                   << (result.satisfied ^ negate_answer ? " TRUE" : " FALSE") << " TECHNIQUES EXPLICIT "

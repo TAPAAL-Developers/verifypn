@@ -141,14 +141,14 @@ bool solveLogicalCondition(LogicalCondition* query, bool is_conj, PetriNet* net,
                                         options.strategy,
                                         options.stubbornreduction,
                                         false,
-                                        false,
+                                        StatisticsLevel::None,
                                         false,
                                         options.seed());
         }
         else
         {
             TARReachabilitySearch tar(handler, *net, nullptr, options.kbound);
-            tar.reachable(queries, res, false, false);
+            tar.reachable(queries, res, StatisticsLevel::None, false);
         }
         size_t j = 0;
         for(size_t i = 0; i < query->size(); ++i) {
@@ -233,7 +233,7 @@ bool recursiveSolve(Condition* query, PetriEngine::PetriNet* net,
         if(options.tar)
         {
             TARReachabilitySearch tar(handler, *net, nullptr, options.kbound);
-            tar.reachable(queries, res, false, false);
+            tar.reachable(queries, res, StatisticsLevel::None, false);
         }
         else
         {
@@ -242,7 +242,7 @@ bool recursiveSolve(Condition* query, PetriEngine::PetriNet* net,
                            options.strategy,
                            options.stubbornreduction,
                            false,
-                           false,
+                           StatisticsLevel::None,
                            false,
                            options.seed());
         }
@@ -258,7 +258,7 @@ bool recursiveSolve(Condition* query, PetriEngine::PetriNet* net,
 ReturnValue CTLMain(PetriNet* net,
                     CTLAlgorithmType algorithmtype,
                     Strategy strategytype,
-                    bool printstatistics,
+                    StatisticsLevel printstatistics,
                     bool partial_order,
                     const std::vector<std::string>& querynames,
                     const std::vector<std::shared_ptr<Condition>>& queries,
