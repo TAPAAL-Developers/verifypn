@@ -289,15 +289,16 @@ void Algorithm::CertainZeroFPA::_order_successors(std::vector<DependencyGraph::E
         if (e->source == nullptr) continue;
         assert(e->source->nsuccs > 0);
         std::vector<std::pair<PetriNets::PetriConfig *, int>> weighted_configs;
-        std::transform(e->targets.begin(), e->targets.end(), std::back_inserter(weighted_configs),
-                       [&](auto &c) {
-                           return std::make_pair((PetriNets::PetriConfig *) c,
-                                                 _heuristic.eval(((PetriNets::PetriConfig *) c)->query));
-                       });
+        int sum_weights = 0;
+        for (auto c : e->targets) {
+            weighted_configs.emplace_back((PetriNets::PetriConfig *) c,
+                                          _heuristic.eval(((PetriNets::PetriConfig *) c)->query));
+            sum_weights += weighted_configs.back().second;
+        }
         std::sort(std::begin(weighted_configs), std::end(weighted_configs),
                   [](auto &p, auto &q) { return p.second < q.second; });
 
-        weighted_edges.emplace_back(e, weighted_configs[0].second);
+        weighted_edges.emplace_back(e, sum_weights);
 
         assert(weighted_configs.size() == std::distance(e->targets.begin(), e->targets.end()));
         std::transform(std::begin(weighted_configs), std::end(weighted_configs), std::begin(e->targets),
