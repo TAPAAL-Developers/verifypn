@@ -89,16 +89,16 @@ if (VERIFYPN_GetDependencies)
     )
     if (UNIX AND NOT APPLE)
         ExternalProject_add(spot-ext
-            URL http://www.lrde.epita.fr/dload/spot/spot-2.9.6.tar.gz
-            URL_HASH SHA512=69ec8a3ce84b2c069bf40b8d2127e5085724c8e4ba88ffdefc3e2225f6334955959afd17bcfcde29fd6826d78d49a7f1303bd07ba756a8695473ff6cc5ade3a2
+            URL https://www.lrde.epita.fr/dload/spot/spot-2.10.3.tar.gz
+            URL_HASH SHA512=21ef13a483986e7453b052589669fa26ce3b4b8816817e7eb338e08516be1c326771a61d19017a91a5c3f1849eb193423e059d6c54432f45c141e2ccf7c09279
             BUILD_COMMAND make
             CONFIGURE_COMMAND CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER} <SOURCE_DIR>/configure --prefix ${EXTERNAL_INSTALL_LOCATION} --disable-python --disable-devel --disable-debug --disable-shared --enable-static --enable-c++17 CFLAGS=-flto CXXFLAGS=-flto LDFLAGS=-fuse-linker-plugin
             INSTALL_COMMAND make install
         )
     else ()
         ExternalProject_add(spot-ext
-            URL http://www.lrde.epita.fr/dload/spot/spot-2.9.6.tar.gz
-            URL_HASH SHA512=69ec8a3ce84b2c069bf40b8d2127e5085724c8e4ba88ffdefc3e2225f6334955959afd17bcfcde29fd6826d78d49a7f1303bd07ba756a8695473ff6cc5ade3a2
+            URL https://www.lrde.epita.fr/dload/spot/spot-2.10.3.tar.gz
+            URL_HASH SHA512=21ef13a483986e7453b052589669fa26ce3b4b8816817e7eb338e08516be1c326771a61d19017a91a5c3f1849eb193423e059d6c54432f45c141e2ccf7c09279
             BUILD_COMMAND make
             CONFIGURE_COMMAND CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER} <SOURCE_DIR>/configure --prefix ${EXTERNAL_INSTALL_LOCATION} --disable-python --disable-devel --disable-debug --disable-shared --enable-static --enable-c++17 CFLAGS=${CMAKE_CXX_FLAGS} LDFLAGS=${CMAKE_LINKER_FLAGS}
             INSTALL_COMMAND make install
