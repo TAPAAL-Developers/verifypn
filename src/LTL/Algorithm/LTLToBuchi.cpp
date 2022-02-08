@@ -52,11 +52,17 @@ namespace LTL {
     }
 
     void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::UnfoldedFireableCondition *element) {
-        make_atomic_prop(std::make_shared<UnfoldedFireableCondition>(*element));
+        if(element->getCompiled())
+            Visitor::visit(this, element->getCompiled());
+        else
+            make_atomic_prop(std::make_shared<UnfoldedFireableCondition>(*element));
     }
 
     void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::FireableCondition *element) {
-        make_atomic_prop(std::make_shared<FireableCondition>(*element));
+        if(element->getCompiled())
+            Visitor::visit(this, element->getCompiled());
+        else
+            make_atomic_prop(std::make_shared<FireableCondition>(*element));
     }
 
     void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::LessThanOrEqualCondition *element) {
@@ -112,7 +118,6 @@ namespace LTL {
     void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::IdentifierExpr *element) {
         assert(false);
         throw base_error("IdentifierExpr should not be visited by Spot serializer");
-        //make_atomic_prop(element->shared_from_this());
     }
 
     void FormulaToSpotSyntax::_accept(const PetriEngine::PQL::ACondition *condition) {
