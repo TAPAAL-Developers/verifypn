@@ -2,6 +2,8 @@
 #define CONFIGURATION_H
 
 #include "Edge.h"
+#include "PetriEngine/Structures/SuccessorQueue.h"
+#include "PetriEngine/Structures/light_deque.h"
 
 #include <string>
 #include <cstdio>
@@ -28,9 +30,14 @@ private:
 public:
     int8_t assignment = UNKNOWN;
     bool passed = false;
+    bool instack = false;
+    uint32_t rank = std::numeric_limits<uint32_t>::max();
+
 #ifndef NDEBUG
     size_t id;
 #endif
+    SuccessorQueue<DependencyGraph::Edge*> sucs;
+
     Configuration() {}
     uint32_t getDistance() const { return distance; }
     bool isDone() const { return assignment == ONE || assignment == CZERO; }

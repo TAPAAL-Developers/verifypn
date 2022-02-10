@@ -60,6 +60,24 @@ public:
         ++_front;
     }
 
+    void prepend(const T& t) {
+        if (_front <= 0) {
+            assert(false && "cannot prepend full successor queue");
+        }
+        --_front;
+        _data[_front] = t;
+    }
+
+    void clear() {
+        if constexpr (!std::is_trivially_destructible_v<T>) {
+            for (int i = 0; i < _size; ++i) {
+                _data[i].~T();
+            }
+        }
+        _front = _size = 0;
+        _data = nullptr;
+    }
+
     [[nodiscard]] size_t size() const
     {
         return _size - _front;
