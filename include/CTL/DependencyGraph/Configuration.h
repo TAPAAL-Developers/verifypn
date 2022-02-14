@@ -37,6 +37,7 @@ public:
     size_t id;
 #endif
     SuccessorQueue<DependencyGraph::Edge*> sucs;
+    light_deque<DependencyGraph::Edge*> resucs{1};
 
     Configuration() {}
     uint32_t getDistance() const { return distance; }

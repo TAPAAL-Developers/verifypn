@@ -31,10 +31,12 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
             if (e->refcnt == 0) graph->release(e);
             ++cnt;
             if ((cnt % 1000) == 0) strategy->trivialNegation();
-            if (root->isDone()) return root->assignment == ONE;
+            if (root->isDone())
+                return root->assignment == ONE;
         }
 
-        if (root->isDone()) return root->assignment == ONE;
+        if (root->isDone())
+            return root->assignment == ONE;
 
         if (!strategy->trivialNegation()) {
             cnt = 0;
@@ -112,7 +114,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
     }*/
 
     if (e->is_negated) {
-        _processedNegationEdges += 1;
+        _processedNegationEdges += !only_assign;
         //Process negation edge
         if (allOne) {
             --e->source->nsuccs;
@@ -147,7 +149,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             }
         }
     } else {
-        _processedEdges += 1;
+        _processedEdges += !only_assign;
         //Process hyper edge
         if (allOne) {
             finalAssign(e, ONE);

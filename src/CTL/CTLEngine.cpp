@@ -6,6 +6,7 @@
 
 #include "CTL/Algorithm/CertainZeroFPA.h"
 #include "CTL/Algorithm/LocalFPA.h"
+#include "CTL/Algorithm/CZCycleDetectFPA.h"
 
 
 #include "CTL/Stopwatch.h"
@@ -36,6 +37,9 @@ ReturnValue getAlgorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm>& algori
             break;
         case CTLAlgorithmType::CZero:
             algorithm = std::make_shared<Algorithm::CertainZeroFPA>(search);
+            break;
+        case CTLAlgorithmType::CZCycle:
+            algorithm = std::make_shared<Algorithm::CZCycleDetectFPA>(search);
             break;
         default:
             cerr << "Error: Unknown or unsupported algorithm" << endl;

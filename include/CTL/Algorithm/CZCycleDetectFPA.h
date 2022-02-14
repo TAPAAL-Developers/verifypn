@@ -18,7 +18,7 @@
 #ifndef VERIFYPN_CZCYCLEDETECTFPA_H
 #define VERIFYPN_CZCYCLEDETECTFPA_H
 
-#include "FixedPointAlgorithm.h"
+#include "CTL/Algorithm/FixedPointAlgorithm.h"
 #include "CTL/DependencyGraph/Edge.h"
 #include "CTL/DependencyGraph/Configuration.h"
 #include "PetriEngine/Reachability/ReachabilitySearch.h"
@@ -28,6 +28,8 @@
 namespace Algorithm {
     class CZCycleDetectFPA : public FixedPointAlgorithm {
     public:
+        CZCycleDetectFPA(ReachabilityStrategy type) : FixedPointAlgorithm(type) {}
+
         bool search(DependencyGraph::BasicDependencyGraph &graph) override;
 
         ~CZCycleDetectFPA() override {
@@ -36,21 +38,19 @@ namespace Algorithm {
 
     private:
         DependencyGraph::BasicDependencyGraph *graph;
-        DependencyGraph::Configuration* root;
+        DependencyGraph::Configuration *root;
 
-        struct suc_info {
-            DependencyGraph::Configuration* c;
-            SuccessorQueue<DependencyGraph::Edge*> sucs;
-        };
+        DependencyGraph::Edge *pick_edge(DependencyGraph::Configuration *conf);
 
         void push_edge(DependencyGraph::Configuration *conf);
 
-        DependencyGraph::Configuration* eval_edge(DependencyGraph::Edge* e);
+        std::pair<DependencyGraph::Configuration *, DependencyGraph::Assignment> eval_edge(DependencyGraph::Edge *e);
+
         void backprop(DependencyGraph::Configuration *c);
 
         void assign_value(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
 
-        std::stack<DependencyGraph::Configuration*> _dstack;
+        std::stack<DependencyGraph::Configuration *> _dstack;
     };
 }
 

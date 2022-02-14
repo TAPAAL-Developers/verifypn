@@ -16,6 +16,7 @@
 
 
 #include "CTL/Algorithm/CZCycleDetectFPA.h"
+#include "CTL/PetriNets/PetriConfig.h"
 
 using namespace DependencyGraph;
 
@@ -24,53 +25,75 @@ bool Algorithm::CZCycleDetectFPA::search(BasicDependencyGraph &graph) {
     this->root = graph.initialConfiguration();
 
     push_edge(root);
+    root->rank = 0;
 
+    // TODO stats
     while (!_dstack.empty()) {
         auto c = _dstack.top();
-        if (c->isDone() || c->sucs.empty()) {
+        if (c->isDone() || (c->sucs.empty() && c->resucs.empty())) {
             c->sucs.clear();
             c->instack = false;
             _dstack.pop();
+            continue;
         }
-        auto e = c->sucs.front(); c->sucs.pop();
+        auto e = pick_edge(c); //c->sucs.front(); c->sucs.pop();
+        if (e == nullptr || e->handled) continue;
+        assert(e->source == c);
 
-        auto next = eval_edge(e);
-        assert(next != nullptr || !c->isDone());
+        auto [next, _] = eval_edge(e);
+        ((e->is_negated) ? _processedNegationEdges : _processedEdges) += 1;
+        //assert(next != nullptr || c->isDone());
 
         if (c->isDone()) {
             backprop(c);
-        }
-        else {
-            assert(next != nullptr && !next->isDone());
+        } else if (next != nullptr && !next->isDone()) {
             next->addDependency(e);
             if (next->assignment == UNKNOWN) {
                 assert(next->rank == std::numeric_limits<uint32_t>::max());
                 push_edge(next);
                 if (next->nsuccs == 1 && c->nsuccs == 1) {
                     next->rank = c->rank;
-                }
-                else {
+                } else {
                     next->rank = c->rank + 1;
                 }
-            }
-            else {
+            } else {
                 if (next->instack && next->rank == c->rank) {
-                    assign_value(c, CZERO);
-                    backprop(c);
+                    //assign_value(c, CZERO);
+                    //backprop(c);
                 }
+            }
+            if (e->is_negated && !e->processed) {
+                    c->resucs.push_back(e);
             }
         }
         if (root->isDone()) {
             return root->assignment == ONE;
         }
+        e->processed = true;
     }
     return root->assignment == ONE;
+}
+
+Edge *Algorithm::CZCycleDetectFPA::pick_edge(DependencyGraph::Configuration *conf) {
+    if (conf->sucs.empty()) {
+        auto e = conf->resucs.back();
+        conf->resucs.pop_back();
+        return e;
+    } else {
+        auto e = conf->sucs.front();
+        conf->sucs.pop();
+        return e;
+    }
 }
 
 void Algorithm::CZCycleDetectFPA::push_edge(Configuration *conf) {
     assert(conf->assignment == UNKNOWN);
     assert(!conf->instack);
+    conf->assignment = ZERO;
     auto sucs = graph->successors(conf);
+    conf->nsuccs = sucs.size();
+    ++_exploredConfigurations;
+    _numberOfEdges += conf->nsuccs;
     assert(sucs.size() <= std::numeric_limits<uint32_t>::max());
 
     for (int32_t i = conf->nsuccs - 1; i >= 0; --i) {
@@ -87,46 +110,70 @@ void Algorithm::CZCycleDetectFPA::push_edge(Configuration *conf) {
     }
 
     if (conf->nsuccs == 0) {
-       /* for (Edge *e: sucs) {
-            assert(e->refcnt <= 1);
-            if (e->refcnt >= 1) --e->refcnt;
-            if (e->refcnt == 0) graph->release(e);
-        }*/
+        /* for (Edge *e: sucs) {
+             assert(e->refcnt <= 1);
+             if (e->refcnt >= 1) --e->refcnt;
+             if (e->refcnt == 0) graph->release(e);
+         }*/
         assign_value(conf, CZERO);
         backprop(conf);
         return;
     }
 
-    conf->sucs = SuccessorQueue{sucs.data(), (uint32_t)sucs.size()};
+    conf->sucs = SuccessorQueue{sucs.data(), (uint32_t) sucs.size()};
     _dstack.push(conf);
     conf->instack = true;
 }
 
 void Algorithm::CZCycleDetectFPA::backprop(DependencyGraph::Configuration *c) {
     assert(c->isDone());
-    std::deque<Configuration*> W;
-    W.push_back(c);
+    std::unordered_set<Configuration *> W;
+    W.insert(c);
     while (!W.empty()) {
-        auto v = W.front(); W.pop_front();
+        auto vit = W.begin();
+        auto v = *vit;
+        //assert(v->instack); // bad assert
+        auto pit = v->dependency_set.before_begin();
+        auto it = v->dependency_set.begin();
+        while (it != v->dependency_set.end()) {
+            auto &e = *it;
+            if (!e->source->isDone()) {
+                ((e->is_negated) ? _processedNegationEdges : _processedEdges) += 1;
+                auto [_, a] = eval_edge(e);
+                if (a == ONE || a == CZERO) {
+                    // backpropagated assignment; keep going!
+                    W.insert(e->source);
+                    v->dependency_set.erase_after(pit);
+                    it = pit;
+                } else {
+                    e->source->resucs.push_back(e);
+                }
+            }
+            pit = it;
+            ++it;
+        }
+        W.erase(vit);
+        /*continue;
         for (auto e : v->dependency_set) {
             if (!e->source->isDone()) {
                 eval_edge(e);
-                // backpropagated assignment; keep going!
                 if (e->source->isDone()) {
+                    // backpropagated assignment; keep going!
                     W.push_back(e->source);
                 }
                 else {
-                    e->source->sucs.prepend(e);
+                    e->source->resucs.push_back(e);
                 }
             }
         }
-        v->dependency_set.clear();
+        v->dependency_set.clear();*/
     }
 }
 
-Configuration* Algorithm::CZCycleDetectFPA::eval_edge(DependencyGraph::Edge *e) {
-    bool allOne = true, hasCZ = false;
+std::pair<Configuration *, Assignment> Algorithm::CZCycleDetectFPA::eval_edge(DependencyGraph::Edge *e) {
+    bool allOne = true, hasCZero = false;
     Configuration *retval = nullptr;
+    Assignment a = ZERO;
     auto it = e->targets.begin();
     auto pit = e->targets.before_begin();
     while (it != e->targets.end()) {
@@ -136,7 +183,7 @@ Configuration* Algorithm::CZCycleDetectFPA::eval_edge(DependencyGraph::Edge *e) 
         } else {
             allOne = false;
             if ((*it)->assignment == CZERO) {
-                hasCZ = true;
+                hasCZero = true;
                 break;
             } else if (retval == nullptr) {
                 retval = *it;
@@ -147,30 +194,33 @@ Configuration* Algorithm::CZCycleDetectFPA::eval_edge(DependencyGraph::Edge *e) 
     }
 
     if (!e->is_negated) {
-        if (hasCZ) {
+        if (hasCZero) {
             --e->source->nsuccs;
             e->handled = true;
             if (e->source->nsuccs == 0) {
                 assign_value(e->source, CZERO);
+                a = CZERO;
             }
-        }
-        else if (allOne) {
+        } else if (allOne) {
             assign_value(e->source, ONE);
+            a = ONE;
         }
-    }
-    else {
-        if (hasCZ) {
+    } else { // is_negated
+        if (hasCZero) {
             assign_value(e->source, ONE);
-        }
-        else if (allOne) {
+            a = ONE;
+        } else if (allOne) {
             --e->source->nsuccs;
             e->handled = true;
             if (e->source->nsuccs == 0) {
                 assign_value(e->source, CZERO);
+                a = CZERO;
             }
+        } else if (e->processed && retval->assignment == ZERO) {
+            assign_value(e->source, ONE);
         }
     }
-    return retval;
+    return std::make_pair(retval, a);
 }
 
 void Algorithm::CZCycleDetectFPA::assign_value(DependencyGraph::Configuration *c, DependencyGraph::Assignment a) {
