@@ -31,6 +31,7 @@ public:
     int8_t assignment = UNKNOWN;
     bool passed = false;
     bool instack = false;
+    bool recheck = false;
     uint32_t rank = std::numeric_limits<uint32_t>::max();
 
 #ifndef NDEBUG

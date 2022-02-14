@@ -37,8 +37,11 @@ bool Algorithm::CZCycleDetectFPA::search(BasicDependencyGraph &graph) {
             continue;
         }
         auto e = pick_edge(c); //c->sucs.front(); c->sucs.pop();
-        if (e == nullptr || e->handled) continue;
+        if (e == nullptr) continue;
+        if (e->handled)
+            continue;
         assert(e->source == c);
+
 
         auto [next, _] = eval_edge(e);
         ((e->is_negated) ? _processedNegationEdges : _processedEdges) += 1;
@@ -48,9 +51,10 @@ bool Algorithm::CZCycleDetectFPA::search(BasicDependencyGraph &graph) {
             backprop(c);
         } else if (next != nullptr && !next->isDone()) {
             next->addDependency(e);
-            if (next->assignment == UNKNOWN) {
-                assert(next->rank == std::numeric_limits<uint32_t>::max());
+            if (next->assignment == UNKNOWN || next->recheck) {
+                assert(next->rank == std::numeric_limits<uint32_t>::max() || next->recheck);
                 push_edge(next);
+                next->recheck = false;
                 if (next->nsuccs == 1 && c->nsuccs == 1) {
                     next->rank = c->rank;
                 } else {
@@ -63,7 +67,7 @@ bool Algorithm::CZCycleDetectFPA::search(BasicDependencyGraph &graph) {
                 }
             }
             if (e->is_negated && !e->processed) {
-                    c->resucs.push_back(e);
+                c->resucs.push_back(e);
             }
         }
         if (root->isDone()) {
@@ -76,6 +80,7 @@ bool Algorithm::CZCycleDetectFPA::search(BasicDependencyGraph &graph) {
 
 Edge *Algorithm::CZCycleDetectFPA::pick_edge(DependencyGraph::Configuration *conf) {
     if (conf->sucs.empty()) {
+        assert(!conf->resucs.empty());
         auto e = conf->resucs.back();
         conf->resucs.pop_back();
         return e;
@@ -87,7 +92,7 @@ Edge *Algorithm::CZCycleDetectFPA::pick_edge(DependencyGraph::Configuration *con
 }
 
 void Algorithm::CZCycleDetectFPA::push_edge(Configuration *conf) {
-    assert(conf->assignment == UNKNOWN);
+    assert(conf->assignment == UNKNOWN || conf->recheck);
     assert(!conf->instack);
     conf->assignment = ZERO;
     auto sucs = graph->successors(conf);
@@ -132,7 +137,7 @@ void Algorithm::CZCycleDetectFPA::backprop(DependencyGraph::Configuration *c) {
     while (!W.empty()) {
         auto vit = W.begin();
         auto v = *vit;
-        //assert(v->instack); // bad assert
+        assert(v->isDone() || v->instack); // bad assert
         auto pit = v->dependency_set.before_begin();
         auto it = v->dependency_set.begin();
         while (it != v->dependency_set.end()) {
@@ -147,6 +152,9 @@ void Algorithm::CZCycleDetectFPA::backprop(DependencyGraph::Configuration *c) {
                     it = pit;
                 } else {
                     e->source->resucs.push_back(e);
+                    if (!e->source->instack) {
+                        e->source->recheck = true;
+                    }
                 }
             }
             pit = it;
@@ -227,6 +235,7 @@ void Algorithm::CZCycleDetectFPA::assign_value(DependencyGraph::Configuration *c
     assert(!c->isDone());
     assert(a == ONE || a == CZERO);
     c->assignment = a;
+    c->nsuccs = 0;
     //backprop(c);
 }
 
