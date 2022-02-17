@@ -49,6 +49,7 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
 void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_dep) {
     if (e->handled) return;
 #ifdef DG_SOURCE_CHECK
+    assert(test_invariant(e));
     if (e->source->isDone()) {
         if (e->refcnt == 0) graph->release(e);
         return;
