@@ -62,8 +62,14 @@ bool Algorithm::CZCycleDetectFPA::search(BasicDependencyGraph &graph) {
                 }
             } else {
                 if (next->instack && next->rank == c->rank) {
-                    //assign_value(c, CZERO);
-                    //backprop(c);
+                    if (next == c && c->nsuccs > 1) {
+                        --c->nsuccs;
+                    }
+                    else {
+                        assert(c->nsuccs <= 1 && next->nsuccs <= 1);
+                        assign_value(c, CZERO);
+                        backprop(c);
+                    }
                 }
             }
             if (e->is_negated && !e->processed) {
