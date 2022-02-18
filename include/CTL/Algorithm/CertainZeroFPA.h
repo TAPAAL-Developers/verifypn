@@ -34,38 +34,6 @@ protected:
 
 #ifndef NDEBUG
         bool test_invariant(DependencyGraph::Edge *bottom) {
-            std::stack<DependencyGraph::Edge*> W;
-            std::unordered_set<DependencyGraph::Edge*> passed;
-
-            // check if we would optimize here anyway
-            bool allDone = false;
-            for (auto e : bottom->source->dependency_set) {
-                if (!e->source->isDone()) {
-
-                }
-            }
-
-            W.push(bottom);
-            while (!W.empty()) {
-                auto e = W.top(); W.pop();
-                if (std::find(std::begin(passed), std::end(passed), e) == std::end(passed)) {
-                    if (e->source->isDone() && e != bottom) {
-                        return false;
-                    }
-                    else {
-                        for (auto d : e->source->dependency_set) {
-                            if (d->source->isDone()) {
-                                return false;
-                            }
-                            if (d->source == root) {
-                                return true;
-                            }
-                            W.push(d);
-                        }
-                        passed.insert(e);
-                    }
-                }
-            }
             return true;
         }
 

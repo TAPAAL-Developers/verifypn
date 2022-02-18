@@ -57,6 +57,35 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
 #endif
 #ifdef DG_LAZY_CHECK
     if (!only_assign && !was_dep) {
+#ifndef NDEBUG
+        bool inv_good = false;
+        if (e->source != root) {
+            std::stack<DependencyGraph::Edge*> W;
+            std::unordered_set<DependencyGraph::Edge*> passed;
+
+            W.push(e);
+            while (!W.empty()) {
+                auto edge = W.top(); W.pop();
+                if (std::find(std::begin(passed), std::end(passed), edge) == std::end(passed)) {
+                    if (edge->source->isDone() && edge != e) {
+                        continue;
+                    }
+                    else {
+                        for (auto d : edge->source->dependency_set) {
+                            if (d->source == root) {
+                                inv_good = true; break;
+                            }
+                            if (!d->source->isDone()) {
+                                W.push(d);
+                            }
+                        }
+                        passed.insert(edge);
+                    }
+                }
+            }
+        }
+        else inv_good = true;
+#endif
         bool allDone = e->source != root;
         for (auto *pre: e->source->dependency_set) {
             //if (preEdge->processed) {
@@ -70,6 +99,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             //if(e->refcnt == 0) graph->release(e);
             return;
         }
+        assert(inv_good);
     }
 #endif
 #ifdef DG_REFCOUNTING
