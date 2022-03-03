@@ -589,6 +589,35 @@ namespace PetriEngine {
                     continue; // handled already
                 }
 #ifdef DG_SOURCE_CHECK
+                bool inv_good = false;
+                if (cconf._marking != meta._marking) {
+                    std::stack<SynthConfig *> W;
+                    std::unordered_set<SynthConfig *> passed;
+
+                    W.push(&cconf);
+                    while (!W.empty()) {
+                        auto c = W.top();
+                        W.pop();
+                        if (std::find(std::begin(passed), std::end(passed), c) == std::end(passed)) {
+                            if (c->determined() && c->_marking != cconf._marking) {
+                                continue;
+                            } else {
+                                for (auto d: c->_dependers) {
+                                    if (d.second->_marking == meta._marking) {
+                                        inv_good = true;
+                                        break;
+                                    }
+                                    if (!d.second->determined()) {
+                                        W.push(d.second);
+                                    }
+                                }
+                                passed.insert(c);
+                            }
+                        }
+                    }
+                }
+                else inv_good = true;
+//#endif
                 // check predecessors
                 bool any_undet = false;
                 for (auto& p : cconf._dependers) {
@@ -604,7 +633,13 @@ namespace PetriEngine {
                     cconf._dependers.clear();
                     continue;
                 }
+                if (!inv_good) {
+                    std::cout << "ERROR: Invariant was broken\n";
+                    exit(1);
+                }
+                assert(inv_good);
 #endif
+
                 //std::cerr << "PROCESSING [" << cconf._marking << "]" << std::endl;
                 ++_result.exploredConfigurations;
 
