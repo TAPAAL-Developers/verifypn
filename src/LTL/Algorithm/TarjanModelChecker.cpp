@@ -42,7 +42,10 @@ namespace LTL {
                     pop();
                     continue;
                 }
-                auto fired = this->successorGenerator->fired();
+#ifndef NDEBUG
+                auto fired =
+#endif
+                this->successorGenerator->fired();
 #ifndef NDEBUG
                 if (fired >= std::numeric_limits<uint32_t>::max() - 3) {
                     std::cerr << "looping\n";
@@ -208,8 +211,7 @@ namespace LTL {
             return;
         } else {
             assert(_violation);
-            os << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
-                  "<trace>\n";
+            os << "<trace>\n";
             this->_reducer->initFire(os);
             if (_cstack[dstack.top()._pos]._stateid == _loop_state)
                 this->printLoop(os);

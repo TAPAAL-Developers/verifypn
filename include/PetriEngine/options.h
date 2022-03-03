@@ -9,8 +9,17 @@
 #include <vector>
 #include <iostream>
 
-#include "../CTL/Algorithm/AlgorithmTypes.h"
-#include "../LTL/AlgorithmTypes.h"
+#include "CTL/Algorithm/AlgorithmTypes.h"
+#include "LTL/AlgorithmTypes.h"
+
+enum class Strategy {
+    BFS,
+    DFS,
+    HEUR,
+    RDFS,
+    OverApprox,
+    DEFAULT
+};
 
 enum class TemporalLogic {
     CTL, LTL
@@ -32,9 +41,8 @@ enum class APCompression {
 enum class LTLPartialOrder {
     None,
     Visible,
-    AutomatonReach,
-    VisibleReach,
-    FullAutomaton
+    Automaton,
+    Liebke
 };
 
 enum class BuchiOptimization {
@@ -55,15 +63,6 @@ enum class StatisticsLevel {
     Full
 };
 
-enum ReachabilityStrategy {
-    BFS,
-    DFS,
-    HEUR,
-    RDFS,
-    OverApprox,
-    DEFAULT
-};
-
 struct options_t {
 //    bool outputtrace = false;
     int kbound = 0;
@@ -76,7 +75,7 @@ struct options_t {
     bool statespaceexploration = false;
     StatisticsLevel printstatistics = StatisticsLevel::Full;
     std::set<size_t> querynumbers;
-    ReachabilityStrategy strategy = DEFAULT;
+    Strategy strategy = Strategy::DEFAULT;
     int queryReductionTimeout = 30, intervalTimeout = 10, partitionTimeout = 5, lpsolveTimeout = 10;
     TraceLevel trace = TraceLevel::None;
     bool use_query_reductions = true;
@@ -88,7 +87,6 @@ struct options_t {
     TemporalLogic logic = TemporalLogic::CTL;
     bool noreach = false;
     //CTL Specific options
-    bool gamemode = false;
     bool usedctl = false;
     CTL::CTLAlgorithmType ctlalgorithm = CTL::CZero;
     bool tar = false;
@@ -101,7 +99,7 @@ struct options_t {
     std::string buchi_out_file;
     LTL::BuchiOutType buchi_out_type = LTL::BuchiOutType::Dot;
     APCompression ltl_compress_aps = APCompression::None;
-    LTLPartialOrder ltl_por = LTLPartialOrder::VisibleReach;
+    LTLPartialOrder ltl_por = LTLPartialOrder::Automaton;
     BuchiOptimization buchiOptimization = BuchiOptimization::Low;
     LTLHeuristic ltlHeuristic = LTLHeuristic::Automaton;
 
@@ -113,6 +111,7 @@ struct options_t {
     std::string model_out_file;
     std::string unfolded_out_file;
     std::string unfold_query_out_file;
+    bool keep_solved = false;
 
 
     //CPN Specific options
@@ -124,6 +123,8 @@ struct options_t {
     uint32_t seed_offset = 0;
     int max_intervals = 250; //0 disabled
     int max_intervals_reduced = 5;
+
+    std::string strategy_output;
 
     size_t seed() { return ++seed_offset; }
     void print(std::ostream& out = std::cout);

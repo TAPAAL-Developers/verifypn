@@ -13,7 +13,7 @@ namespace Algorithm {
 class CertainZeroFPA : public FixedPointAlgorithm
 {
 public:
-    CertainZeroFPA(ReachabilityStrategy type) : FixedPointAlgorithm(type)
+    CertainZeroFPA(Strategy type) : FixedPointAlgorithm(type)
     {
     }
     virtual ~CertainZeroFPA()
@@ -24,7 +24,7 @@ protected:
 
     DependencyGraph::BasicDependencyGraph *graph;
     DependencyGraph::Configuration* root;
-    
+
     void checkEdge(DependencyGraph::Edge* e, bool only_assign = false, bool was_dep = false);
     void finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
     void finalAssign(DependencyGraph::Edge *e, DependencyGraph::Assignment a);

@@ -55,7 +55,7 @@ namespace PetriEngine {
             bool reachable(
                     std::vector<std::shared_ptr<PQL::Condition > >& queries,
                     std::vector<ResultPrinter::Result>& results,
-                    ReachabilityStrategy strategy,
+                    Strategy strategy,
                     bool usestubborn,
                     bool statespacesearch,
                     StatisticsLevel printstats,
@@ -123,7 +123,7 @@ namespace PetriEngine {
             working.setMarking(_net.makeInitialMarking());
 
             W states(_net, _kbound);    // stateset
-            Q queue(&states, seed);           // working queue
+            Q queue(seed);           // working queue
             G generator = _makeSucGen<G>(_net, queries); // successor generator
             auto r = states.add(state);
             // this can fail due to reductions; we push tokens around and violate K
@@ -142,11 +142,12 @@ namespace PetriEngine {
                 // add initial to queue
                 {
                     PQL::DistanceContext dc(&_net, working.marking());
-                    queue.push(r.second, dc, queries[ss.heurquery]);
+                    queue.push(r.second, &dc, queries[ss.heurquery].get());
                 }
 
                 // Search!
-                while (queue.pop(state)) {
+                for(auto nid = queue.pop(); nid != Structures::Queue::EMPTY; nid = queue.pop()) {
+                    states.decode(state, nid);
                     generator.prepare(&state);
 
                     while(generator.next(working)){
@@ -155,7 +156,7 @@ namespace PetriEngine {
                         if (res.first) {
                             {
                                 PQL::DistanceContext dc(&_net, working.marking());
-                                queue.push(res.second, dc, queries[ss.heurquery]);
+                                queue.push(res.second, &dc, queries[ss.heurquery].get());
                             }
                             states.setHistory(res.second, generator.fired());
                             _satisfyingMarking = res.second;

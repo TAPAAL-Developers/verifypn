@@ -1,16 +1,16 @@
 /* Copyright (C) 2021  Nikolaj J. Ulrik <nikolaj@njulrik.dk>,
  *                     Simon M. Virenfeldt <simon@simwir.dk>
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,7 +25,6 @@ namespace LTL {
     {
         reset();
         _parent = state;
-        memset(_places_seen.get(), 0, _net.numberOfPlaces());
 
         constructEnabled();
         if (_ordering.empty()) {
@@ -42,10 +41,10 @@ namespace LTL {
         InterestingTransitionVisitor interesting{*this, false};
 
         PQL::EvaluationContext ctx((*_parent).marking(), &_net);
-        _prog_cond->evalAndSet(ctx);
-        _sink_cond->evalAndSet(ctx);
-        _prog_cond->visit(unsafe);
-        _sink_cond->visit(unsafe);
+        PetriEngine::PQL::evaluateAndSet(_prog_cond.get(), ctx);
+        PetriEngine::PQL::evaluateAndSet(_sink_cond.get(), ctx);
+        PetriEngine::PQL::Visitor::visit(unsafe, _prog_cond);
+        PetriEngine::PQL::Visitor::visit(unsafe, _sink_cond);
 
         //_ret_cond->evalAndSet(ctx);
         //(std::make_shared<PetriEngine::PQL::NotCondition>(_ret_cond))->visit(interesting);
@@ -63,7 +62,7 @@ namespace LTL {
 
 
         // sink condition is not interesting, just unsafe.
-        _prog_cond->visit(interesting);
+        PetriEngine::PQL::Visitor::visit(interesting, _prog_cond);
         //_sink_cond->visit(interesting);
         closure();
         if (_bad) {

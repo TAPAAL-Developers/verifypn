@@ -17,9 +17,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "PetriEngine/errorcodes.h"
+#include "utils/errors.h"
 #include "PetriEngine/PQL/PushNegation.h"
 #include "PetriEngine/PQL/PredicateCheckers.h"
+#include "PetriEngine/PQL/Expressions.h"
+#include "PetriEngine/PQL/Evaluation.h"
+
 
 // Macro to ensure that returns are done correctly
 #ifndef NDEBUG
@@ -35,7 +38,7 @@ namespace PetriEngine::PQL {
         auto res = func();
         if(!_nested && initrw)
         {
-            auto e = res->evaluate(context);
+            auto e = PetriEngine::PQL::evaluate(res.get(), context);
             if(e != Condition::RUNKNOWN)
             {
                 if(res->getQuantifier() == E && res->getPath() == F)
@@ -55,7 +58,7 @@ namespace PetriEngine::PQL {
     Condition_ptr
     pushNegation(Condition_ptr cond, negstat_t &stats, const EvaluationContext &context, bool nested, bool negated, bool initrw) {
         PushNegationVisitor pn_visitor(stats, context, nested, negated, initrw);
-        cond->visit(pn_visitor);
+        Visitor::visit(pn_visitor, cond);
         return pn_visitor.return_value;
     }
 
@@ -92,6 +95,16 @@ namespace PetriEngine::PQL {
             if(auto p2 = std::dynamic_pointer_cast<CommutativeExpr>(_expr2))
                 return p1->_exprs.size() + p1->_ids.size() + p2->_exprs.size() + p2->_ids.size() == 0;
         return _expr1->placeFree() && _expr2->placeFree();
+    }
+
+    uint32_t
+    CompareCondition::_distance(DistanceContext &c, std::function<uint32_t(uint32_t, uint32_t, bool)> d) const {
+        return d(evaluate(_expr1.get(), c), evaluate(_expr2.get(), c), c.negated());
+    }
+
+    void PushNegationVisitor::_accept(ControlCondition *element) {
+        auto res = subvisit((*element)[0], false, negated);
+        return_value = std::make_shared<ControlCondition>(res);
     }
 
     void PushNegationVisitor::_accept(EGCondition *element) {
@@ -561,7 +574,7 @@ namespace PetriEngine::PQL {
     void PushNegationVisitor::_accept(LessThanCondition *element) {
         auto cond = initialMarkingRW([&]() -> Condition_ptr {
             if (element->isTrivial())
-                return BooleanCondition::getShared(element->evaluate(context) xor negated);
+                return BooleanCondition::getShared(evaluate(element, context) xor negated);
             if (negated) return std::make_shared<LessThanOrEqualCondition>(element->getExpr2(), element->getExpr1());
             else return std::make_shared<LessThanCondition>(element->getExpr1(), element->getExpr2());
         }, stats, context, nested, negated, initrw);
@@ -571,7 +584,7 @@ namespace PetriEngine::PQL {
     void PushNegationVisitor::_accept(LessThanOrEqualCondition *element) {
         auto cond = initialMarkingRW([&]() -> Condition_ptr {
             if (element->isTrivial())
-                return BooleanCondition::getShared(element->evaluate(context) xor negated);
+                return BooleanCondition::getShared(evaluate(element, context) xor negated);
             if (negated) return std::make_shared<LessThanCondition>(element->getExpr2(), element->getExpr1());
             else return std::make_shared<LessThanOrEqualCondition>(element->getExpr1(), element->getExpr2());
         }, stats, context, nested, negated, initrw);
@@ -580,9 +593,9 @@ namespace PetriEngine::PQL {
 
     Condition_ptr PushNegationVisitor::pushEqual(CompareCondition *org, bool _negated, bool noteq) {
         if (org->isTrivial())
-            return BooleanCondition::getShared(org->evaluate(context) xor _negated);
+            return BooleanCondition::getShared(evaluate(org, context) xor _negated);
         for (auto i: {0, 1}) {
-            if ((*org)[i]->placeFree() && (*org)[i]->evaluate(context) == 0) {
+            if ((*org)[i]->placeFree() && evaluate((*org)[i].get(), context) == 0) {
                 if (_negated == noteq)
                     return std::make_shared<LessThanOrEqualCondition>((*org)[(i + 1) % 2],
                                                                       std::make_shared<LiteralExpr>(0));
@@ -628,16 +641,14 @@ namespace PetriEngine::PQL {
 
     void PushNegationVisitor::_accept(UpperBoundsCondition* element) {
         if (negated) {
-            std::cerr << "UPPER BOUNDS CANNOT BE NEGATED!" << std::endl;
-            exit(ErrorCode);
+            throw base_error("UPPER BOUNDS CANNOT BE NEGATED!");
         }
         RETURN(element->clone())
     }
 
     void PushNegationVisitor::_accept(UnfoldedUpperBoundsCondition *element) {
         if (negated) {
-            std::cerr << "UPPER BOUNDS CANNOT BE NEGATED!" << std::endl;
-            exit(ErrorCode);
+            throw base_error("UPPER BOUNDS CANNOT BE NEGATED!");
         }
         RETURN(std::make_shared<UnfoldedUpperBoundsCondition>(element->places(), element->getMax(), element->getOffset()));
     }
@@ -677,7 +688,7 @@ namespace PetriEngine::PQL {
             nested = _nested;
             negated = _negated;
 
-            condition->visit(*this);
+            Visitor::visit(this, condition);
 #ifndef NDEBUG
             assert(has_returned); // Subvisit should return value
             has_returned = false;
