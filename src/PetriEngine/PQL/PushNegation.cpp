@@ -103,7 +103,14 @@ namespace PetriEngine::PQL {
     }
 
     void PushNegationVisitor::_accept(ControlCondition *element) {
-        auto res = subvisit((*element)[0], false, negated);
+        Condition_ptr res;
+        if (auto quant = dynamic_cast<AGCondition *>(element->getCond().get())) {
+            // FIXME Synth engine prefers AG to EF, so hack around this. Not ideal solution.
+            res = std::make_shared<AGCondition>(subvisit(quant->getCond(), true, negated));
+        }
+        else if (auto quant = dynamic_cast<SimpleQuantifierCondition *>(element)) {
+            res = subvisit((*quant)[0], false, negated);
+        }
         return_value = std::make_shared<ControlCondition>(res);
     }
 
