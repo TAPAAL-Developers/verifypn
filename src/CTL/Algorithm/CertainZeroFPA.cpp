@@ -1,4 +1,5 @@
 #include "CTL/Algorithm/CertainZeroFPA.h"
+#include "CTL/PetriNets/OnTheFlyDG.h"
 
 #include <cassert>
 #include <iostream>
@@ -100,8 +101,13 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             return;
         }
         if (!inv_good) {
-            std::cout << "Fatal: Invariant inv_good failed!\n";
-            exit(1);
+            std::cout << "	Configurations    : " << static_cast<PetriNets::OnTheFlyDG*>(graph)->configurationCount() << "\n";
+            std::cout << "	Markings          : " << static_cast<PetriNets::OnTheFlyDG*>(graph)->markingCount() << "\n";
+            std::cout << "	Edges             : " << _numberOfEdges << "\n";
+            std::cout << "	Processed Edges   : " << _processedEdges << "\n";
+            std::cout << "	Processed N. Edges: " << _processedNegationEdges << "\n";
+            std::cout << "	Explored Configs  : " << _exploredConfigurations << "\n";
+            throw base_error("Fatal: Invariant inv_good failed!\n");
         }
         assert(inv_good);
     }
