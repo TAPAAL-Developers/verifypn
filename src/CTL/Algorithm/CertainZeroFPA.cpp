@@ -7,6 +7,23 @@
 using namespace DependencyGraph;
 using namespace SearchStrategy;
 
+void print_edge(Edge *e)
+{
+#ifndef NDEBUG
+    std::cerr << '(' << e->source->id;
+    if (e->is_negated) {
+        std::cerr << " -- ";
+    }
+    else {
+        std::cerr << ", { ";
+    }
+    for (auto c : e->targets) {
+        std::cerr << c->id << ' ';
+    }
+    std::cerr << (e->is_negated ? ")" : "})");
+#endif
+}
+
 bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_graph) {
     graph = &t_graph;
 
@@ -57,7 +74,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
     }
 #endif
 #ifdef DG_LAZY_CHECK
-    if (!only_assign && !was_dep) {
+    if (!only_assign /*&& !was_dep*/) {
 //#ifndef NDEBUG
         bool inv_good = false;
         if (e->source != root) {
@@ -101,13 +118,14 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             return;
         }
         if (!inv_good) {
+            std::cerr << "Failed invariant! At edge "; print_edge(e); std::cerr << '\n';
             std::cout << "	Configurations    : " << static_cast<PetriNets::OnTheFlyDG*>(graph)->configurationCount() << "\n";
             std::cout << "	Markings          : " << static_cast<PetriNets::OnTheFlyDG*>(graph)->markingCount() << "\n";
             std::cout << "	Edges             : " << _numberOfEdges << "\n";
             std::cout << "	Processed Edges   : " << _processedEdges << "\n";
             std::cout << "	Processed N. Edges: " << _processedNegationEdges << "\n";
             std::cout << "	Explored Configs  : " << _exploredConfigurations << "\n";
-            throw base_error("Fatal: Invariant inv_good failed!\n");
+                throw base_error("Fatal: Invariant inv_good failed!\n");
         }
         assert(inv_good);
     }
@@ -122,6 +140,18 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
     }
 #endif
 
+#ifndef NDEBUG
+    if (!only_assign) {
+        std::cerr << "checking ";
+        if (was_dep) {
+            std::cerr << "dependency ";
+        }
+        else {
+            std::cerr << "successor  ";
+        }
+        print_edge(e);
+    }
+#endif
     bool allOne = true;
     bool hasCZero = false;
     //auto pre_empty = e->targets.empty();
@@ -147,6 +177,17 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             ++it;
         }
     }
+#ifndef NDEBUG
+    if (!only_assign) {
+        if (lastUndecided != nullptr) {
+            std::cerr << " -> " << lastUndecided->id << std::endl;
+        }
+        else {
+            assert(allOne || hasCZero);
+            std::cerr << " --- assigning value!\n";
+        }
+    }
+#endif
     /*if(e->targets.empty())
     {
         assert(e->assignment == ONE || e->children == 0);
@@ -170,6 +211,9 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             assert(lastUndecided != nullptr);
             if (only_assign) return;
             if (lastUndecided->assignment == ZERO && e->processed) {
+#ifndef NDEBUG
+                std::cerr << " --- assigning value!\n";
+#endif
                 finalAssign(e, ONE);
             } else {
                 if (!e->processed) {
@@ -225,6 +269,9 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
 }
 
 void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Edge *e, DependencyGraph::Assignment a) {
+#ifndef NDEBUG
+    //std::cerr << "assigning to "; print_edge(e); std::cerr << std::endl;
+#endif
     finalAssign(e->source, a);
 }
 

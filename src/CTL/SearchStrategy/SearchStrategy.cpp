@@ -35,7 +35,7 @@ namespace SearchStrategy{
         }
         else
         {
-            N.push_back(edge);
+            pushToW(edge);
         }
     }
 
