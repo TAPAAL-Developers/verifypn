@@ -74,7 +74,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
     }
 #endif
 #ifdef DG_LAZY_CHECK
-    if (!only_assign /*&& !was_dep*/) {
+    if (!only_assign && !was_dep) {
 //#ifndef NDEBUG
         bool inv_good = false;
         if (e->source != root) {
