@@ -10,6 +10,7 @@
 #include <iostream>
 #include <vector>
 #include <forward_list>
+#include <limits>
 
 namespace DependencyGraph {
 
