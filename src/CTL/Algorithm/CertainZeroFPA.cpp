@@ -75,7 +75,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
 #endif
 #ifdef DG_LAZY_CHECK
     if (!only_assign && !was_dep) {
-//#ifndef NDEBUG
+#ifndef NDEBUG
         bool inv_good = false;
         if (e->source != root) {
             std::stack<DependencyGraph::Edge*> W;
@@ -103,7 +103,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             }
         }
         else inv_good = true;
-//#endif
+#endif
         bool allDone = e->source != root;
         for (auto *pre: e->source->dependency_set) {
             //if (preEdge->processed) {
@@ -117,6 +117,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             //if(e->refcnt == 0) graph->release(e);
             return;
         }
+#ifndef NDEBUG
         if (!inv_good) {
             std::cerr << "Failed invariant! At edge "; print_edge(e); std::cerr << '\n';
             std::cout << "	Configurations    : " << static_cast<PetriNets::OnTheFlyDG*>(graph)->configurationCount() << "\n";
@@ -128,6 +129,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
                 throw base_error("Fatal: Invariant inv_good failed!\n");
         }
         assert(inv_good);
+#endif
     }
 #endif //defined(DG_LAZY_CHECK)
 #ifdef DG_REFCOUNTING
