@@ -260,8 +260,8 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
                     }
                 }
             }
-            //if (lastUndecided->assignment == UNKNOWN) {
-            if (!lastUndecided->passed) {
+            if (lastUndecided->assignment == UNKNOWN) {
+            //if (!lastUndecided->passed) {
                 explore(lastUndecided);
             }
         }
