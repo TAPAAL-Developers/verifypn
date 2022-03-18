@@ -114,6 +114,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
         }
         if (allDone) {
             e->source->passed = false;
+            ++_optim_procs;
             //if(e->refcnt == 0) graph->release(e);
             return;
         }
@@ -126,6 +127,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             std::cout << "	Processed Edges   : " << _processedEdges << "\n";
             std::cout << "	Processed N. Edges: " << _processedNegationEdges << "\n";
             std::cout << "	Explored Configs  : " << _exploredConfigurations << "\n";
+            std::cout << "	Dependent Clears  : " << _optim_procs << "\n";
                 throw base_error("Fatal: Invariant inv_good failed!\n");
         }
         assert(inv_good);

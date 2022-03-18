@@ -74,6 +74,7 @@ bool singleSolve(Condition* query, PetriNet* net,
     result.processedNegationEdges += alg->processedNegationEdges();
     result.exploredConfigurations += alg->exploredConfigurations();
     result.numberOfEdges += alg->numberOfEdges();
+    result.optimProcs += alg->_optim_procs;
     return res;
 }
 

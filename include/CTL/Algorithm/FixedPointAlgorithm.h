@@ -17,6 +17,7 @@ public:
     size_t processedNegationEdges() const { return _processedNegationEdges; }
     size_t exploredConfigurations() const { return _exploredConfigurations; }
     size_t numberOfEdges() const { return _numberOfEdges; }
+    size_t _optim_procs = 0;
 protected:
     std::shared_ptr<SearchStrategy::SearchStrategy> strategy;
     //total number of processed edges
