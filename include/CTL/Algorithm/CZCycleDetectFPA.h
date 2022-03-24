@@ -51,6 +51,9 @@ namespace Algorithm {
         void assign_value(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
 
         std::stack<DependencyGraph::Configuration *> _dstack;
+
+        template <typename GoodPred, typename BadPred>
+        bool dependent_search(const DependencyGraph::Configuration* c, GoodPred&& pred, BadPred&& bad) const;
     };
 }
 

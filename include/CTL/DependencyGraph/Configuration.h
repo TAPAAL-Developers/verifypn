@@ -33,7 +33,7 @@ public:
     bool passed = false;
     bool instack = false;
     bool recheck = false;
-    uint32_t rank = std::numeric_limits<uint32_t>::max();
+    uint64_t rank = std::numeric_limits<uint64_t>::max();
 
 #ifndef NDEBUG
     size_t id;

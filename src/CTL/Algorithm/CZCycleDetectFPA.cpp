@@ -36,6 +36,11 @@ bool Algorithm::CZCycleDetectFPA::search(BasicDependencyGraph &graph) {
             _dstack.pop();
             continue;
         }
+#ifndef NDEBUG
+        assert(c == root || dependent_search(c, [&](auto c) { return c->instack; }, [] (Configuration* c) { return c->isDone(); }));
+        assert(c == root || dependent_search(c, [&](auto c) { return c == root; }, [] (Configuration* c) { return c->isDone(); }));
+#endif
+
         auto e = pick_edge(c); //c->sucs.front(); c->sucs.pop();
         if (e == nullptr) continue;
         if (e->handled)
@@ -52,7 +57,7 @@ bool Algorithm::CZCycleDetectFPA::search(BasicDependencyGraph &graph) {
         } else if (next != nullptr && !next->isDone()) {
             next->addDependency(e);
             if (next->assignment == UNKNOWN || next->recheck) {
-                assert(next->rank == std::numeric_limits<uint32_t>::max() || next->recheck);
+                assert(next->rank == std::numeric_limits<uint64_t>::max() || next->recheck);
                 push_edge(next);
                 next->recheck = false;
                 if (next->nsuccs == 1 && c->nsuccs == 1) {
@@ -98,6 +103,7 @@ Edge *Algorithm::CZCycleDetectFPA::pick_edge(DependencyGraph::Configuration *con
 }
 
 void Algorithm::CZCycleDetectFPA::push_edge(Configuration *conf) {
+    // try partial case for suc conf with assign ? but non-empty resucs.
     assert(conf->assignment == UNKNOWN || conf->recheck);
     assert(!conf->instack);
     conf->assignment = ZERO;
@@ -143,6 +149,7 @@ void Algorithm::CZCycleDetectFPA::backprop(DependencyGraph::Configuration *c) {
     while (!W.empty()) {
         auto vit = W.begin();
         auto v = *vit;
+        assert(v == root || dependent_search(v, [&](auto c) { return c->instack; }, [] (Configuration* c) { return c->isDone(); }));
         assert(v->isDone() || v->instack); // bad assert
         auto pit = v->dependency_set.before_begin();
         auto it = v->dependency_set.begin();
@@ -154,9 +161,10 @@ void Algorithm::CZCycleDetectFPA::backprop(DependencyGraph::Configuration *c) {
                 if (a == ONE || a == CZERO) {
                     // backpropagated assignment; keep going!
                     W.insert(e->source);
-                    v->dependency_set.erase_after(pit);
+                    //v->dependency_set.erase_after(pit);
                     it = pit;
                 } else {
+                    assert(e->source == root || e->source->isDone() || dependent_search(e->source, [&](auto c) { return c->instack; }, [] (Configuration* c) { return c->isDone(); }));
                     e->source->resucs.push_back(e);
                     if (!e->source->instack) {
                         e->source->recheck = true;
@@ -166,6 +174,7 @@ void Algorithm::CZCycleDetectFPA::backprop(DependencyGraph::Configuration *c) {
             pit = it;
             ++it;
         }
+        v->dependency_set.clear();
         W.erase(vit);
         /*continue;
         for (auto e : v->dependency_set) {
@@ -245,5 +254,29 @@ void Algorithm::CZCycleDetectFPA::assign_value(DependencyGraph::Configuration *c
     //backprop(c);
 }
 
+template <typename GoodPred, typename BadPred>
+bool Algorithm::CZCycleDetectFPA::dependent_search(const Configuration* c, GoodPred&& pred, BadPred&& bad) const
+{
+    light_deque<const Configuration *> W;
+    std::unordered_set<const Configuration *> passed;
+    W.push_back(c);
+    bool good = false;
+    while (!W.empty()) {
+        auto v = W.back(); W.pop_back();
+        if (passed.find(v) != std::end(passed))
+            continue;
+        for (const auto dep : v->dependency_set) {
+            auto d = dep->source;
+            if (pred(d)) {
+                return true;
+            }
+            else if (!bad(d)) {
+                W.push_back(d);
+            }
+            passed.insert(v);
+        }
+    }
 
+    return good;
+}
 
