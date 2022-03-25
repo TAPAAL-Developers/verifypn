@@ -34,13 +34,9 @@ public:
     bool instack = false;
     bool recheck = false;
     uint64_t rank = std::numeric_limits<uint64_t>::max();
-
 #ifndef NDEBUG
     size_t id;
 #endif
-    SuccessorQueue<DependencyGraph::Edge*> sucs;
-    light_deque<DependencyGraph::Edge*> resucs{1};
-
     Configuration() {}
     uint32_t getDistance() const { return distance; }
     bool isDone() const { return assignment == ONE || assignment == CZERO; }
@@ -51,7 +47,7 @@ public:
 #endif
     void setOwner(uint32_t) { }
     uint32_t getOwner() { return 0; }
-    
+
 };
 
 

@@ -1,15 +1,15 @@
 /* Copyright (C) 2022  Nikolaj J. Ulrik <nikolaj@njulrik.dk>,
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,10 +37,23 @@ namespace Algorithm {
         }
 
     private:
+
+        struct stack_entry_t {
+            DependencyGraph::Configuration *_config;
+            std::vector<DependencyGraph::Edge*> _edges;
+            const DependencyGraph::Edge* pop_edge() {
+                if(_edges.empty())
+                    return nullptr;
+                auto* e = _edges.back();
+                if(std::all_of(e->targets->assignment.begin(), e->targets->assignment.end(),
+                        [](auto* t){ return t->assignment != UNKNOWN; }))
+                    _edges.pop_back();
+                return e;
+            }
+        };
+
         DependencyGraph::BasicDependencyGraph *graph;
         DependencyGraph::Configuration *root;
-
-        DependencyGraph::Edge *pick_edge(DependencyGraph::Configuration *conf);
 
         void push_edge(DependencyGraph::Configuration *conf);
 
@@ -50,7 +63,7 @@ namespace Algorithm {
 
         void assign_value(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
 
-        std::stack<DependencyGraph::Configuration *> _dstack;
+        std::vector<stack_entry_t> _dstack;
 
         template <typename GoodPred, typename BadPred>
         bool dependent_search(const DependencyGraph::Configuration* c, GoodPred&& pred, BadPred&& bad) const;
