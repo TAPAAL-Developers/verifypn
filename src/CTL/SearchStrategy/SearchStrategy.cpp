@@ -35,7 +35,12 @@ namespace SearchStrategy{
         }
         else
         {
-            pushToW(edge);
+            if (isdfs_) {
+                pushToW(edge);
+            }
+            else {
+                N.push_back(edge);
+            }
         }
     }
 

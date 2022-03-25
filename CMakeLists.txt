@@ -35,6 +35,7 @@ set(DG_CONFIGURATION SourceLazy CACHE STRING "DG configuration. Values are: Base
 ##   Baseline
 ##   Source
 ##   SourceLazy
+##   LazyCheck
 ##   SourceRef
 if (DG_CONFIGURATION STREQUAL Baseline)
     set(DG_Use_Source_Check OFF)
@@ -46,6 +47,10 @@ elseif(DG_CONFIGURATION STREQUAL Source)
     set(DG_Use_Refcounting OFF)
 elseif(DG_CONFIGURATION STREQUAL SourceLazy)
     set(DG_Use_Source_Check ON)
+    set(DG_Use_Lazy_Check ON)
+    set(DG_Use_Refcounting OFF)
+elseif(DG_CONFIGURATION STREQUAL LazyCheck)
+    set(DG_Use_Source_Check OFF)
     set(DG_Use_Lazy_Check ON)
     set(DG_Use_Refcounting OFF)
 elseif(DG_CONFIGURATION STREQUAL SourceRef)

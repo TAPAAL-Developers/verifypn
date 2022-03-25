@@ -45,6 +45,7 @@ public:
     virtual void flush() {};
 //#endif
 protected:
+    bool isdfs_ = false;
     virtual size_t Wsize() const = 0;
     virtual void pushToW(DependencyGraph::Edge* edge) = 0;
     virtual DependencyGraph::Edge* popFromW() = 0;

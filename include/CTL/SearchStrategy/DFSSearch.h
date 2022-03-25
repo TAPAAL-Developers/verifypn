@@ -11,6 +11,10 @@ namespace SearchStrategy {
 // while running sequential computation.
 
 class DFSSearch : public SearchStrategy {
+public:
+    DFSSearch() {
+        isdfs_ = true;
+    }
 
 protected:
     size_t Wsize() const { return W.size(); };

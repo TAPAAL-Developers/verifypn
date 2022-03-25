@@ -128,7 +128,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             std::cout << "	Processed N. Edges: " << _processedNegationEdges << "\n";
             std::cout << "	Explored Configs  : " << _exploredConfigurations << "\n";
             std::cout << "	Dependent Clears  : " << _optim_procs << "\n";
-                throw base_error("Fatal: Invariant inv_good failed!\n");
+            throw base_error("Fatal: Invariant inv_good failed!\n");
         }
         assert(inv_good);
 #endif
@@ -262,8 +262,8 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
                     }
                 }
             }
-            if (lastUndecided->assignment == UNKNOWN) {
-            //if (!lastUndecided->passed) {
+            //if (lastUndecided->assignment == UNKNOWN) {
+            if (!lastUndecided->passed) {
                 explore(lastUndecided);
             }
         }
