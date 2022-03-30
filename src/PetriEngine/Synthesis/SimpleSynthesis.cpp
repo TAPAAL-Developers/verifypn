@@ -588,6 +588,7 @@ namespace PetriEngine {
                         back.push(&cconf);
                     continue; // handled already
                 }
+#ifdef DG_SOURCE_CHECK
                 // check predecessors
                 bool any_undet = false;
                 for (auto& p : cconf._dependers) {
@@ -603,7 +604,7 @@ namespace PetriEngine {
                     cconf._dependers.clear();
                     continue;
                 }
-
+#endif
                 //std::cerr << "PROCESSING [" << cconf._marking << "]" << std::endl;
                 ++_result.exploredConfigurations;
 
