@@ -39,7 +39,10 @@ void CTLResult::print(const std::string& qname, StatisticsLevel statisticslevel,
         out << "	Processed Edges   : " << processedEdges << "\n";
         out << "	Processed N. Edges: " << processedNegationEdges << "\n";
         out << "	Explored Configs  : " << exploredConfigurations << "\n";
-        out << "	Dependent Clears  : " << optimProcs << "\n";
+        if (optimProcs > 0)
+          std::cerr << "	Dependent Clears  : " << optimProcs << "\n";
+        else
+          out << "	Dependent Clears  : " << optimProcs << "\n";
     }
     out << std::endl;
 }

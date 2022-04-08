@@ -24,6 +24,22 @@ void print_edge(Edge *e)
 #endif
 }
 
+bool is_assignable(Edge* e)
+{
+    auto c = e->source;
+    if (c->nsuccs == 0) {
+        return true;
+    }
+    bool allOne = true;
+    for (auto v : e->targets) {
+        if (v->assignment == CZERO)
+            return c->nsuccs == 1;
+        if (v->assignment != ONE)
+            return false;
+    }
+    return true;
+}
+
 bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_graph) {
     graph = &t_graph;
 
@@ -73,8 +89,9 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
         return;
     }
 #endif
+    bool optim_happened = false;
 #ifdef DG_LAZY_CHECK
-    if (!only_assign && !was_dep) {
+    if (!only_assign /*&& !was_dep*/) {
 #ifndef NDEBUG
         bool inv_good = false;
         if (e->source != root) {
@@ -114,12 +131,14 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
         }
         if (allDone) {
             e->source->passed = false;
+            //if (!is_assignable(e))
             ++_optim_procs;
+            optim_happened = true;
             //if(e->refcnt == 0) graph->release(e);
             return;
         }
 #ifndef NDEBUG
-        if (!inv_good) {
+        if (!inv_good && !was_dep) {
             std::cerr << "Failed invariant! At edge "; print_edge(e); std::cerr << '\n';
             std::cout << "	Configurations    : " << static_cast<PetriNets::OnTheFlyDG*>(graph)->configurationCount() << "\n";
             std::cout << "	Markings          : " << static_cast<PetriNets::OnTheFlyDG*>(graph)->markingCount() << "\n";
@@ -130,7 +149,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             std::cout << "	Dependent Clears  : " << _optim_procs << "\n";
             throw base_error("Fatal: Invariant inv_good failed!\n");
         }
-        assert(inv_good);
+        //assert(inv_good);
 #endif
     }
 #endif //defined(DG_LAZY_CHECK)
@@ -144,7 +163,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
     }
 #endif
 
-#ifndef NDEBUG
+#ifdef NDEBUG__
     if (!only_assign) {
         std::cerr << "checking ";
         if (was_dep) {
@@ -174,6 +193,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
                     //assert(e->assignment == CZERO || only_assign);
                     break;
                 } else if (lastUndecided == nullptr) {
+                    assert(!optim_happened);
                     lastUndecided = *it;
                 }
             }
@@ -181,7 +201,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             ++it;
         }
     }
-#ifndef NDEBUG
+#ifdef NDEBUG__
     if (!only_assign) {
         if (lastUndecided != nullptr) {
             std::cerr << " -> " << lastUndecided->id << std::endl;
@@ -215,7 +235,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             assert(lastUndecided != nullptr);
             if (only_assign) return;
             if (lastUndecided->assignment == ZERO && e->processed) {
-#ifndef NDEBUG
+#ifdef NDEBUG__
                 std::cerr << " --- assigning value!\n";
 #endif
                 finalAssign(e, ONE);
@@ -228,14 +248,13 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
 #endif
                 lastUndecided->addDependency(e);
                 if (!lastUndecided->passed) {
+                //if (lastUndecided->assignment == UNKNOWN) {
+                    assert(!optim_happened);
                     explore(lastUndecided);
                 }
-//                if (lastUndecided->assignment == UNKNOWN) {
-//                    explore(lastUndecided);
-//                }
             }
         }
-    } else {
+    } else { // not negated
         _processedEdges += 1;
         //Process hyper edge
         if (allOne) {
@@ -264,6 +283,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
             }
             //if (lastUndecided->assignment == UNKNOWN) {
             if (!lastUndecided->passed) {
+                assert(!optim_happened);
                 explore(lastUndecided);
             }
         }
