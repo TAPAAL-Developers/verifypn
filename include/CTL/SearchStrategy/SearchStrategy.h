@@ -44,7 +44,7 @@ public:
     bool trivialNegation();
     virtual void flush() {};
 //#endif
-protected:
+//protected:
     bool isdfs_ = false;
     virtual size_t Wsize() const = 0;
     virtual void pushToW(DependencyGraph::Edge* edge) = 0;

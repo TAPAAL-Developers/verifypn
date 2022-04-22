@@ -3,35 +3,39 @@
 
 #include <cassert>
 #include <iostream>
+#include "CTL/SearchStrategy/DFSSearch.h"
 
 using namespace DependencyGraph;
 using namespace SearchStrategy;
 
-void print_edge(Edge *e)
-{
+#ifndef NDEBUG
+#define ASSERT(x) assert(x)
+#else
+#define ASSERT(x) if (!(x)) { std::cerr << "Assertion " << #x << " failed\n"; exit(1); }
+#endif
+
+void print_edge(Edge* e) {
 #ifndef NDEBUG
     std::cerr << '(' << e->source->id;
     if (e->is_negated) {
         std::cerr << " -- ";
-    }
-    else {
+    } else {
         std::cerr << ", { ";
     }
-    for (auto c : e->targets) {
+    for (auto c: e->targets) {
         std::cerr << c->id << ' ';
     }
     std::cerr << (e->is_negated ? ")" : "})");
 #endif
 }
 
-bool is_assignable(Edge* e)
-{
+bool is_assignable(Edge* e) {
     auto c = e->source;
     if (c->nsuccs == 0) {
         return true;
     }
     bool allOne = true;
-    for (auto v : e->targets) {
+    for (auto v: e->targets) {
         if (v->assignment == CZERO)
             return c->nsuccs == 1;
         if (v->assignment != ONE)
@@ -40,7 +44,40 @@ bool is_assignable(Edge* e)
     return true;
 }
 
-bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_graph) {
+bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph& t_graph) {
+    auto res = _search(t_graph);
+    auto post_inv = [&](Edge* e) { return e->source->isDone() || test_invariant(e); };
+
+    auto strat = std::dynamic_pointer_cast<DFSSearch>(strategy);
+    if (!strat->empty()) {
+        std::cerr << "W nonempty: |W| = " << strat->Wsize() << "\t|D| = " << strat->D.size() << "\t|N| = " << strat->N.size() << std::endl;
+    }
+
+    while (!strat->W.empty()) {
+        auto e = strat->W.top();
+        if (!post_inv(e)) {
+            std::cerr << "Invariant failed after finishing algorithm";
+        }
+        strat->W.pop();
+    }
+    while (!strat->D.empty()) {
+        auto e = strat->D.back();
+        if (!post_inv(e)) {
+            std::cerr << "Invariant failed after finishing algorithm";
+        }
+        strat->D.pop_back();
+    }
+    while (!strat->N.empty()) {
+        auto e = strat->N.back();
+        if (!post_inv(e)) {
+            std::cerr << "Invariant failed after finishing algorithm";
+        }
+        strat->N.pop_back();
+    }
+    return res;
+}
+
+bool Algorithm::CertainZeroFPA::_search(DependencyGraph::BasicDependencyGraph& t_graph) {
     graph = &t_graph;
 
     root = graph->initialConfiguration();
@@ -80,10 +117,10 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
     return root->assignment == ONE;
 }
 
-void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_dep) {
+void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_dep) {
     if (e->handled) return;
 #ifdef DG_SOURCE_CHECK
-    assert(test_invariant(e));
+    ASSERT(test_invariant(e) || is_assignable(e));
     if (e->source->isDone()) {
         if (e->refcnt == 0) graph->release(e);
         return;
@@ -93,36 +130,10 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
 #ifdef DG_LAZY_CHECK
     if (!only_assign /*&& !was_dep*/) {
 #ifndef NDEBUG
-        bool inv_good = false;
-        if (e->source != root) {
-            std::stack<DependencyGraph::Edge*> W;
-            std::unordered_set<DependencyGraph::Edge*> passed;
-
-            W.push(e);
-            while (!W.empty()) {
-                auto edge = W.top(); W.pop();
-                if (std::find(std::begin(passed), std::end(passed), edge) == std::end(passed)) {
-                    if (edge->source->isDone() && edge != e) {
-                        continue;
-                    }
-                    else {
-                        for (auto d : edge->source->dependency_set) {
-                            if (d->source == root) {
-                                inv_good = true; break;
-                            }
-                            if (!d->source->isDone()) {
-                                W.push(d);
-                            }
-                        }
-                        passed.insert(edge);
-                    }
-                }
-            }
-        }
-        else inv_good = true;
+        bool inv_good = test_invariant(e);
 #endif
         bool allDone = e->source != root;
-        for (auto *pre: e->source->dependency_set) {
+        for (auto* pre: e->source->dependency_set) {
             //if (preEdge->processed) {
             if (!pre->source->isDone()) {
                 allDone = false;
@@ -139,9 +150,13 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
         }
 #ifndef NDEBUG
         if (!inv_good && !was_dep) {
-            std::cerr << "Failed invariant! At edge "; print_edge(e); std::cerr << '\n';
-            std::cout << "	Configurations    : " << static_cast<PetriNets::OnTheFlyDG*>(graph)->configurationCount() << "\n";
-            std::cout << "	Markings          : " << static_cast<PetriNets::OnTheFlyDG*>(graph)->markingCount() << "\n";
+            std::cerr << "Failed invariant! At edge ";
+            print_edge(e);
+            std::cerr << '\n';
+            std::cout << "	Configurations    : " << static_cast<PetriNets::OnTheFlyDG*>(graph)->configurationCount()
+                      << "\n";
+            std::cout << "	Markings          : " << static_cast<PetriNets::OnTheFlyDG*>(graph)->markingCount()
+                      << "\n";
             std::cout << "	Edges             : " << _numberOfEdges << "\n";
             std::cout << "	Processed Edges   : " << _processedEdges << "\n";
             std::cout << "	Processed N. Edges: " << _processedNegationEdges << "\n";
@@ -178,7 +193,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
     bool allOne = true;
     bool hasCZero = false;
     //auto pre_empty = e->targets.empty();
-    Configuration *lastUndecided = nullptr;
+    Configuration* lastUndecided = nullptr;
     {
         auto it = e->targets.begin();
         auto pit = e->targets.before_begin();
@@ -248,7 +263,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
 #endif
                 lastUndecided->addDependency(e);
                 if (!lastUndecided->passed) {
-                //if (lastUndecided->assignment == UNKNOWN) {
+                    //if (lastUndecided->assignment == UNKNOWN) {
                     assert(!optim_happened);
                     explore(lastUndecided);
                 }
@@ -292,19 +307,19 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge *e, bool only_assign, bool was_de
     if (e->refcnt == 0) graph->release(e);
 }
 
-void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Edge *e, DependencyGraph::Assignment a) {
+void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Edge* e, DependencyGraph::Assignment a) {
 #ifndef NDEBUG
     //std::cerr << "assigning to "; print_edge(e); std::cerr << std::endl;
 #endif
     finalAssign(e->source, a);
 }
 
-void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a) {
+void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration* c, DependencyGraph::Assignment a) {
     assert(a == ONE || a == CZERO);
 
     c->assignment = a;
     c->nsuccs = 0;
-    for (DependencyGraph::Edge *e: c->dependency_set) {
+    for (DependencyGraph::Edge* e: c->dependency_set) {
         if (!e->source->isDone()) {
             if (a == CZERO) {
                 /*e->assignment = CZERO;*/
@@ -336,7 +351,7 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, D
     c->dependency_set.clear();
 }
 
-void Algorithm::CertainZeroFPA::explore(Configuration *c) {
+void Algorithm::CertainZeroFPA::explore(Configuration* c) {
     c->assignment = ZERO;
     c->passed = true;
 
@@ -352,7 +367,7 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c) {
         for (int32_t i = c->nsuccs - 1; i >= 0; --i) {
             checkEdge(succs[i], true);
             if (c->isDone()) {
-                for (Edge *e: succs) {
+                for (Edge* e: succs) {
                     assert(e->refcnt <= 1);
                     if (e->refcnt >= 1) --e->refcnt;
                     if (e->refcnt == 0) graph->release(e);
@@ -362,7 +377,7 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c) {
         }
 
         if (c->nsuccs == 0) {
-            for (Edge *e: succs) {
+            for (Edge* e: succs) {
                 assert(e->refcnt <= 1);
                 if (e->refcnt >= 1) --e->refcnt;
                 if (e->refcnt == 0) graph->release(e);
@@ -371,7 +386,7 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c) {
             return;
         }
 
-        for (Edge *succ: succs) {
+        for (Edge* succ: succs) {
             assert(succ->refcnt <= 1);
             if (succ->refcnt > 0) {
                 strategy->pushEdge(succ);

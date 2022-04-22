@@ -16,7 +16,6 @@ public:
         isdfs_ = true;
     }
 
-protected:
     size_t Wsize() const { return W.size(); };
     void pushToW(DependencyGraph::Edge* edge) { W.push(edge); };
     DependencyGraph::Edge* popFromW() 
