@@ -30,7 +30,7 @@ namespace PetriEngine {
 
         bool next(Structures::State &write);
 
-        auto fired() const { return _current; }
+        virtual uint32_t fired() const override { return _current; }
     private:
         std::shared_ptr<StubbornSet> _stubSet;
         uint32_t _current;

@@ -35,7 +35,7 @@ public:
         return _next(write, [](size_t){ return true; });
     }
 
-    uint32_t fired() const
+    virtual uint32_t fired() const
     {
         return _suc_tcounter == std::numeric_limits<uint32_t>::max() ? std::numeric_limits<uint32_t>::max() : _suc_tcounter - 1;
     }

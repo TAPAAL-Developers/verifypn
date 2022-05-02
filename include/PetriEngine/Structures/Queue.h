@@ -28,6 +28,8 @@ namespace PetriEngine {
             Queue(size_t s = 0);
             virtual ~Queue();
             virtual size_t pop() = 0;
+            virtual size_t back() { return size_t{}; }
+            virtual void pop_back() {}
 
             virtual void push(size_t id, PQL::DistanceContext* = nullptr,
                 const PQL::Condition* query = nullptr) = 0;
@@ -54,6 +56,8 @@ namespace PetriEngine {
             virtual ~DFSQueue();
 
             virtual size_t pop();
+            virtual size_t back();
+            virtual void pop_back();
             //bool top(Structures::State& state) const;
             virtual void push(size_t id, PQL::DistanceContext*,
                 const PQL::Condition* query);

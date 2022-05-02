@@ -28,6 +28,7 @@
 #include <forward_list>
 #include <cinttypes>
 #include <cstddef>
+#include <vector>
 
 namespace PetriEngine {
     namespace Synthesis {
@@ -70,6 +71,9 @@ namespace PetriEngine {
             uint32_t _ctrl_children = 0; // It is sufficient to keep track of the counts here
             uint32_t _env_children = 0;
             // in any resonable net, these would be less than 2^32
+
+            std::vector<std::pair<size_t, SynthConfig*>> _ctrl;
+            std::vector<std::pair<size_t, SynthConfig*>> _env;
 
             depends_t _dependers; // A bunch of parents
             // TODO: check if the dependers are faster by

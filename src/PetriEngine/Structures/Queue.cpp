@@ -67,6 +67,13 @@ namespace PetriEngine {
             return n;
         }
 
+        size_t DFSQueue::back() {
+            if (_stack.empty()) return EMPTY;
+            return _stack.top();
+        }
+
+        void DFSQueue::pop_back() { assert(!_stack.empty()); _stack.pop(); }
+
         void DFSQueue::push(size_t id, PQL::DistanceContext*,
             const PQL::Condition* query)
         {

@@ -34,12 +34,23 @@
 #include "PetriEngine/Synthesis/GamePORSuccessorGenerator.h"
 
 #include <vector>
+#include <iomanip>
+
+#ifndef NDEBUG___
+#define DEBUG_ONLY(x) x
+#else
+#define DEBUG_ONLY(x)
+#endif
 
 
 namespace PetriEngine {
     using namespace Reachability;
 
     namespace Synthesis {
+        void assign_value(SynthConfig &conf, uint8_t value) {
+            conf._state = value;
+            DEBUG_ONLY(std::cerr << "Assign [" << conf._marking << "] : " << SynthConfig::state_to_str(value) << std::endl;)
+        }
 
         SimpleSynthesis::SimpleSynthesis(PetriNet& net, PQL::Condition& query, size_t kbound)
         : _kbound(kbound), _net(net), _working(net.makeInitialMarking()), _parent(_net.makeInitialMarking()),
@@ -89,8 +100,8 @@ namespace PetriEngine {
 
         void SimpleSynthesis::dependers_to_waiting(SynthConfig* next, std::stack<SynthConfig*>& back) {
             size_t processed = 0;
-            //std::cerr << "BACK[" << next->_marking << "]" << std::endl;
-            // std::cerr << "Win ? " << SynthConfig::state_to_str(next->_state) << std::endl;
+            DEBUG_ONLY(std::cerr << "BACK[" << next->_marking << "]" << std::endl;)
+            DEBUG_ONLY(std::cerr << "Win ? " << SynthConfig::state_to_str(next->_state) << std::endl;)
             for (auto& dep : next->_dependers) {
                 ++processed;
 
@@ -106,9 +117,9 @@ namespace PetriEngine {
                         if (ancestor->_env_children == 0) {
                             //std::cerr << "WIN [" << ancestor->_marking << "]" << std::endl;
                             assert(ancestor->_state != SynthConfig::LOSING);
-                            ancestor->_state = SynthConfig::WINNING;
+                            assign_value(*ancestor, SynthConfig::WINNING);
                         } else {
-                            ancestor->_state = SynthConfig::MAYBE;
+                            assign_value(*ancestor, SynthConfig::MAYBE);
                         }
                     }
 
@@ -116,25 +127,25 @@ namespace PetriEngine {
                     if (ancestor->_ctrl_children == 0 && // no more tries, and no potential or certainty
                         (ancestor->_state & (SynthConfig::MAYBE | SynthConfig::WINNING)) == 0) {
                         assert(ancestor->_state != SynthConfig::WINNING);
-                        ancestor->_state = SynthConfig::LOSING;
+                        assign_value(*ancestor, SynthConfig::LOSING);
                     }
                 } else {
                     //std::cerr << "\tEB[" << ancestor->_marking << "]" << std::endl;
                     ancestor->_env_children -= 1;
                     if (next->_state == SynthConfig::LOSING) {
                         assert(ancestor->_state != SynthConfig::WINNING);
-                        ancestor->_state = SynthConfig::LOSING;
+                        assign_value(*ancestor, SynthConfig::LOSING);
                     } else if (next->_state == SynthConfig::WINNING) {
                         if (ancestor->_env_children == 0 && ancestor->_state == SynthConfig::MAYBE) {
                             assert(ancestor->_state != SynthConfig::LOSING);
-                            ancestor->_state = SynthConfig::WINNING;
+                            assign_value(*ancestor, SynthConfig::WINNING);
                         }
                     }
                 }
 
                 if (ancestor->_env_children == 0 && ancestor->_ctrl_children == 0 && ancestor->_state == SynthConfig::MAYBE) {
                     assert(ancestor->_state != SynthConfig::LOSING);
-                    ancestor->_state = SynthConfig::WINNING;
+                    assign_value(*ancestor, SynthConfig::WINNING);
                 }
 
                 if (ancestor->determined()) {
@@ -191,17 +202,17 @@ namespace PetriEngine {
                 markings.push_back(new MarkVal[_net.numberOfPlaces()]);
                 memcpy(markings.back(), state.marking(), sizeof (MarkVal) * _net.numberOfPlaces());
 #endif
-                meta = {SynthConfig::UNKNOWN, false, 0, 0, SynthConfig::depends_t(), res.second};
+                meta = {SynthConfig::UNKNOWN, false, 0, 0, {}, {}, SynthConfig::depends_t(), res.second};
                 if (!check_bound(state.marking())) {
-                    meta._state = SynthConfig::LOSING;
+                    assign_value(meta, SynthConfig::LOSING);
                 } else {
                     auto res = eval(prop, state.marking());
                     if (_is_safety) {
                         if (res == false)
-                            meta._state = SynthConfig::LOSING;
+                            assign_value(meta, SynthConfig::LOSING);
                     } else {
                         if (res != false)
-                            meta._state = SynthConfig::WINNING;
+                            assign_value(meta, SynthConfig::WINNING);
                     }
                 }
             }
@@ -424,23 +435,22 @@ namespace PetriEngine {
             bool some_winning = false;
             while (generator.next_ctrl(_working)) {
                 auto& child = get_config(_working, _predicate, cid);
-                /*
-                std::cerr << "[" << cconf._marking << "] ";
-                _net.print(_parent.marking());
-                std::cerr << "[" << child._marking << "] ";
-                _net.print(_working.marking());
-                std::cerr << "CTRL[" << cconf._marking << "] -" << _net.transitionNames()[generator.fired()] << "-> [" << child._marking << "]" << std::endl;
-                 */
+                DEBUG_ONLY(
+                    std::cerr << "[" << cconf._marking << "] ";
+                    //_net.print(_parent.marking());
+                    std::cerr << "[" << child._marking << "] ";
+                    //_net.print(_working.marking());
+                    std::cerr << "CTRL[" << cconf._marking << "] -" << _net.transitionNames()[generator.fired()] << "-> [" << child._marking << "]\n";)
 
                 some = true;
                 if (&child == &cconf) {
                     if (_is_safety) { // maybe a win if safety ( no need to explore more)
-                        cconf._state = SynthConfig::MAYBE;
+                        assign_value(cconf, SynthConfig::MAYBE);
                         if (!permissive) {
                             ctrl_buffer.clear();
                             if (env_empty) {
                                 assert(cconf._state != SynthConfig::LOSING);
-                                cconf._state = SynthConfig::WINNING;
+                                assign_value(cconf, SynthConfig::WINNING);
                             }
                             break;
                         }
@@ -452,12 +462,12 @@ namespace PetriEngine {
                 } else if (child._state == SynthConfig::WINNING) {
                     some_winning = true;
                     // no need to search further! We are winning if env. cannot force us away
-                    cconf._state = SynthConfig::MAYBE;
+                    assign_value(cconf, SynthConfig::MAYBE);
                     if (!permissive) {
                         ctrl_buffer.clear();
                         if (env_empty) {
                             assert(cconf._state != SynthConfig::LOSING);
-                            cconf._state = SynthConfig::WINNING;
+                            assign_value(cconf, SynthConfig::WINNING);
                         }
                         break;
                     }
@@ -475,24 +485,23 @@ namespace PetriEngine {
             size_t cid;
             while (generator.next_env(_working)) {
                 auto& child = get_config(_working, _predicate, cid);
-                /*
-                std::cerr << "[" << cconf._marking << "] ";
-                _net.print(_parent.marking());
-                 std::cerr << "[" << child._marking << "] ";
-                _net.print(_working.marking());
-                std::cerr << "ENV[" << cconf._marking << "] -" << _net.transitionNames()[generator.fired()] << "-> [" << child._marking << "]" << std::endl;
-                 */
+                DEBUG_ONLY(
+                        std::cerr << "[" << cconf._marking << "] "; \
+                        //_net.print(_parent.marking());
+                        std::cerr << "[" << child._marking << "] ";\
+                        //_net.print(_working.marking());
+                        std::cerr << "ENV[" << cconf._marking << "] -" << _net.transitionNames()[generator.fired()] << "-> [" << child._marking << "]\n";)
                 some_env = true;
                 if (child._state == SynthConfig::LOSING) {
                     // Environment can force a lose
-                    cconf._state = SynthConfig::LOSING;
+                    assign_value(cconf, SynthConfig::LOSING);
                     break;
                 } else if (child._state == SynthConfig::WINNING)
                     continue; // would never choose
                 if (&child == &cconf) {
                     if (_is_safety) continue; // would make ctrl win
                     else {
-                        cconf._state = SynthConfig::LOSING; // env wins surely
+                        assign_value(cconf, SynthConfig::LOSING); // env wins surely
                         break;
                     }
                 }
@@ -583,6 +592,9 @@ namespace PetriEngine {
                     break;
                 nid = queue->pop();
                 auto& cconf = _stateset.get_data(nid);
+#ifndef NDEBUG
+                std::cerr << "Picking: [" << cconf._marking << "]\n";
+#endif
                 if (cconf.determined()) {
                     if (permissive && !cconf._dependers.empty())
                         back.push(&cconf);
@@ -635,6 +647,15 @@ namespace PetriEngine {
                 }
                 if (!inv_good) {
                     std::cout << "ERROR: Invariant was broken\n";
+                    std::cout << "STATS:" << "\n";
+                    timer.stop();
+                    std::cout << "	Time (seconds)    : " << std::setprecision(4) << timer.duration() / 1000 << "\n";
+                    std::cout << "	Configurations    : " << _result.numberOfConfigurations << "\n";
+                    std::cout << "	Markings          : " << _result.numberOfMarkings << "\n";
+                    std::cout << "	Edges             : " << _result.numberOfEdges << "\n";
+                    std::cout << "	Processed Edges   : " << _result.processedEdges << "\n";
+                    std::cout << "	Processed N. Edges: " << _result.processedNegationEdges << "\n";
+                    std::cout << "	Explored Configs  : " << _result.exploredConfigurations << "\n";
                     exit(1);
                 }
                 assert(inv_good);
@@ -644,7 +665,7 @@ namespace PetriEngine {
                 ++_result.exploredConfigurations;
 
                 assert(cconf._waiting == 1);
-                cconf._state = SynthConfig::PROCESSED;
+                assign_value(cconf, SynthConfig::PROCESSED);
                 assert(cconf._marking == nid);
                 _stateset.decode(_parent, nid);
                 generator->prepare(_parent);
