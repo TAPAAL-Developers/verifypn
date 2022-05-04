@@ -38,12 +38,21 @@ namespace PetriEngine {
             typedef std::forward_list<depender_t> depends_t;
 
             // using uint8_t here instead of enums, packs data better
-            static constexpr uint8_t UNKNOWN = 1; // no successors generated yet
+            // TODO switching to enum hoping for cleaner debug view
+            enum Status : uint8_t {
+                UNKNOWN = 1, // no successors generated yet
+                PROCESSED = 2, // Generated successors
+                MAYBE = 4, // If no env strategy, then winning
+                LOSING = 8, // env wins
+                WINNING = 32, // ctrl surely wins
+                PRINTED = 64 // has been printed
+            };
+            /*static constexpr uint8_t UNKNOWN = 1; // no successors generated yet
             static constexpr uint8_t PROCESSED = 2; // Generated successors
             static constexpr uint8_t MAYBE = 4; // If no env strategy, then winning
             static constexpr uint8_t LOSING = 8; // env wins
             static constexpr uint8_t WINNING = 32; // ctrl surely wins
-            static constexpr uint8_t PRINTED = 64; // has been printed
+            static constexpr uint8_t PRINTED = 64; // has been printed*/
 
             static constexpr const char* state_to_str(uint8_t i)
             {

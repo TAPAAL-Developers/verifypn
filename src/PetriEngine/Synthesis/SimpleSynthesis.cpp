@@ -100,8 +100,7 @@ namespace PetriEngine {
 
         void SimpleSynthesis::dependers_to_waiting(SynthConfig* next, std::stack<SynthConfig*>& back) {
             size_t processed = 0;
-            DEBUG_ONLY(std::cerr << "BACK[" << next->_marking << "]" << std::endl;)
-            DEBUG_ONLY(std::cerr << "Win ? " << SynthConfig::state_to_str(next->_state) << std::endl;)
+            DEBUG_ONLY(std::cerr << "BACK[" << next->_marking << "] state: " << SynthConfig::state_to_str(next->_state) << std::endl;)
             for (auto& dep : next->_dependers) {
                 ++processed;
 
@@ -436,9 +435,9 @@ namespace PetriEngine {
             while (generator.next_ctrl(_working)) {
                 auto& child = get_config(_working, _predicate, cid);
                 DEBUG_ONLY(
-                    std::cerr << "[" << cconf._marking << "] ";
+                    //std::cerr << "[" << cconf._marking << "] ";
                     //_net.print(_parent.marking());
-                    std::cerr << "[" << child._marking << "] ";
+                    //std::cerr << "[" << child._marking << "] ";
                     //_net.print(_working.marking());
                     std::cerr << "CTRL[" << cconf._marking << "] -" << _net.transitionNames()[generator.fired()] << "-> [" << child._marking << "]\n";)
 
@@ -486,9 +485,9 @@ namespace PetriEngine {
             while (generator.next_env(_working)) {
                 auto& child = get_config(_working, _predicate, cid);
                 DEBUG_ONLY(
-                        std::cerr << "[" << cconf._marking << "] "; \
+                        //std::cerr << "[" << cconf._marking << "] "; \
                         //_net.print(_parent.marking());
-                        std::cerr << "[" << child._marking << "] ";\
+                        //std::cerr << "[" << child._marking << "] ";\
                         //_net.print(_working.marking());
                         std::cerr << "ENV[" << cconf._marking << "] -" << _net.transitionNames()[generator.fired()] << "-> [" << child._marking << "]\n";)
                 some_env = true;
@@ -516,24 +515,24 @@ namespace PetriEngine {
                 if (some_ctrl && !some_winning && ctrl_empty) // we had a choice but all of them were bad. Env. can force us.
                 {
                     assert(cconf._state != SynthConfig::WINNING);
-                    cconf._state = SynthConfig::LOSING;
+                    assign_value(cconf, SynthConfig::LOSING);
                 } else if (!some_ctrl && !some_env) {
                     // deadlock, bad if reachability, good if safety
                     assert(cconf._state != SynthConfig::WINNING);
                     if (_is_safety) {
-                        cconf._state = SynthConfig::WINNING;
+                        assign_value(cconf, SynthConfig::WINNING);
                     } else {
-                        cconf._state = SynthConfig::LOSING;
+                        assign_value(cconf, SynthConfig::LOSING);
                     }
                 } else if (env_empty && some_winning) {
                     // reachability: env had not bad choice and ctrl had winning
                     assert(cconf._state != SynthConfig::LOSING);
-                    cconf._state = SynthConfig::WINNING;
+                    assign_value(cconf, SynthConfig::WINNING);
                 } else if (!some_ctrl && some_env && env_empty) {
                     // env is forced to be good.
-                    cconf._state = SynthConfig::WINNING;
+                    assign_value(cconf, SynthConfig::WINNING);
                 } else if (!some_ctrl && !env_empty) {
-                    cconf._state = SynthConfig::MAYBE;
+                    assign_value(cconf, SynthConfig::MAYBE);
                 }
             }
         }
@@ -646,7 +645,7 @@ namespace PetriEngine {
                     continue;
                 }
                 if (!inv_good) {
-                    std::cout << "ERROR: Invariant was broken\n";
+                    std::cout << "ERROR: Invariant was broken at node " << cconf._marking << std::endl;
                     std::cout << "STATS:" << "\n";
                     timer.stop();
                     std::cout << "	Time (seconds)    : " << std::setprecision(4) << timer.duration() / 1000 << "\n";
