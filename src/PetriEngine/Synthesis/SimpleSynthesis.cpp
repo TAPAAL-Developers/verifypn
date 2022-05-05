@@ -540,7 +540,7 @@ namespace PetriEngine {
         void SimpleSynthesis::to_queue(Structures::Queue& queue, successors_t& successors, bool is_ctrl, SynthConfig& cconf) {
             //std::cerr << "[" << nid << "]" << std::endl;
             for (auto& c : successors) {
-                if (c.second->_waiting == 0) {
+                if (c.second->_waiting == 0 || c.second->_state == SynthConfig::UNKNOWN) {
                     queue.push(c.first, nullptr, nullptr);
                     c.second->_waiting = 1;
                 }
@@ -599,7 +599,11 @@ namespace PetriEngine {
                         back.push(&cconf);
                     continue; // handled already
                 }
+                if (cconf._state > 1) {
+                    continue; // handled already
+                }
 #ifdef DG_SOURCE_CHECK
+#ifndef NDEBUG
                 bool inv_good = false;
                 if (cconf._marking != meta._marking) {
                     std::stack<SynthConfig *> W;
@@ -628,6 +632,7 @@ namespace PetriEngine {
                     }
                 }
                 else inv_good = true;
+#endif
 //#endif
                 // check predecessors
                 bool any_undet = false;
@@ -644,6 +649,7 @@ namespace PetriEngine {
                     cconf._dependers.clear();
                     continue;
                 }
+#ifndef NDEBUG
                 if (!inv_good) {
                     std::cout << "ERROR: Invariant was broken at node " << cconf._marking << std::endl;
                     std::cout << "STATS:" << "\n";
@@ -658,6 +664,7 @@ namespace PetriEngine {
                     exit(1);
                 }
                 assert(inv_good);
+#endif
 #endif
 
                 //std::cerr << "PROCESSING [" << cconf._marking << "]" << std::endl;
