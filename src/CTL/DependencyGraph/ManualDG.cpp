@@ -31,6 +31,17 @@ namespace DependencyGraph {
         graph.set_assignment(id, assignment);
     }
 
+    static void parse_negation_(const std::string& s, ManualDG<std::string>& graph) {
+        std::istringstream is{s};
+        std::string source, target;
+        int assignment;
+        is >> source >> target;
+        if (!is) {
+            throw base_error{"Malformed negation edge specification " + s};
+        }
+        graph.add_negation(source, target);
+    }
+
     static void parse_hyperedge_(const std::string& s, ManualDG<std::string>& graph) {
         std::istringstream is{s};
         std::string id;
@@ -51,6 +62,10 @@ namespace DependencyGraph {
      *     says to add hyperedge (c, {x1, x2, ..., xn})
      *   - # c x
      *     says the assignment of c is x (x should be one of {0, 1})
+     *   - ! c v
+     *     adds a negation edge c, v.
+     *     WARNING: No validation is done to check that negation edges do not occur in cycles.
+     *     Do not expect sane results if you make a negation cycle.
      *   where c, x, xi are arbitrary strings (except #).
      *   The first mentioned configuration name is taken to be the root node.
      * @param is
@@ -64,12 +79,28 @@ namespace DependencyGraph {
             is >> std::ws;
             if (!std::getline(is, line)) break;
 
-            if (line.at(0) == '#') {
-                parse_assign_(line, dg);
-            } else {
-                parse_hyperedge_(line, dg);
+            switch (line.at(0)) {
+                case '#':
+                    parse_assign_(line, dg);
+                    break;
+                case '!':
+                    parse_negation_(line, dg);
+                    break;
+                default:
+                    parse_hyperedge_(line, dg);
+                    break;
             }
         }
         return dg;
+    }
+
+    ManualDG<std::string> parse_dg(const std::string& s) {
+        std::stringstream ss{s};
+        return parse_dg(ss);
+    }
+
+    ManualDG<std::string> parse_dg(const char* s) {
+        std::stringstream ss{s};
+        return parse_dg(ss);
     }
 }

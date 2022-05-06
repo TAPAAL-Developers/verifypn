@@ -16,6 +16,7 @@ add_executable (ltl ltl_test.cpp)
 add_executable (games game_test.cpp)
 add_executable (color color_test.cpp)
 add_executable (reduction reduction.cpp)
+add_executable (ctl ctl_tests.cpp)
 
 target_link_libraries(BinaryPrinterTests PUBLIC ${Boost_LIBRARIES} -Wl,-Bstatic verifypn -Wl,-Bdynamic)
 target_link_libraries(XMLPrinterTests    PUBLIC ${Boost_LIBRARIES} -Wl,-Bstatic verifypn -Wl,-Bdynamic)
@@ -26,6 +27,7 @@ target_link_libraries(ltl PUBLIC ${Boost_LIBRARIES} -Wl,-Bstatic verifypn -Wl,-B
 target_link_libraries(games        PUBLIC ${Boost_LIBRARIES} -Wl,-Bstatic verifypn -Wl,-Bdynamic)
 target_link_libraries(color        PUBLIC ${Boost_LIBRARIES} -Wl,-Bstatic verifypn -Wl,-Bdynamic)
 target_link_libraries(reduction        PUBLIC ${Boost_LIBRARIES} -Wl,-Bstatic verifypn -Wl,-Bdynamic)
+target_link_libraries(ctl        PUBLIC ${Boost_LIBRARIES} -Wl,-Bstatic verifypn -Wl,-Bdynamic)
 
 add_test(NAME BinaryPrinterTests COMMAND BinaryPrinterTests)
 add_test(NAME XMLPrinterTests COMMAND XMLPrinterTests)
@@ -36,11 +38,14 @@ add_test(NAME ltl COMMAND ltl)
 add_test(NAME games COMMAND games)
 add_test(NAME color COMMAND color)
 add_test(NAME reduction COMMAND reduction)
+add_test(NAME ctl COMMAND ctl)
 
 set_tests_properties(reachability PROPERTIES
     ENVIRONMENT TEST_FILES=${CMAKE_CURRENT_SOURCE_DIR})
 set_tests_properties(ltl PROPERTIES
     ENVIRONMENT TEST_FILES=${CMAKE_CURRENT_SOURCE_DIR})
+set_tests_properties(ctl PROPERTIES
+        ENVIRONMENT TEST_FILES=${CMAKE_CURRENT_SOURCE_DIR})
 set_tests_properties(games PROPERTIES
     ENVIRONMENT TEST_FILES=${CMAKE_CURRENT_SOURCE_DIR})
 set_tests_properties(color PROPERTIES

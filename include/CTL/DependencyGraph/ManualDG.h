@@ -30,7 +30,7 @@ namespace DependencyGraph {
     /**
      * Class for building a desired dependency graph by hand. Currently this is a add-only process,
      * deletion would require memory fiddling unless you don't mind memory leaks.
-     * A ManualDG can be constructred either using parse_dg(std::istream&), which
+     * A ManualDG can be constructed either using parse_dg(std::istream&), which
      * compiles a line-based text format to a DG, or by manually calling add_hyperedge and set_assignment.
      * Either way configurations are specified by ID (default type string).
      * @tparam IDType Type of identifiers used to manage configurations. Defaults to string,
@@ -53,25 +53,36 @@ namespace DependencyGraph {
         void cleanUp() override {}
 
         void set_assignment(const IDType& id, int i) {
-            get_config_(id)->assignment = to_assignment(i);
+            get_config(id)->assignment = to_assignment(i);
         }
 
         void add_hyperedge(const IDType& id, const std::vector<IDType>& sucs) {
-            auto* conf = get_config_(id);
+            auto* conf = get_config(id);
             if (root_ == nullptr) {
                 root_ = conf;
             }
             auto* e = new Edge{*conf};
             for (auto& s: sucs) {
                 // this allows edge e.g. (c, {x, y, x}), but the duplicated target shouldn't cause issues
-                e->addTarget(get_config_(s));
+                e->addTarget(get_config(s));
             }
             edges_[conf].push_back(e);
         }
 
+        void add_negation(const IDType& source, const IDType& target) {
+            auto s = get_config(source), t = get_config(target);
+            if (root_ == nullptr) {
+                root_ = s;
+            }
+            auto *e = new Edge{*s};
+            e->addTarget(t);
+            e->is_negated = true;
+            edges_[s].push_back(e);
+        }
+
         virtual ~ManualDG() {
             // this _should_ catch everything
-            // - new Configuration is only in get_config_ which adds to configs_,
+            // - new Configuration is only in get_config which adds to configs_,
             // - new Edge is only in add_hyperedge which pushes it to edges_.
             for (auto& [_, es]: edges_) {
                 for (auto* e: es) {
@@ -85,13 +96,7 @@ namespace DependencyGraph {
 
         //void print_to_dot(std::ostream &os); // could be nice maybe?
 
-    private:
-
-        std::unordered_map<Configuration*, std::vector<Edge*>> edges_;
-        std::unordered_map<IDType, Configuration*> configs_;
-        Configuration* root_ = nullptr;
-
-        Configuration* get_config_(const IDType& id) {
+        Configuration* get_config(const IDType& id) {
             if (auto it = configs_.find(id); it != std::end(configs_)) {
                 return it->second;
             }
@@ -100,6 +105,11 @@ namespace DependencyGraph {
             configs_[id] = c;
             return c;
         }
+    private:
+
+        std::unordered_map<Configuration*, std::vector<Edge*>> edges_;
+        std::unordered_map<IDType, Configuration*> configs_;
+        Configuration* root_ = nullptr;
 
         Assignment to_assignment(int i) const {
             switch (i) {
@@ -127,6 +137,12 @@ namespace DependencyGraph {
      * @return    the dependency graph described by the text given by is.
      */
     ManualDG<std::string> parse_dg(std::istream& is);
+
+    // std::string version.
+    ManualDG<std::string> parse_dg(const std::string &s);
+
+    // C-string version.
+    ManualDG<std::string> parse_dg(const char* s);
 }
 
 #endif //VERIFYPN_MANUALDG_H
