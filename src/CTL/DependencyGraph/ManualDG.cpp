@@ -23,6 +23,8 @@ namespace DependencyGraph {
         std::istringstream is{s};
         std::string id;
         int assignment;
+        is.get();
+        //is >> id; // skip '#'
         is >> id;
         is >> assignment;
         if (!is) {
@@ -34,7 +36,8 @@ namespace DependencyGraph {
     static void parse_negation_(const std::string& s, ManualDG<std::string>& graph) {
         std::istringstream is{s};
         std::string source, target;
-        int assignment;
+        is.get();
+        //is >> source; // skip '!'
         is >> source >> target;
         if (!is) {
             throw base_error{"Malformed negation edge specification " + s};

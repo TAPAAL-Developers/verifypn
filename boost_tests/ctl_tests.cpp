@@ -96,3 +96,34 @@ BOOST_AUTO_TEST_CASE(ParseDgTest) {
     BOOST_REQUIRE_EQUAL(e3[1]->targets.front(), c2);
 }
 
+BOOST_AUTO_TEST_CASE(ManualDgAssignment) {
+    std::stringstream ss{
+            std::string{"0 1\n"} +
+            "1 2\n" +
+            "2 0\n" +
+            "2 0 3\n" +
+            "2 3\n" +
+            "3 4\n" +
+            "3 2"
+            "# 4 0"};
+    auto dg = DependencyGraph::parse_dg(ss);
+
+    LocalFPA alg{Strategy::DFS};
+    BOOST_REQUIRE(!alg.search(dg));
+
+    dg.set_assignment("4", 0);
+    BOOST_REQUIRE(alg.search(dg));
+}
+
+BOOST_AUTO_TEST_CASE(ManualDgNegation) {
+    std::stringstream ss{
+        std::string{"0 1 2\n"}
+        + "! 0 3\n"
+    };
+    auto dg = DependencyGraph::parse_dg(ss);
+    LocalFPA alg{Strategy::DFS};
+    BOOST_REQUIRE(alg.search(dg));
+}
+
+
+
