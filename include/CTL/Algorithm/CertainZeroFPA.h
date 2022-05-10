@@ -66,6 +66,8 @@ protected:
         }
 
 //#endif
-};
+        void backprop(DependencyGraph::Configuration* conf);
+        std::pair<DependencyGraph::Configuration *, DependencyGraph::Assignment> eval_edge(DependencyGraph::Edge *e);
+    };
 }
 #endif // CERTAINZEROFPA_H

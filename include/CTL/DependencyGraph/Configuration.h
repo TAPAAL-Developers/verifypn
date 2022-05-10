@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <forward_list>
+#include <limits>
 
 namespace DependencyGraph {
 
@@ -31,6 +32,7 @@ public:
 #ifndef NDEBUG
     size_t id;
 #endif
+    size_t rank = std::numeric_limits<size_t>::max();
     Configuration() {}
     uint32_t getDistance() const { return distance; }
     bool isDone() const { return assignment == ONE || assignment == CZERO; }

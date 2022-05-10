@@ -81,9 +81,9 @@ bool Algorithm::CertainZeroFPA::_search(DependencyGraph::BasicDependencyGraph& t
     graph = &t_graph;
 
     root = graph->initialConfiguration();
-    {
-        explore(root);
-    }
+    explore(root);
+    root->rank = 1;
+
 #ifdef DG_REFCOUNTING
     root->refc = 1;
 #endif
@@ -266,6 +266,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_de
                     //if (lastUndecided->assignment == UNKNOWN) {
                     assert(!optim_happened);
                     explore(lastUndecided);
+                    lastUndecided->rank = e->source->rank + 1;
                 }
             }
         }
@@ -312,6 +313,7 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Edge* e, Dependency
     //std::cerr << "assigning to "; print_edge(e); std::cerr << std::endl;
 #endif
     finalAssign(e->source, a);
+    backprop(e->source);
 }
 
 void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration* c, DependencyGraph::Assignment a) {
@@ -330,9 +332,9 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration* c, D
                     e->assignment = ONE;*/
             }
             if (!e->is_negated || a == CZERO) {
-                strategy->pushDependency(e);
+                //strategy->pushDependency(e);
             } else {
-                strategy->pushNegation(e);
+                //strategy->pushNegation(e);
             }
         }
         assert(e->refcnt > 0);
@@ -399,3 +401,112 @@ void Algorithm::CertainZeroFPA::explore(Configuration* c) {
     }
     strategy->flush();
 }
+
+
+std::pair<Configuration *, Assignment> Algorithm::CertainZeroFPA::eval_edge(DependencyGraph::Edge *e) {
+    bool allOne = true, hasCZero = false;
+    Configuration *retval = nullptr;
+    Assignment a = ZERO;
+    auto it = e->targets.begin();
+    auto pit = e->targets.before_begin();
+    while (it != e->targets.end()) {
+        if ((*it)->assignment == ONE) {
+            e->targets.erase_after(pit);
+            it = pit;
+        } else {
+            allOne = false;
+            if ((*it)->assignment == CZERO) {
+                hasCZero = true;
+                break;
+            } else if (retval == nullptr) {
+                retval = *it;
+            }
+        }
+        pit = it;
+        ++it;
+    }
+
+    if (!e->is_negated) {
+        if (hasCZero) {
+            --e->source->nsuccs;
+            e->handled = true;
+            if (e->source->nsuccs == 0) {
+                e->source->assignment = a = CZERO;
+            }
+        } else if (allOne) {
+            e->source->assignment = a = ONE;
+        }
+    } else { // is_negated
+        if (hasCZero) {
+            e->source->assignment = a = ONE;
+        } else if (allOne) {
+            --e->source->nsuccs;
+            e->handled = true;
+            if (e->source->nsuccs == 0) {
+                a = CZERO;
+            }
+        } else if (e->processed && retval->assignment == ZERO) {
+            e->source->assignment = a = ONE;
+        }
+    }
+    return std::make_pair(retval, a);
+}
+
+void Algorithm::CertainZeroFPA::backprop(Configuration* conf) {
+    assert(conf->isDone());
+    std::unordered_set<Configuration*> W;
+    for (auto e : conf->dependency_set) {
+        W.insert(e->source);
+    }
+    W.insert(conf);
+    while (!W.empty()) {
+        auto vit = W.begin();
+        auto v = *vit;
+        if (v->isDone()) {
+            W.erase(vit);
+            continue;
+        }
+        assert(v->rank != std::numeric_limits<size_t>::max());
+        //assert(v == root || dependent_search(v, [&](auto c) { return c->instack; }, [] (Configuration* c) { return c->isDone(); }));
+        //assert(v->isDone() || v->instack); // bad assert
+        auto pit = v->dependency_set.before_begin();
+        auto it = v->dependency_set.begin();
+        while (it != v->dependency_set.end()) {
+            auto& e = *it;
+            if (!e->source->isDone()) {
+                ((e->is_negated) ? _processedNegationEdges : _processedEdges) += 1;
+                auto [_, a] = eval_edge(e);
+                if (a == ONE || a == CZERO) {
+                    // backpropagated assignment; keep going!
+                    W.insert(e->source);
+                    strategy->pushDependency(e);
+                    //v->dependency_set.erase_after(pit);
+                    it = pit;
+                }
+                if (e->source->rank > conf->rank && e->source->passed) {
+                    W.insert(e->source);
+                    e->source->passed = false;
+                }
+            }
+            pit = it;
+            ++it;
+        }
+        v->dependency_set.clear();
+        W.erase(vit);
+        /*continue;
+        for (auto e : v->dependency_set) {
+            if (!e->source->isDone()) {
+                eval_edge(e);
+                if (e->source->isDone()) {
+                    // backpropagated assignment; keep going!
+                    W.push_back(e->source);
+                }
+                else {
+                    e->source->resucs.push_back(e);
+                }
+            }
+        }
+        v->dependency_set.clear();*/
+    }
+}
+
