@@ -21,12 +21,14 @@
 
 #include <stack>
 
-namespace PetriEngine::PQL {
+namespace PetriEngine { namespace PQL {
 
     Condition_ptr initialMarkingRW(const std::function<Condition_ptr()>& func, negstat_t& stats, const EvaluationContext& context, bool _nested, bool _negated, bool initrw);
 
     // Uses the visitor below but abstracts away the messiness with instantiating, visiting and grabbing return_value
     Condition_ptr pushNegation(Condition_ptr cond, negstat_t& stats, const EvaluationContext& context, bool nested, bool negated, bool initrw);
+
+    Condition_ptr pushNegation(Condition_ptr cond);
 
     class PushNegationVisitor : public MutatingVisitor {
     public:
@@ -55,7 +57,7 @@ namespace PetriEngine::PQL {
         Condition_ptr pushOr(const std::vector<Condition_ptr> &_conds, bool nested, bool negate_children);
 
         template<typename T>
-        Condition_ptr pushFireableNegation(const std::string &name, const Condition_ptr &compiled);
+        Condition_ptr pushFireableNegation(const shared_const_string &name, const Condition_ptr &compiled);
 
         Condition_ptr pushEqual(CompareCondition *org, bool _negated, bool noteq);
 
@@ -127,7 +129,7 @@ namespace PetriEngine::PQL {
 
         void _accept(StableMarkingCondition* element) override;
     };
-}
+} }
 
 
 

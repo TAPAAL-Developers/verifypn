@@ -93,7 +93,6 @@ bool Algorithm::CertainZeroFPA::_search(DependencyGraph::BasicDependencyGraph& t
         while (true) {
             auto[e, was_dep] = strategy->popEdge(false);
             if (!e) break;
-
             ++e->refcnt;
             assert(e->refcnt >= 1);
             checkEdge(e, false, was_dep);
@@ -209,6 +208,10 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_de
                     break;
                 } else if (lastUndecided == nullptr) {
                     assert(!optim_happened);
+                    lastUndecided = *it;
+                }
+                else if(lastUndecided != nullptr && lastUndecided->assignment == UNKNOWN && (*it)->assignment == ZERO)
+                {
                     lastUndecided = *it;
                 }
             }
@@ -349,7 +352,6 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration* c, D
     }
     c->forward_dependency_set.clear();
 #endif
-
     c->dependency_set.clear();
 }
 
@@ -363,7 +365,7 @@ void Algorithm::CertainZeroFPA::explore(Configuration* c) {
 
         _exploredConfigurations += 1;
         _numberOfEdges += c->nsuccs;
-        // before we start exploring, lets check if any of them determine 
+        // before we start exploring, lets check if any of them determine
         // the outcome already!
 
         for (int32_t i = c->nsuccs - 1; i >= 0; --i) {

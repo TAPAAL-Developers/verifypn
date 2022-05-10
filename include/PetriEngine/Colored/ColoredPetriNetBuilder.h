@@ -28,10 +28,19 @@
 #include "../PetriNetBuilder.h"
 
 namespace PetriEngine {
+    namespace Colored { namespace Reduction {
+        class ColoredReducer;
+    } }
+    namespace Colored {
+        class PnmlWriter;
+    }
 
     class ColoredPetriNetBuilder : public AbstractPetriNetBuilder {
     public:
-        ColoredPetriNetBuilder();
+        friend class Colored::Reduction::ColoredReducer;
+        friend class Colored::PnmlWriter;
+
+        ColoredPetriNetBuilder(shared_string_set& string_set);
         ColoredPetriNetBuilder(const ColoredPetriNetBuilder& orig);
         virtual ~ColoredPetriNetBuilder();
 
@@ -56,20 +65,19 @@ namespace PetriEngine {
         void addInputArc(const std::string& place,
                 const std::string& transition,
                 bool inhibitor,
-                int) override;
+                uint32_t weight) override;
         void addInputArc(const std::string& place,
                 const std::string& transition,
-                const Colored::ArcExpression_ptr& expr,
-                bool inhibitor, int weight) override;
+                const Colored::ArcExpression_ptr &expr,
+                uint32_t inhib_weight) override;
         void addOutputArc(const std::string& transition,
                 const std::string& place,
-                int weight) override;
+                uint32_t weight) override;
         void addOutputArc(const std::string& transition,
                 const std::string& place,
                 const Colored::ArcExpression_ptr& expr) override;
         void addColorType(const std::string& id,
                 const Colored::ColorType* type) override;
-
 
         void sort() override;
 
@@ -90,6 +98,22 @@ namespace PetriEngine {
             return sum;
         }
 
+        uint32_t unskippedPlacesCount() const {
+            uint32_t count = 0;
+            for (auto &p : _places) {
+                if (!p.skipped) count++;
+            }
+            return count;
+        }
+
+        uint32_t unskippedTransitionsCount() const {
+            uint32_t count = 0;
+            for (auto &t : _transitions) {
+                if (!t.skipped) count++;
+            }
+            return count;
+        }
+
         const std::vector<Colored::Place>& places() const {
             return _places;
         }
@@ -100,6 +124,10 @@ namespace PetriEngine {
 
         auto& colored_placenames() const {
             return _placenames;
+        }
+
+        auto& colored_transitionnames() const {
+            return _transitionnames;
         }
 
         auto& inhibitors() const {
@@ -114,21 +142,29 @@ namespace PetriEngine {
             return _ptBuilder;
         }
 
+        shared_string_set& string_set() const {
+            return _string_set;
+        }
+
     private:
-        std::unordered_map<std::string,uint32_t> _placenames;
-        std::unordered_map<std::string,uint32_t> _transitionnames;
+        shared_name_index_map _placenames;
+        shared_name_index_map _transitionnames;
 
         std::vector<Colored::Place> _places;
         std::vector<Colored::Transition> _transitions;
         std::vector<Colored::Arc> _inhibitorArcs;
+        std::vector<const Colored::Variable *> _variables;
 
         Colored::ColorTypeMap _colors;
         PetriNetBuilder _ptBuilder;
+        shared_string_set& _string_set;
 
         void addArc(const std::string& place,
                 const std::string& transition,
                 const Colored::ArcExpression_ptr& expr,
-                bool input, bool inhibitor, int weight);
+                bool input, uint32_t inhib_weight);
+
+        void addVariable(const Colored::Variable* variable) override;
     };
 
     enum ExpressionType {

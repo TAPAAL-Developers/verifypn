@@ -10,7 +10,7 @@
 #include <iostream>
 
 #include "CTL/Algorithm/AlgorithmTypes.h"
-#include "LTL/AlgorithmTypes.h"
+#include "LTL/LTLOptions.h"
 
 enum class Strategy {
     BFS,
@@ -21,28 +21,14 @@ enum class Strategy {
     DEFAULT
 };
 
-enum class TemporalLogic {
-    CTL, LTL
-};
-
-//TODO can be moved to LTL/AlgorithmTypes.h?
 enum class TraceLevel {
     None,
     Transitions,
     Full
 };
 
-enum class APCompression {
-    Choose,
-    None,
-    Full
-};
-
-enum class LTLPartialOrder {
-    None,
-    Visible,
-    Automaton,
-    Liebke
+enum class TemporalLogic {
+    CTL, LTL
 };
 
 enum class BuchiOptimization {
@@ -69,8 +55,11 @@ struct options_t {
     const char* modelfile = nullptr;
     const char* queryfile = nullptr;
     int enablereduction = 1; // 0 ... disabled,  1 ... aggresive (default), 2 ... k-boundedness preserving, 3 ... selection
+    int enablecolreduction = 1;
     std::vector<uint32_t> reductions{8,2,3,4,5,7,9,6,0,1};
+    std::vector<uint32_t> colreductions{};
     int reductionTimeout = 60;
+    int colReductionTimeout = 30;
     bool stubbornreduction = true;
     bool statespaceexploration = false;
     StatisticsLevel printstatistics = StatisticsLevel::Full;
@@ -83,6 +72,7 @@ struct options_t {
     uint32_t siphonDepth = 0;
     uint32_t cores = 1;
     bool doVerification = true;
+    bool doUnfolding = true;
 
     TemporalLogic logic = TemporalLogic::CTL;
     bool noreach = false;
@@ -98,10 +88,10 @@ struct options_t {
     bool ltluseweak = true;
     std::string buchi_out_file;
     LTL::BuchiOutType buchi_out_type = LTL::BuchiOutType::Dot;
-    APCompression ltl_compress_aps = APCompression::None;
-    LTLPartialOrder ltl_por = LTLPartialOrder::Automaton;
-    BuchiOptimization buchiOptimization = BuchiOptimization::Low;
-    LTLHeuristic ltlHeuristic = LTLHeuristic::Automaton;
+    LTL::APCompression ltl_compress_aps = LTL::APCompression::None;
+    LTL::LTLPartialOrder ltl_por = LTL::LTLPartialOrder::Automaton;
+    LTL::BuchiOptimization buchiOptimization = LTL::BuchiOptimization::Low;
+    LTL::LTLHeuristic ltlHeuristic = LTL::LTLHeuristic::Automaton;
 
     bool replay_trace = false;
     std::string replay_file;
@@ -109,6 +99,7 @@ struct options_t {
 
     std::string query_out_file;
     std::string model_out_file;
+    std::string model_col_out_file;
     std::string unfolded_out_file;
     std::string unfold_query_out_file;
     bool keep_solved = false;
@@ -121,7 +112,7 @@ struct options_t {
     bool symmetricVariables = true;
     bool isCPN = false;
     uint32_t seed_offset = 0;
-    int max_intervals = 250; //0 disabled
+    int max_intervals = 500; //0 disabled
     int max_intervals_reduced = 5;
 
     std::string strategy_output;

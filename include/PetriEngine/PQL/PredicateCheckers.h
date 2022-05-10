@@ -23,7 +23,7 @@
 
 #include "Visitor.h"
 
-namespace PetriEngine::PQL {
+namespace PetriEngine { namespace PQL {
 
     bool hasNestedDeadlock(const Condition* condition);
     bool hasNestedDeadlock(const Condition_ptr& condition);
@@ -118,11 +118,20 @@ namespace PetriEngine::PQL {
 
         void _accept(const AFCondition *condition) override;
 
+        void _accept(const ACondition *condition) override;
+
+        void _accept(const NotCondition *condition) override;
+
+        void _accept(const UntilCondition *condition) override;
+
         void _accept(const DeadlockCondition *condition) override;
+    private:
+        bool _negated = false;
     };
 
 
     bool containsNext(const Condition_ptr& condition);
+    bool containsNext(const Condition* condition);
 
     class ContainsNextVisitor : public AnyVisitor {
         void _accept(const XCondition *condition) override;
@@ -143,6 +152,30 @@ namespace PetriEngine::PQL {
             setConditionFound();
         }
     };
-}
+
+    class ContainsUpperBoundsVisitor : public AnyVisitor {
+        void _accept(const UpperBoundsCondition* c) override
+        {
+            setConditionFound();
+        }
+
+        void _accept(const UnfoldedUpperBoundsCondition* c) override
+        {
+            setConditionFound();
+        }
+    };
+
+    class ContainsDeadlockVisitor : public AnyVisitor {
+        void _accept(const DeadlockCondition* c) override
+        {
+            setConditionFound();
+        }
+    };
+
+    bool containsUpperBounds(const Condition* condition);
+    bool containsUpperBounds(const Condition_ptr& condition);
+
+    bool containsDeadlock(const Condition_ptr condition) ;
+} }
 
 #endif //VERIFYPN_PREDICATECHECKERS_H
