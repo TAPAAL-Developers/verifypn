@@ -99,19 +99,20 @@ BOOST_AUTO_TEST_CASE(ParseDgTest) {
 BOOST_AUTO_TEST_CASE(ManualDgAssignment) {
     std::stringstream ss{
             std::string{"0 1\n"} +
-            "1 2\n" +
-            "2 0\n" +
-            "2 0 3\n" +
-            "2 3\n" +
-            "3 4\n" +
-            "3 2"
+            "1 2\n"
+            "2 0\n"
+            "2 0 3\n"
+            "2 3\n"
+            "3 4\n"
+            "3 2\n"
             "# 4 0"};
     auto dg = DependencyGraph::parse_dg(ss);
 
     LocalFPA alg{Strategy::DFS};
     BOOST_REQUIRE(!alg.search(dg));
 
-    dg.set_assignment("4", 0);
+    dg.reset_state();
+    dg.set_assignment("4", 1);
     BOOST_REQUIRE(alg.search(dg));
 }
 

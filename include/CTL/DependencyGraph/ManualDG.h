@@ -105,6 +105,23 @@ namespace DependencyGraph {
             configs_[id] = c;
             return c;
         }
+
+        void reset_state() {
+            for (auto &[c, es] : edges_) {
+                for (auto* e : es) {
+                    e->handled = false;
+                    e->processed = false;
+                    e->refcnt = e->status = 0;
+                }
+            }
+            for (auto &[_, c] : configs_) {
+                c->nsuccs = 0;
+                //c->distance = 0;
+                c->assignment = UNKNOWN;
+                c->dependency_set.clear();
+            }
+        }
+
     private:
 
         std::unordered_map<Configuration*, std::vector<Edge*>> edges_;
