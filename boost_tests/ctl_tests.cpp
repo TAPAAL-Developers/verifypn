@@ -32,6 +32,18 @@ using namespace DependencyGraph;
 using namespace Algorithm;
 namespace utf = boost::unit_test;
 
+void test_all(BasicDependencyGraph &dg, bool expected) {
+    LocalFPA local{Strategy::DFS};
+    BOOST_REQUIRE(local.search(dg) == expected);
+    if (auto manual = dynamic_cast<ManualDG<>*>(&dg)) {
+        manual->reset_state();
+    }
+
+    CertainZeroFPA czero{Strategy::DFS};
+    BOOST_REQUIRE(czero.search(dg) == expected);
+}
+
+
 BOOST_AUTO_TEST_CASE(DirectoryTest) {
         BOOST_REQUIRE(getenv("TEST_FILES"));
 }
@@ -61,26 +73,26 @@ BOOST_AUTO_TEST_CASE(ParseDgTest) {
                       "2 3\n" +
                       "3 \n" +
                       "3 2"};
-    auto dg = DependencyGraph::parse_dg(ss);
+    auto dg = DependencyGraph::parse_dg<int>(ss);
 
-    LocalFPA alg{Strategy::DFS};
+    CertainZeroFPA alg{Strategy::DFS};
     BOOST_REQUIRE(alg.search(dg));
-    BOOST_REQUIRE(dg.initialConfiguration() == dg.get_config("0"));
+    BOOST_REQUIRE(dg.initialConfiguration() == dg.get_config(0));
 
-    auto c0 = dg.get_config("0");
-    auto c1 = dg.get_config("1");
-    auto c2 = dg.get_config("2");
-    auto c3 = dg.get_config("3");
+    auto c0 = dg.get_config(0);
+    auto c1 = dg.get_config(1);
+    auto c2 = dg.get_config(2);
+    auto c3 = dg.get_config(3);
 
     auto e0 = dg.successors(c0);
     BOOST_REQUIRE_EQUAL(e0.size(), 1);
     BOOST_REQUIRE_EQUAL(e0[0]->targets.front(), c1);
 
-    auto e1 = dg.successors(dg.get_config("1"));
+    auto e1 = dg.successors(dg.get_config(1));
     BOOST_REQUIRE_EQUAL(e1.size(), 1);
     BOOST_REQUIRE_EQUAL(e1[0]->targets.front(), c2);
 
-    auto e2 = dg.successors(dg.get_config("2"));
+    auto e2 = dg.successors(dg.get_config(2));
     BOOST_REQUIRE_EQUAL(e2.size(), 3);
     BOOST_REQUIRE_EQUAL(e2[0]->targets.front(), c0);
 
@@ -89,7 +101,7 @@ BOOST_AUTO_TEST_CASE(ParseDgTest) {
 
     BOOST_REQUIRE_EQUAL(e2[2]->targets.front(), c3);
 
-    auto e3 = dg.successors(dg.get_config("3"));
+    auto e3 = dg.successors(dg.get_config(3));
     BOOST_REQUIRE_EQUAL(e3.size(), 2);
     BOOST_REQUIRE(e3[0]->targets.empty());
 
@@ -106,13 +118,13 @@ BOOST_AUTO_TEST_CASE(ManualDgAssignment) {
             "3 4\n"
             "3 2\n"
             "# 4 0"};
-    auto dg = DependencyGraph::parse_dg(ss);
+    auto dg = DependencyGraph::parse_dg<int>(ss);
 
-    LocalFPA alg{Strategy::DFS};
+    CertainZeroFPA alg{Strategy::DFS};
     BOOST_REQUIRE(!alg.search(dg));
 
     dg.reset_state();
-    dg.set_assignment("4", 1);
+    dg.set_assignment(4, 1);
     BOOST_REQUIRE(alg.search(dg));
 }
 
@@ -121,8 +133,8 @@ BOOST_AUTO_TEST_CASE(ManualDgNegation) {
         std::string{"0 1 2\n"}
         + "! 0 3\n"
     };
-    auto dg = DependencyGraph::parse_dg(ss);
-    LocalFPA alg{Strategy::DFS};
+    auto dg = DependencyGraph::parse_dg<int>(ss);
+    CertainZeroFPA alg{Strategy::DFS};
     BOOST_REQUIRE(alg.search(dg));
 }
 
