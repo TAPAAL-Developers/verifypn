@@ -59,8 +59,7 @@ BOOST_AUTO_TEST_CASE(TestTest) {
     dg.add_hyperedge(3, {2});
 
     LocalFPA alg{Strategy::DFS};
-    BOOST_REQUIRE(alg.search(dg));
-
+    test_all(dg, true);
 }
 
 
@@ -106,12 +105,12 @@ BOOST_AUTO_TEST_CASE(ParseDgTest) {
 
     BOOST_REQUIRE_EQUAL(e3[1]->targets.front(), c2);
 
-    BOOST_REQUIRE(alg.search(dg));
+    test_all(dg, true);
 }
 
 BOOST_AUTO_TEST_CASE(ManualDgAssignment) {
-    std::stringstream ss{
-            std::string{"0 1\n"} +
+    std::string s{
+            "0 1\n"
             "1 2\n"
             "2 0\n"
             "2 0 3\n"
@@ -119,14 +118,28 @@ BOOST_AUTO_TEST_CASE(ManualDgAssignment) {
             "3 4\n"
             "3 2\n"
             "# 4 0"};
+    std::stringstream ss{s};
     auto dg = DependencyGraph::parse_dg<int>(ss);
 
     CertainZeroFPA alg{Strategy::DFS};
-    BOOST_REQUIRE(!alg.search(dg));
+    test_all(dg, false);
+}
 
-    dg.reset_state();
+BOOST_AUTO_TEST_CASE(ManualDgAssignTrue) {
+    std::string s{
+            "0 1\n"
+            "1 2\n"
+            "2 0\n"
+            "2 0 3\n"
+            "2 3\n"
+            "3 4\n"
+            "3 2\n"
+            "# 4 1"};
+    std::stringstream ss{s};
+    auto dg = DependencyGraph::parse_dg<int>(ss);
+
     dg.set_assignment(4, 1);
-    BOOST_REQUIRE(alg.search(dg));
+    test_all(dg, true);
 }
 
 BOOST_AUTO_TEST_CASE(ManualDgNegation) {
@@ -136,7 +149,7 @@ BOOST_AUTO_TEST_CASE(ManualDgNegation) {
     };
     auto dg = DependencyGraph::parse_dg<int>(ss);
     CertainZeroFPA alg{Strategy::DFS};
-    BOOST_REQUIRE(alg.search(dg));
+    test_all(dg, true);
 }
 
 

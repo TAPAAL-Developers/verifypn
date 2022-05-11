@@ -28,6 +28,8 @@
 
 namespace DependencyGraph {
     /**
+     * NOTE: Mainly intended for debug/testing, and might not be memory safe.
+     *
      * Class for building a desired dependency graph by hand. Currently this is a add-only process,
      * deletion would require memory fiddling unless you don't mind memory leaks.
      * A ManualDG can be constructed either using parse_dg(std::istream&), which
