@@ -2,6 +2,22 @@
 
 
 namespace DependencyGraph {
+    std::string to_string(Assignment a) {
+        switch (a) {
+            case ONE:
+                return "ONE";
+            case UNKNOWN:
+                return "UNKNOWN";
+            case ZERO:
+                return "ZERO";
+            case CZERO:
+                return "CZERO";
+            default:
+                std::cerr << "invalid Assignment value " << (int)a << std::endl;
+                assert(false);
+                exit(1);
+        }
+    }
 
     void Configuration::addDependency(Edge *e) {
         if (assignment == ONE) return;

@@ -1,7 +1,7 @@
 #ifndef EDGE_H
 #define EDGE_H
 
-#include <cstdio>
+#include <iostream>
 #include <vector>
 #include <string>
 #include <algorithm>

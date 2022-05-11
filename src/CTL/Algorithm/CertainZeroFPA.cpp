@@ -1,5 +1,6 @@
 #include "CTL/Algorithm/CertainZeroFPA.h"
 #include "CTL/PetriNets/OnTheFlyDG.h"
+#include "CTL/DependencyGraph/Configuration.h"
 
 #include <cassert>
 #include <iostream>
@@ -10,12 +11,12 @@ using namespace SearchStrategy;
 
 #ifndef NDEBUG
 #define ASSERT(x) assert(x)
+#define DEBUG_ONLY(x) x
 #else
 #define ASSERT(x) if (!(x)) { std::cerr << "Assertion " << #x << " failed\n"; exit(1); }
 #endif
 
-void print_edge(Edge* e) {
-#ifndef NDEBUG
+DEBUG_ONLY(void print_edge(Edge* e) {
     std::cerr << '(' << e->source->id;
     if (e->is_negated) {
         std::cerr << " -- ";
@@ -26,7 +27,11 @@ void print_edge(Edge* e) {
         std::cerr << c->id << ' ';
     }
     std::cerr << (e->is_negated ? ")" : "})");
-#endif
+})
+
+void set_assignment(Configuration *c, Assignment a) {
+    c->assignment = a;
+    DEBUG_ONLY(std::cerr << "ASSIGN: [" << c->id << "]: " << to_string(static_cast<Assignment>(c->assignment)) << "\n";)
 }
 
 bool is_assignable(Edge* e) {
@@ -119,7 +124,7 @@ bool Algorithm::CertainZeroFPA::_search(DependencyGraph::BasicDependencyGraph& t
 void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_dep) {
     if (e->handled) return;
 #ifdef DG_SOURCE_CHECK
-    ASSERT(test_invariant(e) || is_assignable(e));
+    //ASSERT(test_invariant(e) || is_assignable(e));
     if (e->source->isDone()) {
         if (e->refcnt == 0) graph->release(e);
         return;
@@ -177,8 +182,8 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_de
     }
 #endif
 
-#ifdef NDEBUG__
-    if (!only_assign) {
+
+    DEBUG_ONLY(if (!only_assign) {
         std::cerr << "checking ";
         if (was_dep) {
             std::cerr << "dependency ";
@@ -187,8 +192,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_de
             std::cerr << "successor  ";
         }
         print_edge(e);
-    }
-#endif
+    })
     bool allOne = true;
     bool hasCZero = false;
     //auto pre_empty = e->targets.empty();
@@ -268,8 +272,8 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_de
                 if (!lastUndecided->passed) {
                     //if (lastUndecided->assignment == UNKNOWN) {
                     assert(!optim_happened);
-                    explore(lastUndecided);
                     lastUndecided->rank = e->source->rank + 1;
+                    explore(lastUndecided);
                 }
             }
         }
@@ -303,6 +307,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_de
             //if (lastUndecided->assignment == UNKNOWN) {
             if (!lastUndecided->passed) {
                 assert(!optim_happened);
+                lastUndecided->rank = e->source->rank + 1;
                 explore(lastUndecided);
             }
         }
@@ -322,7 +327,7 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Edge* e, Dependency
 void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration* c, DependencyGraph::Assignment a) {
     assert(a == ONE || a == CZERO);
 
-    c->assignment = a;
+    set_assignment(c, a);
     c->nsuccs = 0;
     for (DependencyGraph::Edge* e: c->dependency_set) {
         if (!e->source->isDone()) {
@@ -352,12 +357,13 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration* c, D
     }
     c->forward_dependency_set.clear();
 #endif
-    c->dependency_set.clear();
+    //c->dependency_set.clear();
 }
 
 void Algorithm::CertainZeroFPA::explore(Configuration* c) {
-    c->assignment = ZERO;
+    set_assignment(c, ZERO);
     c->passed = true;
+    DEBUG_ONLY(std::cerr << "ASSIGN: [" << c->id << "]: " << to_string(static_cast<Assignment>(c->assignment)) << "\n";)
 
     {
         auto succs = graph->successors(c);
@@ -433,25 +439,50 @@ std::pair<Configuration *, Assignment> Algorithm::CertainZeroFPA::eval_edge(Depe
             --e->source->nsuccs;
             e->handled = true;
             if (e->source->nsuccs == 0) {
-                e->source->assignment = a = CZERO;
+                a = CZERO;
+                set_assignment(e->source, a);
             }
         } else if (allOne) {
-            e->source->assignment = a = ONE;
+            a = ONE;
+            set_assignment(e->source, a);
         }
     } else { // is_negated
         if (hasCZero) {
-            e->source->assignment = a = ONE;
+            a = ONE;
+            set_assignment(e->source, a);
         } else if (allOne) {
             --e->source->nsuccs;
             e->handled = true;
             if (e->source->nsuccs == 0) {
                 a = CZERO;
+                set_assignment(e->source, a);
             }
         } else if (e->processed && retval->assignment == ZERO) {
-            e->source->assignment = a = ONE;
+            a = ONE;
+            set_assignment(e->source, a);
         }
     }
     return std::make_pair(retval, a);
+}
+
+void Algorithm::CertainZeroFPA::edgeBackprop(Edge* e) {
+    std::unordered_set<Edge*> W;
+    for (auto d : e->source->dependency_set) {
+        W.insert(d);
+    }
+
+    while (!W.empty()) {
+        auto eit = W.begin(); auto e = *eit;
+        auto v = e->source;
+        if (v->isDone()) {
+            W.erase(eit);
+            continue;
+        }
+
+        for (auto e : v->dependency_set) {
+            if (eval_edge(e))
+        }
+    }
 }
 
 void Algorithm::CertainZeroFPA::backprop(Configuration* conf) {
