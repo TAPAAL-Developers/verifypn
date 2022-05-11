@@ -76,7 +76,6 @@ BOOST_AUTO_TEST_CASE(ParseDgTest) {
     auto dg = DependencyGraph::parse_dg<int>(ss);
 
     CertainZeroFPA alg{Strategy::DFS};
-    BOOST_REQUIRE(alg.search(dg));
     BOOST_REQUIRE(dg.initialConfiguration() == dg.get_config(0));
 
     auto c0 = dg.get_config(0);
@@ -106,6 +105,8 @@ BOOST_AUTO_TEST_CASE(ParseDgTest) {
     BOOST_REQUIRE(e3[0]->targets.empty());
 
     BOOST_REQUIRE_EQUAL(e3[1]->targets.front(), c2);
+
+    BOOST_REQUIRE(alg.search(dg));
 }
 
 BOOST_AUTO_TEST_CASE(ManualDgAssignment) {

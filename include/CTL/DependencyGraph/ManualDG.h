@@ -76,6 +76,7 @@ namespace DependencyGraph {
                 root_ = s;
             }
             auto *e = new Edge{*s};
+            e->refcnt = 1;
             e->addTarget(t);
             e->is_negated = true;
             edges_[s].push_back(e);
@@ -104,11 +105,6 @@ namespace DependencyGraph {
             // else create the new config
             auto* c = new Configuration{};
             configs_[id] = c;
-#ifndef NDEBUG
-            if constexpr (std::is_integral_v<IDType>) {
-                c->id = size_t(id);
-            }
-#endif
             return c;
         }
 
@@ -117,7 +113,7 @@ namespace DependencyGraph {
                 for (auto* e : es) {
                     e->handled = false;
                     e->processed = false;
-                    e->refcnt = 0; e->status = EdgeStatus::NotWaiting;
+                    e->refcnt = 1; e->status = 0;//EdgeStatus::NotWaiting;
                 }
             }
             for (auto &[_, c] : configs_) {
@@ -166,7 +162,7 @@ namespace DependencyGraph {
         int assignment;
         is.get();
         //is >> id; // skip '#'
-        is >> id;
+        is >> id >> std::ws;
         is >> assignment;
         if (!is) {
             throw base_error{"Malformed assignment statement " + s};
@@ -178,9 +174,9 @@ namespace DependencyGraph {
     void parse_negation_(const std::string& s, ManualDG<T>& graph) {
         std::istringstream is{s};
         T source, target;
-        is.get();
-        //is >> source; // skip '!'
-        is >> source >> target;
+        is.get(); // skip '!'
+        //is >> source;
+        is >> source >> std::ws >> target;
         if (!is) {
             throw base_error{"Malformed negation edge specification " + s};
         }
@@ -191,7 +187,7 @@ namespace DependencyGraph {
     void parse_hyperedge_(const std::string& s, ManualDG<T>& graph) {
         std::istringstream is{s};
         T id;
-        is >> id;
+        is >> id >> std::ws;
         T suc;
         std::vector<T> sucs;
         while (is >> suc) {
