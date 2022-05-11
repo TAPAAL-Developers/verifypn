@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_CASE(PhilosophersDynCOL03, * utf::timeout(60)) {
                                 ReachabilitySearch strategy(*pn, handler, 0);
                                 std::vector<Condition_ptr> vec{c2};
                                 std::vector<Reachability::ResultPrinter::Result> results{Reachability::ResultPrinter::Unknown};
-                                strategy.reachable(vec, results, Strategy::DFS, false, false, false, false, 0);
+                                strategy.reachable(vec, results, Strategy::DFS, false, false, StatisticsLevel::None, false, 0);
                                 if(!approx) // if it is approx, the answer could be anything, the handling-logic is in the result-printer
                                     BOOST_REQUIRE_EQUAL(expected[i], results[0]);
                             }
@@ -174,7 +174,7 @@ BOOST_AUTO_TEST_CASE(PetersonCOL2, * utf::timeout(60)) {
                                 ReachabilitySearch strategy(*pn, handler, 0);
                                 std::vector<Condition_ptr> vec{c2};
                                 std::vector<Reachability::ResultPrinter::Result> results{Reachability::ResultPrinter::Unknown};
-                                strategy.reachable(vec, results, Strategy::DFS, false, false, false, false, 0);
+                                strategy.reachable(vec, results, Strategy::DFS, false, false, StatisticsLevel::None, false, 0);
                                 if(!approx)
                                     BOOST_REQUIRE_EQUAL(expected[i], results[0]);
                                 else
@@ -291,7 +291,7 @@ BOOST_AUTO_TEST_CASE(RangeNotOne, * utf::timeout(1)) {
                             ReachabilitySearch strategy(*pn, handler, 0);
                             std::vector<Condition_ptr> vec{c2};
                             std::vector<Reachability::ResultPrinter::Result> results{Reachability::ResultPrinter::Unknown};
-                            strategy.reachable(vec, results, Strategy::DFS, false, false, false, false, 0);
+                            strategy.reachable(vec, results, Strategy::DFS, false, false, StatisticsLevel::None, false, 0);
                             if(!approx)
                                 BOOST_REQUIRE_EQUAL(Reachability::ResultPrinter::Satisfied, results[0]);
                         } catch (const base_error& er) {
@@ -331,7 +331,7 @@ BOOST_AUTO_TEST_CASE(UnfoldLoop, * utf::timeout(1)) {
                             ReachabilitySearch strategy(*pn, handler, 0);
                             std::vector<Condition_ptr> vec{c2};
                             std::vector<Reachability::ResultPrinter::Result> results{Reachability::ResultPrinter::Unknown};
-                            strategy.reachable(vec, results, Strategy::DFS, false, false, false, false, 0);
+                            strategy.reachable(vec, results, Strategy::DFS, false, false, StatisticsLevel::None, false, 0);
                             if(!approx)
                                 BOOST_REQUIRE_EQUAL(Reachability::ResultPrinter::NotSatisfied, results[0]);
                         } catch (const base_error& er) {

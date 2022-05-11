@@ -28,6 +28,8 @@
 
 namespace DependencyGraph {
     /**
+     * NOTE: Mainly intended for debug/testing, and might not be memory safe.
+     *
      * Class for building a desired dependency graph by hand. Currently this is a add-only process,
      * deletion would require memory fiddling unless you don't mind memory leaks.
      * A ManualDG can be constructed either using parse_dg(std::istream&), which
@@ -62,6 +64,7 @@ namespace DependencyGraph {
                 root_ = conf;
             }
             auto* e = new Edge{*conf};
+            e->refcnt = 1;
             for (auto& s: sucs) {
                 // this allows edge e.g. (c, {x, y, x}), but the duplicated target shouldn't cause issues
                 e->addTarget(get_config(s));
@@ -75,6 +78,7 @@ namespace DependencyGraph {
                 root_ = s;
             }
             auto *e = new Edge{*s};
+            e->refcnt = 1;
             e->addTarget(t);
             e->is_negated = true;
             edges_[s].push_back(e);
@@ -111,7 +115,7 @@ namespace DependencyGraph {
                 for (auto* e : es) {
                     e->handled = false;
                     e->processed = false;
-                    e->refcnt = e->status = 0;
+                    e->refcnt = 1; e->status = EdgeStatus::NotWaiting;
                 }
             }
             for (auto &[_, c] : configs_) {
@@ -153,13 +157,99 @@ namespace DependencyGraph {
      * @param is  source of text input. Is wholly consumed by the function.
      * @return    the dependency graph described by the text given by is.
      */
-    ManualDG<std::string> parse_dg(std::istream& is);
+    template <typename T>
+    void parse_assign_(const std::string& s, ManualDG<T>& graph) {
+        std::istringstream is{s};
+        T id;
+        int assignment;
+        is.get();
+        //is >> id; // skip '#'
+        is >> id >> std::ws;
+        is >> assignment;
+        if (!is) {
+            throw base_error{"Malformed assignment statement " + s};
+        }
+        graph.set_assignment(id, assignment);
+    }
 
-    // std::string version.
-    ManualDG<std::string> parse_dg(const std::string &s);
+    template <typename T>
+    void parse_negation_(const std::string& s, ManualDG<T>& graph) {
+        std::istringstream is{s};
+        T source, target;
+        is.get(); // skip '!'
+        //is >> source;
+        is >> source >> std::ws >> target;
+        if (!is) {
+            throw base_error{"Malformed negation edge specification " + s};
+        }
+        graph.add_negation(source, target);
+    }
 
-    // C-string version.
-    ManualDG<std::string> parse_dg(const char* s);
+    template <typename T>
+    void parse_hyperedge_(const std::string& s, ManualDG<T>& graph) {
+        std::istringstream is{s};
+        T id;
+        is >> id >> std::ws;
+        T suc;
+        std::vector<T> sucs;
+        while (is >> suc) {
+            sucs.push_back(suc);
+        }
+        graph.add_hyperedge(id, sucs);
+    }
+
+
+    /**
+     * Construct a fixed dependency graph from a structured text format.
+     * The format should be a list of lines of form either
+     *   - c x1 x2 ... xn
+     *     says to add hyperedge (c, {x1, x2, ..., xn})
+     *   - # c x
+     *     says the assignment of c is x (x should be one of {0, 1})
+     *   - ! c v
+     *     adds a negation edge c, v.
+     *     WARNING: No validation is done to check that negation edges do not occur in cycles.
+     *     Do not expect sane results if you make a negation cycle.
+     *   where c, x, xi are arbitrary strings (except #).
+     *   The first mentioned configuration name is taken to be the root node.
+     * @param is
+     * @return
+     */
+    template <typename T>
+    ManualDG<T> parse_dg(std::istream& is) {
+        ManualDG<T> dg;
+
+        std::string line;
+        while (is) {
+            is >> std::ws;
+            if (!std::getline(is, line)) break;
+
+            switch (line.at(0)) {
+                case '#':
+                    parse_assign_(line, dg);
+                    break;
+                case '!':
+                    parse_negation_(line, dg);
+                    break;
+                default:
+                    parse_hyperedge_(line, dg);
+                    break;
+            }
+        }
+        return dg;
+    }
+
+    template <typename T>
+    ManualDG<T> parse_dg(const std::string& s) {
+        std::stringstream ss{s};
+        return parse_dg<T>(ss);
+    }
+
+    template <typename T>
+    ManualDG<T> parse_dg(const char* s) {
+        std::stringstream ss{s};
+        return parse_dg<T>(ss);
+    }
 }
 
 #endif //VERIFYPN_MANUALDG_H
