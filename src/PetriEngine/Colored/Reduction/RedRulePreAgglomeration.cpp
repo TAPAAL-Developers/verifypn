@@ -15,6 +15,7 @@ namespace PetriEngine::Colored::Reduction {
 
     bool RedRulePreAgglomeration::apply(ColoredReducer &red, const PetriEngine::PQL::ColoredUseVisitor &inQuery,
                                         QueryType queryType, bool preserveLoops, bool preserveStutter) {
+	return false;
         bool continueReductions = false;
         bool changed = true;
         bool atomic_viable = (queryType == Reach) && !preserveLoops;
