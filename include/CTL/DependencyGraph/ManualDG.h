@@ -100,12 +100,20 @@ namespace DependencyGraph {
 
         //void print_to_dot(std::ostream &os); // could be nice maybe?
 
+        size_t nextid = 0;
         Configuration* get_config(const IDType& id) {
             if (auto it = configs_.find(id); it != std::end(configs_)) {
                 return it->second;
             }
             // else create the new config
             auto* c = new Configuration{};
+            if constexpr (std::is_integral_v<IDType>) {
+                c->id = size_t(id);
+            }
+            else {
+                assert(false);
+                //c->id = nextid++;
+            }
             configs_[id] = c;
             return c;
         }
@@ -123,6 +131,8 @@ namespace DependencyGraph {
                 //c->distance = 0;
                 c->assignment = UNKNOWN;
                 c->dependency_set.clear();
+                c->passed = false;
+                c->rank = 0;
             }
         }
 
@@ -152,6 +162,8 @@ namespace DependencyGraph {
      *     says to add hyperedge (c, {x1, x2, ..., xn})
      *   - # c x
      *     says the assignment of c is x (x should be one of {0, 1})
+     *   - ! v t
+     *     says to add negation edge v->t
      *   where c, x, xi are arbitrary strings (except #).
      *   Source of first hyperedge is taken to be the root node.
      * @param is  source of text input. Is wholly consumed by the function.
@@ -162,7 +174,7 @@ namespace DependencyGraph {
         std::istringstream is{s};
         T id;
         int assignment;
-        is.get();
+        is.get(); is >> std::ws;
         //is >> id; // skip '#'
         is >> id >> std::ws;
         is >> assignment;

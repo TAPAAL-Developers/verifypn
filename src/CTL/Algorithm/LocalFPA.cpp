@@ -72,8 +72,8 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
                     addDependency(e, lastUndecided);
                     //if (lastUndecided->assignment == UNKNOWN) {
                     if (!lastUndecided->passed) {
-                        lastUndecided->passed = true;
                         explore(lastUndecided);
+                        lastUndecided->passed = true;
                     }
                 }
             }
@@ -112,7 +112,7 @@ void Algorithm::LocalFPA::finalAssign(DependencyGraph::Configuration *c, Depende
 
 void Algorithm::LocalFPA::explore(DependencyGraph::Configuration *c)
 {
-    assert(c->assignment == DependencyGraph::UNKNOWN);
+    assert(c->assignment == DependencyGraph::UNKNOWN || !c->passed);
     c->assignment = DependencyGraph::ZERO;
     auto succs = graph->successors(c);
 

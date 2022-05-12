@@ -36,7 +36,7 @@
 #include <vector>
 #include <iomanip>
 
-#ifndef NDEBUG___
+#if false
 #define DEBUG_ONLY(x) x
 #else
 #define DEBUG_ONLY(x)

@@ -29,9 +29,9 @@ private:
 public:
     int8_t assignment = UNKNOWN;
     bool passed = false;
-#ifndef NDEBUG
-    size_t id;
-#endif
+//#ifndef NDEBUG
+    size_t id = std::numeric_limits<size_t>::max();
+//#endif
     size_t rank = std::numeric_limits<size_t>::max();
     Configuration() {}
     uint32_t getDistance() const { return distance; }

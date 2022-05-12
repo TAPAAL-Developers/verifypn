@@ -67,6 +67,7 @@ protected:
 
 //#endif
         void backprop(DependencyGraph::Configuration* conf);
+        void backprop_edge(DependencyGraph::Edge* conf);
         std::pair<DependencyGraph::Configuration *, DependencyGraph::Assignment> eval_edge(DependencyGraph::Edge *e);
     };
 }

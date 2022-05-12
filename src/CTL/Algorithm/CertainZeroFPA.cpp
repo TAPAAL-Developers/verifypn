@@ -14,6 +14,7 @@ using namespace SearchStrategy;
 #define DEBUG_ONLY(x) x
 #else
 #define ASSERT(x) if (!(x)) { std::cerr << "Assertion " << #x << " failed\n"; exit(1); }
+#define DEBUG_ONLY(x)
 #endif
 
 DEBUG_ONLY(void print_edge(Edge* e) {
@@ -55,7 +56,7 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph& t_
 
     auto strat = std::dynamic_pointer_cast<DFSSearch>(strategy);
     if (!strat->empty()) {
-        std::cerr << "W nonempty: |W| = " << strat->Wsize() << "\t|D| = " << strat->D.size() << "\t|N| = " << strat->N.size() << std::endl;
+        DEBUG_ONLY(std::cerr << "W nonempty: |W| = " << strat->Wsize() << "\t|D| = " << strat->D.size() << "\t|N| = " << strat->N.size() << std::endl;)
     }
 
     while (!strat->W.empty()) {
@@ -191,7 +192,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_de
         else {
             std::cerr << "successor  ";
         }
-        print_edge(e);
+        print_edge(e); std::cerr << '\n';
     })
     bool allOne = true;
     bool hasCZero = false;
@@ -318,9 +319,10 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_de
 
 void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Edge* e, DependencyGraph::Assignment a) {
 #ifndef NDEBUG
-    //std::cerr << "assigning to "; print_edge(e); std::cerr << std::endl;
+    std::cerr << "assigning to "; print_edge(e); std::cerr << std::endl;
 #endif
-    finalAssign(e->source, a);
+    //finalAssign(e->source, a);
+    set_assignment(e->source, a);
     backprop(e->source);
 }
 
@@ -415,6 +417,11 @@ std::pair<Configuration *, Assignment> Algorithm::CertainZeroFPA::eval_edge(Depe
     bool allOne = true, hasCZero = false;
     Configuration *retval = nullptr;
     Assignment a = ZERO;
+    DEBUG_ONLY(
+        std::cerr << "EVAL [";
+        print_edge(e);
+        std::cerr << "]\n";
+    )
     auto it = e->targets.begin();
     auto pit = e->targets.before_begin();
     while (it != e->targets.end()) {
@@ -457,19 +464,25 @@ std::pair<Configuration *, Assignment> Algorithm::CertainZeroFPA::eval_edge(Depe
                 a = CZERO;
                 set_assignment(e->source, a);
             }
-        } else if (e->processed && retval->assignment == ZERO) {
+        } /*else if (e->processed && retval->assignment == ZERO) {
             a = ONE;
             set_assignment(e->source, a);
-        }
+        }*/
     }
     return std::make_pair(retval, a);
 }
 
-void Algorithm::CertainZeroFPA::edgeBackprop(Edge* e) {
+void Algorithm::CertainZeroFPA::backprop_edge(Edge* edge) {
     std::unordered_set<Edge*> W;
-    for (auto d : e->source->dependency_set) {
+    for (auto d : edge->source->dependency_set) {
         W.insert(d);
     }
+
+    auto push_dep = [&](Edge* e) {
+        for (auto* dep: e->source->dependency_set) {
+            W.insert(dep);
+        }
+    };
 
     while (!W.empty()) {
         auto eit = W.begin(); auto e = *eit;
@@ -478,68 +491,52 @@ void Algorithm::CertainZeroFPA::edgeBackprop(Edge* e) {
             W.erase(eit);
             continue;
         }
-
-        for (auto e : v->dependency_set) {
-            if (eval_edge(e))
+        auto [c, a] = eval_edge(e);
+        if (a == ONE || a == CZERO) {
+            push_dep(e);
+            strategy->pushDependency(e);
         }
+        if (e->source->rank > edge->source->rank && e->source->passed) {
+            push_dep(e);
+            e->source->passed = false;
+        }
+
+        e->source->dependency_set.clear();
+        W.erase(eit);
     }
+    assert(edge->source->isDone());
 }
 
 void Algorithm::CertainZeroFPA::backprop(Configuration* conf) {
-    assert(conf->isDone());
+    //assert(conf->isDone());
     std::unordered_set<Configuration*> W;
-    for (auto e : conf->dependency_set) {
-        W.insert(e->source);
-    }
     W.insert(conf);
     while (!W.empty()) {
         auto vit = W.begin();
-        auto v = *vit;
-        if (v->isDone()) {
-            W.erase(vit);
-            continue;
-        }
-        assert(v->rank != std::numeric_limits<size_t>::max());
-        //assert(v == root || dependent_search(v, [&](auto c) { return c->instack; }, [] (Configuration* c) { return c->isDone(); }));
-        //assert(v->isDone() || v->instack); // bad assert
-        auto pit = v->dependency_set.before_begin();
-        auto it = v->dependency_set.begin();
-        while (it != v->dependency_set.end()) {
-            auto& e = *it;
-            if (!e->source->isDone()) {
-                ((e->is_negated) ? _processedNegationEdges : _processedEdges) += 1;
-                auto [_, a] = eval_edge(e);
-                if (a == ONE || a == CZERO) {
-                    // backpropagated assignment; keep going!
-                    W.insert(e->source);
-                    strategy->pushDependency(e);
-                    //v->dependency_set.erase_after(pit);
-                    it = pit;
+        Configuration* v = *vit;
+
+        for (auto* e : v->dependency_set) {
+            auto c = e->source;
+            if (c->isDone()) {
+                continue;
+            }
+            eval_edge(e);
+            if (c->isDone()) {
+                strategy->pushDependency(e);
+                W.insert(c);
+            }
+            else {
+                if (c->rank > conf->rank && c->passed) {
+                    c->passed = false;
+                    W.insert(c);
                 }
-                if (e->source->rank > conf->rank && e->source->passed) {
-                    W.insert(e->source);
-                    e->source->passed = false;
+                else if (c->rank < conf->rank) {
+                    strategy->pushDependency(e);
                 }
             }
-            pit = it;
-            ++it;
         }
+
         v->dependency_set.clear();
         W.erase(vit);
-        /*continue;
-        for (auto e : v->dependency_set) {
-            if (!e->source->isDone()) {
-                eval_edge(e);
-                if (e->source->isDone()) {
-                    // backpropagated assignment; keep going!
-                    W.push_back(e->source);
-                }
-                else {
-                    e->source->resucs.push_back(e);
-                }
-            }
-        }
-        v->dependency_set.clear();*/
     }
 }
-
