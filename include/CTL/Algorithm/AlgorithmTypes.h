@@ -4,7 +4,7 @@
 namespace CTL {
 
 enum CTLAlgorithmType{
-    Local = 0, CZero = 1
+    Local = 0, CZero = 1, RankCZero=2,
 };
 }
 #endif // ALGORITHMTYPES_H

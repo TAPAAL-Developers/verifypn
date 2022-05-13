@@ -3,6 +3,7 @@
 #include "CTL/PetriNets/OnTheFlyDG.h"
 #include "CTL/CTLResult.h"
 
+#include "CTL/Algorithm/RankCertainZeroFPA.h"
 #include "CTL/Algorithm/CertainZeroFPA.h"
 #include "CTL/Algorithm/LocalFPA.h"
 
@@ -36,6 +37,9 @@ ReturnValue getAlgorithm(std::shared_ptr<Algorithm::FixedPointAlgorithm>& algori
             break;
         case CTLAlgorithmType::CZero:
             algorithm = std::make_shared<Algorithm::CertainZeroFPA>(search);
+            break;
+        case CTLAlgorithmType::RankCZero:
+            algorithm = std::make_shared<Algorithm::RankCertainZeroFPA>(search);
             break;
         default:
             throw base_error("Unknown or unsupported algorithm");

@@ -2,6 +2,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_library(Algorithm
 CertainZeroFPA.cpp
+RankCertainZeroFPA.cpp
 FixedPointAlgorithm.cpp
 LocalFPA.cpp
 )

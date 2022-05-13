@@ -19,7 +19,7 @@
 
 #include "CTL/DependencyGraph/ManualDG.h"
 #include "CTL/Algorithm/LocalFPA.h"
-#include "CTL/Algorithm/CertainZeroFPA.h"
+#include "CTL/Algorithm/RankCertainZeroFPA.h"
 
 #include <string>
 #include <fstream>
@@ -44,7 +44,7 @@ void test_all(ManualDG<T> &dg, bool expected, StateReset &&reset_state) {
     BOOST_REQUIRE(local.search(dg) == expected);
     reset_state(dg);
 
-    CertainZeroFPA czero{Strategy::DFS};
+    RankCertainZeroFPA czero{Strategy::DFS};
     BOOST_REQUIRE(czero.search(dg) == expected);
 }
 
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE(ParseDgTest) {
                       "3 2"};
     auto dg = DependencyGraph::parse_dg<int>(ss);
 
-    CertainZeroFPA alg{Strategy::DFS};
+    RankCertainZeroFPA alg{Strategy::DFS};
     BOOST_REQUIRE(dg.initialConfiguration() == dg.get_config(0));
 
     auto c0 = dg.get_config(0);
@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_CASE(ManualDgAssignment) {
     std::stringstream ss{s};
     auto dg = DependencyGraph::parse_dg<int>(ss);
 
-    CertainZeroFPA alg{Strategy::DFS};
+    RankCertainZeroFPA alg{Strategy::DFS};
     test_all(dg, false);
 }
 
@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_CASE(ManualDgNegation) {
         + "! 0 3\n"
     };
     auto dg = DependencyGraph::parse_dg<int>(ss);
-    CertainZeroFPA alg{Strategy::DFS};
+    RankCertainZeroFPA alg{Strategy::DFS};
     test_all(dg, true);
 }
 
@@ -234,7 +234,7 @@ BOOST_AUTO_TEST_CASE(ExamplesFromPapers) {
 10
 )"};
 
-    CertainZeroFPA cz{Strategy::DFS};
+    RankCertainZeroFPA cz{Strategy::DFS};
 
     auto dg0 = parse_dg<int>(s0);
     auto dg1 = parse_dg<int>(s1);

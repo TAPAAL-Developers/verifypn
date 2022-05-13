@@ -502,6 +502,8 @@ bool options_t::parse(int argc, const char** argv) {
                     ctlalgorithm = CTL::Local;
                 } else if (std::strcmp(argv[i + 1], "czero") == 0) {
                     ctlalgorithm = CTL::CZero;
+                } else if (std::strcmp(argv[i + 1], "rank") == 0) {
+                    ctlalgorithm = CTL::RankCZero;
                 } else {
                     throw base_error("Argument Error: Invalid ctl-algorithm type ", std::quoted(argv[i + 1]));
                 }
