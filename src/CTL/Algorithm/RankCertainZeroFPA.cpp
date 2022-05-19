@@ -98,11 +98,35 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
 
     auto do_pop = [&waiting,this]() {
         auto& [conf, edges] = waiting.top();
-        for(auto* e : edges)
+        if(conf->isDone())
         {
-            e->status = DependencyGraph::EdgeStatus::NotWaiting;
-            e->refcnt = 0;
-            graph->release(e);
+            for(auto* e : edges)
+            {
+                e->status = DependencyGraph::EdgeStatus::NotWaiting;
+                e->refcnt = 0;
+                graph->release(e);
+            }
+            conf->nsuccs = 0;
+        }
+        else
+        {
+            for(auto* e : edges)
+            {
+                if(e->refcnt == 1) // only in waiting
+                {
+                    for(auto& t : e->targets)
+                        t->addDependency(e);
+                    assert(e->refcnt == 2);
+                    --e->refcnt;
+                }
+                else if(e->refcnt == 2) // already added as depender
+                {
+                    assert(false);
+                }
+                else assert(false); // should never happen
+            }
+
+            conf->nsuccs = edges.size();
         }
         waiting.pop();
     };
@@ -111,7 +135,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
     {
         auto& [conf, edges] = waiting.top();
         if(conf->isDone()) {
-            //backprop(conf);
+            backprop(conf);
             //std::cerr << "POP [" << conf->id << "] (assign(104) = " << to_string((Assignment)conf->assignment) << std::endl;
             do_pop();
             continue;
@@ -119,8 +143,10 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
         Configuration* undecided = nullptr;
         Edge* undecided_edge = nullptr;
         bool all_czero = true;
-        for(auto& e : edges)
+        size_t j = 0;
+        for(size_t i = 0; i < edges.size(); ++i)
         {
+            auto* e = edges[i];
             auto [ud, val] = eval_edge(e);
             //print_edge(e);
             //std::cerr << to_string(val);
@@ -129,10 +155,17 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
             {
                 set_assignment(conf, ONE);
                 all_czero = false;
+                for(size_t n = i; n < edges.size(); ++n)
+                {
+                    edges[j] = edges[n];
+                    ++j;
+                }
                 break;
             }
             else if(val == CZERO)
             {
+                e->refcnt = 0;
+                graph->release(e);
                 // skip
             }
             else if(ud != nullptr && (
@@ -142,16 +175,18 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                 all_czero = false;
                 undecided = ud;
                 undecided_edge = e;
+                edges[j] = edges[i];
+                ++j;
             }
             if(conf->isDone())
                 break;
         }
-
+        edges.resize(j);
         if(all_czero)
             set_assignment(conf, CZERO);
 
         if(conf->isDone()) {
-            //backprop(conf);
+            backprop(conf);
             //std::cerr << "POP [" << conf->id << "] (assign(124) = " << to_string((Assignment)conf->assignment) << std::endl;
             do_pop();
             continue;
@@ -165,7 +200,6 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
         else
         {
             //std::cerr << "PUSH [" << undecided->id << "]" << std::endl;
-            //undecided->addDependency(undecided_edge);
             undecided->rank = conf->rank + 1;
             undecided->assignment = ZERO;
             waiting.emplace(undecided, graph->successors(undecided));
@@ -563,7 +597,7 @@ void Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
 
     while (!waiting.empty()) {
         auto* conf = waiting.top();
-        //assert(conf->isDone() || conf->passed == false);
+        assert(conf->isDone());
 
         waiting.pop();
         auto prev = conf->dependency_set.before_begin();
@@ -572,24 +606,30 @@ void Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
         {
             auto* e = *cur;
             auto* c = e->source;
-            if (!c->isDone())
+            if(c->isDone())
             {
-                if(c->rank < source->rank)
+                e->refcnt = 0;
+                graph->release(e);
+                continue;
+            }
+            auto [und, assignment] = eval_edge(e);
+            if(assignment == ONE)
+            {
+                set_assignment(c, ONE);
+                waiting.push(c);
+                e->refcnt = 0;
+                graph->release(e);
+            }
+            else
+            {
+                assert(c->nsuccs > 0);
+                --c->nsuccs;
+                if(c->nsuccs == 0)
                 {
-
-                }
-                else if(c->rank == source->rank)
-                {
-                    assert(c == source);
-                    assert(false);
-                }
-                else // c->rank > source->rank
-                {
-                    if(c->passed)
-                    {
-                        c->passed = false;
-                        waiting.emplace(c);
-                    }
+                    set_assignment(c, CZERO);
+                    waiting.push(c);
+                    e->refcnt = 0;
+                    graph->release(e);
                 }
             }
             conf->dependency_set.erase_after(prev);
