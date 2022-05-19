@@ -496,6 +496,12 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
             if ((*it)->assignment == CZERO) {
                 hasCZero = true;
                 break;
+            }
+            else if(e->is_negated && (*it)->assignment == ZERO)
+            {
+                // holds due to DFS
+                hasCZero = true;
+                break;
             } else if (retval == nullptr || (retval->assignment == UNKNOWN && (*it)->assignment == ZERO)) {
                 retval = *it;
             }
