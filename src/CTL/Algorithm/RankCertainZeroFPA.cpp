@@ -32,7 +32,7 @@ DEBUG_ONLY(void print_edge(Edge* e) {
 
 void set_assignment(Configuration *c, Assignment a) {
     c->assignment = a;
-    DEBUG_ONLY(std::cerr << "ASSIGN: [" << c->id << "]: " << to_string(static_cast<Assignment>(c->assignment)) << "\n";)
+    //DEBUG_ONLY(std::cerr << "ASSIGN: [" << c->id << "]: " << to_string(static_cast<Assignment>(c->assignment)) << "\n";)
 }
 
 bool is_assignable(Edge* e) {
@@ -52,7 +52,7 @@ bool is_assignable(Edge* e) {
 
 bool Algorithm::RankCertainZeroFPA::search(DependencyGraph::BasicDependencyGraph& t_graph) {
     auto res = _search(t_graph);
-    auto post_inv = [&](Edge* e) { return e->source->isDone() || test_invariant(e); };
+    /*auto post_inv = [&](Edge* e) { return e->source->isDone() || test_invariant(e); };
 
     auto strat = std::dynamic_pointer_cast<DFSSearch>(strategy);
     if (!strat->empty()) {
@@ -79,7 +79,7 @@ bool Algorithm::RankCertainZeroFPA::search(DependencyGraph::BasicDependencyGraph
             std::cerr << "Invariant failed after finishing algorithm";
         }
         strat->N.pop_back();
-    }
+    }*/
     return res;
 }
 
@@ -87,35 +87,90 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
     graph = &t_graph;
 
     root = graph->initialConfiguration();
-    explore(root);
     root->rank = 1;
-
+    std::stack<std::pair<DependencyGraph::Configuration*, std::vector<DependencyGraph::Edge*>>> waiting;
+    waiting.emplace(root, graph->successors(root));
+    root->assignment = ZERO;
+    //std::cerr << "PUSH [" << root->id << "]" << std::endl;
 #ifdef DG_REFCOUNTING
     root->refc = 1;
 #endif
 
-    size_t cnt = 0;
-    while (!strategy->empty()) {
-        while (true) {
-            auto[e, was_dep] = strategy->popEdge(false);
-            if (!e) break;
-            ++e->refcnt;
-            assert(e->refcnt >= 1);
-            checkEdge(e, false, was_dep);
-            assert(e->refcnt >= -1);
-            if (e->refcnt > 0) --e->refcnt;
-            if (e->refcnt == 0) graph->release(e);
-            ++cnt;
-            if ((cnt % 1000) == 0) strategy->trivialNegation();
-            if (root->isDone()) return root->assignment == ONE;
+    auto do_pop = [&waiting,this]() {
+        auto& [conf, edges] = waiting.top();
+        for(auto* e : edges)
+        {
+            e->status = DependencyGraph::EdgeStatus::NotWaiting;
+            e->refcnt = 0;
+            graph->release(e);
+        }
+        waiting.pop();
+    };
+
+    while(!waiting.empty() && !root->isDone())
+    {
+        auto& [conf, edges] = waiting.top();
+        if(conf->isDone()) {
+            backprop(conf);
+            //std::cerr << "POP [" << conf->id << "] (assign(104) = " << to_string((Assignment)conf->assignment) << std::endl;
+            do_pop();
+            continue;
+        }
+        Configuration* undecided = nullptr;
+        Edge* undecided_edge = nullptr;
+        bool all_czero = true;
+        for(auto& e : edges)
+        {
+            auto [ud, val] = eval_edge(e);
+            //print_edge(e);
+            //std::cerr << to_string(val);
+            //std::cerr << std::endl;
+            if((val == ONE && !e->is_negated) ||
+               (val == CZERO && e->is_negated))
+            {
+                set_assignment(conf, ONE);
+                all_czero = false;
+                break;
+            }
+            else if((val == CZERO && !e->is_negated) ||
+                     (val == ONE && e->is_negated))
+            {
+                // skip
+            }
+            else if(ud != nullptr && (
+                    undecided == nullptr ||
+                        (undecided->assignment == ZERO && ud->assignment == UNKNOWN)))
+            {
+                all_czero = false;
+                undecided = ud;
+                undecided_edge = e;
+            }
+            if(conf->isDone())
+                break;
         }
 
-        if (root->isDone()) return root->assignment == ONE;
+        if(all_czero)
+            set_assignment(conf, CZERO);
 
-        if (!strategy->trivialNegation()) {
-            cnt = 0;
-            strategy->releaseNegationEdges(strategy->maxDistance());
+        if(conf->isDone()) {
+            backprop(conf);
+            //std::cerr << "POP [" << conf->id << "] (assign(124) = " << to_string((Assignment)conf->assignment) << std::endl;
+            do_pop();
             continue;
+        }
+
+        if(undecided == nullptr || undecided->assignment != UNKNOWN) {
+            //std::cerr << "POP [" << conf->id << "] (undecided == nullptr)" << std::endl;
+            do_pop();
+            continue;
+        }
+        else
+        {
+            //std::cerr << "PUSH [" << undecided->id << "]" << std::endl;
+            undecided->addDependency(undecided_edge);
+            undecided->rank = conf->rank + 1;
+            undecided->assignment = ZERO;
+            waiting.emplace(undecided, graph->successors(undecided));
         }
     }
 
@@ -184,7 +239,7 @@ void Algorithm::RankCertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool wa
 #endif
 
 
-    DEBUG_ONLY(if (!only_assign) {
+    /*DEBUG_ONLY(if (!only_assign) {
         std::cerr << "checking ";
         if (was_dep) {
             std::cerr << "dependency ";
@@ -193,7 +248,7 @@ void Algorithm::RankCertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool wa
             std::cerr << "successor  ";
         }
         print_edge(e); std::cerr << '\n';
-    })
+    })*/
     bool allOne = true;
     bool hasCZero = false;
     //auto pre_empty = e->targets.empty();
@@ -319,7 +374,7 @@ void Algorithm::RankCertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool wa
 
 void Algorithm::RankCertainZeroFPA::finalAssign(DependencyGraph::Edge* e, DependencyGraph::Assignment a) {
 #ifndef NDEBUG
-    std::cerr << "assigning to "; print_edge(e); std::cerr << std::endl;
+    //std::cerr << "assigning to "; print_edge(e); std::cerr << std::endl;
 #endif
     //finalAssign(e->source, a);
     set_assignment(e->source, a);
@@ -362,54 +417,62 @@ void Algorithm::RankCertainZeroFPA::finalAssign(DependencyGraph::Configuration* 
     //c->dependency_set.clear();
 }
 
-void Algorithm::RankCertainZeroFPA::explore(Configuration* c) {
+std::vector<Edge*> Algorithm::RankCertainZeroFPA::explore(Configuration* c) {
     set_assignment(c, ZERO);
+    assert(!c->passed);
     c->passed = true;
-    DEBUG_ONLY(std::cerr << "ASSIGN: [" << c->id << "]: " << to_string(static_cast<Assignment>(c->assignment)) << "\n";)
+    //DEBUG_ONLY(std::cerr << "ASSIGN: [" << c->id << "]: " << to_string(static_cast<Assignment>(c->assignment)) << "\n";)
 
-    {
-        auto succs = graph->successors(c);
-        c->nsuccs = succs.size();
+    auto succs = graph->successors(c);
+    c->nsuccs = succs.size();
 
-        _exploredConfigurations += 1;
-        _numberOfEdges += c->nsuccs;
-        // before we start exploring, lets check if any of them determine
-        // the outcome already!
+    _exploredConfigurations += 1;
+    _numberOfEdges += c->nsuccs;
+    // before we start exploring, lets check if any of them determine
+    // the outcome already!
 
-        for (int32_t i = c->nsuccs - 1; i >= 0; --i) {
-            checkEdge(succs[i], true);
-            if (c->isDone()) {
-                for (Edge* e: succs) {
-                    assert(e->refcnt <= 1);
-                    if (e->refcnt >= 1) --e->refcnt;
-                    if (e->refcnt == 0) graph->release(e);
-                }
-                return;
-            }
-        }
-
-        if (c->nsuccs == 0) {
+    for (int32_t i = c->nsuccs - 1; i >= 0; --i) {
+        checkEdge(succs[i], true);
+        if (c->isDone()) {
             for (Edge* e: succs) {
                 assert(e->refcnt <= 1);
                 if (e->refcnt >= 1) --e->refcnt;
                 if (e->refcnt == 0) graph->release(e);
             }
-            finalAssign(c, CZERO);
-            return;
+            return {};
         }
+    }
 
+    if (c->nsuccs == 0) {
+        for (Edge* e : succs) {
+            assert(e->refcnt <= 1);
+            if (e->refcnt >= 1) --e->refcnt;
+            if (e->refcnt == 0) graph->release(e);
+        }
+        finalAssign(c, CZERO);
+        return {};
+    }
+    else
+    {
+        std::vector<Edge*> edges;
         for (Edge* succ: succs) {
             assert(succ->refcnt <= 1);
             if (succ->refcnt > 0) {
-                strategy->pushEdge(succ);
-                --succ->refcnt;
-                if (succ->refcnt == 0) graph->release(succ);
+                if(succ->status != DependencyGraph::EdgeStatus::NotWaiting || succ->source->isDone())
+                    --succ->refcnt;
+                else
+                {
+                    succ->status = DependencyGraph::EdgeStatus::InWaiting;
+                    edges.emplace_back(succ);
+                }
+                if (succ->refcnt == 0)
+                    graph->release(succ);
             } else if (succ->refcnt == 0) {
                 graph->release(succ);
             }
         }
+        return edges;
     }
-    strategy->flush();
 }
 
 
@@ -417,11 +480,11 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
     bool allOne = true, hasCZero = false;
     Configuration *retval = nullptr;
     Assignment a = ZERO;
-    DEBUG_ONLY(
+    /*DEBUG_ONLY(
         std::cerr << "EVAL [";
         print_edge(e);
         std::cerr << "]\n";
-    )
+    )*/
     auto it = e->targets.begin();
     auto pit = e->targets.before_begin();
     while (it != e->targets.end()) {
@@ -433,7 +496,7 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
             if ((*it)->assignment == CZERO) {
                 hasCZero = true;
                 break;
-            } else if (retval == nullptr) {
+            } else if (retval == nullptr || retval->assignment == UNKNOWN && (*it)->assignment == ZERO) {
                 retval = *it;
             }
         }
@@ -441,39 +504,21 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
         ++it;
     }
 
-    if (!e->is_negated) {
-        if (hasCZero) {
-            --e->source->nsuccs;
-            e->handled = true;
-            if (e->source->nsuccs == 0) {
-                a = CZERO;
-                set_assignment(e->source, a);
-            }
-        } else if (allOne) {
-            a = ONE;
-            set_assignment(e->source, a);
-        }
-    } else { // is_negated
-        if (hasCZero) {
-            a = ONE;
-            set_assignment(e->source, a);
-        } else if (allOne) {
-            --e->source->nsuccs;
-            e->handled = true;
-            if (e->source->nsuccs == 0) {
-                a = CZERO;
-                set_assignment(e->source, a);
-            }
-        } /*else if (e->processed && retval->assignment == ZERO) {
-            a = ONE;
-            set_assignment(e->source, a);
-        }*/
+    if(allOne)
+        return std::make_pair(nullptr, ONE);
+    if(hasCZero)
+        return std::make_pair(nullptr, CZERO);
+    if(retval)
+        return std::make_pair(retval, (Assignment)retval->assignment);
+    else
+    {
+        assert(false);
+        return std::make_pair(retval, ZERO);
     }
-    return std::make_pair(retval, a);
 }
 
 void Algorithm::RankCertainZeroFPA::backprop_edge(Edge* edge) {
-    std::unordered_set<Edge*> W;
+    /*std::unordered_set<Edge*> W;
     for (auto d : edge->source->dependency_set) {
         W.insert(d);
     }
@@ -503,7 +548,7 @@ void Algorithm::RankCertainZeroFPA::backprop_edge(Edge* edge) {
 
         e->source->dependency_set.clear();
         W.erase(eit);
-    }
+    }*/
     assert(edge->source->isDone());
 }
 
@@ -535,8 +580,7 @@ void Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                 {
                     if(c->rank < source->rank)
                     {
-                        if(e->status == DependencyGraph::EdgeStatus::NotWaiting)
-                            strategy->pushDependency(e);
+
                     }
                     else if(c->rank == source->rank)
                     {
