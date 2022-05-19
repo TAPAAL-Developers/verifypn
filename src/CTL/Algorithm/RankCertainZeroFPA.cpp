@@ -111,7 +111,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
     {
         auto& [conf, edges] = waiting.top();
         if(conf->isDone()) {
-            backprop(conf);
+            //backprop(conf);
             //std::cerr << "POP [" << conf->id << "] (assign(104) = " << to_string((Assignment)conf->assignment) << std::endl;
             do_pop();
             continue;
@@ -125,15 +125,13 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
             //print_edge(e);
             //std::cerr << to_string(val);
             //std::cerr << std::endl;
-            if((val == ONE && !e->is_negated) ||
-               (val == CZERO && e->is_negated))
+            if(val == ONE)
             {
                 set_assignment(conf, ONE);
                 all_czero = false;
                 break;
             }
-            else if((val == CZERO && !e->is_negated) ||
-                     (val == ONE && e->is_negated))
+            else if(val == CZERO)
             {
                 // skip
             }
@@ -153,7 +151,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
             set_assignment(conf, CZERO);
 
         if(conf->isDone()) {
-            backprop(conf);
+            //backprop(conf);
             //std::cerr << "POP [" << conf->id << "] (assign(124) = " << to_string((Assignment)conf->assignment) << std::endl;
             do_pop();
             continue;
@@ -167,7 +165,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
         else
         {
             //std::cerr << "PUSH [" << undecided->id << "]" << std::endl;
-            undecided->addDependency(undecided_edge);
+            //undecided->addDependency(undecided_edge);
             undecided->rank = conf->rank + 1;
             undecided->assignment = ZERO;
             waiting.emplace(undecided, graph->successors(undecided));
@@ -511,9 +509,9 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
     }
 
     if(allOne)
-        return std::make_pair(nullptr, ONE);
+        return std::make_pair(nullptr, e->is_negated ? CZERO : ONE);
     if(hasCZero)
-        return std::make_pair(nullptr, CZERO);
+        return std::make_pair(nullptr, e->is_negated ? ONE : CZERO);
     if(retval)
         return std::make_pair(retval, (Assignment)retval->assignment);
     else
@@ -576,30 +574,21 @@ void Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
             auto* c = e->source;
             if (!c->isDone())
             {
-                eval_edge(e);
-                if (c->isDone())
+                if(c->rank < source->rank)
                 {
-                    // was not done, but is now.
-                    waiting.emplace(c);
-                }
-                else
-                {
-                    if(c->rank < source->rank)
-                    {
 
-                    }
-                    else if(c->rank == source->rank)
+                }
+                else if(c->rank == source->rank)
+                {
+                    assert(c == source);
+                    assert(false);
+                }
+                else // c->rank > source->rank
+                {
+                    if(c->passed)
                     {
-                        assert(c == source);
-                        assert(false);
-                    }
-                    else // c->rank > source->rank
-                    {
-                        if(c->passed)
-                        {
-                            c->passed = false;
-                            waiting.emplace(c);
-                        }
+                        c->passed = false;
+                        waiting.emplace(c);
                     }
                 }
             }
