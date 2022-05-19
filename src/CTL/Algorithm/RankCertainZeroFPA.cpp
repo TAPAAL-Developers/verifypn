@@ -507,36 +507,54 @@ void Algorithm::RankCertainZeroFPA::backprop_edge(Edge* edge) {
     assert(edge->source->isDone());
 }
 
-void Algorithm::RankCertainZeroFPA::backprop(Configuration* conf) {
-    //assert(conf->isDone());
-    std::unordered_set<Configuration*> W;
-    W.insert(conf);
-    while (!W.empty()) {
-        auto vit = W.begin();
-        Configuration* v = *vit;
+void Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
+    assert(source->isDone());
+    std::stack<Configuration*> waiting;
 
-        for (auto* e : v->dependency_set) {
-            auto c = e->source;
-            if (c->isDone()) {
-                continue;
-            }
-            eval_edge(e);
-            if (c->isDone()) {
-                strategy->pushDependency(e);
-                W.insert(c);
-            }
-            else {
-                if (c->rank > conf->rank && c->passed) {
-                    c->passed = false;
-                    W.insert(c);
+    for(auto& c : source->dependency_set)
+        if(!c->source->isDone())
+            waiting.emplace(c->source);
+
+    while (!waiting.empty()) {
+        auto* conf = waiting.top();
+        //assert(conf->isDone() || conf->passed == false);
+
+        waiting.pop();
+        auto prev = conf->dependency_set.before_begin();
+        auto cur = conf->dependency_set.begin();
+        while(cur != conf->dependency_set.end())
+        {
+            auto* e = *cur;
+            auto* c = e->source;
+            if (!c->isDone())
+            {
+                eval_edge(e);
+                if (c->isDone())
+                {
+                    // was not done, but is now.
+                    waiting.emplace(c);
                 }
-                else if (c->rank < conf->rank) {
-                    strategy->pushDependency(e);
+                else
+                {
+                    if(c->rank < source->rank)
+                    {
+                        strategy->pushDependency(e);
+                    }
+                    else if(c->rank == source->rank)
+                    {
+                        assert(c == source);
+                        assert(false);
+                    }
+                    else // c->rank > source->rank
+                    {
+                        c->passed = false;
+                        waiting.emplace(c);
+                    }
                 }
             }
+            conf->dependency_set.erase_after(prev);
+            cur = prev;
+            ++cur;
         }
-
-        v->dependency_set.clear();
-        W.erase(vit);
     }
 }
