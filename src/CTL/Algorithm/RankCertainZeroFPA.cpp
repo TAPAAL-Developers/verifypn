@@ -535,7 +535,8 @@ void Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                 {
                     if(c->rank < source->rank)
                     {
-                        strategy->pushDependency(e);
+                        if(e->status == DependencyGraph::EdgeStatus::NotWaiting)
+                            strategy->pushDependency(e);
                     }
                     else if(c->rank == source->rank)
                     {
@@ -544,8 +545,11 @@ void Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                     }
                     else // c->rank > source->rank
                     {
-                        c->passed = false;
-                        waiting.emplace(c);
+                        if(c->passed)
+                        {
+                            c->passed = false;
+                            waiting.emplace(c);
+                        }
                     }
                 }
             }
