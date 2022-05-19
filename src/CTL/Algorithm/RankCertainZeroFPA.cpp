@@ -510,10 +510,7 @@ void Algorithm::RankCertainZeroFPA::backprop_edge(Edge* edge) {
 void Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
     assert(source->isDone());
     std::stack<Configuration*> waiting;
-
-    for(auto& c : source->dependency_set)
-        if(!c->source->isDone())
-            waiting.emplace(c->source);
+    waiting.emplace(source);
 
     while (!waiting.empty()) {
         auto* conf = waiting.top();
