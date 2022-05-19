@@ -99,6 +99,10 @@ if (CMAKE_BUILD_TYPE MATCHES Release)
     if (NOT APPLE AND NOT WIN32)
     	set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
     endif ()
+else ()
+    if (NOT APPLE AND NOT WIN32)
+    	set(CMAKE_INTERPROCEDURAL_OPTIMIZATION FALSE)
+    endif ()
 endif ()
 
 ## CXX Flags
