@@ -6,6 +6,8 @@
 #include "CTL/DependencyGraph/Configuration.h"
 #include "PetriEngine/Reachability/ReachabilitySearch.h"
 #include "CTL/SearchStrategy/SearchStrategy.h"
+#include "CTL/PetriNets/PetriConfig.h"
+#include "CTL/PetriNets/OnTheFlyDG.h"
 
 
 namespace Algorithm {
@@ -69,6 +71,15 @@ protected:
         void backprop(DependencyGraph::Configuration* conf);
         void backprop_edge(DependencyGraph::Edge* conf);
         std::pair<DependencyGraph::Configuration *, DependencyGraph::Assignment> eval_edge(DependencyGraph::Edge *e);
+
+
+        std::string marking(DependencyGraph::Configuration *conf) {
+            auto G = dynamic_cast<PetriNets::OnTheFlyDG*>(graph) == nullptr;
+            if (!G) return "";
+            auto c = static_cast<PetriNets::PetriConfig*>(conf);
+
+        }
+
     };
 }
 #endif // CERTAINZEROFPA_H
