@@ -29,6 +29,17 @@ OnTheFlyDG::OnTheFlyDG(PetriEngine::PetriNet *t_net, bool partial_order) : encod
 }
 
 
+void OnTheFlyDG::print(DependencyGraph::Configuration* c, std::ostream& out) {
+    Marking marking{new PetriEngine::MarkVal[net->numberOfPlaces()]};
+    auto* config = (PetriConfig*)c;
+    auto enc_marking = trie.unpack(config->marking);
+    encoder.decode(marking.marking(), enc_marking.data());
+    net->print(marking.marking(), out, false);
+    out << ", ";
+    config->query->toString(out);
+    out << "," << to_string((Assignment)config->assignment);
+}
+
 OnTheFlyDG::~OnTheFlyDG()
 {
     cleanUp();

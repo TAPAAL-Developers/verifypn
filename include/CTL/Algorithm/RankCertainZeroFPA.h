@@ -31,6 +31,7 @@ protected:
     void checkEdge(DependencyGraph::Edge* e, bool only_assign = false, bool was_dep = false);
     void finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
     void finalAssign(DependencyGraph::Edge *e, DependencyGraph::Assignment a);
+    void set_assignment(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
     std::vector<DependencyGraph::Edge*> explore(DependencyGraph::Configuration *c);
 
 

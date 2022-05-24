@@ -47,8 +47,8 @@ public:
 
     Condition::Result initialEval();
 
-protected:
-
+    virtual void print(DependencyGraph::Configuration* c, std::ostream& out = std::cerr) override;
+protected:;
     //initialized from constructor
     AlignedEncoder encoder;
     PetriEngine::PetriNet *net = nullptr;

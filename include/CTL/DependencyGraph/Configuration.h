@@ -43,7 +43,7 @@ public:
 #endif
     void setOwner(uint32_t) { }
     uint32_t getOwner() { return 0; }
-    
+
 };
     std::string to_string(Assignment a);
 
