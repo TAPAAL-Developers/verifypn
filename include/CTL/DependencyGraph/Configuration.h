@@ -34,6 +34,7 @@ public:
     size_t id = std::numeric_limits<size_t>::max();
 //#endif
     size_t rank = std::numeric_limits<size_t>::max();
+    size_t min_rank = 0;
     Configuration() {}
     uint32_t getDistance() const { return distance; }
     bool isDone() const { return assignment == ONE || assignment == CZERO; }

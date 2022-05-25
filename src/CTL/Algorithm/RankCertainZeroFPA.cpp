@@ -98,11 +98,13 @@ bool Algorithm::RankCertainZeroFPA::search(DependencyGraph::BasicDependencyGraph
     return res;
 }
 
+size_t nrank = 0;
+
 bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGraph& t_graph) {
     graph = &t_graph;
 
     root = graph->initialConfiguration();
-    root->rank = 1;
+    root->min_rank = root->rank = 1;
     std::stack<std::pair<DependencyGraph::Configuration*, std::vector<DependencyGraph::Edge*>>> waiting;
     waiting.emplace(root, graph->successors(root));
     root->on_stack = true;
@@ -164,6 +166,8 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
         Edge* undecided_edge = nullptr;
         bool all_czero = true;
         size_t j = 0;
+        assert(conf->min_rank == conf->rank);
+        auto min_rank = conf->min_rank;
         for(size_t i = 0; i < edges.size(); ++i)
         {
             auto* e = edges[i];
@@ -223,13 +227,23 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
 
         if(undecided == nullptr || undecided->assignment != UNKNOWN) {
             //DEBUG_ONLY(std::cerr << "POP [" << conf->id << "] (undecided == nullptr)" << std::endl;)
+            if(min_rank >= conf->min_rank)
+            {
+                std::cerr << min_rank << ">" << conf->min_rank << std::endl;
+                set_assignment(conf, CZERO);
+                backprop(conf);
+            }
+            else
+            {
+                conf->min_rank = min_rank;
+            }
             do_pop();
             continue;
         }
         else
         {
             //DEBUG_ONLY(std::cerr << "PUSH [" << undecided->id << "]" << std::endl;)
-            undecided->rank = conf->rank + 1;
+            undecided->min_rank = undecided->rank = conf->rank + 1;
             undecided->assignment = ZERO;
             waiting.emplace(undecided, graph->successors(undecided));
             undecided->on_stack = true;
@@ -282,7 +296,7 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
             }
             else if(e->is_negated && (*it)->assignment == ZERO)
             {
-                // holds due to DFS + asyclic negation
+                // holds due to DFS + acyclic negation
                 hasCZero = true;
                 break;
             } else if (retval == nullptr || (retval->assignment == UNKNOWN && (*it)->assignment == ZERO)) {
