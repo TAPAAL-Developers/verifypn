@@ -98,7 +98,6 @@ bool Algorithm::RankCertainZeroFPA::search(DependencyGraph::BasicDependencyGraph
     return res;
 }
 
-size_t nrank = 0;
 
 bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGraph& t_graph) {
     graph = &t_graph;
@@ -167,7 +166,6 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
         bool all_czero = true;
         size_t j = 0;
         assert(conf->min_rank == conf->rank);
-        auto min_rank = conf->min_rank;
         for(size_t i = 0; i < edges.size(); ++i)
         {
             auto* e = edges[i];
@@ -227,15 +225,38 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
 
         if(undecided == nullptr || undecided->assignment != UNKNOWN) {
             //DEBUG_ONLY(std::cerr << "POP [" << conf->id << "] (undecided == nullptr)" << std::endl;)
-            if(min_rank >= conf->min_rank)
+            auto min_rank = conf->rank;
+            // if the largest rank of any target is in the sub-graph (which
+            // needs nothing from the stack as value currently), we can conclude
+            // that the edge itself will never reach a verdict, and we can
+            // already determine it CZERO (or ONE in the case of negation).
+            for(auto* e : edges)
             {
-                std::cerr << min_rank << ">" << conf->min_rank << std::endl;
-                set_assignment(conf, CZERO);
-                backprop(conf);
+                assert(eval_edge(e).second == ZERO);
+                if(e->is_negated) // we know it is determined already
+                {
+                    set_assignment(conf, ONE);
+                    backprop(conf);
+                    break;
+                }
+
+                size_t mx = 0;
+                for(auto* t : e->targets)
+                    if(!t->isDone())
+                        mx = std::max(t->min_rank, mx);
+                min_rank = std::min(min_rank, mx);
             }
-            else
+            if(!conf->isDone())
             {
-                conf->min_rank = min_rank;
+                if(min_rank >= conf->min_rank)
+                {
+                    set_assignment(conf, CZERO);
+                    backprop(conf);
+                }
+                else
+                {
+                    conf->min_rank = min_rank;
+                }
             }
             do_pop();
             continue;
