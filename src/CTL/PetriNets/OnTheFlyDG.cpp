@@ -564,6 +564,7 @@ PetriConfig *OnTheFlyDG::createConfiguration(size_t marking, size_t own, Conditi
     PetriConfig* newConfig = new (mem) PetriConfig();
     newConfig->marking = marking;
     newConfig->query = t_query;
+    newConfig->rank = 0;
     newConfig->setOwner(own);
 #ifndef NDEBUG
     newConfig->id = confid++;

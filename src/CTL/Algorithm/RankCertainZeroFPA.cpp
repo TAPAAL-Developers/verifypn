@@ -20,14 +20,14 @@ using namespace Algorithm;
 #endif
 
 DEBUG_ONLY(static void print_edge(Edge* e) {
-    std::cerr << '(' << e->source->id;
+    std::cerr << '(' << e->source->id << "r" << e->source->rank;
     if (e->is_negated) {
         std::cerr << " -- ";
     } else {
         std::cerr << ", { ";
     }
     for (auto c: e->targets) {
-        std::cerr << c->id << ' ';
+        std::cerr << c->id << "r" << c->rank << ' ';
     }
     std::cerr << (e->is_negated ? ")" : "})");
 })
@@ -240,11 +240,17 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                     break;
                 }
 
-                size_t mx = 0;
+                // technically we *could* look at a min (over edges) and max (over targets), however, targets
+                // might change their maximal min_val of their edges post pop.
+                // This happens when a ONE is propagated in the backup -- which
+                // can lead to the min_val value of a target *not* being correct
+                // at the time we execute the following. At least this is my
+                // working hypothesis. The propagation of ONE can lead to a
+                // new target being the maximal -- possibly with a min_rank lower
+                // than that of the current config.
                 for(auto* t : e->targets)
-                    if(!t->isDone())
-                        mx = std::max(t->min_rank, mx);
-                min_rank = std::min(min_rank, mx);
+                    if(!t->isDone() && t->rank != 0)
+                        min_rank = std::min(min_rank, t->min_rank);
             }
             if(!conf->isDone())
             {
@@ -413,6 +419,8 @@ void Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
     while(!undef.empty())
     {
         auto* conf = undef.top();
+        conf->min_rank = 0;
+        conf->rank = 0;
         undef.pop();
         if(conf->isDone()) continue;
         assert(conf->assignment == UNKNOWN);
