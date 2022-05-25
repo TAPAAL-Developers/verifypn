@@ -29,6 +29,7 @@ private:
 public:
     int8_t assignment = UNKNOWN;
     bool passed = false;
+    bool on_stack = false;
 //#ifndef NDEBUG
     size_t id = std::numeric_limits<size_t>::max();
 //#endif

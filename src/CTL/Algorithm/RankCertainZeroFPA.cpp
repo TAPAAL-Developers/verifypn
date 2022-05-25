@@ -105,6 +105,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
     root->rank = 1;
     std::stack<std::pair<DependencyGraph::Configuration*, std::vector<DependencyGraph::Edge*>>> waiting;
     waiting.emplace(root, graph->successors(root));
+    root->on_stack = true;
     ++_exploredConfigurations;
     root->assignment = ZERO;
     //DEBUG_ONLY(std::cerr << "PUSH [" << root->id << "]" << std::endl;)
@@ -114,6 +115,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
 
     auto do_pop = [&waiting,this]() {
         auto& [conf, edges] = waiting.top();
+        conf->on_stack = false;
         if(conf->isDone())
         {
             for(auto* e : edges)
@@ -230,6 +232,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
             undecided->rank = conf->rank + 1;
             undecided->assignment = ZERO;
             waiting.emplace(undecided, graph->successors(undecided));
+            undecided->on_stack = true;
             ++_exploredConfigurations;
         }
     }
@@ -282,7 +285,7 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
                 // holds due to DFS + asyclic negation
                 hasCZero = true;
                 break;
-            } else if (retval == nullptr || (retval->assignment == ZERO && (*it)->assignment == UNKNOWN)) {
+            } else if (retval == nullptr || (retval->assignment == UNKNOWN && (*it)->assignment == ZERO)) {
                 retval = *it;
             }
         }
@@ -310,6 +313,7 @@ void Algorithm::RankCertainZeroFPA::backprop_edge(Edge* edge) {
 void Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
     assert(source->isDone());
     std::stack<Configuration*> waiting;
+    std::stack<Configuration*> undef;
     waiting.emplace(source);
 
     while (!waiting.empty()) {
@@ -344,6 +348,14 @@ void Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                 if (e->refcnt == 0)
                     graph->release(e);
             }
+            else if(assignment == UNKNOWN)
+            {
+                if(c->assignment != UNKNOWN && !c->on_stack)
+                {
+                    undef.emplace(c);
+                    c->assignment = UNKNOWN;
+                }
+            }
             else
             {
                 assert(c->nsuccs > 0);
@@ -361,5 +373,33 @@ void Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
             cur = prev;
             ++cur;
         }
+    }
+
+    while(!undef.empty())
+    {
+        auto* conf = undef.top();
+        undef.pop();
+        if(conf->isDone()) continue;
+        assert(conf->assignment == UNKNOWN);
+        if(conf->on_stack) {
+            continue;
+        }
+        for(auto& e : conf->dependency_set)
+        {
+            auto* c = e->source;
+            if(c->isDone() || c->on_stack)
+            {
+                continue;
+            }
+            --e->refcnt;
+            if (e->refcnt == 0)
+                graph->release(e);
+            if(c->assignment != UNKNOWN)
+            {
+                c->assignment = UNKNOWN;
+                undef.push(c);
+            }
+        }
+        conf->dependency_set.clear();
     }
 }
