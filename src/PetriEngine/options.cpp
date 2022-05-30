@@ -509,6 +509,8 @@ bool options_t::parse(int argc, const char** argv) {
                 }
                 i++;
             }
+        } else if (std::strcmp(argv[i], "-noltl") == 0) {
+            allow_ltl = false;
         } else if (std::strcmp(argv[i], "-ltl") == 0 || std::strcmp(argv[i], "--ltl-algorithm") == 0) {
             logic = TemporalLogic::LTL;
             if (argc > i + 1) {

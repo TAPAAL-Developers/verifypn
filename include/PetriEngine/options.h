@@ -81,6 +81,7 @@ struct options_t {
     CTL::CTLAlgorithmType ctlalgorithm = CTL::CZero;
     bool tar = false;
     uint32_t binary_query_io = 0;
+    bool allow_ltl = true;
 
     // LTL Specific options
     bool usedltl = false;

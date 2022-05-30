@@ -250,7 +250,7 @@ bool recursiveSolve(Condition* query, PetriEngine::PetriNet* net,
         }
         return (res.back() == AbstractHandler::Satisfied) xor query->isInvariant();
     }
-    else if(!containsNext(query)) {
+    else if(options.allow_ltl && !containsNext(query)) {
         // there are probably many more cases w. nested quantifiers we can do
         // one instance is E[ non_temp U [E non_temp U ...]] in a chain
         // also, this should go into some *neat* visitor to do the check.
