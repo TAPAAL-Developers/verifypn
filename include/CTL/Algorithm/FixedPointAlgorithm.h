@@ -30,6 +30,8 @@ protected:
     size_t _numberOfEdges = 0;
     // number of times the rank optimization was applied
     size_t _num_rank_checks = 0;
+    size_t _cycle_count = 0;
+    size_t _cycle_assignments = 0;
 };
 }
 #endif // FIXEDPOINTALGORITHM_H

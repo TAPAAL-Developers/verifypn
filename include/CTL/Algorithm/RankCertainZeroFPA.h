@@ -34,6 +34,7 @@ protected:
     void set_assignment(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
     std::vector<DependencyGraph::Edge*> explore(DependencyGraph::Configuration *c);
 
+    std::vector<std::pair<DependencyGraph::Configuration*, std::vector<DependencyGraph::Edge*>>> W;
 
 
 //#ifndef NDEBUG

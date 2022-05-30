@@ -99,6 +99,14 @@ bool Algorithm::RankCertainZeroFPA::search(DependencyGraph::BasicDependencyGraph
         std::cerr << "Number of rank optimisations: " << _num_rank_checks << std::endl;
     else*/
     std::cout << "Number of rank optimisations: " << _num_rank_checks << std::endl;
+#ifndef NDEBUG
+    (_cycle_count > 0 ? std::cerr : std::cout)
+#else
+    std::cout
+#endif
+        << "Number of cycles detected: " << _cycle_count
+        << "\nNumber of configs assigned in cycle: " << _cycle_assignments << std::endl;
+
     return res;
 }
 
@@ -108,8 +116,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
 
     root = graph->initialConfiguration();
     root->min_rank = root->rank = 1;
-    std::stack<std::pair<DependencyGraph::Configuration*, std::vector<DependencyGraph::Edge*>>> waiting;
-    waiting.emplace(root, graph->successors(root));
+    W.emplace_back(root, graph->successors(root));
     root->on_stack = true;
     ++_exploredConfigurations;
     root->assignment = ZERO;
@@ -118,8 +125,8 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
     root->refc = 1;
 #endif
 
-    auto do_pop = [&waiting,this]() {
-        auto& [conf, edges] = waiting.top();
+    auto do_pop = [this]() {
+        auto& [conf, edges] = W.back();
         conf->on_stack = false;
         if(conf->isDone())
         {
@@ -153,12 +160,12 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                 else assert(false); // should never happen
             }
         }
-        waiting.pop();
+        W.pop_back();
     };
 
-    while(!waiting.empty() && !root->isDone())
+    while(!W.empty() && !root->isDone())
     {
-        auto& [conf, edges] = waiting.top();
+        auto& [conf, edges] = W.back();
         if(conf->isDone()) {
             backprop(conf);
             //DEBUG_ONLY(std::cerr << "POP [" << conf->id << "] (assign(104) = " << to_string((Assignment)conf->assignment) << std::endl;)
@@ -236,10 +243,10 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
             // already determine it CZERO (or ONE in the case of negation).
             for(auto* e : edges)
             {
-                assert(eval_edge(e).second == ZERO);
+                assert(eval_edge(e).second == ZERO && !e->is_negated);
                 if(e->is_negated) // we know it is determined already
                 {
-                    // assert(false); // maybe?
+                    //assert(false); // maybe?
                     set_assignment(conf, ONE);
                     backprop(conf);
                     break;
@@ -278,7 +285,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
             //DEBUG_ONLY(std::cerr << "PUSH [" << undecided->id << "]" << std::endl;)
             undecided->min_rank = undecided->rank = conf->rank + 1;
             undecided->assignment = ZERO;
-            waiting.emplace(undecided, graph->successors(undecided));
+            W.emplace_back(undecided, graph->successors(undecided));
             undecided->on_stack = true;
             ++_exploredConfigurations;
         }
@@ -332,7 +339,42 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
                 // holds due to DFS + acyclic negation
                 hasCZero = true;
                 break;
-            } else if (retval == nullptr || (retval->assignment == UNKNOWN && (*it)->assignment == ZERO)) {
+            }
+            else if ((*it)->on_stack) {
+                bool good = false;
+                bool found = false;
+                for (size_t i = W.size() - 1; i >= 0; --i) {
+                    assert(!W[i].second.back()->is_negated); // if some edge here is negated, the DG itself is invalid
+                    if (W[i].second.size() > 1) { // not simple cycle, abort
+                        assert(!good);
+                        found = true;
+                        break;
+                    }
+                    if (W[i].first == *it) {
+                        good = found = true;
+                        break;
+                    }
+                }
+                assert(found);
+                if (good) {
+                    // simple cycle detected!
+                    ++_cycle_count;
+                    for (size_t i = W.size() - 1; i >= 0; --i) {
+                        // TODO do a pop from here somehow (or restructure this check to outside)
+                        assert(W[i].first->assignment != ONE);
+                        assert(!W[i].second.empty());
+                        set_assignment(W[i].first, CZERO);
+                        ++_cycle_assignments;
+                        if (W[i].first == *it) break;
+                    }
+                    assert(W.back().first->assignment == CZERO);
+                    return std::make_pair(nullptr, CZERO);
+                }
+                else if (retval == nullptr || (retval->assignment == UNKNOWN && (*it)->assignment == ZERO)) {
+                    retval = *it;
+                }
+            }
+            else if (retval == nullptr || (retval->assignment == UNKNOWN && (*it)->assignment == ZERO)) {
                 retval = *it;
             }
         }
