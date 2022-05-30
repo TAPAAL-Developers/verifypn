@@ -28,6 +28,8 @@ protected:
     size_t _exploredConfigurations = 0;
     //total number of edges found when computing successors
     size_t _numberOfEdges = 0;
+    // number of times the rank optimization was applied
+    size_t _num_rank_checks = 0;
 };
 }
 #endif // FIXEDPOINTALGORITHM_H

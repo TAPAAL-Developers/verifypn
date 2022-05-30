@@ -95,6 +95,10 @@ bool is_assignable(Edge* e) {
 
 bool Algorithm::RankCertainZeroFPA::search(DependencyGraph::BasicDependencyGraph& t_graph) {
     auto res = _search(t_graph);
+    /*if (_num_rank_checks > 0)
+        std::cerr << "Number of rank optimisations: " << _num_rank_checks << std::endl;
+    else*/
+    std::cout << "Number of rank optimisations: " << _num_rank_checks << std::endl;
     return res;
 }
 
@@ -235,6 +239,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                 assert(eval_edge(e).second == ZERO);
                 if(e->is_negated) // we know it is determined already
                 {
+                    // assert(false); // maybe?
                     set_assignment(conf, ONE);
                     backprop(conf);
                     break;
@@ -256,6 +261,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
             {
                 if(min_rank >= conf->min_rank)
                 {
+                    ++_num_rank_checks;
                     set_assignment(conf, CZERO);
                     backprop(conf);
                 }
