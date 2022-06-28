@@ -23,7 +23,7 @@ public:
     }
     virtual bool search(DependencyGraph::BasicDependencyGraph &t_graph) override;
 protected:
-
+    using wstack_t = std::vector<std::pair<DependencyGraph::Configuration*, std::vector<DependencyGraph::Edge*>>>;
     bool _search(DependencyGraph::BasicDependencyGraph &t_graph);
     DependencyGraph::BasicDependencyGraph *graph;
     DependencyGraph::Configuration* root;
@@ -71,7 +71,8 @@ protected:
 //#endif
         void backprop(DependencyGraph::Configuration* conf);
         void backprop_edge(DependencyGraph::Edge* conf);
-        std::pair<DependencyGraph::Configuration *, DependencyGraph::Assignment> eval_edge(DependencyGraph::Edge *e);
+        std::pair<DependencyGraph::Configuration *, DependencyGraph::Assignment>
+        eval_edge(DependencyGraph::Edge *e, wstack_t* waiting = nullptr);
 
 
         std::string marking(DependencyGraph::Configuration *conf) {

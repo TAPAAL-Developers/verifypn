@@ -104,8 +104,8 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
 
     root = graph->initialConfiguration();
     root->min_rank = root->rank = 1;
-    std::stack<std::pair<DependencyGraph::Configuration*, std::vector<DependencyGraph::Edge*>>> waiting;
-    waiting.emplace(root, graph->successors(root));
+    wstack_t waiting;
+    waiting.emplace_back(root, graph->successors(root));
     root->on_stack = true;
     ++_exploredConfigurations;
     root->assignment = ZERO;
@@ -115,7 +115,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
 #endif
 
     auto do_pop = [&waiting,this]() {
-        auto& [conf, edges] = waiting.top();
+        auto& [conf, edges] = waiting.back();
         conf->on_stack = false;
         if(conf->isDone())
         {
@@ -149,12 +149,12 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                 else assert(false); // should never happen
             }
         }
-        waiting.pop();
+        waiting.pop_back();
     };
 
     while(!waiting.empty() && !root->isDone())
     {
-        auto& [conf, edges] = waiting.top();
+        auto& [conf, edges] = waiting.back();
         if(conf->isDone()) {
             backprop(conf);
             //DEBUG_ONLY(std::cerr << "POP [" << conf->id << "] (assign(104) = " << to_string((Assignment)conf->assignment) << std::endl;)
@@ -169,7 +169,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
         for(size_t i = 0; i < edges.size(); ++i)
         {
             auto* e = edges[i];
-            auto [ud, val] = eval_edge(e);
+            auto [ud, val] = eval_edge(e, &waiting);
             /*DEBUG_ONLY(print_edge(e);
             std::cerr << to_string(val);
             std::cerr << std::endl;)*/
@@ -272,7 +272,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
             //DEBUG_ONLY(std::cerr << "PUSH [" << undecided->id << "]" << std::endl;)
             undecided->min_rank = undecided->rank = conf->rank + 1;
             undecided->assignment = ZERO;
-            waiting.emplace(undecided, graph->successors(undecided));
+            waiting.emplace_back(undecided, graph->successors(undecided));
             undecided->on_stack = true;
             ++_exploredConfigurations;
         }
@@ -300,7 +300,7 @@ std::vector<Edge*> Algorithm::RankCertainZeroFPA::explore(Configuration* c) {
 }
 
 
-std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(DependencyGraph::Edge *e) {
+std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(DependencyGraph::Edge *e, wstack_t* waiting) {
     bool allOne = true, hasCZero = false;
     Configuration *retval = nullptr;
     Assignment a = ZERO;
@@ -328,6 +328,27 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
                 break;
             } else if (retval == nullptr || (retval->assignment == UNKNOWN && (*it)->assignment == ZERO)) {
                 retval = *it;
+                /*if((*it)->on_stack && e->source->on_stack && waiting != nullptr)
+                {
+                    bool single_loop = true;
+                    int64_t n = waiting->size() - 1;
+                    for(; n >= 0; ++n)
+                    {
+                        if((*waiting)[n].second.size() > 1)
+                        {
+                            single_loop = false;
+                            break;
+                        }
+                        if((*waiting)[n].first == (*it)) break;
+                    }
+                    if(single_loop)
+                    {
+                        std::cerr << (*it)->min_rank << " VS " << waiting->size() << std::endl;
+                        std::cerr << "ON STACK! Whooop " << n << std::endl;
+                        hasCZero = true;
+                        break;
+                    }
+                }*/
             }
         }
         pit = it;
