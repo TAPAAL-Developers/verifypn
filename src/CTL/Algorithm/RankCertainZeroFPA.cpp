@@ -328,7 +328,7 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
                 break;
             } else if (retval == nullptr || (retval->assignment == UNKNOWN && (*it)->assignment == ZERO)) {
                 retval = *it;
-                /*if((*it)->on_stack && e->source->on_stack && waiting != nullptr)
+                if((*it)->on_stack && e->source->on_stack && waiting != nullptr)
                 {
                     bool single_loop = true;
                     int64_t n = waiting->size() - 1;
@@ -343,12 +343,12 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
                     }
                     if(single_loop)
                     {
-                        std::cerr << (*it)->min_rank << " VS " << waiting->size() << std::endl;
-                        std::cerr << "ON STACK! Whooop " << n << std::endl;
+                        //std::cerr << (*it)->min_rank << " VS " << waiting->size() << std::endl;
+                        //std::cerr << "ON STACK! Whooop " << n << std::endl;
                         hasCZero = true;
                         break;
                     }
-                }*/
+                }
             }
         }
         pit = it;
