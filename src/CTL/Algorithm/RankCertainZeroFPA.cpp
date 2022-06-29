@@ -42,7 +42,7 @@ std::pair<std::string,std::string> split(const std::string& line) {
     }
     return {"",""};
 }
- * */
+*/
 
 void RankCertainZeroFPA::set_assignment(Configuration *c, Assignment a) {
     /*if(correct.empty())
@@ -226,6 +226,8 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
         if(undecided == nullptr || undecided->assignment != UNKNOWN) {
             //DEBUG_ONLY(std::cerr << "POP [" << conf->id << "] (undecided == nullptr)" << std::endl;)
             auto min_rank = conf->rank;
+            auto min_max_rank = conf->rank;
+            assert(min_rank > 0);
             // if the largest rank of any target is in the sub-graph (which
             // needs nothing from the stack as value currently), we can conclude
             // that the edge itself will never reach a verdict, and we can
@@ -248,13 +250,20 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                 // working hypothesis. The propagation of ONE can lead to a
                 // new target being the maximal -- possibly with a min_rank lower
                 // than that of the current config.
+                auto tmp = min_max_rank;
                 for(auto* t : e->targets)
-                    if(!t->isDone() && t->rank != 0)
+                {
+                    if(!t->isDone() && t->min_rank != 0)
+                    {
                         min_rank = std::min(min_rank, t->min_rank);
+                        tmp = std::max(tmp, t->min_rank);
+                    }
+                }
+                min_max_rank = std::min(tmp, min_max_rank);
             }
             if(!conf->isDone())
             {
-                if(min_rank >= conf->min_rank)
+                if(min_max_rank >= conf->min_rank) // all branches are waiting for somebody later in the tree, we can safely conclude.
                 {
                     set_assignment(conf, CZERO);
                     backprop(conf);
@@ -269,10 +278,22 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
         }
         else
         {
-            //DEBUG_ONLY(std::cerr << "PUSH [" << undecided->id << "]" << std::endl;)
             undecided->min_rank = undecided->rank = conf->rank + 1;
             undecided->assignment = ZERO;
             waiting.emplace_back(undecided, graph->successors(undecided));
+            /*DEBUG_ONLY(std::cerr << "PUSH [" << undecided->id << "]" << std::endl;)
+            DEBUG_ONLY(
+                for(auto& e : waiting.back().second){
+                    std::cerr << "\t";
+                    print_edge(e);
+                    std::cerr << "\n";
+                }
+                //if(waiting.back().second.empty())
+                {
+                    graph->print(undecided, std::cerr);
+                    std::cerr << std::endl;
+                }
+            )*/
             undecided->on_stack = true;
             ++_exploredConfigurations;
         }
@@ -312,7 +333,13 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
     auto it = e->targets.begin();
     auto pit = e->targets.before_begin();
     while (it != e->targets.end()) {
-        if ((*it)->assignment == ONE) {
+        if(*it == e->source)
+        {
+            assert(!e->is_negated);
+            hasCZero = true; // trivial self-loop
+            break;
+        }
+        else if ((*it)->assignment == ONE) {
             e->targets.erase_after(pit);
             it = pit;
         } else {
@@ -328,7 +355,7 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
                 break;
             } else if (retval == nullptr || (retval->assignment == UNKNOWN && (*it)->assignment == ZERO)) {
                 retval = *it;
-                if((*it)->on_stack && e->source->on_stack && waiting != nullptr)
+                /*if((*it)->on_stack && e->source->on_stack && waiting != nullptr)
                 {
                     bool single_loop = true;
                     int64_t n = waiting->size() - 1;
@@ -348,7 +375,7 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
                         hasCZero = true;
                         break;
                     }
-                }
+                }*/
             }
         }
         pit = it;
