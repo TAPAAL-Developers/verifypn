@@ -23,9 +23,7 @@ public:
     uint64_t refc = 0;
 #endif
     uint32_t nsuccs = 0;
-#ifndef NDEBUG
     std::vector<Edge*> successors;
-#endif
 private:
     uint32_t distance = 0;
     void setDistance(uint32_t value) { distance = value; }

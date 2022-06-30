@@ -46,6 +46,8 @@ std::pair<std::string,std::string> split(const std::string& line) {
 
 void RankCertainZeroFPA::set_assignment(Configuration *c, Assignment a) {
     c->assignment = a;
+    if(c->isDone())
+        c->successors.clear();
 /*#ifndef NDEBUG
     if(correct.empty())
     {
@@ -73,7 +75,8 @@ void RankCertainZeroFPA::set_assignment(Configuration *c, Assignment a) {
                 std::cerr << "Error on :" << a << "\n\tGOT" << b << " expected " << correct[a] << std::endl;
                 assert(false);
             }
-            else std::cerr << "¤ OK (" << c->id << ") = " << DependencyGraph::to_string((Assignment)c->assignment) << std::endl;
+            else
+                std::cerr << "¤ OK (" << c->id << ") = " << DependencyGraph::to_string((Assignment)c->assignment) << std::endl;
         }
         else std::cerr << "¤ NO MATCH (" << c->id << ") " << DependencyGraph::to_string((Assignment)c->assignment) << std::endl;
     }
@@ -128,7 +131,6 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                 e->refcnt = 0;
                 graph->release(e);
             }
-            conf->nsuccs = 0;
         }
         else
         {
@@ -140,7 +142,6 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                 {
                     for(auto& t : e->targets)
                     {
-                        ++conf->nsuccs;
                         t->addDependency(e);
                     }
                     //--e->refcnt;   // shouldn't be needed?
@@ -267,6 +268,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                             {
                                 mr_source = t->min_rank_source;
                                 assert(t->min_rank_source->on_stack);
+                                assert(t->min_rank_source->rank == t->min_rank);
                             }
                             else
                             {
@@ -285,14 +287,14 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
             if(!conf->isDone())
             {
                 assert(min_max_rank >= min_rank);
-                if(min_max_rank >= conf->min_rank) // all branches are waiting for somebody later in the tree, we can safely conclude.
+                if(min_max_rank >= conf->rank) // all branches are waiting for somebody later in the tree, we can safely conclude.
                 {
-/*                    std::cerr << "EARLY [" << min_max_rank << ", " << min_rank << ", " << conf->min_rank << "]" << std::endl;
+                    /*std::cerr << "EARLY [" << min_max_rank << ", " << min_rank << ", " << conf->min_rank << "]" << std::endl;
 #ifndef NDEBUG
                     for(auto* e : edges)
                         print_edge(e);
 #endif
- */
+*/
 
                     set_assignment(conf, CZERO);
                     backprop(conf);
@@ -315,8 +317,10 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
 #ifndef NDEBUG
             undecided->successors = waiting.back().second;
 #endif
-            /*
-            DEBUG_ONLY(std::cerr << "PUSH [" << undecided->id << "]" << std::endl;)
+
+            /*DEBUG_ONLY(std::cerr << "PUSH [" << undecided->id << "]" << std::endl;)
+            graph->print(undecided, std::cerr);
+            std::cerr << std::endl;
             DEBUG_ONLY(
                 for(auto& e : waiting.back().second){
                     std::cerr << "\t";
@@ -329,7 +333,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                     std::cerr << std::endl;
                 }
             )
-            */
+*/
             undecided->on_stack = true;
             ++_exploredConfigurations;
         }
@@ -360,7 +364,6 @@ std::vector<Edge*> Algorithm::RankCertainZeroFPA::explore(Configuration* c) {
 std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(DependencyGraph::Edge *e, wstack_t* waiting) {
     bool allOne = true, hasCZero = false;
     Configuration *retval = nullptr;
-    Configuration *reset = nullptr;
     Assignment a = ZERO;
     /*DEBUG_ONLY(
         std::cerr << "EVAL [";
@@ -370,12 +373,13 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
     auto it = e->targets.begin();
     auto pit = e->targets.before_begin();
     while (it != e->targets.end()) {
-        if((*it)->min_rank_source && !(*it)->min_rank_source->on_stack && (*it) != e->source && !(*it)->isDone())
+        // need seq-number
+        if((*it)->min_rank_source && (!(*it)->min_rank_source->on_stack || (*it)->min_rank_source->rank != (*it)->min_rank) && (*it) != e->source && !(*it)->isDone())
         {
-            reset = (*it);
-            pit = it;
-            ++it;
-            continue;
+            (*it)->min_rank = 0;
+            (*it)->min_rank_source = nullptr;
+            (*it)->rank = 0;
+            (*it)->assignment = UNKNOWN;
         }
         if(*it == e->source)
         {
@@ -430,20 +434,6 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
         return std::make_pair(nullptr, e->is_negated ? CZERO : ONE);
     if(hasCZero)
         return std::make_pair(nullptr, e->is_negated ? ONE : CZERO);
-    if(reset)
-    {
-        if(waiting)
-        {
-            //DEBUG_ONLY(std::cerr << "RESET " << reset->id << std::endl;)
-            assert(!reset->on_stack);
-            assert(!reset->isDone());
-            reset->min_rank = 0;
-            reset->min_rank_source = nullptr;
-            reset->rank = 0;
-            reset->assignment = UNKNOWN;
-        }
-        return std::make_pair(reset, UNKNOWN);
-    }
     else if(retval)
         return std::make_pair(retval, (Assignment)retval->assignment);
     else
@@ -513,14 +503,13 @@ void Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
             }
             else
             {
-                assert(c->nsuccs > 0);
-                --c->nsuccs;
-                if(c->nsuccs == 0)
+                bool all_zero = true;
+                for(auto* e : c->successors)
                 {
-#ifndef NDEBUG
-                    for(auto* e : c->successors)
-                        assert(eval_edge(e).second == CZERO);
-#endif
+                    auto r = eval_edge(e);
+                    all_zero &= r.second == CZERO;
+                }
+                if(all_zero) {
                     set_assignment(c, CZERO);
                     waiting.push(c);
                     --e->refcnt;

@@ -174,8 +174,8 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
 void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Edge *e, DependencyGraph::Assignment a)
 {
     finalAssign(e->source, a);
-    //graph->print(e->source, std::cerr);
-    //std::cerr << std::endl;
+    graph->print(e->source, std::cerr);
+    std::cerr << std::endl;
 }
 
 void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)
