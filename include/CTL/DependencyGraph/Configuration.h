@@ -23,6 +23,9 @@ public:
     uint64_t refc = 0;
 #endif
     uint32_t nsuccs = 0;
+#ifndef NDEBUG
+    std::vector<Edge*> successors;
+#endif
 private:
     uint32_t distance = 0;
     void setDistance(uint32_t value) { distance = value; }
@@ -35,6 +38,7 @@ public:
 //#endif
     size_t rank = std::numeric_limits<size_t>::max();
     size_t min_rank = 0;
+    Configuration* min_rank_source = nullptr;
     Configuration() {}
     uint32_t getDistance() const { return distance; }
     bool isDone() const { return assignment == ONE || assignment == CZERO; }
