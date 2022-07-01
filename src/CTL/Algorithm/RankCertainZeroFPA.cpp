@@ -292,11 +292,11 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                 if(min_max_rank >= conf->rank) // all branches are waiting for somebody later in the tree, we can safely conclude.
                 {
                     //std::cerr << "EARLY [" << min_max_rank << ", " << min_rank << ", " << conf->min_rank << "]" << std::endl;
-#ifndef NDEBUG
+/*#ifndef NDEBUG
                     for(auto* e : edges)
                         print_edge(e);
 #endif
-
+*/
 
                     set_assignment(conf, CZERO);
                     backprop(conf);
