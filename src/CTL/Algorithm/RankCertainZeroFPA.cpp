@@ -45,6 +45,7 @@ std::pair<std::string,std::string> split(const std::string& line) {
 #endif*/
 
 void RankCertainZeroFPA::set_assignment(Configuration *c, Assignment a) {
+    assert(!c->isDone());
     c->assignment = a;
     if(c->isDone())
         c->successors.clear();
@@ -108,7 +109,8 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
     graph = &t_graph;
 
     root = graph->initialConfiguration();
-    root->min_rank = root->rank = 1;
+    ++_max_rank;
+    root->min_rank = root->rank = _max_rank;
     wstack_t waiting;
     waiting.emplace_back(root, graph->successors(root));
     root->on_stack = true;
@@ -231,7 +233,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
             //DEBUG_ONLY(std::cerr << "POP [" << conf->id << "] (undecided == nullptr)" << std::endl;)
             auto min_rank = conf->rank;
             auto min_max_rank = conf->rank;
-            Configuration* mr_source = nullptr;
+            Configuration* mr_source = conf;
             assert(min_rank > 0);
             // if the largest rank of any target is in the sub-graph (which
             // needs nothing from the stack as value currently), we can conclude
@@ -286,15 +288,15 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
             }
             if(!conf->isDone())
             {
-                assert(min_max_rank >= min_rank);
+                assert(min_max_rank <= conf->rank);
                 if(min_max_rank >= conf->rank) // all branches are waiting for somebody later in the tree, we can safely conclude.
                 {
-                    /*std::cerr << "EARLY [" << min_max_rank << ", " << min_rank << ", " << conf->min_rank << "]" << std::endl;
+                    //std::cerr << "EARLY [" << min_max_rank << ", " << min_rank << ", " << conf->min_rank << "]" << std::endl;
 #ifndef NDEBUG
                     for(auto* e : edges)
                         print_edge(e);
 #endif
-*/
+
 
                     set_assignment(conf, CZERO);
                     backprop(conf);
@@ -305,23 +307,25 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                     conf->min_rank_source = mr_source;
                 }
             }
-            //DEBUG_ONLY(std::cerr << "POP [" << conf->id << "r" << conf->rank << "] (286:: " << to_string((Assignment)conf->assignment) << " mr" << conf->min_rank << ")" << std::endl;)
+//            DEBUG_ONLY(std::cerr << "POP [" << conf->id << "r" << conf->rank << "] (286:: " << to_string((Assignment)conf->assignment) << " mr" << conf->min_rank << ")" << std::endl;)
             do_pop();
             continue;
         }
         else
         {
-            undecided->min_rank = undecided->rank = conf->rank + 1;
+            ++_max_rank;
+            undecided->min_rank = undecided->rank = _max_rank;
             undecided->assignment = ZERO;
+            undecided->min_rank_source = undecided;
             waiting.emplace_back(undecided, graph->successors(undecided));
 #ifndef NDEBUG
             undecided->successors = waiting.back().second;
 #endif
 
-            /*DEBUG_ONLY(std::cerr << "PUSH [" << undecided->id << "]" << std::endl;)
-            graph->print(undecided, std::cerr);
-            std::cerr << std::endl;
-            DEBUG_ONLY(
+            //DEBUG_ONLY(std::cerr << "PUSH [" << undecided->id << "]" << std::endl;)
+            //graph->print(undecided, std::cerr);
+            /*std::cerr << std::endl;*/
+            /*DEBUG_ONLY(
                 for(auto& e : waiting.back().second){
                     std::cerr << "\t";
                     print_edge(e);
@@ -332,8 +336,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                     graph->print(undecided, std::cerr);
                     std::cerr << std::endl;
                 }
-            )
-*/
+            )*/
             undecided->on_stack = true;
             ++_exploredConfigurations;
         }
@@ -385,6 +388,7 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
         {
             assert(!e->is_negated);
             hasCZero = true; // trivial self-loop
+            allOne = false;
             break;
         }
         else if ((*it)->assignment == ONE) {

@@ -81,7 +81,7 @@ protected:
             auto c = static_cast<PetriNets::PetriConfig*>(conf);
 
         }
-
+        size_t _max_rank = 0;
     };
 }
 #endif // CERTAINZEROFPA_H
