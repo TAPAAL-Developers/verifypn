@@ -292,9 +292,9 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                 bool any = false;
                 for(auto* t : e->targets)
                 {
+                    any = true;
                     if(!t->isDone() && t->min_rank != 0)
                     {
-                        any = true;
                         if(t->min_rank < min_rank)
                         {
                             if(t->min_rank_source)
