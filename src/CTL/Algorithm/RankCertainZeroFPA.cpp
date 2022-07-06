@@ -352,6 +352,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
             undecided->min_rank_source = undecided;
             if(undecided->successors.empty())
             {
+                ++_exploredConfigurations;
                 undecided->successors = graph->successors(undecided);
                 for(auto* e : undecided->successors)
                 {
@@ -389,7 +390,6 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                 }
             )*/
             undecided->on_stack = true;
-            ++_exploredConfigurations;
         }
     }
 
@@ -572,6 +572,25 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                     if (e->refcnt == 0)
                         graph->release(e);*/
                 }
+            }
+            if(!c->isDone())
+            {
+                auto mn = c->rank;
+                for(auto* e : c->successors)
+                {
+                    typeof(mn) mx = 0;
+                    for(auto* t : e->targets)
+                        if(t->min_rank_source &&
+                                (t->min_rank_source->on_stack || t->min_rank_source == c))
+                            mx = std::max(mx, t->min_rank);
+                    mn = std::min(mx, mn);
+                }
+                if(mn == c->rank && !c->on_stack)
+                {
+                    set_assignment(c, CZERO);
+                    waiting.push(c);
+                }
+//                    std::cerr << "wat?? " << mn << " : " << c->min_rank << " S" << c->rank << std::endl;
             }
             conf->dependency_set.erase_after(prev);
             cur = prev;
