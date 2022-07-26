@@ -428,7 +428,11 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
     auto pit = e->targets.before_begin();
     while (it != e->targets.end()) {
         // need seq-number
-        if((*it)->min_rank_source && (!(*it)->min_rank_source->on_stack || (*it)->min_rank_source->rank != (*it)->min_rank) && (*it) != e->source && !(*it)->isDone())
+        // if target node has min_rank from an unassigned node that is either outside the stack or has a different min_rank,
+        // and it is not a self-loop, then wipe information of that target node.
+        if ((*it)->min_rank_source &&
+            (!(*it)->min_rank_source->on_stack || (*it)->min_rank_source->rank != (*it)->min_rank) &&
+            (*it) != e->source && !(*it)->isDone())
         {
             (*it)->min_rank = 0;
             (*it)->min_rank_source = nullptr;
@@ -515,12 +519,10 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
         waiting.pop();
         auto prev = conf->dependency_set.before_begin();
         auto cur = conf->dependency_set.begin();
-        while(cur != conf->dependency_set.end())
-        {
+        while(cur != conf->dependency_set.end()) {
             auto* e = *cur;
             auto* c = e->source;
-            if(c->isDone())
-            {
+            if(c->isDone()) {
                 conf->dependency_set.erase_after(prev);
                 cur = prev;
                 ++cur;
@@ -532,16 +534,14 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
             }
             auto [und, assignment] = eval_edge(e);
 
-            if(assignment == ONE)
-            {
+            if(assignment == ONE) {
                 set_assignment(c, ONE);
                 waiting.push(c);
                 /*--e->refcnt;
                 if (e->refcnt == 0)
                     graph->release(e);*/
             }
-            else if(assignment == UNKNOWN)
-            {
+            else if(assignment == UNKNOWN) {
                 /*if(c->min_rank_source->)
                 {
                     undef.emplace(c);
@@ -557,8 +557,7 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                     assert(false); // do something
                 }*/
             }
-            else
-            {
+            else {
                 bool all_zero = true;
                 for(auto* e : c->successors)
                 {
