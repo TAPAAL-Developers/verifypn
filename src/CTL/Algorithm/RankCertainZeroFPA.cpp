@@ -585,7 +585,7 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                             mx = std::max(mx, t->min_rank);
                     mn = std::min(mx, mn);
                 }
-                if(mn == c->rank && !c->on_stack)
+                if(mn == c->rank && !c->on_stack && mn != 0)
                 {
                     set_assignment(c, CZERO);
                     waiting.push(c);
