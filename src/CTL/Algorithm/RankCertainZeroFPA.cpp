@@ -31,7 +31,7 @@ DEBUG_ONLY(static void print_edge(Edge* e) {
     }
     std::cerr << (e->is_negated ? ")" : "})");
 })
-/*#ifndef NDEBUG
+#ifndef NDEBUG
 std::map<std::string,std::string> correct;
 
 std::pair<std::string,std::string> split(const std::string& line) {
@@ -42,14 +42,14 @@ std::pair<std::string,std::string> split(const std::string& line) {
     }
     return {"",""};
 }
-#endif*/
+#endif
 
 void RankCertainZeroFPA::set_assignment(Configuration *c, Assignment a) {
     assert(!c->isDone());
     c->assignment = a;
     if(c->isDone())
         c->successors.clear();
-/*#ifndef NDEBUG
+#ifndef NDEBUG
     if(correct.empty())
     {
         std::fstream in;
@@ -63,7 +63,7 @@ void RankCertainZeroFPA::set_assignment(Configuration *c, Assignment a) {
             }
         }
     }
-    DEBUG_ONLY(std::cerr << "ASSIGN: [" << c->id << "]: " << to_string(static_cast<Assignment>(c->assignment)) << "\n";)
+    //DEBUG_ONLY(std::cerr << "ASSIGN: [" << c->id << "]: " << to_string(static_cast<Assignment>(c->assignment)) << "\n";)
     if(c->isDone())
     {
         std::stringstream ss;
@@ -76,12 +76,12 @@ void RankCertainZeroFPA::set_assignment(Configuration *c, Assignment a) {
                 std::cerr << "Error on :" << a << "\n\tGOT" << b << " expected " << correct[a] << std::endl;
                 assert(false);
             }
-            else
-                std::cerr << "¤ OK (" << c->id << ") = " << DependencyGraph::to_string((Assignment)c->assignment) << std::endl;
+            /*else
+                std::cerr << "¤ OK (" << c->id << ") = " << DependencyGraph::to_string((Assignment)c->assignment) << std::endl;*/
         }
-        else std::cerr << "¤ NO MATCH (" << c->id << ") " << DependencyGraph::to_string((Assignment)c->assignment) << std::endl;
+//        else std::cerr << "¤ NO MATCH (" << c->id << ") " << DependencyGraph::to_string((Assignment)c->assignment) << std::endl;
     }
-#endif*/
+#endif
 }
 
 bool is_assignable(Edge* e) {
@@ -456,7 +456,7 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
                 // holds due to DFS + acyclic negation
                 hasCZero = true;
                 break;
-            } else if (retval == nullptr || (retval->assignment == UNKNOWN && (*it)->assignment == ZERO)) {
+            } else if (retval == nullptr || (retval->assignment == UNKNOWN && (*it)->assignment == ZERO) || (retval->assignment == (*it)->assignment && retval->rank < (*it)->rank)) {
                 retval = *it;
                 /*if((*it)->on_stack && e->source->on_stack && waiting != nullptr)
                 {
@@ -575,18 +575,36 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
             }
             if(!c->isDone())
             {
-                auto mn = c->rank;
+                bool all_ref = true;
                 for(auto* e : c->successors)
                 {
-                    typeof(mn) mx = 0;
-                    for(auto* t : e->targets)
-                        if(t->min_rank_source &&
-                                (t->min_rank_source->on_stack || t->min_rank_source == c))
-                            mx = std::max(mx, t->min_rank);
-                    mn = std::min(mx, mn);
+                    auto res = eval_edge(e);
+                    if(res.second != CZERO && res.second != ONE)
+                    {
+                        assert(res.second != ONE);
+                        bool some_ref = false;
+                        for(auto* t : e->targets)
+                        {
+                            /*if(t->min_rank_source &&
+                                    t->min_rank_source->on_stack && t->min_rank_source->min_rank == t->min_rank)
+                                mx = std::min(mx, t->min_rank);*/
+                            if(t->min_rank_source == c)
+                            {
+                                some_ref = true;
+                                break;
+                            }
+                        }
+                        if(!some_ref)
+                        {
+                            all_ref = false;
+                            break;
+                        }
+                    }
                 }
-                if(mn == c->rank && !c->on_stack && mn != 0)
+                if(all_ref)
                 {
+//                    std::cerr << "MN " << mn << " " << c->rank << std::endl;
+                    //std::cerr << "wat?? " << mn << " : " << c->min_rank << " S" << c->rank << std::endl;
                     set_assignment(c, CZERO);
                     waiting.push(c);
                 }
