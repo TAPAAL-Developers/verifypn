@@ -315,7 +315,9 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                     }
                 }
                 if(any)
+                {
                     min_max_rank = std::min(tmp, min_max_rank);
+                }
             }
             if(!conf->isDone())
             {
@@ -603,12 +605,10 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                 }
                 if(all_ref)
                 {
-//                    std::cerr << "MN " << mn << " " << c->rank << std::endl;
-                    //std::cerr << "wat?? " << mn << " : " << c->min_rank << " S" << c->rank << std::endl;
+                    // I suspect this *never* happens. The earlier check in
                     set_assignment(c, CZERO);
                     waiting.push(c);
                 }
-//                    std::cerr << "wat?? " << mn << " : " << c->min_rank << " S" << c->rank << std::endl;
             }
             conf->dependency_set.erase_after(prev);
             cur = prev;
