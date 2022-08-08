@@ -92,6 +92,11 @@ void RankCertainZeroFPA::set_assignment(Configuration *c, Assignment a) {
 #endif
 }
 
+static auto rng = std::default_random_engine {};
+Algorithm::RankCertainZeroFPA::RankCertainZeroFPA(Strategy type) : FixedPointAlgorithm(), _strategy(type) {
+    rng.seed(std::chrono::system_clock::now().time_since_epoch().count());
+}
+
 bool Algorithm::RankCertainZeroFPA::search(DependencyGraph::BasicDependencyGraph& t_graph) {
     auto res = _search(t_graph);
     return res;
@@ -101,10 +106,21 @@ void Algorithm::RankCertainZeroFPA::expand(Configuration* config) {
     if(!config->successors.empty())
         return;
     auto succs = graph->successors(config);
-    ++_exploredConfigurations;
-    for(auto it = succs.rbegin(); it != succs.rend(); ++it) // use reverse iterator to preserve order
+    if(_strategy == Strategy::DFS)
     {
-        auto* e = *it;
+        std::reverse(succs.begin(), succs.end());
+    }
+    else if(_strategy == Strategy::BFS)
+    {
+        // nothing
+    }
+    else if(_strategy == Strategy::RDFS || _strategy == Strategy::HEUR)
+    {
+        std::shuffle(succs.begin(), succs.end(), rng);
+    }
+    ++_exploredConfigurations;
+    for(auto* e : succs) // use reverse iterator to preserve order
+    {
         bool has_czero = false;
         bool all_one = true;
         e->refcnt = 1;
@@ -190,7 +206,11 @@ DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::find_undecided(Co
                     // we need to explore any edge which has only unexplored with priority.
                     (undecided->assignment == ZERO && ud->assignment == UNKNOWN) ||
                     // this mimicks the behaviour of the search of CZERO algorithm, pick the *last* successor of the last edge to explore first
-                    (undecided->assignment == ud->assignment)))
+                    (undecided->assignment == ud->assignment &&
+                      ( ( ( undecided->successors.empty() || !ud->successors.empty()) && _strategy == Strategy::DFS) || // prefer undecided that were already explored
+                        ( (!undecided->successors.empty() ||  ud->successors.empty()) && _strategy == Strategy::BFS)) // prefer undecided that were NOT already explored
+                        // otherwise follow the search order
+                    )))
             {
                 undecided = ud;
             }

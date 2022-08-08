@@ -15,8 +15,7 @@ namespace Algorithm {
     class RankCertainZeroFPA : public FixedPointAlgorithm {
     public:
 
-        RankCertainZeroFPA(Strategy type) : FixedPointAlgorithm(type) {
-        }
+        RankCertainZeroFPA(Strategy type);
 
         virtual ~RankCertainZeroFPA() {
         }
@@ -48,6 +47,7 @@ namespace Algorithm {
         size_t _max_rank = 0;
         bool _early_output = false;
         bool _backloop_output = false;
+        Strategy _strategy;
     };
 }
 #endif // CERTAINZEROFPA_H
