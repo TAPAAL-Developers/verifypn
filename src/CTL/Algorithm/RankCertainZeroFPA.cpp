@@ -48,7 +48,15 @@ void RankCertainZeroFPA::set_assignment(Configuration *c, Assignment a) {
     assert(!c->isDone());
     c->assignment = a;
     if(c->isDone())
+    {
+        for(auto* e : c->successors)
+        {
+            --e->refcnt;
+            if(e->refcnt == 0)
+                graph->release(e);
+        }
         c->successors.clear();
+    }
 #ifndef NDEBUG
     if(correct.empty())
     {
@@ -119,10 +127,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
         if(e->refcnt == 1) // only in waiting
         {
             for(auto& t : e->targets)
-            {
                 t->addDependency(e);
-            }
-            //--e->refcnt;   // shouldn't be needed?
         }
         else if(e->refcnt >= 2) // already added as depender
         {
@@ -223,10 +228,10 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
             }
             else if(val == CZERO)
             {
-                //assert(e->refcnt == 1);
-                //e->refcnt = 0;
-                //graph->release(e);
-                // skip
+                assert(e->refcnt >= 1);
+                --e->refcnt;
+                if(e->refcnt == 0)
+                    graph->release(e);
             }
             // if edge had undecided and we couldn't assign, select that one as next conf.
             else {
@@ -364,11 +369,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                     if(e->refcnt == 1) // only in waiting
                     {
                         for(auto& t : e->targets)
-                        {
-                            ++e->refcnt;
                             t->addDependency(e);
-                        }
-                        //--e->refcnt;   // shouldn't be needed?
                     }
                     else if(e->refcnt >= 2) // already added as depender
                     {
@@ -461,7 +462,9 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
                 // holds due to DFS + acyclic negation
                 hasCZero = true;
                 break;
-            } else if (retval == nullptr || (retval->assignment == UNKNOWN && (*it)->assignment == ZERO) || (retval->assignment == (*it)->assignment && retval->rank < (*it)->rank)) {
+            } else if (retval == nullptr ||
+                    (retval->assignment == UNKNOWN && (*it)->assignment == ZERO) ||
+                    (retval->assignment == (*it)->assignment && retval->rank < (*it)->rank)) {
                 retval = *it;
                 /*if((*it)->on_stack && e->source->on_stack && waiting != nullptr)
                 {
@@ -522,17 +525,17 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
         auto cur = conf->dependency_set.begin();
         while(cur != conf->dependency_set.end())
         {
-            auto* e = *cur;
+            Edge* e = *cur;
             auto* c = e->source;
             if(c->isDone())
             {
+                --e->refcnt;
+                if(e->refcnt == 0)
+                    graph->release(e);
                 conf->dependency_set.erase_after(prev);
                 cur = prev;
                 ++cur;
 
-                /*--e->refcnt;
-                if (e->refcnt == 0)
-                    graph->release(e);*/
                 continue;
             }
             auto [und, assignment] = eval_edge(e);
@@ -613,7 +616,12 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                     waiting.push(c);
                 }
             }
-            conf->dependency_set.erase_after(prev);
+            {
+                --e->refcnt;
+                if(e->refcnt == 0)
+                    graph->release(e);
+                conf->dependency_set.erase_after(prev);
+            }
             cur = prev;
             ++cur;
         }
