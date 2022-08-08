@@ -106,9 +106,11 @@ void Algorithm::RankCertainZeroFPA::expand(Configuration* config) {
     {
         auto* e = *it;
         bool has_czero = false;
+        bool all_one = true;
         e->refcnt = 1;
         for(Configuration* t : e->targets)
         {
+            all_one &= t->assignment == ONE;
             if(t->assignment == CZERO)
             {
                 has_czero = true;
@@ -116,7 +118,10 @@ void Algorithm::RankCertainZeroFPA::expand(Configuration* config) {
             }
             t->addDependency(e);
         }
-        if(has_czero)
+
+        if((!e->is_negated && all_one) && (e->is_negated && has_czero))
+                e->targets.clear();
+        else if((!e->is_negated && has_czero) || (e->is_negated && all_one))
         {
             --e->refcnt;
             if(e->refcnt == 0)
@@ -131,6 +136,7 @@ void Algorithm::RankCertainZeroFPA::push_to_wating(DependencyGraph::Configuratio
 {
     ++_max_rank;
     config->min_rank = config->rank = _max_rank;
+    config->min_rank_source = config;
     expand(config);
     waiting.emplace_back(config);
     config->on_stack = true;
@@ -210,6 +216,7 @@ DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::handle_early_czer
     // needs nothing from the stack as value currently), we can conclude
     // that the edge itself will never reach a verdict, and we can
     // already determine it CZERO (or ONE in the case of negation).
+    bool all_ref = true;
     for (auto* e : conf->successors) {
         assert(eval_edge(e).second == ZERO);
         if (e->is_negated) // we know it is determined already
@@ -229,8 +236,11 @@ DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::handle_early_czer
         // than that of the current config.
         decltype(min_max_rank) tmp = 0;
         bool any = false;
+        bool any_ref = false;
         for (auto* t : e->targets) {
             any = true;
+            if(t->min_rank_source == conf)
+                any_ref = true;
             if (!t->isDone() && t->min_rank != 0) {
                 if (t->min_rank < min_rank) {
                     if (t->min_rank_source) {
@@ -247,13 +257,14 @@ DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::handle_early_czer
                 tmp = std::max(tmp, t->min_rank);
             }
         }
+        all_ref &= any_ref;
         if (any) {
             min_max_rank = std::min(tmp, min_max_rank);
         }
     }
     if (!conf->isDone()) {
         assert(min_max_rank <= conf->rank);
-        if (min_max_rank >= conf->rank) // all branches are waiting for somebody later in the tree, we can safely conclude.
+        if (min_max_rank >= conf->rank || all_ref) // all branches are waiting for somebody later in the tree, we can safely conclude.
         {
             // well, supposedly this will imply that min_max_rank == conf->rank; namely that the current TOS
             // actually is an infliction-point of all successors
@@ -325,7 +336,6 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
         {
             // the minrank/anchor is not on the stack (or was popped and readded) so we cannot trust the rank, thus we set the minrank to unknown (0).
             (*it)->min_rank = 0;
-            (*it)->min_rank_source = nullptr;
             (*it)->rank = 0;
             (*it)->assignment = UNKNOWN;
         }
