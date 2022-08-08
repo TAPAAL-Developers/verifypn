@@ -234,7 +234,10 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                 ++j;
                 if(ud != nullptr && (
                         undecided == nullptr ||
-                        (undecided->assignment == ZERO && ud->assignment == UNKNOWN)))
+                        // we need to explore any edge which has only unexplored with priority.
+                        (undecided->assignment == ZERO && ud->assignment == UNKNOWN) ||
+                        // this mimicks the behaviour of the search of CZERO algorithm, pick the *last* successor of the last edge to explore first
+                        (undecided->assignment == ud->assignment)))
                 {
                     undecided = ud;
                     undecided_edge = e;
@@ -342,7 +345,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
                     conf->min_rank_source = mr_source;
                 }
             }
-//            DEBUG_ONLY(std::cerr << "POP [" << conf->id << "r" << conf->rank << "] (286:: " << to_string((Assignment)conf->assignment) << " mr" << conf->min_rank << ")" << std::endl;)
+            //DEBUG_ONLY(std::cerr << "POP [" << conf->id << "r" << conf->rank << "] (286:: " << to_string((Assignment)conf->assignment) << " mr" << conf->min_rank << ")" << std::endl;)
             do_pop(bot);
             continue;
         }
@@ -376,7 +379,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
             }
             waiting.emplace_back(undecided);
 
-            //DEBUG_ONLY(std::cerr << "PUSH [" << undecided->id << "]" << std::endl;)
+            //DEBUG_ONLY(std::cerr << "PUSH [" << undecided->id << "]" << " SH " << waiting.size() << std::endl;)
             //graph->print(undecided, std::cerr);
             /*std::cerr << std::endl;*/
             /*DEBUG_ONLY(

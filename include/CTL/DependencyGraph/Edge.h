@@ -35,6 +35,7 @@ public:
         {
             handled = true;
             targets.clear();
+            targets.emplace_front(source);
         }
         else targets.push_front(conf);
         return handled;
