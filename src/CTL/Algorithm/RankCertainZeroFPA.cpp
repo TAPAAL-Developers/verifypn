@@ -226,7 +226,7 @@ DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::find_undecided(Co
     return undecided;
 }
 
-DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::handle_early_czero(wstack_t& waiting, Configuration* conf) {
+DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::handle_early_czero(Configuration* conf) {
     Configuration* bot = nullptr;
     auto min_rank = conf->rank;
     auto min_max_rank = conf->rank;
@@ -254,32 +254,44 @@ DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::handle_early_czer
         // working hypothesis. The propagation of ONE can lead to a
         // new target being the maximal -- possibly with a min_rank lower
         // than that of the current config.
-        decltype(min_max_rank) tmp = 0;
+        decltype(min_max_rank) tmp_max = 0;
+        decltype(min_max_rank) tmp_min = min_rank;
+        Configuration* tmp_min_src = mr_source;
         bool any = false;
         bool any_ref = false;
         for (auto* t : e->targets) {
             any = true;
-            if(t->min_rank_source == conf)
+            if(t == conf || t->min_rank_source == conf)
+            {
                 any_ref = true;
+                break;
+            }
             if (!t->isDone() && t->min_rank != 0) {
-                if (t->min_rank < min_rank) {
+                if (t->min_rank < tmp_min) {
                     if (t->min_rank_source) {
-                        mr_source = t->min_rank_source;
+                        tmp_min_src = t->min_rank_source;
                         assert(t->min_rank_source->on_stack);
                         assert(t->min_rank_source->rank == t->min_rank);
                     } else {
-                        mr_source = t;
+                        tmp_min_src = t;
                         assert(t->min_rank == t->rank);
                         assert(t->on_stack);
                     }
-                    min_rank = t->min_rank;
+                    tmp_min = t->min_rank;
                 }
-                tmp = std::max(tmp, t->min_rank);
+                tmp_max = std::max(tmp_max, t->min_rank);
             }
         }
+
         all_ref &= any_ref;
-        if (any) {
-            min_max_rank = std::min(tmp, min_max_rank);
+        if (any)
+            min_max_rank = std::min(tmp_max, min_max_rank);
+        if(!any_ref && any) // if the edge is dependent on the node itself (any_ref), then we do not have to take the rank of the edge into account.
+                     // it will be blocked by (conf) regardless
+        {
+            assert(tmp_min_src); // otherwise this edge would be a ONE edge (or ZERO if negated)
+            min_rank = tmp_min;
+            mr_source = tmp_min_src;
         }
     }
     if (!conf->isDone()) {
@@ -331,7 +343,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
         if(undecided == nullptr || undecided->assignment != UNKNOWN) {
             // either nobody is undecided (all have values) or at least they are unexplored
             // in the later case we can *maybe* assign a czero here.
-            auto* bot = handle_early_czero(waiting, conf);
+            auto* bot = handle_early_czero(conf);
             do_pop(waiting, bot);
             continue;
         }

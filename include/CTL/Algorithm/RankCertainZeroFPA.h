@@ -30,7 +30,7 @@ namespace Algorithm {
         void push_to_wating(DependencyGraph::Configuration* config, wstack_t& waiting);
         void do_pop(wstack_t& waiting, DependencyGraph::Configuration* lowest = nullptr);
         DependencyGraph::Configuration* find_undecided(DependencyGraph::Configuration* conf);
-        DependencyGraph::Configuration* handle_early_czero(wstack_t& waiting, DependencyGraph::Configuration* conf);
+        DependencyGraph::Configuration* handle_early_czero(DependencyGraph::Configuration* conf);
         void set_assignment(DependencyGraph::Configuration *c, DependencyGraph::Assignment a);
 
         DependencyGraph::Configuration * backprop(DependencyGraph::Configuration* conf);
