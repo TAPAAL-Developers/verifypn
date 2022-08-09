@@ -358,7 +358,6 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
 std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(DependencyGraph::Edge *e) {
     bool allOne = true, hasCZero = false;
     Configuration *retval = nullptr;
-    Assignment a = ZERO;
     auto it = e->targets.begin();
     auto pit = e->targets.before_begin();
     while (it != e->targets.end()) {
