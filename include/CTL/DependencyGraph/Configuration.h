@@ -23,7 +23,7 @@ public:
     uint64_t refc = 0;
 #endif
     uint32_t nsuccs = 0;
-    std::vector<Edge*> successors;
+    std::forward_list<Edge*> successors;
 private:
     uint32_t distance = 0;
     void setDistance(uint32_t value) { distance = value; }

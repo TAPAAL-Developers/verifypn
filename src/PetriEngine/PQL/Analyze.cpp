@@ -2,7 +2,7 @@
  *                     Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                     Lars Kærlund Østergaard <larsko@gmail.com>,
  *                     Peter Gjøl Jensen <root@petergjoel.dk>,
- *                     Rasmus Tollund <rtollu18@student.aau.dk>
+ *                     Rasmus Grønkjær Tollund <rasmusgtollund@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -110,6 +110,9 @@ namespace PetriEngine { namespace PQL {
             if (names.size() == 1) {
                 element->_compiled = generateUnfoldedIdentifierExpr(*coloredContext, names.back());
             } else {
+                if (names.back()->substr(names.back()->size() - 3) == "Sum"){
+                    names.pop_back();
+                }
                 element->_compiled = std::make_shared<PQL::PlusExpr>(std::move(names));
             }
         } else {

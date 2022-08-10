@@ -31,7 +31,7 @@ DEBUG_ONLY(static void print_edge(Edge* e) {
     }
     std::cerr << (e->is_negated ? ")" : "})");
 })
-/*#ifndef NDEBUG
+#ifndef NDEBUG
 std::map<std::string,std::string> correct;
 
 std::pair<std::string,std::string> split(const std::string& line) {
@@ -42,14 +42,22 @@ std::pair<std::string,std::string> split(const std::string& line) {
     }
     return {"",""};
 }
-#endif*/
+#endif
 
 void RankCertainZeroFPA::set_assignment(Configuration *c, Assignment a) {
     assert(!c->isDone());
     c->assignment = a;
     if(c->isDone())
+    {
+        for(auto* e : c->successors)
+        {
+            --e->refcnt;
+            if(e->refcnt == 0)
+                graph->release(e);
+        }
         c->successors.clear();
-/*#ifndef NDEBUG
+    }
+#ifndef NDEBUG
     if(correct.empty())
     {
         std::fstream in;
@@ -63,7 +71,7 @@ void RankCertainZeroFPA::set_assignment(Configuration *c, Assignment a) {
             }
         }
     }
-    DEBUG_ONLY(std::cerr << "ASSIGN: [" << c->id << "]: " << to_string(static_cast<Assignment>(c->assignment)) << "\n";)
+    //DEBUG_ONLY(std::cerr << "ASSIGN: [" << c->id << "]: " << to_string(static_cast<Assignment>(c->assignment)) << "\n";)
     if(c->isDone())
     {
         std::stringstream ss;
@@ -76,27 +84,17 @@ void RankCertainZeroFPA::set_assignment(Configuration *c, Assignment a) {
                 std::cerr << "Error on :" << a << "\n\tGOT" << b << " expected " << correct[a] << std::endl;
                 assert(false);
             }
-            else
-                std::cerr << "¤ OK (" << c->id << ") = " << DependencyGraph::to_string((Assignment)c->assignment) << std::endl;
+            /*else
+                std::cerr << "¤ OK (" << c->id << ") = " << DependencyGraph::to_string((Assignment)c->assignment) << std::endl;*/
         }
-        else std::cerr << "¤ NO MATCH (" << c->id << ") " << DependencyGraph::to_string((Assignment)c->assignment) << std::endl;
+//        else std::cerr << "¤ NO MATCH (" << c->id << ") " << DependencyGraph::to_string((Assignment)c->assignment) << std::endl;
     }
-#endif*/
+#endif
 }
 
-bool is_assignable(Edge* e) {
-    auto c = e->source;
-    if (c->nsuccs == 0) {
-        return true;
-    }
-    bool allOne = true;
-    for (auto v: e->targets) {
-        if (v->assignment == CZERO)
-            return c->nsuccs == 1;
-        if (v->assignment != ONE)
-            return false;
-    }
-    return true;
+static auto rng = std::default_random_engine {};
+Algorithm::RankCertainZeroFPA::RankCertainZeroFPA(Strategy type) : FixedPointAlgorithm(), _strategy(type) {
+    rng.seed(std::chrono::system_clock::now().time_since_epoch().count());
 }
 
 bool Algorithm::RankCertainZeroFPA::search(DependencyGraph::BasicDependencyGraph& t_graph) {
@@ -104,88 +102,225 @@ bool Algorithm::RankCertainZeroFPA::search(DependencyGraph::BasicDependencyGraph
     return res;
 }
 
+void Algorithm::RankCertainZeroFPA::expand(Configuration* config) {
+    if(!config->successors.empty())
+        return;
+    auto succs = graph->successors(config);
+    if(_strategy == Strategy::DFS)
+    {
+        std::reverse(succs.begin(), succs.end());
+    }
+    else if(_strategy == Strategy::BFS)
+    {
+        // nothing
+    }
+    else if(_strategy == Strategy::RDFS || _strategy == Strategy::HEUR)
+    {
+        std::shuffle(succs.begin(), succs.end(), rng);
+    }
+    ++_exploredConfigurations;
+    for(auto* e : succs) // use reverse iterator to preserve order
+    {
+        bool has_czero = false;
+        bool all_one = true;
+        e->refcnt = 1;
+        for(Configuration* t : e->targets)
+        {
+            all_one &= t->assignment == ONE;
+            if(t->assignment == CZERO)
+            {
+                has_czero = true;
+                break;
+            }
+            t->addDependency(e);
+        }
+
+        if((!e->is_negated && all_one) && (e->is_negated && has_czero))
+                e->targets.clear();
+        else if((!e->is_negated && has_czero) || (e->is_negated && all_one))
+        {
+            --e->refcnt;
+            if(e->refcnt == 0)
+                graph->release(e);
+        }
+        else
+            config->successors.emplace_front(e);
+    }
+}
+
+void Algorithm::RankCertainZeroFPA::push_to_wating(DependencyGraph::Configuration* config, wstack_t& waiting)
+{
+    ++_max_rank;
+    config->min_rank = config->rank = _max_rank;
+    config->min_rank_source = config;
+    expand(config);
+    waiting.emplace_back(config);
+    config->on_stack = true;
+    config->assignment = ZERO;
+}
+
+void Algorithm::RankCertainZeroFPA::do_pop(wstack_t& waiting, DependencyGraph::Configuration* lowest) {
+    if(lowest != nullptr)
+    {
+        while(waiting.back() != lowest)
+        {
+            waiting.back()->on_stack = false;
+            waiting.pop_back();
+        }
+    }
+    auto* conf = waiting.back();
+    conf->on_stack = false;
+    waiting.pop_back();
+}
+
+DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::find_undecided(Configuration* conf) {
+    auto& edges = conf->successors;
+    Configuration* undecided = nullptr;
+    bool all_czero = true;
+    assert(conf->min_rank == conf->rank);
+    auto pre = edges.before_begin();
+    auto it = edges.begin();
+    while(it != edges.end())
+    {
+        auto* e = *it;
+        auto [ud, val] = eval_edge(e);
+        if(val == ONE)
+        {
+            set_assignment(conf, ONE);
+            all_czero = false;
+            break;
+        }
+        else if(val == CZERO)
+        {
+            assert(e->refcnt >= 1);
+            --e->refcnt;
+            if(e->refcnt == 0)
+                graph->release(e);
+            edges.erase_after(pre);
+            it = pre;
+        }
+        // if edge had undecided and we couldn't assign, select that one as next conf.
+        else {
+            if(ud != nullptr && (
+                    undecided == nullptr ||
+                    // we need to explore any edge which has only unexplored with priority.
+                    (undecided->assignment == ZERO && ud->assignment == UNKNOWN) ||
+                    // this mimicks the behaviour of the search of CZERO algorithm, pick the *last* successor of the last edge to explore first
+                    (undecided->assignment == ud->assignment &&
+                      ( ( ( undecided->successors.empty() || !ud->successors.empty()) && _strategy == Strategy::DFS) || // prefer undecided that were already explored
+                        ( (!undecided->successors.empty() ||  ud->successors.empty()) && _strategy == Strategy::BFS)) // prefer undecided that were NOT already explored
+                        // otherwise follow the search order
+                    )))
+            {
+                undecided = ud;
+            }
+            all_czero = false;
+        }
+        pre = it;
+        ++it;
+        if(conf->isDone())
+            break;
+    }
+    if(all_czero)
+        set_assignment(conf, CZERO);
+    return undecided;
+}
+
+DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::handle_early_czero(Configuration* conf) {
+    Configuration* bot = nullptr;
+    auto min_rank = conf->rank;
+    auto min_max_rank = conf->rank;
+    Configuration* mr_source = conf;
+    assert(min_rank > 0);
+    // if the largest rank of any target is in the sub-graph (which
+    // needs nothing from the stack as value currently), we can conclude
+    // that the edge itself will never reach a verdict, and we can
+    // already determine it CZERO (or ONE in the case of negation).
+    bool all_ref = true;
+    for (auto* e : conf->successors) {
+        assert(eval_edge(e).second == ZERO);
+        if (e->is_negated) // we know it is determined already
+        {
+            set_assignment(conf, ONE);
+            bot = backprop(conf);
+            break;
+        }
+
+        // technically we *could* look at a min (over edges) and max (over targets), however, targets
+        // might change their maximal min_val of their edges post pop.
+        // This happens when a ONE is propagated in the backup -- which
+        // can lead to the min_val value of a target *not* being correct
+        // at the time we execute the following. At least this is my
+        // working hypothesis. The propagation of ONE can lead to a
+        // new target being the maximal -- possibly with a min_rank lower
+        // than that of the current config.
+        decltype(min_max_rank) tmp_max = 0;
+        decltype(min_max_rank) tmp_min = min_rank;
+        Configuration* tmp_min_src = mr_source;
+        bool any = false;
+        bool any_ref = false;
+        for (auto* t : e->targets) {
+            any = true;
+            if(t == conf || t->min_rank_source == conf)
+            {
+                any_ref = true;
+                break;
+            }
+            if (!t->isDone() && t->min_rank != 0) {
+                if (t->min_rank < tmp_min) {
+                    if (t->min_rank_source) {
+                        tmp_min_src = t->min_rank_source;
+                        assert(t->min_rank_source->on_stack);
+                        assert(t->min_rank_source->rank == t->min_rank);
+                    } else {
+                        tmp_min_src = t;
+                        assert(t->min_rank == t->rank);
+                        assert(t->on_stack);
+                    }
+                    tmp_min = t->min_rank;
+                }
+                tmp_max = std::max(tmp_max, t->min_rank);
+            }
+        }
+
+        all_ref &= any_ref;
+        if (any)
+            min_max_rank = std::min(tmp_max, min_max_rank);
+        if(!any_ref && any) // if the edge is dependent on the node itself (any_ref), then we do not have to take the rank of the edge into account.
+                     // it will be blocked by (conf) regardless
+        {
+            assert(tmp_min_src); // otherwise this edge would be a ONE edge (or ZERO if negated)
+            min_rank = tmp_min;
+            mr_source = tmp_min_src;
+        }
+    }
+    if (!conf->isDone()) {
+        assert(min_max_rank <= conf->rank);
+        if (min_max_rank >= conf->rank || all_ref) // all branches are waiting for somebody later in the tree, we can safely conclude.
+        {
+            // well, supposedly this will imply that min_max_rank == conf->rank; namely that the current TOS
+            // actually is an infliction-point of all successors
+            if(!_early_output)
+                std::cerr << "EARLY_CZERO" << std::endl;
+            _early_output = true;
+            set_assignment(conf, CZERO);
+            auto* b = backprop(conf);
+            if (bot == nullptr || b->rank < bot->rank)
+                bot = b;
+        } else {
+            conf->min_rank = min_rank;
+            conf->min_rank_source = mr_source;
+        }
+    }
+    return bot;
+}
 
 bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGraph& t_graph) {
     graph = &t_graph;
 
     root = graph->initialConfiguration();
-    ++_max_rank;
-    root->min_rank = root->rank = _max_rank;
     wstack_t waiting;
-    waiting.emplace_back(root);
-    root->successors = graph->successors(root);
-    for(auto* e : root->successors)
-    {
-        if(e->refcnt == 1) // only in waiting
-        {
-            for(auto& t : e->targets)
-            {
-                t->addDependency(e);
-            }
-            //--e->refcnt;   // shouldn't be needed?
-        }
-        else if(e->refcnt >= 2) // already added as depender
-        {
-            assert(false);
-        }
-        else assert(false); // should never happen
-    }
-    root->on_stack = true;
-    ++_exploredConfigurations;
-    root->assignment = ZERO;
-    //DEBUG_ONLY(std::cerr << "PUSH [" << root->id << "]" << std::endl;)
-#ifdef DG_REFCOUNTING
-    root->refc = 1;
-#endif
-
-    auto do_pop = [&waiting,this](Configuration* lowest = nullptr) {
-        size_t n = 1;
-        if(lowest != nullptr)
-        {
-            while(waiting.back() != lowest)
-            {
-                waiting.back()->on_stack = false;
-                waiting.pop_back();
-                ++n;
-            }
-        }
-        auto* conf = waiting.back();
-        conf->on_stack = false;
-        /*if(n > 1)
-            std::cerr << "POP " << n << std::endl;*/
-        /*if(conf->isDone())
-        {
-            for(auto* e : edges)
-            {
-                e->status = DependencyGraph::EdgeStatus::NotWaiting;
-                assert(e->refcnt == 1);
-                e->refcnt = 0;
-                graph->release(e);
-            }
-        }
-        else
-        {
-            //assert(conf->nsuccs == 0);
-            //conf->nsuccs = 0;
-            for(auto* e : edges)
-            {
-                if(e->refcnt == 1) // only in waiting
-                {
-                    for(auto& t : e->targets)
-                    {
-                        t->addDependency(e);
-                    }
-                    //--e->refcnt;   // shouldn't be needed?
-                }
-                else if(e->refcnt >= 2) // already added as depender
-                {
-                    assert(false);
-                }
-                else assert(false); // should never happen
-            }
-        }*/
-        waiting.pop_back();
-    };
+    push_to_wating(root, waiting);
 
     while(!waiting.empty() && !root->isDone())
     {
@@ -193,237 +328,36 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
         if(conf->isDone()) {
             auto* c = backprop(conf);
             assert(c == conf);
-            //DEBUG_ONLY(std::cerr << "POP [" << conf->id << "r" << conf->rank << "] (162:: " << to_string((Assignment)conf->assignment) << " mr" << conf->min_rank << ")" << std::endl;)
-            do_pop();
+            do_pop(waiting, c);
             continue;
         }
-        auto& edges = conf->successors;
-        Configuration* undecided = nullptr;
-        Edge* undecided_edge = nullptr;
-        bool all_czero = true;
-        size_t j = 0;
-        assert(conf->min_rank == conf->rank);
-        for(size_t i = 0; i < edges.size(); ++i)
-        {
-            auto* e = edges[i];
-            auto [ud, val] = eval_edge(e, &waiting);
-            /*DEBUG_ONLY(print_edge(e);
-            std::cerr << to_string(val);
-            std::cerr << std::endl;)*/
-            if(val == ONE)
-            {
-                set_assignment(conf, ONE);
-                all_czero = false;
-                for(size_t n = i; n < edges.size(); ++n)
-                {
-                    edges[j] = edges[n];
-                    ++j;
-                }
-                break;
-            }
-            else if(val == CZERO)
-            {
-                //assert(e->refcnt == 1);
-                //e->refcnt = 0;
-                //graph->release(e);
-                // skip
-            }
-            // if edge had undecided and we couldn't assign, select that one as next conf.
-            else {
-                edges[j] = edges[i];
-                ++j;
-                if(ud != nullptr && (
-                        undecided == nullptr ||
-                        (undecided->assignment == ZERO && ud->assignment == UNKNOWN)))
-                {
-                    undecided = ud;
-                    undecided_edge = e;
-                }
-                all_czero = false;
-            }
 
-            if(conf->isDone())
-                break;
-        }
-        if(all_czero)
-        {
-            //std::cerr << "ALL CZERO (O=" << edges.size() << ")" << std::endl;
-            set_assignment(conf, CZERO);
-        }
-        edges.resize(j);
+        auto* undecided = find_undecided(conf);
 
         if(conf->isDone()) {
             auto* bot = backprop(conf);
-            //graph->print(conf);
-            //DEBUG_ONLY(std::cerr << "POP [" << conf->id << "r" << conf->rank << "] (223:: " << to_string((Assignment)conf->assignment) << " mr" << conf->min_rank << ")" << std::endl;)
-            do_pop(bot);
+            do_pop(waiting, bot);
             continue;
         }
-        Configuration* bot = nullptr;
+
         if(undecided == nullptr || undecided->assignment != UNKNOWN) {
-            //DEBUG_ONLY(std::cerr << "POP [" << conf->id << "] (undecided == nullptr)" << std::endl;)
-            auto min_rank = conf->rank;
-            auto min_max_rank = conf->rank;
-            Configuration* mr_source = conf;
-            assert(min_rank > 0);
-            // if the largest rank of any target is in the sub-graph (which
-            // needs nothing from the stack as value currently), we can conclude
-            // that the edge itself will never reach a verdict, and we can
-            // already determine it CZERO (or ONE in the case of negation).
-            for(auto* e : edges)
-            {
-                assert(eval_edge(e).second == ZERO);
-                if(e->is_negated) // we know it is determined already
-                {
-                    set_assignment(conf, ONE);
-                    bot = backprop(conf);
-                    break;
-                }
-
-                // technically we *could* look at a min (over edges) and max (over targets), however, targets
-                // might change their maximal min_val of their edges post pop.
-                // This happens when a ONE is propagated in the backup -- which
-                // can lead to the min_val value of a target *not* being correct
-                // at the time we execute the following. At least this is my
-                // working hypothesis. The propagation of ONE can lead to a
-                // new target being the maximal -- possibly with a min_rank lower
-                // than that of the current config.
-                decltype(min_max_rank) tmp = 0;
-                bool any = false;
-                for(auto* t : e->targets)
-                {
-                    if(!t->isDone() && t->min_rank != 0)
-                    {
-                        any = true;
-                        if(t->min_rank < min_rank)
-                        {
-                            if(t->min_rank_source)
-                            {
-                                mr_source = t->min_rank_source;
-                                assert(t->min_rank_source->on_stack);
-                                assert(t->min_rank_source->rank == t->min_rank);
-                            }
-                            else
-                            {
-                                mr_source = t;
-                                assert(t->min_rank == t->rank);
-                                assert(t->on_stack);
-                            }
-                            min_rank = t->min_rank;
-                        }
-                        tmp = std::max(tmp, t->min_rank);
-                    }
-                }
-                if(any)
-                    min_max_rank = std::min(tmp, min_max_rank);
-            }
-            if(!conf->isDone())
-            {
-                assert(min_max_rank <= conf->rank);
-                if(min_max_rank >= conf->rank) // all branches are waiting for somebody later in the tree, we can safely conclude.
-                {
-                    //std::cerr << "EARLY [" << min_max_rank << ", " << min_rank << ", " << conf->min_rank << "]" << std::endl;
-/*#ifndef NDEBUG
-                    for(auto* e : edges)
-                        print_edge(e);
-#endif
-*/
-
-                    set_assignment(conf, CZERO);
-                    auto* b = backprop(conf);
-                    if(bot && b->rank < bot->rank)
-                        bot = b;
-                }
-                else
-                {
-                    conf->min_rank = min_rank;
-                    conf->min_rank_source = mr_source;
-                }
-            }
-//            DEBUG_ONLY(std::cerr << "POP [" << conf->id << "r" << conf->rank << "] (286:: " << to_string((Assignment)conf->assignment) << " mr" << conf->min_rank << ")" << std::endl;)
-            do_pop(bot);
+            // either nobody is undecided (all have values) or at least they are unexplored
+            // in the later case we can *maybe* assign a czero here.
+            auto* bot = handle_early_czero(conf);
+            do_pop(waiting, bot);
             continue;
         }
         else
-        {
-            ++_max_rank;
-            undecided->min_rank = undecided->rank = _max_rank;
-            undecided->assignment = ZERO;
-            undecided->min_rank_source = undecided;
-            if(undecided->successors.empty())
-            {
-                undecided->successors = graph->successors(undecided);
-                for(auto* e : undecided->successors)
-                {
-                    if(e->refcnt == 1) // only in waiting
-                    {
-                        for(auto& t : e->targets)
-                        {
-                            ++e->refcnt;
-                            t->addDependency(e);
-                        }
-                        //--e->refcnt;   // shouldn't be needed?
-                    }
-                    else if(e->refcnt >= 2) // already added as depender
-                    {
-                        assert(false);
-                    }
-                    else assert(false); // should never happen
-                }
-            }
-            waiting.emplace_back(undecided);
-
-            //DEBUG_ONLY(std::cerr << "PUSH [" << undecided->id << "]" << std::endl;)
-            //graph->print(undecided, std::cerr);
-            /*std::cerr << std::endl;*/
-            /*DEBUG_ONLY(
-                for(auto& e : waiting.back().second){
-                    std::cerr << "\t";
-                    print_edge(e);
-                    std::cerr << "\n";
-                }
-                //if(waiting.back().second.empty())
-                {
-                    graph->print(undecided, std::cerr);
-                    std::cerr << std::endl;
-                }
-            )*/
-            undecided->on_stack = true;
-            ++_exploredConfigurations;
-        }
+            push_to_wating(undecided, waiting);
     }
 
     return root->assignment == ONE;
 }
 
-void Algorithm::RankCertainZeroFPA::checkEdge(Edge* e, bool only_assign, bool was_dep) {
-    assert(false);
-}
 
-void Algorithm::RankCertainZeroFPA::finalAssign(DependencyGraph::Edge* e, DependencyGraph::Assignment a) {
-    assert(false);
-}
-
-void Algorithm::RankCertainZeroFPA::finalAssign(DependencyGraph::Configuration* c, DependencyGraph::Assignment a) {
-    assert(a == ONE || a == CZERO);
-    assert(false);
-
-}
-
-std::vector<Edge*> Algorithm::RankCertainZeroFPA::explore(Configuration* c) {
-    assert(false);
-}
-
-
-std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(DependencyGraph::Edge *e, wstack_t* waiting) {
+std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(DependencyGraph::Edge *e) {
     bool allOne = true, hasCZero = false;
     Configuration *retval = nullptr;
-    Assignment a = ZERO;
-    /*DEBUG_ONLY(
-        std::cerr << "EVAL [";
-        print_edge(e);
-        std::cerr << "]\n";
-    )*/
     auto it = e->targets.begin();
     auto pit = e->targets.before_begin();
     while (it != e->targets.end()) {
@@ -434,8 +368,8 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
             (!(*it)->min_rank_source->on_stack || (*it)->min_rank_source->rank != (*it)->min_rank) &&
             (*it) != e->source && !(*it)->isDone())
         {
+            // the minrank/anchor is not on the stack (or was popped and readded) so we cannot trust the rank, thus we set the minrank to unknown (0).
             (*it)->min_rank = 0;
-            (*it)->min_rank_source = nullptr;
             (*it)->rank = 0;
             (*it)->assignment = UNKNOWN;
         }
@@ -460,29 +394,10 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
                 // holds due to DFS + acyclic negation
                 hasCZero = true;
                 break;
-            } else if (retval == nullptr || (retval->assignment == UNKNOWN && (*it)->assignment == ZERO)) {
+            } else if (retval == nullptr ||
+                    (retval->assignment == UNKNOWN && (*it)->assignment == ZERO) ||
+                    (retval->assignment == (*it)->assignment && retval->rank < (*it)->rank)) {
                 retval = *it;
-                /*if((*it)->on_stack && e->source->on_stack && waiting != nullptr)
-                {
-                    bool single_loop = true;
-                    int64_t n = waiting->size() - 1;
-                    for(; n >= 0; ++n)
-                    {
-                        if((*waiting)[n].second.size() > 1)
-                        {
-                            single_loop = false;
-                            break;
-                        }
-                        if((*waiting)[n].first == (*it)) break;
-                    }
-                    if(single_loop)
-                    {
-                        //std::cerr << (*it)->min_rank << " VS " << waiting->size() << std::endl;
-                        //std::cerr << "ON STACK! Whooop " << n << std::endl;
-                        hasCZero = true;
-                        break;
-                    }
-                }*/
             }
         }
         pit = it;
@@ -519,17 +434,18 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
         waiting.pop();
         auto prev = conf->dependency_set.before_begin();
         auto cur = conf->dependency_set.begin();
-        while(cur != conf->dependency_set.end()) {
-            auto* e = *cur;
+        while(cur != conf->dependency_set.end())
+        {
+            Edge* e = *cur;
             auto* c = e->source;
             if(c->isDone()) {
+                --e->refcnt;
+                if(e->refcnt == 0)
+                    graph->release(e);
                 conf->dependency_set.erase_after(prev);
                 cur = prev;
                 ++cur;
 
-                /*--e->refcnt;
-                if (e->refcnt == 0)
-                    graph->release(e);*/
                 continue;
             }
             auto [und, assignment] = eval_edge(e);
@@ -537,27 +453,12 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
             if(assignment == ONE) {
                 set_assignment(c, ONE);
                 waiting.push(c);
-                /*--e->refcnt;
-                if (e->refcnt == 0)
-                    graph->release(e);*/
             }
             else if(assignment == UNKNOWN) {
-                /*if(c->min_rank_source->)
-                {
-                    undef.emplace(c);
-                    c->assignment = UNKNOWN;
-                }
-                else if(und->assignment == UNKNOWN)
-                {
-                    assert(!c->on_stack);
-                    undef.emplace(c);
-                }
-                else
-                {
-                    assert(false); // do something
-                }*/
+                // nothing.
             }
             else {
+                // this could probably be done faster by exploiting "nsuccs"
                 bool all_zero = true;
                 for(auto* e : c->successors)
                 {
@@ -567,47 +468,60 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                 if(all_zero) {
                     set_assignment(c, CZERO);
                     waiting.push(c);
-                    /*--e->refcnt;
-                    if (e->refcnt == 0)
-                        graph->release(e);*/
                 }
             }
-            conf->dependency_set.erase_after(prev);
+            if(!c->isDone())
+            {
+                bool all_ref = true;
+                for(auto* e : c->successors)
+                {
+                    auto res = eval_edge(e);
+                    if(res.second != CZERO && res.second != ONE)
+                    {
+                        assert(res.second != ONE);
+                        bool some_ref = false;
+                        for(auto* t : e->targets)
+                        {
+                            /*if(t->min_rank_source &&
+                                    t->min_rank_source->on_stack && t->min_rank_source->min_rank == t->min_rank)
+                                mx = std::min(mx, t->min_rank);
+                             */
+                            if(t->min_rank_source == c)
+                            {
+                                some_ref = true;
+                                break;
+                            }
+                        }
+                        if(!some_ref)
+                        {
+                            all_ref = false;
+                            break;
+                        }
+                    }
+                }
+                if(all_ref)
+                {
+                    // I suspect this *never* happens. The earlier check during forward
+                    // exploration would essentially detect this. However due to
+                    // some edges getting assigned CZERO, this check *could* potentially
+                    // kick in, as the remaining form a loop.
+                    // TODO, figure out if we can do this in more cases?
+                    set_assignment(c, CZERO);
+                    waiting.push(c);
+                    if(!_backloop_output)
+                        std::cerr << "BACKLOOP" << std::endl;
+                    _backloop_output = true;
+                }
+            }
+            {
+                --e->refcnt;
+                if(e->refcnt == 0)
+                    graph->release(e);
+                conf->dependency_set.erase_after(prev);
+            }
             cur = prev;
             ++cur;
         }
     }
-
-    /*while(!undef.empty())
-    {
-        auto* conf = undef.top();
-        std::cerr << "RESET " << conf->id << std::endl;
-        conf->min_rank = 0;
-        conf->min_rank_source = nullptr;
-        conf->rank = 0;
-        undef.pop();
-        if(conf->isDone()) continue;
-        assert(conf->assignment == UNKNOWN);
-        if(conf->on_stack) {
-            continue;
-        }
-        for(auto& e : conf->dependency_set)
-        {
-            auto* c = e->source;
-            if(c->isDone() || c->on_stack)
-            {
-                continue;
-            }
-            --e->refcnt;
-            if (e->refcnt == 0)
-                graph->release(e);
-            if(c->assignment != UNKNOWN)
-            {
-                c->assignment = UNKNOWN;
-                undef.push(c);
-            }
-        }
-        conf->dependency_set.clear();
-    }*/
     return min;
 }

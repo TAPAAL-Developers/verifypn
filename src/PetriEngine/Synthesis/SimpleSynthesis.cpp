@@ -392,7 +392,7 @@ namespace PetriEngine {
                                 if (parent[p] > 0) {
                                     if (!fp) out << ",";
                                     fp = false;
-                                    out << _net.placeNames()[p] << ":" << parent[p];
+                                    out << *_net.placeNames()[p] << ":" << parent[p];
                                 }
                             }
                             out << "\":\n\t[";
@@ -400,7 +400,7 @@ namespace PetriEngine {
                         if (!first)
                             out << ",";
                         first = false;
-                        out << "\"" << _net.transitionNames()[wt] << "\"";
+                        out << "\"" << *_net.transitionNames()[wt] << "\"";
                     }
                     if (!first) out << "]";
                 }
