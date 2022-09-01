@@ -13,6 +13,7 @@ void CTLResult::print(const std::string& qname, StatisticsLevel statisticslevel,
          << (options.isCPN ? "UNFOLDING_TO_PT " : "")
          << (options.stubbornreduction ? "STUBBORN_SETS " : "")
          << (options.ctlalgorithm == CTL::CZero ? "CTL_CZERO " : "")
+         << (options.ctlalgorithm == CTL::RankCZero ?  "CTL_RANK " : "")
          << (options.ctlalgorithm == CTL::Local ? "CTL_LOCAL " : "")
 // FIXME debugging print
 #ifdef DG_SOURCE_CHECK
