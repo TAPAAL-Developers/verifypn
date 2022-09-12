@@ -5,6 +5,8 @@
 #include <cassert>
 #include <iostream>
 
+using namespace DependencyGraph;
+
 bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
 {
     using namespace DependencyGraph;
@@ -19,7 +21,7 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
             auto [e, was_dep] = strategy->popEdge();
             if (!e) break;
 
-            if (root->assignment == DependencyGraph::ONE) {
+            if (root->assignment == Assignment::ONE) {
                 break;
             }
 
@@ -41,7 +43,7 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
             Configuration *lastUndecided = nullptr;
 
             for (DependencyGraph::Configuration *c : e->targets) {
-                if (c->assignment != DependencyGraph::ONE) {
+                if (c->assignment != Assignment::ONE) {
                     allOne = false;
                     lastUndecided = c;
                 }
@@ -60,17 +62,17 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
                     strategy->pushNegation(e);
                 }
                 else{
-                    finalAssign(e->source, ONE);
+                    finalAssign(e->source, Assignment::ONE);
                 }
 
             } else {
                 _processedEdges += 1;
                 //Process hyper edge
                 if (allOne) {
-                    finalAssign(e->source, ONE);
+                    finalAssign(e->source, Assignment::ONE);
                 } else {
                     addDependency(e, lastUndecided);
-                    //if (lastUndecided->assignment == UNKNOWN) {
+                    //if (lastUndecided->assignment == Assignment::UNKNOWN) {
                     if (!lastUndecided->passed) {
                         explore(lastUndecided);
                         lastUndecided->passed = true;
@@ -86,12 +88,12 @@ bool Algorithm::LocalFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
         }
     }
 
-    return root->assignment == ONE;
+    return root->assignment == Assignment::ONE;
 }
 
 void Algorithm::LocalFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)
 {
-    assert(a == DependencyGraph::ONE);
+    assert(a == DependencyGraph::Assignment::ONE);
     c->assignment = a;
 
     for(DependencyGraph::Edge *e : c->dependency_set){
@@ -112,8 +114,8 @@ void Algorithm::LocalFPA::finalAssign(DependencyGraph::Configuration *c, Depende
 
 void Algorithm::LocalFPA::explore(DependencyGraph::Configuration *c)
 {
-    assert(c->assignment == DependencyGraph::UNKNOWN || !c->passed);
-    c->assignment = DependencyGraph::ZERO;
+    assert(c->assignment == Assignment::UNKNOWN || !c->passed);
+    c->assignment = Assignment::ZERO;
     auto succs = graph->successors(c);
 
     for (DependencyGraph::Edge *succ : succs) {

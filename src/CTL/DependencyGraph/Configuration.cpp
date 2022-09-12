@@ -4,13 +4,13 @@
 namespace DependencyGraph {
     std::string to_string(Assignment a) {
         switch (a) {
-            case ONE:
+            case Assignment::ONE:
                 return "ONE";
-            case UNKNOWN:
+            case Assignment::UNKNOWN:
                 return "UNKNOWN";
-            case ZERO:
+            case Assignment::ZERO:
                 return "ZERO";
-            case CZERO:
+            case Assignment::CZERO:
                 return "CZERO";
             default:
                 std::cerr << "invalid Assignment value " << (int)a << std::endl;
@@ -20,7 +20,7 @@ namespace DependencyGraph {
     }
 
     void Configuration::addDependency(Edge *e) {
-        if (assignment == ONE) return;
+        if (assignment == Assignment::ONE) return;
         unsigned int sDist = e->is_negated ? e->source->getDistance() + 1 : e->source->getDistance();
         unsigned int tDist = getDistance();
 

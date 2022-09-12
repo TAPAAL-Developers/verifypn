@@ -24,11 +24,14 @@ public:
 #endif
     uint32_t nsuccs = 0;
     std::forward_list<Edge*> successors;
+#ifndef NDEBUG
+    size_t succ_len = 0;
+#endif
 private:
     uint32_t distance = 0;
     void setDistance(uint32_t value) { distance = value; }
 public:
-    int8_t assignment = UNKNOWN;
+    Assignment assignment = Assignment::UNKNOWN;
     bool passed = false;
     bool on_stack = false;
 //#ifndef NDEBUG
@@ -39,7 +42,7 @@ public:
     Configuration* min_rank_source = nullptr;
     Configuration() {}
     uint32_t getDistance() const { return distance; }
-    bool isDone() const { return assignment == ONE || assignment == CZERO; }
+    bool isDone() const { return assignment == Assignment::ONE || assignment == Assignment::CZERO; }
     void addDependency(Edge* e);
 
 #ifdef DG_REFCOUNTING

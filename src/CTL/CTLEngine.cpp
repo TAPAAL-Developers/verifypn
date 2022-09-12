@@ -274,7 +274,7 @@ bool recursiveSolve(Condition* query, PetriEngine::PetriNet* net,
             if(!isTemporal((*eu)[0]) && !isTemporal((*eu)[1]))
                 ok = true;
         }
-        if(ok)
+        if(options.allowltl && ok)
         {
             LTL::LTLSearch search(*net, q, options.buchiOptimization, options.ltl_compress_aps);
             return search.solve(false, options.kbound, options.ltlalgorithm, options.ltl_por,

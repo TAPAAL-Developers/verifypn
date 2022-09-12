@@ -11,7 +11,7 @@
 namespace DependencyGraph {
 
 class Configuration;
-enum Assignment {
+enum class Assignment : int8_t {
     ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2
 };
 enum class EdgeStatus : uint8_t {
@@ -50,6 +50,8 @@ public:
     int32_t refcnt = 0;
     /*size_t children;
     Assignment assignment;*/
+    size_t id = 0;
+    size_t nevals = 0;
 
 #ifndef NDEBUG
     bool has_suc(size_t id);
