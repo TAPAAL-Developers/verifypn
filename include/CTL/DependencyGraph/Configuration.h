@@ -22,6 +22,7 @@ public:
     std::forward_list<Configuration*> forward_dependency_set;
     uint64_t refc = 0;
 #endif
+    size_t id = std::numeric_limits<size_t>::max();
     uint32_t nsuccs = 0;
     std::forward_list<Edge*> successors;
 #ifndef NDEBUG
@@ -35,7 +36,6 @@ public:
     bool passed = false;
     bool on_stack = false;
 //#ifndef NDEBUG
-    size_t id = std::numeric_limits<size_t>::max();
 //#endif
     size_t rank = std::numeric_limits<size_t>::max();
     size_t min_rank = 0;

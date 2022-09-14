@@ -81,7 +81,7 @@ struct options_t {
     CTL::CTLAlgorithmType ctlalgorithm = CTL::CZero;
     bool tar = false;
     uint32_t binary_query_io = 0;
-    // TODO make options flag for this or make true before any merge.
+    // TODO make options flag for this or make true before merge.
     bool allowltl = false;
 
     // LTL Specific options

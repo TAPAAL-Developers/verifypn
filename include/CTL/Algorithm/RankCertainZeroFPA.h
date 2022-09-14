@@ -26,7 +26,7 @@ namespace Algorithm {
         DependencyGraph::BasicDependencyGraph *graph;
         DependencyGraph::Configuration* root;
 
-        void expand(DependencyGraph::Configuration* conf);
+        void expand(DependencyGraph::Configuration* config);
         void push_to_wating(DependencyGraph::Configuration* config, wstack_t& waiting);
         void do_pop(wstack_t& waiting, DependencyGraph::Configuration* lowest = nullptr);
         DependencyGraph::Configuration* find_undecided(DependencyGraph::Configuration* conf);
