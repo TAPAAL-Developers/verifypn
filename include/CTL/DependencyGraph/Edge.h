@@ -37,7 +37,12 @@ public:
             targets.clear();
             targets.emplace_front(source);
         }
-        else targets.push_front(conf);
+        else {
+            for (auto* t : targets) {
+                if (conf == t) return false;
+            }
+            targets.push_front(conf);
+        }
         return handled;
     }
 
