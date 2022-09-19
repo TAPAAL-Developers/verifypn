@@ -359,6 +359,7 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
     bool allOne = true, hasCZero = false;
     Configuration *retval = nullptr;
     auto it = e->targets.begin();
+    auto pit = e->targets.before_begin();
     while (it != e->targets.end()) {
         // need seq-number
         // if target node has min_rank from an unassigned node that is either outside the stack or has a different min_rank,
@@ -380,8 +381,9 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
             break;
         }
         else if ((*it)->assignment == ONE) {
-            it = e->targets.erase(it);
-            continue; // avoid iterator increment
+            e->targets.erase_after(pit);
+            it = pit;
+            //continue; // avoid iterator increment
         } else {
             allOne = false;
             if ((*it)->assignment == CZERO) {
@@ -399,6 +401,7 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
                 retval = *it;
             }
         }
+        pit = it;
         ++it;
     }
 

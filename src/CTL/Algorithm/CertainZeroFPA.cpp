@@ -74,11 +74,13 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
     Configuration *lastUndecided = nullptr;
     {
         auto it = e->targets.begin();
+        auto pit = e->targets.before_begin();
         while(it != e->targets.end())
         {
             if ((*it)->assignment == ONE)
             {
-                it = e->targets.erase(it);
+                e->targets.erase_after(pit);
+                it = pit;
             }
             else
             {
@@ -96,8 +98,9 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
                 {
                     lastUndecided = *it;
                 }
-                ++it;
             }
+            pit = it;
+            ++it;
         }
     }
     /*if(e->targets.empty())
@@ -171,8 +174,10 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
 void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Edge *e, DependencyGraph::Assignment a)
 {
     finalAssign(e->source, a);
+#ifndef NDEBUG
     graph->print(e->source, std::cerr);
     std::cerr << std::endl;
+#endif
 }
 
 void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)

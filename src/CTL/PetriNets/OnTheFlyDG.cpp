@@ -17,6 +17,23 @@
 using namespace PetriEngine::PQL;
 using namespace DependencyGraph;
 
+#ifndef NDEBUG
+#define ASSERT(x) assert(x)
+#define DEBUG_ONLY(x) x
+
+void check_duplicated(Edge *e) {
+    std::unordered_set<Configuration* > confs;
+    for (auto t: e->targets) {
+        assert(confs.find(t) == confs.end());
+        confs.insert(t);
+    }
+}
+
+#else
+#define ASSERT(x) if (!(x)) { std::cerr << "Assertion " << #x << " failed\n"; exit(1); }
+#define DEBUG_ONLY(x)
+#endif
+
 namespace PetriNets {
 
 OnTheFlyDG::OnTheFlyDG(PetriEngine::PetriNet *t_net, bool partial_order) : encoder(t_net->numberOfPlaces(), 0),
@@ -92,6 +109,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
             e->is_negated = true;
             if (!e->addTarget(c)) {
                 succs.push_back(e);
+                DEBUG_ONLY(check_duplicated(e);)
             }
             else {
                 --e->refcnt;
@@ -130,8 +148,10 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                 --e->refcnt;
                 release(e);
             }
-            else
+            else {
                 succs.push_back(e);
+                DEBUG_ONLY(check_duplicated(e);)
+            }
         }
         else if(v->query->getQuantifier() == OR){
             auto cond = static_cast<OrCondition*>(v->query);
@@ -162,8 +182,10 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                     --e->refcnt;
                     release(e);
                 }
-                else
+                else {
                     succs.push_back(e);
+                    DEBUG_ONLY(check_duplicated(e);)
+                }
             }
         }
         else{
@@ -202,6 +224,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                 if (valid || left != nullptr) {
                     //if left side is guaranteed to be not satisfied, skip successor generation
                     Edge* leftEdge = nullptr;
+                    std::unordered_set<Configuration* > targets;
                     nextStates (query_marking, cond,
                                 [&](){ leftEdge = newEdge(*v, std::numeric_limits<uint32_t>::max());},
                                 [&](Marking& mark){
@@ -217,22 +240,32 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                                     }
                                     context.setMarking(mark.marking());
                                     Configuration* c = createConfiguration(createMarking(mark), owner(mark, cond), cond);
-                                    return !leftEdge->addTarget(c);
+                                    targets.insert(c);
+                                    if (c == v) {
+                                        leftEdge->handled = true;
+                                        return false;
+                                    }
+                                    return true;
+                                    //return !leftEdge->addTarget(c);
                                 },
                                 [&]()
                                 {
                                     if(leftEdge)
                                     {
                                         if (left != nullptr) {
-                                            leftEdge->addTarget(left);
+                                            targets.insert(left);
+                                            //leftEdge->addTarget(left);
                                         }
                                         if (leftEdge->handled){
                                             --leftEdge->refcnt;
                                             release(leftEdge);
                                             leftEdge = nullptr;
                                         }
-                                        else
+                                        else {
+                                            leftEdge->targets = Edge::container{targets.begin(), targets.end()};
                                             succs.push_back(leftEdge);
+                                            DEBUG_ONLY(check_duplicated(leftEdge);)
+                                        }
                                     }
                                 }
                             );
@@ -263,6 +296,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                     subquery->addTarget(c); // cannot be self-loop since the formula is smaller
                 }
                 Edge* e1 = nullptr;
+                std::unordered_set<Configuration*> targets;
                 nextStates(query_marking, cond,
                         [&](){e1 = newEdge(*v, std::numeric_limits<uint32_t>::max());},
                         [&](Marking& mark)
@@ -282,7 +316,13 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                             }
                             context.setMarking(mark.marking());
                             Configuration* c = createConfiguration(createMarking(mark), owner(mark, cond), cond);
-                            return !e1->addTarget(c);
+                            targets.insert(c);
+                            if (c == v) {
+                                e1->handled = true;
+                                return false;
+                            }
+                            return true;
+                            //return targets.insert(c).second;// !e1->addTarget(c);
                         },
                         [&]()
                         {
@@ -290,8 +330,10 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                                 --e1->refcnt;
                                 release(e1);
                             }
-                            else
+                            else {
+                                e1->targets = Edge::container{targets.begin(), targets.end()};
                                 succs.push_back(e1);
+                            }
                         }
                 );
 
@@ -304,6 +346,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                 Edge* e = newEdge(*v, std::numeric_limits<uint32_t>::max());
                 Condition::Result allValid = Condition::RTRUE;
                 // no possible self-loops from AX q
+                std::unordered_set<Configuration* > targets;
                 nextStates(query_marking, cond,
                         [](){},
                         [&](Marking& mark){
@@ -320,11 +363,11 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                                 allValid = Condition::RUNKNOWN;
                                 context.setMarking(mark.marking());
                                 Configuration* c = createConfiguration(createMarking(mark), v->getOwner(), (*cond)[0]);
-                                e->addTarget(c);
+                                targets.insert(c);// e->addTarget(c);
                             }
                             return true;
                         },
-                        [](){}
+                        [&](){ e->targets = Edge::container{targets.begin(), targets.end()}; }
                     );
                     if(allValid == Condition::RUNKNOWN)
                     {
@@ -542,6 +585,7 @@ void OnTheFlyDG::nextStates(Marking& t_marking, Condition* ptr,
     std::function<bool (Marking&)> foreach,
     std::function<void ()> post)
 {
+    //ptr->toString();
     bool first = true;
     memcpy(working_marking.marking(), query_marking.marking(), n_places*sizeof(PetriEngine::MarkVal));
     auto qf = static_cast<QuantifierCondition*>(ptr);
@@ -670,7 +714,7 @@ Edge* OnTheFlyDG::newEdge(Configuration &t_source, uint32_t weight)
         recycle.pop();
     }
     // for some reason the unordered_set ends up in a weird state, so insist on having a bucket.
-    e->targets.reserve(1);
+    //e->targets.reserve(1);
     assert(e->targets.empty());
     /*e->assignment = UNKNOWN;
     e->children = 0;*/

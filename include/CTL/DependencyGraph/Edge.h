@@ -23,8 +23,9 @@ enum class EdgeStatus : uint8_t {
 };
 
 class Edge {
-    typedef std::unordered_set<Configuration*> container;
+    //typedef std::unordered_set<Configuration*> container;
 public:
+    using container = std::forward_list<Configuration*>;
     Edge(){}
     Edge(Configuration &t_source) : source(&t_source) {}
 
@@ -36,13 +37,13 @@ public:
         {
             handled = true;
             targets.clear();
-            targets.insert(source);
+            targets.emplace_front(source);
         }
         /*else {
             for (auto* t : targets) {
                 if (conf == t) return false;
             }*/
-        targets.insert(conf);
+        targets.emplace_front(conf);
         //}
         return handled;
     }
