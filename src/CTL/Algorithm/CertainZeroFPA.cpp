@@ -74,13 +74,11 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
     Configuration *lastUndecided = nullptr;
     {
         auto it = e->targets.begin();
-        auto pit = e->targets.before_begin();
         while(it != e->targets.end())
         {
             if ((*it)->assignment == ONE)
             {
-                e->targets.erase_after(pit);
-                it = pit;
+                it = e->targets.erase(it);
             }
             else
             {
@@ -98,9 +96,8 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
                 {
                     lastUndecided = *it;
                 }
+                ++it;
             }
-            pit = it;
-            ++it;
         }
     }
     /*if(e->targets.empty())

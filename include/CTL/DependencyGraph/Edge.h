@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cassert>
 #include <forward_list>
+#include <unordered_set>
 
 namespace DependencyGraph {
 
@@ -22,7 +23,7 @@ enum class EdgeStatus : uint8_t {
 };
 
 class Edge {
-    typedef std::forward_list<Configuration*> container;
+    typedef std::unordered_set<Configuration*> container;
 public:
     Edge(){}
     Edge(Configuration &t_source) : source(&t_source) {}
@@ -35,14 +36,14 @@ public:
         {
             handled = true;
             targets.clear();
-            targets.emplace_front(source);
+            targets.insert(source);
         }
-        else {
+        /*else {
             for (auto* t : targets) {
                 if (conf == t) return false;
-            }
-            targets.push_front(conf);
-        }
+            }*/
+        targets.insert(conf);
+        //}
         return handled;
     }
 

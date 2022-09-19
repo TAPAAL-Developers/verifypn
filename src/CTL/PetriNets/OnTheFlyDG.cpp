@@ -669,6 +669,8 @@ Edge* OnTheFlyDG::newEdge(Configuration &t_source, uint32_t weight)
         e->refcnt = 0;
         recycle.pop();
     }
+    // for some reason the unordered_set ends up in a weird state, so insist on having a bucket.
+    e->targets.reserve(1);
     assert(e->targets.empty());
     /*e->assignment = UNKNOWN;
     e->children = 0;*/

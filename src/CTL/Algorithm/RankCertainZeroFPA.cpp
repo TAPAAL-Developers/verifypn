@@ -300,9 +300,9 @@ DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::handle_early_czer
         {
             // well, supposedly this will imply that min_max_rank == conf->rank; namely that the current TOS
             // actually is an infliction-point of all successors
-            if(!_early_output)
+            DEBUG_ONLY(if(!_early_output)
                 std::cerr << "EARLY_CZERO" << std::endl;
-            _early_output = true;
+            _early_output = true;)
             set_assignment(conf, CZERO);
             auto* b = backprop(conf);
             if (bot == nullptr || b->rank < bot->rank)
@@ -359,7 +359,6 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
     bool allOne = true, hasCZero = false;
     Configuration *retval = nullptr;
     auto it = e->targets.begin();
-    auto pit = e->targets.before_begin();
     while (it != e->targets.end()) {
         // need seq-number
         // if target node has min_rank from an unassigned node that is either outside the stack or has a different min_rank,
@@ -381,8 +380,8 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
             break;
         }
         else if ((*it)->assignment == ONE) {
-            e->targets.erase_after(pit);
-            it = pit;
+            it = e->targets.erase(it);
+            continue; // avoid iterator increment
         } else {
             allOne = false;
             if ((*it)->assignment == CZERO) {
@@ -400,7 +399,6 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
                 retval = *it;
             }
         }
-        pit = it;
         ++it;
     }
 
@@ -508,9 +506,9 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                     // TODO, figure out if we can do this in more cases?
                     set_assignment(c, CZERO);
                     waiting.push(c);
-                    if(!_backloop_output)
+                    DEBUG_ONLY(if(!_backloop_output)
                         std::cerr << "BACKLOOP" << std::endl;
-                    _backloop_output = true;
+                    _backloop_output = true;)
                 }
             }
             {
