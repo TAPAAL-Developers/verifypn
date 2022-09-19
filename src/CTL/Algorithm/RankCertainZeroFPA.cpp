@@ -45,7 +45,7 @@ std::pair<std::string,std::string> split(const std::string& line) {
 }
 #endif
 
-bool do_cmp = true;
+bool do_cmp = false;
 void RankCertainZeroFPA::set_assignment(Configuration *c, Assignment a) {
     assert(!c->isDone());
     c->assignment = a;
@@ -141,7 +141,7 @@ void Algorithm::RankCertainZeroFPA::expand(Configuration* config) {
                 has_czero = true;
                 break;
             }
-            //t->addDependency(e);
+            t->addDependency(e);
         }
 
         // check if edge is certain zero; if so, delete it.
@@ -171,9 +171,20 @@ void Algorithm::RankCertainZeroFPA::push_to_wating(DependencyGraph::Configuratio
     config->min_rank = config->rank = _max_rank;
     config->min_rank_source = config;
     expand(config);
+
+    // the following two lines are probably not needed.
+    // for now we emulate that the config was placed on the stack.
     waiting.emplace_back(config);
     config->on_stack = true;
-    config->assignment = Assignment::ZERO;
+    if(config->isDone())
+    {
+        auto* bot = backprop(config);
+        do_pop(waiting, bot);
+    }
+    else
+    {
+        config->assignment = Assignment::ZERO;
+    }
 }
 
 void Algorithm::RankCertainZeroFPA::do_pop(wstack_t& waiting, DependencyGraph::Configuration* lowest) {
@@ -251,14 +262,6 @@ DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::find_undecided(Co
         ++it;
         if(conf->isDone())
             break;
-    }
-    if (undecided != nullptr) {
-        undecided->addDependency(*pre);
-        if (undecided->assignment == Assignment::UNKNOWN) {
-            /*assert(std::find_if(edges.begin(), edges.end(), [&](Edge* e) {
-                return eval_edge(e).second == Assignment::ONE;
-            }) == edges.end());*/
-        }
     }
 
     if (nchecked > conf->nsuccs) {
@@ -510,17 +513,12 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                 // this could probably be done faster by exploiting "nsuccs"
                 bool all_zero = true;
                 // need iterator to move one step at a time
-                auto it = c->successors.begin();
-                //for (auto i = 0; i < c->nsuccs; ++i)
                 for(auto* e : c->successors)
                 {
-                    assert(it != c->successors.end());
-                    auto r = eval_edge(*it);
+                    auto r = eval_edge(e);
                     if (r.second != Assignment::CZERO) {
                         all_zero = false;
-                        //break;
                     }
-                    ++it;
                 }
                 if(all_zero) {
                     set_assignment(c, Assignment::CZERO);
@@ -530,13 +528,10 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
             if(!c->isDone())
             {
                 bool all_ref = true;
-                auto it = c->successors.begin();
                 //for (auto i = 0; i < c->nsuccs; ++i)
                 for(auto* e : c->successors)
                 {
-                    assert(it != c->successors.end());
                     auto res = eval_edge(e);
-                    //++it;
                     if(res.second != Assignment::CZERO && res.second != Assignment::ONE)
                     {
                         assert(res.second != Assignment::ONE);
