@@ -654,7 +654,7 @@ size_t OnTheFlyDG::owner(Marking& marking, Condition* cond) {
     return 0;
 }
 
-
+size_t eid = 0;
 Edge* OnTheFlyDG::newEdge(Configuration &t_source, uint32_t weight)
 {
     Edge* e = nullptr;
@@ -673,6 +673,7 @@ Edge* OnTheFlyDG::newEdge(Configuration &t_source, uint32_t weight)
     /*e->assignment = UNKNOWN;
     e->children = 0;*/
     e->source = &t_source;
+    e->id = eid++;
     assert(e->refcnt == 0);
     assert(!e->handled);
     ++e->refcnt;

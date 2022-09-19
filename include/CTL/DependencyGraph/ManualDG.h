@@ -131,7 +131,7 @@ namespace DependencyGraph {
             for (auto &[_, c] : configs_) {
                 c->nsuccs = 0;
                 //c->distance = 0;
-                c->assignment = UNKNOWN;
+                c->assignment = Assignment::UNKNOWN;
                 c->dependency_set.clear();
                 c->passed = false;
                 c->rank = 0;
@@ -147,9 +147,9 @@ namespace DependencyGraph {
         Assignment to_assignment(int i) const {
             switch (i) {
                 case 0:
-                    return CZERO;
+                    return Assignment::CZERO;
                 case 1:
-                    return ONE;
+                    return Assignment::ONE;
                 default:
                     throw base_error{"Invalid value " + std::to_string(i) + " for assignment. Expected '0' or '1'"};
             }

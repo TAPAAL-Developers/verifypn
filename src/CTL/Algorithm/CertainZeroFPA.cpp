@@ -29,10 +29,10 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
             if(e->refcnt == 0) graph->release(e);
             ++cnt;
             if((cnt % 1000) == 0) strategy->trivialNegation();
-            if(vertex->isDone()) return vertex->assignment == ONE;
+            if(vertex->isDone()) return vertex->assignment == Assignment::ONE;
         }
 
-        if(vertex->isDone()) return vertex->assignment == ONE;
+        if(vertex->isDone()) return vertex->assignment == Assignment::ONE;
 
         if(!strategy->trivialNegation())
         {
@@ -42,7 +42,7 @@ bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_
         }
     }
 
-    return vertex->assignment == ONE;
+    return vertex->assignment == Assignment::ONE;
 }
 
 void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
@@ -77,7 +77,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
         auto pit = e->targets.before_begin();
         while(it != e->targets.end())
         {
-            if ((*it)->assignment == ONE)
+            if ((*it)->assignment == Assignment::ONE)
             {
                 e->targets.erase_after(pit);
                 it = pit;
@@ -85,16 +85,16 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
             else
             {
                 allOne = false;
-                if ((*it)->assignment == CZERO) {
+                if ((*it)->assignment == Assignment::CZERO) {
                     hasCZero = true;
-                    //assert(e->assignment == CZERO || only_assign);
+                    //assert(e->assignment == Assignment::CZERO || only_assign);
                     break;
                 }
                 else if(lastUndecided == nullptr)
                 {
                     lastUndecided = *it;
                 }
-                else if(lastUndecided != nullptr && lastUndecided->assignment == UNKNOWN && (*it)->assignment == ZERO)
+                else if(lastUndecided != nullptr && lastUndecided->assignment == Assignment::UNKNOWN && (*it)->assignment == Assignment::ZERO)
                 {
                     lastUndecided = *it;
                 }
@@ -105,7 +105,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
     }
     /*if(e->targets.empty())
     {
-        assert(e->assignment == ONE || e->children == 0);
+        assert(e->assignment == Assignment::ONE || e->children == 0);
     }*/
 
     if (e->is_negated) {
@@ -117,23 +117,23 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
             assert(e->refcnt > 0);
             if(only_assign) --e->refcnt;
             if (e->source->nsuccs == 0) {
-                finalAssign(e, CZERO);
+                finalAssign(e, Assignment::CZERO);
             }
             if(e->refcnt == 0) { graph->release(e);}
         } else if (hasCZero) {
-            finalAssign(e, ONE);
+            finalAssign(e, Assignment::ONE);
         } else {
             assert(lastUndecided != nullptr);
             if(only_assign) return;
-            if (lastUndecided->assignment == ZERO && e->processed) {
-                finalAssign(e, ONE);
+            if (lastUndecided->assignment == Assignment::ZERO && e->processed) {
+                finalAssign(e, Assignment::ONE);
             } else {
                 if(!e->processed)
                 {
                     strategy->pushNegation(e);
                 }
                 lastUndecided->addDependency(e);
-                if (lastUndecided->assignment == UNKNOWN) {
+                if (lastUndecided->assignment == Assignment::UNKNOWN) {
                     explore(lastUndecided);
                 }
             }
@@ -142,14 +142,14 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
         _processedEdges += 1;
         //Process hyper edge
         if (allOne) {
-            finalAssign(e, ONE);
+            finalAssign(e, Assignment::ONE);
         } else if (hasCZero) {
             --e->source->nsuccs;
             e->handled = true;
             assert(e->refcnt > 0);
             if(only_assign) --e->refcnt;
             if (e->source->nsuccs == 0) {
-                finalAssign(e, CZERO);
+                finalAssign(e, Assignment::CZERO);
             }
             if(e->refcnt == 0) {graph->release(e);}
 
@@ -162,7 +162,7 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
                         t->addDependency(e);
                 }
             }
-            if (lastUndecided->assignment == UNKNOWN) {
+            if (lastUndecided->assignment == Assignment::UNKNOWN) {
                 explore(lastUndecided);
             }
         }
@@ -180,24 +180,24 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Edge *e, Dependency
 
 void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)
 {
-    assert(a == ONE || a == CZERO);
+    assert(a == Assignment::ONE || a == Assignment::CZERO);
 
     c->assignment = a;
     c->nsuccs = 0;
     for (DependencyGraph::Edge *e : c->dependency_set) {
         if(!e->source->isDone()) {
-            if(a == CZERO)
+            if(a == Assignment::CZERO)
             {
-                /*e->assignment = CZERO;*/
+                /*e->assignment = Assignment::CZERO;*/
             }
-            else if(a == ONE)
+            else if(a == Assignment::ONE)
             {
                 /*assert(e->children >= 1);
                 --e->children;
                 if(e->children == 0)
-                    e->assignment = ONE;*/
+                    e->assignment = Assignment::ONE;*/
             }
-            if(!e->is_negated || a == CZERO)
+            if(!e->is_negated || a == Assignment::CZERO)
             {
                 strategy->pushDependency(e);
             }
@@ -216,7 +216,7 @@ void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, D
 
 void Algorithm::CertainZeroFPA::explore(Configuration *c)
 {
-    c->assignment = ZERO;
+    c->assignment = Assignment::ZERO;
 
     {
         auto succs = graph->successors(c);
@@ -247,7 +247,7 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c)
                 if(e->refcnt >= 1) --e->refcnt;
                 if(e->refcnt == 0) graph->release(e);
             }
-            finalAssign(c, CZERO);
+            finalAssign(c, Assignment::CZERO);
             return;
         }
 
