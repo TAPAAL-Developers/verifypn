@@ -240,21 +240,18 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                                     }
                                     context.setMarking(mark.marking());
                                     Configuration* c = createConfiguration(createMarking(mark), owner(mark, cond), cond);
-                                    targets.insert(c);
-                                    if (c == v) {
-                                        leftEdge->handled = true;
-                                        return false;
+                                    if (targets.insert(c).second) {
+                                        assert(std::find(leftEdge->targets.begin(), leftEdge->targets.end(), c) == leftEdge->targets.end());
+                                        return !leftEdge->addTarget(c);
                                     }
                                     return true;
-                                    //return !leftEdge->addTarget(c);
                                 },
                                 [&]()
                                 {
                                     if(leftEdge)
                                     {
-                                        if (left != nullptr) {
-                                            targets.insert(left);
-                                            //leftEdge->addTarget(left);
+                                        if (left != nullptr && targets.insert(left).second) {
+                                            leftEdge->addTarget(left);
                                         }
                                         if (leftEdge->handled){
                                             --leftEdge->refcnt;
@@ -262,7 +259,7 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                                             leftEdge = nullptr;
                                         }
                                         else {
-                                            leftEdge->targets = Edge::container{targets.begin(), targets.end()};
+                                            //leftEdge->targets = Edge::container{targets.begin(), targets.end()};
                                             succs.push_back(leftEdge);
                                             DEBUG_ONLY(check_duplicated(leftEdge);)
                                         }
@@ -316,13 +313,11 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                             }
                             context.setMarking(mark.marking());
                             Configuration* c = createConfiguration(createMarking(mark), owner(mark, cond), cond);
-                            targets.insert(c);
-                            if (c == v) {
-                                e1->handled = true;
-                                return false;
+                            if (targets.insert(c).second) {
+                                assert(std::find(e1->targets.begin(), e1->targets.end(), c) == e1->targets.end());
+                                return !e1->addTarget(c);
                             }
                             return true;
-                            //return targets.insert(c).second;// !e1->addTarget(c);
                         },
                         [&]()
                         {
@@ -331,8 +326,9 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                                 release(e1);
                             }
                             else {
-                                e1->targets = Edge::container{targets.begin(), targets.end()};
+                                //e1->targets = Edge::container{targets.begin(), targets.end()};
                                 succs.push_back(e1);
+                                DEBUG_ONLY(check_duplicated(e1);)
                             }
                         }
                 );
@@ -363,11 +359,18 @@ std::vector<DependencyGraph::Edge*> OnTheFlyDG::successors(Configuration *c)
                                 allValid = Condition::RUNKNOWN;
                                 context.setMarking(mark.marking());
                                 Configuration* c = createConfiguration(createMarking(mark), v->getOwner(), (*cond)[0]);
-                                targets.insert(c);// e->addTarget(c);
+                                if(targets.insert(c).second) {
+                                    assert(std::find(e->targets.begin(), e->targets.end(), c) == e->targets.end());
+                                    e->addTarget(c);
+                                }
+                                //targets.insert(c);// e->addTarget(c);
                             }
                             return true;
                         },
-                        [&](){ e->targets = Edge::container{targets.begin(), targets.end()}; }
+                        [&](){
+                            /*e->targets = Edge::container{targets.begin(), targets.end()};
+                            DEBUG_ONLY(check_duplicated(e);)*/
+                        }
                     );
                     if(allValid == Condition::RUNKNOWN)
                     {
