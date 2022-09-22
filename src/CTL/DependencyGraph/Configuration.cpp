@@ -20,7 +20,12 @@ namespace DependencyGraph {
     }
 
     void Configuration::addDependency(Edge *e) {
+        assert(std::find(dependency_set.begin(), dependency_set.end(), e) == std::end(dependency_set));
+        assert(e != nullptr);
+        ++e->refcnt;
+        dependency_set.emplace_front(e);
         if (assignment == ONE) return;
+        return;
         unsigned int sDist = e->is_negated ? e->source->getDistance() + 1 : e->source->getDistance();
         unsigned int tDist = getDistance();
 
