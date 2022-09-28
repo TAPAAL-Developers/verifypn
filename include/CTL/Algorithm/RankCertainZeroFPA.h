@@ -48,6 +48,11 @@ namespace Algorithm {
         bool _early_output = false;
         bool _backloop_output = false;
         Strategy _strategy;
+
+        size_t _findundec_eval      = 0;
+        size_t _backprop_dependency = 0;
+        size_t _backprop_dep_succs  = 0;
+        size_t _backprop_depsuccs_2 = 0;
     };
 }
 #endif // CERTAINZEROFPA_H

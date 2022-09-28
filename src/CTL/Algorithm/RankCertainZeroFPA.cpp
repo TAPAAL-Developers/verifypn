@@ -99,6 +99,17 @@ Algorithm::RankCertainZeroFPA::RankCertainZeroFPA(Strategy type) : FixedPointAlg
 
 bool Algorithm::RankCertainZeroFPA::search(DependencyGraph::BasicDependencyGraph& t_graph) {
     auto res = _search(t_graph);
+#ifndef NDEBUG
+    std::cerr
+#else
+            std::cout
+#endif
+            << "\nEval edge calls:"
+            << "\n  find_undecided:                  " << _findundec_eval
+            << "\n  backprop (dependency):           " << _backprop_dependency
+            << "\n  backprop (succs of dependent):   " << _backprop_dep_succs
+            << "\n  backprop (succs of dependent 2): " << _backprop_depsuccs_2
+            << std::endl;
     return res;
 }
 
@@ -183,6 +194,7 @@ DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::find_undecided(Co
     while(it != edges.end())
     {
         auto* e = *it;
+        ++_findundec_eval;
         auto [ud, val] = eval_edge(e);
         if(val == ONE)
         {
@@ -449,6 +461,7 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
 
                 continue;
             }
+            _backprop_dependency++;
             auto [und, assignment] = eval_edge(e);
 
             if(assignment == ONE) {
@@ -463,6 +476,7 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                 bool all_zero = true;
                 for(auto* e : c->successors)
                 {
+                    ++_backprop_dep_succs;
                     auto r = eval_edge(e);
                     all_zero &= r.second == CZERO;
                 }
@@ -476,6 +490,7 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                 bool all_ref = true;
                 for(auto* e : c->successors)
                 {
+                    ++_backprop_depsuccs_2;
                     auto res = eval_edge(e);
                     if(res.second != CZERO && res.second != ONE)
                     {
