@@ -61,7 +61,7 @@ void RankCertainZeroFPA::set_assignment(Configuration *c, Assignment a) {
     if(correct.empty())
     {
         std::fstream in;
-        in.open("/home/pgj/Devel/verifypn/verifypn-git/build/assign", std::ios::in);
+        in.open("/home/njulrik/dev/verifypn/cmake-build-debug/assign", std::ios::in);
         if(in)
         {
             std::string line;
@@ -102,14 +102,16 @@ bool Algorithm::RankCertainZeroFPA::search(DependencyGraph::BasicDependencyGraph
 #ifndef NDEBUG
     std::cerr
 #else
-            std::cout
+
+    std::cout
 #endif
-            << "\nEval edge calls:"
-            << "\n  find_undecided:                  " << _findundec_eval
-            << "\n  backprop (dependency):           " << _backprop_dependency
-            << "\n  backprop (succs of dependent):   " << _backprop_dep_succs
-            << "\n  backprop (succs of dependent 2): " << _backprop_depsuccs_2
-            << std::endl;
+              << "\nEval edge calls:"
+              << "\n  find_undecided:                  " << _findundec_eval
+              << "\n  backprop (dependency):           " << _backprop_dependency
+              << "\n  backprop (succs of dependent):   " << _backprop_dep_succs
+              << "\n  backprop (succs of dependent 2): " << _backprop_depsuccs_2
+              << std::endl;
+
     return res;
 }
 
@@ -146,8 +148,15 @@ void Algorithm::RankCertainZeroFPA::expand(Configuration* config) {
             t->addDependency(e);
         }
 
-        if((!e->is_negated && all_one) && (e->is_negated && has_czero))
-                e->targets.clear();
+        if((!e->is_negated && all_one) || (e->is_negated && has_czero)) {
+            // this is hacky, just forcing the ONE edge to be in front,
+            // but this should _not_ be incorrect
+            e->targets.clear();
+            config->successors.emplace_front(e);
+            set_assignment(config, ONE);
+            break;
+            // TODO do we also need set_assignment here?
+        }
         else if((!e->is_negated && has_czero) || (e->is_negated && all_one))
         {
             --e->refcnt;
@@ -167,7 +176,8 @@ void Algorithm::RankCertainZeroFPA::push_to_wating(DependencyGraph::Configuratio
     expand(config);
     waiting.emplace_back(config);
     config->on_stack = true;
-    config->assignment = ZERO;
+    if (config->assignment != ONE)
+        config->assignment = ZERO;
 }
 
 void Algorithm::RankCertainZeroFPA::do_pop(wstack_t& waiting, DependencyGraph::Configuration* lowest) {
@@ -213,6 +223,7 @@ DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::find_undecided(Co
         }
         // if edge had undecided and we couldn't assign, select that one as next conf.
         else {
+            all_czero = false;
             if(ud != nullptr && (
                     undecided == nullptr ||
                     // we need to explore any edge which has only unexplored with priority.
@@ -225,8 +236,10 @@ DependencyGraph::Configuration* Algorithm::RankCertainZeroFPA::find_undecided(Co
                     )))
             {
                 undecided = ud;
+                if (ud->assignment == UNKNOWN) {
+                    break;
+                }
             }
-            all_czero = false;
         }
         pre = it;
         ++it;
@@ -339,7 +352,7 @@ bool Algorithm::RankCertainZeroFPA::_search(DependencyGraph::BasicDependencyGrap
         auto* conf = waiting.back();
         if(conf->isDone()) {
             auto* c = backprop(conf);
-            assert(c == conf);
+            //assert(c == conf);
             do_pop(waiting, c);
             continue;
         }
@@ -387,6 +400,7 @@ std::pair<Configuration *, Assignment> Algorithm::RankCertainZeroFPA::eval_edge(
         }
         if(*it == e->source)
         {
+            assert(false && "Self-loops handled in OnTheFlyDG");
             assert(!e->is_negated);
             hasCZero = true; // trivial self-loop
             allOne = false;
@@ -472,13 +486,30 @@ Configuration* Algorithm::RankCertainZeroFPA::backprop(Configuration* source) {
                 // nothing.
             }
             else {
+                // njulrik:
+                //   the zero case seems like there should be much more opportunity
+                //   for not checking as many successors, esp CZERO should just delete edges.
                 // this could probably be done faster by exploiting "nsuccs"
                 bool all_zero = true;
-                for(auto* e : c->successors)
+                auto pit = c->successors.before_begin();
+                auto it = c->successors.begin();
+                while (it != c->successors.end())
+                //for(auto* e : c->successors)
                 {
-                    ++_backprop_dep_succs;
+                    auto* e = *it;
+                    _backprop_dep_succs++;
                     auto r = eval_edge(e);
-                    all_zero &= r.second == CZERO;
+                    if (r.second == CZERO) {
+                        //assert(false);
+                        c->successors.erase_after(pit);
+                        it = pit;
+                    }
+                    else {
+                        all_zero = false; break;
+                    }
+                    pit = it;
+                    ++it;
+                    //all_zero &= r.second == CZERO;
                 }
                 if(all_zero) {
                     set_assignment(c, CZERO);
