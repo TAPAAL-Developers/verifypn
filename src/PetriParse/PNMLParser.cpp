@@ -820,6 +820,11 @@ void PNMLParser::parseTransition(rapidxml::xml_node<>* element) {
             throw base_error("conditions not supported");
         } else if (strcmp(it->name(), "assignments") == 0) {
             throw base_error("assignments not supported");
+        } else if (strcmp(it->name(), "features") == 0) {
+            auto feat = parseFeature(it);
+            if (feat.has_value()) {
+                t.feature = feat.value();
+            }
         }
     }
 
@@ -985,4 +990,77 @@ const Color* PNMLParser::findColorForIntRange(const char* value, const char* sta
         }
     }
     throw base_error("Could not find color: ", value, "\nCANNOT_COMPUTE\n");
+}
+
+std::optional<bdd> PNMLParser::parseFeature(rapidxml::xml_node<char>* node) {
+    auto child = node->first_node();
+    if (!child) {
+        // TODO this might not need to be a hard error, but can instead fall back to true.
+        throw base_error("Error: found feature tag with empty contents");
+    }
+    std::string name = child->name();
+    if (name == "true") {
+        return bddtrue;
+    }
+    else if (name == "false") {
+        return bddfalse;
+    }
+    else if (name == "and") {
+        bdd res = bddtrue;
+        for (auto it = child->first_node(); it; it = it->next_sibling()) {
+            auto child = parseFeature(it);
+            if (!child) {
+                throw base_error("Error parsing feature");
+            }
+            res &= *child;
+        }
+        return res;
+    }
+    else if (name == "or") {
+        bdd res = bddfalse;
+        for (auto it = child->first_node(); it; it = it->next_sibling()) {
+            auto child = parseFeature(it);
+            if (!child) {
+                throw base_error("Error parsing feature");
+            }
+            res |= *child;
+        }
+        return res;
+    }
+    else if (name == "not") {
+        auto res = parseFeature(child->first_node());
+        if (res.has_value())
+            return !(*res);
+        return std::nullopt;
+    }
+    else if (name == "variable") {
+        std::string fname = child->value();
+        if (auto it = feat_bdd_map.find(fname); it == std::end(feat_bdd_map)) {
+            // allocate new variable
+            // TODO dumbest possible logic; spot has free list,
+            // TODO and allocating one extra at a time probably not the smartest.
+            int nvars = bdd_varnum();
+            bdd_extvarnum(1);  // should add one more variable
+            // FIXME this is off-by-one candidate. Test if this is one after or one before last.
+            auto lastvar = bdd_varnum();
+            feat_bdd_map.insert({fname, lastvar});
+            return bdd_ithvar(lastvar);
+        }
+        else {
+            return bdd_ithvar(it->second);
+        }
+    }
+    else if (name == "imply" || name == "implies") {
+        auto first = child->first_node();
+        auto left = parseFeature(first);
+        if (!left.has_value()) {
+            return std::nullopt;
+        }
+        auto second = first->next_sibling();
+        auto right = parseFeature(second);
+        if (!right.has_value()) {
+            return std::nullopt;
+        }
+        return bdd_imp(*left, *right);
+    }
 }

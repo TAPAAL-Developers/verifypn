@@ -20,11 +20,13 @@
 #ifndef PNMLPARSER_H
 #define PNMLPARSER_H
 
+#include <bddx.h>
 #include <map>
 #include <string>
 #include <vector>
 #include <fstream>
 #include <rapidxml.hpp>
+#include <optional>
 
 #include "../PetriEngine/AbstractPetriNetBuilder.h"
 #include "../PetriEngine/PQL/PQL.h"
@@ -50,6 +52,7 @@ class PNMLParser {
         int _player  = 0;
         double x = 0, y = 0;
         PetriEngine::Colored::GuardExpression_ptr expr = nullptr;
+        bdd feature = bddtrue;
     };
     typedef std::vector<Transition> TransitionList;
     typedef TransitionList::iterator TransitionIter;
@@ -118,6 +121,9 @@ private:
     std::vector<Query> queries;
     std::vector<PetriEngine::Colored::ColorTypePartition> partitions;
     std::vector<std::pair<char *, PetriEngine::Colored::ProductType*>> missingCTs;
+
+    std::optional<bdd> parseFeature(rapidxml::xml_node<char>* pNode);
+    std::unordered_map<std::string, size_t> feat_bdd_map;
 };
 
 #endif // PNMLPARSER_H
