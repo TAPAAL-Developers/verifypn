@@ -23,5 +23,5 @@ elseif (NOT APPLE)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static")
 endif()
 
-
-
+add_executable(make-fpnml fpnml.cpp)
+target_link_libraries(make-fpnml verifypn)

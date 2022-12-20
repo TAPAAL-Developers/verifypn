@@ -1033,7 +1033,7 @@ std::optional<bdd> PNMLParser::parseFeature(rapidxml::xml_node<char>* node) {
             return !(*res);
         return std::nullopt;
     }
-    else if (name == "variable") {
+    else if (name == "var") {
         std::string fname = child->value();
         if (auto it = feat_bdd_map.find(fname); it == std::end(feat_bdd_map)) {
             // allocate new variable

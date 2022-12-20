@@ -29,6 +29,8 @@
 
 #include "utils/structures/shared_string.h"
 
+#include <bddx.h>
+
 namespace PetriEngine {
 
     namespace PQL {
@@ -45,6 +47,7 @@ namespace PetriEngine {
     struct TransPtr {
         uint32_t inputs;
         uint32_t outputs;
+        bdd feature;
     };
 
     struct Invariant {
