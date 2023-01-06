@@ -121,6 +121,9 @@ namespace PetriEngine {
 
         virtual ~AbstractPetriNetBuilder() {
         }
+
+        spot::bdd_dict_ptr bdd_dict;
+
     };
 
 }

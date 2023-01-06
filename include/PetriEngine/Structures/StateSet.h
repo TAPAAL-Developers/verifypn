@@ -16,14 +16,15 @@
  */
 #ifndef STATESET_H
 #define STATESET_H
-#include <ptrie/ptrie_stable.h>
-#include <ptrie/ptrie_map.h>
 #include <unordered_map>
 #include <iostream>
 #include "State.h"
 #include "AlignedEncoder.h"
 #include "utils/structures/binarywrapper.h"
 #include "utils/errors.h"
+
+#include <ptrie/ptrie_stable.h>
+#include <ptrie/ptrie_map.h>
 
 
 namespace PetriEngine {

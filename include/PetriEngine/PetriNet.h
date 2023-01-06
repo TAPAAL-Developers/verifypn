@@ -29,7 +29,7 @@
 
 #include "utils/structures/shared_string.h"
 
-#include <bddx.h>
+#include <spot/twa/bdddict.hh>
 
 namespace PetriEngine {
 
@@ -47,7 +47,6 @@ namespace PetriEngine {
     struct TransPtr {
         uint32_t inputs;
         uint32_t outputs;
-        bdd feature;
     };
 
     struct Invariant {
@@ -65,7 +64,7 @@ namespace PetriEngine {
     class PetriNet {
         PetriNet(uint32_t transitions, uint32_t invariants, uint32_t places);
     public:
-        ~PetriNet();
+        virtual ~PetriNet();
 
         uint32_t initial(size_t id) const;
         MarkVal* makeInitialMarking() const;
@@ -113,7 +112,7 @@ namespace PetriEngine {
 
         void sort();
 
-        void toXML(std::ostream& out);
+        void toXML(std::ostream& out, spot::bdd_dict_ptr d = nullptr);
 
         const MarkVal* initial() const {
             return _initialMarking;
@@ -127,7 +126,19 @@ namespace PetriEngine {
             return false;
         }
 
+        [[nodiscard]] auto& feat(size_t i) {
+            return features_[i];
+        }
+
+        [[nodiscard]] const auto& feat(size_t i) const {
+            return features_[i];
+        }
+
     private:
+        virtual void print_place(uint32_t pid, std::ostream& os);
+        virtual void print_transition(uint32_t tid, std::ostream& os);
+        virtual void print_arc(uint32_t tid, std::ostream& os, size_t &arcid);
+
 
         /** Number of x variables
          * @remarks We could also get this from the _places vector, but I don't see any
@@ -146,6 +157,9 @@ namespace PetriEngine {
 
         std::vector< std::tuple<double, double> > _placelocations;
         std::vector< std::tuple<double, double> > _transitionlocations;
+
+        std::vector<bdd> features_;
+        spot::bdd_dict_ptr bdd_dict;
 
         friend class PetriNetBuilder;
         friend class Reducer;

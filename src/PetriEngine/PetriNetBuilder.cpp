@@ -282,6 +282,7 @@ namespace PetriEngine {
 #endif
 
         PetriNet* net = new PetriNet(ntrans, invariants, nplaces);
+        net->bdd_dict = bdd_dict;
 
         uint32_t next = nextPlaceId(place_cons_count, place_prod_count, place_idmap, reorder);
         uint32_t free = 0;

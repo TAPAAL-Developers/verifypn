@@ -31,6 +31,7 @@
 #include "PetriEngine/Colored/EvaluationVisitor.h"
 #include "PetriEngine/Colored/ConstantVisitor.h"
 
+
 using namespace PetriEngine;
 using namespace PetriEngine::PQL;
 using namespace PetriEngine::Colored;
@@ -47,6 +48,7 @@ void PNMLParser::parse(std::istream& xml,
 
     //Set the builder
     this->builder = builder;
+
 
     //Parse the xml
     rapidxml::xml_document<> doc;
@@ -810,6 +812,18 @@ void PNMLParser::parseTransition(rapidxml::xml_node<>* element) {
     t.id = element->first_attribute("id")->value();
     t.expr = nullptr;
 
+    auto feat_attr = element->first_attribute("feature");
+    if (feat_attr) {
+        auto f = feat_attr->value();
+        auto parsed = spot::parse_infix_psl(f);
+        if (!parsed.errors.empty()) {
+            std::stringstream ss{};
+            parsed.format_errors(ss);
+            throw base_error{"Following error happened while parsing feature: ", ss.str()};
+        }
+        t.feature = spot::formula_to_bdd(parsed.f, builder->bdd_dict, (void*) nullptr);
+    }
+
     for (auto it = element->first_node(); it; it = it->next_sibling()) {
         // name element is ignored
         if (strcmp(it->name(), "graphics") == 0) {
@@ -993,7 +1007,8 @@ const Color* PNMLParser::findColorForIntRange(const char* value, const char* sta
 }
 
 std::optional<bdd> PNMLParser::parseFeature(rapidxml::xml_node<char>* node) {
-    auto child = node->first_node();
+    throw  base_error{"parseFeature: deprecated"};
+    /*auto child = node->first_node();
     if (!child) {
         // TODO this might not need to be a hard error, but can instead fall back to true.
         throw base_error("Error: found feature tag with empty contents");
@@ -1062,5 +1077,5 @@ std::optional<bdd> PNMLParser::parseFeature(rapidxml::xml_node<char>* node) {
             return std::nullopt;
         }
         return bdd_imp(*left, *right);
-    }
+    }*/
 }

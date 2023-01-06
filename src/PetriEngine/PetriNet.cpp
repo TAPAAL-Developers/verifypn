@@ -22,6 +22,9 @@
 #include "PetriEngine/PQL/Contexts.h"
 #include "PetriEngine/Structures/State.h"
 
+#include <spot/twa/formula2bdd.hh>
+#include <spot/tl/print.hh>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -33,6 +36,7 @@ namespace PetriEngine {
     : _ninvariants(invariants), _ntransitions(trans), _nplaces(places),
             _transitions(_ntransitions+1),
             _invariants(_ninvariants),
+            features_(_ntransitions+1),
             _placeToPtrs(_nplaces+1),
             _controllable(_ntransitions, true) {
 
@@ -177,8 +181,9 @@ namespace PetriEngine {
         }
     }
 
-    void PetriNet::toXML(std::ostream& out)
+    void PetriNet::toXML(std::ostream& out, spot::bdd_dict_ptr d)
     {
+        if (d != nullptr) { this->bdd_dict = d; }
         out << "<?xml version=\"1.0\"?>\n"
             << "<pnml xmlns=\"http://www.pnml.org/version-2009/grammar/pnml\">\n"
             << "<net id=\"ClientsAndServers-PT-N0500P0\" type=\"http://www.pnml.org/version-2009/grammar/ptnet\">\n";
@@ -189,66 +194,106 @@ namespace PetriEngine {
 
         for(size_t i = 0; i < _nplaces; ++i)
         {
-            auto& p = _placenames[i];
-            auto& placelocation = _placelocations[i];
-            out << "<place id=\"" << *p << "\">\n"
-                << "<graphics><position x=\"" << std::get<0>(placelocation)
-                << "\" y=\"" << std::get<1>(placelocation) << "\"/></graphics>\n"
-                << "<name><text>" << *p << "</text></name>\n";
-            if(_initialMarking[i] > 0)
-            {
-                out << "<initialMarking><text>" << _initialMarking[i] << "</text></initialMarking>\n";
-            }
-            out << "</place>\n";
+            print_place(i, out);
         }
         for(size_t i = 0; i < _ntransitions; ++i)
         {
-            auto& transitionlocation = _transitionlocations[i];
-            out << "<transition id=\"" << *_transitionnames[i] << "\">\n"
-                << "<player><value>" << (_controllable[i] ? '0' : '1') << "</value></player>\n"
-                << "<name><text>" << *_transitionnames[i] << "</text></name>\n";
-            out << "<graphics><position x=\"" << std::get<0>(transitionlocation)
-                << "\" y=\"" << std::get<1>(transitionlocation) << "\"/></graphics>\n";
-            out << "</transition>\n";
+            print_transition(i, out);
         }
-        size_t id = 0;
+        size_t arcid = 0;
         for(size_t t = 0; t < _ntransitions; ++t)
         {
-            auto pre = preset(t);
-
-            for(; pre.first != pre.second; ++pre.first)
-            {
-                out << "<arc id=\"" << (id++) << "\" source=\""
-                    << *_placenames[pre.first->place] << "\" target=\""
-                    << *_transitionnames[t]
-                    << "\" type=\""
-                    << (pre.first->inhibitor ? "inhibitor" : "normal")
-                    << "\">\n";
-
-                if(pre.first->tokens > 1)
-                {
-                    out << "<inscription><text>" << pre.first->tokens << "</text></inscription>\n";
-                }
-
-                out << "</arc>\n";
-            }
-
-            auto post = postset(t);
-            for(; post.first != post.second; ++post.first)
-            {
-                out << "<arc id=\"" << (id++) << "\" source=\""
-                    << *_transitionnames[t] << "\" target=\""
-                    << *_placenames[post.first->place] << "\">\n";
-
-                if(post.first->tokens > 1)
-                {
-                    out << "<inscription><text>" << post.first->tokens << "</text></inscription>\n";
-                }
-
-                out << "</arc>\n";
-            }
+            print_arc(t, out, arcid);
         }
         out << "</page></net>\n</pnml>";
+    }
+
+    void PetriNet::print_place(uint32_t pid, std::ostream& out) {
+        auto& p = _placenames[pid];
+        auto& placelocation = _placelocations[pid];
+        out << "<place id=\"" << *p << "\">\n"
+            << "<graphics><position x=\"" << std::get<0>(placelocation)
+            << "\" y=\"" << std::get<1>(placelocation) << "\"/></graphics>\n"
+            << "<name><text>" << *p << "</text></name>\n";
+        if(_initialMarking[pid] > 0)
+        {
+            out << "<initialMarking><text>" << _initialMarking[pid] << "</text></initialMarking>\n";
+        }
+        out << "</place>\n";
+    }
+
+
+    // https://stackoverflow.com/a/24315631
+    std::string ReplaceAll(std::string str, const std::string& from, const std::string& to) {
+        size_t start_pos = 0;
+        while((start_pos = str.find(from, start_pos)) != std::string::npos) {
+            str.replace(start_pos, from.length(), to);
+            start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
+        }
+        return str;
+    }
+
+    void print_formula_xml(const spot::formula &f, std::ostream& os) {
+        std::stringstream ss;
+        spot::print_spin_ltl(ss, f);
+        auto s = ss.str();
+        os << ReplaceAll(s, "&", "&#38;");
+    }
+
+    void PetriNet::print_transition(uint32_t tid, std::ostream& out) {
+        auto& transitionlocation = _transitionlocations[tid];
+        out << "<transition id=\"" << *_transitionnames[tid];
+        if (features_[tid] != bddtrue && features_[tid] != bddfalse) {
+
+            std::cerr << "Printing formula " << features_[tid];
+            spot::formula formula = spot::bdd_to_formula(features_[tid], bdd_dict);
+            out << "\" feature=\"";
+            print_formula_xml(formula, out);
+            //spot::print_spin_ltl(out, formula);
+        }
+        out << "\">\n"
+            << "<player><value>" << (_controllable[tid] ? '0' : '1') << "</value></player>\n"
+            << "<name><text>" << *_transitionnames[tid] << "</text></name>\n";
+        out << "<graphics><position x=\"" << std::get<0>(transitionlocation)
+            << "\" y=\"" << std::get<1>(transitionlocation) << "\"/></graphics>\n";
+        out << "</transition>\n";
+    }
+
+    void PetriNet::print_arc(uint32_t t, std::ostream& os, size_t &arcid)
+    {
+        auto pre = preset(t);
+
+        for(; pre.first != pre.second; ++pre.first)
+        {
+            os << "<arc id=\"" << (arcid++) << "\" source=\""
+                << *_placenames[pre.first->place] << "\" target=\""
+                << *_transitionnames[t]
+                << "\" type=\""
+                << (pre.first->inhibitor ? "inhibitor" : "normal")
+                << "\">\n";
+
+            if(pre.first->tokens > 1)
+            {
+                os << "<inscription><text>" << pre.first->tokens << "</text></inscription>\n";
+            }
+
+            os << "</arc>\n";
+        }
+
+        auto post = postset(t);
+        for(; post.first != post.second; ++post.first)
+        {
+            os << "<arc id=\"" << (arcid++) << "\" source=\""
+                << *_transitionnames[t] << "\" target=\""
+                << *_placenames[post.first->place] << "\">\n";
+
+            if(post.first->tokens > 1)
+            {
+                os << "<inscription><text>" << post.first->tokens << "</text></inscription>\n";
+            }
+
+            os << "</arc>\n";
+        }
     }
 
 } // PetriEngine

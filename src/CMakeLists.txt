@@ -23,5 +23,15 @@ elseif (NOT APPLE)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static")
 endif()
 
+
+#set (BOOST_USE_STATIC_LIBS OFF)
+#
+#add_definitions( -DBOOST_ALL_NO_LIB )
+#add_definitions( -DBOOST_ALL_DYN_LINK )
+#
+#find_package (Boost REQUIRED COMPONENTS program_options)
+#
+#target_compile_definitions(make-fpnml PRIVATE BOOST_program_options_DYN_LINK)
+
 add_executable(make-fpnml fpnml.cpp)
 target_link_libraries(make-fpnml verifypn)

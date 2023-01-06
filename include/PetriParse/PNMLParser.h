@@ -35,6 +35,11 @@
 #include "../PetriEngine/Colored/Colors.h"
 #include "../PetriEngine/Colored/EquivalenceClass.h"
 
+
+#include <spot/tl/parse.hh>
+#include <spot/tl/print.hh>
+#include <spot/twa/formula2bdd.hh>
+
 class PNMLParser {
 
     struct Arc {
@@ -123,7 +128,7 @@ private:
     std::vector<std::pair<char *, PetriEngine::Colored::ProductType*>> missingCTs;
 
     std::optional<bdd> parseFeature(rapidxml::xml_node<char>* pNode);
-    std::unordered_map<std::string, size_t> feat_bdd_map;
+    //spot::bdd_dict_ptr bdd_dict;
 };
 
 #endif // PNMLPARSER_H
