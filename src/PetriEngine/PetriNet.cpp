@@ -50,6 +50,9 @@ namespace PetriEngine {
 
     PetriNet::~PetriNet() {
         delete[] _initialMarking;
+        if (bdd_dict) {
+            bdd_dict->unregister_all_my_variables(nullptr);
+        }
     }
 
     uint32_t PetriNet::inArc(uint32_t place, uint32_t transition) const

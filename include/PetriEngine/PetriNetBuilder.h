@@ -45,6 +45,11 @@ namespace PetriEngine {
                 int32_t player,
                 double x,
                 double y) override;
+        void addFeatureTransition(const std::string& name,
+                           int32_t player,
+                           double x,
+                           double y,
+                           bdd bdd) override;
         void addTransition(const shared_const_string& name,
                 int32_t player,
                 double x,

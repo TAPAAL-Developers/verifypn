@@ -34,7 +34,7 @@ namespace PetriEngine {
         bool _hasPartition = false;
 
     public:
-        void parse_model(const std::string&& model);
+        void parse_model(const std::string& model);
         void parse_model(std::istream& model);
 
         /** Add a new place with a unique name */
@@ -56,6 +56,11 @@ namespace PetriEngine {
                 int32_t player,
                 double x,
                 double y) = 0;
+        virtual void addFeatureTransition(const std::string& name,
+                                   int32_t player,
+                                   double x,
+                                   double y,
+                                   bdd bdd) = 0;
         /** Add a new colored transition with a unique name */
         virtual void addTransition(const std::string& name,
                 const Colored::GuardExpression_ptr& guard,
@@ -122,7 +127,7 @@ namespace PetriEngine {
         virtual ~AbstractPetriNetBuilder() {
         }
 
-        spot::bdd_dict_ptr bdd_dict;
+        spot::bdd_dict_ptr bdd_dict = nullptr;
 
     };
 

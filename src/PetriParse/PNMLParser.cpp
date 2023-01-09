@@ -78,7 +78,7 @@ void PNMLParser::parse(std::istream& xml,
     //Add all the transition
     for (auto & transition : _transitions)
         if (!isColored) {
-            builder->addTransition(transition.id, transition._player, transition.x, transition.y);
+            builder->addFeatureTransition(transition.id, transition._player, transition.x, transition.y, transition.feature);
         } else {
             builder->addTransition(transition.id, transition.expr, transition._player, transition.x, transition.y);
         }
@@ -814,6 +814,9 @@ void PNMLParser::parseTransition(rapidxml::xml_node<>* element) {
 
     auto feat_attr = element->first_attribute("feature");
     if (feat_attr) {
+        if (builder->bdd_dict == nullptr) {
+            builder->bdd_dict = spot::make_bdd_dict();
+        }
         auto f = feat_attr->value();
         auto parsed = spot::parse_infix_psl(f);
         if (!parsed.errors.empty()) {
@@ -821,7 +824,12 @@ void PNMLParser::parseTransition(rapidxml::xml_node<>* element) {
             parsed.format_errors(ss);
             throw base_error{"Following error happened while parsing feature: ", ss.str()};
         }
-        t.feature = spot::formula_to_bdd(parsed.f, builder->bdd_dict, (void*) nullptr);
+        /* registering as nullptr here; the PetriNet destructor will later clean bdd_dict
+         * using nullptr. This will not be sane if there are ever two PetriNet instances in memory,
+         * so if that is needed this routing needs to be smarter somehow, likely via static id or similar.
+         * (spots registration is void*).
+         * */
+        t.feature = spot::formula_to_bdd(parsed.f, builder->bdd_dict, nullptr);
     }
 
     for (auto it = element->first_node(); it; it = it->next_sibling()) {

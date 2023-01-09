@@ -134,6 +134,7 @@ namespace PetriEngine {
             return features_[i];
         }
 
+        spot::bdd_dict_ptr bdd_dict;
     private:
         virtual void print_place(uint32_t pid, std::ostream& os);
         virtual void print_transition(uint32_t tid, std::ostream& os);
@@ -159,7 +160,6 @@ namespace PetriEngine {
         std::vector< std::tuple<double, double> > _transitionlocations;
 
         std::vector<bdd> features_;
-        spot::bdd_dict_ptr bdd_dict;
 
         friend class PetriNetBuilder;
         friend class Reducer;

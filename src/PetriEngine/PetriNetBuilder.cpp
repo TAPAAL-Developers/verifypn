@@ -44,14 +44,17 @@ namespace PetriEngine {
        _transitions(other._transitions), _places(other._places),
        initialMarking(other.initialMarking), reducer(this), _string_set(other._string_set)
     {
-
+        bdd_dict = other.bdd_dict;
     }
 
     PetriNetBuilder::PetriNetBuilder(PetriNetBuilder&& other)
     : _placenames(std::move(other._placenames)), _transitionnames(std::move(other._transitionnames)),
        _placelocations(std::move(other._placelocations)), _transitionlocations(std::move(other._transitionlocations)),
        _transitions(std::move(other._transitions)), _places(std::move(other._places)),
-       initialMarking(std::move(other.initialMarking)), reducer(this), _string_set(other._string_set) {}
+       initialMarking(std::move(other.initialMarking)), reducer(this), _string_set(other._string_set)
+   {
+       bdd_dict = other.bdd_dict;
+   }
 
     void PetriNetBuilder::addPlace(const std::string &name, uint32_t tokens, double x, double y)
     {
@@ -91,6 +94,13 @@ namespace PetriEngine {
             _transitions.back()._player = player;
             _transitionlocations.push_back(std::tuple<double, double>(x,y));
         }
+    }
+
+    void PetriNetBuilder::addFeatureTransition(const std::string &name,
+                                        int32_t player, double x, double y, bdd bdd) {
+        auto stn = std::make_shared<const_string>(name);
+        addTransition(stn, player, x, y);
+        _transitions.back().feature = bdd;
     }
 
     void PetriNetBuilder::addInputArc(const std::string &place, const std::string &transition, bool inhibitor, uint32_t weight)
@@ -295,6 +305,7 @@ namespace PetriEngine {
         for(size_t t = 0; t < _transitions.size(); ++t)
         {
             Transition& trans = _transitions[t];
+            net->features_[t] = trans.feature;
             if (std::all_of(trans.pre.begin(), trans.pre.end(), [](Arc& a){return a.inhib;}))
             {
                 // ALL have to be inhibitor, if any. Otherwise not orphan

@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "FCTL/FeaturedPetriNetBuilder.h"
 
 #include "PetriEngine/Colored/PnmlWriter.h"
 #include "PetriEngine/PQL/PQL.h"
@@ -31,6 +30,7 @@ namespace fs = std::filesystem;
 struct Options {
     std::string model_dir = "mcc22";
     std::string out_dir = "fmcc22";
+    std::string parse_model = "";
     int inv_frequency = 10;
     int feat_count_exp;
     int feat_count_fixed;
@@ -228,6 +228,11 @@ Options parse_options(int argc, char* argv[]) {
         } else if (args[i] == "--lambda" || args[i] == "-l") {
             // TODO assign lambda
         }
+        else if (args[i] == "--parse") {
+            ++i;
+            assert(i != args.size());
+            options.parse_model = args[i];
+        }
         else {
             options.model_dir = args[i];
         }
@@ -346,9 +351,28 @@ int main(int argc, char* argv[]) {
     options = parse_options(argc, argv);
     //rng.seed(time(nullptr));
 
-    int opt;
-
     shared_string_set string_set;
+    if (!options.parse_model.empty()) {
+        shared_string_set string_set;
+        ColoredPetriNetBuilder cpnBuilder{string_set};
+        try {
+            cpnBuilder.parse_model(options.parse_model.c_str());
+        }
+        catch (const base_error& err) {
+            throw base_error("CANNOT_COMPUTE\nError parsing the model\n", err.what());
+        }
+        if (cpnBuilder.isColored()) {
+            // TODO this might actually be worth doing? idk
+            throw base_error("Do not want to feature-ise colored nets");
+        }
+        auto pnbuilder = cpnBuilder.pt_builder();
+        pnbuilder.sort();
+        std::cerr << pnbuilder.bdd_dict.get() << "\n";
+        auto pn = pnbuilder.makePetriNet(false);
+        pn->toXML(std::cout);
+        std::cerr << pn->bdd_dict.get() << std::endl;
+        return 0;
+    }
     transform_model(options);
 
     return 0;

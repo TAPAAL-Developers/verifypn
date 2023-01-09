@@ -79,6 +79,12 @@ namespace PetriEngine {
             _ptBuilder.addTransition(name, player, x, y);
         }
     }
+    void ColoredPetriNetBuilder::addFeatureTransition(const std::string& name, int32_t player, double x, double y,
+                                                      bdd bdd) {
+        if (!_isColored) {
+            _ptBuilder.addFeatureTransition(name, player, x, y, bdd);
+        }
+    }
 
     void ColoredPetriNetBuilder::addTransition(const std::string& name, const Colored::GuardExpression_ptr& guard, int32_t player, double x, double y) {
         auto tmp = std::make_shared<const_string>(name);

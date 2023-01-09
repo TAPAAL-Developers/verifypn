@@ -41,6 +41,7 @@ namespace PetriEngine {
         int32_t _player = 0;
         bool skip = false;
         bool inhib = false;
+        bdd feature;
 
         void addPreArc(const Arc& arc)
         {

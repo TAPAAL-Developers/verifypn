@@ -57,6 +57,10 @@ namespace PetriEngine {
                 int32_t player,
                 double x,
                 double y) override;
+        void addFeatureTransition(const std::string& name,
+                           int32_t player,
+                           double x,
+                           double y, bdd bdd) override;
         void addTransition(const std::string& name,
                 const Colored::GuardExpression_ptr& guard,
                 int32_t player,
@@ -138,7 +142,10 @@ namespace PetriEngine {
             return _colors;
         }
 
-        PetriNetBuilder pt_builder() const {
+        PetriNetBuilder pt_builder() {
+            if (_ptBuilder.bdd_dict != bdd_dict) {
+                _ptBuilder.bdd_dict = bdd_dict;
+            }
             return _ptBuilder;
         }
 
