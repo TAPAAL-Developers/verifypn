@@ -367,10 +367,8 @@ int main(int argc, char* argv[]) {
         }
         auto pnbuilder = cpnBuilder.pt_builder();
         pnbuilder.sort();
-        std::cerr << pnbuilder.bdd_dict.get() << "\n";
         auto pn = pnbuilder.makePetriNet(false);
         pn->toXML(std::cout);
-        std::cerr << pn->bdd_dict.get() << std::endl;
         return 0;
     }
     transform_model(options);

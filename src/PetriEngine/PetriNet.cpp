@@ -240,7 +240,7 @@ namespace PetriEngine {
         std::stringstream ss;
         spot::print_spin_ltl(ss, f);
         auto s = ss.str();
-        os << ReplaceAll(s, "&", "&#38;");
+        os << ReplaceAll(s, "&", "&amp;");
     }
 
     void PetriNet::print_transition(uint32_t tid, std::ostream& out) {
@@ -248,8 +248,8 @@ namespace PetriEngine {
         out << "<transition id=\"" << *_transitionnames[tid];
         if (features_[tid] != bddtrue && features_[tid] != bddfalse) {
 
-            std::cerr << "Printing formula " << features_[tid];
             spot::formula formula = spot::bdd_to_formula(features_[tid], bdd_dict);
+            /*std::cerr << "Printing formula " << formula << std::endl; */
             out << "\" feature=\"";
             print_formula_xml(formula, out);
             //spot::print_spin_ltl(out, formula);
