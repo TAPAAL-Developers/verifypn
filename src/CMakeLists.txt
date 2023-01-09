@@ -2,11 +2,12 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_subdirectory(CTL)
 add_subdirectory(LTL)
+add_subdirectory(FCTL)
 add_subdirectory(PetriParse)
 add_subdirectory(PetriEngine)
 
 add_library(verifypn VerifyPN.cpp)
-target_link_libraries(verifypn PUBLIC CTL LTL PetriEngine PetriParse)
+target_link_libraries(verifypn PUBLIC CTL FCTL LTL PetriEngine PetriParse)
 
 add_dependencies(verifypn glpk-ext spot-ext)
 
