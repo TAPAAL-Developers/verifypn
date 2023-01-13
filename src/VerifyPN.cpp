@@ -60,11 +60,11 @@ using namespace PetriEngine::Reachability;
 
 
 bool reduceColored(ColoredPetriNetBuilder &cpnBuilder, std::vector<std::shared_ptr<PQL::Condition> > &queries,
-                   TemporalLogic logic, uint32_t timeout, std::ostream &out, int reductiontype,
-                   std::vector<uint32_t>& reductions) {
+                   TemporalLogic logic, uint32_t timeout, std::ostream &out, int reduceMode,
+                   std::vector<uint32_t>& userSequence) {
     if (!cpnBuilder.isColored()) return false;
 
-    if (reductiontype == 0) {
+    if (reduceMode == 0) {
         out << "\nSkipping colored structural reductions (-R 0)" << std::endl;
         out << "Net consists of " << cpnBuilder.getPlaceCount() << " places and " << cpnBuilder.getTransitionCount() << " transitions" << std::endl;
         return false;
@@ -80,30 +80,26 @@ bool reduceColored(ColoredPetriNetBuilder &cpnBuilder, std::vector<std::shared_p
 
     for (auto &q: queries) {
         PQL::Visitor::visit(useVisitor, q);
-        preserveLoops |= PetriEngine::PQL::isLoopSensitive(q);
-        preserveStutter |= PetriEngine::PQL::containsNext(q) || PetriEngine::PQL::hasNestedDeadlock(q);
+        preserveLoops = preserveLoops || PetriEngine::PQL::isLoopSensitive(q);
+        preserveStutter = preserveStutter || PetriEngine::PQL::containsNext(q) || PetriEngine::PQL::hasNestedDeadlock(q);
         bool is_reach = PetriEngine::PQL::isReachability(q);
-        if(!is_reach)
-        {
+        if (!is_reach) {
             allReach = false;
-            if(allCtl)
-            {
+            if (allCtl) {
                 IsCTLVisitor v;
                 Visitor::visit(v, q);
                 allCtl = v.isCTL;
             }
-            if(allLtl)
-            {
+            if (allLtl) {
                 LTL::LTLValidator isLtl;
                 allLtl = isLtl.isLTL(q);
             }
         }
     }
 
-
-    if(!allCtl && !allLtl)
+    if (!allCtl && !allLtl)
     {
-        out << "Warning: Couldn't correctly detect query type in colored reducer" << std::endl;
+        out << "Warning: Could not correctly detect query type in colored reducer" << std::endl;
         return false;
     }
 
@@ -111,7 +107,7 @@ bool reduceColored(ColoredPetriNetBuilder &cpnBuilder, std::vector<std::shared_p
             (allCtl ? Colored::Reduction::QueryType::CTL : Colored::Reduction::QueryType::LTL);
 
     Colored::Reduction::ColoredReducer reducer(cpnBuilder);
-    bool anyReduction = reducer.reduce(timeout, useVisitor, queryType, preserveLoops, preserveStutter, reductiontype, reductions);
+    bool anyReduction = reducer.reduce(timeout, useVisitor, queryType, preserveLoops, preserveStutter, reduceMode, userSequence);
 
     auto removedPlacesCount = (int32_t)reducer.origPlaceCount() - (int32_t)reducer.unskippedPlacesCount();
     auto removedTransitionsCount = (int32_t)reducer.origTransitionCount() - (int32_t)reducer.unskippedTransitionsCount();
@@ -192,9 +188,10 @@ unfold(ColoredPetriNetBuilder& cpnBuilder, bool compute_partiton, bool compute_s
 ReturnValue contextAnalysis(bool colored, const shared_name_name_map& transition_names, const shared_place_color_map& place_names,
     PetriNetBuilder& builder, const PetriNet* net, std::vector<std::shared_ptr<Condition> >& queries) {
     //Context analysis
-    ColoredAnalysisContext context(builder.getPlaceNames(), builder.getTransitionNames(), net,
-        place_names, transition_names, colored);
+
     for (auto& q : queries) {
+        ColoredAnalysisContext context(builder.getPlaceNames(), builder.getTransitionNames(), net,
+            place_names, transition_names, colored);
         PetriEngine::PQL::analyze(q, context);
     }
     return ReturnValue::ContinueCode;
@@ -395,12 +392,26 @@ Condition_ptr simplify_ltl_query(Condition_ptr query,
     std::ostream &out) {
     Condition_ptr cond;
     bool wasACond;
+    std::vector<std::pair<std::string,size_t>> names;
     if (std::dynamic_pointer_cast<ACondition>(query) != nullptr) {
         wasACond = true;
         cond = (*std::dynamic_pointer_cast<SimpleQuantifierCondition>(query))[0];
     } else if (std::dynamic_pointer_cast<ECondition>(query) != nullptr) {
         wasACond = false;
         cond = (*std::dynamic_pointer_cast<SimpleQuantifierCondition>(query))[0];
+    } else if(auto path = dynamic_cast<PathQuant*>(query.get())) {
+        wasACond = path->is<AllPaths>();
+        for(;path; path = dynamic_cast<PathQuant*>(path->child().get()))
+        {
+            if(wasACond != path->is<AllPaths>())
+            {
+                std::stringstream ss;
+                query->toString(ss);
+                throw base_error("Missing Hyper-LTL quantifiers: ", ss.str());
+            }
+            names.emplace_back(std::make_pair(path->name(), path->offset()));
+            cond = path->child();
+        }
     } else {
         wasACond = true;
         cond = query;
@@ -444,9 +455,17 @@ Condition_ptr simplify_ltl_query(Condition_ptr query,
     if (cond->isTriviallyTrue() || cond->isTriviallyFalse()) {
         // nothing
     } else if (wasACond) {
-        cond = std::make_shared<ACondition>(cond);
+        if(names.empty())
+            cond = std::make_shared<ACondition>(cond);
+        else
+            for(;!names.empty(); names.pop_back())
+                cond = std::make_shared<AllPaths>(names.back().first, cond, names.back().second);
     } else {
-        cond = std::make_shared<ECondition>(cond);
+        if(names.empty())
+            cond = std::make_shared<ECondition>(cond);
+        else
+            for(;!names.empty(); names.pop_back())
+                cond = std::make_shared<ExistPath>(names.back().first, cond, names.back().second);
     }
     if (options.printstatistics) {
         out << "RWSTATS POST:";

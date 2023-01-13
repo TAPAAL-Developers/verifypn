@@ -2,7 +2,7 @@
  *                     Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                     Lars Kærlund Østergaard <larsko@gmail.com>,
  *                     Peter Gjøl Jensen <root@petergjoel.dk>
- *                     Rasmus Tollund <rtollu18@student.aau.dk>
+ *                     Rasmus Grønkjær Tollund <rasmusgtollund@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 
 #include "Visitor.h"
 
-namespace PetriEngine::PQL {
+namespace PetriEngine { namespace PQL {
 
     Retval simplify(std::shared_ptr<Condition> element, SimplificationContext& context);
 
@@ -103,6 +103,8 @@ namespace PetriEngine::PQL {
         void _accept(const UntilCondition *condition) override;
 
         void _accept(const BooleanCondition *element) override;
+
+        void _accept(const PathSelectCondition *element) override;
     };
 
     Member constraint(const Expr *element, const SimplificationContext &context);
@@ -132,6 +134,8 @@ namespace PetriEngine::PQL {
         void _commutative_cons(const CommutativeExpr *element, int _constant, const std::function<void(Member &, Member)> &op);
 
         void _accept(const IdentifierExpr *element) override;
+
+        void _accept(const PathSelectExpr *element) override;
     };
-}
+} }
 #endif //VERIFYPN_SIMPLIFIER_H

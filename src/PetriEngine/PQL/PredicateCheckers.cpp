@@ -2,7 +2,7 @@
  *                     Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                     Lars Kærlund Østergaard <larsko@gmail.com>,
  *                     Peter Gjøl Jensen <root@petergjoel.dk>
- *                     Rasmus Tollund <rtollu18@student.aau.dk>
+ *                     Rasmus Grønkjær Tollund <rasmusgtollund@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,6 +57,10 @@ namespace PetriEngine { namespace PQL {
         IsTemporalVisitor visitor;
         Visitor::visit(visitor, condition);
         return visitor.getReturnValue();
+    }
+
+    void IsTemporalVisitor::_accept(const PathQuant *condition) {
+        setConditionFound();
     }
 
     void IsTemporalVisitor::_accept(const SimpleQuantifierCondition *condition) {
@@ -188,6 +192,16 @@ namespace PetriEngine { namespace PQL {
             setConditionFound();
     }
 
+    void IsNotReachabilityVisitor::_accept(const KSafeCondition* element) {
+        if(element->getCompiled())
+            Visitor::visit(this, element->getCompiled());
+        else
+        {
+            if(_is_nested)
+                setConditionFound();
+        }
+    }
+
     void IsNotReachabilityVisitor::_accept(const StableMarkingCondition *element) {
         if (element->getCompiled())
             Visitor::visit(this, element->getCompiled());
@@ -197,6 +211,18 @@ namespace PetriEngine { namespace PQL {
 
     void IsNotReachabilityVisitor::_accept(const CompareConjunction *element) {
         if (!_is_nested) setConditionFound();
+    }
+
+    void IsNotReachabilityVisitor::_accept(const PathQuant *element) {
+        setConditionFound();
+    }
+
+    void IsNotReachabilityVisitor::_accept(const PathSelectCondition *element) {
+        setConditionFound();
+    }
+
+    void IsNotReachabilityVisitor::_accept(const PathSelectExpr *element) {
+        setConditionFound();
     }
 
 
@@ -249,6 +275,10 @@ namespace PetriEngine { namespace PQL {
         setConditionFound();
     }
 
+    void IsLoopSensitiveVisitor::_accept(const PathQuant *element) {
+        setConditionFound();
+    }
+
     void IsLoopSensitiveVisitor::_accept(const ACondition *condition)
     {
         _negated = !_negated;
@@ -267,6 +297,22 @@ namespace PetriEngine { namespace PQL {
             setConditionFound();
         else
             AnyVisitor::_accept(condition);
+    }
+
+    void IsLoopSensitiveVisitor::_accept(const LivenessCondition *condition)
+    {
+        if(condition->getCompiled())
+            AnyVisitor::_accept(condition);
+        else
+            setConditionFound();
+    }
+
+    void IsLoopSensitiveVisitor::_accept(const StableMarkingCondition *condition)
+    {
+        if(condition->getCompiled())
+            AnyVisitor::_accept(condition);
+        else
+            setConditionFound();
     }
 
 
@@ -289,6 +335,10 @@ namespace PetriEngine { namespace PQL {
     }
 
     void ContainsNextVisitor::_accept(const AXCondition* condition) {
+        setConditionFound();
+    }
+
+    void ContainsNextVisitor::_accept(const PathQuant *element) {
         setConditionFound();
     }
 

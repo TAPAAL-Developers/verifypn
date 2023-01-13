@@ -41,6 +41,7 @@ namespace LTL {
         const PetriEngine::PetriNet& _net;
         const PetriEngine::PQL::Condition_ptr _query;
         Structures::BuchiAutomaton _buchi;
+        std::vector<std::string> _traces;
         PetriEngine::PQL::Condition_ptr _negated_formula;
         bool _negated_answer = false;
         APCompression _compression;
@@ -73,6 +74,26 @@ namespace LTL {
             return _checker->is_weak();
         }
 
+        size_t max_tokens() const {
+            return _checker->max_tokens();
+        }
+
+        size_t configurations() const {
+            return _checker->get_configurations();
+        }
+
+        size_t discovered() const {
+            return _checker->get_discovered();
+        }
+
+        size_t markings() const {
+            return _checker->get_markings();
+        }
+
+        size_t explored() const {
+            return _checker->get_explored();
+        }
+
         std::string heuristic_type() const {
             std::stringstream ss;
             if(_heuristic)
@@ -82,10 +103,12 @@ namespace LTL {
 
         bool print_trace(std::ostream& out, const PetriEngine::Reducer& reducer) const;
 
+        const std::vector<std::vector<uint32_t>>& raw_trace() const { return _checker->trace(); }
+
     private:
         void _print_trace(const PetriEngine::Reducer& reducer, std::ostream& os) const;
         std::ostream &
-        print_transition(size_t transition, const PetriEngine::Reducer& reducer, std::ostream &os) const;
+        print_transition(uint32_t transition, const PetriEngine::Reducer& reducer, std::ostream &os, const std::string& _indend, const std::string& _token_indent, bool& printed_deadlock) const;
 
     };
 

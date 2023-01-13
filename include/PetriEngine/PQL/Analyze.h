@@ -2,7 +2,7 @@
  *                     Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                     Lars Kærlund Østergaard <larsko@gmail.com>,
  *                     Peter Gjøl Jensen <root@petergjoel.dk>,
- *                     Rasmus Tollund <rtollu18@student.aau.dk>
+ *                     Rasmus Grønkjær Tollund <rasmusgtollund@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,9 +43,13 @@ namespace PetriEngine { namespace PQL {
 
         void _accept(LiteralExpr *element) override;
 
+        void _accept(PathSelectExpr* element) override;
+
         void _accept(IdentifierExpr *element) override;
 
         void _accept(UnfoldedIdentifierExpr *element) override;
+
+        void _accept(PathSelectCondition* element) override;
 
         void _accept(FireableCondition *element) override;
 
@@ -78,6 +82,12 @@ namespace PetriEngine { namespace PQL {
         void _accept(UntilCondition *element) override;
 
         void _accept(SimpleQuantifierCondition *element) override;
+
+        void _accept(PathQuant* element) override;
+
+        void _accept(AllPaths* element) override;
+
+        void _accept(ExistPath* element) override;
     };
 } }
 

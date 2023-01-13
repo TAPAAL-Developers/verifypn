@@ -181,7 +181,13 @@ int main(int argc, const char** argv) {
             for(size_t i = 0; i < qnet->numberOfPlaces(); ++i)
                 initial_size += qm0[i];
 
-            if (queries.size() == 0 ||
+            if(queries.empty() && options.cpnOverApprox)
+            {
+                std::cerr << "WARNING: Could not run CPN over-approximation on any queries, terminating." << std::endl;
+                std::exit(0);
+            }
+
+            if (queries.empty() ||
                 contextAnalysis(cpnBuilder.isColored() && !options.cpnOverApprox, transition_names, place_names, b2, qnet.get(), queries) != ReturnValue::ContinueCode) {
                 throw base_error("Could not analyze the queries");
             }
@@ -422,7 +428,6 @@ int main(int argc, const char** argv) {
 
                     if(options.trace != TraceLevel::None)
                         search.print_trace(std::cerr, *builder.getReducer());
-
                 }
 
                 if (std::find(results.begin(), results.end(), ResultPrinter::Unknown) == results.end()) {
@@ -431,7 +436,10 @@ int main(int argc, const char** argv) {
             }
 
 
-            for (auto i: synth_ids) {
+            for (auto i : synth_ids) {
+                if(options.tar) {
+                    throw base_error("TAR not supported for synthesis.");
+                }
                 Synthesis::SimpleSynthesis strategy(*net, *queries[i], options.kbound);
 
                 std::ostream *strategy_out = nullptr;

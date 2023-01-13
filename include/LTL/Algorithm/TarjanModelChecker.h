@@ -47,18 +47,28 @@ namespace LTL {
     public:
         TarjanModelChecker(const PetriEngine::PetriNet& net, const PetriEngine::PQL::Condition_ptr &cond,
                            const Structures::BuchiAutomaton &buchi,
-                           uint32_t kbound)
-                : ModelChecker(net, cond, buchi), _k_bound(kbound)
+                           uint32_t kbound, uint32_t hyper_traces)
+                : ModelChecker(net, cond, buchi), _k_bound(kbound), _hyper_traces(hyper_traces)
         {
             if (buchi.buchi().num_states() > 1048576) {
                 throw base_error("Cannot handle Büchi automata larger than 2^20 states");
             }
+            if(_hyper_traces > 1)
+                throw base_error("Hyper-LTL not supported for Tarjans algorithm (yet).");
             _chash.fill(std::numeric_limits<idx_t>::max());
         }
 
         bool check() override;
 
         void print_stats(std::ostream &os) const override;
+
+        virtual size_t max_tokens() const override;
+
+        virtual size_t get_discovered() const override;
+
+        virtual size_t get_markings() const override;
+
+        virtual size_t get_configurations() const override;
 
         virtual void set_partial_order(LTLPartialOrder);
 
@@ -91,8 +101,8 @@ namespace LTL {
         }
 
         struct plain_centry_t {
-            idx_t _lowlink;
-            idx_t _stateid;
+            idx_t _lowlink = std::numeric_limits<idx_t>::max();
+            idx_t _stateid = std::numeric_limits<idx_t>::max();
             idx_t _next = std::numeric_limits<idx_t>::max();
             bool _dstack = true;
             plain_centry_t(idx_t lowlink, idx_t stateid, idx_t next) : _lowlink(lowlink), _stateid(stateid), _next(next) {}
@@ -101,7 +111,7 @@ namespace LTL {
 
         struct tracable_centry_t : plain_centry_t {
             idx_t _lowsource = std::numeric_limits<idx_t>::max();
-            idx_t _sourcetrans;
+            idx_t _sourcetrans = std::numeric_limits<idx_t>::max();
             tracable_centry_t(idx_t lowlink, idx_t stateid, idx_t next) : plain_centry_t(lowlink, stateid, next) {}
             static constexpr bool save_trace() { return true; }
         };
@@ -110,7 +120,8 @@ namespace LTL {
         struct dentry_t {
             idx_t _pos; // position in cstack.
             typename T::successor_info_t _sucinfo;
-            explicit dentry_t(idx_t pos) : _pos(pos), _sucinfo(T::initial_suc_info()) {}
+            explicit dentry_t(idx_t pos, typename T::successor_info_t&& info)
+            : _pos(pos), _sucinfo(std::move(info)) {}
         };
 
 
@@ -119,10 +130,13 @@ namespace LTL {
 
         bool _invariant_loop = true;
         size_t _loop_state = std::numeric_limits<size_t>::max();
-        size_t _loop_trans = std::numeric_limits<size_t>::max();
+        uint32_t _loop_trans = std::numeric_limits<uint32_t>::max();
         size_t _discoverd = std::numeric_limits<size_t>::max();
         size_t _max_tokens = std::numeric_limits<size_t>::max();
-        uint32_t _k_bound;
+        size_t _markings = 0;
+        size_t _configurations = 0;
+        const uint32_t _k_bound = 0;
+        const uint32_t _hyper_traces = 0;
         LTLPartialOrder _order = LTLPartialOrder::None;
 
         // TODO, instead of this template hell, we should really just have a templated state that we shuffle around.

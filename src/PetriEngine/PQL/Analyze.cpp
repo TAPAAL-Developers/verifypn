@@ -2,7 +2,7 @@
  *                     Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                     Lars Kærlund Østergaard <larsko@gmail.com>,
  *                     Peter Gjøl Jensen <root@petergjoel.dk>,
- *                     Rasmus Tollund <rtollu18@student.aau.dk>
+ *                     Rasmus Grønkjær Tollund <rasmusgtollund@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,6 +42,26 @@ namespace PetriEngine { namespace PQL {
 
     void AnalyzeVisitor::_accept(LiteralExpr *element) {
         // Do nothing
+    }
+
+    void AnalyzeVisitor::_accept(AllPaths* element) {
+        _context.resolve_trace_name(element->name(), true);
+        Visitor::visit(this, element->child());
+    }
+
+    void AnalyzeVisitor::_accept(ExistPath* element) {
+        _context.resolve_trace_name(element->name(), true);
+        Visitor::visit(this, element->child());
+    }
+
+    void AnalyzeVisitor::_accept(PathSelectExpr* element) {
+        element->set_offset(_context.resolve_trace_name(element->name(), false));
+        Visitor::visit(this, element->child());
+    }
+
+    void AnalyzeVisitor::_accept(PathSelectCondition* element) {
+        element->set_offset(_context.resolve_trace_name(element->name(), false));
+        Visitor::visit(this, element->child());
     }
 
     void AnalyzeVisitor::_accept(CommutativeExpr *element) {
@@ -110,6 +130,9 @@ namespace PetriEngine { namespace PQL {
             if (names.size() == 1) {
                 element->_compiled = generateUnfoldedIdentifierExpr(*coloredContext, names.back());
             } else {
+                if (names.back()->substr(names.back()->size() - 3) == "Sum"){
+                    names.pop_back();
+                }
                 element->_compiled = std::make_shared<PQL::PlusExpr>(std::move(names));
             }
         } else {
@@ -149,7 +172,6 @@ namespace PetriEngine { namespace PQL {
         for(; preset.first != preset.second; ++preset.first)
         {
             assert(preset.first->place != std::numeric_limits<uint32_t>::max());
-            assert(preset.first->place != -1);
             constraints.emplace_back();
             constraints.back()._place = preset.first->place;
             constraints.back()._name = _context.net()->placeNames()[preset.first->place];
@@ -230,6 +252,11 @@ namespace PetriEngine { namespace PQL {
 
     void AnalyzeVisitor::_accept(SimpleQuantifierCondition *element) {
         Visitor::visit(this, (*element)[0]);
+    }
+
+    void AnalyzeVisitor::_accept(PathQuant* element)
+    {
+        Visitor::visit(this, element->child());
     }
 
     void AnalyzeVisitor::_accept(NotCondition *element) {

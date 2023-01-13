@@ -2,7 +2,7 @@
  *                     Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                     Lars Kærlund Østergaard <larsko@gmail.com>,
  *                     Peter Gjøl Jensen <root@petergjoel.dk>
- *                     Rasmus Tollund <rtollu18@student.aau.dk>
+ *                     Rasmus Grønkjær Tollund <rasmusgtollund@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,10 +44,13 @@ namespace PetriEngine { namespace PQL {
 
         virtual void _accept(const LiteralExpr *element) override final;
 
+        virtual void _accept(const PathSelectExpr *element) override final;
+
         int64_t value() const { return _value; }
     protected:
         const EvaluationContext& _context;
-        int64_t _value;
+        int64_t _value = 0;
+        size_t _offset =  0;
     };
 
     class BaseEvaluationVisitor : public MutatingVisitor {
@@ -56,9 +59,20 @@ namespace PetriEngine { namespace PQL {
         const EvaluationContext& context() const { return _context; }
     protected:
         explicit BaseEvaluationVisitor(const EvaluationContext& context) : _context(context) {}
+        void _accept(PathSelectCondition *element) override
+        {
+            auto old = _offset;
+            _offset = element->offset();
+            Visitor::visit(this, element->child());
+            _offset = old;
+        }
+        void _accept(PathQuant* element) override {
+            Visitor::visit(this, element->child());
+        }
     protected:
         const EvaluationContext& _context;
         Condition::Result _return_value = Condition::RUNKNOWN;
+        size_t _offset;
     };
 
     int64_t evaluate(Expr *element, const EvaluationContext& context);

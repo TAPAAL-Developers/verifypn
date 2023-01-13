@@ -1,4 +1,4 @@
-/* Copyright (C) 2011  Rasmus Tollund <rtollu18@student.aau.dk>
+/* Copyright (C) 2011  Rasmus Grønkjær Tollund <rasmusgtollund@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,6 +74,12 @@ namespace PetriEngine { namespace PQL {
         void _accept(const UntilCondition *condition) override;
 
         void _accept(const LogicalCondition *condition) override;
+
+        void _accept(const PathSelectCondition*) override;
+
+        void _accept(const PathQuant*) override;
+
+        void _accept(const PathSelectExpr*) override;
     };
 } }
 #endif //VERIFYPN_FORMULASIZE_H

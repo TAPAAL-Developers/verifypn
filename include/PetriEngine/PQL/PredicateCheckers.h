@@ -2,7 +2,7 @@
  *                     Thomas Søndersø Nielsen <primogens@gmail.com>,
  *                     Lars Kærlund Østergaard <larsko@gmail.com>,
  *                     Peter Gjøl Jensen <root@petergjoel.dk>
- *                     Rasmus Tollund <rtollu18@student.aau.dk>
+ *                     Rasmus Grønkjær Tollund <rasmusgtollund@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,6 +44,8 @@ namespace PetriEngine { namespace PQL {
 
     class IsTemporalVisitor : public AnyVisitor {
 
+        void _accept(const PathQuant* condition) override;
+
         void _accept(const SimpleQuantifierCondition *condition) override;
 
         void _accept(const UntilCondition *condition) override;
@@ -84,6 +86,8 @@ namespace PetriEngine { namespace PQL {
 
         void _accept(const QuasiLivenessCondition *element) override;
 
+        void _accept(const KSafeCondition* element) override;
+
         void _accept(const LivenessCondition *element) override;
 
         void _accept(const StableMarkingCondition *element) override;
@@ -93,6 +97,12 @@ namespace PetriEngine { namespace PQL {
         void _accept(const UntilCondition *element) override;
 
         void _accept(const CompareConjunction *element) override;
+
+        void _accept(const PathQuant *element) override;
+
+        void _accept(const PathSelectCondition *element) override;
+
+        void _accept(const PathSelectExpr *element) override;
     };
 
 
@@ -125,6 +135,12 @@ namespace PetriEngine { namespace PQL {
         void _accept(const UntilCondition *condition) override;
 
         void _accept(const DeadlockCondition *condition) override;
+
+        void _accept(const PathQuant *element) override;
+
+        void _accept(const LivenessCondition *condition) override;
+
+        void _accept(const StableMarkingCondition *condition) override;
     private:
         bool _negated = false;
     };
@@ -139,6 +155,8 @@ namespace PetriEngine { namespace PQL {
         void _accept(const EXCondition *condition) override;
 
         void _accept(const AXCondition *condition) override;
+
+        void _accept(const PathQuant *element) override;
     };
 
     class ContainsFireabilityVisitor : public AnyVisitor {

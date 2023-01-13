@@ -64,9 +64,19 @@ namespace LTL {
             return _shortcircuitweak;
         }
 
-        size_t get_explored() {
+        size_t get_explored() const {
             return _explored;
         }
+
+        size_t get_expanded() const {
+            return _expanded;
+        }
+
+        virtual size_t get_discovered() const = 0;
+
+        virtual size_t get_markings() const = 0;
+
+        virtual size_t get_configurations() const = 0;
 
         virtual void print_stats(std::ostream&) const = 0;
 
@@ -74,10 +84,11 @@ namespace LTL {
             return _loop;
         }
 
-        const std::vector<size_t>& trace() const {
+        const std::vector<std::vector<uint32_t>>& trace() const {
             return _trace;
         }
 
+        virtual size_t max_tokens() const = 0;
 
         virtual LTLPartialOrder used_partial_order() const {
             return LTLPartialOrder::None;
@@ -104,7 +115,7 @@ namespace LTL {
         bool _build_trace = false;
         Heuristic* _heuristic = nullptr;
         size_t _loop = std::numeric_limits<size_t>::max();
-        std::vector<size_t> _trace;
+        std::vector<std::vector<uint32_t>> _trace;
         bool _violation = false;
     };
 }
