@@ -153,4 +153,88 @@ BOOST_AUTO_TEST_CASE(ManualDgNegation) {
 }
 
 
+BOOST_AUTO_TEST_CASE(ExamplesFromPapers) {
+    // ELS:SPIN:19, fig. 2. expects 1
+    std::string s0{R"(
+1 2
+1 3 4 7
+3
+4 5
+4 6 7
+6
+7 1 9
+7 8
+8
+)"};
+    // ELS:SPIN:19, fig. 3. expects 0
+    std::string s1{R"(
+1 2
+1 3 4
+3
+4 5 6
+4 7
+7 4
+5 6
+6 4 5
+)"};
+    // ELS:SPIN:19, fig. 6. expects 1
+    std::string s2{R"(
+1 2
+1 5
+1 8
+2 3
+2 4
+4 6
+6
+5 6 7
+8 7
+8 9 10 11
+)"};
+    // DEFJJJKLNOPS:FI:18, fig. 1. expects 0
+    std::string s3{R"(
+1 2 4
+! 1 5
+5 4 6
+2 3
+3 2
+! 4 3
+6
+)"};
+    // DEFJJJKLNOPS:FI:18, fig. 6. expects 1
+    std::string s4{R"(
+0 1
+0 2 3
+! 2 4
+4 8
+! 8 11
+11
+4 9
+9 12
+9 13
+13 15
+! 15 16
+16
+! 12 14
+14
+3 5
+3 6 7
+! 6 9
+7 10
+10
+)"};
+
+    CertainZeroFPA cz{Strategy::DFS};
+
+    auto dg0 = parse_dg<int>(s0);
+    auto dg1 = parse_dg<int>(s1);
+    auto dg2 = parse_dg<int>(s2);
+    auto dg3 = parse_dg<int>(s3);
+    auto dg4 = parse_dg<int>(s4);
+    BOOST_REQUIRE(cz.search(dg0) == true);
+    BOOST_REQUIRE(cz.search(dg1) == false);
+    BOOST_REQUIRE(cz.search(dg2) == true);
+    BOOST_REQUIRE(cz.search(dg3) == false);
+    BOOST_REQUIRE(cz.search(dg4) == true);
+
+}
 
