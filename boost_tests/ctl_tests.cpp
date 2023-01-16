@@ -43,11 +43,6 @@ void test_all(BasicDependencyGraph &dg, bool expected) {
     BOOST_REQUIRE(czero.search(dg) == expected);
 }
 
-
-BOOST_AUTO_TEST_CASE(DirectoryTest) {
-        BOOST_REQUIRE(getenv("TEST_FILES"));
-}
-
 BOOST_AUTO_TEST_CASE(TestTest) {
     DependencyGraph::ManualDG<int> dg;
     dg.add_hyperedge(0, {1});
