@@ -1,47 +1,33 @@
-/* Copyright (C) 2021  Nikolaj J. Ulrik <nikolaj@njulrik.dk>,
- *                     Simon M. Virenfeldt <simon@simwir.dk>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 
-#ifndef VERIFYPN_BITPRODUCTSTATESET_H
-#define VERIFYPN_BITPRODUCTSTATESET_H
-
+/*
+ * File:   CompoundStateSet.h
+ * Author: Peter G. Jensen
+ *
+ * Created on 22 March 2022, 13.55
+ */
 #include "PetriEngine/Structures/StateSet.h"
 #include "LTL/Structures/ProductState.h"
+#include "BitProductStateSet.h"
 
 #include <ptrie/ptrie.h>
 #include <cstdint>
 
+#ifndef COMPOUNDSTATESET_H
+#define COMPOUNDSTATESET_H
 namespace LTL { namespace Structures {
-
-
-    /**
-     * Bit-hacking product state set for storing pairs (M, q) compactly in 64 bits.
-     * Allows for a max of 2^nbits Büchi states and 2^(64-nbits) markings without overflow.
-     * @tparam nbits the number of bits to allocate for Büchi state. Defaults to 20-bit. Max is 32-bit.
-     */
-    using stateid_t = size_t;
-    using result_t = std::tuple<bool, stateid_t, size_t>;
-
     template<typename stateset_type = ptrie::set<stateid_t,17,32,8>, uint8_t nbits = 20>
-    class BitProductStateSet {
+    class CompoundStateSet {
     public:
 
-        explicit BitProductStateSet(const PetriEngine::PetriNet& net, uint32_t kbound = 0)
-                : _markings(net, kbound, net.numberOfPlaces())
+        explicit CompoundStateSet(const PetriEngine::PetriNet& net, size_t traces, uint32_t kbound = 0)
+                : _markings(net, kbound, net.numberOfPlaces()), _hyper_traces(traces)
         {
+            _scratchpad = std::make_unique<size_t[]>(_hyper_traces);
         }
 
         static_assert(nbits <= 32, "Only up to 2^32 Büchi states supported");
@@ -65,15 +51,21 @@ namespace LTL { namespace Structures {
         result_t add(const LTL::Structures::ProductState &state)
         {
             ++_discovered;
-            const auto res = _markings.add(state);
-            if (res.second == std::numeric_limits<size_t>::max()) {
-                return {res.first, res.second, res.second};
+            for(size_t i = 0; i < _hyper_traces; ++i)
+            {
+                PetriEngine::Structures::State dummy(const_cast<PetriEngine::MarkVal*>(state.marking()) + i * _markings.net().numberOfPlaces());
+                const auto res = _markings.add(dummy);
+                dummy.release();
+                if (res.second == std::numeric_limits<size_t>::max()) {
+                    return {res.first, res.second, res.second};
+                }
+                _scratchpad[i] = res.second;
             }
+            auto res = _compounds.insert(_scratchpad.get(), _hyper_traces);
             const stateid_t product_id = get_product_id(res.second, state.get_buchi_state());
             assert(res.second == get_marking_id(product_id));
             assert(state.get_buchi_state() == get_buchi_state(product_id));
             auto [is_new, data_id] = _states.insert(product_id);
-            if(is_new) ++_configurations;
             return {is_new, product_id, data_id};
         }
 
@@ -96,8 +88,14 @@ namespace LTL { namespace Structures {
         {
             assert(_states.exists(id).first);
             auto marking_id = get_marking_id(id);
+            _compounds.unpack(marking_id, _scratchpad.get());
             auto buchi_state = get_buchi_state(id);
-            _markings.decode(state, marking_id);
+            for(size_t i = 0; i < _hyper_traces; ++i)
+            {
+                PetriEngine::Structures::State dummy(state.marking() + i * _markings.net().numberOfPlaces());
+                _markings.decode(dummy, _scratchpad[i]);
+                dummy.release();
+            }
             state.set_buchi_state(buchi_state);
         }
 
@@ -107,7 +105,7 @@ namespace LTL { namespace Structures {
 
         size_t markings() const { return _markings.size(); }
 
-        size_t configurations() const { return _configurations; }
+        size_t configurations() const { return _states.size(); }
 
     protected:
 
@@ -116,19 +114,20 @@ namespace LTL { namespace Structures {
 
         PetriEngine::Structures::StateSet _markings;
         stateset_type _states;
+        ptrie::set_stable<size_t,size_t,17,128,4> _compounds;
         static constexpr auto _err_val = std::make_pair(false, std::numeric_limits<size_t>::max());
 
         size_t _discovered = 0;
-        size_t _configurations = 0;
+        const size_t _hyper_traces;
+        std::unique_ptr<size_t[]> _scratchpad;
     };
 
     template<uint8_t nbits = 20>
-    class TraceableBitProductStateSet : public BitProductStateSet<ptrie::map<stateid_t,std::pair<size_t,size_t>>, nbits> {
+    class TraceableCompoundStateSet : public CompoundStateSet<ptrie::map<stateid_t,std::pair<size_t,size_t>>, nbits> {
     public:
-        explicit TraceableBitProductStateSet(const PetriEngine::PetriNet& net, uint32_t kbound = 0)
-                : BitProductStateSet<ptrie::map<stateid_t,std::pair<size_t,size_t>>,nbits>(net, kbound)
-        {
-        }
+        explicit TraceableCompoundStateSet(const PetriEngine::PetriNet& net, size_t traces, uint32_t kbound = 0)
+                : BitProductStateSet<ptrie::map<stateid_t,std::pair<size_t,size_t>>,nbits>(net, traces, kbound)
+        { }
 
         void decode(ProductState &state, stateid_t id) override
         {
@@ -152,5 +151,5 @@ namespace LTL { namespace Structures {
         stateid_t _parent = 0;
     };
 } }
+#endif /* COMPOUNDSTATESET_H */
 
-#endif //VERIFYPN_BITPRODUCTSTATESET_H

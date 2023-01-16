@@ -38,7 +38,7 @@ namespace PetriEngine {
             _invariants(_ninvariants),
             features_(_ntransitions+1),
             _placeToPtrs(_nplaces+1),
-            _controllable(_ntransitions, true) {
+            _controllable(_ntransitions+1, true) {
 
         // to avoid special cases
         _transitions[_ntransitions].inputs = _ninvariants;

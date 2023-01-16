@@ -67,6 +67,8 @@ namespace PetriEngine {
 
             virtual std::pair<size_t, size_t> getHistory(size_t markingid) = 0;
 
+            virtual size_t size() const = 0;
+
         protected:
             size_t _discovered;
             uint32_t _kbound;
@@ -238,6 +240,10 @@ namespace PetriEngine {
                 return std::make_pair(0,0);
             }
 
+            virtual size_t size() const override {
+                return _trie.size();
+            }
+
         private:
             ptrie_t _trie;
         };
@@ -275,6 +281,10 @@ namespace PetriEngine {
             {
                 assert(false);
                 return std::make_pair(0,0);
+            }
+
+            virtual size_t size() const override {
+                return _trie.size();
             }
 
         protected:
