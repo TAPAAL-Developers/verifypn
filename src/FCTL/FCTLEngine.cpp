@@ -198,7 +198,7 @@ namespace Featured {
             return solveLogicalCondition(q, true, net, algorithmtype, strategytype, partial_order, result, options);
         } else if (auto q = dynamic_cast<OrCondition*>(query)) {
             return solveLogicalCondition(q, false, net, algorithmtype, strategytype, partial_order, result, options);
-        } else if (PetriEngine::PQL::isReachability(query)) {
+        } else if (!net->is_featured() && PetriEngine::PQL::isReachability(query)) {
             SimpleResultHandler handler;
             std::vector<Condition_ptr> queries{prepareForReachability(query)};
             std::vector<AbstractHandler::Result> res;
@@ -237,7 +237,7 @@ namespace Featured {
                 if (!isTemporal((*eu)[0]) && !isTemporal((*eu)[1]))
                     ok = true;
             }
-            if (ok) {
+            if (ok && !net->is_featured()) {
                 LTL::LTLSearch search(*net, q, options.buchiOptimization, options.ltl_compress_aps);
                 auto r = search.solve(false, options.kbound, options.ltlalgorithm, options.ltl_por,
                                       options.strategy, options.ltlHeuristic, options.ltluseweak, options.seed_offset);

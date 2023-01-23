@@ -19,6 +19,7 @@ namespace Featured {
         class Configuration {
         public:
             std::forward_list<Edge*> dependency_set;
+            std::forward_list<Edge*> successors;
             uint32_t nsuccs = 0;
         private:
             uint32_t distance = 0;
@@ -27,6 +28,7 @@ namespace Featured {
 
         public:
             int8_t assignment = UNKNOWN;
+            bool checked;
 
             Configuration() {}
 

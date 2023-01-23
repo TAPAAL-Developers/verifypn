@@ -28,9 +28,7 @@ namespace Featured {
            conf_alloc(
                    new linked_bucket_t<char[sizeof(PetriConfig)],
                            1024 * 1024>(1)),
-           _redgen(*t_net,
-                   std::make_shared<PetriEngine::ReachabilityStubbornSet>(
-                           *t_net)),
+           gen_(*t_net),
            _partial_order(partial_order) {
         net = t_net;
             n_places = t_net->numberOfPlaces();
@@ -82,7 +80,8 @@ namespace Featured {
                     Configuration* c = createConfiguration(v->marking, v->getOwner(), (*cond)[0]);
                     Edge* e = newEdge(*v, /*v->query->distance(context)*/0);
                     e->is_negated = true;
-                    if (!e->addTarget(c)) {
+                    // negation edge does not need feature guard
+                    if (!e->addTarget(c, bddtrue)) {
                         succs.push_back(e);
                     } else {
                         --e->refcnt;
@@ -109,7 +108,8 @@ namespace Featured {
                     //Or both are temporal
                     for (auto c: conds) {
                         assert(PetriEngine::PQL::isTemporal(c));
-                        if (e->addTarget(createConfiguration(v->marking, v->getOwner(), c)))
+                        // TODO check if sane (p1 AND p2 AND ... AND pn, no features involved) 
+                        if (e->addTarget(createConfiguration(v->marking, v->getOwner(), c), bddtrue))
                             break;
                     }
                     if (e->handled) {
@@ -138,7 +138,8 @@ namespace Featured {
                     for (auto c: conds) {
                         assert(PetriEngine::PQL::isTemporal(c));
                         Edge* e = newEdge(*v, /*cond->distance(context)*/0);
-                        if (e->addTarget(createConfiguration(v->marking, v->getOwner(), c))) {
+                        // TODO check if sane (p1 OR p2 OR ... OR pn, no features involved)
+                        if (e->addTarget(createConfiguration(v->marking, v->getOwner(), c), bddtrue)) {
                             --e->refcnt;
                             release(e);
                         } else
@@ -163,7 +164,8 @@ namespace Featured {
                             //right side is temporal, we need to evaluate it as normal
                             Configuration* c = createConfiguration(v->marking, v->getOwner(), (*cond)[1]);
                             right = newEdge(*v, /*(*cond)[1]->distance(context)*/0);
-                            right->addTarget(c);
+                            // A (p1 U p2); here it is p2
+                            right->addTarget(c, bddtrue);
                         }
                         bool valid = false;
                         Configuration* left = nullptr;
@@ -180,7 +182,7 @@ namespace Featured {
                             Edge* leftEdge = nullptr;
                             nextStates(query_marking, cond,
                                        [&]() { leftEdge = newEdge(*v, std::numeric_limits<uint32_t>::max()); },
-                                       [&](Marking& mark) {
+                                       [&](Marking& mark, bdd feat) {
                                            auto res = fastEval(cond, &mark);
                                            if (res == Condition::RTRUE) return true;
                                            if (res == Condition::RFALSE) {
@@ -193,12 +195,13 @@ namespace Featured {
                                            context.setMarking(mark.marking());
                                            Configuration* c = createConfiguration(createMarking(mark),
                                                                                   owner(mark, cond), cond);
-                                           return !leftEdge->addTarget(c);
+                                           return !leftEdge->addTarget(c, feat);
                                        },
                                        [&]() {
                                            if (leftEdge) {
                                                if (left != nullptr) {
-                                                   leftEdge->addTarget(left);
+                                                   // TODO check if sane (but this should be to p1, not marking)
+                                                   leftEdge->addTarget(left, bddtrue);
                                                }
                                                if (leftEdge->handled) {
                                                    --leftEdge->refcnt;
@@ -231,12 +234,12 @@ namespace Featured {
                         } else {
                             subquery = newEdge(*v, /*cond->distance(context)*/0);
                             Configuration* c = createConfiguration(v->marking, v->getOwner(), (*cond)[0]);
-                            subquery->addTarget(c); // cannot be self-loop since the formula is smaller
+                            subquery->addTarget(c, bddtrue); // cannot be self-loop since the formula is smaller
                         }
                         Edge* e1 = nullptr;
                         nextStates(query_marking, cond,
                                    [&]() { e1 = newEdge(*v, std::numeric_limits<uint32_t>::max()); },
-                                   [&](Marking& mark) {
+                                   [&](Marking& mark, bdd feat) {
                                        auto res = fastEval(cond, &mark);
                                        if (res == Condition::RTRUE) return true;
                                        if (res == Condition::RFALSE) {
@@ -251,7 +254,7 @@ namespace Featured {
                                        context.setMarking(mark.marking());
                                        Configuration* c = createConfiguration(createMarking(mark), owner(mark, cond),
                                                                               cond);
-                                       return !e1->addTarget(c);
+                                       return !e1->addTarget(c, feat);
                                    },
                                    [&]() {
                                        if (e1->handled) {
@@ -272,7 +275,7 @@ namespace Featured {
                         // no possible self-loops from AX q
                         nextStates(query_marking, cond,
                                    []() {},
-                                   [&](Marking& mark) {
+                                   [&](Marking& mark, bdd feat) {
                                        auto res = fastEval((*cond)[0], &mark);
                                        if (res != Condition::RUNKNOWN) {
                                            if (res == Condition::RFALSE) {
@@ -284,7 +287,7 @@ namespace Featured {
                                            context.setMarking(mark.marking());
                                            Configuration* c = createConfiguration(createMarking(mark), v->getOwner(),
                                                                                   (*cond)[0]);
-                                           e->addTarget(c);
+                                           e->addTarget(c, feat);
                                        }
                                        return true;
                                    },
@@ -309,7 +312,7 @@ namespace Featured {
                         if (r1 == Condition::RUNKNOWN) {
                             Configuration* c = createConfiguration(v->marking, v->getOwner(), (*cond)[1]);
                             right = newEdge(*v, /*(*cond)[1]->distance(context)*/0);
-                            right->addTarget(c);
+                            right->addTarget(c, bddtrue);
                         } else {
                             bool valid = r1 == Condition::RTRUE;
                             if (valid) {
@@ -330,7 +333,7 @@ namespace Featured {
                                            valid = r0 == Condition::RTRUE;
                                        }
                                    },
-                                   [&](Marking& marking) {
+                                   [&](Marking& marking, bdd feat) {
                                        if (left == nullptr && !valid) return false;
                                        auto res = fastEval(cond, &marking);
                                        if (res == Condition::RFALSE) return true;
@@ -351,7 +354,7 @@ namespace Featured {
                                            }
 
                                            if (left)
-                                               succs.back()->addTarget(left);
+                                               succs.back()->addTarget(left, feat);
 
                                            return false;
                                        }
@@ -359,9 +362,9 @@ namespace Featured {
                                        Edge* e = newEdge(*v, /*cond->distance(context)*/0);
                                        Configuration* c1 = createConfiguration(createMarking(marking),
                                                                                owner(marking, cond), cond);
-                                       e->addTarget(c1);
+                                       e->addTarget(c1, bddtrue);
                                        if (left != nullptr) {
-                                           e->addTarget(left);
+                                           e->addTarget(left, bddtrue);
                                        }
                                        if (e->handled) {
                                            --e->refcnt;
@@ -392,12 +395,12 @@ namespace Featured {
                         } else {
                             Configuration* c = createConfiguration(v->marking, v->getOwner(), (*cond)[0]);
                             subquery = newEdge(*v, /*cond->distance(context)*/0);
-                            subquery->addTarget(c);
+                            subquery->addTarget(c, bddtrue);
                         }
 
                         nextStates(query_marking, cond,
                                    []() {},
-                                   [&](Marking& mark) {
+                                   [&](Marking& mark, bdd feat) {
                                        auto res = fastEval(cond, &mark);
                                        if (res == Condition::RFALSE) return true;
                                        if (res == Condition::RTRUE) {
@@ -418,7 +421,7 @@ namespace Featured {
                                        Edge* e = newEdge(*v, /*cond->distance(context)*/0);
                                        Configuration* c = createConfiguration(createMarking(mark), owner(mark, cond),
                                                                               cond);
-                                       e->addTarget(c);
+                                       e->addTarget(c, feat);
                                        if (!e->handled)
                                            succs.push_back(e);
                                        else {
@@ -438,7 +441,7 @@ namespace Featured {
                         auto query = (*cond)[0];
                         nextStates(query_marking, cond,
                                    []() {},
-                                   [&](Marking& marking) {
+                                   [&](Marking& marking, bdd feat) {
                                        auto res = fastEval(query, &marking);
                                        if (res == Condition::RTRUE) {
                                            for (auto s: succs) {
@@ -454,7 +457,7 @@ namespace Featured {
                                            Edge* e = newEdge(*v, /*(*cond)[0]->distance(context)*/0);
                                            Configuration* c = createConfiguration(createMarking(marking), v->getOwner(),
                                                                                   query);
-                                           e->addTarget(c);
+                                           e->addTarget(c, feat);
                                            succs.push_back(e);
                                        }
                                        return true;
@@ -491,20 +494,11 @@ namespace Featured {
 
         void FOnTheFlyDG::nextStates(Marking& t_marking, Condition* ptr,
                                      std::function<void()> pre,
-                                     std::function<bool(Marking&)> foreach,
+                                     std::function<bool(Marking&, bdd)> foreach,
                                      std::function<void()> post) {
             bool first = true;
             memcpy(working_marking.marking(), query_marking.marking(), n_places * sizeof(PetriEngine::MarkVal));
-            auto qf = static_cast<QuantifierCondition*>(ptr);
-            if (!_partial_order || ptr->getQuantifier() != E || ptr->getPath() != F ||
-                PetriEngine::PQL::isTemporal((*qf)[0])) {
-                PetriEngine::SuccessorGenerator PNGen(*net);
-                dowork<PetriEngine::SuccessorGenerator>(PNGen, first, pre, foreach);
-            } else {
-                _redgen.setQuery(ptr);
-                dowork<PetriEngine::ReducingSuccessorGenerator>(_redgen, first, pre, foreach);
-            }
-
+            dowork(gen_, first, pre, foreach);
             if (!first) post();
         }
 

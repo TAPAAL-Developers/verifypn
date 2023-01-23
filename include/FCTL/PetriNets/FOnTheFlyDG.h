@@ -13,7 +13,8 @@
 #include "PetriEngine/PQL/PQL.h"
 #include "PetriEngine/Structures/AlignedEncoder.h"
 #include "PetriEngine/Structures/linked_bucket.h"
-#include "PetriEngine/ReducingSuccessorGenerator.h"
+#include "FCTL/FeaturedSuccessorGenerator.h"
+
 
 namespace Featured {
     namespace PetriNets {
@@ -78,19 +79,19 @@ namespace Featured {
 
             void nextStates(Marking& t_marking, Condition*,
                             std::function<void()> pre,
-                            std::function<bool(Marking&)> foreach,
+                            std::function<bool(Marking&, bdd)> foreach,
                             std::function<void()> post);
 
-            template<typename T>
-            void dowork(T& gen, bool& first,
+            void dowork(FeaturedSuccessorGenerator& gen, bool& first,
                         std::function<void()>& pre,
-                        std::function<bool(Marking&)>& foreach) {
+                        std::function<bool(Marking&, bdd)>& foreach) {
                 gen.prepare(&query_marking);
 
                 while (gen.next(working_marking)) {
                     if (first) pre();
                     first = false;
-                    if (!foreach(working_marking)) {
+                    bdd feat = gen.feature();
+                    if (!foreach(working_marking, feat)) {
                         gen.reset();
                         break;
                     }
@@ -117,7 +118,7 @@ namespace Featured {
             // Problem  with linked bucket and complex constructor
             linked_bucket_t<char[sizeof(PetriConfig)], 1024 * 1024>* conf_alloc = nullptr;
 
-            PetriEngine::ReducingSuccessorGenerator _redgen;
+            Featured::FeaturedSuccessorGenerator gen_;
             bool _partial_order = false;
 
         };

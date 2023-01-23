@@ -70,21 +70,24 @@ namespace Featured {
         {
             auto it = e->targets.begin();
             auto pit = e->targets.before_begin();
+            bdd good = bddtrue;
             while (it != e->targets.end()) {
-                if ((*it)->assignment == ONE) {
+                good &= (it->feat & it->conf->good);
+                e->bad_iter |= it->conf->bad;
+                if (it->conf->assignment == ONE) {
                     e->targets.erase_after(pit);
                     it = pit;
                 } else {
                     allOne = false;
-                    if ((*it)->assignment == CZERO) {
+                    if (it->conf->assignment == CZERO) {
                         hasCZero = true;
                         //assert(e->assignment == CZERO || only_assign);
                         break;
                     } else if (lastUndecided == nullptr) {
-                        lastUndecided = *it;
+                        lastUndecided = it->conf;
                     } else if (lastUndecided != nullptr && lastUndecided->assignment == UNKNOWN &&
-                               (*it)->assignment == ZERO) {
-                        lastUndecided = *it;
+                               it->conf->assignment == ZERO) {
+                        lastUndecided = it->conf;
                     }
                 }
                 pit = it;
@@ -144,7 +147,7 @@ namespace Featured {
                 if (only_assign) return;
                 if (!e->processed) {
                     if (!lastUndecided->isDone()) {
-                        for (auto t: e->targets)
+                        for (auto &[t, _]: e->targets)
                             t->addDependency(e);
                     }
                 }
@@ -195,6 +198,32 @@ namespace Featured {
 
         {
             auto succs = graph->successors(c);
+
+            /*
+             * Initialising A+ and A-
+             */
+            if (succs.size() == 1 && succs[0]->is_negated) {
+                // singular negation edge
+                assert(std::count_if(std::begin(succs[0]->targets), std::end(succs[0]->targets), [](const auto& _){ return true; }) == 1);
+                auto t = *succs[0]->targets.begin();
+                assert(t.feat == bddtrue);
+                c->good = t.conf->bad;
+                c->bad = t.conf->good;
+            }
+            else {
+                bdd bad = bddtrue;
+                for (auto e: succs) {
+                    assert(!e->is_negated);
+                    bdd good = bddtrue;
+                    for (auto& [t, feat]: e->targets) {
+                        good &= (t->good & feat);
+                        e->bad_iter |= (bdd_imp(feat, t->bad));
+                    }
+                    c->good |= good;
+                    bad &= e->bad_iter;
+                }
+                c->bad = bad;
+            }
             c->nsuccs = succs.size();
 
             _exploredConfigurations += 1;

@@ -1,6 +1,8 @@
 #ifndef FEATURED_EDGE_H
 #define FEATURED_EDGE_H
 
+#include <bddx.h>
+
 #include <cstdio>
 #include <vector>
 #include <string>
@@ -18,21 +20,30 @@ namespace Featured {
         };
 
         class Edge {
-            typedef std::forward_list<Configuration*> container;
+        public:
+            struct Successor {
+                Configuration* conf;
+                bdd feat;
+
+                Successor(Configuration* conf, const bdd& feat) : conf(conf), feat(feat) {}
+            };
+        private:
+            typedef std::forward_list<Successor> container;
         public:
             Edge() {}
 
             Edge(Configuration& t_source) : source(&t_source) {}
 
-            bool addTarget(Configuration* conf) {
+            bool addTarget(Configuration* conf, const bdd& feat) {
                 if (handled) return true;
                 assert(conf);
                 if (conf == source) {
                     handled = true;
                     targets.clear();
-                } else targets.push_front(conf);
+                } else targets.emplace_front(conf, feat);
                 return handled;
             }
+            bdd bad_iter = bddfalse;
 
             container targets;
             Configuration* source;
@@ -41,8 +52,6 @@ namespace Featured {
             bool is_negated = false;
             bool handled = false;
             int32_t refcnt = 0;
-            /*size_t children;
-            Assignment assignment;*/
         };
     }
 }

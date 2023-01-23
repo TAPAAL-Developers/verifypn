@@ -134,6 +134,11 @@ namespace PetriEngine {
             return features_[i];
         }
 
+        [[nodiscard]] bool is_featured() const {
+            return std::find_if(std::begin(features_), std::end(features_),
+                                [](const bdd& feat) { return feat != bddtrue; }) != std::end(features_);
+        }
+
         spot::bdd_dict_ptr bdd_dict;
     private:
         virtual void print_place(uint32_t pid, std::ostream& os);

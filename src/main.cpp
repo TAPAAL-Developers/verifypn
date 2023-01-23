@@ -50,6 +50,7 @@
 #include "PetriEngine/Synthesis/SimpleSynthesis.h"
 #include "LTL/LTLSearch.h"
 #include "PetriEngine/PQL/PQL.h"
+#include "FCTL/FCTLEngine.h"
 
 using namespace PetriEngine;
 using namespace PetriEngine::PQL;
@@ -175,12 +176,14 @@ int main(int argc, const char** argv) {
         std::set<size_t> initial_marking_solved;
         size_t initial_size = 0;
         ResultPrinter p2(&b2, &options, querynames);
+        bool is_featured = false;
         {
             std::unique_ptr<PetriNet> qnet(b2.makePetriNet(false));
             std::unique_ptr<MarkVal[]> qm0(qnet->makeInitialMarking());
             for(size_t i = 0; i < qnet->numberOfPlaces(); ++i)
                 initial_size += qm0[i];
 
+            is_featured = qnet->is_featured();
             if(queries.empty() && options.cpnOverApprox)
             {
                 std::cerr << "WARNING: Could not run CPN over-approximation on any queries, terminating." << std::endl;
@@ -271,7 +274,7 @@ int main(int argc, const char** argv) {
                         if (options.printstatistics) {
                             std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
                         }
-                    } else if (options.noreach || !PetriEngine::PQL::isReachability(queries[i])) {
+                    } else if (options.noreach || !PetriEngine::PQL::isReachability(queries[i]) || is_featured) {
                         if (std::dynamic_pointer_cast<PQL::ControlCondition>(queries[i]))
                             results[i] = ResultPrinter::Synthesis;
                         else
@@ -375,20 +378,34 @@ int main(int argc, const char** argv) {
             }
 
             if (!ctl_ids.empty()) {
+
                 options.usedctl = true;
                 auto reachabilityStrategy = options.strategy;
 
                 if (options.strategy == Strategy::DEFAULT) options.strategy = Strategy::DFS;
-                auto v = CTLMain(net.get(),
-                                 options.ctlalgorithm,
-                                 options.strategy,
-                                 options.printstatistics,
-                                 options.stubbornreduction,
-                                 querynames,
-                                 queries,
-                                 ctl_ids,
-                                 options);
-
+                ReturnValue v;
+                if (is_featured) {
+                    v = Featured::FCTLMain(net.get(),
+                                       options.ctlalgorithm,
+                                       options.strategy,
+                                       options.printstatistics,
+                                       options.stubbornreduction,
+                                       querynames,
+                                       queries,
+                                       ctl_ids,
+                                       options);
+                }
+                else {
+                    v = CTLMain(net.get(),
+                                     options.ctlalgorithm,
+                                     options.strategy,
+                                     options.printstatistics,
+                                     options.stubbornreduction,
+                                     querynames,
+                                     queries,
+                                     ctl_ids,
+                                     options);
+                }
                 if (std::find(results.begin(), results.end(), ResultPrinter::Unknown) == results.end()) {
                     return to_underlying(v);
                 }

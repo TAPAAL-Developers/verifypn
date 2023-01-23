@@ -19,7 +19,7 @@ namespace Featured {
         bool allOne = true;
         bool hasCZero = false;
 
-        for (DependencyGraph::Configuration *c : edge->targets) {
+        for (auto &[c, _] : edge->targets) {
             if (c->assignment == DependencyGraph::Assignment::CZERO) {
                 hasCZero = true;
                 break;
@@ -116,7 +116,7 @@ namespace Featured {
             bool allOne = true;
             bool hasCZero = false;
             auto e = *it;
-            for (DependencyGraph::Configuration *c : e->targets) {
+            for (auto &[c, _] : e->targets) {
                 if (c->assignment == DependencyGraph::Assignment::CZERO) {
                     hasCZero = true;
                     break;
