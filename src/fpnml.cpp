@@ -53,7 +53,7 @@ public:
 
     size_t nfeatures() { return std::max(2, int(round(exp_(rng_)))); }
 
-    bool add_feature() {
+    bool should_add_feature() {
         return nfeats_(rng_) == 1;
     }
 
@@ -64,9 +64,14 @@ public:
         return dist(rng_);
     }
 
+    void set_petri_net(const PetriNet* net) {
+        net_ = net;
+    }
+
     auto& operator*() { return rng_; }
 
 private:
+    const PetriNet* net_;
     std::default_random_engine rng_;
     std::exponential_distribution<> exp_;
 
@@ -76,8 +81,8 @@ private:
 
 class FeatureGenerator {
 public:
-    explicit FeatureGenerator(const Options& options)
-        : rng_(options), fnames_(rng_.nfeatures()), dict_(spot::make_bdd_dict()) { }
+    explicit FeatureGenerator(const Options& options, const spot::bdd_dict_ptr& dict)
+        : rng_(options), fnames_(rng_.nfeatures()), dict_(dict) { }
 
     void annotate_features(PetriNet* net);
 
@@ -116,7 +121,7 @@ private:
 
     bdd rand_feature_() {
         int num = rng_.random_feature(0, fnames_.size()-1);
-        int varnum = dict_->has_registered_proposition(fnames_[num], this);
+        int varnum = dict_->has_registered_proposition(fnames_[num], nullptr);
         if (varnum < 0) {
             throw base_error{"Proposition ", fnames_[num], " not associated with this."};
         }
@@ -128,13 +133,14 @@ private:
 
 void FeatureGenerator::annotate_features(PetriEngine::PetriNet* net) {
 
+    rng_.set_petri_net(net);
     for (auto i = 0; i < fnames_.size(); ++i) {
         auto var_name = "f" + std::to_string(i);
         auto f = spot::formula::ap(var_name);
         fnames_[i] = f;
-        dict_->register_proposition(f, this);
-        assert(dict_->has_registered_proposition(f, this) != -1);
-        assert(dict_->has_registered_proposition(fnames_[i], this) != -1);
+        dict_->register_proposition(f, nullptr);
+        assert(dict_->has_registered_proposition(f, nullptr) != -1);
+        assert(dict_->has_registered_proposition(fnames_[i], nullptr) != -1);
 
         std::cout << "Registering prop " << f << std::endl;
     }
@@ -143,7 +149,7 @@ void FeatureGenerator::annotate_features(PetriEngine::PetriNet* net) {
     int maxdepth = fnames_.size() * fnames_.size() / 2;
 
     for (int i = 0; i < net->numberOfTransitions(); ++i) {
-        if (true || rng_.add_feature()) {
+        if (rng_.should_add_feature()) {
             bdd feat = generate_feature(maxdepth);
             std::cerr << "Generated feature guard: " << spot::bdd_to_formula(feat, dict_) << ".\n";
             if (is_trivial(feat)) {
@@ -256,7 +262,8 @@ void transform_model(const Options& options) {
     }
 
     shared_string_set string_set;
-    ColoredPetriNetBuilder cpnBuilder{string_set};
+    spot::bdd_dict_ptr dict = spot::make_bdd_dict();
+    ColoredPetriNetBuilder cpnBuilder{string_set, dict};
     try {
         cpnBuilder.parse_model(ifile.string());
     }
@@ -271,7 +278,7 @@ void transform_model(const Options& options) {
     pnbuilder.sort();
     auto pn = pnbuilder.makePetriNet(false);
 
-    FeatureGenerator gen{options};
+    FeatureGenerator gen{options, dict};
 
     std::cout << "Generating features\n";
     gen.annotate_features(pn);
@@ -344,7 +351,6 @@ bdd FeatureGenerator::gen_negation_formula(int maxdepth, int maxtries) {
 }
 
 FeatureGenerator::~FeatureGenerator() {
-    dict_->unregister_all_my_variables(this);
 }
 
 int main(int argc, char* argv[]) {
@@ -354,7 +360,8 @@ int main(int argc, char* argv[]) {
     shared_string_set string_set;
     if (!options.parse_model.empty()) {
         shared_string_set string_set;
-        ColoredPetriNetBuilder cpnBuilder{string_set};
+        spot::bdd_dict_ptr dict = spot::make_bdd_dict();
+        ColoredPetriNetBuilder cpnBuilder{string_set, dict};
         try {
             cpnBuilder.parse_model(options.parse_model.c_str());
         }
@@ -369,10 +376,11 @@ int main(int argc, char* argv[]) {
         pnbuilder.sort();
         auto pn = pnbuilder.makePetriNet(false);
         pn->toXML(std::cout);
+
+        dict->unregister_all_my_variables(nullptr);
         return 0;
     }
     transform_model(options);
 
     return 0;
-
 }

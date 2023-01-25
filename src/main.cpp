@@ -56,6 +56,18 @@ using namespace PetriEngine;
 using namespace PetriEngine::PQL;
 using namespace PetriEngine::Reachability;
 
+struct bdd_dict {
+    bdd_dict()
+        : dict_(spot::make_bdd_dict()) {}
+
+    spot::bdd_dict_ptr dict_;
+
+    spot::bdd_dict_ptr operator->() const { return dict_; }
+    virtual ~bdd_dict() {
+        dict_->unregister_all_my_variables(nullptr);
+    }
+};
+
 int main(int argc, const char** argv) {
     shared_string_set string_set; //<-- used for de-duplicating names of places/transitions
     try {

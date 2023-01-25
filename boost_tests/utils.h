@@ -56,7 +56,8 @@ auto load_builder(std::string model, std::string queries, const std::set<size_t>
         bool partition = false, bool symmetry = false, bool cfp = false, bool over_approx = false,
         int32_t partitionTimeout = 10, int32_t max_intervals = 100, int32_t intervals_reduced = 10, int32_t interval_timeout = 10) {
     shared_string_set sset;
-    ColoredPetriNetBuilder cpnBuilder(sset);
+    spot::bdd_dict_ptr dict = spot::make_bdd_dict();
+    ColoredPetriNetBuilder cpnBuilder(sset, dict);
     auto f = loadFile(model.c_str());
     cpnBuilder.parse_model(f);
     auto [builder, trans_names, place_names] = unfold(cpnBuilder, partition, symmetry, cfp, std::cerr, partitionTimeout, max_intervals, intervals_reduced, interval_timeout, over_approx);
@@ -76,7 +77,8 @@ auto load_pn(std::string model, std::string queries, const std::set<size_t>& qnu
 {
 
     shared_string_set sset;
-    ColoredPetriNetBuilder cpnBuilder(sset);
+    spot::bdd_dict_ptr dict = spot::make_bdd_dict();
+    ColoredPetriNetBuilder cpnBuilder(sset, dict);
     auto f = loadFile(model.c_str());
     cpnBuilder.parse_model(f);
     auto q = loadFile(queries.c_str());
