@@ -815,6 +815,7 @@ void PNMLParser::parseTransition(rapidxml::xml_node<>* element) {
     auto feat_attr = element->first_attribute("feature");
     if (feat_attr) {
         if (builder->bdd_dict == nullptr) {
+            assert(false);
             builder->bdd_dict = spot::make_bdd_dict();
         }
         auto f = feat_attr->value();

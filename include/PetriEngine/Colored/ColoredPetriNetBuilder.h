@@ -40,7 +40,7 @@ namespace PetriEngine {
         friend class Colored::Reduction::ColoredReducer;
         friend class Colored::PnmlWriter;
 
-        ColoredPetriNetBuilder(shared_string_set& string_set);
+        ColoredPetriNetBuilder(shared_string_set& string_set, const spot::bdd_dict_ptr &dict);
         ColoredPetriNetBuilder(const ColoredPetriNetBuilder& orig);
         virtual ~ColoredPetriNetBuilder();
 

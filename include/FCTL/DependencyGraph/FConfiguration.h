@@ -34,7 +34,7 @@ namespace Featured {
 
             uint32_t getDistance() const { return distance; }
 
-            bool isDone() const { return assignment == ONE || assignment == CZERO; }
+            bool isDone() const { return (good | bad) == bddtrue; }
 
             void addDependency(Edge* e);
 

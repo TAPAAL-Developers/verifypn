@@ -36,15 +36,16 @@ namespace PetriEngine {
     : _ninvariants(invariants), _ntransitions(trans), _nplaces(places),
             _transitions(_ntransitions+1),
             _invariants(_ninvariants),
-            features_(_ntransitions+1),
             _placeToPtrs(_nplaces+1),
-            _controllable(_ntransitions+1, true) {
+            _controllable(_ntransitions+1, true),
+            features_(_ntransitions+1) {
 
         // to avoid special cases
         _transitions[_ntransitions].inputs = _ninvariants;
         _transitions[_ntransitions].outputs = _ninvariants;
         _placeToPtrs[_nplaces] = _ntransitions;
         _initialMarking = new MarkVal[_nplaces];
+        features_.assign(_ntransitions, bddtrue);
 //        assert(_nplaces > 0);
     }
 

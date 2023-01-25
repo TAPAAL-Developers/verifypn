@@ -299,6 +299,9 @@ namespace Featured {
                     result.result = recursiveSolve(result.query, net, algorithmtype, strategytype, partial_order,
                                                    result, options);
             }
+            /* TODO need to hook up printing of counterexample features, so alg::root needs to be exposed.
+             * TODO luckily buddy has functions for printing assignment, but I don't expect this to trivially give
+             * TODO us what is needed.*/
             result.print(querynames[qnum], printstatistics, qnum, options, std::cout);
         }
         return ReturnValue::SuccessCode;

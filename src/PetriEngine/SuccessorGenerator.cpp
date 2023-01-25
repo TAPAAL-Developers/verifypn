@@ -45,7 +45,7 @@ namespace PetriEngine {
     }
 
     void SuccessorGenerator::consumePreset(Structures::State& write, uint32_t t) {
-        assert(_net._transitions.size() == _net.features_.size());
+        assert(_net.features_.size() == _net._ntransitions);
         const TransPtr& ptr = _net._transitions[t];
         uint32_t finv = ptr.inputs;
         uint32_t linv = ptr.outputs;

@@ -72,7 +72,11 @@ int main(int argc, const char** argv) {
         }
         options.print();
 
-        ColoredPetriNetBuilder cpnBuilder(string_set);
+        // FIXME hack; I tried making the dict local to builder, but it appears that deallocating
+        // then invalidates all variables, as even the expression bddfalse | bddfalse gives segfault.
+        // we probably want a consistent bdd_dict either way for printing counterexamples later anyway.
+        spot::bdd_dict_ptr dict = spot::make_bdd_dict();
+        ColoredPetriNetBuilder cpnBuilder(string_set, dict);
         try {
             cpnBuilder.parse_model(options.modelfile);
             options.isCPN = cpnBuilder.isColored(); // TODO: this is really nasty, should be moved in a refactor
@@ -384,7 +388,7 @@ int main(int argc, const char** argv) {
 
                 if (options.strategy == Strategy::DEFAULT) options.strategy = Strategy::DFS;
                 ReturnValue v;
-                if (is_featured) {
+                if (true ||is_featured) {
                     v = Featured::FCTLMain(net.get(),
                                        options.ctlalgorithm,
                                        options.strategy,

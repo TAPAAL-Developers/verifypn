@@ -23,16 +23,14 @@ namespace Algorithm {
     protected:
 
         DependencyGraph::BasicDependencyGraph* graph;
-        DependencyGraph::Configuration* vertex;
+        DependencyGraph::Configuration* root;
 
         void checkEdge(DependencyGraph::Edge* e, bool only_assign = false);
 
-        void finalAssign(DependencyGraph::Configuration* c, DependencyGraph::Assignment a);
-
-        void finalAssign(DependencyGraph::Edge* e, DependencyGraph::Assignment a);
-
+        void push_dependencies(const DependencyGraph::Configuration* c);
         void explore(DependencyGraph::Configuration* c);
 
+        std::pair<bool, DependencyGraph::Configuration*> evaluate_assignment(DependencyGraph::Edge* e);
     };
 }
 }

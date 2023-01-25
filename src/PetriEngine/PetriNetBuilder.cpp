@@ -299,13 +299,22 @@ namespace PetriEngine {
         uint32_t freeinv = 0;
         uint32_t freetrans = 0;
 
+        // copying features over to unskipped transitions
+        // TODO check that this is correctly aligned.
+        size_t nfeat = 0;
+        for (const auto& t : _transitions) {
+            if (!t.skip) {
+                assert(nfeat < net->features_.size());
+                net->feat(nfeat++) = t.feature;
+            }
+        }
+
         // first handle orphans
         if(place_idmap.size() > next) place_idmap[next] = free;
         net->_placeToPtrs[free] = freetrans;
         for(size_t t = 0; t < _transitions.size(); ++t)
         {
             Transition& trans = _transitions[t];
-            net->features_[t] = trans.feature;
             if (std::all_of(trans.pre.begin(), trans.pre.end(), [](Arc& a){return a.inhib;}))
             {
                 // ALL have to be inhibitor, if any. Otherwise not orphan

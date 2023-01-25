@@ -23,8 +23,10 @@
 #include <tuple>
 using std::get;
 namespace PetriEngine {
-    ColoredPetriNetBuilder::ColoredPetriNetBuilder(shared_string_set& string_set)
+    ColoredPetriNetBuilder::ColoredPetriNetBuilder(shared_string_set& string_set,
+                                                   const spot::bdd_dict_ptr& dict)
     : _ptBuilder(string_set), _string_set(string_set) {
+        _ptBuilder.bdd_dict = dict;
     }
 
     ColoredPetriNetBuilder::ColoredPetriNetBuilder(const ColoredPetriNetBuilder& orig)
