@@ -41,7 +41,7 @@ namespace Featured {
 
     void SearchStrategy::pushEdge(DependencyGraph::Edge *edge)
     {
-        if(edge->status > 0 || edge->source->isDone()) return;
+        if(edge->status > 0 || edge->source->done()) return;
         if(edge->processed && edge->is_negated)
         {
             pushNegation(edge);
@@ -54,7 +54,7 @@ namespace Featured {
 
     void SearchStrategy::pushDependency(DependencyGraph::Edge* edge)
     {
-        if(edge->source->isDone()) return;
+        if(edge->source->done()) return;
         edge->status = 2;
         ++edge->refcnt;
         D.push_back(edge);
@@ -84,7 +84,7 @@ namespace Featured {
         uint32_t m = 0;
         for(DependencyGraph::Edge* e : N)
         {
-            if(!e->source->isDone())
+            if(!e->source->done())
                 m = std::max(m, e->source->getDistance());
         }
         return m;
@@ -100,7 +100,7 @@ namespace Featured {
         for(auto it = N.begin(); it != N.end(); ++it)
         {
             assert(*it);
-            if((*it)->source->getDistance() >= dist || (*it)->source->isDone())
+            if((*it)->source->getDistance() >= dist || (*it)->source->done())
             {
                 pushToW(*it);
                 it = N.erase(it);

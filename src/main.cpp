@@ -400,7 +400,7 @@ int main(int argc, const char** argv) {
 
                 if (options.strategy == Strategy::DEFAULT) options.strategy = Strategy::DFS;
                 ReturnValue v;
-                if (true ||is_featured) {
+                if (options.allow_features/* || is_featured*/) {
                     v = Featured::FCTLMain(net.get(),
                                        options.ctlalgorithm,
                                        options.strategy,

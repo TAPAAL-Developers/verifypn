@@ -3,9 +3,36 @@
 #include <cassert>
 #include <iostream>
 
+#if 1// || !defined(NDEBUG)
+# define DEBUG_DETAILED 1
+#else
+# define DEBUG_DETAILED 0
+#endif
+
 
 namespace Featured {
     using namespace DependencyGraph;
+
+#if DEBUG_DETAILED
+    std::ostream& print_suc_pair(const Edge::Successor& suc, std::ostream& os = std::cout) {
+        return os << "(" << suc.conf->id << "," << suc.feat.id() << ") ";
+    }
+
+    std::ostream& print_edge_targets(const Edge* e, std::ostream& os = std::cout) {
+        os << "  ";
+        for (auto& sucinfo: e->targets) {
+            print_suc_pair(sucinfo, os);
+        }
+        return os;
+    }
+
+    std::ostream& print_edge(const Edge* e, std::ostream& os = std::cout) {
+        os << "(" << e->source->id << ", {";
+        print_edge_targets(e, os) << "})";
+        return os;
+    }
+
+#endif
 
     bool Algorithm::FCertainZeroFPA::search(DependencyGraph::BasicDependencyGraph& t_graph) {
         graph = &t_graph;
@@ -27,10 +54,10 @@ namespace Featured {
                 if (e->refcnt == 0) graph->release(e);
                 ++cnt;
                 //if ((cnt % 1000) == 0) strategy->trivialNegation();
-                if (root->isDone() || root->bad != bddfalse) return root->good == bddtrue;
+                if (root->done() || root->bad != bddfalse) return root->good == bddtrue;
             }
 
-            if (root->isDone() || root->bad != bddfalse) return root->good == bddtrue;
+            if (root->done() || root->bad != bddfalse) return root->good == bddtrue;
 
             // TODO check if this function does anything unsound
             if (!strategy->trivialNegation()) {
@@ -47,25 +74,27 @@ namespace Featured {
         for (auto* e: c->dependency_set) {
             if (e->is_negated) {
                 strategy->pushNegation(e);
-            }
-            else {
+            } else {
                 strategy->pushDependency(e);
             }
         }
     }
 
-    std::pair<bool, Configuration*> Algorithm::FCertainZeroFPA::evaluate_assignment(Edge* e) {
+    Algorithm::FCertainZeroFPA::Evaluation Algorithm::FCertainZeroFPA::evaluate_assignment(Edge* e) {
         auto* src = e->source;
 
         if (e->is_negated) {
             auto* target = e->targets.begin()->conf;
-            if (!e->processed) {
-                return std::make_pair(false, target);
-            }
-            else {
-                src->good = target->bad;
-                src->bad = target->good;
-                return std::make_pair(true, nullptr);
+            auto good = target->bad;
+            auto bad = target->good;
+            if (!e->targets.begin()->conf->is_seen()) {
+                return {target, good, bad};
+            } else {
+                return {nullptr, good, bad};
+                if ((src->good < target->bad) == bddtrue || (src->bad < target->good) == bddtrue) {
+                    src->good = target->bad;
+                    src->bad = target->good;
+                }
             }
             assert(false);
         }
@@ -73,11 +102,11 @@ namespace Featured {
         bdd bad = bddfalse;
         Configuration* ret = nullptr;
         // AND over all targets of edge
-        for (auto &[suc, feat] : e->targets) {
+        for (auto& [suc, feat]: e->targets) {
             good &= feat & suc->good;
             // OR over all targets of this edge
             e->bad_iter |= bdd_imp(feat, suc->bad);
-            if (!suc->checked && ret == nullptr) {
+            if (!suc->is_seen() && ret == nullptr) {
                 ret = suc;
             }
         }
@@ -88,42 +117,65 @@ namespace Featured {
         for (auto suc: e->source->successors) {
             bad |= suc->bad_iter;
         }
-        bool updated = false;
-        if (bdd_imp(src->good, good) == bddtrue) {
-            src->good = good;
-            updated = true;
+        return {ret, good, bad};
+    }
+
+    bool Algorithm::FCertainZeroFPA::try_update(DependencyGraph::Configuration* c, bdd good, bdd bad) {
+        if ((c->good < good) == bddtrue || (c->bad < bad) == bddtrue) {
+#if DEBUG_DETAILED
+            std::cout << "Assign: " << c->id
+                      << ", good: " << c->good.id() << " => " << good.id()
+                      << "; bad: " << c->bad.id() << " => " << bad.id() << std::endl;
+#endif
+            c->good = good;
+            c->bad = bad;
+            //push_dependencies(c);
+            return true;
         }
-        if (bdd_imp(src->bad, bad) == bddtrue) {
-            src->bad = bad;
-            updated = true;
-        }
-        return std::make_pair(updated, ret);
+        else return false;
     }
 
     void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
         if (e->handled) return;
-        if (e->source->isDone()) {
+        if (e->source->done()) {
             if (e->refcnt == 0) graph->release(e);
             return;
         }
+        auto* src = e->source;
+#if DEBUG_DETAILED
+        std::cout << "Checking edge: ";
+        print_edge(e) << std::endl;
+#endif
+
         e->processed = true;
 
-        auto [updated, undecided] = evaluate_assignment(e);
+        auto [undecided, good, bad] = evaluate_assignment(e);
 
-        if (updated) {
-            push_dependencies(e->source);
+        if (try_update(src, good, bad)) {
+            push_dependencies(src);
         }
-        if (undecided != nullptr) {
+        if (undecided != nullptr && !src->done()) {
             explore(undecided);
         }
         if (e->refcnt == 0) graph->release(e);
     }
 
+
     void Algorithm::FCertainZeroFPA::explore(Configuration* c) {
-        c->assignment = ZERO;
+        c->seen_ = true;
 
         {
             auto succs = graph->successors(c);
+            c->nsuccs = succs.size();
+
+#if DEBUG_DETAILED
+            std::cout << "Succs of " << c->id << ": \n";
+            for (auto suc: succs) {
+                std::cout << "  "; print_edge(suc, std::cout) << "\n";
+            }
+#endif
+            _exploredConfigurations += 1;
+            _numberOfEdges += c->nsuccs;
             /*
              * Initialising A+ and A-
              */
@@ -135,25 +187,23 @@ namespace Featured {
             }
             // either all negated or none negated
             assert(std::min(std::count_if(std::begin(succs), std::end(succs),
-                                     [](const auto& e){ return e->is_negated; }),
+                                          [](const auto& e) { return e->is_negated; }),
                             std::count_if(std::begin(succs), std::end(succs),
-                                     [](const auto& e){ return !e->is_negated; })) == 0);
+                                          [](const auto& e) { return !e->is_negated; })) == 0);
 
             for (int32_t i = c->nsuccs - 1; i >= 0; --i) {
-                auto [updated, _] = evaluate_assignment(succs[i]);
+                auto [_, good, bad] = evaluate_assignment(succs[i]);
                 // TODO check if edge still valid, if not then skip it
-                if (updated) {
+                if (try_update(c, good, bad)) {
                     push_dependencies(c);
                 }
-                if (c->isDone()) {
+                if (c->done()) {
                     return;
                 }
             }
             for (auto* e: succs) {
                 strategy->pushEdge(e);
             }
-            _exploredConfigurations += 1;
-            _numberOfEdges += c->nsuccs;
             // before we start exploring, lets check if any of them determine
             // the outcome already!
 

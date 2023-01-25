@@ -100,6 +100,8 @@ struct options_t {
 
     std::string strategy_output;
 
+    bool allow_features = true;
+
     size_t seed() { return ++seed_offset; }
     void print(std::ostream& out = std::cout);
     bool parse(int argc, const char** argv);

@@ -127,11 +127,13 @@ namespace PetriEngine {
         }
 
         [[nodiscard]] auto& feat(size_t i) {
-            return features_[i];
+            assert(i >= 0 && i < features_.size());
+            return features_.at(i);
         }
 
         [[nodiscard]] const auto& feat(size_t i) const {
-            return features_[i];
+            assert(i >= 0 && i < features_.size());
+            return features_.at(i);
         }
 
         [[nodiscard]] bool is_featured() const {

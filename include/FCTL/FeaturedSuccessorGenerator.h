@@ -31,7 +31,7 @@ namespace Featured {
         explicit FeaturedSuccessorGenerator(const PetriEngine::PetriNet& net) : SuccessorGenerator(net) {}
 
         [[nodiscard]] bdd feature() const {
-            return _net.feat(_suc_tcounter);
+            return _net.feat(_suc_tcounter - 1);
         }
     };
 

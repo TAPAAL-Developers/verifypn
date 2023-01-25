@@ -31,7 +31,7 @@ struct Options {
     std::string model_dir = "mcc22";
     std::string out_dir = "fmcc22";
     std::string parse_model = "";
-    int inv_frequency = 10;
+    int inv_frequency = 5;
     int feat_count_exp;
     int feat_count_fixed;
 
@@ -82,7 +82,7 @@ private:
 class FeatureGenerator {
 public:
     explicit FeatureGenerator(const Options& options, const spot::bdd_dict_ptr& dict)
-        : rng_(options), fnames_(rng_.nfeatures()), dict_(dict) { }
+        : dict_(dict), rng_(options), fnames_(rng_.nfeatures()) { }
 
     void annotate_features(PetriNet* net);
 
@@ -112,12 +112,19 @@ public:
     spot::bdd_dict_ptr dict_;
 
 private:
+    struct Stats {
+        size_t n_featured_transitions;
+        size_t num_features;
+    };
+
+    bool verbose;
+    Stats stats_;
     RNGState rng_;
     std::vector<spot::formula> fnames_;
 
-    bdd gen_binary_formula(int maxdepth, int maxtries, Ops op);
-    bdd gen_negation_formula(int maxdepth, int maxtries);
-    bdd generate_feature(int maxdepth, int maxtries = 5);
+    bdd gen_binary_formula(size_t maxdepth, int maxtries, Ops op);
+    bdd gen_negation_formula(size_t maxdepth, int maxtries);
+    bdd generate_feature(size_t maxdepth, int maxtries = 5);
 
     bdd rand_feature_() {
         int num = rng_.random_feature(0, fnames_.size()-1);
@@ -125,8 +132,15 @@ private:
         if (varnum < 0) {
             throw base_error{"Proposition ", fnames_[num], " not associated with this."};
         }
-        std::cerr << "Generating feature variable " << fnames_[num] << ".\n";
+        if (verbose) {
+            std::cerr << "Generating feature variable " << fnames_[num] << ".\n";
+        }
         return bdd_ithvar(varnum);
+    }
+    void print_stats(std::ostream& os = std::cout) const {
+        os << "Stats from generation:\n"
+           << "Number of features: " << stats_.num_features << "\n"
+           << "Number of annotated transitions: " << stats_.n_featured_transitions << "\n";
     }
 };
 
@@ -144,23 +158,28 @@ void FeatureGenerator::annotate_features(PetriEngine::PetriNet* net) {
 
         std::cout << "Registering prop " << f << std::endl;
     }
+    stats_.num_features = fnames_.size();
 
     // maybe dumb; since ops are binary, we want a bit more than nfeats ops, but max of 2 with 2 features.
-    int maxdepth = fnames_.size() * fnames_.size() / 2;
+    size_t maxdepth = fnames_.size() * fnames_.size() / 2;
 
     for (int i = 0; i < net->numberOfTransitions(); ++i) {
         if (rng_.should_add_feature()) {
             bdd feat = generate_feature(maxdepth);
-            std::cerr << "Generated feature guard: " << spot::bdd_to_formula(feat, dict_) << ".\n";
+            if (verbose) {
+                std::cerr << "Generated feature guard: " << spot::bdd_to_formula(feat, dict_) << ".\n";
+            }
             if (is_trivial(feat)) {
                 // avoid accidentally assigning false to feature.
                 net->feat(i) = bddtrue;
             }
             else {
                 net->feat(i) = feat;
+                ++stats_.n_featured_transitions;
             }
         }
     }
+    print_stats();
 }
 
 static Options options;
@@ -291,16 +310,20 @@ void transform_model(const Options& options) {
 }
 
 
-bdd FeatureGenerator::generate_feature(int maxdepth, int maxtries) {
+bdd FeatureGenerator::generate_feature(size_t maxdepth, int maxtries) {
     if (maxdepth == 0) {
-        std::cerr << "Max depth reached, generating random feature.\n";
+        if (verbose) {
+            std::cerr << "Max depth reached, generating random feature.\n";
+        }
         return rand_feature_();
     }
 
     std::uniform_int_distribution<uint32_t> randop{0, MaxOp__ - 1};
 
     Ops op = static_cast<Ops>(randop(*rng_));
-    std::cerr << "Generating operation " << FeatureGenerator::to_string(op) << ".\n";
+    if (verbose) {
+        std::cerr << "Generating operation " << FeatureGenerator::to_string(op) << ".\n";
+    }
 
     switch (op) {
         case Var:
@@ -317,7 +340,7 @@ bdd FeatureGenerator::generate_feature(int maxdepth, int maxtries) {
     }
 }
 
-bdd FeatureGenerator::gen_binary_formula(int maxdepth, int maxtries, Ops op) {
+bdd FeatureGenerator::gen_binary_formula(size_t maxdepth, int maxtries, Ops op) {
     bdd ret;
     int triesleft = maxtries;
     do {
@@ -345,7 +368,7 @@ bdd FeatureGenerator::gen_binary_formula(int maxdepth, int maxtries, Ops op) {
     return ret;
 }
 
-bdd FeatureGenerator::gen_negation_formula(int maxdepth, int maxtries) {
+bdd FeatureGenerator::gen_negation_formula(size_t maxdepth, int maxtries) {
     // no need to be smart here.
     return bdd_not(generate_feature(maxdepth - 1, maxtries));
 }

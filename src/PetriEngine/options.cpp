@@ -561,7 +561,11 @@ bool options_t::parse(int argc, const char** argv) {
             ++i;
             strategy_output = argv[i];
         }
-        else if (std::strcmp(argv[i], "-h") == 0 || std::strcmp(argv[i], "--help") == 0) {
+        else if (std::strcmp(argv[i], "--nofeature") == 0) {
+            allow_features = false;
+            std::cerr << "no features\n";
+        }
+        else if (std::strcmp(argv[i], "-h") == 0 ||  std::strcmp(argv[i], "--help") == 0) {
             printHelp();
             return true;
         } else if (std::strcmp(argv[i], "-v") == 0 || std::strcmp(argv[i], "--version") == 0) {

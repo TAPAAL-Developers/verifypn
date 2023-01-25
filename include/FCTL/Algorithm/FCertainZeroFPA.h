@@ -30,7 +30,15 @@ namespace Algorithm {
         void push_dependencies(const DependencyGraph::Configuration* c);
         void explore(DependencyGraph::Configuration* c);
 
-        std::pair<bool, DependencyGraph::Configuration*> evaluate_assignment(DependencyGraph::Edge* e);
+        struct Evaluation {
+            DependencyGraph::Configuration* undecided;
+            bdd good;
+            bdd bad;
+        };
+
+        Evaluation evaluate_assignment(DependencyGraph::Edge* e);
+
+        [[nodiscard]] bool try_update(DependencyGraph::Configuration* c, bdd good, bdd bad);
     };
 }
 }

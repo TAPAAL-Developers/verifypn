@@ -533,6 +533,8 @@ namespace Featured {
             return _maxTokens;
         }
 
+        static size_t nextid_ = 0;
+
         PetriConfig* FOnTheFlyDG::createConfiguration(size_t marking, size_t own, Condition* t_query) {
             auto& configs = trie.get_data(marking);
             for (PetriConfig* c: configs) {
@@ -547,6 +549,7 @@ namespace Featured {
             newConfig->marking = marking;
             newConfig->query = t_query;
             newConfig->setOwner(own);
+            newConfig->id = nextid_++;
             configs.push_back(newConfig);
             return newConfig;
         }

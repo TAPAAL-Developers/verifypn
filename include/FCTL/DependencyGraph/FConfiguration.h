@@ -28,13 +28,16 @@ namespace Featured {
 
         public:
             int8_t assignment = UNKNOWN;
-            bool checked;
+            bool seen_;
+            size_t id;
 
             Configuration() {}
 
             uint32_t getDistance() const { return distance; }
 
-            bool isDone() const { return (good | bad) == bddtrue; }
+            [[nodiscard]] bool done() const { return (good | bad) == bddtrue; }
+
+            [[nodiscard]] bool is_seen() const { return seen_; }
 
             void addDependency(Edge* e);
 
