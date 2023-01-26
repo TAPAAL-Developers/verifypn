@@ -584,6 +584,10 @@ size_t OnTheFlyDG::maxTokens() const {
     return _maxTokens;
 }
 
+#ifndef NDEBUG
+static size_t nextid_ = 0;
+#endif
+
 PetriConfig *OnTheFlyDG::createConfiguration(size_t marking, size_t own, Condition* t_query)
 {
     auto& configs = trie.get_data(marking);
@@ -599,6 +603,9 @@ PetriConfig *OnTheFlyDG::createConfiguration(size_t marking, size_t own, Conditi
     newConfig->marking = marking;
     newConfig->query = t_query;
     newConfig->setOwner(own);
+#ifndef NDEBUG
+    newConfig->id = nextid_++;
+#endif
     configs.push_back(newConfig);
     return newConfig;
 }

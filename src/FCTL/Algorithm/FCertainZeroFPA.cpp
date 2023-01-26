@@ -3,11 +3,7 @@
 #include <cassert>
 #include <iostream>
 
-#if 1// || !defined(NDEBUG)
-# define DEBUG_DETAILED 1
-#else
-# define DEBUG_DETAILED 0
-#endif
+
 
 
 namespace Featured {
@@ -106,7 +102,7 @@ namespace Featured {
             good &= feat & suc->good;
             // OR over all targets of this edge
             e->bad_iter |= bdd_imp(feat, suc->bad);
-            if (!suc->is_seen() && ret == nullptr) {
+            if (!suc->is_seen() || (!suc->done() && ret == nullptr)) {
                 ret = suc;
             }
         }
@@ -154,8 +150,11 @@ namespace Featured {
         if (try_update(src, good, bad)) {
             push_dependencies(src);
         }
-        if (undecided != nullptr && !src->done()) {
-            explore(undecided);
+        if (undecided != nullptr) {
+            undecided->addDependency(e);
+            if (!src->done()) {
+                explore(undecided);
+            }
         }
         if (e->refcnt == 0) graph->release(e);
     }

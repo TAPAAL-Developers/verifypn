@@ -29,7 +29,9 @@ namespace Featured {
         public:
             int8_t assignment = UNKNOWN;
             bool seen_;
+#ifndef NDEBUG
             size_t id;
+#endif
 
             Configuration() {}
 
