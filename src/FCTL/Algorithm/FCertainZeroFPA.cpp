@@ -39,7 +39,6 @@ namespace Featured {
         }
         return {"",""};
     }
-
 #endif
 
     bool Algorithm::FCertainZeroFPA::search(DependencyGraph::BasicDependencyGraph& t_graph) {
@@ -106,15 +105,26 @@ namespace Featured {
             }
             assert(false);
         }
+
+        /**
+         * Default values here look strange; shouldn't they be different?
+         * Answer is no: in fact we compute both as conjunctions.
+         *   Good is a DNF over hyperedges and their targets,
+         *     so we compute just the conj over current edge targets.
+         *   Bad is a CNF over hyperedges and their targets,
+         *     so we cache the value of the disjunction over targets for each edge,
+         *     then compute the full conjunction here.
+         */
         bdd good = bddtrue;
-        bdd bad = bddfalse;
+        bdd bad = bddtrue;
         Configuration* ret = nullptr;
         // AND over all targets of edge
         for (auto& [suc, feat]: e->targets) {
             good &= feat & suc->good;
             // OR over all targets of this edge
             e->bad_iter |= bdd_imp(feat, suc->bad);
-            if (!suc->is_seen() || (!suc->done() && ret == nullptr)) {
+            if ((!suc->done() && ret == nullptr) ||
+                (!suc->is_seen() && ret != nullptr && ret->is_seen())) {
                 ret = suc;
             }
         }
@@ -232,7 +242,8 @@ namespace Featured {
              */
             if (succs.empty()) {
                 assert(c->good == bddfalse);
-                c->bad = bddtrue;
+                auto ret = try_update(c, bddfalse, bddtrue);
+                assert(ret);
                 push_dependencies(c);
                 return;
             }
@@ -244,6 +255,10 @@ namespace Featured {
 
             for (int32_t i = c->nsuccs - 1; i >= 0; --i) {
                 auto [_, good, bad] = evaluate_assignment(succs[i]);
+                for (auto suc: succs) {
+                    bad &= suc->bad_iter; // ad hoc update copied from evaluate_assignment;
+                                          // bad is vacuously true as successors unassigned at this point.
+                }
                 // TODO check if edge still valid, if not then skip it
                 if (try_update(c, good, bad)) {
                     push_dependencies(c);
@@ -254,6 +269,7 @@ namespace Featured {
             }
             for (auto* e: succs) {
                 strategy->pushEdge(e);
+                c->successors.push_front(e);
             }
             // before we start exploring, lets check if any of them determine
             // the outcome already!
