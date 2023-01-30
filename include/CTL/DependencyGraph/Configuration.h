@@ -1,6 +1,8 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
+#include "logging.h"
+
 #include "Edge.h"
 
 #include <string>
@@ -23,7 +25,7 @@ private:
     void setDistance(uint32_t value) { distance = value; }
 public:
     int8_t assignment = UNKNOWN;
-#ifndef NDEBUG
+#if DEBUG_DETAILED
     size_t id;
 #endif
     Configuration() {}
@@ -35,6 +37,7 @@ public:
     
 };
 
+    std::string to_string(Assignment a);
 
 }
 #endif // CONFIGURATION_H

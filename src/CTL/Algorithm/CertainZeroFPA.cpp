@@ -3,8 +3,28 @@
 #include <cassert>
 #include <iostream>
 
+#include "logging.h"
+
 using namespace DependencyGraph;
 using namespace SearchStrategy;
+
+#if DEBUG_DETAILED
+
+    std::ostream& print_edge_targets(const Edge* e, std::ostream& os = std::cout) {
+        os << "  ";
+        for (auto& suc: e->targets) {
+            os << suc->id << " ";
+        }
+        return os;
+    }
+
+    std::ostream& print_edge(const Edge* e, std::ostream& os = std::cout) {
+        os << "(" << e->source->id << ", {";
+        print_edge_targets(e, os) << "})";
+        return os;
+    }
+
+#endif
 
 bool Algorithm::CertainZeroFPA::search(DependencyGraph::BasicDependencyGraph &t_graph)
 {
@@ -67,6 +87,13 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
         }
         if(!any && e->source != vertex) return;
     }*/
+
+#if DEBUG_DETAILED
+    if (!only_assign) {
+        std::cout << "Checking edge: ";
+        print_edge(e) << std::endl;
+    }
+#endif
 
     bool allOne = true;
     bool hasCZero = false;
@@ -174,14 +201,23 @@ void Algorithm::CertainZeroFPA::checkEdge(Edge* e, bool only_assign)
 void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Edge *e, DependencyGraph::Assignment a)
 {
     finalAssign(e->source, a);
+#if DEBUG_DETAILED
+    graph->print(e->source, std::cerr);
+    std::cerr << std::endl;
+#endif
 }
 
 void Algorithm::CertainZeroFPA::finalAssign(DependencyGraph::Configuration *c, DependencyGraph::Assignment a)
 {
     assert(a == ONE || a == CZERO);
-
     c->assignment = a;
     c->nsuccs = 0;
+
+#if DEBUG_DETAILED
+    std::cout << "Assign: " << c->id << ", value: " << a << "\n.";
+#endif
+
+
     for (DependencyGraph::Edge *e : c->dependency_set) {
         if(!e->source->isDone()) {
             if(a == CZERO)
@@ -220,6 +256,12 @@ void Algorithm::CertainZeroFPA::explore(Configuration *c)
         auto succs = graph->successors(c);
         c->nsuccs = succs.size();
 
+#if DEBUG_DETAILED
+        std::cout << "Succs of " << c->id << ": \n";
+        for (auto suc: succs) {
+            std::cout << "  "; print_edge(suc, std::cout) << "\n";
+        }
+#endif
         _exploredConfigurations += 1;
         _numberOfEdges += c->nsuccs;
         // before we start exploring, lets check if any of them determine

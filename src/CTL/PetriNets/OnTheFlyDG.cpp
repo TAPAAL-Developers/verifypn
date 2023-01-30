@@ -1,5 +1,7 @@
 #include "CTL/PetriNets/OnTheFlyDG.h"
 
+#include "logging.h"
+
 #include <algorithm>
 #include <string.h>
 #include <iostream>
@@ -584,7 +586,7 @@ size_t OnTheFlyDG::maxTokens() const {
     return _maxTokens;
 }
 
-#ifndef NDEBUG
+#if DEBUG_DETAILED
 static size_t nextid_ = 0;
 #endif
 
@@ -603,7 +605,7 @@ PetriConfig *OnTheFlyDG::createConfiguration(size_t marking, size_t own, Conditi
     newConfig->marking = marking;
     newConfig->query = t_query;
     newConfig->setOwner(own);
-#ifndef NDEBUG
+#if DEBUG_DETAILED
     newConfig->id = nextid_++;
 #endif
     configs.push_back(newConfig);
@@ -692,6 +694,17 @@ void OnTheFlyDG::markingStats(const uint32_t* marking, size_t& sum,
         }
     }
 }
+
+    void OnTheFlyDG::print(DependencyGraph::Configuration* c, std::ostream& out) {
+        Marking marking{new PetriEngine::MarkVal[net->numberOfPlaces()]};
+        auto* config = (PetriConfig*) c;
+        auto enc_marking = trie.unpack(config->marking);
+        encoder.decode(marking.marking(), enc_marking.data());
+        net->print(marking.marking(), out, false);
+        out << ", ";
+        config->query->toString(out);
+        out << "," << to_string((Assignment) config->assignment);
+    }
 
 
 }//PetriNet

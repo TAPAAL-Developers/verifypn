@@ -126,6 +126,8 @@ namespace DependencyGraph {
             }
         }
 
+        void print(Configuration* config, std::ostream& out) override {}
+
     private:
 
         std::unordered_map<Configuration*, std::vector<Edge*>> edges_;

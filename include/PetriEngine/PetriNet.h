@@ -98,16 +98,17 @@ namespace PetriEngine {
             return _placenames;
         }
 
-        void print(MarkVal const * const val) const
+        void print(MarkVal const * const val, std::ostream& out = std::cerr, bool newline = true) const
         {
             for(size_t i = 0; i < _nplaces; ++i)
             {
                 if(val[i] != 0)
                 {
-                    std::cout << *_placenames[i] << "(" << i << ")" << " -> " << val[i] << ", ";
+                    out << *_placenames[i] << "(" << i << ")" << "=" << val[i] << ", ";
                 }
             }
-            std::cout << std::endl;
+            if (newline)
+                out << std::endl;
         }
 
         void sort();

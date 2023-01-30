@@ -563,7 +563,6 @@ bool options_t::parse(int argc, const char** argv) {
         }
         else if (std::strcmp(argv[i], "--nofeature") == 0) {
             allow_features = false;
-            std::cerr << "no features\n";
         }
         else if (std::strcmp(argv[i], "-h") == 0 ||  std::strcmp(argv[i], "--help") == 0) {
             printHelp();

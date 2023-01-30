@@ -47,6 +47,8 @@ public:
     size_t maxTokens() const;
     Condition::Result initialEval();
 
+    virtual void print(DependencyGraph::Configuration* c, std::ostream& out = std::cerr) override;
+
 protected:
 
     //initialized from constructor
