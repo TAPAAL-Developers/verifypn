@@ -20,5 +20,23 @@ namespace Featured {
             dependency_set.insert_after(pit, e);
             ++e->refcnt;
         }
+        std::string to_string(Assignment a)
+        {
+            switch (a) {
+
+                case ONE:
+                    return "ONE";
+                    break;
+                case UNKNOWN:
+                    return "UNKNOWN";
+                    break;
+                case ZERO:
+                    return "ZERO";
+                    break;
+                case CZERO:
+                    return "CZERO";
+                    break;
+            }
+        }
     }
 }

@@ -1,7 +1,8 @@
 #ifndef FEATURED_CONFIGURATION_H
 #define FEATURED_CONFIGURATION_H
 
-#include "FeaturedEdge.h"
+#include "FCTL/DependencyGraph/FeaturedEdge.h"
+#include "logging.h"
 
 #include <bddx.h>
 
@@ -29,7 +30,7 @@ namespace Featured {
         public:
             int8_t assignment = UNKNOWN;
             bool seen_;
-#ifndef NDEBUG
+#if DEBUG_DETAILED
             size_t id;
 #endif
 
@@ -51,6 +52,7 @@ namespace Featured {
             bdd bad = bddfalse;
 
         };
+        std::string to_string(Assignment a);
     }
 }
 

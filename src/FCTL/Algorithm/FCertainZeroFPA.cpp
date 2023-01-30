@@ -4,6 +4,7 @@
 #include <iostream>
 
 
+#include "logging.h"
 
 
 namespace Featured {
@@ -26,6 +27,17 @@ namespace Featured {
         os << "(" << e->source->id << ", {";
         print_edge_targets(e, os) << "})";
         return os;
+    }
+
+    std::map<std::string,std::string> correct;
+
+    std::pair<std::string,std::string> split(const std::string& line) {
+        for(int64_t i = line.size() - 1; i > 0; --i)
+        {
+            if(line[i] == ',')
+                return std::make_pair(std::string(line.data(), i), std::string(line.data() + i, (line.size() - i)));
+        }
+        return {"",""};
     }
 
 #endif
@@ -63,7 +75,7 @@ namespace Featured {
             }
         }
 
-        return root->assignment == ONE;
+        return root->good == bddtrue;
     }
 
     void Algorithm::FCertainZeroFPA::push_dependencies(const Configuration* c) {
@@ -111,12 +123,15 @@ namespace Featured {
 
         // AND over bad from all successor edges
         for (auto suc: e->source->successors) {
-            bad |= suc->bad_iter;
+            bad &= suc->bad_iter;
         }
         return {ret, good, bad};
     }
 
     bool Algorithm::FCertainZeroFPA::try_update(DependencyGraph::Configuration* c, bdd good, bdd bad) {
+        assert((c->good >> good) == bddtrue && (c->bad >> bad) == bddtrue);
+
+
         if ((c->good < good) == bddtrue || (c->bad < bad) == bddtrue) {
 #if DEBUG_DETAILED
             std::cout << "Assign: " << c->id
@@ -125,7 +140,44 @@ namespace Featured {
 #endif
             c->good = good;
             c->bad = bad;
+            if (c->good == bddtrue) {
+                c->assignment = ONE;
+            }
+            if (c->bad == bddtrue) {
+                c->assignment = CZERO;
+            }
             //push_dependencies(c);
+#if DEBUG_DETAILED
+            std::cerr << "ASSIGN: [" << c->id << "]: " << to_string(static_cast<Assignment>(c->assignment)) << "\n";
+
+            if (correct.empty()) {
+                std::fstream in;
+                in.open("/home/njulrik/dev/verifypn/cmake-build-release/dump", std::ios::in);
+                if (in) {
+                    std::string line;
+                    while (getline(in, line)) {
+                        auto [a, b] = split(line);
+                        correct[a] = b;
+                    }
+                }
+            }
+
+            if (c->done()) {
+                std::stringstream ss;
+                graph->print(c, ss);
+                auto [a, b] = split(ss.str());
+                if (correct.count(a)) {
+                    if (correct[a] != b) {
+                        std::cerr << "Error on :" << a << "\n\tGOT" << b << " expected " << correct[a] << std::endl;
+                        assert(false);
+                    } else
+                        std::cerr << "¤ OK (" << c->id << ") = " << DependencyGraph::to_string((Assignment) c->assignment)
+                                  << std::endl;
+                } else
+                    std::cerr << "¤ NO MATCH (" << c->id << ") " << DependencyGraph::to_string((Assignment) c->assignment)
+                              << std::endl;
+            }
+#endif
             return true;
         }
         else return false;

@@ -1,6 +1,8 @@
 #ifndef FEATURED_ONTHEFLYDG_H
 #define FEATURED_ONTHEFLYDG_H
 
+#include "logging.h"
+
 #include <functional>
 #include <stack>
 #include <ptrie/ptrie_map.h>
@@ -16,11 +18,6 @@
 #include "FCTL/FeaturedSuccessorGenerator.h"
 
 
-#if 1// || !defined(NDEBUG)
-# define DEBUG_DETAILED 1
-#else
-# define DEBUG_DETAILED 0
-#endif
 
 namespace Featured {
     namespace PetriNets {
@@ -60,6 +57,8 @@ namespace Featured {
             size_t maxTokens() const;
 
             Condition::Result initialEval();
+
+            virtual void print(DependencyGraph::Configuration* c, std::ostream& out = std::cerr) override;
 
         protected:
 

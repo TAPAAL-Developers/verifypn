@@ -14,6 +14,8 @@
 #include "PetriEngine/PQL/PredicateCheckers.h"
 #include "PetriEngine/PQL/Evaluation.h"
 
+#include "logging.h"
+
 namespace Featured {
     using namespace PetriEngine::PQL;
     using namespace DependencyGraph;
@@ -533,7 +535,7 @@ namespace Featured {
             return _maxTokens;
         }
 
-#ifndef DEBUG_DETAILED
+#if DEBUG_DETAILED
         static size_t nextid_ = 0;
 #endif
         PetriConfig* FOnTheFlyDG::createConfiguration(size_t marking, size_t own, Condition* t_query) {
@@ -550,7 +552,7 @@ namespace Featured {
             newConfig->marking = marking;
             newConfig->query = t_query;
             newConfig->setOwner(own);
-#ifndef DEBUG_DETAILED
+#if DEBUG_DETAILED
             newConfig->id = nextid_++;
 #endif
             configs.push_back(newConfig);
@@ -629,6 +631,17 @@ namespace Featured {
                     sum += marking[i];
                 }
             }
+        }
+
+        void FOnTheFlyDG::print(DependencyGraph::Configuration* c, std::ostream& out) {
+            Marking marking{new PetriEngine::MarkVal[net->numberOfPlaces()]};
+            auto* config = (PetriConfig*) c;
+            auto enc_marking = trie.unpack(config->marking);
+            encoder.decode(marking.marking(), enc_marking.data());
+            net->print(marking.marking(), out, false);
+            out << ", ";
+            config->query->toString(out);
+            out << "," << to_string((Assignment) config->assignment);
         }
 
     }

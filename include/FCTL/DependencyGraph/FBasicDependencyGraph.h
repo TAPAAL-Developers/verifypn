@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <vector>
 #include <cstdint>
+#include <iostream>
 
 namespace Featured {
     namespace DependencyGraph {
@@ -22,6 +23,9 @@ namespace Featured {
             virtual void release(Edge* e) = 0;
 
             virtual void cleanUp() = 0;
+
+            virtual void print(Configuration* c, std::ostream& out = std::cerr) = 0;
+
         };
 
     }
