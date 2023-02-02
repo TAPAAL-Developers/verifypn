@@ -42,6 +42,10 @@ namespace Featured {
 
             [[nodiscard]] bool is_seen() const { return seen_; }
 
+            [[nodiscard]] bool unimproved() const {
+                return is_seen() && (good == bddfalse) && (bad == bddfalse);
+            }
+
             void addDependency(Edge* e);
 
             void setOwner(uint32_t) {}
@@ -51,7 +55,23 @@ namespace Featured {
             bdd good = bddfalse;
             bdd bad = bddfalse;
 
+
         };
+
+        [[nodiscard]] static bool operator<(const Configuration& c, const Configuration& v)
+        {
+            if (c.unimproved() && !v.unimproved()) {
+                return true;
+            }
+            if (!c.done() && v.done()) {
+                return true;
+            }
+            if (!c.is_seen() && v.is_seen()) {
+                return true;
+            }
+            return false;
+        }
+
         std::string to_string(Assignment a);
     }
 }

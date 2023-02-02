@@ -25,7 +25,14 @@ namespace Featured {
 
     std::ostream& print_edge(const Edge* e, std::ostream& os = std::cout) {
         os << "(" << e->source->id << ", {";
-        print_edge_targets(e, os) << "})";
+        if (!e->is_negated) {
+            os << ", {";
+            print_edge_targets(e, os) << "})";
+        }
+        else {
+            os << " --> " << (*e->targets.begin()).conf->id << ")";
+        }
+print_edge_targets(e, os) << "})";
         return os;
     }
 
@@ -91,13 +98,21 @@ namespace Featured {
         auto* src = e->source;
 
         if (e->is_negated) {
+            ++_processedNegationEdges;
             auto* target = e->targets.begin()->conf;
-            auto good = target->bad;
-            auto bad = target->good;
-            if (!e->targets.begin()->conf->is_seen()) {
-                return {target, good, bad};
-            } else {
+            if (target->assignment == ZERO && e->processed) {
+                // all good ones are those that are not good below
+                // all bad ones are those that were not proven good.
+                auto good = !target->good;
+                auto bad = !good;
                 return {nullptr, good, bad};
+
+            } else {
+                //if (!e->processed) {
+                strategy->pushNegation(e);
+                //}
+                assert(target->good == bddfalse && target->bad == bddfalse);
+                return {target, bddfalse, bddfalse};
                 if ((src->good < target->bad) == bddtrue || (src->bad < target->good) == bddtrue) {
                     src->good = target->bad;
                     src->bad = target->good;
@@ -105,9 +120,10 @@ namespace Featured {
             }
             assert(false);
         }
+        ++_processedEdges;
 
         /**
-         * Default values here look strange; shouldn't they be different?
+         * Default values here may look strange; shouldn't they be different?
          * Answer is no: in fact we compute both as conjunctions.
          *   Good is a DNF over hyperedges and their targets,
          *     so we compute just the conj over current edge targets.
@@ -123,10 +139,13 @@ namespace Featured {
             good &= feat & suc->good;
             // OR over all targets of this edge
             e->bad_iter |= bdd_imp(feat, suc->bad);
-            if ((!suc->done() && ret == nullptr) ||
-                (!suc->is_seen() && ret != nullptr && ret->is_seen())) {
+            if (ret == nullptr || *suc < *ret) {
                 ret = suc;
             }
+            // if ((!suc->done() && ret == nullptr) ||
+            //     (!suc->is_seen() && ret != nullptr && ret->is_seen())) {
+            //     ret = suc;
+            // }
         }
         // partial OR of all edges from good (just add info from this edge)
         good = good | src->good;
@@ -162,7 +181,7 @@ namespace Featured {
 
             if (correct.empty()) {
                 std::fstream in;
-                in.open("/home/njulrik/dev/verifypn/cmake-build-release/dump", std::ios::in);
+                in.open("/tmp/dump", std::ios::in);
                 if (in) {
                     std::string line;
                     while (getline(in, line)) {
@@ -205,7 +224,6 @@ namespace Featured {
         print_edge(e) << std::endl;
 #endif
 
-        e->processed = true;
 
         auto [undecided, good, bad] = evaluate_assignment(e);
 
@@ -214,10 +232,11 @@ namespace Featured {
         }
         if (undecided != nullptr) {
             undecided->addDependency(e);
-            if (!src->done()) {
+            if (!undecided->is_seen()) {
                 explore(undecided);
             }
         }
+        if (e->refcnt > 0)  e->processed = true;
         if (e->refcnt == 0) graph->release(e);
     }
 
