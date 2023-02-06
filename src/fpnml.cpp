@@ -23,19 +23,26 @@
 
 #include <filesystem>
 #include <random>
+#include <variant>
 
 namespace fs = std::filesystem;
 //using namespace Featured;
+
+struct FixedFeatures { int val; };
+struct MaxFeatures { int val; };
 
 struct Options {
     std::string model_dir = "mcc22";
     std::string out_dir = "fmcc22";
     std::string parse_model = "";
-    int inv_frequency = 5;
-    int feat_count_exp;
-    int feat_count_fixed;
+    int inv_frequency = 10;
+    //int feat_count_exp;
+    std::variant<FixedFeatures, MaxFeatures> feat_count = MaxFeatures{8};
+    int lambda;
 
     // TODO parameter relating to shape and size of generated formulae.
+
+    bool verbose;
 };
 
 bool is_trivial(const bdd bdd) {
@@ -46,48 +53,72 @@ std::random_device r;
 
 class RNGState {
 public:
-    RNGState() = default;
+    RNGState() = delete;
 
     explicit RNGState(const Options& options)
-            : rng_(r()), exp_(options.feat_count_exp), nfeats_(1, options.inv_frequency) {}
+            : options_(options), rng_(r()), exp_(options.inv_frequency)
+    {
 
-    size_t nfeatures() { return std::max(2, int(round(exp_(rng_)))); }
+    }
+
+    size_t nfeatures() {
+        auto feat_count = std::visit([&](auto&& arg) {
+            using T = std::decay_t<decltype(arg)>;
+            if constexpr (std::is_same_v<T, FixedFeatures>) {
+                return arg.val;
+            }
+            else if (std::is_same_v<T, MaxFeatures>) {
+                if (arg.val < 2)
+                    throw base_error{"Error: Refusing to generate less than 2 features."};
+                std::uniform_int_distribution<> dist{2, arg.val};
+                int n = dist(rng_);
+                nfeats_ = std::uniform_int_distribution<>{0, n - 1};
+                return n;
+            }
+        }, options_.feat_count);
+
+        return feat_count;
+    }
 
     bool should_add_feature() {
-        return nfeats_(rng_) == 1;
+        return (*nfeats_)(rng_) == 1;
     }
 
     auto formula_depth() { return size_t(exp_(rng_)) + 1; }
 
     int random_feature(int min, int count) {
-        std::uniform_int_distribution<> dist{min, min + count};
-        return dist(rng_);
+        return (*nfeats_)(rng_);
     }
 
     void set_petri_net(const PetriNet* net) {
         net_ = net;
     }
 
+    [[nodiscard]] const PetriNet* get_petri_net() const {
+        return net_;
+    }
+
     auto& operator*() { return rng_; }
 
 private:
+    const Options& options_;
     const PetriNet* net_;
     std::default_random_engine rng_;
     std::exponential_distribution<> exp_;
 
-    std::uniform_int_distribution<> nfeats_;
+    std::optional<std::uniform_int_distribution<> > nfeats_;
 };
 
 
 class FeatureGenerator {
 public:
     explicit FeatureGenerator(const Options& options, const spot::bdd_dict_ptr& dict)
-        : dict_(dict), rng_(options), fnames_(rng_.nfeatures()) { }
+        : dict_(dict), rng_(options), fnames_(rng_.nfeatures()), verbose_(options.verbose) { }
 
     void annotate_features(PetriNet* net);
 
     enum Ops : uint32_t {
-        Var = 0, And, Or, Not, Imply, Equal, MaxOp__
+        Var = 0, And, Or, Not, Imply, Equal, MaxOp_
     };
 
     virtual ~FeatureGenerator();
@@ -105,19 +136,25 @@ public:
                 return "Equal";
             case Var:
                 return "Var";
-            case MaxOp__:
+            case MaxOp_:
                 throw base_error{"to_string: invalid Op"};
         }
     }
     spot::bdd_dict_ptr dict_;
 
+    void print_stats(std::ostream& os = std::cout) const {
+        os << "Stats from generation:\n"
+           << "  Number of features: " << stats_.num_features << "\n"
+           << "  Number of annotated transitions: " << stats_.n_featured_transitions << "/" << rng_.get_petri_net()->numberOfTransitions() << "\n";
+    }
+
 private:
     struct Stats {
-        size_t n_featured_transitions;
-        size_t num_features;
+        size_t n_featured_transitions=0;
+        size_t num_features=0;
     };
 
-    bool verbose;
+    bool verbose_;
     Stats stats_;
     RNGState rng_;
     std::vector<spot::formula> fnames_;
@@ -132,22 +169,23 @@ private:
         if (varnum < 0) {
             throw base_error{"Proposition ", fnames_[num], " not associated with this."};
         }
-        if (verbose) {
+        if (verbose_) {
             std::cerr << "Generating feature variable " << fnames_[num] << ".\n";
         }
         return bdd_ithvar(varnum);
     }
-    void print_stats(std::ostream& os = std::cout) const {
-        os << "Stats from generation:\n"
-           << "Number of features: " << stats_.num_features << "\n"
-           << "Number of annotated transitions: " << stats_.n_featured_transitions << "\n";
+
+    void set_petri_net(const PetriNet* net) {
+        rng_.set_petri_net(net);
     }
 };
 
 
+void print_help(const std::vector<std::string>& argv);
+
 void FeatureGenerator::annotate_features(PetriEngine::PetriNet* net) {
 
-    rng_.set_petri_net(net);
+    set_petri_net(net);
     for (auto i = 0; i < fnames_.size(); ++i) {
         auto var_name = "f" + std::to_string(i);
         auto f = spot::formula::ap(var_name);
@@ -156,17 +194,18 @@ void FeatureGenerator::annotate_features(PetriEngine::PetriNet* net) {
         assert(dict_->has_registered_proposition(f, nullptr) != -1);
         assert(dict_->has_registered_proposition(fnames_[i], nullptr) != -1);
 
-        std::cout << "Registering prop " << f << std::endl;
+        //std::cout << "Registering prop " << f << std::endl;
     }
     stats_.num_features = fnames_.size();
 
     // maybe dumb; since ops are binary, we want a bit more than nfeats ops, but max of 2 with 2 features.
-    size_t maxdepth = fnames_.size() * fnames_.size() / 2;
+    size_t maxdepth = 2 * fnames_.size() - 2;
+    std::cout << "Generating with " << stats_.num_features << " features and maximum formula depth of " << maxdepth << ".\n";
 
     for (int i = 0; i < net->numberOfTransitions(); ++i) {
         if (rng_.should_add_feature()) {
             bdd feat = generate_feature(maxdepth);
-            if (verbose) {
+            if (verbose_) {
                 std::cerr << "Generated feature guard: " << spot::bdd_to_formula(feat, dict_) << ".\n";
             }
             if (is_trivial(feat)) {
@@ -179,10 +218,31 @@ void FeatureGenerator::annotate_features(PetriEngine::PetriNet* net) {
             }
         }
     }
-    print_stats();
 }
 
 static Options options;
+
+template <typename T>
+T consume_args(const std::vector<std::string>& argv, size_t& i)
+{
+    if (i >= argv.size() - 1) {
+        throw base_error{"parse_options: No argument to consume"};
+    }
+    ++i;
+    if constexpr (std::is_integral_v<T>) {
+        return std::stoi(argv[i]);
+    }
+    else if constexpr (std::is_floating_point_v<T>) {
+        return std::stod(argv[i]);
+    }
+    else if constexpr (std::is_same_v<T, std::string>) {
+        return argv[i];
+    }
+    else {
+        static_assert(std::is_void_v<T> && false, "Does not know how to parse type.");
+    }
+}
+
 
 Options parse_options(int argc, char* argv[]) {
     Options options;
@@ -227,15 +287,15 @@ Options parse_options(int argc, char* argv[]) {
 
     std::vector<std::string> args;
     for (int i = 1; i < argc; ++i) {
-        args.push_back(argv[i]);
+        args.emplace_back(argv[i]);
     }
 
-    for (int i = 0; i < args.size(); ++i) {
+    for (size_t i = 0; i < args.size(); ++i) {
         if (args[i] == "--help" || args[i] == "-h") {
-            //print_help(); // TODO add help string
+            print_help(args);
         }
         else if (args[i] == "--probability" || args[i] == "-p") {
-            double p = std::stod(args[i+1]);
+            auto p = consume_args<double>(args, i);
             if (p < 0) {
                 std::cerr << "Error: Negative probability" << p << "given.\n";
                 exit(1);
@@ -248,15 +308,23 @@ Options parse_options(int argc, char* argv[]) {
             }
             ++i;
         }
-        else if (args[i] == "--nfeatures" || args[i] == "-n") {
-            // TODO assign nfeatures
-        } else if (args[i] == "--lambda" || args[i] == "-l") {
-            // TODO assign lambda
+        else if (args[i] == "--lambda" || args[i] == "-l") {
+            options.lambda = consume_args<int>(args, i);
         }
         else if (args[i] == "--parse") {
-            ++i;
-            assert(i != args.size());
-            options.parse_model = args[i];
+            options.parse_model = consume_args<std::string>(args, i);
+        }
+        else if (args[i] == "--verbose") {
+            options.verbose = true;
+        }
+        else if (args[i] == "--quiet" || args[i] == "-q") {
+            options.verbose = false;
+        }
+        else if (args[i] == "--max_features") {
+            options.feat_count = MaxFeatures{consume_args<int>(args, i)};
+        }
+        else if (args[i] == "--num-features" || args[i] == "-n") {
+            options.feat_count = FixedFeatures{consume_args<int>(args, i)};
         }
         else {
             options.model_dir = args[i];
@@ -266,23 +334,42 @@ Options parse_options(int argc, char* argv[]) {
     return options;
 }
 
+constexpr auto model_name = "model.pnml";
+constexpr auto out_name = "featured.pnml";
+
+void print_help(const std::vector<std::string>& argv) {
+    std::cout << "Usage:\t" << argv[0] << "[parameters] <model_dir> | \n"
+              << "\t" << argv[0] << "--parse <model-file>\n"
+              << "\n"
+              << "Annotate a P/T Petri Net in .pnml with randomly generated features.\n"
+              << "The argument is a directory from e.g. the MCC* datasets, assuming " << model_name //TODO rephrase if this is parameterised.
+              << "contains the original Petri net, and writes the resulting annotated net to " << out_name << ".\n"
+              << "\n"
+              << "Parameters are drawn from the following:\n"
+              << "  -n|--nfeatures NUM             TODO implement\n"
+              << "  -l|--lambda NUM                TODO implement\n"
+              << "  -p|--probability NUM           "
+              ;
+
+
+}
+
 void transform_model(const Options& options) {
     auto f = fs::directory_entry(options.model_dir);
     const fs::path& model_dir{f};
-    const std::string& model_name = "model.pnml";
-    const std::string& out_name = "featured.pnml";
     if (!fs::exists(model_dir)) {
         throw base_error("Error: Missing directory " + model_dir.string());
     }
     auto ifile = model_dir / model_name;
     auto ofile = model_dir / out_name;
     if (!fs::exists(ifile)) {
-        throw base_error{"File " + model_name + " not found in " + model_dir.string()};
+        throw base_error{"File ", model_name, " not found in ", model_dir.string()};
     }
 
     shared_string_set string_set;
     spot::bdd_dict_ptr dict = spot::make_bdd_dict();
     ColoredPetriNetBuilder cpnBuilder{string_set, dict};
+    std::cout << "Parsing model file " << ifile.string() << "... ";
     try {
         cpnBuilder.parse_model(ifile.string());
     }
@@ -293,35 +380,37 @@ void transform_model(const Options& options) {
         // TODO this might actually be worth doing? idk
         throw base_error("Do not want to feature-ise colored nets");
     }
+    std::cout << "Done!\n";
     auto pnbuilder = cpnBuilder.pt_builder();
     pnbuilder.sort();
     auto pn = pnbuilder.makePetriNet(false);
 
     FeatureGenerator gen{options, dict};
 
-    std::cout << "Generating features\n";
+    std::cout << "Starting feature generation...\n";
     gen.annotate_features(pn);
-    std::cout << "Done generating features\n";
+    std::cout << "Done generating features.\n";
+    gen.print_stats();
 
-    std::cout << "Writing featured PN to file " << ofile << std::endl;
+    std::cout << "Writing featured PN to file " << ofile << "... ";
     std::ofstream of{ofile};
     pn->toXML(of, gen.dict_);
-    std::cout << "Done writing PN to file." << std::endl;
+    std::cout << "Done!" << std::endl;
 }
 
 
 bdd FeatureGenerator::generate_feature(size_t maxdepth, int maxtries) {
     if (maxdepth == 0) {
-        if (verbose) {
+        if (verbose_) {
             std::cerr << "Max depth reached, generating random feature.\n";
         }
         return rand_feature_();
     }
 
-    std::uniform_int_distribution<uint32_t> randop{0, MaxOp__ - 1};
+    std::uniform_int_distribution<uint32_t> randop{0, MaxOp_ - 1};
 
     Ops op = static_cast<Ops>(randop(*rng_));
-    if (verbose) {
+    if (verbose_) {
         std::cerr << "Generating operation " << FeatureGenerator::to_string(op) << ".\n";
     }
 
@@ -335,7 +424,7 @@ bdd FeatureGenerator::generate_feature(size_t maxdepth, int maxtries) {
             return gen_binary_formula(maxdepth, maxtries, op);
         case Not:
             return gen_negation_formula(maxdepth, maxtries);
-        case MaxOp__:
+        case MaxOp_:
             throw base_error{"Error: Invalid value drawn\n"};
     }
 }
