@@ -19,8 +19,14 @@ using namespace SearchStrategy;
     }
 
     std::ostream& print_edge(const Edge* e, std::ostream& os = std::cout) {
-        os << "(" << e->source->id << ", {";
-        print_edge_targets(e, os) << "})";
+        os << "(" << e->source->id;
+        if (!e->is_negated) {
+            os << ", {";
+            print_edge_targets(e, os) << "})";
+        }
+        else {
+            os << " --> " << (*e->targets.begin())->id << ")";
+        }
         return os;
     }
 
