@@ -75,7 +75,7 @@ int main(int argc, const char** argv) {
         if (options.parse(argc, argv)) // if options were --help or --version
             return to_underlying(ReturnValue::SuccessCode);
 
-        if (options.printstatistics) {
+        if (options.printstatistics == StatisticsLevel::Full) {
             std::cout << std::endl << "Parameters: ";
             for (int i = 1; i < argc; i++) {
                 std::cout << argv[i] << " ";
@@ -106,7 +106,7 @@ int main(int argc, const char** argv) {
             return to_underlying(ReturnValue::UnknownCode);
         }
 
-        if (options.printstatistics) {
+        if (options.printstatistics == StatisticsLevel::Full) {
             std::cout << "Finished parsing model" << std::endl;
         }
 
@@ -117,7 +117,7 @@ int main(int argc, const char** argv) {
                        ? getCTLQueries(ctlStarQueries)
                        : getLTLQueries(ctlStarQueries);
 
-        if (options.printstatistics && options.queryReductionTimeout > 0) {
+        if (options.printstatistics == StatisticsLevel::Full && options.queryReductionTimeout > 0) {
             negstat_t stats;
             std::cout << "RWSTATS LEGEND:";
             stats.printRules(std::cout);
@@ -129,7 +129,7 @@ int main(int argc, const char** argv) {
             EvaluationContext context(nullptr, nullptr);
             for (ssize_t qid = queries.size() - 1; qid >= 0; --qid) {
                 queries[qid] = pushNegation(queries[qid], stats, context, false, false, false);
-                if (options.printstatistics) {
+                if (options.printstatistics == StatisticsLevel::Full) {
                     std::cout << "\nQuery before expansion and reduction: ";
                     queries[qid]->toString(std::cout);
                     std::cout << std::endl;
@@ -158,7 +158,7 @@ int main(int argc, const char** argv) {
         }
 
         std::stringstream ss;
-        std::ostream& out = options.printstatistics ? std::cout : ss;
+        std::ostream& out = options.printstatistics == StatisticsLevel::Full ? std::cout : ss;
         reduceColored(cpnBuilder, queries, options.logic, options.colReductionTimeout, out, options.enablecolreduction, options.colreductions);
 
         if (options.model_col_out_file.size() > 0) {
@@ -258,9 +258,9 @@ int main(int argc, const char** argv) {
                         }
                         else
                             results[i] = p2.handle(i, queries[i].get(), ResultPrinter::Satisfied).first;
-                        if (results[i] == ResultPrinter::Ignore && options.printstatistics) {
+                        if (results[i] == ResultPrinter::Ignore && options.printstatistics == StatisticsLevel::Full) {
                             std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
-                        } else if (options.printstatistics) {
+                        } else if (options.printstatistics == StatisticsLevel::Full) {
                             std::cout << "Query solved by Query Simplification.\n" << std::endl;
                         }
                     } else if (queries[i]->isTriviallyFalse()) {
@@ -279,15 +279,15 @@ int main(int argc, const char** argv) {
                         }
                         else
                             results[i] = p2.handle(i, queries[i].get(), ResultPrinter::NotSatisfied).first;
-                        if (results[i] == ResultPrinter::Ignore && options.printstatistics) {
+                        if (results[i] == ResultPrinter::Ignore && options.printstatistics == StatisticsLevel::Full) {
                             std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
-                        } else if (options.printstatistics) {
+                        } else if (options.printstatistics == StatisticsLevel::Full) {
                             std::cout << "Query solved by Query Simplification.\n" << std::endl;
                         }
 
                     } else if (options.strategy == Strategy::OverApprox) {
                         results[i] = p2.handle(i, queries[i].get(), ResultPrinter::Unknown).first;
-                        if (options.printstatistics) {
+                        if (options.printstatistics == StatisticsLevel::Full) {
                             std::cout << "Unable to decide if query is satisfied." << std::endl << std::endl;
                         }
                     } else if (options.noreach || !PetriEngine::PQL::isReachability(queries[i]) || is_featured) {
@@ -440,7 +440,7 @@ int main(int argc, const char** argv) {
                         options.ltlalgorithm, options.stubbornreduction ? options.ltl_por : LTL::LTLPartialOrder::None,
                         options.strategy, options.ltlHeuristic, options.ltluseweak, options.seed_offset);
 
-                    if(options.printstatistics)
+                    if(options.printstatistics != StatisticsLevel::None)
                         search.print_stats(std::cout);
 
                     std::cout << "FORMULA " << querynames[qid]
@@ -507,7 +507,7 @@ int main(int argc, const char** argv) {
                         STSolver stSolver(printer, *net, queries[i].get(), options.siphonDepth);
                         stSolver.solve(options.siphontrapTimeout);
                         results[i] = stSolver.printResult();
-                        if (results[i] != Reachability::ResultPrinter::Unknown && options.printstatistics) {
+                        if (results[i] != Reachability::ResultPrinter::Unknown && options.printstatistics == StatisticsLevel::Full) {
                             std::cout << "Query solved by Siphon-Trap Analysis." << std::endl << std::endl;
                         }
                     }

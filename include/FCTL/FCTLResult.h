@@ -35,7 +35,7 @@ namespace Featured {
         size_t numberOfMessagesSend = 0;
 #endif
 
-        void print(const std::string& qname, bool statisticslevel, size_t index, options_t& options,
+        void print(const std::string& qname, StatisticsLevel statisticslevel, size_t index, options_t& options,
                    std::ostream& out) const;
     };
 }

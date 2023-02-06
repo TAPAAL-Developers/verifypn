@@ -127,13 +127,13 @@ namespace Featured {
                                    options.strategy,
                                    options.stubbornreduction,
                                    false,
-                                   false,
+                                   options.printstatistics,
                                    false,
                                    options.seed());
                 result.maxTokens = std::max(result.maxTokens, strategy.maxTokens());
             } else {
                 TARReachabilitySearch tar(handler, *net, nullptr, options.kbound);
-                tar.reachable(queries, res, false, false);
+                tar.reachable(queries, res, options.printstatistics, false);
             }
             size_t j = 0;
             for (size_t i = 0; i < query->size(); ++i) {
@@ -205,14 +205,14 @@ namespace Featured {
             res.emplace_back(AbstractHandler::Unknown);
             if (options.tar) {
                 TARReachabilitySearch tar(handler, *net, nullptr, options.kbound);
-                tar.reachable(queries, res, false, false);
+                tar.reachable(queries, res, options.printstatistics, false);
             } else {
                 ReachabilitySearch strategy(*net, handler, options.kbound, true);
                 strategy.reachable(queries, res,
                                    options.strategy,
                                    options.stubbornreduction,
                                    false,
-                                   false,
+                                   options.printstatistics,
                                    false,
                                    options.seed());
                 result.maxTokens = std::max(strategy.maxTokens(), result.maxTokens);
@@ -256,7 +256,7 @@ namespace Featured {
     ReturnValue FCTLMain(PetriNet* net,
                          CTLAlgorithmType algorithmtype,
                          Strategy strategytype,
-                         bool printstatistics,
+                         StatisticsLevel printstatistics,
                          bool partial_order,
                          const std::vector<std::string>& querynames,
                          const std::vector<std::shared_ptr<Condition>>& queries,
