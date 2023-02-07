@@ -40,10 +40,10 @@ namespace Featured {
 
             [[nodiscard]] bool done() const { return (good | bad) == bddtrue; }
 
-            [[nodiscard]] bool is_seen() const { return seen_; }
+            [[nodiscard]] bool is_seen() const { return !successors.empty() || done(); }
 
             [[nodiscard]] bool unimproved() const {
-                return is_seen() && (good == bddfalse) && (bad == bddfalse);
+                return (good == bddfalse) && (bad == bddfalse);
             }
 
             void addDependency(Edge* e);

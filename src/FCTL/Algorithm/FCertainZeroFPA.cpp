@@ -100,7 +100,17 @@ print_edge_targets(e, os) << "})";
         if (e->is_negated) {
             ++_processedNegationEdges;
             auto* target = e->targets.begin()->conf;
-            if (target->assignment == ZERO && e->processed) {
+            /*if (target->unimproved()) {
+                if (!target->is_seen()) {
+                    explore(target);
+                }
+                if (!e->processed) {
+                    strategy->pushNegation(e);
+                }
+                target->addDependency(e);
+            }*/
+
+            if (target->assignment != UNKNOWN && e->processed) {
                 // all good ones are those that are not good below
                 // all bad ones are those that were not proven good.
                 auto good = !target->good;

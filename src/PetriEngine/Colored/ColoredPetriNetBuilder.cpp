@@ -27,6 +27,7 @@ namespace PetriEngine {
                                                    const spot::bdd_dict_ptr& dict)
     : _ptBuilder(string_set), _string_set(string_set) {
         _ptBuilder.bdd_dict = dict;
+        bdd_dict = dict;
     }
 
     ColoredPetriNetBuilder::ColoredPetriNetBuilder(const ColoredPetriNetBuilder& orig)
