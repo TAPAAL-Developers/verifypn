@@ -145,7 +145,8 @@ public:
     void print_stats(std::ostream& os = std::cout) const {
         os << "Stats from generation:\n"
            << "  Number of features: " << stats_.num_features << "\n"
-           << "  Number of annotated transitions: " << stats_.n_featured_transitions << "/" << rng_.get_petri_net()->numberOfTransitions() << "\n";
+           << "  Number of annotated transitions: " << stats_.n_featured_transitions << "/" << rng_.get_petri_net()->numberOfTransitions()
+           << std::setprecision(3) << " (" << 100 * double(stats_.n_featured_transitions) / rng_.get_petri_net()->numberOfTransitions() << "%)" << "\n";
     }
 
 private:
@@ -154,10 +155,10 @@ private:
         size_t num_features=0;
     };
 
-    bool verbose_;
     Stats stats_;
     RNGState rng_;
     std::vector<spot::formula> fnames_;
+    bool verbose_;
 
     bdd gen_binary_formula(size_t maxdepth, int maxtries, Ops op);
     bdd gen_negation_formula(size_t maxdepth, int maxtries);
@@ -186,7 +187,7 @@ void print_help(const std::vector<std::string>& argv);
 void FeatureGenerator::annotate_features(PetriEngine::PetriNet* net) {
 
     set_petri_net(net);
-    for (auto i = 0; i < fnames_.size(); ++i) {
+    for (size_t i = 0; i < fnames_.size(); ++i) {
         auto var_name = "f" + std::to_string(i);
         auto f = spot::formula::ap(var_name);
         fnames_[i] = f;
@@ -202,7 +203,7 @@ void FeatureGenerator::annotate_features(PetriEngine::PetriNet* net) {
     size_t maxdepth = 2 * fnames_.size() - 2;
     std::cout << "Generating with " << stats_.num_features << " features and maximum formula depth of " << maxdepth << ".\n";
 
-    for (int i = 0; i < net->numberOfTransitions(); ++i) {
+    for (uint32_t i = 0; i < net->numberOfTransitions(); ++i) {
         if (rng_.should_add_feature()) {
             bdd feat = generate_feature(maxdepth);
             if (verbose_) {
