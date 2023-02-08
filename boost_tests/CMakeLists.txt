@@ -18,6 +18,7 @@ add_executable (games game_test.cpp)
 add_executable (color color_test.cpp)
 add_executable (reduction reduction.cpp)
 add_executable (ctl ctl_tests.cpp)
+add_executable (fctl-test fctl_tests.cpp)
 
 target_link_libraries(BinaryPrinterTests PUBLIC ${Boost_LIBRARIES} -Wl,-Bstatic verifypn -Wl,-Bdynamic)
 target_link_libraries(XMLPrinterTests    PUBLIC ${Boost_LIBRARIES} -Wl,-Bstatic verifypn -Wl,-Bdynamic)
@@ -30,6 +31,7 @@ target_link_libraries(games        PUBLIC ${Boost_LIBRARIES} -Wl,-Bstatic verify
 target_link_libraries(color        PUBLIC ${Boost_LIBRARIES} -Wl,-Bstatic verifypn -Wl,-Bdynamic)
 target_link_libraries(reduction        PUBLIC ${Boost_LIBRARIES} -Wl,-Bstatic verifypn -Wl,-Bdynamic)
 target_link_libraries(ctl        PUBLIC ${Boost_LIBRARIES} -Wl,-Bstatic verifypn -Wl,-Bdynamic)
+target_link_libraries(fctl-test        PUBLIC ${Boost_LIBRARIES} -Wl,-Bstatic verifypn -Wl,-Bdynamic)
 
 add_test(NAME BinaryPrinterTests COMMAND BinaryPrinterTests)
 add_test(NAME XMLPrinterTests COMMAND XMLPrinterTests)
@@ -42,6 +44,7 @@ add_test(NAME games COMMAND games)
 add_test(NAME color COMMAND color)
 add_test(NAME reduction COMMAND reduction)
 add_test(NAME ctl COMMAND ctl)
+add_test(NAME fctl-test COMMAND fctl-test)
 
 set_tests_properties(reachability PROPERTIES
     ENVIRONMENT TEST_FILES=${CMAKE_CURRENT_SOURCE_DIR})
