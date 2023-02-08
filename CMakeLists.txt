@@ -60,6 +60,10 @@ endif ()
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -s -Wall -pedantic-errors -O3 -DNDEBUG")
 set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -O3 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -Wall -pedantic-errors -fno-omit-frame-pointer ") # also usefull : -fsanitize=address -fsanitize=undefined -fsanitize=leak
+if (PROFILING)
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pg -O0")
+    string(REPLACE "-s" "" CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
+endif()
 
 ## Target File location
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${VERIFYPN_TARGETDIR}/lib)
