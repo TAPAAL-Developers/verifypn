@@ -121,7 +121,7 @@ print_edge_targets(e, os) << "})";
                 //if (!e->processed) {
                 strategy->pushNegation(e);
                 //}
-                assert(target->good == bddfalse && target->bad == bddfalse);
+                assert(target->good.id() == bddfalse.id() && target->bad.id() == bddfalse.id());
                 return {target, bddfalse, bddfalse};
                 if ((src->good < target->bad) == bddtrue || (src->bad < target->good) == bddtrue) {
                     src->good = target->bad;
@@ -168,10 +168,10 @@ print_edge_targets(e, os) << "})";
     }
 
     bool Algorithm::FCertainZeroFPA::try_update(DependencyGraph::Configuration* c, bdd good, bdd bad) {
-        assert((c->good >> good) == bddtrue && (c->bad >> bad) == bddtrue);
+        assert((c->good >> good).id() == bddtrue.id() && (c->bad >> bad).id() == bddtrue.id());
 
 
-        if ((c->good < good) == bddtrue || (c->bad < bad) == bddtrue) {
+        if ((c->good < good).id() == bddtrue.id() || (c->bad < bad).id() == bddtrue.id()) {
 #if DEBUG_DETAILED
             std::cout << "Assign: " << c->id
                       << ", good: " << c->good.id() << " => " << good.id()
@@ -179,10 +179,10 @@ print_edge_targets(e, os) << "})";
 #endif
             c->good = good;
             c->bad = bad;
-            if (c->good == bddtrue) {
+            if (c->good.id() == bddtrue.id()) {
                 c->assignment = ONE;
             }
-            if (c->bad == bddtrue) {
+            if (c->bad.id() == bddtrue.id()) {
                 c->assignment = CZERO;
             }
             //push_dependencies(c);
