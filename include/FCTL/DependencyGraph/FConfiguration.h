@@ -30,9 +30,9 @@ namespace Featured {
         public:
             int8_t assignment = UNKNOWN;
             bool seen_;
-#if DEBUG_DETAILED
+//#if DEBUG_DETAILED
             size_t id;
-#endif
+//#endif
 
             Configuration() {}
 
@@ -48,6 +48,8 @@ namespace Featured {
 
             void addDependency(Edge* e);
 
+            bool remove_suc(Edge* e, bool);
+
             void setOwner(uint32_t) {}
 
             uint32_t getOwner() { return 0; }
@@ -55,7 +57,10 @@ namespace Featured {
             bdd good = bddfalse;
             bdd bad = bddfalse;
 
-
+            [[nodiscard]] long num_successors() const
+            {
+                return std::count_if(successors.begin(), successors.end(), [](const auto& e){ return true; });
+            }
         };
 
         [[nodiscard]] static bool operator<(const Configuration& c, const Configuration& v)

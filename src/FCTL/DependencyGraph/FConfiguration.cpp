@@ -36,6 +36,33 @@ namespace Featured {
                 case CZERO:
                     return "CZERO";
                     break;
+                case DONE:
+                    return "DONE";
+                    break;
+            }
+        }
+
+        bool Configuration::remove_suc(Edge *e, bool del)
+        {
+            if (del) {
+                assert(!del || std::find(successors.begin(), successors.end(), e) != successors.end());
+                successors.remove(e);
+//            if (it == successors.end()) {
+//                assert(false);
+//                return false;
+//            }
+                --e->refcnt;
+                --nsuccs;
+                assert(num_successors() == nsuccs);
+                if (nsuccs == 0) {
+                    assert(successors.empty());
+                    return true;
+                }
+                return false;
+            }
+            else {
+                --e->refcnt; --nsuccs;
+                return nsuccs == 0;
             }
         }
     }

@@ -16,7 +16,7 @@ namespace Featured {
         class Configuration;
 
         enum Assignment {
-            ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2
+            ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2, DONE=2
         };
 
         class Edge {

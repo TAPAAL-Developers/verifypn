@@ -535,9 +535,9 @@ namespace Featured {
             return _maxTokens;
         }
 
-#if DEBUG_DETAILED
+//#if DEBUG_DETAILED
         static size_t nextid_ = 0;
-#endif
+//#endif
         PetriConfig* FOnTheFlyDG::createConfiguration(size_t marking, size_t own, Condition* t_query) {
             auto& configs = trie.get_data(marking);
             for (PetriConfig* c: configs) {
@@ -552,9 +552,9 @@ namespace Featured {
             newConfig->marking = marking;
             newConfig->query = t_query;
             newConfig->setOwner(own);
-#if DEBUG_DETAILED
+//#if DEBUG_DETAILED
             newConfig->id = nextid_++;
-#endif
+//#endif
             configs.push_back(newConfig);
             return newConfig;
         }
@@ -587,6 +587,7 @@ namespace Featured {
             e->targets.clear();
             e->refcnt = -1;
             e->handled = false;
+            e->bad_iter = bddfalse;
             recycle.push(e);
         }
 
