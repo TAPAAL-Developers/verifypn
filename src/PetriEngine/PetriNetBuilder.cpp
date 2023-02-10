@@ -600,5 +600,28 @@ namespace PetriEngine {
         reducer.Reduce(placecontext, reductiontype, reconstructTrace, timeout, remove_loops, all_reach, all_ltl, contains_next, reductions);
     }
 
+    std::unordered_set<spot::formula> PetriNetBuilder::get_features() const {
+        std::unordered_set<spot::formula> formulae;
+        for (const auto& t: _transitions) {
+            auto feat = t.feature;
+            if (feat != bddtrue && feat != bddfalse) {
+                auto formula = spot::bdd_to_formula(feat, bdd_dict);
+                formula.traverse([&formulae](const spot::formula& f) {
+                    if (f.is(spot::op::ap)) {
+                        formulae.insert(f);
+                    }
+                    return false;
+                });
+            }
+        }
+        assert(formulae.size() == bdd_dict->var_map.size());
+        return formulae;
+    }
+
+    [[nodiscard]] size_t PetriNetBuilder::num_features() const
+    {
+        return bdd_dict->var_map.size();
+    }
+
 
 } // PetriEngine

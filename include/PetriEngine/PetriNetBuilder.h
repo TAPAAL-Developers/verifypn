@@ -34,6 +34,7 @@ namespace PetriEngine {
     class PetriNetBuilder : public AbstractPetriNetBuilder {
     public:
         friend class Reducer;
+        friend class FeatureInstantiator;
 
     public:
         PetriNetBuilder(shared_string_set& string_set);
@@ -155,6 +156,9 @@ namespace PetriEngine {
         void startTimer() {
             _start = std::chrono::high_resolution_clock::now();
         }
+
+        [[nodiscard]] std::unordered_set<spot::formula> get_features() const;
+        [[nodiscard]] size_t num_features() const;
 
     private:
         uint32_t nextPlaceId(std::vector<uint32_t>& counts,  std::vector<uint32_t>& pcounts, std::vector<uint32_t>& ids, bool reorder);

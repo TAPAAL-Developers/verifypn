@@ -15,7 +15,7 @@
 #include "PetriEngine/PQL/PQL.h"
 #include "PetriEngine/Structures/AlignedEncoder.h"
 #include "PetriEngine/Structures/linked_bucket.h"
-#include "FCTL/FeaturedSuccessorGenerator.h"
+#include "FCTL/FeaturedPN/FeaturedSuccessorGenerator.h"
 
 
 

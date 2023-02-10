@@ -15,7 +15,5 @@
  */
 
 
-#include "FeaturedSuccessorGenerator.h"
+#include "FCTL/FeaturedPN/EnumeratingPetriNetBuilder.h"
 
-namespace Featured {
-} // Featured

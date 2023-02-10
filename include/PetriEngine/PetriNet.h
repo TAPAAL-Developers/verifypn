@@ -113,7 +113,7 @@ namespace PetriEngine {
 
         void sort();
 
-        void toXML(std::ostream& out, spot::bdd_dict_ptr d = nullptr);
+        void toXML(std::ostream& out, spot::bdd_dict_ptr d = nullptr, std::function<bool(uint32_t)>&& trans_pred = [](auto){return true;});
 
         const MarkVal* initial() const {
             return _initialMarking;
@@ -128,12 +128,10 @@ namespace PetriEngine {
         }
 
         [[nodiscard]] auto& feat(size_t i) {
-            assert(i >= 0 && i < features_.size());
             return features_.at(i);
         }
 
         [[nodiscard]] const auto& feat(size_t i) const {
-            assert(i >= 0 && i < features_.size());
             return features_.at(i);
         }
 

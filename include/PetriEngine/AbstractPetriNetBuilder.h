@@ -125,6 +125,9 @@ namespace PetriEngine {
         virtual void sort() = 0;
 
         virtual ~AbstractPetriNetBuilder() {
+            if (bdd_dict) {
+                bdd_dict->unregister_all_my_variables(nullptr);
+            }
         }
 
         spot::bdd_dict_ptr bdd_dict = nullptr;

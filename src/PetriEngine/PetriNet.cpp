@@ -185,7 +185,7 @@ namespace PetriEngine {
         }
     }
 
-    void PetriNet::toXML(std::ostream& out, spot::bdd_dict_ptr d)
+    void PetriNet::toXML(std::ostream& out, spot::bdd_dict_ptr d, std::function<bool(uint32_t)>&& trans_pred)
     {
         if (d != nullptr) { this->bdd_dict = d; }
         out << "<?xml version=\"1.0\"?>\n"
@@ -196,20 +196,20 @@ namespace PetriEngine {
             << "<text>DefaultPage</text>"
             << "</name>";
 
-        for(size_t i = 0; i < _nplaces; ++i)
-        {
+        for (size_t i = 0; i < _nplaces; ++i) {
             print_place(i, out);
         }
-        for(size_t i = 0; i < _ntransitions; ++i)
-        {
-            print_transition(i, out);
+        for (size_t i = 0; i < _ntransitions; ++i) {
+            if (trans_pred(i)) {
+                print_transition(i, out);
+            }
         }
         size_t arcid = 0;
-        for(size_t t = 0; t < _ntransitions; ++t)
-        {
-            print_arc(t, out, arcid);
+        for (size_t t = 0; t < _ntransitions; ++t) {
+            if (trans_pred(t)) {
+                print_arc(t, out, arcid);
+            }
         }
-        out << "</page></net>\n</pnml>";
     }
 
     void PetriNet::print_place(uint32_t pid, std::ostream& out) {
