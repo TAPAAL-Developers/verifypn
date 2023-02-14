@@ -210,6 +210,7 @@ namespace PetriEngine {
                 print_arc(t, out, arcid);
             }
         }
+        out << "</page></net>\n</pnml>";
     }
 
     void PetriNet::print_place(uint32_t pid, std::ostream& out) {

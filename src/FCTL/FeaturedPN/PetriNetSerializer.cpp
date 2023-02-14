@@ -93,7 +93,9 @@ void PetriNetSerializer::serialize_features(const std::filesystem::path& fname) 
         std::ofstream ofs{path};
         net->toXML(ofs, builder_.bdd_dict, [&bad](uint32_t tid) { return std::find(bad.begin(), bad.end(), tid) == std::end(bad); });
 
-        std::cerr << std::endl;
+        if (verbose_) {
+            std::cerr << std::endl;
+        }
     }
 }
 
