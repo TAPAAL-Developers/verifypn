@@ -38,17 +38,17 @@ namespace Featured {
     };
 
     struct Options {
-        std::string model_dir = "mcc22";
-        std::string out_dir = "fmcc22";
+        std::string model_dir = "mcc2022";
+        std::optional<std::string> out_dir = std::nullopt;
         std::string parse_model = "";
-        int inv_frequency = 10;
+        double inv_frequency = 0.25;
         //int feat_count_exp;
         std::variant<FixedFeatures, MaxFeatures> feat_count = MaxFeatures{8};
         int lambda;
 
         // TODO parameter relating to shape and size of generated formulae.
 
-        bool verbose;
+        bool verbose=true;
         bool enumerate = false;
     };
 
@@ -63,7 +63,7 @@ namespace Featured {
         RNGState() = delete;
 
         explicit RNGState(const Options& options)
-                : options_(options), rng_(r()), gen_feat_(1, options.inv_frequency) {
+                : options_(options), rng_(r()), gen_feat_(options.inv_frequency) {
 
         }
 
@@ -86,7 +86,11 @@ namespace Featured {
         }
 
         bool should_add_feature() {
-            return gen_feat_(rng_) == 1;
+            return gen_feat_(rng_);
+        }
+
+        bool coin_flip() {
+            return coin_(rng_);
         }
 
         auto formula_depth() { return size_t(exp_(rng_)) + 1; }
@@ -110,7 +114,8 @@ namespace Featured {
         const PetriNet* net_;
         std::default_random_engine rng_;
         std::exponential_distribution<> exp_;
-        std::uniform_int_distribution<> gen_feat_;
+        std::bernoulli_distribution gen_feat_;
+        std::bernoulli_distribution coin_{0.5};
 
         std::optional<std::uniform_int_distribution<> > nfeats_;
     };
@@ -171,6 +176,7 @@ namespace Featured {
         std::vector<spot::formula> fnames_;
         bool verbose_;
 
+
         bdd gen_binary_formula(size_t maxdepth, int maxtries, Ops op);
 
         bdd gen_negation_formula(size_t maxdepth, int maxtries);
@@ -186,7 +192,7 @@ namespace Featured {
             if (verbose_) {
                 std::cerr << "Generating feature variable " << fnames_[num] << ".\n";
             }
-            return bdd_ithvar(varnum);
+            return rng_.coin_flip() ? bdd_ithvar(varnum) : bdd_nithvar(varnum);
         }
 
         void set_petri_net(const PetriNet* net) {
@@ -213,6 +219,7 @@ namespace Featured {
         stats_.num_features = fnames_.size();
 
         // maybe dumb; since ops are binary, we want a bit more than nfeats ops, but max of 2 with 2 features.
+        // if single feature this generates to random variable.
         size_t maxdepth = 2 * fnames_.size() - 2;
         std::cout << "Generating with " << stats_.num_features << " features and maximum formula depth of " << maxdepth
                   << ".\n";
@@ -308,11 +315,11 @@ namespace Featured {
                     std::cerr << "Error: Negative probability" << p << "given.\n";
                     exit(1);
                 }
-                if (p < 1) {
+                if (p > 1) {
                     p = 1 / p;
-                    options.inv_frequency = floor(p);
+                    options.inv_frequency = p;
                 } else {
-                    options.inv_frequency = floor(p);
+                    options.inv_frequency = p;
                 }
             } else if (args[i] == "--lambda" || args[i] == "-l") {
                 options.lambda = consume_args<int>(args, i);
@@ -331,7 +338,10 @@ namespace Featured {
                 options.feat_count = FixedFeatures{consume_args<int>(args, i)};
             } else if (args[i] == "--max-depth") {
                 throw base_error{"--max-depth not yet implemented, please implement me."};
-            } else {
+            } else if (args[i] == "--odir" || args[i] == "--output-dir" || args[i] == "-o") {
+                options.out_dir = consume_args<std::string>(args, i);
+            }
+            else {
                 options.model_dir = args[i];
             }
         }
@@ -365,8 +375,9 @@ namespace Featured {
         if (!fs::exists(model_dir)) {
             throw base_error("Error: Missing directory " + model_dir.string());
         }
+        auto out_dir = std::filesystem::path(options.out_dir.value_or(model_dir));
         auto ifile = model_dir / model_name;
-        auto ofile = model_dir / out_name;
+        auto ofile = out_dir / out_name;
         if (!fs::exists(ifile)) {
             throw base_error{"File ", model_name, " not found in ", model_dir.string()};
         }
