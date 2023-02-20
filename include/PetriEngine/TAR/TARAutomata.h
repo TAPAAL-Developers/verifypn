@@ -309,8 +309,8 @@ namespace PetriEngine {
             {
                 size = net.numberOfTransitions();
                 edgecnt = 0;
-                offset = std::rand();// % (net.numberOfTransitions());
-                return edgecnt > net.numberOfTransitions();
+                offset = std::rand();// % (net.numberOfTransitions()); //TMGR what ??
+                return edgecnt > net.numberOfTransitions(); 
             }
 
             inline void add_interpolant(size_t ninter)

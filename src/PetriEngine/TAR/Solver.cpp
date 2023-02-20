@@ -42,6 +42,7 @@ namespace PetriEngine {
                 auto [it, end] = _net.preset(t);
                 for(; it != end; ++it)
                 {
+                    //TMGR For every time a transition depends on a place, add the number of transitions in total to use_count for that place
                     _use_count[it->place] += _net.numberOfTransitions();
                 }
             }

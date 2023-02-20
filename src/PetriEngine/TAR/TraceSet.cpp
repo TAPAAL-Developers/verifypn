@@ -112,8 +112,7 @@ namespace PetriEngine
 
         std::pair<bool, size_t> TraceSet::stateForPredicate(prvector_t& predicate)
         {
-            predicate.compress();
-            assert(predicate.is_compact());
+            predicate.compact();
             if (predicate.is_true()) {
                 return std::make_pair(false, 1);
             }

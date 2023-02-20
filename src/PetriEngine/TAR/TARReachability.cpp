@@ -105,8 +105,8 @@ namespace PetriEngine {
         std::pair<bool,bool> TARReachabilitySearch::runTAR( bool printtrace,
                                             Solver& solver, std::vector<bool>& use_trans)
         {
-            stopwatch tt;
-            tt.start();
+            //stopwatch tt; // TMGR never used
+            //tt.start();
             auto checked = AntiChain<uint32_t, size_t>();
             // waiting-list with levels
             bool all_covered = true;
@@ -203,7 +203,7 @@ namespace PetriEngine {
 
         bool TARReachabilitySearch::tryReach(bool printtrace, Solver& solver)
         {
-            _traceset.removeEdges(0);
+            _traceset.removeEdges(0); //TMGR why?
             std::vector<bool> use_trans(_net.numberOfTransitions()+1);
             std::vector<bool> use_place = solver.in_query();
             use_trans[0] = true;
@@ -215,6 +215,8 @@ namespace PetriEngine {
                 {
                     auto pre = _net.preset(t);
                     auto post = _net.postset(t);
+
+                    // TMGR Not sure I understand the rest of this lambda.
                     if(use_trans[t+1]) continue;
                     {
                         for(;pre.first != pre.second; ++pre.first)
@@ -231,7 +233,7 @@ namespace PetriEngine {
                         for(;pre.first != pre.second; ++pre.first)
                             np[pre.first->place] = true;
                         if(any)
-                        {
+                        { // TMGR update was just set to true, so no matter what "any" is, we will swap and return true
                             std::swap(np, use_place);
                             return true;
                         }
@@ -483,6 +485,7 @@ namespace PetriEngine {
                 _traceset.clear();
                 if(results[i] == ResultPrinter::Unknown)
                 {
+                    //TMGR Use only places mentioned by the query (unless there is a deadlock expr)
                     PlaceUseVisitor visitor(_net.numberOfPlaces());
                     Visitor::visit(visitor, queries[i]);
                     ContainsVisitor<DeadlockCondition> dlvisitor;
@@ -493,8 +496,11 @@ namespace PetriEngine {
                         for(size_t p = 0; p < _net.numberOfPlaces(); ++p)
                             used[p] = true;
                     }
+
                     Solver solver(_net, state.marking(), queries[i].get(), used);
+                    
                     bool res = tryReach(printtrace, solver);
+                    
                     if(res)
                         results[i] = ResultPrinter::Satisfied;
                     else

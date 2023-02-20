@@ -12,6 +12,7 @@
 #ifndef RANGE_H
 #define RANGE_H
 
+#include <pardibaal/DBM.h>
 #include <cinttypes>
 #include <cassert>
 #include <limits>
@@ -20,6 +21,7 @@
 
 namespace PetriEngine {
     namespace Reachability {
+        using namespace pardibaal;
 
         struct range_t {
 
@@ -234,6 +236,258 @@ namespace PetriEngine {
             }
         };
 
+        struct prtable_t {
+            dim_t lower(dim_t place) const {
+                assert(contains_place(place));
+                auto bound = _dbm.at(0, _placemapping[place]);
+
+                return bound.is_inf() ? std::numeric_limits<uint32_t>::max() : -bound.get_bound();
+            }
+
+            dim_t upper(dim_t place) const {
+                assert(contains_place(place));
+                auto bound = _dbm.at(_placemapping[place], 0);
+
+                return bound.is_inf() ? std::numeric_limits<uint32_t>::max() : bound.get_bound();
+            }
+
+            // Represents the bound place <= n 
+            bound_t upper_bound(dim_t place) const {
+                 assert(contains_place(place));
+                return _dbm.at(_placemapping[place], 0);
+            }
+
+            // Represents the bound 0 - place <= n Note that the bound value can be negative
+            bound_t lower_bound(dim_t place) const {
+                 assert(contains_place(place));
+                return _dbm.at(0, _placemapping[place]);
+            }
+
+            bound_t difference(dim_t p, dim_t q) const {
+                assert(contains_place(p) && contains_place(q));
+                return _dbm.at(_placemapping[p], _placemapping[q]);
+            }
+
+            bool is_unbound(dim_t place) const {
+                if (!contains_place(place))
+                    return true;
+                return _dbm.at(_placemapping[place], 0).is_inf() && 
+                       _dbm.at(0, _placemapping[place]).get_bound() == 0;
+            }
+
+            void compress() {
+                for (dim_t place = 0; place < _placemapping.size(); ++place)
+                    if (contains_place(place) && is_unbound(place))
+                        remove_place(place);
+                assert(is_compact());
+            }
+
+            bool is_compact() const {
+                for (dim_t place = 0; place < _placemapping.size(); ++place)
+                    if (contains_place(place) && is_unbound(place))
+                        return false;
+                return true;
+            }
+
+            bool is_true() const {
+                return _dbm.dimension() == 1;
+            }
+
+            bool is_false(size_t nplaces) const {
+                for (dim_t p = 0; p < _placemapping.size(); ++p) {
+                    if (!contains_place(p)) return false; // All places should be indexed
+                    if (lower(p) != 0 || upper(p) != 0) // All upper/lower bounds should be 0
+                        return false;
+                }
+                return true;
+            }
+
+            std::pair<bool, bool> compare(const prtable_t& other) const {
+                auto cmp = std::make_pair(true, true);
+
+                for (dim_t p = 0; p < _placemapping.size(); ++p) {
+                    if (!cmp.first && !cmp.second) break;
+
+                    if (contains_place(p) && other.contains_place(p)) {
+                        cmp.first = cmp.first && this->lower(p) <= other.lower(p) && this->upper(p) >= other.upper(p);
+                        cmp.second = cmp.second && this->lower(p) >= other.lower(p) && this->upper(p) <= other.upper(p);
+                    }
+
+                    for (dim_t q = 0; q < _placemapping.size(); ++q) {
+                        if (!cmp.first && !cmp.second) break;
+
+                        if (cmp.first && ((!contains_place(p) && other.contains_place(p)) || (!contains_place(q) && other.contains_place(q))))
+                            cmp.first = false;
+                        if (cmp.second && ((contains_place(p) && !other.contains_place(p)) || (contains_place(q) && !other.contains_place(q))))
+                            cmp.second = false;
+                        
+                        if (contains_place(p) && contains_place(q) && other.contains_place(p) && other.contains_place(q)) {
+                            cmp.first = cmp.first && this->difference(p, q) >= other.difference(p, q);
+                            cmp.second = cmp.second && this->difference(p, q) <= other.difference(p, q);
+                        }
+                    }
+                }
+                return cmp;
+            }
+
+            void restrict_place(dim_t place, bound_t lower, bound_t upper) {
+                if (!contains_place(place))
+                    add_place(place);
+                _dbm.restrict(0, _placemapping[place], lower);
+                _dbm.restrict(_placemapping[place], 0, upper);
+            }
+            
+            void restrict_difference(dim_t p1, dim_t p2, bound_t bound) {
+                if (!contains_place(p1))
+                    add_place(p1);
+                if (!contains_place(p2))
+                    add_place(p2);
+                _dbm.restrict(p1, p2, bound);
+            }
+
+            prtable_t& operator&=(const difference_bound_t place_bound) {
+                if (!contains_place(place_bound._i))
+                    add_place(place_bound._i);
+                if (!contains_place(place_bound._j))
+                    add_place(place_bound._j);
+
+                _dbm.restrict(_placemapping[place_bound._i], _placemapping[place_bound._j], place_bound._bound);
+            }
+            
+            bool restricts(const std::vector<dim_t> writes) const {
+                for (auto p : writes) {
+                    // uint64_t pp = p < 0 ? -p : p;
+                    if (contains_place(p) && !is_unbound(p))
+                        return true;
+                }
+                return false;
+            }
+
+            bool operator<(const prtable_t& other) const {
+                if (this->_dbm.dimension() != other._dbm.dimension())
+                    return _dbm.dimension() < other._dbm.dimension();
+                for (dim_t i = 0; i < _placemapping.size(); ++i) {
+                    if (this->contains_place(i) &&  other.contains_place(i)) {
+                        if (this->lower(i) != other.lower(i))
+                            return this->lower(i) < other.lower(i);
+                        if (this->upper(i) != other.upper(i))
+                            return this->upper(i) < other.upper(i);
+                    } else if (this->contains_place(i) || other.contains_place(i))
+                        return this->contains_place(i);
+
+                }
+                return false;
+            }
+
+            bool operator==(const prtable_t& other) const {
+                auto r = compare(other);
+                return r.first && r.second;
+            }
+            
+            std::ostream& print_lower_upper(std::ostream& os) const {
+
+                os << "{\n";
+                for (dim_t i = 0; i < _placemapping.size(); ++i) {
+                    if (contains_place(i)) {
+                        os << "\t<P" << i << "> in [" << lower(i) << ", ";
+                        if (_dbm.at(_placemapping[i], 0).is_inf())
+                            os << "inf]";
+                        else
+                            os << upper(i) << "]";
+                        os << "\n";
+                    }
+                }
+                os << "}\n";
+                return os;
+            }
+
+            std::ostream& print(std::ostream& os) const {
+                os << "Place: ";
+                for (dim_t i = 0; i < _placemapping.size(); ++i)
+                    if (contains_place(i))
+                        os << i << " ";
+
+                os << "\nIndex: ";
+                for (dim_t i = 0; i < _placemapping.size(); ++i)
+                    if (contains_place(i))
+                        os << _placemapping[i] << " ";
+
+                os << _dbm;
+                return os;
+            }
+
+            void copy(const prtable_t& other) {
+                _placemapping = other._placemapping;
+                _dbm = DBM(other._dbm);
+            }
+
+            prtable_t& operator&=(const prtable_t& other) {
+                for (dim_t i = 0; i < _placemapping.size(); ++i) {
+                    // Go through only places containted in other
+                    if (other.contains_place(i)) { //Restriction automatically adds places if not contained
+                        this->restrict_place(i, other.lower_bound(i), other.upper_bound(i));
+                        
+                        // Restrict all diagonal bounds from other in this
+                        for (dim_t j = 0; j < _placemapping.size(); ++j)
+                            if (other.contains_place(j))
+                                this->restrict_difference(i, j, other.difference(i, j));
+                    }
+                }
+                return *this;
+            }
+
+        private:
+            // Placemapping to map places to indexes in the dbm. The size is constant and equal to number of places
+            std::vector<dim_t> _placemapping;
+            DBM _dbm = DBM(1);
+
+            bool inline contains_place(dim_t place) const {
+                return _placemapping[place] != 0; 
+            }
+
+            bool inline contains_index(dim_t index) const { return index < _dbm.dimension(); }
+
+            void remove_place(dim_t place) {
+                assert(contains_place(place));
+                _dbm.remove_clock(_placemapping[place]);
+
+                // When we remove an index in the dbm, indexes above this are shifted one down.
+                for (dim_t i = 0; i < _placemapping.size(); ++i)
+                    if (_placemapping[i] > _placemapping[place])
+                        --(_placemapping[i]);
+
+                _placemapping[place] = 0;
+            }
+
+            void remove_index(dim_t index) {
+                bool found = false;
+                for (dim_t i = 0; i < _placemapping.size(); ++i) {
+                    if (_placemapping[i] = index) {
+                        found = true;
+                        _placemapping[i] = 0;
+                        break;
+                    } else if (_placemapping[i] > index)
+                        --(_placemapping[i]); // shift mapping down to compensate removal
+                }
+                assert(found);
+                _dbm.remove_clock(index);
+            }
+
+            void add_place(dim_t place) {
+                assert(!contains_place(place));
+                _placemapping[place] = _dbm.dimension();
+                _dbm.add_clock_at(_dbm.dimension());
+                _dbm.free(_dbm.dimension() - 1);
+            }
+
+            bool unbound_index(dim_t index) const {
+                if (!contains_index(index))
+                    return true;
+                return _dbm.at(index, 0).is_inf() && 
+                       _dbm.at(0, index).get_bound() == 0;
+            }
+        };
+
         struct prvector_t {
             std::vector<placerange_t> _ranges;
 
@@ -289,6 +543,7 @@ namespace PetriEngine {
                 compact();
             }
 
+            // Removes all bounds that are unbounded
             void compact() {
                 for (int64_t i = _ranges.size() - 1; i >= 0; --i) {
                     if (_ranges[i]._range.unbound())
@@ -297,18 +552,12 @@ namespace PetriEngine {
                 assert(is_compact());
             }
 
+            // True if all bounds are bounded
             bool is_compact() const {
                 for (auto& e : _ranges)
                     if (e._range.unbound())
                         return false;
                 return true;
-            }
-
-            void compress() {
-                int64_t i = _ranges.size();
-                for (--i; i >= 0; --i)
-                    if (_ranges[i]._range.unbound())
-                        _ranges.erase(_ranges.begin() + i);
             }
 
             std::pair<bool, bool> compare(const prvector_t& other) const {
@@ -371,7 +620,7 @@ namespace PetriEngine {
 
             bool operator<(const prvector_t& other) const {
                 if (_ranges.size() != other._ranges.size())
-                    return _ranges.size() < other._ranges.size();
+                    return _ranges.size() < other._ranges.size(); // TMGR what if the ranges are not refering to the same places?
                 for (size_t i = 0; i < _ranges.size(); ++i) {
                     auto& r = _ranges[i];
                     auto& otr = other._ranges[i];

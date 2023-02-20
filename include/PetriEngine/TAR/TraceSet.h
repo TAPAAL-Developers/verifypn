@@ -44,7 +44,7 @@ namespace PetriEngine {
             std::map<prvector_t, size_t> _intmap;
             std::vector<AutomataState> _states;
             std::set<size_t> _initial;
-            const PetriNet& _net;
+            const PetriNet& _net; //TMGR why is this necessary?
         };
 
     }

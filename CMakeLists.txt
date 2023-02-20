@@ -92,6 +92,12 @@ if (VERIFYPN_GetDependencies)
         INSTALL_COMMAND cd ../rapidxml-ext && ${CMAKE_COMMAND} -E copy rapidxml.hpp rapidxml_iterators.hpp rapidxml_print.hpp rapidxml_utils.hpp ${EXTERNAL_INSTALL_LOCATION}/include
     )
 
+    ExternalProject_add(pardibaal-ext
+        GIT_REPOSITORY https://github.com/DEIS-Tools/PARDIBAAL.git
+        GIT_TAG renaming_constraints
+        CMAKE_ARGS -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE} -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION} -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF
+    )
+
     if (WIN32) #If windows 32 or 64
       set(GLPK_CFLAGS "-D __WOE__ -O3" )
       set(HOST "--host=x86_64-w64-mingw32")
