@@ -41,7 +41,7 @@ namespace PetriEngine::PQL {
 
     void ExistentialNormalForm::_accept(NotCondition* element) {
         auto sub = subvisit(element->getCond().get(), !_negated);
-        RETURN(std::make_shared<NotCondition>(sub))
+        RETURN(sub)
     }
 
     Condition_ptr ExistentialNormalForm::push_and(const std::vector<Condition_ptr> &_conds, bool negate_children) {
@@ -113,27 +113,44 @@ namespace PetriEngine::PQL {
     }
 
     void ExistentialNormalForm::_accept(LessThanCondition* element) {
-        RETURN(std::make_shared<LessThanCondition>(element->getExpr1(), element->getExpr2()))
+        if (_negated) {
+            RETURN(std::make_shared<LessThanOrEqualCondition>(element->getExpr2(), element->getExpr1()))
+        }
+        else
+            RETURN(std::make_shared<LessThanCondition>(element->getExpr1(), element->getExpr2()))
     }
 
     void ExistentialNormalForm::_accept(LessThanOrEqualCondition* element) {
+        if (_negated) {
+            RETURN(std::make_shared<LessThanCondition>(element->getExpr2(), element->getExpr1()))
+        }
+        else
         RETURN(std::make_shared<LessThanOrEqualCondition>(element->getExpr1(), element->getExpr2()))
     }
 
     void ExistentialNormalForm::_accept(EqualCondition* element) {
-        RETURN(std::make_shared<EqualCondition>(element->getExpr1(), element->getExpr2()))
+        if (_negated) {
+            RETURN(std::make_shared<NotEqualCondition>(element->getExpr1(), element->getExpr2()))
+        }
+        else
+            RETURN(std::make_shared<EqualCondition>(element->getExpr1(), element->getExpr2()))
     }
 
     void ExistentialNormalForm::_accept(NotEqualCondition* element) {
+        if (_negated) {
+            RETURN(std::make_shared<EqualCondition>(element->getExpr1(), element->getExpr2()))
+        }
+        else
         RETURN(std::make_shared<NotEqualCondition>(element->getExpr1(), element->getExpr2()))
     }
 
     void ExistentialNormalForm::_accept(DeadlockCondition* element) {
-        RETURN(std::make_shared<DeadlockCondition>())
+        if (_negated) RETURN(std::make_shared<NotCondition>(DeadlockCondition::DEADLOCK))
+        else RETURN(DeadlockCondition::DEADLOCK);
     }
 
     void ExistentialNormalForm::_accept(CompareConjunction* element) {
-        RETURN(std::make_shared<CompareConjunction>(*element))
+        RETURN(std::make_shared<CompareConjunction>(*element, _negated))
     }
 
     void ExistentialNormalForm::_accept(UnfoldedUpperBoundsCondition* element) {
@@ -152,15 +169,13 @@ namespace PetriEngine::PQL {
     }
 
     void ExistentialNormalForm::_accept(AGCondition* condition) {
-        auto ef = std::make_shared<NotCondition>(std::make_shared<EFCondition>(std::make_shared<NotCondition>(condition->getCond())));
-        RETURN(subvisit(ef, _negated))
+        auto ef = std::make_shared<EFCondition>(std::make_shared<NotCondition>(condition->getCond()));
+        RETURN(std::make_shared<NotCondition>(subvisit(ef, _negated)))
     }
 
     void ExistentialNormalForm::_accept(AFCondition* condition) {
-        auto eg = std::make_shared<NotCondition>(
-                    std::make_shared<EGCondition>(
-                       std::make_shared<NotCondition>(condition->getCond())));
-        RETURN(subvisit(eg, _negated))
+        auto eg = std::make_shared<EGCondition>(std::make_shared<NotCondition>(condition->getCond()));
+        RETURN(std::make_shared<NotCondition>(subvisit(eg, _negated)))
     }
 
     void ExistentialNormalForm::_accept(EXCondition* condition) {
@@ -169,8 +184,8 @@ namespace PetriEngine::PQL {
     }
 
     void ExistentialNormalForm::_accept(AXCondition* condition) {
-        auto ex = std::make_shared<NotCondition>(std::make_shared<EXCondition>(std::make_shared<NotCondition>(condition->getCond())));
-        RETURN(subvisit(ex, _negated))
+        auto ex = std::make_shared<EXCondition>(std::make_shared<NotCondition>(condition->getCond()));
+        RETURN(std::make_shared<NotCondition>(subvisit(ex, _negated)))
     }
 
     void ExistentialNormalForm::_accept(EUCondition* condition) {

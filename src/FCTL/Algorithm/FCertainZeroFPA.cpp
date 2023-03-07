@@ -1,5 +1,5 @@
 #include "FCTL/Algorithm/FCertainZeroFPA.h"
-
+#include "CTL/PetriNets/PetriConfig.h"
 #include <cassert>
 #include <iostream>
 

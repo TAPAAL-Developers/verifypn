@@ -198,7 +198,7 @@ namespace Featured {
             return solveLogicalCondition(q, true, net, algorithmtype, strategytype, partial_order, result, options);
         } else if (auto q = dynamic_cast<OrCondition*>(query)) {
             return solveLogicalCondition(q, false, net, algorithmtype, strategytype, partial_order, result, options);
-        } else if (!net->is_featured() && PetriEngine::PQL::isReachability(query)) {
+        } else if (false && !net->is_featured() && PetriEngine::PQL::isReachability(query)) {
             SimpleResultHandler handler;
             std::vector<Condition_ptr> queries{prepareForReachability(query)};
             std::vector<AbstractHandler::Result> res;

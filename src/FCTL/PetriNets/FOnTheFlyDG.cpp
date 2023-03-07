@@ -152,9 +152,10 @@ namespace Featured {
                 }
             } else if (query_type == PATHQEURY) {
                 if (v->query->getQuantifier() == A) {
-                    std::cerr << "Fatal error: Allpaths quantifier left in query. Terminating.\n";
-                    exit(-1);
-                    assert(false);
+                    //std::cerr << "Fatal error: Allpaths quantifier left in query. Terminating.\n";
+                    //exit(-1);
+                    //assert(false);
+                    assert(v->query->getPath() == F);
                     if (v->query->getPath() == U) {
                         auto cond = static_cast<AUCondition*>(v->query);
                         Edge* right = nullptr;
