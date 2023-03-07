@@ -554,7 +554,8 @@ void simplify_queries(  const MarkVal* marking,
                     negstat_t stats;
                     EvaluationContext context(marking, net);
 
-                    if (options.printstatistics == StatisticsLevel::Full && options.queryReductionTimeout > 0) {
+                    // TODO do not allow this to get merged!
+                    if (options.printstatistics == StatisticsLevel::Full/* && options.queryReductionTimeout > 0*/) {
                         out << "\nQuery before reduction: ";
                         queries[i]->toString(out);
                         out << std::endl;
@@ -626,6 +627,11 @@ void simplify_queries(  const MarkVal* marking,
                         }
                     } else if (options.printstatistics == StatisticsLevel::Full) {
                         out << "Skipping linear-programming (-q 0)" << std::endl;
+                        if (options.printstatistics == StatisticsLevel::Full) {
+                            out << "\nQuery after reduction: ";
+                            queries[i]->toString(out);
+                            out << std::endl;
+                        }
                     }
                     if (options.cpnOverApprox && wasAGCPNApprox) {
                         if (queries[i]->isTriviallyTrue())

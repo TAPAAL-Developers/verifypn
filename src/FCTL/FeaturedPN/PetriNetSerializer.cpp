@@ -58,7 +58,9 @@ struct Assignment {
 };
 
 PetriNetSerializer::PetriNetSerializer(PetriEngine::PetriNetBuilder& builder, bool verbose) : builder_(builder), verbose_(verbose) {
+#ifndef NDEBUG
     logging = verbose_;
+#endif
 }
 
 void PetriNetSerializer::serialize_features(const std::filesystem::path& fname) {

@@ -192,14 +192,14 @@ int main(int argc, const char** argv) {
         std::set<size_t> initial_marking_solved;
         size_t initial_size = 0;
         ResultPrinter p2(&b2, &options, querynames);
-        bool is_featured = false;
+        bool is_featured = b2.num_features() > 0;
         {
             std::unique_ptr<PetriNet> qnet(b2.makePetriNet(false));
             std::unique_ptr<MarkVal[]> qm0(qnet->makeInitialMarking());
             for(size_t i = 0; i < qnet->numberOfPlaces(); ++i)
                 initial_size += qm0[i];
 
-            is_featured = qnet->is_featured();
+            assert(is_featured == qnet->is_featured());
             if(queries.empty() && options.cpnOverApprox)
             {
                 std::cerr << "WARNING: Could not run CPN over-approximation on any queries, terminating." << std::endl;
@@ -303,6 +303,16 @@ int main(int argc, const char** argv) {
 
                 if (alldone && options.model_out_file.size() == 0)
                     return to_underlying(ReturnValue::SuccessCode);
+            }
+        }
+        if (options.allow_features || is_featured) {
+            for (int i = 0; i < queries.size(); ++i) {
+                if (options.printstatistics == StatisticsLevel::Full) {
+                    std::cout << "query before ENF rewrite: "; queries[i]->toString(std::cout); std::cout << "\n";
+                    queries[i] = ctl_to_enf(queries[i]);
+                    std::cout << "query after ENF rewrite: "; queries[i]->toString(std::cout); std::cout << "\n";
+                    results[i] = PetriEngine::Reachability::AbstractHandler::CTL;
+                }
             }
         }
 

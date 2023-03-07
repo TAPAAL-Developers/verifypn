@@ -34,5 +34,5 @@ endif()
 #
 #target_compile_definitions(make-fpnml PRIVATE BOOST_program_options_DYN_LINK)
 
-add_executable(make-fpnml fpnml.cpp)
+add_executable(make-fpnml fpnml.cpp PetriEngine/PQL/ExistentialNormalForm.cpp ../include/PetriEngine/PQL/ExistentialNormalForm.h)
 target_link_libraries(make-fpnml verifypn)

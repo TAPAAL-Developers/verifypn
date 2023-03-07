@@ -152,6 +152,9 @@ namespace Featured {
                 }
             } else if (query_type == PATHQEURY) {
                 if (v->query->getQuantifier() == A) {
+                    std::cerr << "Fatal error: Allpaths quantifier left in query. Terminating.\n";
+                    exit(-1);
+                    assert(false);
                     if (v->query->getPath() == U) {
                         auto cond = static_cast<AUCondition*>(v->query);
                         Edge* right = nullptr;
@@ -468,7 +471,66 @@ namespace Featured {
                                    []() {}
                         );
                     } else if (v->query->getPath() == G) {
-                        assert(false && "Path operator G had not been translated - Parse error detected in succ()");
+                        auto cond = static_cast<EGCondition*>(v->query);
+                        Configuration* phi = nullptr;
+
+                        auto r = fastEval((*cond)[0], &query_marking);
+                        if (r == Condition::RFALSE) {
+                            return {}; // formula invalid in present marking.
+                        }
+                        else if (r == Condition::RUNKNOWN) {
+                            // c == phi
+                            phi = createConfiguration(v->marking, v->getOwner(), (*cond)[0]);
+                        }
+
+                        //Configuration* left = nullptr;
+                        nextStates(query_marking, cond,
+                                   [&]() { },
+                                   [&](Marking& marking, bdd feat) {
+                                       auto res = fastEval(cond, &marking);
+                                       if (res == Condition::RFALSE) return true;
+                                       if (res == Condition::RTRUE) {
+                                           for (auto s: succs) {
+                                               --s->refcnt;
+                                               release(s);
+                                           }
+                                           succs.clear();
+                                           succs.push_back(newEdge(*v, 0));
+                                           /*
+                                            * The case EG p is on the form
+                                            * (p and s1:EG p) or (p and s2:EG p) or ...
+                                            * if one of these sucs is trivially true, there is an edge with just p
+                                            * which is strictly smaller than the other edges, so use only that.
+                                            * in the case where p is also true, EG p is trivially true here.
+                                            */
+                                           if (phi != nullptr) {
+                                               succs.back()->addTarget(phi, bddtrue);
+                                           }
+                                           return false;
+                                       }
+                                       context.setMarking(marking.marking());
+                                       Edge* e = newEdge(*v, /*cond->distance(context)*/0);
+                                       Configuration* c = createConfiguration(createMarking(marking), owner(marking, cond),
+                                                                              cond);
+                                       e->addTarget(c, feat);
+                                       if (phi != nullptr)
+                                           e->addTarget(phi, bddtrue);
+                                       if (!e->handled)
+                                           succs.push_back(e);
+                                       else {
+                                           --e->refcnt;
+                                           release(e);
+                                       }
+                                       return true;
+                                   }, [&]() {
+                        });
+                        if (succs.empty()) {
+                            // if no succs, we just need to check cond.
+                            auto e = newEdge(*v, 0);
+                            if (phi != nullptr)
+                                e->addTarget(phi, bddtrue);
+                            succs.push_back(e);
+                        }
                     } else
                         assert(false && "An unknown error occoured in the successor generator");
                 }

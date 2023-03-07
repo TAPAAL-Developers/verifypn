@@ -83,6 +83,7 @@
 #include "PetriEngine/PQL/Simplifier.h"
 #include "PetriEngine/PQL/PushNegation.h"
 #include "PetriEngine/PQL/PrepareForReachability.h"
+#include "PetriEngine/PQL/ExistentialNormalForm.h"
 
 #include "PetriEngine/options.h"
 #include "utils/errors.h"

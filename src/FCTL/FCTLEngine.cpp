@@ -237,7 +237,7 @@ namespace Featured {
                 if (!isTemporal((*eu)[0]) && !isTemporal((*eu)[1]))
                     ok = true;
             }
-            if (ok && !net->is_featured()) {
+            if (false &&  ok && !net->is_featured()) {
                 LTL::LTLSearch search(*net, q, options.buchiOptimization, options.ltl_compress_aps);
                 auto r = search.solve(false, options.kbound, options.ltlalgorithm, options.ltl_por,
                                       options.strategy, options.ltlHeuristic, options.ltluseweak, options.seed_offset);
