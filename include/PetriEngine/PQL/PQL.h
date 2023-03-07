@@ -100,37 +100,37 @@ namespace PetriEngine {
         struct negstat_t
         {
             static constexpr std::array _rulename {
-                    "EG p-> !EF !p",
-                    "AG p-> !AF !p",
-                    "!EX p -> AX p",
-                    "EX false -> false",
-                    "EX true -> !deadlock",
-                    "!AX p -> EX p",
-                    "AX false -> deadlock",
-                    "AX true -> true",
-                    "EF !deadlock -> !deadlock",
-                    "EF EF p -> EF p",
-                    "EF AF p -> AF p",
-                    "EF E p U q -> EF q",
-                    "EF A p U q -> EF q",
-                    "EF .. or .. -> EF .. or EF ..",
-                    "AF !deadlock -> !deadlock",
-                    "AF AF p -> AF p",
-                    "AF EF p -> EF p",
-                    "AF .. or EF p -> EF p or AF ..",
-                    "AF A p U q -> AF q",
-                    "A p U !deadlock -> !deadlock",
-                    "A deadlock U q -> q",
-                    "A !deadlock U q -> AF q",
-                    "A p U AF q -> AF q",
-                    "A p U EF q -> EF q",
-                    "A p U .. or EF q -> EF q or A p U ..",
-                    "E p U !deadlock -> !deadlock",
-                    "E deadlock U q -> q",
-                    "E !deadlock U q -> EF q",
-                    "E p U EF q -> EF q",
-                    "E p U .. or EF q -> EF q or E p U ..",
-                    "!! p -> p",
+                    "EG p-> !EF !p",                          // 0
+                    "AG p-> !AF !p",                          // 1
+                    "!EX p -> AX p",                          // 2
+                    "EX false -> false",                      // 3
+                    "EX true -> !deadlock",                   // 4
+                    "!AX p -> EX p",                          // 5
+                    "AX false -> deadlock",                   // 6
+                    "AX true -> true",                        // 7
+                    "EF !deadlock -> !deadlock",              // 8
+                    "EF EF p -> EF p",                        // 9
+                    "EF AF p -> AF p",                        // 10
+                    "EF E p U q -> EF q",                     // 11
+                    "EF A p U q -> EF q",                     // 12
+                    "EF .. or .. -> EF .. or EF ..",          // 13
+                    "AF !deadlock -> !deadlock",              // 14
+                    "AF AF p -> AF p",                        // 15
+                    "AF EF p -> EF p",                        // 16
+                    "AF .. or EF p -> EF p or AF ..",         // 17
+                    "AF A p U q -> AF q",                     // 18
+                    "A p U !deadlock -> !deadlock",           // 19
+                    "A deadlock U q -> q",                    // 20
+                    "A !deadlock U q -> AF q",                // 21
+                    "A p U AF q -> AF q",                     // 22
+                    "A p U EF q -> EF q",                     // 23
+                    "A p U .. or EF q -> EF q or A p U ..",   // 24
+                    "E p U !deadlock -> !deadlock",           // 25
+                    "E deadlock U q -> q",                    // 26
+                    "E !deadlock U q -> EF q",                // 27
+                    "E p U EF q -> EF q",                     // 28
+                    "E p U .. or EF q -> EF q or E p U ..",   // 29
+                    "!! p -> p",                              // 30
                     // LTL rules
                     "F F p -> F p",
                     "F p U q -> F q",
