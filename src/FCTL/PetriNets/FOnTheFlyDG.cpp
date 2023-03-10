@@ -404,6 +404,7 @@ namespace Featured {
                                    []() {},
                                    [&](Marking& mark, bdd feat) {
                                        auto res = fastEval(cond, &mark);
+
                                        if (res == Condition::RFALSE) return true;
                                        if (res == Condition::RTRUE) {
                                            for (auto s: succs) {

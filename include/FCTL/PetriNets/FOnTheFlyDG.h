@@ -96,6 +96,7 @@ namespace Featured {
                     if (first) pre();
                     first = false;
                     bdd feat = gen.feature();
+                    //std::cout << "trans: " << *net->transitionNames()[gen.fired()] << "\tFeature: " << feat.id() << "  " << feat << '\n';
                     if (!foreach(working_marking, feat)) {
                         gen.reset();
                         break;

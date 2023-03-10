@@ -110,15 +110,15 @@ namespace Featured {
         std::vector<int8_t> state(query->size(), 0);
         std::vector<int8_t> lstate;
         std::vector<Condition_ptr> queries;
-        for (size_t i = 0; i < query->size(); ++i) {
+        /*for (size_t i = 0; i < query->size(); ++i) {
             if (PetriEngine::PQL::isReachability((*query)[i])) {
                 state[i] = dynamic_cast<NotCondition*>((*query)[i].get()) ? -1 : 1;
                 queries.emplace_back(prepareForReachability((*query)[i]));
                 lstate.emplace_back(state[i]);
             }
-        }
+        }*/
 
-        {
+        /*{
             ResultHandler handler(is_conj, lstate);
             std::vector<AbstractHandler::Result> res(queries.size(), AbstractHandler::Unknown);
             if (!options.tar) {
@@ -150,7 +150,7 @@ namespace Featured {
                     ++j;
                 }
             }
-        }
+        }*/
 
         for (size_t i = 0; i < query->size(); ++i) {
             if (state[i] == 0) {

@@ -11,7 +11,7 @@ using namespace DependencyGraph;
 #if DEBUG_DETAILED
 std::ostream& print_suc_pair(const Edge::Successor& suc,
                              std::ostream& os = std::cout) {
-    return os << "(" << suc.conf->id << "," << suc.feat.id() << ") ";
+    return os << "(" << suc.conf->id << "," << suc.feat << ") ";
 }
 
 std::ostream& print_edge_targets(const Edge* e, std::ostream& os = std::cout) {
@@ -23,14 +23,13 @@ std::ostream& print_edge_targets(const Edge* e, std::ostream& os = std::cout) {
 }
 
 std::ostream& print_edge(const Edge* e, std::ostream& os = std::cout) {
-    os << "(" << e->source->id << ", {";
+    os << "(" << e->source->id;
     if (!e->is_negated) {
         os << ", {";
         print_edge_targets(e, os) << "})";
     } else {
         os << " --> " << (*e->targets.begin()).conf->id << ")";
     }
-    print_edge_targets(e, os) << "})";
     return os;
 }
 
@@ -100,6 +99,7 @@ void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
     }
 #endif
 
+    auto& c = e->source;
     bool allOne = true;
     bool hasCZero = false;
     bdd good = bddtrue;
@@ -111,9 +111,16 @@ void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
         auto pit = e->targets.before_begin();
         while (it != e->targets.end()) {
             auto& [suc, feat] = *it;
-            if (suc->assignment == ONE) {
+            if (bdd_imp(feat, c->good) == bddtrue) {
+                e->bad_iter |= bdd_imp(feat, suc->bad);
+                e->targets.erase_after(pit);
+                it = pit;
+            }
+            /*if (suc->assignment == ONE) {
                 // x & tt == x, x | ff = x. hence erase
                 assert(suc->good == bddtrue && suc->bad == bddfalse);
+                //good &= feat;
+
                 e->targets.erase_after(pit);
                 it = pit;
             } else if (suc->assignment == CZERO) {
@@ -122,7 +129,8 @@ void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
                 e->bad_iter = bddtrue;
                 // assert(e->assignment == CZERO || only_assign);
                 break;
-            } else {
+            } */
+            else {
                 good &= feat & suc->good;
                 e->bad_iter |= bdd_imp(feat, suc->bad);
                 allOne = false;
@@ -139,6 +147,11 @@ void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
             bad &= suc->bad_iter;
         }
     }
+/*
+
+    std::cerr << "Iteration from " << e->source->id << ": Good: " << good << "\tBad: " << bad << '\n';
+*/
+
 
     if (e->is_negated) {
         _processedNegationEdges += 1;
@@ -307,10 +320,14 @@ bool Algorithm::FCertainZeroFPA::try_update(DependencyGraph::Configuration* c,
         assigned = true;
     }
 
+    /*if (assigned) {
+        std::cerr << "ASSIGN[" << c->id << "]: Good: " << c->good << "\tBad: " << c->bad << '\n';
+    }
+*/
 #if DEBUG_DETAILED
     if (assigned)
-        std::cout << "### Assign: " << c->id << ", good: " << c->good.id() << " => "
-                  << good.id() << "; bad: " << c->bad.id() << " => " << bad.id()
+        std::cout << "### Assign: " << c->id << ", good: " << c->good << " => "
+                  << good << "; bad: " << c->bad << " => " << bad
                   << std::endl;
     std::cerr << "### ASSIGN: [" << c->id
               << "]: " << to_string(static_cast<Assignment>(c->assignment))
