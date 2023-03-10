@@ -21,7 +21,8 @@
 
 namespace PetriEngine {
     namespace Reachability {
-        using namespace pardibaal;
+        using bound_t = pardibaal::bound_t;
+        using diff_bound_t = pardibaal::difference_bound_t;
 
         struct range_t {
 
@@ -237,14 +238,35 @@ namespace PetriEngine {
         };
 
         struct prtable_t {
-            dim_t lower(dim_t place) const {
+            /*
+             * Operations comparing bounds in this and input:
+             * Restrict (&=) Set the bound to the most strict of the two
+             * Relax (|=) relaxing a bound to be the more relaxed of the two
+             * Add (+=) increases a bound
+             * Subtract (-=) lowers a bound
+             */
+
+            bool no_lower(uint32_t place) const {
+                if (!contains_place(place))
+                    return true;
+                return _dbm.at(0, _placemapping[place]).get_bound() == 0;
+            }
+
+            bool no_upper(uint32_t place) const {
+                if (!contains_place(place))
+                    return true;
+                return _dbm.at(_placemapping[place], 0).is_inf();
+            }
+
+            uint32_t lower(uint32_t place) const {
                 assert(contains_place(place));
                 auto bound = _dbm.at(0, _placemapping[place]);
-
+                
+                // if lower bound is inf, then the zone should be empty
                 return bound.is_inf() ? std::numeric_limits<uint32_t>::max() : -bound.get_bound();
             }
 
-            dim_t upper(dim_t place) const {
+            uint32_t upper(uint32_t place) const {
                 assert(contains_place(place));
                 auto bound = _dbm.at(_placemapping[place], 0);
 
@@ -252,23 +274,23 @@ namespace PetriEngine {
             }
 
             // Represents the bound place <= n 
-            bound_t upper_bound(dim_t place) const {
+            bound_t upper_bound(uint32_t place) const {
                  assert(contains_place(place));
                 return _dbm.at(_placemapping[place], 0);
             }
 
             // Represents the bound 0 - place <= n Note that the bound value can be negative
-            bound_t lower_bound(dim_t place) const {
+            bound_t lower_bound(uint32_t place) const {
                  assert(contains_place(place));
                 return _dbm.at(0, _placemapping[place]);
             }
 
-            bound_t difference(dim_t p, dim_t q) const {
+            bound_t difference(uint32_t p, uint32_t q) const {
                 assert(contains_place(p) && contains_place(q));
                 return _dbm.at(_placemapping[p], _placemapping[q]);
             }
 
-            bool is_unbound(dim_t place) const {
+            bool is_unbound(uint32_t place) const {
                 if (!contains_place(place))
                     return true;
                 return _dbm.at(_placemapping[place], 0).is_inf() && 
@@ -276,14 +298,14 @@ namespace PetriEngine {
             }
 
             void compress() {
-                for (dim_t place = 0; place < _placemapping.size(); ++place)
+                for (uint32_t place = 0; place < _placemapping.size(); ++place)
                     if (contains_place(place) && is_unbound(place))
                         remove_place(place);
                 assert(is_compact());
             }
 
             bool is_compact() const {
-                for (dim_t place = 0; place < _placemapping.size(); ++place)
+                for (uint32_t place = 0; place < _placemapping.size(); ++place)
                     if (contains_place(place) && is_unbound(place))
                         return false;
                 return true;
@@ -294,7 +316,7 @@ namespace PetriEngine {
             }
 
             bool is_false(size_t nplaces) const {
-                for (dim_t p = 0; p < _placemapping.size(); ++p) {
+                for (uint32_t p = 0; p < _placemapping.size(); ++p) {
                     if (!contains_place(p)) return false; // All places should be indexed
                     if (lower(p) != 0 || upper(p) != 0) // All upper/lower bounds should be 0
                         return false;
@@ -305,7 +327,7 @@ namespace PetriEngine {
             std::pair<bool, bool> compare(const prtable_t& other) const {
                 auto cmp = std::make_pair(true, true);
 
-                for (dim_t p = 0; p < _placemapping.size(); ++p) {
+                for (uint32_t p = 0; p < _placemapping.size(); ++p) {
                     if (!cmp.first && !cmp.second) break;
 
                     if (contains_place(p) && other.contains_place(p)) {
@@ -313,7 +335,7 @@ namespace PetriEngine {
                         cmp.second = cmp.second && this->lower(p) >= other.lower(p) && this->upper(p) <= other.upper(p);
                     }
 
-                    for (dim_t q = 0; q < _placemapping.size(); ++q) {
+                    for (uint32_t q = 0; q < _placemapping.size(); ++q) {
                         if (!cmp.first && !cmp.second) break;
 
                         if (cmp.first && ((!contains_place(p) && other.contains_place(p)) || (!contains_place(q) && other.contains_place(q))))
@@ -329,34 +351,96 @@ namespace PetriEngine {
                 }
                 return cmp;
             }
-
-            void restrict_place(dim_t place, bound_t lower, bound_t upper) {
+            
+            void restrict_lower(uint32_t place, uint32_t lower) {
+                assert(lower != std::numeric_limits<uint32_t>::max());
+                // if (lower == std::numeric_limits<uint32_t>::max())
+                    // restrict_lower(_placemapping[place], bound_t::inf());
+                // else
                 if (!contains_place(place))
                     add_place(place);
-                _dbm.restrict(0, _placemapping[place], lower);
-                _dbm.restrict(_placemapping[place], 0, upper);
-            }
-            
-            void restrict_difference(dim_t p1, dim_t p2, bound_t bound) {
-                if (!contains_place(p1))
-                    add_place(p1);
-                if (!contains_place(p2))
-                    add_place(p2);
-                _dbm.restrict(p1, p2, bound);
+                _dbm.restrict(0, _placemapping[place], bound_t::non_strict(- (int32_t)lower));
             }
 
-            prtable_t& operator&=(const difference_bound_t place_bound) {
-                if (!contains_place(place_bound._i))
-                    add_place(place_bound._i);
-                if (!contains_place(place_bound._j))
-                    add_place(place_bound._j);
+            void restrict_upper(uint32_t place, uint32_t upper) {
+                if (!contains_place(place))
+                    add_place(place);
 
-                _dbm.restrict(_placemapping[place_bound._i], _placemapping[place_bound._j], place_bound._bound);
+                if (upper = std::numeric_limits<uint32_t>::max())
+                    _dbm.restrict(_placemapping[place], 0, bound_t::inf());
+                else
+                    _dbm.restrict(_placemapping[place], 0, bound_t::non_strict(upper));
+            }
+
+            void restrict_place(uint32_t place, uint32_t lower, uint32_t upper) {
+                restrict_lower(place, lower);
+                restrict_upper(place, upper);
+            }
+
+            void set_lower(uint32_t place, uint32_t lower) {
+                assert(lower != std::numeric_limits<uint32_t>::max());
+                if (!contains_place(place)) // if place does not exist, then add it and do restriction
+                    restrict_lower(place, lower);
+                else
+                    set_lower(_placemapping[place], bound_t::non_strict(-lower));
+
+            }
+
+            void set_upper(uint32_t place, uint32_t upper) {
+                if (!contains_place(place))
+                    restrict_upper(place, upper);
+                else {
+                    if (upper == std::numeric_limits<uint32_t>::max())
+                        set_upper(_placemapping[place], bound_t::inf());
+                    else
+                        set_upper(_placemapping[place], bound_t::non_strict(upper));
+                }
+            }
+
+            void set_place(uint32_t place, uint32_t lower, uint32_t upper) {
+                set_lower(place, lower);
+                set_upper(place, upper);
+            }
+
+            void shift_lower(uint32_t place, int32_t value) {
+                if (!contains_place(place))
+                    add_place(place);
+
+                if (lower(place) > 0) {
+                    assert(!(value > 0 && lower(place) > std::numeric_limits<uint32_t>::max() - value));
+                    if (value < 0 && lower(place) < value)
+                        set_lower(place, 0);
+                    else
+                        set_lower(place, lower(place) + value);
+                }
+            }
+
+            void shift_upper(uint32_t place, int32_t value) {
+                if (!contains_place(place))
+                    add_place(place);
+                
+                if (upper(place) < std::numeric_limits<uint32_t>::max()) {
+                    if (value > 0 && upper(place) < std::numeric_limits<uint32_t>::max() - value)
+                        set_upper(place, std::numeric_limits<uint32_t>::max());
+                    else if (value < 0 && upper(place) < value)
+                        set_upper(place, 0);
+                    else
+                        set_upper(place, upper(place) + value);
+                }
+            }
+
+            void shift_place(uint32_t place, int32_t value) {               
+                shift_upper(place, value);
+                shift_lower(place, value);
+                // _dbm.shift(_placemapping[place], value);
+            }
+
+            prtable_t& operator&=(const placerange_t& range) {
+                restrict_place(range._place, range._range._lower, range._range._upper);
             }
             
-            bool restricts(const std::vector<dim_t> writes) const {
+            bool restricts(const std::vector<int64_t> writes) const {
                 for (auto p : writes) {
-                    // uint64_t pp = p < 0 ? -p : p;
                     if (contains_place(p) && !is_unbound(p))
                         return true;
                 }
@@ -366,7 +450,7 @@ namespace PetriEngine {
             bool operator<(const prtable_t& other) const {
                 if (this->_dbm.dimension() != other._dbm.dimension())
                     return _dbm.dimension() < other._dbm.dimension();
-                for (dim_t i = 0; i < _placemapping.size(); ++i) {
+                for (uint32_t i = 0; i < _placemapping.size(); ++i) {
                     if (this->contains_place(i) &&  other.contains_place(i)) {
                         if (this->lower(i) != other.lower(i))
                             return this->lower(i) < other.lower(i);
@@ -387,7 +471,7 @@ namespace PetriEngine {
             std::ostream& print_lower_upper(std::ostream& os) const {
 
                 os << "{\n";
-                for (dim_t i = 0; i < _placemapping.size(); ++i) {
+                for (uint32_t i = 0; i < _placemapping.size(); ++i) {
                     if (contains_place(i)) {
                         os << "\t<P" << i << "> in [" << lower(i) << ", ";
                         if (_dbm.at(_placemapping[i], 0).is_inf())
@@ -403,12 +487,12 @@ namespace PetriEngine {
 
             std::ostream& print(std::ostream& os) const {
                 os << "Place: ";
-                for (dim_t i = 0; i < _placemapping.size(); ++i)
+                for (uint32_t i = 0; i < _placemapping.size(); ++i)
                     if (contains_place(i))
                         os << i << " ";
 
                 os << "\nIndex: ";
-                for (dim_t i = 0; i < _placemapping.size(); ++i)
+                for (uint32_t i = 0; i < _placemapping.size(); ++i)
                     if (contains_place(i))
                         os << _placemapping[i] << " ";
 
@@ -418,50 +502,76 @@ namespace PetriEngine {
 
             void copy(const prtable_t& other) {
                 _placemapping = other._placemapping;
-                _dbm = DBM(other._dbm);
+                _dbm = pardibaal::DBM(other._dbm);
             }
 
-            prtable_t& operator&=(const prtable_t& other) {
-                for (dim_t i = 0; i < _placemapping.size(); ++i) {
-                    // Go through only places containted in other
-                    if (other.contains_place(i)) { //Restriction automatically adds places if not contained
-                        this->restrict_place(i, other.lower_bound(i), other.upper_bound(i));
+            // prtable_t& operator&=(const prtable_t& other) {
+            //     for (uint32_t i = 0; i < _placemapping.size(); ++i) {
+            //         // Go through only places containted in other
+            //         if (other.contains_place(i)) { //Restriction automatically adds places if not contained
+            //             this->restrict_place(i, other.lower(i), other.upper(i));
                         
-                        // Restrict all diagonal bounds from other in this
-                        for (dim_t j = 0; j < _placemapping.size(); ++j)
-                            if (other.contains_place(j))
-                                this->restrict_difference(i, j, other.difference(i, j));
-                    }
+            //             // Restrict all diagonal bounds from other in this
+            //             for (uint32_t j = 0; j < _placemapping.size(); ++j)
+            //                 if (other.contains_place(j))
+            //                     this->restrict_difference(i, j, other.difference(i, j));
+            //         }
+            //     }
+            //     return *this;
+            // }
+
+            uint32_t nr_places() const {
+                auto b = _placemapping.begin();
+                return _dbm.dimension() - 1;
+            }
+
+            std::vector<uint32_t> places() const {
+                std::vector<uint32_t> ret = std::vector<uint32_t>(nr_places());
+                int r = 0;
+
+                for (uint32_t i = 0; i < _placemapping.size(); ++i) {
+                    if (contains_place(i))
+                        ret[r++] = i;
                 }
-                return *this;
+                assert(r == ret.size() - 1);
+                return ret;
+            }
+
+            bool inline contains_place(uint32_t place) const {
+                return _placemapping[place] != 0; 
+            }
+
+            // Add unbounded place if not already contained
+            void add_place(uint32_t place) {
+                if (!contains_place(place)) {
+                    _placemapping[place] = _dbm.dimension();
+                    _dbm.add_clock_at(_dbm.dimension());
+                    _dbm.free(_dbm.dimension() - 1);
+                }
             }
 
         private:
             // Placemapping to map places to indexes in the dbm. The size is constant and equal to number of places
-            std::vector<dim_t> _placemapping;
-            DBM _dbm = DBM(1);
+            std::vector<uint32_t> _placemapping;
+            pardibaal::DBM _dbm = pardibaal::DBM(1);
 
-            bool inline contains_place(dim_t place) const {
-                return _placemapping[place] != 0; 
-            }
+            bool inline contains_index(uint32_t index) const { return index < _dbm.dimension(); }
 
-            bool inline contains_index(dim_t index) const { return index < _dbm.dimension(); }
-
-            void remove_place(dim_t place) {
+            void remove_place(uint32_t place) {
                 assert(contains_place(place));
                 _dbm.remove_clock(_placemapping[place]);
 
                 // When we remove an index in the dbm, indexes above this are shifted one down.
-                for (dim_t i = 0; i < _placemapping.size(); ++i)
+                for (uint32_t i = 0; i < _placemapping.size(); ++i)
                     if (_placemapping[i] > _placemapping[place])
                         --(_placemapping[i]);
 
                 _placemapping[place] = 0;
             }
 
-            void remove_index(dim_t index) {
+            void remove_index(uint32_t index) {
                 bool found = false;
-                for (dim_t i = 0; i < _placemapping.size(); ++i) {
+                for (uint32_t i = 0; i < _placemapping.size(); ++i) {
                     if (_placemapping[i] = index) {
                         found = true;
                         _placemapping[i] = 0;
@@ -473,18 +583,46 @@ namespace PetriEngine {
                 _dbm.remove_clock(index);
             }
 
-            void add_place(dim_t place) {
-                assert(!contains_place(place));
-                _placemapping[place] = _dbm.dimension();
-                _dbm.add_clock_at(_dbm.dimension());
-                _dbm.free(_dbm.dimension() - 1);
-            }
-
-            bool unbound_index(dim_t index) const {
+            bool unbound_index(uint32_t index) const {
                 if (!contains_index(index))
                     return true;
                 return _dbm.at(index, 0).is_inf() && 
                        _dbm.at(0, index).get_bound() == 0;
+            }
+
+            void set_lower(uint32_t index, bound_t bound) {
+                assert(!bound.is_inf()); // Lower bounds should never be inf (at most 0)
+                
+                if (_dbm.at(0, index) == bound)
+                    return;
+
+                if (_dbm.at(0, index) > bound)
+                    _dbm.restrict(0, index, bound);
+                else {
+                    int32_t diff = bound.get_bound() - _dbm.at(0, index).get_bound();
+                    for (uint32_t i = 1; i < _dbm.dimension(); ++i) {
+                        if (i == index) continue; // Add the difference to all lower diagonal bounds
+                        _dbm.set(i, index, _dbm.at(i, index) + diff);
+                    }
+                }
+            }
+
+            void set_upper(uint32_t index, bound_t bound) {
+                if (_dbm.at(index, 0) == bound)
+                    return;
+
+                if (_dbm.at(index, 0) > bound)
+                    _dbm.restrict(index, 0, bound);
+                else {
+                    int32_t diff = bound.get_bound() - _dbm.at(index, 0).get_bound();
+                    for (uint32_t i = 1; i < _dbm.dimension(); ++i) {
+                        if (i == index) continue;
+                        if (bound.is_inf())
+                            _dbm.set(index, i, bound_t::inf());
+                        else
+                            _dbm.set(index, i, _dbm.at(index, i) + diff);
+                    }
+                }
             }
         };
 
@@ -672,6 +810,7 @@ namespace PetriEngine {
                 return *this;
             }
 
+            //TMGR: Why int64?? only compared (even assigned) to int32 
             bool restricts(const std::vector<int64_t>& writes) const {
                 auto rit = _ranges.begin();
                 for (auto p : writes) {
