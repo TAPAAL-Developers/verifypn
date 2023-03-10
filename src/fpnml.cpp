@@ -50,6 +50,7 @@ namespace Featured {
 
         bool verbose=true;
         bool enumerate = false;
+        std::optional<size_t> seed;
     };
 
     bool is_trivial(const bdd bdd) {
@@ -63,7 +64,7 @@ namespace Featured {
         RNGState() = delete;
 
         explicit RNGState(const Options& options)
-                : options_(options), rng_(r()), gen_feat_(options.inv_frequency) {
+                : options_(options), rng_(options.seed.has_value() ? *options.seed : r()), gen_feat_(options.inv_frequency) {
 
         }
 
@@ -340,6 +341,8 @@ namespace Featured {
                 throw base_error{"--max-depth not yet implemented, please implement me."};
             } else if (args[i] == "--odir" || args[i] == "--output-dir" || args[i] == "-o") {
                 options.out_dir = consume_args<std::string>(args, i);
+            } else if (args[i] == "--seed" || args[i] == "-s") {
+                options.seed = consume_args<size_t>(args,i);
             }
             else {
                 options.model_dir = args[i];
