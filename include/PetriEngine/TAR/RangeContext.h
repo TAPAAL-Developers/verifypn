@@ -26,14 +26,14 @@ namespace PetriEngine
     using namespace PQL;
     class RangeContext : public Visitor {
     public:
-        RangeContext(prvector_t& vector, MarkVal* base, const PetriNet& net, const uint64_t* uses, MarkVal* marking, const std::vector<bool>& dirty);
+        RangeContext(prtable_t& table, MarkVal* base, const PetriNet& net, const uint64_t* uses, MarkVal* marking, const std::vector<bool>& dirty);
         bool is_dirty() const { return _is_dirty; }
                 
     private:
         
         void handle_compare(const Expr_ptr& left, const Expr_ptr& right, bool strict);
                 
-        prvector_t& _ranges;
+        prtable_t& _ranges;
         MarkVal* _base;
         const PetriNet& _net;
         const uint64_t* _uses;

@@ -25,18 +25,18 @@ namespace PetriEngine {
 
     class RangeEvalContext : public Visitor {
     public:
-        RangeEvalContext(const prvector_t& vector, const PetriNet& net, const uint64_t* use_count);
+        RangeEvalContext(const prtable_t& table, const PetriNet& net, const uint64_t* use_count);
         bool satisfied() const { return _bool_result; }
-        const prvector_t& constraint() const { return _sufficient; }
+        const prtable_t& constraint() const { return _sufficient; }
     private:
 
         void handle_compare(const Expr_ptr& left, const Expr_ptr& right, bool strict);
-        const prvector_t& _ranges;
+        const prtable_t& _ranges;
         const PetriNet& _net;
         const uint64_t* _use_count;
         int64_t _literal;
         bool _bool_result;
-        prvector_t _sufficient;
+        prtable_t _sufficient;
         std::vector<uint32_t> _places;
     protected:
 

@@ -44,11 +44,11 @@ namespace PetriEngine
 
         void TraceSet::init()
         {
-            prvector_t truerange;
-            prvector_t falserange;
+            prtable_t truerange;
+            prtable_t falserange;
             {
                 for (size_t v = 0; v < _net.numberOfPlaces(); ++v)
-                    falserange.find_or_add(v) &= 0;
+                    falserange.restrict_place(v, 0, 0);
             }
             assert(falserange.is_false(_net.numberOfPlaces()));
             assert(truerange.is_true());
@@ -110,9 +110,9 @@ namespace PetriEngine
             return maximal;
         }
 
-        std::pair<bool, size_t> TraceSet::stateForPredicate(prvector_t& predicate)
+        std::pair<bool, size_t> TraceSet::stateForPredicate(prtable_t& predicate)
         {
-            predicate.compact();
+            predicate.compress();
             if (predicate.is_true()) {
                 return std::make_pair(false, 1);
             }
@@ -154,11 +154,11 @@ namespace PetriEngine
                 }
 #endif
                 bool ok = true;
-                for(auto& r : predicate._ranges)
+                for (auto p : predicate.places())
                 {
 
-                    if(_net.initial()[r._place] > r._range._upper ||
-                       _net.initial()[r._place] < r._range._lower)
+                    if(_net.initial()[p] > predicate.upper(p) ||
+                       _net.initial()[p] < predicate.lower(p))
                     {
                         ok = false;
                         break;
@@ -180,13 +180,14 @@ namespace PetriEngine
                     bool changes = false;
                     for(; pre.first != pre.second; ++pre.first)
                     {
-                        auto it = predicate[pre.first->place];
-                        if(it)
+                        // auto it = predicate[pre.first->place];
+                        auto p = pre.first->place;
+                        if(predicate.contains_place(p))
                         {
                             changes = true;
                             auto post = _net.postset(t);
                             int64_t change = pre.first->tokens;
-                            if(pre.first->tokens > it->_range._upper)
+                            if(pre.first->tokens > predicate.upper(p))
                                 _states[astate].add_edge(t+1, 0);
                             change *= -1;
                             for(; post.first != post.second; ++post.first)
@@ -197,9 +198,9 @@ namespace PetriEngine
                                     break;
                                 }
                             }
-                            if(change < 0 && !it->_range.no_lower())
+                            if(change < 0 && !predicate.no_lower(p))
                                 ok = false;
-                            else if(change > 0 && !it->_range.no_upper())
+                            else if(change > 0 && !predicate.no_upper(p))
                                 ok = false;
                         }
                         if(!ok) break;
@@ -208,8 +209,9 @@ namespace PetriEngine
                     auto post = _net.postset(t);
                     for(; post.first != post.second; ++post.first)
                     {
-                        auto it = predicate[post.first->place];
-                        if(it)
+                        // auto it = predicate[post.first->place];
+                        auto p = post.first->place;
+                        if(predicate.contains_place(p))
                         {
                             changes = true;
                             auto pre = _net.preset(t);
@@ -222,9 +224,9 @@ namespace PetriEngine
                                     break;
                                 }
                             }
-                            if(change < 0 && !it->_range.no_lower())
+                            if(change < 0 && !predicate.no_lower(p))
                                 ok = false;
-                            else if(change > 0 && !it->_range.no_upper())
+                            else if(change > 0 && !predicate.no_upper(p))
                                 ok = false;
                         }
                         if(!ok) break;
@@ -310,7 +312,7 @@ namespace PetriEngine
             // TODO back color here to remove non-accepting end-components.
         }
         
-        bool TraceSet::addTrace(std::vector<std::pair<prvector_t, size_t>>& inter)
+        bool TraceSet::addTrace(std::vector<std::pair<prtable_t, size_t>>& inter)
         {
             assert(inter.size() > 0);
             bool some = false;

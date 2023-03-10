@@ -15,7 +15,7 @@
 namespace PetriEngine
 {
 
-    RangeEvalContext::RangeEvalContext(const prvector_t& vector, const PetriNet& net, const uint64_t* use_count)
+    RangeEvalContext::RangeEvalContext(const prtable_t& vector, const PetriNet& net, const uint64_t* use_count)
     : _ranges(vector), _net(net), _use_count(use_count)
     {
 
@@ -24,7 +24,7 @@ namespace PetriEngine
     void RangeEvalContext::_accept(const NotCondition* element) { assert(false); }
     void RangeEvalContext::_accept(const AndCondition* element)
     {
-        prvector_t sufficient;
+        prtable_t sufficient;
         sufficient = _sufficient;
         auto best = _sufficient;
         bool found = false;
@@ -34,7 +34,7 @@ namespace PetriEngine
             if(!_bool_result)
             {
                 Visitor::visit(this, c);
-                if(!found || _sufficient._ranges.size() < best._ranges.size())
+                if(!found || _sufficient.nr_places() < best.nr_places())
                     best = _sufficient;
                 _sufficient = sufficient;
                 found = true;
@@ -49,7 +49,7 @@ namespace PetriEngine
 
     void RangeEvalContext::_accept(const OrCondition* element)
     {
-        prvector_t sufficient = _sufficient;
+        prtable_t sufficient = _sufficient;
         for(auto& c : *element)
         {
             Visitor::visit(this, c);
@@ -151,17 +151,18 @@ namespace PetriEngine
         bool found = false;
         for(const CompareConjunction::cons_t& c : *element)
         {
-            auto it = _ranges[c._place];
-            if(it == nullptr && element->isNegated())
+            // auto it = _ranges[c._place];
+            bool contained = _ranges.contains_place(c._place);
+            if(!contained && element->isNegated())
             {
                 _bool_result = true; // disjunction, one element has viable satisfiability
                 return;
             }
             if(element->isNegated())
             {
-                if(it == nullptr || // unconstraint
-                   it->_range._upper < c._lower || // -INF [... it->_upper] [c._lower, c._upper] + INF
-                   c._upper < it->_range._lower    // -INF [c._lower, c._upper] [it->_lower ...] + INF
+                if(!contained || // unconstraint
+                   _ranges.upper(c._place) < c._lower || // -INF [... it->_upper] [c._lower, c._upper] + INF
+                   c._upper < _ranges.lower(c._place)    // -INF [c._lower, c._upper] [it->_lower ...] + INF
                    )
                 {
                     _bool_result = true;
@@ -171,12 +172,12 @@ namespace PetriEngine
             }
             else
             {
-                if(it == nullptr) continue; // we are looking for false instance
-                if(!(it->_range._lower <= c._upper &&
-                     c._lower <= it->_range._upper))
+                if(!contained) continue; // we are looking for false instance
+                if(!(_ranges.lower(c._place) <= c._upper &&
+                     c._lower <= _ranges.upper(c._place)))
                 {
                     _bool_result = false;
-                    if(it->_range._upper < c._lower)
+                    if(_ranges.upper(c._place) < c._lower)
                     {
                         if(_sufficient.upper(c._place) < c._lower)
                         {

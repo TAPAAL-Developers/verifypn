@@ -111,8 +111,8 @@ namespace PetriEngine {
             std::vector<size_t> simulators;
             friend class TraceSet;
         public:
-            prvector_t interpolant;
-            AutomataState(prvector_t interpol) : interpolant(interpol) {};
+            prtable_t interpolant;
+            AutomataState(prtable_t interpol) : interpolant(interpol) {};
             inline bool is_accepting() const
             {
                 return accept;

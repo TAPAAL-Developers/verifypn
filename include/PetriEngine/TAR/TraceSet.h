@@ -29,7 +29,7 @@ namespace PetriEngine {
         public:
             TraceSet(const PetriNet& net);
             void clear();
-            bool addTrace(std::vector<std::pair<prvector_t,size_t>>& inter);
+            bool addTrace(std::vector<std::pair<prtable_t,size_t>>& inter);
             void copyNonChanged(const std::set<size_t>& from, const std::vector<int64_t>& modifiers, std::set<size_t>& to) const;
             bool follow(const std::set<size_t>& from, std::set<size_t>& nextinter, size_t symbol);
             std::set<size_t> maximize(const std::set<size_t>& from) const;
@@ -39,9 +39,9 @@ namespace PetriEngine {
             void removeEdges(size_t edge);
         private:
             void init();
-            std::pair<bool, size_t> stateForPredicate(prvector_t& predicate);
+            std::pair<bool, size_t> stateForPredicate(prtable_t& predicate);
             void computeSimulation(size_t index);
-            std::map<prvector_t, size_t> _intmap;
+            std::map<prtable_t, size_t> _intmap;
             std::vector<AutomataState> _states;
             std::set<size_t> _initial;
             const PetriNet& _net; //TMGR why is this necessary?

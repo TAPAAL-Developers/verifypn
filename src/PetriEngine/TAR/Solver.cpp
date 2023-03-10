@@ -97,11 +97,10 @@ namespace PetriEngine {
                     {
                         if(_inq[post.first->place])
                         {
-                            auto& pr = inter.back().first.find_or_add(post.first->place);
-                            pr._range._lower = post.first->tokens;
+                            inter.back().first.set_lower(post.first->place, post.first->tokens);
                         }
                     }
-                    inter.back().first.compact();
+                    inter.back().first.compress();
                     if(inter.back().first.is_true()) continue;
                 }
 
@@ -147,7 +146,7 @@ namespace PetriEngine {
 
                                 inter.back().first = ctx.constraint();
                                 assert(!ctx.constraint().is_true());
-                                inter.back().first.compact();
+                                inter.back().first.compress();
                                 assert(inter.back().first.is_compact());
                                 // flush non-used
                                 for(int64_t i = inter.size()-2; i >= 0; --i)
@@ -162,15 +161,15 @@ namespace PetriEngine {
                                     //inter[i].first.print(std::cerr) << std::endl;
                                     for(; post.first != post.second; ++post.first)
                                     {
-                                        auto it = inter[i].first[post.first->place];
-                                        if(it == nullptr) continue;
-                                        if(it->_range._upper < post.first->tokens)
+                                        // auto it = inter[i].first[post.first->place];
+                                        if(!inter[i].first.contains_place(post.first->place)) continue;
+                                        if(inter[i].first.upper(post.first->place) < post.first->tokens)
                                         {
                                             break;
                                         }
-                                        it->_range -= post.first->tokens;
+                                        inter[i].first.shift_place(post.first->place, -post.first->tokens);
                                     }
-                                    inter[i].first.compact();
+                                    inter[i].first.compress();
 /*                                    inter[i].first.print(std::cerr) << std::endl;
                                     assert(inter[i].first.is_compact());
                                     inter[i].first.print(std::cerr) << std::endl;*/
@@ -183,9 +182,8 @@ namespace PetriEngine {
                                     auto pre = _net.preset(t);
                                     for(; pre.first != pre.second; ++pre.first)
                                     {
-                                        auto it = inter[i].first[pre.first->place];
-                                        if(it == nullptr) continue;
-                                        it->_range += pre.first->tokens;
+                                        if(!inter[i].first.contains_place(pre.first->place)) continue;
+                                        inter[i].first.shift_place(pre.first->place, pre.first->tokens);
                                     }
                                     assert(inter[i].first.is_compact());
                                 }
@@ -218,24 +216,26 @@ namespace PetriEngine {
                             {
                                 if(_inq[pre.first->place])
                                 {
-                                    auto it = range[pre.first->place];
-                                    if(it == nullptr) continue;
-                                    if(it->_range._lower <= pre.first->tokens)
+                                    // auto it = range[pre.first->place];
+                                    if(!range.contains_place(pre.first->place)) continue;
+                                    if(range.lower(pre.first->place) <= pre.first->tokens)
                                     {
                                         // free backwards
                                         for(auto& tmp : inter)
                                         {
-                                            auto it = tmp.first[pre.first->place];
-                                            if(it)
+                                            // auto it = tmp.first[pre.first->place];
+                                            if(tmp.first.contains_place(pre.first->place))
                                             {
-                                                it->_range._lower = 0;
-                                                tmp.first.compact();
+                                                // it->_range._lower = 0;
+                                                range.set_lower(pre.first->place, 0);
+                                                tmp.first.compress();
                                             }
                                         }
                                     }
                                     else
                                     {
-                                        it->_range._lower -= pre.first->tokens;
+                                        range.shift_lower(pre.first->place, -pre.first->tokens);
+                                        // it->_range._lower -= pre.first->tokens;
                                     }
                                 }
                             }
@@ -245,15 +245,17 @@ namespace PetriEngine {
                             {
                                 if(_inq[post.first->place])
                                 {
-                                    auto& pr = range.find_or_add(post.first->place);
-                                    if(pr._range._lower == 0)
-                                        pr._range._lower = post.first->tokens;
-                                    else
-                                        pr._range._lower += post.first->tokens;
+                                    // auto& pr = range.find_or_add(post.first->place);
+                                    // if (range.lower(post.first->place) == 0)
+                                        // pr._range._lower = post.first->tokens;
+                                    // else
+                                        // pr._range._lower += post.first->tokens;
+                                    range.add_place(post.first->place);
+                                    range.set_lower(post.first->place, range.lower(post.first->place) + post.first->tokens);
                                 }
                             }
                         }
-                        inter.back().first.compact();
+                        inter.back().first.compress();
                     }
                 }
             }
@@ -413,7 +415,7 @@ namespace PetriEngine {
                 Visitor::visit(ctx, _query);
                 if(ctx.is_dirty())
                     return false;
-                last.first.compact();
+                last.first.compress();
 #ifdef VERBOSETAR
                 std::cerr << "TERMINAL IS Q" << std::endl;
                 //last.first.print(std::cerr) << std::endl;
@@ -445,7 +447,8 @@ namespace PetriEngine {
                         pr._range._upper = pre.first->tokens-1;
                     }
                 }
-                last.first.find_or_add(pr._place) = pr;
+                // last.first.find_or_add(pr._place) = pr;
+                last.first.set_place(pr._place, pr._range._lower, pr._range._upper);
                 assert(some);
             }
 #ifdef VERBOSETAR
@@ -468,16 +471,16 @@ namespace PetriEngine {
 //                std::cerr << "T" << t << "\n";
                 for(; post.first != post.second; ++post.first)
                 {
-                    auto* pr = ranges[fail+1].first[post.first->place];
-                    if(pr == nullptr || pr->_range.unbound()) continue;
-                    assert(post.first->place == pr->_place);
+                    if (!ranges[fail+1].first.is_unbound(post.first->place)) continue;
                     for(; pre.first != pre.second; ++pre.first)
                     {
                         if(pre.first->place < post.first->place)
                         {
-                            auto* prerange = ranges[fail+1].first[pre.first->place];
-                            if(prerange == nullptr || prerange->_range.unbound()) continue;
-                            ranges[fail].first.find_or_add(pre.first->place) += pre.first->tokens;
+                            // auto* prerange = ranges[fail+1].first[pre.first->place];
+                            if (ranges[fail+1].first.is_unbound(pre.first->place)) continue;
+                            ranges[fail].first.add_place(pre.first->place);
+                            ranges[fail].first.shift_place(pre.first->place, pre.first->tokens);
+                            // ranges[fail].first.find_or_add(pre.first->place) += pre.first->tokens;
                             touches = true;
 //                            std::cerr << "\t1P" << pre.first->place << " -" << pre.first->tokens << std::endl;
                         }
@@ -486,32 +489,35 @@ namespace PetriEngine {
                     if(pre.first == pre.second || pre.first->place != post.first->place)
                     {
 //                        std::cerr << "\t2P" << post.first->place << " +" << post.first->tokens << std::endl;
-                        auto& r = ranges[fail].first.find_or_add(post.first->place);
-                        if(r._range._upper < post.first->tokens)
+                        // auto& r = ranges[fail].first.find_or_add(post.first->place);
+                        ranges[fail].first.add_place(post.first->place);
+                        if(ranges[fail].first.upper(post.first->place) < post.first->tokens)
                         {
                             _dirty[post.first->place] = true;
                             return false;
                         }
-                        r -= post.first->tokens;
+                        ranges[fail].first.shift_place(post.first->place, -post.first->tokens);
+                        // r -= post.first->tokens;
                     }
                     else
                     {
                         if(pre.first->direction < 0)
                         {
                             assert(pre.first->tokens > post.first->tokens);
-                            ranges[fail].first.find_or_add(post.first->place) += (pre.first->tokens - post.first->tokens);
+                            ranges[fail].first.shift_place(post.first->place, pre.first->tokens - post.first->tokens);
 //                            std::cerr << "\t3P" << pre.first->place << " -" << (pre.first->tokens - post.first->tokens) << std::endl;
                         }
                         else
                         {
                             assert(pre.first->tokens <= post.first->tokens);
-                            auto& r = ranges[fail].first.find_or_add(post.first->place);
-                            if(r._range._upper < (post.first->tokens - pre.first->tokens))
+                            ranges[fail].first.add_place(post.first->place);
+
+                            if(ranges[fail].first.upper(post.first->place) < (post.first->tokens - pre.first->tokens))
                             {
                                 _dirty[post.first->place] = true;
                                 return false;
                             }
-                            ranges[fail].first.find_or_add(post.first->place) -= (post.first->tokens - pre.first->tokens);
+                            ranges[fail].first.shift_place(post.first->place, - post.first->tokens - pre.first->tokens);
 //                            std::cerr << "\t4P" << pre.first->place << " +" << (pre.first->tokens - post.first->tokens) << std::endl;
                         }
                         ++pre.first;
@@ -524,9 +530,9 @@ namespace PetriEngine {
                 {
                     assert(!pre.first->inhibitor);
                     assert(pre.first->tokens >= 1);
-                    auto* pr = ranges[fail+1].first[pre.first->place];
-                    if(pr == nullptr || pr->_range.unbound()) continue;
-                    ranges[fail].first.find_or_add(pre.first->place) += pre.first->tokens;
+                    // auto* pr = ranges[fail+1].first[pre.first->place];
+                    if (ranges[fail+1].first.is_unbound(pre.first->place)) continue;
+                    ranges[fail].first.shift_place(pre.first->place, pre.first->tokens);
 //                    std::cerr << "\t5P" << pre.first->place << " -" << pre.first->tokens << std::endl;
                     touches |= true;
                 }
@@ -586,10 +592,10 @@ namespace PetriEngine {
                             break;
                     }
                     bool some = false;
-                    for(auto& r : ranges.back().first._ranges)
+                    for (auto p : ranges.back().first.places())
                     {
-                        some |= !_dirty[r._place];
-                        _dirty[r._place] = true;
+                        some |= !_dirty[p];
+                        _dirty[p] = true;
                     }
                     if(!some) goto NXT;
                     assert(some);
