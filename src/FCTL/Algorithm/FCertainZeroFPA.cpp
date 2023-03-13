@@ -103,7 +103,7 @@ void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
     bool allOne = true;
     bool hasCZero = false;
     bdd good = bddtrue;
-    bdd bad = bddfalse;
+    bdd bad = bddtrue;
     // auto pre_empty = e->targets.empty();
     Configuration* lastUndecided = nullptr;
     {
@@ -123,13 +123,14 @@ void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
 
                 e->targets.erase_after(pit);
                 it = pit;
-            } else if (suc->assignment == CZERO) {
+            }*/
+            else if (suc->assignment == CZERO) {
                 allOne = false;
                 hasCZero = true;
                 e->bad_iter = bddtrue;
                 // assert(e->assignment == CZERO || only_assign);
                 break;
-            } */
+            }
             else {
                 good &= feat & suc->good;
                 e->bad_iter |= bdd_imp(feat, suc->bad);
