@@ -75,7 +75,7 @@ int main(int argc, const char** argv) {
         if (options.parse(argc, argv)) // if options were --help or --version
             return to_underlying(ReturnValue::SuccessCode);
 
-        if (options.printstatistics == StatisticsLevel::Full) {
+        if (options.printstatistics != StatisticsLevel::None) {
             std::cout << std::endl << "Parameters: ";
             for (int i = 1; i < argc; i++) {
                 std::cout << argv[i] << " ";
@@ -311,8 +311,8 @@ int main(int argc, const char** argv) {
                     std::cout << "query before ENF rewrite: "; queries[i]->toString(std::cout); std::cout << "\n";
                     queries[i] = ENFV2(queries[i]);
                     std::cout << "query after ENF rewrite: "; queries[i]->toString(std::cout); std::cout << "\n";
-                    results[i] = PetriEngine::Reachability::AbstractHandler::CTL;
                 }
+                results[i] = PetriEngine::Reachability::AbstractHandler::CTL;
             }
         }
 

@@ -90,16 +90,22 @@ namespace PetriEngine { namespace PQL {
 
         void ENFV2Visitor::_accept(AFCondition *element) {
             ++stats[1];
-            auto sub = subvisit(std::make_shared<NotCondition>(element->getCond()), true, false);
             // really we need EG condition here, but engine consistently computes least fixed-points
             // so this is a way to "trick" it to produce true from a component that did not violate
             // (should generate negation edge into AF query that we solve normally)
 
-            auto af_cond = std::make_shared<EGCondition>(sub);
+            //auto sub = subvisit(element->getCond(), true, false);
+            auto sub = subvisit(std::make_shared<NotCondition>(element->getCond()), true, false);
+            if (!negated) {
+                RETURN(std::make_shared<NotCondition>(std::make_shared<AFCondition>(sub)))
+            }
+            else RETURN(std::make_shared<AFCondition>(sub))
+
+/*            auto af_cond = std::make_shared<EGCondition>(sub);
             if (!negated) {
                 RETURN(std::make_shared<NotCondition>(std::make_shared<EGCondition>(sub)))
             }
-            else RETURN(std::make_shared<EGCondition>(sub))
+            else RETURN(std::make_shared<EGCondition>(sub))*/
             //auto eg_cond = EGCondition(std::make_shared<NotCondition>(element->getCond()));
             //RETURN(std::make_shared<NotCondition>(af_cond))
         }
