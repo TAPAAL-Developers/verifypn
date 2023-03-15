@@ -231,6 +231,23 @@ namespace Featured {
                         auto cond = static_cast<AFCondition*>(v->query);
                         Edge* subquery = nullptr;
                         auto r = fastEval((*cond)[0], &query_marking);
+                        if (r == Condition::RTRUE) {
+                            succs.push_back(newEdge(*v, 0));
+                        }
+                        else {
+                            subquery = newEdge(*v, /*cond->distance(context)*/0);
+                            auto subcond = cond->getCond();
+                            auto buffered = get_buffered_(subcond.get());
+                            if (buffered == nullptr) {
+                                buffered = std::make_shared<EGCondition>(subcond);
+                                cond_buffer_.insert({cond->getCond().get(), buffered});
+                            }
+                            PetriConfig* c = createConfiguration(v->marking, v->getOwner(), buffered);
+                            subquery->addTarget(c, bddtrue); // cannot be self-loop since the formula is smaller
+                            subquery->is_negated = true;
+                            succs.push_back(subquery);
+                        }
+                        return succs;
                         if (r != Condition::RUNKNOWN) {
                             bool valid = r == Condition::RTRUE;
                             if (valid) {
@@ -239,7 +256,7 @@ namespace Featured {
                             }
                         } else {
                             subquery = newEdge(*v, /*cond->distance(context)*/0);
-                            Configuration* c = createConfiguration(v->marking, v->getOwner(), (*cond)[0]);
+                            PetriConfig* c = createConfiguration(v->marking, v->getOwner(), (*cond)[0]);
                             subquery->addTarget(c, bddtrue); // cannot be self-loop since the formula is smaller
                         }
                         Edge* e1 = nullptr;
@@ -258,7 +275,7 @@ namespace Featured {
                                            return false;
                                        }
                                        context.setMarking(mark.marking());
-                                       Configuration* c = createConfiguration(createMarking(mark), owner(mark, cond),
+                                       PetriConfig* c = createConfiguration(createMarking(mark), owner(mark, cond),
                                                                               cond);
                                        return !e1->addTarget(c, feat);
                                    },
@@ -291,7 +308,7 @@ namespace Featured {
                                        } else {
                                            allValid = Condition::RUNKNOWN;
                                            context.setMarking(mark.marking());
-                                           Configuration* c = createConfiguration(createMarking(mark), v->getOwner(),
+                                           PetriConfig* c = createConfiguration(createMarking(mark), v->getOwner(),
                                                                                   (*cond)[0]);
                                            e->addTarget(c, feat);
                                        }
@@ -446,18 +463,30 @@ namespace Featured {
                     } else if (v->query->getPath() == X) {
                         auto cond = static_cast<EXCondition*>(v->query);
                         auto query = (*cond)[0];
+                        bdd acc = bddfalse;
                         nextStates(query_marking, cond,
                                    []() {},
                                    [&](Marking& marking, bdd feat) {
                                        auto res = fastEval(query, &marking);
                                        if (res == Condition::RTRUE) {
-                                           for (auto s: succs) {
-                                               --s->refcnt;
-                                               release(s);
+                                           acc |= feat;
+                                           if (acc == bddtrue) {
+                                               for (auto s: succs) {
+                                                   --s->refcnt;
+                                                   release(s);
+                                               }
+                                               succs.clear();
+                                               succs.push_back(newEdge(*v, 0));
+                                               return false;
                                            }
-                                           succs.clear();
-                                           succs.push_back(newEdge(*v, 0));
-                                           return false;
+                                           else {
+                                               auto e = newEdge(*v, 0);
+                                               auto suc = createConfiguration(0, v->getOwner(), BooleanCondition::TRUE_CONSTANT);
+                                               suc->assignment = ONE; suc->good = bddtrue;
+                                               e->addTarget(suc, feat);
+                                               succs.push_back(e);
+                                               return true;
+                                           }
                                        }   //else: It can't hold there, no need to create an edge
                                        else if (res == Condition::RUNKNOWN) {
                                            context.setMarking(marking.marking());
@@ -473,8 +502,14 @@ namespace Featured {
                         );
                     } else if (v->query->getPath() == G) {
                         auto cond = static_cast<EGCondition*>(v->query);
-                        Configuration* phi = nullptr;
+                        /*Edge* e = newEdge(*v, 0);
+                        auto sub = createConfiguration(v->marking, v->getOwner(), std::make_shared<AFCondition>(cond->getCond()));
+                        e->addTarget(sub, bddtrue);
+                        e->is_negated = true;
+                        succs.push_back(e);
+                        return succs;*/
 
+                        Configuration* phi = nullptr;
                         auto r = fastEval((*cond)[0], &query_marking);
                         if (r == Condition::RFALSE) {
                             return {}; // formula invalid in present marking.

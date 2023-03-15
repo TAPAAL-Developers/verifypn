@@ -95,11 +95,11 @@ namespace PetriEngine { namespace PQL {
             // so this is a way to "trick" it to produce true from a component that did not violate
             // (should generate negation edge into AF query that we solve normally)
 
-            auto af_cond = std::make_shared<AFCondition>(sub);
+            auto af_cond = std::make_shared<EGCondition>(sub);
             if (!negated) {
-                RETURN(std::make_shared<NotCondition>(std::make_shared<AFCondition>(sub)))
+                RETURN(std::make_shared<NotCondition>(std::make_shared<EGCondition>(sub)))
             }
-            else RETURN(std::make_shared<AFCondition>(sub))
+            else RETURN(std::make_shared<EGCondition>(sub))
             //auto eg_cond = EGCondition(std::make_shared<NotCondition>(element->getCond()));
             //RETURN(std::make_shared<NotCondition>(af_cond))
         }

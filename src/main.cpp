@@ -199,7 +199,7 @@ int main(int argc, const char** argv) {
             for(size_t i = 0; i < qnet->numberOfPlaces(); ++i)
                 initial_size += qm0[i];
 
-            assert(is_featured == qnet->is_featured());
+            //assert(is_featured == qnet->is_featured());
             if(queries.empty() && options.cpnOverApprox)
             {
                 std::cerr << "WARNING: Could not run CPN over-approximation on any queries, terminating." << std::endl;

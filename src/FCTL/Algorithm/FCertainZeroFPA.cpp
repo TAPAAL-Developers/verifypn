@@ -67,8 +67,10 @@ bool Algorithm::FCertainZeroFPA::search(
             ++cnt;
             if ((cnt % 1000) == 0)
                 strategy->trivialNegation();
-            if (root->done() || root->bad.id() != bddfalse.id())
+            if (root->done() || root->bad.id() != bddfalse.id()) {
+                std::cerr << root->good << "\t" << root->bad << '\n';
                 return root->good.id() == bddtrue.id();
+            }
         }
 
         if (root->done() || root->bad.id() != bddfalse.id())
@@ -104,6 +106,7 @@ void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
     bool hasCZero = false;
     bdd good = bddtrue;
     bdd bad = bddtrue;
+    auto &c = e->source;
     // auto pre_empty = e->targets.empty();
     Configuration* lastUndecided = nullptr;
     {
@@ -111,7 +114,8 @@ void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
         auto pit = e->targets.before_begin();
         while (it != e->targets.end()) {
             auto& [suc, feat] = *it;
-            if (bdd_imp(feat, c->good) == bddtrue) {
+            //if (bdd_imp(feat, c->good) == bddtrue) {
+            if ((feat & c->good) == bddtrue) {
                 e->bad_iter |= bdd_imp(feat, suc->bad);
                 e->targets.erase_after(pit);
                 it = pit;
@@ -146,6 +150,7 @@ void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
     if (!hasCZero && !allOne) {
         for (auto* suc : e->source->successors) {
             bad &= suc->bad_iter;
+            if (bad == bddfalse) break;
         }
     }
 /*
@@ -302,19 +307,22 @@ void Algorithm::FCertainZeroFPA::finalAssign(DependencyGraph::Configuration* c,
 
 bool Algorithm::FCertainZeroFPA::try_update(DependencyGraph::Configuration* c,
                                             bdd good, bdd bad) {
-    assert((c->good >> good).id() == bddtrue.id() &&
-           (c->bad >> bad).id() == bddtrue.id());
+    /*assert((c->good >> good).id() == bddtrue.id() &&
+           (c->bad >> bad).id() == bddtrue.id());*/
 
     bool assigned = false;
-    if (c->good != good) {
-        assert((c->good < good) == bddtrue);
+    if (c->good.id() != good.id() && (c->good >> good) == bddtrue) {
+        assert(bdd_imp(c->good, good) == bddtrue);
+        //assert((c->good << bad) == bddtrue);
         c->good = good;
         if (good == bddtrue)
             c->assignment = ONE;
         assigned = true;
     }
-    if (c->bad != bad) {
-        assert((c->bad < bad) == bddtrue);
+    if (c->bad.id() != bad.id() && (c->bad >> bad) == bddtrue) {
+        assert(bdd_imp(c->bad, bad) == bddtrue);
+        //assert((c->bad << bad) == bddtrue);
+
         c->bad = bad;
         if (bad == bddtrue)
             c->assignment = CZERO;
@@ -370,17 +378,21 @@ bool Algorithm::FCertainZeroFPA::try_update(DependencyGraph::Configuration* c,
 }
 
 void Algorithm::FCertainZeroFPA::explore(Configuration* c) {
+    assert(c->assignment != ONE && c->assignment != CZERO);
     if (!c->successors.empty())
         return;
     c->seen_ = true;
     c->assignment = ZERO;
 
     {
+#if DEBUG_DETAILED
+        std::cout << "### Generating succs of " << c->id << ": \n";
+#endif
         auto succs = graph->successors(c);
+
         c->nsuccs = succs.size();
 
 #if DEBUG_DETAILED
-        std::cout << "### Succs of " << c->id << ": \n###";
         for (auto suc : succs) {
             std::cout << "  ";
             print_edge(suc, std::cout) << "\n";

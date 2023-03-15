@@ -174,7 +174,8 @@ namespace PetriEngine::PQL {
     }
 
     void ExistentialNormalForm::_accept(AFCondition* condition) {
-        auto eg = std::make_shared<EGCondition>(std::make_shared<NotCondition>(condition->getCond()));
+        auto eg = std::make_shared<EGCondition>(condition->getCond());
+        //auto eg = std::make_shared<EGCondition>(std::make_shared<NotCondition>(condition->getCond()));
         RETURN(std::make_shared<NotCondition>(subvisit(eg, _negated)))
     }
 

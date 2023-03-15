@@ -84,6 +84,9 @@ protected:
         while(gen.next(working_marking)){
             if(first) pre();
             first = false;
+#if DEBUG_DETAILED
+            std::cout << "trans: " << *net->transitionNames()[gen.fired()] << '\n';
+#endif
             if(!foreach(working_marking))
             {
                 gen.reset();

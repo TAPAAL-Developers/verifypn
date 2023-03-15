@@ -76,6 +76,9 @@ namespace Featured {
             //used after query is set
             Condition* query = nullptr;
 
+            // buffer to ensure new conditions built in DG generation aren't deallocated.
+            std::unordered_map<void*, Condition_ptr> cond_buffer_;
+
             Condition::Result fastEval(Condition* query, Marking* unfolded);
 
             Condition::Result fastEval(const Condition_ptr& query, Marking* unfolded) {
@@ -96,7 +99,9 @@ namespace Featured {
                     if (first) pre();
                     first = false;
                     bdd feat = gen.feature();
-                    //std::cout << "trans: " << *net->transitionNames()[gen.fired()] << "\tFeature: " << feat.id() << "  " << feat << '\n';
+#if DEBUG_DETAILED
+                    std::cout << "trans: " << *net->transitionNames()[gen.fired()] << "\tFeature: " << feat.id() << "  " << feat << '\n';
+#endif
                     if (!foreach(working_marking, feat)) {
                         gen.reset();
                         break;
@@ -108,6 +113,13 @@ namespace Featured {
 
             PetriConfig* createConfiguration(size_t marking, size_t own, const Condition_ptr& query) {
                 return createConfiguration(marking, own, query.get());
+            }
+
+            Condition_ptr get_buffered_(void* id) {
+                if (auto it = cond_buffer_.find(id); it != std::end(cond_buffer_)) {
+                    return it->second;
+                }
+                return nullptr;
             }
 
             size_t createMarking(Marking& marking);
