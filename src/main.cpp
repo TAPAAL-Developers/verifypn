@@ -309,7 +309,9 @@ int main(int argc, const char** argv) {
             for (int i = 0; i < queries.size(); ++i) {
                 if (options.printstatistics == StatisticsLevel::Full) {
                     std::cout << "query before ENF rewrite: "; queries[i]->toString(std::cout); std::cout << "\n";
-                    queries[i] = ENFV2(queries[i]);
+                }
+                queries[i] = ENFV2(queries[i]);
+                if (options.printstatistics == StatisticsLevel::Full) {
                     std::cout << "query after ENF rewrite: "; queries[i]->toString(std::cout); std::cout << "\n";
                 }
                 results[i] = PetriEngine::Reachability::AbstractHandler::CTL;
