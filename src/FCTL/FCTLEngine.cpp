@@ -319,6 +319,7 @@ namespace Featured {
                 // TODO print counterexample in suitable format. buddy has nice printing facilities,
                 // TODO just need to decide on one and sync features back to strings.
             }
+            std::cout << "Assignment: " << res.first << '\t' << res.second << std::endl;
             result.print(querynames[qnum], printstatistics, qnum, options, std::cout);
         }
         return ReturnValue::SuccessCode;

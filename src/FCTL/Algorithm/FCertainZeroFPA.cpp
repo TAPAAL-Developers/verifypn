@@ -181,7 +181,7 @@ void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
             //  mixed assignment or not yet checked.
             if (only_assign)
                 return;
-            if (lastUndecided->assignment == ZERO && e->processed) {
+            if (lastUndecided->assignment != UNKNOWN && e->processed) {
                 try_update(e->source, !good, good);
                 finalAssign(e, DONE);
             } else {
