@@ -95,8 +95,8 @@ namespace PetriEngine { namespace PQL {
             // (should generate negation edge into AF query that we solve normally)
 
             //auto sub = subvisit(element->getCond(), true, false);
-            auto sub = subvisit(std::make_shared<NotCondition>(element->getCond()), true, false);
-            if (!negated) {
+            auto sub = subvisit(std::make_shared<NotCondition>(element->getCond()), true, true);
+            if (negated) {
                 RETURN(std::make_shared<NotCondition>(std::make_shared<AFCondition>(sub)))
             }
             else RETURN(std::make_shared<AFCondition>(sub))

@@ -13,6 +13,7 @@
 #include "PetriEngine/Stubborn/ReachabilityStubbornSet.h"
 #include "PetriEngine/PQL/PredicateCheckers.h"
 #include "PetriEngine/PQL/Evaluation.h"
+#include "PetriEngine/PQL/PushNegation.h"
 
 #include "logging.h"
 
@@ -236,11 +237,11 @@ namespace Featured {
                         }
                         else {
                             subquery = newEdge(*v, /*cond->distance(context)*/0);
-                            auto subcond = cond->getCond();
-                            auto buffered = get_buffered_(subcond.get());
+                            auto buffered = get_buffered_(cond);
                             if (buffered == nullptr) {
+                                auto subcond = pushNegation(std::make_shared<NotCondition>(cond->getCond()));
                                 buffered = std::make_shared<EGCondition>(subcond);
-                                cond_buffer_.insert({cond->getCond().get(), buffered});
+                                cond_buffer_.insert({cond, buffered});
                             }
                             PetriConfig* c = createConfiguration(v->marking, v->getOwner(), buffered);
                             subquery->addTarget(c, bddtrue); // cannot be self-loop since the formula is smaller
