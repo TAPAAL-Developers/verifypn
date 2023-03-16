@@ -76,7 +76,10 @@ namespace Featured {
             //used after query is set
             Condition* query = nullptr;
 
-            // buffer to ensure new conditions built in DG generation aren't deallocated.
+            // PetriConfig stores raw pointer rather than shared_ptr, which makes sense,
+            // but a side effect is that any Condition_ptrs built within successor generation
+            // are deallocated afterwards, meaning the raw pointer is dangling and will cause a segfault.
+            // This buffer holds a copy of the shared_ptr to keep refcount above 0.
             std::unordered_map<void*, Condition_ptr> cond_buffer_;
 
             Condition::Result fastEval(Condition* query, Marking* unfolded);

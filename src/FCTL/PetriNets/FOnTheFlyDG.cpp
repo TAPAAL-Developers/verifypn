@@ -14,6 +14,7 @@
 #include "PetriEngine/PQL/PredicateCheckers.h"
 #include "PetriEngine/PQL/Evaluation.h"
 #include "PetriEngine/PQL/PushNegation.h"
+#include "PetriEngine/PQL/ENFV2.h"
 
 #include "logging.h"
 
@@ -239,7 +240,7 @@ namespace Featured {
                             subquery = newEdge(*v, /*cond->distance(context)*/0);
                             auto buffered = get_buffered_(cond);
                             if (buffered == nullptr) {
-                                auto subcond = pushNegation(std::make_shared<NotCondition>(cond->getCond()));
+                                auto subcond = ENFV2(pushNegation(std::make_shared<NotCondition>(cond->getCond())));
                                 buffered = std::make_shared<EGCondition>(subcond);
                                 cond_buffer_.insert({cond, buffered});
                             }
