@@ -106,7 +106,6 @@ void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
     bool hasCZero = false;
     bdd good = bddtrue;
     bdd bad = bddtrue;
-    auto &c = e->source;
     // auto pre_empty = e->targets.empty();
     Configuration* lastUndecided = nullptr;
     {
