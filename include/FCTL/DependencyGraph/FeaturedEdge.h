@@ -18,6 +18,10 @@ namespace Featured {
         enum Assignment {
             ONE = 1, UNKNOWN = 0, ZERO = -1, CZERO = -2, DONE=2
         };
+        struct FeaturedAssignment {
+            bdd good = bddfalse;
+            bdd bad = bddfalse;
+        };
 
         class Edge {
         public:

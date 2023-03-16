@@ -10,7 +10,7 @@ namespace Featured {
 
         class FixedPointAlgorithm {
         public:
-            virtual bool search(DependencyGraph::BasicDependencyGraph& graph) = 0;
+            virtual std::pair<bdd, bdd> search(DependencyGraph::BasicDependencyGraph& graph) = 0;
 
             FixedPointAlgorithm(Strategy type);
 

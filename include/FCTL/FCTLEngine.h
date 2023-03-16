@@ -13,7 +13,7 @@
 #include <set>
 
 namespace Featured {
-    bool FCTLSingleSolve(PetriEngine::PQL::Condition* query, PetriEngine::PetriNet* net,
+    std::pair<bdd, bdd> FCTLSingleSolve(PetriEngine::PQL::Condition* query, PetriEngine::PetriNet* net,
                          CTL::CTLAlgorithmType algorithmtype,
                          Strategy strategytype, bool partial_order, FCTLResult& result);
 

@@ -41,13 +41,13 @@ namespace Featured {
         return ReturnValue::ContinueCode;
     }
 
-    bool FCTLSingleSolve(const Condition_ptr& query, PetriNet* net,
+    std::pair<bdd, bdd> FCTLSingleSolve(const Condition_ptr& query, PetriNet* net,
                          CTLAlgorithmType algorithmtype,
                          Strategy strategytype, bool partial_order, FCTLResult& result) {
         return FCTLSingleSolve(query.get(), net, algorithmtype, strategytype, partial_order, result);
     }
 
-    bool FCTLSingleSolve(Condition* query, PetriNet* net,
+    std::pair<bdd, bdd> FCTLSingleSolve(Condition* query, PetriNet* net,
                          CTLAlgorithmType algorithmtype,
                          Strategy strategytype, bool partial_order, FCTLResult& result) {
         FOnTheFlyDG graph(net, partial_order);
@@ -71,7 +71,7 @@ namespace Featured {
         return res;
     }
 
-    bool recursiveSolve(const Condition_ptr& query, PetriNet* net,
+    std::pair<bdd, bdd> recursiveSolve(const Condition_ptr& query, PetriNet* net,
                         CTLAlgorithmType algorithmtype,
                         Strategy strategytype, bool partial_order, FCTLResult& result, options_t& options);
 
@@ -104,7 +104,7 @@ namespace Featured {
         }
     };
 
-    bool solveLogicalCondition(LogicalCondition* query, bool is_conj, PetriNet* net,
+    std::pair<bdd, bdd> solveLogicalCondition(LogicalCondition* query, bool is_conj, PetriNet* net,
                                CTLAlgorithmType algorithmtype,
                                Strategy strategytype, bool partial_order, FCTLResult& result, options_t& options) {
         std::vector<int8_t> state(query->size(), 0);
@@ -152,15 +152,28 @@ namespace Featured {
             }
         }*/
 
+        bdd acc_good = is_conj ? (bdd)bddtrue : (bdd)bddfalse;
+        bdd acc_bad =  is_conj ? (bdd)bddfalse : (bdd)bddtrue;
         for (size_t i = 0; i < query->size(); ++i) {
             if (state[i] == 0) {
-                if (recursiveSolve((*query)[i], net, algorithmtype, strategytype, partial_order, result, options) xor
-                    is_conj) {
-                    return !is_conj;
+                auto [good, bad] = recursiveSolve((*query)[i], net, algorithmtype, strategytype, partial_order, result, options);
+                if (is_conj) {
+                    acc_good &= good;
+                    acc_bad |= bad;
+                    if (acc_good == bddfalse) {
+                        return std::make_pair(bddfalse, bddtrue);
+                    }
+                }
+                else {
+                    acc_good |= good;
+                    acc_bad &= bad;
+                    if (acc_good == bddtrue) {
+                        return std::make_pair(bddtrue, bddfalse);
+                    }
                 }
             }
         }
-        return is_conj;
+        return std::make_pair(acc_good, acc_bad);
     }
 
     class SimpleResultHandler : public AbstractHandler {
@@ -179,26 +192,27 @@ namespace Featured {
         }
     };
 
-    bool recursiveSolve(Condition* query, PetriEngine::PetriNet* net,
+    std::pair<bdd, bdd> recursiveSolve(Condition* query, PetriEngine::PetriNet* net,
                         CTLAlgorithmType algorithmtype,
                         Strategy strategytype, bool partial_order, FCTLResult& result, options_t& options);
 
-    bool recursiveSolve(const Condition_ptr& query, PetriEngine::PetriNet* net,
+    std::pair<bdd, bdd> recursiveSolve(const Condition_ptr& query, PetriEngine::PetriNet* net,
                         CTLAlgorithmType algorithmtype,
                         Strategy strategytype, bool partial_order, FCTLResult& result, options_t& options) {
         return recursiveSolve(query.get(), net, algorithmtype, strategytype, partial_order, result, options);
     }
 
-    bool recursiveSolve(Condition* query, PetriEngine::PetriNet* net,
+    std::pair<bdd, bdd> recursiveSolve(Condition* query, PetriEngine::PetriNet* net,
                         CTLAlgorithmType algorithmtype,
                         Strategy strategytype, bool partial_order, FCTLResult& result, options_t& options) {
         if (auto q = dynamic_cast<NotCondition*>(query)) {
-            return !recursiveSolve((*q)[0], net, algorithmtype, strategytype, partial_order, result, options);
+            auto [good, bad] = recursiveSolve((*q)[0], net, algorithmtype, strategytype, partial_order, result, options);
+            return std::make_pair(bad, good);
         } else if (auto q = dynamic_cast<AndCondition*>(query)) {
             return solveLogicalCondition(q, true, net, algorithmtype, strategytype, partial_order, result, options);
         } else if (auto q = dynamic_cast<OrCondition*>(query)) {
             return solveLogicalCondition(q, false, net, algorithmtype, strategytype, partial_order, result, options);
-        } else if (false && !net->is_featured() && PetriEngine::PQL::isReachability(query)) {
+        } /*else if (false && !net->is_featured() && PetriEngine::PQL::isReachability(query)) {
             SimpleResultHandler handler;
             std::vector<Condition_ptr> queries{prepareForReachability(query)};
             std::vector<AbstractHandler::Result> res;
@@ -218,7 +232,7 @@ namespace Featured {
                 result.maxTokens = std::max(strategy.maxTokens(), result.maxTokens);
             }
             return (res.back() == AbstractHandler::Satisfied) xor query->isInvariant();
-        } else if (!containsNext(query)) {
+        }*/ else if (!containsNext(query)) {
             // there are probably many more cases w. nested quantifiers we can do
             // one instance is E[ non_temp U [E non_temp U ...]] in a chain
             // also, this should go into some *neat* visitor to do the check.
@@ -237,14 +251,14 @@ namespace Featured {
                 if (!isTemporal((*eu)[0]) && !isTemporal((*eu)[1]))
                     ok = true;
             }
-            if (false &&  ok && !net->is_featured()) {
+            /*if (false &&  ok && !net->is_featured()) {
                 LTL::LTLSearch search(*net, q, options.buchiOptimization, options.ltl_compress_aps);
                 auto r = search.solve(false, options.kbound, options.ltlalgorithm, options.ltl_por,
                                       options.strategy, options.ltlHeuristic, options.ltluseweak, options.seed_offset);
 
                 result.maxTokens = std::max(search.max_tokens(), result.maxTokens);
                 return r;
-            }
+            }*/
         }
         //else
         {
@@ -291,17 +305,20 @@ namespace Featured {
             result.numberOfEdges = 0;
             result.duration = 0;
             result.maxTokens = 0;
+            std::pair<bdd, bdd> res;
             if (!solved) {
                 if (options.strategy == Strategy::BFS || options.strategy == Strategy::RDFS)
-                    result.result = FCTLSingleSolve(result.query, net, algorithmtype, options.strategy,
+                    res = FCTLSingleSolve(result.query, net, algorithmtype, options.strategy,
                                                     options.stubbornreduction, result);
                 else
-                    result.result = recursiveSolve(result.query, net, algorithmtype, strategytype, partial_order,
+                    res = recursiveSolve(result.query, net, algorithmtype, strategytype, partial_order,
                                                    result, options);
             }
-            /* TODO need to hook up printing of counterexample features, so alg::root needs to be exposed.
-             * TODO luckily buddy has functions for printing assignment, but I don't expect this to trivially give
-             * TODO us what is needed.*/
+            result.result = (res.first == bddtrue);
+            if (!result.result) {
+                // TODO print counterexample in suitable format. buddy has nice printing facilities,
+                // TODO just need to decide on one and sync features back to strings.
+            }
             result.print(querynames[qnum], printstatistics, qnum, options, std::cout);
         }
         return ReturnValue::SuccessCode;

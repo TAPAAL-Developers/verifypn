@@ -46,7 +46,7 @@ std::pair<std::string, std::string> split(const std::string& line) {
 }
 #endif
 
-bool Algorithm::FCertainZeroFPA::search(
+std::pair<bdd, bdd> Algorithm::FCertainZeroFPA::search(
     DependencyGraph::BasicDependencyGraph& t_graph) {
     graph = &t_graph;
 
@@ -69,12 +69,12 @@ bool Algorithm::FCertainZeroFPA::search(
                 strategy->trivialNegation();
             if (root->done() || root->bad.id() != bddfalse.id()) {
                 std::cerr << root->good << "\t" << root->bad << '\n';
-                return root->good.id() == bddtrue.id();
+                return std::make_pair(root->good, root->bad);
             }
         }
 
         if (root->done() || root->bad.id() != bddfalse.id())
-            return root->good.id() == bddtrue.id();
+            return std::make_pair(root->good, root->bad);
 
         if (!strategy->trivialNegation()) {
             cnt = 0;
@@ -82,7 +82,7 @@ bool Algorithm::FCertainZeroFPA::search(
             continue;
         }
     }
-    return root->good.id() == bddtrue.id();
+    return std::make_pair(root->good, root->bad);
 }
 
 void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
