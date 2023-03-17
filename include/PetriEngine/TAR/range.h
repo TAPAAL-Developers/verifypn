@@ -18,6 +18,7 @@
 #include <limits>
 #include <iostream>
 #include <vector>
+#include <cstdlib>
 
 namespace PetriEngine {
     namespace Reachability {
@@ -263,7 +264,7 @@ namespace PetriEngine {
                 auto bound = _dbm.at(0, _placemapping[place]);
                 
                 // if lower bound is inf, then the zone should be empty
-                return bound.is_inf() ? std::numeric_limits<uint32_t>::max() : -bound.get_bound();
+                return bound.is_inf() ? std::numeric_limits<uint32_t>::max() :  (uint32_t) std::abs(bound.get_bound());
             }
 
             uint32_t upper(uint32_t place) const {
@@ -359,14 +360,14 @@ namespace PetriEngine {
                 // else
                 if (!contains_place(place))
                     add_place(place);
-                _dbm.restrict(0, _placemapping[place], bound_t::non_strict(- (int32_t)lower));
+                _dbm.restrict(0, _placemapping[place], bound_t::non_strict(-1 * (int32_t)lower));
             }
 
             void restrict_upper(uint32_t place, uint32_t upper) {
                 if (!contains_place(place))
                     add_place(place);
 
-                if (upper = std::numeric_limits<uint32_t>::max())
+                if (upper == std::numeric_limits<uint32_t>::max())
                     _dbm.restrict(_placemapping[place], 0, bound_t::inf());
                 else
                     _dbm.restrict(_placemapping[place], 0, bound_t::non_strict(upper));
@@ -382,7 +383,7 @@ namespace PetriEngine {
                 if (!contains_place(place)) // if place does not exist, then add it and do restriction
                     restrict_lower(place, lower);
                 else
-                    set_lower(_placemapping[place], bound_t::non_strict(-lower));
+                    set_lower(_placemapping[place], bound_t::non_strict(-1 * lower));
 
             }
 
@@ -521,7 +522,6 @@ namespace PetriEngine {
             // }
 
             uint32_t nr_places() const {
-                auto b = _placemapping.begin();
                 return _dbm.dimension() - 1;
             }
 
@@ -533,7 +533,7 @@ namespace PetriEngine {
                     if (contains_place(i))
                         ret[r++] = i;
                 }
-                assert(r == ret.size() - 1);
+                assert(r == ret.size());
                 return ret;
             }
 
@@ -552,7 +552,7 @@ namespace PetriEngine {
 
         private:
             // Placemapping to map places to indexes in the dbm. The size is constant and equal to number of places
-            std::vector<uint32_t> _placemapping;
+            std::vector<uint32_t> _placemapping{};
             pardibaal::DBM _dbm = pardibaal::DBM(1);
 
             bool inline contains_index(uint32_t index) const { return index < _dbm.dimension(); }
