@@ -260,7 +260,8 @@ namespace PetriEngine {
             }
 
             uint32_t lower(uint32_t place) const {
-                assert(contains_place(place));
+                if (!contains_place(place))
+                    return 0;
                 auto bound = _dbm.at(0, _placemapping[place]);
                 
                 // if lower bound is inf, then the zone should be empty
@@ -268,10 +269,11 @@ namespace PetriEngine {
             }
 
             uint32_t upper(uint32_t place) const {
-                assert(contains_place(place));
+                if (!contains_place(place))
+                    return std::numeric_limits<uint32_t>::max();
                 auto bound = _dbm.at(_placemapping[place], 0);
 
-                return bound.is_inf() ? std::numeric_limits<uint32_t>::max() : bound.get_bound();
+                return bound.is_inf() ? std::numeric_limits<uint32_t>::max() : (uint32_t) bound.get_bound();
             }
 
             // Represents the bound place <= n 
@@ -317,8 +319,8 @@ namespace PetriEngine {
             }
 
             bool is_false(size_t nplaces) const {
+                if (nr_places() != nplaces) return false;
                 for (uint32_t p = 0; p < _placemapping.size(); ++p) {
-                    if (!contains_place(p)) return false; // All places should be indexed
                     if (lower(p) != 0 || upper(p) != 0) // All upper/lower bounds should be 0
                         return false;
                 }
@@ -327,8 +329,9 @@ namespace PetriEngine {
 
             std::pair<bool, bool> compare(const prtable_t& other) const {
                 auto cmp = std::make_pair(true, true);
+                auto places = std::max(_placemapping.size(), other._placemapping.size());
 
-                for (uint32_t p = 0; p < _placemapping.size(); ++p) {
+                for (uint32_t p = 0; p < places; ++p) {
                     if (!cmp.first && !cmp.second) break;
 
                     if (contains_place(p) && other.contains_place(p)) {
@@ -336,18 +339,20 @@ namespace PetriEngine {
                         cmp.second = cmp.second && this->lower(p) >= other.lower(p) && this->upper(p) <= other.upper(p);
                     }
 
-                    for (uint32_t q = 0; q < _placemapping.size(); ++q) {
+                    for (uint32_t q = 0; q < places; ++q) {
                         if (!cmp.first && !cmp.second) break;
 
-                        if (cmp.first && ((!contains_place(p) && other.contains_place(p)) || (!contains_place(q) && other.contains_place(q))))
-                            cmp.first = false;
-                        if (cmp.second && ((contains_place(p) && !other.contains_place(p)) || (contains_place(q) && !other.contains_place(q))))
+                        if (cmp.second && ((is_unbound(p) && !other.is_unbound(p)) || (is_unbound(q) && !other.is_unbound(q))))
                             cmp.second = false;
+                        if (cmp.first && ((!is_unbound(p) && other.is_unbound(p)) || (!is_unbound(q) && other.is_unbound(q))))
+                            cmp.first = false;
                         
+#ifdef TARDIAGONAL
                         if (contains_place(p) && contains_place(q) && other.contains_place(p) && other.contains_place(q)) {
                             cmp.first = cmp.first && this->difference(p, q) >= other.difference(p, q);
                             cmp.second = cmp.second && this->difference(p, q) <= other.difference(p, q);
                         }
+#endif
                     }
                 }
                 return cmp;
@@ -451,6 +456,7 @@ namespace PetriEngine {
             bool operator<(const prtable_t& other) const {
                 if (this->_dbm.dimension() != other._dbm.dimension())
                     return _dbm.dimension() < other._dbm.dimension();
+
                 for (uint32_t i = 0; i < _placemapping.size(); ++i) {
                     if (this->contains_place(i) &&  other.contains_place(i)) {
                         if (this->lower(i) != other.lower(i))
@@ -538,12 +544,14 @@ namespace PetriEngine {
             }
 
             bool inline contains_place(uint32_t place) const {
-                return _placemapping[place] != 0; 
+                return place < _placemapping.size() && _placemapping[place] != 0; 
             }
 
             // Add unbounded place if not already contained
             void add_place(uint32_t place) {
                 if (!contains_place(place)) {
+                    if (place >= _placemapping.size())
+                        _placemapping.resize(place +1, 0);
                     _placemapping[place] = _dbm.dimension();
                     _dbm.add_clock_at(_dbm.dimension());
                     _dbm.free(_dbm.dimension() - 1);
