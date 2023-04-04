@@ -47,7 +47,7 @@ std::pair<std::string, std::string> split(const std::string& line) {
 #endif
 
 std::pair<bdd, bdd> Algorithm::FCertainZeroFPA::search(
-    DependencyGraph::BasicDependencyGraph& t_graph) {
+    DependencyGraph::BasicDependencyGraph& t_graph, bool negate) {
     graph = &t_graph;
 
     root = graph->initialConfiguration();
@@ -67,13 +67,13 @@ std::pair<bdd, bdd> Algorithm::FCertainZeroFPA::search(
             ++cnt;
             if ((cnt % 1000) == 0)
                 strategy->trivialNegation();
-            if (root->done() || root->bad.id() != bddfalse.id()) {
+            if (root->done() || (negate ? root->good : root->bad).id() != bddfalse.id()) {
                 std::cerr << root->good << "\t" << root->bad << '\n';
                 return std::make_pair(root->good, root->bad);
             }
         }
 
-        if (root->done() || root->bad.id() != bddfalse.id())
+        if (root->done() || (negate ? root->good : root->bad).id() != bddfalse.id())
             return std::make_pair(root->good, root->bad);
 
         if (!strategy->trivialNegation()) {

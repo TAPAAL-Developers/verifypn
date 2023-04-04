@@ -49,7 +49,7 @@ namespace Featured {
 
     std::pair<bdd, bdd> FCTLSingleSolve(Condition* query, PetriNet* net,
                          CTLAlgorithmType algorithmtype,
-                         Strategy strategytype, bool partial_order, FCTLResult& result) {
+                         Strategy strategytype, bool partial_order, bool negate, FCTLResult& result) {
         FOnTheFlyDG graph(net, partial_order);
         graph.setQuery(query);
         std::shared_ptr<Algorithm::FixedPointAlgorithm> alg = nullptr;
@@ -57,7 +57,7 @@ namespace Featured {
 
         stopwatch timer;
         timer.start();
-        auto res = alg->search(graph);
+        auto res = alg->search(graph, negate);
         timer.stop();
 
         result.duration += timer.duration();
@@ -73,7 +73,7 @@ namespace Featured {
 
     std::pair<bdd, bdd> recursiveSolve(const Condition_ptr& query, PetriNet* net,
                         CTLAlgorithmType algorithmtype,
-                        Strategy strategytype, bool partial_order, FCTLResult& result, options_t& options);
+                        Strategy strategytype, bool partial_order, FCTLResult& result, bool negate, options_t& options);
 
     class ResultHandler : public AbstractHandler {
     private:
@@ -106,7 +106,7 @@ namespace Featured {
 
     std::pair<bdd, bdd> solveLogicalCondition(LogicalCondition* query, bool is_conj, PetriNet* net,
                                CTLAlgorithmType algorithmtype,
-                               Strategy strategytype, bool partial_order, FCTLResult& result, options_t& options) {
+                               Strategy strategytype, bool partial_order, FCTLResult& result, bool negate, options_t& options) {
         std::vector<int8_t> state(query->size(), 0);
         std::vector<int8_t> lstate;
         std::vector<Condition_ptr> queries;
@@ -156,7 +156,7 @@ namespace Featured {
         bdd acc_bad =  is_conj ? (bdd)bddfalse : (bdd)bddtrue;
         for (size_t i = 0; i < query->size(); ++i) {
             if (state[i] == 0) {
-                auto [good, bad] = recursiveSolve((*query)[i], net, algorithmtype, strategytype, partial_order, result, options);
+                auto [good, bad] = recursiveSolve((*query)[i], net, algorithmtype, strategytype, partial_order, result, negate, options);
                 if (is_conj) {
                     acc_good &= good;
                     acc_bad |= bad;
@@ -194,24 +194,24 @@ namespace Featured {
 
     std::pair<bdd, bdd> recursiveSolve(Condition* query, PetriEngine::PetriNet* net,
                         CTLAlgorithmType algorithmtype,
-                        Strategy strategytype, bool partial_order, FCTLResult& result, options_t& options);
+                        Strategy strategytype, bool partial_order, FCTLResult& result, bool negate, options_t& options);
 
     std::pair<bdd, bdd> recursiveSolve(const Condition_ptr& query, PetriEngine::PetriNet* net,
                         CTLAlgorithmType algorithmtype,
-                        Strategy strategytype, bool partial_order, FCTLResult& result, options_t& options) {
-        return recursiveSolve(query.get(), net, algorithmtype, strategytype, partial_order, result, options);
+                        Strategy strategytype, bool partial_order, FCTLResult& result, bool negate, options_t& options) {
+        return recursiveSolve(query.get(), net, algorithmtype, strategytype, partial_order, result, negate, options);
     }
 
     std::pair<bdd, bdd> recursiveSolve(Condition* query, PetriEngine::PetriNet* net,
                         CTLAlgorithmType algorithmtype,
-                        Strategy strategytype, bool partial_order, FCTLResult& result, options_t& options) {
+                        Strategy strategytype, bool partial_order, FCTLResult& result, bool negate, options_t& options) {
         if (auto q = dynamic_cast<NotCondition*>(query)) {
-            auto [good, bad] = recursiveSolve((*q)[0], net, algorithmtype, strategytype, partial_order, result, options);
+            auto [good, bad] = recursiveSolve((*q)[0], net, algorithmtype, strategytype, partial_order, result, !negate, options);
             return std::make_pair(bad, good);
         } else if (auto q = dynamic_cast<AndCondition*>(query)) {
-            return solveLogicalCondition(q, true, net, algorithmtype, strategytype, partial_order, result, options);
+            return solveLogicalCondition(q, true, net, algorithmtype, strategytype, partial_order, result, negate, options);
         } else if (auto q = dynamic_cast<OrCondition*>(query)) {
-            return solveLogicalCondition(q, false, net, algorithmtype, strategytype, partial_order, result, options);
+            return solveLogicalCondition(q, false, net, algorithmtype, strategytype, partial_order, result, negate, options);
         } /*else if (false && !net->is_featured() && PetriEngine::PQL::isReachability(query)) {
             SimpleResultHandler handler;
             std::vector<Condition_ptr> queries{prepareForReachability(query)};
@@ -262,7 +262,7 @@ namespace Featured {
         }
         //else
         {
-            return FCTLSingleSolve(query, net, algorithmtype, strategytype, partial_order, result);
+            return FCTLSingleSolve(query, net, algorithmtype, strategytype, partial_order, negate, result);
         }
     }
 
@@ -309,10 +309,10 @@ namespace Featured {
             if (!solved) {
                 if (options.strategy == Strategy::BFS || options.strategy == Strategy::RDFS)
                     res = FCTLSingleSolve(result.query, net, algorithmtype, options.strategy,
-                                                    options.stubbornreduction, result);
+                                                    options.stubbornreduction, false, result);
                 else
                     res = recursiveSolve(result.query, net, algorithmtype, strategytype, partial_order,
-                                                   result, options);
+                                                   result, false, options);
             }
             result.result = (res.first == bddtrue);
             if (!result.result) {

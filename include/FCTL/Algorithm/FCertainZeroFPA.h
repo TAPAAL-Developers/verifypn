@@ -18,7 +18,7 @@ namespace Algorithm {
         virtual ~FCertainZeroFPA() {
         }
 
-        virtual std::pair<bdd, bdd> search(DependencyGraph::BasicDependencyGraph& t_graph) override;
+        virtual std::pair<bdd, bdd> search(DependencyGraph::BasicDependencyGraph& t_graph, bool negate=false) override;
 
     protected:
 
