@@ -13,8 +13,6 @@
 #include "PetriEngine/Stubborn/ReachabilityStubbornSet.h"
 #include "PetriEngine/PQL/PredicateCheckers.h"
 #include "PetriEngine/PQL/Evaluation.h"
-#include "PetriEngine/PQL/PushNegation.h"
-#include "PetriEngine/PQL/ENFV2.h"
 
 #include "logging.h"
 
@@ -154,10 +152,6 @@ namespace Featured {
                 }
             } else if (query_type == PATHQEURY) {
                 if (v->query->getQuantifier() == A) {
-                    //std::cerr << "Fatal error: Allpaths quantifier left in query. Terminating.\n";
-                    //exit(-1);
-                    //assert(false);
-                    assert(v->query->getPath() == F);
                     if (v->query->getPath() == U) {
                         auto cond = static_cast<AUCondition*>(v->query);
                         Edge* right = nullptr;
@@ -233,23 +227,6 @@ namespace Featured {
                         auto cond = static_cast<AFCondition*>(v->query);
                         Edge* subquery = nullptr;
                         auto r = fastEval((*cond)[0], &query_marking);
-                        if (r == Condition::RTRUE) {
-                            succs.push_back(newEdge(*v, 0));
-                        }
-                        else {
-                            subquery = newEdge(*v, /*cond->distance(context)*/0);
-                            auto buffered = get_buffered_(cond);
-                            if (buffered == nullptr) {
-                                auto subcond = ENFV2(pushNegation(std::make_shared<NotCondition>(cond->getCond())));
-                                buffered = std::make_shared<EGCondition>(subcond);
-                                cond_buffer_.insert({cond, buffered});
-                            }
-                            PetriConfig* c = createConfiguration(v->marking, v->getOwner(), buffered);
-                            subquery->addTarget(c, bddtrue); // cannot be self-loop since the formula is smaller
-                            subquery->is_negated = true;
-                            succs.push_back(subquery);
-                        }
-                        return succs;
                         if (r != Condition::RUNKNOWN) {
                             bool valid = r == Condition::RTRUE;
                             if (valid) {
@@ -258,7 +235,7 @@ namespace Featured {
                             }
                         } else {
                             subquery = newEdge(*v, /*cond->distance(context)*/0);
-                            PetriConfig* c = createConfiguration(v->marking, v->getOwner(), (*cond)[0]);
+                            Configuration* c = createConfiguration(v->marking, v->getOwner(), (*cond)[0]);
                             subquery->addTarget(c, bddtrue); // cannot be self-loop since the formula is smaller
                         }
                         Edge* e1 = nullptr;
@@ -277,7 +254,7 @@ namespace Featured {
                                            return false;
                                        }
                                        context.setMarking(mark.marking());
-                                       PetriConfig* c = createConfiguration(createMarking(mark), owner(mark, cond),
+                                       Configuration* c = createConfiguration(createMarking(mark), owner(mark, cond),
                                                                               cond);
                                        return !e1->addTarget(c, feat);
                                    },
@@ -310,7 +287,7 @@ namespace Featured {
                                        } else {
                                            allValid = Condition::RUNKNOWN;
                                            context.setMarking(mark.marking());
-                                           PetriConfig* c = createConfiguration(createMarking(mark), v->getOwner(),
+                                           Configuration* c = createConfiguration(createMarking(mark), v->getOwner(),
                                                                                   (*cond)[0]);
                                            e->addTarget(c, feat);
                                        }
@@ -388,6 +365,7 @@ namespace Featured {
                                        Configuration* c1 = createConfiguration(createMarking(marking),
                                                                                owner(marking, cond), cond);
                                        e->addTarget(c1, bddtrue);
+                                       e->set_econd(feat);
                                        if (left != nullptr) {
                                            e->addTarget(left, bddtrue);
                                        }
@@ -447,7 +425,8 @@ namespace Featured {
                                        Edge* e = newEdge(*v, /*cond->distance(context)*/0);
                                        Configuration* c = createConfiguration(createMarking(mark), owner(mark, cond),
                                                                               cond);
-                                       e->addTarget(c, feat);
+                                       e->addTarget(c, bddtrue);
+                                       e->set_econd(feat);
                                        if (!e->handled)
                                            succs.push_back(e);
                                        else {
@@ -465,68 +444,10 @@ namespace Featured {
                     } else if (v->query->getPath() == X) {
                         auto cond = static_cast<EXCondition*>(v->query);
                         auto query = (*cond)[0];
-                        bdd acc = bddfalse;
                         nextStates(query_marking, cond,
                                    []() {},
                                    [&](Marking& marking, bdd feat) {
                                        auto res = fastEval(query, &marking);
-                                       if (res == Condition::RTRUE) {
-                                           acc |= feat;
-                                           if (acc == bddtrue) {
-                                               for (auto s: succs) {
-                                                   --s->refcnt;
-                                                   release(s);
-                                               }
-                                               succs.clear();
-                                               succs.push_back(newEdge(*v, 0));
-                                               return false;
-                                           }
-                                           else {
-                                               auto e = newEdge(*v, 0);
-                                               auto suc = createConfiguration(0, v->getOwner(), BooleanCondition::TRUE_CONSTANT);
-                                               suc->assignment = ONE; suc->good = bddtrue;
-                                               e->addTarget(suc, feat);
-                                               succs.push_back(e);
-                                               return true;
-                                           }
-                                       }   //else: It can't hold there, no need to create an edge
-                                       else if (res == Condition::RUNKNOWN) {
-                                           context.setMarking(marking.marking());
-                                           Edge* e = newEdge(*v, /*(*cond)[0]->distance(context)*/0);
-                                           Configuration* c = createConfiguration(createMarking(marking), v->getOwner(),
-                                                                                  query);
-                                           e->addTarget(c, feat);
-                                           succs.push_back(e);
-                                       }
-                                       return true;
-                                   },
-                                   []() {}
-                        );
-                    } else if (v->query->getPath() == G) {
-                        auto cond = static_cast<EGCondition*>(v->query);
-                        /*Edge* e = newEdge(*v, 0);
-                        auto sub = createConfiguration(v->marking, v->getOwner(), std::make_shared<AFCondition>(cond->getCond()));
-                        e->addTarget(sub, bddtrue);
-                        e->is_negated = true;
-                        succs.push_back(e);
-                        return succs;*/
-
-                        Configuration* phi = nullptr;
-                        auto r = fastEval((*cond)[0], &query_marking);
-                        if (r == Condition::RFALSE) {
-                            return {}; // formula invalid in present marking.
-                        }
-                        else if (r == Condition::RUNKNOWN) {
-                            // c == phi
-                            phi = createConfiguration(v->marking, v->getOwner(), (*cond)[0]);
-                        }
-
-                        //Configuration* left = nullptr;
-                        nextStates(query_marking, cond,
-                                   [&]() { },
-                                   [&](Marking& marking, bdd feat) {
-                                       auto res = fastEval(cond, &marking);
-                                       if (res == Condition::RFALSE) return true;
                                        if (res == Condition::RTRUE) {
                                            for (auto s: succs) {
                                                --s->refcnt;
@@ -534,41 +455,23 @@ namespace Featured {
                                            }
                                            succs.clear();
                                            succs.push_back(newEdge(*v, 0));
-                                           /*
-                                            * The case EG p is on the form
-                                            * (p and s1:EG p) or (p and s2:EG p) or ...
-                                            * if one of these sucs is trivially true, there is an edge with just p
-                                            * which is strictly smaller than the other edges, so use only that.
-                                            * in the case where p is also true, EG p is trivially true here.
-                                            */
-                                           if (phi != nullptr) {
-                                               succs.back()->addTarget(phi, bddtrue);
-                                           }
                                            return false;
-                                       }
-                                       context.setMarking(marking.marking());
-                                       Edge* e = newEdge(*v, /*cond->distance(context)*/0);
-                                       Configuration* c = createConfiguration(createMarking(marking), owner(marking, cond),
-                                                                              cond);
-                                       e->addTarget(c, feat);
-                                       if (phi != nullptr)
-                                           e->addTarget(phi, bddtrue);
-                                       if (!e->handled)
+                                       }   //else: It can't hold there, no need to create an edge
+                                       else if (res == Condition::RUNKNOWN) {
+                                           context.setMarking(marking.marking());
+                                           Edge* e = newEdge(*v, /*(*cond)[0]->distance(context)*/0);
+                                           Configuration* c = createConfiguration(createMarking(marking), v->getOwner(),
+                                                                                  query);
+                                           e->addTarget(c, bddtrue);
+                                           e->set_econd(feat);
                                            succs.push_back(e);
-                                       else {
-                                           --e->refcnt;
-                                           release(e);
                                        }
                                        return true;
-                                   }, [&]() {
-                        });
-                        if (succs.empty()) {
-                            // if no succs, we just need to check cond.
-                            auto e = newEdge(*v, 0);
-                            if (phi != nullptr)
-                                e->addTarget(phi, bddtrue);
-                            succs.push_back(e);
-                        }
+                                   },
+                                   []() {}
+                        );
+                    } else if (v->query->getPath() == G) {
+                        assert(false && "Path operator G had not been translated - Parse error detected in succ()");
                     } else
                         assert(false && "An unknown error occoured in the successor generator");
                 }
@@ -712,6 +615,7 @@ namespace Featured {
             /*e->assignment = UNKNOWN;
             e->children = 0;*/
             e->source = &t_source;
+            e->econd = bddtrue;
             assert(e->refcnt == 0);
             assert(!e->handled);
             ++e->refcnt;

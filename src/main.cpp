@@ -307,14 +307,14 @@ int main(int argc, const char** argv) {
         }
         if (options.allow_features || is_featured) {
             for (int i = 0; i < queries.size(); ++i) {
-                if (options.printstatistics == StatisticsLevel::Full) {
-                    std::cout << "query before ENF rewrite: "; queries[i]->toString(std::cout); std::cout << "\n";
-                }
-                queries[i] = ENFV2(queries[i]);
-                if (options.printstatistics == StatisticsLevel::Full) {
-                    std::cout << "query after ENF rewrite: "; queries[i]->toString(std::cout); std::cout << "\n";
-                }
-                results[i] = PetriEngine::Reachability::AbstractHandler::CTL;
+                // if (options.printstatistics == StatisticsLevel::Full) {
+                //     std::cout << "query before ENF rewrite: "; queries[i]->toString(std::cout); std::cout << "\n";
+                // }
+                // queries[i] = ENFV2(queries[i]);
+                // if (options.printstatistics == StatisticsLevel::Full) {
+                //     std::cout << "query after ENF rewrite: "; queries[i]->toString(std::cout); std::cout << "\n";
+                // }
+                //results[i] = PetriEngine::Reachability::AbstractHandler::CTL;
             }
         }
 

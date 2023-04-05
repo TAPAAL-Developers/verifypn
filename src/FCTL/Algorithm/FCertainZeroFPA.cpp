@@ -25,7 +25,7 @@ std::ostream& print_edge_targets(const Edge* e, std::ostream& os = std::cout) {
 std::ostream& print_edge(const Edge* e, std::ostream& os = std::cout) {
     os << "(" << e->source->id;
     if (!e->is_negated) {
-        os << ", {";
+        os << ", " << e->econd << ", {";
         print_edge_targets(e, os) << "})";
     } else {
         os << " --> " << (*e->targets.begin()).conf->id << ")";
@@ -104,7 +104,7 @@ void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
     auto& c = e->source;
     bool allOne = true;
     bool hasCZero = false;
-    bdd good = bddtrue;
+    bdd good = e->econd;
     bdd bad = bddtrue;
     // auto pre_empty = e->targets.empty();
     Configuration* lastUndecided = nullptr;
@@ -115,7 +115,7 @@ void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
             auto& [suc, feat] = *it;
             //if (bdd_imp(feat, c->good) == bddtrue) {
             if ((feat & c->good) == bddtrue) {
-                e->bad_iter |= bdd_imp(feat, suc->bad);
+                e->bad_iter |= feat & suc->bad;
                 e->targets.erase_after(pit);
                 it = pit;
             }
@@ -135,8 +135,8 @@ void Algorithm::FCertainZeroFPA::checkEdge(Edge* e, bool only_assign) {
                 break;
             }
             else {
-                good &= feat & suc->good;
-                e->bad_iter |= bdd_imp(feat, suc->bad);
+                good &= bdd_imp(feat, suc->good);
+                e->bad_iter |= feat & suc->bad;
                 allOne = false;
                 if (lastUndecided == nullptr || *suc < *lastUndecided) {
                     lastUndecided = it->conf;

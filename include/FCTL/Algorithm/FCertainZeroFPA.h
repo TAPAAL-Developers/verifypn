@@ -10,6 +10,7 @@
 namespace Featured {
 namespace Algorithm {
 
+    //template <bool TrackNegated = true>
     class FCertainZeroFPA : public FixedPointAlgorithm {
     public:
         FCertainZeroFPA(Strategy type) : FixedPointAlgorithm(type) {

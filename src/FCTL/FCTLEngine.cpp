@@ -43,8 +43,8 @@ namespace Featured {
 
     std::pair<bdd, bdd> FCTLSingleSolve(const Condition_ptr& query, PetriNet* net,
                          CTLAlgorithmType algorithmtype,
-                         Strategy strategytype, bool partial_order, FCTLResult& result) {
-        return FCTLSingleSolve(query.get(), net, algorithmtype, strategytype, partial_order, result);
+                         Strategy strategytype, bool partial_order, bool negate, FCTLResult& result) {
+        return FCTLSingleSolve(query.get(), net, algorithmtype, strategytype, partial_order, negate, result);
     }
 
     std::pair<bdd, bdd> FCTLSingleSolve(Condition* query, PetriNet* net,
@@ -207,7 +207,7 @@ namespace Featured {
                         Strategy strategytype, bool partial_order, FCTLResult& result, bool negate, options_t& options) {
         if (auto q = dynamic_cast<NotCondition*>(query)) {
             auto [good, bad] = recursiveSolve((*q)[0], net, algorithmtype, strategytype, partial_order, result, !negate, options);
-            return std::make_pair(bad, good);
+            return std::make_pair(!good, good);
         } else if (auto q = dynamic_cast<AndCondition*>(query)) {
             return solveLogicalCondition(q, true, net, algorithmtype, strategytype, partial_order, result, negate, options);
         } else if (auto q = dynamic_cast<OrCondition*>(query)) {

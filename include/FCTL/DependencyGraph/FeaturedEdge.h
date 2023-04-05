@@ -49,6 +49,14 @@ namespace Featured {
             }
             bdd bad_iter = bddfalse;
 
+            bdd econd = bddtrue;
+
+            void set_econd(bdd cond) {
+                assert(bad_iter == bddfalse);
+                assert(cond != bddfalse);
+                econd = cond;
+                bad_iter = !econd;
+            }
             container targets;
             Configuration* source;
             uint8_t status = 0;
