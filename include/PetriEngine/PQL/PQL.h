@@ -207,7 +207,7 @@ namespace PetriEngine {
             [[nodiscard]] virtual CTLType getQueryType() const = 0;
             [[nodiscard]] virtual Quantifier getQuantifier() const = 0;
             [[nodiscard]] virtual Path getPath() const = 0;
-            void toString(std::ostream& os = std::cout);
+            void toString(std::ostream& os = std::cout, bool prefix=false);
             virtual type_id_t type() const = 0;
             template<typename T>
             bool is() const {
