@@ -183,7 +183,10 @@ namespace Featured {
                             //if left side is guaranteed to be not satisfied, skip successor generation
                             Edge* leftEdge = nullptr;
                             nextStates(query_marking, cond,
-                                       [&]() { leftEdge = newEdge(*v, std::numeric_limits<uint32_t>::max()); },
+                                       [&]() {
+                                           leftEdge = newEdge(*v, std::numeric_limits<uint32_t>::max());
+                                           leftEdge->econd = bddfalse;
+                                       },
                                        [&](Marking& mark, bdd feat) {
                                            auto res = fastEval(cond, &mark);
                                            if (res == Condition::RTRUE) return true;
@@ -197,6 +200,7 @@ namespace Featured {
                                            context.setMarking(mark.marking());
                                            Configuration* c = createConfiguration(createMarking(mark),
                                                                                   owner(mark, cond), cond);
+                                           leftEdge->econd |= feat;
                                            return !leftEdge->addTarget(c, feat);
                                        },
                                        [&]() {
@@ -240,7 +244,10 @@ namespace Featured {
                         }
                         Edge* e1 = nullptr;
                         nextStates(query_marking, cond,
-                                   [&]() { e1 = newEdge(*v, std::numeric_limits<uint32_t>::max()); },
+                                   [&]() {
+                                       e1 = newEdge(*v, std::numeric_limits<uint32_t>::max());
+                                       e1->econd = bddfalse;
+                                   },
                                    [&](Marking& mark, bdd feat) {
                                        auto res = fastEval(cond, &mark);
                                        if (res == Condition::RTRUE) return true;
@@ -256,6 +263,7 @@ namespace Featured {
                                        context.setMarking(mark.marking());
                                        Configuration* c = createConfiguration(createMarking(mark), owner(mark, cond),
                                                                               cond);
+                                       e1->econd |= feat;
                                        return !e1->addTarget(c, feat);
                                    },
                                    [&]() {
