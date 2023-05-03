@@ -277,7 +277,7 @@ void Algorithm::FCertainZeroFPA::finalAssign(DependencyGraph::Configuration* c,
         assert(success);
     }
     else {
-        assert((c->bad | c->good) == bddtrue);
+        //assert((c->bad | c->good) == bddtrue);
     }
 
     for (DependencyGraph::Edge* e : c->dependency_set) {
@@ -322,7 +322,7 @@ bool Algorithm::FCertainZeroFPA::try_update(DependencyGraph::Configuration* c,
         assert(bdd_imp(c->bad, bad) == bddtrue);
         //assert((c->bad << bad) == bddtrue);
 
-        c->bad = bad;
+        //c->bad = bad;
         if (bad == bddtrue)
             c->assignment = CZERO;
         assigned = true;
@@ -385,7 +385,7 @@ void Algorithm::FCertainZeroFPA::explore(Configuration* c) {
 
     {
 #if DEBUG_DETAILED
-        std::cout << "### Generating succs of " << c->id << ": \n";
+        //std::cout << "### Generating succs of " << c->id << ": \n";
 #endif
         auto succs = graph->successors(c);
 

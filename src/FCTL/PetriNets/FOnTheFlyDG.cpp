@@ -67,6 +67,11 @@ namespace Featured {
             trie.unpack(v->marking, encoder.scratchpad().raw());
             encoder.decode(query_marking.marking(), encoder.scratchpad().raw());
             //    v->printConfiguration();
+#if DEBUG_DETAILED
+            std::cout << "### Generating succs of (" << c->id << ", ";
+            v->query->toString(std::cout, true);
+            std::cout << "): \n";
+#endif
             std::vector<Edge*> succs;
             auto query_type = v->query->getQueryType();
             if (query_type == EVAL) {
@@ -190,7 +195,7 @@ namespace Featured {
                                        [&](Marking& mark, bdd feat) {
                                            auto res = fastEval(cond, &mark);
                                            if (res == Condition::RTRUE) return true;
-                                           if (res == Condition::RFALSE) {
+                                           if (res == Condition::RFALSE && feat == bddtrue) {
                                                left = nullptr;
                                                --leftEdge->refcnt;
                                                release(leftEdge);
@@ -200,6 +205,9 @@ namespace Featured {
                                            context.setMarking(mark.marking());
                                            Configuration* c = createConfiguration(createMarking(mark),
                                                                                   owner(mark, cond), cond);
+                                           if (res == Condition::RFALSE) {
+                                               c->bad = bddtrue;
+                                           }
                                            leftEdge->econd |= feat;
                                            return !leftEdge->addTarget(c, feat);
                                        },
@@ -251,7 +259,7 @@ namespace Featured {
                                    [&](Marking& mark, bdd feat) {
                                        auto res = fastEval(cond, &mark);
                                        if (res == Condition::RTRUE) return true;
-                                       if (res == Condition::RFALSE) {
+                                       if (res == Condition::RFALSE && feat == bddtrue) {
                                            if (subquery) {
                                                --subquery->refcnt;
                                                release(subquery);
@@ -263,6 +271,9 @@ namespace Featured {
                                        context.setMarking(mark.marking());
                                        Configuration* c = createConfiguration(createMarking(mark), owner(mark, cond),
                                                                               cond);
+                                       if (res == Condition::RFALSE) {
+                                           c->bad = bddtrue;
+                                       }
                                        e1->econd |= feat;
                                        return !e1->addTarget(c, feat);
                                    },
@@ -288,15 +299,19 @@ namespace Featured {
                                    [&](Marking& mark, bdd feat) {
                                        auto res = fastEval((*cond)[0], &mark);
                                        if (res != Condition::RUNKNOWN) {
-                                           if (res == Condition::RFALSE) {
+                                           if (res == Condition::RFALSE && feat == bddtrue) {
                                                allValid = Condition::RFALSE;
                                                return false;
+
                                            }
                                        } else {
                                            allValid = Condition::RUNKNOWN;
                                            context.setMarking(mark.marking());
                                            Configuration* c = createConfiguration(createMarking(mark), v->getOwner(),
                                                                                   (*cond)[0]);
+                                           if (res == Condition::RFALSE) {
+                                               c->bad = bddtrue;
+                                           }
                                            e->addTarget(c, feat);
                                        }
                                        return true;

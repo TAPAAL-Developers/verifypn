@@ -45,7 +45,9 @@ namespace Featured {
                     handled = true;
                     targets.clear();
                 } else targets.emplace_front(conf, feat);
-                return handled;
+                // FIXME i'm scared this might spuriously kill successors, so killing for now.
+                //return handled;
+                return true;
             }
             bdd bad_iter = bddfalse;
 
