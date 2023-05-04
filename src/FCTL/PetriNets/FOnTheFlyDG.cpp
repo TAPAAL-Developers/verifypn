@@ -87,12 +87,13 @@ namespace Featured {
                     Configuration* c = createConfiguration(v->marking, v->getOwner(), (*cond)[0]);
                     Edge* e = newEdge(*v, /*v->query->distance(context)*/0);
                     e->is_negated = true;
-                    // negation edge does not need feature guard
-                    if (!e->addTarget(c, bddtrue)) {
-                        succs.push_back(e);
-                    } else {
+                    if (e->handled) {
                         --e->refcnt;
                         release(e);
+                    }
+                    else {
+                        e->addTarget(c, bddtrue);
+                        succs.push_back(e);
                     }
                 } else if (v->query->getQuantifier() == AND) {
                     auto cond = static_cast<AndCondition*>(v->query);
@@ -116,7 +117,7 @@ namespace Featured {
                     for (auto c: conds) {
                         assert(PetriEngine::PQL::isTemporal(c));
                         // TODO check if sane (p1 AND p2 AND ... AND pn, no features involved) 
-                        if (e->addTarget(createConfiguration(v->marking, v->getOwner(), c), bddtrue))
+                        if (e->addTarget(createConfiguration(v->marking, v->getOwner(), c), bddtrue) && e->handled)
                             break;
                     }
                     if (e->handled) {
@@ -146,7 +147,8 @@ namespace Featured {
                         assert(PetriEngine::PQL::isTemporal(c));
                         Edge* e = newEdge(*v, /*cond->distance(context)*/0);
                         // TODO check if sane (p1 OR p2 OR ... OR pn, no features involved)
-                        if (e->addTarget(createConfiguration(v->marking, v->getOwner(), c), bddtrue)) {
+                        e->addTarget(createConfiguration(v->marking, v->getOwner(), c), bddtrue);
+                        if (e->handled) {
                             --e->refcnt;
                             release(e);
                         } else
@@ -209,7 +211,7 @@ namespace Featured {
                                                c->bad = bddtrue;
                                            }
                                            leftEdge->econd |= feat;
-                                           return !leftEdge->addTarget(c, feat);
+                                           return leftEdge->addTarget(c, feat);
                                        },
                                        [&]() {
                                            if (leftEdge) {
@@ -275,7 +277,7 @@ namespace Featured {
                                            c->bad = bddtrue;
                                        }
                                        e1->econd |= feat;
-                                       return !e1->addTarget(c, feat);
+                                       return e1->addTarget(c, feat);
                                    },
                                    [&]() {
                                        if (e1->handled) {

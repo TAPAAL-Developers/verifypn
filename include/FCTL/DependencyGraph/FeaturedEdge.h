@@ -40,12 +40,14 @@ namespace Featured {
 
             bool addTarget(Configuration* conf, const bdd& feat) {
                 if (handled) return true;
+                targets.emplace_front(conf, feat);
+                return true;
+                // FIXME i'm scared this might spuriously kill successors, so killing for now.
                 assert(conf);
                 if (conf == source) {
                     handled = true;
                     targets.clear();
-                } else targets.emplace_front(conf, feat);
-                // FIXME i'm scared this might spuriously kill successors, so killing for now.
+                } else
                 //return handled;
                 return true;
             }
